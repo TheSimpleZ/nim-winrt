@@ -42,6 +42,7 @@ const tdInterface = 0x20'u32
 
 const GenericIidMarker = "##<computed-iids>##\n"
 const AsyncImportMarker = "##<async-import>##\n"
+const SeqViewImportMarker = "##<seqview-import>##\n"
   ## Where the computed IIDs are spliced in. They have to precede every proc
   ## that names one, but are only discovered while those procs are emitted.
 
@@ -120,6 +121,21 @@ const CollectionIfaces = [
   "Windows.Foundation.Collections.IIterable`1",
 ]
 
+const PassableIfaces = [
+  ## The read-only shapes, which is all a seq can honestly stand in for.
+  ## `IVector<T>` is mutable — a callee may append to it — and handing over
+  ## something that refuses would be worse than not generating the method.
+  "Windows.Foundation.Collections.IIterable`1",
+  "Windows.Foundation.Collections.IVectorView`1",
+]
+
+func passableCollection(c: Ctx, t: SigType): SigType =
+  ## The element type, if `t` is a collection a Nim seq can be passed as.
+  if t.kind == skUnsupported and t.args.len == 1 and t.name in PassableIfaces:
+    t.args[0]
+  else:
+    SigType(kind: skVoid)
+
 func collectionElement(c: Ctx, t: SigType): SigType =
   ## The element type, if `t` is a read-only-walkable WinRT collection.
   ##
@@ -191,9 +207,12 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
     let a = c.asyncResult(t)
     let r = c.referenceValue(t)
     let e = c.collectionElement(t)
+    let passable = c.passableCollection(t)
     if inReturn and a.isAsync and c.asyncSpelling(a.res).len > 0: ""
     elif inReturn and r.kind != skVoid and c.skipReason(r).len == 0: ""
     elif inReturn and e.kind != skVoid and c.elementSpelling(e).len > 0: ""
+    elif not inReturn and passable.kind != skVoid and
+         c.elementSpelling(passable).len > 0: ""
     elif t.name.len > 0 and t.args.len > 0: "generic: " & shortName(t.name)
     else: "a type variable or function pointer"
   of skArray: "an array"
@@ -234,7 +253,11 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
   let elem = c.collectionElement(t)
   if elem.kind != skVoid:
     let e = c.elementSpelling(elem)
-    return if inReturn and e.len > 0: "seq[" & e & "]" else: ""
+    if e.len == 0: return ""
+    # Readable in either direction, writable only out of a read-only shape.
+    if inReturn or c.passableCollection(t).kind != skVoid:
+      return "seq[" & e & "]"
+    return ""
   case t.kind
   of skBool: "bool"
   of skChar: "uint16"
@@ -368,6 +391,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   var classOrder: seq[TypeRow]
   var takenNames: HashSet[string]
   var usesAsync = false
+  var usesSeqView = false
   for t in md.types:
     # A peer's classes are walked too, so this module can *name* them in a
     # signature. Only its own are written here — the peer emits its own types,
@@ -443,6 +467,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   # have been walked, so the import is spliced in at the end. A module without
   # one does not drag `std/asyncdispatch` into programs that never await.
   buf.add AsyncImportMarker
+  buf.add SeqViewImportMarker
   buf.add "\n"
   # `withIface`, `withStatics`, `takeString`, `activateAs`, `composeAs`,
   # `adopt` and `borrow` are not emitted here. They are the same in every
@@ -857,6 +882,34 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               callArgs.add pn
           of skEnum:
             callArgs.add pn
+          of skUnsupported:
+            # A seq the callee can iterate. All three IIDs are needed: the one
+            # it asked for, the view it may narrow to, and the iterator it gets
+            # from `First` — none of which is declared anywhere, so all three
+            # are computed here.
+            let elem = c.passableCollection(p)
+            let es = c.elementSpelling(elem)
+            var iids: array[3, string]
+            var made = true
+            for k, iface in ["Windows.Foundation.Collections.IIterable`1",
+                             "Windows.Foundation.Collections.IVectorView`1",
+                             "Windows.Foundation.Collections.IIterator`1"]:
+              let st = SigType(kind: skUnsupported, name: iface, args: @[elem])
+              let computed = sigCtx.parameterizedIid(st)
+              if computed.len == 0:
+                made = false
+                break
+              iids[k] = genericIidConst(computed, st)
+            if not made:
+              ok = false
+              break
+            usesSeqView = true
+            let ctor = if es == "string": "asIterableString"
+                       else: &"asIterable[{es}]"
+            lines.add &"{indent}let p{i} = {ctor}({pn}, {iids[0]}, " &
+                      &"{iids[1]}, {iids[2]})"
+            lines.add &"{indent}defer: discard release(p{i})"
+            callArgs.add &"p{i}"
           else:
             callArgs.add pn
         if not ok:
@@ -1021,6 +1074,9 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   let asyncPath = corePath.rsplit('/', 1)[0] & "/asyncops"
   buf = buf.replace(AsyncImportMarker,
     if usesAsync: &"import {asyncPath}\nexport asyncops\n" else: "")
+  let seqPath = corePath.rsplit('/', 1)[0] & "/seqview"
+  buf = buf.replace(SeqViewImportMarker,
+    if usesSeqView: &"import {seqPath}\n" else: "")
 
   writeFile(outPath, buf)
   echo outPath

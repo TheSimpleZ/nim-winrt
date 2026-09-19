@@ -45,6 +45,9 @@ const
     ## In practice that means the class's runtime is not deployed, not that the
     ## name is wrong; see `activationHint`.
   CLASS_E_CLASSNOTAVAILABLE* = cast[HRESULT](0x80040111'u32)
+  E_BOUNDS* = cast[HRESULT](0x8000000B'u32)
+    ## An index past the end of a collection. WinRT uses this rather than
+    ## failing generically, and callers test for it.
 
 func succeeded*(hr: HRESULT): bool {.inline.} =
   ## The sign bit is the failure flag. This cannot be `hr == S_OK`, because
@@ -114,6 +117,8 @@ proc windowsCreateString(src: ptr Utf16Char, len: uint32,
   {.importc: "WindowsCreateString".}
 proc windowsDeleteString*(s: HSTRING): HRESULT
   {.importc: "WindowsDeleteString".}
+proc windowsDuplicateString*(s: HSTRING, dup: ptr HSTRING): HRESULT
+  {.importc: "WindowsDuplicateString".}
 proc windowsGetStringRawBuffer(s: HSTRING,
                                len: ptr uint32): ptr Utf16Char
   {.importc: "WindowsGetStringRawBuffer".}
@@ -212,6 +217,12 @@ template vcall*(obj: pointer, slot: int, T: typedesc): untyped =
   cast[T](cast[ptr ptr UncheckedArray[pointer]](obj)[][slot])
 
 const
+  IID_IInspectable* = GUID(
+    ## {AF86E2E0-B12D-4C6A-9C5A-D7AA65101E90} — the root of every WinRT
+    ## interface, as IUnknown is the root of every COM one.
+    data1: 0xAF86E2E0'u32, data2: 0xB12D'u16, data3: 0x4C6A'u16,
+    data4: [0x9C'u8, 0x5A, 0xD7, 0xAA, 0x65, 0x10, 0x1E, 0x90])
+
   IID_IUnknown* = GUID(
     ## {00000000-0000-0000-C000-000000000046} — the root of COM. Every object
     ## answers for it, which is what makes it the one IID worth hard-coding.

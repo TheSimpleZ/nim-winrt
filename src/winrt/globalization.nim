@@ -13,15 +13,25 @@ import ./foundation
 export foundation
 import ./delegate
 export core, globalization
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
 const IID_IVectorView_1_JapanesePhoneme* = GUID(
     data1: 0x4CDC5BD0'u32, data2: 0xD4AA'u16, data3: 0x5B60'u16,
     data4: [0xBF'u8, 0x25, 0x71, 0x44, 0x90, 0x50, 0x50, 0xF9])
+const IID_IVector_1_String* = GUID(
+    data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
+    data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
 const IID_IReference_1_I8* = GUID(
     data1: 0x4DDA9E24'u32, data2: 0xE69F'u16, data3: 0x5C6A'u16,
     data4: [0xA0'u8, 0xA6, 0x93, 0x42, 0x73, 0x65, 0xAF, 0x2A])
@@ -1043,6 +1053,38 @@ proc timeZoneAsString*(self: Calendar, idealLength: int32): string  =
     var tmp: HSTRING
     vcall(it, Slot_ITimeZoneOnCalendar_TimeZoneAsString2, Fn_ITimeZoneOnCalendar_TimeZoneAsString2)(it, idealLength, tmp.addr).check("Calendar.TimeZoneAsString")
     result = takeString(tmp)
+
+proc createCalendarWithTimeZone*(_: typedesc[Calendar], languages: seq[string], calendar: string, clock: string, timeZoneId: string): Calendar  =
+  ## Windows.Globalization.Calendar.CreateCalendarWithTimeZone
+  withStatics("Windows.Globalization.Calendar", IID_ICalendarFactory2, it):
+    let p0 = asIterableString(languages, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    withHString(calendar, h1):
+      withHString(clock, h2):
+        withHString(timeZoneId, h3):
+          var tmp: pointer
+          vcall(it, Slot_ICalendarFactory2_CreateCalendarWithTimeZone, Fn_ICalendarFactory2_CreateCalendarWithTimeZone)(it, p0, h1, h2, h3, tmp.addr).check("Calendar.CreateCalendarWithTimeZone")
+          result = adopt[Calendar](tmp)
+
+proc createCalendarDefaultCalendarAndClock*(_: typedesc[Calendar], languages: seq[string]): Calendar  =
+  ## Windows.Globalization.Calendar.CreateCalendarDefaultCalendarAndClock
+  withStatics("Windows.Globalization.Calendar", IID_ICalendarFactory, it):
+    let p0 = asIterableString(languages, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_ICalendarFactory_CreateCalendarDefaultCalendarAndClock, Fn_ICalendarFactory_CreateCalendarDefaultCalendarAndClock)(it, p0, tmp.addr).check("Calendar.CreateCalendarDefaultCalendarAndClock")
+    result = adopt[Calendar](tmp)
+
+proc createCalendar*(_: typedesc[Calendar], languages: seq[string], calendar: string, clock: string): Calendar  =
+  ## Windows.Globalization.Calendar.CreateCalendar
+  withStatics("Windows.Globalization.Calendar", IID_ICalendarFactory, it):
+    let p0 = asIterableString(languages, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    withHString(calendar, h1):
+      withHString(clock, h2):
+        var tmp: pointer
+        vcall(it, Slot_ICalendarFactory_CreateCalendar, Fn_ICalendarFactory_CreateCalendar)(it, p0, h1, h2, tmp.addr).check("Calendar.CreateCalendar")
+        result = adopt[Calendar](tmp)
 
 proc gregorian*(_: typedesc[CalendarIdentifiers]): string  =
   ## Windows.Globalization.CalendarIdentifiers.get_Gregorian
@@ -2525,6 +2567,29 @@ proc createDateTimeFormatter*(_: typedesc[DateTimeFormatter], formatTemplate: st
       vcall(it, Slot_IDateTimeFormatterFactory_CreateDateTimeFormatter, Fn_IDateTimeFormatterFactory_CreateDateTimeFormatter)(it, h0, tmp.addr).check("DateTimeFormatter.CreateDateTimeFormatter")
       result = adopt[DateTimeFormatter](tmp)
 
+proc createDateTimeFormatterLanguages*(_: typedesc[DateTimeFormatter], formatTemplate: string, languages: seq[string]): DateTimeFormatter  =
+  ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterLanguages
+  withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter", IID_IDateTimeFormatterFactory, it):
+    withHString(formatTemplate, h0):
+      let p1 = asIterableString(languages, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      var tmp: pointer
+      vcall(it, Slot_IDateTimeFormatterFactory_CreateDateTimeFormatterLanguages, Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterLanguages)(it, h0, p1, tmp.addr).check("DateTimeFormatter.CreateDateTimeFormatterLanguages")
+      result = adopt[DateTimeFormatter](tmp)
+
+proc createDateTimeFormatterContext*(_: typedesc[DateTimeFormatter], formatTemplate: string, languages: seq[string], geographicRegion: string, calendar: string, clock: string): DateTimeFormatter  =
+  ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterContext
+  withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter", IID_IDateTimeFormatterFactory, it):
+    withHString(formatTemplate, h0):
+      let p1 = asIterableString(languages, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      withHString(geographicRegion, h2):
+        withHString(calendar, h3):
+          withHString(clock, h4):
+            var tmp: pointer
+            vcall(it, Slot_IDateTimeFormatterFactory_CreateDateTimeFormatterContext, Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterContext)(it, h0, p1, h2, h3, h4, tmp.addr).check("DateTimeFormatter.CreateDateTimeFormatterContext")
+            result = adopt[DateTimeFormatter](tmp)
+
 proc createDateTimeFormatterDate*(_: typedesc[DateTimeFormatter], yearFormat: YearFormat, monthFormat: MonthFormat, dayFormat: DayFormat, dayOfWeekFormat: DayOfWeekFormat): DateTimeFormatter  =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDate
   withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter", IID_IDateTimeFormatterFactory, it):
@@ -2538,6 +2603,27 @@ proc createDateTimeFormatterTime*(_: typedesc[DateTimeFormatter], hourFormat: Ho
     var tmp: pointer
     vcall(it, Slot_IDateTimeFormatterFactory_CreateDateTimeFormatterTime, Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterTime)(it, hourFormat, minuteFormat, secondFormat, tmp.addr).check("DateTimeFormatter.CreateDateTimeFormatterTime")
     result = adopt[DateTimeFormatter](tmp)
+
+proc createDateTimeFormatterDateTimeLanguages*(_: typedesc[DateTimeFormatter], yearFormat: YearFormat, monthFormat: MonthFormat, dayFormat: DayFormat, dayOfWeekFormat: DayOfWeekFormat, hourFormat: HourFormat, minuteFormat: MinuteFormat, secondFormat: SecondFormat, languages: seq[string]): DateTimeFormatter  =
+  ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDateTimeLanguages
+  withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter", IID_IDateTimeFormatterFactory, it):
+    let p7 = asIterableString(languages, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p7)
+    var tmp: pointer
+    vcall(it, Slot_IDateTimeFormatterFactory_CreateDateTimeFormatterDateTimeLanguages, Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterDateTimeLanguages)(it, yearFormat, monthFormat, dayFormat, dayOfWeekFormat, hourFormat, minuteFormat, secondFormat, p7, tmp.addr).check("DateTimeFormatter.CreateDateTimeFormatterDateTimeLanguages")
+    result = adopt[DateTimeFormatter](tmp)
+
+proc createDateTimeFormatterDateTimeContext*(_: typedesc[DateTimeFormatter], yearFormat: YearFormat, monthFormat: MonthFormat, dayFormat: DayFormat, dayOfWeekFormat: DayOfWeekFormat, hourFormat: HourFormat, minuteFormat: MinuteFormat, secondFormat: SecondFormat, languages: seq[string], geographicRegion: string, calendar: string, clock: string): DateTimeFormatter  =
+  ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDateTimeContext
+  withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter", IID_IDateTimeFormatterFactory, it):
+    let p7 = asIterableString(languages, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p7)
+    withHString(geographicRegion, h8):
+      withHString(calendar, h9):
+        withHString(clock, h10):
+          var tmp: pointer
+          vcall(it, Slot_IDateTimeFormatterFactory_CreateDateTimeFormatterDateTimeContext, Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterDateTimeContext)(it, yearFormat, monthFormat, dayFormat, dayOfWeekFormat, hourFormat, minuteFormat, secondFormat, p7, h8, h9, h10, tmp.addr).check("DateTimeFormatter.CreateDateTimeFormatterDateTimeContext")
+          result = adopt[DateTimeFormatter](tmp)
 
 proc fontFamily*(self: LanguageFont): string  =
   ## Windows.Globalization.Fonts.LanguageFont.get_FontFamily
@@ -2805,6 +2891,16 @@ proc abbreviatedName*(self: Language): string  =
     vcall(it, Slot_ILanguage3_get_AbbreviatedName, Fn_ILanguage3_get_AbbreviatedName)(it, tmp.addr).check("Language.get_AbbreviatedName")
     result = takeString(tmp)
 
+proc getMuiCompatibleLanguageListFromLanguageTags*(_: typedesc[Language], languageTags: seq[string]): seq[string]  =
+  ## Windows.Globalization.Language.GetMuiCompatibleLanguageListFromLanguageTags
+  withStatics("Windows.Globalization.Language", IID_ILanguageStatics3, it):
+    let p0 = asIterableString(languageTags, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_ILanguageStatics3_GetMuiCompatibleLanguageListFromLanguageTags, Fn_ILanguageStatics3_GetMuiCompatibleLanguageListFromLanguageTags)(it, p0, tmp.addr).check("Language.GetMuiCompatibleLanguageListFromLanguageTags")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc trySetInputMethodLanguageTag*(_: typedesc[Language], languageTag: string): bool  =
   ## Windows.Globalization.Language.TrySetInputMethodLanguageTag
   withStatics("Windows.Globalization.Language", IID_ILanguageStatics2, it):
@@ -3070,6 +3166,17 @@ proc createCurrencyFormatterCode*(_: typedesc[CurrencyFormatter], currencyCode: 
       vcall(it, Slot_ICurrencyFormatterFactory_CreateCurrencyFormatterCode, Fn_ICurrencyFormatterFactory_CreateCurrencyFormatterCode)(it, h0, tmp.addr).check("CurrencyFormatter.CreateCurrencyFormatterCode")
       result = adopt[CurrencyFormatter](tmp)
 
+proc createCurrencyFormatterCodeContext*(_: typedesc[CurrencyFormatter], currencyCode: string, languages: seq[string], geographicRegion: string): CurrencyFormatter  =
+  ## Windows.Globalization.NumberFormatting.CurrencyFormatter.CreateCurrencyFormatterCodeContext
+  withStatics("Windows.Globalization.NumberFormatting.CurrencyFormatter", IID_ICurrencyFormatterFactory, it):
+    withHString(currencyCode, h0):
+      let p1 = asIterableString(languages, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      withHString(geographicRegion, h2):
+        var tmp: pointer
+        vcall(it, Slot_ICurrencyFormatterFactory_CreateCurrencyFormatterCodeContext, Fn_ICurrencyFormatterFactory_CreateCurrencyFormatterCodeContext)(it, h0, p1, h2, tmp.addr).check("CurrencyFormatter.CreateCurrencyFormatterCodeContext")
+        result = adopt[CurrencyFormatter](tmp)
+
 proc newDecimalFormatter*(): DecimalFormatter =
   ## Activate a `Windows.Globalization.NumberFormatting.DecimalFormatter`.
   adopt[DecimalFormatter](activateAs("Windows.Globalization.NumberFormatting.DecimalFormatter", IID_INumberFormatterOptions))
@@ -3270,6 +3377,16 @@ proc `isZeroSigned=`*(self: DecimalFormatter, value: bool)  =
   withIface(self.p, IID_ISignedZeroOption, "ISignedZeroOption", it):
     vcall(it, Slot_ISignedZeroOption_put_IsZeroSigned, Fn_ISignedZeroOption_put_IsZeroSigned)(it, value).check("DecimalFormatter.put_IsZeroSigned")
 
+proc createDecimalFormatter*(_: typedesc[DecimalFormatter], languages: seq[string], geographicRegion: string): DecimalFormatter  =
+  ## Windows.Globalization.NumberFormatting.DecimalFormatter.CreateDecimalFormatter
+  withStatics("Windows.Globalization.NumberFormatting.DecimalFormatter", IID_IDecimalFormatterFactory, it):
+    let p0 = asIterableString(languages, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    withHString(geographicRegion, h1):
+      var tmp: pointer
+      vcall(it, Slot_IDecimalFormatterFactory_CreateDecimalFormatter, Fn_IDecimalFormatterFactory_CreateDecimalFormatter)(it, p0, h1, tmp.addr).check("DecimalFormatter.CreateDecimalFormatter")
+      result = adopt[DecimalFormatter](tmp)
+
 proc newIncrementNumberRounder*(): IncrementNumberRounder =
   ## Activate a `Windows.Globalization.NumberFormatting.IncrementNumberRounder`.
   adopt[IncrementNumberRounder](activateAs("Windows.Globalization.NumberFormatting.IncrementNumberRounder", IID_INumberRounder))
@@ -3379,6 +3496,15 @@ proc translateNumerals*(self: NumeralSystemTranslator, value: string): string  =
       var tmp: HSTRING
       vcall(it, Slot_INumeralSystemTranslator_TranslateNumerals, Fn_INumeralSystemTranslator_TranslateNumerals)(it, h0, tmp.addr).check("NumeralSystemTranslator.TranslateNumerals")
       result = takeString(tmp)
+
+proc create*(_: typedesc[NumeralSystemTranslator], languages: seq[string]): NumeralSystemTranslator  =
+  ## Windows.Globalization.NumberFormatting.NumeralSystemTranslator.Create
+  withStatics("Windows.Globalization.NumberFormatting.NumeralSystemTranslator", IID_INumeralSystemTranslatorFactory, it):
+    let p0 = asIterableString(languages, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_INumeralSystemTranslatorFactory_Create, Fn_INumeralSystemTranslatorFactory_Create)(it, p0, tmp.addr).check("NumeralSystemTranslator.Create")
+    result = adopt[NumeralSystemTranslator](tmp)
 
 proc newPercentFormatter*(): PercentFormatter =
   ## Activate a `Windows.Globalization.NumberFormatting.PercentFormatter`.
@@ -3580,6 +3706,16 @@ proc `isZeroSigned=`*(self: PercentFormatter, value: bool)  =
   withIface(self.p, IID_ISignedZeroOption, "ISignedZeroOption", it):
     vcall(it, Slot_ISignedZeroOption_put_IsZeroSigned, Fn_ISignedZeroOption_put_IsZeroSigned)(it, value).check("PercentFormatter.put_IsZeroSigned")
 
+proc createPercentFormatter*(_: typedesc[PercentFormatter], languages: seq[string], geographicRegion: string): PercentFormatter  =
+  ## Windows.Globalization.NumberFormatting.PercentFormatter.CreatePercentFormatter
+  withStatics("Windows.Globalization.NumberFormatting.PercentFormatter", IID_IPercentFormatterFactory, it):
+    let p0 = asIterableString(languages, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    withHString(geographicRegion, h1):
+      var tmp: pointer
+      vcall(it, Slot_IPercentFormatterFactory_CreatePercentFormatter, Fn_IPercentFormatterFactory_CreatePercentFormatter)(it, p0, h1, tmp.addr).check("PercentFormatter.CreatePercentFormatter")
+      result = adopt[PercentFormatter](tmp)
+
 proc newPermilleFormatter*(): PermilleFormatter =
   ## Activate a `Windows.Globalization.NumberFormatting.PermilleFormatter`.
   adopt[PermilleFormatter](activateAs("Windows.Globalization.NumberFormatting.PermilleFormatter", IID_INumberFormatterOptions))
@@ -3779,6 +3915,16 @@ proc `isZeroSigned=`*(self: PermilleFormatter, value: bool)  =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.put_IsZeroSigned
   withIface(self.p, IID_ISignedZeroOption, "ISignedZeroOption", it):
     vcall(it, Slot_ISignedZeroOption_put_IsZeroSigned, Fn_ISignedZeroOption_put_IsZeroSigned)(it, value).check("PermilleFormatter.put_IsZeroSigned")
+
+proc createPermilleFormatter*(_: typedesc[PermilleFormatter], languages: seq[string], geographicRegion: string): PermilleFormatter  =
+  ## Windows.Globalization.NumberFormatting.PermilleFormatter.CreatePermilleFormatter
+  withStatics("Windows.Globalization.NumberFormatting.PermilleFormatter", IID_IPermilleFormatterFactory, it):
+    let p0 = asIterableString(languages, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    withHString(geographicRegion, h1):
+      var tmp: pointer
+      vcall(it, Slot_IPermilleFormatterFactory_CreatePermilleFormatter, Fn_IPermilleFormatterFactory_CreatePermilleFormatter)(it, p0, h1, tmp.addr).check("PermilleFormatter.CreatePermilleFormatter")
+      result = adopt[PermilleFormatter](tmp)
 
 proc newSignificantDigitsNumberRounder*(): SignificantDigitsNumberRounder =
   ## Activate a `Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder`.

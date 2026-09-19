@@ -15,6 +15,7 @@ import ./delegate
 export core, system
 import ./asyncops
 export asyncops
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -81,6 +82,15 @@ const IID_IAsyncOperation_1_IVector_12* = GUID(
 const IID_IVector_1_AppUriHandlerHost* = GUID(
     data1: 0x4A226614'u32, data2: 0x2197'u16, data3: 0x526A'u16,
     data4: [0xA9'u8, 0xFF, 0x03, 0x02, 0x5D, 0x18, 0xE3, 0x22])
+const IID_IIterable_1_AppUriHandlerHost* = GUID(
+    data1: 0xF6E575BD'u32, data2: 0xEAB7'u16, data3: 0x5981'u16,
+    data4: [0xBA'u8, 0x01, 0x49, 0xFF, 0x97, 0x6C, 0xA1, 0x86])
+const IID_IVectorView_1_AppUriHandlerHost* = GUID(
+    data1: 0xB5B07811'u32, data2: 0x1C9E'u16, data3: 0x5F97'u16,
+    data4: [0xBB'u8, 0x56, 0x17, 0xC8, 0x0B, 0x1B, 0x1A, 0x45])
+const IID_IIterator_1_AppUriHandlerHost* = GUID(
+    data1: 0x66078237'u32, data2: 0xA994'u16, data3: 0x50DE'u16,
+    data4: [0xB1'u8, 0xEA, 0x33, 0x8D, 0x7C, 0xF8, 0x9A, 0x2C])
 const IID_TypedEventHandler_2_DevicePortalConnection_DevicePortalConnectionClosedEventArgs* = GUID(
     data1: 0x2AAD93A8'u32, data2: 0x52FA'u16, data3: 0x54B3'u16,
     data4: [0x95'u8, 0x56, 0x15, 0xD6, 0x51, 0x20, 0x8B, 0x3F])
@@ -186,6 +196,15 @@ const IID_AsyncOperationCompletedHandler_1_ProcessLauncherResult* = GUID(
 const IID_IAsyncOperation_1_ProcessLauncherResult* = GUID(
     data1: 0xE6827240'u32, data2: 0x7A8D'u16, data3: 0x51BE'u16,
     data4: [0x8D'u8, 0x21, 0xE0, 0x93, 0x26, 0x8C, 0xCC, 0x15])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
+const IID_IVectorView_1_UnsupportedAppRequirement* = GUID(
+    data1: 0x5B638C58'u32, data2: 0x9D04'u16, data3: 0x5D1A'u16,
+    data4: [0x92'u8, 0xFB, 0x86, 0x08, 0x52, 0xC3, 0xE4, 0xD0])
 const IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_Object* = GUID(
     data1: 0xFF5F83B6'u32, data2: 0x18E5'u16, data3: 0x5787'u16,
     data4: [0xBF'u8, 0x03, 0x97, 0x4C, 0xA9, 0x92, 0x92, 0x75])
@@ -234,6 +253,15 @@ const IID_IAsyncOperation_1_RemoteSystemSessionJoinResult* = GUID(
 const IID_TypedEventHandler_2_RemoteSystemSessionInvitationListener_RemoteSystemSessionInvitationReceivedEventArgs* = GUID(
     data1: 0x18A242BB'u32, data2: 0xD338'u16, data3: 0x56C4'u16,
     data4: [0x95'u8, 0x59, 0x56, 0x8D, 0x5C, 0x2C, 0x3E, 0x93])
+const IID_IIterable_1_RemoteSystemSessionParticipant* = GUID(
+    data1: 0x00189D10'u32, data2: 0x16EC'u16, data3: 0x5D1A'u16,
+    data4: [0x83'u8, 0x69, 0x48, 0x70, 0xC6, 0x9E, 0x52, 0xB3])
+const IID_IVectorView_1_RemoteSystemSessionParticipant* = GUID(
+    data1: 0x9EEB2C2D'u32, data2: 0x1AB6'u16, data3: 0x59E8'u16,
+    data4: [0xB2'u8, 0x09, 0xB6, 0x0B, 0x6E, 0x43, 0xA6, 0x72])
+const IID_IIterator_1_RemoteSystemSessionParticipant* = GUID(
+    data1: 0x05FEC44B'u32, data2: 0x3DD9'u16, data3: 0x5CF1'u16,
+    data4: [0xA1'u8, 0x00, 0xBE, 0xDC, 0x92, 0x33, 0x29, 0x2D])
 const IID_TypedEventHandler_2_RemoteSystemSessionMessageChannel_RemoteSystemSessionValueSetReceivedEventArgs* = GUID(
     data1: 0xC476232D'u32, data2: 0x8C76'u16, data3: 0x5BA6'u16,
     data4: [0x99'u8, 0xF5, 0x14, 0x55, 0x74, 0x84, 0xC2, 0x0D])
@@ -279,6 +307,12 @@ const IID_IAsyncOperation_1_AutoUpdateTimeZoneStatus* = GUID(
 const IID_IVectorView_1_SystemUpdateItem* = GUID(
     data1: 0x7C77B64C'u32, data2: 0x8BE2'u16, data3: 0x50E0'u16,
     data4: [0x8C'u8, 0xA5, 0xD8, 0x26, 0x5D, 0x80, 0x90, 0x2B])
+const IID_AsyncOperationCompletedHandler_1_IPropertySet* = GUID(
+    data1: 0x5075A55F'u32, data2: 0x68BA'u16, data3: 0x56F2'u16,
+    data4: [0x97'u8, 0xE6, 0x9B, 0x1C, 0xBF, 0xA2, 0xC5, 0xF2])
+const IID_IAsyncOperation_1_IPropertySet* = GUID(
+    data1: 0x490B0686'u32, data2: 0xAFD7'u16, data3: 0x5037'u16,
+    data4: [0x96'u8, 0x47, 0xD8, 0xFE, 0x24, 0x8F, 0x18, 0x2C])
 const IID_AsyncOperationCompletedHandler_1_UserAgeConsentResult* = GUID(
     data1: 0x5FF26075'u32, data2: 0x034F'u16, data3: 0x5186'u16,
     data4: [0x8F'u8, 0xD3, 0x9E, 0xDA, 0x8D, 0xA3, 0xE7, 0x39])
@@ -3028,6 +3062,15 @@ proc getAppAddedHostsAsync*(self: AppUriHandlerRegistration): Future[seq[AppUriH
   result = toSeq[AppUriHandlerHost](coll, IID_IVector_1_AppUriHandlerHost)
   discard release(coll)
 
+proc setAppAddedHostsAsync*(self: AppUriHandlerRegistration, hosts: seq[AppUriHandlerHost]) {.async.} =
+  ## Windows.System.AppUriHandlerRegistration.SetAppAddedHostsAsync
+  var op: pointer
+  withIface(self.p, IID_IAppUriHandlerRegistration, "IAppUriHandlerRegistration", it):
+    let p0 = asIterable[AppUriHandlerHost](hosts, IID_IIterable_1_AppUriHandlerHost, IID_IVectorView_1_AppUriHandlerHost, IID_IIterator_1_AppUriHandlerHost)
+    defer: discard release(p0)
+    vcall(it, Slot_IAppUriHandlerRegistration_SetAppAddedHostsAsync, Fn_IAppUriHandlerRegistration_SetAppAddedHostsAsync)(it, p0, op.addr).check("AppUriHandlerRegistration.SetAppAddedHostsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppUriHandlerRegistration.SetAppAddedHostsAsync")
+
 proc getAllHosts*(self: AppUriHandlerRegistration): seq[AppUriHandlerHost]  =
   ## Windows.System.AppUriHandlerRegistration.GetAllHosts
   withIface(self.p, IID_IAppUriHandlerRegistration2, "IAppUriHandlerRegistration2", it):
@@ -3035,6 +3078,13 @@ proc getAllHosts*(self: AppUriHandlerRegistration): seq[AppUriHandlerHost]  =
     vcall(it, Slot_IAppUriHandlerRegistration2_GetAllHosts, Fn_IAppUriHandlerRegistration2_GetAllHosts)(it, tmp.addr).check("AppUriHandlerRegistration.GetAllHosts")
     result = toSeq[AppUriHandlerHost](tmp, IID_IVector_1_AppUriHandlerHost)
     release(tmp)
+
+proc updateHosts*(self: AppUriHandlerRegistration, hosts: seq[AppUriHandlerHost])  =
+  ## Windows.System.AppUriHandlerRegistration.UpdateHosts
+  withIface(self.p, IID_IAppUriHandlerRegistration2, "IAppUriHandlerRegistration2", it):
+    let p0 = asIterable[AppUriHandlerHost](hosts, IID_IIterable_1_AppUriHandlerHost, IID_IVectorView_1_AppUriHandlerHost, IID_IIterator_1_AppUriHandlerHost)
+    defer: discard release(p0)
+    vcall(it, Slot_IAppUriHandlerRegistration2_UpdateHosts, Fn_IAppUriHandlerRegistration2_UpdateHosts)(it, p0).check("AppUriHandlerRegistration.UpdateHosts")
 
 proc packageFamilyName*(self: AppUriHandlerRegistration): string  =
   ## Windows.System.AppUriHandlerRegistration.get_PackageFamilyName
@@ -5120,6 +5170,16 @@ proc productName*(self: AnalyticsVersionInfo): string  =
     vcall(it, Slot_IAnalyticsVersionInfo2_get_ProductName, Fn_IAnalyticsVersionInfo2_get_ProductName)(it, tmp.addr).check("AnalyticsVersionInfo.get_ProductName")
     result = takeString(tmp)
 
+proc getUnsupportedAppRequirements*(_: typedesc[AppApplicability], capabilities: seq[string]): seq[UnsupportedAppRequirement]  =
+  ## Windows.System.Profile.AppApplicability.GetUnsupportedAppRequirements
+  withStatics("Windows.System.Profile.AppApplicability", IID_IAppApplicabilityStatics, it):
+    let p0 = asIterableString(capabilities, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IAppApplicabilityStatics_GetUnsupportedAppRequirements, Fn_IAppApplicabilityStatics_GetUnsupportedAppRequirements)(it, p0, tmp.addr).check("AppApplicability.GetUnsupportedAppRequirements")
+    result = toSeq[UnsupportedAppRequirement](tmp, IID_IVectorView_1_UnsupportedAppRequirement)
+    release(tmp)
+
 proc isEducationEnvironment*(_: typedesc[EducationSettings]): bool  =
   ## Windows.System.Profile.EducationSettings.get_IsEducationEnvironment
   withStatics("Windows.System.Profile.EducationSettings", IID_IEducationSettingsStatics, it):
@@ -6151,6 +6211,15 @@ proc remoteSystemKinds*(self: RemoteSystemKindFilter): seq[string]  =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
+proc create*(_: typedesc[RemoteSystemKindFilter], remoteSystemKinds: seq[string]): RemoteSystemKindFilter  =
+  ## Windows.System.RemoteSystems.RemoteSystemKindFilter.Create
+  withStatics("Windows.System.RemoteSystems.RemoteSystemKindFilter", IID_IRemoteSystemKindFilterFactory, it):
+    let p0 = asIterableString(remoteSystemKinds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IRemoteSystemKindFilterFactory_Create, Fn_IRemoteSystemKindFilterFactory_Create)(it, p0, tmp.addr).check("RemoteSystemKindFilter.Create")
+    result = adopt[RemoteSystemKindFilter](tmp)
+
 proc iot*(_: typedesc[RemoteSystemKinds]): string  =
   ## Windows.System.RemoteSystems.RemoteSystemKinds.get_Iot
   withStatics("Windows.System.RemoteSystems.RemoteSystemKinds", IID_IRemoteSystemKindStatics2, it):
@@ -6488,6 +6557,16 @@ proc sendValueSetAsync*(self: RemoteSystemSessionMessageChannel, messageData: Va
       withIface(participant.p, IID_IRemoteSystemSessionParticipant, "IRemoteSystemSessionParticipant", p1):
         vcall(it, Slot_IRemoteSystemSessionMessageChannel_SendValueSetAsync, Fn_IRemoteSystemSessionMessageChannel_SendValueSetAsync)(it, p0, p1, op.addr).check("RemoteSystemSessionMessageChannel.SendValueSetAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "RemoteSystemSessionMessageChannel.SendValueSetAsync")
+
+proc sendValueSetToParticipantsAsync*(self: RemoteSystemSessionMessageChannel, messageData: ValueSet, participants: seq[RemoteSystemSessionParticipant]): Future[bool] {.async.} =
+  ## Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.SendValueSetToParticipantsAsync
+  var op: pointer
+  withIface(self.p, IID_IRemoteSystemSessionMessageChannel, "IRemoteSystemSessionMessageChannel", it):
+    withIface(messageData.p, IID_IPropertySet, "IPropertySet", p0):
+      let p1 = asIterable[RemoteSystemSessionParticipant](participants, IID_IIterable_1_RemoteSystemSessionParticipant, IID_IVectorView_1_RemoteSystemSessionParticipant, IID_IIterator_1_RemoteSystemSessionParticipant)
+      defer: discard release(p1)
+      vcall(it, Slot_IRemoteSystemSessionMessageChannel_SendValueSetToParticipantsAsync, Fn_IRemoteSystemSessionMessageChannel_SendValueSetToParticipantsAsync)(it, p0, p1, op.addr).check("RemoteSystemSessionMessageChannel.SendValueSetToParticipantsAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "RemoteSystemSessionMessageChannel.SendValueSetToParticipantsAsync")
 
 proc onValueSetReceived*(self: RemoteSystemSessionMessageChannel,
     handler: proc(sender: pointer, args: RemoteSystemSessionValueSetReceivedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -7247,6 +7326,15 @@ proc `type`*(self: User): UserType  =
     vcall(it, Slot_IUser_get_Type, Fn_IUser_get_Type)(it, tmp.addr).check("User.get_Type")
     result = tmp
 
+proc getPropertiesAsync*(self: User, values: seq[string]): Future[ValueSet] {.async.} =
+  ## Windows.System.User.GetPropertiesAsync
+  var op: pointer
+  withIface(self.p, IID_IUser, "IUser", it):
+    let p0 = asIterableString(values, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IUser_GetPropertiesAsync, Fn_IUser_GetPropertiesAsync)(it, p0, op.addr).check("User.GetPropertiesAsync")
+  result = adopt[ValueSet](await awaitObject(op, IID_IAsyncOperation_1_IPropertySet, IID_AsyncOperationCompletedHandler_1_IPropertySet, "User.GetPropertiesAsync"))
+
 proc checkUserAgeConsentGroupAsync*(self: User, consentGroup: UserAgeConsentGroup): Future[UserAgeConsentResult] {.async.} =
   ## Windows.System.User.CheckUserAgeConsentGroupAsync
   var op: pointer
@@ -7542,6 +7630,15 @@ proc trySetHomeGeographicRegion*(_: typedesc[GlobalizationPreferences], region: 
       var tmp: bool
       vcall(it, Slot_IGlobalizationPreferencesStatics2_TrySetHomeGeographicRegion, Fn_IGlobalizationPreferencesStatics2_TrySetHomeGeographicRegion)(it, h0, tmp.addr).check("GlobalizationPreferences.TrySetHomeGeographicRegion")
       result = tmp
+
+proc trySetLanguages*(_: typedesc[GlobalizationPreferences], languageTags: seq[string]): bool  =
+  ## Windows.System.UserProfile.GlobalizationPreferences.TrySetLanguages
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics2, it):
+    let p0 = asIterableString(languageTags, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: bool
+    vcall(it, Slot_IGlobalizationPreferencesStatics2_TrySetLanguages, Fn_IGlobalizationPreferencesStatics2_TrySetLanguages)(it, p0, tmp.addr).check("GlobalizationPreferences.TrySetLanguages")
+    result = tmp
 
 proc calendars*(_: typedesc[GlobalizationPreferences]): seq[string]  =
   ## Windows.System.UserProfile.GlobalizationPreferences.get_Calendars

@@ -15,6 +15,7 @@ import ./delegate
 export core, perception
 import ./asyncops
 export asyncops
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -90,6 +91,15 @@ const IID_AsyncOperationCompletedHandler_1_SpatialSurfaceMesh* = GUID(
 const IID_IAsyncOperation_1_SpatialSurfaceMesh* = GUID(
     data1: 0xF5938FAD'u32, data2: 0xA8A1'u16, data3: 0x5F7E'u16,
     data4: [0x94'u8, 0x40, 0xBD, 0xB7, 0x81, 0xAD, 0x26, 0xB6])
+const IID_IIterable_1_SpatialBoundingVolume* = GUID(
+    data1: 0x89E8F1EE'u32, data2: 0x3A2A'u16, data3: 0x5B69'u16,
+    data4: [0xA7'u8, 0x86, 0xCD, 0xDC, 0xF7, 0x45, 0x6A, 0x3A])
+const IID_IVectorView_1_SpatialBoundingVolume* = GUID(
+    data1: 0x471D0048'u32, data2: 0x3CD1'u16, data3: 0x5B72'u16,
+    data4: [0xA1'u8, 0x18, 0x8D, 0x5A, 0x48, 0xBF, 0xE0, 0xDF])
+const IID_IIterator_1_SpatialBoundingVolume* = GUID(
+    data1: 0xEB8385C5'u32, data2: 0x0775'u16, data3: 0x5415'u16,
+    data4: [0x8F'u8, 0x76, 0x32, 0x7E, 0x6E, 0x38, 0x8A, 0xC5])
 const IID_TypedEventHandler_2_SpatialSurfaceObserver_Object* = GUID(
     data1: 0x8B31274A'u32, data2: 0x7693'u16, data3: 0x52BE'u16,
     data4: [0x90'u8, 0x14, 0xB0, 0xF5, 0xF6, 0x5A, 0x35, 0x39])
@@ -1641,6 +1651,13 @@ proc setBoundingVolume*(self: SpatialSurfaceObserver, bounds: SpatialBoundingVol
   withIface(self.p, IID_ISpatialSurfaceObserver, "ISpatialSurfaceObserver", it):
     withIface(bounds.p, IID_ISpatialBoundingVolume, "ISpatialBoundingVolume", p0):
       vcall(it, Slot_ISpatialSurfaceObserver_SetBoundingVolume, Fn_ISpatialSurfaceObserver_SetBoundingVolume)(it, p0).check("SpatialSurfaceObserver.SetBoundingVolume")
+
+proc setBoundingVolumes*(self: SpatialSurfaceObserver, bounds: seq[SpatialBoundingVolume])  =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver.SetBoundingVolumes
+  withIface(self.p, IID_ISpatialSurfaceObserver, "ISpatialSurfaceObserver", it):
+    let p0 = asIterable[SpatialBoundingVolume](bounds, IID_IIterable_1_SpatialBoundingVolume, IID_IVectorView_1_SpatialBoundingVolume, IID_IIterator_1_SpatialBoundingVolume)
+    defer: discard release(p0)
+    vcall(it, Slot_ISpatialSurfaceObserver_SetBoundingVolumes, Fn_ISpatialSurfaceObserver_SetBoundingVolumes)(it, p0).check("SpatialSurfaceObserver.SetBoundingVolumes")
 
 proc onObservedSurfacesChanged*(self: SpatialSurfaceObserver,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =

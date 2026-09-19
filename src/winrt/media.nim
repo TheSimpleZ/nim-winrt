@@ -15,6 +15,7 @@ import ./delegate
 export core, media
 import ./asyncops
 export asyncops
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -381,6 +382,21 @@ const IID_IAsyncOperation_1_MediaFrameReader* = GUID(
 const IID_TypedEventHandler_2_MediaCapture_MediaCaptureDeviceExclusiveControlStatusChangedEventArgs* = GUID(
     data1: 0x5C91F8BA'u32, data2: 0xB379'u16, data3: 0x53FF'u16,
     data4: [0xA2'u8, 0x88, 0x24, 0xE7, 0x88, 0x3B, 0xF5, 0x92])
+const IID_IIterable_1_MediaFrameSource* = GUID(
+    data1: 0x0D447BE3'u32, data2: 0x8C91'u16, data3: 0x581D'u16,
+    data4: [0x80'u8, 0x71, 0x17, 0x98, 0x4B, 0x8B, 0x59, 0x94])
+const IID_IVectorView_1_MediaFrameSource* = GUID(
+    data1: 0x4D031014'u32, data2: 0x6DF9'u16, data3: 0x59AB'u16,
+    data4: [0xBC'u8, 0x9C, 0xB2, 0xA5, 0xFC, 0x8B, 0x7F, 0x1C])
+const IID_IIterator_1_MediaFrameSource* = GUID(
+    data1: 0xD05E53CD'u32, data2: 0xBBEC'u16, data3: 0x5FB7'u16,
+    data4: [0x8E'u8, 0x4E, 0xDE, 0x86, 0x11, 0x5B, 0x5E, 0x88])
+const IID_AsyncOperationCompletedHandler_1_MultiSourceMediaFrameReader* = GUID(
+    data1: 0x69993778'u32, data2: 0xA48C'u16, data3: 0x50CC'u16,
+    data4: [0xA6'u8, 0xF0, 0x53, 0x68, 0xF5, 0x8A, 0x29, 0x7A])
+const IID_IAsyncOperation_1_MultiSourceMediaFrameReader* = GUID(
+    data1: 0x53D56BE8'u32, data2: 0xF110'u16, data3: 0x5226'u16,
+    data4: [0x9C'u8, 0xE1, 0xA8, 0xC2, 0x6A, 0x57, 0x25, 0x76])
 const IID_IVectorView_1_MediaCaptureVideoProfile* = GUID(
     data1: 0x75626CF9'u32, data2: 0x1F99'u16, data3: 0x5E10'u16,
     data4: [0xBD'u8, 0x03, 0xF2, 0x96, 0x1E, 0x85, 0xAF, 0x1F])
@@ -621,6 +637,15 @@ const IID_TypedEventHandler_2_Object_DefaultAudioCaptureDeviceChangedEventArgs* 
 const IID_TypedEventHandler_2_Object_DefaultAudioRenderDeviceChangedEventArgs* = GUID(
     data1: 0xFD732ACA'u32, data2: 0xDAFC'u16, data3: 0x5B7D'u16,
     data4: [0xBF'u8, 0x72, 0xB5, 0x60, 0xB7, 0x8D, 0x26, 0x0C])
+const IID_IIterable_1_RegionOfInterest* = GUID(
+    data1: 0xD73144C7'u32, data2: 0x9D75'u16, data3: 0x5DFB'u16,
+    data4: [0x80'u8, 0x40, 0x62, 0x62, 0x02, 0xDC, 0xF4, 0x54])
+const IID_IVectorView_1_RegionOfInterest* = GUID(
+    data1: 0x96F58ABC'u32, data2: 0xF7E2'u16, data3: 0x5D6A'u16,
+    data4: [0xA4'u8, 0x04, 0x3F, 0xB2, 0xF2, 0x62, 0x45, 0x45])
+const IID_IIterator_1_RegionOfInterest* = GUID(
+    data1: 0x8EB80E4E'u32, data2: 0x9691'u16, data3: 0x594F'u16,
+    data4: [0x8B'u8, 0x3D, 0xF5, 0x2E, 0xCC, 0x0F, 0x78, 0x37])
 const IID_AsyncOperationCompletedHandler_1_DialAppLaunchResult* = GUID(
     data1: 0x164C0AA8'u32, data2: 0x3D2B'u16, data3: 0x579B'u16,
     data4: [0x94'u8, 0xA3, 0xCC, 0x49, 0x25, 0xC6, 0x95, 0xEC])
@@ -774,12 +799,39 @@ const IID_AsyncOperationCompletedHandler_1_PhotoImportSource* = GUID(
 const IID_IAsyncOperation_1_PhotoImportSource* = GUID(
     data1: 0xC8C5DC1E'u32, data2: 0xEB47'u16, data3: 0x50B8'u16,
     data4: [0xB5'u8, 0xD9, 0xAA, 0xFE, 0x1A, 0x82, 0x31, 0x8A])
+const IID_IIterable_1_AudioStreamDescriptor* = GUID(
+    data1: 0xA3E2C972'u32, data2: 0xA171'u16, data3: 0x5B94'u16,
+    data4: [0x83'u8, 0x89, 0xE9, 0x83, 0xEB, 0xC3, 0xF3, 0xB9])
+const IID_IVectorView_1_AudioStreamDescriptor* = GUID(
+    data1: 0x340F4FED'u32, data2: 0x1288'u16, data3: 0x5B89'u16,
+    data4: [0xBE'u8, 0x7C, 0xC3, 0x55, 0xFE, 0x1C, 0xE4, 0xD9])
+const IID_IIterator_1_AudioStreamDescriptor* = GUID(
+    data1: 0xA61A11CD'u32, data2: 0xB32E'u16, data3: 0x518B'u16,
+    data4: [0xA6'u8, 0xA7, 0x54, 0x72, 0xCB, 0xE0, 0x0E, 0x83])
 const IID_IVector_1_AudioStreamDescriptor* = GUID(
     data1: 0x45AFC129'u32, data2: 0x988C'u16, data3: 0x5F1E'u16,
     data4: [0x9C'u8, 0x17, 0x6E, 0x34, 0xB9, 0x17, 0xCD, 0x1B])
+const IID_IIterable_1_VideoStreamDescriptor* = GUID(
+    data1: 0x3ACBF03C'u32, data2: 0x0A79'u16, data3: 0x5823'u16,
+    data4: [0xAA'u8, 0xA9, 0xD8, 0x8B, 0xC3, 0xF8, 0xF5, 0x94])
+const IID_IVectorView_1_VideoStreamDescriptor* = GUID(
+    data1: 0xE965C8AF'u32, data2: 0xD211'u16, data3: 0x52F0'u16,
+    data4: [0x83'u8, 0x8B, 0x46, 0x37, 0x46, 0x9D, 0xA7, 0xAF])
+const IID_IIterator_1_VideoStreamDescriptor* = GUID(
+    data1: 0xDA51AB3C'u32, data2: 0x3C64'u16, data3: 0x545C'u16,
+    data4: [0xA3'u8, 0xF4, 0xF9, 0xB0, 0x55, 0xAA, 0xF7, 0xD9])
 const IID_IVector_1_VideoStreamDescriptor* = GUID(
     data1: 0x1FB064B3'u32, data2: 0x636C'u16, data3: 0x5988'u16,
     data4: [0x9C'u8, 0x97, 0x02, 0xA9, 0xB7, 0x61, 0x50, 0xF6])
+const IID_IIterable_1_TimedMetadataStreamDescriptor* = GUID(
+    data1: 0xE566DEC3'u32, data2: 0x82BE'u16, data3: 0x5932'u16,
+    data4: [0xA1'u8, 0x18, 0x27, 0x9E, 0x44, 0xFD, 0xB4, 0xFF])
+const IID_IVectorView_1_TimedMetadataStreamDescriptor* = GUID(
+    data1: 0x57B5FF78'u32, data2: 0xD07A'u16, data3: 0x52DF'u16,
+    data4: [0x80'u8, 0xA9, 0x82, 0x38, 0x9B, 0xC4, 0x6A, 0xC1])
+const IID_IIterator_1_TimedMetadataStreamDescriptor* = GUID(
+    data1: 0xFA175D1B'u32, data2: 0xB5D9'u16, data3: 0x510A'u16,
+    data4: [0xBB'u8, 0xAF, 0x60, 0x42, 0x1A, 0x68, 0x56, 0x67])
 const IID_IVector_1_TimedMetadataStreamDescriptor* = GUID(
     data1: 0x07A8D080'u32, data2: 0x17ED'u16, data3: 0x5DD0'u16,
     data4: [0xA0'u8, 0x02, 0xA9, 0x05, 0xAA, 0xC5, 0xA8, 0x5D])
@@ -960,6 +1012,12 @@ const IID_TypedEventHandler_2_MediaPlaybackList_MediaPlaybackItemOpenedEventArgs
 const IID_IVectorView_1_MediaPlaybackItem* = GUID(
     data1: 0xB6A4C9FE'u32, data2: 0xC73D'u16, data3: 0x5EBA'u16,
     data4: [0xB5'u8, 0xAB, 0x6F, 0x8D, 0xEA, 0xCA, 0x30, 0xB9])
+const IID_IIterable_1_MediaPlaybackItem* = GUID(
+    data1: 0x8B8AB4A4'u32, data2: 0x0253'u16, data3: 0x56E9'u16,
+    data4: [0xA2'u8, 0x32, 0x94, 0xE3, 0x35, 0xAE, 0xFA, 0x8F])
+const IID_IIterator_1_MediaPlaybackItem* = GUID(
+    data1: 0xAB074059'u32, data2: 0x8C08'u16, data3: 0x53E7'u16,
+    data4: [0x96'u8, 0x54, 0x02, 0xD2, 0x59, 0x8F, 0xFF, 0x55])
 const IID_TypedEventHandler_2_MediaPlaybackSession_Object* = GUID(
     data1: 0x7C70F38D'u32, data2: 0x2AA1'u16, data3: 0x5522'u16,
     data4: [0xA6'u8, 0xD6, 0x34, 0xB5, 0x2B, 0x98, 0x8A, 0xE7])
@@ -1026,6 +1084,12 @@ const IID_TypedEventHandler_2_SpeechContinuousRecognitionSession_SpeechContinuou
 const IID_TypedEventHandler_2_SpeechContinuousRecognitionSession_SpeechContinuousRecognitionResultGeneratedEventArgs* = GUID(
     data1: 0x26192073'u32, data2: 0xA2C9'u16, data3: 0x527D'u16,
     data4: [0x9B'u8, 0xD3, 0x91, 0x1C, 0x05, 0xE0, 0x01, 0x1E])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
 const IID_IVectorView_1_SpeechRecognitionResult* = GUID(
     data1: 0x0E37810F'u32, data2: 0x1DE6'u16, data3: 0x5199'u16,
     data4: [0x83'u8, 0x3F, 0x5A, 0x6B, 0x0B, 0xD9, 0x1E, 0x23])
@@ -16131,6 +16195,15 @@ proc removeCaptureDeviceExclusiveControlStatusChanged*(self: MediaCapture, token
   withIface(self.p, IID_IMediaCapture6, "IMediaCapture6", it):
     vcall(it, Slot_IMediaCapture6_remove_CaptureDeviceExclusiveControlStatusChanged, Fn_IMediaCapture6_remove_CaptureDeviceExclusiveControlStatusChanged)(it, token).check("MediaCapture.remove_CaptureDeviceExclusiveControlStatusChanged")
 
+proc createMultiSourceFrameReaderAsync*(self: MediaCapture, inputSources: seq[MediaFrameSource]): Future[MultiSourceMediaFrameReader] {.async.} =
+  ## Windows.Media.Capture.MediaCapture.CreateMultiSourceFrameReaderAsync
+  var op: pointer
+  withIface(self.p, IID_IMediaCapture6, "IMediaCapture6", it):
+    let p0 = asIterable[MediaFrameSource](inputSources, IID_IIterable_1_MediaFrameSource, IID_IVectorView_1_MediaFrameSource, IID_IIterator_1_MediaFrameSource)
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaCapture6_CreateMultiSourceFrameReaderAsync, Fn_IMediaCapture6_CreateMultiSourceFrameReaderAsync)(it, p0, op.addr).check("MediaCapture.CreateMultiSourceFrameReaderAsync")
+  result = adopt[MultiSourceMediaFrameReader](await awaitObject(op, IID_IAsyncOperation_1_MultiSourceMediaFrameReader, IID_AsyncOperationCompletedHandler_1_MultiSourceMediaFrameReader, "MediaCapture.CreateMultiSourceFrameReaderAsync"))
+
 proc isVideoProfileSupported*(_: typedesc[MediaCapture], videoDeviceId: string): bool  =
   ## Windows.Media.Capture.MediaCapture.IsVideoProfileSupported
   withStatics("Windows.Media.Capture.MediaCapture", IID_IMediaCaptureStatics, it):
@@ -23405,6 +23478,24 @@ proc maxRegions*(self: RegionsOfInterestControl): uint32  =
     vcall(it, Slot_IRegionsOfInterestControl_get_MaxRegions, Fn_IRegionsOfInterestControl_get_MaxRegions)(it, tmp.addr).check("RegionsOfInterestControl.get_MaxRegions")
     result = tmp
 
+proc setRegionsAsync*(self: RegionsOfInterestControl, regions: seq[RegionOfInterest]) {.async.} =
+  ## Windows.Media.Devices.RegionsOfInterestControl.SetRegionsAsync
+  var op: pointer
+  withIface(self.p, IID_IRegionsOfInterestControl, "IRegionsOfInterestControl", it):
+    let p0 = asIterable[RegionOfInterest](regions, IID_IIterable_1_RegionOfInterest, IID_IVectorView_1_RegionOfInterest, IID_IIterator_1_RegionOfInterest)
+    defer: discard release(p0)
+    vcall(it, Slot_IRegionsOfInterestControl_SetRegionsAsync, Fn_IRegionsOfInterestControl_SetRegionsAsync)(it, p0, op.addr).check("RegionsOfInterestControl.SetRegionsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "RegionsOfInterestControl.SetRegionsAsync")
+
+proc setRegionsAsync*(self: RegionsOfInterestControl, regions: seq[RegionOfInterest], lockValues: bool) {.async.} =
+  ## Windows.Media.Devices.RegionsOfInterestControl.SetRegionsAsync
+  var op: pointer
+  withIface(self.p, IID_IRegionsOfInterestControl, "IRegionsOfInterestControl", it):
+    let p0 = asIterable[RegionOfInterest](regions, IID_IIterable_1_RegionOfInterest, IID_IVectorView_1_RegionOfInterest, IID_IIterator_1_RegionOfInterest)
+    defer: discard release(p0)
+    vcall(it, Slot_IRegionsOfInterestControl_SetRegionsAsync2, Fn_IRegionsOfInterestControl_SetRegionsAsync2)(it, p0, lockValues, op.addr).check("RegionsOfInterestControl.SetRegionsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "RegionsOfInterestControl.SetRegionsAsync")
+
 proc clearRegionsAsync*(self: RegionsOfInterestControl) {.async.} =
   ## Windows.Media.Devices.RegionsOfInterestControl.ClearRegionsAsync
   var op: pointer
@@ -27121,6 +27212,13 @@ proc container*(self: MediaEncodingProfile): ContainerEncodingProperties  =
     vcall(it, Slot_IMediaEncodingProfile_get_Container, Fn_IMediaEncodingProfile_get_Container)(it, tmp.addr).check("MediaEncodingProfile.get_Container")
     result = adopt[ContainerEncodingProperties](tmp)
 
+proc setAudioTracks*(self: MediaEncodingProfile, value: seq[AudioStreamDescriptor])  =
+  ## Windows.Media.MediaProperties.MediaEncodingProfile.SetAudioTracks
+  withIface(self.p, IID_IMediaEncodingProfile2, "IMediaEncodingProfile2", it):
+    let p0 = asIterable[AudioStreamDescriptor](value, IID_IIterable_1_AudioStreamDescriptor, IID_IVectorView_1_AudioStreamDescriptor, IID_IIterator_1_AudioStreamDescriptor)
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaEncodingProfile2_SetAudioTracks, Fn_IMediaEncodingProfile2_SetAudioTracks)(it, p0).check("MediaEncodingProfile.SetAudioTracks")
+
 proc getAudioTracks*(self: MediaEncodingProfile): seq[AudioStreamDescriptor]  =
   ## Windows.Media.MediaProperties.MediaEncodingProfile.GetAudioTracks
   withIface(self.p, IID_IMediaEncodingProfile2, "IMediaEncodingProfile2", it):
@@ -27129,6 +27227,13 @@ proc getAudioTracks*(self: MediaEncodingProfile): seq[AudioStreamDescriptor]  =
     result = toSeq[AudioStreamDescriptor](tmp, IID_IVector_1_AudioStreamDescriptor)
     release(tmp)
 
+proc setVideoTracks*(self: MediaEncodingProfile, value: seq[VideoStreamDescriptor])  =
+  ## Windows.Media.MediaProperties.MediaEncodingProfile.SetVideoTracks
+  withIface(self.p, IID_IMediaEncodingProfile2, "IMediaEncodingProfile2", it):
+    let p0 = asIterable[VideoStreamDescriptor](value, IID_IIterable_1_VideoStreamDescriptor, IID_IVectorView_1_VideoStreamDescriptor, IID_IIterator_1_VideoStreamDescriptor)
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaEncodingProfile2_SetVideoTracks, Fn_IMediaEncodingProfile2_SetVideoTracks)(it, p0).check("MediaEncodingProfile.SetVideoTracks")
+
 proc getVideoTracks*(self: MediaEncodingProfile): seq[VideoStreamDescriptor]  =
   ## Windows.Media.MediaProperties.MediaEncodingProfile.GetVideoTracks
   withIface(self.p, IID_IMediaEncodingProfile2, "IMediaEncodingProfile2", it):
@@ -27136,6 +27241,13 @@ proc getVideoTracks*(self: MediaEncodingProfile): seq[VideoStreamDescriptor]  =
     vcall(it, Slot_IMediaEncodingProfile2_GetVideoTracks, Fn_IMediaEncodingProfile2_GetVideoTracks)(it, tmp.addr).check("MediaEncodingProfile.GetVideoTracks")
     result = toSeq[VideoStreamDescriptor](tmp, IID_IVector_1_VideoStreamDescriptor)
     release(tmp)
+
+proc setTimedMetadataTracks*(self: MediaEncodingProfile, value: seq[TimedMetadataStreamDescriptor])  =
+  ## Windows.Media.MediaProperties.MediaEncodingProfile.SetTimedMetadataTracks
+  withIface(self.p, IID_IMediaEncodingProfile3, "IMediaEncodingProfile3", it):
+    let p0 = asIterable[TimedMetadataStreamDescriptor](value, IID_IIterable_1_TimedMetadataStreamDescriptor, IID_IVectorView_1_TimedMetadataStreamDescriptor, IID_IIterator_1_TimedMetadataStreamDescriptor)
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaEncodingProfile3_SetTimedMetadataTracks, Fn_IMediaEncodingProfile3_SetTimedMetadataTracks)(it, p0).check("MediaEncodingProfile.SetTimedMetadataTracks")
 
 proc getTimedMetadataTracks*(self: MediaEncodingProfile): seq[TimedMetadataStreamDescriptor]  =
   ## Windows.Media.MediaProperties.MediaEncodingProfile.GetTimedMetadataTracks
@@ -30906,6 +31018,13 @@ proc shuffledItems*(self: MediaPlaybackList): seq[MediaPlaybackItem]  =
     result = toSeq[MediaPlaybackItem](tmp, IID_IVectorView_1_MediaPlaybackItem)
     release(tmp)
 
+proc setShuffledItems*(self: MediaPlaybackList, value: seq[MediaPlaybackItem])  =
+  ## Windows.Media.Playback.MediaPlaybackList.SetShuffledItems
+  withIface(self.p, IID_IMediaPlaybackList2, "IMediaPlaybackList2", it):
+    let p0 = asIterable[MediaPlaybackItem](value, IID_IIterable_1_MediaPlaybackItem, IID_IVectorView_1_MediaPlaybackItem, IID_IIterator_1_MediaPlaybackItem)
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaPlaybackList2_SetShuffledItems, Fn_IMediaPlaybackList2_SetShuffledItems)(it, p0).check("MediaPlaybackList.SetShuffledItems")
+
 proc maxPlayedItemsToKeepOpen*(self: MediaPlaybackList): Option[uint32]  =
   ## Windows.Media.Playback.MediaPlaybackList.get_MaxPlayedItemsToKeepOpen
   withIface(self.p, IID_IMediaPlaybackList3, "IMediaPlaybackList3", it):
@@ -33917,6 +34036,25 @@ proc `probability=`*(self: SpeechRecognitionListConstraint, value: SpeechRecogni
   ## Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint.put_Probability
   withIface(self.p, IID_ISpeechRecognitionConstraint, "ISpeechRecognitionConstraint", it):
     vcall(it, Slot_ISpeechRecognitionConstraint_put_Probability, Fn_ISpeechRecognitionConstraint_put_Probability)(it, value).check("SpeechRecognitionListConstraint.put_Probability")
+
+proc create*(_: typedesc[SpeechRecognitionListConstraint], commands: seq[string]): SpeechRecognitionListConstraint  =
+  ## Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint.Create
+  withStatics("Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint", IID_ISpeechRecognitionListConstraintFactory, it):
+    let p0 = asIterableString(commands, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_ISpeechRecognitionListConstraintFactory_Create, Fn_ISpeechRecognitionListConstraintFactory_Create)(it, p0, tmp.addr).check("SpeechRecognitionListConstraint.Create")
+    result = adopt[SpeechRecognitionListConstraint](tmp)
+
+proc createWithTag*(_: typedesc[SpeechRecognitionListConstraint], commands: seq[string], tag: string): SpeechRecognitionListConstraint  =
+  ## Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint.CreateWithTag
+  withStatics("Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint", IID_ISpeechRecognitionListConstraintFactory, it):
+    let p0 = asIterableString(commands, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    withHString(tag, h1):
+      var tmp: pointer
+      vcall(it, Slot_ISpeechRecognitionListConstraintFactory_CreateWithTag, Fn_ISpeechRecognitionListConstraintFactory_CreateWithTag)(it, p0, h1, tmp.addr).check("SpeechRecognitionListConstraint.CreateWithTag")
+      result = adopt[SpeechRecognitionListConstraint](tmp)
 
 proc problem*(self: SpeechRecognitionQualityDegradingEventArgs): SpeechRecognitionAudioProblem  =
   ## Windows.Media.SpeechRecognition.SpeechRecognitionQualityDegradingEventArgs.get_Problem

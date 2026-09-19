@@ -15,6 +15,7 @@ import ./delegate
 export core, networking
 import ./asyncops
 export asyncops
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -24,15 +25,27 @@ const IID_AsyncOperationCompletedHandler_1_DownloadOperation* = GUID(
 const IID_IAsyncOperation_1_DownloadOperation* = GUID(
     data1: 0x43EF3A5F'u32, data2: 0xCC7D'u16, data3: 0x566D'u16,
     data4: [0xA9'u8, 0x2A, 0x4C, 0xAA, 0x76, 0xB9, 0x2A, 0x1F])
+const IID_IIterable_1_DownloadOperation* = GUID(
+    data1: 0xF6FD69CB'u32, data2: 0xE6E7'u16, data3: 0x56D5'u16,
+    data4: [0x9B'u8, 0xE6, 0xE0, 0xDC, 0x46, 0x83, 0xFA, 0x80])
+const IID_IVectorView_1_DownloadOperation* = GUID(
+    data1: 0xF87D9755'u32, data2: 0x2A7D'u16, data3: 0x59FC'u16,
+    data4: [0xBC'u8, 0x92, 0xB4, 0x86, 0x36, 0xF4, 0xD9, 0x55])
+const IID_IIterator_1_DownloadOperation* = GUID(
+    data1: 0x2AB61055'u32, data2: 0x2D0A'u16, data3: 0x59CB'u16,
+    data4: [0x8C'u8, 0xBD, 0x05, 0x6F, 0x2D, 0x7F, 0xB4, 0x54])
+const IID_AsyncOperationCompletedHandler_1_UnconstrainedTransferRequestResult* = GUID(
+    data1: 0x4F52BFE8'u32, data2: 0x9B0E'u16, data3: 0x5B22'u16,
+    data4: [0x91'u8, 0x6B, 0x83, 0x44, 0x25, 0xB4, 0xAB, 0x97])
+const IID_IAsyncOperation_1_UnconstrainedTransferRequestResult* = GUID(
+    data1: 0xA8DC2A04'u32, data2: 0x3F44'u16, data3: 0x5046'u16,
+    data4: [0x81'u8, 0x82, 0xCD, 0x0E, 0xC1, 0x47, 0xE1, 0x7D])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_1* = GUID(
     data1: 0x1986B372'u32, data2: 0x0DDB'u16, data3: 0x520C'u16,
     data4: [0xB7'u8, 0x2D, 0xFB, 0x25, 0x77, 0xE9, 0x9F, 0xF5])
 const IID_IAsyncOperation_1_IVectorView_1* = GUID(
     data1: 0xAE42CDDF'u32, data2: 0x3042'u16, data3: 0x5D92'u16,
     data4: [0xA0'u8, 0x1E, 0x64, 0x3C, 0x25, 0x2B, 0x80, 0x50])
-const IID_IVectorView_1_DownloadOperation* = GUID(
-    data1: 0xF87D9755'u32, data2: 0x2A7D'u16, data3: 0x59FC'u16,
-    data4: [0xBC'u8, 0x92, 0xB4, 0x86, 0x36, 0xF4, 0xD9, 0x55])
 const IID_IVectorView_1_UploadOperation* = GUID(
     data1: 0x8E96D4B0'u32, data2: 0xF0AE'u16, data3: 0x51CB'u16,
     data4: [0xB7'u8, 0xC4, 0x02, 0x42, 0x51, 0xBD, 0x16, 0xD8])
@@ -42,6 +55,21 @@ const IID_AsyncOperationCompletedHandler_1_UploadOperation* = GUID(
 const IID_IAsyncOperation_1_UploadOperation* = GUID(
     data1: 0x44212EA1'u32, data2: 0xB524'u16, data3: 0x5AEE'u16,
     data4: [0xA3'u8, 0x20, 0x71, 0x99, 0x22, 0x53, 0x81, 0xD1])
+const IID_IIterable_1_BackgroundTransferContentPart* = GUID(
+    data1: 0xCF303199'u32, data2: 0xDE3B'u16, data3: 0x5DAC'u16,
+    data4: [0xA7'u8, 0x03, 0x6C, 0x57, 0xD8, 0x08, 0x21, 0xC4])
+const IID_IVectorView_1_BackgroundTransferContentPart* = GUID(
+    data1: 0x33D569DB'u32, data2: 0x197C'u16, data3: 0x5717'u16,
+    data4: [0x94'u8, 0x5D, 0x87, 0xFD, 0xFC, 0x33, 0x93, 0x02])
+const IID_IIterator_1_BackgroundTransferContentPart* = GUID(
+    data1: 0x07FBC351'u32, data2: 0x781D'u16, data3: 0x52C7'u16,
+    data4: [0x95'u8, 0x58, 0xA4, 0x53, 0xE5, 0x70, 0x3F, 0x29])
+const IID_IIterable_1_UploadOperation* = GUID(
+    data1: 0x79778799'u32, data2: 0x38CC'u16, data3: 0x5B67'u16,
+    data4: [0x9C'u8, 0xD0, 0x04, 0x3F, 0xC4, 0x7A, 0x9E, 0xF7])
+const IID_IIterator_1_UploadOperation* = GUID(
+    data1: 0xCAA85133'u32, data2: 0x73D7'u16, data3: 0x5F96'u16,
+    data4: [0xAB'u8, 0x2D, 0xFB, 0xB4, 0xFA, 0x00, 0xF7, 0x15])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_12* = GUID(
     data1: 0x608A29A8'u32, data2: 0xBBC5'u16, data3: 0x5EA3'u16,
     data4: [0xB3'u8, 0xF7, 0x87, 0xED, 0xC4, 0xE7, 0xBB, 0xBC])
@@ -150,6 +178,15 @@ const IID_AsyncOperationCompletedHandler_1_ProxyConfiguration* = GUID(
 const IID_IAsyncOperation_1_ProxyConfiguration* = GUID(
     data1: 0x1E7651F6'u32, data2: 0x6562'u16, data3: 0x59C7'u16,
     data4: [0x9A'u8, 0xF3, 0x87, 0x56, 0x63, 0x6E, 0xEE, 0xE2])
+const IID_IIterable_1_EndpointPair* = GUID(
+    data1: 0xD7EC83C4'u32, data2: 0xA17B'u16, data3: 0x51BF'u16,
+    data4: [0x89'u8, 0x97, 0xAA, 0x33, 0xB9, 0x10, 0x2D, 0xC9])
+const IID_IVectorView_1_EndpointPair* = GUID(
+    data1: 0x8780A851'u32, data2: 0x6D48'u16, data3: 0x5006'u16,
+    data4: [0x92'u8, 0x88, 0x81, 0xF3, 0xD7, 0x04, 0x5A, 0x96])
+const IID_IIterator_1_EndpointPair* = GUID(
+    data1: 0xC899FF9F'u32, data2: 0xE6F5'u16, data3: 0x5673'u16,
+    data4: [0x81'u8, 0x0C, 0x04, 0xE2, 0xFF, 0x98, 0x70, 0x4F])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_17* = GUID(
     data1: 0xC523D9DD'u32, data2: 0x4EA6'u16, data3: 0x5115'u16,
     data4: [0x80'u8, 0xE9, 0x4E, 0x7A, 0xD4, 0x76, 0x97, 0x98])
@@ -324,6 +361,12 @@ const IID_IVectorView_1_MobileBroadbandAntennaSar* = GUID(
 const IID_TypedEventHandler_2_MobileBroadbandSarManager_MobileBroadbandTransmissionStateChangedEventArgs* = GUID(
     data1: 0x540C4534'u32, data2: 0xCD85'u16, data3: 0x5ABE'u16,
     data4: [0x80'u8, 0x13, 0x13, 0xCB, 0x14, 0x0E, 0xD1, 0x8B])
+const IID_IIterable_1_MobileBroadbandAntennaSar* = GUID(
+    data1: 0xFD66B9AC'u32, data2: 0x40DC'u16, data3: 0x5AC7'u16,
+    data4: [0xAA'u8, 0xF1, 0x2D, 0x34, 0x03, 0xE5, 0xFC, 0xBB])
+const IID_IIterator_1_MobileBroadbandAntennaSar* = GUID(
+    data1: 0x03327F15'u32, data2: 0xE40F'u16, data3: 0x52D1'u16,
+    data4: [0xBB'u8, 0x6C, 0xBE, 0xBB, 0xD8, 0x15, 0x51, 0x34])
 const IID_IVectorView_1_MobileBroadbandSlotInfo* = GUID(
     data1: 0xC72D12EE'u32, data2: 0x6A4A'u16, data3: 0x5980'u16,
     data4: [0xAD'u8, 0x00, 0x8B, 0xF7, 0xFC, 0x85, 0x48, 0x55])
@@ -420,9 +463,6 @@ const IID_AsyncOperationCompletedHandler_1_IVectorView_19* = GUID(
 const IID_IAsyncOperation_1_IVectorView_19* = GUID(
     data1: 0xAFC2FF8E'u32, data2: 0xE393'u16, data3: 0x566A'u16,
     data4: [0x89'u8, 0xC4, 0xD0, 0x43, 0xE9, 0x40, 0x05, 0x0D])
-const IID_IVectorView_1_EndpointPair* = GUID(
-    data1: 0x8780A851'u32, data2: 0x6D48'u16, data3: 0x5006'u16,
-    data4: [0x92'u8, 0x88, 0x81, 0xF3, 0xD7, 0x04, 0x5A, 0x96])
 const IID_TypedEventHandler_2_MessageWebSocket_MessageWebSocketMessageReceivedEventArgs* = GUID(
     data1: 0xDE980538'u32, data2: 0x6DCD'u16, data3: 0x52B0'u16,
     data4: [0x80'u8, 0x2F, 0x4B, 0x6C, 0xF5, 0x9A, 0x01, 0xAB])
@@ -456,6 +496,12 @@ const IID_TypedEventHandler_2_StreamSocketListener_StreamSocketListenerConnectio
 const IID_TypedEventHandler_2_StreamWebSocket_WebSocketServerCustomValidationRequestedEventArgs* = GUID(
     data1: 0x18B143D3'u32, data2: 0x897E'u16, data3: 0x595E'u16,
     data4: [0xAC'u8, 0xC1, 0xEF, 0x35, 0x61, 0x4B, 0x4C, 0xEC])
+const IID_IIterable_1_HostName* = GUID(
+    data1: 0x9E5F3ED0'u32, data2: 0xCF1C'u16, data3: 0x5D38'u16,
+    data4: [0x83'u8, 0x2C, 0xAC, 0xEA, 0x61, 0x64, 0xBF, 0x5C])
+const IID_IIterator_1_HostName* = GUID(
+    data1: 0x557BF83C'u32, data2: 0xA428'u16, data3: 0x5DBD'u16,
+    data4: [0xA0'u8, 0xFE, 0x05, 0xF6, 0xEE, 0x54, 0x3D, 0x45])
 const IID_TypedEventHandler_2_VpnChannel_VpnChannelActivityEventArgs* = GUID(
     data1: 0x39907949'u32, data2: 0xA8CC'u16, data3: 0x5CE5'u16,
     data4: [0x9E'u8, 0x0A, 0x06, 0xE3, 0xB2, 0xD3, 0x15, 0x70])
@@ -468,6 +514,12 @@ const IID_AsyncOperationCompletedHandler_1_VpnCredential* = GUID(
 const IID_IAsyncOperation_1_VpnCredential* = GUID(
     data1: 0x216A6F97'u32, data2: 0xDBA1'u16, data3: 0x5F71'u16,
     data4: [0xA1'u8, 0x4B, 0x28, 0x18, 0xAD, 0x3C, 0x4C, 0x69])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
 const IID_IVector_1_VpnDomainNameInfo* = GUID(
     data1: 0x8179B6F2'u32, data2: 0x7273'u16, data3: 0x5CA3'u16,
     data4: [0xA8'u8, 0x1B, 0x53, 0xE9, 0x02, 0xCA, 0x20, 0x9B])
@@ -3817,6 +3869,15 @@ proc completionGroup*(self: BackgroundDownloader): BackgroundTransferCompletionG
     vcall(it, Slot_IBackgroundDownloader3_get_CompletionGroup, Fn_IBackgroundDownloader3_get_CompletionGroup)(it, tmp.addr).check("BackgroundDownloader.get_CompletionGroup")
     result = adopt[BackgroundTransferCompletionGroup](tmp)
 
+proc requestUnconstrainedDownloadsAsync*(_: typedesc[BackgroundDownloader], operations: seq[DownloadOperation]): Future[UnconstrainedTransferRequestResult] {.async.} =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.RequestUnconstrainedDownloadsAsync
+  var op: pointer
+  withStatics("Windows.Networking.BackgroundTransfer.BackgroundDownloader", IID_IBackgroundDownloaderUserConsent, it):
+    let p0 = asIterable[DownloadOperation](operations, IID_IIterable_1_DownloadOperation, IID_IVectorView_1_DownloadOperation, IID_IIterator_1_DownloadOperation)
+    defer: discard release(p0)
+    vcall(it, Slot_IBackgroundDownloaderUserConsent_RequestUnconstrainedDownloadsAsync, Fn_IBackgroundDownloaderUserConsent_RequestUnconstrainedDownloadsAsync)(it, p0, op.addr).check("BackgroundDownloader.RequestUnconstrainedDownloadsAsync")
+  result = adopt[UnconstrainedTransferRequestResult](await awaitObject(op, IID_IAsyncOperation_1_UnconstrainedTransferRequestResult, IID_AsyncOperationCompletedHandler_1_UnconstrainedTransferRequestResult, "BackgroundDownloader.RequestUnconstrainedDownloadsAsync"))
+
 proc getCurrentDownloadsForTransferGroupAsync*(_: typedesc[BackgroundDownloader], group: BackgroundTransferGroup): Future[seq[DownloadOperation]] {.async.} =
   ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.GetCurrentDownloadsForTransferGroupAsync
   var op: pointer
@@ -3993,6 +4054,39 @@ proc createUploadFromStreamAsync*(self: BackgroundUploader, uri: Uri, sourceStre
       vcall(it, Slot_IBackgroundUploader_CreateUploadFromStreamAsync, Fn_IBackgroundUploader_CreateUploadFromStreamAsync)(it, p0, sourceStream, op.addr).check("BackgroundUploader.CreateUploadFromStreamAsync")
   result = adopt[UploadOperation](await awaitObject(op, IID_IAsyncOperation_1_UploadOperation, IID_AsyncOperationCompletedHandler_1_UploadOperation, "BackgroundUploader.CreateUploadFromStreamAsync"))
 
+proc createUploadAsync*(self: BackgroundUploader, uri: Uri, parts: seq[BackgroundTransferContentPart]): Future[UploadOperation] {.async.} =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateUploadAsync
+  var op: pointer
+  withIface(self.p, IID_IBackgroundUploader, "IBackgroundUploader", it):
+    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[BackgroundTransferContentPart](parts, IID_IIterable_1_BackgroundTransferContentPart, IID_IVectorView_1_BackgroundTransferContentPart, IID_IIterator_1_BackgroundTransferContentPart)
+      defer: discard release(p1)
+      vcall(it, Slot_IBackgroundUploader_CreateUploadAsync, Fn_IBackgroundUploader_CreateUploadAsync)(it, p0, p1, op.addr).check("BackgroundUploader.CreateUploadAsync")
+  result = adopt[UploadOperation](await awaitObject(op, IID_IAsyncOperation_1_UploadOperation, IID_AsyncOperationCompletedHandler_1_UploadOperation, "BackgroundUploader.CreateUploadAsync"))
+
+proc createUploadAsync*(self: BackgroundUploader, uri: Uri, parts: seq[BackgroundTransferContentPart], subType: string): Future[UploadOperation] {.async.} =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateUploadAsync
+  var op: pointer
+  withIface(self.p, IID_IBackgroundUploader, "IBackgroundUploader", it):
+    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[BackgroundTransferContentPart](parts, IID_IIterable_1_BackgroundTransferContentPart, IID_IVectorView_1_BackgroundTransferContentPart, IID_IIterator_1_BackgroundTransferContentPart)
+      defer: discard release(p1)
+      withHString(subType, h2):
+        vcall(it, Slot_IBackgroundUploader_CreateUploadAsync2, Fn_IBackgroundUploader_CreateUploadAsync2)(it, p0, p1, h2, op.addr).check("BackgroundUploader.CreateUploadAsync")
+  result = adopt[UploadOperation](await awaitObject(op, IID_IAsyncOperation_1_UploadOperation, IID_AsyncOperationCompletedHandler_1_UploadOperation, "BackgroundUploader.CreateUploadAsync"))
+
+proc createUploadAsync*(self: BackgroundUploader, uri: Uri, parts: seq[BackgroundTransferContentPart], subType: string, boundary: string): Future[UploadOperation] {.async.} =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateUploadAsync
+  var op: pointer
+  withIface(self.p, IID_IBackgroundUploader, "IBackgroundUploader", it):
+    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[BackgroundTransferContentPart](parts, IID_IIterable_1_BackgroundTransferContentPart, IID_IVectorView_1_BackgroundTransferContentPart, IID_IIterator_1_BackgroundTransferContentPart)
+      defer: discard release(p1)
+      withHString(subType, h2):
+        withHString(boundary, h3):
+          vcall(it, Slot_IBackgroundUploader_CreateUploadAsync3, Fn_IBackgroundUploader_CreateUploadAsync3)(it, p0, p1, h2, h3, op.addr).check("BackgroundUploader.CreateUploadAsync")
+  result = adopt[UploadOperation](await awaitObject(op, IID_IAsyncOperation_1_UploadOperation, IID_AsyncOperationCompletedHandler_1_UploadOperation, "BackgroundUploader.CreateUploadAsync"))
+
 proc setRequestHeader*(self: BackgroundUploader, headerName: string, headerValue: string)  =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.SetRequestHeader
   withIface(self.p, IID_IBackgroundTransferBase, "IBackgroundTransferBase", it):
@@ -4057,6 +4151,15 @@ proc completionGroup*(self: BackgroundUploader): BackgroundTransferCompletionGro
     var tmp: pointer
     vcall(it, Slot_IBackgroundUploader3_get_CompletionGroup, Fn_IBackgroundUploader3_get_CompletionGroup)(it, tmp.addr).check("BackgroundUploader.get_CompletionGroup")
     result = adopt[BackgroundTransferCompletionGroup](tmp)
+
+proc requestUnconstrainedUploadsAsync*(_: typedesc[BackgroundUploader], operations: seq[UploadOperation]): Future[UnconstrainedTransferRequestResult] {.async.} =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.RequestUnconstrainedUploadsAsync
+  var op: pointer
+  withStatics("Windows.Networking.BackgroundTransfer.BackgroundUploader", IID_IBackgroundUploaderUserConsent, it):
+    let p0 = asIterable[UploadOperation](operations, IID_IIterable_1_UploadOperation, IID_IVectorView_1_UploadOperation, IID_IIterator_1_UploadOperation)
+    defer: discard release(p0)
+    vcall(it, Slot_IBackgroundUploaderUserConsent_RequestUnconstrainedUploadsAsync, Fn_IBackgroundUploaderUserConsent_RequestUnconstrainedUploadsAsync)(it, p0, op.addr).check("BackgroundUploader.RequestUnconstrainedUploadsAsync")
+  result = adopt[UnconstrainedTransferRequestResult](await awaitObject(op, IID_IAsyncOperation_1_UnconstrainedTransferRequestResult, IID_AsyncOperationCompletedHandler_1_UnconstrainedTransferRequestResult, "BackgroundUploader.RequestUnconstrainedUploadsAsync"))
 
 proc getCurrentUploadsForTransferGroupAsync*(_: typedesc[BackgroundUploader], group: BackgroundTransferGroup): Future[seq[UploadOperation]] {.async.} =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.GetCurrentUploadsForTransferGroupAsync
@@ -5122,6 +5225,16 @@ proc getProxyConfigurationAsync*(_: typedesc[NetworkInformation], uri: Uri): Fut
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_INetworkInformationStatics_GetProxyConfigurationAsync, Fn_INetworkInformationStatics_GetProxyConfigurationAsync)(it, p0, op.addr).check("NetworkInformation.GetProxyConfigurationAsync")
   result = adopt[ProxyConfiguration](await awaitObject(op, IID_IAsyncOperation_1_ProxyConfiguration, IID_AsyncOperationCompletedHandler_1_ProxyConfiguration, "NetworkInformation.GetProxyConfigurationAsync"))
+
+proc getSortedEndpointPairs*(_: typedesc[NetworkInformation], destinationList: seq[EndpointPair], sortOptions: HostNameSortOptions): seq[EndpointPair]  =
+  ## Windows.Networking.Connectivity.NetworkInformation.GetSortedEndpointPairs
+  withStatics("Windows.Networking.Connectivity.NetworkInformation", IID_INetworkInformationStatics, it):
+    let p0 = asIterable[EndpointPair](destinationList, IID_IIterable_1_EndpointPair, IID_IVectorView_1_EndpointPair, IID_IIterator_1_EndpointPair)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_INetworkInformationStatics_GetSortedEndpointPairs, Fn_INetworkInformationStatics_GetSortedEndpointPairs)(it, p0, sortOptions, tmp.addr).check("NetworkInformation.GetSortedEndpointPairs")
+    result = toSeq[EndpointPair](tmp, IID_IVectorView_1_EndpointPair)
+    release(tmp)
 
 proc removeNetworkStatusChanged*(_: typedesc[NetworkInformation], token: EventRegistrationToken) =
   withStatics("Windows.Networking.Connectivity.NetworkInformation", IID_INetworkInformationStatics, it):
@@ -7799,6 +7912,15 @@ proc disableBackoffAsync*(self: MobileBroadbandSarManager) {.async.} =
   withIface(self.p, IID_IMobileBroadbandSarManager, "IMobileBroadbandSarManager", it):
     vcall(it, Slot_IMobileBroadbandSarManager_DisableBackoffAsync, Fn_IMobileBroadbandSarManager_DisableBackoffAsync)(it, op.addr).check("MobileBroadbandSarManager.DisableBackoffAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MobileBroadbandSarManager.DisableBackoffAsync")
+
+proc setConfigurationAsync*(self: MobileBroadbandSarManager, antennas: seq[MobileBroadbandAntennaSar]) {.async.} =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandSarManager.SetConfigurationAsync
+  var op: pointer
+  withIface(self.p, IID_IMobileBroadbandSarManager, "IMobileBroadbandSarManager", it):
+    let p0 = asIterable[MobileBroadbandAntennaSar](antennas, IID_IIterable_1_MobileBroadbandAntennaSar, IID_IVectorView_1_MobileBroadbandAntennaSar, IID_IIterator_1_MobileBroadbandAntennaSar)
+    defer: discard release(p0)
+    vcall(it, Slot_IMobileBroadbandSarManager_SetConfigurationAsync, Fn_IMobileBroadbandSarManager_SetConfigurationAsync)(it, p0, op.addr).check("MobileBroadbandSarManager.SetConfigurationAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "MobileBroadbandSarManager.SetConfigurationAsync")
 
 proc revertSarToHardwareControlAsync*(self: MobileBroadbandSarManager) {.async.} =
   ## Windows.Networking.NetworkOperators.MobileBroadbandSarManager.RevertSarToHardwareControlAsync
@@ -11025,6 +11147,18 @@ proc associateTransport*(self: VpnChannel, mainOuterTunnelTransport: pointer, op
   withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
     vcall(it, Slot_IVpnChannel_AssociateTransport, Fn_IVpnChannel_AssociateTransport)(it, mainOuterTunnelTransport, optionalOuterTunnelTransport).check("VpnChannel.AssociateTransport")
 
+proc start*(self: VpnChannel, assignedClientIPv4list: seq[HostName], assignedClientIPv6list: seq[HostName], vpnInterfaceId: VpnInterfaceId, routeScope: VpnRouteAssignment, namespaceScope: VpnNamespaceAssignment, mtuSize: uint32, maxFrameSize: uint32, optimizeForLowCostNetwork: bool, mainOuterTunnelTransport: pointer, optionalOuterTunnelTransport: pointer)  =
+  ## Windows.Networking.Vpn.VpnChannel.Start
+  withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
+    let p0 = asIterable[HostName](assignedClientIPv4list, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
+    defer: discard release(p0)
+    let p1 = asIterable[HostName](assignedClientIPv6list, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
+    defer: discard release(p1)
+    withIface(vpnInterfaceId.p, IID_IVpnInterfaceId, "IVpnInterfaceId", p2):
+      withIface(routeScope.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", p3):
+        withIface(namespaceScope.p, IID_IVpnNamespaceAssignment, "IVpnNamespaceAssignment", p4):
+          vcall(it, Slot_IVpnChannel_Start, Fn_IVpnChannel_Start)(it, p0, p1, p2, p3, p4, mtuSize, maxFrameSize, optimizeForLowCostNetwork, mainOuterTunnelTransport, optionalOuterTunnelTransport).check("VpnChannel.Start")
+
 proc stop*(self: VpnChannel)  =
   ## Windows.Networking.Vpn.VpnChannel.Stop
   withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
@@ -11105,6 +11239,30 @@ proc setAllowedSslTlsVersions*(self: VpnChannel, tunnelTransport: pointer, useTl
   withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
     vcall(it, Slot_IVpnChannel_SetAllowedSslTlsVersions, Fn_IVpnChannel_SetAllowedSslTlsVersions)(it, tunnelTransport, useTls12).check("VpnChannel.SetAllowedSslTlsVersions")
 
+proc startWithMainTransport*(self: VpnChannel, assignedClientIPv4list: seq[HostName], assignedClientIPv6list: seq[HostName], vpnInterfaceId: VpnInterfaceId, assignedRoutes: VpnRouteAssignment, assignedDomainName: VpnDomainNameAssignment, mtuSize: uint32, maxFrameSize: uint32, reserved: bool, mainOuterTunnelTransport: pointer)  =
+  ## Windows.Networking.Vpn.VpnChannel.StartWithMainTransport
+  withIface(self.p, IID_IVpnChannel2, "IVpnChannel2", it):
+    let p0 = asIterable[HostName](assignedClientIPv4list, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
+    defer: discard release(p0)
+    let p1 = asIterable[HostName](assignedClientIPv6list, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
+    defer: discard release(p1)
+    withIface(vpnInterfaceId.p, IID_IVpnInterfaceId, "IVpnInterfaceId", p2):
+      withIface(assignedRoutes.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", p3):
+        withIface(assignedDomainName.p, IID_IVpnDomainNameAssignment, "IVpnDomainNameAssignment", p4):
+          vcall(it, Slot_IVpnChannel2_StartWithMainTransport, Fn_IVpnChannel2_StartWithMainTransport)(it, p0, p1, p2, p3, p4, mtuSize, maxFrameSize, reserved, mainOuterTunnelTransport).check("VpnChannel.StartWithMainTransport")
+
+proc startExistingTransports*(self: VpnChannel, assignedClientIPv4list: seq[HostName], assignedClientIPv6list: seq[HostName], vpnInterfaceId: VpnInterfaceId, assignedRoutes: VpnRouteAssignment, assignedDomainName: VpnDomainNameAssignment, mtuSize: uint32, maxFrameSize: uint32, reserved: bool)  =
+  ## Windows.Networking.Vpn.VpnChannel.StartExistingTransports
+  withIface(self.p, IID_IVpnChannel2, "IVpnChannel2", it):
+    let p0 = asIterable[HostName](assignedClientIPv4list, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
+    defer: discard release(p0)
+    let p1 = asIterable[HostName](assignedClientIPv6list, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
+    defer: discard release(p1)
+    withIface(vpnInterfaceId.p, IID_IVpnInterfaceId, "IVpnInterfaceId", p2):
+      withIface(assignedRoutes.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", p3):
+        withIface(assignedDomainName.p, IID_IVpnDomainNameAssignment, "IVpnDomainNameAssignment", p4):
+          vcall(it, Slot_IVpnChannel2_StartExistingTransports, Fn_IVpnChannel2_StartExistingTransports)(it, p0, p1, p2, p3, p4, mtuSize, maxFrameSize, reserved).check("VpnChannel.StartExistingTransports")
+
 proc onActivityStateChange*(self: VpnChannel,
     handler: proc(sender: pointer, args: VpnChannelActivityStateChangedArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Networking.Vpn.VpnChannel.add_ActivityStateChange
@@ -11157,6 +11315,19 @@ proc terminateConnection*(self: VpnChannel, message: string)  =
   withIface(self.p, IID_IVpnChannel2, "IVpnChannel2", it):
     withHString(message, h0):
       vcall(it, Slot_IVpnChannel2_TerminateConnection, Fn_IVpnChannel2_TerminateConnection)(it, h0).check("VpnChannel.TerminateConnection")
+
+proc startWithTrafficFilter*(self: VpnChannel, assignedClientIpv4List: seq[HostName], assignedClientIpv6List: seq[HostName], vpnInterfaceId: VpnInterfaceId, assignedRoutes: VpnRouteAssignment, assignedNamespace: VpnDomainNameAssignment, mtuSize: uint32, maxFrameSize: uint32, reserved: bool, mainOuterTunnelTransport: pointer, optionalOuterTunnelTransport: pointer, assignedTrafficFilters: VpnTrafficFilterAssignment)  =
+  ## Windows.Networking.Vpn.VpnChannel.StartWithTrafficFilter
+  withIface(self.p, IID_IVpnChannel2, "IVpnChannel2", it):
+    let p0 = asIterable[HostName](assignedClientIpv4List, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
+    defer: discard release(p0)
+    let p1 = asIterable[HostName](assignedClientIpv6List, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
+    defer: discard release(p1)
+    withIface(vpnInterfaceId.p, IID_IVpnInterfaceId, "IVpnInterfaceId", p2):
+      withIface(assignedRoutes.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", p3):
+        withIface(assignedNamespace.p, IID_IVpnDomainNameAssignment, "IVpnDomainNameAssignment", p4):
+          withIface(assignedTrafficFilters.p, IID_IVpnTrafficFilterAssignment, "IVpnTrafficFilterAssignment", p10):
+            vcall(it, Slot_IVpnChannel2_StartWithTrafficFilter, Fn_IVpnChannel2_StartWithTrafficFilter)(it, p0, p1, p2, p3, p4, mtuSize, maxFrameSize, reserved, mainOuterTunnelTransport, optionalOuterTunnelTransport, p10).check("VpnChannel.StartWithTrafficFilter")
 
 proc addAndAssociateTransport*(self: VpnChannel, transport: pointer, context: pointer)  =
   ## Windows.Networking.Vpn.VpnChannel.AddAndAssociateTransport
@@ -11337,6 +11508,13 @@ proc bordered*(self: VpnCustomCheckBox): bool  =
 proc newVpnCustomComboBox*(): VpnCustomComboBox =
   ## Activate a `Windows.Networking.Vpn.VpnCustomComboBox`.
   adopt[VpnCustomComboBox](activateAs("Windows.Networking.Vpn.VpnCustomComboBox", IID_IVpnCustomComboBox))
+
+proc `optionsText=`*(self: VpnCustomComboBox, value: seq[string])  =
+  ## Windows.Networking.Vpn.VpnCustomComboBox.put_OptionsText
+  withIface(self.p, IID_IVpnCustomComboBox, "IVpnCustomComboBox", it):
+    let p0 = asIterableString(value, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IVpnCustomComboBox_put_OptionsText, Fn_IVpnCustomComboBox_put_OptionsText)(it, p0).check("VpnCustomComboBox.put_OptionsText")
 
 proc optionsText*(self: VpnCustomComboBox): seq[string]  =
   ## Windows.Networking.Vpn.VpnCustomComboBox.get_OptionsText
@@ -11874,6 +12052,18 @@ proc webProxyUris*(self: VpnDomainNameInfo): seq[Uri]  =
     vcall(it, Slot_IVpnDomainNameInfo2_get_WebProxyUris, Fn_IVpnDomainNameInfo2_get_WebProxyUris)(it, tmp.addr).check("VpnDomainNameInfo.get_WebProxyUris")
     result = toSeq[Uri](tmp, IID_IVector_1_Uri)
     release(tmp)
+
+proc createVpnDomainNameInfo*(_: typedesc[VpnDomainNameInfo], name: string, nameType: VpnDomainNameType, dnsServerList: seq[HostName], proxyServerList: seq[HostName]): VpnDomainNameInfo  =
+  ## Windows.Networking.Vpn.VpnDomainNameInfo.CreateVpnDomainNameInfo
+  withStatics("Windows.Networking.Vpn.VpnDomainNameInfo", IID_IVpnDomainNameInfoFactory, it):
+    withHString(name, h0):
+      let p2 = asIterable[HostName](dnsServerList, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
+      defer: discard release(p2)
+      let p3 = asIterable[HostName](proxyServerList, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
+      defer: discard release(p3)
+      var tmp: pointer
+      vcall(it, Slot_IVpnDomainNameInfoFactory_CreateVpnDomainNameInfo, Fn_IVpnDomainNameInfoFactory_CreateVpnDomainNameInfo)(it, h0, nameType, p2, p3, tmp.addr).check("VpnDomainNameInfo.CreateVpnDomainNameInfo")
+      result = adopt[VpnDomainNameInfo](tmp)
 
 proc profileName*(self: VpnForegroundActivatedEventArgs): string  =
   ## Windows.Networking.Vpn.VpnForegroundActivatedEventArgs.get_ProfileName

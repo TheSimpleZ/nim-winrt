@@ -15,6 +15,7 @@ import ./delegate
 export core, management
 import ./asyncops
 export asyncops
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -27,6 +28,15 @@ const IID_IVector_1_String* = GUID(
 const IID_IVector_1_SharedPackageContainerMember* = GUID(
     data1: 0x45787BB3'u32, data2: 0x2770'u16, data3: 0x5086'u16,
     data4: [0x95'u8, 0x46, 0x51, 0x11, 0x41, 0xEF, 0x72, 0x89])
+const IID_IIterable_1_Uri* = GUID(
+    data1: 0xB0D63B78'u32, data2: 0x78AD'u16, data3: 0x5E31'u16,
+    data4: [0xB6'u8, 0xD8, 0xE3, 0x2A, 0x0E, 0x16, 0xC4, 0x47])
+const IID_IVectorView_1_Uri* = GUID(
+    data1: 0x4B8385BD'u32, data2: 0xA2CD'u16, data3: 0x5FF1'u16,
+    data4: [0xBF'u8, 0x74, 0x7E, 0xA5, 0x80, 0x42, 0x3E, 0x50])
+const IID_IIterator_1_Uri* = GUID(
+    data1: 0x1C157D0F'u32, data2: 0x5EFE'u16, data3: 0x5CEC'u16,
+    data4: [0xBB'u8, 0xD6, 0x0C, 0x6C, 0xE9, 0xAF, 0x07, 0xA5])
 const IID_AsyncOperationCompletedHandler_1_DeploymentResult* = GUID(
     data1: 0x64415F25'u32, data2: 0x5997'u16, data3: 0x580D'u16,
     data4: [0xA2'u8, 0xBA, 0xF3, 0x8F, 0xB9, 0x64, 0xED, 0x30])
@@ -36,6 +46,15 @@ const IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress* = G
 const IID_IIterable_1_PackageUserInformation* = GUID(
     data1: 0x341348B9'u32, data2: 0x52C8'u16, data3: 0x5B57'u16,
     data4: [0x9E'u8, 0x91, 0xF1, 0x9F, 0x2A, 0x05, 0xB1, 0x88])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
 const IID_AsyncOperationCompletedHandler_1_PackageVolume* = GUID(
     data1: 0x35FEE361'u32, data2: 0x6CEA'u16, data3: 0x5E5C'u16,
     data4: [0x8E'u8, 0xDA, 0x34, 0xB3, 0xF2, 0x2D, 0xF4, 0xE7])
@@ -66,9 +85,12 @@ const IID_IVector_1_SharedPackageContainer* = GUID(
 const IID_IVectorView_1_MdmAlert* = GUID(
     data1: 0x2B94038C'u32, data2: 0x24AA'u16, data3: 0x5261'u16,
     data4: [0x80'u8, 0xD8, 0xC9, 0x0F, 0x79, 0x70, 0x64, 0x4A])
-const IID_IVectorView_1_String* = GUID(
-    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
-    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IIterable_1_MdmAlert* = GUID(
+    data1: 0xA0A617DC'u32, data2: 0x210C'u16, data3: 0x529F'u16,
+    data4: [0xB5'u8, 0xE9, 0x29, 0xAE, 0xCE, 0xEB, 0xB5, 0xA8])
+const IID_IIterator_1_MdmAlert* = GUID(
+    data1: 0xB4A6EBEA'u32, data2: 0xB19F'u16, data3: 0x5DA5'u16,
+    data4: [0xB3'u8, 0xD1, 0xE8, 0x59, 0xF1, 0xF4, 0xDF, 0x17])
 const IID_TypedEventHandler_2_NamedPolicyData_Object* = GUID(
     data1: 0x791A3C00'u32, data2: 0x5AA2'u16, data3: 0x5F0E'u16,
     data4: [0xBB'u8, 0x17, 0x34, 0x80, 0xBC, 0x2D, 0x96, 0xCC])
@@ -117,9 +139,15 @@ const IID_IVectorView_1_WindowsSoftwareUpdateProviderPayloadFileInfo* = GUID(
 const IID_TypedEventHandler_2_WindowsSoftwareUpdateProviderStatus_Object* = GUID(
     data1: 0x94CA7CF1'u32, data2: 0x04A6'u16, data3: 0x5F11'u16,
     data4: [0x81'u8, 0xCF, 0x54, 0x02, 0xD7, 0x71, 0x27, 0x13])
+const IID_IIterable_1_WindowsSoftwareUpdate* = GUID(
+    data1: 0xD0CBAACD'u32, data2: 0x54BE'u16, data3: 0x5C60'u16,
+    data4: [0x81'u8, 0x81, 0x16, 0x88, 0x9D, 0xB6, 0x2D, 0x34])
 const IID_IVectorView_1_WindowsSoftwareUpdate* = GUID(
     data1: 0xE71BA25E'u32, data2: 0x3701'u16, data3: 0x506E'u16,
     data4: [0xAF'u8, 0xBB, 0x0A, 0xC1, 0xB0, 0xE7, 0x20, 0x5C])
+const IID_IIterator_1_WindowsSoftwareUpdate* = GUID(
+    data1: 0x2FE5FD91'u32, data2: 0x092B'u16, data3: 0x5C79'u16,
+    data4: [0xA2'u8, 0xBC, 0xDD, 0x3A, 0x09, 0x6C, 0x3D, 0xD1])
 const IID_IVectorView_1_WindowsUpdate* = GUID(
     data1: 0x1EEF9339'u32, data2: 0x6038'u16, data3: 0x5751'u16,
     data4: [0xB5'u8, 0xAE, 0xBD, 0x89, 0xC1, 0x7A, 0x87, 0x41])
@@ -1841,6 +1869,26 @@ proc newPackageManager*(): PackageManager =
   ## Activate a `Windows.Management.Deployment.PackageManager`.
   adopt[PackageManager](activateAs("Windows.Management.Deployment.PackageManager", IID_IPackageManager))
 
+proc addPackageAsync*(self: PackageManager, packageUri: Uri, dependencyPackageUris: seq[Uri], deploymentOptions: DeploymentOptions): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.AddPackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    withIface(packageUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      vcall(it, Slot_IPackageManager_AddPackageAsync, Fn_IPackageManager_AddPackageAsync)(it, p0, p1, deploymentOptions, op.addr).check("PackageManager.AddPackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.AddPackageAsync"))
+
+proc updatePackageAsync*(self: PackageManager, packageUri: Uri, dependencyPackageUris: seq[Uri], deploymentOptions: DeploymentOptions): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.UpdatePackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    withIface(packageUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      vcall(it, Slot_IPackageManager_UpdatePackageAsync, Fn_IPackageManager_UpdatePackageAsync)(it, p0, p1, deploymentOptions, op.addr).check("PackageManager.UpdatePackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.UpdatePackageAsync"))
+
 proc removePackageAsync*(self: PackageManager, packageFullName: string): Future[DeploymentResult] {.async.} =
   ## Windows.Management.Deployment.PackageManager.RemovePackageAsync
   var op: pointer
@@ -1848,6 +1896,26 @@ proc removePackageAsync*(self: PackageManager, packageFullName: string): Future[
     withHString(packageFullName, h0):
       vcall(it, Slot_IPackageManager_RemovePackageAsync, Fn_IPackageManager_RemovePackageAsync)(it, h0, op.addr).check("PackageManager.RemovePackageAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RemovePackageAsync"))
+
+proc stagePackageAsync*(self: PackageManager, packageUri: Uri, dependencyPackageUris: seq[Uri]): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.StagePackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    withIface(packageUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      vcall(it, Slot_IPackageManager_StagePackageAsync, Fn_IPackageManager_StagePackageAsync)(it, p0, p1, op.addr).check("PackageManager.StagePackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.StagePackageAsync"))
+
+proc registerPackageAsync*(self: PackageManager, manifestUri: Uri, dependencyPackageUris: seq[Uri], deploymentOptions: DeploymentOptions): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.RegisterPackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    withIface(manifestUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      vcall(it, Slot_IPackageManager_RegisterPackageAsync, Fn_IPackageManager_RegisterPackageAsync)(it, p0, p1, deploymentOptions, op.addr).check("PackageManager.RegisterPackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RegisterPackageAsync"))
 
 proc findUsers*(self: PackageManager, packageFullName: string): seq[PackageUserInformation]  =
   ## Windows.Management.Deployment.PackageManager.FindUsers
@@ -1881,6 +1949,26 @@ proc removePackageAsync*(self: PackageManager, packageFullName: string, removalO
       vcall(it, Slot_IPackageManager2_RemovePackageAsync, Fn_IPackageManager2_RemovePackageAsync)(it, h0, removalOptions, op.addr).check("PackageManager.RemovePackageAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RemovePackageAsync"))
 
+proc stagePackageAsync*(self: PackageManager, packageUri: Uri, dependencyPackageUris: seq[Uri], deploymentOptions: DeploymentOptions): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.StagePackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager2, "IPackageManager2", it):
+    withIface(packageUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      vcall(it, Slot_IPackageManager2_StagePackageAsync, Fn_IPackageManager2_StagePackageAsync)(it, p0, p1, deploymentOptions, op.addr).check("PackageManager.StagePackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.StagePackageAsync"))
+
+proc registerPackageByFullNameAsync*(self: PackageManager, mainPackageFullName: string, dependencyPackageFullNames: seq[string], deploymentOptions: DeploymentOptions): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.RegisterPackageByFullNameAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager2, "IPackageManager2", it):
+    withHString(mainPackageFullName, h0):
+      let p1 = asIterableString(dependencyPackageFullNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IPackageManager2_RegisterPackageByFullNameAsync, Fn_IPackageManager2_RegisterPackageByFullNameAsync)(it, h0, p1, deploymentOptions, op.addr).check("PackageManager.RegisterPackageByFullNameAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RegisterPackageByFullNameAsync"))
+
 proc stageUserDataAsync*(self: PackageManager, packageFullName: string): Future[DeploymentResult] {.async.} =
   ## Windows.Management.Deployment.PackageManager.StageUserDataAsync
   var op: pointer
@@ -1897,11 +1985,33 @@ proc addPackageVolumeAsync*(self: PackageManager, packageStorePath: string): Fut
       vcall(it, Slot_IPackageManager3_AddPackageVolumeAsync, Fn_IPackageManager3_AddPackageVolumeAsync)(it, h0, op.addr).check("PackageManager.AddPackageVolumeAsync")
   result = adopt[PackageVolume](await awaitObject(op, IID_IAsyncOperation_1_PackageVolume, IID_AsyncOperationCompletedHandler_1_PackageVolume, "PackageManager.AddPackageVolumeAsync"))
 
+proc addPackageAsync*(self: PackageManager, packageUri: Uri, dependencyPackageUris: seq[Uri], deploymentOptions: DeploymentOptions, targetVolume: PackageVolume): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.AddPackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager3, "IPackageManager3", it):
+    withIface(packageUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      withIface(targetVolume.p, IID_IPackageVolume, "IPackageVolume", p3):
+        vcall(it, Slot_IPackageManager3_AddPackageAsync, Fn_IPackageManager3_AddPackageAsync)(it, p0, p1, deploymentOptions, p3, op.addr).check("PackageManager.AddPackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.AddPackageAsync"))
+
 proc clearPackageStatus*(self: PackageManager, packageFullName: string, status: PackageStatus)  =
   ## Windows.Management.Deployment.PackageManager.ClearPackageStatus
   withIface(self.p, IID_IPackageManager3, "IPackageManager3", it):
     withHString(packageFullName, h0):
       vcall(it, Slot_IPackageManager3_ClearPackageStatus, Fn_IPackageManager3_ClearPackageStatus)(it, h0, status).check("PackageManager.ClearPackageStatus")
+
+proc registerPackageAsync*(self: PackageManager, manifestUri: Uri, dependencyPackageUris: seq[Uri], deploymentOptions: DeploymentOptions, appDataVolume: PackageVolume): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.RegisterPackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager3, "IPackageManager3", it):
+    withIface(manifestUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      withIface(appDataVolume.p, IID_IPackageVolume, "IPackageVolume", p3):
+        vcall(it, Slot_IPackageManager3_RegisterPackageAsync, Fn_IPackageManager3_RegisterPackageAsync)(it, p0, p1, deploymentOptions, p3, op.addr).check("PackageManager.RegisterPackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RegisterPackageAsync"))
 
 proc findPackageVolume*(self: PackageManager, volumeName: string): PackageVolume  =
   ## Windows.Management.Deployment.PackageManager.FindPackageVolume
@@ -1971,6 +2081,17 @@ proc setPackageVolumeOnlineAsync*(self: PackageManager, packageVolume: PackageVo
       vcall(it, Slot_IPackageManager3_SetPackageVolumeOnlineAsync, Fn_IPackageManager3_SetPackageVolumeOnlineAsync)(it, p0, op.addr).check("PackageManager.SetPackageVolumeOnlineAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.SetPackageVolumeOnlineAsync"))
 
+proc stagePackageAsync*(self: PackageManager, packageUri: Uri, dependencyPackageUris: seq[Uri], deploymentOptions: DeploymentOptions, targetVolume: PackageVolume): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.StagePackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager3, "IPackageManager3", it):
+    withIface(packageUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      withIface(targetVolume.p, IID_IPackageVolume, "IPackageVolume", p3):
+        vcall(it, Slot_IPackageManager3_StagePackageAsync, Fn_IPackageManager3_StagePackageAsync)(it, p0, p1, deploymentOptions, p3, op.addr).check("PackageManager.StagePackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.StagePackageAsync"))
+
 proc stageUserDataAsync*(self: PackageManager, packageFullName: string, deploymentOptions: DeploymentOptions): Future[DeploymentResult] {.async.} =
   ## Windows.Management.Deployment.PackageManager.StageUserDataAsync
   var op: pointer
@@ -1987,6 +2108,49 @@ proc getPackageVolumesAsync*(self: PackageManager): Future[seq[PackageVolume]] {
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "PackageManager.GetPackageVolumesAsync")
   result = toSeq[PackageVolume](coll, IID_IVectorView_1_PackageVolume)
   discard release(coll)
+
+proc addPackageAsync*(self: PackageManager, packageUri: Uri, dependencyPackageUris: seq[Uri], deploymentOptions: DeploymentOptions, targetVolume: PackageVolume, optionalPackageFamilyNames: seq[string], externalPackageUris: seq[Uri]): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.AddPackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager5, "IPackageManager5", it):
+    withIface(packageUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      withIface(targetVolume.p, IID_IPackageVolume, "IPackageVolume", p3):
+        let p4 = asIterableString(optionalPackageFamilyNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+        defer: discard release(p4)
+        let p5 = asIterable[Uri](externalPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+        defer: discard release(p5)
+        vcall(it, Slot_IPackageManager5_AddPackageAsync, Fn_IPackageManager5_AddPackageAsync)(it, p0, p1, deploymentOptions, p3, p4, p5, op.addr).check("PackageManager.AddPackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.AddPackageAsync"))
+
+proc stagePackageAsync*(self: PackageManager, packageUri: Uri, dependencyPackageUris: seq[Uri], deploymentOptions: DeploymentOptions, targetVolume: PackageVolume, optionalPackageFamilyNames: seq[string], externalPackageUris: seq[Uri]): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.StagePackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager5, "IPackageManager5", it):
+    withIface(packageUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      withIface(targetVolume.p, IID_IPackageVolume, "IPackageVolume", p3):
+        let p4 = asIterableString(optionalPackageFamilyNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+        defer: discard release(p4)
+        let p5 = asIterable[Uri](externalPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+        defer: discard release(p5)
+        vcall(it, Slot_IPackageManager5_StagePackageAsync, Fn_IPackageManager5_StagePackageAsync)(it, p0, p1, deploymentOptions, p3, p4, p5, op.addr).check("PackageManager.StagePackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.StagePackageAsync"))
+
+proc registerPackageByFamilyNameAsync*(self: PackageManager, mainPackageFamilyName: string, dependencyPackageFamilyNames: seq[string], deploymentOptions: DeploymentOptions, appDataVolume: PackageVolume, optionalPackageFamilyNames: seq[string]): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.RegisterPackageByFamilyNameAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager5, "IPackageManager5", it):
+    withHString(mainPackageFamilyName, h0):
+      let p1 = asIterableString(dependencyPackageFamilyNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      withIface(appDataVolume.p, IID_IPackageVolume, "IPackageVolume", p3):
+        let p4 = asIterableString(optionalPackageFamilyNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+        defer: discard release(p4)
+        vcall(it, Slot_IPackageManager5_RegisterPackageByFamilyNameAsync, Fn_IPackageManager5_RegisterPackageByFamilyNameAsync)(it, h0, p1, deploymentOptions, p3, p4, op.addr).check("PackageManager.RegisterPackageByFamilyNameAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RegisterPackageByFamilyNameAsync"))
 
 proc debugSettings*(self: PackageManager): PackageManagerDebugSettings  =
   ## Windows.Management.Deployment.PackageManager.get_DebugSettings
@@ -2020,6 +2184,72 @@ proc requestAddPackageByAppInstallerFileAsync*(self: PackageManager, appInstalle
       withIface(targetVolume.p, IID_IPackageVolume, "IPackageVolume", p2):
         vcall(it, Slot_IPackageManager6_RequestAddPackageByAppInstallerFileAsync, Fn_IPackageManager6_RequestAddPackageByAppInstallerFileAsync)(it, p0, options, p2, op.addr).check("PackageManager.RequestAddPackageByAppInstallerFileAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RequestAddPackageByAppInstallerFileAsync"))
+
+proc addPackageAsync*(self: PackageManager, packageUri: Uri, dependencyPackageUris: seq[Uri], options: DeploymentOptions, targetVolume: PackageVolume, optionalPackageFamilyNames: seq[string], packageUrisToInstall: seq[Uri], relatedPackageUris: seq[Uri]): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.AddPackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager6, "IPackageManager6", it):
+    withIface(packageUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      withIface(targetVolume.p, IID_IPackageVolume, "IPackageVolume", p3):
+        let p4 = asIterableString(optionalPackageFamilyNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+        defer: discard release(p4)
+        let p5 = asIterable[Uri](packageUrisToInstall, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+        defer: discard release(p5)
+        let p6 = asIterable[Uri](relatedPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+        defer: discard release(p6)
+        vcall(it, Slot_IPackageManager6_AddPackageAsync, Fn_IPackageManager6_AddPackageAsync)(it, p0, p1, options, p3, p4, p5, p6, op.addr).check("PackageManager.AddPackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.AddPackageAsync"))
+
+proc stagePackageAsync*(self: PackageManager, packageUri: Uri, dependencyPackageUris: seq[Uri], options: DeploymentOptions, targetVolume: PackageVolume, optionalPackageFamilyNames: seq[string], packageUrisToInstall: seq[Uri], relatedPackageUris: seq[Uri]): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.StagePackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager6, "IPackageManager6", it):
+    withIface(packageUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      withIface(targetVolume.p, IID_IPackageVolume, "IPackageVolume", p3):
+        let p4 = asIterableString(optionalPackageFamilyNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+        defer: discard release(p4)
+        let p5 = asIterable[Uri](packageUrisToInstall, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+        defer: discard release(p5)
+        let p6 = asIterable[Uri](relatedPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+        defer: discard release(p6)
+        vcall(it, Slot_IPackageManager6_StagePackageAsync, Fn_IPackageManager6_StagePackageAsync)(it, p0, p1, options, p3, p4, p5, p6, op.addr).check("PackageManager.StagePackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.StagePackageAsync"))
+
+proc requestAddPackageAsync*(self: PackageManager, packageUri: Uri, dependencyPackageUris: seq[Uri], deploymentOptions: DeploymentOptions, targetVolume: PackageVolume, optionalPackageFamilyNames: seq[string], relatedPackageUris: seq[Uri]): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.RequestAddPackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager6, "IPackageManager6", it):
+    withIface(packageUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      withIface(targetVolume.p, IID_IPackageVolume, "IPackageVolume", p3):
+        let p4 = asIterableString(optionalPackageFamilyNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+        defer: discard release(p4)
+        let p5 = asIterable[Uri](relatedPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+        defer: discard release(p5)
+        vcall(it, Slot_IPackageManager6_RequestAddPackageAsync, Fn_IPackageManager6_RequestAddPackageAsync)(it, p0, p1, deploymentOptions, p3, p4, p5, op.addr).check("PackageManager.RequestAddPackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RequestAddPackageAsync"))
+
+proc requestAddPackageAsync*(self: PackageManager, packageUri: Uri, dependencyPackageUris: seq[Uri], deploymentOptions: DeploymentOptions, targetVolume: PackageVolume, optionalPackageFamilyNames: seq[string], relatedPackageUris: seq[Uri], packageUrisToInstall: seq[Uri]): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.RequestAddPackageAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager7, "IPackageManager7", it):
+    withIface(packageUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[Uri](dependencyPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+      defer: discard release(p1)
+      withIface(targetVolume.p, IID_IPackageVolume, "IPackageVolume", p3):
+        let p4 = asIterableString(optionalPackageFamilyNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+        defer: discard release(p4)
+        let p5 = asIterable[Uri](relatedPackageUris, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+        defer: discard release(p5)
+        let p6 = asIterable[Uri](packageUrisToInstall, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+        defer: discard release(p6)
+        vcall(it, Slot_IPackageManager7_RequestAddPackageAsync, Fn_IPackageManager7_RequestAddPackageAsync)(it, p0, p1, deploymentOptions, p3, p4, p5, p6, op.addr).check("PackageManager.RequestAddPackageAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RequestAddPackageAsync"))
 
 proc deprovisionPackageForAllUsersAsync*(self: PackageManager, packageFamilyName: string): Future[DeploymentResult] {.async.} =
   ## Windows.Management.Deployment.PackageManager.DeprovisionPackageForAllUsersAsync
@@ -2055,6 +2285,16 @@ proc registerPackageByUriAsync*(self: PackageManager, manifestUri: Uri, options:
       withIface(options.p, IID_IRegisterPackageOptions, "IRegisterPackageOptions", p1):
         vcall(it, Slot_IPackageManager9_RegisterPackageByUriAsync, Fn_IPackageManager9_RegisterPackageByUriAsync)(it, p0, p1, op.addr).check("PackageManager.RegisterPackageByUriAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RegisterPackageByUriAsync"))
+
+proc registerPackagesByFullNameAsync*(self: PackageManager, packageFullNames: seq[string], options: RegisterPackageOptions): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.RegisterPackagesByFullNameAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager9, "IPackageManager9", it):
+    let p0 = asIterableString(packageFullNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    withIface(options.p, IID_IRegisterPackageOptions, "IRegisterPackageOptions", p1):
+      vcall(it, Slot_IPackageManager9_RegisterPackagesByFullNameAsync, Fn_IPackageManager9_RegisterPackagesByFullNameAsync)(it, p0, p1, op.addr).check("PackageManager.RegisterPackagesByFullNameAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RegisterPackagesByFullNameAsync"))
 
 proc setPackageStubPreference*(self: PackageManager, packageFamilyName: string, useStub: PackageStubPreference)  =
   ## Windows.Management.Deployment.PackageManager.SetPackageStubPreference
@@ -2866,6 +3106,15 @@ proc startAsync*(self: MdmSession) {.async.} =
   var op: pointer
   withIface(self.p, IID_IMdmSession, "IMdmSession", it):
     vcall(it, Slot_IMdmSession_StartAsync, Fn_IMdmSession_StartAsync)(it, op.addr).check("MdmSession.StartAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "MdmSession.StartAsync")
+
+proc startAsync*(self: MdmSession, alerts: seq[MdmAlert]) {.async.} =
+  ## Windows.Management.MdmSession.StartAsync
+  var op: pointer
+  withIface(self.p, IID_IMdmSession, "IMdmSession", it):
+    let p0 = asIterable[MdmAlert](alerts, IID_IIterable_1_MdmAlert, IID_IVectorView_1_MdmAlert, IID_IIterator_1_MdmAlert)
+    defer: discard release(p0)
+    vcall(it, Slot_IMdmSession_StartAsync2, Fn_IMdmSession_StartAsync2)(it, p0, op.addr).check("MdmSession.StartAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MdmSession.StartAsync")
 
 proc sessionIds*(_: typedesc[MdmSessionManager]): seq[string]  =
@@ -4071,6 +4320,15 @@ proc removeCancelRequested*(self: WindowsSoftwareUpdateProviderStatus, token: Ev
   withIface(self.p, IID_IWindowsSoftwareUpdateProviderStatus, "IWindowsSoftwareUpdateProviderStatus", it):
     vcall(it, Slot_IWindowsSoftwareUpdateProviderStatus_remove_CancelRequested, Fn_IWindowsSoftwareUpdateProviderStatus_remove_CancelRequested)(it, token).check("WindowsSoftwareUpdateProviderStatus.remove_CancelRequested")
 
+proc setScanResult*(self: WindowsSoftwareUpdateProviderStatus, succeeded: bool, resultCode: uint32, extendedError: uint64, updates: seq[WindowsSoftwareUpdate]): WindowsSoftwareUpdateResult  =
+  ## Windows.Management.Update.WindowsSoftwareUpdateProviderStatus.SetScanResult
+  withIface(self.p, IID_IWindowsSoftwareUpdateProviderStatus, "IWindowsSoftwareUpdateProviderStatus", it):
+    let p3 = asIterable[WindowsSoftwareUpdate](updates, IID_IIterable_1_WindowsSoftwareUpdate, IID_IVectorView_1_WindowsSoftwareUpdate, IID_IIterator_1_WindowsSoftwareUpdate)
+    defer: discard release(p3)
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdateProviderStatus_SetScanResult, Fn_IWindowsSoftwareUpdateProviderStatus_SetScanResult)(it, succeeded, resultCode, extendedError, p3, tmp.addr).check("WindowsSoftwareUpdateProviderStatus.SetScanResult")
+    result = adopt[WindowsSoftwareUpdateResult](tmp)
+
 proc setActionProgress*(self: WindowsSoftwareUpdateProviderStatus, current: uint64, total: uint64): WindowsSoftwareUpdateResult  =
   ## Windows.Management.Update.WindowsSoftwareUpdateProviderStatus.SetActionProgress
   withIface(self.p, IID_IWindowsSoftwareUpdateProviderStatus, "IWindowsSoftwareUpdateProviderStatus", it):
@@ -4171,6 +4429,24 @@ proc updates*(self: WindowsSoftwareUpdateScanResult): seq[WindowsSoftwareUpdate]
     vcall(it, Slot_IWindowsSoftwareUpdateScanResult_get_Updates, Fn_IWindowsSoftwareUpdateScanResult_get_Updates)(it, tmp.addr).check("WindowsSoftwareUpdateScanResult.get_Updates")
     result = toSeq[WindowsSoftwareUpdate](tmp, IID_IVectorView_1_WindowsSoftwareUpdate)
     release(tmp)
+
+proc createInstance*(_: typedesc[WindowsSoftwareUpdateScanResult], succeeded: bool, resultCode: uint32, updates: seq[WindowsSoftwareUpdate]): WindowsSoftwareUpdateScanResult  =
+  ## Windows.Management.Update.WindowsSoftwareUpdateScanResult.CreateInstance
+  withStatics("Windows.Management.Update.WindowsSoftwareUpdateScanResult", IID_IWindowsSoftwareUpdateScanResultFactory, it):
+    let p2 = asIterable[WindowsSoftwareUpdate](updates, IID_IIterable_1_WindowsSoftwareUpdate, IID_IVectorView_1_WindowsSoftwareUpdate, IID_IIterator_1_WindowsSoftwareUpdate)
+    defer: discard release(p2)
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdateScanResultFactory_CreateInstance, Fn_IWindowsSoftwareUpdateScanResultFactory_CreateInstance)(it, succeeded, resultCode, p2, tmp.addr).check("WindowsSoftwareUpdateScanResult.CreateInstance")
+    result = adopt[WindowsSoftwareUpdateScanResult](tmp)
+
+proc createInstance2*(_: typedesc[WindowsSoftwareUpdateScanResult], succeeded: bool, resultCode: uint32, extendedError: uint64, updates: seq[WindowsSoftwareUpdate]): WindowsSoftwareUpdateScanResult  =
+  ## Windows.Management.Update.WindowsSoftwareUpdateScanResult.CreateInstance2
+  withStatics("Windows.Management.Update.WindowsSoftwareUpdateScanResult", IID_IWindowsSoftwareUpdateScanResultFactory, it):
+    let p3 = asIterable[WindowsSoftwareUpdate](updates, IID_IIterable_1_WindowsSoftwareUpdate, IID_IVectorView_1_WindowsSoftwareUpdate, IID_IIterator_1_WindowsSoftwareUpdate)
+    defer: discard release(p3)
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdateScanResultFactory_CreateInstance2, Fn_IWindowsSoftwareUpdateScanResultFactory_CreateInstance2)(it, succeeded, resultCode, extendedError, p3, tmp.addr).check("WindowsSoftwareUpdateScanResult.CreateInstance2")
+    result = adopt[WindowsSoftwareUpdateScanResult](tmp)
 
 proc major*(self: WindowsSoftwareUpdateVersion): uint32  =
   ## Windows.Management.Update.WindowsSoftwareUpdateVersion.get_Major

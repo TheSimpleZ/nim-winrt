@@ -15,6 +15,7 @@ import ./delegate
 export core, graphics
 import ./asyncops
 export asyncops
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -153,6 +154,21 @@ const IID_TypedEventHandler_2_PrintSupportExtensionSession_PrintSupportPrinterSe
 const IID_TypedEventHandler_2_PrintSupportExtensionSession_PrintSupportCommunicationErrorDetectedEventArgs* = GUID(
     data1: 0xCEE7C5EA'u32, data2: 0x81E8'u16, data3: 0x54A0'u16,
     data4: [0x93'u8, 0xC6, 0x9F, 0x92, 0x6E, 0x1E, 0xEB, 0x3D])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
+const IID_IIterable_1_PrintSupportPrintTicketElement* = GUID(
+    data1: 0x8E4A9120'u32, data2: 0xDA3E'u16, data3: 0x5F31'u16,
+    data4: [0x87'u8, 0x39, 0x40, 0x5A, 0x3B, 0x2D, 0xBF, 0xB5])
+const IID_IVectorView_1_PrintSupportPrintTicketElement* = GUID(
+    data1: 0x6EDFE7DC'u32, data2: 0x7FBF'u16, data3: 0x574A'u16,
+    data4: [0xB2'u8, 0xCC, 0xC6, 0x21, 0xAA, 0x71, 0x6D, 0x7C])
+const IID_IIterator_1_PrintSupportPrintTicketElement* = GUID(
+    data1: 0x33A97A91'u32, data2: 0x9BF9'u16, data3: 0x59A7'u16,
+    data4: [0x9D'u8, 0xA7, 0xB6, 0x39, 0xE4, 0x5F, 0x06, 0x47])
 const IID_TypedEventHandler_2_PrintTask_Object* = GUID(
     data1: 0x4CC141D4'u32, data2: 0xC0D9'u16, data3: 0x5220'u16,
     data4: [0xB1'u8, 0xCE, 0x80, 0xFF, 0xF3, 0xBD, 0x2D, 0x44])
@@ -7541,6 +7557,13 @@ proc getDeferral*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs): De
     vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs_GetDeferral, Fn_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs_GetDeferral)(it, tmp.addr).check("PrintSupportPrintDeviceCapabilitiesChangedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
 
+proc setSupportedPdlPassthroughContentTypes*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs, supportedPdlContentTypes: seq[string])  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesChangedEventArgs.SetSupportedPdlPassthroughContentTypes
+  withIface(self.p, IID_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2, "IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2", it):
+    let p0 = asIterableString(supportedPdlContentTypes, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_SetSupportedPdlPassthroughContentTypes, Fn_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_SetSupportedPdlPassthroughContentTypes)(it, p0).check("PrintSupportPrintDeviceCapabilitiesChangedEventArgs.SetSupportedPdlPassthroughContentTypes")
+
 proc resourceLanguage*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs): string  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesChangedEventArgs.get_ResourceLanguage
   withIface(self.p, IID_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2, "IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2", it):
@@ -7648,6 +7671,20 @@ proc `printTicket=`*(self: PrintSupportPrinterSelectedEventArgs, value: Workflow
   withIface(self.p, IID_IPrintSupportPrinterSelectedEventArgs, "IPrintSupportPrinterSelectedEventArgs", it):
     withIface(value.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
       vcall(it, Slot_IPrintSupportPrinterSelectedEventArgs_put_PrintTicket, Fn_IPrintSupportPrinterSelectedEventArgs_put_PrintTicket)(it, p0).check("PrintSupportPrinterSelectedEventArgs.put_PrintTicket")
+
+proc setAdditionalFeatures*(self: PrintSupportPrinterSelectedEventArgs, features: seq[PrintSupportPrintTicketElement])  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrinterSelectedEventArgs.SetAdditionalFeatures
+  withIface(self.p, IID_IPrintSupportPrinterSelectedEventArgs, "IPrintSupportPrinterSelectedEventArgs", it):
+    let p0 = asIterable[PrintSupportPrintTicketElement](features, IID_IIterable_1_PrintSupportPrintTicketElement, IID_IVectorView_1_PrintSupportPrintTicketElement, IID_IIterator_1_PrintSupportPrintTicketElement)
+    defer: discard release(p0)
+    vcall(it, Slot_IPrintSupportPrinterSelectedEventArgs_SetAdditionalFeatures, Fn_IPrintSupportPrinterSelectedEventArgs_SetAdditionalFeatures)(it, p0).check("PrintSupportPrinterSelectedEventArgs.SetAdditionalFeatures")
+
+proc setAdditionalParameters*(self: PrintSupportPrinterSelectedEventArgs, parameters: seq[PrintSupportPrintTicketElement])  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrinterSelectedEventArgs.SetAdditionalParameters
+  withIface(self.p, IID_IPrintSupportPrinterSelectedEventArgs, "IPrintSupportPrinterSelectedEventArgs", it):
+    let p0 = asIterable[PrintSupportPrintTicketElement](parameters, IID_IIterable_1_PrintSupportPrintTicketElement, IID_IVectorView_1_PrintSupportPrintTicketElement, IID_IIterator_1_PrintSupportPrintTicketElement)
+    defer: discard release(p0)
+    vcall(it, Slot_IPrintSupportPrinterSelectedEventArgs_SetAdditionalParameters, Fn_IPrintSupportPrinterSelectedEventArgs_SetAdditionalParameters)(it, p0).check("PrintSupportPrinterSelectedEventArgs.SetAdditionalParameters")
 
 proc allowedAdditionalFeaturesAndParametersCount*(self: PrintSupportPrinterSelectedEventArgs): uint32  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrinterSelectedEventArgs.get_AllowedAdditionalFeaturesAndParametersCount
@@ -9443,6 +9480,15 @@ proc getJobPrintTicket*(self: PrintWorkflowPrinterJob): WorkflowPrintTicket  =
     var tmp: pointer
     vcall(it, Slot_IPrintWorkflowPrinterJob_GetJobPrintTicket, Fn_IPrintWorkflowPrinterJob_GetJobPrintTicket)(it, tmp.addr).check("PrintWorkflowPrinterJob.GetJobPrintTicket")
     result = adopt[WorkflowPrintTicket](tmp)
+
+proc getJobAttributesAsBuffer*(self: PrintWorkflowPrinterJob, attributeNames: seq[string]): pointer  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJob.GetJobAttributesAsBuffer
+  withIface(self.p, IID_IPrintWorkflowPrinterJob, "IPrintWorkflowPrinterJob", it):
+    let p0 = asIterableString(attributeNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IPrintWorkflowPrinterJob_GetJobAttributesAsBuffer, Fn_IPrintWorkflowPrinterJob_GetJobAttributesAsBuffer)(it, p0, tmp.addr).check("PrintWorkflowPrinterJob.GetJobAttributesAsBuffer")
+    result = tmp
 
 proc printerJob*(self: PrintWorkflowPrinterJobStatusChangedEventArgs): PrintWorkflowPrinterJob  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJobStatusChangedEventArgs.get_PrinterJob

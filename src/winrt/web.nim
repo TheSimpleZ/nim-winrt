@@ -15,6 +15,7 @@ import ./delegate
 export core, web
 import ./asyncops
 export asyncops
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -150,6 +151,15 @@ const IID_IVector_1_SyndicationLink* = GUID(
 const IID_IVectorView_1_WebViewControlDeferredPermissionRequest* = GUID(
     data1: 0xBFFD3DCF'u32, data2: 0x1974'u16, data3: 0x53A2'u16,
     data4: [0x8D'u8, 0x88, 0x96, 0x6D, 0x84, 0xBA, 0x98, 0xE0])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
+const IID_IAsyncOperation_1_String* = GUID(
+    data1: 0x3E1FE603'u32, data2: 0xF897'u16, data3: 0x5263'u16,
+    data4: [0xB3'u8, 0x28, 0x08, 0x06, 0x42, 0x6B, 0x8A, 0x79])
 const IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs* = GUID(
     data1: 0xE92E0BCC'u32, data2: 0x9AE9'u16, data3: 0x5B9B'u16,
     data4: [0xA6'u8, 0x84, 0x83, 0xDD, 0x8E, 0xE5, 0x77, 0x75])
@@ -7247,6 +7257,16 @@ proc navigateWithHttpRequestMessage*(self: WebViewControl, requestMessage: HttpR
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
     withIface(requestMessage.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
       vcall(it, Slot_IWebViewControl_NavigateWithHttpRequestMessage, Fn_IWebViewControl_NavigateWithHttpRequestMessage)(it, p0).check("WebViewControl.NavigateWithHttpRequestMessage")
+
+proc invokeScriptAsync*(self: WebViewControl, scriptName: string, arguments: seq[string]): Future[string] {.async.} =
+  ## Windows.Web.UI.Interop.WebViewControl.InvokeScriptAsync
+  var op: pointer
+  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+    withHString(scriptName, h0):
+      let p1 = asIterableString(arguments, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IWebViewControl_InvokeScriptAsync, Fn_IWebViewControl_InvokeScriptAsync)(it, h0, p1, op.addr).check("WebViewControl.InvokeScriptAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "WebViewControl.InvokeScriptAsync")
 
 proc capturePreviewToStreamAsync*(self: WebViewControl, stream: pointer) {.async.} =
   ## Windows.Web.UI.Interop.WebViewControl.CapturePreviewToStreamAsync

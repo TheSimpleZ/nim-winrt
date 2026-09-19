@@ -15,6 +15,7 @@ import ./delegate
 export core, devices
 import ./asyncops
 export asyncops
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -324,6 +325,12 @@ const IID_IVectorView_1_DisplayTarget* = GUID(
 const IID_IVectorView_1_DisplayAdapter* = GUID(
     data1: 0xB491B91F'u32, data2: 0x2107'u16, data3: 0x5C1C'u16,
     data4: [0xAA'u8, 0x64, 0x07, 0xF3, 0x98, 0x03, 0xE6, 0x4C])
+const IID_IIterable_1_DisplayTarget* = GUID(
+    data1: 0xCCB2E527'u32, data2: 0x3A37'u16, data3: 0x50FD'u16,
+    data4: [0x8D'u8, 0x28, 0x59, 0xE9, 0xDB, 0x8C, 0xF9, 0xD9])
+const IID_IIterator_1_DisplayTarget* = GUID(
+    data1: 0x069F9407'u32, data2: 0x81B5'u16, data3: 0x526B'u16,
+    data4: [0x8C'u8, 0x63, 0xCD, 0xF8, 0xED, 0x20, 0x7E, 0xDE])
 const IID_TypedEventHandler_2_DisplayManager_DisplayManagerEnabledEventArgs* = GUID(
     data1: 0xA92A0C2B'u32, data2: 0xF309'u16, data3: 0x5BC8'u16,
     data4: [0xBF'u8, 0x69, 0x47, 0xC8, 0x44, 0xD6, 0xDA, 0x41])
@@ -381,6 +388,15 @@ const IID_AsyncOperationCompletedHandler_1_DeviceThumbnail* = GUID(
 const IID_IAsyncOperation_1_DeviceThumbnail* = GUID(
     data1: 0xA3547087'u32, data2: 0xE404'u16, data3: 0x5625'u16,
     data4: [0xA1'u8, 0x00, 0x08, 0x8B, 0xFD, 0x83, 0x54, 0x81])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
 const IID_AsyncOperationCompletedHandler_1_DeviceInformation* = GUID(
     data1: 0xBB483DF2'u32, data2: 0x7BB6'u16, data3: 0x5923'u16,
     data4: [0xA2'u8, 0x8D, 0x83, 0x42, 0xEC, 0x30, 0x04, 0x6B])
@@ -432,6 +448,12 @@ const IID_TypedEventHandler_2_DeviceWatcher_Object* = GUID(
 const IID_IVectorView_1_DeviceWatcherEvent* = GUID(
     data1: 0x8F994D37'u32, data2: 0x8FAB'u16, data3: 0x51C6'u16,
     data4: [0xA1'u8, 0xE0, 0xC9, 0x3F, 0x68, 0xA2, 0x0E, 0xF0])
+const IID_AsyncOperationCompletedHandler_1_PnpObject* = GUID(
+    data1: 0x9D615463'u32, data2: 0x6879'u16, data3: 0x521F'u16,
+    data4: [0x8E'u8, 0x97, 0xE6, 0x6D, 0x3D, 0xDB, 0xC9, 0x5E])
+const IID_IAsyncOperation_1_PnpObject* = GUID(
+    data1: 0x22B0FB93'u32, data2: 0x30E6'u16, data3: 0x501A'u16,
+    data4: [0xBD'u8, 0x3B, 0x9F, 0xA3, 0x06, 0x3E, 0x9C, 0x16])
 const IID_TypedEventHandler_2_PnpObjectWatcher_PnpObject* = GUID(
     data1: 0xD578EED2'u32, data2: 0x58E5'u16, data3: 0x5825'u16,
     data4: [0x8A'u8, 0xF2, 0x12, 0xF8, 0x93, 0x87, 0xB6, 0x56])
@@ -651,6 +673,15 @@ const IID_TypedEventHandler_2_LampArrayBitmapEffect_LampArrayBitmapRequestedEven
 const IID_TypedEventHandler_2_LampArrayCustomEffect_LampArrayUpdateRequestedEventArgs* = GUID(
     data1: 0x7D91AF6E'u32, data2: 0xBA44'u16, data3: 0x5A0F'u16,
     data4: [0xBC'u8, 0x64, 0x39, 0x01, 0xFD, 0x33, 0x66, 0x1C])
+const IID_IIterable_1_LampArrayEffectPlaylist* = GUID(
+    data1: 0x2314ACDA'u32, data2: 0xC5DF'u16, data3: 0x5051'u16,
+    data4: [0x97'u8, 0x7D, 0x94, 0xD7, 0x9D, 0x13, 0x12, 0xFB])
+const IID_IVectorView_1_LampArrayEffectPlaylist* = GUID(
+    data1: 0x50786AE5'u32, data2: 0x5982'u16, data3: 0x589D'u16,
+    data4: [0x82'u8, 0x9E, 0xD5, 0xB8, 0x8D, 0xE5, 0x6B, 0xBF])
+const IID_IIterator_1_LampArrayEffectPlaylist* = GUID(
+    data1: 0x2AAABBC2'u32, data2: 0x4C18'u16, data3: 0x5D1C'u16,
+    data4: [0x9E'u8, 0x09, 0xC1, 0x24, 0x9E, 0xB4, 0x68, 0x17])
 const IID_TypedEventHandler_2_Lamp_LampAvailabilityChangedEventArgs* = GUID(
     data1: 0x556A02D9'u32, data2: 0x7685'u16, data3: 0x576F'u16,
     data4: [0x89'u8, 0xCA, 0xB6, 0x2D, 0xC4, 0x81, 0xD2, 0x9D])
@@ -822,12 +853,15 @@ const IID_TypedEventHandler_2_PerceptionInfraredFrameSourceWatcher_PerceptionInf
 const IID_TypedEventHandler_2_PerceptionInfraredFrameSourceWatcher_Object* = GUID(
     data1: 0x1555A628'u32, data2: 0x3DFF'u16, data3: 0x5FD0'u16,
     data4: [0xB1'u8, 0x0A, 0xCA, 0x6A, 0xDB, 0x24, 0x40, 0xC6])
-const IID_IVectorView_1_String* = GUID(
-    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
-    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
 const IID_IVectorView_1_PerceptionCorrelation* = GUID(
     data1: 0x244CAD66'u32, data2: 0xAFBE'u16, data3: 0x5394'u16,
     data4: [0xB7'u8, 0xB7, 0x43, 0xA6, 0x1F, 0xCB, 0xFC, 0x6D])
+const IID_IIterable_1_PerceptionCorrelation* = GUID(
+    data1: 0xCA6BF87E'u32, data2: 0x1745'u16, data3: 0x5CD0'u16,
+    data4: [0xAE'u8, 0xE2, 0x59, 0x73, 0x6F, 0x5A, 0x20, 0x6D])
+const IID_IIterator_1_PerceptionCorrelation* = GUID(
+    data1: 0xC4DB1093'u32, data2: 0xD705'u16, data3: 0x5503'u16,
+    data4: [0x8B'u8, 0xCE, 0x68, 0x53, 0x5C, 0xD4, 0x2F, 0xFA])
 const IID_AsyncOperationCompletedHandler_1_ClaimedBarcodeScanner* = GUID(
     data1: 0xFF72BA2D'u32, data2: 0xF3C4'u16, data3: 0x5ABE'u16,
     data4: [0xBB'u8, 0xCE, 0x53, 0x15, 0x04, 0x49, 0xB6, 0x37])
@@ -1065,6 +1099,42 @@ const IID_IVector_1_IppTextWithLanguage* = GUID(
 const IID_IVector_1_Uri* = GUID(
     data1: 0x0D82BD8D'u32, data2: 0xFE62'u16, data3: 0x5D67'u16,
     data4: [0xA7'u8, 0xB9, 0x78, 0x86, 0xDD, 0x75, 0xBC, 0x4E])
+const IID_IIterable_1_IppResolution* = GUID(
+    data1: 0x60CF8D08'u32, data2: 0x474E'u16, data3: 0x54FE'u16,
+    data4: [0xAF'u8, 0x66, 0x68, 0x93, 0xE8, 0xF9, 0x25, 0x75])
+const IID_IVectorView_1_IppResolution* = GUID(
+    data1: 0x76871ADA'u32, data2: 0x42F4'u16, data3: 0x57D9'u16,
+    data4: [0x94'u8, 0xA2, 0xEA, 0x40, 0x65, 0x98, 0xE7, 0x05])
+const IID_IIterator_1_IppResolution* = GUID(
+    data1: 0x704428E7'u32, data2: 0x3E54'u16, data3: 0x5A3C'u16,
+    data4: [0x9C'u8, 0xE0, 0x27, 0x2B, 0x1E, 0x4A, 0x83, 0xC8])
+const IID_IIterable_1_IppIntegerRange* = GUID(
+    data1: 0xC1AB4DF0'u32, data2: 0x4E73'u16, data3: 0x5BDD'u16,
+    data4: [0x80'u8, 0xD1, 0xE3, 0x2E, 0x02, 0x64, 0xCE, 0x41])
+const IID_IVectorView_1_IppIntegerRange* = GUID(
+    data1: 0x31E6C2E8'u32, data2: 0x93B2'u16, data3: 0x51D3'u16,
+    data4: [0x9F'u8, 0xA2, 0x56, 0xF1, 0x81, 0x60, 0x2B, 0x08])
+const IID_IIterator_1_IppIntegerRange* = GUID(
+    data1: 0x55F88707'u32, data2: 0xEE5C'u16, data3: 0x5616'u16,
+    data4: [0x94'u8, 0x1D, 0x08, 0x9B, 0x69, 0xF0, 0xB4, 0x8E])
+const IID_IIterable_1_IppTextWithLanguage* = GUID(
+    data1: 0xDA3D8CB6'u32, data2: 0x082A'u16, data3: 0x5993'u16,
+    data4: [0x86'u8, 0x40, 0xAC, 0x24, 0x6F, 0xD7, 0x12, 0x44])
+const IID_IVectorView_1_IppTextWithLanguage* = GUID(
+    data1: 0x84C1FB51'u32, data2: 0xCA7A'u16, data3: 0x5A23'u16,
+    data4: [0x81'u8, 0x93, 0x0C, 0x4A, 0x05, 0xB1, 0x36, 0x53])
+const IID_IIterator_1_IppTextWithLanguage* = GUID(
+    data1: 0xB5A11414'u32, data2: 0x5B14'u16, data3: 0x5EC3'u16,
+    data4: [0xAF'u8, 0x62, 0x94, 0x4F, 0x74, 0x05, 0x66, 0x13])
+const IID_IIterable_1_Uri* = GUID(
+    data1: 0xB0D63B78'u32, data2: 0x78AD'u16, data3: 0x5E31'u16,
+    data4: [0xB6'u8, 0xD8, 0xE3, 0x2A, 0x0E, 0x16, 0xC4, 0x47])
+const IID_IVectorView_1_Uri* = GUID(
+    data1: 0x4B8385BD'u32, data2: 0xA2CD'u16, data3: 0x5FF1'u16,
+    data4: [0xBF'u8, 0x74, 0x7E, 0xA5, 0x80, 0x42, 0x3E, 0x50])
+const IID_IIterator_1_Uri* = GUID(
+    data1: 0x1C157D0F'u32, data2: 0x5EFE'u16, data3: 0x5CEC'u16,
+    data4: [0xBB'u8, 0xD6, 0x0C, 0x6C, 0xE9, 0xAF, 0x07, 0xA5])
 const IID_AsyncOperationCompletedHandler_1_IppPrintDeviceInstallationResult* = GUID(
     data1: 0xD76C8C10'u32, data2: 0xCD9F'u16, data3: 0x5F12'u16,
     data4: [0xBE'u8, 0x2B, 0xD4, 0xDD, 0x5D, 0xA0, 0x45, 0xC0])
@@ -1353,6 +1423,15 @@ const IID_AsyncOperationCompletedHandler_1_SmartCardActivationPolicyChangeResult
 const IID_IAsyncOperation_1_SmartCardActivationPolicyChangeResult* = GUID(
     data1: 0xB8F15D35'u32, data2: 0x2F3D'u16, data3: 0x53AA'u16,
     data4: [0xB5'u8, 0xC6, 0xFA, 0xCA, 0x4C, 0x7F, 0xF1, 0x6E])
+const IID_IIterable_1_SmartCardAutomaticResponseApdu* = GUID(
+    data1: 0xDB52D376'u32, data2: 0x027E'u16, data3: 0x5270'u16,
+    data4: [0xA4'u8, 0x57, 0xFB, 0x8B, 0x4A, 0xE8, 0x95, 0x8C])
+const IID_IVectorView_1_SmartCardAutomaticResponseApdu* = GUID(
+    data1: 0xD9E08D95'u32, data2: 0xD908'u16, data3: 0x53D1'u16,
+    data4: [0x8F'u8, 0x08, 0x17, 0x02, 0xB7, 0x8A, 0x95, 0x3F])
+const IID_IIterator_1_SmartCardAutomaticResponseApdu* = GUID(
+    data1: 0x78EB5C52'u32, data2: 0x9DD2'u16, data3: 0x5E35'u16,
+    data4: [0xA8'u8, 0x68, 0xF6, 0x49, 0x19, 0xEB, 0xA6, 0xB6])
 const IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus* = GUID(
     data1: 0xC6C447C7'u32, data2: 0xA60D'u16, data3: 0x500A'u16,
     data4: [0x9B'u8, 0xFE, 0x59, 0xF2, 0x5C, 0x33, 0xE9, 0x79])
@@ -1365,6 +1444,15 @@ const IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramMaterialPossession
 const IID_IAsyncOperation_1_SmartCardCryptogramMaterialPossessionProof* = GUID(
     data1: 0x6F2EEA36'u32, data2: 0xDE40'u16, data3: 0x55B4'u16,
     data4: [0x90'u8, 0xC3, 0x25, 0x56, 0x73, 0xF7, 0x1B, 0x2E])
+const IID_IIterable_1_SmartCardCryptogramPlacementStep* = GUID(
+    data1: 0x234AB631'u32, data2: 0xED5F'u16, data3: 0x51BC'u16,
+    data4: [0x8A'u8, 0x8A, 0xD5, 0xF3, 0x49, 0x5F, 0x32, 0xDE])
+const IID_IVectorView_1_SmartCardCryptogramPlacementStep* = GUID(
+    data1: 0x3D738F3B'u32, data2: 0xEBE9'u16, data3: 0x5FEF'u16,
+    data4: [0xAC'u8, 0xFB, 0x38, 0xF3, 0xCB, 0xC0, 0x0E, 0x17])
+const IID_IIterator_1_SmartCardCryptogramPlacementStep* = GUID(
+    data1: 0x81A62A70'u32, data2: 0x8ACD'u16, data3: 0x598C'u16,
+    data4: [0x8D'u8, 0x0A, 0xA2, 0x7D, 0x23, 0xE6, 0xCB, 0x1E])
 const IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult* = GUID(
     data1: 0xC960993D'u32, data2: 0xB328'u16, data3: 0x5E86'u16,
     data4: [0xB0'u8, 0xA3, 0x25, 0xF0, 0x9F, 0x7E, 0x45, 0xDF])
@@ -16263,6 +16351,34 @@ proc tryReadCurrentStateForAllTargets*(self: DisplayManager): DisplayManagerResu
     vcall(it, Slot_IDisplayManager_TryReadCurrentStateForAllTargets, Fn_IDisplayManager_TryReadCurrentStateForAllTargets)(it, tmp.addr).check("DisplayManager.TryReadCurrentStateForAllTargets")
     result = adopt[DisplayManagerResultWithState](tmp)
 
+proc tryAcquireTargetsAndReadCurrentState*(self: DisplayManager, targets: seq[DisplayTarget]): DisplayManagerResultWithState  =
+  ## Windows.Devices.Display.Core.DisplayManager.TryAcquireTargetsAndReadCurrentState
+  withIface(self.p, IID_IDisplayManager, "IDisplayManager", it):
+    let p0 = asIterable[DisplayTarget](targets, IID_IIterable_1_DisplayTarget, IID_IVectorView_1_DisplayTarget, IID_IIterator_1_DisplayTarget)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IDisplayManager_TryAcquireTargetsAndReadCurrentState, Fn_IDisplayManager_TryAcquireTargetsAndReadCurrentState)(it, p0, tmp.addr).check("DisplayManager.TryAcquireTargetsAndReadCurrentState")
+    result = adopt[DisplayManagerResultWithState](tmp)
+
+proc tryAcquireTargetsAndCreateEmptyState*(self: DisplayManager, targets: seq[DisplayTarget]): DisplayManagerResultWithState  =
+  ## Windows.Devices.Display.Core.DisplayManager.TryAcquireTargetsAndCreateEmptyState
+  withIface(self.p, IID_IDisplayManager, "IDisplayManager", it):
+    let p0 = asIterable[DisplayTarget](targets, IID_IIterable_1_DisplayTarget, IID_IVectorView_1_DisplayTarget, IID_IIterator_1_DisplayTarget)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IDisplayManager_TryAcquireTargetsAndCreateEmptyState, Fn_IDisplayManager_TryAcquireTargetsAndCreateEmptyState)(it, p0, tmp.addr).check("DisplayManager.TryAcquireTargetsAndCreateEmptyState")
+    result = adopt[DisplayManagerResultWithState](tmp)
+
+proc tryAcquireTargetsAndCreateSubstate*(self: DisplayManager, existingState: DisplayState, targets: seq[DisplayTarget]): DisplayManagerResultWithState  =
+  ## Windows.Devices.Display.Core.DisplayManager.TryAcquireTargetsAndCreateSubstate
+  withIface(self.p, IID_IDisplayManager, "IDisplayManager", it):
+    withIface(existingState.p, IID_IDisplayState, "IDisplayState", p0):
+      let p1 = asIterable[DisplayTarget](targets, IID_IIterable_1_DisplayTarget, IID_IVectorView_1_DisplayTarget, IID_IIterator_1_DisplayTarget)
+      defer: discard release(p1)
+      var tmp: pointer
+      vcall(it, Slot_IDisplayManager_TryAcquireTargetsAndCreateSubstate, Fn_IDisplayManager_TryAcquireTargetsAndCreateSubstate)(it, p0, p1, tmp.addr).check("DisplayManager.TryAcquireTargetsAndCreateSubstate")
+      result = adopt[DisplayManagerResultWithState](tmp)
+
 proc createDisplayDevice*(self: DisplayManager, adapter: DisplayAdapter): DisplayDevice  =
   ## Windows.Devices.Display.Core.DisplayManager.CreateDisplayDevice
   withIface(self.p, IID_IDisplayManager, "IDisplayManager", it):
@@ -17429,12 +17545,62 @@ proc getAqsFilterFromDeviceClass*(_: typedesc[DeviceInformation], deviceClass: D
     vcall(it, Slot_IDeviceInformationStatics2_GetAqsFilterFromDeviceClass, Fn_IDeviceInformationStatics2_GetAqsFilterFromDeviceClass)(it, deviceClass, tmp.addr).check("DeviceInformation.GetAqsFilterFromDeviceClass")
     result = takeString(tmp)
 
+proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string, additionalProperties: seq[string], kind: DeviceInformationKind): Future[DeviceInformation] {.async.} =
+  ## Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync
+  var op: pointer
+  withStatics("Windows.Devices.Enumeration.DeviceInformation", IID_IDeviceInformationStatics2, it):
+    withHString(deviceId, h0):
+      let p1 = asIterableString(additionalProperties, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IDeviceInformationStatics2_CreateFromIdAsync, Fn_IDeviceInformationStatics2_CreateFromIdAsync)(it, h0, p1, kind, op.addr).check("DeviceInformation.CreateFromIdAsync")
+  result = adopt[DeviceInformation](await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation, IID_AsyncOperationCompletedHandler_1_DeviceInformation, "DeviceInformation.CreateFromIdAsync"))
+
+proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string, additionalProperties: seq[string], kind: DeviceInformationKind): DeviceWatcher  =
+  ## Windows.Devices.Enumeration.DeviceInformation.CreateWatcher
+  withStatics("Windows.Devices.Enumeration.DeviceInformation", IID_IDeviceInformationStatics2, it):
+    withHString(aqsFilter, h0):
+      let p1 = asIterableString(additionalProperties, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      var tmp: pointer
+      vcall(it, Slot_IDeviceInformationStatics2_CreateWatcher, Fn_IDeviceInformationStatics2_CreateWatcher)(it, h0, p1, kind, tmp.addr).check("DeviceInformation.CreateWatcher")
+      result = adopt[DeviceWatcher](tmp)
+
+proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string, additionalProperties: seq[string], kind: DeviceInformationKind, settings: pointer): Future[DeviceInformation] {.async.} =
+  ## Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync
+  var op: pointer
+  withStatics("Windows.Devices.Enumeration.DeviceInformation", IID_IDeviceInformationStatics3, it):
+    withHString(deviceId, h0):
+      let p1 = asIterableString(additionalProperties, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IDeviceInformationStatics3_CreateFromIdAsync, Fn_IDeviceInformationStatics3_CreateFromIdAsync)(it, h0, p1, kind, settings, op.addr).check("DeviceInformation.CreateFromIdAsync")
+  result = adopt[DeviceInformation](await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation, IID_AsyncOperationCompletedHandler_1_DeviceInformation, "DeviceInformation.CreateFromIdAsync"))
+
+proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string, additionalProperties: seq[string], kind: DeviceInformationKind, settings: pointer): DeviceWatcher  =
+  ## Windows.Devices.Enumeration.DeviceInformation.CreateWatcher
+  withStatics("Windows.Devices.Enumeration.DeviceInformation", IID_IDeviceInformationStatics3, it):
+    withHString(aqsFilter, h0):
+      let p1 = asIterableString(additionalProperties, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      var tmp: pointer
+      vcall(it, Slot_IDeviceInformationStatics3_CreateWatcher, Fn_IDeviceInformationStatics3_CreateWatcher)(it, h0, p1, kind, settings, tmp.addr).check("DeviceInformation.CreateWatcher")
+      result = adopt[DeviceWatcher](tmp)
+
 proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string): Future[DeviceInformation] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Enumeration.DeviceInformation", IID_IDeviceInformationStatics, it):
     withHString(deviceId, h0):
       vcall(it, Slot_IDeviceInformationStatics_CreateFromIdAsync, Fn_IDeviceInformationStatics_CreateFromIdAsync)(it, h0, op.addr).check("DeviceInformation.CreateFromIdAsync")
+  result = adopt[DeviceInformation](await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation, IID_AsyncOperationCompletedHandler_1_DeviceInformation, "DeviceInformation.CreateFromIdAsync"))
+
+proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string, additionalProperties: seq[string]): Future[DeviceInformation] {.async.} =
+  ## Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync
+  var op: pointer
+  withStatics("Windows.Devices.Enumeration.DeviceInformation", IID_IDeviceInformationStatics, it):
+    withHString(deviceId, h0):
+      let p1 = asIterableString(additionalProperties, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IDeviceInformationStatics_CreateFromIdAsync2, Fn_IDeviceInformationStatics_CreateFromIdAsync2)(it, h0, p1, op.addr).check("DeviceInformation.CreateFromIdAsync")
   result = adopt[DeviceInformation](await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation, IID_AsyncOperationCompletedHandler_1_DeviceInformation, "DeviceInformation.CreateFromIdAsync"))
 
 proc createWatcher*(_: typedesc[DeviceInformation]): DeviceWatcher  =
@@ -17457,6 +17623,16 @@ proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string): DeviceWa
     withHString(aqsFilter, h0):
       var tmp: pointer
       vcall(it, Slot_IDeviceInformationStatics_CreateWatcher3, Fn_IDeviceInformationStatics_CreateWatcher3)(it, h0, tmp.addr).check("DeviceInformation.CreateWatcher")
+      result = adopt[DeviceWatcher](tmp)
+
+proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string, additionalProperties: seq[string]): DeviceWatcher  =
+  ## Windows.Devices.Enumeration.DeviceInformation.CreateWatcher
+  withStatics("Windows.Devices.Enumeration.DeviceInformation", IID_IDeviceInformationStatics, it):
+    withHString(aqsFilter, h0):
+      let p1 = asIterableString(additionalProperties, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      var tmp: pointer
+      vcall(it, Slot_IDeviceInformationStatics_CreateWatcher4, Fn_IDeviceInformationStatics_CreateWatcher4)(it, h0, p1, tmp.addr).check("DeviceInformation.CreateWatcher")
       result = adopt[DeviceWatcher](tmp)
 
 proc pairAsync*(self: DeviceInformationCustomPairing, pairingKindsSupported: DevicePairingKinds): Future[DevicePairingResult] {.async.} =
@@ -18096,6 +18272,35 @@ proc update*(self: PnpObject, updateInfo: PnpObjectUpdate)  =
   withIface(self.p, IID_IPnpObject, "IPnpObject", it):
     withIface(updateInfo.p, IID_IPnpObjectUpdate, "IPnpObjectUpdate", p0):
       vcall(it, Slot_IPnpObject_Update, Fn_IPnpObject_Update)(it, p0).check("PnpObject.Update")
+
+proc createFromIdAsync*(_: typedesc[PnpObject], `type`: PnpObjectType, id: string, requestedProperties: seq[string]): Future[PnpObject] {.async.} =
+  ## Windows.Devices.Enumeration.Pnp.PnpObject.CreateFromIdAsync
+  var op: pointer
+  withStatics("Windows.Devices.Enumeration.Pnp.PnpObject", IID_IPnpObjectStatics, it):
+    withHString(id, h1):
+      let p2 = asIterableString(requestedProperties, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p2)
+      vcall(it, Slot_IPnpObjectStatics_CreateFromIdAsync, Fn_IPnpObjectStatics_CreateFromIdAsync)(it, `type`, h1, p2, op.addr).check("PnpObject.CreateFromIdAsync")
+  result = adopt[PnpObject](await awaitObject(op, IID_IAsyncOperation_1_PnpObject, IID_AsyncOperationCompletedHandler_1_PnpObject, "PnpObject.CreateFromIdAsync"))
+
+proc createWatcher*(_: typedesc[PnpObject], `type`: PnpObjectType, requestedProperties: seq[string]): PnpObjectWatcher  =
+  ## Windows.Devices.Enumeration.Pnp.PnpObject.CreateWatcher
+  withStatics("Windows.Devices.Enumeration.Pnp.PnpObject", IID_IPnpObjectStatics, it):
+    let p1 = asIterableString(requestedProperties, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p1)
+    var tmp: pointer
+    vcall(it, Slot_IPnpObjectStatics_CreateWatcher, Fn_IPnpObjectStatics_CreateWatcher)(it, `type`, p1, tmp.addr).check("PnpObject.CreateWatcher")
+    result = adopt[PnpObjectWatcher](tmp)
+
+proc createWatcher*(_: typedesc[PnpObject], `type`: PnpObjectType, requestedProperties: seq[string], aqsFilter: string): PnpObjectWatcher  =
+  ## Windows.Devices.Enumeration.Pnp.PnpObject.CreateWatcher
+  withStatics("Windows.Devices.Enumeration.Pnp.PnpObject", IID_IPnpObjectStatics, it):
+    let p1 = asIterableString(requestedProperties, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p1)
+    withHString(aqsFilter, h2):
+      var tmp: pointer
+      vcall(it, Slot_IPnpObjectStatics_CreateWatcher2, Fn_IPnpObjectStatics_CreateWatcher2)(it, `type`, p1, h2, tmp.addr).check("PnpObject.CreateWatcher")
+      result = adopt[PnpObjectWatcher](tmp)
 
 proc `type`*(self: PnpObjectUpdate): PnpObjectType  =
   ## Windows.Devices.Enumeration.Pnp.PnpObjectUpdate.get_Type
@@ -21565,6 +21770,27 @@ proc `repetitionMode=`*(self: LampArrayEffectPlaylist, value: LampArrayRepetitio
   withIface(self.p, IID_ILampArrayEffectPlaylist, "ILampArrayEffectPlaylist", it):
     vcall(it, Slot_ILampArrayEffectPlaylist_put_RepetitionMode, Fn_ILampArrayEffectPlaylist_put_RepetitionMode)(it, value).check("LampArrayEffectPlaylist.put_RepetitionMode")
 
+proc startAll*(_: typedesc[LampArrayEffectPlaylist], value: seq[LampArrayEffectPlaylist])  =
+  ## Windows.Devices.Lights.Effects.LampArrayEffectPlaylist.StartAll
+  withStatics("Windows.Devices.Lights.Effects.LampArrayEffectPlaylist", IID_ILampArrayEffectPlaylistStatics, it):
+    let p0 = asIterable[LampArrayEffectPlaylist](value, IID_IIterable_1_LampArrayEffectPlaylist, IID_IVectorView_1_LampArrayEffectPlaylist, IID_IIterator_1_LampArrayEffectPlaylist)
+    defer: discard release(p0)
+    vcall(it, Slot_ILampArrayEffectPlaylistStatics_StartAll, Fn_ILampArrayEffectPlaylistStatics_StartAll)(it, p0).check("LampArrayEffectPlaylist.StartAll")
+
+proc stopAll*(_: typedesc[LampArrayEffectPlaylist], value: seq[LampArrayEffectPlaylist])  =
+  ## Windows.Devices.Lights.Effects.LampArrayEffectPlaylist.StopAll
+  withStatics("Windows.Devices.Lights.Effects.LampArrayEffectPlaylist", IID_ILampArrayEffectPlaylistStatics, it):
+    let p0 = asIterable[LampArrayEffectPlaylist](value, IID_IIterable_1_LampArrayEffectPlaylist, IID_IVectorView_1_LampArrayEffectPlaylist, IID_IIterator_1_LampArrayEffectPlaylist)
+    defer: discard release(p0)
+    vcall(it, Slot_ILampArrayEffectPlaylistStatics_StopAll, Fn_ILampArrayEffectPlaylistStatics_StopAll)(it, p0).check("LampArrayEffectPlaylist.StopAll")
+
+proc pauseAll*(_: typedesc[LampArrayEffectPlaylist], value: seq[LampArrayEffectPlaylist])  =
+  ## Windows.Devices.Lights.Effects.LampArrayEffectPlaylist.PauseAll
+  withStatics("Windows.Devices.Lights.Effects.LampArrayEffectPlaylist", IID_ILampArrayEffectPlaylistStatics, it):
+    let p0 = asIterable[LampArrayEffectPlaylist](value, IID_IIterable_1_LampArrayEffectPlaylist, IID_IVectorView_1_LampArrayEffectPlaylist, IID_IIterator_1_LampArrayEffectPlaylist)
+    defer: discard release(p0)
+    vcall(it, Slot_ILampArrayEffectPlaylistStatics_PauseAll, Fn_ILampArrayEffectPlaylistStatics_PauseAll)(it, p0).check("LampArrayEffectPlaylist.PauseAll")
+
 proc color*(self: LampArraySolidEffect): Color  =
   ## Windows.Devices.Lights.Effects.LampArraySolidEffect.get_Color
   withIface(self.p, IID_ILampArraySolidEffect, "ILampArraySolidEffect", it):
@@ -24499,6 +24725,15 @@ proc frameProviderIds*(self: PerceptionControlGroup): seq[string]  =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
+proc create*(_: typedesc[PerceptionControlGroup], ids: seq[string]): PerceptionControlGroup  =
+  ## Windows.Devices.Perception.Provider.PerceptionControlGroup.Create
+  withStatics("Windows.Devices.Perception.Provider.PerceptionControlGroup", IID_IPerceptionControlGroupFactory, it):
+    let p0 = asIterableString(ids, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionControlGroupFactory_Create, Fn_IPerceptionControlGroupFactory_Create)(it, p0, tmp.addr).check("PerceptionControlGroup.Create")
+    result = adopt[PerceptionControlGroup](tmp)
+
 proc targetId*(self: PerceptionCorrelation): string  =
   ## Windows.Devices.Perception.Provider.PerceptionCorrelation.get_TargetId
   withIface(self.p, IID_IPerceptionCorrelation, "IPerceptionCorrelation", it):
@@ -24535,6 +24770,15 @@ proc relativeLocations*(self: PerceptionCorrelationGroup): seq[PerceptionCorrela
     vcall(it, Slot_IPerceptionCorrelationGroup_get_RelativeLocations, Fn_IPerceptionCorrelationGroup_get_RelativeLocations)(it, tmp.addr).check("PerceptionCorrelationGroup.get_RelativeLocations")
     result = toSeq[PerceptionCorrelation](tmp, IID_IVectorView_1_PerceptionCorrelation)
     release(tmp)
+
+proc create*(_: typedesc[PerceptionCorrelationGroup], relativeLocations: seq[PerceptionCorrelation]): PerceptionCorrelationGroup  =
+  ## Windows.Devices.Perception.Provider.PerceptionCorrelationGroup.Create
+  withStatics("Windows.Devices.Perception.Provider.PerceptionCorrelationGroup", IID_IPerceptionCorrelationGroupFactory, it):
+    let p0 = asIterable[PerceptionCorrelation](relativeLocations, IID_IIterable_1_PerceptionCorrelation, IID_IVectorView_1_PerceptionCorrelation, IID_IIterator_1_PerceptionCorrelation)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionCorrelationGroupFactory_Create, Fn_IPerceptionCorrelationGroupFactory_Create)(it, p0, tmp.addr).check("PerceptionCorrelationGroup.Create")
+    result = adopt[PerceptionCorrelationGroup](tmp)
 
 proc frameProviderIds*(self: PerceptionFaceAuthenticationGroup): seq[string]  =
   ## Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup.get_FrameProviderIds
@@ -25767,6 +26011,15 @@ proc checkHealthAsync*(self: CashDrawer, level: UnifiedPosHealthCheckLevel): Fut
     vcall(it, Slot_ICashDrawer_CheckHealthAsync, Fn_ICashDrawer_CheckHealthAsync)(it, level, op.addr).check("CashDrawer.CheckHealthAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CashDrawer.CheckHealthAsync")
 
+proc getStatisticsAsync*(self: CashDrawer, statisticsCategories: seq[string]): Future[string] {.async.} =
+  ## Windows.Devices.PointOfService.CashDrawer.GetStatisticsAsync
+  var op: pointer
+  withIface(self.p, IID_ICashDrawer, "ICashDrawer", it):
+    let p0 = asIterableString(statisticsCategories, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_ICashDrawer_GetStatisticsAsync, Fn_ICashDrawer_GetStatisticsAsync)(it, p0, op.addr).check("CashDrawer.GetStatisticsAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CashDrawer.GetStatisticsAsync")
+
 proc onStatusUpdated*(self: CashDrawer,
     handler: proc(sender: pointer, args: CashDrawerStatusUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.CashDrawer.add_StatusUpdated
@@ -26066,6 +26319,15 @@ proc retainDevice*(self: ClaimedBarcodeScanner)  =
   withIface(self.p, IID_IClaimedBarcodeScanner, "IClaimedBarcodeScanner", it):
     vcall(it, Slot_IClaimedBarcodeScanner_RetainDevice, Fn_IClaimedBarcodeScanner_RetainDevice)(it).check("ClaimedBarcodeScanner.RetainDevice")
 
+proc resetStatisticsAsync*(self: ClaimedBarcodeScanner, statisticsCategories: seq[string]) {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.ResetStatisticsAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedBarcodeScanner, "IClaimedBarcodeScanner", it):
+    let p0 = asIterableString(statisticsCategories, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IClaimedBarcodeScanner_ResetStatisticsAsync, Fn_IClaimedBarcodeScanner_ResetStatisticsAsync)(it, p0, op.addr).check("ClaimedBarcodeScanner.ResetStatisticsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ClaimedBarcodeScanner.ResetStatisticsAsync")
+
 proc setActiveProfileAsync*(self: ClaimedBarcodeScanner, profile: string) {.async.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.SetActiveProfileAsync
   var op: pointer
@@ -26321,6 +26583,15 @@ proc retainDeviceAsync*(self: ClaimedCashDrawer): Future[bool] {.async.} =
     vcall(it, Slot_IClaimedCashDrawer_RetainDeviceAsync, Fn_IClaimedCashDrawer_RetainDeviceAsync)(it, op.addr).check("ClaimedCashDrawer.RetainDeviceAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ClaimedCashDrawer.RetainDeviceAsync")
 
+proc resetStatisticsAsync*(self: ClaimedCashDrawer, statisticsCategories: seq[string]): Future[bool] {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedCashDrawer.ResetStatisticsAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedCashDrawer, "IClaimedCashDrawer", it):
+    let p0 = asIterableString(statisticsCategories, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IClaimedCashDrawer_ResetStatisticsAsync, Fn_IClaimedCashDrawer_ResetStatisticsAsync)(it, p0, op.addr).check("ClaimedCashDrawer.ResetStatisticsAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ClaimedCashDrawer.ResetStatisticsAsync")
+
 proc onReleaseDeviceRequested*(self: ClaimedCashDrawer,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedCashDrawer.add_ReleaseDeviceRequested
@@ -26575,6 +26846,15 @@ proc removeReleaseDeviceRequested*(self: ClaimedLineDisplay, token: EventRegistr
   withIface(self.p, IID_IClaimedLineDisplay, "IClaimedLineDisplay", it):
     vcall(it, Slot_IClaimedLineDisplay_remove_ReleaseDeviceRequested, Fn_IClaimedLineDisplay_remove_ReleaseDeviceRequested)(it, token).check("ClaimedLineDisplay.remove_ReleaseDeviceRequested")
 
+proc getStatisticsAsync*(self: ClaimedLineDisplay, statisticsCategories: seq[string]): Future[string] {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedLineDisplay.GetStatisticsAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
+    let p0 = asIterableString(statisticsCategories, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IClaimedLineDisplay2_GetStatisticsAsync, Fn_IClaimedLineDisplay2_GetStatisticsAsync)(it, p0, op.addr).check("ClaimedLineDisplay.GetStatisticsAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "ClaimedLineDisplay.GetStatisticsAsync")
+
 proc checkHealthAsync*(self: ClaimedLineDisplay, level: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.CheckHealthAsync
   var op: pointer
@@ -26818,6 +27098,15 @@ proc updateKeyAsync*(self: ClaimedMagneticStripeReader, key: string, keyName: st
         vcall(it, Slot_IClaimedMagneticStripeReader_UpdateKeyAsync, Fn_IClaimedMagneticStripeReader_UpdateKeyAsync)(it, h0, h1, op.addr).check("ClaimedMagneticStripeReader.UpdateKeyAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "ClaimedMagneticStripeReader.UpdateKeyAsync")
 
+proc resetStatisticsAsync*(self: ClaimedMagneticStripeReader, statisticsCategories: seq[string]) {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.ResetStatisticsAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedMagneticStripeReader, "IClaimedMagneticStripeReader", it):
+    let p0 = asIterableString(statisticsCategories, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IClaimedMagneticStripeReader_ResetStatisticsAsync, Fn_IClaimedMagneticStripeReader_ResetStatisticsAsync)(it, p0, op.addr).check("ClaimedMagneticStripeReader.ResetStatisticsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ClaimedMagneticStripeReader.ResetStatisticsAsync")
+
 proc onBankCardDataReceived*(self: ClaimedMagneticStripeReader,
     handler: proc(sender: pointer, args: MagneticStripeReaderBankCardDataReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.add_BankCardDataReceived
@@ -27035,6 +27324,15 @@ proc retainDeviceAsync*(self: ClaimedPosPrinter): Future[bool] {.async.} =
   withIface(self.p, IID_IClaimedPosPrinter, "IClaimedPosPrinter", it):
     vcall(it, Slot_IClaimedPosPrinter_RetainDeviceAsync, Fn_IClaimedPosPrinter_RetainDeviceAsync)(it, op.addr).check("ClaimedPosPrinter.RetainDeviceAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ClaimedPosPrinter.RetainDeviceAsync")
+
+proc resetStatisticsAsync*(self: ClaimedPosPrinter, statisticsCategories: seq[string]): Future[bool] {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedPosPrinter.ResetStatisticsAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedPosPrinter, "IClaimedPosPrinter", it):
+    let p0 = asIterableString(statisticsCategories, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IClaimedPosPrinter_ResetStatisticsAsync, Fn_IClaimedPosPrinter_ResetStatisticsAsync)(it, p0, op.addr).check("ClaimedPosPrinter.ResetStatisticsAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ClaimedPosPrinter.ResetStatisticsAsync")
 
 proc onReleaseDeviceRequested*(self: ClaimedPosPrinter,
     handler: proc(sender: pointer, args: PosPrinterReleaseDeviceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -28851,6 +29149,15 @@ proc checkHealthAsync*(self: PosPrinter, level: UnifiedPosHealthCheckLevel): Fut
   withIface(self.p, IID_IPosPrinter, "IPosPrinter", it):
     vcall(it, Slot_IPosPrinter_CheckHealthAsync, Fn_IPosPrinter_CheckHealthAsync)(it, level, op.addr).check("PosPrinter.CheckHealthAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "PosPrinter.CheckHealthAsync")
+
+proc getStatisticsAsync*(self: PosPrinter, statisticsCategories: seq[string]): Future[string] {.async.} =
+  ## Windows.Devices.PointOfService.PosPrinter.GetStatisticsAsync
+  var op: pointer
+  withIface(self.p, IID_IPosPrinter, "IPosPrinter", it):
+    let p0 = asIterableString(statisticsCategories, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IPosPrinter_GetStatisticsAsync, Fn_IPosPrinter_GetStatisticsAsync)(it, p0, op.addr).check("PosPrinter.GetStatisticsAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "PosPrinter.GetStatisticsAsync")
 
 proc onStatusUpdated*(self: PosPrinter,
     handler: proc(sender: pointer, args: PosPrinterStatusUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -31100,6 +31407,15 @@ proc createResolution*(_: typedesc[IppAttributeValue], value: IppResolution): Ip
       vcall(it, Slot_IIppAttributeValueStatics_CreateResolution, Fn_IIppAttributeValueStatics_CreateResolution)(it, p0, tmp.addr).check("IppAttributeValue.CreateResolution")
       result = adopt[IppAttributeValue](tmp)
 
+proc createResolutionArray*(_: typedesc[IppAttributeValue], values: seq[IppResolution]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateResolutionArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterable[IppResolution](values, IID_IIterable_1_IppResolution, IID_IVectorView_1_IppResolution, IID_IIterator_1_IppResolution)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateResolutionArray, Fn_IIppAttributeValueStatics_CreateResolutionArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateResolutionArray")
+    result = adopt[IppAttributeValue](tmp)
+
 proc createRangeOfInteger*(_: typedesc[IppAttributeValue], value: IppIntegerRange): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateRangeOfInteger
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
@@ -31107,6 +31423,15 @@ proc createRangeOfInteger*(_: typedesc[IppAttributeValue], value: IppIntegerRang
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateRangeOfInteger, Fn_IIppAttributeValueStatics_CreateRangeOfInteger)(it, p0, tmp.addr).check("IppAttributeValue.CreateRangeOfInteger")
       result = adopt[IppAttributeValue](tmp)
+
+proc createRangeOfIntegerArray*(_: typedesc[IppAttributeValue], values: seq[IppIntegerRange]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateRangeOfIntegerArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterable[IppIntegerRange](values, IID_IIterable_1_IppIntegerRange, IID_IVectorView_1_IppIntegerRange, IID_IIterator_1_IppIntegerRange)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateRangeOfIntegerArray, Fn_IIppAttributeValueStatics_CreateRangeOfIntegerArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateRangeOfIntegerArray")
+    result = adopt[IppAttributeValue](tmp)
 
 proc createTextWithLanguage*(_: typedesc[IppAttributeValue], value: IppTextWithLanguage): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateTextWithLanguage
@@ -31116,6 +31441,15 @@ proc createTextWithLanguage*(_: typedesc[IppAttributeValue], value: IppTextWithL
       vcall(it, Slot_IIppAttributeValueStatics_CreateTextWithLanguage, Fn_IIppAttributeValueStatics_CreateTextWithLanguage)(it, p0, tmp.addr).check("IppAttributeValue.CreateTextWithLanguage")
       result = adopt[IppAttributeValue](tmp)
 
+proc createTextWithLanguageArray*(_: typedesc[IppAttributeValue], values: seq[IppTextWithLanguage]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateTextWithLanguageArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterable[IppTextWithLanguage](values, IID_IIterable_1_IppTextWithLanguage, IID_IVectorView_1_IppTextWithLanguage, IID_IIterator_1_IppTextWithLanguage)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateTextWithLanguageArray, Fn_IIppAttributeValueStatics_CreateTextWithLanguageArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateTextWithLanguageArray")
+    result = adopt[IppAttributeValue](tmp)
+
 proc createNameWithLanguage*(_: typedesc[IppAttributeValue], value: IppTextWithLanguage): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateNameWithLanguage
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
@@ -31123,6 +31457,15 @@ proc createNameWithLanguage*(_: typedesc[IppAttributeValue], value: IppTextWithL
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateNameWithLanguage, Fn_IIppAttributeValueStatics_CreateNameWithLanguage)(it, p0, tmp.addr).check("IppAttributeValue.CreateNameWithLanguage")
       result = adopt[IppAttributeValue](tmp)
+
+proc createNameWithLanguageArray*(_: typedesc[IppAttributeValue], values: seq[IppTextWithLanguage]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateNameWithLanguageArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterable[IppTextWithLanguage](values, IID_IIterable_1_IppTextWithLanguage, IID_IVectorView_1_IppTextWithLanguage, IID_IIterator_1_IppTextWithLanguage)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateNameWithLanguageArray, Fn_IIppAttributeValueStatics_CreateNameWithLanguageArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateNameWithLanguageArray")
+    result = adopt[IppAttributeValue](tmp)
 
 proc createTextWithoutLanguage*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateTextWithoutLanguage
@@ -31132,6 +31475,15 @@ proc createTextWithoutLanguage*(_: typedesc[IppAttributeValue], value: string): 
       vcall(it, Slot_IIppAttributeValueStatics_CreateTextWithoutLanguage, Fn_IIppAttributeValueStatics_CreateTextWithoutLanguage)(it, h0, tmp.addr).check("IppAttributeValue.CreateTextWithoutLanguage")
       result = adopt[IppAttributeValue](tmp)
 
+proc createTextWithoutLanguageArray*(_: typedesc[IppAttributeValue], values: seq[string]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateTextWithoutLanguageArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterableString(values, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateTextWithoutLanguageArray, Fn_IIppAttributeValueStatics_CreateTextWithoutLanguageArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateTextWithoutLanguageArray")
+    result = adopt[IppAttributeValue](tmp)
+
 proc createNameWithoutLanguage*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateNameWithoutLanguage
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
@@ -31139,6 +31491,15 @@ proc createNameWithoutLanguage*(_: typedesc[IppAttributeValue], value: string): 
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateNameWithoutLanguage, Fn_IIppAttributeValueStatics_CreateNameWithoutLanguage)(it, h0, tmp.addr).check("IppAttributeValue.CreateNameWithoutLanguage")
       result = adopt[IppAttributeValue](tmp)
+
+proc createNameWithoutLanguageArray*(_: typedesc[IppAttributeValue], values: seq[string]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateNameWithoutLanguageArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterableString(values, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateNameWithoutLanguageArray, Fn_IIppAttributeValueStatics_CreateNameWithoutLanguageArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateNameWithoutLanguageArray")
+    result = adopt[IppAttributeValue](tmp)
 
 proc createKeyword*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateKeyword
@@ -31148,6 +31509,15 @@ proc createKeyword*(_: typedesc[IppAttributeValue], value: string): IppAttribute
       vcall(it, Slot_IIppAttributeValueStatics_CreateKeyword, Fn_IIppAttributeValueStatics_CreateKeyword)(it, h0, tmp.addr).check("IppAttributeValue.CreateKeyword")
       result = adopt[IppAttributeValue](tmp)
 
+proc createKeywordArray*(_: typedesc[IppAttributeValue], values: seq[string]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateKeywordArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterableString(values, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateKeywordArray, Fn_IIppAttributeValueStatics_CreateKeywordArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateKeywordArray")
+    result = adopt[IppAttributeValue](tmp)
+
 proc createUri*(_: typedesc[IppAttributeValue], value: Uri): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateUri
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
@@ -31155,6 +31525,15 @@ proc createUri*(_: typedesc[IppAttributeValue], value: Uri): IppAttributeValue  
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateUri, Fn_IIppAttributeValueStatics_CreateUri)(it, p0, tmp.addr).check("IppAttributeValue.CreateUri")
       result = adopt[IppAttributeValue](tmp)
+
+proc createUriArray*(_: typedesc[IppAttributeValue], values: seq[Uri]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateUriArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterable[Uri](values, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateUriArray, Fn_IIppAttributeValueStatics_CreateUriArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateUriArray")
+    result = adopt[IppAttributeValue](tmp)
 
 proc createUriSchema*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateUriSchema
@@ -31164,6 +31543,15 @@ proc createUriSchema*(_: typedesc[IppAttributeValue], value: string): IppAttribu
       vcall(it, Slot_IIppAttributeValueStatics_CreateUriSchema, Fn_IIppAttributeValueStatics_CreateUriSchema)(it, h0, tmp.addr).check("IppAttributeValue.CreateUriSchema")
       result = adopt[IppAttributeValue](tmp)
 
+proc createUriSchemaArray*(_: typedesc[IppAttributeValue], values: seq[string]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateUriSchemaArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterableString(values, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateUriSchemaArray, Fn_IIppAttributeValueStatics_CreateUriSchemaArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateUriSchemaArray")
+    result = adopt[IppAttributeValue](tmp)
+
 proc createCharset*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateCharset
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
@@ -31171,6 +31559,15 @@ proc createCharset*(_: typedesc[IppAttributeValue], value: string): IppAttribute
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateCharset, Fn_IIppAttributeValueStatics_CreateCharset)(it, h0, tmp.addr).check("IppAttributeValue.CreateCharset")
       result = adopt[IppAttributeValue](tmp)
+
+proc createCharsetArray*(_: typedesc[IppAttributeValue], values: seq[string]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateCharsetArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterableString(values, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateCharsetArray, Fn_IIppAttributeValueStatics_CreateCharsetArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateCharsetArray")
+    result = adopt[IppAttributeValue](tmp)
 
 proc createNaturalLanguage*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateNaturalLanguage
@@ -31180,6 +31577,15 @@ proc createNaturalLanguage*(_: typedesc[IppAttributeValue], value: string): IppA
       vcall(it, Slot_IIppAttributeValueStatics_CreateNaturalLanguage, Fn_IIppAttributeValueStatics_CreateNaturalLanguage)(it, h0, tmp.addr).check("IppAttributeValue.CreateNaturalLanguage")
       result = adopt[IppAttributeValue](tmp)
 
+proc createNaturalLanguageArray*(_: typedesc[IppAttributeValue], values: seq[string]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateNaturalLanguageArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterableString(values, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateNaturalLanguageArray, Fn_IIppAttributeValueStatics_CreateNaturalLanguageArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateNaturalLanguageArray")
+    result = adopt[IppAttributeValue](tmp)
+
 proc createMimeMedia*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateMimeMedia
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
@@ -31187,6 +31593,15 @@ proc createMimeMedia*(_: typedesc[IppAttributeValue], value: string): IppAttribu
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateMimeMedia, Fn_IIppAttributeValueStatics_CreateMimeMedia)(it, h0, tmp.addr).check("IppAttributeValue.CreateMimeMedia")
       result = adopt[IppAttributeValue](tmp)
+
+proc createMimeMediaArray*(_: typedesc[IppAttributeValue], values: seq[string]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateMimeMediaArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterableString(values, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateMimeMediaArray, Fn_IIppAttributeValueStatics_CreateMimeMediaArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateMimeMediaArray")
+    result = adopt[IppAttributeValue](tmp)
 
 proc start*(self: IppIntegerRange): int32  =
   ## Windows.Devices.Printers.IppIntegerRange.get_Start
@@ -31222,6 +31637,15 @@ proc printerUri*(self: IppPrintDevice): Uri  =
     var tmp: pointer
     vcall(it, Slot_IIppPrintDevice_get_PrinterUri, Fn_IIppPrintDevice_get_PrinterUri)(it, tmp.addr).check("IppPrintDevice.get_PrinterUri")
     result = adopt[Uri](tmp)
+
+proc getPrinterAttributesAsBuffer*(self: IppPrintDevice, attributeNames: seq[string]): pointer  =
+  ## Windows.Devices.Printers.IppPrintDevice.GetPrinterAttributesAsBuffer
+  withIface(self.p, IID_IIppPrintDevice, "IIppPrintDevice", it):
+    let p0 = asIterableString(attributeNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppPrintDevice_GetPrinterAttributesAsBuffer, Fn_IIppPrintDevice_GetPrinterAttributesAsBuffer)(it, p0, tmp.addr).check("IppPrintDevice.GetPrinterAttributesAsBuffer")
+    result = tmp
 
 proc setPrinterAttributesFromBuffer*(self: IppPrintDevice, printerAttributesBuffer: pointer): IppSetAttributesResult  =
   ## Windows.Devices.Printers.IppPrintDevice.SetPrinterAttributesFromBuffer
@@ -35973,6 +36397,15 @@ proc id*(self: SmartCardAppletIdGroupRegistration): GUID  =
     vcall(it, Slot_ISmartCardAppletIdGroupRegistration_get_Id, Fn_ISmartCardAppletIdGroupRegistration_get_Id)(it, tmp.addr).check("SmartCardAppletIdGroupRegistration.get_Id")
     result = tmp
 
+proc setAutomaticResponseApdusAsync*(self: SmartCardAppletIdGroupRegistration, apdus: seq[SmartCardAutomaticResponseApdu]) {.async.} =
+  ## Windows.Devices.SmartCards.SmartCardAppletIdGroupRegistration.SetAutomaticResponseApdusAsync
+  var op: pointer
+  withIface(self.p, IID_ISmartCardAppletIdGroupRegistration, "ISmartCardAppletIdGroupRegistration", it):
+    let p0 = asIterable[SmartCardAutomaticResponseApdu](apdus, IID_IIterable_1_SmartCardAutomaticResponseApdu, IID_IVectorView_1_SmartCardAutomaticResponseApdu, IID_IIterator_1_SmartCardAutomaticResponseApdu)
+    defer: discard release(p0)
+    vcall(it, Slot_ISmartCardAppletIdGroupRegistration_SetAutomaticResponseApdusAsync, Fn_ISmartCardAppletIdGroupRegistration_SetAutomaticResponseApdusAsync)(it, p0, op.addr).check("SmartCardAppletIdGroupRegistration.SetAutomaticResponseApdusAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SmartCardAppletIdGroupRegistration.SetAutomaticResponseApdusAsync")
+
 proc smartCardReaderId*(self: SmartCardAppletIdGroupRegistration): string  =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroupRegistration.get_SmartCardReaderId
   withIface(self.p, IID_ISmartCardAppletIdGroupRegistration2, "ISmartCardAppletIdGroupRegistration2", it):
@@ -36176,6 +36609,15 @@ proc deleteCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator, m
     withHString(materialPackageName, h0):
       vcall(it, Slot_ISmartCardCryptogramGenerator_DeleteCryptogramMaterialPackageAsync, Fn_ISmartCardCryptogramGenerator_DeleteCryptogramMaterialPackageAsync)(it, h0, op.addr).check("SmartCardCryptogramGenerator.DeleteCryptogramMaterialPackageAsync")
   result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardCryptogramGenerator.DeleteCryptogramMaterialPackageAsync")
+
+proc validateRequestApduAsync*(self: SmartCardCryptogramGenerator, promptingBehavior: SmartCardUnlockPromptingBehavior, apduToValidate: pointer, cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep]): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.ValidateRequestApduAsync
+  var op: pointer
+  withIface(self.p, IID_ISmartCardCryptogramGenerator2, "ISmartCardCryptogramGenerator2", it):
+    let p2 = asIterable[SmartCardCryptogramPlacementStep](cryptogramPlacementSteps, IID_IIterable_1_SmartCardCryptogramPlacementStep, IID_IVectorView_1_SmartCardCryptogramPlacementStep, IID_IIterator_1_SmartCardCryptogramPlacementStep)
+    defer: discard release(p2)
+    vcall(it, Slot_ISmartCardCryptogramGenerator2_ValidateRequestApduAsync, Fn_ISmartCardCryptogramGenerator2_ValidateRequestApduAsync)(it, promptingBehavior, apduToValidate, p2, op.addr).check("SmartCardCryptogramGenerator.ValidateRequestApduAsync")
+  result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardCryptogramGenerator.ValidateRequestApduAsync")
 
 proc getAllCryptogramStorageKeyCharacteristicsAsync*(self: SmartCardCryptogramGenerator): Future[SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.GetAllCryptogramStorageKeyCharacteristicsAsync
@@ -36689,6 +37131,15 @@ proc automaticResponseStatus*(self: SmartCardEmulatorApduReceivedEventArgs): Sma
     var tmp: SmartCardAutomaticResponseStatus
     vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs_get_AutomaticResponseStatus, Fn_ISmartCardEmulatorApduReceivedEventArgs_get_AutomaticResponseStatus)(it, tmp.addr).check("SmartCardEmulatorApduReceivedEventArgs.get_AutomaticResponseStatus")
     result = tmp
+
+proc tryRespondWithCryptogramsAsync*(self: SmartCardEmulatorApduReceivedEventArgs, responseTemplate: pointer, cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep]): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+  ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync
+  var op: pointer
+  withIface(self.p, IID_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms, "ISmartCardEmulatorApduReceivedEventArgsWithCryptograms", it):
+    let p1 = asIterable[SmartCardCryptogramPlacementStep](cryptogramPlacementSteps, IID_IIterable_1_SmartCardCryptogramPlacementStep, IID_IVectorView_1_SmartCardCryptogramPlacementStep, IID_IIterator_1_SmartCardCryptogramPlacementStep)
+    defer: discard release(p1)
+    vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync, Fn_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync)(it, responseTemplate, p1, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
+  result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
 
 proc state*(self: SmartCardEmulatorApduReceivedEventArgs): uint32  =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.get_State

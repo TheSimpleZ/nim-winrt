@@ -129,3 +129,20 @@ suite "generated API":
     let a = guid("00000000-0000-0000-C000-000000000046")
     check GuidHelper.equals(a, a)
     check not GuidHelper.equals(a, GuidHelper.empty)
+
+  test "a Nim seq can be handed to WinRT as a collection":
+    # Calendar's constructor takes an IIterable<String>, so Windows iterates
+    # an object built around the seq — First, MoveNext, get_Current — and this
+    # passing means the vtables, the IIDs and the refcounts are all right.
+    let cal = Calendar.createCalendar(@["en-GB", "sv-SE"],
+                                      "GregorianCalendar", "24HourClock")
+    check cal.languages == @["en-GB", "sv-SE"]
+    check cal.getCalendarSystem == "GregorianCalendar"
+
+  test "handing over a collection repeatedly does not leak it":
+    # The view is released after the call; the elements it copied go with it.
+    for i in 1 .. 2_000:
+      let c = Calendar.createCalendar(@["en-GB"], "GregorianCalendar",
+                                      "24HourClock")
+      doAssert c.languages.len == 1
+    check true

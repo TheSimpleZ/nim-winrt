@@ -15,6 +15,7 @@ import ./delegate
 export core, data
 import ./asyncops
 export asyncops
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -36,6 +37,12 @@ const IID_IAsyncOperation_1_IVectorView_1* = GUID(
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
 const IID_AsyncOperationCompletedHandler_1_String* = GUID(
     data1: 0xB79A741F'u32, data2: 0x7FB5'u16, data3: 0x50AE'u16,
     data4: [0x9E'u8, 0x99, 0x91, 0x12, 0x01, 0xEC, 0x3D, 0x41])
@@ -1426,6 +1433,29 @@ proc getCandidatesAsync*(self: TextPredictionGenerator, input: string, maxCandid
     withHString(input, h0):
       vcall(it, Slot_ITextPredictionGenerator_GetCandidatesAsync2, Fn_ITextPredictionGenerator_GetCandidatesAsync2)(it, h0, maxCandidates, op.addr).check("TextPredictionGenerator.GetCandidatesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "TextPredictionGenerator.GetCandidatesAsync")
+  result = toSeqString(coll, IID_IVectorView_1_String)
+  discard release(coll)
+
+proc getCandidatesAsync*(self: TextPredictionGenerator, input: string, maxCandidates: uint32, predictionOptions: TextPredictionOptions, previousStrings: seq[string]): Future[seq[string]] {.async.} =
+  ## Windows.Data.Text.TextPredictionGenerator.GetCandidatesAsync
+  var op: pointer
+  withIface(self.p, IID_ITextPredictionGenerator2, "ITextPredictionGenerator2", it):
+    withHString(input, h0):
+      let p3 = asIterableString(previousStrings, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p3)
+      vcall(it, Slot_ITextPredictionGenerator2_GetCandidatesAsync, Fn_ITextPredictionGenerator2_GetCandidatesAsync)(it, h0, maxCandidates, predictionOptions, p3, op.addr).check("TextPredictionGenerator.GetCandidatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "TextPredictionGenerator.GetCandidatesAsync")
+  result = toSeqString(coll, IID_IVectorView_1_String)
+  discard release(coll)
+
+proc getNextWordCandidatesAsync*(self: TextPredictionGenerator, maxCandidates: uint32, previousStrings: seq[string]): Future[seq[string]] {.async.} =
+  ## Windows.Data.Text.TextPredictionGenerator.GetNextWordCandidatesAsync
+  var op: pointer
+  withIface(self.p, IID_ITextPredictionGenerator2, "ITextPredictionGenerator2", it):
+    let p1 = asIterableString(previousStrings, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p1)
+    vcall(it, Slot_ITextPredictionGenerator2_GetNextWordCandidatesAsync, Fn_ITextPredictionGenerator2_GetNextWordCandidatesAsync)(it, maxCandidates, p1, op.addr).check("TextPredictionGenerator.GetNextWordCandidatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "TextPredictionGenerator.GetNextWordCandidatesAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
 

@@ -15,6 +15,7 @@ import ./delegate
 export core, storage
 import ./asyncops
 export asyncops
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -165,15 +166,21 @@ const IID_IAsyncOperation_1_IVector_1* = GUID(
 const IID_IVector_1_String* = GUID(
     data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
     data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
 const IID_IAsyncOperation_1_IBuffer* = GUID(
     data1: 0x3BEE8834'u32, data2: 0xB9A7'u16, data3: 0x5A80'u16,
     data4: [0xA7'u8, 0x46, 0x5E, 0xF0, 0x97, 0x22, 0x78, 0x78])
 const IID_IReference_1_F8* = GUID(
     data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
     data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
-const IID_IVectorView_1_String* = GUID(
-    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
-    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
 const IID_AsyncOperationCompletedHandler_1_MusicProperties* = GUID(
     data1: 0xD84E1312'u32, data2: 0xD661'u16, data3: 0x5B7F'u16,
     data4: [0x95'u8, 0x66, 0x74, 0x21, 0xBD, 0xED, 0xC1, 0xEA])
@@ -222,6 +229,15 @@ const IID_TypedEventHandler_2_CachedFileUpdaterUI_FileUpdateRequestedEventArgs* 
 const IID_TypedEventHandler_2_CachedFileUpdaterUI_Object* = GUID(
     data1: 0x45FDD443'u32, data2: 0xC0B9'u16, data3: 0x57B0'u16,
     data4: [0xA8'u8, 0x4F, 0x7D, 0x87, 0x6E, 0xDC, 0x31, 0x49])
+const IID_IIterable_1_StorageProviderItemProperty* = GUID(
+    data1: 0x4584CB69'u32, data2: 0xEE26'u16, data3: 0x59E0'u16,
+    data4: [0xB0'u8, 0x5D, 0xC9, 0xA7, 0x85, 0x1A, 0x73, 0x17])
+const IID_IVectorView_1_StorageProviderItemProperty* = GUID(
+    data1: 0x5FF5F455'u32, data2: 0x4C6F'u16, data3: 0x5DF7'u16,
+    data4: [0xA7'u8, 0xB2, 0x2A, 0x50, 0xD1, 0x86, 0xAD, 0xCC])
+const IID_IIterator_1_StorageProviderItemProperty* = GUID(
+    data1: 0x0C6DDDDE'u32, data2: 0x1AA3'u16, data3: 0x54F5'u16,
+    data4: [0xB1'u8, 0x39, 0xE4, 0xA2, 0x37, 0xDC, 0x1C, 0x5F])
 const IID_IVector_1_StorageProviderKnownFolderEntry* = GUID(
     data1: 0xB4EA581C'u32, data2: 0x4B58'u16, data3: 0x5A27'u16,
     data4: [0x84'u8, 0x8E, 0xC3, 0x3D, 0x15, 0x3E, 0xCE, 0x60])
@@ -3409,6 +3425,46 @@ proc readLinesAsync*(_: typedesc[FileIO], file: StorageFile, encoding: UnicodeEn
   result = toSeqString(coll, IID_IVector_1_String)
   discard release(coll)
 
+proc writeLinesAsync*(_: typedesc[FileIO], file: StorageFile, lines: seq[string]) {.async.} =
+  ## Windows.Storage.FileIO.WriteLinesAsync
+  var op: pointer
+  withStatics("Windows.Storage.FileIO", IID_IFileIOStatics, it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      let p1 = asIterableString(lines, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IFileIOStatics_WriteLinesAsync, Fn_IFileIOStatics_WriteLinesAsync)(it, p0, p1, op.addr).check("FileIO.WriteLinesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "FileIO.WriteLinesAsync")
+
+proc writeLinesAsync*(_: typedesc[FileIO], file: StorageFile, lines: seq[string], encoding: UnicodeEncoding) {.async.} =
+  ## Windows.Storage.FileIO.WriteLinesAsync
+  var op: pointer
+  withStatics("Windows.Storage.FileIO", IID_IFileIOStatics, it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      let p1 = asIterableString(lines, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IFileIOStatics_WriteLinesAsync2, Fn_IFileIOStatics_WriteLinesAsync2)(it, p0, p1, encoding, op.addr).check("FileIO.WriteLinesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "FileIO.WriteLinesAsync")
+
+proc appendLinesAsync*(_: typedesc[FileIO], file: StorageFile, lines: seq[string]) {.async.} =
+  ## Windows.Storage.FileIO.AppendLinesAsync
+  var op: pointer
+  withStatics("Windows.Storage.FileIO", IID_IFileIOStatics, it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      let p1 = asIterableString(lines, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IFileIOStatics_AppendLinesAsync, Fn_IFileIOStatics_AppendLinesAsync)(it, p0, p1, op.addr).check("FileIO.AppendLinesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "FileIO.AppendLinesAsync")
+
+proc appendLinesAsync*(_: typedesc[FileIO], file: StorageFile, lines: seq[string], encoding: UnicodeEncoding) {.async.} =
+  ## Windows.Storage.FileIO.AppendLinesAsync
+  var op: pointer
+  withStatics("Windows.Storage.FileIO", IID_IFileIOStatics, it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      let p1 = asIterableString(lines, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IFileIOStatics_AppendLinesAsync2, Fn_IFileIOStatics_AppendLinesAsync2)(it, p0, p1, encoding, op.addr).check("FileIO.AppendLinesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "FileIO.AppendLinesAsync")
+
 proc readBufferAsync*(_: typedesc[FileIO], file: StorageFile): Future[Buffer] {.async.} =
   ## Windows.Storage.FileIO.ReadBufferAsync
   var op: pointer
@@ -4288,6 +4344,46 @@ proc readLinesAsync*(_: typedesc[PathIO], absolutePath: string, encoding: Unicod
   result = toSeqString(coll, IID_IVector_1_String)
   discard release(coll)
 
+proc writeLinesAsync*(_: typedesc[PathIO], absolutePath: string, lines: seq[string]) {.async.} =
+  ## Windows.Storage.PathIO.WriteLinesAsync
+  var op: pointer
+  withStatics("Windows.Storage.PathIO", IID_IPathIOStatics, it):
+    withHString(absolutePath, h0):
+      let p1 = asIterableString(lines, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IPathIOStatics_WriteLinesAsync, Fn_IPathIOStatics_WriteLinesAsync)(it, h0, p1, op.addr).check("PathIO.WriteLinesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PathIO.WriteLinesAsync")
+
+proc writeLinesAsync*(_: typedesc[PathIO], absolutePath: string, lines: seq[string], encoding: UnicodeEncoding) {.async.} =
+  ## Windows.Storage.PathIO.WriteLinesAsync
+  var op: pointer
+  withStatics("Windows.Storage.PathIO", IID_IPathIOStatics, it):
+    withHString(absolutePath, h0):
+      let p1 = asIterableString(lines, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IPathIOStatics_WriteLinesAsync2, Fn_IPathIOStatics_WriteLinesAsync2)(it, h0, p1, encoding, op.addr).check("PathIO.WriteLinesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PathIO.WriteLinesAsync")
+
+proc appendLinesAsync*(_: typedesc[PathIO], absolutePath: string, lines: seq[string]) {.async.} =
+  ## Windows.Storage.PathIO.AppendLinesAsync
+  var op: pointer
+  withStatics("Windows.Storage.PathIO", IID_IPathIOStatics, it):
+    withHString(absolutePath, h0):
+      let p1 = asIterableString(lines, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IPathIOStatics_AppendLinesAsync, Fn_IPathIOStatics_AppendLinesAsync)(it, h0, p1, op.addr).check("PathIO.AppendLinesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PathIO.AppendLinesAsync")
+
+proc appendLinesAsync*(_: typedesc[PathIO], absolutePath: string, lines: seq[string], encoding: UnicodeEncoding) {.async.} =
+  ## Windows.Storage.PathIO.AppendLinesAsync
+  var op: pointer
+  withStatics("Windows.Storage.PathIO", IID_IPathIOStatics, it):
+    withHString(absolutePath, h0):
+      let p1 = asIterableString(lines, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IPathIOStatics_AppendLinesAsync2, Fn_IPathIOStatics_AppendLinesAsync2)(it, h0, p1, encoding, op.addr).check("PathIO.AppendLinesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PathIO.AppendLinesAsync")
+
 proc readBufferAsync*(_: typedesc[PathIO], absolutePath: string): Future[Buffer] {.async.} =
   ## Windows.Storage.PathIO.ReadBufferAsync
   var op: pointer
@@ -5109,6 +5205,15 @@ proc `path=`*(self: StorageProviderGetPathForContentUriResult, value: string)  =
   withIface(self.p, IID_IStorageProviderGetPathForContentUriResult, "IStorageProviderGetPathForContentUriResult", it):
     withHString(value, h0):
       vcall(it, Slot_IStorageProviderGetPathForContentUriResult_put_Path, Fn_IStorageProviderGetPathForContentUriResult_put_Path)(it, h0).check("StorageProviderGetPathForContentUriResult.put_Path")
+
+proc setAsync*(_: typedesc[StorageProviderItemProperties], item: pointer, itemProperties: seq[StorageProviderItemProperty]) {.async.} =
+  ## Windows.Storage.Provider.StorageProviderItemProperties.SetAsync
+  var op: pointer
+  withStatics("Windows.Storage.Provider.StorageProviderItemProperties", IID_IStorageProviderItemPropertiesStatics, it):
+    let p1 = asIterable[StorageProviderItemProperty](itemProperties, IID_IIterable_1_StorageProviderItemProperty, IID_IVectorView_1_StorageProviderItemProperty, IID_IIterator_1_StorageProviderItemProperty)
+    defer: discard release(p1)
+    vcall(it, Slot_IStorageProviderItemPropertiesStatics_SetAsync, Fn_IStorageProviderItemPropertiesStatics_SetAsync)(it, item, p1, op.addr).check("StorageProviderItemProperties.SetAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "StorageProviderItemProperties.SetAsync")
 
 proc newStorageProviderItemProperty*(): StorageProviderItemProperty =
   ## Activate a `Windows.Storage.Provider.StorageProviderItemProperty`.
@@ -5969,6 +6074,15 @@ proc deleteAsync*(self: ContentIndexer, contentId: string) {.async.} =
       vcall(it, Slot_IContentIndexer_DeleteAsync, Fn_IContentIndexer_DeleteAsync)(it, h0, op.addr).check("ContentIndexer.DeleteAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContentIndexer.DeleteAsync")
 
+proc deleteMultipleAsync*(self: ContentIndexer, contentIds: seq[string]) {.async.} =
+  ## Windows.Storage.Search.ContentIndexer.DeleteMultipleAsync
+  var op: pointer
+  withIface(self.p, IID_IContentIndexer, "IContentIndexer", it):
+    let p0 = asIterableString(contentIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IContentIndexer_DeleteMultipleAsync, Fn_IContentIndexer_DeleteMultipleAsync)(it, p0, op.addr).check("ContentIndexer.DeleteMultipleAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContentIndexer.DeleteMultipleAsync")
+
 proc deleteAllAsync*(self: ContentIndexer) {.async.} =
   ## Windows.Storage.Search.ContentIndexer.DeleteAllAsync
   var op: pointer
@@ -5982,6 +6096,16 @@ proc revision*(self: ContentIndexer): uint64  =
     var tmp: uint64
     vcall(it, Slot_IContentIndexer_get_Revision, Fn_IContentIndexer_get_Revision)(it, tmp.addr).check("ContentIndexer.get_Revision")
     result = tmp
+
+proc createQuery*(self: ContentIndexer, searchFilter: string, propertiesToRetrieve: seq[string]): ContentIndexerQuery  =
+  ## Windows.Storage.Search.ContentIndexer.CreateQuery
+  withIface(self.p, IID_IContentIndexerQueryOperations, "IContentIndexerQueryOperations", it):
+    withHString(searchFilter, h0):
+      let p1 = asIterableString(propertiesToRetrieve, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      var tmp: pointer
+      vcall(it, Slot_IContentIndexerQueryOperations_CreateQuery3, Fn_IContentIndexerQueryOperations_CreateQuery3)(it, h0, p1, tmp.addr).check("ContentIndexer.CreateQuery")
+      result = adopt[ContentIndexerQuery](tmp)
 
 proc getIndexer*(_: typedesc[ContentIndexer], indexName: string): ContentIndexer  =
   ## Windows.Storage.Search.ContentIndexer.GetIndexer
@@ -6180,6 +6304,13 @@ proc setThumbnailPrefetch*(self: QueryOptions, mode: ThumbnailMode, requestedSiz
   withIface(self.p, IID_IQueryOptions, "IQueryOptions", it):
     vcall(it, Slot_IQueryOptions_SetThumbnailPrefetch, Fn_IQueryOptions_SetThumbnailPrefetch)(it, mode, requestedSize, options).check("QueryOptions.SetThumbnailPrefetch")
 
+proc setPropertyPrefetch*(self: QueryOptions, options: PropertyPrefetchOptions, propertiesToRetrieve: seq[string])  =
+  ## Windows.Storage.Search.QueryOptions.SetPropertyPrefetch
+  withIface(self.p, IID_IQueryOptions, "IQueryOptions", it):
+    let p1 = asIterableString(propertiesToRetrieve, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p1)
+    vcall(it, Slot_IQueryOptions_SetPropertyPrefetch, Fn_IQueryOptions_SetPropertyPrefetch)(it, options, p1).check("QueryOptions.SetPropertyPrefetch")
+
 proc storageProviderIdFilter*(self: QueryOptions): seq[string]  =
   ## Windows.Storage.Search.QueryOptions.get_StorageProviderIdFilter
   withIface(self.p, IID_IQueryOptionsWithProviderFilter, "IQueryOptionsWithProviderFilter", it):
@@ -6187,6 +6318,15 @@ proc storageProviderIdFilter*(self: QueryOptions): seq[string]  =
     vcall(it, Slot_IQueryOptionsWithProviderFilter_get_StorageProviderIdFilter, Fn_IQueryOptionsWithProviderFilter_get_StorageProviderIdFilter)(it, tmp.addr).check("QueryOptions.get_StorageProviderIdFilter")
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
+
+proc createCommonFileQuery*(_: typedesc[QueryOptions], query: CommonFileQuery, fileTypeFilter: seq[string]): QueryOptions  =
+  ## Windows.Storage.Search.QueryOptions.CreateCommonFileQuery
+  withStatics("Windows.Storage.Search.QueryOptions", IID_IQueryOptionsFactory, it):
+    let p1 = asIterableString(fileTypeFilter, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p1)
+    var tmp: pointer
+    vcall(it, Slot_IQueryOptionsFactory_CreateCommonFileQuery, Fn_IQueryOptionsFactory_CreateCommonFileQuery)(it, query, p1, tmp.addr).check("QueryOptions.CreateCommonFileQuery")
+    result = adopt[QueryOptions](tmp)
 
 proc createCommonFolderQuery*(_: typedesc[QueryOptions], query: CommonFolderQuery): QueryOptions  =
   ## Windows.Storage.Search.QueryOptions.CreateCommonFolderQuery

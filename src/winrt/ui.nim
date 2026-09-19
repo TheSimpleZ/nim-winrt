@@ -15,6 +15,7 @@ import ./delegate
 export core, ui
 import ./asyncops
 export asyncops
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -57,9 +58,45 @@ const IID_TypedEventHandler_2_Object_CompositionBatchCompletedEventArgs* = GUID(
 const IID_TypedEventHandler_2_CompositionGraphicsDevice_RenderingDeviceReplacedEventArgs* = GUID(
     data1: 0x259B32BE'u32, data2: 0xBD06'u16, data3: 0x53C2'u16,
     data4: [0xBD'u8, 0x51, 0x89, 0xE8, 0xE0, 0xF9, 0xE2, 0x39])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
 const IID_TypedEventHandler_2_CompositorController_Object* = GUID(
     data1: 0xE60C8424'u32, data2: 0x3154'u16, data3: 0x566E'u16,
     data4: [0x9A'u8, 0xA2, 0xEE, 0xC4, 0x9F, 0xCE, 0x00, 0x4A])
+const IID_IIterable_1_InteractionTrackerInertiaModifier* = GUID(
+    data1: 0x9A245C40'u32, data2: 0xAAE6'u16, data3: 0x59FB'u16,
+    data4: [0x87'u8, 0xF5, 0x4B, 0xB0, 0x55, 0x99, 0xF0, 0xB1])
+const IID_IVectorView_1_InteractionTrackerInertiaModifier* = GUID(
+    data1: 0x0A23D57A'u32, data2: 0xAF70'u16, data3: 0x5FCE'u16,
+    data4: [0x95'u8, 0xA9, 0x66, 0x67, 0x03, 0x59, 0x32, 0xA6])
+const IID_IIterator_1_InteractionTrackerInertiaModifier* = GUID(
+    data1: 0x46617D87'u32, data2: 0x2CD2'u16, data3: 0x5E31'u16,
+    data4: [0x9A'u8, 0x30, 0xEA, 0x86, 0xF8, 0xAA, 0x7C, 0xA1])
+const IID_IIterable_1_CompositionConditionalValue* = GUID(
+    data1: 0xB268447B'u32, data2: 0xF519'u16, data3: 0x5CE5'u16,
+    data4: [0x89'u8, 0xCD, 0xB7, 0xE1, 0xBC, 0x56, 0x52, 0xEE])
+const IID_IVectorView_1_CompositionConditionalValue* = GUID(
+    data1: 0xDED20B78'u32, data2: 0x0BED'u16, data3: 0x5F4C'u16,
+    data4: [0x9D'u8, 0xF5, 0x98, 0x2D, 0xAD, 0xF8, 0xF8, 0xBB])
+const IID_IIterator_1_CompositionConditionalValue* = GUID(
+    data1: 0x8A75B02D'u32, data2: 0x3991'u16, data3: 0x55A6'u16,
+    data4: [0xBF'u8, 0xE2, 0x82, 0xCB, 0x7D, 0xD6, 0x5B, 0x98])
+const IID_IIterable_1_InteractionTrackerVector2InertiaModifier* = GUID(
+    data1: 0x3AEACFD8'u32, data2: 0xC7F1'u16, data3: 0x580C'u16,
+    data4: [0xA2'u8, 0x3B, 0x99, 0x66, 0x6E, 0x42, 0xE6, 0x2B])
+const IID_IVectorView_1_InteractionTrackerVector2InertiaModifier* = GUID(
+    data1: 0xB4049660'u32, data2: 0xA200'u16, data3: 0x5D9E'u16,
+    data4: [0xA7'u8, 0x4D, 0xCC, 0x93, 0x68, 0x2F, 0x11, 0x71])
+const IID_IIterator_1_InteractionTrackerVector2InertiaModifier* = GUID(
+    data1: 0x7762CAAB'u32, data2: 0x5B42'u16, data3: 0x5958'u16,
+    data4: [0x9F'u8, 0x49, 0x06, 0xAE, 0xFD, 0x43, 0xAD, 0x75])
 const IID_IVectorView_1_IPropertyAnimation* = GUID(
     data1: 0x3A6ED95D'u32, data2: 0x6A50'u16, data3: 0x5EAD'u16,
     data4: [0xA4'u8, 0xC6, 0x09, 0xF8, 0xBA, 0xBC, 0x63, 0x2C])
@@ -180,15 +217,30 @@ const IID_TypedEventHandler_2_GestureRecognizer_CrossSlidingEventArgs* = GUID(
 const IID_IVectorView_1_IInkAnalysisNode* = GUID(
     data1: 0x2B3FEE11'u32, data2: 0x53B5'u16, data3: 0x55B0'u16,
     data4: [0x8D'u8, 0x71, 0xC4, 0x0B, 0x42, 0x7D, 0xE0, 0x29])
-const IID_IVectorView_1_String* = GUID(
-    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
-    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IIterable_1_InkStroke* = GUID(
+    data1: 0xBBC11401'u32, data2: 0x89D0'u16, data3: 0x5305'u16,
+    data4: [0xA3'u8, 0xB3, 0x36, 0xC8, 0x87, 0x71, 0x4B, 0x9B])
+const IID_IVectorView_1_InkStroke* = GUID(
+    data1: 0x6744F458'u32, data2: 0xB242'u16, data3: 0x5767'u16,
+    data4: [0xA6'u8, 0x43, 0x99, 0x6E, 0x01, 0xDF, 0xF0, 0xE4])
+const IID_IIterator_1_InkStroke* = GUID(
+    data1: 0x5608D5A9'u32, data2: 0xE7E4'u16, data3: 0x5A0B'u16,
+    data4: [0x94'u8, 0x1F, 0xB7, 0xFE, 0xD7, 0x6B, 0x35, 0xBF])
 const IID_AsyncOperationCompletedHandler_1_InkAnalysisResult* = GUID(
     data1: 0xA7EF2666'u32, data2: 0x6FC4'u16, data3: 0x568F'u16,
     data4: [0xBB'u8, 0xF3, 0x19, 0xC1, 0x03, 0x6A, 0x26, 0xBF])
 const IID_IAsyncOperation_1_InkAnalysisResult* = GUID(
     data1: 0x2C46D1BD'u32, data2: 0x6DBB'u16, data3: 0x5007'u16,
     data4: [0xBA'u8, 0x85, 0x3D, 0x01, 0x06, 0xBD, 0xDF, 0x50])
+const IID_IIterable_1_InkPoint* = GUID(
+    data1: 0x0630C0EF'u32, data2: 0xA4E2'u16, data3: 0x5AF6'u16,
+    data4: [0xB2'u8, 0xE9, 0x8E, 0x04, 0x2E, 0x29, 0x4E, 0x17])
+const IID_IVectorView_1_InkPoint* = GUID(
+    data1: 0xD1AC414B'u32, data2: 0xC87D'u16, data3: 0x540F'u16,
+    data4: [0x8A'u8, 0xB1, 0x4E, 0x0D, 0x09, 0xD9, 0xD2, 0x83])
+const IID_IIterator_1_InkPoint* = GUID(
+    data1: 0x47415452'u32, data2: 0xDB79'u16, data3: 0x567E'u16,
+    data4: [0x84'u8, 0xD5, 0xE9, 0x91, 0x23, 0x30, 0xF9, 0x44])
 const IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs* = GUID(
     data1: 0xB83FBE98'u32, data2: 0x882A'u16, data3: 0x5B69'u16,
     data4: [0xBD'u8, 0x1C, 0xC6, 0x66, 0x90, 0x70, 0x7F, 0xEF])
@@ -216,9 +268,12 @@ const IID_AsyncOperationCompletedHandler_1_U4* = GUID(
 const IID_IAsyncOperationWithProgress_2_U4_U4* = GUID(
     data1: 0xECCB574A'u32, data2: 0xC684'u16, data3: 0x5572'u16,
     data4: [0xA6'u8, 0x79, 0x6B, 0x08, 0x42, 0xCF, 0xB5, 0x7F])
-const IID_IVectorView_1_InkStroke* = GUID(
-    data1: 0x6744F458'u32, data2: 0xB242'u16, data3: 0x5767'u16,
-    data4: [0xA6'u8, 0x43, 0x99, 0x6E, 0x01, 0xDF, 0xF0, 0xE4])
+const IID_IIterable_1_InkRecognitionResult* = GUID(
+    data1: 0xE29B658B'u32, data2: 0x7CC1'u16, data3: 0x561C'u16,
+    data4: [0x99'u8, 0x12, 0x00, 0x1D, 0xBC, 0xA8, 0x66, 0x51])
+const IID_IIterator_1_InkRecognitionResult* = GUID(
+    data1: 0x9ABC247F'u32, data2: 0x0223'u16, data3: 0x5F44'u16,
+    data4: [0x8F'u8, 0xA1, 0x0D, 0x6D, 0x69, 0x1B, 0xF9, 0xAF])
 const IID_TypedEventHandler_2_InkPresenter_InkStrokesCollectedEventArgs* = GUID(
     data1: 0x176BFA8F'u32, data2: 0xC0DE'u16, data3: 0x5B3A'u16,
     data4: [0xB2'u8, 0x8C, 0x0F, 0x39, 0x31, 0xCA, 0x52, 0xD3])
@@ -228,9 +283,6 @@ const IID_TypedEventHandler_2_InkPresenter_InkStrokesErasedEventArgs* = GUID(
 const IID_IVectorView_1_InkStrokeRenderingSegment* = GUID(
     data1: 0xF39EA41D'u32, data2: 0x4714'u16, data3: 0x5D80'u16,
     data4: [0x87'u8, 0xDE, 0x97, 0x3D, 0xD2, 0x6D, 0xA2, 0x69])
-const IID_IVectorView_1_InkPoint* = GUID(
-    data1: 0xD1AC414B'u32, data2: 0xC87D'u16, data3: 0x540F'u16,
-    data4: [0x8A'u8, 0xB1, 0x4E, 0x0D, 0x09, 0xD9, 0xD2, 0x83])
 const IID_IReference_1_DateTime* = GUID(
     data1: 0x5541D8A7'u32, data2: 0x497C'u16, data3: 0x5AA4'u16,
     data4: [0x86'u8, 0xFC, 0x77, 0x13, 0xAD, 0xBF, 0x2A, 0x2C])
@@ -264,6 +316,33 @@ const IID_TypedEventHandler_2_PhysicalGestureRecognizer_TappedEventArgs* = GUID(
 const IID_TypedEventHandler_2_PhysicalGestureRecognizer_HoldingEventArgs* = GUID(
     data1: 0xADAA5F37'u32, data2: 0xBA59'u16, data3: 0x5C13'u16,
     data4: [0x83'u8, 0xE1, 0x81, 0x1A, 0x8C, 0x1C, 0x26, 0xEE])
+const IID_IIterable_1_InjectedInputKeyboardInfo* = GUID(
+    data1: 0x15D6330F'u32, data2: 0x9C97'u16, data3: 0x5705'u16,
+    data4: [0xB6'u8, 0x77, 0x87, 0x25, 0x85, 0x66, 0x4F, 0xB5])
+const IID_IVectorView_1_InjectedInputKeyboardInfo* = GUID(
+    data1: 0x4025770C'u32, data2: 0x361C'u16, data3: 0x5973'u16,
+    data4: [0x8D'u8, 0xB9, 0x96, 0x8C, 0x6A, 0x6A, 0x86, 0xC8])
+const IID_IIterator_1_InjectedInputKeyboardInfo* = GUID(
+    data1: 0x500E5EFE'u32, data2: 0x3BC1'u16, data3: 0x5D9B'u16,
+    data4: [0xBC'u8, 0xFC, 0xC1, 0xF4, 0x39, 0x50, 0x5F, 0x12])
+const IID_IIterable_1_InjectedInputMouseInfo* = GUID(
+    data1: 0x6C34E5BD'u32, data2: 0x0FA4'u16, data3: 0x5244'u16,
+    data4: [0x89'u8, 0xFB, 0x04, 0xBF, 0xD4, 0x80, 0xEC, 0xD8])
+const IID_IVectorView_1_InjectedInputMouseInfo* = GUID(
+    data1: 0xE1078FE4'u32, data2: 0xC3C1'u16, data3: 0x59CB'u16,
+    data4: [0x98'u8, 0xAE, 0x0B, 0xDE, 0x56, 0x69, 0xE7, 0x7B])
+const IID_IIterator_1_InjectedInputMouseInfo* = GUID(
+    data1: 0x9604D1D9'u32, data2: 0x1744'u16, data3: 0x5BD3'u16,
+    data4: [0xB5'u8, 0xB9, 0xD4, 0x7B, 0x94, 0x34, 0xFA, 0xCB])
+const IID_IIterable_1_InjectedInputTouchInfo* = GUID(
+    data1: 0xAC5FAC0B'u32, data2: 0x82A0'u16, data3: 0x5436'u16,
+    data4: [0x92'u8, 0x84, 0xE7, 0xDB, 0x0B, 0xF4, 0xE6, 0x15])
+const IID_IVectorView_1_InjectedInputTouchInfo* = GUID(
+    data1: 0xFD1EEF30'u32, data2: 0x7E70'u16, data3: 0x55B9'u16,
+    data4: [0x97'u8, 0xCB, 0xB6, 0xF1, 0xBA, 0xB1, 0xFA, 0x8F])
+const IID_IIterator_1_InjectedInputTouchInfo* = GUID(
+    data1: 0x4BC92E92'u32, data2: 0xD32E'u16, data3: 0x597A'u16,
+    data4: [0xAE'u8, 0x24, 0xB3, 0x88, 0x61, 0xC5, 0xFB, 0x08])
 const IID_IReference_1_Rect* = GUID(
     data1: 0x80423F11'u32, data2: 0x054F'u16, data3: 0x5EAC'u16,
     data4: [0xAF'u8, 0xD3, 0x63, 0xB6, 0xCE, 0x15, 0xE7, 0x7B])
@@ -438,6 +517,15 @@ const IID_IVector_1_NotificationBinding* = GUID(
 const IID_IVectorView_1_ScheduledTileNotification* = GUID(
     data1: 0x4F729C64'u32, data2: 0xA213'u16, data3: 0x52E9'u16,
     data4: [0xAF'u8, 0x8B, 0x58, 0xAD, 0xCA, 0x3E, 0x59, 0x7F])
+const IID_IIterable_1_Uri* = GUID(
+    data1: 0xB0D63B78'u32, data2: 0x78AD'u16, data3: 0x5E31'u16,
+    data4: [0xB6'u8, 0xD8, 0xE3, 0x2A, 0x0E, 0x16, 0xC4, 0x47])
+const IID_IVectorView_1_Uri* = GUID(
+    data1: 0x4B8385BD'u32, data2: 0xA2CD'u16, data3: 0x5FF1'u16,
+    data4: [0xBF'u8, 0x74, 0x7E, 0xA5, 0x80, 0x42, 0x3E, 0x50])
+const IID_IIterator_1_Uri* = GUID(
+    data1: 0x1C157D0F'u32, data2: 0x5EFE'u16, data3: 0x5CEC'u16,
+    data4: [0xBB'u8, 0xD6, 0x0C, 0x6C, 0xE9, 0xAF, 0x07, 0xA5])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_13* = GUID(
     data1: 0x4650E069'u32, data2: 0x3052'u16, data3: 0x530E'u16,
     data4: [0xBC'u8, 0x38, 0x93, 0xC4, 0x11, 0x77, 0x3B, 0x77])
@@ -1011,6 +1099,15 @@ const IID_IAsyncOperation_1_MapModel3D* = GUID(
 const IID_TypedEventHandler_2_MapScene_MapTargetCameraChangedEventArgs* = GUID(
     data1: 0x766ED4A8'u32, data2: 0xE810'u16, data3: 0x5F78'u16,
     data4: [0xBC'u8, 0x96, 0x9A, 0xFF, 0x9F, 0x58, 0xCF, 0xCA])
+const IID_IIterable_1_MapStyleSheet* = GUID(
+    data1: 0x05483D88'u32, data2: 0x841C'u16, data3: 0x5A0E'u16,
+    data4: [0xB9'u8, 0xC7, 0x5D, 0x82, 0x8D, 0x9F, 0x2A, 0xFF])
+const IID_IVectorView_1_MapStyleSheet* = GUID(
+    data1: 0x9BF4CA85'u32, data2: 0x6CA6'u16, data3: 0x5BC2'u16,
+    data4: [0xAE'u8, 0xAA, 0xC4, 0xCE, 0xD4, 0xC8, 0x61, 0xD2])
+const IID_IIterator_1_MapStyleSheet* = GUID(
+    data1: 0xE6C727E5'u32, data2: 0x6A18'u16, data3: 0x5333'u16,
+    data4: [0xAA'u8, 0x6A, 0x26, 0x6E, 0x8C, 0x8B, 0xDD, 0x51])
 const IID_IReference_1_I4* = GUID(
     data1: 0x548CEFBD'u32, data2: 0xBC8A'u16, data3: 0x5FA0'u16,
     data4: [0x8D'u8, 0xF2, 0x95, 0x74, 0x40, 0xFC, 0x8B, 0xF4])
@@ -1230,6 +1327,12 @@ const IID_TypedEventHandler_2_WebView_WebViewContentLoadingEventArgs* = GUID(
 const IID_TypedEventHandler_2_WebView_WebViewDOMContentLoadedEventArgs* = GUID(
     data1: 0xB9CC891C'u32, data2: 0x4745'u16, data3: 0x5A25'u16,
     data4: [0x98'u8, 0x45, 0xE4, 0x4D, 0x13, 0x42, 0x5A, 0x38])
+const IID_AsyncOperationCompletedHandler_1_String* = GUID(
+    data1: 0xB79A741F'u32, data2: 0x7FB5'u16, data3: 0x50AE'u16,
+    data4: [0x9E'u8, 0x99, 0x91, 0x12, 0x01, 0xEC, 0x3D, 0x41])
+const IID_IAsyncOperation_1_String* = GUID(
+    data1: 0x3E1FE603'u32, data2: 0xF897'u16, data3: 0x5263'u16,
+    data4: [0xB3'u8, 0x28, 0x08, 0x06, 0x42, 0x6B, 0x8A, 0x79])
 const IID_TypedEventHandler_2_WebView_WebViewNavigationCompletedEventArgs* = GUID(
     data1: 0x411136F7'u32, data2: 0x770D'u16, data3: 0x599C'u16,
     data4: [0x85'u8, 0x45, 0x6D, 0x05, 0x3A, 0x6A, 0x17, 0x99])
@@ -1329,6 +1432,15 @@ const IID_IReference_1_F8* = GUID(
 const IID_TypedEventHandler_2_ConnectedAnimation_Object* = GUID(
     data1: 0x44CAA9EA'u32, data2: 0x7598'u16, data3: 0x517A'u16,
     data4: [0xB7'u8, 0x8E, 0xAB, 0xD2, 0x0D, 0x93, 0xD5, 0x87])
+const IID_IIterable_1_UIElement* = GUID(
+    data1: 0x42E26AE1'u32, data2: 0xD357'u16, data3: 0x57E8'u16,
+    data4: [0xBB'u8, 0x48, 0xF7, 0x5C, 0x9F, 0xF6, 0x9D, 0x91])
+const IID_IVectorView_1_UIElement* = GUID(
+    data1: 0xF3864C10'u32, data2: 0x14A4'u16, data3: 0x5516'u16,
+    data4: [0xB1'u8, 0xD9, 0x63, 0xB6, 0x57, 0x94, 0x29, 0xB1])
+const IID_IIterator_1_UIElement* = GUID(
+    data1: 0x1D1F9D60'u32, data2: 0xD53B'u16, data3: 0x57F7'u16,
+    data4: [0xB1'u8, 0x44, 0x8F, 0x7C, 0x48, 0x78, 0x46, 0xE8])
 const IID_TypedEventHandler_2_SvgImageSource_SvgImageSourceOpenedEventArgs* = GUID(
     data1: 0x9E321151'u32, data2: 0x8B27'u16, data3: 0x5E18'u16,
     data4: [0x9E'u8, 0xA3, 0x50, 0x52, 0x0A, 0xCE, 0xB7, 0xEF])
@@ -1347,9 +1459,6 @@ const IID_TypedEventHandler_2_LoadedImageSurface_LoadedImageSourceLoadCompletedE
 const IID_IVectorView_1_Popup* = GUID(
     data1: 0x7D899FB2'u32, data2: 0x4666'u16, data3: 0x5A3E'u16,
     data4: [0xB3'u8, 0x6C, 0x98, 0x86, 0xBC, 0xBC, 0x46, 0x63])
-const IID_IIterable_1_UIElement* = GUID(
-    data1: 0x42E26AE1'u32, data2: 0xD357'u16, data3: 0x57E8'u16,
-    data4: [0xBB'u8, 0x48, 0xF7, 0x5C, 0x9F, 0xF6, 0x9D, 0x91])
 const IID_IVector_1_StateTriggerBase* = GUID(
     data1: 0x72DBAA30'u32, data2: 0x9016'u16, data3: 0x51D9'u16,
     data4: [0x85'u8, 0x00, 0x4B, 0x21, 0x5B, 0x5C, 0xB4, 0x68])
@@ -17142,6 +17251,15 @@ proc createEffectFactory*(self: Compositor, graphicsEffect: pointer): Compositio
     vcall(it, Slot_ICompositor_CreateEffectFactory, Fn_ICompositor_CreateEffectFactory)(it, graphicsEffect, tmp.addr).check("Compositor.CreateEffectFactory")
     result = adopt[CompositionEffectFactory](tmp)
 
+proc createEffectFactory*(self: Compositor, graphicsEffect: pointer, animatableProperties: seq[string]): CompositionEffectFactory  =
+  ## Windows.UI.Composition.Compositor.CreateEffectFactory
+  withIface(self.p, IID_ICompositor, "ICompositor", it):
+    let p1 = asIterableString(animatableProperties, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p1)
+    var tmp: pointer
+    vcall(it, Slot_ICompositor_CreateEffectFactory2, Fn_ICompositor_CreateEffectFactory2)(it, graphicsEffect, p1, tmp.addr).check("Compositor.CreateEffectFactory")
+    result = adopt[CompositionEffectFactory](tmp)
+
 proc createExpressionAnimation*(self: Compositor): ExpressionAnimation  =
   ## Windows.UI.Composition.Compositor.CreateExpressionAnimation
   withIface(self.p, IID_ICompositor, "ICompositor", it):
@@ -18598,6 +18716,27 @@ proc adjustPositionYIfGreaterThanThreshold*(self: InteractionTracker, adjustment
   withIface(self.p, IID_IInteractionTracker, "IInteractionTracker", it):
     vcall(it, Slot_IInteractionTracker_AdjustPositionYIfGreaterThanThreshold, Fn_IInteractionTracker_AdjustPositionYIfGreaterThanThreshold)(it, adjustment, positionThreshold).check("InteractionTracker.AdjustPositionYIfGreaterThanThreshold")
 
+proc configurePositionXInertiaModifiers*(self: InteractionTracker, modifiers: seq[InteractionTrackerInertiaModifier])  =
+  ## Windows.UI.Composition.Interactions.InteractionTracker.ConfigurePositionXInertiaModifiers
+  withIface(self.p, IID_IInteractionTracker, "IInteractionTracker", it):
+    let p0 = asIterable[InteractionTrackerInertiaModifier](modifiers, IID_IIterable_1_InteractionTrackerInertiaModifier, IID_IVectorView_1_InteractionTrackerInertiaModifier, IID_IIterator_1_InteractionTrackerInertiaModifier)
+    defer: discard release(p0)
+    vcall(it, Slot_IInteractionTracker_ConfigurePositionXInertiaModifiers, Fn_IInteractionTracker_ConfigurePositionXInertiaModifiers)(it, p0).check("InteractionTracker.ConfigurePositionXInertiaModifiers")
+
+proc configurePositionYInertiaModifiers*(self: InteractionTracker, modifiers: seq[InteractionTrackerInertiaModifier])  =
+  ## Windows.UI.Composition.Interactions.InteractionTracker.ConfigurePositionYInertiaModifiers
+  withIface(self.p, IID_IInteractionTracker, "IInteractionTracker", it):
+    let p0 = asIterable[InteractionTrackerInertiaModifier](modifiers, IID_IIterable_1_InteractionTrackerInertiaModifier, IID_IVectorView_1_InteractionTrackerInertiaModifier, IID_IIterator_1_InteractionTrackerInertiaModifier)
+    defer: discard release(p0)
+    vcall(it, Slot_IInteractionTracker_ConfigurePositionYInertiaModifiers, Fn_IInteractionTracker_ConfigurePositionYInertiaModifiers)(it, p0).check("InteractionTracker.ConfigurePositionYInertiaModifiers")
+
+proc configureScaleInertiaModifiers*(self: InteractionTracker, modifiers: seq[InteractionTrackerInertiaModifier])  =
+  ## Windows.UI.Composition.Interactions.InteractionTracker.ConfigureScaleInertiaModifiers
+  withIface(self.p, IID_IInteractionTracker, "IInteractionTracker", it):
+    let p0 = asIterable[InteractionTrackerInertiaModifier](modifiers, IID_IIterable_1_InteractionTrackerInertiaModifier, IID_IVectorView_1_InteractionTrackerInertiaModifier, IID_IIterator_1_InteractionTrackerInertiaModifier)
+    defer: discard release(p0)
+    vcall(it, Slot_IInteractionTracker_ConfigureScaleInertiaModifiers, Fn_IInteractionTracker_ConfigureScaleInertiaModifiers)(it, p0).check("InteractionTracker.ConfigureScaleInertiaModifiers")
+
 proc tryUpdatePosition*(self: InteractionTracker, value: Vector3): int32  =
   ## Windows.UI.Composition.Interactions.InteractionTracker.TryUpdatePosition
   withIface(self.p, IID_IInteractionTracker, "IInteractionTracker", it):
@@ -18648,6 +18787,27 @@ proc tryUpdateScaleWithAdditionalVelocity*(self: InteractionTracker, velocityInP
     var tmp: int32
     vcall(it, Slot_IInteractionTracker_TryUpdateScaleWithAdditionalVelocity, Fn_IInteractionTracker_TryUpdateScaleWithAdditionalVelocity)(it, velocityInPercentPerSecond, centerPoint, tmp.addr).check("InteractionTracker.TryUpdateScaleWithAdditionalVelocity")
     result = tmp
+
+proc configureCenterPointXInertiaModifiers*(self: InteractionTracker, conditionalValues: seq[CompositionConditionalValue])  =
+  ## Windows.UI.Composition.Interactions.InteractionTracker.ConfigureCenterPointXInertiaModifiers
+  withIface(self.p, IID_IInteractionTracker2, "IInteractionTracker2", it):
+    let p0 = asIterable[CompositionConditionalValue](conditionalValues, IID_IIterable_1_CompositionConditionalValue, IID_IVectorView_1_CompositionConditionalValue, IID_IIterator_1_CompositionConditionalValue)
+    defer: discard release(p0)
+    vcall(it, Slot_IInteractionTracker2_ConfigureCenterPointXInertiaModifiers, Fn_IInteractionTracker2_ConfigureCenterPointXInertiaModifiers)(it, p0).check("InteractionTracker.ConfigureCenterPointXInertiaModifiers")
+
+proc configureCenterPointYInertiaModifiers*(self: InteractionTracker, conditionalValues: seq[CompositionConditionalValue])  =
+  ## Windows.UI.Composition.Interactions.InteractionTracker.ConfigureCenterPointYInertiaModifiers
+  withIface(self.p, IID_IInteractionTracker2, "IInteractionTracker2", it):
+    let p0 = asIterable[CompositionConditionalValue](conditionalValues, IID_IIterable_1_CompositionConditionalValue, IID_IVectorView_1_CompositionConditionalValue, IID_IIterator_1_CompositionConditionalValue)
+    defer: discard release(p0)
+    vcall(it, Slot_IInteractionTracker2_ConfigureCenterPointYInertiaModifiers, Fn_IInteractionTracker2_ConfigureCenterPointYInertiaModifiers)(it, p0).check("InteractionTracker.ConfigureCenterPointYInertiaModifiers")
+
+proc configureVector2PositionInertiaModifiers*(self: InteractionTracker, modifiers: seq[InteractionTrackerVector2InertiaModifier])  =
+  ## Windows.UI.Composition.Interactions.InteractionTracker.ConfigureVector2PositionInertiaModifiers
+  withIface(self.p, IID_IInteractionTracker3, "IInteractionTracker3", it):
+    let p0 = asIterable[InteractionTrackerVector2InertiaModifier](modifiers, IID_IIterable_1_InteractionTrackerVector2InertiaModifier, IID_IVectorView_1_InteractionTrackerVector2InertiaModifier, IID_IIterator_1_InteractionTrackerVector2InertiaModifier)
+    defer: discard release(p0)
+    vcall(it, Slot_IInteractionTracker3_ConfigureVector2PositionInertiaModifiers, Fn_IInteractionTracker3_ConfigureVector2PositionInertiaModifiers)(it, p0).check("InteractionTracker.ConfigureVector2PositionInertiaModifiers")
 
 proc tryUpdatePosition*(self: InteractionTracker, value: Vector3, option: InteractionTrackerClampingOption): int32  =
   ## Windows.UI.Composition.Interactions.InteractionTracker.TryUpdatePosition
@@ -19142,6 +19302,41 @@ proc scaleVelocity*(self: VisualInteractionSource): float32  =
     var tmp: float32
     vcall(it, Slot_IVisualInteractionSource2_get_ScaleVelocity, Fn_IVisualInteractionSource2_get_ScaleVelocity)(it, tmp.addr).check("VisualInteractionSource.get_ScaleVelocity")
     result = tmp
+
+proc configureCenterPointXModifiers*(self: VisualInteractionSource, conditionalValues: seq[CompositionConditionalValue])  =
+  ## Windows.UI.Composition.Interactions.VisualInteractionSource.ConfigureCenterPointXModifiers
+  withIface(self.p, IID_IVisualInteractionSource2, "IVisualInteractionSource2", it):
+    let p0 = asIterable[CompositionConditionalValue](conditionalValues, IID_IIterable_1_CompositionConditionalValue, IID_IVectorView_1_CompositionConditionalValue, IID_IIterator_1_CompositionConditionalValue)
+    defer: discard release(p0)
+    vcall(it, Slot_IVisualInteractionSource2_ConfigureCenterPointXModifiers, Fn_IVisualInteractionSource2_ConfigureCenterPointXModifiers)(it, p0).check("VisualInteractionSource.ConfigureCenterPointXModifiers")
+
+proc configureCenterPointYModifiers*(self: VisualInteractionSource, conditionalValues: seq[CompositionConditionalValue])  =
+  ## Windows.UI.Composition.Interactions.VisualInteractionSource.ConfigureCenterPointYModifiers
+  withIface(self.p, IID_IVisualInteractionSource2, "IVisualInteractionSource2", it):
+    let p0 = asIterable[CompositionConditionalValue](conditionalValues, IID_IIterable_1_CompositionConditionalValue, IID_IVectorView_1_CompositionConditionalValue, IID_IIterator_1_CompositionConditionalValue)
+    defer: discard release(p0)
+    vcall(it, Slot_IVisualInteractionSource2_ConfigureCenterPointYModifiers, Fn_IVisualInteractionSource2_ConfigureCenterPointYModifiers)(it, p0).check("VisualInteractionSource.ConfigureCenterPointYModifiers")
+
+proc configureDeltaPositionXModifiers*(self: VisualInteractionSource, conditionalValues: seq[CompositionConditionalValue])  =
+  ## Windows.UI.Composition.Interactions.VisualInteractionSource.ConfigureDeltaPositionXModifiers
+  withIface(self.p, IID_IVisualInteractionSource2, "IVisualInteractionSource2", it):
+    let p0 = asIterable[CompositionConditionalValue](conditionalValues, IID_IIterable_1_CompositionConditionalValue, IID_IVectorView_1_CompositionConditionalValue, IID_IIterator_1_CompositionConditionalValue)
+    defer: discard release(p0)
+    vcall(it, Slot_IVisualInteractionSource2_ConfigureDeltaPositionXModifiers, Fn_IVisualInteractionSource2_ConfigureDeltaPositionXModifiers)(it, p0).check("VisualInteractionSource.ConfigureDeltaPositionXModifiers")
+
+proc configureDeltaPositionYModifiers*(self: VisualInteractionSource, conditionalValues: seq[CompositionConditionalValue])  =
+  ## Windows.UI.Composition.Interactions.VisualInteractionSource.ConfigureDeltaPositionYModifiers
+  withIface(self.p, IID_IVisualInteractionSource2, "IVisualInteractionSource2", it):
+    let p0 = asIterable[CompositionConditionalValue](conditionalValues, IID_IIterable_1_CompositionConditionalValue, IID_IVectorView_1_CompositionConditionalValue, IID_IIterator_1_CompositionConditionalValue)
+    defer: discard release(p0)
+    vcall(it, Slot_IVisualInteractionSource2_ConfigureDeltaPositionYModifiers, Fn_IVisualInteractionSource2_ConfigureDeltaPositionYModifiers)(it, p0).check("VisualInteractionSource.ConfigureDeltaPositionYModifiers")
+
+proc configureDeltaScaleModifiers*(self: VisualInteractionSource, conditionalValues: seq[CompositionConditionalValue])  =
+  ## Windows.UI.Composition.Interactions.VisualInteractionSource.ConfigureDeltaScaleModifiers
+  withIface(self.p, IID_IVisualInteractionSource2, "IVisualInteractionSource2", it):
+    let p0 = asIterable[CompositionConditionalValue](conditionalValues, IID_IIterable_1_CompositionConditionalValue, IID_IVectorView_1_CompositionConditionalValue, IID_IIterator_1_CompositionConditionalValue)
+    defer: discard release(p0)
+    vcall(it, Slot_IVisualInteractionSource2_ConfigureDeltaScaleModifiers, Fn_IVisualInteractionSource2_ConfigureDeltaScaleModifiers)(it, p0).check("VisualInteractionSource.ConfigureDeltaScaleModifiers")
 
 proc pointerWheelConfig*(self: VisualInteractionSource): InteractionSourceConfiguration  =
   ## Windows.UI.Composition.Interactions.VisualInteractionSource.get_PointerWheelConfig
@@ -23754,6 +23949,13 @@ proc addDataForStroke*(self: InkAnalyzer, stroke: InkStroke)  =
     withIface(stroke.p, IID_IInkStroke, "IInkStroke", p0):
       vcall(it, Slot_IInkAnalyzer_AddDataForStroke, Fn_IInkAnalyzer_AddDataForStroke)(it, p0).check("InkAnalyzer.AddDataForStroke")
 
+proc addDataForStrokes*(self: InkAnalyzer, strokes: seq[InkStroke])  =
+  ## Windows.UI.Input.Inking.Analysis.InkAnalyzer.AddDataForStrokes
+  withIface(self.p, IID_IInkAnalyzer, "IInkAnalyzer", it):
+    let p0 = asIterable[InkStroke](strokes, IID_IIterable_1_InkStroke, IID_IVectorView_1_InkStroke, IID_IIterator_1_InkStroke)
+    defer: discard release(p0)
+    vcall(it, Slot_IInkAnalyzer_AddDataForStrokes, Fn_IInkAnalyzer_AddDataForStrokes)(it, p0).check("InkAnalyzer.AddDataForStrokes")
+
 proc clearDataForAllStrokes*(self: InkAnalyzer)  =
   ## Windows.UI.Input.Inking.Analysis.InkAnalyzer.ClearDataForAllStrokes
   withIface(self.p, IID_IInkAnalyzer, "IInkAnalyzer", it):
@@ -23781,6 +23983,15 @@ proc analyzeAsync*(self: InkAnalyzer): Future[InkAnalysisResult] {.async.} =
   withIface(self.p, IID_IInkAnalyzer, "IInkAnalyzer", it):
     vcall(it, Slot_IInkAnalyzer_AnalyzeAsync, Fn_IInkAnalyzer_AnalyzeAsync)(it, op.addr).check("InkAnalyzer.AnalyzeAsync")
   result = adopt[InkAnalysisResult](await awaitObject(op, IID_IAsyncOperation_1_InkAnalysisResult, IID_AsyncOperationCompletedHandler_1_InkAnalysisResult, "InkAnalyzer.AnalyzeAsync"))
+
+proc appendInkPoints*(self: CoreIncrementalInkStroke, inkPoints: seq[InkPoint]): Rect  =
+  ## Windows.UI.Input.Inking.Core.CoreIncrementalInkStroke.AppendInkPoints
+  withIface(self.p, IID_ICoreIncrementalInkStroke, "ICoreIncrementalInkStroke", it):
+    let p0 = asIterable[InkPoint](inkPoints, IID_IIterable_1_InkPoint, IID_IVectorView_1_InkPoint, IID_IIterator_1_InkPoint)
+    defer: discard release(p0)
+    var tmp: Rect
+    vcall(it, Slot_ICoreIncrementalInkStroke_AppendInkPoints, Fn_ICoreIncrementalInkStroke_AppendInkPoints)(it, p0, tmp.addr).check("CoreIncrementalInkStroke.AppendInkPoints")
+    result = tmp
 
 proc createInkStroke*(self: CoreIncrementalInkStroke): InkStroke  =
   ## Windows.UI.Input.Inking.Core.CoreIncrementalInkStroke.CreateInkStroke
@@ -24456,6 +24667,13 @@ proc saveAsync*(self: InkManager, outputStream: pointer): Future[uint32] {.async
   withIface(self.p, IID_IInkStrokeContainer, "IInkStrokeContainer", it):
     vcall(it, Slot_IInkStrokeContainer_SaveAsync, Fn_IInkStrokeContainer_SaveAsync)(it, outputStream, op.addr).check("InkManager.SaveAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4, IID_AsyncOperationCompletedHandler_1_U4, "InkManager.SaveAsync")
+
+proc updateRecognitionResults*(self: InkManager, recognitionResults: seq[InkRecognitionResult])  =
+  ## Windows.UI.Input.Inking.InkManager.UpdateRecognitionResults
+  withIface(self.p, IID_IInkStrokeContainer, "IInkStrokeContainer", it):
+    let p0 = asIterable[InkRecognitionResult](recognitionResults, IID_IIterable_1_InkRecognitionResult, IID_IVectorView_1_InkRecognitionResult, IID_IIterator_1_InkRecognitionResult)
+    defer: discard release(p0)
+    vcall(it, Slot_IInkStrokeContainer_UpdateRecognitionResults, Fn_IInkStrokeContainer_UpdateRecognitionResults)(it, p0).check("InkManager.UpdateRecognitionResults")
 
 proc getStrokes*(self: InkManager): seq[InkStroke]  =
   ## Windows.UI.Input.Inking.InkManager.GetStrokes
@@ -25185,6 +25403,13 @@ proc saveAsync*(self: InkStrokeContainer, outputStream: pointer): Future[uint32]
     vcall(it, Slot_IInkStrokeContainer_SaveAsync, Fn_IInkStrokeContainer_SaveAsync)(it, outputStream, op.addr).check("InkStrokeContainer.SaveAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4, IID_AsyncOperationCompletedHandler_1_U4, "InkStrokeContainer.SaveAsync")
 
+proc updateRecognitionResults*(self: InkStrokeContainer, recognitionResults: seq[InkRecognitionResult])  =
+  ## Windows.UI.Input.Inking.InkStrokeContainer.UpdateRecognitionResults
+  withIface(self.p, IID_IInkStrokeContainer, "IInkStrokeContainer", it):
+    let p0 = asIterable[InkRecognitionResult](recognitionResults, IID_IIterable_1_InkRecognitionResult, IID_IVectorView_1_InkRecognitionResult, IID_IIterator_1_InkRecognitionResult)
+    defer: discard release(p0)
+    vcall(it, Slot_IInkStrokeContainer_UpdateRecognitionResults, Fn_IInkStrokeContainer_UpdateRecognitionResults)(it, p0).check("InkStrokeContainer.UpdateRecognitionResults")
+
 proc getStrokes*(self: InkStrokeContainer): seq[InkStroke]  =
   ## Windows.UI.Input.Inking.InkStrokeContainer.GetStrokes
   withIface(self.p, IID_IInkStrokeContainer, "IInkStrokeContainer", it):
@@ -25200,6 +25425,13 @@ proc getRecognitionResults*(self: InkStrokeContainer): seq[InkRecognitionResult]
     vcall(it, Slot_IInkStrokeContainer_GetRecognitionResults, Fn_IInkStrokeContainer_GetRecognitionResults)(it, tmp.addr).check("InkStrokeContainer.GetRecognitionResults")
     result = toSeq[InkRecognitionResult](tmp, IID_IVectorView_1_InkRecognitionResult)
     release(tmp)
+
+proc addStrokes*(self: InkStrokeContainer, strokes: seq[InkStroke])  =
+  ## Windows.UI.Input.Inking.InkStrokeContainer.AddStrokes
+  withIface(self.p, IID_IInkStrokeContainer2, "IInkStrokeContainer2", it):
+    let p0 = asIterable[InkStroke](strokes, IID_IIterable_1_InkStroke, IID_IVectorView_1_InkStroke, IID_IIterator_1_InkStroke)
+    defer: discard release(p0)
+    vcall(it, Slot_IInkStrokeContainer2_AddStrokes, Fn_IInkStrokeContainer2_AddStrokes)(it, p0).check("InkStrokeContainer.AddStrokes")
 
 proc clear*(self: InkStrokeContainer)  =
   ## Windows.UI.Input.Inking.InkStrokeContainer.Clear
@@ -26731,10 +26963,31 @@ proc `touchParameters=`*(self: InjectedInputTouchInfo, value: InjectedInputTouch
   withIface(self.p, IID_IInjectedInputTouchInfo, "IInjectedInputTouchInfo", it):
     vcall(it, Slot_IInjectedInputTouchInfo_put_TouchParameters, Fn_IInjectedInputTouchInfo_put_TouchParameters)(it, value).check("InjectedInputTouchInfo.put_TouchParameters")
 
+proc injectKeyboardInput*(self: InputInjector, input: seq[InjectedInputKeyboardInfo])  =
+  ## Windows.UI.Input.Preview.Injection.InputInjector.InjectKeyboardInput
+  withIface(self.p, IID_IInputInjector, "IInputInjector", it):
+    let p0 = asIterable[InjectedInputKeyboardInfo](input, IID_IIterable_1_InjectedInputKeyboardInfo, IID_IVectorView_1_InjectedInputKeyboardInfo, IID_IIterator_1_InjectedInputKeyboardInfo)
+    defer: discard release(p0)
+    vcall(it, Slot_IInputInjector_InjectKeyboardInput, Fn_IInputInjector_InjectKeyboardInput)(it, p0).check("InputInjector.InjectKeyboardInput")
+
+proc injectMouseInput*(self: InputInjector, input: seq[InjectedInputMouseInfo])  =
+  ## Windows.UI.Input.Preview.Injection.InputInjector.InjectMouseInput
+  withIface(self.p, IID_IInputInjector, "IInputInjector", it):
+    let p0 = asIterable[InjectedInputMouseInfo](input, IID_IIterable_1_InjectedInputMouseInfo, IID_IVectorView_1_InjectedInputMouseInfo, IID_IIterator_1_InjectedInputMouseInfo)
+    defer: discard release(p0)
+    vcall(it, Slot_IInputInjector_InjectMouseInput, Fn_IInputInjector_InjectMouseInput)(it, p0).check("InputInjector.InjectMouseInput")
+
 proc initializeTouchInjection*(self: InputInjector, visualMode: InjectedInputVisualizationMode)  =
   ## Windows.UI.Input.Preview.Injection.InputInjector.InitializeTouchInjection
   withIface(self.p, IID_IInputInjector, "IInputInjector", it):
     vcall(it, Slot_IInputInjector_InitializeTouchInjection, Fn_IInputInjector_InitializeTouchInjection)(it, visualMode).check("InputInjector.InitializeTouchInjection")
+
+proc injectTouchInput*(self: InputInjector, input: seq[InjectedInputTouchInfo])  =
+  ## Windows.UI.Input.Preview.Injection.InputInjector.InjectTouchInput
+  withIface(self.p, IID_IInputInjector, "IInputInjector", it):
+    let p0 = asIterable[InjectedInputTouchInfo](input, IID_IIterable_1_InjectedInputTouchInfo, IID_IVectorView_1_InjectedInputTouchInfo, IID_IIterator_1_InjectedInputTouchInfo)
+    defer: discard release(p0)
+    vcall(it, Slot_IInputInjector_InjectTouchInput, Fn_IInputInjector_InjectTouchInput)(it, p0).check("InputInjector.InjectTouchInput")
 
 proc uninitializeTouchInjection*(self: InputInjector)  =
   ## Windows.UI.Input.Preview.Injection.InputInjector.UninitializeTouchInjection
@@ -30247,6 +30500,20 @@ proc stopPeriodicUpdate*(self: TileUpdater)  =
   ## Windows.UI.Notifications.TileUpdater.StopPeriodicUpdate
   withIface(self.p, IID_ITileUpdater, "ITileUpdater", it):
     vcall(it, Slot_ITileUpdater_StopPeriodicUpdate, Fn_ITileUpdater_StopPeriodicUpdate)(it).check("TileUpdater.StopPeriodicUpdate")
+
+proc startPeriodicUpdateBatch*(self: TileUpdater, tileContents: seq[Uri], requestedInterval: PeriodicUpdateRecurrence)  =
+  ## Windows.UI.Notifications.TileUpdater.StartPeriodicUpdateBatch
+  withIface(self.p, IID_ITileUpdater, "ITileUpdater", it):
+    let p0 = asIterable[Uri](tileContents, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+    defer: discard release(p0)
+    vcall(it, Slot_ITileUpdater_StartPeriodicUpdateBatch, Fn_ITileUpdater_StartPeriodicUpdateBatch)(it, p0, requestedInterval).check("TileUpdater.StartPeriodicUpdateBatch")
+
+proc startPeriodicUpdateBatch*(self: TileUpdater, tileContents: seq[Uri], startTime: DateTime, requestedInterval: PeriodicUpdateRecurrence)  =
+  ## Windows.UI.Notifications.TileUpdater.StartPeriodicUpdateBatch
+  withIface(self.p, IID_ITileUpdater, "ITileUpdater", it):
+    let p0 = asIterable[Uri](tileContents, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri)
+    defer: discard release(p0)
+    vcall(it, Slot_ITileUpdater_StartPeriodicUpdateBatch2, Fn_ITileUpdater_StartPeriodicUpdateBatch2)(it, p0, startTime, requestedInterval).check("TileUpdater.StartPeriodicUpdateBatch")
 
 proc enableNotificationQueueForSquare150x150*(self: TileUpdater, enable: bool)  =
   ## Windows.UI.Notifications.TileUpdater.EnableNotificationQueueForSquare150x150
@@ -38902,6 +39169,13 @@ proc setParent*(self: AutomationPeer, peer: AutomationPeer)  =
   withIface(self.p, IID_IAutomationPeer3, "IAutomationPeer3", it):
     withIface(peer.p, IID_IAutomationPeer, "IAutomationPeer", p0):
       vcall(it, Slot_IAutomationPeer3_SetParent, Fn_IAutomationPeer3_SetParent)(it, p0).check("AutomationPeer.SetParent")
+
+proc raiseTextEditTextChangedEvent*(self: AutomationPeer, automationTextEditChangeType: AutomationTextEditChangeType, changedData: seq[string])  =
+  ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.RaiseTextEditTextChangedEvent
+  withIface(self.p, IID_IAutomationPeer3, "IAutomationPeer3", it):
+    let p1 = asIterableString(changedData, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p1)
+    vcall(it, Slot_IAutomationPeer3_RaiseTextEditTextChangedEvent, Fn_IAutomationPeer3_RaiseTextEditTextChangedEvent)(it, automationTextEditChangeType, p1).check("AutomationPeer.RaiseTextEditTextChangedEvent")
 
 proc getPositionInSet*(self: AutomationPeer): int32  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetPositionInSet
@@ -59471,6 +59745,15 @@ proc roadHighContrastDark*(_: typedesc[MapStyleSheet]): MapStyleSheet  =
     vcall(it, Slot_IMapStyleSheetStatics_RoadHighContrastDark, Fn_IMapStyleSheetStatics_RoadHighContrastDark)(it, tmp.addr).check("MapStyleSheet.RoadHighContrastDark")
     result = adopt[MapStyleSheet](tmp)
 
+proc combine*(_: typedesc[MapStyleSheet], styleSheets: seq[MapStyleSheet]): MapStyleSheet  =
+  ## Windows.UI.Xaml.Controls.Maps.MapStyleSheet.Combine
+  withStatics("Windows.UI.Xaml.Controls.Maps.MapStyleSheet", IID_IMapStyleSheetStatics, it):
+    let p0 = asIterable[MapStyleSheet](styleSheets, IID_IIterable_1_MapStyleSheet, IID_IVectorView_1_MapStyleSheet, IID_IIterator_1_MapStyleSheet)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IMapStyleSheetStatics_Combine, Fn_IMapStyleSheetStatics_Combine)(it, p0, tmp.addr).check("MapStyleSheet.Combine")
+    result = adopt[MapStyleSheet](tmp)
+
 proc parseFromJson*(_: typedesc[MapStyleSheet], styleAsJson: string): MapStyleSheet  =
   ## Windows.UI.Xaml.Controls.Maps.MapStyleSheet.ParseFromJson
   withStatics("Windows.UI.Xaml.Controls.Maps.MapStyleSheet", IID_IMapStyleSheetStatics, it):
@@ -79399,6 +79682,16 @@ proc capturePreviewToStreamAsync*(self: WebView, stream: pointer) {.async.} =
     vcall(it, Slot_IWebView2_CapturePreviewToStreamAsync, Fn_IWebView2_CapturePreviewToStreamAsync)(it, stream, op.addr).check("WebView.CapturePreviewToStreamAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebView.CapturePreviewToStreamAsync")
 
+proc invokeScriptAsync*(self: WebView, scriptName: string, arguments: seq[string]): Future[string] {.async.} =
+  ## Windows.UI.Xaml.Controls.WebView.InvokeScriptAsync
+  var op: pointer
+  withIface(self.p, IID_IWebView2, "IWebView2", it):
+    withHString(scriptName, h0):
+      let p1 = asIterableString(arguments, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IWebView2_InvokeScriptAsync, Fn_IWebView2_InvokeScriptAsync)(it, h0, p1, op.addr).check("WebView.InvokeScriptAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "WebView.InvokeScriptAsync")
+
 proc navigateToLocalStreamUri*(self: WebView, source: Uri, streamResolver: pointer)  =
   ## Windows.UI.Xaml.Controls.WebView.NavigateToLocalStreamUri
   withIface(self.p, IID_IWebView2, "IWebView2", it):
@@ -87296,6 +87589,16 @@ proc `isScaleAnimationEnabled=`*(self: ConnectedAnimation, value: bool)  =
   ## Windows.UI.Xaml.Media.Animation.ConnectedAnimation.put_IsScaleAnimationEnabled
   withIface(self.p, IID_IConnectedAnimation2, "IConnectedAnimation2", it):
     vcall(it, Slot_IConnectedAnimation2_put_IsScaleAnimationEnabled, Fn_IConnectedAnimation2_put_IsScaleAnimationEnabled)(it, value).check("ConnectedAnimation.put_IsScaleAnimationEnabled")
+
+proc tryStart*(self: ConnectedAnimation, destination: UIElement, coordinatedElements: seq[UIElement]): bool  =
+  ## Windows.UI.Xaml.Media.Animation.ConnectedAnimation.TryStart
+  withIface(self.p, IID_IConnectedAnimation2, "IConnectedAnimation2", it):
+    withIface(destination.p, IID_IUIElement, "IUIElement", p0):
+      let p1 = asIterable[UIElement](coordinatedElements, IID_IIterable_1_UIElement, IID_IVectorView_1_UIElement, IID_IIterator_1_UIElement)
+      defer: discard release(p1)
+      var tmp: bool
+      vcall(it, Slot_IConnectedAnimation2_TryStart, Fn_IConnectedAnimation2_TryStart)(it, p0, p1, tmp.addr).check("ConnectedAnimation.TryStart")
+      result = tmp
 
 proc setAnimationComponent*(self: ConnectedAnimation, component: ConnectedAnimationComponent, animation: pointer)  =
   ## Windows.UI.Xaml.Media.Animation.ConnectedAnimation.SetAnimationComponent

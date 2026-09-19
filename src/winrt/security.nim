@@ -15,6 +15,7 @@ import ./delegate
 export core, security
 import ./asyncops
 export asyncops
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -30,12 +31,30 @@ const IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceRes
 const IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse* = GUID(
     data1: 0x05953B8E'u32, data2: 0x5ADB'u16, data3: 0x51B9'u16,
     data4: [0xA9'u8, 0x4A, 0xAD, 0x03, 0x00, 0x30, 0xB8, 0xE3])
-const IID_IVectorView_1_MicrosoftAccountMultiFactorSessionInfo* = GUID(
-    data1: 0x6ABE486B'u32, data2: 0xEA5E'u16, data3: 0x5FDA'u16,
-    data4: [0x91'u8, 0x21, 0x79, 0xD8, 0xA7, 0x85, 0xC4, 0x65])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
+const IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorGetSessionsResult* = GUID(
+    data1: 0xCECBB0CA'u32, data2: 0x0A27'u16, data3: 0x57D4'u16,
+    data4: [0xA3'u8, 0x5D, 0x49, 0x98, 0xF1, 0x99, 0xDA, 0xC9])
+const IID_IAsyncOperation_1_MicrosoftAccountMultiFactorGetSessionsResult* = GUID(
+    data1: 0x544CC4E9'u32, data2: 0xA3DA'u16, data3: 0x5398'u16,
+    data4: [0xA3'u8, 0x08, 0xE3, 0x32, 0xA5, 0x89, 0x61, 0xF6])
+const IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo* = GUID(
+    data1: 0x6CC53E8C'u32, data2: 0xD0E4'u16, data3: 0x5DED'u16,
+    data4: [0x94'u8, 0xF4, 0x7C, 0x73, 0xB1, 0x32, 0xD2, 0xA4])
+const IID_IAsyncOperation_1_MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo* = GUID(
+    data1: 0x989F4C21'u32, data2: 0xEF69'u16, data3: 0x56AD'u16,
+    data4: [0xBA'u8, 0x8C, 0xE5, 0xD2, 0x5A, 0x3C, 0x62, 0x4E])
+const IID_IVectorView_1_MicrosoftAccountMultiFactorSessionInfo* = GUID(
+    data1: 0x6ABE486B'u32, data2: 0xEA5E'u16, data3: 0x5FDA'u16,
+    data4: [0x91'u8, 0x21, 0x79, 0xD8, 0xA7, 0x85, 0xC4, 0x65])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_1* = GUID(
     data1: 0x67746C40'u32, data2: 0xADE0'u16, data3: 0x5981'u16,
     data4: [0xAE'u8, 0x23, 0x10, 0x48, 0x91, 0x74, 0x88, 0x53])
@@ -87,6 +106,15 @@ const IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorDevicePr
 const IID_IAsyncOperation_1_SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus* = GUID(
     data1: 0x7F37ECEA'u32, data2: 0xE3E8'u16, data3: 0x53FC'u16,
     data4: [0xB0'u8, 0xE5, 0x7A, 0xA4, 0x71, 0x97, 0x0E, 0xDD])
+const IID_IIterable_1_OnlineIdServiceTicketRequest* = GUID(
+    data1: 0xCB72D686'u32, data2: 0x9516'u16, data3: 0x520D'u16,
+    data4: [0xA2'u8, 0x74, 0xFA, 0x4C, 0xD1, 0x76, 0x2C, 0xB2])
+const IID_IVectorView_1_OnlineIdServiceTicketRequest* = GUID(
+    data1: 0x1A7C6C05'u32, data2: 0x3FEF'u16, data3: 0x5EEB'u16,
+    data4: [0xAA'u8, 0xFF, 0x62, 0x5E, 0xE3, 0xEB, 0xC0, 0x7C])
+const IID_IIterator_1_OnlineIdServiceTicketRequest* = GUID(
+    data1: 0xB6A5C8E4'u32, data2: 0x6E3C'u16, data3: 0x5C37'u16,
+    data4: [0x92'u8, 0xCF, 0xCF, 0x9F, 0x1C, 0x38, 0x33, 0x35])
 const IID_AsyncOperationCompletedHandler_1_OnlineIdSystemTicketResult* = GUID(
     data1: 0x05F9F2EC'u32, data2: 0x5950'u16, data3: 0x56F8'u16,
     data4: [0xB7'u8, 0xF8, 0x22, 0xE2, 0x0B, 0x98, 0x46, 0x79])
@@ -135,6 +163,12 @@ const IID_AsyncOperationCompletedHandler_1_FindAllAccountsResult* = GUID(
 const IID_IAsyncOperation_1_FindAllAccountsResult* = GUID(
     data1: 0x9AFFB572'u32, data2: 0x58C3'u16, data3: 0x5C6C'u16,
     data4: [0x93'u8, 0x97, 0x2B, 0x77, 0x04, 0xAA, 0x35, 0xC3])
+const IID_IIterable_1_WebAccount* = GUID(
+    data1: 0xCB15D439'u32, data2: 0xA910'u16, data3: 0x542A'u16,
+    data4: [0x89'u8, 0xED, 0x7C, 0xFE, 0x67, 0x84, 0x8A, 0x83])
+const IID_IIterator_1_WebAccount* = GUID(
+    data1: 0xBFB82CCA'u32, data2: 0xAEBC'u16, data3: 0x567C'u16,
+    data4: [0x95'u8, 0xD9, 0xEB, 0xA2, 0x5C, 0x36, 0x5F, 0xAA])
 const IID_IVectorView_1_WebTokenResponse* = GUID(
     data1: 0x199E065C'u32, data2: 0x8195'u16, data3: 0x55DA'u16,
     data4: [0x9C'u8, 0x10, 0x8A, 0xEA, 0xF9, 0xAC, 0x10, 0x62])
@@ -222,9 +256,21 @@ const IID_AsyncOperationCompletedHandler_1_UserConsentVerificationResult* = GUID
 const IID_IAsyncOperation_1_UserConsentVerificationResult* = GUID(
     data1: 0xFD596FFD'u32, data2: 0x2318'u16, data3: 0x558F'u16,
     data4: [0x9D'u8, 0xBE, 0xD2, 0x1D, 0xF4, 0x37, 0x64, 0xA5])
+const IID_IIterable_1_Certificate* = GUID(
+    data1: 0x0C7D1423'u32, data2: 0xE8FD'u16, data3: 0x5A91'u16,
+    data4: [0xB5'u8, 0x5C, 0x8B, 0xFB, 0xE7, 0xAC, 0x2D, 0x40])
 const IID_IVectorView_1_Certificate* = GUID(
     data1: 0x963F7013'u32, data2: 0x77C2'u16, data3: 0x51C5'u16,
     data4: [0x80'u8, 0x38, 0xB5, 0xBC, 0xEF, 0x63, 0x3E, 0xDB])
+const IID_IIterator_1_Certificate* = GUID(
+    data1: 0x676FC159'u32, data2: 0xF15C'u16, data3: 0x58BD'u16,
+    data4: [0x91'u8, 0xA7, 0x28, 0xF7, 0xE7, 0x95, 0xC7, 0x56])
+const IID_AsyncOperationCompletedHandler_1_CertificateChain* = GUID(
+    data1: 0x4C3F50E9'u32, data2: 0x90E3'u16, data3: 0x5A30'u16,
+    data4: [0x90'u8, 0x15, 0x4A, 0xA0, 0x37, 0x69, 0x04, 0xF3])
+const IID_IAsyncOperation_1_CertificateChain* = GUID(
+    data1: 0xF618C7D4'u32, data2: 0xAEE1'u16, data3: 0x58AE'u16,
+    data4: [0xAF'u8, 0xE8, 0xFC, 0x33, 0x6D, 0xAF, 0x03, 0x95])
 const IID_AsyncOperationCompletedHandler_1_String* = GUID(
     data1: 0xB79A741F'u32, data2: 0x7FB5'u16, data3: 0x50AE'u16,
     data4: [0x9E'u8, 0x99, 0x91, 0x12, 0x01, 0xEC, 0x3D, 0x41])
@@ -288,18 +334,18 @@ const IID_AsyncOperationCompletedHandler_1_DataProtectionInfo* = GUID(
 const IID_IAsyncOperation_1_DataProtectionInfo* = GUID(
     data1: 0xC8EF3F16'u32, data2: 0xDD70'u16, data3: 0x5E88'u16,
     data4: [0x93'u8, 0x23, 0x85, 0xDD, 0xDD, 0xCD, 0x2C, 0xA5])
-const IID_AsyncOperationCompletedHandler_1_FileProtectionInfo* = GUID(
-    data1: 0x2918FFEA'u32, data2: 0xE091'u16, data3: 0x53E2'u16,
-    data4: [0xBD'u8, 0xE5, 0x61, 0x7C, 0x9B, 0xB3, 0xD8, 0xFE])
-const IID_IAsyncOperation_1_FileProtectionInfo* = GUID(
-    data1: 0x67E04591'u32, data2: 0x2D11'u16, data3: 0x5018'u16,
-    data4: [0x9F'u8, 0xF0, 0x0B, 0x85, 0x52, 0x0B, 0x88, 0x8B])
 const IID_AsyncOperationCompletedHandler_1_ProtectedContainerExportResult* = GUID(
     data1: 0x560C5521'u32, data2: 0x5008'u16, data3: 0x5272'u16,
     data4: [0xA7'u8, 0x66, 0x94, 0x1F, 0x70, 0x71, 0x8B, 0xC6])
 const IID_IAsyncOperation_1_ProtectedContainerExportResult* = GUID(
     data1: 0xC99F0B2E'u32, data2: 0x67AD'u16, data3: 0x518A'u16,
     data4: [0x86'u8, 0x6F, 0xE3, 0x9B, 0x45, 0x67, 0xB1, 0x10])
+const IID_AsyncOperationCompletedHandler_1_FileProtectionInfo* = GUID(
+    data1: 0x2918FFEA'u32, data2: 0xE091'u16, data3: 0x53E2'u16,
+    data4: [0xBD'u8, 0xE5, 0x61, 0x7C, 0x9B, 0xB3, 0xD8, 0xFE])
+const IID_IAsyncOperation_1_FileProtectionInfo* = GUID(
+    data1: 0x67E04591'u32, data2: 0x2D11'u16, data3: 0x5018'u16,
+    data4: [0x9F'u8, 0xF0, 0x0B, 0x85, 0x52, 0x0B, 0x88, 0x8B])
 const IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult* = GUID(
     data1: 0xCFEA00F8'u32, data2: 0xD2AD'u16, data3: 0x5AD2'u16,
     data4: [0xA3'u8, 0x96, 0xE4, 0xF7, 0x1B, 0x9A, 0x7C, 0x3F])
@@ -2392,6 +2438,24 @@ proc updateWnsChannelAsync*(self: MicrosoftAccountMultiFactorAuthenticationManag
         vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_UpdateWnsChannelAsync, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_UpdateWnsChannelAsync)(it, h0, h1, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.UpdateWnsChannelAsync")
   result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, "MicrosoftAccountMultiFactorAuthenticationManager.UpdateWnsChannelAsync")
 
+proc getSessionsAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, userAccountIdList: seq[string]): Future[MicrosoftAccountMultiFactorGetSessionsResult] {.async.} =
+  ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAsync
+  var op: pointer
+  withIface(self.p, IID_IMicrosoftAccountMultiFactorAuthenticationManager, "IMicrosoftAccountMultiFactorAuthenticationManager", it):
+    let p0 = asIterableString(userAccountIdList, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_GetSessionsAsync, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_GetSessionsAsync)(it, p0, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAsync")
+  result = adopt[MicrosoftAccountMultiFactorGetSessionsResult](await awaitObject(op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorGetSessionsResult, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorGetSessionsResult, "MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAsync"))
+
+proc getSessionsAndUnregisteredAccountsAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, userAccountIdList: seq[string]): Future[MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo] {.async.} =
+  ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAndUnregisteredAccountsAsync
+  var op: pointer
+  withIface(self.p, IID_IMicrosoftAccountMultiFactorAuthenticationManager, "IMicrosoftAccountMultiFactorAuthenticationManager", it):
+    let p0 = asIterableString(userAccountIdList, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_GetSessionsAndUnregisteredAccountsAsync, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_GetSessionsAndUnregisteredAccountsAsync)(it, p0, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAndUnregisteredAccountsAsync")
+  result = adopt[MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo](await awaitObject(op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo, "MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAndUnregisteredAccountsAsync"))
+
 proc approveSessionAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, sessionAuthentictionStatus: MicrosoftAccountMultiFactorSessionAuthenticationStatus, authenticationSessionInfo: MicrosoftAccountMultiFactorSessionInfo): Future[MicrosoftAccountMultiFactorServiceResponse] {.async.} =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.ApproveSessionAsync
   var op: pointer
@@ -2885,6 +2949,15 @@ proc authenticateUserAsync*(self: OnlineIdAuthenticator, request: OnlineIdServic
       var tmp: pointer
       vcall(it, Slot_IOnlineIdAuthenticator_AuthenticateUserAsync, Fn_IOnlineIdAuthenticator_AuthenticateUserAsync)(it, p0, tmp.addr).check("OnlineIdAuthenticator.AuthenticateUserAsync")
       result = adopt[UserAuthenticationOperation](tmp)
+
+proc authenticateUserAsync*(self: OnlineIdAuthenticator, requests: seq[OnlineIdServiceTicketRequest], credentialPromptType: CredentialPromptType): UserAuthenticationOperation  =
+  ## Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator.AuthenticateUserAsync
+  withIface(self.p, IID_IOnlineIdAuthenticator, "IOnlineIdAuthenticator", it):
+    let p0 = asIterable[OnlineIdServiceTicketRequest](requests, IID_IIterable_1_OnlineIdServiceTicketRequest, IID_IVectorView_1_OnlineIdServiceTicketRequest, IID_IIterator_1_OnlineIdServiceTicketRequest)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IOnlineIdAuthenticator_AuthenticateUserAsync2, Fn_IOnlineIdAuthenticator_AuthenticateUserAsync2)(it, p0, credentialPromptType, tmp.addr).check("OnlineIdAuthenticator.AuthenticateUserAsync")
+    result = adopt[UserAuthenticationOperation](tmp)
 
 proc signOutUserAsync*(self: OnlineIdAuthenticator): SignOutUserOperation  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator.SignOutUserAsync
@@ -3385,6 +3458,15 @@ proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], 
       withHString(authority, h1):
         vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync2, Fn_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync2)(it, h0, h1, op.addr).check("WebAuthenticationCoreManager.FindSystemAccountProviderAsync")
   result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindSystemAccountProviderAsync"))
+
+proc createWebAccountMonitor*(_: typedesc[WebAuthenticationCoreManager], webAccounts: seq[WebAccount]): WebAccountMonitor  =
+  ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.CreateWebAccountMonitor
+  withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics3, it):
+    let p0 = asIterable[WebAccount](webAccounts, IID_IIterable_1_WebAccount, IID_IVectorView_1_WebAccount, IID_IIterator_1_WebAccount)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IWebAuthenticationCoreManagerStatics3_CreateWebAccountMonitor, Fn_IWebAuthenticationCoreManagerStatics3_CreateWebAccountMonitor)(it, p0, tmp.addr).check("WebAuthenticationCoreManager.CreateWebAccountMonitor")
+    result = adopt[WebAccountMonitor](tmp)
 
 proc webAccountProvider*(self: WebAuthenticationTransferTokenRequest): WebAccountProvider  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.get_WebAccountProvider
@@ -4859,6 +4941,25 @@ proc createWebAccountProvider*(_: typedesc[WebAccountProvider], id: string, disp
           var tmp: pointer
           vcall(it, Slot_IWebAccountProviderFactory_CreateWebAccountProvider, Fn_IWebAccountProviderFactory_CreateWebAccountProvider)(it, h0, h1, p2, tmp.addr).check("WebAccountProvider.CreateWebAccountProvider")
           result = adopt[WebAccountProvider](tmp)
+
+proc buildChainAsync*(self: Certificate, certificates: seq[Certificate]): Future[CertificateChain] {.async.} =
+  ## Windows.Security.Cryptography.Certificates.Certificate.BuildChainAsync
+  var op: pointer
+  withIface(self.p, IID_ICertificate, "ICertificate", it):
+    let p0 = asIterable[Certificate](certificates, IID_IIterable_1_Certificate, IID_IVectorView_1_Certificate, IID_IIterator_1_Certificate)
+    defer: discard release(p0)
+    vcall(it, Slot_ICertificate_BuildChainAsync, Fn_ICertificate_BuildChainAsync)(it, p0, op.addr).check("Certificate.BuildChainAsync")
+  result = adopt[CertificateChain](await awaitObject(op, IID_IAsyncOperation_1_CertificateChain, IID_AsyncOperationCompletedHandler_1_CertificateChain, "Certificate.BuildChainAsync"))
+
+proc buildChainAsync*(self: Certificate, certificates: seq[Certificate], parameters: ChainBuildingParameters): Future[CertificateChain] {.async.} =
+  ## Windows.Security.Cryptography.Certificates.Certificate.BuildChainAsync
+  var op: pointer
+  withIface(self.p, IID_ICertificate, "ICertificate", it):
+    let p0 = asIterable[Certificate](certificates, IID_IIterable_1_Certificate, IID_IVectorView_1_Certificate, IID_IIterator_1_Certificate)
+    defer: discard release(p0)
+    withIface(parameters.p, IID_IChainBuildingParameters, "IChainBuildingParameters", p1):
+      vcall(it, Slot_ICertificate_BuildChainAsync2, Fn_ICertificate_BuildChainAsync2)(it, p0, p1, op.addr).check("Certificate.BuildChainAsync")
+  result = adopt[CertificateChain](await awaitObject(op, IID_IAsyncOperation_1_CertificateChain, IID_AsyncOperationCompletedHandler_1_CertificateChain, "Certificate.BuildChainAsync"))
 
 proc getCertificateBlob*(self: Certificate): pointer  =
   ## Windows.Security.Cryptography.Certificates.Certificate.GetCertificateBlob
@@ -7717,6 +7818,15 @@ proc isContainerAsync*(_: typedesc[FileProtectionManager], file: pointer): Futur
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics2, it):
     vcall(it, Slot_IFileProtectionManagerStatics2_IsContainerAsync, Fn_IFileProtectionManagerStatics2_IsContainerAsync)(it, file, op.addr).check("FileProtectionManager.IsContainerAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "FileProtectionManager.IsContainerAsync")
+
+proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager], protectedFile: pointer, sharedWithIdentities: seq[string]): Future[ProtectedContainerExportResult] {.async.} =
+  ## Windows.Security.EnterpriseData.FileProtectionManager.SaveFileAsContainerAsync
+  var op: pointer
+  withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics2, it):
+    let p1 = asIterableString(sharedWithIdentities, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p1)
+    vcall(it, Slot_IFileProtectionManagerStatics2_SaveFileAsContainerAsync, Fn_IFileProtectionManagerStatics2_SaveFileAsContainerAsync)(it, protectedFile, p1, op.addr).check("FileProtectionManager.SaveFileAsContainerAsync")
+  result = adopt[ProtectedContainerExportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerExportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerExportResult, "FileProtectionManager.SaveFileAsContainerAsync"))
 
 proc protectAsync*(_: typedesc[FileProtectionManager], target: pointer, identity: string): Future[FileProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.ProtectAsync

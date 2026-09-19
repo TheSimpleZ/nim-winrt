@@ -15,6 +15,7 @@ import ./delegate
 export core, applicationmodel
 import ./asyncops
 export asyncops
+import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -129,6 +130,15 @@ const IID_AsyncOperationCompletedHandler_1_Appointment* = GUID(
 const IID_IAsyncOperation_1_Appointment* = GUID(
     data1: 0x0C5732F8'u32, data2: 0x5BB9'u16, data3: 0x5BB3'u16,
     data4: [0x93'u8, 0xE5, 0xB8, 0x7E, 0x43, 0xE0, 0xCD, 0x6A])
+const IID_IIterable_1_AppointmentInvitee* = GUID(
+    data1: 0xFB9718A9'u32, data2: 0xF059'u16, data3: 0x52B0'u16,
+    data4: [0xA9'u8, 0x04, 0x1A, 0x65, 0xE4, 0x28, 0x1E, 0x40])
+const IID_IVectorView_1_AppointmentInvitee* = GUID(
+    data1: 0xBA2F633A'u32, data2: 0x5182'u16, data3: 0x5EDA'u16,
+    data4: [0x8E'u8, 0x2E, 0xA6, 0x6E, 0x55, 0xB3, 0x20, 0xCE])
+const IID_IIterator_1_AppointmentInvitee* = GUID(
+    data1: 0x57E35198'u32, data2: 0x1B41'u16, data3: 0x54DA'u16,
+    data4: [0xAD'u8, 0xAF, 0x50, 0xEF, 0x1E, 0x93, 0xFD, 0xED])
 const IID_TypedEventHandler_2_AppointmentCalendarSyncManager_Object* = GUID(
     data1: 0xBD1308DE'u32, data2: 0x6D2E'u16, data3: 0x5541'u16,
     data4: [0xB2'u8, 0x54, 0xBD, 0xB6, 0x18, 0x39, 0xBA, 0xC1])
@@ -192,9 +202,6 @@ const IID_IAsyncOperation_1_IVectorView_17* = GUID(
 const IID_IVectorView_1_AppointmentStoreChange* = GUID(
     data1: 0x4F9DD4E5'u32, data2: 0xC3AE'u16, data3: 0x5269'u16,
     data4: [0xAF'u8, 0xF5, 0xFE, 0x35, 0xCD, 0x50, 0xC3, 0xBB])
-const IID_IVectorView_1_AppointmentInvitee* = GUID(
-    data1: 0xBA2F633A'u32, data2: 0x5182'u16, data3: 0x5EDA'u16,
-    data4: [0x8E'u8, 0x2E, 0xA6, 0x6E, 0x55, 0xB3, 0x20, 0xCE])
 const IID_TypedEventHandler_2_AppointmentDataProviderConnection_AppointmentCalendarSyncManagerSyncRequestEventArgs* = GUID(
     data1: 0x37F52677'u32, data2: 0x5F3A'u16, data3: 0x57E6'u16,
     data4: [0x82'u8, 0xF5, 0xCB, 0xAB, 0x2E, 0x4D, 0xBE, 0x8E])
@@ -261,6 +268,12 @@ const IID_AsyncOperationCompletedHandler_1_MediaProcessingTriggerResult* = GUID(
 const IID_IAsyncOperation_1_MediaProcessingTriggerResult* = GUID(
     data1: 0x2595482C'u32, data2: 0x1CBF'u16, data3: 0x5691'u16,
     data4: [0xA3'u8, 0x0D, 0x21, 0x64, 0x90, 0x9C, 0x67, 0x12])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
 const IID_TypedEventHandler_2_LockScreenCallUI_LockScreenCallEndRequestedEventArgs* = GUID(
     data1: 0x92F7C40E'u32, data2: 0xE7B9'u16, data3: 0x5F68'u16,
     data4: [0x98'u8, 0xF0, 0x56, 0xFB, 0x89, 0x01, 0x58, 0x06])
@@ -303,6 +316,12 @@ const IID_AsyncOperationCompletedHandler_1_PhoneCallHistoryEntry* = GUID(
 const IID_IAsyncOperation_1_PhoneCallHistoryEntry* = GUID(
     data1: 0x785E7CCA'u32, data2: 0x90E2'u16, data3: 0x5D03'u16,
     data4: [0x8F'u8, 0x23, 0xB3, 0x35, 0x8D, 0x09, 0xC9, 0x51])
+const IID_IIterable_1_PhoneCallHistoryEntry* = GUID(
+    data1: 0xA3F93EEA'u32, data2: 0xC846'u16, data3: 0x52C7'u16,
+    data4: [0xAA'u8, 0x5A, 0x33, 0x06, 0x70, 0x7F, 0x63, 0x69])
+const IID_IIterator_1_PhoneCallHistoryEntry* = GUID(
+    data1: 0xC1CF3870'u32, data2: 0x064A'u16, data3: 0x54D5'u16,
+    data4: [0xAF'u8, 0xAB, 0xD1, 0xDC, 0x4E, 0xE2, 0x6C, 0xCB])
 const IID_AsyncOperationCompletedHandler_1_U4* = GUID(
     data1: 0x9343B6E7'u32, data2: 0xE3D2'u16, data3: 0x5E4A'u16,
     data4: [0xAB'u8, 0x2D, 0x2B, 0xCE, 0x49, 0x19, 0xA6, 0xA4])
@@ -681,6 +700,12 @@ const IID_TypedEventHandler_2_ContactDataProviderConnection_ContactListCreateOrU
 const IID_TypedEventHandler_2_ContactDataProviderConnection_ContactListDeleteContactRequestEventArgs* = GUID(
     data1: 0x9FF3C767'u32, data2: 0xB488'u16, data3: 0x53E2'u16,
     data4: [0xA4'u8, 0x94, 0x32, 0x70, 0x61, 0x61, 0xCA, 0x01])
+const IID_IIterable_1_Contact* = GUID(
+    data1: 0x63319996'u32, data2: 0x7E0F'u16, data3: 0x552E'u16,
+    data4: [0x87'u8, 0x2B, 0x7B, 0x9A, 0xDB, 0x1F, 0x49, 0x97])
+const IID_IIterator_1_Contact* = GUID(
+    data1: 0xA572C173'u32, data2: 0x800A'u16, data3: 0x58BB'u16,
+    data4: [0xAB'u8, 0x24, 0x17, 0x99, 0x59, 0xDF, 0x28, 0x13])
 const IID_AsyncOperationCompletedHandler_1_PinnedContactIdsQueryResult* = GUID(
     data1: 0x930A23A2'u32, data2: 0x28CF'u16, data3: 0x5606'u16,
     data4: [0x82'u8, 0xF1, 0x65, 0xDF, 0xEE, 0x22, 0x87, 0x35])
@@ -924,6 +949,15 @@ const IID_TypedEventHandler_2_EmailDataProviderConnection_EmailMailboxServerSear
 const IID_IVectorView_1_EmailRecipient* = GUID(
     data1: 0xF6D6AF60'u32, data2: 0xF11A'u16, data3: 0x5C03'u16,
     data4: [0x80'u8, 0xCC, 0x47, 0x34, 0x07, 0xA5, 0xAA, 0xBF])
+const IID_IIterable_1_EmailRecipientResolutionResult* = GUID(
+    data1: 0xCAE3C1C4'u32, data2: 0xC689'u16, data3: 0x5787'u16,
+    data4: [0x97'u8, 0x6F, 0x1A, 0x15, 0x8F, 0xFD, 0xD1, 0x6B])
+const IID_IVectorView_1_EmailRecipientResolutionResult* = GUID(
+    data1: 0x9307EB24'u32, data2: 0x38F6'u16, data3: 0x525E'u16,
+    data4: [0xBA'u8, 0x0D, 0x3B, 0x4E, 0x86, 0x3F, 0xE0, 0xF8])
+const IID_IIterator_1_EmailRecipientResolutionResult* = GUID(
+    data1: 0x5C040CD6'u32, data2: 0x9593'u16, data3: 0x5E74'u16,
+    data4: [0x9A'u8, 0x5E, 0x72, 0x84, 0xCD, 0x1B, 0x72, 0x00])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_122* = GUID(
     data1: 0x128697E6'u32, data2: 0x231F'u16, data3: 0x5C2F'u16,
     data4: [0x91'u8, 0x7D, 0xC3, 0x30, 0xDE, 0x1D, 0xA6, 0x9B])
@@ -975,6 +1009,12 @@ const IID_AsyncOperationCompletedHandler_1_EmailConversation* = GUID(
 const IID_IAsyncOperation_1_EmailConversation* = GUID(
     data1: 0x6885966C'u32, data2: 0x13B9'u16, data3: 0x59CC'u16,
     data4: [0xB3'u8, 0x58, 0xAD, 0xF8, 0x2E, 0xEC, 0x84, 0x2A])
+const IID_IIterable_1_EmailRecipient* = GUID(
+    data1: 0x5F18CAB2'u32, data2: 0x236D'u16, data3: 0x5EC5'u16,
+    data4: [0xBC'u8, 0x64, 0xE3, 0xE6, 0x3D, 0x29, 0xE7, 0x74])
+const IID_IIterator_1_EmailRecipient* = GUID(
+    data1: 0x12238D88'u32, data2: 0x1A2F'u16, data3: 0x5E7A'u16,
+    data4: [0x89'u8, 0xB1, 0x8D, 0xC1, 0x40, 0x53, 0x6B, 0xAC])
 const IID_TypedEventHandler_2_EmailMailbox_EmailMailboxChangedEventArgs* = GUID(
     data1: 0x20789B0D'u32, data2: 0x1555'u16, data3: 0x51FC'u16,
     data4: [0x87'u8, 0xA5, 0x22, 0x22, 0x25, 0x0B, 0x9B, 0x06])
@@ -984,6 +1024,12 @@ const IID_AsyncOperationCompletedHandler_1_EmailMailboxAutoReplySettings* = GUID
 const IID_IAsyncOperation_1_EmailMailboxAutoReplySettings* = GUID(
     data1: 0xB354D4C4'u32, data2: 0xE4A0'u16, data3: 0x5A3C'u16,
     data4: [0xB8'u8, 0x97, 0x8D, 0xEB, 0x45, 0x8A, 0xC6, 0x73])
+const IID_AsyncOperationCompletedHandler_1_IVectorView_124* = GUID(
+    data1: 0xAFEE5C98'u32, data2: 0xF2ED'u16, data3: 0x5BBF'u16,
+    data4: [0x90'u8, 0xFB, 0x95, 0x5F, 0x8E, 0x6C, 0x15, 0xE0])
+const IID_IAsyncOperation_1_IVectorView_124* = GUID(
+    data1: 0x12A76F8E'u32, data2: 0xED11'u16, data3: 0x5C2B'u16,
+    data4: [0x81'u8, 0xC6, 0x11, 0x02, 0x96, 0xFC, 0x7A, 0x43])
 const IID_AsyncOperationCompletedHandler_1_EmailMailboxEmptyFolderStatus* = GUID(
     data1: 0x50333005'u32, data2: 0xDAED'u16, data3: 0x567E'u16,
     data4: [0xBB'u8, 0x88, 0xB1, 0xBC, 0x46, 0x63, 0xB0, 0x75])
@@ -1005,10 +1051,10 @@ const IID_IAsyncOperation_1_EmailMailboxDeleteFolderStatus* = GUID(
 const IID_IVector_1_EmailMailboxAction* = GUID(
     data1: 0x4C954EB2'u32, data2: 0xF15C'u16, data3: 0x5869'u16,
     data4: [0xAB'u8, 0xD7, 0x2E, 0x32, 0x8D, 0xE4, 0xA4, 0xAF])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_124* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_125* = GUID(
     data1: 0xECE9E82B'u32, data2: 0xBBC1'u16, data3: 0x5D32'u16,
     data4: [0xB3'u8, 0x06, 0x1E, 0x4D, 0x45, 0x01, 0xB6, 0x8A])
-const IID_IAsyncOperation_1_IVectorView_124* = GUID(
+const IID_IAsyncOperation_1_IVectorView_125* = GUID(
     data1: 0x81153D29'u32, data2: 0xD502'u16, data3: 0x5050'u16,
     data4: [0xAF'u8, 0x64, 0xB1, 0x33, 0x34, 0x62, 0xD1, 0x6A])
 const IID_IVectorView_1_EmailMailboxChange* = GUID(
@@ -1041,10 +1087,10 @@ const IID_AsyncOperationCompletedHandler_1_EmailMessageBatch* = GUID(
 const IID_IAsyncOperation_1_EmailMessageBatch* = GUID(
     data1: 0x37FEA119'u32, data2: 0x0F1E'u16, data3: 0x5012'u16,
     data4: [0x88'u8, 0xBB, 0xF0, 0x17, 0x9F, 0x8F, 0x4D, 0xE5])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_125* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_126* = GUID(
     data1: 0x478DDB6A'u32, data2: 0xE122'u16, data3: 0x5832'u16,
     data4: [0x82'u8, 0x63, 0xF3, 0xD9, 0x0A, 0x1F, 0x53, 0x77])
-const IID_IAsyncOperation_1_IVectorView_125* = GUID(
+const IID_IAsyncOperation_1_IVectorView_126* = GUID(
     data1: 0x5BED07EC'u32, data2: 0xF5D5'u16, data3: 0x5B25'u16,
     data4: [0xB0'u8, 0x67, 0x9B, 0x22, 0xA4, 0xA7, 0x62, 0xEA])
 const IID_IVectorView_1_EmailMailbox* = GUID(
@@ -1092,10 +1138,10 @@ const IID_IVectorView_1_LockScreenBadge* = GUID(
 const IID_IVectorView_1_Package* = GUID(
     data1: 0x0263C4D4'u32, data2: 0x195C'u16, data3: 0x5DC5'u16,
     data4: [0xA7'u8, 0xCA, 0x68, 0x06, 0xCE, 0xCA, 0x42, 0x0B])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_126* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_127* = GUID(
     data1: 0x51C74372'u32, data2: 0x9452'u16, data3: 0x57CE'u16,
     data4: [0x92'u8, 0x70, 0x76, 0x20, 0x09, 0xFB, 0xFE, 0x4D])
-const IID_IAsyncOperation_1_IVectorView_126* = GUID(
+const IID_IAsyncOperation_1_IVectorView_127* = GUID(
     data1: 0xD3BCF8A0'u32, data2: 0x3538'u16, data3: 0x5DAE'u16,
     data4: [0x98'u8, 0xD7, 0x1F, 0x2A, 0xB8, 0x8C, 0x3F, 0x01])
 const IID_IVectorView_1_AppListEntry* = GUID(
@@ -1149,19 +1195,37 @@ const IID_AsyncOperationCompletedHandler_1_PackageCatalogAddOptionalPackageResul
 const IID_IAsyncOperation_1_PackageCatalogAddOptionalPackageResult* = GUID(
     data1: 0x59B2497F'u32, data2: 0x86EB'u16, data3: 0x542F'u16,
     data4: [0xBE'u8, 0xA6, 0x1B, 0xE5, 0x3E, 0x93, 0xE1, 0x3D])
+const IID_AsyncOperationCompletedHandler_1_PackageCatalogRemoveOptionalPackagesResult* = GUID(
+    data1: 0xF168612C'u32, data2: 0x6882'u16, data3: 0x5C8C'u16,
+    data4: [0xA4'u8, 0x64, 0x7E, 0xA2, 0x5E, 0x26, 0x98, 0x76])
+const IID_IAsyncOperation_1_PackageCatalogRemoveOptionalPackagesResult* = GUID(
+    data1: 0xCFC179AA'u32, data2: 0xFB98'u16, data3: 0x54EF'u16,
+    data4: [0x8E'u8, 0xA8, 0x64, 0x49, 0x93, 0x47, 0xB7, 0xF7])
 const IID_AsyncOperationCompletedHandler_1_PackageCatalogAddResourcePackageResult* = GUID(
     data1: 0x2BBB12A6'u32, data2: 0x6E81'u16, data3: 0x5DB5'u16,
     data4: [0xB6'u8, 0x42, 0x73, 0xA3, 0x97, 0xBA, 0x97, 0xA5])
 const IID_IAsyncOperationWithProgress_2_PackageCatalogAddResourcePackageResult_PackageInstallProgress* = GUID(
     data1: 0xB147E038'u32, data2: 0xCC1F'u16, data3: 0x567F'u16,
     data4: [0xB1'u8, 0xF1, 0x64, 0xD5, 0xD4, 0x00, 0x33, 0x09])
+const IID_IIterable_1_Package* = GUID(
+    data1: 0x69AD6AA7'u32, data2: 0x0C49'u16, data3: 0x5F27'u16,
+    data4: [0xA5'u8, 0xEB, 0xEF, 0x4D, 0x59, 0x46, 0x7B, 0x6D])
+const IID_IIterator_1_Package* = GUID(
+    data1: 0x0217F069'u32, data2: 0x025C'u16, data3: 0x5EE6'u16,
+    data4: [0xA8'u8, 0x7F, 0xE7, 0x82, 0xE3, 0xB6, 0x23, 0xAE])
+const IID_AsyncOperationCompletedHandler_1_PackageCatalogRemoveResourcePackagesResult* = GUID(
+    data1: 0x142B78D7'u32, data2: 0x5CC3'u16, data3: 0x5B40'u16,
+    data4: [0xA5'u8, 0x8D, 0x43, 0xA5, 0x82, 0xCA, 0x83, 0xEA])
+const IID_IAsyncOperation_1_PackageCatalogRemoveResourcePackagesResult* = GUID(
+    data1: 0x342EE07C'u32, data2: 0x8D6E'u16, data3: 0x53A4'u16,
+    data4: [0xB7'u8, 0x46, 0xC5, 0xB7, 0x4B, 0xB6, 0x1F, 0x6D])
 const IID_IVectorView_1_PackageExtension* = GUID(
     data1: 0x6B8001C9'u32, data2: 0x1F6D'u16, data3: 0x593F'u16,
     data4: [0xA1'u8, 0x63, 0x2B, 0x78, 0xB2, 0x0A, 0x65, 0xA3])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_127* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_128* = GUID(
     data1: 0x0FBAFC98'u32, data2: 0xE944'u16, data3: 0x55E5'u16,
     data4: [0x89'u8, 0xBC, 0x20, 0xA2, 0xAB, 0x19, 0xF0, 0x9E])
-const IID_IAsyncOperation_1_IVectorView_127* = GUID(
+const IID_IAsyncOperation_1_IVectorView_128* = GUID(
     data1: 0x89631036'u32, data2: 0x91D7'u16, data3: 0x505B'u16,
     data4: [0xBB'u8, 0xFD, 0x4D, 0xF6, 0xD9, 0x7B, 0x66, 0x41])
 const IID_TypedEventHandler_2_PackageExtensionCatalog_PackageExtensionPackageInstalledEventArgs* = GUID(
@@ -1182,12 +1246,30 @@ const IID_TypedEventHandler_2_PackageExtensionCatalog_PackageExtensionPackageSta
 const IID_IVectorView_1_PaymentItem* = GUID(
     data1: 0x6BAF1241'u32, data2: 0x1FA6'u16, data3: 0x5C22'u16,
     data4: [0x83'u8, 0xEF, 0x41, 0x5E, 0x93, 0xCD, 0xF7, 0xB1])
+const IID_IIterable_1_PaymentItem* = GUID(
+    data1: 0xB61B704C'u32, data2: 0xE5FA'u16, data3: 0x5524'u16,
+    data4: [0x8B'u8, 0x95, 0x7D, 0x03, 0xF5, 0xD3, 0x6A, 0xE9])
+const IID_IIterator_1_PaymentItem* = GUID(
+    data1: 0x93C12CC3'u32, data2: 0x6A0B'u16, data3: 0x5F02'u16,
+    data4: [0xAC'u8, 0x74, 0x05, 0x60, 0x07, 0x47, 0x27, 0x31])
 const IID_IVectorView_1_PaymentShippingOption* = GUID(
     data1: 0x8C8128EB'u32, data2: 0x8C33'u16, data3: 0x56DD'u16,
     data4: [0x96'u8, 0x48, 0x39, 0xE8, 0x04, 0x03, 0x12, 0xD4])
+const IID_IIterable_1_PaymentShippingOption* = GUID(
+    data1: 0xDE881C69'u32, data2: 0x6642'u16, data3: 0x54DE'u16,
+    data4: [0xA8'u8, 0xF7, 0xD1, 0xA8, 0x8B, 0x24, 0x04, 0xCF])
+const IID_IIterator_1_PaymentShippingOption* = GUID(
+    data1: 0x49EDC9F4'u32, data2: 0x2CE6'u16, data3: 0x534C'u16,
+    data4: [0xB5'u8, 0x29, 0x5C, 0xEE, 0xC7, 0x05, 0xDE, 0xF5])
 const IID_IVectorView_1_PaymentDetailsModifier* = GUID(
     data1: 0xDA7E871C'u32, data2: 0x6E0C'u16, data3: 0x5E32'u16,
     data4: [0xBE'u8, 0x40, 0x10, 0x71, 0x5A, 0x9F, 0x75, 0xEB])
+const IID_IIterable_1_PaymentDetailsModifier* = GUID(
+    data1: 0x585D2B3D'u32, data2: 0xCB34'u16, data3: 0x58C4'u16,
+    data4: [0x81'u8, 0xF4, 0x1E, 0xA1, 0x57, 0x99, 0x6D, 0xEF])
+const IID_IIterator_1_PaymentDetailsModifier* = GUID(
+    data1: 0xFAFB6774'u32, data2: 0xB665'u16, data3: 0x5B8B'u16,
+    data4: [0xB1'u8, 0xEF, 0x95, 0x03, 0x8C, 0x3A, 0xAB, 0xE1])
 const IID_AsyncOperationCompletedHandler_1_PaymentRequestSubmitResult* = GUID(
     data1: 0xCBCD07A6'u32, data2: 0xAE2A'u16, data3: 0x5A70'u16,
     data4: [0xBC'u8, 0x0B, 0x91, 0x20, 0x56, 0x08, 0x25, 0xD1])
@@ -1203,6 +1285,12 @@ const IID_IAsyncOperation_1_PaymentCanMakePaymentResult* = GUID(
 const IID_IVectorView_1_PaymentMethodData* = GUID(
     data1: 0x1011B9BA'u32, data2: 0x6A05'u16, data3: 0x5B16'u16,
     data4: [0x82'u8, 0xCF, 0x01, 0x75, 0x08, 0x51, 0x05, 0xE0])
+const IID_IIterable_1_PaymentMethodData* = GUID(
+    data1: 0x8C9ED87E'u32, data2: 0x4ADD'u16, data3: 0x58A8'u16,
+    data4: [0xAD'u8, 0x9A, 0x9D, 0xFA, 0x48, 0xCA, 0x25, 0x0A])
+const IID_IIterator_1_PaymentMethodData* = GUID(
+    data1: 0x9666522E'u32, data2: 0xE5AC'u16, data3: 0x5374'u16,
+    data4: [0xA5'u8, 0xD9, 0x5C, 0xF5, 0x7C, 0x4B, 0xF6, 0x89])
 const IID_AsyncOperationCompletedHandler_1_PaymentRequestChangedResult* = GUID(
     data1: 0xBEC8B726'u32, data2: 0x9056'u16, data3: 0x5E47'u16,
     data4: [0xB2'u8, 0x2A, 0x0D, 0xA0, 0x9A, 0xA8, 0x4A, 0xFE])
@@ -1239,6 +1327,12 @@ const IID_IVectorView_1_ResourceCandidate* = GUID(
 const IID_IVectorView_1_ResourceQualifier* = GUID(
     data1: 0xB82C58DC'u32, data2: 0x1CC0'u16, data3: 0x53F0'u16,
     data4: [0xB0'u8, 0xF4, 0x66, 0xEF, 0x39, 0xA8, 0x1C, 0xD6])
+const IID_IIterable_1_ResourceQualifier* = GUID(
+    data1: 0x2EEE68E2'u32, data2: 0x687C'u16, data3: 0x5F7A'u16,
+    data4: [0xA1'u8, 0x4E, 0x58, 0x8C, 0x4D, 0x30, 0x89, 0xE1])
+const IID_IIterator_1_ResourceQualifier* = GUID(
+    data1: 0xFEDB74DB'u32, data2: 0xE74F'u16, data3: 0x597A'u16,
+    data4: [0xB9'u8, 0xBF, 0x70, 0x4B, 0x0D, 0xAD, 0xCA, 0x38])
 const IID_IVectorView_1_NamedResource* = GUID(
     data1: 0x66C9DA16'u32, data2: 0xD345'u16, data3: 0x5BDB'u16,
     data4: [0xB9'u8, 0x53, 0xD8, 0x6D, 0xD9, 0xEA, 0x84, 0x09])
@@ -1248,10 +1342,10 @@ const IID_IVectorView_1_ResourceMap* = GUID(
 const IID_IVectorView_1_IndexedResourceQualifier* = GUID(
     data1: 0x239DED48'u32, data2: 0xCE04'u16, data3: 0x51F2'u16,
     data4: [0xB2'u8, 0xC9, 0xA5, 0xE5, 0xAB, 0x67, 0x1B, 0x8D])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_128* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_129* = GUID(
     data1: 0x4F2B3869'u32, data2: 0xD059'u16, data3: 0x5739'u16,
     data4: [0x90'u8, 0x6C, 0x9E, 0xB2, 0x72, 0x9C, 0x2F, 0xDE])
-const IID_IAsyncOperation_1_IVectorView_128* = GUID(
+const IID_IAsyncOperation_1_IVectorView_129* = GUID(
     data1: 0xD2D41B8A'u32, data2: 0x6616'u16, data3: 0x5DE8'u16,
     data4: [0xAA'u8, 0xF9, 0x32, 0xAE, 0x51, 0xF6, 0x7F, 0xCB])
 const IID_IVectorView_1_IndexedResourceCandidate* = GUID(
@@ -1302,10 +1396,10 @@ const IID_AsyncOperationCompletedHandler_1_StartupTaskState* = GUID(
 const IID_IAsyncOperation_1_StartupTaskState* = GUID(
     data1: 0x5239A934'u32, data2: 0x80E2'u16, data3: 0x518F'u16,
     data4: [0xB8'u8, 0x19, 0x1F, 0x31, 0x6F, 0x37, 0x9A, 0x3F])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_129* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_130* = GUID(
     data1: 0x15D40795'u32, data2: 0x41F9'u16, data3: 0x50D7'u16,
     data4: [0xA3'u8, 0x9E, 0x53, 0x90, 0x98, 0x1A, 0xF6, 0x51])
-const IID_IAsyncOperation_1_IVectorView_129* = GUID(
+const IID_IAsyncOperation_1_IVectorView_130* = GUID(
     data1: 0x16543165'u32, data2: 0x5B65'u16, data3: 0x5683'u16,
     data4: [0x8A'u8, 0x02, 0xC3, 0x85, 0x65, 0x91, 0x58, 0xBD])
 const IID_IVectorView_1_StartupTask* = GUID(
@@ -1329,10 +1423,10 @@ const IID_AsyncOperationCompletedHandler_1_PurchaseResults* = GUID(
 const IID_IAsyncOperation_1_PurchaseResults* = GUID(
     data1: 0x241F6B10'u32, data2: 0x6AF6'u16, data3: 0x5164'u16,
     data4: [0x85'u8, 0xEB, 0xBA, 0xE6, 0xBD, 0xAE, 0x0B, 0xE8])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_130* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_131* = GUID(
     data1: 0x0451FE11'u32, data2: 0x6B50'u16, data3: 0x54C1'u16,
     data4: [0xB7'u8, 0x65, 0xD9, 0x46, 0xB1, 0xD5, 0xC8, 0x8B])
-const IID_IAsyncOperation_1_IVectorView_130* = GUID(
+const IID_IAsyncOperation_1_IVectorView_131* = GUID(
     data1: 0xF1CD679A'u32, data2: 0x3A8F'u16, data3: 0x5E1B'u16,
     data4: [0x82'u8, 0xF1, 0xF2, 0xFD, 0x09, 0x16, 0xCA, 0x3F])
 const IID_IVectorView_1_UnfulfilledConsumable* = GUID(
@@ -1344,6 +1438,12 @@ const IID_AsyncOperationCompletedHandler_1_ListingInformation* = GUID(
 const IID_IAsyncOperation_1_ListingInformation* = GUID(
     data1: 0x161600F7'u32, data2: 0x6D4F'u16, data3: 0x500D'u16,
     data4: [0x93'u8, 0xA8, 0x09, 0xAD, 0x6B, 0x5A, 0xC4, 0xAB])
+const IID_AsyncOperationCompletedHandler_1_LicenseSatisfactionResult* = GUID(
+    data1: 0x936E8471'u32, data2: 0x252F'u16, data3: 0x5339'u16,
+    data4: [0x89'u8, 0xC3, 0x94, 0x28, 0x41, 0x20, 0x86, 0xCA])
+const IID_IAsyncOperation_1_LicenseSatisfactionResult* = GUID(
+    data1: 0xB8447BC9'u32, data2: 0xA9F8'u16, data3: 0x5867'u16,
+    data4: [0x8B'u8, 0x30, 0xCD, 0x34, 0x72, 0x0E, 0xDC, 0x31])
 const IID_TypedEventHandler_2_AppInstallItem_Object* = GUID(
     data1: 0x92730467'u32, data2: 0x501E'u16, data3: 0x5B05'u16,
     data4: [0x88'u8, 0x26, 0x92, 0x6F, 0x86, 0x92, 0x5B, 0x03])
@@ -1359,10 +1459,10 @@ const IID_AsyncOperationCompletedHandler_1_AppInstallItem* = GUID(
 const IID_IAsyncOperation_1_AppInstallItem* = GUID(
     data1: 0x83B51CBF'u32, data2: 0x35E0'u16, data3: 0x59AD'u16,
     data4: [0xAB'u8, 0x3E, 0xFF, 0xB3, 0xF0, 0x37, 0x04, 0xF9])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_131* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_132* = GUID(
     data1: 0xF92BFE4E'u32, data2: 0xCF96'u16, data3: 0x54CF'u16,
     data4: [0xAB'u8, 0x89, 0x38, 0x8C, 0xA0, 0x04, 0xB5, 0xA9])
-const IID_IAsyncOperation_1_IVectorView_131* = GUID(
+const IID_IAsyncOperation_1_IVectorView_132* = GUID(
     data1: 0x9267E107'u32, data2: 0x2AC6'u16, data3: 0x5E0D'u16,
     data4: [0x86'u8, 0xE9, 0x31, 0x54, 0xF6, 0x16, 0xC6, 0x8B])
 const IID_AsyncOperationCompletedHandler_1_GetEntitlementResult* = GUID(
@@ -1377,10 +1477,10 @@ const IID_AsyncOperationCompletedHandler_1_StorePreviewPurchaseResults* = GUID(
 const IID_IAsyncOperation_1_StorePreviewPurchaseResults* = GUID(
     data1: 0x9AA2AF80'u32, data2: 0x0DCB'u16, data3: 0x5EC1'u16,
     data4: [0x84'u8, 0x35, 0x0B, 0x68, 0x7E, 0xD3, 0x74, 0xA5])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_132* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_133* = GUID(
     data1: 0x167564B0'u32, data2: 0xC6F5'u16, data3: 0x5143'u16,
     data4: [0xB6'u8, 0x6F, 0xA6, 0xF9, 0xCA, 0x69, 0xE7, 0xA2])
-const IID_IAsyncOperation_1_IVectorView_132* = GUID(
+const IID_IAsyncOperation_1_IVectorView_133* = GUID(
     data1: 0x49C36A66'u32, data2: 0x3908'u16, data3: 0x51B3'u16,
     data4: [0x84'u8, 0x02, 0xEB, 0x8E, 0x94, 0xC6, 0x88, 0x64])
 const IID_IVectorView_1_StorePreviewProductInfo* = GUID(
@@ -1389,12 +1489,18 @@ const IID_IVectorView_1_StorePreviewProductInfo* = GUID(
 const IID_IVectorView_1_StorePreviewSkuInfo* = GUID(
     data1: 0x47418723'u32, data2: 0xA671'u16, data3: 0x5FDC'u16,
     data4: [0x86'u8, 0x47, 0x68, 0xF7, 0xD8, 0xC3, 0x14, 0x16])
-const IID_IIterable_1_String* = GUID(
-    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
-    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
 const IID_IVector_1_UserActivity* = GUID(
     data1: 0xE3004E95'u32, data2: 0x0B05'u16, data3: 0x55DC'u16,
     data4: [0xBF'u8, 0x3B, 0xBE, 0x06, 0xFA, 0xE0, 0x31, 0x52])
+const IID_IIterable_1_UserActivity* = GUID(
+    data1: 0x37E6AB55'u32, data2: 0x1F30'u16, data3: 0x5622'u16,
+    data4: [0x97'u8, 0x78, 0x1B, 0xDC, 0x07, 0xAC, 0x79, 0x9F])
+const IID_IVectorView_1_UserActivity* = GUID(
+    data1: 0x192A5116'u32, data2: 0x61D6'u16, data3: 0x5E18'u16,
+    data4: [0x86'u8, 0x79, 0x0A, 0xF4, 0xF7, 0x09, 0x08, 0x16])
+const IID_IIterator_1_UserActivity* = GUID(
+    data1: 0x2CA0633B'u32, data2: 0x0505'u16, data3: 0x5F88'u16,
+    data4: [0xA9'u8, 0x8F, 0x8E, 0x7C, 0x5B, 0x08, 0xF2, 0x5B])
 const IID_AsyncOperationCompletedHandler_1_UserActivity* = GUID(
     data1: 0x652507C7'u32, data2: 0x0BC6'u16, data3: 0x5D0B'u16,
     data4: [0x82'u8, 0xBE, 0x97, 0xAD, 0x22, 0x57, 0xB6, 0x85])
@@ -1416,25 +1522,34 @@ const IID_TypedEventHandler_2_UserActivityRequestManager_UserActivityRequestedEv
 const IID_IVectorView_1_UserDataAccountPartnerAccountInfo* = GUID(
     data1: 0xB730F093'u32, data2: 0xE2FB'u16, data3: 0x5B20'u16,
     data4: [0x9D'u8, 0x9E, 0x4F, 0x9D, 0xEF, 0xE6, 0x47, 0xB0])
+const IID_IIterable_1_DeviceAccountConfiguration* = GUID(
+    data1: 0xA9C3EA6E'u32, data2: 0x9DD9'u16, data3: 0x52FE'u16,
+    data4: [0x9D'u8, 0x27, 0xF9, 0xE4, 0xDE, 0xDD, 0x4D, 0x3F])
+const IID_IVectorView_1_DeviceAccountConfiguration* = GUID(
+    data1: 0x583FA489'u32, data2: 0x106E'u16, data3: 0x5351'u16,
+    data4: [0x91'u8, 0x0E, 0x56, 0x7F, 0x27, 0x10, 0x31, 0xA7])
+const IID_IIterator_1_DeviceAccountConfiguration* = GUID(
+    data1: 0x51705A87'u32, data2: 0x8DCB'u16, data3: 0x5971'u16,
+    data4: [0x8D'u8, 0x6B, 0xCA, 0x8A, 0xE6, 0xA9, 0x55, 0xAD])
 const IID_AsyncOperationCompletedHandler_1_DeviceAccountConfiguration* = GUID(
     data1: 0xCBEE2C48'u32, data2: 0xE3ED'u16, data3: 0x5EBD'u16,
     data4: [0xA4'u8, 0xAE, 0x56, 0x58, 0x33, 0x88, 0xA4, 0x9A])
 const IID_IAsyncOperation_1_DeviceAccountConfiguration* = GUID(
     data1: 0x469859F3'u32, data2: 0x6B7B'u16, data3: 0x5399'u16,
     data4: [0x8A'u8, 0x8C, 0xFE, 0x61, 0x5B, 0x95, 0xAE, 0x07])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_133* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_134* = GUID(
     data1: 0x4ABA8568'u32, data2: 0x5231'u16, data3: 0x526C'u16,
     data4: [0xB2'u8, 0xE4, 0x80, 0x50, 0x06, 0xB8, 0xEF, 0x2F])
-const IID_IAsyncOperation_1_IVectorView_133* = GUID(
+const IID_IAsyncOperation_1_IVectorView_134* = GUID(
     data1: 0x2A4E06EE'u32, data2: 0x9030'u16, data3: 0x5CE6'u16,
     data4: [0xAD'u8, 0x7F, 0xCF, 0x55, 0x17, 0x95, 0x76, 0x5D])
 const IID_IVectorView_1_UserDataTaskList* = GUID(
     data1: 0x0910E3AE'u32, data2: 0x2075'u16, data3: 0x5486'u16,
     data4: [0x86'u8, 0x6F, 0xF1, 0x59, 0x0A, 0xDE, 0x36, 0x16])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_134* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_135* = GUID(
     data1: 0xBD49AED6'u32, data2: 0x182C'u16, data3: 0x5847'u16,
     data4: [0x94'u8, 0x67, 0xF7, 0x50, 0xD1, 0xD0, 0x29, 0xBC])
-const IID_IAsyncOperation_1_IVectorView_134* = GUID(
+const IID_IAsyncOperation_1_IVectorView_135* = GUID(
     data1: 0xF78D6A56'u32, data2: 0x6E40'u16, data3: 0x5F68'u16,
     data4: [0x99'u8, 0xDE, 0xB0, 0xEC, 0x11, 0x9C, 0xCA, 0xB2])
 const IID_IVectorView_1_ContactGroup* = GUID(
@@ -1446,10 +1561,10 @@ const IID_AsyncOperationCompletedHandler_1_UserDataAccountStore* = GUID(
 const IID_IAsyncOperation_1_UserDataAccountStore* = GUID(
     data1: 0x06B68F1E'u32, data2: 0x9937'u16, data3: 0x5296'u16,
     data4: [0xA5'u8, 0x5E, 0xD4, 0x3D, 0xD8, 0xA7, 0x54, 0x5C])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_135* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_136* = GUID(
     data1: 0xDC12096D'u32, data2: 0x7E54'u16, data3: 0x54A2'u16,
     data4: [0xAB'u8, 0x99, 0x28, 0x0F, 0x30, 0xF0, 0xFF, 0x81])
-const IID_IAsyncOperation_1_IVectorView_135* = GUID(
+const IID_IAsyncOperation_1_IVectorView_136* = GUID(
     data1: 0x8461A475'u32, data2: 0x5F2F'u16, data3: 0x5A03'u16,
     data4: [0xB9'u8, 0xF8, 0x01, 0xE1, 0x32, 0x4D, 0xEF, 0x3B])
 const IID_IVectorView_1_UserDataAccount* = GUID(
@@ -1518,6 +1633,15 @@ const IID_IAsyncOperation_1_UserDataTaskList* = GUID(
 const IID_IVector_1_VoiceCommandContentTile* = GUID(
     data1: 0xE45FE700'u32, data2: 0xEA08'u16, data3: 0x5172'u16,
     data4: [0xB8'u8, 0x8C, 0xC4, 0xB3, 0xE0, 0x48, 0xC3, 0xE8])
+const IID_IIterable_1_VoiceCommandContentTile* = GUID(
+    data1: 0xBD13249B'u32, data2: 0x8099'u16, data3: 0x5573'u16,
+    data4: [0xBF'u8, 0x74, 0x74, 0x57, 0x79, 0x6E, 0x92, 0xE5])
+const IID_IVectorView_1_VoiceCommandContentTile* = GUID(
+    data1: 0xCB2C6693'u32, data2: 0x1FC9'u16, data3: 0x5B95'u16,
+    data4: [0x99'u8, 0xB5, 0x72, 0x39, 0x67, 0x96, 0x19, 0xB9])
+const IID_IIterator_1_VoiceCommandContentTile* = GUID(
+    data1: 0x968D589C'u32, data2: 0x0710'u16, data3: 0x52F0'u16,
+    data4: [0x85'u8, 0xED, 0x11, 0x2F, 0xAC, 0x4C, 0xFF, 0x35])
 const IID_AsyncOperationCompletedHandler_1_VoiceCommand* = GUID(
     data1: 0x1024F849'u32, data2: 0xB4A1'u16, data3: 0x52E6'u16,
     data4: [0xB7'u8, 0x71, 0x6D, 0x2F, 0x08, 0xC3, 0x0E, 0x63])
@@ -1539,10 +1663,10 @@ const IID_IAsyncOperation_1_VoiceCommandDisambiguationResult* = GUID(
 const IID_TypedEventHandler_2_VoiceCommandServiceConnection_VoiceCommandCompletedEventArgs* = GUID(
     data1: 0x780A6352'u32, data2: 0xB400'u16, data3: 0x5767'u16,
     data4: [0x99'u8, 0x3B, 0x90, 0x87, 0x57, 0x10, 0xD9, 0x37])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_136* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_137* = GUID(
     data1: 0x9302D49E'u32, data2: 0xDDA3'u16, data3: 0x5971'u16,
     data4: [0xB4'u8, 0x8A, 0xDF, 0xDF, 0x02, 0xC5, 0x72, 0xAF])
-const IID_IAsyncOperation_1_IVectorView_136* = GUID(
+const IID_IAsyncOperation_1_IVectorView_137* = GUID(
     data1: 0x23540DDD'u32, data2: 0x166F'u16, data3: 0x5B93'u16,
     data4: [0x86'u8, 0x69, 0xE3, 0x40, 0xB5, 0xE1, 0x82, 0x0D])
 const IID_IVectorView_1_WalletItem* = GUID(
@@ -14215,6 +14339,19 @@ proc tryCancelMeetingAsync*(self: AppointmentCalendar, meeting: Appointment, sub
           vcall(it, Slot_IAppointmentCalendar2_TryCancelMeetingAsync, Fn_IAppointmentCalendar2_TryCancelMeetingAsync)(it, p0, h1, h2, notifyInvitees, op.addr).check("AppointmentCalendar.TryCancelMeetingAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentCalendar.TryCancelMeetingAsync")
 
+proc tryForwardMeetingAsync*(self: AppointmentCalendar, meeting: Appointment, invitees: seq[AppointmentInvitee], subject: string, forwardHeader: string, comment: string): Future[bool] {.async.} =
+  ## Windows.ApplicationModel.Appointments.AppointmentCalendar.TryForwardMeetingAsync
+  var op: pointer
+  withIface(self.p, IID_IAppointmentCalendar2, "IAppointmentCalendar2", it):
+    withIface(meeting.p, IID_IAppointment, "IAppointment", p0):
+      let p1 = asIterable[AppointmentInvitee](invitees, IID_IIterable_1_AppointmentInvitee, IID_IVectorView_1_AppointmentInvitee, IID_IIterator_1_AppointmentInvitee)
+      defer: discard release(p1)
+      withHString(subject, h2):
+        withHString(forwardHeader, h3):
+          withHString(comment, h4):
+            vcall(it, Slot_IAppointmentCalendar2_TryForwardMeetingAsync, Fn_IAppointmentCalendar2_TryForwardMeetingAsync)(it, p0, p1, h2, h3, h4, op.addr).check("AppointmentCalendar.TryForwardMeetingAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentCalendar.TryForwardMeetingAsync")
+
 proc tryProposeNewTimeForMeetingAsync*(self: AppointmentCalendar, meeting: Appointment, newStartTime: DateTime, newDuration: TimeSpan, subject: string, comment: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendar.TryProposeNewTimeForMeetingAsync
   var op: pointer
@@ -17076,6 +17213,15 @@ proc associatedDeviceIds*(self: AcceptedVoipPhoneCallOptions): seq[string]  =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
+proc createInstance*(_: typedesc[AcceptedVoipPhoneCallOptions], associatedDeviceIds: seq[string]): AcceptedVoipPhoneCallOptions  =
+  ## Windows.ApplicationModel.Calls.AcceptedVoipPhoneCallOptions.CreateInstance
+  withStatics("Windows.ApplicationModel.Calls.AcceptedVoipPhoneCallOptions", IID_IAcceptedVoipPhoneCallOptionsFactory, it):
+    let p0 = asIterableString(associatedDeviceIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IAcceptedVoipPhoneCallOptionsFactory_CreateInstance, Fn_IAcceptedVoipPhoneCallOptionsFactory_CreateInstance)(it, p0, tmp.addr).check("AcceptedVoipPhoneCallOptions.CreateInstance")
+    result = adopt[AcceptedVoipPhoneCallOptions](tmp)
+
 proc newAppInitiatedVoipPhoneCallOptions*(): AppInitiatedVoipPhoneCallOptions =
   ## Activate a `Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions`.
   adopt[AppInitiatedVoipPhoneCallOptions](activateAs("Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions", IID_IAppInitiatedVoipPhoneCallOptions))
@@ -17151,6 +17297,15 @@ proc associatedDeviceIds*(self: AppInitiatedVoipPhoneCallOptions): seq[string]  
     vcall(it, Slot_IAppInitiatedVoipPhoneCallOptions_get_AssociatedDeviceIds, Fn_IAppInitiatedVoipPhoneCallOptions_get_AssociatedDeviceIds)(it, tmp.addr).check("AppInitiatedVoipPhoneCallOptions.get_AssociatedDeviceIds")
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
+
+proc createInstance*(_: typedesc[AppInitiatedVoipPhoneCallOptions], associatedDeviceIds: seq[string]): AppInitiatedVoipPhoneCallOptions  =
+  ## Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions.CreateInstance
+  withStatics("Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions", IID_IAppInitiatedVoipPhoneCallOptionsFactory, it):
+    let p0 = asIterableString(associatedDeviceIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IAppInitiatedVoipPhoneCallOptionsFactory_CreateInstance, Fn_IAppInitiatedVoipPhoneCallOptionsFactory_CreateInstance)(it, p0, tmp.addr).check("AppInitiatedVoipPhoneCallOptions.CreateInstance")
+    result = adopt[AppInitiatedVoipPhoneCallOptions](tmp)
 
 proc phoneNumber*(self: PhoneCallBlockedTriggerDetails): string  =
   ## Windows.ApplicationModel.Calls.Background.PhoneCallBlockedTriggerDetails.get_PhoneNumber
@@ -17466,6 +17621,15 @@ proc associatedDeviceIds*(self: IncomingVoipPhoneCallOptions): seq[string]  =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
+proc createInstance*(_: typedesc[IncomingVoipPhoneCallOptions], associatedDeviceIds: seq[string]): IncomingVoipPhoneCallOptions  =
+  ## Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions.CreateInstance
+  withStatics("Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions", IID_IIncomingVoipPhoneCallOptionsFactory, it):
+    let p0 = asIterableString(associatedDeviceIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIncomingVoipPhoneCallOptionsFactory_CreateInstance, Fn_IIncomingVoipPhoneCallOptionsFactory_CreateInstance)(it, p0, tmp.addr).check("IncomingVoipPhoneCallOptions.CreateInstance")
+    result = adopt[IncomingVoipPhoneCallOptions](tmp)
+
 proc complete*(self: LockScreenCallEndCallDeferral)  =
   ## Windows.ApplicationModel.Calls.LockScreenCallEndCallDeferral.Complete
   withIface(self.p, IID_ILockScreenCallEndCallDeferral, "ILockScreenCallEndCallDeferral", it):
@@ -17610,6 +17774,15 @@ proc associatedDeviceIds*(self: OutgoingVoipPhoneCallOptions): seq[string]  =
     vcall(it, Slot_IOutgoingVoipPhoneCallOptions_get_AssociatedDeviceIds, Fn_IOutgoingVoipPhoneCallOptions_get_AssociatedDeviceIds)(it, tmp.addr).check("OutgoingVoipPhoneCallOptions.get_AssociatedDeviceIds")
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
+
+proc createInstance*(_: typedesc[OutgoingVoipPhoneCallOptions], associatedDeviceIds: seq[string]): OutgoingVoipPhoneCallOptions  =
+  ## Windows.ApplicationModel.Calls.OutgoingVoipPhoneCallOptions.CreateInstance
+  withStatics("Windows.ApplicationModel.Calls.OutgoingVoipPhoneCallOptions", IID_IOutgoingVoipPhoneCallOptionsFactory, it):
+    let p0 = asIterableString(associatedDeviceIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IOutgoingVoipPhoneCallOptionsFactory_CreateInstance, Fn_IOutgoingVoipPhoneCallOptionsFactory_CreateInstance)(it, p0, tmp.addr).check("OutgoingVoipPhoneCallOptions.CreateInstance")
+    result = adopt[OutgoingVoipPhoneCallOptions](tmp)
 
 proc onStatusChanged*(self: PhoneCall,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -17867,6 +18040,15 @@ proc `blockPrivateNumbers=`*(_: typedesc[PhoneCallBlocking], value: bool)  =
   ## Windows.ApplicationModel.Calls.PhoneCallBlocking.put_BlockPrivateNumbers
   withStatics("Windows.ApplicationModel.Calls.PhoneCallBlocking", IID_IPhoneCallBlockingStatics, it):
     vcall(it, Slot_IPhoneCallBlockingStatics_put_BlockPrivateNumbers, Fn_IPhoneCallBlockingStatics_put_BlockPrivateNumbers)(it, value).check("PhoneCallBlocking.put_BlockPrivateNumbers")
+
+proc setCallBlockingListAsync*(_: typedesc[PhoneCallBlocking], phoneNumberList: seq[string]): Future[bool] {.async.} =
+  ## Windows.ApplicationModel.Calls.PhoneCallBlocking.SetCallBlockingListAsync
+  var op: pointer
+  withStatics("Windows.ApplicationModel.Calls.PhoneCallBlocking", IID_IPhoneCallBlockingStatics, it):
+    let p0 = asIterableString(phoneNumberList, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IPhoneCallBlockingStatics_SetCallBlockingListAsync, Fn_IPhoneCallBlockingStatics_SetCallBlockingListAsync)(it, p0, op.addr).check("PhoneCallBlocking.SetCallBlockingListAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PhoneCallBlocking.SetCallBlockingListAsync")
 
 proc newPhoneCallHistoryEntry*(): PhoneCallHistoryEntry =
   ## Activate a `Windows.ApplicationModel.Calls.PhoneCallHistoryEntry`.
@@ -18226,6 +18408,15 @@ proc deleteEntryAsync*(self: PhoneCallHistoryStore, callHistoryEntry: PhoneCallH
       vcall(it, Slot_IPhoneCallHistoryStore_DeleteEntryAsync, Fn_IPhoneCallHistoryStore_DeleteEntryAsync)(it, p0, op.addr).check("PhoneCallHistoryStore.DeleteEntryAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneCallHistoryStore.DeleteEntryAsync")
 
+proc deleteEntriesAsync*(self: PhoneCallHistoryStore, callHistoryEntries: seq[PhoneCallHistoryEntry]) {.async.} =
+  ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.DeleteEntriesAsync
+  var op: pointer
+  withIface(self.p, IID_IPhoneCallHistoryStore, "IPhoneCallHistoryStore", it):
+    let p0 = asIterable[PhoneCallHistoryEntry](callHistoryEntries, IID_IIterable_1_PhoneCallHistoryEntry, IID_IVectorView_1_PhoneCallHistoryEntry, IID_IIterator_1_PhoneCallHistoryEntry)
+    defer: discard release(p0)
+    vcall(it, Slot_IPhoneCallHistoryStore_DeleteEntriesAsync, Fn_IPhoneCallHistoryStore_DeleteEntriesAsync)(it, p0, op.addr).check("PhoneCallHistoryStore.DeleteEntriesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneCallHistoryStore.DeleteEntriesAsync")
+
 proc markEntryAsSeenAsync*(self: PhoneCallHistoryStore, callHistoryEntry: PhoneCallHistoryEntry) {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.MarkEntryAsSeenAsync
   var op: pointer
@@ -18233,6 +18424,15 @@ proc markEntryAsSeenAsync*(self: PhoneCallHistoryStore, callHistoryEntry: PhoneC
     withIface(callHistoryEntry.p, IID_IPhoneCallHistoryEntry, "IPhoneCallHistoryEntry", p0):
       vcall(it, Slot_IPhoneCallHistoryStore_MarkEntryAsSeenAsync, Fn_IPhoneCallHistoryStore_MarkEntryAsSeenAsync)(it, p0, op.addr).check("PhoneCallHistoryStore.MarkEntryAsSeenAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneCallHistoryStore.MarkEntryAsSeenAsync")
+
+proc markEntriesAsSeenAsync*(self: PhoneCallHistoryStore, callHistoryEntries: seq[PhoneCallHistoryEntry]) {.async.} =
+  ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.MarkEntriesAsSeenAsync
+  var op: pointer
+  withIface(self.p, IID_IPhoneCallHistoryStore, "IPhoneCallHistoryStore", it):
+    let p0 = asIterable[PhoneCallHistoryEntry](callHistoryEntries, IID_IIterable_1_PhoneCallHistoryEntry, IID_IVectorView_1_PhoneCallHistoryEntry, IID_IIterator_1_PhoneCallHistoryEntry)
+    defer: discard release(p0)
+    vcall(it, Slot_IPhoneCallHistoryStore_MarkEntriesAsSeenAsync, Fn_IPhoneCallHistoryStore_MarkEntriesAsSeenAsync)(it, p0, op.addr).check("PhoneCallHistoryStore.MarkEntriesAsSeenAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneCallHistoryStore.MarkEntriesAsSeenAsync")
 
 proc getUnseenCountAsync*(self: PhoneCallHistoryStore): Future[uint32] {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.GetUnseenCountAsync
@@ -18247,6 +18447,24 @@ proc markAllAsSeenAsync*(self: PhoneCallHistoryStore) {.async.} =
   withIface(self.p, IID_IPhoneCallHistoryStore, "IPhoneCallHistoryStore", it):
     vcall(it, Slot_IPhoneCallHistoryStore_MarkAllAsSeenAsync, Fn_IPhoneCallHistoryStore_MarkAllAsSeenAsync)(it, op.addr).check("PhoneCallHistoryStore.MarkAllAsSeenAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneCallHistoryStore.MarkAllAsSeenAsync")
+
+proc getSourcesUnseenCountAsync*(self: PhoneCallHistoryStore, sourceIds: seq[string]): Future[uint32] {.async.} =
+  ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.GetSourcesUnseenCountAsync
+  var op: pointer
+  withIface(self.p, IID_IPhoneCallHistoryStore, "IPhoneCallHistoryStore", it):
+    let p0 = asIterableString(sourceIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IPhoneCallHistoryStore_GetSourcesUnseenCountAsync, Fn_IPhoneCallHistoryStore_GetSourcesUnseenCountAsync)(it, p0, op.addr).check("PhoneCallHistoryStore.GetSourcesUnseenCountAsync")
+  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "PhoneCallHistoryStore.GetSourcesUnseenCountAsync")
+
+proc markSourcesAsSeenAsync*(self: PhoneCallHistoryStore, sourceIds: seq[string]) {.async.} =
+  ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.MarkSourcesAsSeenAsync
+  var op: pointer
+  withIface(self.p, IID_IPhoneCallHistoryStore, "IPhoneCallHistoryStore", it):
+    let p0 = asIterableString(sourceIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IPhoneCallHistoryStore_MarkSourcesAsSeenAsync, Fn_IPhoneCallHistoryStore_MarkSourcesAsSeenAsync)(it, p0, op.addr).check("PhoneCallHistoryStore.MarkSourcesAsSeenAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneCallHistoryStore.MarkSourcesAsSeenAsync")
 
 proc lineId*(self: PhoneCallInfo): GUID  =
   ## Windows.ApplicationModel.Calls.PhoneCallInfo.get_LineId
@@ -19423,6 +19641,13 @@ proc isUsingAssociatedDevicesList*(self: VoipPhoneCall): bool  =
     vcall(it, Slot_IVoipPhoneCall4_get_IsUsingAssociatedDevicesList, Fn_IVoipPhoneCall4_get_IsUsingAssociatedDevicesList)(it, tmp.addr).check("VoipPhoneCall.get_IsUsingAssociatedDevicesList")
     result = tmp
 
+proc notifyCallActive*(self: VoipPhoneCall, associatedDeviceIds: seq[string])  =
+  ## Windows.ApplicationModel.Calls.VoipPhoneCall.NotifyCallActive
+  withIface(self.p, IID_IVoipPhoneCall4, "IVoipPhoneCall4", it):
+    let p0 = asIterableString(associatedDeviceIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IVoipPhoneCall4_NotifyCallActive, Fn_IVoipPhoneCall4_NotifyCallActive)(it, p0).check("VoipPhoneCall.NotifyCallActive")
+
 proc addAssociatedCallControlDevice*(self: VoipPhoneCall, deviceId: string)  =
   ## Windows.ApplicationModel.Calls.VoipPhoneCall.AddAssociatedCallControlDevice
   withIface(self.p, IID_IVoipPhoneCall4, "IVoipPhoneCall4", it):
@@ -19434,6 +19659,13 @@ proc removeAssociatedCallControlDevice*(self: VoipPhoneCall, deviceId: string)  
   withIface(self.p, IID_IVoipPhoneCall4, "IVoipPhoneCall4", it):
     withHString(deviceId, h0):
       vcall(it, Slot_IVoipPhoneCall4_RemoveAssociatedCallControlDevice, Fn_IVoipPhoneCall4_RemoveAssociatedCallControlDevice)(it, h0).check("VoipPhoneCall.RemoveAssociatedCallControlDevice")
+
+proc setAssociatedCallControlDevices*(self: VoipPhoneCall, associatedDeviceIds: seq[string])  =
+  ## Windows.ApplicationModel.Calls.VoipPhoneCall.SetAssociatedCallControlDevices
+  withIface(self.p, IID_IVoipPhoneCall4, "IVoipPhoneCall4", it):
+    let p0 = asIterableString(associatedDeviceIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IVoipPhoneCall4_SetAssociatedCallControlDevices, Fn_IVoipPhoneCall4_SetAssociatedCallControlDevices)(it, p0).check("VoipPhoneCall.SetAssociatedCallControlDevices")
 
 proc getAssociatedCallControlDevices*(self: VoipPhoneCall): seq[string]  =
   ## Windows.ApplicationModel.Calls.VoipPhoneCall.GetAssociatedCallControlDevices
@@ -20417,12 +20649,32 @@ proc removeMessageChanged*(self: ChatMessageStore, token: EventRegistrationToken
   withIface(self.p, IID_IChatMessageStore, "IChatMessageStore", it):
     vcall(it, Slot_IChatMessageStore_remove_MessageChanged, Fn_IChatMessageStore_remove_MessageChanged)(it, token).check("ChatMessageStore.remove_MessageChanged")
 
+proc forwardMessageAsync*(self: ChatMessageStore, localChatMessageId: string, addresses: seq[string]): Future[ChatMessage] {.async.} =
+  ## Windows.ApplicationModel.Chat.ChatMessageStore.ForwardMessageAsync
+  var op: pointer
+  withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
+    withHString(localChatMessageId, h0):
+      let p1 = asIterableString(addresses, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IChatMessageStore2_ForwardMessageAsync, Fn_IChatMessageStore2_ForwardMessageAsync)(it, h0, p1, op.addr).check("ChatMessageStore.ForwardMessageAsync")
+  result = adopt[ChatMessage](await awaitObject(op, IID_IAsyncOperation_1_ChatMessage, IID_AsyncOperationCompletedHandler_1_ChatMessage, "ChatMessageStore.ForwardMessageAsync"))
+
 proc getConversationAsync*(self: ChatMessageStore, conversationId: string): Future[ChatConversation] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.GetConversationAsync
   var op: pointer
   withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
     withHString(conversationId, h0):
       vcall(it, Slot_IChatMessageStore2_GetConversationAsync, Fn_IChatMessageStore2_GetConversationAsync)(it, h0, op.addr).check("ChatMessageStore.GetConversationAsync")
+  result = adopt[ChatConversation](await awaitObject(op, IID_IAsyncOperation_1_ChatConversation, IID_AsyncOperationCompletedHandler_1_ChatConversation, "ChatMessageStore.GetConversationAsync"))
+
+proc getConversationAsync*(self: ChatMessageStore, conversationId: string, transportIds: seq[string]): Future[ChatConversation] {.async.} =
+  ## Windows.ApplicationModel.Chat.ChatMessageStore.GetConversationAsync
+  var op: pointer
+  withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
+    withHString(conversationId, h0):
+      let p1 = asIterableString(transportIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IChatMessageStore2_GetConversationAsync2, Fn_IChatMessageStore2_GetConversationAsync2)(it, h0, p1, op.addr).check("ChatMessageStore.GetConversationAsync")
   result = adopt[ChatConversation](await awaitObject(op, IID_IAsyncOperation_1_ChatConversation, IID_AsyncOperationCompletedHandler_1_ChatConversation, "ChatMessageStore.GetConversationAsync"))
 
 proc getConversationFromThreadingInfoAsync*(self: ChatMessageStore, threadingInfo: ChatConversationThreadingInfo): Future[ChatConversation] {.async.} =
@@ -20438,6 +20690,15 @@ proc getConversationReader*(self: ChatMessageStore): ChatConversationReader  =
   withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
     var tmp: pointer
     vcall(it, Slot_IChatMessageStore2_GetConversationReader, Fn_IChatMessageStore2_GetConversationReader)(it, tmp.addr).check("ChatMessageStore.GetConversationReader")
+    result = adopt[ChatConversationReader](tmp)
+
+proc getConversationReader*(self: ChatMessageStore, transportIds: seq[string]): ChatConversationReader  =
+  ## Windows.ApplicationModel.Chat.ChatMessageStore.GetConversationReader
+  withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
+    let p0 = asIterableString(transportIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IChatMessageStore2_GetConversationReader2, Fn_IChatMessageStore2_GetConversationReader2)(it, p0, tmp.addr).check("ChatMessageStore.GetConversationReader")
     result = adopt[ChatConversationReader](tmp)
 
 proc getMessageByRemoteIdAsync*(self: ChatMessageStore, transportId: string, remoteId: string): Future[ChatMessage] {.async.} =
@@ -20456,11 +20717,29 @@ proc getUnseenCountAsync*(self: ChatMessageStore): Future[int32] {.async.} =
     vcall(it, Slot_IChatMessageStore2_GetUnseenCountAsync, Fn_IChatMessageStore2_GetUnseenCountAsync)(it, op.addr).check("ChatMessageStore.GetUnseenCountAsync")
   result = await awaitValue[int32](op, IID_IAsyncOperation_1_I4, IID_AsyncOperationCompletedHandler_1_I4, "ChatMessageStore.GetUnseenCountAsync")
 
+proc getUnseenCountAsync*(self: ChatMessageStore, transportIds: seq[string]): Future[int32] {.async.} =
+  ## Windows.ApplicationModel.Chat.ChatMessageStore.GetUnseenCountAsync
+  var op: pointer
+  withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
+    let p0 = asIterableString(transportIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IChatMessageStore2_GetUnseenCountAsync2, Fn_IChatMessageStore2_GetUnseenCountAsync2)(it, p0, op.addr).check("ChatMessageStore.GetUnseenCountAsync")
+  result = await awaitValue[int32](op, IID_IAsyncOperation_1_I4, IID_AsyncOperationCompletedHandler_1_I4, "ChatMessageStore.GetUnseenCountAsync")
+
 proc markAsSeenAsync*(self: ChatMessageStore) {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.MarkAsSeenAsync
   var op: pointer
   withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
     vcall(it, Slot_IChatMessageStore2_MarkAsSeenAsync, Fn_IChatMessageStore2_MarkAsSeenAsync)(it, op.addr).check("ChatMessageStore.MarkAsSeenAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatMessageStore.MarkAsSeenAsync")
+
+proc markAsSeenAsync*(self: ChatMessageStore, transportIds: seq[string]) {.async.} =
+  ## Windows.ApplicationModel.Chat.ChatMessageStore.MarkAsSeenAsync
+  var op: pointer
+  withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
+    let p0 = asIterableString(transportIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IChatMessageStore2_MarkAsSeenAsync2, Fn_IChatMessageStore2_MarkAsSeenAsync2)(it, p0, op.addr).check("ChatMessageStore.MarkAsSeenAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatMessageStore.MarkAsSeenAsync")
 
 proc getSearchReader*(self: ChatMessageStore, value: ChatQueryOptions): ChatSearchReader  =
@@ -21076,6 +21355,24 @@ proc isBlockedNumberAsync*(_: typedesc[CommunicationBlockingAccessManager], numb
     withHString(number, h0):
       vcall(it, Slot_ICommunicationBlockingAccessManagerStatics_IsBlockedNumberAsync, Fn_ICommunicationBlockingAccessManagerStatics_IsBlockedNumberAsync)(it, h0, op.addr).check("CommunicationBlockingAccessManager.IsBlockedNumberAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "CommunicationBlockingAccessManager.IsBlockedNumberAsync")
+
+proc showBlockNumbersUI*(_: typedesc[CommunicationBlockingAccessManager], phoneNumbers: seq[string]): bool  =
+  ## Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager.ShowBlockNumbersUI
+  withStatics("Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager", IID_ICommunicationBlockingAccessManagerStatics, it):
+    let p0 = asIterableString(phoneNumbers, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: bool
+    vcall(it, Slot_ICommunicationBlockingAccessManagerStatics_ShowBlockNumbersUI, Fn_ICommunicationBlockingAccessManagerStatics_ShowBlockNumbersUI)(it, p0, tmp.addr).check("CommunicationBlockingAccessManager.ShowBlockNumbersUI")
+    result = tmp
+
+proc showUnblockNumbersUI*(_: typedesc[CommunicationBlockingAccessManager], phoneNumbers: seq[string]): bool  =
+  ## Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager.ShowUnblockNumbersUI
+  withStatics("Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager", IID_ICommunicationBlockingAccessManagerStatics, it):
+    let p0 = asIterableString(phoneNumbers, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: bool
+    vcall(it, Slot_ICommunicationBlockingAccessManagerStatics_ShowUnblockNumbersUI, Fn_ICommunicationBlockingAccessManagerStatics_ShowUnblockNumbersUI)(it, p0, tmp.addr).check("CommunicationBlockingAccessManager.ShowUnblockNumbersUI")
+    result = tmp
 
 proc showBlockedCallsUI*(_: typedesc[CommunicationBlockingAccessManager])  =
   ## Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager.ShowBlockedCallsUI
@@ -24215,6 +24512,15 @@ proc requestPinContactAsync*(self: PinnedContactManager, contact: Contact, surfa
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IPinnedContactManager_RequestPinContactAsync, Fn_IPinnedContactManager_RequestPinContactAsync)(it, p0, surface, op.addr).check("PinnedContactManager.RequestPinContactAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PinnedContactManager.RequestPinContactAsync")
+
+proc requestPinContactsAsync*(self: PinnedContactManager, contacts: seq[Contact], surface: PinnedContactSurface): Future[bool] {.async.} =
+  ## Windows.ApplicationModel.Contacts.PinnedContactManager.RequestPinContactsAsync
+  var op: pointer
+  withIface(self.p, IID_IPinnedContactManager, "IPinnedContactManager", it):
+    let p0 = asIterable[Contact](contacts, IID_IIterable_1_Contact, IID_IVectorView_1_Contact, IID_IIterator_1_Contact)
+    defer: discard release(p0)
+    vcall(it, Slot_IPinnedContactManager_RequestPinContactsAsync, Fn_IPinnedContactManager_RequestPinContactsAsync)(it, p0, surface, op.addr).check("PinnedContactManager.RequestPinContactsAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PinnedContactManager.RequestPinContactsAsync")
 
 proc requestUnpinContactAsync*(self: PinnedContactManager, contact: Contact, surface: PinnedContactSurface): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Contacts.PinnedContactManager.RequestUnpinContactAsync
@@ -27989,6 +28295,15 @@ proc recipients*(self: EmailMailboxResolveRecipientsRequest): seq[string]  =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
+proc reportCompletedAsync*(self: EmailMailboxResolveRecipientsRequest, resolutionResults: seq[EmailRecipientResolutionResult]) {.async.} =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxResolveRecipientsRequest.ReportCompletedAsync
+  var op: pointer
+  withIface(self.p, IID_IEmailMailboxResolveRecipientsRequest, "IEmailMailboxResolveRecipientsRequest", it):
+    let p0 = asIterable[EmailRecipientResolutionResult](resolutionResults, IID_IIterable_1_EmailRecipientResolutionResult, IID_IVectorView_1_EmailRecipientResolutionResult, IID_IIterator_1_EmailRecipientResolutionResult)
+    defer: discard release(p0)
+    vcall(it, Slot_IEmailMailboxResolveRecipientsRequest_ReportCompletedAsync, Fn_IEmailMailboxResolveRecipientsRequest_ReportCompletedAsync)(it, p0, op.addr).check("EmailMailboxResolveRecipientsRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxResolveRecipientsRequest.ReportCompletedAsync")
+
 proc reportFailedAsync*(self: EmailMailboxResolveRecipientsRequest) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxResolveRecipientsRequest.ReportFailedAsync
   var op: pointer
@@ -29263,6 +29578,19 @@ proc tryUpdateMeetingResponseAsync*(self: EmailMailbox, meeting: EmailMessage, r
           vcall(it, Slot_IEmailMailbox_TryUpdateMeetingResponseAsync, Fn_IEmailMailbox_TryUpdateMeetingResponseAsync)(it, p0, response, h2, h3, sendUpdate, op.addr).check("EmailMailbox.TryUpdateMeetingResponseAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "EmailMailbox.TryUpdateMeetingResponseAsync")
 
+proc tryForwardMeetingAsync*(self: EmailMailbox, meeting: EmailMessage, recipients: seq[EmailRecipient], subject: string, forwardHeaderType: EmailMessageBodyKind, forwardHeader: string, comment: string): Future[bool] {.async.} =
+  ## Windows.ApplicationModel.Email.EmailMailbox.TryForwardMeetingAsync
+  var op: pointer
+  withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
+    withIface(meeting.p, IID_IEmailMessage, "IEmailMessage", p0):
+      let p1 = asIterable[EmailRecipient](recipients, IID_IIterable_1_EmailRecipient, IID_IVectorView_1_EmailRecipient, IID_IIterator_1_EmailRecipient)
+      defer: discard release(p1)
+      withHString(subject, h2):
+        withHString(forwardHeader, h4):
+          withHString(comment, h5):
+            vcall(it, Slot_IEmailMailbox_TryForwardMeetingAsync, Fn_IEmailMailbox_TryForwardMeetingAsync)(it, p0, p1, h2, forwardHeaderType, h4, h5, op.addr).check("EmailMailbox.TryForwardMeetingAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "EmailMailbox.TryForwardMeetingAsync")
+
 proc tryProposeNewTimeForMeetingAsync*(self: EmailMailbox, meeting: EmailMessage, newStartTime: DateTime, newDuration: TimeSpan, subject: string, comment: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.TryProposeNewTimeForMeetingAsync
   var op: pointer
@@ -29335,6 +29663,17 @@ proc networkId*(self: EmailMailbox): string  =
     var tmp: HSTRING
     vcall(it, Slot_IEmailMailbox2_get_NetworkId, Fn_IEmailMailbox2_get_NetworkId)(it, tmp.addr).check("EmailMailbox.get_NetworkId")
     result = takeString(tmp)
+
+proc resolveRecipientsAsync*(self: EmailMailbox, recipients: seq[string]): Future[seq[EmailRecipientResolutionResult]] {.async.} =
+  ## Windows.ApplicationModel.Email.EmailMailbox.ResolveRecipientsAsync
+  var op: pointer
+  withIface(self.p, IID_IEmailMailbox3, "IEmailMailbox3", it):
+    let p0 = asIterableString(recipients, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IEmailMailbox3_ResolveRecipientsAsync, Fn_IEmailMailbox3_ResolveRecipientsAsync)(it, p0, op.addr).check("EmailMailbox.ResolveRecipientsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_124, IID_AsyncOperationCompletedHandler_1_IVectorView_124, "EmailMailbox.ResolveRecipientsAsync")
+  result = toSeq[EmailRecipientResolutionResult](coll, IID_IVectorView_1_EmailRecipientResolutionResult)
+  discard release(coll)
 
 proc tryEmptyFolderAsync*(self: EmailMailbox, folderId: string): Future[EmailMailboxEmptyFolderStatus] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.TryEmptyFolderAsync
@@ -29693,7 +30032,7 @@ proc readBatchAsync*(self: EmailMailboxChangeReader): Future[seq[EmailMailboxCha
   var op: pointer
   withIface(self.p, IID_IEmailMailboxChangeReader, "IEmailMailboxChangeReader", it):
     vcall(it, Slot_IEmailMailboxChangeReader_ReadBatchAsync, Fn_IEmailMailboxChangeReader_ReadBatchAsync)(it, op.addr).check("EmailMailboxChangeReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_124, IID_AsyncOperationCompletedHandler_1_IVectorView_124, "EmailMailboxChangeReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_125, IID_AsyncOperationCompletedHandler_1_IVectorView_125, "EmailMailboxChangeReader.ReadBatchAsync")
   result = toSeq[EmailMailboxChange](coll, IID_IVectorView_1_EmailMailboxChange)
   discard release(coll)
 
@@ -30645,7 +30984,7 @@ proc findMailboxesAsync*(self: EmailStore): Future[seq[EmailMailbox]] {.async.} 
   var op: pointer
   withIface(self.p, IID_IEmailStore, "IEmailStore", it):
     vcall(it, Slot_IEmailStore_FindMailboxesAsync, Fn_IEmailStore_FindMailboxesAsync)(it, op.addr).check("EmailStore.FindMailboxesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_125, IID_AsyncOperationCompletedHandler_1_IVectorView_125, "EmailStore.FindMailboxesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_126, IID_AsyncOperationCompletedHandler_1_IVectorView_126, "EmailStore.FindMailboxesAsync")
   result = toSeq[EmailMailbox](coll, IID_IVectorView_1_EmailMailbox)
   discard release(coll)
 
@@ -31344,7 +31683,7 @@ proc getAppListEntriesAsync*(self: Package): Future[seq[AppListEntry]] {.async.}
   var op: pointer
   withIface(self.p, IID_IPackage3, "IPackage3", it):
     vcall(it, Slot_IPackage3_GetAppListEntriesAsync, Fn_IPackage3_GetAppListEntriesAsync)(it, op.addr).check("Package.GetAppListEntriesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_126, IID_AsyncOperationCompletedHandler_1_IVectorView_126, "Package.GetAppListEntriesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_127, IID_AsyncOperationCompletedHandler_1_IVectorView_127, "Package.GetAppListEntriesAsync")
   result = toSeq[AppListEntry](coll, IID_IVectorView_1_AppListEntry)
   discard release(coll)
 
@@ -31405,6 +31744,28 @@ proc getContentGroupAsync*(self: Package, name: string): Future[PackageContentGr
     withHString(name, h0):
       vcall(it, Slot_IPackage5_GetContentGroupAsync, Fn_IPackage5_GetContentGroupAsync)(it, h0, op.addr).check("Package.GetContentGroupAsync")
   result = adopt[PackageContentGroup](await awaitObject(op, IID_IAsyncOperation_1_PackageContentGroup, IID_AsyncOperationCompletedHandler_1_PackageContentGroup, "Package.GetContentGroupAsync"))
+
+proc stageContentGroupsAsync*(self: Package, names: seq[string]): Future[seq[PackageContentGroup]] {.async.} =
+  ## Windows.ApplicationModel.Package.StageContentGroupsAsync
+  var op: pointer
+  withIface(self.p, IID_IPackage5, "IPackage5", it):
+    let p0 = asIterableString(names, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IPackage5_StageContentGroupsAsync, Fn_IPackage5_StageContentGroupsAsync)(it, p0, op.addr).check("Package.StageContentGroupsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_13, IID_AsyncOperationCompletedHandler_1_IVector_13, "Package.StageContentGroupsAsync")
+  result = toSeq[PackageContentGroup](coll, IID_IVector_1_PackageContentGroup)
+  discard release(coll)
+
+proc stageContentGroupsAsync*(self: Package, names: seq[string], moveToHeadOfQueue: bool): Future[seq[PackageContentGroup]] {.async.} =
+  ## Windows.ApplicationModel.Package.StageContentGroupsAsync
+  var op: pointer
+  withIface(self.p, IID_IPackage5, "IPackage5", it):
+    let p0 = asIterableString(names, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IPackage5_StageContentGroupsAsync2, Fn_IPackage5_StageContentGroupsAsync2)(it, p0, moveToHeadOfQueue, op.addr).check("Package.StageContentGroupsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_13, IID_AsyncOperationCompletedHandler_1_IVector_13, "Package.StageContentGroupsAsync")
+  result = toSeq[PackageContentGroup](coll, IID_IVector_1_PackageContentGroup)
+  discard release(coll)
 
 proc setInUseAsync*(self: Package, inUse: bool): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Package.SetInUseAsync
@@ -31629,6 +31990,15 @@ proc addOptionalPackageAsync*(self: PackageCatalog, optionalPackageFamilyName: s
       vcall(it, Slot_IPackageCatalog2_AddOptionalPackageAsync, Fn_IPackageCatalog2_AddOptionalPackageAsync)(it, h0, op.addr).check("PackageCatalog.AddOptionalPackageAsync")
   result = adopt[PackageCatalogAddOptionalPackageResult](await awaitObject(op, IID_IAsyncOperation_1_PackageCatalogAddOptionalPackageResult, IID_AsyncOperationCompletedHandler_1_PackageCatalogAddOptionalPackageResult, "PackageCatalog.AddOptionalPackageAsync"))
 
+proc removeOptionalPackagesAsync*(self: PackageCatalog, optionalPackageFamilyNames: seq[string]): Future[PackageCatalogRemoveOptionalPackagesResult] {.async.} =
+  ## Windows.ApplicationModel.PackageCatalog.RemoveOptionalPackagesAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageCatalog3, "IPackageCatalog3", it):
+    let p0 = asIterableString(optionalPackageFamilyNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IPackageCatalog3_RemoveOptionalPackagesAsync, Fn_IPackageCatalog3_RemoveOptionalPackagesAsync)(it, p0, op.addr).check("PackageCatalog.RemoveOptionalPackagesAsync")
+  result = adopt[PackageCatalogRemoveOptionalPackagesResult](await awaitObject(op, IID_IAsyncOperation_1_PackageCatalogRemoveOptionalPackagesResult, IID_AsyncOperationCompletedHandler_1_PackageCatalogRemoveOptionalPackagesResult, "PackageCatalog.RemoveOptionalPackagesAsync"))
+
 proc addResourcePackageAsync*(self: PackageCatalog, resourcePackageFamilyName: string, resourceID: string, options: AddResourcePackageOptions): Future[PackageCatalogAddResourcePackageResult] {.async.} =
   ## Windows.ApplicationModel.PackageCatalog.AddResourcePackageAsync
   var op: pointer
@@ -31637,6 +32007,15 @@ proc addResourcePackageAsync*(self: PackageCatalog, resourcePackageFamilyName: s
       withHString(resourceID, h1):
         vcall(it, Slot_IPackageCatalog4_AddResourcePackageAsync, Fn_IPackageCatalog4_AddResourcePackageAsync)(it, h0, h1, options, op.addr).check("PackageCatalog.AddResourcePackageAsync")
   result = adopt[PackageCatalogAddResourcePackageResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_PackageCatalogAddResourcePackageResult_PackageInstallProgress, IID_AsyncOperationCompletedHandler_1_PackageCatalogAddResourcePackageResult, "PackageCatalog.AddResourcePackageAsync"))
+
+proc removeResourcePackagesAsync*(self: PackageCatalog, resourcePackages: seq[Package]): Future[PackageCatalogRemoveResourcePackagesResult] {.async.} =
+  ## Windows.ApplicationModel.PackageCatalog.RemoveResourcePackagesAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageCatalog4, "IPackageCatalog4", it):
+    let p0 = asIterable[Package](resourcePackages, IID_IIterable_1_Package, IID_IVectorView_1_Package, IID_IIterator_1_Package)
+    defer: discard release(p0)
+    vcall(it, Slot_IPackageCatalog4_RemoveResourcePackagesAsync, Fn_IPackageCatalog4_RemoveResourcePackagesAsync)(it, p0, op.addr).check("PackageCatalog.RemoveResourcePackagesAsync")
+  result = adopt[PackageCatalogRemoveResourcePackagesResult](await awaitObject(op, IID_IAsyncOperation_1_PackageCatalogRemoveResourcePackagesResult, IID_AsyncOperationCompletedHandler_1_PackageCatalogRemoveResourcePackagesResult, "PackageCatalog.RemoveResourcePackagesAsync"))
 
 proc openForPackage*(_: typedesc[PackageCatalog], package: Package): PackageCatalog  =
   ## Windows.ApplicationModel.PackageCatalog.OpenForPackage
@@ -31871,7 +32250,7 @@ proc findAllAsync*(self: PackageExtensionCatalog): Future[seq[PackageExtension]]
   var op: pointer
   withIface(self.p, IID_IPackageExtensionCatalog, "IPackageExtensionCatalog", it):
     vcall(it, Slot_IPackageExtensionCatalog_FindAllAsync, Fn_IPackageExtensionCatalog_FindAllAsync)(it, op.addr).check("PackageExtensionCatalog.FindAllAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_127, IID_AsyncOperationCompletedHandler_1_IVectorView_127, "PackageExtensionCatalog.FindAllAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_128, IID_AsyncOperationCompletedHandler_1_IVectorView_128, "PackageExtensionCatalog.FindAllAsync")
   result = toSeq[PackageExtension](coll, IID_IVectorView_1_PackageExtension)
   discard release(coll)
 
@@ -32419,6 +32798,13 @@ proc addressLines*(self: PaymentAddress): seq[string]  =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
+proc `addressLines=`*(self: PaymentAddress, value: seq[string])  =
+  ## Windows.ApplicationModel.Payments.PaymentAddress.put_AddressLines
+  withIface(self.p, IID_IPaymentAddress, "IPaymentAddress", it):
+    let p0 = asIterableString(value, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IPaymentAddress_put_AddressLines, Fn_IPaymentAddress_put_AddressLines)(it, p0).check("PaymentAddress.put_AddressLines")
+
 proc region*(self: PaymentAddress): string  =
   ## Windows.ApplicationModel.Payments.PaymentAddress.get_Region
   withIface(self.p, IID_IPaymentAddress, "IPaymentAddress", it):
@@ -32640,6 +33026,13 @@ proc displayItems*(self: PaymentDetails): seq[PaymentItem]  =
     result = toSeq[PaymentItem](tmp, IID_IVectorView_1_PaymentItem)
     release(tmp)
 
+proc `displayItems=`*(self: PaymentDetails, value: seq[PaymentItem])  =
+  ## Windows.ApplicationModel.Payments.PaymentDetails.put_DisplayItems
+  withIface(self.p, IID_IPaymentDetails, "IPaymentDetails", it):
+    let p0 = asIterable[PaymentItem](value, IID_IIterable_1_PaymentItem, IID_IVectorView_1_PaymentItem, IID_IIterator_1_PaymentItem)
+    defer: discard release(p0)
+    vcall(it, Slot_IPaymentDetails_put_DisplayItems, Fn_IPaymentDetails_put_DisplayItems)(it, p0).check("PaymentDetails.put_DisplayItems")
+
 proc shippingOptions*(self: PaymentDetails): seq[PaymentShippingOption]  =
   ## Windows.ApplicationModel.Payments.PaymentDetails.get_ShippingOptions
   withIface(self.p, IID_IPaymentDetails, "IPaymentDetails", it):
@@ -32647,6 +33040,13 @@ proc shippingOptions*(self: PaymentDetails): seq[PaymentShippingOption]  =
     vcall(it, Slot_IPaymentDetails_get_ShippingOptions, Fn_IPaymentDetails_get_ShippingOptions)(it, tmp.addr).check("PaymentDetails.get_ShippingOptions")
     result = toSeq[PaymentShippingOption](tmp, IID_IVectorView_1_PaymentShippingOption)
     release(tmp)
+
+proc `shippingOptions=`*(self: PaymentDetails, value: seq[PaymentShippingOption])  =
+  ## Windows.ApplicationModel.Payments.PaymentDetails.put_ShippingOptions
+  withIface(self.p, IID_IPaymentDetails, "IPaymentDetails", it):
+    let p0 = asIterable[PaymentShippingOption](value, IID_IIterable_1_PaymentShippingOption, IID_IVectorView_1_PaymentShippingOption, IID_IIterator_1_PaymentShippingOption)
+    defer: discard release(p0)
+    vcall(it, Slot_IPaymentDetails_put_ShippingOptions, Fn_IPaymentDetails_put_ShippingOptions)(it, p0).check("PaymentDetails.put_ShippingOptions")
 
 proc modifiers*(self: PaymentDetails): seq[PaymentDetailsModifier]  =
   ## Windows.ApplicationModel.Payments.PaymentDetails.get_Modifiers
@@ -32656,12 +33056,29 @@ proc modifiers*(self: PaymentDetails): seq[PaymentDetailsModifier]  =
     result = toSeq[PaymentDetailsModifier](tmp, IID_IVectorView_1_PaymentDetailsModifier)
     release(tmp)
 
+proc `modifiers=`*(self: PaymentDetails, value: seq[PaymentDetailsModifier])  =
+  ## Windows.ApplicationModel.Payments.PaymentDetails.put_Modifiers
+  withIface(self.p, IID_IPaymentDetails, "IPaymentDetails", it):
+    let p0 = asIterable[PaymentDetailsModifier](value, IID_IIterable_1_PaymentDetailsModifier, IID_IVectorView_1_PaymentDetailsModifier, IID_IIterator_1_PaymentDetailsModifier)
+    defer: discard release(p0)
+    vcall(it, Slot_IPaymentDetails_put_Modifiers, Fn_IPaymentDetails_put_Modifiers)(it, p0).check("PaymentDetails.put_Modifiers")
+
 proc create*(_: typedesc[PaymentDetails], total: PaymentItem): PaymentDetails  =
   ## Windows.ApplicationModel.Payments.PaymentDetails.Create
   withStatics("Windows.ApplicationModel.Payments.PaymentDetails", IID_IPaymentDetailsFactory, it):
     withIface(total.p, IID_IPaymentItem, "IPaymentItem", p0):
       var tmp: pointer
       vcall(it, Slot_IPaymentDetailsFactory_Create, Fn_IPaymentDetailsFactory_Create)(it, p0, tmp.addr).check("PaymentDetails.Create")
+      result = adopt[PaymentDetails](tmp)
+
+proc createWithDisplayItems*(_: typedesc[PaymentDetails], total: PaymentItem, displayItems: seq[PaymentItem]): PaymentDetails  =
+  ## Windows.ApplicationModel.Payments.PaymentDetails.CreateWithDisplayItems
+  withStatics("Windows.ApplicationModel.Payments.PaymentDetails", IID_IPaymentDetailsFactory, it):
+    withIface(total.p, IID_IPaymentItem, "IPaymentItem", p0):
+      let p1 = asIterable[PaymentItem](displayItems, IID_IIterable_1_PaymentItem, IID_IVectorView_1_PaymentItem, IID_IIterator_1_PaymentItem)
+      defer: discard release(p1)
+      var tmp: pointer
+      vcall(it, Slot_IPaymentDetailsFactory_CreateWithDisplayItems, Fn_IPaymentDetailsFactory_CreateWithDisplayItems)(it, p0, p1, tmp.addr).check("PaymentDetails.CreateWithDisplayItems")
       result = adopt[PaymentDetails](tmp)
 
 proc jsonData*(self: PaymentDetailsModifier): string  =
@@ -32693,6 +33110,41 @@ proc additionalDisplayItems*(self: PaymentDetailsModifier): seq[PaymentItem]  =
     vcall(it, Slot_IPaymentDetailsModifier_get_AdditionalDisplayItems, Fn_IPaymentDetailsModifier_get_AdditionalDisplayItems)(it, tmp.addr).check("PaymentDetailsModifier.get_AdditionalDisplayItems")
     result = toSeq[PaymentItem](tmp, IID_IVectorView_1_PaymentItem)
     release(tmp)
+
+proc create*(_: typedesc[PaymentDetailsModifier], supportedMethodIds: seq[string], total: PaymentItem): PaymentDetailsModifier  =
+  ## Windows.ApplicationModel.Payments.PaymentDetailsModifier.Create
+  withStatics("Windows.ApplicationModel.Payments.PaymentDetailsModifier", IID_IPaymentDetailsModifierFactory, it):
+    let p0 = asIterableString(supportedMethodIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    withIface(total.p, IID_IPaymentItem, "IPaymentItem", p1):
+      var tmp: pointer
+      vcall(it, Slot_IPaymentDetailsModifierFactory_Create, Fn_IPaymentDetailsModifierFactory_Create)(it, p0, p1, tmp.addr).check("PaymentDetailsModifier.Create")
+      result = adopt[PaymentDetailsModifier](tmp)
+
+proc createWithAdditionalDisplayItems*(_: typedesc[PaymentDetailsModifier], supportedMethodIds: seq[string], total: PaymentItem, additionalDisplayItems: seq[PaymentItem]): PaymentDetailsModifier  =
+  ## Windows.ApplicationModel.Payments.PaymentDetailsModifier.CreateWithAdditionalDisplayItems
+  withStatics("Windows.ApplicationModel.Payments.PaymentDetailsModifier", IID_IPaymentDetailsModifierFactory, it):
+    let p0 = asIterableString(supportedMethodIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    withIface(total.p, IID_IPaymentItem, "IPaymentItem", p1):
+      let p2 = asIterable[PaymentItem](additionalDisplayItems, IID_IIterable_1_PaymentItem, IID_IVectorView_1_PaymentItem, IID_IIterator_1_PaymentItem)
+      defer: discard release(p2)
+      var tmp: pointer
+      vcall(it, Slot_IPaymentDetailsModifierFactory_CreateWithAdditionalDisplayItems, Fn_IPaymentDetailsModifierFactory_CreateWithAdditionalDisplayItems)(it, p0, p1, p2, tmp.addr).check("PaymentDetailsModifier.CreateWithAdditionalDisplayItems")
+      result = adopt[PaymentDetailsModifier](tmp)
+
+proc createWithAdditionalDisplayItemsAndJsonData*(_: typedesc[PaymentDetailsModifier], supportedMethodIds: seq[string], total: PaymentItem, additionalDisplayItems: seq[PaymentItem], jsonData: string): PaymentDetailsModifier  =
+  ## Windows.ApplicationModel.Payments.PaymentDetailsModifier.CreateWithAdditionalDisplayItemsAndJsonData
+  withStatics("Windows.ApplicationModel.Payments.PaymentDetailsModifier", IID_IPaymentDetailsModifierFactory, it):
+    let p0 = asIterableString(supportedMethodIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    withIface(total.p, IID_IPaymentItem, "IPaymentItem", p1):
+      let p2 = asIterable[PaymentItem](additionalDisplayItems, IID_IIterable_1_PaymentItem, IID_IVectorView_1_PaymentItem, IID_IIterator_1_PaymentItem)
+      defer: discard release(p2)
+      withHString(jsonData, h3):
+        var tmp: pointer
+        vcall(it, Slot_IPaymentDetailsModifierFactory_CreateWithAdditionalDisplayItemsAndJsonData, Fn_IPaymentDetailsModifierFactory_CreateWithAdditionalDisplayItemsAndJsonData)(it, p0, p1, p2, h3, tmp.addr).check("PaymentDetailsModifier.CreateWithAdditionalDisplayItemsAndJsonData")
+        result = adopt[PaymentDetailsModifier](tmp)
 
 proc label*(self: PaymentItem): string  =
   ## Windows.ApplicationModel.Payments.PaymentItem.get_Label
@@ -32811,6 +33263,25 @@ proc jsonData*(self: PaymentMethodData): string  =
     vcall(it, Slot_IPaymentMethodData_get_JsonData, Fn_IPaymentMethodData_get_JsonData)(it, tmp.addr).check("PaymentMethodData.get_JsonData")
     result = takeString(tmp)
 
+proc create*(_: typedesc[PaymentMethodData], supportedMethodIds: seq[string]): PaymentMethodData  =
+  ## Windows.ApplicationModel.Payments.PaymentMethodData.Create
+  withStatics("Windows.ApplicationModel.Payments.PaymentMethodData", IID_IPaymentMethodDataFactory, it):
+    let p0 = asIterableString(supportedMethodIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IPaymentMethodDataFactory_Create, Fn_IPaymentMethodDataFactory_Create)(it, p0, tmp.addr).check("PaymentMethodData.Create")
+    result = adopt[PaymentMethodData](tmp)
+
+proc createWithJsonData*(_: typedesc[PaymentMethodData], supportedMethodIds: seq[string], jsonData: string): PaymentMethodData  =
+  ## Windows.ApplicationModel.Payments.PaymentMethodData.CreateWithJsonData
+  withStatics("Windows.ApplicationModel.Payments.PaymentMethodData", IID_IPaymentMethodDataFactory, it):
+    let p0 = asIterableString(supportedMethodIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    withHString(jsonData, h1):
+      var tmp: pointer
+      vcall(it, Slot_IPaymentMethodDataFactory_CreateWithJsonData, Fn_IPaymentMethodDataFactory_CreateWithJsonData)(it, p0, h1, tmp.addr).check("PaymentMethodData.CreateWithJsonData")
+      result = adopt[PaymentMethodData](tmp)
+
 proc newPaymentOptions*(): PaymentOptions =
   ## Activate a `Windows.ApplicationModel.Payments.PaymentOptions`.
   adopt[PaymentOptions](activateAs("Windows.ApplicationModel.Payments.PaymentOptions", IID_IPaymentOptions))
@@ -32910,6 +33381,52 @@ proc id*(self: PaymentRequest): string  =
     var tmp: HSTRING
     vcall(it, Slot_IPaymentRequest2_get_Id, Fn_IPaymentRequest2_get_Id)(it, tmp.addr).check("PaymentRequest.get_Id")
     result = takeString(tmp)
+
+proc createWithMerchantInfoOptionsAndId*(_: typedesc[PaymentRequest], details: PaymentDetails, methodData: seq[PaymentMethodData], merchantInfo: PaymentMerchantInfo, options: PaymentOptions, id: string): PaymentRequest  =
+  ## Windows.ApplicationModel.Payments.PaymentRequest.CreateWithMerchantInfoOptionsAndId
+  withStatics("Windows.ApplicationModel.Payments.PaymentRequest", IID_IPaymentRequestFactory2, it):
+    withIface(details.p, IID_IPaymentDetails, "IPaymentDetails", p0):
+      let p1 = asIterable[PaymentMethodData](methodData, IID_IIterable_1_PaymentMethodData, IID_IVectorView_1_PaymentMethodData, IID_IIterator_1_PaymentMethodData)
+      defer: discard release(p1)
+      withIface(merchantInfo.p, IID_IPaymentMerchantInfo, "IPaymentMerchantInfo", p2):
+        withIface(options.p, IID_IPaymentOptions, "IPaymentOptions", p3):
+          withHString(id, h4):
+            var tmp: pointer
+            vcall(it, Slot_IPaymentRequestFactory2_CreateWithMerchantInfoOptionsAndId, Fn_IPaymentRequestFactory2_CreateWithMerchantInfoOptionsAndId)(it, p0, p1, p2, p3, h4, tmp.addr).check("PaymentRequest.CreateWithMerchantInfoOptionsAndId")
+            result = adopt[PaymentRequest](tmp)
+
+proc create*(_: typedesc[PaymentRequest], details: PaymentDetails, methodData: seq[PaymentMethodData]): PaymentRequest  =
+  ## Windows.ApplicationModel.Payments.PaymentRequest.Create
+  withStatics("Windows.ApplicationModel.Payments.PaymentRequest", IID_IPaymentRequestFactory, it):
+    withIface(details.p, IID_IPaymentDetails, "IPaymentDetails", p0):
+      let p1 = asIterable[PaymentMethodData](methodData, IID_IIterable_1_PaymentMethodData, IID_IVectorView_1_PaymentMethodData, IID_IIterator_1_PaymentMethodData)
+      defer: discard release(p1)
+      var tmp: pointer
+      vcall(it, Slot_IPaymentRequestFactory_Create, Fn_IPaymentRequestFactory_Create)(it, p0, p1, tmp.addr).check("PaymentRequest.Create")
+      result = adopt[PaymentRequest](tmp)
+
+proc createWithMerchantInfo*(_: typedesc[PaymentRequest], details: PaymentDetails, methodData: seq[PaymentMethodData], merchantInfo: PaymentMerchantInfo): PaymentRequest  =
+  ## Windows.ApplicationModel.Payments.PaymentRequest.CreateWithMerchantInfo
+  withStatics("Windows.ApplicationModel.Payments.PaymentRequest", IID_IPaymentRequestFactory, it):
+    withIface(details.p, IID_IPaymentDetails, "IPaymentDetails", p0):
+      let p1 = asIterable[PaymentMethodData](methodData, IID_IIterable_1_PaymentMethodData, IID_IVectorView_1_PaymentMethodData, IID_IIterator_1_PaymentMethodData)
+      defer: discard release(p1)
+      withIface(merchantInfo.p, IID_IPaymentMerchantInfo, "IPaymentMerchantInfo", p2):
+        var tmp: pointer
+        vcall(it, Slot_IPaymentRequestFactory_CreateWithMerchantInfo, Fn_IPaymentRequestFactory_CreateWithMerchantInfo)(it, p0, p1, p2, tmp.addr).check("PaymentRequest.CreateWithMerchantInfo")
+        result = adopt[PaymentRequest](tmp)
+
+proc createWithMerchantInfoAndOptions*(_: typedesc[PaymentRequest], details: PaymentDetails, methodData: seq[PaymentMethodData], merchantInfo: PaymentMerchantInfo, options: PaymentOptions): PaymentRequest  =
+  ## Windows.ApplicationModel.Payments.PaymentRequest.CreateWithMerchantInfoAndOptions
+  withStatics("Windows.ApplicationModel.Payments.PaymentRequest", IID_IPaymentRequestFactory, it):
+    withIface(details.p, IID_IPaymentDetails, "IPaymentDetails", p0):
+      let p1 = asIterable[PaymentMethodData](methodData, IID_IIterable_1_PaymentMethodData, IID_IVectorView_1_PaymentMethodData, IID_IIterator_1_PaymentMethodData)
+      defer: discard release(p1)
+      withIface(merchantInfo.p, IID_IPaymentMerchantInfo, "IPaymentMerchantInfo", p2):
+        withIface(options.p, IID_IPaymentOptions, "IPaymentOptions", p3):
+          var tmp: pointer
+          vcall(it, Slot_IPaymentRequestFactory_CreateWithMerchantInfoAndOptions, Fn_IPaymentRequestFactory_CreateWithMerchantInfoAndOptions)(it, p0, p1, p2, p3, tmp.addr).check("PaymentRequest.CreateWithMerchantInfoAndOptions")
+          result = adopt[PaymentRequest](tmp)
 
 proc changeKind*(self: PaymentRequestChangedArgs): PaymentRequestChangeKind  =
   ## Windows.ApplicationModel.Payments.PaymentRequestChangedArgs.get_ChangeKind
@@ -33176,6 +33693,15 @@ proc reportCanMakePaymentResult*(self: PaymentAppCanMakePaymentTriggerDetails, v
   withIface(self.p, IID_IPaymentAppCanMakePaymentTriggerDetails, "IPaymentAppCanMakePaymentTriggerDetails", it):
     withIface(value.p, IID_IPaymentCanMakePaymentResult, "IPaymentCanMakePaymentResult", p0):
       vcall(it, Slot_IPaymentAppCanMakePaymentTriggerDetails_ReportCanMakePaymentResult, Fn_IPaymentAppCanMakePaymentTriggerDetails_ReportCanMakePaymentResult)(it, p0).check("PaymentAppCanMakePaymentTriggerDetails.ReportCanMakePaymentResult")
+
+proc registerAsync*(self: PaymentAppManager, supportedPaymentMethodIds: seq[string]) {.async.} =
+  ## Windows.ApplicationModel.Payments.Provider.PaymentAppManager.RegisterAsync
+  var op: pointer
+  withIface(self.p, IID_IPaymentAppManager, "IPaymentAppManager", it):
+    let p0 = asIterableString(supportedPaymentMethodIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IPaymentAppManager_RegisterAsync, Fn_IPaymentAppManager_RegisterAsync)(it, p0, op.addr).check("PaymentAppManager.RegisterAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PaymentAppManager.RegisterAsync")
 
 proc unregisterAsync*(self: PaymentAppManager) {.async.} =
   ## Windows.ApplicationModel.Payments.Provider.PaymentAppManager.UnregisterAsync
@@ -33643,6 +34169,20 @@ proc reset*(self: ResourceContext)  =
   withIface(self.p, IID_IResourceContext, "IResourceContext", it):
     vcall(it, Slot_IResourceContext_Reset, Fn_IResourceContext_Reset)(it).check("ResourceContext.Reset")
 
+proc reset*(self: ResourceContext, qualifierNames: seq[string])  =
+  ## Windows.ApplicationModel.Resources.Core.ResourceContext.Reset
+  withIface(self.p, IID_IResourceContext, "IResourceContext", it):
+    let p0 = asIterableString(qualifierNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IResourceContext_Reset2, Fn_IResourceContext_Reset2)(it, p0).check("ResourceContext.Reset")
+
+proc overrideToMatch*(self: ResourceContext, a1: seq[ResourceQualifier])  =
+  ## Windows.ApplicationModel.Resources.Core.ResourceContext.OverrideToMatch
+  withIface(self.p, IID_IResourceContext, "IResourceContext", it):
+    let p0 = asIterable[ResourceQualifier](a1, IID_IIterable_1_ResourceQualifier, IID_IVectorView_1_ResourceQualifier, IID_IIterator_1_ResourceQualifier)
+    defer: discard release(p0)
+    vcall(it, Slot_IResourceContext_OverrideToMatch, Fn_IResourceContext_OverrideToMatch)(it, p0).check("ResourceContext.OverrideToMatch")
+
 proc clone*(self: ResourceContext): ResourceContext  =
   ## Windows.ApplicationModel.Resources.Core.ResourceContext.Clone
   withIface(self.p, IID_IResourceContext, "IResourceContext", it):
@@ -33657,6 +34197,22 @@ proc languages*(self: ResourceContext): seq[string]  =
     vcall(it, Slot_IResourceContext_get_Languages, Fn_IResourceContext_get_Languages)(it, tmp.addr).check("ResourceContext.get_Languages")
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
+
+proc `languages=`*(self: ResourceContext, value: seq[string])  =
+  ## Windows.ApplicationModel.Resources.Core.ResourceContext.put_Languages
+  withIface(self.p, IID_IResourceContext, "IResourceContext", it):
+    let p0 = asIterableString(value, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IResourceContext_put_Languages, Fn_IResourceContext_put_Languages)(it, p0).check("ResourceContext.put_Languages")
+
+proc createMatchingContext*(_: typedesc[ResourceContext], a1: seq[ResourceQualifier]): ResourceContext  =
+  ## Windows.ApplicationModel.Resources.Core.ResourceContext.CreateMatchingContext
+  withStatics("Windows.ApplicationModel.Resources.Core.ResourceContext", IID_IResourceContextStatics, it):
+    let p0 = asIterable[ResourceQualifier](a1, IID_IIterable_1_ResourceQualifier, IID_IVectorView_1_ResourceQualifier, IID_IIterator_1_ResourceQualifier)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IResourceContextStatics_CreateMatchingContext, Fn_IResourceContextStatics_CreateMatchingContext)(it, p0, tmp.addr).check("ResourceContext.CreateMatchingContext")
+    result = adopt[ResourceContext](tmp)
 
 proc setGlobalQualifierValue*(_: typedesc[ResourceContext], key: string, value: string, persistence: ResourceQualifierPersistence)  =
   ## Windows.ApplicationModel.Resources.Core.ResourceContext.SetGlobalQualifierValue
@@ -33683,6 +34239,13 @@ proc resetGlobalQualifierValues*(_: typedesc[ResourceContext])  =
   ## Windows.ApplicationModel.Resources.Core.ResourceContext.ResetGlobalQualifierValues
   withStatics("Windows.ApplicationModel.Resources.Core.ResourceContext", IID_IResourceContextStatics2, it):
     vcall(it, Slot_IResourceContextStatics2_ResetGlobalQualifierValues, Fn_IResourceContextStatics2_ResetGlobalQualifierValues)(it).check("ResourceContext.ResetGlobalQualifierValues")
+
+proc resetGlobalQualifierValues*(_: typedesc[ResourceContext], qualifierNames: seq[string])  =
+  ## Windows.ApplicationModel.Resources.Core.ResourceContext.ResetGlobalQualifierValues
+  withStatics("Windows.ApplicationModel.Resources.Core.ResourceContext", IID_IResourceContextStatics2, it):
+    let p0 = asIterableString(qualifierNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IResourceContextStatics2_ResetGlobalQualifierValues2, Fn_IResourceContextStatics2_ResetGlobalQualifierValues2)(it, p0).check("ResourceContext.ResetGlobalQualifierValues")
 
 proc getForViewIndependentUse*(_: typedesc[ResourceContext]): ResourceContext  =
   ## Windows.ApplicationModel.Resources.Core.ResourceContext.GetForViewIndependentUse
@@ -33870,7 +34433,7 @@ proc indexFileContentsAsync*(self: ResourceIndexer, file: Uri): Future[seq[Index
   withIface(self.p, IID_IResourceIndexer, "IResourceIndexer", it):
     withIface(file.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IResourceIndexer_IndexFileContentsAsync, Fn_IResourceIndexer_IndexFileContentsAsync)(it, p0, op.addr).check("ResourceIndexer.IndexFileContentsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_128, IID_AsyncOperationCompletedHandler_1_IVectorView_128, "ResourceIndexer.IndexFileContentsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_129, IID_AsyncOperationCompletedHandler_1_IVectorView_129, "ResourceIndexer.IndexFileContentsAsync")
   result = toSeq[IndexedResourceCandidate](coll, IID_IVectorView_1_IndexedResourceCandidate)
   discard release(coll)
 
@@ -34541,6 +35104,15 @@ proc queryTextCompositionLength*(self: SearchQueryLinguisticDetails): uint32  =
     vcall(it, Slot_ISearchQueryLinguisticDetails_get_QueryTextCompositionLength, Fn_ISearchQueryLinguisticDetails_get_QueryTextCompositionLength)(it, tmp.addr).check("SearchQueryLinguisticDetails.get_QueryTextCompositionLength")
     result = tmp
 
+proc createInstance*(_: typedesc[SearchQueryLinguisticDetails], queryTextAlternatives: seq[string], queryTextCompositionStart: uint32, queryTextCompositionLength: uint32): SearchQueryLinguisticDetails  =
+  ## Windows.ApplicationModel.Search.SearchQueryLinguisticDetails.CreateInstance
+  withStatics("Windows.ApplicationModel.Search.SearchQueryLinguisticDetails", IID_ISearchQueryLinguisticDetailsFactory, it):
+    let p0 = asIterableString(queryTextAlternatives, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_ISearchQueryLinguisticDetailsFactory_CreateInstance, Fn_ISearchQueryLinguisticDetailsFactory_CreateInstance)(it, p0, queryTextCompositionStart, queryTextCompositionLength, tmp.addr).check("SearchQueryLinguisticDetails.CreateInstance")
+    result = adopt[SearchQueryLinguisticDetails](tmp)
+
 proc size*(self: SearchSuggestionCollection): uint32  =
   ## Windows.ApplicationModel.Search.SearchSuggestionCollection.get_Size
   withIface(self.p, IID_ISearchSuggestionCollection, "ISearchSuggestionCollection", it):
@@ -34553,6 +35125,13 @@ proc appendQuerySuggestion*(self: SearchSuggestionCollection, text: string)  =
   withIface(self.p, IID_ISearchSuggestionCollection, "ISearchSuggestionCollection", it):
     withHString(text, h0):
       vcall(it, Slot_ISearchSuggestionCollection_AppendQuerySuggestion, Fn_ISearchSuggestionCollection_AppendQuerySuggestion)(it, h0).check("SearchSuggestionCollection.AppendQuerySuggestion")
+
+proc appendQuerySuggestions*(self: SearchSuggestionCollection, suggestions: seq[string])  =
+  ## Windows.ApplicationModel.Search.SearchSuggestionCollection.AppendQuerySuggestions
+  withIface(self.p, IID_ISearchSuggestionCollection, "ISearchSuggestionCollection", it):
+    let p0 = asIterableString(suggestions, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_ISearchSuggestionCollection_AppendQuerySuggestions, Fn_ISearchSuggestionCollection_AppendQuerySuggestions)(it, p0).check("SearchSuggestionCollection.AppendQuerySuggestions")
 
 proc appendResultSuggestion*(self: SearchSuggestionCollection, text: string, detailText: string, tag: string, image: pointer, imageAlternateText: string)  =
   ## Windows.ApplicationModel.Search.SearchSuggestionCollection.AppendResultSuggestion
@@ -35150,7 +35729,7 @@ proc getForCurrentPackageAsync*(_: typedesc[StartupTask]): Future[seq[StartupTas
   var op: pointer
   withStatics("Windows.ApplicationModel.StartupTask", IID_IStartupTaskStatics, it):
     vcall(it, Slot_IStartupTaskStatics_GetForCurrentPackageAsync, Fn_IStartupTaskStatics_GetForCurrentPackageAsync)(it, op.addr).check("StartupTask.GetForCurrentPackageAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_129, IID_AsyncOperationCompletedHandler_1_IVectorView_129, "StartupTask.GetForCurrentPackageAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_130, IID_AsyncOperationCompletedHandler_1_IVectorView_130, "StartupTask.GetForCurrentPackageAsync")
   result = toSeq[StartupTask](coll, IID_IVectorView_1_StartupTask)
   discard release(coll)
 
@@ -35193,7 +35772,7 @@ proc getUnfulfilledConsumablesAsync*(_: typedesc[CurrentApp]): Future[seq[Unfulf
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentAppWithConsumables, it):
     vcall(it, Slot_ICurrentAppWithConsumables_GetUnfulfilledConsumablesAsync, Fn_ICurrentAppWithConsumables_GetUnfulfilledConsumablesAsync)(it, op.addr).check("CurrentApp.GetUnfulfilledConsumablesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_130, IID_AsyncOperationCompletedHandler_1_IVectorView_130, "CurrentApp.GetUnfulfilledConsumablesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_131, IID_AsyncOperationCompletedHandler_1_IVectorView_131, "CurrentApp.GetUnfulfilledConsumablesAsync")
   result = toSeq[UnfulfilledConsumable](coll, IID_IVectorView_1_UnfulfilledConsumable)
   discard release(coll)
 
@@ -35262,6 +35841,24 @@ proc getAppPurchaseCampaignIdAsync*(_: typedesc[CurrentApp]): Future[string] {.a
     vcall(it, Slot_ICurrentAppWithCampaignId_GetAppPurchaseCampaignIdAsync, Fn_ICurrentAppWithCampaignId_GetAppPurchaseCampaignIdAsync)(it, op.addr).check("CurrentApp.GetAppPurchaseCampaignIdAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentApp.GetAppPurchaseCampaignIdAsync")
 
+proc loadListingInformationByProductIdsAsync*(_: typedesc[CurrentApp], productIds: seq[string]): Future[ListingInformation] {.async.} =
+  ## Windows.ApplicationModel.Store.CurrentApp.LoadListingInformationByProductIdsAsync
+  var op: pointer
+  withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentAppStaticsWithFiltering, it):
+    let p0 = asIterableString(productIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_ICurrentAppStaticsWithFiltering_LoadListingInformationByProductIdsAsync, Fn_ICurrentAppStaticsWithFiltering_LoadListingInformationByProductIdsAsync)(it, p0, op.addr).check("CurrentApp.LoadListingInformationByProductIdsAsync")
+  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, "CurrentApp.LoadListingInformationByProductIdsAsync"))
+
+proc loadListingInformationByKeywordsAsync*(_: typedesc[CurrentApp], keywords: seq[string]): Future[ListingInformation] {.async.} =
+  ## Windows.ApplicationModel.Store.CurrentApp.LoadListingInformationByKeywordsAsync
+  var op: pointer
+  withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentAppStaticsWithFiltering, it):
+    let p0 = asIterableString(keywords, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_ICurrentAppStaticsWithFiltering_LoadListingInformationByKeywordsAsync, Fn_ICurrentAppStaticsWithFiltering_LoadListingInformationByKeywordsAsync)(it, p0, op.addr).check("CurrentApp.LoadListingInformationByKeywordsAsync")
+  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, "CurrentApp.LoadListingInformationByKeywordsAsync"))
+
 proc reportProductFulfillment*(_: typedesc[CurrentApp], productId: string)  =
   ## Windows.ApplicationModel.Store.CurrentApp.ReportProductFulfillment
   withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentAppStaticsWithFiltering, it):
@@ -35317,7 +35914,7 @@ proc getUnfulfilledConsumablesAsync*(_: typedesc[CurrentAppSimulator]): Future[s
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulatorWithConsumables, it):
     vcall(it, Slot_ICurrentAppSimulatorWithConsumables_GetUnfulfilledConsumablesAsync, Fn_ICurrentAppSimulatorWithConsumables_GetUnfulfilledConsumablesAsync)(it, op.addr).check("CurrentAppSimulator.GetUnfulfilledConsumablesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_130, IID_AsyncOperationCompletedHandler_1_IVectorView_130, "CurrentAppSimulator.GetUnfulfilledConsumablesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_131, IID_AsyncOperationCompletedHandler_1_IVectorView_131, "CurrentAppSimulator.GetUnfulfilledConsumablesAsync")
   result = toSeq[UnfulfilledConsumable](coll, IID_IVectorView_1_UnfulfilledConsumable)
   discard release(coll)
 
@@ -35386,6 +35983,24 @@ proc getProductReceiptAsync*(_: typedesc[CurrentAppSimulator], productId: string
       vcall(it, Slot_ICurrentAppSimulator_GetProductReceiptAsync, Fn_ICurrentAppSimulator_GetProductReceiptAsync)(it, h0, op.addr).check("CurrentAppSimulator.GetProductReceiptAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentAppSimulator.GetProductReceiptAsync")
 
+proc loadListingInformationByProductIdsAsync*(_: typedesc[CurrentAppSimulator], productIds: seq[string]): Future[ListingInformation] {.async.} =
+  ## Windows.ApplicationModel.Store.CurrentAppSimulator.LoadListingInformationByProductIdsAsync
+  var op: pointer
+  withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulatorStaticsWithFiltering, it):
+    let p0 = asIterableString(productIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_ICurrentAppSimulatorStaticsWithFiltering_LoadListingInformationByProductIdsAsync, Fn_ICurrentAppSimulatorStaticsWithFiltering_LoadListingInformationByProductIdsAsync)(it, p0, op.addr).check("CurrentAppSimulator.LoadListingInformationByProductIdsAsync")
+  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, "CurrentAppSimulator.LoadListingInformationByProductIdsAsync"))
+
+proc loadListingInformationByKeywordsAsync*(_: typedesc[CurrentAppSimulator], keywords: seq[string]): Future[ListingInformation] {.async.} =
+  ## Windows.ApplicationModel.Store.CurrentAppSimulator.LoadListingInformationByKeywordsAsync
+  var op: pointer
+  withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulatorStaticsWithFiltering, it):
+    let p0 = asIterableString(keywords, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_ICurrentAppSimulatorStaticsWithFiltering_LoadListingInformationByKeywordsAsync, Fn_ICurrentAppSimulatorStaticsWithFiltering_LoadListingInformationByKeywordsAsync)(it, p0, op.addr).check("CurrentAppSimulator.LoadListingInformationByKeywordsAsync")
+  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, "CurrentAppSimulator.LoadListingInformationByKeywordsAsync"))
+
 proc isActive*(self: LicenseInformation): bool  =
   ## Windows.ApplicationModel.Store.LicenseInformation.get_IsActive
   withIface(self.p, IID_ILicenseInformation, "ILicenseInformation", it):
@@ -35417,6 +36032,17 @@ proc addLicenseAsync*(_: typedesc[LicenseManager], license: pointer) {.async.} =
   withStatics("Windows.ApplicationModel.Store.LicenseManagement.LicenseManager", IID_ILicenseManagerStatics, it):
     vcall(it, Slot_ILicenseManagerStatics_AddLicenseAsync, Fn_ILicenseManagerStatics_AddLicenseAsync)(it, license, op.addr).check("LicenseManager.AddLicenseAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "LicenseManager.AddLicenseAsync")
+
+proc getSatisfactionInfosAsync*(_: typedesc[LicenseManager], contentIds: seq[string], keyIds: seq[string]): Future[LicenseSatisfactionResult] {.async.} =
+  ## Windows.ApplicationModel.Store.LicenseManagement.LicenseManager.GetSatisfactionInfosAsync
+  var op: pointer
+  withStatics("Windows.ApplicationModel.Store.LicenseManagement.LicenseManager", IID_ILicenseManagerStatics, it):
+    let p0 = asIterableString(contentIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    let p1 = asIterableString(keyIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p1)
+    vcall(it, Slot_ILicenseManagerStatics_GetSatisfactionInfosAsync, Fn_ILicenseManagerStatics_GetSatisfactionInfosAsync)(it, p0, p1, op.addr).check("LicenseManager.GetSatisfactionInfosAsync")
+  result = adopt[LicenseSatisfactionResult](await awaitObject(op, IID_IAsyncOperation_1_LicenseSatisfactionResult, IID_AsyncOperationCompletedHandler_1_LicenseSatisfactionResult, "LicenseManager.GetSatisfactionInfosAsync"))
 
 proc refreshLicensesAsync*(_: typedesc[LicenseManager], refreshOption: LicenseRefreshOption) {.async.} =
   ## Windows.ApplicationModel.Store.LicenseManagement.LicenseManager.RefreshLicensesAsync
@@ -35891,7 +36517,7 @@ proc searchForAllUpdatesAsync*(self: AppInstallManager): Future[seq[AppInstallIt
   var op: pointer
   withIface(self.p, IID_IAppInstallManager, "IAppInstallManager", it):
     vcall(it, Slot_IAppInstallManager_SearchForAllUpdatesAsync, Fn_IAppInstallManager_SearchForAllUpdatesAsync)(it, op.addr).check("AppInstallManager.SearchForAllUpdatesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_131, IID_AsyncOperationCompletedHandler_1_IVectorView_131, "AppInstallManager.SearchForAllUpdatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_132, IID_AsyncOperationCompletedHandler_1_IVectorView_132, "AppInstallManager.SearchForAllUpdatesAsync")
   result = toSeq[AppInstallItem](coll, IID_IVectorView_1_AppInstallItem)
   discard release(coll)
 
@@ -35950,7 +36576,7 @@ proc searchForAllUpdatesAsync*(self: AppInstallManager, correlationVector: strin
   withIface(self.p, IID_IAppInstallManager2, "IAppInstallManager2", it):
     withHString(correlationVector, h0):
       vcall(it, Slot_IAppInstallManager2_SearchForAllUpdatesAsync, Fn_IAppInstallManager2_SearchForAllUpdatesAsync)(it, h0, op.addr).check("AppInstallManager.SearchForAllUpdatesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_131, IID_AsyncOperationCompletedHandler_1_IVectorView_131, "AppInstallManager.SearchForAllUpdatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_132, IID_AsyncOperationCompletedHandler_1_IVectorView_132, "AppInstallManager.SearchForAllUpdatesAsync")
   result = toSeq[AppInstallItem](coll, IID_IVectorView_1_AppInstallItem)
   discard release(coll)
 
@@ -36029,7 +36655,7 @@ proc searchForAllUpdatesAsync*(self: AppInstallManager, correlationVector: strin
       withHString(clientId, h1):
         withIface(updateOptions.p, IID_IAppUpdateOptions, "IAppUpdateOptions", p2):
           vcall(it, Slot_IAppInstallManager6_SearchForAllUpdatesAsync, Fn_IAppInstallManager6_SearchForAllUpdatesAsync)(it, h0, h1, p2, op.addr).check("AppInstallManager.SearchForAllUpdatesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_131, IID_AsyncOperationCompletedHandler_1_IVectorView_131, "AppInstallManager.SearchForAllUpdatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_132, IID_AsyncOperationCompletedHandler_1_IVectorView_132, "AppInstallManager.SearchForAllUpdatesAsync")
   result = toSeq[AppInstallItem](coll, IID_IVectorView_1_AppInstallItem)
   discard release(coll)
 
@@ -36055,7 +36681,7 @@ proc startProductInstallAsync*(self: AppInstallManager, productId: string, fligh
           withHString(correlationVector, h3):
             withIface(installOptions.p, IID_IAppInstallOptions, "IAppInstallOptions", p4):
               vcall(it, Slot_IAppInstallManager6_StartProductInstallAsync, Fn_IAppInstallManager6_StartProductInstallAsync)(it, h0, h1, h2, h3, p4, op.addr).check("AppInstallManager.StartProductInstallAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_131, IID_AsyncOperationCompletedHandler_1_IVectorView_131, "AppInstallManager.StartProductInstallAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_132, IID_AsyncOperationCompletedHandler_1_IVectorView_132, "AppInstallManager.StartProductInstallAsync")
   result = toSeq[AppInstallItem](coll, IID_IVectorView_1_AppInstallItem)
   discard release(coll)
 
@@ -36529,7 +37155,7 @@ proc loadAddOnProductInfosAsync*(_: typedesc[StorePreview]): Future[seq[StorePre
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.Preview.StorePreview", IID_IStorePreview, it):
     vcall(it, Slot_IStorePreview_LoadAddOnProductInfosAsync, Fn_IStorePreview_LoadAddOnProductInfosAsync)(it, op.addr).check("StorePreview.LoadAddOnProductInfosAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_132, IID_AsyncOperationCompletedHandler_1_IVectorView_132, "StorePreview.LoadAddOnProductInfosAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_133, IID_AsyncOperationCompletedHandler_1_IVectorView_133, "StorePreview.LoadAddOnProductInfosAsync")
   result = toSeq[StorePreviewProductInfo](coll, IID_IVectorView_1_StorePreviewProductInfo)
   discard release(coll)
 
@@ -37029,6 +37655,15 @@ proc tryParseFromJsonArray*(_: typedesc[UserActivity], json: string): seq[UserAc
       vcall(it, Slot_IUserActivityStatics_TryParseFromJsonArray, Fn_IUserActivityStatics_TryParseFromJsonArray)(it, h0, tmp.addr).check("UserActivity.TryParseFromJsonArray")
       result = toSeq[UserActivity](tmp, IID_IVector_1_UserActivity)
       release(tmp)
+
+proc toJsonArray*(_: typedesc[UserActivity], activities: seq[UserActivity]): string  =
+  ## Windows.ApplicationModel.UserActivities.UserActivity.ToJsonArray
+  withStatics("Windows.ApplicationModel.UserActivities.UserActivity", IID_IUserActivityStatics, it):
+    let p0 = asIterable[UserActivity](activities, IID_IIterable_1_UserActivity, IID_IVectorView_1_UserActivity, IID_IIterator_1_UserActivity)
+    defer: discard release(p0)
+    var tmp: HSTRING
+    vcall(it, Slot_IUserActivityStatics_ToJsonArray, Fn_IUserActivityStatics_ToJsonArray)(it, p0, tmp.addr).check("UserActivity.ToJsonArray")
+    result = takeString(tmp)
 
 proc createWithActivityId*(_: typedesc[UserActivity], activityId: string): UserActivity  =
   ## Windows.ApplicationModel.UserActivities.UserActivity.CreateWithActivityId
@@ -37925,6 +38560,17 @@ proc `isSyncScheduleManagedBySystem=`*(self: DeviceAccountConfiguration, value: 
   withIface(self.p, IID_IDeviceAccountConfiguration2, "IDeviceAccountConfiguration2", it):
     vcall(it, Slot_IDeviceAccountConfiguration2_put_IsSyncScheduleManagedBySystem, Fn_IDeviceAccountConfiguration2_put_IsSyncScheduleManagedBySystem)(it, value).check("DeviceAccountConfiguration.put_IsSyncScheduleManagedBySystem")
 
+proc addAndShowDeviceAccountsAsync*(_: typedesc[UserDataAccountSystemAccessManager], accounts: seq[DeviceAccountConfiguration]): Future[seq[string]] {.async.} =
+  ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager.AddAndShowDeviceAccountsAsync
+  var op: pointer
+  withStatics("Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager", IID_IUserDataAccountSystemAccessManagerStatics, it):
+    let p0 = asIterable[DeviceAccountConfiguration](accounts, IID_IIterable_1_DeviceAccountConfiguration, IID_IVectorView_1_DeviceAccountConfiguration, IID_IIterator_1_DeviceAccountConfiguration)
+    defer: discard release(p0)
+    vcall(it, Slot_IUserDataAccountSystemAccessManagerStatics_AddAndShowDeviceAccountsAsync, Fn_IUserDataAccountSystemAccessManagerStatics_AddAndShowDeviceAccountsAsync)(it, p0, op.addr).check("UserDataAccountSystemAccessManager.AddAndShowDeviceAccountsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "UserDataAccountSystemAccessManager.AddAndShowDeviceAccountsAsync")
+  result = toSeqString(coll, IID_IVectorView_1_String)
+  discard release(coll)
+
 proc suppressLocalAccountWithAccountAsync*(_: typedesc[UserDataAccountSystemAccessManager], userDataAccountId: string) {.async.} =
   ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager.SuppressLocalAccountWithAccountAsync
   var op: pointer
@@ -38038,7 +38684,7 @@ proc findEmailMailboxesAsync*(self: UserDataAccount): Future[seq[EmailMailbox]] 
   var op: pointer
   withIface(self.p, IID_IUserDataAccount, "IUserDataAccount", it):
     vcall(it, Slot_IUserDataAccount_FindEmailMailboxesAsync, Fn_IUserDataAccount_FindEmailMailboxesAsync)(it, op.addr).check("UserDataAccount.FindEmailMailboxesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_125, IID_AsyncOperationCompletedHandler_1_IVectorView_125, "UserDataAccount.FindEmailMailboxesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_126, IID_AsyncOperationCompletedHandler_1_IVectorView_126, "UserDataAccount.FindEmailMailboxesAsync")
   result = toSeq[EmailMailbox](coll, IID_IVectorView_1_EmailMailbox)
   discard release(coll)
 
@@ -38119,7 +38765,7 @@ proc findUserDataTaskListsAsync*(self: UserDataAccount): Future[seq[UserDataTask
   var op: pointer
   withIface(self.p, IID_IUserDataAccount4, "IUserDataAccount4", it):
     vcall(it, Slot_IUserDataAccount4_FindUserDataTaskListsAsync, Fn_IUserDataAccount4_FindUserDataTaskListsAsync)(it, op.addr).check("UserDataAccount.FindUserDataTaskListsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_133, IID_AsyncOperationCompletedHandler_1_IVectorView_133, "UserDataAccount.FindUserDataTaskListsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_134, IID_AsyncOperationCompletedHandler_1_IVectorView_134, "UserDataAccount.FindUserDataTaskListsAsync")
   result = toSeq[UserDataTaskList](coll, IID_IVectorView_1_UserDataTaskList)
   discard release(coll)
 
@@ -38128,7 +38774,7 @@ proc findContactGroupsAsync*(self: UserDataAccount): Future[seq[ContactGroup]] {
   var op: pointer
   withIface(self.p, IID_IUserDataAccount4, "IUserDataAccount4", it):
     vcall(it, Slot_IUserDataAccount4_FindContactGroupsAsync, Fn_IUserDataAccount4_FindContactGroupsAsync)(it, op.addr).check("UserDataAccount.FindContactGroupsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_134, IID_AsyncOperationCompletedHandler_1_IVectorView_134, "UserDataAccount.FindContactGroupsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_135, IID_AsyncOperationCompletedHandler_1_IVectorView_135, "UserDataAccount.FindContactGroupsAsync")
   result = toSeq[ContactGroup](coll, IID_IVectorView_1_ContactGroup)
   discard release(coll)
 
@@ -38191,7 +38837,7 @@ proc findAccountsAsync*(self: UserDataAccountStore): Future[seq[UserDataAccount]
   var op: pointer
   withIface(self.p, IID_IUserDataAccountStore, "IUserDataAccountStore", it):
     vcall(it, Slot_IUserDataAccountStore_FindAccountsAsync, Fn_IUserDataAccountStore_FindAccountsAsync)(it, op.addr).check("UserDataAccountStore.FindAccountsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_135, IID_AsyncOperationCompletedHandler_1_IVectorView_135, "UserDataAccountStore.FindAccountsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_136, IID_AsyncOperationCompletedHandler_1_IVectorView_136, "UserDataAccountStore.FindAccountsAsync")
   result = toSeq[UserDataAccount](coll, IID_IVectorView_1_UserDataAccount)
   discard release(coll)
 
@@ -39151,7 +39797,7 @@ proc findListsAsync*(self: UserDataTaskStore): Future[seq[UserDataTaskList]] {.a
   var op: pointer
   withIface(self.p, IID_IUserDataTaskStore, "IUserDataTaskStore", it):
     vcall(it, Slot_IUserDataTaskStore_FindListsAsync, Fn_IUserDataTaskStore_FindListsAsync)(it, op.addr).check("UserDataTaskStore.FindListsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_133, IID_AsyncOperationCompletedHandler_1_IVectorView_133, "UserDataTaskStore.FindListsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_134, IID_AsyncOperationCompletedHandler_1_IVectorView_134, "UserDataTaskStore.FindListsAsync")
   result = toSeq[UserDataTaskList](coll, IID_IVectorView_1_UserDataTaskList)
   discard release(coll)
 
@@ -39303,6 +39949,16 @@ proc name*(self: VoiceCommandDefinition): string  =
     vcall(it, Slot_IVoiceCommandDefinition_get_Name, Fn_IVoiceCommandDefinition_get_Name)(it, tmp.addr).check("VoiceCommandDefinition.get_Name")
     result = takeString(tmp)
 
+proc setPhraseListAsync*(self: VoiceCommandDefinition, phraseListName: string, phraseList: seq[string]) {.async.} =
+  ## Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinition.SetPhraseListAsync
+  var op: pointer
+  withIface(self.p, IID_IVoiceCommandDefinition, "IVoiceCommandDefinition", it):
+    withHString(phraseListName, h0):
+      let p1 = asIterableString(phraseList, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IVoiceCommandDefinition_SetPhraseListAsync, Fn_IVoiceCommandDefinition_SetPhraseListAsync)(it, h0, p1, op.addr).check("VoiceCommandDefinition.SetPhraseListAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "VoiceCommandDefinition.SetPhraseListAsync")
+
 proc selectedItem*(self: VoiceCommandDisambiguationResult): VoiceCommandContentTile  =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandDisambiguationResult.get_SelectedItem
   withIface(self.p, IID_IVoiceCommandDisambiguationResult, "IVoiceCommandDisambiguationResult", it):
@@ -39372,6 +40028,16 @@ proc createResponse*(_: typedesc[VoiceCommandResponse], userMessage: VoiceComman
       vcall(it, Slot_IVoiceCommandResponseStatics_CreateResponse, Fn_IVoiceCommandResponseStatics_CreateResponse)(it, p0, tmp.addr).check("VoiceCommandResponse.CreateResponse")
       result = adopt[VoiceCommandResponse](tmp)
 
+proc createResponse*(_: typedesc[VoiceCommandResponse], message: VoiceCommandUserMessage, contentTiles: seq[VoiceCommandContentTile]): VoiceCommandResponse  =
+  ## Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse.CreateResponse
+  withStatics("Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse", IID_IVoiceCommandResponseStatics, it):
+    withIface(message.p, IID_IVoiceCommandUserMessage, "IVoiceCommandUserMessage", p0):
+      let p1 = asIterable[VoiceCommandContentTile](contentTiles, IID_IIterable_1_VoiceCommandContentTile, IID_IVectorView_1_VoiceCommandContentTile, IID_IIterator_1_VoiceCommandContentTile)
+      defer: discard release(p1)
+      var tmp: pointer
+      vcall(it, Slot_IVoiceCommandResponseStatics_CreateResponse2, Fn_IVoiceCommandResponseStatics_CreateResponse2)(it, p0, p1, tmp.addr).check("VoiceCommandResponse.CreateResponse")
+      result = adopt[VoiceCommandResponse](tmp)
+
 proc createResponseForPrompt*(_: typedesc[VoiceCommandResponse], message: VoiceCommandUserMessage, repeatMessage: VoiceCommandUserMessage): VoiceCommandResponse  =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse.CreateResponseForPrompt
   withStatics("Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse", IID_IVoiceCommandResponseStatics, it):
@@ -39379,6 +40045,17 @@ proc createResponseForPrompt*(_: typedesc[VoiceCommandResponse], message: VoiceC
       withIface(repeatMessage.p, IID_IVoiceCommandUserMessage, "IVoiceCommandUserMessage", p1):
         var tmp: pointer
         vcall(it, Slot_IVoiceCommandResponseStatics_CreateResponseForPrompt, Fn_IVoiceCommandResponseStatics_CreateResponseForPrompt)(it, p0, p1, tmp.addr).check("VoiceCommandResponse.CreateResponseForPrompt")
+        result = adopt[VoiceCommandResponse](tmp)
+
+proc createResponseForPrompt*(_: typedesc[VoiceCommandResponse], message: VoiceCommandUserMessage, repeatMessage: VoiceCommandUserMessage, contentTiles: seq[VoiceCommandContentTile]): VoiceCommandResponse  =
+  ## Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse.CreateResponseForPrompt
+  withStatics("Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse", IID_IVoiceCommandResponseStatics, it):
+    withIface(message.p, IID_IVoiceCommandUserMessage, "IVoiceCommandUserMessage", p0):
+      withIface(repeatMessage.p, IID_IVoiceCommandUserMessage, "IVoiceCommandUserMessage", p1):
+        let p2 = asIterable[VoiceCommandContentTile](contentTiles, IID_IIterable_1_VoiceCommandContentTile, IID_IVectorView_1_VoiceCommandContentTile, IID_IIterator_1_VoiceCommandContentTile)
+        defer: discard release(p2)
+        var tmp: pointer
+        vcall(it, Slot_IVoiceCommandResponseStatics_CreateResponseForPrompt2, Fn_IVoiceCommandResponseStatics_CreateResponseForPrompt2)(it, p0, p1, p2, tmp.addr).check("VoiceCommandResponse.CreateResponseForPrompt")
         result = adopt[VoiceCommandResponse](tmp)
 
 proc getVoiceCommandAsync*(self: VoiceCommandServiceConnection): Future[VoiceCommand] {.async.} =
@@ -39498,7 +40175,7 @@ proc getItemsAsync*(self: WalletItemSystemStore): Future[seq[WalletItem]] {.asyn
   var op: pointer
   withIface(self.p, IID_IWalletItemSystemStore, "IWalletItemSystemStore", it):
     vcall(it, Slot_IWalletItemSystemStore_GetItemsAsync, Fn_IWalletItemSystemStore_GetItemsAsync)(it, op.addr).check("WalletItemSystemStore.GetItemsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_136, IID_AsyncOperationCompletedHandler_1_IVectorView_136, "WalletItemSystemStore.GetItemsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, "WalletItemSystemStore.GetItemsAsync")
   result = toSeq[WalletItem](coll, IID_IVectorView_1_WalletItem)
   discard release(coll)
 
@@ -39980,7 +40657,7 @@ proc getItemsAsync*(self: WalletItemStore): Future[seq[WalletItem]] {.async.} =
   var op: pointer
   withIface(self.p, IID_IWalletItemStore, "IWalletItemStore", it):
     vcall(it, Slot_IWalletItemStore_GetItemsAsync, Fn_IWalletItemStore_GetItemsAsync)(it, op.addr).check("WalletItemStore.GetItemsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_136, IID_AsyncOperationCompletedHandler_1_IVectorView_136, "WalletItemStore.GetItemsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, "WalletItemStore.GetItemsAsync")
   result = toSeq[WalletItem](coll, IID_IVectorView_1_WalletItem)
   discard release(coll)
 
@@ -39989,7 +40666,7 @@ proc getItemsAsync*(self: WalletItemStore, kind: WalletItemKind): Future[seq[Wal
   var op: pointer
   withIface(self.p, IID_IWalletItemStore, "IWalletItemStore", it):
     vcall(it, Slot_IWalletItemStore_GetItemsAsync2, Fn_IWalletItemStore_GetItemsAsync2)(it, kind, op.addr).check("WalletItemStore.GetItemsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_136, IID_AsyncOperationCompletedHandler_1_IVectorView_136, "WalletItemStore.GetItemsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, "WalletItemStore.GetItemsAsync")
   result = toSeq[WalletItem](coll, IID_IVectorView_1_WalletItem)
   discard release(coll)
 
