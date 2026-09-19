@@ -46,11 +46,11 @@ type
     ekValue    ## a number, enum or struct, copied by size
 
   IterableVtbl {.pure.} = object
-    base: InspectableVtbl
+    base: IInspectableVtbl
     first: proc(self: pointer, it: ptr pointer): HRESULT {.abi.}
 
   ViewVtbl {.pure.} = object
-    base: InspectableVtbl
+    base: IInspectableVtbl
     getAt: proc(self: pointer, index: uint32,
                 item: ptr pointer): HRESULT {.abi.}
     getSize: proc(self: pointer, size: ptr uint32): HRESULT {.abi.}
@@ -58,7 +58,7 @@ type
                   found: ptr bool): HRESULT {.abi.}
 
   VectorVtbl {.pure.} = object
-    base: InspectableVtbl
+    base: IInspectableVtbl
     getAt: proc(self: pointer, index: uint32,
                 item: ptr pointer): HRESULT {.abi.}
     getSize: proc(self: pointer, size: ptr uint32): HRESULT {.abi.}
@@ -77,7 +77,7 @@ type
                      items: ptr pointer): HRESULT {.abi.}
 
   IteratorVtbl {.pure.} = object
-    base: InspectableVtbl
+    base: IInspectableVtbl
     getCurrent: proc(self: pointer, item: ptr pointer): HRESULT {.abi.}
     getHasCurrent: proc(self: pointer, has: ptr bool): HRESULT {.abi.}
     moveNext: proc(self: pointer, has: ptr bool): HRESULT {.abi.}
@@ -112,8 +112,6 @@ type
     version: int32                    ## the view's, when this was made
     pos: int32
 
-const E_CHANGED_STATE = cast[HRESULT](0x8000000C'u32)
-  ## What WinRT answers when a collection changes under an iterator.
 
 const IidAgile = GUID(
   data1: 0x94EA2B94'u32, data2: 0xE9CC'u16, data3: 0x49E0'u16,
@@ -483,7 +481,7 @@ proc iterGetMany(self: pointer, capacity: uint32, items: ptr pointer,
   S_OK
 
 var iteratorVtbl = IteratorVtbl(
-  base: InspectableVtbl(queryInterface: iterQuery, addRef: iterAddRef, release: iterRelease,
+  base: IInspectableVtbl(queryInterface: iterQuery, addRef: iterAddRef, release: iterRelease,
          getIids: noIids, getRuntimeClassName: noName, getTrustLevel: baseTrust),
   getCurrent: iterCurrent, getHasCurrent: iterHasCurrent,
   moveNext: iterMoveNext, getMany: iterGetMany)
@@ -502,18 +500,18 @@ proc viewFirst(self: pointer, outIt: ptr pointer): HRESULT {.abi.} =
   S_OK
 
 var iterableVtbl = IterableVtbl(
-  base: InspectableVtbl(queryInterface: viewQuery, addRef: viewAddRef, release: viewRelease,
+  base: IInspectableVtbl(queryInterface: viewQuery, addRef: viewAddRef, release: viewRelease,
          getIids: noIids, getRuntimeClassName: noName, getTrustLevel: baseTrust),
   first: viewFirst)
 
 var viewVtbl = ViewVtbl(
-  base: InspectableVtbl(queryInterface: viewQueryV, addRef: viewAddRefV,
+  base: IInspectableVtbl(queryInterface: viewQueryV, addRef: viewAddRefV,
          release: viewReleaseV, getIids: noIids, getRuntimeClassName: noName,
          getTrustLevel: baseTrust),
   getAt: viewGetAt, getSize: viewGetSize, indexOf: viewIndexOf)
 
 var vectorVtbl = VectorVtbl(
-  base: InspectableVtbl(queryInterface: vecQuery, addRef: vecAddRef,
+  base: IInspectableVtbl(queryInterface: vecQuery, addRef: vecAddRef,
          release: vecRelease, getIids: noIids, getRuntimeClassName: noName,
          getTrustLevel: baseTrust),
   getAt: vecGetAt, getSize: vecGetSize, getView: vecGetView,

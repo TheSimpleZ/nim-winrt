@@ -26,7 +26,7 @@ include ./abidef
 
 type
   ReferenceVtbl[T] {.pure.} = object
-    base: InspectableVtbl
+    base: IInspectableVtbl
     getValue: proc(self: pointer, value: ptr T): HRESULT {.abi.}
 
   ValueRef[T] {.pure.} = object
@@ -95,7 +95,7 @@ proc newReference*[T](value: T, iid: GUID): pointer =
   # means. The alternative, a table per object, would put a writable copy of
   # six function pointers next to every boxed value.
   var vtbl {.global.} = ReferenceVtbl[T](
-    base: InspectableVtbl(
+    base: IInspectableVtbl(
       queryInterface: refQuery[T], addRef: refAddRef[T],
       release: refRelease[T], getIids: refIids[T],
       getRuntimeClassName: refClassName[T], getTrustLevel: refTrust[T]),

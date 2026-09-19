@@ -9,11 +9,15 @@
 ## Every call into the Windows Runtime reduces to what is here:
 ##
 ##   HSTRING -> activation factory -> QueryInterface -> call a vtable slot
+##
+## The second half of the module is what the generated API is built on: how an
+## object is held, how a collection or a map is read, how a value crosses in an
+## `IReference<T>`, how an array comes back.
 
 import std/[hashes, macros, options, os, strformat, strutils, tables, widestrs]
 
-# A method that may not have a value returns `Option[T]`, so anyone holding one
-# needs `isSome` and `get` without a second import.
+# A method that may not have a value returns `Option[T]` and a map reads as a
+# `Table`, so anyone holding either needs those without a second import.
 export options, tables
 
 # ------------------------------------------------------------------- basics
@@ -48,6 +52,8 @@ const
   E_BOUNDS* = cast[HRESULT](0x8000000B'u32)
     ## An index past the end of a collection. WinRT uses this rather than
     ## failing generically, and callers test for it.
+  E_CHANGED_STATE* = cast[HRESULT](0x8000000C'u32)
+    ## A collection changed under an iterator.
 
 func succeeded*(hr: HRESULT): bool {.inline.} =
   ## The sign bit is the failure flag. This cannot be `hr == S_OK`, because
@@ -74,6 +80,8 @@ func name*(hr: HRESULT): string =
   of RPC_E_CHANGED_MODE: "RPC_E_CHANGED_MODE"
   of REGDB_E_CLASSNOTREG: "REGDB_E_CLASSNOTREG"
   of CLASS_E_CLASSNOTAVAILABLE: "CLASS_E_CLASSNOTAVAILABLE"
+  of E_BOUNDS: "E_BOUNDS"
+  of E_CHANGED_STATE: "E_CHANGED_STATE"
   else: hr.hex
 
 type
@@ -159,6 +167,16 @@ proc `$`*(h: HSTRING): string =
   # HSTRING buffers are guaranteed NUL-terminated, so scanning is safe.
   $cast[WideCString](buf)
 
+proc takeString*(h: HSTRING): string =
+  ## Convert an `[out] HSTRING` to a Nim string and delete it.
+  ##
+  ## A WinRT method that returns a string hands over ownership: the HSTRING is
+  ## the caller's to delete. Reading a string property without this leaks one
+  ## per call, which a soak test measures as a flat couple of hundred bytes an
+  ## iteration — invisible in a demo and fatal in a program that runs for days.
+  result = $h
+  discard windowsDeleteString(h)
+
 proc sameString*(a, b: HSTRING): bool =
   ## Whether two HSTRINGs hold the same text, without converting either.
   ## For code that may run on a thread Nim did not start, where building a
@@ -177,16 +195,62 @@ template withHString*(s: string, name, body: untyped) =
     finally:
       discard windowsDeleteString(name)
 
+# ---------------------------------------------------------------------- GUIDs
+
+func `==`*(a, b: GUID): bool =
+  ## Field by field: a GUID is sixteen bytes with no padding, but Nim has no
+  ## structural equality for an object containing an array without saying so.
+  a.data1 == b.data1 and a.data2 == b.data2 and a.data3 == b.data3 and
+    a.data4 == b.data4
+
+proc hash*(g: GUID): Hash =
+  ## So a `GUID` can key a `Table`: several WinRT maps are keyed by one.
+  hashData(g.unsafeAddr, sizeof(GUID))
+
+func guid*(s: string): GUID =
+  ## A GUID from its textual form, with or without braces.
+  ##
+  ## Every IID in this library is written this way — `guid"..."` in a `const`,
+  ## evaluated at compile time — because that is how a GUID is written
+  ## everywhere else, and a reader can compare it with the SDK headers.
+  ##
+  ## The first three fields are little-endian numbers written big-endian, which
+  ## is why they are parsed as integers while the last eight are taken as bytes.
+  let h = s.strip(chars = {'{', '}', ' '}).replace("-", "")
+  doAssert h.len == 32, "winrt: not a GUID: " & s
+  result.data1 = uint32(parseHexInt(h[0 ..< 8]))
+  result.data2 = uint16(parseHexInt(h[8 ..< 12]))
+  result.data3 = uint16(parseHexInt(h[12 ..< 16]))
+  for i in 0 ..< 8:
+    result.data4[i] = uint8(parseHexInt(h[16 + i * 2 ..< 18 + i * 2]))
+
+const
+  IID_IUnknown* = guid"00000000-0000-0000-C000-000000000046"
+    ## The root of COM. Every object answers for it.
+  IID_IInspectable* = guid"AF86E2E0-B12D-4C6A-9C5A-D7AA65101E90"
+    ## The root of every WinRT interface, as IUnknown is the root of every
+    ## COM one.
+  IID_IActivationFactory* = guid"00000035-0000-0000-C000-000000000046"
+    ## Implemented by every activation factory.
+  IID_IAgileObject* = guid"94EA2B94-E9CC-49E0-C0FF-EE64CA8F5B90"
+    ## A marker with no methods. An object answering for it tells COM it may
+    ## be called from any apartment without marshalling, so the runtime invokes
+    ## it on whatever thread it is already on instead of trying to reach the
+    ## one that handed it over.
+
 # ------------------------------------------------------------------- vtables
 
 include ./abidef
 
-
 type
   IInspectableVtbl* {.pure.} = object
-    ## Every slot carries `abi`, so Nim knows a call through one neither raises
-    ## nor touches the heap. That is what lets `release` be called from a
-    ## `=destroy` hook, which must not raise.
+    ## The six slots every WinRT interface begins with. Every slot carries
+    ## `abi`, so Nim knows a call through one neither raises nor touches the
+    ## heap — which is what lets `release` be called from a `=destroy` hook.
+    ##
+    ## Also the head of every vtable this library *implements*: getting the
+    ## order or the count of these wrong is the mistake that puts a caller's
+    ## `GetAt` through `Release`.
     # --- IUnknown ---
     queryInterface*: proc(self: pointer, riid: ptr GUID,
                           ppv: ptr pointer): HRESULT {.abi.}
@@ -201,19 +265,6 @@ type
 
   IInspectable* {.pure.} = object
     vtbl*: ptr IInspectableVtbl
-
-const
-  IID_IActivationFactory* = GUID(
-    data1: 0x00000035'u32, data2: 0'u16, data3: 0'u16,
-    data4: [0xC0'u8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46])
-    ## {00000035-0000-0000-C000-000000000046} — implemented by every activation
-    ## factory, so it is the one IID that never needs generating.
-
-func `==`*(a, b: GUID): bool =
-  ## Field by field: a GUID is sixteen bytes with no padding, but Nim has no
-  ## structural equality for an object containing an array without saying so.
-  a.data1 == b.data1 and a.data2 == b.data2 and a.data3 == b.data3 and
-    a.data4 == b.data4
 
 template vcall*(obj: pointer, slot: int, T: typedesc): untyped =
   ## The method at vtable index `slot`, as a callable of type `T`.
@@ -230,19 +281,6 @@ template vcall*(obj: pointer, slot: int, T: typedesc): untyped =
   ## belongs to, not whichever pointer happens to be at hand.
   cast[T](cast[ptr ptr UncheckedArray[pointer]](obj)[][slot])
 
-const
-  IID_IInspectable* = GUID(
-    ## {AF86E2E0-B12D-4C6A-9C5A-D7AA65101E90} — the root of every WinRT
-    ## interface, as IUnknown is the root of every COM one.
-    data1: 0xAF86E2E0'u32, data2: 0xB12D'u16, data3: 0x4C6A'u16,
-    data4: [0x9C'u8, 0x5A, 0xD7, 0xAA, 0x65, 0x10, 0x1E, 0x90])
-
-  IID_IUnknown* = GUID(
-    ## {00000000-0000-0000-C000-000000000046} — the root of COM. Every object
-    ## answers for it, which is what makes it the one IID worth hard-coding.
-    data1: 0x00000000'u32, data2: 0'u16, data3: 0'u16,
-    data4: [0xC0'u8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46])
-
 proc addRef*(obj: pointer): uint32 {.discardable, raises: [], gcsafe.} =
   ## Take a reference. Safe to call from a destructor, because `abi` says the
   ## slot cannot raise.
@@ -254,23 +292,26 @@ proc release*(obj: pointer): uint32 {.discardable, raises: [], gcsafe.} =
   if obj.isNil: return 0
   cast[ptr IInspectable](obj).vtbl.release(obj)
 
-func guid*(s: string): GUID =
-  ## A GUID from its textual form, with or without braces.
-  ##
-  ## Most IIDs in this library are generated constants and never need this. It
-  ## exists for the ones that cannot be: a parameterised interface such as
-  ## `IVector<Something>` has no GUID in any metadata file — WinRT computes one
-  ## by hashing a signature string — so those arrive as text.
-  ##
-  ## The first three fields are little-endian numbers written big-endian, which
-  ## is why they are parsed as integers while the last eight are taken as bytes.
-  let h = s.strip(chars = {'{', '}', ' '}).replace("-", "")
-  doAssert h.len == 32, "winrt: not a GUID: " & s
-  result.data1 = uint32(parseHexInt(h[0 ..< 8]))
-  result.data2 = uint16(parseHexInt(h[8 ..< 12]))
-  result.data3 = uint16(parseHexInt(h[12 ..< 16]))
-  for i in 0 ..< 8:
-    result.data4[i] = uint8(parseHexInt(h[16 + i * 2 ..< 18 + i * 2]))
+proc queryInterface*(obj: pointer, iid: GUID): pointer =
+  ## `nil` when the object does not implement `iid`. Callers that care about
+  ## *why* should call the vtable slot directly.
+  if obj.isNil: return nil
+  var id = iid
+  let i = cast[ptr IInspectable](obj)
+  if i.vtbl.queryInterface(obj, id.addr, result.addr).failed:
+    result = nil
+
+proc runtimeClassName*(obj: pointer): string =
+  ## What a WinRT object says it is. Note that activation *factories* are
+  ## allowed to answer `E_NOTIMPL` here and commonly do — that is not a fault.
+  if obj.isNil: return "<nil>"
+  let i = cast[ptr IInspectable](obj)
+  var h: HSTRING
+  let hr = i.vtbl.getRuntimeClassName(obj, h.addr)
+  if hr.failed:
+    return &"<unavailable: {hr.name}>"
+  result = $h
+  discard windowsDeleteString(h)
 
 # ------------------------------------------------- the runtime's lifetime
 
@@ -304,27 +345,6 @@ proc addRefIfLive*(obj: pointer) {.raises: [].} =
   ## The counterpart of `releaseIfLive`, for the same reason: a wrapper copied
   ## while the runtime is being torn down must not touch the object either.
   if runtimeAlive: addRef(obj)
-
-proc queryInterface*(obj: pointer, iid: GUID): pointer =
-  ## `nil` when the object does not implement `iid`. Callers that care about
-  ## *why* should call the vtable slot directly.
-  if obj.isNil: return nil
-  var id = iid
-  let i = cast[ptr IInspectable](obj)
-  if i.vtbl.queryInterface(obj, id.addr, result.addr).failed:
-    result = nil
-
-proc runtimeClassName*(obj: pointer): string =
-  ## What a WinRT object says it is. Note that activation *factories* are
-  ## allowed to answer `E_NOTIMPL` here and commonly do — that is not a fault.
-  if obj.isNil: return "<nil>"
-  let i = cast[ptr IInspectable](obj)
-  var h: HSTRING
-  let hr = i.vtbl.getRuntimeClassName(obj, h.addr)
-  if hr.failed:
-    return &"<unavailable: {hr.name}>"
-  result = $h
-  discard windowsDeleteString(h)
 
 # ---------------------------------------------------------------- apartment
 
@@ -418,11 +438,97 @@ proc tryActivationFactory*(classId: string,
   withHString(classId, cid):
     result.hr = roGetActivationFactory(cid, id.addr, result.factory.addr)
 
+proc activateAs*(classId: string, iid: GUID): pointer =
+  ## Activate a runtime class and narrow it to one of its interfaces.
+  ##
+  ## The activation reference is dropped once the typed one is held: they name
+  ## the same object, and keeping both would leak it.
+  let obj = activateInstance(classId)
+  result = queryInterface(obj, iid)
+  release(obj)
+  if result.isNil:
+    raise newException(WinRtError, "winrt: " & classId &
+      " does not implement the expected interface")
+
+proc composeAs*(classId: string, factoryIid, iid: GUID,
+                slot: int): pointer =
+  ## Construct a composable runtime class.
+  ##
+  ## Most of the visual tree is designed to be derived from, and answers
+  ## `RoActivateInstance` with `E_NOTIMPL`. Such a class is built through its
+  ## factory's `CreateInstance(outer, inner, value)` instead. Passing a nil
+  ## `outer` says we are not deriving from it, and the `inner` handed back
+  ## carries its own reference that is not ours to keep.
+  type FnCompose = proc(self: pointer, outer: pointer, inner: ptr pointer,
+                        value: ptr pointer): HRESULT {.abi.}
+  let factory = activationFactory(classId, factoryIid)
+  var inner, instance: pointer
+  try:
+    vcall(factory, slot, FnCompose)(factory, nil, inner.addr, instance.addr)
+      .check(classId & ".CreateInstance")
+  finally:
+    release(factory)
+  if not inner.isNil and inner != instance:
+    release(inner)
+  result = queryInterface(instance, iid)
+  release(instance)
+  if result.isNil:
+    raise newException(WinRtError, "winrt: " & classId &
+      " does not implement the expected interface")
+
+# ------------------------------------------------------------------ objects
+
+type WinRtObject* {.inheritable, pure.} = object
+  ## What every projected runtime class is, underneath: one COM pointer.
+  ##
+  ## Declared here rather than once per namespace so that the reference
+  ## counting below is written once too. `=destroy` and its companions are
+  ## inherited, so these four cover all 4,670 classes.
+  p*: pointer
+
+proc `=destroy`*(x: var WinRtObject) =
+  if x.p != nil: releaseIfLive(x.p)
+
+proc `=copy`*(dst: var WinRtObject, src: WinRtObject) =
+  if dst.p == src.p: return
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+  if dst.p != nil: addRefIfLive(dst.p)
+
+proc `=sink`*(dst: var WinRtObject, src: WinRtObject) =
+  # A move transfers the reference, so neither count changes.
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+
+func isNil*(x: WinRtObject): bool {.inline.} = x.p.isNil
+
+proc hash*(x: WinRtObject): Hash {.inline.} =
+  ## By identity, so an object can key a `Table` — `IMap<Uri, String>` is
+  ## one. Two wrappers around one pointer are the same key, which is what the
+  ## runtime's own maps mean by equality as well.
+  hash(x.p)
+
+proc adopt*[T](p: pointer): T =
+  ## Wrap a pointer that is already ours — anything a getter, a factory or a
+  ## QueryInterface returned, all of which hand over a reference.
+  ##
+  ## The counterpart of `borrow`. Between them they cover every way a raw
+  ## pointer becomes an object, and saying which one applies is the whole of
+  ## the lifetime contract: adopt something you were only lent and the wrapper
+  ## releases a reference it never took.
+  T(p: p)
+
+proc borrow*[T](p: pointer): T =
+  ## Wrap a pointer we were *lent*, such as an event's sender or arguments.
+  ##
+  ## The wrapper releases on destruction, so adopting a borrowed pointer
+  ## without this would over-release it and free an object still in use.
+  if not p.isNil: addRef(p)
+  T(p: p)
+
 # ------------------------------------------- what the generated API is built on
-#
-# These used to be emitted into every generated module, which meant eighteen
-# copies of each and an `ambiguous call` the moment a program imported two of
-# them. They are not specific to any namespace, so they live here.
 
 # An interface is named by its ABI identifier — `IUriRuntimeClass`, not
 # `IID_IUriRuntimeClass` — and the templates build the constant and the
@@ -477,163 +583,32 @@ type EventHandler*[S, A] = proc(sender: S, args: A) {.closure.}
   ## What an event's `on*` proc takes: the sender and the arguments, each as
   ## the class it is, or `WinRtObject` where the metadata says only `Object`.
 
-proc takeString*(h: HSTRING): string =
-  ## Convert an `[out] HSTRING` to a Nim string and delete it.
-  ##
-  ## A WinRT method that returns a string hands over ownership: the HSTRING is
-  ## the caller's to delete. Reading a string property without this leaks one
-  ## per call, which a soak test measures as a flat couple of hundred bytes an
-  ## iteration — invisible in a demo and fatal in a program that runs for days.
-  result = $h
-  discard windowsDeleteString(h)
+# --------------------------------------------------------------- COM heap
 
-proc activateAs*(classId: string, iid: GUID): pointer =
-  ## Activate a runtime class and narrow it to one of its interfaces.
-  ##
-  ## The activation reference is dropped once the typed one is held: they name
-  ## the same object, and keeping both would leak it.
-  let obj = activateInstance(classId)
-  result = queryInterface(obj, iid)
-  release(obj)
-  if result.isNil:
-    raise newException(WinRtError, "winrt: " & classId &
-      " does not implement the expected interface")
+# Every COM object this library implements — a delegate, a collection handed
+# to the runtime, a boxed value, a completion handler — lives on the COM heap,
+# not Nim's. The runtime may release it, iterate it or invoke it on a thread
+# Nim never started, and Nim's allocator keeps its state per thread: on a
+# thread it has not set up, the first allocation dereferences an uninitialised
+# region and the process dies. `CoTaskMemAlloc` has no such state; it is the
+# heap COM itself uses, which is also what a receive array comes back on.
 
-proc composeAs*(classId: string, factoryIid, iid: GUID,
-                slot: int): pointer =
-  ## Construct a composable runtime class.
-  ##
-  ## Most of the visual tree is designed to be derived from, and answers
-  ## `RoActivateInstance` with `E_NOTIMPL`. Such a class is built through its
-  ## factory's `CreateInstance(outer, inner, value)` instead. Passing a nil
-  ## `outer` says we are not deriving from it, and the `inner` handed back
-  ## carries its own reference that is not ours to keep.
-  type FnCompose = proc(self: pointer, outer: pointer, inner: ptr pointer,
-                        value: ptr pointer): HRESULT {.abi.}
-  let factory = activationFactory(classId, factoryIid)
-  var inner, instance: pointer
-  try:
-    vcall(factory, slot, FnCompose)(factory, nil, inner.addr, instance.addr)
-      .check(classId & ".CreateInstance")
-  finally:
-    release(factory)
-  if not inner.isNil and inner != instance:
-    release(inner)
-  result = queryInterface(instance, iid)
-  release(instance)
-  if result.isNil:
-    raise newException(WinRtError, "winrt: " & classId &
-      " does not implement the expected interface")
+proc comAlloc*(size: Natural): pointer =
+  ## Zeroed memory on the COM heap. Safe from any thread.
+  result = coTaskMemAlloc(uint(size))
+  if result.isNil: raise newException(OutOfMemDefect, "winrt: CoTaskMemAlloc")
+  zeroMem(result, size)
 
-type InspectableVtbl* {.pure.} = object
-  ## The six slots every WinRT interface begins with.
-  ##
-  ## Here rather than in each of the modules that hand the runtime an object of
-  ## their own — `seqview` and `reference` — because getting the order or the
-  ## count of these wrong is the mistake that puts a caller's `GetAt` through
-  ## `Release`.
-  queryInterface*: proc(self: pointer, riid: ptr GUID,
-                        ppv: ptr pointer): HRESULT {.abi.}
-  addRef*: proc(self: pointer): uint32 {.abi.}
-  release*: proc(self: pointer): uint32 {.abi.}
-  getIids*: proc(self: pointer, count: ptr uint32,
-                 iids: ptr ptr GUID): HRESULT {.abi.}
-  getRuntimeClassName*: proc(self: pointer, name: ptr HSTRING): HRESULT {.abi.}
-  getTrustLevel*: proc(self: pointer, level: ptr int32): HRESULT {.abi.}
+proc comRealloc*(p: pointer, oldSize, newSize: Natural): pointer =
+  ## `p` grown to `newSize`, the new tail zeroed. Safe from any thread.
+  result = coTaskMemRealloc(p, uint(newSize))
+  if result.isNil: raise newException(OutOfMemDefect, "winrt: CoTaskMemRealloc")
+  if newSize > oldSize:
+    zeroMem(cast[pointer](cast[uint](result) + uint(oldSize)), newSize - oldSize)
 
-const IID_IAgileObject* = GUID(
-  ## {94EA2B94-E9CC-49E0-C0FF-EE64CA8F5B90} — a marker with no methods. An
-  ## object answering for it tells COM it may be called from any apartment
-  ## without marshalling, so the runtime invokes it on whatever thread it is
-  ## already on instead of trying to reach the one that handed it over.
-  data1: 0x94EA2B94'u32, data2: 0xE9CC'u16, data3: 0x49E0'u16,
-  data4: [0xC0'u8, 0xFF, 0xEE, 0x64, 0xCA, 0x8F, 0x5B, 0x90])
-
-proc hash*(g: GUID): Hash =
-  ## So a `GUID` can key a `Table`: several WinRT maps are keyed by one.
-  hashData(g.unsafeAddr, sizeof(GUID))
-
-type WinRtObject* {.inheritable, pure.} = object
-  ## What every projected runtime class is, underneath: one COM pointer.
-  ##
-  ## Declared here rather than once per namespace so that the reference
-  ## counting below is written once too. `=destroy` and its companions are
-  ## inherited, so these four cover all 4,482 classes — and the alternative,
-  ## a root per inheritance chain, meant nine hundred copies of them in every
-  ## program that imported the projection.
-  p*: pointer
-
-proc `=destroy`*(x: var WinRtObject) =
-  if x.p != nil: releaseIfLive(x.p)
-
-proc `=copy`*(dst: var WinRtObject, src: WinRtObject) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-
-proc `=sink`*(dst: var WinRtObject, src: WinRtObject) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: WinRtObject): bool {.inline.} = x.p.isNil
-
-proc hash*(x: WinRtObject): Hash {.inline.} =
-  ## By identity, so an object can key a `Table` — `IMap<Uri, String>` is
-  ## one. Two wrappers around one pointer are the same key, which is what the
-  ## runtime's own maps mean by equality as well.
-  hash(x.p)
-
-proc adopt*[T](p: pointer): T =
-  ## Not called `owned`: Nim has a built-in `owned` type modifier, so
-  ## `owned[T](p)`
-  ## parses as a type the moment this is imported rather than declared locally.
-  ## Adopt a pointer that is already ours — anything a getter, a factory or a
-  ## QueryInterface returned, all of which hand over a reference.
-  ##
-  ## The counterpart of `borrowed`. Between them they cover every way a raw
-  ## pointer becomes an object, and saying which one applies is the whole of
-  ## the lifetime contract: adopt something you were only lent and the wrapper
-  ## releases a reference it never took.
-  T(p: p)
-
-proc takeArrayObject*[T](size: uint32, data: ptr pointer): seq[T] =
-  ## A returned array of objects. Each element arrives with a reference that
-  ## is the caller's, so each is adopted rather than retained again.
-  if data.isNil: return
-  let items = cast[ptr UncheckedArray[pointer]](data)
-  result = newSeq[T](int(size))
-  for i in 0 ..< int(size): result[i] = adopt[T](items[i])
-  coTaskMemFree(data)
-
-template withObjectArray*[T](values: openArray[T], iid: GUID,
-                             n, d, body: untyped) =
-  ## `values` as an array of interface pointers for the length of `body`.
-  ##
-  ## Each element is narrowed to the interface the signature asks for, which
-  ## is a reference this holds and drops again — the callee retains anything
-  ## it keeps.
-  var ptrs = newSeq[pointer](values.len)
-  let n {.inject.} = uint32(values.len)
-  let d {.inject.} = if ptrs.len > 0: ptrs[0].addr else: nil
-  try:
-    for i in 0 ..< values.len: ptrs[i] = queryInterface(values[i].p, iid)
-    body
-  finally:
-    for p in ptrs: release(p)
-
-proc borrow*[T](p: pointer): T =
-  ## Wrap a pointer we were *lent*, such as an event's sender or arguments.
-  ##
-  ## The wrapper releases on destruction, so adopting a borrowed pointer
-  ## without this would over-release it and free an object still in use. A
-  ## pointer that is already ours — anything a getter or a factory returned —
-  ## is wrapped directly instead.
-  if not p.isNil: addRef(p)
-  T(p: p)
+proc comFree*(p: pointer) {.inline.} =
+  ## Give back what `comAlloc` handed out. Safe from any thread, nil included.
+  coTaskMemFree(p)
 
 # --------------------------------------------------------------- collections
 
@@ -724,106 +699,6 @@ proc toSeq*[T](collection: pointer, iid: GUID, innerIid = GUID(),
       vcall(view, SlotCollectionGetAt, FnCollectionGetAtValue[T])(view, i, item.addr)
         .check("collection.GetAt")
       result.add item
-
-# --------------------------------------------------------------- COM heap
-
-# Every COM object this library implements — a delegate, a collection handed
-# to the runtime, a boxed value, a completion handler — lives on the COM heap,
-# not Nim's. The runtime may release it, iterate it or invoke it on a thread
-# Nim never started, and Nim's allocator keeps its state per thread: on a
-# thread it has not set up, the first allocation dereferences an uninitialised
-# region and the process dies. `CoTaskMemAlloc` has no such state; it is the
-# heap COM itself uses, which is also what a receive array comes back on.
-
-proc comAlloc*(size: Natural): pointer =
-  ## Zeroed memory on the COM heap. Safe from any thread.
-  result = coTaskMemAlloc(uint(size))
-  if result.isNil: raise newException(OutOfMemDefect, "winrt: CoTaskMemAlloc")
-  zeroMem(result, size)
-
-proc comRealloc*(p: pointer, oldSize, newSize: Natural): pointer =
-  ## `p` grown to `newSize`, the new tail zeroed. Safe from any thread.
-  result = coTaskMemRealloc(p, uint(newSize))
-  if result.isNil: raise newException(OutOfMemDefect, "winrt: CoTaskMemRealloc")
-  if newSize > oldSize:
-    zeroMem(cast[pointer](cast[uint](result) + uint(oldSize)), newSize - oldSize)
-
-proc comFree*(p: pointer) {.inline.} =
-  ## Give back what `comAlloc` handed out. Safe from any thread, nil included.
-  coTaskMemFree(p)
-
-# ----------------------------------------------------------------- arrays
-
-# WinRT passes an array as two arguments — a count and a pointer — and who
-# frees it depends on the direction. An argument we pass is ours throughout.
-# A *returned* array was allocated by the callee with `CoTaskMemAlloc` and is
-# ours to free, and if its elements are strings or objects then each of those
-# is ours as well.
-
-proc takeArray*[T](size: uint32, data: ptr T): seq[T] =
-  ## A returned array of values, copied out and the buffer released.
-  if data.isNil: return
-  let items = cast[ptr UncheckedArray[T]](data)
-  result = newSeq[T](int(size))
-  for i in 0 ..< int(size): result[i] = items[i]
-  coTaskMemFree(data)
-
-proc takeArrayString*(size: uint32, data: ptr HSTRING): seq[string] =
-  ## The same for strings: each HSTRING is ours to delete, and so is the
-  ## buffer holding them.
-  if data.isNil: return
-  let items = cast[ptr UncheckedArray[HSTRING]](data)
-  result = newSeq[string](int(size))
-  for i in 0 ..< int(size):
-    result[i] = takeString(items[i])
-  coTaskMemFree(data)
-
-template withStringArray*(values: openArray[string], n, d, body: untyped) =
-  ## `values` as an array of HSTRINGs for the length of `body`.
-  ##
-  ## A Nim `seq[string]` is not an array of HSTRINGs, so unlike an array of
-  ## numbers this one cannot be pointed at where it lies — it is converted
-  ## into a buffer of its own, and every string in it deleted afterwards.
-  var strs = newSeq[HSTRING](values.len)
-  let n {.inject.} = uint32(values.len)
-  let d {.inject.} = if strs.len > 0: strs[0].addr else: nil
-  try:
-    for i in 0 ..< values.len: strs[i] = toHString(values[i])
-    body
-  finally:
-    for h in strs: discard windowsDeleteString(h)
-
-# ---------------------------------------------------------------- references
-
-# `IReference<T>` is how WinRT says "a T, or nothing". It is an interface, so
-# the absence is a null pointer rather than a sentinel value, and the value
-# itself is read through `get_Value` — slot 6, the first method after
-# IInspectable's six, on every instantiation.
-#
-# Nim already has a word for that shape, so this is where the projection stops
-# looking like COM and starts looking like Nim.
-const SlotReferenceValue = 6
-
-type FnReferenceValue[T] =
-  proc(self: pointer, value: ptr T): HRESULT {.abi.}
-
-proc readReference*[T](box: pointer, iid: GUID, what: string): Option[T] =
-  ## The value inside an `IReference<T>`, or `none` if there was not one.
-  ##
-  ## The box itself stays the caller's to release; only the narrowed interface
-  ## is released here.
-  if box.isNil: return none(T)
-  let typed = queryInterface(box, iid)
-  if typed.isNil:
-    raise newException(WinRtError, "winrt: " & what &
-      " is not the reference type its signature declares")
-  try:
-    var v: T
-    vcall(typed, SlotReferenceValue, FnReferenceValue[T])(typed, v.addr)
-      .check(what & ".get_Value")
-    result = some(v)
-  finally:
-    release(typed)
 
 # ---------------------------------------------------------------------- maps
 
@@ -920,6 +795,38 @@ proc toTable*[K, V](map: pointer, iterableIid, pairIid: GUID,
         .check("pair.get_Value")
     result[k] = v
 
+# ---------------------------------------------------------------- references
+
+# `IReference<T>` is how WinRT says "a T, or nothing". It is an interface, so
+# the absence is a null pointer rather than a sentinel value, and the value
+# itself is read through `get_Value` — slot 6, the first method after
+# IInspectable's six, on every instantiation.
+#
+# Nim already has a word for that shape, so this is where the projection stops
+# looking like COM and starts looking like Nim.
+const SlotReferenceValue = 6
+
+type FnReferenceValue[T] =
+  proc(self: pointer, value: ptr T): HRESULT {.abi.}
+
+proc readReference*[T](box: pointer, iid: GUID, what: string): Option[T] =
+  ## The value inside an `IReference<T>`, or `none` if there was not one.
+  ##
+  ## The box itself stays the caller's to release; only the narrowed interface
+  ## is released here.
+  if box.isNil: return none(T)
+  let typed = queryInterface(box, iid)
+  if typed.isNil:
+    raise newException(WinRtError, "winrt: " & what &
+      " is not the reference type its signature declares")
+  try:
+    var v: T
+    vcall(typed, SlotReferenceValue, FnReferenceValue[T])(typed, v.addr)
+      .check(what & ".get_Value")
+    result = some(v)
+  finally:
+    release(typed)
+
 # ------------------------------------------------------------------- boxing
 
 # The other half of `IReference<T>`: handing a value *in* means wrapping it in
@@ -932,6 +839,8 @@ proc toTable*[K, V](map: pointer, iterableIid, pairIid: GUID,
 # through `reference.nim`, which implements `IReference<T>` itself.
 const
   PropertyValueClass = "Windows.Foundation.PropertyValue"
+  IID_IPropertyValueStatics = guid"629BDBC8-D932-4FF4-96B9-8D96C5C1E858"
+  SlotBoxString = 18
   SlotBoxNone* = -1        ## no `CreateX` exists for this type
 
 type FnBox[T] = proc(self: pointer, value: T,
@@ -943,8 +852,7 @@ proc box*[T](value: T, slot: int): pointer =
   ## Returned with a reference count of 1: pass it to the method and release
   ## it. Boxing goes through the activation factory, which combase caches.
   if slot == SlotBoxNone: return nil
-  let factory = activationFactory(PropertyValueClass,
-                                  guid("629BDBC8-D932-4FF4-96B9-8D96C5C1E858"))
+  let factory = activationFactory(PropertyValueClass, IID_IPropertyValueStatics)
   try:
     vcall(factory, slot, FnBox[T])(factory, value, result.addr)
       .check(PropertyValueClass & ".Create")
@@ -953,11 +861,10 @@ proc box*[T](value: T, slot: int): pointer =
 
 proc boxString*(value: string): pointer =
   ## The same for a string, whose HSTRING is the factory's to copy.
-  let factory = activationFactory(PropertyValueClass,
-                                  guid("629BDBC8-D932-4FF4-96B9-8D96C5C1E858"))
+  let factory = activationFactory(PropertyValueClass, IID_IPropertyValueStatics)
   try:
     withHString(value, h):
-      vcall(factory, 18, FnBox[HSTRING])(factory, h, result.addr)
+      vcall(factory, SlotBoxString, FnBox[HSTRING])(factory, h, result.addr)
         .check(PropertyValueClass & ".CreateString")
   finally:
     release(factory)
@@ -981,3 +888,69 @@ proc boxStringAs*(value: string, iid: GUID): pointer =
   if inspectable.isNil: return nil
   result = queryInterface(inspectable, iid)
   release(inspectable)
+
+# ----------------------------------------------------------------- arrays
+
+# WinRT passes an array as two arguments — a count and a pointer — and who
+# frees it depends on the direction. An argument we pass is ours throughout.
+# A *returned* array was allocated by the callee with `CoTaskMemAlloc` and is
+# ours to free, and if its elements are strings or objects then each of those
+# is ours as well.
+
+proc takeArray*[T](size: uint32, data: ptr T): seq[T] =
+  ## A returned array of values, copied out and the buffer released.
+  if data.isNil: return
+  let items = cast[ptr UncheckedArray[T]](data)
+  result = newSeq[T](int(size))
+  for i in 0 ..< int(size): result[i] = items[i]
+  coTaskMemFree(data)
+
+proc takeArrayString*(size: uint32, data: ptr HSTRING): seq[string] =
+  ## The same for strings: each HSTRING is ours to delete, and so is the
+  ## buffer holding them.
+  if data.isNil: return
+  let items = cast[ptr UncheckedArray[HSTRING]](data)
+  result = newSeq[string](int(size))
+  for i in 0 ..< int(size):
+    result[i] = takeString(items[i])
+  coTaskMemFree(data)
+
+proc takeArrayObject*[T](size: uint32, data: ptr pointer): seq[T] =
+  ## The same for objects. Each element arrives with a reference that is the
+  ## caller's, so each is adopted rather than retained again.
+  if data.isNil: return
+  let items = cast[ptr UncheckedArray[pointer]](data)
+  result = newSeq[T](int(size))
+  for i in 0 ..< int(size): result[i] = adopt[T](items[i])
+  coTaskMemFree(data)
+
+template withStringArray*(values: openArray[string], n, d, body: untyped) =
+  ## `values` as an array of HSTRINGs for the length of `body`.
+  ##
+  ## A Nim `seq[string]` is not an array of HSTRINGs, so unlike an array of
+  ## numbers this one cannot be pointed at where it lies — it is converted
+  ## into a buffer of its own, and every string in it deleted afterwards.
+  var strs = newSeq[HSTRING](values.len)
+  let n {.inject.} = uint32(values.len)
+  let d {.inject.} = if strs.len > 0: strs[0].addr else: nil
+  try:
+    for i in 0 ..< values.len: strs[i] = toHString(values[i])
+    body
+  finally:
+    for h in strs: discard windowsDeleteString(h)
+
+template withObjectArray*[T](values: openArray[T], iid: GUID,
+                             n, d, body: untyped) =
+  ## `values` as an array of interface pointers for the length of `body`.
+  ##
+  ## Each element is narrowed to the interface the signature asks for, which
+  ## is a reference this holds and drops again — the callee retains anything
+  ## it keeps.
+  var ptrs = newSeq[pointer](values.len)
+  let n {.inject.} = uint32(values.len)
+  let d {.inject.} = if ptrs.len > 0: ptrs[0].addr else: nil
+  try:
+    for i in 0 ..< values.len: ptrs[i] = queryInterface(values[i].p, iid)
+    body
+  finally:
+    for p in ptrs: release(p)

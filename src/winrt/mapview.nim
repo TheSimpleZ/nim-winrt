@@ -57,18 +57,18 @@ type
     map*: GUID        ## `IMap<K, V>`
 
   IterableVtbl {.pure.} = object
-    base: InspectableVtbl
+    base: IInspectableVtbl
     first: proc(self: pointer, it: ptr pointer): HRESULT {.abi.}
 
   ViewVtbl {.pure.} = object
-    base: InspectableVtbl
+    base: IInspectableVtbl
     lookup: proc(self: pointer, key: pointer, value: pointer): HRESULT {.abi.}
     getSize: proc(self: pointer, size: ptr uint32): HRESULT {.abi.}
     hasKey: proc(self: pointer, key: pointer, found: ptr bool): HRESULT {.abi.}
     split: proc(self: pointer, first, second: ptr pointer): HRESULT {.abi.}
 
   MapVtbl {.pure.} = object
-    base: InspectableVtbl
+    base: IInspectableVtbl
     lookup: proc(self: pointer, key: pointer, value: pointer): HRESULT {.abi.}
     getSize: proc(self: pointer, size: ptr uint32): HRESULT {.abi.}
     hasKey: proc(self: pointer, key: pointer, found: ptr bool): HRESULT {.abi.}
@@ -80,14 +80,14 @@ type
 
   # The same two, for a key that arrives in a register.
   ViewVtbl32 {.pure.} = object
-    base: InspectableVtbl
+    base: IInspectableVtbl
     lookup: proc(self: pointer, key: uint32, value: pointer): HRESULT {.abi.}
     getSize: proc(self: pointer, size: ptr uint32): HRESULT {.abi.}
     hasKey: proc(self: pointer, key: uint32, found: ptr bool): HRESULT {.abi.}
     split: proc(self: pointer, first, second: ptr pointer): HRESULT {.abi.}
 
   MapVtbl32 {.pure.} = object
-    base: InspectableVtbl
+    base: IInspectableVtbl
     lookup: proc(self: pointer, key: uint32, value: pointer): HRESULT {.abi.}
     getSize: proc(self: pointer, size: ptr uint32): HRESULT {.abi.}
     hasKey: proc(self: pointer, key: uint32, found: ptr bool): HRESULT {.abi.}
@@ -98,12 +98,12 @@ type
     clear: proc(self: pointer): HRESULT {.abi.}
 
   PairVtbl {.pure.} = object
-    base: InspectableVtbl
+    base: IInspectableVtbl
     getKey: proc(self: pointer, key: pointer): HRESULT {.abi.}
     getValue: proc(self: pointer, value: pointer): HRESULT {.abi.}
 
   IteratorVtbl {.pure.} = object
-    base: InspectableVtbl
+    base: IInspectableVtbl
     getCurrent: proc(self: pointer, item: ptr pointer): HRESULT {.abi.}
     getHasCurrent: proc(self: pointer, has: ptr bool): HRESULT {.abi.}
     moveNext: proc(self: pointer, has: ptr bool): HRESULT {.abi.}
@@ -432,7 +432,7 @@ proc pairValue(self: pointer, value: pointer): HRESULT {.abi.} =
   cast[ptr PairObj](self).vals.give(0, value)
 
 var pairVtbl = PairVtbl(
-  base: InspectableVtbl(queryInterface: pairQuery, addRef: pairAddRef,
+  base: IInspectableVtbl(queryInterface: pairQuery, addRef: pairAddRef,
                         release: pairRelease, getIids: noIids,
                         getRuntimeClassName: noName, getTrustLevel: baseTrust),
   getKey: pairKey, getValue: pairValue)
@@ -477,8 +477,6 @@ proc iterQuery(self: pointer, riid: ptr GUID, ppv: ptr pointer): HRESULT {.abi.}
   ppv[] = nil
   E_NOINTERFACE
 
-const E_CHANGED_STATE = cast[HRESULT](0x8000000C'u32)
-  ## What WinRT answers when a collection changes under an iterator.
 
 proc iterCurrent(self: pointer, item: ptr pointer): HRESULT {.abi.} =
   let it = cast[ptr MapIterator](self)
@@ -513,7 +511,7 @@ proc iterGetMany(self: pointer, capacity: uint32, items: ptr pointer,
   S_OK
 
 var iteratorVtbl = IteratorVtbl(
-  base: InspectableVtbl(queryInterface: iterQuery, addRef: iterAddRef,
+  base: IInspectableVtbl(queryInterface: iterQuery, addRef: iterAddRef,
                         release: iterRelease, getIids: noIids,
                         getRuntimeClassName: noName, getTrustLevel: baseTrust),
   getCurrent: iterCurrent, getHasCurrent: iterHasCurrent,
@@ -534,33 +532,33 @@ proc iterableFirst(self: pointer, outIt: ptr pointer): HRESULT {.abi.} =
 # ------------------------------------------------------------------ the map
 
 var iterableVtbl = IterableVtbl(
-  base: InspectableVtbl(queryInterface: iterableQuery, addRef: iterableAddRef,
+  base: IInspectableVtbl(queryInterface: iterableQuery, addRef: iterableAddRef,
                         release: iterableRelease, getIids: noIids,
                         getRuntimeClassName: noName, getTrustLevel: baseTrust),
   first: iterableFirst)
 
 var viewVtbl = ViewVtbl(
-  base: InspectableVtbl(queryInterface: viewQuery, addRef: viewAddRef,
+  base: IInspectableVtbl(queryInterface: viewQuery, addRef: viewAddRef,
                         release: viewRelease, getIids: noIids,
                         getRuntimeClassName: noName, getTrustLevel: baseTrust),
   lookup: viewLookup, getSize: viewSize, hasKey: viewHasKey, split: viewSplit)
 
 var mapVtbl = MapVtbl(
-  base: InspectableVtbl(queryInterface: mapQuery, addRef: mapAddRef,
+  base: IInspectableVtbl(queryInterface: mapQuery, addRef: mapAddRef,
                         release: mapRelease, getIids: noIids,
                         getRuntimeClassName: noName, getTrustLevel: baseTrust),
   lookup: mapLookup, getSize: mapSize, hasKey: mapHasKey, getView: mapGetView,
   insert: mapInsert, remove: mapRemove, clear: mapClear)
 
 var viewVtbl32 = ViewVtbl32(
-  base: InspectableVtbl(queryInterface: viewQuery, addRef: viewAddRef,
+  base: IInspectableVtbl(queryInterface: viewQuery, addRef: viewAddRef,
                         release: viewRelease, getIids: noIids,
                         getRuntimeClassName: noName, getTrustLevel: baseTrust),
   lookup: viewLookup32, getSize: viewSize, hasKey: viewHasKey32,
   split: viewSplit)
 
 var mapVtbl32 = MapVtbl32(
-  base: InspectableVtbl(queryInterface: mapQuery, addRef: mapAddRef,
+  base: IInspectableVtbl(queryInterface: mapQuery, addRef: mapAddRef,
                         release: mapRelease, getIids: noIids,
                         getRuntimeClassName: noName, getTrustLevel: baseTrust),
   lookup: mapLookup32, getSize: mapSize, hasKey: mapHasKey32,
