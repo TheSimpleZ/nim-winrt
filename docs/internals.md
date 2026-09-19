@@ -95,10 +95,12 @@ declarations, and Nim emits nothing for the ones you do not call.
 ### Names
 
 Nim compares identifiers with underscores removed and every character after
-the first folded to lower case. `Windows.UI.Text.ITextRange` declares both
-`get_Text` and `GetText`, and prefixed with `Slot_` those are *one identifier*
-to the compiler. `nimgen.nimIdent` computes the key Nim itself would use, and a
-genuine collision gets a numeric suffix (`Slot_ICalendar_MonthAsString2`).
+the first folded to lower case, so two overloads of one method are one field
+name to the compiler. `nimgen.nimIdent` computes the key Nim itself would use,
+and a genuine collision gets a numeric suffix (`MonthAsString2`); both
+generators key the same way, or the API layer would name a field the ABI did
+not write. `get_Text` beside `GetText` is *not* a collision — the first
+character is case-sensitive — and gets no suffix.
 
 With every type of a kind in one module, two types sharing a short name is a
 collision rather than two modules' private business. It happens nine times in
@@ -112,21 +114,31 @@ an enum — `Panel`, `PackageStatus` — and those are qualified where they appe
 
 ## What the ABI layer emits
 
-For every interface and delegate carrying a `GuidAttribute`, an IID, and per
-method a slot constant and a signature type:
+For every interface and delegate carrying a `GuidAttribute`, an IID and a
+vtable: an object whose fields are the methods, in declaration order.
 
 ```nim
 ## Windows.Foundation.IUriRuntimeClass
 const IID_IUriRuntimeClass* = guid"9E365E57-48B2-4160-956F-C7385120BBFC"
-const Slot_IUriRuntimeClass_get_Host* = 11
-type Fn_IUriRuntimeClass_get_Host* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IUriRuntimeClassVtbl* = object of IInspectableVtbl
+  get_AbsoluteUri*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DisplayUri*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  ...
 ```
 
-Slot numbering starts at 6 for an interface — `IInspectable` contributes
-`QueryInterface`, `AddRef`, `Release`, `GetIids`, `GetRuntimeClassName`,
-`GetTrustLevel` — and at 3 for a delegate, which derives from `IUnknown` and
-so has no `IInspectable` methods.
+This is how the C headers and C++/WinRT spell a COM interface, and how winim
+spells one. A field's position *is* its vtable slot, so there is no slot
+number to keep in step with a signature, and a call is a type-checked field
+access: `it.vtbl.get_Host(it, tmp.addr)`. `IInspectableVtbl` in `core`
+contributes the six every WinRT interface begins with — `QueryInterface`,
+`AddRef`, `Release`, `GetIids`, `GetRuntimeClassName`, `GetTrustLevel` — and
+a delegate derives from `IUnknownVtbl`, the first three. Both bases are
+`{.pure.}`, so no hidden type field disturbs the layout;
+`tests/tactivation.nim` checks the offsets.
+
+A method whose signature cannot be spelled — there are 35, all methods of the
+open generics like `IVector<T>.GetAt(T)` — is a `pointer` field, so the
+methods after it still line up.
 
 `{.abi.}` is `stdcall, raises: [], gcsafe`, defined once in `abidef.nim` and
 `include`d, because a user pragma does not cross a module boundary in Nim.
@@ -174,29 +186,33 @@ are `distinct uint32` with the bitwise operators; the WinRT type system says a
 flags enum's underlying type is `UInt32`, and `ContactQuerySearchFields.All`
 is `0xFFFFFFFF`, which as an `int32` reads back as -1.
 
-**35 slots have no signature**, and the same 35 for every SDK: the methods of
-the open generics themselves — `IVector<T>.GetAt(T)`, `TypedEventHandler<S,
-A>.Invoke(S, A)` — whose parameters are type variables. Every concrete
-method is typed.
-
 ## What the API layer emits
 
-A method is the same five lines whatever it does:
+A property is one line, and any other method is the same three whatever it
+does:
 
 ```nim
 proc host*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Host
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClass_get_Host, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Host)
+
+proc combineUri*(self: Uri, relativeUri: string): Uri =
+  ## Windows.Foundation.Uri.CombineUri
+  withIface(self.p, IUriRuntimeClass, it):
+    withHString(relativeUri, h0):
+      var tmp: pointer
+      check it.vtbl.CombineUri(it, h0, tmp.addr), "Uri.CombineUri"
+      result = adopt[Uri](tmp)
 ```
 
-`withIface` narrows the object to the interface that declares the method and
-releases that interface afterwards; `call` finds the slot and the signature
-from the method's name and checks the HRESULT. Both are templates in `core`,
-and both take the interface's plain name and build `IID_`, `Slot_` and `Fn_`
-from it, which is what keeps a generated line short.
+`withIface` narrows the object to the interface that declares the method,
+binds `it` as a `ptr Iface[IUriRuntimeClassVtbl]` — so only that interface's
+methods can be called on it — and releases it afterwards. It takes the
+interface's plain name and builds `IID_IUriRuntimeClass` and
+`IUriRuntimeClassVtbl` from it. `getString`, `getValue`, `getObject`,
+`putString` and `putValue` in `core` are the five shapes a property takes;
+everything else is a field call and a `check`.
 
 **Every call re-queries.** Each wrapper QueryInterfaces the receiver before
 dispatching. That is not free, but it makes the worst bug in this codebase

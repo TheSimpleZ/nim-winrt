@@ -28,7 +28,8 @@ proc invoke*(self: AsyncActionCompletedHandler, asyncInfo: WinRtObject,
   ## Windows.Foundation.AsyncActionCompletedHandler.Invoke
   withIface(self.p, AsyncActionCompletedHandler, it):
     withIface(asyncInfo.p, IAsyncAction, p0):
-      it.call(AsyncActionCompletedHandler_Invoke, p0, asyncStatus)
+      check it.vtbl.Invoke(it, p0, asyncStatus
+                          ), "AsyncActionCompletedHandler.Invoke"
 
 proc newPropertySet*(): PropertySet =
   ## Activate a `Windows.Foundation.Collections.PropertySet`.
@@ -41,12 +42,12 @@ proc newValueSet*(): ValueSet =
 proc complete*(self: Deferral) =
   ## Windows.Foundation.Deferral.Complete
   withIface(self.p, IDeferral, it):
-    it.call(IDeferral_Complete)
+    check it.vtbl.Complete(it), "Deferral.Complete"
 
 proc close*(self: Deferral) =
   ## Windows.Foundation.Deferral.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "Deferral.Close"
 
 proc create*(_: typedesc[Deferral], handler: proc()): Deferral =
   ## Windows.Foundation.Deferral.Create
@@ -54,13 +55,13 @@ proc create*(_: typedesc[Deferral], handler: proc()): Deferral =
     let d0 = newDelegate(IID_DeferralCompletedHandler, handler)
     defer: discard release(d0)
     var tmp: pointer
-    it.call(IDeferralFactory_Create, d0, tmp.addr)
+    check it.vtbl.Create(it, d0, tmp.addr), "Deferral.Create"
     result = adopt[Deferral](tmp)
 
 proc invoke*(self: DeferralCompletedHandler) =
   ## Windows.Foundation.DeferralCompletedHandler.Invoke
   withIface(self.p, DeferralCompletedHandler, it):
-    it.call(DeferralCompletedHandler_Invoke)
+    check it.vtbl.Invoke(it), "DeferralCompletedHandler.Invoke"
 
 proc traceOperationCreation*(_: typedesc[AsyncCausalityTracer],
                              traceLevel: CausalityTraceLevel,
@@ -71,8 +72,9 @@ proc traceOperationCreation*(_: typedesc[AsyncCausalityTracer],
   withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
               IAsyncCausalityTracerStatics, it):
     withHString(operationName, h4):
-      it.call(IAsyncCausalityTracerStatics_TraceOperationCreation, traceLevel,
-              source, platformId, operationId, h4, relatedContext)
+      check it.vtbl.TraceOperationCreation(it, traceLevel, source, platformId,
+                                           operationId, h4, relatedContext
+                                          ), "AsyncCausalityTracer.TraceOperationCreation"
 
 proc traceOperationCompletion*(_: typedesc[AsyncCausalityTracer],
                                traceLevel: CausalityTraceLevel,
@@ -81,8 +83,9 @@ proc traceOperationCompletion*(_: typedesc[AsyncCausalityTracer],
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.TraceOperationCompletion
   withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
               IAsyncCausalityTracerStatics, it):
-    it.call(IAsyncCausalityTracerStatics_TraceOperationCompletion, traceLevel,
-            source, platformId, operationId, status)
+    check it.vtbl.TraceOperationCompletion(it, traceLevel, source, platformId,
+                                           operationId, status
+                                          ), "AsyncCausalityTracer.TraceOperationCompletion"
 
 proc traceOperationRelation*(_: typedesc[AsyncCausalityTracer],
                              traceLevel: CausalityTraceLevel,
@@ -91,8 +94,9 @@ proc traceOperationRelation*(_: typedesc[AsyncCausalityTracer],
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.TraceOperationRelation
   withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
               IAsyncCausalityTracerStatics, it):
-    it.call(IAsyncCausalityTracerStatics_TraceOperationRelation, traceLevel,
-            source, platformId, operationId, relation)
+    check it.vtbl.TraceOperationRelation(it, traceLevel, source, platformId,
+                                         operationId, relation
+                                        ), "AsyncCausalityTracer.TraceOperationRelation"
 
 proc traceSynchronousWorkStart*(_: typedesc[AsyncCausalityTracer],
                                 traceLevel: CausalityTraceLevel,
@@ -102,8 +106,9 @@ proc traceSynchronousWorkStart*(_: typedesc[AsyncCausalityTracer],
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.TraceSynchronousWorkStart
   withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
               IAsyncCausalityTracerStatics, it):
-    it.call(IAsyncCausalityTracerStatics_TraceSynchronousWorkStart, traceLevel,
-            source, platformId, operationId, work)
+    check it.vtbl.TraceSynchronousWorkStart(it, traceLevel, source, platformId,
+                                            operationId, work
+                                           ), "AsyncCausalityTracer.TraceSynchronousWorkStart"
 
 proc traceSynchronousWorkCompletion*(_: typedesc[AsyncCausalityTracer],
                                      traceLevel: CausalityTraceLevel,
@@ -112,8 +117,8 @@ proc traceSynchronousWorkCompletion*(_: typedesc[AsyncCausalityTracer],
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.TraceSynchronousWorkCompletion
   withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
               IAsyncCausalityTracerStatics, it):
-    it.call(IAsyncCausalityTracerStatics_TraceSynchronousWorkCompletion,
-            traceLevel, source, work)
+    check it.vtbl.TraceSynchronousWorkCompletion(it, traceLevel, source, work
+                                                ), "AsyncCausalityTracer.TraceSynchronousWorkCompletion"
 
 proc onTracingStatusChanged*(_: typedesc[AsyncCausalityTracer],
                              handler: EventHandler[WinRtObject, TracingStatusChangedEventArgs]
@@ -128,35 +133,29 @@ proc onTracingStatusChanged*(_: typedesc[AsyncCausalityTracer],
     let cb = newDelegate(IID_EventHandler_1_TracingStatusChangedEventArgs, shim,
                          event = true)
     try:
-      it.call(IAsyncCausalityTracerStatics_add_TracingStatusChanged, cb, result.addr)
+      check it.vtbl.add_TracingStatusChanged(it, cb, result.addr), "AsyncCausalityTracer.add_TracingStatusChanged"
     finally:
       release(cb)
 
 proc removeTracingStatusChanged*(_: typedesc[AsyncCausalityTracer], token: EventRegistrationToken) =
   withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
               IAsyncCausalityTracerStatics, it):
-    it.call(IAsyncCausalityTracerStatics_remove_TracingStatusChanged, token)
+    check it.vtbl.remove_TracingStatusChanged(it, token), "AsyncCausalityTracer.remove_TracingStatusChanged"
 
 proc description*(self: ErrorDetails): string =
   ## Windows.Foundation.Diagnostics.ErrorDetails.get_Description
   withIface(self.p, IErrorDetails, it):
-    var tmp: HSTRING
-    it.call(IErrorDetails_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc longDescription*(self: ErrorDetails): string =
   ## Windows.Foundation.Diagnostics.ErrorDetails.get_LongDescription
   withIface(self.p, IErrorDetails, it):
-    var tmp: HSTRING
-    it.call(IErrorDetails_get_LongDescription, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_LongDescription)
 
 proc helpUri*(self: ErrorDetails): Uri =
   ## Windows.Foundation.Diagnostics.ErrorDetails.get_HelpUri
   withIface(self.p, IErrorDetails, it):
-    var tmp: pointer
-    it.call(IErrorDetails_get_HelpUri, tmp.addr)
-    result = adopt[Uri](tmp)
+    result = it.getObject(get_HelpUri, Uri)
 
 proc createFromHResultAsync*(_: typedesc[ErrorDetails], errorCode: int32
                             ): Future[ErrorDetails] {.async.} =
@@ -164,7 +163,8 @@ proc createFromHResultAsync*(_: typedesc[ErrorDetails], errorCode: int32
   var op: pointer
   withStatics("Windows.Foundation.Diagnostics.ErrorDetails",
               IErrorDetailsStatics, it):
-    it.call(IErrorDetailsStatics_CreateFromHResultAsync, errorCode, op.addr)
+    check it.vtbl.CreateFromHResultAsync(it, errorCode, op.addr
+                                        ), "ErrorDetails.CreateFromHResultAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_ErrorDetails,
                               IID_AsyncOperationCompletedHandler_1_ErrorDetails,
                               alPlain, "ErrorDetails.CreateFromHResultAsync")
@@ -173,16 +173,15 @@ proc createFromHResultAsync*(_: typedesc[ErrorDetails], errorCode: int32
 proc name*(self: FileLoggingSession): string =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.get_Name
   withIface(self.p, IFileLoggingSession, it):
-    var tmp: HSTRING
-    it.call(IFileLoggingSession_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc addLoggingChannel*(self: FileLoggingSession, loggingChannel: LoggingChannel
                        ) =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.AddLoggingChannel
   withIface(self.p, IFileLoggingSession, it):
     withIface(loggingChannel.p, ILoggingChannel, p0):
-      it.call(IFileLoggingSession_AddLoggingChannel, p0)
+      check it.vtbl.AddLoggingChannel(it, p0
+                                     ), "FileLoggingSession.AddLoggingChannel"
 
 proc addLoggingChannel*(self: FileLoggingSession,
                         loggingChannel: LoggingChannel, maxLevel: LoggingLevel
@@ -190,20 +189,23 @@ proc addLoggingChannel*(self: FileLoggingSession,
   ## Windows.Foundation.Diagnostics.FileLoggingSession.AddLoggingChannel
   withIface(self.p, IFileLoggingSession, it):
     withIface(loggingChannel.p, ILoggingChannel, p0):
-      it.call(IFileLoggingSession_AddLoggingChannel2, p0, maxLevel)
+      check it.vtbl.AddLoggingChannel2(it, p0, maxLevel
+                                      ), "FileLoggingSession.AddLoggingChannel"
 
 proc removeLoggingChannel*(self: FileLoggingSession,
                            loggingChannel: LoggingChannel) =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.RemoveLoggingChannel
   withIface(self.p, IFileLoggingSession, it):
     withIface(loggingChannel.p, ILoggingChannel, p0):
-      it.call(IFileLoggingSession_RemoveLoggingChannel, p0)
+      check it.vtbl.RemoveLoggingChannel(it, p0
+                                        ), "FileLoggingSession.RemoveLoggingChannel"
 
 proc closeAndSaveToFileAsync*(self: FileLoggingSession): Future[StorageFile] {.async.} =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.CloseAndSaveToFileAsync
   var op: pointer
   withIface(self.p, IFileLoggingSession, it):
-    it.call(IFileLoggingSession_CloseAndSaveToFileAsync, op.addr)
+    check it.vtbl.CloseAndSaveToFileAsync(it, op.addr
+                                         ), "FileLoggingSession.CloseAndSaveToFileAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
                               IID_AsyncOperationCompletedHandler_1_StorageFile,
                               alPlain,
@@ -222,18 +224,18 @@ proc onLogFileGenerated*(self: FileLoggingSession,
     let cb = newDelegate(IID_TypedEventHandler_2_IFileLoggingSession_LogFileGeneratedEventArgs,
                          shim, event = true)
     try:
-      it.call(IFileLoggingSession_add_LogFileGenerated, cb, result.addr)
+      check it.vtbl.add_LogFileGenerated(it, cb, result.addr), "FileLoggingSession.add_LogFileGenerated"
     finally:
       release(cb)
 
 proc removeLogFileGenerated*(self: FileLoggingSession, token: EventRegistrationToken) =
   withIface(self.p, IFileLoggingSession, it):
-    it.call(IFileLoggingSession_remove_LogFileGenerated, token)
+    check it.vtbl.remove_LogFileGenerated(it, token), "FileLoggingSession.remove_LogFileGenerated"
 
 proc close*(self: FileLoggingSession) =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "FileLoggingSession.Close"
 
 proc create*(_: typedesc[FileLoggingSession], name: string
             ): FileLoggingSession =
@@ -242,47 +244,39 @@ proc create*(_: typedesc[FileLoggingSession], name: string
               IFileLoggingSessionFactory, it):
     withHString(name, h0):
       var tmp: pointer
-      it.call(IFileLoggingSessionFactory_Create, h0, tmp.addr)
+      check it.vtbl.Create(it, h0, tmp.addr), "FileLoggingSession.Create"
       result = adopt[FileLoggingSession](tmp)
 
 proc file*(self: LogFileGeneratedEventArgs): StorageFile =
   ## Windows.Foundation.Diagnostics.LogFileGeneratedEventArgs.get_File
   withIface(self.p, ILogFileGeneratedEventArgs, it):
-    var tmp: pointer
-    it.call(ILogFileGeneratedEventArgs_get_File, tmp.addr)
-    result = adopt[StorageFile](tmp)
+    result = it.getObject(get_File, StorageFile)
 
 proc name*(self: LoggingActivity): string =
   ## Windows.Foundation.Diagnostics.LoggingActivity.get_Name
   withIface(self.p, ILoggingActivity, it):
-    var tmp: HSTRING
-    it.call(ILoggingActivity_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc id*(self: LoggingActivity): GUID =
   ## Windows.Foundation.Diagnostics.LoggingActivity.get_Id
   withIface(self.p, ILoggingActivity, it):
-    var tmp: GUID
-    it.call(ILoggingActivity_get_Id, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Id, GUID)
 
 proc close*(self: LoggingActivity) =
   ## Windows.Foundation.Diagnostics.LoggingActivity.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "LoggingActivity.Close"
 
 proc channel*(self: LoggingActivity): LoggingChannel =
   ## Windows.Foundation.Diagnostics.LoggingActivity.get_Channel
   withIface(self.p, ILoggingActivity2, it):
-    var tmp: pointer
-    it.call(ILoggingActivity2_get_Channel, tmp.addr)
-    result = adopt[LoggingChannel](tmp)
+    result = it.getObject(get_Channel, LoggingChannel)
 
 proc stopActivity*(self: LoggingActivity, stopEventName: string) =
   ## Windows.Foundation.Diagnostics.LoggingActivity.StopActivity
   withIface(self.p, ILoggingActivity2, it):
     withHString(stopEventName, h0):
-      it.call(ILoggingActivity2_StopActivity, h0)
+      check it.vtbl.StopActivity(it, h0), "LoggingActivity.StopActivity"
 
 proc stopActivity*(self: LoggingActivity, stopEventName: string,
                    fields: LoggingFields) =
@@ -290,7 +284,7 @@ proc stopActivity*(self: LoggingActivity, stopEventName: string,
   withIface(self.p, ILoggingActivity2, it):
     withHString(stopEventName, h0):
       withIface(fields.p, ILoggingFields, p1):
-        it.call(ILoggingActivity2_StopActivity2, h0, p1)
+        check it.vtbl.StopActivity2(it, h0, p1), "LoggingActivity.StopActivity"
 
 proc stopActivity*(self: LoggingActivity, stopEventName: string,
                    fields: LoggingFields, options: LoggingOptions) =
@@ -299,20 +293,21 @@ proc stopActivity*(self: LoggingActivity, stopEventName: string,
     withHString(stopEventName, h0):
       withIface(fields.p, ILoggingFields, p1):
         withIface(options.p, ILoggingOptions, p2):
-          it.call(ILoggingActivity2_StopActivity3, h0, p1, p2)
+          check it.vtbl.StopActivity3(it, h0, p1, p2
+                                     ), "LoggingActivity.StopActivity"
 
 proc isEnabled*(self: LoggingActivity): bool =
   ## Windows.Foundation.Diagnostics.LoggingActivity.IsEnabled
   withIface(self.p, ILoggingTarget, it):
     var tmp: bool
-    it.call(ILoggingTarget_IsEnabled, tmp.addr)
+    check it.vtbl.IsEnabled(it, tmp.addr), "LoggingActivity.IsEnabled"
     result = tmp
 
 proc isEnabled*(self: LoggingActivity, level: LoggingLevel): bool =
   ## Windows.Foundation.Diagnostics.LoggingActivity.IsEnabled
   withIface(self.p, ILoggingTarget, it):
     var tmp: bool
-    it.call(ILoggingTarget_IsEnabled2, level, tmp.addr)
+    check it.vtbl.IsEnabled2(it, level, tmp.addr), "LoggingActivity.IsEnabled"
     result = tmp
 
 proc isEnabled*(self: LoggingActivity, level: LoggingLevel, keywords: int64
@@ -320,14 +315,15 @@ proc isEnabled*(self: LoggingActivity, level: LoggingLevel, keywords: int64
   ## Windows.Foundation.Diagnostics.LoggingActivity.IsEnabled
   withIface(self.p, ILoggingTarget, it):
     var tmp: bool
-    it.call(ILoggingTarget_IsEnabled3, level, keywords, tmp.addr)
+    check it.vtbl.IsEnabled3(it, level, keywords, tmp.addr
+                            ), "LoggingActivity.IsEnabled"
     result = tmp
 
 proc logEvent*(self: LoggingActivity, eventName: string) =
   ## Windows.Foundation.Diagnostics.LoggingActivity.LogEvent
   withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
-      it.call(ILoggingTarget_LogEvent, h0)
+      check it.vtbl.LogEvent(it, h0), "LoggingActivity.LogEvent"
 
 proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields
               ) =
@@ -335,7 +331,7 @@ proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields
   withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
       withIface(fields.p, ILoggingFields, p1):
-        it.call(ILoggingTarget_LogEvent2, h0, p1)
+        check it.vtbl.LogEvent2(it, h0, p1), "LoggingActivity.LogEvent"
 
 proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields,
                level: LoggingLevel) =
@@ -343,7 +339,7 @@ proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields,
   withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
       withIface(fields.p, ILoggingFields, p1):
-        it.call(ILoggingTarget_LogEvent3, h0, p1, level)
+        check it.vtbl.LogEvent3(it, h0, p1, level), "LoggingActivity.LogEvent"
 
 proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields,
                level: LoggingLevel, options: LoggingOptions) =
@@ -352,7 +348,8 @@ proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields,
     withHString(eventName, h0):
       withIface(fields.p, ILoggingFields, p1):
         withIface(options.p, ILoggingOptions, p3):
-          it.call(ILoggingTarget_LogEvent4, h0, p1, level, p3)
+          check it.vtbl.LogEvent4(it, h0, p1, level, p3
+                                 ), "LoggingActivity.LogEvent"
 
 proc startActivity*(self: LoggingActivity, startEventName: string
                    ): LoggingActivity =
@@ -360,7 +357,8 @@ proc startActivity*(self: LoggingActivity, startEventName: string
   withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
       var tmp: pointer
-      it.call(ILoggingTarget_StartActivity, h0, tmp.addr)
+      check it.vtbl.StartActivity(it, h0, tmp.addr
+                                 ), "LoggingActivity.StartActivity"
       result = adopt[LoggingActivity](tmp)
 
 proc startActivity*(self: LoggingActivity, startEventName: string,
@@ -370,7 +368,8 @@ proc startActivity*(self: LoggingActivity, startEventName: string,
     withHString(startEventName, h0):
       withIface(fields.p, ILoggingFields, p1):
         var tmp: pointer
-        it.call(ILoggingTarget_StartActivity2, h0, p1, tmp.addr)
+        check it.vtbl.StartActivity2(it, h0, p1, tmp.addr
+                                    ), "LoggingActivity.StartActivity"
         result = adopt[LoggingActivity](tmp)
 
 proc startActivity*(self: LoggingActivity, startEventName: string,
@@ -381,7 +380,8 @@ proc startActivity*(self: LoggingActivity, startEventName: string,
     withHString(startEventName, h0):
       withIface(fields.p, ILoggingFields, p1):
         var tmp: pointer
-        it.call(ILoggingTarget_StartActivity3, h0, p1, level, tmp.addr)
+        check it.vtbl.StartActivity3(it, h0, p1, level, tmp.addr
+                                    ), "LoggingActivity.StartActivity"
         result = adopt[LoggingActivity](tmp)
 
 proc startActivity*(self: LoggingActivity, startEventName: string,
@@ -393,7 +393,8 @@ proc startActivity*(self: LoggingActivity, startEventName: string,
       withIface(fields.p, ILoggingFields, p1):
         withIface(options.p, ILoggingOptions, p3):
           var tmp: pointer
-          it.call(ILoggingTarget_StartActivity4, h0, p1, level, p3, tmp.addr)
+          check it.vtbl.StartActivity4(it, h0, p1, level, p3, tmp.addr
+                                      ), "LoggingActivity.StartActivity"
           result = adopt[LoggingActivity](tmp)
 
 proc createLoggingActivity*(_: typedesc[LoggingActivity], activityName: string,
@@ -404,7 +405,8 @@ proc createLoggingActivity*(_: typedesc[LoggingActivity], activityName: string,
     withHString(activityName, h0):
       withIface(loggingChannel.p, ILoggingChannel, p1):
         var tmp: pointer
-        it.call(ILoggingActivityFactory_CreateLoggingActivity, h0, p1, tmp.addr)
+        check it.vtbl.CreateLoggingActivity(it, h0, p1, tmp.addr
+                                           ), "LoggingActivity.CreateLoggingActivity"
         result = adopt[LoggingActivity](tmp)
 
 proc createLoggingActivityWithLevel*(_: typedesc[LoggingActivity],
@@ -417,56 +419,51 @@ proc createLoggingActivityWithLevel*(_: typedesc[LoggingActivity],
     withHString(activityName, h0):
       withIface(loggingChannel.p, ILoggingChannel, p1):
         var tmp: pointer
-        it.call(ILoggingActivityFactory_CreateLoggingActivityWithLevel, h0, p1,
-                level, tmp.addr)
+        check it.vtbl.CreateLoggingActivityWithLevel(it, h0, p1, level, tmp.addr
+                                                    ), "LoggingActivity.CreateLoggingActivityWithLevel"
         result = adopt[LoggingActivity](tmp)
 
 proc name*(self: LoggingChannel): string =
   ## Windows.Foundation.Diagnostics.LoggingChannel.get_Name
   withIface(self.p, ILoggingChannel, it):
-    var tmp: HSTRING
-    it.call(ILoggingChannel_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc enabled*(self: LoggingChannel): bool =
   ## Windows.Foundation.Diagnostics.LoggingChannel.get_Enabled
   withIface(self.p, ILoggingChannel, it):
-    var tmp: bool
-    it.call(ILoggingChannel_get_Enabled, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Enabled, bool)
 
 proc level*(self: LoggingChannel): LoggingLevel =
   ## Windows.Foundation.Diagnostics.LoggingChannel.get_Level
   withIface(self.p, ILoggingChannel, it):
-    var tmp: LoggingLevel
-    it.call(ILoggingChannel_get_Level, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Level, LoggingLevel)
 
 proc logMessage*(self: LoggingChannel, eventString: string) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogMessage
   withIface(self.p, ILoggingChannel, it):
     withHString(eventString, h0):
-      it.call(ILoggingChannel_LogMessage, h0)
+      check it.vtbl.LogMessage(it, h0), "LoggingChannel.LogMessage"
 
 proc logMessage*(self: LoggingChannel, eventString: string, level: LoggingLevel
                 ) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogMessage
   withIface(self.p, ILoggingChannel, it):
     withHString(eventString, h0):
-      it.call(ILoggingChannel_LogMessage2, h0, level)
+      check it.vtbl.LogMessage2(it, h0, level), "LoggingChannel.LogMessage"
 
 proc logValuePair*(self: LoggingChannel, value1: string, value2: int32) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogValuePair
   withIface(self.p, ILoggingChannel, it):
     withHString(value1, h0):
-      it.call(ILoggingChannel_LogValuePair, h0, value2)
+      check it.vtbl.LogValuePair(it, h0, value2), "LoggingChannel.LogValuePair"
 
 proc logValuePair*(self: LoggingChannel, value1: string, value2: int32,
                    level: LoggingLevel) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogValuePair
   withIface(self.p, ILoggingChannel, it):
     withHString(value1, h0):
-      it.call(ILoggingChannel_LogValuePair2, h0, value2, level)
+      check it.vtbl.LogValuePair2(it, h0, value2, level
+                                 ), "LoggingChannel.LogValuePair"
 
 proc onLoggingEnabled*(self: LoggingChannel,
                        handler: EventHandler[LoggingChannel, WinRtObject]
@@ -479,38 +476,36 @@ proc onLoggingEnabled*(self: LoggingChannel,
     let cb = newDelegate(IID_TypedEventHandler_2_ILoggingChannel_Object, shim,
                          event = true)
     try:
-      it.call(ILoggingChannel_add_LoggingEnabled, cb, result.addr)
+      check it.vtbl.add_LoggingEnabled(it, cb, result.addr), "LoggingChannel.add_LoggingEnabled"
     finally:
       release(cb)
 
 proc removeLoggingEnabled*(self: LoggingChannel, token: EventRegistrationToken) =
   withIface(self.p, ILoggingChannel, it):
-    it.call(ILoggingChannel_remove_LoggingEnabled, token)
+    check it.vtbl.remove_LoggingEnabled(it, token), "LoggingChannel.remove_LoggingEnabled"
 
 proc close*(self: LoggingChannel) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "LoggingChannel.Close"
 
 proc id*(self: LoggingChannel): GUID =
   ## Windows.Foundation.Diagnostics.LoggingChannel.get_Id
   withIface(self.p, ILoggingChannel2, it):
-    var tmp: GUID
-    it.call(ILoggingChannel2_get_Id, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Id, GUID)
 
 proc isEnabled*(self: LoggingChannel): bool =
   ## Windows.Foundation.Diagnostics.LoggingChannel.IsEnabled
   withIface(self.p, ILoggingTarget, it):
     var tmp: bool
-    it.call(ILoggingTarget_IsEnabled, tmp.addr)
+    check it.vtbl.IsEnabled(it, tmp.addr), "LoggingChannel.IsEnabled"
     result = tmp
 
 proc isEnabled*(self: LoggingChannel, level: LoggingLevel): bool =
   ## Windows.Foundation.Diagnostics.LoggingChannel.IsEnabled
   withIface(self.p, ILoggingTarget, it):
     var tmp: bool
-    it.call(ILoggingTarget_IsEnabled2, level, tmp.addr)
+    check it.vtbl.IsEnabled2(it, level, tmp.addr), "LoggingChannel.IsEnabled"
     result = tmp
 
 proc isEnabled*(self: LoggingChannel, level: LoggingLevel, keywords: int64
@@ -518,21 +513,22 @@ proc isEnabled*(self: LoggingChannel, level: LoggingLevel, keywords: int64
   ## Windows.Foundation.Diagnostics.LoggingChannel.IsEnabled
   withIface(self.p, ILoggingTarget, it):
     var tmp: bool
-    it.call(ILoggingTarget_IsEnabled3, level, keywords, tmp.addr)
+    check it.vtbl.IsEnabled3(it, level, keywords, tmp.addr
+                            ), "LoggingChannel.IsEnabled"
     result = tmp
 
 proc logEvent*(self: LoggingChannel, eventName: string) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogEvent
   withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
-      it.call(ILoggingTarget_LogEvent, h0)
+      check it.vtbl.LogEvent(it, h0), "LoggingChannel.LogEvent"
 
 proc logEvent*(self: LoggingChannel, eventName: string, fields: LoggingFields) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogEvent
   withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
       withIface(fields.p, ILoggingFields, p1):
-        it.call(ILoggingTarget_LogEvent2, h0, p1)
+        check it.vtbl.LogEvent2(it, h0, p1), "LoggingChannel.LogEvent"
 
 proc logEvent*(self: LoggingChannel, eventName: string, fields: LoggingFields,
                level: LoggingLevel) =
@@ -540,7 +536,7 @@ proc logEvent*(self: LoggingChannel, eventName: string, fields: LoggingFields,
   withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
       withIface(fields.p, ILoggingFields, p1):
-        it.call(ILoggingTarget_LogEvent3, h0, p1, level)
+        check it.vtbl.LogEvent3(it, h0, p1, level), "LoggingChannel.LogEvent"
 
 proc logEvent*(self: LoggingChannel, eventName: string, fields: LoggingFields,
                level: LoggingLevel, options: LoggingOptions) =
@@ -549,7 +545,8 @@ proc logEvent*(self: LoggingChannel, eventName: string, fields: LoggingFields,
     withHString(eventName, h0):
       withIface(fields.p, ILoggingFields, p1):
         withIface(options.p, ILoggingOptions, p3):
-          it.call(ILoggingTarget_LogEvent4, h0, p1, level, p3)
+          check it.vtbl.LogEvent4(it, h0, p1, level, p3
+                                 ), "LoggingChannel.LogEvent"
 
 proc startActivity*(self: LoggingChannel, startEventName: string
                    ): LoggingActivity =
@@ -557,7 +554,8 @@ proc startActivity*(self: LoggingChannel, startEventName: string
   withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
       var tmp: pointer
-      it.call(ILoggingTarget_StartActivity, h0, tmp.addr)
+      check it.vtbl.StartActivity(it, h0, tmp.addr
+                                 ), "LoggingChannel.StartActivity"
       result = adopt[LoggingActivity](tmp)
 
 proc startActivity*(self: LoggingChannel, startEventName: string,
@@ -567,7 +565,8 @@ proc startActivity*(self: LoggingChannel, startEventName: string,
     withHString(startEventName, h0):
       withIface(fields.p, ILoggingFields, p1):
         var tmp: pointer
-        it.call(ILoggingTarget_StartActivity2, h0, p1, tmp.addr)
+        check it.vtbl.StartActivity2(it, h0, p1, tmp.addr
+                                    ), "LoggingChannel.StartActivity"
         result = adopt[LoggingActivity](tmp)
 
 proc startActivity*(self: LoggingChannel, startEventName: string,
@@ -578,7 +577,8 @@ proc startActivity*(self: LoggingChannel, startEventName: string,
     withHString(startEventName, h0):
       withIface(fields.p, ILoggingFields, p1):
         var tmp: pointer
-        it.call(ILoggingTarget_StartActivity3, h0, p1, level, tmp.addr)
+        check it.vtbl.StartActivity3(it, h0, p1, level, tmp.addr
+                                    ), "LoggingChannel.StartActivity"
         result = adopt[LoggingActivity](tmp)
 
 proc startActivity*(self: LoggingChannel, startEventName: string,
@@ -590,7 +590,8 @@ proc startActivity*(self: LoggingChannel, startEventName: string,
       withIface(fields.p, ILoggingFields, p1):
         withIface(options.p, ILoggingOptions, p3):
           var tmp: pointer
-          it.call(ILoggingTarget_StartActivity4, h0, p1, level, p3, tmp.addr)
+          check it.vtbl.StartActivity4(it, h0, p1, level, p3, tmp.addr
+                                      ), "LoggingChannel.StartActivity"
           result = adopt[LoggingActivity](tmp)
 
 proc createWithOptions*(_: typedesc[LoggingChannel], name: string,
@@ -601,7 +602,8 @@ proc createWithOptions*(_: typedesc[LoggingChannel], name: string,
     withHString(name, h0):
       withIface(options.p, ILoggingChannelOptions, p1):
         var tmp: pointer
-        it.call(ILoggingChannelFactory2_CreateWithOptions, h0, p1, tmp.addr)
+        check it.vtbl.CreateWithOptions(it, h0, p1, tmp.addr
+                                       ), "LoggingChannel.CreateWithOptions"
         result = adopt[LoggingChannel](tmp)
 
 proc createWithOptionsAndId*(_: typedesc[LoggingChannel], name: string,
@@ -613,8 +615,8 @@ proc createWithOptionsAndId*(_: typedesc[LoggingChannel], name: string,
     withHString(name, h0):
       withIface(options.p, ILoggingChannelOptions, p1):
         var tmp: pointer
-        it.call(ILoggingChannelFactory2_CreateWithOptionsAndId, h0, p1, id,
-                tmp.addr)
+        check it.vtbl.CreateWithOptionsAndId(it, h0, p1, id, tmp.addr
+                                            ), "LoggingChannel.CreateWithOptionsAndId"
         result = adopt[LoggingChannel](tmp)
 
 proc create*(_: typedesc[LoggingChannel], name: string): LoggingChannel =
@@ -623,7 +625,7 @@ proc create*(_: typedesc[LoggingChannel], name: string): LoggingChannel =
               ILoggingChannelFactory, it):
     withHString(name, h0):
       var tmp: pointer
-      it.call(ILoggingChannelFactory_Create, h0, tmp.addr)
+      check it.vtbl.Create(it, h0, tmp.addr), "LoggingChannel.Create"
       result = adopt[LoggingChannel](tmp)
 
 proc newLoggingChannelOptions*(): LoggingChannelOptions =
@@ -633,14 +635,12 @@ proc newLoggingChannelOptions*(): LoggingChannelOptions =
 proc group*(self: LoggingChannelOptions): GUID =
   ## Windows.Foundation.Diagnostics.LoggingChannelOptions.get_Group
   withIface(self.p, ILoggingChannelOptions, it):
-    var tmp: GUID
-    it.call(ILoggingChannelOptions_get_Group, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Group, GUID)
 
 proc `group=`*(self: LoggingChannelOptions, value: GUID) =
   ## Windows.Foundation.Diagnostics.LoggingChannelOptions.put_Group
   withIface(self.p, ILoggingChannelOptions, it):
-    it.call(ILoggingChannelOptions_put_Group, value)
+    it.putValue(put_Group, value)
 
 proc create*(_: typedesc[LoggingChannelOptions], group: GUID
             ): LoggingChannelOptions =
@@ -648,7 +648,7 @@ proc create*(_: typedesc[LoggingChannelOptions], group: GUID
   withStatics("Windows.Foundation.Diagnostics.LoggingChannelOptions",
               ILoggingChannelOptionsFactory, it):
     var tmp: pointer
-    it.call(ILoggingChannelOptionsFactory_Create, group, tmp.addr)
+    check it.vtbl.Create(it, group, tmp.addr), "LoggingChannelOptions.Create"
     result = adopt[LoggingChannelOptions](tmp)
 
 proc newLoggingFields*(): LoggingFields =
@@ -658,63 +658,64 @@ proc newLoggingFields*(): LoggingFields =
 proc clear*(self: LoggingFields) =
   ## Windows.Foundation.Diagnostics.LoggingFields.Clear
   withIface(self.p, ILoggingFields, it):
-    it.call(ILoggingFields_Clear)
+    check it.vtbl.Clear(it), "LoggingFields.Clear"
 
 proc beginStruct*(self: LoggingFields, name: string) =
   ## Windows.Foundation.Diagnostics.LoggingFields.BeginStruct
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_BeginStruct, h0)
+      check it.vtbl.BeginStruct(it, h0), "LoggingFields.BeginStruct"
 
 proc beginStruct*(self: LoggingFields, name: string, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.BeginStruct
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_BeginStruct2, h0, tags)
+      check it.vtbl.BeginStruct2(it, h0, tags), "LoggingFields.BeginStruct"
 
 proc endStruct*(self: LoggingFields) =
   ## Windows.Foundation.Diagnostics.LoggingFields.EndStruct
   withIface(self.p, ILoggingFields, it):
-    it.call(ILoggingFields_EndStruct)
+    check it.vtbl.EndStruct(it), "LoggingFields.EndStruct"
 
 proc addEmpty*(self: LoggingFields, name: string) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddEmpty
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddEmpty, h0)
+      check it.vtbl.AddEmpty(it, h0), "LoggingFields.AddEmpty"
 
 proc addEmpty*(self: LoggingFields, name: string, format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddEmpty
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddEmpty2, h0, format)
+      check it.vtbl.AddEmpty2(it, h0, format), "LoggingFields.AddEmpty"
 
 proc addEmpty*(self: LoggingFields, name: string, format: LoggingFieldFormat,
                tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddEmpty
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddEmpty3, h0, format, tags)
+      check it.vtbl.AddEmpty3(it, h0, format, tags), "LoggingFields.AddEmpty"
 
 proc addUInt8*(self: LoggingFields, name: string, value: uint8) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt8
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddUInt8, h0, value)
+      check it.vtbl.AddUInt8(it, h0, value), "LoggingFields.AddUInt8"
 
 proc addUInt8*(self: LoggingFields, name: string, value: uint8,
                format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt8
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddUInt82, h0, value, format)
+      check it.vtbl.AddUInt82(it, h0, value, format), "LoggingFields.AddUInt8"
 
 proc addUInt8*(self: LoggingFields, name: string, value: uint8,
                format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt8
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddUInt83, h0, value, format, tags)
+      check it.vtbl.AddUInt83(it, h0, value, format, tags
+                             ), "LoggingFields.AddUInt8"
 
 proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8]
                    ) =
@@ -723,7 +724,7 @@ proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8]
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddUInt8Array, h0, n1, d1)
+      check it.vtbl.AddUInt8Array(it, h0, n1, d1), "LoggingFields.AddUInt8Array"
 
 proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8],
                     format: LoggingFieldFormat) =
@@ -732,7 +733,8 @@ proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddUInt8Array2, h0, n1, d1, format)
+      check it.vtbl.AddUInt8Array2(it, h0, n1, d1, format
+                                  ), "LoggingFields.AddUInt8Array"
 
 proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8],
                     format: LoggingFieldFormat, tags: int32) =
@@ -741,27 +743,29 @@ proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddUInt8Array3, h0, n1, d1, format, tags)
+      check it.vtbl.AddUInt8Array3(it, h0, n1, d1, format, tags
+                                  ), "LoggingFields.AddUInt8Array"
 
 proc addInt16*(self: LoggingFields, name: string, value: int16) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddInt16, h0, value)
+      check it.vtbl.AddInt16(it, h0, value), "LoggingFields.AddInt16"
 
 proc addInt16*(self: LoggingFields, name: string, value: int16,
                format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddInt162, h0, value, format)
+      check it.vtbl.AddInt162(it, h0, value, format), "LoggingFields.AddInt16"
 
 proc addInt16*(self: LoggingFields, name: string, value: int16,
                format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddInt163, h0, value, format, tags)
+      check it.vtbl.AddInt163(it, h0, value, format, tags
+                             ), "LoggingFields.AddInt16"
 
 proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16]
                    ) =
@@ -770,7 +774,7 @@ proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16]
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddInt16Array, h0, n1, d1)
+      check it.vtbl.AddInt16Array(it, h0, n1, d1), "LoggingFields.AddInt16Array"
 
 proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16],
                     format: LoggingFieldFormat) =
@@ -779,7 +783,8 @@ proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddInt16Array2, h0, n1, d1, format)
+      check it.vtbl.AddInt16Array2(it, h0, n1, d1, format
+                                  ), "LoggingFields.AddInt16Array"
 
 proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16],
                     format: LoggingFieldFormat, tags: int32) =
@@ -788,27 +793,29 @@ proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddInt16Array3, h0, n1, d1, format, tags)
+      check it.vtbl.AddInt16Array3(it, h0, n1, d1, format, tags
+                                  ), "LoggingFields.AddInt16Array"
 
 proc addUInt16*(self: LoggingFields, name: string, value: uint16) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddUInt16, h0, value)
+      check it.vtbl.AddUInt16(it, h0, value), "LoggingFields.AddUInt16"
 
 proc addUInt16*(self: LoggingFields, name: string, value: uint16,
                 format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddUInt162, h0, value, format)
+      check it.vtbl.AddUInt162(it, h0, value, format), "LoggingFields.AddUInt16"
 
 proc addUInt16*(self: LoggingFields, name: string, value: uint16,
                 format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddUInt163, h0, value, format, tags)
+      check it.vtbl.AddUInt163(it, h0, value, format, tags
+                              ), "LoggingFields.AddUInt16"
 
 proc addUInt16Array*(self: LoggingFields, name: string, value: openArray[uint16]
                     ) =
@@ -817,7 +824,8 @@ proc addUInt16Array*(self: LoggingFields, name: string, value: openArray[uint16]
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddUInt16Array, h0, n1, d1)
+      check it.vtbl.AddUInt16Array(it, h0, n1, d1
+                                  ), "LoggingFields.AddUInt16Array"
 
 proc addUInt16Array*(self: LoggingFields, name: string,
                      value: openArray[uint16], format: LoggingFieldFormat) =
@@ -826,7 +834,8 @@ proc addUInt16Array*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddUInt16Array2, h0, n1, d1, format)
+      check it.vtbl.AddUInt16Array2(it, h0, n1, d1, format
+                                   ), "LoggingFields.AddUInt16Array"
 
 proc addUInt16Array*(self: LoggingFields, name: string,
                      value: openArray[uint16], format: LoggingFieldFormat,
@@ -836,27 +845,29 @@ proc addUInt16Array*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddUInt16Array3, h0, n1, d1, format, tags)
+      check it.vtbl.AddUInt16Array3(it, h0, n1, d1, format, tags
+                                   ), "LoggingFields.AddUInt16Array"
 
 proc addInt32*(self: LoggingFields, name: string, value: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddInt32, h0, value)
+      check it.vtbl.AddInt32(it, h0, value), "LoggingFields.AddInt32"
 
 proc addInt32*(self: LoggingFields, name: string, value: int32,
                format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddInt322, h0, value, format)
+      check it.vtbl.AddInt322(it, h0, value, format), "LoggingFields.AddInt32"
 
 proc addInt32*(self: LoggingFields, name: string, value: int32,
                format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddInt323, h0, value, format, tags)
+      check it.vtbl.AddInt323(it, h0, value, format, tags
+                             ), "LoggingFields.AddInt32"
 
 proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32]
                    ) =
@@ -865,7 +876,7 @@ proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32]
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddInt32Array, h0, n1, d1)
+      check it.vtbl.AddInt32Array(it, h0, n1, d1), "LoggingFields.AddInt32Array"
 
 proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32],
                     format: LoggingFieldFormat) =
@@ -874,7 +885,8 @@ proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddInt32Array2, h0, n1, d1, format)
+      check it.vtbl.AddInt32Array2(it, h0, n1, d1, format
+                                  ), "LoggingFields.AddInt32Array"
 
 proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32],
                     format: LoggingFieldFormat, tags: int32) =
@@ -883,27 +895,29 @@ proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddInt32Array3, h0, n1, d1, format, tags)
+      check it.vtbl.AddInt32Array3(it, h0, n1, d1, format, tags
+                                  ), "LoggingFields.AddInt32Array"
 
 proc addUInt32*(self: LoggingFields, name: string, value: uint32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddUInt32, h0, value)
+      check it.vtbl.AddUInt32(it, h0, value), "LoggingFields.AddUInt32"
 
 proc addUInt32*(self: LoggingFields, name: string, value: uint32,
                 format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddUInt322, h0, value, format)
+      check it.vtbl.AddUInt322(it, h0, value, format), "LoggingFields.AddUInt32"
 
 proc addUInt32*(self: LoggingFields, name: string, value: uint32,
                 format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddUInt323, h0, value, format, tags)
+      check it.vtbl.AddUInt323(it, h0, value, format, tags
+                              ), "LoggingFields.AddUInt32"
 
 proc addUInt32Array*(self: LoggingFields, name: string, value: openArray[uint32]
                     ) =
@@ -912,7 +926,8 @@ proc addUInt32Array*(self: LoggingFields, name: string, value: openArray[uint32]
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddUInt32Array, h0, n1, d1)
+      check it.vtbl.AddUInt32Array(it, h0, n1, d1
+                                  ), "LoggingFields.AddUInt32Array"
 
 proc addUInt32Array*(self: LoggingFields, name: string,
                      value: openArray[uint32], format: LoggingFieldFormat) =
@@ -921,7 +936,8 @@ proc addUInt32Array*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddUInt32Array2, h0, n1, d1, format)
+      check it.vtbl.AddUInt32Array2(it, h0, n1, d1, format
+                                   ), "LoggingFields.AddUInt32Array"
 
 proc addUInt32Array*(self: LoggingFields, name: string,
                      value: openArray[uint32], format: LoggingFieldFormat,
@@ -931,27 +947,29 @@ proc addUInt32Array*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddUInt32Array3, h0, n1, d1, format, tags)
+      check it.vtbl.AddUInt32Array3(it, h0, n1, d1, format, tags
+                                   ), "LoggingFields.AddUInt32Array"
 
 proc addInt64*(self: LoggingFields, name: string, value: int64) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddInt64, h0, value)
+      check it.vtbl.AddInt64(it, h0, value), "LoggingFields.AddInt64"
 
 proc addInt64*(self: LoggingFields, name: string, value: int64,
                format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddInt642, h0, value, format)
+      check it.vtbl.AddInt642(it, h0, value, format), "LoggingFields.AddInt64"
 
 proc addInt64*(self: LoggingFields, name: string, value: int64,
                format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddInt643, h0, value, format, tags)
+      check it.vtbl.AddInt643(it, h0, value, format, tags
+                             ), "LoggingFields.AddInt64"
 
 proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64]
                    ) =
@@ -960,7 +978,7 @@ proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64]
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddInt64Array, h0, n1, d1)
+      check it.vtbl.AddInt64Array(it, h0, n1, d1), "LoggingFields.AddInt64Array"
 
 proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64],
                     format: LoggingFieldFormat) =
@@ -969,7 +987,8 @@ proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddInt64Array2, h0, n1, d1, format)
+      check it.vtbl.AddInt64Array2(it, h0, n1, d1, format
+                                  ), "LoggingFields.AddInt64Array"
 
 proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64],
                     format: LoggingFieldFormat, tags: int32) =
@@ -978,27 +997,29 @@ proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddInt64Array3, h0, n1, d1, format, tags)
+      check it.vtbl.AddInt64Array3(it, h0, n1, d1, format, tags
+                                  ), "LoggingFields.AddInt64Array"
 
 proc addUInt64*(self: LoggingFields, name: string, value: uint64) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddUInt64, h0, value)
+      check it.vtbl.AddUInt64(it, h0, value), "LoggingFields.AddUInt64"
 
 proc addUInt64*(self: LoggingFields, name: string, value: uint64,
                 format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddUInt642, h0, value, format)
+      check it.vtbl.AddUInt642(it, h0, value, format), "LoggingFields.AddUInt64"
 
 proc addUInt64*(self: LoggingFields, name: string, value: uint64,
                 format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddUInt643, h0, value, format, tags)
+      check it.vtbl.AddUInt643(it, h0, value, format, tags
+                              ), "LoggingFields.AddUInt64"
 
 proc addUInt64Array*(self: LoggingFields, name: string, value: openArray[uint64]
                     ) =
@@ -1007,7 +1028,8 @@ proc addUInt64Array*(self: LoggingFields, name: string, value: openArray[uint64]
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddUInt64Array, h0, n1, d1)
+      check it.vtbl.AddUInt64Array(it, h0, n1, d1
+                                  ), "LoggingFields.AddUInt64Array"
 
 proc addUInt64Array*(self: LoggingFields, name: string,
                      value: openArray[uint64], format: LoggingFieldFormat) =
@@ -1016,7 +1038,8 @@ proc addUInt64Array*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddUInt64Array2, h0, n1, d1, format)
+      check it.vtbl.AddUInt64Array2(it, h0, n1, d1, format
+                                   ), "LoggingFields.AddUInt64Array"
 
 proc addUInt64Array*(self: LoggingFields, name: string,
                      value: openArray[uint64], format: LoggingFieldFormat,
@@ -1026,27 +1049,29 @@ proc addUInt64Array*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddUInt64Array3, h0, n1, d1, format, tags)
+      check it.vtbl.AddUInt64Array3(it, h0, n1, d1, format, tags
+                                   ), "LoggingFields.AddUInt64Array"
 
 proc addSingle*(self: LoggingFields, name: string, value: float32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSingle
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddSingle, h0, value)
+      check it.vtbl.AddSingle(it, h0, value), "LoggingFields.AddSingle"
 
 proc addSingle*(self: LoggingFields, name: string, value: float32,
                 format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSingle
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddSingle2, h0, value, format)
+      check it.vtbl.AddSingle2(it, h0, value, format), "LoggingFields.AddSingle"
 
 proc addSingle*(self: LoggingFields, name: string, value: float32,
                 format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSingle
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddSingle3, h0, value, format, tags)
+      check it.vtbl.AddSingle3(it, h0, value, format, tags
+                              ), "LoggingFields.AddSingle"
 
 proc addSingleArray*(self: LoggingFields, name: string,
                      value: openArray[float32]) =
@@ -1055,7 +1080,8 @@ proc addSingleArray*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddSingleArray, h0, n1, d1)
+      check it.vtbl.AddSingleArray(it, h0, n1, d1
+                                  ), "LoggingFields.AddSingleArray"
 
 proc addSingleArray*(self: LoggingFields, name: string,
                      value: openArray[float32], format: LoggingFieldFormat) =
@@ -1064,7 +1090,8 @@ proc addSingleArray*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddSingleArray2, h0, n1, d1, format)
+      check it.vtbl.AddSingleArray2(it, h0, n1, d1, format
+                                   ), "LoggingFields.AddSingleArray"
 
 proc addSingleArray*(self: LoggingFields, name: string,
                      value: openArray[float32], format: LoggingFieldFormat,
@@ -1074,27 +1101,29 @@ proc addSingleArray*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddSingleArray3, h0, n1, d1, format, tags)
+      check it.vtbl.AddSingleArray3(it, h0, n1, d1, format, tags
+                                   ), "LoggingFields.AddSingleArray"
 
 proc addDouble*(self: LoggingFields, name: string, value: float64) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDouble
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddDouble, h0, value)
+      check it.vtbl.AddDouble(it, h0, value), "LoggingFields.AddDouble"
 
 proc addDouble*(self: LoggingFields, name: string, value: float64,
                 format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDouble
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddDouble2, h0, value, format)
+      check it.vtbl.AddDouble2(it, h0, value, format), "LoggingFields.AddDouble"
 
 proc addDouble*(self: LoggingFields, name: string, value: float64,
                 format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDouble
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddDouble3, h0, value, format, tags)
+      check it.vtbl.AddDouble3(it, h0, value, format, tags
+                              ), "LoggingFields.AddDouble"
 
 proc addDoubleArray*(self: LoggingFields, name: string,
                      value: openArray[float64]) =
@@ -1103,7 +1132,8 @@ proc addDoubleArray*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddDoubleArray, h0, n1, d1)
+      check it.vtbl.AddDoubleArray(it, h0, n1, d1
+                                  ), "LoggingFields.AddDoubleArray"
 
 proc addDoubleArray*(self: LoggingFields, name: string,
                      value: openArray[float64], format: LoggingFieldFormat) =
@@ -1112,7 +1142,8 @@ proc addDoubleArray*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddDoubleArray2, h0, n1, d1, format)
+      check it.vtbl.AddDoubleArray2(it, h0, n1, d1, format
+                                   ), "LoggingFields.AddDoubleArray"
 
 proc addDoubleArray*(self: LoggingFields, name: string,
                      value: openArray[float64], format: LoggingFieldFormat,
@@ -1122,27 +1153,29 @@ proc addDoubleArray*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddDoubleArray3, h0, n1, d1, format, tags)
+      check it.vtbl.AddDoubleArray3(it, h0, n1, d1, format, tags
+                                   ), "LoggingFields.AddDoubleArray"
 
 proc addChar16*(self: LoggingFields, name: string, value: uint16) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddChar16, h0, value)
+      check it.vtbl.AddChar16(it, h0, value), "LoggingFields.AddChar16"
 
 proc addChar16*(self: LoggingFields, name: string, value: uint16,
                 format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddChar162, h0, value, format)
+      check it.vtbl.AddChar162(it, h0, value, format), "LoggingFields.AddChar16"
 
 proc addChar16*(self: LoggingFields, name: string, value: uint16,
                 format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddChar163, h0, value, format, tags)
+      check it.vtbl.AddChar163(it, h0, value, format, tags
+                              ), "LoggingFields.AddChar16"
 
 proc addChar16Array*(self: LoggingFields, name: string, value: openArray[uint16]
                     ) =
@@ -1151,7 +1184,8 @@ proc addChar16Array*(self: LoggingFields, name: string, value: openArray[uint16]
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddChar16Array, h0, n1, d1)
+      check it.vtbl.AddChar16Array(it, h0, n1, d1
+                                  ), "LoggingFields.AddChar16Array"
 
 proc addChar16Array*(self: LoggingFields, name: string,
                      value: openArray[uint16], format: LoggingFieldFormat) =
@@ -1160,7 +1194,8 @@ proc addChar16Array*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddChar16Array2, h0, n1, d1, format)
+      check it.vtbl.AddChar16Array2(it, h0, n1, d1, format
+                                   ), "LoggingFields.AddChar16Array"
 
 proc addChar16Array*(self: LoggingFields, name: string,
                      value: openArray[uint16], format: LoggingFieldFormat,
@@ -1170,27 +1205,30 @@ proc addChar16Array*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddChar16Array3, h0, n1, d1, format, tags)
+      check it.vtbl.AddChar16Array3(it, h0, n1, d1, format, tags
+                                   ), "LoggingFields.AddChar16Array"
 
 proc addBoolean*(self: LoggingFields, name: string, value: bool) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddBoolean
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddBoolean, h0, value)
+      check it.vtbl.AddBoolean(it, h0, value), "LoggingFields.AddBoolean"
 
 proc addBoolean*(self: LoggingFields, name: string, value: bool,
                  format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddBoolean
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddBoolean2, h0, value, format)
+      check it.vtbl.AddBoolean2(it, h0, value, format
+                               ), "LoggingFields.AddBoolean"
 
 proc addBoolean*(self: LoggingFields, name: string, value: bool,
                  format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddBoolean
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddBoolean3, h0, value, format, tags)
+      check it.vtbl.AddBoolean3(it, h0, value, format, tags
+                               ), "LoggingFields.AddBoolean"
 
 proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool]
                      ) =
@@ -1199,7 +1237,8 @@ proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool]
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddBooleanArray, h0, n1, d1)
+      check it.vtbl.AddBooleanArray(it, h0, n1, d1
+                                   ), "LoggingFields.AddBooleanArray"
 
 proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool],
                       format: LoggingFieldFormat) =
@@ -1208,7 +1247,8 @@ proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddBooleanArray2, h0, n1, d1, format)
+      check it.vtbl.AddBooleanArray2(it, h0, n1, d1, format
+                                    ), "LoggingFields.AddBooleanArray"
 
 proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool],
                       format: LoggingFieldFormat, tags: int32) =
@@ -1217,14 +1257,15 @@ proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddBooleanArray3, h0, n1, d1, format, tags)
+      check it.vtbl.AddBooleanArray3(it, h0, n1, d1, format, tags
+                                    ), "LoggingFields.AddBooleanArray"
 
 proc addString*(self: LoggingFields, name: string, value: string) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddString
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       withHString(value, h1):
-        it.call(ILoggingFields_AddString, h0, h1)
+        check it.vtbl.AddString(it, h0, h1), "LoggingFields.AddString"
 
 proc addString*(self: LoggingFields, name: string, value: string,
                 format: LoggingFieldFormat) =
@@ -1232,7 +1273,7 @@ proc addString*(self: LoggingFields, name: string, value: string,
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       withHString(value, h1):
-        it.call(ILoggingFields_AddString2, h0, h1, format)
+        check it.vtbl.AddString2(it, h0, h1, format), "LoggingFields.AddString"
 
 proc addString*(self: LoggingFields, name: string, value: string,
                 format: LoggingFieldFormat, tags: int32) =
@@ -1240,7 +1281,8 @@ proc addString*(self: LoggingFields, name: string, value: string,
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       withHString(value, h1):
-        it.call(ILoggingFields_AddString3, h0, h1, format, tags)
+        check it.vtbl.AddString3(it, h0, h1, format, tags
+                                ), "LoggingFields.AddString"
 
 proc addStringArray*(self: LoggingFields, name: string, value: openArray[string]
                     ) =
@@ -1248,7 +1290,8 @@ proc addStringArray*(self: LoggingFields, name: string, value: openArray[string]
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       withStringArray(value, n1, d1):
-        it.call(ILoggingFields_AddStringArray, h0, n1, d1)
+        check it.vtbl.AddStringArray(it, h0, n1, d1
+                                    ), "LoggingFields.AddStringArray"
 
 proc addStringArray*(self: LoggingFields, name: string,
                      value: openArray[string], format: LoggingFieldFormat) =
@@ -1256,7 +1299,8 @@ proc addStringArray*(self: LoggingFields, name: string,
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       withStringArray(value, n1, d1):
-        it.call(ILoggingFields_AddStringArray2, h0, n1, d1, format)
+        check it.vtbl.AddStringArray2(it, h0, n1, d1, format
+                                     ), "LoggingFields.AddStringArray"
 
 proc addStringArray*(self: LoggingFields, name: string,
                      value: openArray[string], format: LoggingFieldFormat,
@@ -1265,27 +1309,29 @@ proc addStringArray*(self: LoggingFields, name: string,
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       withStringArray(value, n1, d1):
-        it.call(ILoggingFields_AddStringArray3, h0, n1, d1, format, tags)
+        check it.vtbl.AddStringArray3(it, h0, n1, d1, format, tags
+                                     ), "LoggingFields.AddStringArray"
 
 proc addGuid*(self: LoggingFields, name: string, value: GUID) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddGuid
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddGuid, h0, value)
+      check it.vtbl.AddGuid(it, h0, value), "LoggingFields.AddGuid"
 
 proc addGuid*(self: LoggingFields, name: string, value: GUID,
               format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddGuid
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddGuid2, h0, value, format)
+      check it.vtbl.AddGuid2(it, h0, value, format), "LoggingFields.AddGuid"
 
 proc addGuid*(self: LoggingFields, name: string, value: GUID,
               format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddGuid
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddGuid3, h0, value, format, tags)
+      check it.vtbl.AddGuid3(it, h0, value, format, tags
+                            ), "LoggingFields.AddGuid"
 
 proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddGuidArray
@@ -1293,7 +1339,7 @@ proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID]) =
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddGuidArray, h0, n1, d1)
+      check it.vtbl.AddGuidArray(it, h0, n1, d1), "LoggingFields.AddGuidArray"
 
 proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID],
                    format: LoggingFieldFormat) =
@@ -1302,7 +1348,8 @@ proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddGuidArray2, h0, n1, d1, format)
+      check it.vtbl.AddGuidArray2(it, h0, n1, d1, format
+                                 ), "LoggingFields.AddGuidArray"
 
 proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID],
                    format: LoggingFieldFormat, tags: int32) =
@@ -1311,27 +1358,30 @@ proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddGuidArray3, h0, n1, d1, format, tags)
+      check it.vtbl.AddGuidArray3(it, h0, n1, d1, format, tags
+                                 ), "LoggingFields.AddGuidArray"
 
 proc addDateTime*(self: LoggingFields, name: string, value: DateTime) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDateTime
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddDateTime, h0, value)
+      check it.vtbl.AddDateTime(it, h0, value), "LoggingFields.AddDateTime"
 
 proc addDateTime*(self: LoggingFields, name: string, value: DateTime,
                   format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDateTime
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddDateTime2, h0, value, format)
+      check it.vtbl.AddDateTime2(it, h0, value, format
+                                ), "LoggingFields.AddDateTime"
 
 proc addDateTime*(self: LoggingFields, name: string, value: DateTime,
                   format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDateTime
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddDateTime3, h0, value, format, tags)
+      check it.vtbl.AddDateTime3(it, h0, value, format, tags
+                                ), "LoggingFields.AddDateTime"
 
 proc addDateTimeArray*(self: LoggingFields, name: string,
                        value: openArray[DateTime]) =
@@ -1340,7 +1390,8 @@ proc addDateTimeArray*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddDateTimeArray, h0, n1, d1)
+      check it.vtbl.AddDateTimeArray(it, h0, n1, d1
+                                    ), "LoggingFields.AddDateTimeArray"
 
 proc addDateTimeArray*(self: LoggingFields, name: string,
                        value: openArray[DateTime], format: LoggingFieldFormat) =
@@ -1349,7 +1400,8 @@ proc addDateTimeArray*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddDateTimeArray2, h0, n1, d1, format)
+      check it.vtbl.AddDateTimeArray2(it, h0, n1, d1, format
+                                     ), "LoggingFields.AddDateTimeArray"
 
 proc addDateTimeArray*(self: LoggingFields, name: string,
                        value: openArray[DateTime], format: LoggingFieldFormat,
@@ -1359,27 +1411,30 @@ proc addDateTimeArray*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddDateTimeArray3, h0, n1, d1, format, tags)
+      check it.vtbl.AddDateTimeArray3(it, h0, n1, d1, format, tags
+                                     ), "LoggingFields.AddDateTimeArray"
 
 proc addTimeSpan*(self: LoggingFields, name: string, value: TimeSpan) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddTimeSpan
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddTimeSpan, h0, value)
+      check it.vtbl.AddTimeSpan(it, h0, value), "LoggingFields.AddTimeSpan"
 
 proc addTimeSpan*(self: LoggingFields, name: string, value: TimeSpan,
                   format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddTimeSpan
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddTimeSpan2, h0, value, format)
+      check it.vtbl.AddTimeSpan2(it, h0, value, format
+                                ), "LoggingFields.AddTimeSpan"
 
 proc addTimeSpan*(self: LoggingFields, name: string, value: TimeSpan,
                   format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddTimeSpan
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddTimeSpan3, h0, value, format, tags)
+      check it.vtbl.AddTimeSpan3(it, h0, value, format, tags
+                                ), "LoggingFields.AddTimeSpan"
 
 proc addTimeSpanArray*(self: LoggingFields, name: string,
                        value: openArray[TimeSpan]) =
@@ -1388,7 +1443,8 @@ proc addTimeSpanArray*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddTimeSpanArray, h0, n1, d1)
+      check it.vtbl.AddTimeSpanArray(it, h0, n1, d1
+                                    ), "LoggingFields.AddTimeSpanArray"
 
 proc addTimeSpanArray*(self: LoggingFields, name: string,
                        value: openArray[TimeSpan], format: LoggingFieldFormat) =
@@ -1397,7 +1453,8 @@ proc addTimeSpanArray*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddTimeSpanArray2, h0, n1, d1, format)
+      check it.vtbl.AddTimeSpanArray2(it, h0, n1, d1, format
+                                     ), "LoggingFields.AddTimeSpanArray"
 
 proc addTimeSpanArray*(self: LoggingFields, name: string,
                        value: openArray[TimeSpan], format: LoggingFieldFormat,
@@ -1407,27 +1464,29 @@ proc addTimeSpanArray*(self: LoggingFields, name: string,
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddTimeSpanArray3, h0, n1, d1, format, tags)
+      check it.vtbl.AddTimeSpanArray3(it, h0, n1, d1, format, tags
+                                     ), "LoggingFields.AddTimeSpanArray"
 
 proc addPoint*(self: LoggingFields, name: string, value: Point) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddPoint
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddPoint, h0, value)
+      check it.vtbl.AddPoint(it, h0, value), "LoggingFields.AddPoint"
 
 proc addPoint*(self: LoggingFields, name: string, value: Point,
                format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddPoint
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddPoint2, h0, value, format)
+      check it.vtbl.AddPoint2(it, h0, value, format), "LoggingFields.AddPoint"
 
 proc addPoint*(self: LoggingFields, name: string, value: Point,
                format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddPoint
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddPoint3, h0, value, format, tags)
+      check it.vtbl.AddPoint3(it, h0, value, format, tags
+                             ), "LoggingFields.AddPoint"
 
 proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point]
                    ) =
@@ -1436,7 +1495,7 @@ proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point]
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddPointArray, h0, n1, d1)
+      check it.vtbl.AddPointArray(it, h0, n1, d1), "LoggingFields.AddPointArray"
 
 proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point],
                     format: LoggingFieldFormat) =
@@ -1445,7 +1504,8 @@ proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddPointArray2, h0, n1, d1, format)
+      check it.vtbl.AddPointArray2(it, h0, n1, d1, format
+                                  ), "LoggingFields.AddPointArray"
 
 proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point],
                     format: LoggingFieldFormat, tags: int32) =
@@ -1454,27 +1514,29 @@ proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddPointArray3, h0, n1, d1, format, tags)
+      check it.vtbl.AddPointArray3(it, h0, n1, d1, format, tags
+                                  ), "LoggingFields.AddPointArray"
 
 proc addSize*(self: LoggingFields, name: string, value: Size) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSize
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddSize, h0, value)
+      check it.vtbl.AddSize(it, h0, value), "LoggingFields.AddSize"
 
 proc addSize*(self: LoggingFields, name: string, value: Size,
               format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSize
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddSize2, h0, value, format)
+      check it.vtbl.AddSize2(it, h0, value, format), "LoggingFields.AddSize"
 
 proc addSize*(self: LoggingFields, name: string, value: Size,
               format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSize
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddSize3, h0, value, format, tags)
+      check it.vtbl.AddSize3(it, h0, value, format, tags
+                            ), "LoggingFields.AddSize"
 
 proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSizeArray
@@ -1482,7 +1544,7 @@ proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size]) =
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddSizeArray, h0, n1, d1)
+      check it.vtbl.AddSizeArray(it, h0, n1, d1), "LoggingFields.AddSizeArray"
 
 proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size],
                    format: LoggingFieldFormat) =
@@ -1491,7 +1553,8 @@ proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddSizeArray2, h0, n1, d1, format)
+      check it.vtbl.AddSizeArray2(it, h0, n1, d1, format
+                                 ), "LoggingFields.AddSizeArray"
 
 proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size],
                    format: LoggingFieldFormat, tags: int32) =
@@ -1500,27 +1563,29 @@ proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddSizeArray3, h0, n1, d1, format, tags)
+      check it.vtbl.AddSizeArray3(it, h0, n1, d1, format, tags
+                                 ), "LoggingFields.AddSizeArray"
 
 proc addRect*(self: LoggingFields, name: string, value: Rect) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddRect
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddRect, h0, value)
+      check it.vtbl.AddRect(it, h0, value), "LoggingFields.AddRect"
 
 proc addRect*(self: LoggingFields, name: string, value: Rect,
               format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddRect
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddRect2, h0, value, format)
+      check it.vtbl.AddRect2(it, h0, value, format), "LoggingFields.AddRect"
 
 proc addRect*(self: LoggingFields, name: string, value: Rect,
               format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddRect
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      it.call(ILoggingFields_AddRect3, h0, value, format, tags)
+      check it.vtbl.AddRect3(it, h0, value, format, tags
+                            ), "LoggingFields.AddRect"
 
 proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddRectArray
@@ -1528,7 +1593,7 @@ proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect]) =
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddRectArray, h0, n1, d1)
+      check it.vtbl.AddRectArray(it, h0, n1, d1), "LoggingFields.AddRectArray"
 
 proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect],
                    format: LoggingFieldFormat) =
@@ -1537,7 +1602,8 @@ proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddRectArray2, h0, n1, d1, format)
+      check it.vtbl.AddRectArray2(it, h0, n1, d1, format
+                                 ), "LoggingFields.AddRectArray"
 
 proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect],
                    format: LoggingFieldFormat, tags: int32) =
@@ -1546,7 +1612,8 @@ proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect],
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      it.call(ILoggingFields_AddRectArray3, h0, n1, d1, format, tags)
+      check it.vtbl.AddRectArray3(it, h0, n1, d1, format, tags
+                                 ), "LoggingFields.AddRectArray"
 
 proc newLoggingOptions*(): LoggingOptions =
   ## Activate a `Windows.Foundation.Diagnostics.LoggingOptions`.
@@ -1555,74 +1622,62 @@ proc newLoggingOptions*(): LoggingOptions =
 proc keywords*(self: LoggingOptions): int64 =
   ## Windows.Foundation.Diagnostics.LoggingOptions.get_Keywords
   withIface(self.p, ILoggingOptions, it):
-    var tmp: int64
-    it.call(ILoggingOptions_get_Keywords, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Keywords, int64)
 
 proc `keywords=`*(self: LoggingOptions, value: int64) =
   ## Windows.Foundation.Diagnostics.LoggingOptions.put_Keywords
   withIface(self.p, ILoggingOptions, it):
-    it.call(ILoggingOptions_put_Keywords, value)
+    it.putValue(put_Keywords, value)
 
 proc tags*(self: LoggingOptions): int32 =
   ## Windows.Foundation.Diagnostics.LoggingOptions.get_Tags
   withIface(self.p, ILoggingOptions, it):
-    var tmp: int32
-    it.call(ILoggingOptions_get_Tags, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Tags, int32)
 
 proc `tags=`*(self: LoggingOptions, value: int32) =
   ## Windows.Foundation.Diagnostics.LoggingOptions.put_Tags
   withIface(self.p, ILoggingOptions, it):
-    it.call(ILoggingOptions_put_Tags, value)
+    it.putValue(put_Tags, value)
 
 proc task*(self: LoggingOptions): int16 =
   ## Windows.Foundation.Diagnostics.LoggingOptions.get_Task
   withIface(self.p, ILoggingOptions, it):
-    var tmp: int16
-    it.call(ILoggingOptions_get_Task, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Task, int16)
 
 proc `task=`*(self: LoggingOptions, value: int16) =
   ## Windows.Foundation.Diagnostics.LoggingOptions.put_Task
   withIface(self.p, ILoggingOptions, it):
-    it.call(ILoggingOptions_put_Task, value)
+    it.putValue(put_Task, value)
 
 proc opcode*(self: LoggingOptions): LoggingOpcode =
   ## Windows.Foundation.Diagnostics.LoggingOptions.get_Opcode
   withIface(self.p, ILoggingOptions, it):
-    var tmp: LoggingOpcode
-    it.call(ILoggingOptions_get_Opcode, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Opcode, LoggingOpcode)
 
 proc `opcode=`*(self: LoggingOptions, value: LoggingOpcode) =
   ## Windows.Foundation.Diagnostics.LoggingOptions.put_Opcode
   withIface(self.p, ILoggingOptions, it):
-    it.call(ILoggingOptions_put_Opcode, value)
+    it.putValue(put_Opcode, value)
 
 proc activityId*(self: LoggingOptions): GUID =
   ## Windows.Foundation.Diagnostics.LoggingOptions.get_ActivityId
   withIface(self.p, ILoggingOptions, it):
-    var tmp: GUID
-    it.call(ILoggingOptions_get_ActivityId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ActivityId, GUID)
 
 proc `activityId=`*(self: LoggingOptions, value: GUID) =
   ## Windows.Foundation.Diagnostics.LoggingOptions.put_ActivityId
   withIface(self.p, ILoggingOptions, it):
-    it.call(ILoggingOptions_put_ActivityId, value)
+    it.putValue(put_ActivityId, value)
 
 proc relatedActivityId*(self: LoggingOptions): GUID =
   ## Windows.Foundation.Diagnostics.LoggingOptions.get_RelatedActivityId
   withIface(self.p, ILoggingOptions, it):
-    var tmp: GUID
-    it.call(ILoggingOptions_get_RelatedActivityId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_RelatedActivityId, GUID)
 
 proc `relatedActivityId=`*(self: LoggingOptions, value: GUID) =
   ## Windows.Foundation.Diagnostics.LoggingOptions.put_RelatedActivityId
   withIface(self.p, ILoggingOptions, it):
-    it.call(ILoggingOptions_put_RelatedActivityId, value)
+    it.putValue(put_RelatedActivityId, value)
 
 proc createWithKeywords*(_: typedesc[LoggingOptions], keywords: int64
                         ): LoggingOptions =
@@ -1630,15 +1685,14 @@ proc createWithKeywords*(_: typedesc[LoggingOptions], keywords: int64
   withStatics("Windows.Foundation.Diagnostics.LoggingOptions",
               ILoggingOptionsFactory, it):
     var tmp: pointer
-    it.call(ILoggingOptionsFactory_CreateWithKeywords, keywords, tmp.addr)
+    check it.vtbl.CreateWithKeywords(it, keywords, tmp.addr
+                                    ), "LoggingOptions.CreateWithKeywords"
     result = adopt[LoggingOptions](tmp)
 
 proc name*(self: LoggingSession): string =
   ## Windows.Foundation.Diagnostics.LoggingSession.get_Name
   withIface(self.p, ILoggingSession, it):
-    var tmp: HSTRING
-    it.call(ILoggingSession_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc saveToFileAsync*(self: LoggingSession, folder: StorageFolder,
                       fileName: string): Future[StorageFile] {.async.} =
@@ -1647,7 +1701,8 @@ proc saveToFileAsync*(self: LoggingSession, folder: StorageFolder,
   withIface(self.p, ILoggingSession, it):
     withIface(folder.p, IStorageFolder, p0):
       withHString(fileName, h1):
-        it.call(ILoggingSession_SaveToFileAsync, p0, h1, op.addr)
+        check it.vtbl.SaveToFileAsync(it, p0, h1, op.addr
+                                     ), "LoggingSession.SaveToFileAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
                               IID_AsyncOperationCompletedHandler_1_StorageFile,
                               alPlain, "LoggingSession.SaveToFileAsync")
@@ -1657,26 +1712,29 @@ proc addLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel) =
   ## Windows.Foundation.Diagnostics.LoggingSession.AddLoggingChannel
   withIface(self.p, ILoggingSession, it):
     withIface(loggingChannel.p, ILoggingChannel, p0):
-      it.call(ILoggingSession_AddLoggingChannel, p0)
+      check it.vtbl.AddLoggingChannel(it, p0
+                                     ), "LoggingSession.AddLoggingChannel"
 
 proc addLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel,
                         maxLevel: LoggingLevel) =
   ## Windows.Foundation.Diagnostics.LoggingSession.AddLoggingChannel
   withIface(self.p, ILoggingSession, it):
     withIface(loggingChannel.p, ILoggingChannel, p0):
-      it.call(ILoggingSession_AddLoggingChannel2, p0, maxLevel)
+      check it.vtbl.AddLoggingChannel2(it, p0, maxLevel
+                                      ), "LoggingSession.AddLoggingChannel"
 
 proc removeLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel
                           ) =
   ## Windows.Foundation.Diagnostics.LoggingSession.RemoveLoggingChannel
   withIface(self.p, ILoggingSession, it):
     withIface(loggingChannel.p, ILoggingChannel, p0):
-      it.call(ILoggingSession_RemoveLoggingChannel, p0)
+      check it.vtbl.RemoveLoggingChannel(it, p0
+                                        ), "LoggingSession.RemoveLoggingChannel"
 
 proc close*(self: LoggingSession) =
   ## Windows.Foundation.Diagnostics.LoggingSession.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "LoggingSession.Close"
 
 proc create*(_: typedesc[LoggingSession], name: string): LoggingSession =
   ## Windows.Foundation.Diagnostics.LoggingSession.Create
@@ -1684,7 +1742,7 @@ proc create*(_: typedesc[LoggingSession], name: string): LoggingSession =
               ILoggingSessionFactory, it):
     withHString(name, h0):
       var tmp: pointer
-      it.call(ILoggingSessionFactory_Create, h0, tmp.addr)
+      check it.vtbl.Create(it, h0, tmp.addr), "LoggingSession.Create"
       result = adopt[LoggingSession](tmp)
 
 proc newRuntimeBrokerErrorSettings*(): RuntimeBrokerErrorSettings =
@@ -1694,42 +1752,38 @@ proc newRuntimeBrokerErrorSettings*(): RuntimeBrokerErrorSettings =
 proc setErrorOptions*(self: RuntimeBrokerErrorSettings, value: ErrorOptions) =
   ## Windows.Foundation.Diagnostics.RuntimeBrokerErrorSettings.SetErrorOptions
   withIface(self.p, IErrorReportingSettings, it):
-    it.call(IErrorReportingSettings_SetErrorOptions, value)
+    check it.vtbl.SetErrorOptions(it, value
+                                 ), "RuntimeBrokerErrorSettings.SetErrorOptions"
 
 proc getErrorOptions*(self: RuntimeBrokerErrorSettings): ErrorOptions =
   ## Windows.Foundation.Diagnostics.RuntimeBrokerErrorSettings.GetErrorOptions
   withIface(self.p, IErrorReportingSettings, it):
     var tmp: ErrorOptions
-    it.call(IErrorReportingSettings_GetErrorOptions, tmp.addr)
+    check it.vtbl.GetErrorOptions(it, tmp.addr
+                                 ), "RuntimeBrokerErrorSettings.GetErrorOptions"
     result = tmp
 
 proc enabled*(self: TracingStatusChangedEventArgs): bool =
   ## Windows.Foundation.Diagnostics.TracingStatusChangedEventArgs.get_Enabled
   withIface(self.p, ITracingStatusChangedEventArgs, it):
-    var tmp: bool
-    it.call(ITracingStatusChangedEventArgs_get_Enabled, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Enabled, bool)
 
 proc traceLevel*(self: TracingStatusChangedEventArgs): CausalityTraceLevel =
   ## Windows.Foundation.Diagnostics.TracingStatusChangedEventArgs.get_TraceLevel
   withIface(self.p, ITracingStatusChangedEventArgs, it):
-    var tmp: CausalityTraceLevel
-    it.call(ITracingStatusChangedEventArgs_get_TraceLevel, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TraceLevel, CausalityTraceLevel)
 
 proc createNewGuid*(_: typedesc[GuidHelper]): GUID =
   ## Windows.Foundation.GuidHelper.CreateNewGuid
   withStatics("Windows.Foundation.GuidHelper", IGuidHelperStatics, it):
     var tmp: GUID
-    it.call(IGuidHelperStatics_CreateNewGuid, tmp.addr)
+    check it.vtbl.CreateNewGuid(it, tmp.addr), "GuidHelper.CreateNewGuid"
     result = tmp
 
 proc empty*(_: typedesc[GuidHelper]): GUID =
   ## Windows.Foundation.GuidHelper.get_Empty
   withStatics("Windows.Foundation.GuidHelper", IGuidHelperStatics, it):
-    var tmp: GUID
-    it.call(IGuidHelperStatics_get_Empty, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Empty, GUID)
 
 proc equals*(_: typedesc[GuidHelper], target: GUID, value: GUID): bool =
   ## Windows.Foundation.GuidHelper.Equals
@@ -1737,26 +1791,26 @@ proc equals*(_: typedesc[GuidHelper], target: GUID, value: GUID): bool =
     var by0 = target
     var by1 = value
     var tmp: bool
-    it.call(IGuidHelperStatics_Equals, by0.addr, by1.addr, tmp.addr)
+    check it.vtbl.Equals(it, by0.addr, by1.addr, tmp.addr), "GuidHelper.Equals"
     result = tmp
 
 proc createReference*(self: MemoryBuffer): WinRtObject =
   ## Windows.Foundation.MemoryBuffer.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr), "MemoryBuffer.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: MemoryBuffer) =
   ## Windows.Foundation.MemoryBuffer.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "MemoryBuffer.Close"
 
 proc create*(_: typedesc[MemoryBuffer], capacity: uint32): MemoryBuffer =
   ## Windows.Foundation.MemoryBuffer.Create
   withStatics("Windows.Foundation.MemoryBuffer", IMemoryBufferFactory, it):
     var tmp: pointer
-    it.call(IMemoryBufferFactory_Create, capacity, tmp.addr)
+    check it.vtbl.Create(it, capacity, tmp.addr), "MemoryBuffer.Create"
     result = adopt[MemoryBuffer](tmp)
 
 proc isTypePresent*(_: typedesc[ApiInformation], typeName: string): bool =
@@ -1765,7 +1819,8 @@ proc isTypePresent*(_: typedesc[ApiInformation], typeName: string): bool =
               IApiInformationStatics, it):
     withHString(typeName, h0):
       var tmp: bool
-      it.call(IApiInformationStatics_IsTypePresent, h0, tmp.addr)
+      check it.vtbl.IsTypePresent(it, h0, tmp.addr
+                                 ), "ApiInformation.IsTypePresent"
       result = tmp
 
 proc isMethodPresent*(_: typedesc[ApiInformation], typeName: string,
@@ -1776,7 +1831,8 @@ proc isMethodPresent*(_: typedesc[ApiInformation], typeName: string,
     withHString(typeName, h0):
       withHString(methodName, h1):
         var tmp: bool
-        it.call(IApiInformationStatics_IsMethodPresent, h0, h1, tmp.addr)
+        check it.vtbl.IsMethodPresent(it, h0, h1, tmp.addr
+                                     ), "ApiInformation.IsMethodPresent"
         result = tmp
 
 proc isMethodPresent*(_: typedesc[ApiInformation], typeName: string,
@@ -1787,8 +1843,8 @@ proc isMethodPresent*(_: typedesc[ApiInformation], typeName: string,
     withHString(typeName, h0):
       withHString(methodName, h1):
         var tmp: bool
-        it.call(IApiInformationStatics_IsMethodPresent2, h0, h1,
-                inputParameterCount, tmp.addr)
+        check it.vtbl.IsMethodPresent2(it, h0, h1, inputParameterCount, tmp.addr
+                                      ), "ApiInformation.IsMethodPresent"
         result = tmp
 
 proc isEventPresent*(_: typedesc[ApiInformation], typeName: string,
@@ -1799,7 +1855,8 @@ proc isEventPresent*(_: typedesc[ApiInformation], typeName: string,
     withHString(typeName, h0):
       withHString(eventName, h1):
         var tmp: bool
-        it.call(IApiInformationStatics_IsEventPresent, h0, h1, tmp.addr)
+        check it.vtbl.IsEventPresent(it, h0, h1, tmp.addr
+                                    ), "ApiInformation.IsEventPresent"
         result = tmp
 
 proc isPropertyPresent*(_: typedesc[ApiInformation], typeName: string,
@@ -1810,7 +1867,8 @@ proc isPropertyPresent*(_: typedesc[ApiInformation], typeName: string,
     withHString(typeName, h0):
       withHString(propertyName, h1):
         var tmp: bool
-        it.call(IApiInformationStatics_IsPropertyPresent, h0, h1, tmp.addr)
+        check it.vtbl.IsPropertyPresent(it, h0, h1, tmp.addr
+                                       ), "ApiInformation.IsPropertyPresent"
         result = tmp
 
 proc isReadOnlyPropertyPresent*(_: typedesc[ApiInformation], typeName: string,
@@ -1821,8 +1879,8 @@ proc isReadOnlyPropertyPresent*(_: typedesc[ApiInformation], typeName: string,
     withHString(typeName, h0):
       withHString(propertyName, h1):
         var tmp: bool
-        it.call(IApiInformationStatics_IsReadOnlyPropertyPresent, h0, h1,
-                tmp.addr)
+        check it.vtbl.IsReadOnlyPropertyPresent(it, h0, h1, tmp.addr
+                                               ), "ApiInformation.IsReadOnlyPropertyPresent"
         result = tmp
 
 proc isWriteablePropertyPresent*(_: typedesc[ApiInformation], typeName: string,
@@ -1833,8 +1891,8 @@ proc isWriteablePropertyPresent*(_: typedesc[ApiInformation], typeName: string,
     withHString(typeName, h0):
       withHString(propertyName, h1):
         var tmp: bool
-        it.call(IApiInformationStatics_IsWriteablePropertyPresent, h0, h1,
-                tmp.addr)
+        check it.vtbl.IsWriteablePropertyPresent(it, h0, h1, tmp.addr
+                                                ), "ApiInformation.IsWriteablePropertyPresent"
         result = tmp
 
 proc isEnumNamedValuePresent*(_: typedesc[ApiInformation], enumTypeName: string,
@@ -1845,8 +1903,8 @@ proc isEnumNamedValuePresent*(_: typedesc[ApiInformation], enumTypeName: string,
     withHString(enumTypeName, h0):
       withHString(valueName, h1):
         var tmp: bool
-        it.call(IApiInformationStatics_IsEnumNamedValuePresent, h0, h1, tmp.addr
-               )
+        check it.vtbl.IsEnumNamedValuePresent(it, h0, h1, tmp.addr
+                                             ), "ApiInformation.IsEnumNamedValuePresent"
         result = tmp
 
 proc isApiContractPresent*(_: typedesc[ApiInformation], contractName: string,
@@ -1856,8 +1914,8 @@ proc isApiContractPresent*(_: typedesc[ApiInformation], contractName: string,
               IApiInformationStatics, it):
     withHString(contractName, h0):
       var tmp: bool
-      it.call(IApiInformationStatics_IsApiContractPresent, h0, majorVersion,
-              tmp.addr)
+      check it.vtbl.IsApiContractPresent(it, h0, majorVersion, tmp.addr
+                                        ), "ApiInformation.IsApiContractPresent"
       result = tmp
 
 proc isApiContractPresent*(_: typedesc[ApiInformation], contractName: string,
@@ -1867,92 +1925,100 @@ proc isApiContractPresent*(_: typedesc[ApiInformation], contractName: string,
               IApiInformationStatics, it):
     withHString(contractName, h0):
       var tmp: bool
-      it.call(IApiInformationStatics_IsApiContractPresent2, h0, majorVersion,
-              minorVersion, tmp.addr)
+      check it.vtbl.IsApiContractPresent2(it, h0, majorVersion, minorVersion,
+                                          tmp.addr
+                                         ), "ApiInformation.IsApiContractPresent"
       result = tmp
 
 proc createEmpty*(_: typedesc[PropertyValue]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateEmpty
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateEmpty, tmp.addr)
+    check it.vtbl.CreateEmpty(it, tmp.addr), "PropertyValue.CreateEmpty"
     result = adopt[WinRtObject](tmp)
 
 proc createUInt8*(_: typedesc[PropertyValue], value: uint8): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt8
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateUInt8, value, tmp.addr)
+    check it.vtbl.CreateUInt8(it, value, tmp.addr), "PropertyValue.CreateUInt8"
     result = adopt[WinRtObject](tmp)
 
 proc createInt16*(_: typedesc[PropertyValue], value: int16): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInt16
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateInt16, value, tmp.addr)
+    check it.vtbl.CreateInt16(it, value, tmp.addr), "PropertyValue.CreateInt16"
     result = adopt[WinRtObject](tmp)
 
 proc createUInt16*(_: typedesc[PropertyValue], value: uint16): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt16
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateUInt16, value, tmp.addr)
+    check it.vtbl.CreateUInt16(it, value, tmp.addr
+                              ), "PropertyValue.CreateUInt16"
     result = adopt[WinRtObject](tmp)
 
 proc createInt32*(_: typedesc[PropertyValue], value: int32): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInt32
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateInt32, value, tmp.addr)
+    check it.vtbl.CreateInt32(it, value, tmp.addr), "PropertyValue.CreateInt32"
     result = adopt[WinRtObject](tmp)
 
 proc createUInt32*(_: typedesc[PropertyValue], value: uint32): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt32
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateUInt32, value, tmp.addr)
+    check it.vtbl.CreateUInt32(it, value, tmp.addr
+                              ), "PropertyValue.CreateUInt32"
     result = adopt[WinRtObject](tmp)
 
 proc createInt64*(_: typedesc[PropertyValue], value: int64): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInt64
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateInt64, value, tmp.addr)
+    check it.vtbl.CreateInt64(it, value, tmp.addr), "PropertyValue.CreateInt64"
     result = adopt[WinRtObject](tmp)
 
 proc createUInt64*(_: typedesc[PropertyValue], value: uint64): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt64
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateUInt64, value, tmp.addr)
+    check it.vtbl.CreateUInt64(it, value, tmp.addr
+                              ), "PropertyValue.CreateUInt64"
     result = adopt[WinRtObject](tmp)
 
 proc createSingle*(_: typedesc[PropertyValue], value: float32): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateSingle
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateSingle, value, tmp.addr)
+    check it.vtbl.CreateSingle(it, value, tmp.addr
+                              ), "PropertyValue.CreateSingle"
     result = adopt[WinRtObject](tmp)
 
 proc createDouble*(_: typedesc[PropertyValue], value: float64): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateDouble
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateDouble, value, tmp.addr)
+    check it.vtbl.CreateDouble(it, value, tmp.addr
+                              ), "PropertyValue.CreateDouble"
     result = adopt[WinRtObject](tmp)
 
 proc createChar16*(_: typedesc[PropertyValue], value: uint16): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateChar16
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateChar16, value, tmp.addr)
+    check it.vtbl.CreateChar16(it, value, tmp.addr
+                              ), "PropertyValue.CreateChar16"
     result = adopt[WinRtObject](tmp)
 
 proc createBoolean*(_: typedesc[PropertyValue], value: bool): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateBoolean
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateBoolean, value, tmp.addr)
+    check it.vtbl.CreateBoolean(it, value, tmp.addr
+                               ), "PropertyValue.CreateBoolean"
     result = adopt[WinRtObject](tmp)
 
 proc createString*(_: typedesc[PropertyValue], value: string): WinRtObject =
@@ -1960,7 +2026,7 @@ proc createString*(_: typedesc[PropertyValue], value: string): WinRtObject =
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     withHString(value, h0):
       var tmp: pointer
-      it.call(IPropertyValueStatics_CreateString, h0, tmp.addr)
+      check it.vtbl.CreateString(it, h0, tmp.addr), "PropertyValue.CreateString"
       result = adopt[WinRtObject](tmp)
 
 proc createInspectable*(_: typedesc[PropertyValue], value: WinRtObject
@@ -1968,49 +2034,52 @@ proc createInspectable*(_: typedesc[PropertyValue], value: WinRtObject
   ## Windows.Foundation.PropertyValue.CreateInspectable
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateInspectable, value.p, tmp.addr)
+    check it.vtbl.CreateInspectable(it, value.p, tmp.addr
+                                   ), "PropertyValue.CreateInspectable"
     result = adopt[WinRtObject](tmp)
 
 proc createGuid*(_: typedesc[PropertyValue], value: GUID): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateGuid
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateGuid, value, tmp.addr)
+    check it.vtbl.CreateGuid(it, value, tmp.addr), "PropertyValue.CreateGuid"
     result = adopt[WinRtObject](tmp)
 
 proc createDateTime*(_: typedesc[PropertyValue], value: DateTime): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateDateTime
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateDateTime, value, tmp.addr)
+    check it.vtbl.CreateDateTime(it, value, tmp.addr
+                                ), "PropertyValue.CreateDateTime"
     result = adopt[WinRtObject](tmp)
 
 proc createTimeSpan*(_: typedesc[PropertyValue], value: TimeSpan): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateTimeSpan
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateTimeSpan, value, tmp.addr)
+    check it.vtbl.CreateTimeSpan(it, value, tmp.addr
+                                ), "PropertyValue.CreateTimeSpan"
     result = adopt[WinRtObject](tmp)
 
 proc createPoint*(_: typedesc[PropertyValue], value: Point): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreatePoint
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreatePoint, value, tmp.addr)
+    check it.vtbl.CreatePoint(it, value, tmp.addr), "PropertyValue.CreatePoint"
     result = adopt[WinRtObject](tmp)
 
 proc createSize*(_: typedesc[PropertyValue], value: Size): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateSize
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateSize, value, tmp.addr)
+    check it.vtbl.CreateSize(it, value, tmp.addr), "PropertyValue.CreateSize"
     result = adopt[WinRtObject](tmp)
 
 proc createRect*(_: typedesc[PropertyValue], value: Rect): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateRect
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateRect, value, tmp.addr)
+    check it.vtbl.CreateRect(it, value, tmp.addr), "PropertyValue.CreateRect"
     result = adopt[WinRtObject](tmp)
 
 proc createUInt8Array*(_: typedesc[PropertyValue], value: openArray[uint8]
@@ -2020,7 +2089,8 @@ proc createUInt8Array*(_: typedesc[PropertyValue], value: openArray[uint8]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateUInt8Array, n0, d0, tmp.addr)
+    check it.vtbl.CreateUInt8Array(it, n0, d0, tmp.addr
+                                  ), "PropertyValue.CreateUInt8Array"
     result = adopt[WinRtObject](tmp)
 
 proc createInt16Array*(_: typedesc[PropertyValue], value: openArray[int16]
@@ -2030,7 +2100,8 @@ proc createInt16Array*(_: typedesc[PropertyValue], value: openArray[int16]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateInt16Array, n0, d0, tmp.addr)
+    check it.vtbl.CreateInt16Array(it, n0, d0, tmp.addr
+                                  ), "PropertyValue.CreateInt16Array"
     result = adopt[WinRtObject](tmp)
 
 proc createUInt16Array*(_: typedesc[PropertyValue], value: openArray[uint16]
@@ -2040,7 +2111,8 @@ proc createUInt16Array*(_: typedesc[PropertyValue], value: openArray[uint16]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateUInt16Array, n0, d0, tmp.addr)
+    check it.vtbl.CreateUInt16Array(it, n0, d0, tmp.addr
+                                   ), "PropertyValue.CreateUInt16Array"
     result = adopt[WinRtObject](tmp)
 
 proc createInt32Array*(_: typedesc[PropertyValue], value: openArray[int32]
@@ -2050,7 +2122,8 @@ proc createInt32Array*(_: typedesc[PropertyValue], value: openArray[int32]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateInt32Array, n0, d0, tmp.addr)
+    check it.vtbl.CreateInt32Array(it, n0, d0, tmp.addr
+                                  ), "PropertyValue.CreateInt32Array"
     result = adopt[WinRtObject](tmp)
 
 proc createUInt32Array*(_: typedesc[PropertyValue], value: openArray[uint32]
@@ -2060,7 +2133,8 @@ proc createUInt32Array*(_: typedesc[PropertyValue], value: openArray[uint32]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateUInt32Array, n0, d0, tmp.addr)
+    check it.vtbl.CreateUInt32Array(it, n0, d0, tmp.addr
+                                   ), "PropertyValue.CreateUInt32Array"
     result = adopt[WinRtObject](tmp)
 
 proc createInt64Array*(_: typedesc[PropertyValue], value: openArray[int64]
@@ -2070,7 +2144,8 @@ proc createInt64Array*(_: typedesc[PropertyValue], value: openArray[int64]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateInt64Array, n0, d0, tmp.addr)
+    check it.vtbl.CreateInt64Array(it, n0, d0, tmp.addr
+                                  ), "PropertyValue.CreateInt64Array"
     result = adopt[WinRtObject](tmp)
 
 proc createUInt64Array*(_: typedesc[PropertyValue], value: openArray[uint64]
@@ -2080,7 +2155,8 @@ proc createUInt64Array*(_: typedesc[PropertyValue], value: openArray[uint64]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateUInt64Array, n0, d0, tmp.addr)
+    check it.vtbl.CreateUInt64Array(it, n0, d0, tmp.addr
+                                   ), "PropertyValue.CreateUInt64Array"
     result = adopt[WinRtObject](tmp)
 
 proc createSingleArray*(_: typedesc[PropertyValue], value: openArray[float32]
@@ -2090,7 +2166,8 @@ proc createSingleArray*(_: typedesc[PropertyValue], value: openArray[float32]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateSingleArray, n0, d0, tmp.addr)
+    check it.vtbl.CreateSingleArray(it, n0, d0, tmp.addr
+                                   ), "PropertyValue.CreateSingleArray"
     result = adopt[WinRtObject](tmp)
 
 proc createDoubleArray*(_: typedesc[PropertyValue], value: openArray[float64]
@@ -2100,7 +2177,8 @@ proc createDoubleArray*(_: typedesc[PropertyValue], value: openArray[float64]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateDoubleArray, n0, d0, tmp.addr)
+    check it.vtbl.CreateDoubleArray(it, n0, d0, tmp.addr
+                                   ), "PropertyValue.CreateDoubleArray"
     result = adopt[WinRtObject](tmp)
 
 proc createChar16Array*(_: typedesc[PropertyValue], value: openArray[uint16]
@@ -2110,7 +2188,8 @@ proc createChar16Array*(_: typedesc[PropertyValue], value: openArray[uint16]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateChar16Array, n0, d0, tmp.addr)
+    check it.vtbl.CreateChar16Array(it, n0, d0, tmp.addr
+                                   ), "PropertyValue.CreateChar16Array"
     result = adopt[WinRtObject](tmp)
 
 proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]
@@ -2120,7 +2199,8 @@ proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateBooleanArray, n0, d0, tmp.addr)
+    check it.vtbl.CreateBooleanArray(it, n0, d0, tmp.addr
+                                    ), "PropertyValue.CreateBooleanArray"
     result = adopt[WinRtObject](tmp)
 
 proc createStringArray*(_: typedesc[PropertyValue], value: openArray[string]
@@ -2129,7 +2209,8 @@ proc createStringArray*(_: typedesc[PropertyValue], value: openArray[string]
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     withStringArray(value, n0, d0):
       var tmp: pointer
-      it.call(IPropertyValueStatics_CreateStringArray, n0, d0, tmp.addr)
+      check it.vtbl.CreateStringArray(it, n0, d0, tmp.addr
+                                     ), "PropertyValue.CreateStringArray"
       result = adopt[WinRtObject](tmp)
 
 proc createInspectableArray*(_: typedesc[PropertyValue],
@@ -2138,7 +2219,8 @@ proc createInspectableArray*(_: typedesc[PropertyValue],
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     withObjectArray(value, IID_IInspectable, n0, d0):
       var tmp: pointer
-      it.call(IPropertyValueStatics_CreateInspectableArray, n0, d0, tmp.addr)
+      check it.vtbl.CreateInspectableArray(it, n0, d0, tmp.addr
+                                          ), "PropertyValue.CreateInspectableArray"
       result = adopt[WinRtObject](tmp)
 
 proc createGuidArray*(_: typedesc[PropertyValue], value: openArray[GUID]
@@ -2148,7 +2230,8 @@ proc createGuidArray*(_: typedesc[PropertyValue], value: openArray[GUID]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateGuidArray, n0, d0, tmp.addr)
+    check it.vtbl.CreateGuidArray(it, n0, d0, tmp.addr
+                                 ), "PropertyValue.CreateGuidArray"
     result = adopt[WinRtObject](tmp)
 
 proc createDateTimeArray*(_: typedesc[PropertyValue], value: openArray[DateTime]
@@ -2158,7 +2241,8 @@ proc createDateTimeArray*(_: typedesc[PropertyValue], value: openArray[DateTime]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateDateTimeArray, n0, d0, tmp.addr)
+    check it.vtbl.CreateDateTimeArray(it, n0, d0, tmp.addr
+                                     ), "PropertyValue.CreateDateTimeArray"
     result = adopt[WinRtObject](tmp)
 
 proc createTimeSpanArray*(_: typedesc[PropertyValue], value: openArray[TimeSpan]
@@ -2168,7 +2252,8 @@ proc createTimeSpanArray*(_: typedesc[PropertyValue], value: openArray[TimeSpan]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateTimeSpanArray, n0, d0, tmp.addr)
+    check it.vtbl.CreateTimeSpanArray(it, n0, d0, tmp.addr
+                                     ), "PropertyValue.CreateTimeSpanArray"
     result = adopt[WinRtObject](tmp)
 
 proc createPointArray*(_: typedesc[PropertyValue], value: openArray[Point]
@@ -2178,7 +2263,8 @@ proc createPointArray*(_: typedesc[PropertyValue], value: openArray[Point]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreatePointArray, n0, d0, tmp.addr)
+    check it.vtbl.CreatePointArray(it, n0, d0, tmp.addr
+                                  ), "PropertyValue.CreatePointArray"
     result = adopt[WinRtObject](tmp)
 
 proc createSizeArray*(_: typedesc[PropertyValue], value: openArray[Size]
@@ -2188,7 +2274,8 @@ proc createSizeArray*(_: typedesc[PropertyValue], value: openArray[Size]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateSizeArray, n0, d0, tmp.addr)
+    check it.vtbl.CreateSizeArray(it, n0, d0, tmp.addr
+                                 ), "PropertyValue.CreateSizeArray"
     result = adopt[WinRtObject](tmp)
 
 proc createRectArray*(_: typedesc[PropertyValue], value: openArray[Rect]
@@ -2198,120 +2285,91 @@ proc createRectArray*(_: typedesc[PropertyValue], value: openArray[Rect]
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(IPropertyValueStatics_CreateRectArray, n0, d0, tmp.addr)
+    check it.vtbl.CreateRectArray(it, n0, d0, tmp.addr
+                                 ), "PropertyValue.CreateRectArray"
     result = adopt[WinRtObject](tmp)
 
 proc absoluteUri*(self: Uri): string =
   ## Windows.Foundation.Uri.get_AbsoluteUri
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClass_get_AbsoluteUri, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AbsoluteUri)
 
 proc displayUri*(self: Uri): string =
   ## Windows.Foundation.Uri.get_DisplayUri
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClass_get_DisplayUri, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayUri)
 
 proc domain*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Domain
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClass_get_Domain, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Domain)
 
 proc extension*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Extension
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClass_get_Extension, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Extension)
 
 proc fragment*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Fragment
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClass_get_Fragment, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Fragment)
 
 proc host*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Host
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClass_get_Host, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Host)
 
 proc password*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Password
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClass_get_Password, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Password)
 
 proc path*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Path
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClass_get_Path, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Path)
 
 proc query*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Query
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClass_get_Query, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Query)
 
 proc queryParsed*(self: Uri): WwwFormUrlDecoder =
   ## Windows.Foundation.Uri.get_QueryParsed
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: pointer
-    it.call(IUriRuntimeClass_get_QueryParsed, tmp.addr)
-    result = adopt[WwwFormUrlDecoder](tmp)
+    result = it.getObject(get_QueryParsed, WwwFormUrlDecoder)
 
 proc rawUri*(self: Uri): string =
   ## Windows.Foundation.Uri.get_RawUri
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClass_get_RawUri, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_RawUri)
 
 proc schemeName*(self: Uri): string =
   ## Windows.Foundation.Uri.get_SchemeName
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClass_get_SchemeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SchemeName)
 
 proc userName*(self: Uri): string =
   ## Windows.Foundation.Uri.get_UserName
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClass_get_UserName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_UserName)
 
 proc port*(self: Uri): int32 =
   ## Windows.Foundation.Uri.get_Port
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: int32
-    it.call(IUriRuntimeClass_get_Port, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Port, int32)
 
 proc suspicious*(self: Uri): bool =
   ## Windows.Foundation.Uri.get_Suspicious
   withIface(self.p, IUriRuntimeClass, it):
-    var tmp: bool
-    it.call(IUriRuntimeClass_get_Suspicious, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Suspicious, bool)
 
 proc equals*(self: Uri, pUri: Uri): bool =
   ## Windows.Foundation.Uri.Equals
   withIface(self.p, IUriRuntimeClass, it):
     withIface(pUri.p, IUriRuntimeClass, p0):
       var tmp: bool
-      it.call(IUriRuntimeClass_Equals, p0, tmp.addr)
+      check it.vtbl.Equals(it, p0, tmp.addr), "Uri.Equals"
       result = tmp
 
 proc combineUri*(self: Uri, relativeUri: string): Uri =
@@ -2319,29 +2377,24 @@ proc combineUri*(self: Uri, relativeUri: string): Uri =
   withIface(self.p, IUriRuntimeClass, it):
     withHString(relativeUri, h0):
       var tmp: pointer
-      it.call(IUriRuntimeClass_CombineUri, h0, tmp.addr)
+      check it.vtbl.CombineUri(it, h0, tmp.addr), "Uri.CombineUri"
       result = adopt[Uri](tmp)
 
 proc absoluteCanonicalUri*(self: Uri): string =
   ## Windows.Foundation.Uri.get_AbsoluteCanonicalUri
   withIface(self.p, IUriRuntimeClassWithAbsoluteCanonicalUri, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClassWithAbsoluteCanonicalUri_get_AbsoluteCanonicalUri,
-            tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AbsoluteCanonicalUri)
 
 proc displayIri*(self: Uri): string =
   ## Windows.Foundation.Uri.get_DisplayIri
   withIface(self.p, IUriRuntimeClassWithAbsoluteCanonicalUri, it):
-    var tmp: HSTRING
-    it.call(IUriRuntimeClassWithAbsoluteCanonicalUri_get_DisplayIri, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayIri)
 
 proc toString*(self: Uri): string =
   ## Windows.Foundation.Uri.ToString
   withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    it.call(IStringable_ToString, tmp.addr)
+    check it.vtbl.ToString(it, tmp.addr), "Uri.ToString"
     result = takeString(tmp)
 
 proc unescapeComponent*(_: typedesc[Uri], toUnescape: string): string =
@@ -2349,7 +2402,7 @@ proc unescapeComponent*(_: typedesc[Uri], toUnescape: string): string =
   withStatics("Windows.Foundation.Uri", IUriEscapeStatics, it):
     withHString(toUnescape, h0):
       var tmp: HSTRING
-      it.call(IUriEscapeStatics_UnescapeComponent, h0, tmp.addr)
+      check it.vtbl.UnescapeComponent(it, h0, tmp.addr), "Uri.UnescapeComponent"
       result = takeString(tmp)
 
 proc escapeComponent*(_: typedesc[Uri], toEscape: string): string =
@@ -2357,7 +2410,7 @@ proc escapeComponent*(_: typedesc[Uri], toEscape: string): string =
   withStatics("Windows.Foundation.Uri", IUriEscapeStatics, it):
     withHString(toEscape, h0):
       var tmp: HSTRING
-      it.call(IUriEscapeStatics_EscapeComponent, h0, tmp.addr)
+      check it.vtbl.EscapeComponent(it, h0, tmp.addr), "Uri.EscapeComponent"
       result = takeString(tmp)
 
 proc createUri*(_: typedesc[Uri], uri: string): Uri =
@@ -2365,7 +2418,7 @@ proc createUri*(_: typedesc[Uri], uri: string): Uri =
   withStatics("Windows.Foundation.Uri", IUriRuntimeClassFactory, it):
     withHString(uri, h0):
       var tmp: pointer
-      it.call(IUriRuntimeClassFactory_CreateUri, h0, tmp.addr)
+      check it.vtbl.CreateUri(it, h0, tmp.addr), "Uri.CreateUri"
       result = adopt[Uri](tmp)
 
 proc createWithRelativeUri*(_: typedesc[Uri], baseUri: string,
@@ -2375,7 +2428,8 @@ proc createWithRelativeUri*(_: typedesc[Uri], baseUri: string,
     withHString(baseUri, h0):
       withHString(relativeUri, h1):
         var tmp: pointer
-        it.call(IUriRuntimeClassFactory_CreateWithRelativeUri, h0, h1, tmp.addr)
+        check it.vtbl.CreateWithRelativeUri(it, h0, h1, tmp.addr
+                                           ), "Uri.CreateWithRelativeUri"
         result = adopt[Uri](tmp)
 
 proc getFirstValueByName*(self: WwwFormUrlDecoder, name: string): string =
@@ -2383,7 +2437,8 @@ proc getFirstValueByName*(self: WwwFormUrlDecoder, name: string): string =
   withIface(self.p, IWwwFormUrlDecoderRuntimeClass, it):
     withHString(name, h0):
       var tmp: HSTRING
-      it.call(IWwwFormUrlDecoderRuntimeClass_GetFirstValueByName, h0, tmp.addr)
+      check it.vtbl.GetFirstValueByName(it, h0, tmp.addr
+                                       ), "WwwFormUrlDecoder.GetFirstValueByName"
       result = takeString(tmp)
 
 proc createWwwFormUrlDecoder*(_: typedesc[WwwFormUrlDecoder], query: string
@@ -2393,21 +2448,17 @@ proc createWwwFormUrlDecoder*(_: typedesc[WwwFormUrlDecoder], query: string
               IWwwFormUrlDecoderRuntimeClassFactory, it):
     withHString(query, h0):
       var tmp: pointer
-      it.call(IWwwFormUrlDecoderRuntimeClassFactory_CreateWwwFormUrlDecoder, h0,
-              tmp.addr)
+      check it.vtbl.CreateWwwFormUrlDecoder(it, h0, tmp.addr
+                                           ), "WwwFormUrlDecoder.CreateWwwFormUrlDecoder"
       result = adopt[WwwFormUrlDecoder](tmp)
 
 proc name*(self: WwwFormUrlDecoderEntry): string =
   ## Windows.Foundation.WwwFormUrlDecoderEntry.get_Name
   withIface(self.p, IWwwFormUrlDecoderEntry, it):
-    var tmp: HSTRING
-    it.call(IWwwFormUrlDecoderEntry_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc value*(self: WwwFormUrlDecoderEntry): string =
   ## Windows.Foundation.WwwFormUrlDecoderEntry.get_Value
   withIface(self.p, IWwwFormUrlDecoderEntry, it):
-    var tmp: HSTRING
-    it.call(IWwwFormUrlDecoderEntry_get_Value, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Value)
 

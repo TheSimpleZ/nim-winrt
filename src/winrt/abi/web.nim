@@ -3,12 +3,10 @@
 ## Source:    Windows.winmd
 ## Namespace: Windows.Web
 ##
-## Slot numbers are vtable indices. WinRT interfaces begin with
-## IInspectable's six slots, so the first declared method is slot 6;
-## delegates derive from IUnknown and begin at slot 3.
-##
-## Every method returns HRESULT and its declared return type becomes
-## a trailing out-parameter.
+## Each interface is its vtable: an object whose fields are the
+## methods in declaration order, after IInspectable's six (IUnknown's
+## three for a delegate). Every method returns HRESULT and its
+## declared return type becomes a trailing out-parameter.
 
 import std/hashes
 export hashes
@@ -20,2796 +18,1830 @@ export types
 
 ## Windows.Web.AtomPub.IAtomPubClient
 const IID_IAtomPubClient* = guid"35392C38-CDED-4D4C-9637-05F15C1C9406"
-const Slot_IAtomPubClient_RetrieveServiceDocumentAsync* = 6
-type Fn_IAtomPubClient_RetrieveServiceDocumentAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAtomPubClient_RetrieveMediaResourceAsync* = 7
-type Fn_IAtomPubClient_RetrieveMediaResourceAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAtomPubClient_RetrieveResourceAsync* = 8
-type Fn_IAtomPubClient_RetrieveResourceAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAtomPubClient_CreateResourceAsync* = 9
-type Fn_IAtomPubClient_CreateResourceAsync* =
-  proc(self: pointer, a1Uri: pointer, a2: HSTRING, a3SyndicationItem: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IAtomPubClient_CreateMediaResourceAsync* = 10
-type Fn_IAtomPubClient_CreateMediaResourceAsync* =
-  proc(self: pointer, a1Uri: pointer, a2: HSTRING, a3: HSTRING,
-       a4IInputStream: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAtomPubClient_UpdateMediaResourceAsync* = 11
-type Fn_IAtomPubClient_UpdateMediaResourceAsync* =
-  proc(self: pointer, a1Uri: pointer, a2: HSTRING, a3IInputStream: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IAtomPubClient_UpdateResourceAsync* = 12
-type Fn_IAtomPubClient_UpdateResourceAsync* =
-  proc(self: pointer, a1Uri: pointer, a2SyndicationItem: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IAtomPubClient_UpdateResourceItemAsync* = 13
-type Fn_IAtomPubClient_UpdateResourceItemAsync* =
-  proc(self: pointer, a1SyndicationItem: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IAtomPubClient_DeleteResourceAsync* = 14
-type Fn_IAtomPubClient_DeleteResourceAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAtomPubClient_DeleteResourceItemAsync* = 15
-type Fn_IAtomPubClient_DeleteResourceItemAsync* =
-  proc(self: pointer, a1SyndicationItem: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IAtomPubClient_CancelAsyncOperations* = 16
-type Fn_IAtomPubClient_CancelAsyncOperations* =
-  proc(self: pointer): HRESULT {.abi.}
+type IAtomPubClientVtbl* = object of IInspectableVtbl
+  RetrieveServiceDocumentAsync*: proc(self: pointer, a1Uri: pointer,
+                                      value: ptr pointer): HRESULT {.abi.}
+  RetrieveMediaResourceAsync*: proc(self: pointer, a1Uri: pointer,
+                                    value: ptr pointer): HRESULT {.abi.}
+  RetrieveResourceAsync*: proc(self: pointer, a1Uri: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
+  CreateResourceAsync*: proc(self: pointer, a1Uri: pointer, a2: HSTRING,
+                             a3SyndicationItem: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  CreateMediaResourceAsync*: proc(self: pointer, a1Uri: pointer, a2: HSTRING,
+                                  a3: HSTRING, a4IInputStream: pointer,
+                                  value: ptr pointer): HRESULT {.abi.}
+  UpdateMediaResourceAsync*: proc(self: pointer, a1Uri: pointer, a2: HSTRING,
+                                  a3IInputStream: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
+  UpdateResourceAsync*: proc(self: pointer, a1Uri: pointer,
+                             a2SyndicationItem: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  UpdateResourceItemAsync*: proc(self: pointer, a1SyndicationItem: pointer,
+                                 value: ptr pointer): HRESULT {.abi.}
+  DeleteResourceAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  DeleteResourceItemAsync*: proc(self: pointer, a1SyndicationItem: pointer,
+                                 value: ptr pointer): HRESULT {.abi.}
+  CancelAsyncOperations*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.Web.AtomPub.IAtomPubClientFactory
 const IID_IAtomPubClientFactory* = guid"49D55012-57CB-4BDE-AB9F-2610B172777B"
-const Slot_IAtomPubClientFactory_CreateAtomPubClientWithCredentials* = 6
-type Fn_IAtomPubClientFactory_CreateAtomPubClientWithCredentials* =
-  proc(self: pointer, a1PasswordCredential: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IAtomPubClientFactoryVtbl* = object of IInspectableVtbl
+  CreateAtomPubClientWithCredentials*: proc(self: pointer,
+                                            a1PasswordCredential: pointer,
+                                            value: ptr pointer
+                                           ): HRESULT {.abi.}
 
 ## Windows.Web.AtomPub.IResourceCollection
 const IID_IResourceCollection* = guid"7F5FD609-BC88-41D4-88FA-3DE6704D428E"
-const Slot_IResourceCollection_get_Title* = 6
-type Fn_IResourceCollection_get_Title* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IResourceCollection_get_Uri* = 7
-type Fn_IResourceCollection_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IResourceCollection_get_Categories* = 8
-type Fn_IResourceCollection_get_Categories* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IResourceCollection_get_Accepts* = 9
-type Fn_IResourceCollection_get_Accepts* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IResourceCollectionVtbl* = object of IInspectableVtbl
+  get_Title*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Categories*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Accepts*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.AtomPub.IServiceDocument
 const IID_IServiceDocument* = guid"8B7EC771-2AB3-4DBE-8BCC-778F92B75E51"
-const Slot_IServiceDocument_get_Workspaces* = 6
-type Fn_IServiceDocument_get_Workspaces* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IServiceDocumentVtbl* = object of IInspectableVtbl
+  get_Workspaces*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.AtomPub.IWorkspace
 const IID_IWorkspace* = guid"B41DA63B-A4B8-4036-89C5-83C31266BA49"
-const Slot_IWorkspace_get_Title* = 6
-type Fn_IWorkspace_get_Title* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWorkspace_get_Collections* = 7
-type Fn_IWorkspace_get_Collections* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IWorkspaceVtbl* = object of IInspectableVtbl
+  get_Title*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Collections*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticProvider
 const IID_IHttpDiagnosticProvider* = guid"BD811501-A056-4D39-B174-833B7B03B02C"
-const Slot_IHttpDiagnosticProvider_Start* = 6
-type Fn_IHttpDiagnosticProvider_Start* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProvider_Stop* = 7
-type Fn_IHttpDiagnosticProvider_Stop* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProvider_add_RequestSent* = 8
-type Fn_IHttpDiagnosticProvider_add_RequestSent* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProvider_remove_RequestSent* = 9
-type Fn_IHttpDiagnosticProvider_remove_RequestSent* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProvider_add_ResponseReceived* = 10
-type Fn_IHttpDiagnosticProvider_add_ResponseReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProvider_remove_ResponseReceived* = 11
-type Fn_IHttpDiagnosticProvider_remove_ResponseReceived* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProvider_add_RequestResponseCompleted* = 12
-type Fn_IHttpDiagnosticProvider_add_RequestResponseCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProvider_remove_RequestResponseCompleted* = 13
-type Fn_IHttpDiagnosticProvider_remove_RequestResponseCompleted* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IHttpDiagnosticProviderVtbl* = object of IInspectableVtbl
+  Start*: proc(self: pointer): HRESULT {.abi.}
+  Stop*: proc(self: pointer): HRESULT {.abi.}
+  add_RequestSent*: proc(self: pointer, a1: pointer,
+                         value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_RequestSent*: proc(self: pointer, a1: EventRegistrationToken
+                           ): HRESULT {.abi.}
+  add_ResponseReceived*: proc(self: pointer, a1: pointer,
+                              value: ptr EventRegistrationToken
+                             ): HRESULT {.abi.}
+  remove_ResponseReceived*: proc(self: pointer, a1: EventRegistrationToken
+                                ): HRESULT {.abi.}
+  add_RequestResponseCompleted*: proc(self: pointer, a1: pointer,
+                                      value: ptr EventRegistrationToken
+                                     ): HRESULT {.abi.}
+  remove_RequestResponseCompleted*: proc(self: pointer,
+                                         a1: EventRegistrationToken
+                                        ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseCompletedEventArgs
 const IID_IHttpDiagnosticProviderRequestResponseCompletedEventArgs* = guid"735F98EE-94F6-4532-B26E-61E1B1E4EFD4"
-const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ActivityId* = 6
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ActivityId* =
-  proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Timestamps* = 7
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Timestamps* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_RequestedUri* = 8
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_RequestedUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ProcessId* = 9
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ProcessId* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ThreadId* = 10
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ThreadId* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Initiator* = 11
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Initiator* =
-  proc(self: pointer, value: ptr HttpDiagnosticRequestInitiator
-      ): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_SourceLocations* = 12
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_SourceLocations* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpDiagnosticProviderRequestResponseCompletedEventArgsVtbl* = object of IInspectableVtbl
+  get_ActivityId*: proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
+  get_Timestamps*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_RequestedUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ProcessId*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_ThreadId*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_Initiator*: proc(self: pointer,
+                       value: ptr HttpDiagnosticRequestInitiator
+                      ): HRESULT {.abi.}
+  get_SourceLocations*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseTimestamps
 const IID_IHttpDiagnosticProviderRequestResponseTimestamps* = guid"E0AFDE10-55CF-4C01-91D4-A20557D849F0"
-const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_CacheCheckedTimestamp* = 6
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_CacheCheckedTimestamp* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionInitiatedTimestamp* = 7
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionInitiatedTimestamp* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_NameResolvedTimestamp* = 8
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_NameResolvedTimestamp* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_SslNegotiatedTimestamp* = 9
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_SslNegotiatedTimestamp* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionCompletedTimestamp* = 10
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionCompletedTimestamp* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestSentTimestamp* = 11
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestSentTimestamp* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestCompletedTimestamp* = 12
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestCompletedTimestamp* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseReceivedTimestamp* = 13
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseReceivedTimestamp* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseCompletedTimestamp* = 14
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseCompletedTimestamp* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpDiagnosticProviderRequestResponseTimestampsVtbl* = object of IInspectableVtbl
+  get_CacheCheckedTimestamp*: proc(self: pointer, value: ptr pointer
+                                  ): HRESULT {.abi.}
+  get_ConnectionInitiatedTimestamp*: proc(self: pointer, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  get_NameResolvedTimestamp*: proc(self: pointer, value: ptr pointer
+                                  ): HRESULT {.abi.}
+  get_SslNegotiatedTimestamp*: proc(self: pointer, value: ptr pointer
+                                   ): HRESULT {.abi.}
+  get_ConnectionCompletedTimestamp*: proc(self: pointer, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  get_RequestSentTimestamp*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
+  get_RequestCompletedTimestamp*: proc(self: pointer, value: ptr pointer
+                                      ): HRESULT {.abi.}
+  get_ResponseReceivedTimestamp*: proc(self: pointer, value: ptr pointer
+                                      ): HRESULT {.abi.}
+  get_ResponseCompletedTimestamp*: proc(self: pointer, value: ptr pointer
+                                       ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestSentEventArgs
 const IID_IHttpDiagnosticProviderRequestSentEventArgs* = guid"3F5196D0-4C1F-4EBE-A57A-06930771C50D"
-const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_Timestamp* = 6
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Timestamp* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_ActivityId* = 7
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_ActivityId* =
-  proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_Message* = 8
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Message* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_ProcessId* = 9
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_ProcessId* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_ThreadId* = 10
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_ThreadId* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_Initiator* = 11
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Initiator* =
-  proc(self: pointer, value: ptr HttpDiagnosticRequestInitiator
-      ): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_SourceLocations* = 12
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_SourceLocations* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpDiagnosticProviderRequestSentEventArgsVtbl* = object of IInspectableVtbl
+  get_Timestamp*: proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
+  get_ActivityId*: proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
+  get_Message*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ProcessId*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_ThreadId*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_Initiator*: proc(self: pointer,
+                       value: ptr HttpDiagnosticRequestInitiator
+                      ): HRESULT {.abi.}
+  get_SourceLocations*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderResponseReceivedEventArgs
 const IID_IHttpDiagnosticProviderResponseReceivedEventArgs* = guid"A0A2566C-AB5F-4D66-BB2D-084CF41635D0"
-const Slot_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Timestamp* = 6
-type Fn_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Timestamp* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderResponseReceivedEventArgs_get_ActivityId* = 7
-type Fn_IHttpDiagnosticProviderResponseReceivedEventArgs_get_ActivityId* =
-  proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
-const Slot_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Message* = 8
-type Fn_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Message* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpDiagnosticProviderResponseReceivedEventArgsVtbl* = object of IInspectableVtbl
+  get_Timestamp*: proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
+  get_ActivityId*: proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
+  get_Message*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderStatics
 const IID_IHttpDiagnosticProviderStatics* = guid"5B824EC1-6A6C-47CC-AFEC-1E86BC26053B"
-const Slot_IHttpDiagnosticProviderStatics_CreateFromProcessDiagnosticInfo* = 6
-type Fn_IHttpDiagnosticProviderStatics_CreateFromProcessDiagnosticInfo* =
-  proc(self: pointer, a1ProcessDiagnosticInfo: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpDiagnosticProviderStaticsVtbl* = object of IInspectableVtbl
+  CreateFromProcessDiagnosticInfo*: proc(self: pointer,
+                                         a1ProcessDiagnosticInfo: pointer,
+                                         value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticSourceLocation
 const IID_IHttpDiagnosticSourceLocation* = guid"54A9D260-8860-423F-B6FA-D77716F647A7"
-const Slot_IHttpDiagnosticSourceLocation_get_SourceUri* = 6
-type Fn_IHttpDiagnosticSourceLocation_get_SourceUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDiagnosticSourceLocation_get_LineNumber* = 7
-type Fn_IHttpDiagnosticSourceLocation_get_LineNumber* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IHttpDiagnosticSourceLocation_get_ColumnNumber* = 8
-type Fn_IHttpDiagnosticSourceLocation_get_ColumnNumber* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
+type IHttpDiagnosticSourceLocationVtbl* = object of IInspectableVtbl
+  get_SourceUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_LineNumber*: proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
+  get_ColumnNumber*: proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpBaseProtocolFilter
 const IID_IHttpBaseProtocolFilter* = guid"71C89B09-E131-4B54-A53C-EB43FF37E9BB"
-const Slot_IHttpBaseProtocolFilter_get_AllowAutoRedirect* = 6
-type Fn_IHttpBaseProtocolFilter_get_AllowAutoRedirect* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_put_AllowAutoRedirect* = 7
-type Fn_IHttpBaseProtocolFilter_put_AllowAutoRedirect* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_get_AllowUI* = 8
-type Fn_IHttpBaseProtocolFilter_get_AllowUI* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_put_AllowUI* = 9
-type Fn_IHttpBaseProtocolFilter_put_AllowUI* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_get_AutomaticDecompression* = 10
-type Fn_IHttpBaseProtocolFilter_get_AutomaticDecompression* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_put_AutomaticDecompression* = 11
-type Fn_IHttpBaseProtocolFilter_put_AutomaticDecompression* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_get_CacheControl* = 12
-type Fn_IHttpBaseProtocolFilter_get_CacheControl* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_get_CookieManager* = 13
-type Fn_IHttpBaseProtocolFilter_get_CookieManager* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_get_ClientCertificate* = 14
-type Fn_IHttpBaseProtocolFilter_get_ClientCertificate* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_put_ClientCertificate* = 15
-type Fn_IHttpBaseProtocolFilter_put_ClientCertificate* =
-  proc(self: pointer, a1Certificate: pointer): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_get_IgnorableServerCertificateErrors* = 16
-type Fn_IHttpBaseProtocolFilter_get_IgnorableServerCertificateErrors* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_get_MaxConnectionsPerServer* = 17
-type Fn_IHttpBaseProtocolFilter_get_MaxConnectionsPerServer* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_put_MaxConnectionsPerServer* = 18
-type Fn_IHttpBaseProtocolFilter_put_MaxConnectionsPerServer* =
-  proc(self: pointer, a1: uint32): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_get_ProxyCredential* = 19
-type Fn_IHttpBaseProtocolFilter_get_ProxyCredential* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_put_ProxyCredential* = 20
-type Fn_IHttpBaseProtocolFilter_put_ProxyCredential* =
-  proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_get_ServerCredential* = 21
-type Fn_IHttpBaseProtocolFilter_get_ServerCredential* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_put_ServerCredential* = 22
-type Fn_IHttpBaseProtocolFilter_put_ServerCredential* =
-  proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_get_UseProxy* = 23
-type Fn_IHttpBaseProtocolFilter_get_UseProxy* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter_put_UseProxy* = 24
-type Fn_IHttpBaseProtocolFilter_put_UseProxy* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type IHttpBaseProtocolFilterVtbl* = object of IInspectableVtbl
+  get_AllowAutoRedirect*: proc(self: pointer, value: ptr bool
+                              ): HRESULT {.abi.}
+  put_AllowAutoRedirect*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_AllowUI*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_AllowUI*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_AutomaticDecompression*: proc(self: pointer, value: ptr bool
+                                   ): HRESULT {.abi.}
+  put_AutomaticDecompression*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_CacheControl*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_CookieManager*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ClientCertificate*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  put_ClientCertificate*: proc(self: pointer, a1Certificate: pointer
+                              ): HRESULT {.abi.}
+  get_IgnorableServerCertificateErrors*: proc(self: pointer,
+                                              value: ptr pointer
+                                             ): HRESULT {.abi.}
+  get_MaxConnectionsPerServer*: proc(self: pointer, value: ptr uint32
+                                    ): HRESULT {.abi.}
+  put_MaxConnectionsPerServer*: proc(self: pointer, a1: uint32
+                                    ): HRESULT {.abi.}
+  get_ProxyCredential*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  put_ProxyCredential*: proc(self: pointer, a1PasswordCredential: pointer
+                            ): HRESULT {.abi.}
+  get_ServerCredential*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  put_ServerCredential*: proc(self: pointer, a1PasswordCredential: pointer
+                             ): HRESULT {.abi.}
+  get_UseProxy*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_UseProxy*: proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpBaseProtocolFilter2
 const IID_IHttpBaseProtocolFilter2* = guid"2EC30013-9427-4900-A017-FA7DA3B5C9AE"
-const Slot_IHttpBaseProtocolFilter2_get_MaxVersion* = 6
-type Fn_IHttpBaseProtocolFilter2_get_MaxVersion* =
-  proc(self: pointer, value: ptr HttpVersion): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter2_put_MaxVersion* = 7
-type Fn_IHttpBaseProtocolFilter2_put_MaxVersion* =
-  proc(self: pointer, a1: HttpVersion): HRESULT {.abi.}
+type IHttpBaseProtocolFilter2Vtbl* = object of IInspectableVtbl
+  get_MaxVersion*: proc(self: pointer, value: ptr HttpVersion
+                       ): HRESULT {.abi.}
+  put_MaxVersion*: proc(self: pointer, a1: HttpVersion): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpBaseProtocolFilter3
 const IID_IHttpBaseProtocolFilter3* = guid"D43F4D4C-BD42-43AE-8717-AD2C8F4B2937"
-const Slot_IHttpBaseProtocolFilter3_get_CookieUsageBehavior* = 6
-type Fn_IHttpBaseProtocolFilter3_get_CookieUsageBehavior* =
-  proc(self: pointer, value: ptr HttpCookieUsageBehavior): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter3_put_CookieUsageBehavior* = 7
-type Fn_IHttpBaseProtocolFilter3_put_CookieUsageBehavior* =
-  proc(self: pointer, a1: HttpCookieUsageBehavior): HRESULT {.abi.}
+type IHttpBaseProtocolFilter3Vtbl* = object of IInspectableVtbl
+  get_CookieUsageBehavior*: proc(self: pointer,
+                                 value: ptr HttpCookieUsageBehavior
+                                ): HRESULT {.abi.}
+  put_CookieUsageBehavior*: proc(self: pointer, a1: HttpCookieUsageBehavior
+                                ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpBaseProtocolFilter4
 const IID_IHttpBaseProtocolFilter4* = guid"9FE36CCF-2983-4893-941F-EB518CA8CEF9"
-const Slot_IHttpBaseProtocolFilter4_add_ServerCustomValidationRequested* = 6
-type Fn_IHttpBaseProtocolFilter4_add_ServerCustomValidationRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter4_remove_ServerCustomValidationRequested* = 7
-type Fn_IHttpBaseProtocolFilter4_remove_ServerCustomValidationRequested* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IHttpBaseProtocolFilter4_ClearAuthenticationCache* = 8
-type Fn_IHttpBaseProtocolFilter4_ClearAuthenticationCache* =
-  proc(self: pointer): HRESULT {.abi.}
+type IHttpBaseProtocolFilter4Vtbl* = object of IInspectableVtbl
+  add_ServerCustomValidationRequested*: proc(self: pointer, a1: pointer,
+                                             value: ptr EventRegistrationToken
+                                            ): HRESULT {.abi.}
+  remove_ServerCustomValidationRequested*: proc(self: pointer,
+                                                a1: EventRegistrationToken
+                                               ): HRESULT {.abi.}
+  ClearAuthenticationCache*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpBaseProtocolFilter5
 const IID_IHttpBaseProtocolFilter5* = guid"416E4993-31E3-4816-BF09-E018EE8DC1F5"
-const Slot_IHttpBaseProtocolFilter5_get_User* = 6
-type Fn_IHttpBaseProtocolFilter5_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpBaseProtocolFilter5Vtbl* = object of IInspectableVtbl
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpBaseProtocolFilterStatics
 const IID_IHttpBaseProtocolFilterStatics* = guid"6D4DEE0C-E908-494E-B5A3-1263C9B8242A"
-const Slot_IHttpBaseProtocolFilterStatics_CreateForUser* = 6
-type Fn_IHttpBaseProtocolFilterStatics_CreateForUser* =
-  proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpBaseProtocolFilterStaticsVtbl* = object of IInspectableVtbl
+  CreateForUser*: proc(self: pointer, a1User: pointer, value: ptr pointer
+                      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpCacheControl
 const IID_IHttpCacheControl* = guid"C77E1CB4-3CEA-4EB5-AC85-04E186E63AB7"
-const Slot_IHttpCacheControl_get_ReadBehavior* = 6
-type Fn_IHttpCacheControl_get_ReadBehavior* =
-  proc(self: pointer, value: ptr HttpCacheReadBehavior): HRESULT {.abi.}
-const Slot_IHttpCacheControl_put_ReadBehavior* = 7
-type Fn_IHttpCacheControl_put_ReadBehavior* =
-  proc(self: pointer, a1: HttpCacheReadBehavior): HRESULT {.abi.}
-const Slot_IHttpCacheControl_get_WriteBehavior* = 8
-type Fn_IHttpCacheControl_get_WriteBehavior* =
-  proc(self: pointer, value: ptr HttpCacheWriteBehavior): HRESULT {.abi.}
-const Slot_IHttpCacheControl_put_WriteBehavior* = 9
-type Fn_IHttpCacheControl_put_WriteBehavior* =
-  proc(self: pointer, a1: HttpCacheWriteBehavior): HRESULT {.abi.}
+type IHttpCacheControlVtbl* = object of IInspectableVtbl
+  get_ReadBehavior*: proc(self: pointer, value: ptr HttpCacheReadBehavior
+                         ): HRESULT {.abi.}
+  put_ReadBehavior*: proc(self: pointer, a1: HttpCacheReadBehavior
+                         ): HRESULT {.abi.}
+  get_WriteBehavior*: proc(self: pointer, value: ptr HttpCacheWriteBehavior
+                          ): HRESULT {.abi.}
+  put_WriteBehavior*: proc(self: pointer, a1: HttpCacheWriteBehavior
+                          ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpFilter
 const IID_IHttpFilter* = guid"A4CB6DD5-0902-439E-BFD7-E12552B165CE"
-const Slot_IHttpFilter_SendRequestAsync* = 6
-type Fn_IHttpFilter_SendRequestAsync* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpFilterVtbl* = object of IInspectableVtbl
+  SendRequestAsync*: proc(self: pointer, a1HttpRequestMessage: pointer,
+                          value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpServerCustomValidationRequestedEventArgs
 const IID_IHttpServerCustomValidationRequestedEventArgs* = guid"3165FE32-E7DD-48B7-A361-939C750E63CC"
-const Slot_IHttpServerCustomValidationRequestedEventArgs_get_RequestMessage* = 6
-type Fn_IHttpServerCustomValidationRequestedEventArgs_get_RequestMessage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificate* = 7
-type Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificate* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity* = 8
-type Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity* =
-  proc(self: pointer, value: ptr SocketSslErrorSeverity): HRESULT {.abi.}
-const Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors* = 9
-type Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates* = 10
-type Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpServerCustomValidationRequestedEventArgs_Reject* = 11
-type Fn_IHttpServerCustomValidationRequestedEventArgs_Reject* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IHttpServerCustomValidationRequestedEventArgs_GetDeferral* = 12
-type Fn_IHttpServerCustomValidationRequestedEventArgs_GetDeferral* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpServerCustomValidationRequestedEventArgsVtbl* = object of IInspectableVtbl
+  get_RequestMessage*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_ServerCertificate*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  get_ServerCertificateErrorSeverity*: proc(self: pointer,
+                                            value: ptr SocketSslErrorSeverity
+                                           ): HRESULT {.abi.}
+  get_ServerCertificateErrors*: proc(self: pointer, value: ptr pointer
+                                    ): HRESULT {.abi.}
+  get_ServerIntermediateCertificates*: proc(self: pointer, value: ptr pointer
+                                           ): HRESULT {.abi.}
+  Reject*: proc(self: pointer): HRESULT {.abi.}
+  GetDeferral*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCacheDirectiveHeaderValueCollection
 const IID_IHttpCacheDirectiveHeaderValueCollection* = guid"9A586B89-D5D0-4FBE-BD9D-B5B3636811B4"
-const Slot_IHttpCacheDirectiveHeaderValueCollection_get_MaxAge* = 6
-type Fn_IHttpCacheDirectiveHeaderValueCollection_get_MaxAge* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpCacheDirectiveHeaderValueCollection_put_MaxAge* = 7
-type Fn_IHttpCacheDirectiveHeaderValueCollection_put_MaxAge* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpCacheDirectiveHeaderValueCollection_get_MaxStale* = 8
-type Fn_IHttpCacheDirectiveHeaderValueCollection_get_MaxStale* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpCacheDirectiveHeaderValueCollection_put_MaxStale* = 9
-type Fn_IHttpCacheDirectiveHeaderValueCollection_put_MaxStale* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpCacheDirectiveHeaderValueCollection_get_MinFresh* = 10
-type Fn_IHttpCacheDirectiveHeaderValueCollection_get_MinFresh* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpCacheDirectiveHeaderValueCollection_put_MinFresh* = 11
-type Fn_IHttpCacheDirectiveHeaderValueCollection_put_MinFresh* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpCacheDirectiveHeaderValueCollection_get_SharedMaxAge* = 12
-type Fn_IHttpCacheDirectiveHeaderValueCollection_get_SharedMaxAge* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpCacheDirectiveHeaderValueCollection_put_SharedMaxAge* = 13
-type Fn_IHttpCacheDirectiveHeaderValueCollection_put_SharedMaxAge* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpCacheDirectiveHeaderValueCollection_ParseAdd* = 14
-type Fn_IHttpCacheDirectiveHeaderValueCollection_ParseAdd* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpCacheDirectiveHeaderValueCollection_TryParseAdd* = 15
-type Fn_IHttpCacheDirectiveHeaderValueCollection_TryParseAdd* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IHttpCacheDirectiveHeaderValueCollectionVtbl* = object of IInspectableVtbl
+  get_MaxAge*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_MaxAge*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_MaxStale*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_MaxStale*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_MinFresh*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_MinFresh*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_SharedMaxAge*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_SharedMaxAge*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  ParseAdd*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  TryParseAdd*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                    ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpChallengeHeaderValue
 const IID_IHttpChallengeHeaderValue* = guid"393361AF-0F7D-4820-9FDD-A2B956EEAEAB"
-const Slot_IHttpChallengeHeaderValue_get_Parameters* = 6
-type Fn_IHttpChallengeHeaderValue_get_Parameters* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpChallengeHeaderValue_get_Scheme* = 7
-type Fn_IHttpChallengeHeaderValue_get_Scheme* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpChallengeHeaderValue_get_Token* = 8
-type Fn_IHttpChallengeHeaderValue_get_Token* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IHttpChallengeHeaderValueVtbl* = object of IInspectableVtbl
+  get_Parameters*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Scheme*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Token*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpChallengeHeaderValueCollection
 const IID_IHttpChallengeHeaderValueCollection* = guid"CA9E5F81-AEE0-4353-A10B-E625BABD64C2"
-const Slot_IHttpChallengeHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpChallengeHeaderValueCollection_ParseAdd* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpChallengeHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpChallengeHeaderValueCollection_TryParseAdd* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IHttpChallengeHeaderValueCollectionVtbl* = object of IInspectableVtbl
+  ParseAdd*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  TryParseAdd*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                    ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpChallengeHeaderValueFactory
 const IID_IHttpChallengeHeaderValueFactory* = guid"C452C451-D99C-40AA-9399-90EEB98FC613"
-const Slot_IHttpChallengeHeaderValueFactory_CreateFromScheme* = 6
-type Fn_IHttpChallengeHeaderValueFactory_CreateFromScheme* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpChallengeHeaderValueFactory_CreateFromSchemeWithToken* = 7
-type Fn_IHttpChallengeHeaderValueFactory_CreateFromSchemeWithToken* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpChallengeHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  CreateFromScheme*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                         ): HRESULT {.abi.}
+  CreateFromSchemeWithToken*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                   value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpChallengeHeaderValueStatics
 const IID_IHttpChallengeHeaderValueStatics* = guid"F3D38A72-FC01-4D01-A008-FCB7C459D635"
-const Slot_IHttpChallengeHeaderValueStatics_Parse* = 6
-type Fn_IHttpChallengeHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpChallengeHeaderValueStatics_TryParse* = 7
-type Fn_IHttpChallengeHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING, a2HttpChallengeHeaderValue: ptr pointer,
-       value: ptr bool): HRESULT {.abi.}
+type IHttpChallengeHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpChallengeHeaderValue: ptr pointer, value: ptr bool
+                 ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValue
 const IID_IHttpConnectionOptionHeaderValue* = guid"CB4AF27A-4E90-45EB-8DCD-FD1408F4C44F"
-const Slot_IHttpConnectionOptionHeaderValue_get_Token* = 6
-type Fn_IHttpConnectionOptionHeaderValue_get_Token* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IHttpConnectionOptionHeaderValueVtbl* = object of IInspectableVtbl
+  get_Token*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueCollection
 const IID_IHttpConnectionOptionHeaderValueCollection* = guid"E4F56C1D-5142-4E00-8E0F-019509337629"
-const Slot_IHttpConnectionOptionHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpConnectionOptionHeaderValueCollection_ParseAdd* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpConnectionOptionHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpConnectionOptionHeaderValueCollection_TryParseAdd* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IHttpConnectionOptionHeaderValueCollectionVtbl* = object of IInspectableVtbl
+  ParseAdd*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  TryParseAdd*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                    ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueFactory
 const IID_IHttpConnectionOptionHeaderValueFactory* = guid"D93CCC1E-0B7D-4C3F-A58D-A2A1BDEABC0A"
-const Slot_IHttpConnectionOptionHeaderValueFactory_Create* = 6
-type Fn_IHttpConnectionOptionHeaderValueFactory_Create* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IHttpConnectionOptionHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueStatics
 const IID_IHttpConnectionOptionHeaderValueStatics* = guid"AAA75D37-A946-4B1F-85AF-48B68B3C50BD"
-const Slot_IHttpConnectionOptionHeaderValueStatics_Parse* = 6
-type Fn_IHttpConnectionOptionHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpConnectionOptionHeaderValueStatics_TryParse* = 7
-type Fn_IHttpConnectionOptionHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING,
-       a2HttpConnectionOptionHeaderValue: ptr pointer, value: ptr bool
-      ): HRESULT {.abi.}
+type IHttpConnectionOptionHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpConnectionOptionHeaderValue: ptr pointer,
+                  value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingHeaderValue
 const IID_IHttpContentCodingHeaderValue* = guid"BCF7F92A-9376-4D85-BCCC-9F4F9ACAB434"
-const Slot_IHttpContentCodingHeaderValue_get_ContentCoding* = 6
-type Fn_IHttpContentCodingHeaderValue_get_ContentCoding* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IHttpContentCodingHeaderValueVtbl* = object of IInspectableVtbl
+  get_ContentCoding*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingHeaderValueCollection
 const IID_IHttpContentCodingHeaderValueCollection* = guid"7D221721-A6DB-436E-8E83-91596192819C"
-const Slot_IHttpContentCodingHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpContentCodingHeaderValueCollection_ParseAdd* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpContentCodingHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpContentCodingHeaderValueCollection_TryParseAdd* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IHttpContentCodingHeaderValueCollectionVtbl* = object of IInspectableVtbl
+  ParseAdd*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  TryParseAdd*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                    ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingHeaderValueFactory
 const IID_IHttpContentCodingHeaderValueFactory* = guid"C53D2BD7-332B-4350-8510-2E67A2289A5A"
-const Slot_IHttpContentCodingHeaderValueFactory_Create* = 6
-type Fn_IHttpContentCodingHeaderValueFactory_Create* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IHttpContentCodingHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingHeaderValueStatics
 const IID_IHttpContentCodingHeaderValueStatics* = guid"94D8602E-F9BF-42F7-AA46-ED272A41E212"
-const Slot_IHttpContentCodingHeaderValueStatics_Parse* = 6
-type Fn_IHttpContentCodingHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentCodingHeaderValueStatics_TryParse* = 7
-type Fn_IHttpContentCodingHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING,
-       a2HttpContentCodingHeaderValue: ptr pointer, value: ptr bool
-      ): HRESULT {.abi.}
+type IHttpContentCodingHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpContentCodingHeaderValue: ptr pointer, value: ptr bool
+                 ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValue
 const IID_IHttpContentCodingWithQualityHeaderValue* = guid"94531CD5-8B13-4D73-8651-F76B38F88495"
-const Slot_IHttpContentCodingWithQualityHeaderValue_get_ContentCoding* = 6
-type Fn_IHttpContentCodingWithQualityHeaderValue_get_ContentCoding* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpContentCodingWithQualityHeaderValue_get_Quality* = 7
-type Fn_IHttpContentCodingWithQualityHeaderValue_get_Quality* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpContentCodingWithQualityHeaderValueVtbl* = object of IInspectableVtbl
+  get_ContentCoding*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Quality*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueCollection
 const IID_IHttpContentCodingWithQualityHeaderValueCollection* = guid"7C0D753E-E899-4378-B5C8-412D820711CC"
-const Slot_IHttpContentCodingWithQualityHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpContentCodingWithQualityHeaderValueCollection_ParseAdd* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpContentCodingWithQualityHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpContentCodingWithQualityHeaderValueCollection_TryParseAdd* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IHttpContentCodingWithQualityHeaderValueCollectionVtbl* = object of IInspectableVtbl
+  ParseAdd*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  TryParseAdd*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                    ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueFactory
 const IID_IHttpContentCodingWithQualityHeaderValueFactory* = guid"C45EEE1A-C553-46FC-ADE2-D75C1D53DF7B"
-const Slot_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValue* = 6
-type Fn_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValue* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValueWithQuality* = 7
-type Fn_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValueWithQuality* =
-  proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpContentCodingWithQualityHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  CreateFromValue*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                        ): HRESULT {.abi.}
+  CreateFromValueWithQuality*: proc(self: pointer, a1: HSTRING, a2: float64,
+                                    value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueStatics
 const IID_IHttpContentCodingWithQualityHeaderValueStatics* = guid"E8C9357C-8F89-4801-8E75-4C9ABFC3DE71"
-const Slot_IHttpContentCodingWithQualityHeaderValueStatics_Parse* = 6
-type Fn_IHttpContentCodingWithQualityHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentCodingWithQualityHeaderValueStatics_TryParse* = 7
-type Fn_IHttpContentCodingWithQualityHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING,
-       a2HttpContentCodingWithQualityHeaderValue: ptr pointer, value: ptr bool
-      ): HRESULT {.abi.}
+type IHttpContentCodingWithQualityHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpContentCodingWithQualityHeaderValue: ptr pointer,
+                  value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentDispositionHeaderValue
 const IID_IHttpContentDispositionHeaderValue* = guid"F2A2EEDC-2629-4B49-9908-96A168E9365E"
-const Slot_IHttpContentDispositionHeaderValue_get_DispositionType* = 6
-type Fn_IHttpContentDispositionHeaderValue_get_DispositionType* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpContentDispositionHeaderValue_put_DispositionType* = 7
-type Fn_IHttpContentDispositionHeaderValue_put_DispositionType* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpContentDispositionHeaderValue_get_FileName* = 8
-type Fn_IHttpContentDispositionHeaderValue_get_FileName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpContentDispositionHeaderValue_put_FileName* = 9
-type Fn_IHttpContentDispositionHeaderValue_put_FileName* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpContentDispositionHeaderValue_get_FileNameStar* = 10
-type Fn_IHttpContentDispositionHeaderValue_get_FileNameStar* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpContentDispositionHeaderValue_put_FileNameStar* = 11
-type Fn_IHttpContentDispositionHeaderValue_put_FileNameStar* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpContentDispositionHeaderValue_get_Name* = 12
-type Fn_IHttpContentDispositionHeaderValue_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpContentDispositionHeaderValue_put_Name* = 13
-type Fn_IHttpContentDispositionHeaderValue_put_Name* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpContentDispositionHeaderValue_get_Parameters* = 14
-type Fn_IHttpContentDispositionHeaderValue_get_Parameters* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentDispositionHeaderValue_get_Size* = 15
-type Fn_IHttpContentDispositionHeaderValue_get_Size* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentDispositionHeaderValue_put_Size* = 16
-type Fn_IHttpContentDispositionHeaderValue_put_Size* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
+type IHttpContentDispositionHeaderValueVtbl* = object of IInspectableVtbl
+  get_DispositionType*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
+  put_DispositionType*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_FileName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_FileName*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_FileNameStar*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_FileNameStar*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Name*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Parameters*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Size*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Size*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentDispositionHeaderValueFactory
 const IID_IHttpContentDispositionHeaderValueFactory* = guid"9915BBC4-456C-4E81-8295-B2AB3CBCF545"
-const Slot_IHttpContentDispositionHeaderValueFactory_Create* = 6
-type Fn_IHttpContentDispositionHeaderValueFactory_Create* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IHttpContentDispositionHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentDispositionHeaderValueStatics
 const IID_IHttpContentDispositionHeaderValueStatics* = guid"29C56067-5A37-46E4-B074-C5177D69CA66"
-const Slot_IHttpContentDispositionHeaderValueStatics_Parse* = 6
-type Fn_IHttpContentDispositionHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentDispositionHeaderValueStatics_TryParse* = 7
-type Fn_IHttpContentDispositionHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING,
-       a2HttpContentDispositionHeaderValue: ptr pointer, value: ptr bool
-      ): HRESULT {.abi.}
+type IHttpContentDispositionHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpContentDispositionHeaderValue: ptr pointer,
+                  value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentHeaderCollection
 const IID_IHttpContentHeaderCollection* = guid"40612A44-47AE-4B7E-9124-69628B64AA18"
-const Slot_IHttpContentHeaderCollection_get_ContentDisposition* = 6
-type Fn_IHttpContentHeaderCollection_get_ContentDisposition* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_put_ContentDisposition* = 7
-type Fn_IHttpContentHeaderCollection_put_ContentDisposition* =
-  proc(self: pointer, a1HttpContentDispositionHeaderValue: pointer
-      ): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_get_ContentEncoding* = 8
-type Fn_IHttpContentHeaderCollection_get_ContentEncoding* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_get_ContentLanguage* = 9
-type Fn_IHttpContentHeaderCollection_get_ContentLanguage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_get_ContentLength* = 10
-type Fn_IHttpContentHeaderCollection_get_ContentLength* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_put_ContentLength* = 11
-type Fn_IHttpContentHeaderCollection_put_ContentLength* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_get_ContentLocation* = 12
-type Fn_IHttpContentHeaderCollection_get_ContentLocation* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_put_ContentLocation* = 13
-type Fn_IHttpContentHeaderCollection_put_ContentLocation* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_get_ContentMD5* = 14
-type Fn_IHttpContentHeaderCollection_get_ContentMD5* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_put_ContentMD5* = 15
-type Fn_IHttpContentHeaderCollection_put_ContentMD5* =
-  proc(self: pointer, a1IBuffer: pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_get_ContentRange* = 16
-type Fn_IHttpContentHeaderCollection_get_ContentRange* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_put_ContentRange* = 17
-type Fn_IHttpContentHeaderCollection_put_ContentRange* =
-  proc(self: pointer, a1HttpContentRangeHeaderValue: pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_get_ContentType* = 18
-type Fn_IHttpContentHeaderCollection_get_ContentType* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_put_ContentType* = 19
-type Fn_IHttpContentHeaderCollection_put_ContentType* =
-  proc(self: pointer, a1HttpMediaTypeHeaderValue: pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_get_Expires* = 20
-type Fn_IHttpContentHeaderCollection_get_Expires* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_put_Expires* = 21
-type Fn_IHttpContentHeaderCollection_put_Expires* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_get_LastModified* = 22
-type Fn_IHttpContentHeaderCollection_get_LastModified* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_put_LastModified* = 23
-type Fn_IHttpContentHeaderCollection_put_LastModified* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_Append* = 24
-type Fn_IHttpContentHeaderCollection_Append* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
-const Slot_IHttpContentHeaderCollection_TryAppendWithoutValidation* = 25
-type Fn_IHttpContentHeaderCollection_TryAppendWithoutValidation* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
-      ): HRESULT {.abi.}
+type IHttpContentHeaderCollectionVtbl* = object of IInspectableVtbl
+  get_ContentDisposition*: proc(self: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
+  put_ContentDisposition*: proc(self: pointer,
+                                a1HttpContentDispositionHeaderValue: pointer
+                               ): HRESULT {.abi.}
+  get_ContentEncoding*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  get_ContentLanguage*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  get_ContentLength*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_ContentLength*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_ContentLocation*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  put_ContentLocation*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_ContentMD5*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_ContentMD5*: proc(self: pointer, a1IBuffer: pointer): HRESULT {.abi.}
+  get_ContentRange*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_ContentRange*: proc(self: pointer,
+                          a1HttpContentRangeHeaderValue: pointer
+                         ): HRESULT {.abi.}
+  get_ContentType*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_ContentType*: proc(self: pointer, a1HttpMediaTypeHeaderValue: pointer
+                        ): HRESULT {.abi.}
+  get_Expires*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Expires*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_LastModified*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_LastModified*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  Append*: proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
+  TryAppendWithoutValidation*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                    value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentRangeHeaderValue
 const IID_IHttpContentRangeHeaderValue* = guid"04D967D3-A4F6-495C-9530-8579FCBA8AA9"
-const Slot_IHttpContentRangeHeaderValue_get_FirstBytePosition* = 6
-type Fn_IHttpContentRangeHeaderValue_get_FirstBytePosition* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentRangeHeaderValue_get_LastBytePosition* = 7
-type Fn_IHttpContentRangeHeaderValue_get_LastBytePosition* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentRangeHeaderValue_get_Length* = 8
-type Fn_IHttpContentRangeHeaderValue_get_Length* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentRangeHeaderValue_get_Unit* = 9
-type Fn_IHttpContentRangeHeaderValue_get_Unit* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpContentRangeHeaderValue_put_Unit* = 10
-type Fn_IHttpContentRangeHeaderValue_put_Unit* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IHttpContentRangeHeaderValueVtbl* = object of IInspectableVtbl
+  get_FirstBytePosition*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  get_LastBytePosition*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  get_Length*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Unit*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Unit*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentRangeHeaderValueFactory
 const IID_IHttpContentRangeHeaderValueFactory* = guid"3F5BD691-A03C-4456-9A6F-EF27ECD03CAE"
-const Slot_IHttpContentRangeHeaderValueFactory_CreateFromLength* = 6
-type Fn_IHttpContentRangeHeaderValueFactory_CreateFromLength* =
-  proc(self: pointer, a1: uint64, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentRangeHeaderValueFactory_CreateFromRange* = 7
-type Fn_IHttpContentRangeHeaderValueFactory_CreateFromRange* =
-  proc(self: pointer, a1: uint64, a2: uint64, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IHttpContentRangeHeaderValueFactory_CreateFromRangeWithLength* = 8
-type Fn_IHttpContentRangeHeaderValueFactory_CreateFromRangeWithLength* =
-  proc(self: pointer, a1: uint64, a2: uint64, a3: uint64, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpContentRangeHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  CreateFromLength*: proc(self: pointer, a1: uint64, value: ptr pointer
+                         ): HRESULT {.abi.}
+  CreateFromRange*: proc(self: pointer, a1: uint64, a2: uint64,
+                         value: ptr pointer): HRESULT {.abi.}
+  CreateFromRangeWithLength*: proc(self: pointer, a1: uint64, a2: uint64,
+                                   a3: uint64, value: ptr pointer
+                                  ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentRangeHeaderValueStatics
 const IID_IHttpContentRangeHeaderValueStatics* = guid"80A346CA-174C-4FAE-821C-134CD294AA38"
-const Slot_IHttpContentRangeHeaderValueStatics_Parse* = 6
-type Fn_IHttpContentRangeHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContentRangeHeaderValueStatics_TryParse* = 7
-type Fn_IHttpContentRangeHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING, a2HttpContentRangeHeaderValue: ptr pointer,
-       value: ptr bool): HRESULT {.abi.}
+type IHttpContentRangeHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpContentRangeHeaderValue: ptr pointer, value: ptr bool
+                 ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCookiePairHeaderValue
 const IID_IHttpCookiePairHeaderValue* = guid"CBD46217-4B29-412B-BD90-B3D814AB8E1B"
-const Slot_IHttpCookiePairHeaderValue_get_Name* = 6
-type Fn_IHttpCookiePairHeaderValue_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpCookiePairHeaderValue_get_Value* = 7
-type Fn_IHttpCookiePairHeaderValue_get_Value* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpCookiePairHeaderValue_put_Value* = 8
-type Fn_IHttpCookiePairHeaderValue_put_Value* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IHttpCookiePairHeaderValueVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Value*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Value*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCookiePairHeaderValueCollection
 const IID_IHttpCookiePairHeaderValueCollection* = guid"F3F44350-581E-4ECC-9F59-E507D04F06E6"
-const Slot_IHttpCookiePairHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpCookiePairHeaderValueCollection_ParseAdd* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpCookiePairHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpCookiePairHeaderValueCollection_TryParseAdd* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IHttpCookiePairHeaderValueCollectionVtbl* = object of IInspectableVtbl
+  ParseAdd*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  TryParseAdd*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                    ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCookiePairHeaderValueFactory
 const IID_IHttpCookiePairHeaderValueFactory* = guid"635E326F-146F-4F56-AA21-2CB7D6D58B1E"
-const Slot_IHttpCookiePairHeaderValueFactory_CreateFromName* = 6
-type Fn_IHttpCookiePairHeaderValueFactory_CreateFromName* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpCookiePairHeaderValueFactory_CreateFromNameWithValue* = 7
-type Fn_IHttpCookiePairHeaderValueFactory_CreateFromNameWithValue* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpCookiePairHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  CreateFromName*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                       ): HRESULT {.abi.}
+  CreateFromNameWithValue*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                 value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCookiePairHeaderValueStatics
 const IID_IHttpCookiePairHeaderValueStatics* = guid"6E866D48-06AF-4462-8158-99388D5DCA81"
-const Slot_IHttpCookiePairHeaderValueStatics_Parse* = 6
-type Fn_IHttpCookiePairHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpCookiePairHeaderValueStatics_TryParse* = 7
-type Fn_IHttpCookiePairHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING, a2HttpCookiePairHeaderValue: ptr pointer,
-       value: ptr bool): HRESULT {.abi.}
+type IHttpCookiePairHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpCookiePairHeaderValue: ptr pointer, value: ptr bool
+                 ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCredentialsHeaderValue
 const IID_IHttpCredentialsHeaderValue* = guid"C34CC3CB-542E-4177-A6C7-B674CE193FBF"
-const Slot_IHttpCredentialsHeaderValue_get_Parameters* = 6
-type Fn_IHttpCredentialsHeaderValue_get_Parameters* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpCredentialsHeaderValue_get_Scheme* = 7
-type Fn_IHttpCredentialsHeaderValue_get_Scheme* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpCredentialsHeaderValue_get_Token* = 8
-type Fn_IHttpCredentialsHeaderValue_get_Token* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IHttpCredentialsHeaderValueVtbl* = object of IInspectableVtbl
+  get_Parameters*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Scheme*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Token*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCredentialsHeaderValueFactory
 const IID_IHttpCredentialsHeaderValueFactory* = guid"F21D9E91-4D1C-4182-BFD1-34470A62F950"
-const Slot_IHttpCredentialsHeaderValueFactory_CreateFromScheme* = 6
-type Fn_IHttpCredentialsHeaderValueFactory_CreateFromScheme* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpCredentialsHeaderValueFactory_CreateFromSchemeWithToken* = 7
-type Fn_IHttpCredentialsHeaderValueFactory_CreateFromSchemeWithToken* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpCredentialsHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  CreateFromScheme*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                         ): HRESULT {.abi.}
+  CreateFromSchemeWithToken*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                   value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCredentialsHeaderValueStatics
 const IID_IHttpCredentialsHeaderValueStatics* = guid"A69B2BE6-CE8C-4443-A35A-1B727B131036"
-const Slot_IHttpCredentialsHeaderValueStatics_Parse* = 6
-type Fn_IHttpCredentialsHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpCredentialsHeaderValueStatics_TryParse* = 7
-type Fn_IHttpCredentialsHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING, a2HttpCredentialsHeaderValue: ptr pointer,
-       value: ptr bool): HRESULT {.abi.}
+type IHttpCredentialsHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpCredentialsHeaderValue: ptr pointer, value: ptr bool
+                 ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpDateOrDeltaHeaderValue
 const IID_IHttpDateOrDeltaHeaderValue* = guid"EAFCAA6A-C4DC-49E2-A27D-043ADF5867A3"
-const Slot_IHttpDateOrDeltaHeaderValue_get_Date* = 6
-type Fn_IHttpDateOrDeltaHeaderValue_get_Date* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDateOrDeltaHeaderValue_get_Delta* = 7
-type Fn_IHttpDateOrDeltaHeaderValue_get_Delta* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpDateOrDeltaHeaderValueVtbl* = object of IInspectableVtbl
+  get_Date*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Delta*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpDateOrDeltaHeaderValueStatics
 const IID_IHttpDateOrDeltaHeaderValueStatics* = guid"7C2659A8-6672-4E90-9A9A-F39766F7F576"
-const Slot_IHttpDateOrDeltaHeaderValueStatics_Parse* = 6
-type Fn_IHttpDateOrDeltaHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpDateOrDeltaHeaderValueStatics_TryParse* = 7
-type Fn_IHttpDateOrDeltaHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING, a2HttpDateOrDeltaHeaderValue: ptr pointer,
-       value: ptr bool): HRESULT {.abi.}
+type IHttpDateOrDeltaHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpDateOrDeltaHeaderValue: ptr pointer, value: ptr bool
+                 ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpExpectationHeaderValue
 const IID_IHttpExpectationHeaderValue* = guid"4CE585CD-3A99-43AF-A2E6-EC232FEA9658"
-const Slot_IHttpExpectationHeaderValue_get_Name* = 6
-type Fn_IHttpExpectationHeaderValue_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpExpectationHeaderValue_get_Value* = 7
-type Fn_IHttpExpectationHeaderValue_get_Value* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpExpectationHeaderValue_put_Value* = 8
-type Fn_IHttpExpectationHeaderValue_put_Value* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpExpectationHeaderValue_get_Parameters* = 9
-type Fn_IHttpExpectationHeaderValue_get_Parameters* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpExpectationHeaderValueVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Value*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Value*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Parameters*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpExpectationHeaderValueCollection
 const IID_IHttpExpectationHeaderValueCollection* = guid"E78521B3-A0E2-4AC4-9E66-79706CB9FD58"
-const Slot_IHttpExpectationHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpExpectationHeaderValueCollection_ParseAdd* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpExpectationHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpExpectationHeaderValueCollection_TryParseAdd* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IHttpExpectationHeaderValueCollectionVtbl* = object of IInspectableVtbl
+  ParseAdd*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  TryParseAdd*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                    ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpExpectationHeaderValueFactory
 const IID_IHttpExpectationHeaderValueFactory* = guid"4EA275CB-D53E-4868-8856-1E21A5030DC0"
-const Slot_IHttpExpectationHeaderValueFactory_CreateFromName* = 6
-type Fn_IHttpExpectationHeaderValueFactory_CreateFromName* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpExpectationHeaderValueFactory_CreateFromNameWithValue* = 7
-type Fn_IHttpExpectationHeaderValueFactory_CreateFromNameWithValue* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpExpectationHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  CreateFromName*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                       ): HRESULT {.abi.}
+  CreateFromNameWithValue*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                 value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpExpectationHeaderValueStatics
 const IID_IHttpExpectationHeaderValueStatics* = guid"3019ABE2-CFE5-473B-A57F-FBA5B14EB257"
-const Slot_IHttpExpectationHeaderValueStatics_Parse* = 6
-type Fn_IHttpExpectationHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpExpectationHeaderValueStatics_TryParse* = 7
-type Fn_IHttpExpectationHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING, a2HttpExpectationHeaderValue: ptr pointer,
-       value: ptr bool): HRESULT {.abi.}
+type IHttpExpectationHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpExpectationHeaderValue: ptr pointer, value: ptr bool
+                 ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpLanguageHeaderValueCollection
 const IID_IHttpLanguageHeaderValueCollection* = guid"9EBD7CA3-8219-44F6-9902-8C56DFD3340C"
-const Slot_IHttpLanguageHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpLanguageHeaderValueCollection_ParseAdd* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpLanguageHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpLanguageHeaderValueCollection_TryParseAdd* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IHttpLanguageHeaderValueCollectionVtbl* = object of IInspectableVtbl
+  ParseAdd*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  TryParseAdd*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                    ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValue
 const IID_IHttpLanguageRangeWithQualityHeaderValue* = guid"7256E102-0080-4DB4-A083-7DE7B2E5BA4C"
-const Slot_IHttpLanguageRangeWithQualityHeaderValue_get_LanguageRange* = 6
-type Fn_IHttpLanguageRangeWithQualityHeaderValue_get_LanguageRange* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpLanguageRangeWithQualityHeaderValue_get_Quality* = 7
-type Fn_IHttpLanguageRangeWithQualityHeaderValue_get_Quality* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpLanguageRangeWithQualityHeaderValueVtbl* = object of IInspectableVtbl
+  get_LanguageRange*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Quality*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueCollection
 const IID_IHttpLanguageRangeWithQualityHeaderValueCollection* = guid"885D5ABD-4B4F-480A-89CE-8AEDCEE6E3A0"
-const Slot_IHttpLanguageRangeWithQualityHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpLanguageRangeWithQualityHeaderValueCollection_ParseAdd* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpLanguageRangeWithQualityHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpLanguageRangeWithQualityHeaderValueCollection_TryParseAdd* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IHttpLanguageRangeWithQualityHeaderValueCollectionVtbl* = object of IInspectableVtbl
+  ParseAdd*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  TryParseAdd*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                    ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueFactory
 const IID_IHttpLanguageRangeWithQualityHeaderValueFactory* = guid"7BB83970-780F-4C83-9FE4-DC3087F6BD55"
-const Slot_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRange* = 6
-type Fn_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRange* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRangeWithQuality* = 7
-type Fn_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRangeWithQuality* =
-  proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpLanguageRangeWithQualityHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  CreateFromLanguageRange*: proc(self: pointer, a1: HSTRING,
+                                 value: ptr pointer): HRESULT {.abi.}
+  CreateFromLanguageRangeWithQuality*: proc(self: pointer, a1: HSTRING,
+                                            a2: float64, value: ptr pointer
+                                           ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueStatics
 const IID_IHttpLanguageRangeWithQualityHeaderValueStatics* = guid"2541E146-F308-46F5-B695-42F54024EC68"
-const Slot_IHttpLanguageRangeWithQualityHeaderValueStatics_Parse* = 6
-type Fn_IHttpLanguageRangeWithQualityHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpLanguageRangeWithQualityHeaderValueStatics_TryParse* = 7
-type Fn_IHttpLanguageRangeWithQualityHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING,
-       a2HttpLanguageRangeWithQualityHeaderValue: ptr pointer, value: ptr bool
-      ): HRESULT {.abi.}
+type IHttpLanguageRangeWithQualityHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpLanguageRangeWithQualityHeaderValue: ptr pointer,
+                  value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeHeaderValue
 const IID_IHttpMediaTypeHeaderValue* = guid"16B28533-E728-4FCB-BDB0-08A431A14844"
-const Slot_IHttpMediaTypeHeaderValue_get_CharSet* = 6
-type Fn_IHttpMediaTypeHeaderValue_get_CharSet* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpMediaTypeHeaderValue_put_CharSet* = 7
-type Fn_IHttpMediaTypeHeaderValue_put_CharSet* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpMediaTypeHeaderValue_get_MediaType* = 8
-type Fn_IHttpMediaTypeHeaderValue_get_MediaType* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpMediaTypeHeaderValue_put_MediaType* = 9
-type Fn_IHttpMediaTypeHeaderValue_put_MediaType* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpMediaTypeHeaderValue_get_Parameters* = 10
-type Fn_IHttpMediaTypeHeaderValue_get_Parameters* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpMediaTypeHeaderValueVtbl* = object of IInspectableVtbl
+  get_CharSet*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_CharSet*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_MediaType*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_MediaType*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Parameters*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeHeaderValueFactory
 const IID_IHttpMediaTypeHeaderValueFactory* = guid"BED747A8-CD17-42DD-9367-AB9C5B56DD7D"
-const Slot_IHttpMediaTypeHeaderValueFactory_Create* = 6
-type Fn_IHttpMediaTypeHeaderValueFactory_Create* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IHttpMediaTypeHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeHeaderValueStatics
 const IID_IHttpMediaTypeHeaderValueStatics* = guid"E04D83DF-1D41-4D8C-A2DE-6FD2ED87399B"
-const Slot_IHttpMediaTypeHeaderValueStatics_Parse* = 6
-type Fn_IHttpMediaTypeHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpMediaTypeHeaderValueStatics_TryParse* = 7
-type Fn_IHttpMediaTypeHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING, a2HttpMediaTypeHeaderValue: ptr pointer,
-       value: ptr bool): HRESULT {.abi.}
+type IHttpMediaTypeHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpMediaTypeHeaderValue: ptr pointer, value: ptr bool
+                 ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValue
 const IID_IHttpMediaTypeWithQualityHeaderValue* = guid"188D5E32-76BE-44A0-B1CD-2074BDED2DDE"
-const Slot_IHttpMediaTypeWithQualityHeaderValue_get_CharSet* = 6
-type Fn_IHttpMediaTypeWithQualityHeaderValue_get_CharSet* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpMediaTypeWithQualityHeaderValue_put_CharSet* = 7
-type Fn_IHttpMediaTypeWithQualityHeaderValue_put_CharSet* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpMediaTypeWithQualityHeaderValue_get_MediaType* = 8
-type Fn_IHttpMediaTypeWithQualityHeaderValue_get_MediaType* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpMediaTypeWithQualityHeaderValue_put_MediaType* = 9
-type Fn_IHttpMediaTypeWithQualityHeaderValue_put_MediaType* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpMediaTypeWithQualityHeaderValue_get_Parameters* = 10
-type Fn_IHttpMediaTypeWithQualityHeaderValue_get_Parameters* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpMediaTypeWithQualityHeaderValue_get_Quality* = 11
-type Fn_IHttpMediaTypeWithQualityHeaderValue_get_Quality* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpMediaTypeWithQualityHeaderValue_put_Quality* = 12
-type Fn_IHttpMediaTypeWithQualityHeaderValue_put_Quality* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
+type IHttpMediaTypeWithQualityHeaderValueVtbl* = object of IInspectableVtbl
+  get_CharSet*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_CharSet*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_MediaType*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_MediaType*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Parameters*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Quality*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Quality*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueCollection
 const IID_IHttpMediaTypeWithQualityHeaderValueCollection* = guid"3C0C6B73-1342-4587-A056-18D02FF67165"
-const Slot_IHttpMediaTypeWithQualityHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpMediaTypeWithQualityHeaderValueCollection_ParseAdd* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpMediaTypeWithQualityHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpMediaTypeWithQualityHeaderValueCollection_TryParseAdd* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IHttpMediaTypeWithQualityHeaderValueCollectionVtbl* = object of IInspectableVtbl
+  ParseAdd*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  TryParseAdd*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                    ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueFactory
 const IID_IHttpMediaTypeWithQualityHeaderValueFactory* = guid"4C6D20F4-9457-44E6-A323-D122B958780B"
-const Slot_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaType* = 6
-type Fn_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaType* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaTypeWithQuality* = 7
-type Fn_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaTypeWithQuality* =
-  proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpMediaTypeWithQualityHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  CreateFromMediaType*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                            ): HRESULT {.abi.}
+  CreateFromMediaTypeWithQuality*: proc(self: pointer, a1: HSTRING,
+                                        a2: float64, value: ptr pointer
+                                       ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueStatics
 const IID_IHttpMediaTypeWithQualityHeaderValueStatics* = guid"5B070CD9-B560-4FC8-9835-7E6C0A657B24"
-const Slot_IHttpMediaTypeWithQualityHeaderValueStatics_Parse* = 6
-type Fn_IHttpMediaTypeWithQualityHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpMediaTypeWithQualityHeaderValueStatics_TryParse* = 7
-type Fn_IHttpMediaTypeWithQualityHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING,
-       a2HttpMediaTypeWithQualityHeaderValue: ptr pointer, value: ptr bool
-      ): HRESULT {.abi.}
+type IHttpMediaTypeWithQualityHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpMediaTypeWithQualityHeaderValue: ptr pointer,
+                  value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMethodHeaderValueCollection
 const IID_IHttpMethodHeaderValueCollection* = guid"43BC3FF4-6119-4ADF-938C-34BFFFCF92ED"
-const Slot_IHttpMethodHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpMethodHeaderValueCollection_ParseAdd* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpMethodHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpMethodHeaderValueCollection_TryParseAdd* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IHttpMethodHeaderValueCollectionVtbl* = object of IInspectableVtbl
+  ParseAdd*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  TryParseAdd*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                    ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpNameValueHeaderValue
 const IID_IHttpNameValueHeaderValue* = guid"D8BA7463-5B9A-4D1B-93F9-AA5B44ECFDDF"
-const Slot_IHttpNameValueHeaderValue_get_Name* = 6
-type Fn_IHttpNameValueHeaderValue_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpNameValueHeaderValue_get_Value* = 7
-type Fn_IHttpNameValueHeaderValue_get_Value* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpNameValueHeaderValue_put_Value* = 8
-type Fn_IHttpNameValueHeaderValue_put_Value* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IHttpNameValueHeaderValueVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Value*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Value*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpNameValueHeaderValueFactory
 const IID_IHttpNameValueHeaderValueFactory* = guid"770E2267-CBF8-4736-A925-93FBE10C7CA8"
-const Slot_IHttpNameValueHeaderValueFactory_CreateFromName* = 6
-type Fn_IHttpNameValueHeaderValueFactory_CreateFromName* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpNameValueHeaderValueFactory_CreateFromNameWithValue* = 7
-type Fn_IHttpNameValueHeaderValueFactory_CreateFromNameWithValue* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpNameValueHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  CreateFromName*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                       ): HRESULT {.abi.}
+  CreateFromNameWithValue*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                 value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpNameValueHeaderValueStatics
 const IID_IHttpNameValueHeaderValueStatics* = guid"FFD4030F-1130-4152-8659-256909A9D115"
-const Slot_IHttpNameValueHeaderValueStatics_Parse* = 6
-type Fn_IHttpNameValueHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpNameValueHeaderValueStatics_TryParse* = 7
-type Fn_IHttpNameValueHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING, a2HttpNameValueHeaderValue: ptr pointer,
-       value: ptr bool): HRESULT {.abi.}
+type IHttpNameValueHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpNameValueHeaderValue: ptr pointer, value: ptr bool
+                 ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductHeaderValue
 const IID_IHttpProductHeaderValue* = guid"F4FEEE03-EBD4-4160-B9FF-807C5183B6E6"
-const Slot_IHttpProductHeaderValue_get_Name* = 6
-type Fn_IHttpProductHeaderValue_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpProductHeaderValue_get_Version* = 7
-type Fn_IHttpProductHeaderValue_get_Version* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IHttpProductHeaderValueVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Version*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductHeaderValueFactory
 const IID_IHttpProductHeaderValueFactory* = guid"611AA4F5-82BC-42FB-977B-DC00536E5E86"
-const Slot_IHttpProductHeaderValueFactory_CreateFromName* = 6
-type Fn_IHttpProductHeaderValueFactory_CreateFromName* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpProductHeaderValueFactory_CreateFromNameWithVersion* = 7
-type Fn_IHttpProductHeaderValueFactory_CreateFromNameWithVersion* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpProductHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  CreateFromName*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                       ): HRESULT {.abi.}
+  CreateFromNameWithVersion*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                   value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductHeaderValueStatics
 const IID_IHttpProductHeaderValueStatics* = guid"90C33E29-BEFC-4337-BE62-49F097975F53"
-const Slot_IHttpProductHeaderValueStatics_Parse* = 6
-type Fn_IHttpProductHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpProductHeaderValueStatics_TryParse* = 7
-type Fn_IHttpProductHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING, a2HttpProductHeaderValue: ptr pointer,
-       value: ptr bool): HRESULT {.abi.}
+type IHttpProductHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpProductHeaderValue: ptr pointer, value: ptr bool
+                 ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductInfoHeaderValue
 const IID_IHttpProductInfoHeaderValue* = guid"1B1A8732-4C35-486A-966F-646489198E4D"
-const Slot_IHttpProductInfoHeaderValue_get_Product* = 6
-type Fn_IHttpProductInfoHeaderValue_get_Product* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpProductInfoHeaderValue_get_Comment* = 7
-type Fn_IHttpProductInfoHeaderValue_get_Comment* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IHttpProductInfoHeaderValueVtbl* = object of IInspectableVtbl
+  get_Product*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Comment*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductInfoHeaderValueCollection
 const IID_IHttpProductInfoHeaderValueCollection* = guid"877DF74A-D69B-44F8-AD4F-453AF9C42ED0"
-const Slot_IHttpProductInfoHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpProductInfoHeaderValueCollection_ParseAdd* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpProductInfoHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpProductInfoHeaderValueCollection_TryParseAdd* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IHttpProductInfoHeaderValueCollectionVtbl* = object of IInspectableVtbl
+  ParseAdd*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  TryParseAdd*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                    ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductInfoHeaderValueFactory
 const IID_IHttpProductInfoHeaderValueFactory* = guid"24220FBE-EABE-4464-B460-EC010B7C41E2"
-const Slot_IHttpProductInfoHeaderValueFactory_CreateFromComment* = 6
-type Fn_IHttpProductInfoHeaderValueFactory_CreateFromComment* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpProductInfoHeaderValueFactory_CreateFromNameWithVersion* = 7
-type Fn_IHttpProductInfoHeaderValueFactory_CreateFromNameWithVersion* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpProductInfoHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  CreateFromComment*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                          ): HRESULT {.abi.}
+  CreateFromNameWithVersion*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                   value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductInfoHeaderValueStatics
 const IID_IHttpProductInfoHeaderValueStatics* = guid"DB7FD857-327A-4E73-81E5-7059A302B042"
-const Slot_IHttpProductInfoHeaderValueStatics_Parse* = 6
-type Fn_IHttpProductInfoHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpProductInfoHeaderValueStatics_TryParse* = 7
-type Fn_IHttpProductInfoHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING, a2HttpProductInfoHeaderValue: ptr pointer,
-       value: ptr bool): HRESULT {.abi.}
+type IHttpProductInfoHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpProductInfoHeaderValue: ptr pointer, value: ptr bool
+                 ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpRequestHeaderCollection
 const IID_IHttpRequestHeaderCollection* = guid"AF40329B-B544-469B-86B9-AC3D466FEA36"
-const Slot_IHttpRequestHeaderCollection_get_Accept* = 6
-type Fn_IHttpRequestHeaderCollection_get_Accept* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_AcceptEncoding* = 7
-type Fn_IHttpRequestHeaderCollection_get_AcceptEncoding* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_AcceptLanguage* = 8
-type Fn_IHttpRequestHeaderCollection_get_AcceptLanguage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_Authorization* = 9
-type Fn_IHttpRequestHeaderCollection_get_Authorization* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_put_Authorization* = 10
-type Fn_IHttpRequestHeaderCollection_put_Authorization* =
-  proc(self: pointer, a1HttpCredentialsHeaderValue: pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_CacheControl* = 11
-type Fn_IHttpRequestHeaderCollection_get_CacheControl* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_Connection* = 12
-type Fn_IHttpRequestHeaderCollection_get_Connection* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_Cookie* = 13
-type Fn_IHttpRequestHeaderCollection_get_Cookie* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_Date* = 14
-type Fn_IHttpRequestHeaderCollection_get_Date* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_put_Date* = 15
-type Fn_IHttpRequestHeaderCollection_put_Date* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_Expect* = 16
-type Fn_IHttpRequestHeaderCollection_get_Expect* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_From* = 17
-type Fn_IHttpRequestHeaderCollection_get_From* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_put_From* = 18
-type Fn_IHttpRequestHeaderCollection_put_From* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_Host* = 19
-type Fn_IHttpRequestHeaderCollection_get_Host* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_put_Host* = 20
-type Fn_IHttpRequestHeaderCollection_put_Host* =
-  proc(self: pointer, a1HostName: pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_IfModifiedSince* = 21
-type Fn_IHttpRequestHeaderCollection_get_IfModifiedSince* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_put_IfModifiedSince* = 22
-type Fn_IHttpRequestHeaderCollection_put_IfModifiedSince* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_IfUnmodifiedSince* = 23
-type Fn_IHttpRequestHeaderCollection_get_IfUnmodifiedSince* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_put_IfUnmodifiedSince* = 24
-type Fn_IHttpRequestHeaderCollection_put_IfUnmodifiedSince* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_MaxForwards* = 25
-type Fn_IHttpRequestHeaderCollection_get_MaxForwards* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_put_MaxForwards* = 26
-type Fn_IHttpRequestHeaderCollection_put_MaxForwards* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_ProxyAuthorization* = 27
-type Fn_IHttpRequestHeaderCollection_get_ProxyAuthorization* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_put_ProxyAuthorization* = 28
-type Fn_IHttpRequestHeaderCollection_put_ProxyAuthorization* =
-  proc(self: pointer, a1HttpCredentialsHeaderValue: pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_Referer* = 29
-type Fn_IHttpRequestHeaderCollection_get_Referer* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_put_Referer* = 30
-type Fn_IHttpRequestHeaderCollection_put_Referer* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_TransferEncoding* = 31
-type Fn_IHttpRequestHeaderCollection_get_TransferEncoding* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_get_UserAgent* = 32
-type Fn_IHttpRequestHeaderCollection_get_UserAgent* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_Append* = 33
-type Fn_IHttpRequestHeaderCollection_Append* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
-const Slot_IHttpRequestHeaderCollection_TryAppendWithoutValidation* = 34
-type Fn_IHttpRequestHeaderCollection_TryAppendWithoutValidation* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
-      ): HRESULT {.abi.}
+type IHttpRequestHeaderCollectionVtbl* = object of IInspectableVtbl
+  get_Accept*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_AcceptEncoding*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_AcceptLanguage*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_Authorization*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Authorization*: proc(self: pointer,
+                           a1HttpCredentialsHeaderValue: pointer
+                          ): HRESULT {.abi.}
+  get_CacheControl*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Connection*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Cookie*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Date*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Date*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_Expect*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_From*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_From*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Host*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Host*: proc(self: pointer, a1HostName: pointer): HRESULT {.abi.}
+  get_IfModifiedSince*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  put_IfModifiedSince*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_IfUnmodifiedSince*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  put_IfUnmodifiedSince*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_MaxForwards*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_MaxForwards*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_ProxyAuthorization*: proc(self: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
+  put_ProxyAuthorization*: proc(self: pointer,
+                                a1HttpCredentialsHeaderValue: pointer
+                               ): HRESULT {.abi.}
+  get_Referer*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Referer*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_TransferEncoding*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  get_UserAgent*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Append*: proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
+  TryAppendWithoutValidation*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                    value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpResponseHeaderCollection
 const IID_IHttpResponseHeaderCollection* = guid"7A990969-FA3F-41ED-AAC6-BF957975C16B"
-const Slot_IHttpResponseHeaderCollection_get_Age* = 6
-type Fn_IHttpResponseHeaderCollection_get_Age* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_put_Age* = 7
-type Fn_IHttpResponseHeaderCollection_put_Age* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_get_Allow* = 8
-type Fn_IHttpResponseHeaderCollection_get_Allow* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_get_CacheControl* = 9
-type Fn_IHttpResponseHeaderCollection_get_CacheControl* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_get_Connection* = 10
-type Fn_IHttpResponseHeaderCollection_get_Connection* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_get_Date* = 11
-type Fn_IHttpResponseHeaderCollection_get_Date* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_put_Date* = 12
-type Fn_IHttpResponseHeaderCollection_put_Date* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_get_Location* = 13
-type Fn_IHttpResponseHeaderCollection_get_Location* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_put_Location* = 14
-type Fn_IHttpResponseHeaderCollection_put_Location* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_get_ProxyAuthenticate* = 15
-type Fn_IHttpResponseHeaderCollection_get_ProxyAuthenticate* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_get_RetryAfter* = 16
-type Fn_IHttpResponseHeaderCollection_get_RetryAfter* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_put_RetryAfter* = 17
-type Fn_IHttpResponseHeaderCollection_put_RetryAfter* =
-  proc(self: pointer, a1HttpDateOrDeltaHeaderValue: pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_get_TransferEncoding* = 18
-type Fn_IHttpResponseHeaderCollection_get_TransferEncoding* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_get_WwwAuthenticate* = 19
-type Fn_IHttpResponseHeaderCollection_get_WwwAuthenticate* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_Append* = 20
-type Fn_IHttpResponseHeaderCollection_Append* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
-const Slot_IHttpResponseHeaderCollection_TryAppendWithoutValidation* = 21
-type Fn_IHttpResponseHeaderCollection_TryAppendWithoutValidation* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
-      ): HRESULT {.abi.}
+type IHttpResponseHeaderCollectionVtbl* = object of IInspectableVtbl
+  get_Age*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Age*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_Allow*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_CacheControl*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Connection*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Date*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Date*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_Location*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Location*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_ProxyAuthenticate*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  get_RetryAfter*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_RetryAfter*: proc(self: pointer, a1HttpDateOrDeltaHeaderValue: pointer
+                       ): HRESULT {.abi.}
+  get_TransferEncoding*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  get_WwwAuthenticate*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  Append*: proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
+  TryAppendWithoutValidation*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                    value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpTransferCodingHeaderValue
 const IID_IHttpTransferCodingHeaderValue* = guid"436F32F9-3DED-42BD-B38A-5496A2511CE6"
-const Slot_IHttpTransferCodingHeaderValue_get_Parameters* = 6
-type Fn_IHttpTransferCodingHeaderValue_get_Parameters* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpTransferCodingHeaderValue_get_Value* = 7
-type Fn_IHttpTransferCodingHeaderValue_get_Value* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IHttpTransferCodingHeaderValueVtbl* = object of IInspectableVtbl
+  get_Parameters*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Value*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueCollection
 const IID_IHttpTransferCodingHeaderValueCollection* = guid"202C8C34-2C03-49B8-9665-73E27CB2FC79"
-const Slot_IHttpTransferCodingHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpTransferCodingHeaderValueCollection_ParseAdd* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpTransferCodingHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpTransferCodingHeaderValueCollection_TryParseAdd* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IHttpTransferCodingHeaderValueCollectionVtbl* = object of IInspectableVtbl
+  ParseAdd*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  TryParseAdd*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                    ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueFactory
 const IID_IHttpTransferCodingHeaderValueFactory* = guid"BB62DFFC-E361-4F08-8E4F-C9E723DE703B"
-const Slot_IHttpTransferCodingHeaderValueFactory_Create* = 6
-type Fn_IHttpTransferCodingHeaderValueFactory_Create* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IHttpTransferCodingHeaderValueFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueStatics
 const IID_IHttpTransferCodingHeaderValueStatics* = guid"6AB8892A-1A98-4D32-A906-7470A9875CE5"
-const Slot_IHttpTransferCodingHeaderValueStatics_Parse* = 6
-type Fn_IHttpTransferCodingHeaderValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpTransferCodingHeaderValueStatics_TryParse* = 7
-type Fn_IHttpTransferCodingHeaderValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING,
-       a2HttpTransferCodingHeaderValue: ptr pointer, value: ptr bool
-      ): HRESULT {.abi.}
+type IHttpTransferCodingHeaderValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING,
+                  a2HttpTransferCodingHeaderValue: ptr pointer,
+                  value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpBufferContentFactory
 const IID_IHttpBufferContentFactory* = guid"BC20C193-C41F-4FF7-9123-6435736EADC2"
-const Slot_IHttpBufferContentFactory_CreateFromBuffer* = 6
-type Fn_IHttpBufferContentFactory_CreateFromBuffer* =
-  proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpBufferContentFactory_CreateFromBufferWithOffset* = 7
-type Fn_IHttpBufferContentFactory_CreateFromBufferWithOffset* =
-  proc(self: pointer, a1IBuffer: pointer, a2: uint32, a3: uint32,
-       value: ptr pointer): HRESULT {.abi.}
+type IHttpBufferContentFactoryVtbl* = object of IInspectableVtbl
+  CreateFromBuffer*: proc(self: pointer, a1IBuffer: pointer,
+                          value: ptr pointer): HRESULT {.abi.}
+  CreateFromBufferWithOffset*: proc(self: pointer, a1IBuffer: pointer,
+                                    a2: uint32, a3: uint32, value: ptr pointer
+                                   ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpClient
 const IID_IHttpClient* = guid"7FDA1151-3574-4880-A8BA-E6B1E0061F3D"
-const Slot_IHttpClient_DeleteAsync* = 6
-type Fn_IHttpClient_DeleteAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient_GetAsync* = 7
-type Fn_IHttpClient_GetAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient_GetAsync2* = 8
-type Fn_IHttpClient_GetAsync2* =
-  proc(self: pointer, a1Uri: pointer, a2: HttpCompletionOption,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient_GetBufferAsync* = 9
-type Fn_IHttpClient_GetBufferAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient_GetInputStreamAsync* = 10
-type Fn_IHttpClient_GetInputStreamAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient_GetStringAsync* = 11
-type Fn_IHttpClient_GetStringAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient_PostAsync* = 12
-type Fn_IHttpClient_PostAsync* =
-  proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient_PutAsync* = 13
-type Fn_IHttpClient_PutAsync* =
-  proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient_SendRequestAsync* = 14
-type Fn_IHttpClient_SendRequestAsync* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IHttpClient_SendRequestAsync2* = 15
-type Fn_IHttpClient_SendRequestAsync2* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, a2: HttpCompletionOption,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient_get_DefaultRequestHeaders* = 16
-type Fn_IHttpClient_get_DefaultRequestHeaders* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpClientVtbl* = object of IInspectableVtbl
+  DeleteAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                    ): HRESULT {.abi.}
+  GetAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                 ): HRESULT {.abi.}
+  GetAsync2*: proc(self: pointer, a1Uri: pointer, a2: HttpCompletionOption,
+                   value: ptr pointer): HRESULT {.abi.}
+  GetBufferAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                       ): HRESULT {.abi.}
+  GetInputStreamAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  GetStringAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                       ): HRESULT {.abi.}
+  PostAsync*: proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer,
+                   value: ptr pointer): HRESULT {.abi.}
+  PutAsync*: proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer,
+                  value: ptr pointer): HRESULT {.abi.}
+  SendRequestAsync*: proc(self: pointer, a1HttpRequestMessage: pointer,
+                          value: ptr pointer): HRESULT {.abi.}
+  SendRequestAsync2*: proc(self: pointer, a1HttpRequestMessage: pointer,
+                           a2: HttpCompletionOption, value: ptr pointer
+                          ): HRESULT {.abi.}
+  get_DefaultRequestHeaders*: proc(self: pointer, value: ptr pointer
+                                  ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpClient2
 const IID_IHttpClient2* = guid"CDD83348-E8B7-4CEC-B1B0-DC455FE72C92"
-const Slot_IHttpClient2_TryDeleteAsync* = 6
-type Fn_IHttpClient2_TryDeleteAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient2_TryGetAsync* = 7
-type Fn_IHttpClient2_TryGetAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient2_TryGetAsync2* = 8
-type Fn_IHttpClient2_TryGetAsync2* =
-  proc(self: pointer, a1Uri: pointer, a2: HttpCompletionOption,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient2_TryGetBufferAsync* = 9
-type Fn_IHttpClient2_TryGetBufferAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient2_TryGetInputStreamAsync* = 10
-type Fn_IHttpClient2_TryGetInputStreamAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient2_TryGetStringAsync* = 11
-type Fn_IHttpClient2_TryGetStringAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient2_TryPostAsync* = 12
-type Fn_IHttpClient2_TryPostAsync* =
-  proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient2_TryPutAsync* = 13
-type Fn_IHttpClient2_TryPutAsync* =
-  proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpClient2_TrySendRequestAsync* = 14
-type Fn_IHttpClient2_TrySendRequestAsync* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IHttpClient2_TrySendRequestAsync2* = 15
-type Fn_IHttpClient2_TrySendRequestAsync2* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, a2: HttpCompletionOption,
-       value: ptr pointer): HRESULT {.abi.}
+type IHttpClient2Vtbl* = object of IInspectableVtbl
+  TryDeleteAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                       ): HRESULT {.abi.}
+  TryGetAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                    ): HRESULT {.abi.}
+  TryGetAsync2*: proc(self: pointer, a1Uri: pointer, a2: HttpCompletionOption,
+                      value: ptr pointer): HRESULT {.abi.}
+  TryGetBufferAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                          ): HRESULT {.abi.}
+  TryGetInputStreamAsync*: proc(self: pointer, a1Uri: pointer,
+                                value: ptr pointer): HRESULT {.abi.}
+  TryGetStringAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                          ): HRESULT {.abi.}
+  TryPostAsync*: proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer,
+                      value: ptr pointer): HRESULT {.abi.}
+  TryPutAsync*: proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer,
+                     value: ptr pointer): HRESULT {.abi.}
+  TrySendRequestAsync*: proc(self: pointer, a1HttpRequestMessage: pointer,
+                             value: ptr pointer): HRESULT {.abi.}
+  TrySendRequestAsync2*: proc(self: pointer, a1HttpRequestMessage: pointer,
+                              a2: HttpCompletionOption, value: ptr pointer
+                             ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpClient3
 const IID_IHttpClient3* = guid"1172FD01-9899-4194-963F-8F9D72A7EC15"
-const Slot_IHttpClient3_get_DefaultPrivacyAnnotation* = 6
-type Fn_IHttpClient3_get_DefaultPrivacyAnnotation* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpClient3_put_DefaultPrivacyAnnotation* = 7
-type Fn_IHttpClient3_put_DefaultPrivacyAnnotation* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IHttpClient3Vtbl* = object of IInspectableVtbl
+  get_DefaultPrivacyAnnotation*: proc(self: pointer, value: ptr HSTRING
+                                     ): HRESULT {.abi.}
+  put_DefaultPrivacyAnnotation*: proc(self: pointer, a1: HSTRING
+                                     ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpClientFactory
 const IID_IHttpClientFactory* = guid"C30C4ECA-E3FA-4F99-AFB4-63CC65009462"
-const Slot_IHttpClientFactory_Create* = 6
-type Fn_IHttpClientFactory_Create* =
-  proc(self: pointer, a1IHttpFilter: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpClientFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1IHttpFilter: pointer, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpContent
 const IID_IHttpContent* = guid"6B14A441-FBA7-4BD2-AF0A-839DE7C295DA"
-const Slot_IHttpContent_get_Headers* = 6
-type Fn_IHttpContent_get_Headers* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContent_BufferAllAsync* = 7
-type Fn_IHttpContent_BufferAllAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContent_ReadAsBufferAsync* = 8
-type Fn_IHttpContent_ReadAsBufferAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContent_ReadAsInputStreamAsync* = 9
-type Fn_IHttpContent_ReadAsInputStreamAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContent_ReadAsStringAsync* = 10
-type Fn_IHttpContent_ReadAsStringAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpContent_TryComputeLength* = 11
-type Fn_IHttpContent_TryComputeLength* =
-  proc(self: pointer, a1: ptr uint64, value: ptr bool): HRESULT {.abi.}
-const Slot_IHttpContent_WriteToStreamAsync* = 12
-type Fn_IHttpContent_WriteToStreamAsync* =
-  proc(self: pointer, a1IOutputStream: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpContentVtbl* = object of IInspectableVtbl
+  get_Headers*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  BufferAllAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  ReadAsBufferAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  ReadAsInputStreamAsync*: proc(self: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
+  ReadAsStringAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  TryComputeLength*: proc(self: pointer, a1: ptr uint64, value: ptr bool
+                         ): HRESULT {.abi.}
+  WriteToStreamAsync*: proc(self: pointer, a1IOutputStream: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpCookie
 const IID_IHttpCookie* = guid"1F5488E2-CC2D-4779-86A7-88F10687D249"
-const Slot_IHttpCookie_get_Name* = 6
-type Fn_IHttpCookie_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpCookie_get_Domain* = 7
-type Fn_IHttpCookie_get_Domain* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpCookie_get_Path* = 8
-type Fn_IHttpCookie_get_Path* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpCookie_get_Expires* = 9
-type Fn_IHttpCookie_get_Expires* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpCookie_put_Expires* = 10
-type Fn_IHttpCookie_put_Expires* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IHttpCookie_get_HttpOnly* = 11
-type Fn_IHttpCookie_get_HttpOnly* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IHttpCookie_put_HttpOnly* = 12
-type Fn_IHttpCookie_put_HttpOnly* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IHttpCookie_get_Secure* = 13
-type Fn_IHttpCookie_get_Secure* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IHttpCookie_put_Secure* = 14
-type Fn_IHttpCookie_put_Secure* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IHttpCookie_get_Value* = 15
-type Fn_IHttpCookie_get_Value* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpCookie_put_Value* = 16
-type Fn_IHttpCookie_put_Value* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IHttpCookieVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Domain*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Path*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Expires*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Expires*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_HttpOnly*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_HttpOnly*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_Secure*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_Secure*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_Value*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Value*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpCookieFactory
 const IID_IHttpCookieFactory* = guid"6A0585A9-931C-4CD1-A96D-C21701785C5F"
-const Slot_IHttpCookieFactory_Create* = 6
-type Fn_IHttpCookieFactory_Create* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
+type IHttpCookieFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING,
+                value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpCookieManager
 const IID_IHttpCookieManager* = guid"7A431780-CD4F-4E57-A84A-5B0A53D6BB96"
-const Slot_IHttpCookieManager_SetCookie* = 6
-type Fn_IHttpCookieManager_SetCookie* =
-  proc(self: pointer, a1HttpCookie: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IHttpCookieManager_SetCookie2* = 7
-type Fn_IHttpCookieManager_SetCookie2* =
-  proc(self: pointer, a1HttpCookie: pointer, a2: bool, value: ptr bool
-      ): HRESULT {.abi.}
-const Slot_IHttpCookieManager_DeleteCookie* = 8
-type Fn_IHttpCookieManager_DeleteCookie* =
-  proc(self: pointer, a1HttpCookie: pointer): HRESULT {.abi.}
-const Slot_IHttpCookieManager_GetCookies* = 9
-type Fn_IHttpCookieManager_GetCookies* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpCookieManagerVtbl* = object of IInspectableVtbl
+  SetCookie*: proc(self: pointer, a1HttpCookie: pointer, value: ptr bool
+                  ): HRESULT {.abi.}
+  SetCookie2*: proc(self: pointer, a1HttpCookie: pointer, a2: bool,
+                    value: ptr bool): HRESULT {.abi.}
+  DeleteCookie*: proc(self: pointer, a1HttpCookie: pointer): HRESULT {.abi.}
+  GetCookies*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                   ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpFormUrlEncodedContentFactory
 const IID_IHttpFormUrlEncodedContentFactory* = guid"43F0138C-2F73-4302-B5F3-EAE9238A5E01"
-const Slot_IHttpFormUrlEncodedContentFactory_Create* = 6
-type Fn_IHttpFormUrlEncodedContentFactory_Create* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpFormUrlEncodedContentFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: pointer, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpGetBufferResult
 const IID_IHttpGetBufferResult* = guid"53D08E7C-E209-404E-9A49-742D8236FD3A"
-const Slot_IHttpGetBufferResult_get_ExtendedError* = 6
-type Fn_IHttpGetBufferResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
-const Slot_IHttpGetBufferResult_get_RequestMessage* = 7
-type Fn_IHttpGetBufferResult_get_RequestMessage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpGetBufferResult_get_ResponseMessage* = 8
-type Fn_IHttpGetBufferResult_get_ResponseMessage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpGetBufferResult_get_Succeeded* = 9
-type Fn_IHttpGetBufferResult_get_Succeeded* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IHttpGetBufferResult_get_Value* = 10
-type Fn_IHttpGetBufferResult_get_Value* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpGetBufferResultVtbl* = object of IInspectableVtbl
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+  get_RequestMessage*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_ResponseMessage*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  get_Succeeded*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_Value*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpGetInputStreamResult
 const IID_IHttpGetInputStreamResult* = guid"D5D63463-13AA-4EE0-BE95-A0C39FE91203"
-const Slot_IHttpGetInputStreamResult_get_ExtendedError* = 6
-type Fn_IHttpGetInputStreamResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
-const Slot_IHttpGetInputStreamResult_get_RequestMessage* = 7
-type Fn_IHttpGetInputStreamResult_get_RequestMessage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpGetInputStreamResult_get_ResponseMessage* = 8
-type Fn_IHttpGetInputStreamResult_get_ResponseMessage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpGetInputStreamResult_get_Succeeded* = 9
-type Fn_IHttpGetInputStreamResult_get_Succeeded* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IHttpGetInputStreamResult_get_Value* = 10
-type Fn_IHttpGetInputStreamResult_get_Value* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpGetInputStreamResultVtbl* = object of IInspectableVtbl
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+  get_RequestMessage*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_ResponseMessage*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  get_Succeeded*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_Value*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpGetStringResult
 const IID_IHttpGetStringResult* = guid"9BAC466D-8509-4775-B16D-8953F47A7F5F"
-const Slot_IHttpGetStringResult_get_ExtendedError* = 6
-type Fn_IHttpGetStringResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
-const Slot_IHttpGetStringResult_get_RequestMessage* = 7
-type Fn_IHttpGetStringResult_get_RequestMessage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpGetStringResult_get_ResponseMessage* = 8
-type Fn_IHttpGetStringResult_get_ResponseMessage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpGetStringResult_get_Succeeded* = 9
-type Fn_IHttpGetStringResult_get_Succeeded* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IHttpGetStringResult_get_Value* = 10
-type Fn_IHttpGetStringResult_get_Value* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IHttpGetStringResultVtbl* = object of IInspectableVtbl
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+  get_RequestMessage*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_ResponseMessage*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  get_Succeeded*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_Value*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMethod
 const IID_IHttpMethod* = guid"728D4022-700D-4FE0-AFA5-40299C58DBFD"
-const Slot_IHttpMethod_get_Method* = 6
-type Fn_IHttpMethod_get_Method* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IHttpMethodVtbl* = object of IInspectableVtbl
+  get_Method*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMethodFactory
 const IID_IHttpMethodFactory* = guid"3C51D10D-36D7-40F8-A86D-E759CAF2F83F"
-const Slot_IHttpMethodFactory_Create* = 6
-type Fn_IHttpMethodFactory_Create* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IHttpMethodFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMethodStatics
 const IID_IHttpMethodStatics* = guid"64D171F0-D99A-4153-8DC6-D68CC4CCE317"
-const Slot_IHttpMethodStatics_get_Delete* = 6
-type Fn_IHttpMethodStatics_get_Delete* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpMethodStatics_get_Get* = 7
-type Fn_IHttpMethodStatics_get_Get* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpMethodStatics_get_Head* = 8
-type Fn_IHttpMethodStatics_get_Head* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpMethodStatics_get_Options* = 9
-type Fn_IHttpMethodStatics_get_Options* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpMethodStatics_get_Patch* = 10
-type Fn_IHttpMethodStatics_get_Patch* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpMethodStatics_get_Post* = 11
-type Fn_IHttpMethodStatics_get_Post* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpMethodStatics_get_Put* = 12
-type Fn_IHttpMethodStatics_get_Put* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpMethodStaticsVtbl* = object of IInspectableVtbl
+  get_Delete*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Get*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Head*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Options*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Patch*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Post*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Put*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMultipartContent
 const IID_IHttpMultipartContent* = guid"DF916AFF-9926-4AC9-AAF1-E0D04EF09BB9"
-const Slot_IHttpMultipartContent_Add* = 6
-type Fn_IHttpMultipartContent_Add* =
-  proc(self: pointer, a1IHttpContent: pointer): HRESULT {.abi.}
+type IHttpMultipartContentVtbl* = object of IInspectableVtbl
+  Add*: proc(self: pointer, a1IHttpContent: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMultipartContentFactory
 const IID_IHttpMultipartContentFactory* = guid"7EB42E62-0222-4F20-B372-47D5DB5D33B4"
-const Slot_IHttpMultipartContentFactory_CreateWithSubtype* = 6
-type Fn_IHttpMultipartContentFactory_CreateWithSubtype* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpMultipartContentFactory_CreateWithSubtypeAndBoundary* = 7
-type Fn_IHttpMultipartContentFactory_CreateWithSubtypeAndBoundary* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpMultipartContentFactoryVtbl* = object of IInspectableVtbl
+  CreateWithSubtype*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                          ): HRESULT {.abi.}
+  CreateWithSubtypeAndBoundary*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                      value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMultipartFormDataContent
 const IID_IHttpMultipartFormDataContent* = guid"64D337E2-E967-4624-B6D1-CF74604A4A42"
-const Slot_IHttpMultipartFormDataContent_Add* = 6
-type Fn_IHttpMultipartFormDataContent_Add* =
-  proc(self: pointer, a1IHttpContent: pointer): HRESULT {.abi.}
-const Slot_IHttpMultipartFormDataContent_Add2* = 7
-type Fn_IHttpMultipartFormDataContent_Add2* =
-  proc(self: pointer, a1IHttpContent: pointer, a2: HSTRING): HRESULT {.abi.}
-const Slot_IHttpMultipartFormDataContent_Add3* = 8
-type Fn_IHttpMultipartFormDataContent_Add3* =
-  proc(self: pointer, a1IHttpContent: pointer, a2: HSTRING, a3: HSTRING
-      ): HRESULT {.abi.}
+type IHttpMultipartFormDataContentVtbl* = object of IInspectableVtbl
+  Add*: proc(self: pointer, a1IHttpContent: pointer): HRESULT {.abi.}
+  Add2*: proc(self: pointer, a1IHttpContent: pointer, a2: HSTRING
+             ): HRESULT {.abi.}
+  Add3*: proc(self: pointer, a1IHttpContent: pointer, a2: HSTRING, a3: HSTRING
+             ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMultipartFormDataContentFactory
 const IID_IHttpMultipartFormDataContentFactory* = guid"A04D7311-5017-4622-93A8-49B24A4FCBFC"
-const Slot_IHttpMultipartFormDataContentFactory_CreateWithBoundary* = 6
-type Fn_IHttpMultipartFormDataContentFactory_CreateWithBoundary* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IHttpMultipartFormDataContentFactoryVtbl* = object of IInspectableVtbl
+  CreateWithBoundary*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpRequestMessage
 const IID_IHttpRequestMessage* = guid"F5762B3C-74D4-4811-B5DC-9F8B4E2F9ABF"
-const Slot_IHttpRequestMessage_get_Content* = 6
-type Fn_IHttpRequestMessage_get_Content* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestMessage_put_Content* = 7
-type Fn_IHttpRequestMessage_put_Content* =
-  proc(self: pointer, a1IHttpContent: pointer): HRESULT {.abi.}
-const Slot_IHttpRequestMessage_get_Headers* = 8
-type Fn_IHttpRequestMessage_get_Headers* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestMessage_get_Method* = 9
-type Fn_IHttpRequestMessage_get_Method* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestMessage_put_Method* = 10
-type Fn_IHttpRequestMessage_put_Method* =
-  proc(self: pointer, a1HttpMethod: pointer): HRESULT {.abi.}
-const Slot_IHttpRequestMessage_get_Properties* = 11
-type Fn_IHttpRequestMessage_get_Properties* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestMessage_get_RequestUri* = 12
-type Fn_IHttpRequestMessage_get_RequestUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestMessage_put_RequestUri* = 13
-type Fn_IHttpRequestMessage_put_RequestUri* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_IHttpRequestMessage_get_TransportInformation* = 14
-type Fn_IHttpRequestMessage_get_TransportInformation* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpRequestMessageVtbl* = object of IInspectableVtbl
+  get_Content*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Content*: proc(self: pointer, a1IHttpContent: pointer): HRESULT {.abi.}
+  get_Headers*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Method*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Method*: proc(self: pointer, a1HttpMethod: pointer): HRESULT {.abi.}
+  get_Properties*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_RequestUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_RequestUri*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_TransportInformation*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpRequestMessage2
 const IID_IHttpRequestMessage2* = guid"C3C60489-62C2-4A3F-9554-226E7C60BD96"
-const Slot_IHttpRequestMessage2_get_PrivacyAnnotation* = 6
-type Fn_IHttpRequestMessage2_get_PrivacyAnnotation* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpRequestMessage2_put_PrivacyAnnotation* = 7
-type Fn_IHttpRequestMessage2_put_PrivacyAnnotation* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IHttpRequestMessage2Vtbl* = object of IInspectableVtbl
+  get_PrivacyAnnotation*: proc(self: pointer, value: ptr HSTRING
+                              ): HRESULT {.abi.}
+  put_PrivacyAnnotation*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpRequestMessageFactory
 const IID_IHttpRequestMessageFactory* = guid"5BAC994E-3886-412E-AEC3-52EC7F25616F"
-const Slot_IHttpRequestMessageFactory_Create* = 6
-type Fn_IHttpRequestMessageFactory_Create* =
-  proc(self: pointer, a1HttpMethod: pointer, a2Uri: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type IHttpRequestMessageFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1HttpMethod: pointer, a2Uri: pointer,
+                value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpRequestResult
 const IID_IHttpRequestResult* = guid"6ACF4DA8-B5EB-4A35-A902-4217FBE820C5"
-const Slot_IHttpRequestResult_get_ExtendedError* = 6
-type Fn_IHttpRequestResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
-const Slot_IHttpRequestResult_get_RequestMessage* = 7
-type Fn_IHttpRequestResult_get_RequestMessage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestResult_get_ResponseMessage* = 8
-type Fn_IHttpRequestResult_get_ResponseMessage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpRequestResult_get_Succeeded* = 9
-type Fn_IHttpRequestResult_get_Succeeded* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IHttpRequestResultVtbl* = object of IInspectableVtbl
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+  get_RequestMessage*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_ResponseMessage*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  get_Succeeded*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpResponseMessage
 const IID_IHttpResponseMessage* = guid"FEE200FB-8664-44E0-95D9-42696199BFFC"
-const Slot_IHttpResponseMessage_get_Content* = 6
-type Fn_IHttpResponseMessage_get_Content* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_put_Content* = 7
-type Fn_IHttpResponseMessage_put_Content* =
-  proc(self: pointer, a1IHttpContent: pointer): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_get_Headers* = 8
-type Fn_IHttpResponseMessage_get_Headers* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_get_IsSuccessStatusCode* = 9
-type Fn_IHttpResponseMessage_get_IsSuccessStatusCode* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_get_ReasonPhrase* = 10
-type Fn_IHttpResponseMessage_get_ReasonPhrase* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_put_ReasonPhrase* = 11
-type Fn_IHttpResponseMessage_put_ReasonPhrase* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_get_RequestMessage* = 12
-type Fn_IHttpResponseMessage_get_RequestMessage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_put_RequestMessage* = 13
-type Fn_IHttpResponseMessage_put_RequestMessage* =
-  proc(self: pointer, a1HttpRequestMessage: pointer): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_get_Source* = 14
-type Fn_IHttpResponseMessage_get_Source* =
-  proc(self: pointer, value: ptr HttpResponseMessageSource): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_put_Source* = 15
-type Fn_IHttpResponseMessage_put_Source* =
-  proc(self: pointer, a1: HttpResponseMessageSource): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_get_StatusCode* = 16
-type Fn_IHttpResponseMessage_get_StatusCode* =
-  proc(self: pointer, value: ptr HttpStatusCode): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_put_StatusCode* = 17
-type Fn_IHttpResponseMessage_put_StatusCode* =
-  proc(self: pointer, a1: HttpStatusCode): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_get_Version* = 18
-type Fn_IHttpResponseMessage_get_Version* =
-  proc(self: pointer, value: ptr HttpVersion): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_put_Version* = 19
-type Fn_IHttpResponseMessage_put_Version* =
-  proc(self: pointer, a1: HttpVersion): HRESULT {.abi.}
-const Slot_IHttpResponseMessage_EnsureSuccessStatusCode* = 20
-type Fn_IHttpResponseMessage_EnsureSuccessStatusCode* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpResponseMessageVtbl* = object of IInspectableVtbl
+  get_Content*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Content*: proc(self: pointer, a1IHttpContent: pointer): HRESULT {.abi.}
+  get_Headers*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_IsSuccessStatusCode*: proc(self: pointer, value: ptr bool
+                                ): HRESULT {.abi.}
+  get_ReasonPhrase*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_ReasonPhrase*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_RequestMessage*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  put_RequestMessage*: proc(self: pointer, a1HttpRequestMessage: pointer
+                           ): HRESULT {.abi.}
+  get_Source*: proc(self: pointer, value: ptr HttpResponseMessageSource
+                   ): HRESULT {.abi.}
+  put_Source*: proc(self: pointer, a1: HttpResponseMessageSource
+                   ): HRESULT {.abi.}
+  get_StatusCode*: proc(self: pointer, value: ptr HttpStatusCode
+                       ): HRESULT {.abi.}
+  put_StatusCode*: proc(self: pointer, a1: HttpStatusCode): HRESULT {.abi.}
+  get_Version*: proc(self: pointer, value: ptr HttpVersion): HRESULT {.abi.}
+  put_Version*: proc(self: pointer, a1: HttpVersion): HRESULT {.abi.}
+  EnsureSuccessStatusCode*: proc(self: pointer, value: ptr pointer
+                                ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpResponseMessageFactory
 const IID_IHttpResponseMessageFactory* = guid"52A8AF99-F095-43DA-B60F-7CFC2BC7EA2F"
-const Slot_IHttpResponseMessageFactory_Create* = 6
-type Fn_IHttpResponseMessageFactory_Create* =
-  proc(self: pointer, a1: HttpStatusCode, value: ptr pointer): HRESULT {.abi.}
+type IHttpResponseMessageFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: HttpStatusCode, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpStreamContentFactory
 const IID_IHttpStreamContentFactory* = guid"F3E64D9D-F725-407E-942F-0EDA189809F4"
-const Slot_IHttpStreamContentFactory_CreateFromInputStream* = 6
-type Fn_IHttpStreamContentFactory_CreateFromInputStream* =
-  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IHttpStreamContentFactoryVtbl* = object of IInspectableVtbl
+  CreateFromInputStream*: proc(self: pointer, a1IInputStream: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpStringContentFactory
 const IID_IHttpStringContentFactory* = guid"46649D5B-2E93-48EB-8E61-19677878E57F"
-const Slot_IHttpStringContentFactory_CreateFromString* = 6
-type Fn_IHttpStringContentFactory_CreateFromString* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpStringContentFactory_CreateFromStringWithEncoding* = 7
-type Fn_IHttpStringContentFactory_CreateFromStringWithEncoding* =
-  proc(self: pointer, a1: HSTRING, a2: UnicodeEncoding, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IHttpStringContentFactory_CreateFromStringWithEncodingAndMediaType* = 8
-type Fn_IHttpStringContentFactory_CreateFromStringWithEncodingAndMediaType* =
-  proc(self: pointer, a1: HSTRING, a2: UnicodeEncoding, a3: HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
+type IHttpStringContentFactoryVtbl* = object of IInspectableVtbl
+  CreateFromString*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                         ): HRESULT {.abi.}
+  CreateFromStringWithEncoding*: proc(self: pointer, a1: HSTRING,
+                                      a2: UnicodeEncoding, value: ptr pointer
+                                     ): HRESULT {.abi.}
+  CreateFromStringWithEncodingAndMediaType*: proc(self: pointer, a1: HSTRING,
+                                                  a2: UnicodeEncoding,
+                                                  a3: HSTRING,
+                                                  value: ptr pointer
+                                                 ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpTransportInformation
 const IID_IHttpTransportInformation* = guid"70127198-C6A7-4ED0-833A-83FD8B8F178D"
-const Slot_IHttpTransportInformation_get_ServerCertificate* = 6
-type Fn_IHttpTransportInformation_get_ServerCertificate* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpTransportInformation_get_ServerCertificateErrorSeverity* = 7
-type Fn_IHttpTransportInformation_get_ServerCertificateErrorSeverity* =
-  proc(self: pointer, value: ptr SocketSslErrorSeverity): HRESULT {.abi.}
-const Slot_IHttpTransportInformation_get_ServerCertificateErrors* = 8
-type Fn_IHttpTransportInformation_get_ServerCertificateErrors* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHttpTransportInformation_get_ServerIntermediateCertificates* = 9
-type Fn_IHttpTransportInformation_get_ServerIntermediateCertificates* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHttpTransportInformationVtbl* = object of IInspectableVtbl
+  get_ServerCertificate*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  get_ServerCertificateErrorSeverity*: proc(self: pointer,
+                                            value: ptr SocketSslErrorSeverity
+                                           ): HRESULT {.abi.}
+  get_ServerCertificateErrors*: proc(self: pointer, value: ptr pointer
+                                    ): HRESULT {.abi.}
+  get_ServerIntermediateCertificates*: proc(self: pointer, value: ptr pointer
+                                           ): HRESULT {.abi.}
 
 ## Windows.Web.IUriToStreamResolver
 const IID_IUriToStreamResolver* = guid"B0ABA86A-9AEB-4D3A-9590-003E3CA7E290"
-const Slot_IUriToStreamResolver_UriToStreamAsync* = 6
-type Fn_IUriToStreamResolver_UriToStreamAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
+type IUriToStreamResolverVtbl* = object of IInspectableVtbl
+  UriToStreamAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.Web.IWebErrorStatics
 const IID_IWebErrorStatics* = guid"FE616766-BF27-4064-87B7-6563BB11CE2E"
-const Slot_IWebErrorStatics_GetStatus* = 6
-type Fn_IWebErrorStatics_GetStatus* =
-  proc(self: pointer, a1: int32, value: ptr WebErrorStatus): HRESULT {.abi.}
+type IWebErrorStaticsVtbl* = object of IInspectableVtbl
+  GetStatus*: proc(self: pointer, a1: int32, value: ptr WebErrorStatus
+                  ): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationAttribute
 const IID_ISyndicationAttribute* = guid"71E8F969-526E-4001-9A91-E84F83161AB1"
-const Slot_ISyndicationAttribute_get_Name* = 6
-type Fn_ISyndicationAttribute_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationAttribute_put_Name* = 7
-type Fn_ISyndicationAttribute_put_Name* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationAttribute_get_Namespace* = 8
-type Fn_ISyndicationAttribute_get_Namespace* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationAttribute_put_Namespace* = 9
-type Fn_ISyndicationAttribute_put_Namespace* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationAttribute_get_Value* = 10
-type Fn_ISyndicationAttribute_get_Value* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationAttribute_put_Value* = 11
-type Fn_ISyndicationAttribute_put_Value* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type ISyndicationAttributeVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Name*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Namespace*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Namespace*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Value*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Value*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationAttributeFactory
 const IID_ISyndicationAttributeFactory* = guid"624F1599-ED3E-420F-BE86-640414886E4B"
-const Slot_ISyndicationAttributeFactory_CreateSyndicationAttribute* = 6
-type Fn_ISyndicationAttributeFactory_CreateSyndicationAttribute* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
+type ISyndicationAttributeFactoryVtbl* = object of IInspectableVtbl
+  CreateSyndicationAttribute*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                    a3: HSTRING, value: ptr pointer
+                                   ): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationCategory
 const IID_ISyndicationCategory* = guid"8715626F-0CBA-4A7F-89FF-ECB5281423B6"
-const Slot_ISyndicationCategory_get_Label* = 6
-type Fn_ISyndicationCategory_get_Label* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationCategory_put_Label* = 7
-type Fn_ISyndicationCategory_put_Label* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationCategory_get_Scheme* = 8
-type Fn_ISyndicationCategory_get_Scheme* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationCategory_put_Scheme* = 9
-type Fn_ISyndicationCategory_put_Scheme* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationCategory_get_Term* = 10
-type Fn_ISyndicationCategory_get_Term* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationCategory_put_Term* = 11
-type Fn_ISyndicationCategory_put_Term* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type ISyndicationCategoryVtbl* = object of IInspectableVtbl
+  get_Label*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Label*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Scheme*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Scheme*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Term*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Term*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationCategoryFactory
 const IID_ISyndicationCategoryFactory* = guid"AB42802F-49E0-4525-8AB2-AB45C02528FF"
-const Slot_ISyndicationCategoryFactory_CreateSyndicationCategory* = 6
-type Fn_ISyndicationCategoryFactory_CreateSyndicationCategory* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationCategoryFactory_CreateSyndicationCategoryEx* = 7
-type Fn_ISyndicationCategoryFactory_CreateSyndicationCategoryEx* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
+type ISyndicationCategoryFactoryVtbl* = object of IInspectableVtbl
+  CreateSyndicationCategory*: proc(self: pointer, a1: HSTRING,
+                                   value: ptr pointer): HRESULT {.abi.}
+  CreateSyndicationCategoryEx*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                     a3: HSTRING, value: ptr pointer
+                                    ): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationClient
 const IID_ISyndicationClient* = guid"9E18A9B7-7249-4B45-B229-7DF895A5A1F5"
-const Slot_ISyndicationClient_get_ServerCredential* = 6
-type Fn_ISyndicationClient_get_ServerCredential* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationClient_put_ServerCredential* = 7
-type Fn_ISyndicationClient_put_ServerCredential* =
-  proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.abi.}
-const Slot_ISyndicationClient_get_ProxyCredential* = 8
-type Fn_ISyndicationClient_get_ProxyCredential* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationClient_put_ProxyCredential* = 9
-type Fn_ISyndicationClient_put_ProxyCredential* =
-  proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.abi.}
-const Slot_ISyndicationClient_get_MaxResponseBufferSize* = 10
-type Fn_ISyndicationClient_get_MaxResponseBufferSize* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_ISyndicationClient_put_MaxResponseBufferSize* = 11
-type Fn_ISyndicationClient_put_MaxResponseBufferSize* =
-  proc(self: pointer, a1: uint32): HRESULT {.abi.}
-const Slot_ISyndicationClient_get_Timeout* = 12
-type Fn_ISyndicationClient_get_Timeout* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_ISyndicationClient_put_Timeout* = 13
-type Fn_ISyndicationClient_put_Timeout* =
-  proc(self: pointer, a1: uint32): HRESULT {.abi.}
-const Slot_ISyndicationClient_get_BypassCacheOnRetrieve* = 14
-type Fn_ISyndicationClient_get_BypassCacheOnRetrieve* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ISyndicationClient_put_BypassCacheOnRetrieve* = 15
-type Fn_ISyndicationClient_put_BypassCacheOnRetrieve* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_ISyndicationClient_SetRequestHeader* = 16
-type Fn_ISyndicationClient_SetRequestHeader* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationClient_RetrieveFeedAsync* = 17
-type Fn_ISyndicationClient_RetrieveFeedAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISyndicationClientVtbl* = object of IInspectableVtbl
+  get_ServerCredential*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  put_ServerCredential*: proc(self: pointer, a1PasswordCredential: pointer
+                             ): HRESULT {.abi.}
+  get_ProxyCredential*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  put_ProxyCredential*: proc(self: pointer, a1PasswordCredential: pointer
+                            ): HRESULT {.abi.}
+  get_MaxResponseBufferSize*: proc(self: pointer, value: ptr uint32
+                                  ): HRESULT {.abi.}
+  put_MaxResponseBufferSize*: proc(self: pointer, a1: uint32): HRESULT {.abi.}
+  get_Timeout*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  put_Timeout*: proc(self: pointer, a1: uint32): HRESULT {.abi.}
+  get_BypassCacheOnRetrieve*: proc(self: pointer, value: ptr bool
+                                  ): HRESULT {.abi.}
+  put_BypassCacheOnRetrieve*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  SetRequestHeader*: proc(self: pointer, a1: HSTRING, a2: HSTRING
+                         ): HRESULT {.abi.}
+  RetrieveFeedAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                          ): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationClientFactory
 const IID_ISyndicationClientFactory* = guid"2EC4B32C-A79B-4114-B29A-05DFFBAFB9A4"
-const Slot_ISyndicationClientFactory_CreateSyndicationClient* = 6
-type Fn_ISyndicationClientFactory_CreateSyndicationClient* =
-  proc(self: pointer, a1PasswordCredential: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ISyndicationClientFactoryVtbl* = object of IInspectableVtbl
+  CreateSyndicationClient*: proc(self: pointer, a1PasswordCredential: pointer,
+                                 value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationContent
 const IID_ISyndicationContent* = guid"4641FEFE-0E55-40D0-B8D0-6A2CCBA9FC7C"
-const Slot_ISyndicationContent_get_SourceUri* = 6
-type Fn_ISyndicationContent_get_SourceUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationContent_put_SourceUri* = 7
-type Fn_ISyndicationContent_put_SourceUri* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+type ISyndicationContentVtbl* = object of IInspectableVtbl
+  get_SourceUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_SourceUri*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationContentFactory
 const IID_ISyndicationContentFactory* = guid"3D2FBB93-9520-4173-9388-7E2DF324A8A0"
-const Slot_ISyndicationContentFactory_CreateSyndicationContent* = 6
-type Fn_ISyndicationContentFactory_CreateSyndicationContent* =
-  proc(self: pointer, a1: HSTRING, a2: SyndicationTextType, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISyndicationContentFactory_CreateSyndicationContentWithSourceUri* = 7
-type Fn_ISyndicationContentFactory_CreateSyndicationContentWithSourceUri* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISyndicationContentFactoryVtbl* = object of IInspectableVtbl
+  CreateSyndicationContent*: proc(self: pointer, a1: HSTRING,
+                                  a2: SyndicationTextType, value: ptr pointer
+                                 ): HRESULT {.abi.}
+  CreateSyndicationContentWithSourceUri*: proc(self: pointer, a1Uri: pointer,
+                                               value: ptr pointer
+                                              ): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationErrorStatics
 const IID_ISyndicationErrorStatics* = guid"1FBB2361-45C7-4833-8AA0-BE5F3B58A7F4"
-const Slot_ISyndicationErrorStatics_GetStatus* = 6
-type Fn_ISyndicationErrorStatics_GetStatus* =
-  proc(self: pointer, a1: int32, value: ptr SyndicationErrorStatus
-      ): HRESULT {.abi.}
+type ISyndicationErrorStaticsVtbl* = object of IInspectableVtbl
+  GetStatus*: proc(self: pointer, a1: int32, value: ptr SyndicationErrorStatus
+                  ): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationFeed
 const IID_ISyndicationFeed* = guid"7FFE3CD2-5B66-4D62-8403-1BC10D910D6B"
-const Slot_ISyndicationFeed_get_Authors* = 6
-type Fn_ISyndicationFeed_get_Authors* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_Categories* = 7
-type Fn_ISyndicationFeed_get_Categories* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_Contributors* = 8
-type Fn_ISyndicationFeed_get_Contributors* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_Generator* = 9
-type Fn_ISyndicationFeed_get_Generator* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_put_Generator* = 10
-type Fn_ISyndicationFeed_put_Generator* =
-  proc(self: pointer, a1SyndicationGenerator: pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_IconUri* = 11
-type Fn_ISyndicationFeed_get_IconUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_put_IconUri* = 12
-type Fn_ISyndicationFeed_put_IconUri* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_Id* = 13
-type Fn_ISyndicationFeed_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationFeed_put_Id* = 14
-type Fn_ISyndicationFeed_put_Id* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_Items* = 15
-type Fn_ISyndicationFeed_get_Items* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_LastUpdatedTime* = 16
-type Fn_ISyndicationFeed_get_LastUpdatedTime* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_ISyndicationFeed_put_LastUpdatedTime* = 17
-type Fn_ISyndicationFeed_put_LastUpdatedTime* =
-  proc(self: pointer, a1: DateTime): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_Links* = 18
-type Fn_ISyndicationFeed_get_Links* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_ImageUri* = 19
-type Fn_ISyndicationFeed_get_ImageUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_put_ImageUri* = 20
-type Fn_ISyndicationFeed_put_ImageUri* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_Rights* = 21
-type Fn_ISyndicationFeed_get_Rights* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_put_Rights* = 22
-type Fn_ISyndicationFeed_put_Rights* =
-  proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_Subtitle* = 23
-type Fn_ISyndicationFeed_get_Subtitle* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_put_Subtitle* = 24
-type Fn_ISyndicationFeed_put_Subtitle* =
-  proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_Title* = 25
-type Fn_ISyndicationFeed_get_Title* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_put_Title* = 26
-type Fn_ISyndicationFeed_put_Title* =
-  proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_FirstUri* = 27
-type Fn_ISyndicationFeed_get_FirstUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_LastUri* = 28
-type Fn_ISyndicationFeed_get_LastUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_NextUri* = 29
-type Fn_ISyndicationFeed_get_NextUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_PreviousUri* = 30
-type Fn_ISyndicationFeed_get_PreviousUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationFeed_get_SourceFormat* = 31
-type Fn_ISyndicationFeed_get_SourceFormat* =
-  proc(self: pointer, value: ptr SyndicationFormat): HRESULT {.abi.}
-const Slot_ISyndicationFeed_Load* = 32
-type Fn_ISyndicationFeed_Load* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationFeed_LoadFromXml* = 33
-type Fn_ISyndicationFeed_LoadFromXml* =
-  proc(self: pointer, a1XmlDocument: pointer): HRESULT {.abi.}
+type ISyndicationFeedVtbl* = object of IInspectableVtbl
+  get_Authors*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Categories*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Contributors*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Generator*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Generator*: proc(self: pointer, a1SyndicationGenerator: pointer
+                      ): HRESULT {.abi.}
+  get_IconUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_IconUri*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Id*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Items*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_LastUpdatedTime*: proc(self: pointer, value: ptr DateTime
+                            ): HRESULT {.abi.}
+  put_LastUpdatedTime*: proc(self: pointer, a1: DateTime): HRESULT {.abi.}
+  get_Links*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ImageUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_ImageUri*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_Rights*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Rights*: proc(self: pointer, a1ISyndicationText: pointer
+                   ): HRESULT {.abi.}
+  get_Subtitle*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Subtitle*: proc(self: pointer, a1ISyndicationText: pointer
+                     ): HRESULT {.abi.}
+  get_Title*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Title*: proc(self: pointer, a1ISyndicationText: pointer
+                  ): HRESULT {.abi.}
+  get_FirstUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_LastUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_NextUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_PreviousUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_SourceFormat*: proc(self: pointer, value: ptr SyndicationFormat
+                         ): HRESULT {.abi.}
+  Load*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  LoadFromXml*: proc(self: pointer, a1XmlDocument: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationFeedFactory
 const IID_ISyndicationFeedFactory* = guid"23472232-8BE9-48B7-8934-6205131D9357"
-const Slot_ISyndicationFeedFactory_CreateSyndicationFeed* = 6
-type Fn_ISyndicationFeedFactory_CreateSyndicationFeed* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3Uri: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ISyndicationFeedFactoryVtbl* = object of IInspectableVtbl
+  CreateSyndicationFeed*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                               a3Uri: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationGenerator
 const IID_ISyndicationGenerator* = guid"9768B379-FB2B-4F6D-B41C-088A5868825C"
-const Slot_ISyndicationGenerator_get_Text* = 6
-type Fn_ISyndicationGenerator_get_Text* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationGenerator_put_Text* = 7
-type Fn_ISyndicationGenerator_put_Text* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationGenerator_get_Uri* = 8
-type Fn_ISyndicationGenerator_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationGenerator_put_Uri* = 9
-type Fn_ISyndicationGenerator_put_Uri* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_ISyndicationGenerator_get_Version* = 10
-type Fn_ISyndicationGenerator_get_Version* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationGenerator_put_Version* = 11
-type Fn_ISyndicationGenerator_put_Version* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type ISyndicationGeneratorVtbl* = object of IInspectableVtbl
+  get_Text*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Text*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Uri*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_Version*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Version*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationGeneratorFactory
 const IID_ISyndicationGeneratorFactory* = guid"A34083E3-1E26-4DBC-BA9D-1AB84BEFF97B"
-const Slot_ISyndicationGeneratorFactory_CreateSyndicationGenerator* = 6
-type Fn_ISyndicationGeneratorFactory_CreateSyndicationGenerator* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type ISyndicationGeneratorFactoryVtbl* = object of IInspectableVtbl
+  CreateSyndicationGenerator*: proc(self: pointer, a1: HSTRING,
+                                    value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationItem
 const IID_ISyndicationItem* = guid"548DB883-C384-45C1-8AE8-A378C4EC486C"
-const Slot_ISyndicationItem_get_Authors* = 6
-type Fn_ISyndicationItem_get_Authors* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_Categories* = 7
-type Fn_ISyndicationItem_get_Categories* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_Contributors* = 8
-type Fn_ISyndicationItem_get_Contributors* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_Content* = 9
-type Fn_ISyndicationItem_get_Content* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_put_Content* = 10
-type Fn_ISyndicationItem_put_Content* =
-  proc(self: pointer, a1SyndicationContent: pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_Id* = 11
-type Fn_ISyndicationItem_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationItem_put_Id* = 12
-type Fn_ISyndicationItem_put_Id* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_LastUpdatedTime* = 13
-type Fn_ISyndicationItem_get_LastUpdatedTime* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_ISyndicationItem_put_LastUpdatedTime* = 14
-type Fn_ISyndicationItem_put_LastUpdatedTime* =
-  proc(self: pointer, a1: DateTime): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_Links* = 15
-type Fn_ISyndicationItem_get_Links* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_PublishedDate* = 16
-type Fn_ISyndicationItem_get_PublishedDate* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_ISyndicationItem_put_PublishedDate* = 17
-type Fn_ISyndicationItem_put_PublishedDate* =
-  proc(self: pointer, a1: DateTime): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_Rights* = 18
-type Fn_ISyndicationItem_get_Rights* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_put_Rights* = 19
-type Fn_ISyndicationItem_put_Rights* =
-  proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_Source* = 20
-type Fn_ISyndicationItem_get_Source* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_put_Source* = 21
-type Fn_ISyndicationItem_put_Source* =
-  proc(self: pointer, a1SyndicationFeed: pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_Summary* = 22
-type Fn_ISyndicationItem_get_Summary* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_put_Summary* = 23
-type Fn_ISyndicationItem_put_Summary* =
-  proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_Title* = 24
-type Fn_ISyndicationItem_get_Title* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_put_Title* = 25
-type Fn_ISyndicationItem_put_Title* =
-  proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_CommentsUri* = 26
-type Fn_ISyndicationItem_get_CommentsUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_put_CommentsUri* = 27
-type Fn_ISyndicationItem_put_CommentsUri* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_EditUri* = 28
-type Fn_ISyndicationItem_get_EditUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_EditMediaUri* = 29
-type Fn_ISyndicationItem_get_EditMediaUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_ETag* = 30
-type Fn_ISyndicationItem_get_ETag* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationItem_get_ItemUri* = 31
-type Fn_ISyndicationItem_get_ItemUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationItem_Load* = 32
-type Fn_ISyndicationItem_Load* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationItem_LoadFromXml* = 33
-type Fn_ISyndicationItem_LoadFromXml* =
-  proc(self: pointer, a1XmlDocument: pointer): HRESULT {.abi.}
+type ISyndicationItemVtbl* = object of IInspectableVtbl
+  get_Authors*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Categories*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Contributors*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Content*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Content*: proc(self: pointer, a1SyndicationContent: pointer
+                    ): HRESULT {.abi.}
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Id*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_LastUpdatedTime*: proc(self: pointer, value: ptr DateTime
+                            ): HRESULT {.abi.}
+  put_LastUpdatedTime*: proc(self: pointer, a1: DateTime): HRESULT {.abi.}
+  get_Links*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_PublishedDate*: proc(self: pointer, value: ptr DateTime
+                          ): HRESULT {.abi.}
+  put_PublishedDate*: proc(self: pointer, a1: DateTime): HRESULT {.abi.}
+  get_Rights*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Rights*: proc(self: pointer, a1ISyndicationText: pointer
+                   ): HRESULT {.abi.}
+  get_Source*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Source*: proc(self: pointer, a1SyndicationFeed: pointer
+                   ): HRESULT {.abi.}
+  get_Summary*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Summary*: proc(self: pointer, a1ISyndicationText: pointer
+                    ): HRESULT {.abi.}
+  get_Title*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Title*: proc(self: pointer, a1ISyndicationText: pointer
+                  ): HRESULT {.abi.}
+  get_CommentsUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_CommentsUri*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_EditUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_EditMediaUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ETag*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ItemUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Load*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  LoadFromXml*: proc(self: pointer, a1XmlDocument: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationItemFactory
 const IID_ISyndicationItemFactory* = guid"251D434F-7DB8-487A-85E4-10D191E66EBB"
-const Slot_ISyndicationItemFactory_CreateSyndicationItem* = 6
-type Fn_ISyndicationItemFactory_CreateSyndicationItem* =
-  proc(self: pointer, a1: HSTRING, a2SyndicationContent: pointer,
-       a3Uri: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISyndicationItemFactoryVtbl* = object of IInspectableVtbl
+  CreateSyndicationItem*: proc(self: pointer, a1: HSTRING,
+                               a2SyndicationContent: pointer, a3Uri: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationLink
 const IID_ISyndicationLink* = guid"27553ABD-A10E-41B5-86BD-9759086EB0C5"
-const Slot_ISyndicationLink_get_Length* = 6
-type Fn_ISyndicationLink_get_Length* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_ISyndicationLink_put_Length* = 7
-type Fn_ISyndicationLink_put_Length* =
-  proc(self: pointer, a1: uint32): HRESULT {.abi.}
-const Slot_ISyndicationLink_get_MediaType* = 8
-type Fn_ISyndicationLink_get_MediaType* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationLink_put_MediaType* = 9
-type Fn_ISyndicationLink_put_MediaType* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationLink_get_Relationship* = 10
-type Fn_ISyndicationLink_get_Relationship* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationLink_put_Relationship* = 11
-type Fn_ISyndicationLink_put_Relationship* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationLink_get_Title* = 12
-type Fn_ISyndicationLink_get_Title* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationLink_put_Title* = 13
-type Fn_ISyndicationLink_put_Title* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationLink_get_Uri* = 14
-type Fn_ISyndicationLink_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationLink_put_Uri* = 15
-type Fn_ISyndicationLink_put_Uri* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_ISyndicationLink_get_ResourceLanguage* = 16
-type Fn_ISyndicationLink_get_ResourceLanguage* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationLink_put_ResourceLanguage* = 17
-type Fn_ISyndicationLink_put_ResourceLanguage* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type ISyndicationLinkVtbl* = object of IInspectableVtbl
+  get_Length*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  put_Length*: proc(self: pointer, a1: uint32): HRESULT {.abi.}
+  get_MediaType*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_MediaType*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Relationship*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Relationship*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Title*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Title*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Uri*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_ResourceLanguage*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  put_ResourceLanguage*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationLinkFactory
 const IID_ISyndicationLinkFactory* = guid"5ED863D4-5535-48AC-98D4-C190995080B3"
-const Slot_ISyndicationLinkFactory_CreateSyndicationLink* = 6
-type Fn_ISyndicationLinkFactory_CreateSyndicationLink* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationLinkFactory_CreateSyndicationLinkEx* = 7
-type Fn_ISyndicationLinkFactory_CreateSyndicationLinkEx* =
-  proc(self: pointer, a1Uri: pointer, a2: HSTRING, a3: HSTRING, a4: HSTRING,
-       a5: uint32, value: ptr pointer): HRESULT {.abi.}
+type ISyndicationLinkFactoryVtbl* = object of IInspectableVtbl
+  CreateSyndicationLink*: proc(self: pointer, a1Uri: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
+  CreateSyndicationLinkEx*: proc(self: pointer, a1Uri: pointer, a2: HSTRING,
+                                 a3: HSTRING, a4: HSTRING, a5: uint32,
+                                 value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationNode
 const IID_ISyndicationNode* = guid"753CEF78-51F8-45C0-A9F5-F1719DEC3FB2"
-const Slot_ISyndicationNode_get_NodeName* = 6
-type Fn_ISyndicationNode_get_NodeName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationNode_put_NodeName* = 7
-type Fn_ISyndicationNode_put_NodeName* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationNode_get_NodeNamespace* = 8
-type Fn_ISyndicationNode_get_NodeNamespace* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationNode_put_NodeNamespace* = 9
-type Fn_ISyndicationNode_put_NodeNamespace* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationNode_get_NodeValue* = 10
-type Fn_ISyndicationNode_get_NodeValue* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationNode_put_NodeValue* = 11
-type Fn_ISyndicationNode_put_NodeValue* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationNode_get_Language* = 12
-type Fn_ISyndicationNode_get_Language* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationNode_put_Language* = 13
-type Fn_ISyndicationNode_put_Language* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationNode_get_BaseUri* = 14
-type Fn_ISyndicationNode_get_BaseUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationNode_put_BaseUri* = 15
-type Fn_ISyndicationNode_put_BaseUri* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_ISyndicationNode_get_AttributeExtensions* = 16
-type Fn_ISyndicationNode_get_AttributeExtensions* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationNode_get_ElementExtensions* = 17
-type Fn_ISyndicationNode_get_ElementExtensions* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationNode_GetXmlDocument* = 18
-type Fn_ISyndicationNode_GetXmlDocument* =
-  proc(self: pointer, a1: SyndicationFormat, value: ptr pointer
-      ): HRESULT {.abi.}
+type ISyndicationNodeVtbl* = object of IInspectableVtbl
+  get_NodeName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_NodeName*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_NodeNamespace*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_NodeNamespace*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_NodeValue*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_NodeValue*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Language*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Language*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_BaseUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_BaseUri*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_AttributeExtensions*: proc(self: pointer, value: ptr pointer
+                                ): HRESULT {.abi.}
+  get_ElementExtensions*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  GetXmlDocument*: proc(self: pointer, a1: SyndicationFormat,
+                        value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationNodeFactory
 const IID_ISyndicationNodeFactory* = guid"12902188-4ACB-49A8-B777-A5EB92E18A79"
-const Slot_ISyndicationNodeFactory_CreateSyndicationNode* = 6
-type Fn_ISyndicationNodeFactory_CreateSyndicationNode* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
+type ISyndicationNodeFactoryVtbl* = object of IInspectableVtbl
+  CreateSyndicationNode*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                               a3: HSTRING, value: ptr pointer
+                              ): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationPerson
 const IID_ISyndicationPerson* = guid"FA1EE5DA-A7C6-4517-A096-0143FAF29327"
-const Slot_ISyndicationPerson_get_Email* = 6
-type Fn_ISyndicationPerson_get_Email* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationPerson_put_Email* = 7
-type Fn_ISyndicationPerson_put_Email* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationPerson_get_Name* = 8
-type Fn_ISyndicationPerson_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationPerson_put_Name* = 9
-type Fn_ISyndicationPerson_put_Name* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationPerson_get_Uri* = 10
-type Fn_ISyndicationPerson_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationPerson_put_Uri* = 11
-type Fn_ISyndicationPerson_put_Uri* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+type ISyndicationPersonVtbl* = object of IInspectableVtbl
+  get_Email*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Email*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Name*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Uri*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationPersonFactory
 const IID_ISyndicationPersonFactory* = guid"DCF4886D-229D-4B58-A49B-F3D2F0F5C99F"
-const Slot_ISyndicationPersonFactory_CreateSyndicationPerson* = 6
-type Fn_ISyndicationPersonFactory_CreateSyndicationPerson* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationPersonFactory_CreateSyndicationPersonEx* = 7
-type Fn_ISyndicationPersonFactory_CreateSyndicationPersonEx* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3Uri: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ISyndicationPersonFactoryVtbl* = object of IInspectableVtbl
+  CreateSyndicationPerson*: proc(self: pointer, a1: HSTRING,
+                                 value: ptr pointer): HRESULT {.abi.}
+  CreateSyndicationPersonEx*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                   a3Uri: pointer, value: ptr pointer
+                                  ): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationText
 const IID_ISyndicationText* = guid"B9CC5E80-313A-4091-A2A6-243E0EE923F9"
-const Slot_ISyndicationText_get_Text* = 6
-type Fn_ISyndicationText_get_Text* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationText_put_Text* = 7
-type Fn_ISyndicationText_put_Text* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationText_get_Type* = 8
-type Fn_ISyndicationText_get_Type* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationText_put_Type* = 9
-type Fn_ISyndicationText_put_Type* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISyndicationText_get_Xml* = 10
-type Fn_ISyndicationText_get_Xml* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationText_put_Xml* = 11
-type Fn_ISyndicationText_put_Xml* =
-  proc(self: pointer, a1XmlDocument: pointer): HRESULT {.abi.}
+type ISyndicationTextVtbl* = object of IInspectableVtbl
+  get_Text*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Text*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Type*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Type*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Xml*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Xml*: proc(self: pointer, a1XmlDocument: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationTextFactory
 const IID_ISyndicationTextFactory* = guid"EE7342F7-11C6-4B25-AB62-E596BD162946"
-const Slot_ISyndicationTextFactory_CreateSyndicationText* = 6
-type Fn_ISyndicationTextFactory_CreateSyndicationText* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISyndicationTextFactory_CreateSyndicationTextEx* = 7
-type Fn_ISyndicationTextFactory_CreateSyndicationTextEx* =
-  proc(self: pointer, a1: HSTRING, a2: SyndicationTextType, value: ptr pointer
-      ): HRESULT {.abi.}
+type ISyndicationTextFactoryVtbl* = object of IInspectableVtbl
+  CreateSyndicationText*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                              ): HRESULT {.abi.}
+  CreateSyndicationTextEx*: proc(self: pointer, a1: HSTRING,
+                                 a2: SyndicationTextType, value: ptr pointer
+                                ): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControl
 const IID_IWebViewControl* = guid"3F921316-BC70-4BDA-9136-C94370899FAB"
-const Slot_IWebViewControl_get_Source* = 6
-type Fn_IWebViewControl_get_Source* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControl_put_Source* = 7
-type Fn_IWebViewControl_put_Source* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_IWebViewControl_get_DocumentTitle* = 8
-type Fn_IWebViewControl_get_DocumentTitle* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IWebViewControl_get_CanGoBack* = 9
-type Fn_IWebViewControl_get_CanGoBack* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWebViewControl_get_CanGoForward* = 10
-type Fn_IWebViewControl_get_CanGoForward* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWebViewControl_put_DefaultBackgroundColor* = 11
-type Fn_IWebViewControl_put_DefaultBackgroundColor* =
-  proc(self: pointer, a1: Color): HRESULT {.abi.}
-const Slot_IWebViewControl_get_DefaultBackgroundColor* = 12
-type Fn_IWebViewControl_get_DefaultBackgroundColor* =
-  proc(self: pointer, value: ptr Color): HRESULT {.abi.}
-const Slot_IWebViewControl_get_ContainsFullScreenElement* = 13
-type Fn_IWebViewControl_get_ContainsFullScreenElement* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWebViewControl_get_Settings* = 14
-type Fn_IWebViewControl_get_Settings* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControl_get_DeferredPermissionRequests* = 15
-type Fn_IWebViewControl_get_DeferredPermissionRequests* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControl_GoForward* = 16
-type Fn_IWebViewControl_GoForward* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IWebViewControl_GoBack* = 17
-type Fn_IWebViewControl_GoBack* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IWebViewControl_Refresh* = 18
-type Fn_IWebViewControl_Refresh* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IWebViewControl_Stop* = 19
-type Fn_IWebViewControl_Stop* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IWebViewControl_Navigate* = 20
-type Fn_IWebViewControl_Navigate* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_IWebViewControl_NavigateToString* = 21
-type Fn_IWebViewControl_NavigateToString* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IWebViewControl_NavigateToLocalStreamUri* = 22
-type Fn_IWebViewControl_NavigateToLocalStreamUri* =
-  proc(self: pointer, a1Uri: pointer, a2IUriToStreamResolver: pointer
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_NavigateWithHttpRequestMessage* = 23
-type Fn_IWebViewControl_NavigateWithHttpRequestMessage* =
-  proc(self: pointer, a1HttpRequestMessage: pointer): HRESULT {.abi.}
-const Slot_IWebViewControl_InvokeScriptAsync* = 24
-type Fn_IWebViewControl_InvokeScriptAsync* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_CapturePreviewToStreamAsync* = 25
-type Fn_IWebViewControl_CapturePreviewToStreamAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_CaptureSelectedContentToDataPackageAsync* = 26
-type Fn_IWebViewControl_CaptureSelectedContentToDataPackageAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControl_BuildLocalStreamUri* = 27
-type Fn_IWebViewControl_BuildLocalStreamUri* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_GetDeferredPermissionRequestById* = 28
-type Fn_IWebViewControl_GetDeferredPermissionRequestById* =
-  proc(self: pointer, a1: uint32,
-       a2WebViewControlDeferredPermissionRequest: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_add_NavigationStarting* = 29
-type Fn_IWebViewControl_add_NavigationStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_NavigationStarting* = 30
-type Fn_IWebViewControl_remove_NavigationStarting* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_ContentLoading* = 31
-type Fn_IWebViewControl_add_ContentLoading* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_ContentLoading* = 32
-type Fn_IWebViewControl_remove_ContentLoading* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_DOMContentLoaded* = 33
-type Fn_IWebViewControl_add_DOMContentLoaded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_DOMContentLoaded* = 34
-type Fn_IWebViewControl_remove_DOMContentLoaded* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_NavigationCompleted* = 35
-type Fn_IWebViewControl_add_NavigationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_NavigationCompleted* = 36
-type Fn_IWebViewControl_remove_NavigationCompleted* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_FrameNavigationStarting* = 37
-type Fn_IWebViewControl_add_FrameNavigationStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_FrameNavigationStarting* = 38
-type Fn_IWebViewControl_remove_FrameNavigationStarting* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_FrameContentLoading* = 39
-type Fn_IWebViewControl_add_FrameContentLoading* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_FrameContentLoading* = 40
-type Fn_IWebViewControl_remove_FrameContentLoading* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_FrameDOMContentLoaded* = 41
-type Fn_IWebViewControl_add_FrameDOMContentLoaded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_FrameDOMContentLoaded* = 42
-type Fn_IWebViewControl_remove_FrameDOMContentLoaded* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_FrameNavigationCompleted* = 43
-type Fn_IWebViewControl_add_FrameNavigationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_FrameNavigationCompleted* = 44
-type Fn_IWebViewControl_remove_FrameNavigationCompleted* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_ScriptNotify* = 45
-type Fn_IWebViewControl_add_ScriptNotify* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_ScriptNotify* = 46
-type Fn_IWebViewControl_remove_ScriptNotify* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_LongRunningScriptDetected* = 47
-type Fn_IWebViewControl_add_LongRunningScriptDetected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_LongRunningScriptDetected* = 48
-type Fn_IWebViewControl_remove_LongRunningScriptDetected* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_UnsafeContentWarningDisplaying* = 49
-type Fn_IWebViewControl_add_UnsafeContentWarningDisplaying* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_UnsafeContentWarningDisplaying* = 50
-type Fn_IWebViewControl_remove_UnsafeContentWarningDisplaying* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_UnviewableContentIdentified* = 51
-type Fn_IWebViewControl_add_UnviewableContentIdentified* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_UnviewableContentIdentified* = 52
-type Fn_IWebViewControl_remove_UnviewableContentIdentified* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_PermissionRequested* = 53
-type Fn_IWebViewControl_add_PermissionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_PermissionRequested* = 54
-type Fn_IWebViewControl_remove_PermissionRequested* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_UnsupportedUriSchemeIdentified* = 55
-type Fn_IWebViewControl_add_UnsupportedUriSchemeIdentified* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_UnsupportedUriSchemeIdentified* = 56
-type Fn_IWebViewControl_remove_UnsupportedUriSchemeIdentified* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_NewWindowRequested* = 57
-type Fn_IWebViewControl_add_NewWindowRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_NewWindowRequested* = 58
-type Fn_IWebViewControl_remove_NewWindowRequested* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_ContainsFullScreenElementChanged* = 59
-type Fn_IWebViewControl_add_ContainsFullScreenElementChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_ContainsFullScreenElementChanged* = 60
-type Fn_IWebViewControl_remove_ContainsFullScreenElementChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControl_add_WebResourceRequested* = 61
-type Fn_IWebViewControl_add_WebResourceRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControl_remove_WebResourceRequested* = 62
-type Fn_IWebViewControl_remove_WebResourceRequested* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IWebViewControlVtbl* = object of IInspectableVtbl
+  get_Source*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Source*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_DocumentTitle*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_CanGoBack*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_CanGoForward*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_DefaultBackgroundColor*: proc(self: pointer, a1: Color): HRESULT {.abi.}
+  get_DefaultBackgroundColor*: proc(self: pointer, value: ptr Color
+                                   ): HRESULT {.abi.}
+  get_ContainsFullScreenElement*: proc(self: pointer, value: ptr bool
+                                      ): HRESULT {.abi.}
+  get_Settings*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_DeferredPermissionRequests*: proc(self: pointer, value: ptr pointer
+                                       ): HRESULT {.abi.}
+  GoForward*: proc(self: pointer): HRESULT {.abi.}
+  GoBack*: proc(self: pointer): HRESULT {.abi.}
+  Refresh*: proc(self: pointer): HRESULT {.abi.}
+  Stop*: proc(self: pointer): HRESULT {.abi.}
+  Navigate*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  NavigateToString*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  NavigateToLocalStreamUri*: proc(self: pointer, a1Uri: pointer,
+                                  a2IUriToStreamResolver: pointer
+                                 ): HRESULT {.abi.}
+  NavigateWithHttpRequestMessage*: proc(self: pointer,
+                                        a1HttpRequestMessage: pointer
+                                       ): HRESULT {.abi.}
+  InvokeScriptAsync*: proc(self: pointer, a1: HSTRING, a2: pointer,
+                           value: ptr pointer): HRESULT {.abi.}
+  CapturePreviewToStreamAsync*: proc(self: pointer,
+                                     a1IRandomAccessStream: pointer,
+                                     value: ptr pointer): HRESULT {.abi.}
+  CaptureSelectedContentToDataPackageAsync*: proc(self: pointer,
+                                                  value: ptr pointer
+                                                 ): HRESULT {.abi.}
+  BuildLocalStreamUri*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                             value: ptr pointer): HRESULT {.abi.}
+  GetDeferredPermissionRequestById*: proc(self: pointer, a1: uint32,
+                                          a2WebViewControlDeferredPermissionRequest: ptr pointer
+                                         ): HRESULT {.abi.}
+  add_NavigationStarting*: proc(self: pointer, a1: pointer,
+                                value: ptr EventRegistrationToken
+                               ): HRESULT {.abi.}
+  remove_NavigationStarting*: proc(self: pointer, a1: EventRegistrationToken
+                                  ): HRESULT {.abi.}
+  add_ContentLoading*: proc(self: pointer, a1: pointer,
+                            value: ptr EventRegistrationToken
+                           ): HRESULT {.abi.}
+  remove_ContentLoading*: proc(self: pointer, a1: EventRegistrationToken
+                              ): HRESULT {.abi.}
+  add_DOMContentLoaded*: proc(self: pointer, a1: pointer,
+                              value: ptr EventRegistrationToken
+                             ): HRESULT {.abi.}
+  remove_DOMContentLoaded*: proc(self: pointer, a1: EventRegistrationToken
+                                ): HRESULT {.abi.}
+  add_NavigationCompleted*: proc(self: pointer, a1: pointer,
+                                 value: ptr EventRegistrationToken
+                                ): HRESULT {.abi.}
+  remove_NavigationCompleted*: proc(self: pointer, a1: EventRegistrationToken
+                                   ): HRESULT {.abi.}
+  add_FrameNavigationStarting*: proc(self: pointer, a1: pointer,
+                                     value: ptr EventRegistrationToken
+                                    ): HRESULT {.abi.}
+  remove_FrameNavigationStarting*: proc(self: pointer,
+                                        a1: EventRegistrationToken
+                                       ): HRESULT {.abi.}
+  add_FrameContentLoading*: proc(self: pointer, a1: pointer,
+                                 value: ptr EventRegistrationToken
+                                ): HRESULT {.abi.}
+  remove_FrameContentLoading*: proc(self: pointer, a1: EventRegistrationToken
+                                   ): HRESULT {.abi.}
+  add_FrameDOMContentLoaded*: proc(self: pointer, a1: pointer,
+                                   value: ptr EventRegistrationToken
+                                  ): HRESULT {.abi.}
+  remove_FrameDOMContentLoaded*: proc(self: pointer,
+                                      a1: EventRegistrationToken
+                                     ): HRESULT {.abi.}
+  add_FrameNavigationCompleted*: proc(self: pointer, a1: pointer,
+                                      value: ptr EventRegistrationToken
+                                     ): HRESULT {.abi.}
+  remove_FrameNavigationCompleted*: proc(self: pointer,
+                                         a1: EventRegistrationToken
+                                        ): HRESULT {.abi.}
+  add_ScriptNotify*: proc(self: pointer, a1: pointer,
+                          value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_ScriptNotify*: proc(self: pointer, a1: EventRegistrationToken
+                            ): HRESULT {.abi.}
+  add_LongRunningScriptDetected*: proc(self: pointer, a1: pointer,
+                                       value: ptr EventRegistrationToken
+                                      ): HRESULT {.abi.}
+  remove_LongRunningScriptDetected*: proc(self: pointer,
+                                          a1: EventRegistrationToken
+                                         ): HRESULT {.abi.}
+  add_UnsafeContentWarningDisplaying*: proc(self: pointer, a1: pointer,
+                                            value: ptr EventRegistrationToken
+                                           ): HRESULT {.abi.}
+  remove_UnsafeContentWarningDisplaying*: proc(self: pointer,
+                                               a1: EventRegistrationToken
+                                              ): HRESULT {.abi.}
+  add_UnviewableContentIdentified*: proc(self: pointer, a1: pointer,
+                                         value: ptr EventRegistrationToken
+                                        ): HRESULT {.abi.}
+  remove_UnviewableContentIdentified*: proc(self: pointer,
+                                            a1: EventRegistrationToken
+                                           ): HRESULT {.abi.}
+  add_PermissionRequested*: proc(self: pointer, a1: pointer,
+                                 value: ptr EventRegistrationToken
+                                ): HRESULT {.abi.}
+  remove_PermissionRequested*: proc(self: pointer, a1: EventRegistrationToken
+                                   ): HRESULT {.abi.}
+  add_UnsupportedUriSchemeIdentified*: proc(self: pointer, a1: pointer,
+                                            value: ptr EventRegistrationToken
+                                           ): HRESULT {.abi.}
+  remove_UnsupportedUriSchemeIdentified*: proc(self: pointer,
+                                               a1: EventRegistrationToken
+                                              ): HRESULT {.abi.}
+  add_NewWindowRequested*: proc(self: pointer, a1: pointer,
+                                value: ptr EventRegistrationToken
+                               ): HRESULT {.abi.}
+  remove_NewWindowRequested*: proc(self: pointer, a1: EventRegistrationToken
+                                  ): HRESULT {.abi.}
+  add_ContainsFullScreenElementChanged*: proc(self: pointer, a1: pointer,
+                                              value: ptr EventRegistrationToken
+                                             ): HRESULT {.abi.}
+  remove_ContainsFullScreenElementChanged*: proc(self: pointer,
+                                                 a1: EventRegistrationToken
+                                                ): HRESULT {.abi.}
+  add_WebResourceRequested*: proc(self: pointer, a1: pointer,
+                                  value: ptr EventRegistrationToken
+                                 ): HRESULT {.abi.}
+  remove_WebResourceRequested*: proc(self: pointer, a1: EventRegistrationToken
+                                    ): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControl2
 const IID_IWebViewControl2* = guid"4D3C06F9-C8DF-41CC-8BD5-2A947B204503"
-const Slot_IWebViewControl2_AddInitializeScript* = 6
-type Fn_IWebViewControl2_AddInitializeScript* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IWebViewControl2Vtbl* = object of IInspectableVtbl
+  AddInitializeScript*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlContentLoadingEventArgs
 const IID_IWebViewControlContentLoadingEventArgs* = guid"9A3FCCB2-B9BB-404B-A22B-66DCCD1250C6"
-const Slot_IWebViewControlContentLoadingEventArgs_get_Uri* = 6
-type Fn_IWebViewControlContentLoadingEventArgs_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IWebViewControlContentLoadingEventArgsVtbl* = object of IInspectableVtbl
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlDOMContentLoadedEventArgs
 const IID_IWebViewControlDOMContentLoadedEventArgs* = guid"BE8BC008-9541-4545-9FF2-2DF585B29F7D"
-const Slot_IWebViewControlDOMContentLoadedEventArgs_get_Uri* = 6
-type Fn_IWebViewControlDOMContentLoadedEventArgs_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IWebViewControlDOMContentLoadedEventArgsVtbl* = object of IInspectableVtbl
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlDeferredPermissionRequest
 const IID_IWebViewControlDeferredPermissionRequest* = guid"2CE349E0-D759-445C-9926-8995298F152B"
-const Slot_IWebViewControlDeferredPermissionRequest_get_Id* = 6
-type Fn_IWebViewControlDeferredPermissionRequest_get_Id* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IWebViewControlDeferredPermissionRequest_get_Uri* = 7
-type Fn_IWebViewControlDeferredPermissionRequest_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlDeferredPermissionRequest_get_PermissionType* = 8
-type Fn_IWebViewControlDeferredPermissionRequest_get_PermissionType* =
-  proc(self: pointer, value: ptr WebViewControlPermissionType
-      ): HRESULT {.abi.}
-const Slot_IWebViewControlDeferredPermissionRequest_Allow* = 9
-type Fn_IWebViewControlDeferredPermissionRequest_Allow* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IWebViewControlDeferredPermissionRequest_Deny* = 10
-type Fn_IWebViewControlDeferredPermissionRequest_Deny* =
-  proc(self: pointer): HRESULT {.abi.}
+type IWebViewControlDeferredPermissionRequestVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_PermissionType*: proc(self: pointer,
+                            value: ptr WebViewControlPermissionType
+                           ): HRESULT {.abi.}
+  Allow*: proc(self: pointer): HRESULT {.abi.}
+  Deny*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlLongRunningScriptDetectedEventArgs
 const IID_IWebViewControlLongRunningScriptDetectedEventArgs* = guid"2A6E5BBA-98B4-45BC-BBEB-0F69CE49C599"
-const Slot_IWebViewControlLongRunningScriptDetectedEventArgs_get_ExecutionTime* = 6
-type Fn_IWebViewControlLongRunningScriptDetectedEventArgs_get_ExecutionTime* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IWebViewControlLongRunningScriptDetectedEventArgs_get_StopPageScriptExecution* = 7
-type Fn_IWebViewControlLongRunningScriptDetectedEventArgs_get_StopPageScriptExecution* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWebViewControlLongRunningScriptDetectedEventArgs_put_StopPageScriptExecution* = 8
-type Fn_IWebViewControlLongRunningScriptDetectedEventArgs_put_StopPageScriptExecution* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type IWebViewControlLongRunningScriptDetectedEventArgsVtbl* = object of IInspectableVtbl
+  get_ExecutionTime*: proc(self: pointer, value: ptr TimeSpan
+                          ): HRESULT {.abi.}
+  get_StopPageScriptExecution*: proc(self: pointer, value: ptr bool
+                                    ): HRESULT {.abi.}
+  put_StopPageScriptExecution*: proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlNavigationCompletedEventArgs
 const IID_IWebViewControlNavigationCompletedEventArgs* = guid"20409918-4A15-4C46-A55D-F79EDB0BDE8B"
-const Slot_IWebViewControlNavigationCompletedEventArgs_get_Uri* = 6
-type Fn_IWebViewControlNavigationCompletedEventArgs_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlNavigationCompletedEventArgs_get_IsSuccess* = 7
-type Fn_IWebViewControlNavigationCompletedEventArgs_get_IsSuccess* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWebViewControlNavigationCompletedEventArgs_get_WebErrorStatus* = 8
-type Fn_IWebViewControlNavigationCompletedEventArgs_get_WebErrorStatus* =
-  proc(self: pointer, value: ptr WebErrorStatus): HRESULT {.abi.}
+type IWebViewControlNavigationCompletedEventArgsVtbl* = object of IInspectableVtbl
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_IsSuccess*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_WebErrorStatus*: proc(self: pointer, value: ptr WebErrorStatus
+                           ): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlNavigationStartingEventArgs
 const IID_IWebViewControlNavigationStartingEventArgs* = guid"0C9057C5-0A08-41C7-863B-71E3A9549137"
-const Slot_IWebViewControlNavigationStartingEventArgs_get_Uri* = 6
-type Fn_IWebViewControlNavigationStartingEventArgs_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlNavigationStartingEventArgs_get_Cancel* = 7
-type Fn_IWebViewControlNavigationStartingEventArgs_get_Cancel* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWebViewControlNavigationStartingEventArgs_put_Cancel* = 8
-type Fn_IWebViewControlNavigationStartingEventArgs_put_Cancel* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type IWebViewControlNavigationStartingEventArgsVtbl* = object of IInspectableVtbl
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Cancel*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_Cancel*: proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlNewWindowRequestedEventArgs
 const IID_IWebViewControlNewWindowRequestedEventArgs* = guid"3DF44BBB-A124-46D5-A083-D02CACDFF5AD"
-const Slot_IWebViewControlNewWindowRequestedEventArgs_get_Uri* = 6
-type Fn_IWebViewControlNewWindowRequestedEventArgs_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlNewWindowRequestedEventArgs_get_Referrer* = 7
-type Fn_IWebViewControlNewWindowRequestedEventArgs_get_Referrer* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlNewWindowRequestedEventArgs_get_Handled* = 8
-type Fn_IWebViewControlNewWindowRequestedEventArgs_get_Handled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWebViewControlNewWindowRequestedEventArgs_put_Handled* = 9
-type Fn_IWebViewControlNewWindowRequestedEventArgs_put_Handled* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type IWebViewControlNewWindowRequestedEventArgsVtbl* = object of IInspectableVtbl
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Referrer*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Handled*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_Handled*: proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlNewWindowRequestedEventArgs2
 const IID_IWebViewControlNewWindowRequestedEventArgs2* = guid"B53C5CA6-2AAE-4BFC-92B9-C30E92B48098"
-const Slot_IWebViewControlNewWindowRequestedEventArgs2_get_NewWindow* = 6
-type Fn_IWebViewControlNewWindowRequestedEventArgs2_get_NewWindow* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlNewWindowRequestedEventArgs2_put_NewWindow* = 7
-type Fn_IWebViewControlNewWindowRequestedEventArgs2_put_NewWindow* =
-  proc(self: pointer, a1IWebViewControl: pointer): HRESULT {.abi.}
-const Slot_IWebViewControlNewWindowRequestedEventArgs2_GetDeferral* = 8
-type Fn_IWebViewControlNewWindowRequestedEventArgs2_GetDeferral* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IWebViewControlNewWindowRequestedEventArgs2Vtbl* = object of IInspectableVtbl
+  get_NewWindow*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_NewWindow*: proc(self: pointer, a1IWebViewControl: pointer
+                      ): HRESULT {.abi.}
+  GetDeferral*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlPermissionRequest
 const IID_IWebViewControlPermissionRequest* = guid"E5BC836C-F22F-40E2-95B2-7729F840EB7F"
-const Slot_IWebViewControlPermissionRequest_get_Id* = 6
-type Fn_IWebViewControlPermissionRequest_get_Id* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IWebViewControlPermissionRequest_get_Uri* = 7
-type Fn_IWebViewControlPermissionRequest_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlPermissionRequest_get_PermissionType* = 8
-type Fn_IWebViewControlPermissionRequest_get_PermissionType* =
-  proc(self: pointer, value: ptr WebViewControlPermissionType
-      ): HRESULT {.abi.}
-const Slot_IWebViewControlPermissionRequest_get_State* = 9
-type Fn_IWebViewControlPermissionRequest_get_State* =
-  proc(self: pointer, value: ptr WebViewControlPermissionState
-      ): HRESULT {.abi.}
-const Slot_IWebViewControlPermissionRequest_Defer* = 10
-type Fn_IWebViewControlPermissionRequest_Defer* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IWebViewControlPermissionRequest_Allow* = 11
-type Fn_IWebViewControlPermissionRequest_Allow* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IWebViewControlPermissionRequest_Deny* = 12
-type Fn_IWebViewControlPermissionRequest_Deny* =
-  proc(self: pointer): HRESULT {.abi.}
+type IWebViewControlPermissionRequestVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_PermissionType*: proc(self: pointer,
+                            value: ptr WebViewControlPermissionType
+                           ): HRESULT {.abi.}
+  get_State*: proc(self: pointer, value: ptr WebViewControlPermissionState
+                  ): HRESULT {.abi.}
+  `Defer`*: proc(self: pointer): HRESULT {.abi.}
+  Allow*: proc(self: pointer): HRESULT {.abi.}
+  Deny*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlPermissionRequestedEventArgs
 const IID_IWebViewControlPermissionRequestedEventArgs* = guid"27204D51-2488-4CC5-968E-0A771E59C147"
-const Slot_IWebViewControlPermissionRequestedEventArgs_get_PermissionRequest* = 6
-type Fn_IWebViewControlPermissionRequestedEventArgs_get_PermissionRequest* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IWebViewControlPermissionRequestedEventArgsVtbl* = object of IInspectableVtbl
+  get_PermissionRequest*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlScriptNotifyEventArgs
 const IID_IWebViewControlScriptNotifyEventArgs* = guid"491DE57B-6F49-41BB-B591-51B85B817037"
-const Slot_IWebViewControlScriptNotifyEventArgs_get_Uri* = 6
-type Fn_IWebViewControlScriptNotifyEventArgs_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlScriptNotifyEventArgs_get_Value* = 7
-type Fn_IWebViewControlScriptNotifyEventArgs_get_Value* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IWebViewControlScriptNotifyEventArgsVtbl* = object of IInspectableVtbl
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Value*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlSettings
 const IID_IWebViewControlSettings* = guid"C9967FBF-5E98-4CFD-8CCE-27B0911E3DE8"
-const Slot_IWebViewControlSettings_put_IsJavaScriptEnabled* = 6
-type Fn_IWebViewControlSettings_put_IsJavaScriptEnabled* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IWebViewControlSettings_get_IsJavaScriptEnabled* = 7
-type Fn_IWebViewControlSettings_get_IsJavaScriptEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWebViewControlSettings_put_IsIndexedDBEnabled* = 8
-type Fn_IWebViewControlSettings_put_IsIndexedDBEnabled* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IWebViewControlSettings_get_IsIndexedDBEnabled* = 9
-type Fn_IWebViewControlSettings_get_IsIndexedDBEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWebViewControlSettings_put_IsScriptNotifyAllowed* = 10
-type Fn_IWebViewControlSettings_put_IsScriptNotifyAllowed* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IWebViewControlSettings_get_IsScriptNotifyAllowed* = 11
-type Fn_IWebViewControlSettings_get_IsScriptNotifyAllowed* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IWebViewControlSettingsVtbl* = object of IInspectableVtbl
+  put_IsJavaScriptEnabled*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_IsJavaScriptEnabled*: proc(self: pointer, value: ptr bool
+                                ): HRESULT {.abi.}
+  put_IsIndexedDBEnabled*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_IsIndexedDBEnabled*: proc(self: pointer, value: ptr bool
+                               ): HRESULT {.abi.}
+  put_IsScriptNotifyAllowed*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_IsScriptNotifyAllowed*: proc(self: pointer, value: ptr bool
+                                  ): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs
 const IID_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs* = guid"E3B81944-E4FC-43DC-94CA-F980F30BC51D"
-const Slot_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Uri* = 6
-type Fn_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Handled* = 7
-type Fn_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Handled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_put_Handled* = 8
-type Fn_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_put_Handled* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type IWebViewControlUnsupportedUriSchemeIdentifiedEventArgsVtbl* = object of IInspectableVtbl
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Handled*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_Handled*: proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlUnviewableContentIdentifiedEventArgs
 const IID_IWebViewControlUnviewableContentIdentifiedEventArgs* = guid"4A9680DB-88F2-4E20-B693-B4E2DF4AA581"
-const Slot_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Uri* = 6
-type Fn_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Referrer* = 7
-type Fn_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Referrer* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlUnviewableContentIdentifiedEventArgs_get_MediaType* = 8
-type Fn_IWebViewControlUnviewableContentIdentifiedEventArgs_get_MediaType* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IWebViewControlUnviewableContentIdentifiedEventArgsVtbl* = object of IInspectableVtbl
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Referrer*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_MediaType*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlWebResourceRequestedEventArgs
 const IID_IWebViewControlWebResourceRequestedEventArgs* = guid"44D6524D-55A4-4D8B-891C-931D8E25D42E"
-const Slot_IWebViewControlWebResourceRequestedEventArgs_GetDeferral* = 6
-type Fn_IWebViewControlWebResourceRequestedEventArgs_GetDeferral* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlWebResourceRequestedEventArgs_get_Request* = 7
-type Fn_IWebViewControlWebResourceRequestedEventArgs_get_Request* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlWebResourceRequestedEventArgs_put_Response* = 8
-type Fn_IWebViewControlWebResourceRequestedEventArgs_put_Response* =
-  proc(self: pointer, a1HttpResponseMessage: pointer): HRESULT {.abi.}
-const Slot_IWebViewControlWebResourceRequestedEventArgs_get_Response* = 9
-type Fn_IWebViewControlWebResourceRequestedEventArgs_get_Response* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IWebViewControlWebResourceRequestedEventArgsVtbl* = object of IInspectableVtbl
+  GetDeferral*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Request*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Response*: proc(self: pointer, a1HttpResponseMessage: pointer
+                     ): HRESULT {.abi.}
+  get_Response*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlAcceleratorKeyPressedEventArgs
 const IID_IWebViewControlAcceleratorKeyPressedEventArgs* = guid"77A2A53E-7C74-437D-A290-3AC0D8CD5655"
-const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_EventType* = 6
-type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_EventType* =
-  proc(self: pointer, value: ptr CoreAcceleratorKeyEventType): HRESULT {.abi.}
-const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_VirtualKey* = 7
-type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_VirtualKey* =
-  proc(self: pointer, value: ptr VirtualKey): HRESULT {.abi.}
-const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_KeyStatus* = 8
-type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_KeyStatus* =
-  proc(self: pointer, value: ptr CorePhysicalKeyStatus): HRESULT {.abi.}
-const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_RoutingStage* = 9
-type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_RoutingStage* =
-  proc(self: pointer, value: ptr WebViewControlAcceleratorKeyRoutingStage
-      ): HRESULT {.abi.}
-const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_Handled* = 10
-type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_Handled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_put_Handled* = 11
-type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_put_Handled* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type IWebViewControlAcceleratorKeyPressedEventArgsVtbl* = object of IInspectableVtbl
+  get_EventType*: proc(self: pointer, value: ptr CoreAcceleratorKeyEventType
+                      ): HRESULT {.abi.}
+  get_VirtualKey*: proc(self: pointer, value: ptr VirtualKey): HRESULT {.abi.}
+  get_KeyStatus*: proc(self: pointer, value: ptr CorePhysicalKeyStatus
+                      ): HRESULT {.abi.}
+  get_RoutingStage*: proc(self: pointer,
+                          value: ptr WebViewControlAcceleratorKeyRoutingStage
+                         ): HRESULT {.abi.}
+  get_Handled*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_Handled*: proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlMoveFocusRequestedEventArgs
 const IID_IWebViewControlMoveFocusRequestedEventArgs* = guid"6B2A340D-4BD0-405E-B7C1-1E72A492F446"
-const Slot_IWebViewControlMoveFocusRequestedEventArgs_get_Reason* = 6
-type Fn_IWebViewControlMoveFocusRequestedEventArgs_get_Reason* =
-  proc(self: pointer, value: ptr WebViewControlMoveFocusReason
-      ): HRESULT {.abi.}
+type IWebViewControlMoveFocusRequestedEventArgsVtbl* = object of IInspectableVtbl
+  get_Reason*: proc(self: pointer, value: ptr WebViewControlMoveFocusReason
+                   ): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlProcess
 const IID_IWebViewControlProcess* = guid"02C723EC-98D6-424A-B63E-C6136C36A0F2"
-const Slot_IWebViewControlProcess_get_ProcessId* = 6
-type Fn_IWebViewControlProcess_get_ProcessId* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IWebViewControlProcess_get_EnterpriseId* = 7
-type Fn_IWebViewControlProcess_get_EnterpriseId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IWebViewControlProcess_get_IsPrivateNetworkClientServerCapabilityEnabled* = 8
-type Fn_IWebViewControlProcess_get_IsPrivateNetworkClientServerCapabilityEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWebViewControlProcess_CreateWebViewControlAsync* = 9
-type Fn_IWebViewControlProcess_CreateWebViewControlAsync* =
-  proc(self: pointer, a1: int64, a2: Rect, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IWebViewControlProcess_GetWebViewControls* = 10
-type Fn_IWebViewControlProcess_GetWebViewControls* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlProcess_Terminate* = 11
-type Fn_IWebViewControlProcess_Terminate* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IWebViewControlProcess_add_ProcessExited* = 12
-type Fn_IWebViewControlProcess_add_ProcessExited* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControlProcess_remove_ProcessExited* = 13
-type Fn_IWebViewControlProcess_remove_ProcessExited* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IWebViewControlProcessVtbl* = object of IInspectableVtbl
+  get_ProcessId*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_EnterpriseId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_IsPrivateNetworkClientServerCapabilityEnabled*: proc(self: pointer,
+                                                           value: ptr bool
+                                                          ): HRESULT {.abi.}
+  CreateWebViewControlAsync*: proc(self: pointer, a1: int64, a2: Rect,
+                                   value: ptr pointer): HRESULT {.abi.}
+  GetWebViewControls*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  Terminate*: proc(self: pointer): HRESULT {.abi.}
+  add_ProcessExited*: proc(self: pointer, a1: pointer,
+                           value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_ProcessExited*: proc(self: pointer, a1: EventRegistrationToken
+                             ): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlProcessFactory
 const IID_IWebViewControlProcessFactory* = guid"47B65CF9-A2D2-453C-B097-F6779D4B8E02"
-const Slot_IWebViewControlProcessFactory_CreateWithOptions* = 6
-type Fn_IWebViewControlProcessFactory_CreateWithOptions* =
-  proc(self: pointer, a1WebViewControlProcessOptions: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type IWebViewControlProcessFactoryVtbl* = object of IInspectableVtbl
+  CreateWithOptions*: proc(self: pointer,
+                           a1WebViewControlProcessOptions: pointer,
+                           value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlProcessOptions
 const IID_IWebViewControlProcessOptions* = guid"1CCA72A7-3BD6-4826-8261-6C8189505D89"
-const Slot_IWebViewControlProcessOptions_put_EnterpriseId* = 6
-type Fn_IWebViewControlProcessOptions_put_EnterpriseId* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IWebViewControlProcessOptions_get_EnterpriseId* = 7
-type Fn_IWebViewControlProcessOptions_get_EnterpriseId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IWebViewControlProcessOptions_put_PrivateNetworkClientServerCapability* = 8
-type Fn_IWebViewControlProcessOptions_put_PrivateNetworkClientServerCapability* =
-  proc(self: pointer, a1: WebViewControlProcessCapabilityState
-      ): HRESULT {.abi.}
-const Slot_IWebViewControlProcessOptions_get_PrivateNetworkClientServerCapability* = 9
-type Fn_IWebViewControlProcessOptions_get_PrivateNetworkClientServerCapability* =
-  proc(self: pointer, value: ptr WebViewControlProcessCapabilityState
-      ): HRESULT {.abi.}
+type IWebViewControlProcessOptionsVtbl* = object of IInspectableVtbl
+  put_EnterpriseId*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_EnterpriseId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_PrivateNetworkClientServerCapability*: proc(self: pointer,
+                                                  a1: WebViewControlProcessCapabilityState
+                                                 ): HRESULT {.abi.}
+  get_PrivateNetworkClientServerCapability*: proc(self: pointer,
+                                                  value: ptr WebViewControlProcessCapabilityState
+                                                 ): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlSite
 const IID_IWebViewControlSite* = guid"133F47C6-12DC-4898-BD47-04967DE648BA"
-const Slot_IWebViewControlSite_get_Process* = 6
-type Fn_IWebViewControlSite_get_Process* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWebViewControlSite_put_Scale* = 7
-type Fn_IWebViewControlSite_put_Scale* =
-  proc(self: pointer, a1: float64): HRESULT {.abi.}
-const Slot_IWebViewControlSite_get_Scale* = 8
-type Fn_IWebViewControlSite_get_Scale* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_IWebViewControlSite_put_Bounds* = 9
-type Fn_IWebViewControlSite_put_Bounds* =
-  proc(self: pointer, a1: Rect): HRESULT {.abi.}
-const Slot_IWebViewControlSite_get_Bounds* = 10
-type Fn_IWebViewControlSite_get_Bounds* =
-  proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
-const Slot_IWebViewControlSite_put_IsVisible* = 11
-type Fn_IWebViewControlSite_put_IsVisible* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IWebViewControlSite_get_IsVisible* = 12
-type Fn_IWebViewControlSite_get_IsVisible* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWebViewControlSite_Close* = 13
-type Fn_IWebViewControlSite_Close* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IWebViewControlSite_MoveFocus* = 14
-type Fn_IWebViewControlSite_MoveFocus* =
-  proc(self: pointer, a1: WebViewControlMoveFocusReason): HRESULT {.abi.}
-const Slot_IWebViewControlSite_add_MoveFocusRequested* = 15
-type Fn_IWebViewControlSite_add_MoveFocusRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControlSite_remove_MoveFocusRequested* = 16
-type Fn_IWebViewControlSite_remove_MoveFocusRequested* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControlSite_add_AcceleratorKeyPressed* = 17
-type Fn_IWebViewControlSite_add_AcceleratorKeyPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControlSite_remove_AcceleratorKeyPressed* = 18
-type Fn_IWebViewControlSite_remove_AcceleratorKeyPressed* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IWebViewControlSiteVtbl* = object of IInspectableVtbl
+  get_Process*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Scale*: proc(self: pointer, a1: float64): HRESULT {.abi.}
+  get_Scale*: proc(self: pointer, value: ptr float64): HRESULT {.abi.}
+  put_Bounds*: proc(self: pointer, a1: Rect): HRESULT {.abi.}
+  get_Bounds*: proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
+  put_IsVisible*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_IsVisible*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  Close*: proc(self: pointer): HRESULT {.abi.}
+  MoveFocus*: proc(self: pointer, a1: WebViewControlMoveFocusReason
+                  ): HRESULT {.abi.}
+  add_MoveFocusRequested*: proc(self: pointer, a1: pointer,
+                                value: ptr EventRegistrationToken
+                               ): HRESULT {.abi.}
+  remove_MoveFocusRequested*: proc(self: pointer, a1: EventRegistrationToken
+                                  ): HRESULT {.abi.}
+  add_AcceleratorKeyPressed*: proc(self: pointer, a1: pointer,
+                                   value: ptr EventRegistrationToken
+                                  ): HRESULT {.abi.}
+  remove_AcceleratorKeyPressed*: proc(self: pointer,
+                                      a1: EventRegistrationToken
+                                     ): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlSite2
 const IID_IWebViewControlSite2* = guid"D13B2E3F-48EE-4730-8243-D2ED0C05606A"
-const Slot_IWebViewControlSite2_add_GotFocus* = 6
-type Fn_IWebViewControlSite2_add_GotFocus* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControlSite2_remove_GotFocus* = 7
-type Fn_IWebViewControlSite2_remove_GotFocus* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IWebViewControlSite2_add_LostFocus* = 8
-type Fn_IWebViewControlSite2_add_LostFocus* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWebViewControlSite2_remove_LostFocus* = 9
-type Fn_IWebViewControlSite2_remove_LostFocus* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IWebViewControlSite2Vtbl* = object of IInspectableVtbl
+  add_GotFocus*: proc(self: pointer, a1: pointer,
+                      value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_GotFocus*: proc(self: pointer, a1: EventRegistrationToken
+                        ): HRESULT {.abi.}
+  add_LostFocus*: proc(self: pointer, a1: pointer,
+                       value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_LostFocus*: proc(self: pointer, a1: EventRegistrationToken
+                         ): HRESULT {.abi.}
 

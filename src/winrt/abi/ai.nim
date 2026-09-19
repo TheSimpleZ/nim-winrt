@@ -3,12 +3,10 @@
 ## Source:    Windows.winmd
 ## Namespace: Windows.AI
 ##
-## Slot numbers are vtable indices. WinRT interfaces begin with
-## IInspectable's six slots, so the first declared method is slot 6;
-## delegates derive from IUnknown and begin at slot 3.
-##
-## Every method returns HRESULT and its declared return type becomes
-## a trailing out-parameter.
+## Each interface is its vtable: an object whose fields are the
+## methods in declaration order, after IInspectable's six (IUnknown's
+## three for a delegate). Every method returns HRESULT and its
+## declared return type becomes a trailing out-parameter.
 
 import std/hashes
 export hashes
@@ -20,1602 +18,1191 @@ export types
 
 ## Windows.AI.Actions.Hosting.IActionCatalog
 const IID_IActionCatalog* = guid"DBE7C537-66EA-5394-9085-4FC19D78375C"
-const Slot_IActionCatalog_GetAllActions* = 6
-type Fn_IActionCatalog_GetAllActions* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IActionCatalog_add_Changed* = 7
-type Fn_IActionCatalog_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IActionCatalog_remove_Changed* = 8
-type Fn_IActionCatalog_remove_Changed* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IActionCatalogVtbl* = object of IInspectableVtbl
+  GetAllActions*: proc(self: pointer, valueSize: ptr uint32,
+                       value: ptr ptr pointer): HRESULT {.abi.}
+  add_Changed*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Changed*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionCatalog2
 const IID_IActionCatalog2* = guid"370360B1-A14B-5EA8-B611-B5F70342BA44"
-const Slot_IActionCatalog2_GetActionsForInputs* = 6
-type Fn_IActionCatalog2_GetActionsForInputs* =
-  proc(self: pointer, a1Size: uint32, a1: ptr pointer, valueSize: ptr uint32,
-       value: ptr ptr pointer): HRESULT {.abi.}
-const Slot_IActionCatalog2_GetActionsForInputs2* = 7
-type Fn_IActionCatalog2_GetActionsForInputs2* =
-  proc(self: pointer, a1Size: uint32, a1: ptr pointer, a2: WindowId,
-       valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+type IActionCatalog2Vtbl* = object of IInspectableVtbl
+  GetActionsForInputs*: proc(self: pointer, a1Size: uint32, a1: ptr pointer,
+                             valueSize: ptr uint32, value: ptr ptr pointer
+                            ): HRESULT {.abi.}
+  GetActionsForInputs2*: proc(self: pointer, a1Size: uint32, a1: ptr pointer,
+                              a2: WindowId, valueSize: ptr uint32,
+                              value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionCatalog3
 const IID_IActionCatalog3* = guid"2E05D518-8680-55D3-820D-2605ADB7D62D"
-const Slot_IActionCatalog3_GetActionsForCurrentApp* = 6
-type Fn_IActionCatalog3_GetActionsForCurrentApp* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
-      ): HRESULT {.abi.}
+type IActionCatalog3Vtbl* = object of IInspectableVtbl
+  GetActionsForCurrentApp*: proc(self: pointer, valueSize: ptr uint32,
+                                 value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionDefinition
 const IID_IActionDefinition* = guid"FE766ADD-924D-5231-855E-DAC9E82C7E6C"
-const Slot_IActionDefinition_get_Id* = 6
-type Fn_IActionDefinition_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IActionDefinition_get_Description* = 7
-type Fn_IActionDefinition_get_Description* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IActionDefinition_get_IconFullPath* = 8
-type Fn_IActionDefinition_get_IconFullPath* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IActionDefinition_get_PackageFamilyName* = 9
-type Fn_IActionDefinition_get_PackageFamilyName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IActionDefinition_GetInputs* = 10
-type Fn_IActionDefinition_GetInputs* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IActionDefinition_GetOutputs* = 11
-type Fn_IActionDefinition_GetOutputs* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IActionDefinition_GetOverloads* = 12
-type Fn_IActionDefinition_GetOverloads* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
-      ): HRESULT {.abi.}
+type IActionDefinitionVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Description*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_IconFullPath*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_PackageFamilyName*: proc(self: pointer, value: ptr HSTRING
+                              ): HRESULT {.abi.}
+  GetInputs*: proc(self: pointer, valueSize: ptr uint32,
+                   value: ptr ptr pointer): HRESULT {.abi.}
+  GetOutputs*: proc(self: pointer, valueSize: ptr uint32,
+                    value: ptr ptr pointer): HRESULT {.abi.}
+  GetOverloads*: proc(self: pointer, valueSize: ptr uint32,
+                      value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionDefinition2
 const IID_IActionDefinition2* = guid"C1F44733-F563-54E2-BD2B-DC4C732054CF"
-const Slot_IActionDefinition2_get_DisplaysUI* = 6
-type Fn_IActionDefinition2_get_DisplaysUI* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IActionDefinition2_get_UsesGenerativeAI* = 7
-type Fn_IActionDefinition2_get_UsesGenerativeAI* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IActionDefinition2_get_SchemaVersion* = 8
-type Fn_IActionDefinition2_get_SchemaVersion* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+type IActionDefinition2Vtbl* = object of IInspectableVtbl
+  get_DisplaysUI*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_UsesGenerativeAI*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_SchemaVersion*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionDefinition3
 const IID_IActionDefinition3* = guid"89C9A7E0-4BFD-55F4-9EED-DCE2250114FA"
-const Slot_IActionDefinition3_get_PackageRelativeApplicationId* = 6
-type Fn_IActionDefinition3_get_PackageRelativeApplicationId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IActionDefinition3Vtbl* = object of IInspectableVtbl
+  get_PackageRelativeApplicationId*: proc(self: pointer, value: ptr HSTRING
+                                         ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionDefinition4
 const IID_IActionDefinition4* = guid"6DD91071-8847-55B6-9518-9FF8DE421EB7"
-const Slot_IActionDefinition4_get_IsCurrentlyAvailable* = 6
-type Fn_IActionDefinition4_get_IsCurrentlyAvailable* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IActionDefinition4Vtbl* = object of IInspectableVtbl
+  get_IsCurrentlyAvailable*: proc(self: pointer, value: ptr bool
+                                 ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionDefinition5
 const IID_IActionDefinition5* = guid"5BEA33EF-D325-53A8-8DB3-0D771F4D1E54"
-const Slot_IActionDefinition5_GetIconFullPath* = 6
-type Fn_IActionDefinition5_GetIconFullPath* =
-  proc(self: pointer, a1PropertySet: pointer, value: ptr HSTRING
-      ): HRESULT {.abi.}
+type IActionDefinition5Vtbl* = object of IInspectableVtbl
+  GetIconFullPath*: proc(self: pointer, a1PropertySet: pointer,
+                         value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionEntityRegistrationInfo
 const IID_IActionEntityRegistrationInfo* = guid"C3B92BDB-03C3-5A9E-B049-002FA0405699"
-const Slot_IActionEntityRegistrationInfo_get_Name* = 6
-type Fn_IActionEntityRegistrationInfo_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IActionEntityRegistrationInfo_put_Name* = 7
-type Fn_IActionEntityRegistrationInfo_put_Name* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IActionEntityRegistrationInfo_get_Kind* = 8
-type Fn_IActionEntityRegistrationInfo_get_Kind* =
-  proc(self: pointer, value: ptr ActionEntityKind): HRESULT {.abi.}
-const Slot_IActionEntityRegistrationInfo_put_Kind* = 9
-type Fn_IActionEntityRegistrationInfo_put_Kind* =
-  proc(self: pointer, a1: ActionEntityKind): HRESULT {.abi.}
+type IActionEntityRegistrationInfoVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Name*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Kind*: proc(self: pointer, value: ptr ActionEntityKind): HRESULT {.abi.}
+  put_Kind*: proc(self: pointer, a1: ActionEntityKind): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionInstance
 const IID_IActionInstance* = guid"809BCB6E-E6EF-5F16-B89A-06B8893DF20E"
-const Slot_IActionInstance_get_DisplayInfo* = 6
-type Fn_IActionInstance_get_DisplayInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionInstance_get_Definition* = 7
-type Fn_IActionInstance_get_Definition* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionInstance_get_Context* = 8
-type Fn_IActionInstance_get_Context* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionInstance_InvokeAsync* = 9
-type Fn_IActionInstance_InvokeAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IActionInstanceVtbl* = object of IInspectableVtbl
+  get_DisplayInfo*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Definition*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Context*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  InvokeAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionInstanceDisplayInfo
 const IID_IActionInstanceDisplayInfo* = guid"FCFDCE21-678B-5602-B9DC-2F4533A6F4B2"
-const Slot_IActionInstanceDisplayInfo_get_Description* = 6
-type Fn_IActionInstanceDisplayInfo_get_Description* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IActionInstanceDisplayInfoVtbl* = object of IInspectableVtbl
+  get_Description*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionOverload
 const IID_IActionOverload* = guid"5D184610-D09D-5375-9849-505C359DCA01"
-const Slot_IActionOverload_get_DescriptionTemplate* = 6
-type Fn_IActionOverload_get_DescriptionTemplate* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IActionOverload_GetInputs* = 7
-type Fn_IActionOverload_GetInputs* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IActionOverload_InvokeAsync* = 8
-type Fn_IActionOverload_InvokeAsync* =
-  proc(self: pointer, a1ActionInvocationContext: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IActionOverloadVtbl* = object of IInspectableVtbl
+  get_DescriptionTemplate*: proc(self: pointer, value: ptr HSTRING
+                                ): HRESULT {.abi.}
+  GetInputs*: proc(self: pointer, valueSize: ptr uint32,
+                   value: ptr ptr pointer): HRESULT {.abi.}
+  InvokeAsync*: proc(self: pointer, a1ActionInvocationContext: pointer,
+                     value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionOverload2
 const IID_IActionOverload2* = guid"57EC9906-8231-5A9E-929F-BF39E952EB93"
-const Slot_IActionOverload2_InvokeFeedbackAsync* = 6
-type Fn_IActionOverload2_InvokeFeedbackAsync* =
-  proc(self: pointer, a1ActionInvocationContext: pointer,
-       a2ActionFeedback: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionOverload2_GetSupportsFeedback* = 7
-type Fn_IActionOverload2_GetSupportsFeedback* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IActionOverload2Vtbl* = object of IInspectableVtbl
+  InvokeFeedbackAsync*: proc(self: pointer,
+                             a1ActionInvocationContext: pointer,
+                             a2ActionFeedback: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  GetSupportsFeedback*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntity
 const IID_IActionEntity* = guid"445E700F-2122-5668-9A16-4CAB2982C5F4"
-const Slot_IActionEntity_get_Kind* = 6
-type Fn_IActionEntity_get_Kind* =
-  proc(self: pointer, value: ptr ActionEntityKind): HRESULT {.abi.}
-const Slot_IActionEntity_get_DisplayInfo* = 7
-type Fn_IActionEntity_get_DisplayInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IActionEntityVtbl* = object of IInspectableVtbl
+  get_Kind*: proc(self: pointer, value: ptr ActionEntityKind): HRESULT {.abi.}
+  get_DisplayInfo*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntity2
 const IID_IActionEntity2* = guid"98FE136D-DD3A-58C1-AF76-FEB4E19DCE9E"
-const Slot_IActionEntity2_get_Id* = 6
-type Fn_IActionEntity2_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IActionEntity2Vtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntityDisplayInfo
 const IID_IActionEntityDisplayInfo* = guid"057A9EDE-03E1-55C6-ACBA-C7056216735A"
-const Slot_IActionEntityDisplayInfo_get_Title* = 6
-type Fn_IActionEntityDisplayInfo_get_Title* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IActionEntityDisplayInfoVtbl* = object of IInspectableVtbl
+  get_Title*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntityFactory
 const IID_IActionEntityFactory* = guid"9CB752A0-5BF8-5BE2-916E-B00EFF80088D"
+type IActionEntityFactoryVtbl* = object of IInspectableVtbl
 
 ## Windows.AI.Actions.IActionEntityFactory2
 const IID_IActionEntityFactory2* = guid"EA2FB6A5-EC6D-5180-9D30-BC663B84E7B8"
-const Slot_IActionEntityFactory2_CreateFileEntity* = 6
-type Fn_IActionEntityFactory2_CreateFileEntity* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionEntityFactory2_CreateDocumentEntity* = 7
-type Fn_IActionEntityFactory2_CreateDocumentEntity* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionEntityFactory2_CreatePhotoEntity* = 8
-type Fn_IActionEntityFactory2_CreatePhotoEntity* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionEntityFactory2_CreateTextEntity* = 9
-type Fn_IActionEntityFactory2_CreateTextEntity* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IActionEntityFactory2Vtbl* = object of IInspectableVtbl
+  CreateFileEntity*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                         ): HRESULT {.abi.}
+  CreateDocumentEntity*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                             ): HRESULT {.abi.}
+  CreatePhotoEntity*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                          ): HRESULT {.abi.}
+  CreateTextEntity*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntityFactory3
 const IID_IActionEntityFactory3* = guid"4910E689-00B5-56BB-9C65-0FCC76215283"
-const Slot_IActionEntityFactory3_CreateRemoteFileEntity* = 6
-type Fn_IActionEntityFactory3_CreateRemoteFileEntity* =
-  proc(self: pointer, a1: HSTRING, a2: RemoteFileKind, a3Uri: pointer,
-       a4: HSTRING, a5: HSTRING, a6: HSTRING, a7: HSTRING, a8: HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionEntityFactory3_CreateTextEntity* = 7
-type Fn_IActionEntityFactory3_CreateTextEntity* =
-  proc(self: pointer, a1: HSTRING, a2: ActionEntityTextFormat,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionEntityFactory3_CreateStreamingTextActionEntityWriter* = 8
-type Fn_IActionEntityFactory3_CreateStreamingTextActionEntityWriter* =
-  proc(self: pointer, a1: ActionEntityTextFormat, value: ptr pointer
-      ): HRESULT {.abi.}
+type IActionEntityFactory3Vtbl* = object of IInspectableVtbl
+  CreateRemoteFileEntity*: proc(self: pointer, a1: HSTRING,
+                                a2: RemoteFileKind, a3Uri: pointer,
+                                a4: HSTRING, a5: HSTRING, a6: HSTRING,
+                                a7: HSTRING, a8: HSTRING, value: ptr pointer
+                               ): HRESULT {.abi.}
+  CreateTextEntity*: proc(self: pointer, a1: HSTRING,
+                          a2: ActionEntityTextFormat, value: ptr pointer
+                         ): HRESULT {.abi.}
+  CreateStreamingTextActionEntityWriter*: proc(self: pointer,
+                                               a1: ActionEntityTextFormat,
+                                               value: ptr pointer
+                                              ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntityFactory4
 const IID_IActionEntityFactory4* = guid"332EDA05-DE0E-5A58-B318-A2AD771F013D"
-const Slot_IActionEntityFactory4_CreateTableEntity* = 6
-type Fn_IActionEntityFactory4_CreateTableEntity* =
-  proc(self: pointer, a1Size: uint32, a1: ptr HSTRING, a2: uint32,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionEntityFactory4_CreateContactEntity* = 7
-type Fn_IActionEntityFactory4_CreateContactEntity* =
-  proc(self: pointer, a1Contact: pointer, value: ptr pointer): HRESULT {.abi.}
+type IActionEntityFactory4Vtbl* = object of IInspectableVtbl
+  CreateTableEntity*: proc(self: pointer, a1Size: uint32, a1: ptr HSTRING,
+                           a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  CreateContactEntity*: proc(self: pointer, a1Contact: pointer,
+                             value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntityFactory5
 const IID_IActionEntityFactory5* = guid"B59FAAB1-CFE4-564A-A5BA-53AD7FF6F924"
-const Slot_IActionEntityFactory5_CreateUriEntity* = 6
-type Fn_IActionEntityFactory5_CreateUriEntity* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionEntityFactory5_CreateArrayEntity* = 7
-type Fn_IActionEntityFactory5_CreateArrayEntity* =
-  proc(self: pointer, a1: ActionEntityKind, a2Size: uint32, a2: ptr pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type IActionEntityFactory5Vtbl* = object of IInspectableVtbl
+  CreateUriEntity*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                        ): HRESULT {.abi.}
+  CreateArrayEntity*: proc(self: pointer, a1: ActionEntityKind,
+                           a2Size: uint32, a2: ptr pointer, value: ptr pointer
+                          ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntityFactory6
 const IID_IActionEntityFactory6* = guid"DA7123DA-5639-590F-A2DB-C3B5E221F3B6"
-const Slot_IActionEntityFactory6_CreateDateTimeEntity* = 6
-type Fn_IActionEntityFactory6_CreateDateTimeEntity* =
-  proc(self: pointer, a1: DateTime, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionEntityFactory6_CreateAppointmentEntity* = 7
-type Fn_IActionEntityFactory6_CreateAppointmentEntity* =
-  proc(self: pointer, a1: HSTRING, a2Appointment: pointer, a3Size: uint32,
-       a3: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+type IActionEntityFactory6Vtbl* = object of IInspectableVtbl
+  CreateDateTimeEntity*: proc(self: pointer, a1: DateTime, value: ptr pointer
+                             ): HRESULT {.abi.}
+  CreateAppointmentEntity*: proc(self: pointer, a1: HSTRING,
+                                 a2Appointment: pointer, a3Size: uint32,
+                                 a3: ptr pointer, value: ptr pointer
+                                ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntityFactory7
 const IID_IActionEntityFactory7* = guid"B814B8D5-C9B2-51B5-A342-9FE054D8A1EB"
-const Slot_IActionEntityFactory7_CreateCustomTextEntity* = 6
-type Fn_IActionEntityFactory7_CreateCustomTextEntity* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionEntityFactory7_CreateArrayEntityWithCustomKind* = 7
-type Fn_IActionEntityFactory7_CreateArrayEntityWithCustomKind* =
-  proc(self: pointer, a1: ActionEntityKind, a2: HSTRING, a3Size: uint32,
-       a3: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+type IActionEntityFactory7Vtbl* = object of IInspectableVtbl
+  CreateCustomTextEntity*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                a3: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
+  CreateArrayEntityWithCustomKind*: proc(self: pointer, a1: ActionEntityKind,
+                                         a2: HSTRING, a3Size: uint32,
+                                         a3: ptr pointer, value: ptr pointer
+                                        ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntityFactoryFactory
 const IID_IActionEntityFactoryFactory* = guid"C9147D8F-88A0-5EC0-A564-47E2A1081412"
+type IActionEntityFactoryFactoryVtbl* = object of IInspectableVtbl
 
 ## Windows.AI.Actions.IActionFeedback
 const IID_IActionFeedback* = guid"A12EE7AB-2454-56C9-BBDF-C089457FBC5E"
-const Slot_IActionFeedback_get_FeedbackKind* = 6
-type Fn_IActionFeedback_get_FeedbackKind* =
-  proc(self: pointer, value: ptr ActionFeedbackKind): HRESULT {.abi.}
+type IActionFeedbackVtbl* = object of IInspectableVtbl
+  get_FeedbackKind*: proc(self: pointer, value: ptr ActionFeedbackKind
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionInvocationContext
 const IID_IActionInvocationContext* = guid"C32B622E-86E1-5EBA-9661-605910104978"
-const Slot_IActionInvocationContext_get_EntityFactory* = 6
-type Fn_IActionInvocationContext_get_EntityFactory* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionInvocationContext_SetInputEntity* = 7
-type Fn_IActionInvocationContext_SetInputEntity* =
-  proc(self: pointer, a1: HSTRING, a2ActionEntity: pointer): HRESULT {.abi.}
-const Slot_IActionInvocationContext_GetInputEntities* = 8
-type Fn_IActionInvocationContext_GetInputEntities* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IActionInvocationContext_SetOutputEntity* = 9
-type Fn_IActionInvocationContext_SetOutputEntity* =
-  proc(self: pointer, a1: HSTRING, a2ActionEntity: pointer): HRESULT {.abi.}
-const Slot_IActionInvocationContext_GetOutputEntities* = 10
-type Fn_IActionInvocationContext_GetOutputEntities* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IActionInvocationContext_get_Result* = 11
-type Fn_IActionInvocationContext_get_Result* =
-  proc(self: pointer, value: ptr ActionInvocationResult): HRESULT {.abi.}
-const Slot_IActionInvocationContext_put_Result* = 12
-type Fn_IActionInvocationContext_put_Result* =
-  proc(self: pointer, a1: ActionInvocationResult): HRESULT {.abi.}
-const Slot_IActionInvocationContext_get_ExtendedError* = 13
-type Fn_IActionInvocationContext_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
-const Slot_IActionInvocationContext_put_ExtendedError* = 14
-type Fn_IActionInvocationContext_put_ExtendedError* =
-  proc(self: pointer, a1: HRESULT): HRESULT {.abi.}
+type IActionInvocationContextVtbl* = object of IInspectableVtbl
+  get_EntityFactory*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  SetInputEntity*: proc(self: pointer, a1: HSTRING, a2ActionEntity: pointer
+                       ): HRESULT {.abi.}
+  GetInputEntities*: proc(self: pointer, valueSize: ptr uint32,
+                          value: ptr ptr pointer): HRESULT {.abi.}
+  SetOutputEntity*: proc(self: pointer, a1: HSTRING, a2ActionEntity: pointer
+                        ): HRESULT {.abi.}
+  GetOutputEntities*: proc(self: pointer, valueSize: ptr uint32,
+                           value: ptr ptr pointer): HRESULT {.abi.}
+  get_Result*: proc(self: pointer, value: ptr ActionInvocationResult
+                   ): HRESULT {.abi.}
+  put_Result*: proc(self: pointer, a1: ActionInvocationResult
+                   ): HRESULT {.abi.}
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+  put_ExtendedError*: proc(self: pointer, a1: HRESULT): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionInvocationContext2
 const IID_IActionInvocationContext2* = guid"7C843086-9279-5BCD-8F2E-D15121E7A827"
-const Slot_IActionInvocationContext2_get_InvokerWindowId* = 6
-type Fn_IActionInvocationContext2_get_InvokerWindowId* =
-  proc(self: pointer, value: ptr WindowId): HRESULT {.abi.}
-const Slot_IActionInvocationContext2_get_HelpDetails* = 7
-type Fn_IActionInvocationContext2_get_HelpDetails* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionInvocationContext2_get_ActionId* = 8
-type Fn_IActionInvocationContext2_get_ActionId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IActionInvocationContext2_get_InvokerAppUserModelId* = 9
-type Fn_IActionInvocationContext2_get_InvokerAppUserModelId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IActionInvocationContext2Vtbl* = object of IInspectableVtbl
+  get_InvokerWindowId*: proc(self: pointer, value: ptr WindowId
+                            ): HRESULT {.abi.}
+  get_HelpDetails*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ActionId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_InvokerAppUserModelId*: proc(self: pointer, value: ptr HSTRING
+                                  ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionInvocationHelpDetails
 const IID_IActionInvocationHelpDetails* = guid"5430F272-078F-5722-8F7D-90CF8DDD595E"
-const Slot_IActionInvocationHelpDetails_get_Kind* = 6
-type Fn_IActionInvocationHelpDetails_get_Kind* =
-  proc(self: pointer, value: ptr ActionInvocationHelpKind): HRESULT {.abi.}
-const Slot_IActionInvocationHelpDetails_put_Kind* = 7
-type Fn_IActionInvocationHelpDetails_put_Kind* =
-  proc(self: pointer, a1: ActionInvocationHelpKind): HRESULT {.abi.}
-const Slot_IActionInvocationHelpDetails_get_Title* = 8
-type Fn_IActionInvocationHelpDetails_get_Title* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IActionInvocationHelpDetails_put_Title* = 9
-type Fn_IActionInvocationHelpDetails_put_Title* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IActionInvocationHelpDetails_get_Description* = 10
-type Fn_IActionInvocationHelpDetails_get_Description* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IActionInvocationHelpDetails_put_Description* = 11
-type Fn_IActionInvocationHelpDetails_put_Description* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IActionInvocationHelpDetails_get_HelpUri* = 12
-type Fn_IActionInvocationHelpDetails_get_HelpUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionInvocationHelpDetails_put_HelpUri* = 13
-type Fn_IActionInvocationHelpDetails_put_HelpUri* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_IActionInvocationHelpDetails_get_HelpUriDescription* = 14
-type Fn_IActionInvocationHelpDetails_get_HelpUriDescription* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IActionInvocationHelpDetails_put_HelpUriDescription* = 15
-type Fn_IActionInvocationHelpDetails_put_HelpUriDescription* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IActionInvocationHelpDetailsVtbl* = object of IInspectableVtbl
+  get_Kind*: proc(self: pointer, value: ptr ActionInvocationHelpKind
+                 ): HRESULT {.abi.}
+  put_Kind*: proc(self: pointer, a1: ActionInvocationHelpKind
+                 ): HRESULT {.abi.}
+  get_Title*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Title*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Description*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Description*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_HelpUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_HelpUri*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_HelpUriDescription*: proc(self: pointer, value: ptr HSTRING
+                               ): HRESULT {.abi.}
+  put_HelpUriDescription*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionInvocationHelpDetails2
 const IID_IActionInvocationHelpDetails2* = guid"307F6BA5-5FDA-59F1-9722-1859801AD550"
-const Slot_IActionInvocationHelpDetails2_add_Changed* = 6
-type Fn_IActionInvocationHelpDetails2_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IActionInvocationHelpDetails2_remove_Changed* = 7
-type Fn_IActionInvocationHelpDetails2_remove_Changed* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IActionInvocationHelpDetails2Vtbl* = object of IInspectableVtbl
+  add_Changed*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Changed*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionRuntime
 const IID_IActionRuntime* = guid"206EFA2C-C909-508A-B4B0-9482BE96DB9C"
-const Slot_IActionRuntime_get_ActionCatalog* = 6
-type Fn_IActionRuntime_get_ActionCatalog* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionRuntime_get_EntityFactory* = 7
-type Fn_IActionRuntime_get_EntityFactory* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionRuntime_CreateInvocationContext* = 8
-type Fn_IActionRuntime_CreateInvocationContext* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IActionRuntimeVtbl* = object of IInspectableVtbl
+  get_ActionCatalog*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_EntityFactory*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  CreateInvocationContext*: proc(self: pointer, a1: HSTRING,
+                                 value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionRuntime2
 const IID_IActionRuntime2* = guid"2DA4D2C0-E593-5350-8143-15BB24F63411"
-const Slot_IActionRuntime2_CreateActionFeedback* = 6
-type Fn_IActionRuntime2_CreateActionFeedback* =
-  proc(self: pointer, a1: ActionFeedbackKind, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IActionRuntime2_SetActionAvailability* = 7
-type Fn_IActionRuntime2_SetActionAvailability* =
-  proc(self: pointer, a1: HSTRING, a2: bool): HRESULT {.abi.}
-const Slot_IActionRuntime2_GetActionAvailability* = 8
-type Fn_IActionRuntime2_GetActionAvailability* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IActionRuntime2Vtbl* = object of IInspectableVtbl
+  CreateActionFeedback*: proc(self: pointer, a1: ActionFeedbackKind,
+                              value: ptr pointer): HRESULT {.abi.}
+  SetActionAvailability*: proc(self: pointer, a1: HSTRING, a2: bool
+                              ): HRESULT {.abi.}
+  GetActionAvailability*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                              ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionRuntime3
 const IID_IActionRuntime3* = guid"F020C3C0-CAEC-5928-AD00-81069B80FBC1"
-const Slot_IActionRuntime3_CreateInvocationContextWithWindowId* = 6
-type Fn_IActionRuntime3_CreateInvocationContextWithWindowId* =
-  proc(self: pointer, a1: HSTRING, a2: WindowId, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IActionRuntime3_GetActionEntityById* = 7
-type Fn_IActionRuntime3_GetActionEntityById* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IActionRuntime3_get_LatestSupportedSchemaVersion* = 8
-type Fn_IActionRuntime3_get_LatestSupportedSchemaVersion* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+type IActionRuntime3Vtbl* = object of IInspectableVtbl
+  CreateInvocationContextWithWindowId*: proc(self: pointer, a1: HSTRING,
+                                             a2: WindowId, value: ptr pointer
+                                            ): HRESULT {.abi.}
+  GetActionEntityById*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                            ): HRESULT {.abi.}
+  get_LatestSupportedSchemaVersion*: proc(self: pointer, value: ptr uint32
+                                         ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionRuntime4
 const IID_IActionRuntime4* = guid"06851DCD-C743-5C7F-88A1-BBAEB02F5E28"
-const Slot_IActionRuntime4_GetActionInvocationContextFromToken* = 6
-type Fn_IActionRuntime4_GetActionInvocationContextFromToken* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IActionRuntime4Vtbl* = object of IInspectableVtbl
+  GetActionInvocationContextFromToken*: proc(self: pointer, a1: HSTRING,
+                                             value: ptr pointer
+                                            ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionRuntime5
 const IID_IActionRuntime5* = guid"C2E995B1-52A9-5F3A-BEBB-A04655E96218"
-const Slot_IActionRuntime5_get_CustomEntityStore* = 6
-type Fn_IActionRuntime5_get_CustomEntityStore* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IActionRuntime5Vtbl* = object of IInspectableVtbl
+  get_CustomEntityStore*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionRuntimeFactory
 const IID_IActionRuntimeFactory* = guid"D3F366E9-8DC9-50A0-8040-E5C14FA609D6"
+type IActionRuntimeFactoryVtbl* = object of IInspectableVtbl
 
 ## Windows.AI.Actions.IActionRuntimeStatics
 const IID_IActionRuntimeStatics* = guid"2C697AAB-55F2-55AA-9D63-A73EC190CECD"
-const Slot_IActionRuntimeStatics_GetDefault* = 6
-type Fn_IActionRuntimeStatics_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IActionRuntimeStaticsVtbl* = object of IInspectableVtbl
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IAppointmentActionEntity
 const IID_IAppointmentActionEntity* = guid"29DAA00E-B474-581C-B555-6187D1AA8231"
-const Slot_IAppointmentActionEntity_get_SourceId* = 6
-type Fn_IAppointmentActionEntity_get_SourceId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IAppointmentActionEntity_get_Appointment* = 7
-type Fn_IAppointmentActionEntity_get_Appointment* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppointmentActionEntity_GetAttendees* = 8
-type Fn_IAppointmentActionEntity_GetAttendees* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IAppointmentActionEntity_GetPresentedFiles* = 9
-type Fn_IAppointmentActionEntity_GetPresentedFiles* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IAppointmentActionEntity_SetPresentedFiles* = 10
-type Fn_IAppointmentActionEntity_SetPresentedFiles* =
-  proc(self: pointer, a1Size: uint32, a1: ptr pointer): HRESULT {.abi.}
-const Slot_IAppointmentActionEntity_GetSharedFiles* = 11
-type Fn_IAppointmentActionEntity_GetSharedFiles* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IAppointmentActionEntity_SetSharedFiles* = 12
-type Fn_IAppointmentActionEntity_SetSharedFiles* =
-  proc(self: pointer, a1Size: uint32, a1: ptr pointer): HRESULT {.abi.}
+type IAppointmentActionEntityVtbl* = object of IInspectableVtbl
+  get_SourceId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Appointment*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetAttendees*: proc(self: pointer, valueSize: ptr uint32,
+                      value: ptr ptr pointer): HRESULT {.abi.}
+  GetPresentedFiles*: proc(self: pointer, valueSize: ptr uint32,
+                           value: ptr ptr pointer): HRESULT {.abi.}
+  SetPresentedFiles*: proc(self: pointer, a1Size: uint32, a1: ptr pointer
+                          ): HRESULT {.abi.}
+  GetSharedFiles*: proc(self: pointer, valueSize: ptr uint32,
+                        value: ptr ptr pointer): HRESULT {.abi.}
+  SetSharedFiles*: proc(self: pointer, a1Size: uint32, a1: ptr pointer
+                       ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IArrayActionEntity
 const IID_IArrayActionEntity* = guid"45798E78-1059-5311-8A1B-DE0081A4CA3B"
-const Slot_IArrayActionEntity_get_ElementKind* = 6
-type Fn_IArrayActionEntity_get_ElementKind* =
-  proc(self: pointer, value: ptr ActionEntityKind): HRESULT {.abi.}
-const Slot_IArrayActionEntity_GetAll* = 7
-type Fn_IArrayActionEntity_GetAll* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
-      ): HRESULT {.abi.}
+type IArrayActionEntityVtbl* = object of IInspectableVtbl
+  get_ElementKind*: proc(self: pointer, value: ptr ActionEntityKind
+                        ): HRESULT {.abi.}
+  GetAll*: proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IArrayActionEntity2
 const IID_IArrayActionEntity2* = guid"7366E049-7FE8-5DF9-BBCA-CEA5C0F3D316"
-const Slot_IArrayActionEntity2_get_CustomElementKind* = 6
-type Fn_IArrayActionEntity2_get_CustomElementKind* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IArrayActionEntity2Vtbl* = object of IInspectableVtbl
+  get_CustomElementKind*: proc(self: pointer, value: ptr HSTRING
+                              ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IContactActionEntity
 const IID_IContactActionEntity* = guid"458C3E07-5892-5485-BD9B-8F7A540C9501"
-const Slot_IContactActionEntity_get_Contact* = 6
-type Fn_IContactActionEntity_get_Contact* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IContactActionEntityVtbl* = object of IInspectableVtbl
+  get_Contact*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.ICustomActionEntityStore
 const IID_ICustomActionEntityStore* = guid"FA7B44D0-1762-5828-9938-E7CAE5199E01"
-const Slot_ICustomActionEntityStore_GetLastModifiedTime* = 6
-type Fn_ICustomActionEntityStore_GetLastModifiedTime* =
-  proc(self: pointer, a1: HSTRING, value: ptr DateTime): HRESULT {.abi.}
-const Slot_ICustomActionEntityStore_Insert* = 7
-type Fn_ICustomActionEntityStore_Insert* =
-  proc(self: pointer, a1CustomTextActionEntity: pointer): HRESULT {.abi.}
-const Slot_ICustomActionEntityStore_InsertMany* = 8
-type Fn_ICustomActionEntityStore_InsertMany* =
-  proc(self: pointer, a1Size: uint32, a1: ptr pointer): HRESULT {.abi.}
-const Slot_ICustomActionEntityStore_Delete* = 9
-type Fn_ICustomActionEntityStore_Delete* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type ICustomActionEntityStoreVtbl* = object of IInspectableVtbl
+  GetLastModifiedTime*: proc(self: pointer, a1: HSTRING, value: ptr DateTime
+                            ): HRESULT {.abi.}
+  Insert*: proc(self: pointer, a1CustomTextActionEntity: pointer
+               ): HRESULT {.abi.}
+  InsertMany*: proc(self: pointer, a1Size: uint32, a1: ptr pointer
+                   ): HRESULT {.abi.}
+  Delete*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.Actions.ICustomActionEntityStoreFactory
 const IID_ICustomActionEntityStoreFactory* = guid"D8B46BDB-68A5-5E07-9113-ABB9241AAAB1"
+type ICustomActionEntityStoreFactoryVtbl* = object of IInspectableVtbl
 
 ## Windows.AI.Actions.ICustomTextActionEntity
 const IID_ICustomTextActionEntity* = guid"50EAAC95-1D6C-54B0-8963-E38DEA3F6AEC"
-const Slot_ICustomTextActionEntity_get_CustomTextKind* = 6
-type Fn_ICustomTextActionEntity_get_CustomTextKind* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ICustomTextActionEntity_get_KeyPhrase* = 7
-type Fn_ICustomTextActionEntity_get_KeyPhrase* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ICustomTextActionEntity_get_Properties* = 8
-type Fn_ICustomTextActionEntity_get_Properties* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ICustomTextActionEntityVtbl* = object of IInspectableVtbl
+  get_CustomTextKind*: proc(self: pointer, value: ptr HSTRING
+                           ): HRESULT {.abi.}
+  get_KeyPhrase*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Properties*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IDateTimeActionEntity
 const IID_IDateTimeActionEntity* = guid"FD5A0880-EEAE-553A-BFED-A9229D57447D"
-const Slot_IDateTimeActionEntity_get_DateTime* = 6
-type Fn_IDateTimeActionEntity_get_DateTime* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
+type IDateTimeActionEntityVtbl* = object of IInspectableVtbl
+  get_DateTime*: proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IDocumentActionEntity
 const IID_IDocumentActionEntity* = guid"56715297-960B-59FF-AF4B-ECE1098B2E36"
-const Slot_IDocumentActionEntity_get_FullPath* = 6
-type Fn_IDocumentActionEntity_get_FullPath* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IDocumentActionEntityVtbl* = object of IInspectableVtbl
+  get_FullPath*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IFileActionEntity
 const IID_IFileActionEntity* = guid"F20AB43F-4C80-5904-BD42-3E6248BABFCF"
-const Slot_IFileActionEntity_get_FullPath* = 6
-type Fn_IFileActionEntity_get_FullPath* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IFileActionEntityVtbl* = object of IInspectableVtbl
+  get_FullPath*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.Actions.INamedActionEntity
 const IID_INamedActionEntity* = guid"1AAEBEEF-435B-5A0D-8182-05FE4DD47712"
-const Slot_INamedActionEntity_get_Name* = 6
-type Fn_INamedActionEntity_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_INamedActionEntity_put_Name* = 7
-type Fn_INamedActionEntity_put_Name* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_INamedActionEntity_get_Entity* = 8
-type Fn_INamedActionEntity_get_Entity* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_INamedActionEntity_put_Entity* = 9
-type Fn_INamedActionEntity_put_Entity* =
-  proc(self: pointer, a1ActionEntity: pointer): HRESULT {.abi.}
+type INamedActionEntityVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Name*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Entity*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Entity*: proc(self: pointer, a1ActionEntity: pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IPhotoActionEntity
 const IID_IPhotoActionEntity* = guid"425123B3-20EF-51A6-B35F-8414384765C5"
-const Slot_IPhotoActionEntity_get_FullPath* = 6
-type Fn_IPhotoActionEntity_get_FullPath* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IPhotoActionEntityVtbl* = object of IInspectableVtbl
+  get_FullPath*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IRemoteFileActionEntity
 const IID_IRemoteFileActionEntity* = guid"A5D8EC21-A2BD-545A-ABFC-D7AA79FD0B81"
-const Slot_IRemoteFileActionEntity_get_SourceId* = 6
-type Fn_IRemoteFileActionEntity_get_SourceId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity_get_FileKind* = 7
-type Fn_IRemoteFileActionEntity_get_FileKind* =
-  proc(self: pointer, value: ptr RemoteFileKind): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity_get_SourceUri* = 8
-type Fn_IRemoteFileActionEntity_get_SourceUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity_get_FileId* = 9
-type Fn_IRemoteFileActionEntity_get_FileId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity_get_ContentType* = 10
-type Fn_IRemoteFileActionEntity_get_ContentType* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity_get_DriveId* = 11
-type Fn_IRemoteFileActionEntity_get_DriveId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity_get_AccountId* = 12
-type Fn_IRemoteFileActionEntity_get_AccountId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity_get_Extension* = 13
-type Fn_IRemoteFileActionEntity_get_Extension* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IRemoteFileActionEntityVtbl* = object of IInspectableVtbl
+  get_SourceId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_FileKind*: proc(self: pointer, value: ptr RemoteFileKind
+                     ): HRESULT {.abi.}
+  get_SourceUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_FileId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ContentType*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DriveId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_AccountId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Extension*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IRemoteFileActionEntity2
 const IID_IRemoteFileActionEntity2* = guid"9CC8CC54-77D8-5537-83C4-6F18C1BC9F67"
-const Slot_IRemoteFileActionEntity2_get_Filename* = 6
-type Fn_IRemoteFileActionEntity2_get_Filename* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity2_put_Filename* = 7
-type Fn_IRemoteFileActionEntity2_put_Filename* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity2_get_Creator* = 8
-type Fn_IRemoteFileActionEntity2_get_Creator* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity2_put_Creator* = 9
-type Fn_IRemoteFileActionEntity2_put_Creator* =
-  proc(self: pointer, a1ContactActionEntity: pointer): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity2_get_LastUpdatedTime* = 10
-type Fn_IRemoteFileActionEntity2_get_LastUpdatedTime* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity2_put_LastUpdatedTime* = 11
-type Fn_IRemoteFileActionEntity2_put_LastUpdatedTime* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity2_SetContributors* = 12
-type Fn_IRemoteFileActionEntity2_SetContributors* =
-  proc(self: pointer, a1Size: uint32, a1: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteFileActionEntity2_GetContributors* = 13
-type Fn_IRemoteFileActionEntity2_GetContributors* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteFileActionEntity2Vtbl* = object of IInspectableVtbl
+  get_Filename*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Filename*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Creator*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_Creator*: proc(self: pointer, a1ContactActionEntity: pointer
+                    ): HRESULT {.abi.}
+  get_LastUpdatedTime*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  put_LastUpdatedTime*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  SetContributors*: proc(self: pointer, a1Size: uint32, a1: ptr pointer
+                        ): HRESULT {.abi.}
+  GetContributors*: proc(self: pointer, valueSize: ptr uint32,
+                         value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IStreamingTextActionEntity
 const IID_IStreamingTextActionEntity* = guid"44CD8A16-ABC9-5703-B4BF-6FE8B7A802FD"
-const Slot_IStreamingTextActionEntity_get_IsComplete* = 6
-type Fn_IStreamingTextActionEntity_get_IsComplete* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStreamingTextActionEntity_GetText* = 7
-type Fn_IStreamingTextActionEntity_GetText* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStreamingTextActionEntity_get_TextFormat* = 8
-type Fn_IStreamingTextActionEntity_get_TextFormat* =
-  proc(self: pointer, value: ptr ActionEntityTextFormat): HRESULT {.abi.}
-const Slot_IStreamingTextActionEntity_add_TextChanged* = 9
-type Fn_IStreamingTextActionEntity_add_TextChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IStreamingTextActionEntity_remove_TextChanged* = 10
-type Fn_IStreamingTextActionEntity_remove_TextChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IStreamingTextActionEntityVtbl* = object of IInspectableVtbl
+  get_IsComplete*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  GetText*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_TextFormat*: proc(self: pointer, value: ptr ActionEntityTextFormat
+                       ): HRESULT {.abi.}
+  add_TextChanged*: proc(self: pointer, a1: pointer,
+                         value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_TextChanged*: proc(self: pointer, a1: EventRegistrationToken
+                           ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IStreamingTextActionEntityTextChangedArgs
 const IID_IStreamingTextActionEntityTextChangedArgs* = guid"2C62011F-3E06-588B-A3BD-D726BD82FB13"
-const Slot_IStreamingTextActionEntityTextChangedArgs_get_Text* = 6
-type Fn_IStreamingTextActionEntityTextChangedArgs_get_Text* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStreamingTextActionEntityTextChangedArgs_get_IsComplete* = 7
-type Fn_IStreamingTextActionEntityTextChangedArgs_get_IsComplete* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IStreamingTextActionEntityTextChangedArgsVtbl* = object of IInspectableVtbl
+  get_Text*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_IsComplete*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IStreamingTextActionEntityWriter
 const IID_IStreamingTextActionEntityWriter* = guid"6BCE2F76-A8AF-5FF2-833C-108737BA0F42"
-const Slot_IStreamingTextActionEntityWriter_get_ReaderEntity* = 6
-type Fn_IStreamingTextActionEntityWriter_get_ReaderEntity* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStreamingTextActionEntityWriter_get_TextFormat* = 7
-type Fn_IStreamingTextActionEntityWriter_get_TextFormat* =
-  proc(self: pointer, value: ptr ActionEntityTextFormat): HRESULT {.abi.}
-const Slot_IStreamingTextActionEntityWriter_SetText* = 8
-type Fn_IStreamingTextActionEntityWriter_SetText* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IStreamingTextActionEntityWriterVtbl* = object of IInspectableVtbl
+  get_ReaderEntity*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_TextFormat*: proc(self: pointer, value: ptr ActionEntityTextFormat
+                       ): HRESULT {.abi.}
+  SetText*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.Actions.ITableActionEntity
 const IID_ITableActionEntity* = guid"0F252CDB-BA24-5DBB-9D17-1B300773D141"
-const Slot_ITableActionEntity_GetTextContent* = 6
-type Fn_ITableActionEntity_GetTextContent* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING
-      ): HRESULT {.abi.}
-const Slot_ITableActionEntity_get_RowCount* = 7
-type Fn_ITableActionEntity_get_RowCount* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_ITableActionEntity_get_ColumnCount* = 8
-type Fn_ITableActionEntity_get_ColumnCount* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+type ITableActionEntityVtbl* = object of IInspectableVtbl
+  GetTextContent*: proc(self: pointer, valueSize: ptr uint32,
+                        value: ptr ptr HSTRING): HRESULT {.abi.}
+  get_RowCount*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_ColumnCount*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 
 ## Windows.AI.Actions.ITextActionEntity
 const IID_ITextActionEntity* = guid"3C4EC25F-5ADB-5F73-B8F3-080FBEADD612"
-const Slot_ITextActionEntity_get_Text* = 6
-type Fn_ITextActionEntity_get_Text* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type ITextActionEntityVtbl* = object of IInspectableVtbl
+  get_Text*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.Actions.ITextActionEntity2
 const IID_ITextActionEntity2* = guid"7C500889-CF08-51E7-BECA-F0BBC7A7486C"
-const Slot_ITextActionEntity2_get_TextFormat* = 6
-type Fn_ITextActionEntity2_get_TextFormat* =
-  proc(self: pointer, value: ptr ActionEntityTextFormat): HRESULT {.abi.}
+type ITextActionEntity2Vtbl* = object of IInspectableVtbl
+  get_TextFormat*: proc(self: pointer, value: ptr ActionEntityTextFormat
+                       ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IUriActionEntity
 const IID_IUriActionEntity* = guid"A81CDE77-BC25-532D-905E-B0725C5BCD4E"
-const Slot_IUriActionEntity_get_Uri* = 6
-type Fn_IUriActionEntity_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IUriActionEntityVtbl* = object of IInspectableVtbl
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Provider.IActionFeedbackHandler
 const IID_IActionFeedbackHandler* = guid"A3FC3C51-A8C6-52C8-AD77-37BF3E2B565C"
-const Slot_IActionFeedbackHandler_ProcessFeedbackAsync* = 6
-type Fn_IActionFeedbackHandler_ProcessFeedbackAsync* =
-  proc(self: pointer, a1ActionInvocationContext: pointer,
-       a2ActionFeedback: pointer, value: ptr pointer): HRESULT {.abi.}
+type IActionFeedbackHandlerVtbl* = object of IInspectableVtbl
+  ProcessFeedbackAsync*: proc(self: pointer,
+                              a1ActionInvocationContext: pointer,
+                              a2ActionFeedback: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Provider.IActionProvider
 const IID_IActionProvider* = guid"62906C47-3D07-55F1-AEFA-1522505AFBBE"
-const Slot_IActionProvider_InvokeAsync* = 6
-type Fn_IActionProvider_InvokeAsync* =
-  proc(self: pointer, a1ActionInvocationContext: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IActionProviderVtbl* = object of IInspectableVtbl
+  InvokeAsync*: proc(self: pointer, a1ActionInvocationContext: pointer,
+                     value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Agents.Mcp.IMcpMessageFilterExperimental
 const IID_IMcpMessageFilterExperimental* = guid"C5F8F821-895C-5241-B45A-92E249A7D873"
-const Slot_IMcpMessageFilterExperimental_Initialize* = 6
-type Fn_IMcpMessageFilterExperimental_Initialize* =
-  proc(self: pointer, a1: HSTRING, a2: uint32, a3: HSTRING, a4: HSTRING,
-       a5: uint32): HRESULT {.abi.}
-const Slot_IMcpMessageFilterExperimental_OnMessage* = 7
-type Fn_IMcpMessageFilterExperimental_OnMessage* =
-  proc(self: pointer, a1: HSTRING, a2: McpMessageDirection,
-       a3McpMessageFilterResponse: pointer): HRESULT {.abi.}
+type IMcpMessageFilterExperimentalVtbl* = object of IInspectableVtbl
+  Initialize*: proc(self: pointer, a1: HSTRING, a2: uint32, a3: HSTRING,
+                    a4: HSTRING, a5: uint32): HRESULT {.abi.}
+  OnMessage*: proc(self: pointer, a1: HSTRING, a2: McpMessageDirection,
+                   a3McpMessageFilterResponse: pointer): HRESULT {.abi.}
 
 ## Windows.AI.Agents.Mcp.IMcpMessageFilterResponse
 const IID_IMcpMessageFilterResponse* = guid"363CE02C-7098-5E13-A408-7B43E1F452AC"
+type IMcpMessageFilterResponseVtbl* = object of IInspectableVtbl
 
 ## Windows.AI.Agents.Mcp.IMcpMessageFilterResponseExperimental
 const IID_IMcpMessageFilterResponseExperimental* = guid"E215B5F2-CB02-56CF-AAB0-84AEF65D1665"
-const Slot_IMcpMessageFilterResponseExperimental_get_IsAllowed* = 6
-type Fn_IMcpMessageFilterResponseExperimental_get_IsAllowed* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IMcpMessageFilterResponseExperimental_put_IsAllowed* = 7
-type Fn_IMcpMessageFilterResponseExperimental_put_IsAllowed* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IMcpMessageFilterResponseExperimental_get_MessageIfNotAllowed* = 8
-type Fn_IMcpMessageFilterResponseExperimental_get_MessageIfNotAllowed* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMcpMessageFilterResponseExperimental_put_MessageIfNotAllowed* = 9
-type Fn_IMcpMessageFilterResponseExperimental_put_MessageIfNotAllowed* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IMcpMessageFilterResponseExperimentalVtbl* = object of IInspectableVtbl
+  get_IsAllowed*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_IsAllowed*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_MessageIfNotAllowed*: proc(self: pointer, value: ptr HSTRING
+                                ): HRESULT {.abi.}
+  put_MessageIfNotAllowed*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.Agents.Mcp.IMcpMessageFilterResponseExperimental2
 const IID_IMcpMessageFilterResponseExperimental2* = guid"10F4B099-6632-505A-A638-E704C7E47ABF"
-const Slot_IMcpMessageFilterResponseExperimental2_Allow* = 6
-type Fn_IMcpMessageFilterResponseExperimental2_Allow* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IMcpMessageFilterResponseExperimental2_Reject* = 7
-type Fn_IMcpMessageFilterResponseExperimental2_Reject* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IMcpMessageFilterResponseExperimental2Vtbl* = object of IInspectableVtbl
+  Allow*: proc(self: pointer): HRESULT {.abi.}
+  Reject*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.IImageFeatureDescriptor
 const IID_IImageFeatureDescriptor* = guid"365585A5-171A-4A2A-985F-265159D3895A"
-const Slot_IImageFeatureDescriptor_get_BitmapPixelFormat* = 6
-type Fn_IImageFeatureDescriptor_get_BitmapPixelFormat* =
-  proc(self: pointer, value: ptr BitmapPixelFormat): HRESULT {.abi.}
-const Slot_IImageFeatureDescriptor_get_BitmapAlphaMode* = 7
-type Fn_IImageFeatureDescriptor_get_BitmapAlphaMode* =
-  proc(self: pointer, value: ptr BitmapAlphaMode): HRESULT {.abi.}
-const Slot_IImageFeatureDescriptor_get_Width* = 8
-type Fn_IImageFeatureDescriptor_get_Width* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IImageFeatureDescriptor_get_Height* = 9
-type Fn_IImageFeatureDescriptor_get_Height* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+type IImageFeatureDescriptorVtbl* = object of IInspectableVtbl
+  get_BitmapPixelFormat*: proc(self: pointer, value: ptr BitmapPixelFormat
+                              ): HRESULT {.abi.}
+  get_BitmapAlphaMode*: proc(self: pointer, value: ptr BitmapAlphaMode
+                            ): HRESULT {.abi.}
+  get_Width*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_Height*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.IImageFeatureDescriptor2
 const IID_IImageFeatureDescriptor2* = guid"2B27CCA7-D533-5862-BB98-1611B155B0E1"
-const Slot_IImageFeatureDescriptor2_get_PixelRange* = 6
-type Fn_IImageFeatureDescriptor2_get_PixelRange* =
-  proc(self: pointer, value: ptr LearningModelPixelRange): HRESULT {.abi.}
+type IImageFeatureDescriptor2Vtbl* = object of IInspectableVtbl
+  get_PixelRange*: proc(self: pointer, value: ptr LearningModelPixelRange
+                       ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.IImageFeatureValue
 const IID_IImageFeatureValue* = guid"F0414FD9-C9AA-4405-B7FB-94F87C8A3037"
-const Slot_IImageFeatureValue_get_VideoFrame* = 6
-type Fn_IImageFeatureValue_get_VideoFrame* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IImageFeatureValueVtbl* = object of IInspectableVtbl
+  get_VideoFrame*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.IImageFeatureValueStatics
 const IID_IImageFeatureValueStatics* = guid"1BC317FD-23CB-4610-B085-C8E1C87EBAA0"
-const Slot_IImageFeatureValueStatics_CreateFromVideoFrame* = 6
-type Fn_IImageFeatureValueStatics_CreateFromVideoFrame* =
-  proc(self: pointer, a1VideoFrame: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IImageFeatureValueStaticsVtbl* = object of IInspectableVtbl
+  CreateFromVideoFrame*: proc(self: pointer, a1VideoFrame: pointer,
+                              value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModel
 const IID_ILearningModel* = guid"5B8E4920-489F-4E86-9128-265A327B78FA"
-const Slot_ILearningModel_get_Author* = 6
-type Fn_ILearningModel_get_Author* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModel_get_Name* = 7
-type Fn_ILearningModel_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModel_get_Domain* = 8
-type Fn_ILearningModel_get_Domain* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModel_get_Description* = 9
-type Fn_ILearningModel_get_Description* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModel_get_Version* = 10
-type Fn_ILearningModel_get_Version* =
-  proc(self: pointer, value: ptr int64): HRESULT {.abi.}
-const Slot_ILearningModel_get_Metadata* = 11
-type Fn_ILearningModel_get_Metadata* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModel_get_InputFeatures* = 12
-type Fn_ILearningModel_get_InputFeatures* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModel_get_OutputFeatures* = 13
-type Fn_ILearningModel_get_OutputFeatures* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ILearningModelVtbl* = object of IInspectableVtbl
+  get_Author*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Domain*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Description*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Version*: proc(self: pointer, value: ptr int64): HRESULT {.abi.}
+  get_Metadata*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_InputFeatures*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_OutputFeatures*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelBinding
 const IID_ILearningModelBinding* = guid"EA312F20-168F-4F8C-94FE-2E7AC31B4AA8"
-const Slot_ILearningModelBinding_Bind* = 6
-type Fn_ILearningModelBinding_Bind* =
-  proc(self: pointer, a1: HSTRING, a2: pointer): HRESULT {.abi.}
-const Slot_ILearningModelBinding_Bind2* = 7
-type Fn_ILearningModelBinding_Bind2* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, a3IPropertySet: pointer
-      ): HRESULT {.abi.}
-const Slot_ILearningModelBinding_Clear* = 8
-type Fn_ILearningModelBinding_Clear* =
-  proc(self: pointer): HRESULT {.abi.}
+type ILearningModelBindingVtbl* = object of IInspectableVtbl
+  `Bind`*: proc(self: pointer, a1: HSTRING, a2: pointer): HRESULT {.abi.}
+  Bind2*: proc(self: pointer, a1: HSTRING, a2: pointer,
+               a3IPropertySet: pointer): HRESULT {.abi.}
+  Clear*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelBindingFactory
 const IID_ILearningModelBindingFactory* = guid"C95F7A7A-E788-475E-8917-23AA381FAF0B"
-const Slot_ILearningModelBindingFactory_CreateFromSession* = 6
-type Fn_ILearningModelBindingFactory_CreateFromSession* =
-  proc(self: pointer, a1LearningModelSession: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ILearningModelBindingFactoryVtbl* = object of IInspectableVtbl
+  CreateFromSession*: proc(self: pointer, a1LearningModelSession: pointer,
+                           value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelDevice
 const IID_ILearningModelDevice* = guid"F5C2C8FE-3F56-4A8C-AC5F-FDB92D8B8252"
-const Slot_ILearningModelDevice_get_AdapterId* = 6
-type Fn_ILearningModelDevice_get_AdapterId* =
-  proc(self: pointer, value: ptr DisplayAdapterId): HRESULT {.abi.}
-const Slot_ILearningModelDevice_get_Direct3D11Device* = 7
-type Fn_ILearningModelDevice_get_Direct3D11Device* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ILearningModelDeviceVtbl* = object of IInspectableVtbl
+  get_AdapterId*: proc(self: pointer, value: ptr DisplayAdapterId
+                      ): HRESULT {.abi.}
+  get_Direct3D11Device*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelDeviceFactory
 const IID_ILearningModelDeviceFactory* = guid"9CFFD74D-B1E5-4F20-80AD-0A56690DB06B"
-const Slot_ILearningModelDeviceFactory_Create* = 6
-type Fn_ILearningModelDeviceFactory_Create* =
-  proc(self: pointer, a1: LearningModelDeviceKind, value: ptr pointer
-      ): HRESULT {.abi.}
+type ILearningModelDeviceFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: LearningModelDeviceKind, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelDeviceStatics
 const IID_ILearningModelDeviceStatics* = guid"49F32107-A8BF-42BB-92C7-10B12DC5D21F"
-const Slot_ILearningModelDeviceStatics_CreateFromDirect3D11Device* = 6
-type Fn_ILearningModelDeviceStatics_CreateFromDirect3D11Device* =
-  proc(self: pointer, a1IDirect3DDevice: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ILearningModelDeviceStaticsVtbl* = object of IInspectableVtbl
+  CreateFromDirect3D11Device*: proc(self: pointer, a1IDirect3DDevice: pointer,
+                                    value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelEvaluationResult
 const IID_ILearningModelEvaluationResult* = guid"B2F9BFCD-960E-49C0-8593-EB190AE3EEE2"
-const Slot_ILearningModelEvaluationResult_get_CorrelationId* = 6
-type Fn_ILearningModelEvaluationResult_get_CorrelationId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModelEvaluationResult_get_ErrorStatus* = 7
-type Fn_ILearningModelEvaluationResult_get_ErrorStatus* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_ILearningModelEvaluationResult_get_Succeeded* = 8
-type Fn_ILearningModelEvaluationResult_get_Succeeded* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ILearningModelEvaluationResult_get_Outputs* = 9
-type Fn_ILearningModelEvaluationResult_get_Outputs* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ILearningModelEvaluationResultVtbl* = object of IInspectableVtbl
+  get_CorrelationId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ErrorStatus*: proc(self: pointer, value: ptr int32): HRESULT {.abi.}
+  get_Succeeded*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_Outputs*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelFeatureDescriptor
 const IID_ILearningModelFeatureDescriptor* = guid"BC08CF7C-6ED0-4004-97BA-B9A2EECD2B4F"
-const Slot_ILearningModelFeatureDescriptor_get_Name* = 6
-type Fn_ILearningModelFeatureDescriptor_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModelFeatureDescriptor_get_Description* = 7
-type Fn_ILearningModelFeatureDescriptor_get_Description* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModelFeatureDescriptor_get_Kind* = 8
-type Fn_ILearningModelFeatureDescriptor_get_Kind* =
-  proc(self: pointer, value: ptr LearningModelFeatureKind): HRESULT {.abi.}
-const Slot_ILearningModelFeatureDescriptor_get_IsRequired* = 9
-type Fn_ILearningModelFeatureDescriptor_get_IsRequired* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type ILearningModelFeatureDescriptorVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Description*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Kind*: proc(self: pointer, value: ptr LearningModelFeatureKind
+                 ): HRESULT {.abi.}
+  get_IsRequired*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelFeatureValue
 const IID_ILearningModelFeatureValue* = guid"F51005DB-4085-4DFE-9FED-95EB0C0CF75C"
-const Slot_ILearningModelFeatureValue_get_Kind* = 6
-type Fn_ILearningModelFeatureValue_get_Kind* =
-  proc(self: pointer, value: ptr LearningModelFeatureKind): HRESULT {.abi.}
+type ILearningModelFeatureValueVtbl* = object of IInspectableVtbl
+  get_Kind*: proc(self: pointer, value: ptr LearningModelFeatureKind
+                 ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelOperatorProvider
 const IID_ILearningModelOperatorProvider* = guid"2A222E5D-AFB1-47ED-BFAD-B5B3A459EC04"
+type ILearningModelOperatorProviderVtbl* = object of IInspectableVtbl
 
 ## Windows.AI.MachineLearning.ILearningModelSession
 const IID_ILearningModelSession* = guid"8E58F8F6-B787-4C11-90F0-7129AECA74A9"
-const Slot_ILearningModelSession_get_Model* = 6
-type Fn_ILearningModelSession_get_Model* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelSession_get_Device* = 7
-type Fn_ILearningModelSession_get_Device* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelSession_get_EvaluationProperties* = 8
-type Fn_ILearningModelSession_get_EvaluationProperties* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelSession_EvaluateAsync* = 9
-type Fn_ILearningModelSession_EvaluateAsync* =
-  proc(self: pointer, a1LearningModelBinding: pointer, a2: HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelSession_EvaluateFeaturesAsync* = 10
-type Fn_ILearningModelSession_EvaluateFeaturesAsync* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILearningModelSession_Evaluate* = 11
-type Fn_ILearningModelSession_Evaluate* =
-  proc(self: pointer, a1LearningModelBinding: pointer, a2: HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelSession_EvaluateFeatures* = 12
-type Fn_ILearningModelSession_EvaluateFeatures* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type ILearningModelSessionVtbl* = object of IInspectableVtbl
+  get_Model*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Device*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_EvaluationProperties*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
+  EvaluateAsync*: proc(self: pointer, a1LearningModelBinding: pointer,
+                       a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  EvaluateFeaturesAsync*: proc(self: pointer, a1: pointer, a2: HSTRING,
+                               value: ptr pointer): HRESULT {.abi.}
+  Evaluate*: proc(self: pointer, a1LearningModelBinding: pointer, a2: HSTRING,
+                  value: ptr pointer): HRESULT {.abi.}
+  EvaluateFeatures*: proc(self: pointer, a1: pointer, a2: HSTRING,
+                          value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelSessionFactory
 const IID_ILearningModelSessionFactory* = guid"0F6B881D-1C9B-47B6-BFE0-F1CF62A67579"
-const Slot_ILearningModelSessionFactory_CreateFromModel* = 6
-type Fn_ILearningModelSessionFactory_CreateFromModel* =
-  proc(self: pointer, a1LearningModel: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILearningModelSessionFactory_CreateFromModelOnDevice* = 7
-type Fn_ILearningModelSessionFactory_CreateFromModelOnDevice* =
-  proc(self: pointer, a1LearningModel: pointer,
-       a2LearningModelDevice: pointer, value: ptr pointer): HRESULT {.abi.}
+type ILearningModelSessionFactoryVtbl* = object of IInspectableVtbl
+  CreateFromModel*: proc(self: pointer, a1LearningModel: pointer,
+                         value: ptr pointer): HRESULT {.abi.}
+  CreateFromModelOnDevice*: proc(self: pointer, a1LearningModel: pointer,
+                                 a2LearningModelDevice: pointer,
+                                 value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelSessionFactory2
 const IID_ILearningModelSessionFactory2* = guid"4E5C88BF-0A1F-5FEC-ADE0-2FD91E4EF29B"
-const Slot_ILearningModelSessionFactory2_CreateFromModelOnDeviceWithSessionOptions* = 6
-type Fn_ILearningModelSessionFactory2_CreateFromModelOnDeviceWithSessionOptions* =
-  proc(self: pointer, a1LearningModel: pointer,
-       a2LearningModelDevice: pointer, a3LearningModelSessionOptions: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ILearningModelSessionFactory2Vtbl* = object of IInspectableVtbl
+  CreateFromModelOnDeviceWithSessionOptions*: proc(self: pointer,
+                                                   a1LearningModel: pointer,
+                                                   a2LearningModelDevice: pointer,
+                                                   a3LearningModelSessionOptions: pointer,
+                                                   value: ptr pointer
+                                                  ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelSessionOptions
 const IID_ILearningModelSessionOptions* = guid"B8F63FA1-134D-5133-8CFF-3A5C3C263BEB"
-const Slot_ILearningModelSessionOptions_get_BatchSizeOverride* = 6
-type Fn_ILearningModelSessionOptions_get_BatchSizeOverride* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_ILearningModelSessionOptions_put_BatchSizeOverride* = 7
-type Fn_ILearningModelSessionOptions_put_BatchSizeOverride* =
-  proc(self: pointer, a1: uint32): HRESULT {.abi.}
+type ILearningModelSessionOptionsVtbl* = object of IInspectableVtbl
+  get_BatchSizeOverride*: proc(self: pointer, value: ptr uint32
+                              ): HRESULT {.abi.}
+  put_BatchSizeOverride*: proc(self: pointer, a1: uint32): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelSessionOptions2
 const IID_ILearningModelSessionOptions2* = guid"6FCD1DC4-175F-5BD2-8DE5-2F2006A25ADF"
-const Slot_ILearningModelSessionOptions2_get_CloseModelOnSessionCreation* = 6
-type Fn_ILearningModelSessionOptions2_get_CloseModelOnSessionCreation* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ILearningModelSessionOptions2_put_CloseModelOnSessionCreation* = 7
-type Fn_ILearningModelSessionOptions2_put_CloseModelOnSessionCreation* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type ILearningModelSessionOptions2Vtbl* = object of IInspectableVtbl
+  get_CloseModelOnSessionCreation*: proc(self: pointer, value: ptr bool
+                                        ): HRESULT {.abi.}
+  put_CloseModelOnSessionCreation*: proc(self: pointer, a1: bool
+                                        ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelSessionOptions3
 const IID_ILearningModelSessionOptions3* = guid"58E15CEE-D8C2-56FC-92E8-76D751081086"
-const Slot_ILearningModelSessionOptions3_OverrideNamedDimension* = 6
-type Fn_ILearningModelSessionOptions3_OverrideNamedDimension* =
-  proc(self: pointer, a1: HSTRING, a2: uint32): HRESULT {.abi.}
+type ILearningModelSessionOptions3Vtbl* = object of IInspectableVtbl
+  OverrideNamedDimension*: proc(self: pointer, a1: HSTRING, a2: uint32
+                               ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelStatics
 const IID_ILearningModelStatics* = guid"E3B977E8-6952-4E47-8EF4-1F7F07897C6D"
-const Slot_ILearningModelStatics_LoadFromStorageFileAsync* = 6
-type Fn_ILearningModelStatics_LoadFromStorageFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILearningModelStatics_LoadFromStreamAsync* = 7
-type Fn_ILearningModelStatics_LoadFromStreamAsync* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelStatics_LoadFromFilePath* = 8
-type Fn_ILearningModelStatics_LoadFromFilePath* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelStatics_LoadFromStream* = 9
-type Fn_ILearningModelStatics_LoadFromStream* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelStatics_LoadFromStorageFileAsync2* = 10
-type Fn_ILearningModelStatics_LoadFromStorageFileAsync2* =
-  proc(self: pointer, a1IStorageFile: pointer,
-       a2ILearningModelOperatorProvider: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILearningModelStatics_LoadFromStreamAsync2* = 11
-type Fn_ILearningModelStatics_LoadFromStreamAsync2* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer,
-       a2ILearningModelOperatorProvider: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILearningModelStatics_LoadFromFilePath2* = 12
-type Fn_ILearningModelStatics_LoadFromFilePath2* =
-  proc(self: pointer, a1: HSTRING, a2ILearningModelOperatorProvider: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelStatics_LoadFromStream2* = 13
-type Fn_ILearningModelStatics_LoadFromStream2* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer,
-       a2ILearningModelOperatorProvider: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ILearningModelStaticsVtbl* = object of IInspectableVtbl
+  LoadFromStorageFileAsync*: proc(self: pointer, a1IStorageFile: pointer,
+                                  value: ptr pointer): HRESULT {.abi.}
+  LoadFromStreamAsync*: proc(self: pointer,
+                             a1IRandomAccessStreamReference: pointer,
+                             value: ptr pointer): HRESULT {.abi.}
+  LoadFromFilePath*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                         ): HRESULT {.abi.}
+  LoadFromStream*: proc(self: pointer,
+                        a1IRandomAccessStreamReference: pointer,
+                        value: ptr pointer): HRESULT {.abi.}
+  LoadFromStorageFileAsync2*: proc(self: pointer, a1IStorageFile: pointer,
+                                   a2ILearningModelOperatorProvider: pointer,
+                                   value: ptr pointer): HRESULT {.abi.}
+  LoadFromStreamAsync2*: proc(self: pointer,
+                              a1IRandomAccessStreamReference: pointer,
+                              a2ILearningModelOperatorProvider: pointer,
+                              value: ptr pointer): HRESULT {.abi.}
+  LoadFromFilePath2*: proc(self: pointer, a1: HSTRING,
+                           a2ILearningModelOperatorProvider: pointer,
+                           value: ptr pointer): HRESULT {.abi.}
+  LoadFromStream2*: proc(self: pointer,
+                         a1IRandomAccessStreamReference: pointer,
+                         a2ILearningModelOperatorProvider: pointer,
+                         value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.IMapFeatureDescriptor
 const IID_IMapFeatureDescriptor* = guid"530424BD-A257-436D-9E60-C2981F7CC5C4"
-const Slot_IMapFeatureDescriptor_get_KeyKind* = 6
-type Fn_IMapFeatureDescriptor_get_KeyKind* =
-  proc(self: pointer, value: ptr TensorKind): HRESULT {.abi.}
-const Slot_IMapFeatureDescriptor_get_ValueDescriptor* = 7
-type Fn_IMapFeatureDescriptor_get_ValueDescriptor* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IMapFeatureDescriptorVtbl* = object of IInspectableVtbl
+  get_KeyKind*: proc(self: pointer, value: ptr TensorKind): HRESULT {.abi.}
+  get_ValueDescriptor*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ISequenceFeatureDescriptor
 const IID_ISequenceFeatureDescriptor* = guid"84F6945A-562B-4D62-A851-739ACED96668"
-const Slot_ISequenceFeatureDescriptor_get_ElementDescriptor* = 6
-type Fn_ISequenceFeatureDescriptor_get_ElementDescriptor* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISequenceFeatureDescriptorVtbl* = object of IInspectableVtbl
+  get_ElementDescriptor*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensor
 const IID_ITensor* = guid"05489593-A305-4A25-AD09-440119B4B7F6"
-const Slot_ITensor_get_TensorKind* = 6
-type Fn_ITensor_get_TensorKind* =
-  proc(self: pointer, value: ptr TensorKind): HRESULT {.abi.}
-const Slot_ITensor_get_Shape* = 7
-type Fn_ITensor_get_Shape* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorVtbl* = object of IInspectableVtbl
+  get_TensorKind*: proc(self: pointer, value: ptr TensorKind): HRESULT {.abi.}
+  get_Shape*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorBoolean
 const IID_ITensorBoolean* = guid"50F311ED-29E9-4A5C-A44D-8FC512584EED"
-const Slot_ITensorBoolean_GetAsVectorView* = 6
-type Fn_ITensorBoolean_GetAsVectorView* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorBooleanVtbl* = object of IInspectableVtbl
+  GetAsVectorView*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorBooleanStatics
 const IID_ITensorBooleanStatics* = guid"2796862C-2357-49A7-B476-D0AA3DFE6866"
-const Slot_ITensorBooleanStatics_Create* = 6
-type Fn_ITensorBooleanStatics_Create* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorBooleanStatics_Create2* = 7
-type Fn_ITensorBooleanStatics_Create2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorBooleanStatics_CreateFromArray* = 8
-type Fn_ITensorBooleanStatics_CreateFromArray* =
-  proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr bool,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorBooleanStatics_CreateFromIterable* = 9
-type Fn_ITensorBooleanStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITensorBooleanStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromArray*: proc(self: pointer, a1: pointer, a2Size: uint32,
+                         a2: ptr bool, value: ptr pointer): HRESULT {.abi.}
+  CreateFromIterable*: proc(self: pointer, a1: pointer, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorBooleanStatics2
 const IID_ITensorBooleanStatics2* = guid"A3A4A501-6A2D-52D7-B04B-C435BAEE0115"
-const Slot_ITensorBooleanStatics2_CreateFromShapeArrayAndDataArray* = 6
-type Fn_ITensorBooleanStatics2_CreateFromShapeArrayAndDataArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32,
-       a2: ptr bool, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorBooleanStatics2_CreateFromBuffer* = 7
-type Fn_ITensorBooleanStatics2_CreateFromBuffer* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ITensorBooleanStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromShapeArrayAndDataArray*: proc(self: pointer, a1Size: uint32,
+                                          a1: ptr int64, a2Size: uint32,
+                                          a2: ptr bool, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  CreateFromBuffer*: proc(self: pointer, a1Size: uint32, a1: ptr int64,
+                          a2IBuffer: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorDouble
 const IID_ITensorDouble* = guid"91E41252-7A8F-4F0E-A28F-9637FFC8A3D0"
-const Slot_ITensorDouble_GetAsVectorView* = 6
-type Fn_ITensorDouble_GetAsVectorView* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorDoubleVtbl* = object of IInspectableVtbl
+  GetAsVectorView*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorDoubleStatics
 const IID_ITensorDoubleStatics* = guid"A86693C5-9538-44E7-A3CA-5DF374A5A70C"
-const Slot_ITensorDoubleStatics_Create* = 6
-type Fn_ITensorDoubleStatics_Create* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorDoubleStatics_Create2* = 7
-type Fn_ITensorDoubleStatics_Create2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorDoubleStatics_CreateFromArray* = 8
-type Fn_ITensorDoubleStatics_CreateFromArray* =
-  proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr float64,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorDoubleStatics_CreateFromIterable* = 9
-type Fn_ITensorDoubleStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITensorDoubleStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromArray*: proc(self: pointer, a1: pointer, a2Size: uint32,
+                         a2: ptr float64, value: ptr pointer): HRESULT {.abi.}
+  CreateFromIterable*: proc(self: pointer, a1: pointer, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorDoubleStatics2
 const IID_ITensorDoubleStatics2* = guid"93A570DE-5E9A-5094-85C8-592C655E68AC"
-const Slot_ITensorDoubleStatics2_CreateFromShapeArrayAndDataArray* = 6
-type Fn_ITensorDoubleStatics2_CreateFromShapeArrayAndDataArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32,
-       a2: ptr float64, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorDoubleStatics2_CreateFromBuffer* = 7
-type Fn_ITensorDoubleStatics2_CreateFromBuffer* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ITensorDoubleStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromShapeArrayAndDataArray*: proc(self: pointer, a1Size: uint32,
+                                          a1: ptr int64, a2Size: uint32,
+                                          a2: ptr float64, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  CreateFromBuffer*: proc(self: pointer, a1Size: uint32, a1: ptr int64,
+                          a2IBuffer: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorFeatureDescriptor
 const IID_ITensorFeatureDescriptor* = guid"74455C80-946A-4310-A19C-EE0AF028FCE4"
-const Slot_ITensorFeatureDescriptor_get_TensorKind* = 6
-type Fn_ITensorFeatureDescriptor_get_TensorKind* =
-  proc(self: pointer, value: ptr TensorKind): HRESULT {.abi.}
-const Slot_ITensorFeatureDescriptor_get_Shape* = 7
-type Fn_ITensorFeatureDescriptor_get_Shape* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorFeatureDescriptorVtbl* = object of IInspectableVtbl
+  get_TensorKind*: proc(self: pointer, value: ptr TensorKind): HRESULT {.abi.}
+  get_Shape*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorFloat
 const IID_ITensorFloat* = guid"F2282D82-AA02-42C8-A0C8-DF1EFC9676E1"
-const Slot_ITensorFloat_GetAsVectorView* = 6
-type Fn_ITensorFloat_GetAsVectorView* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorFloatVtbl* = object of IInspectableVtbl
+  GetAsVectorView*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorFloat16Bit
 const IID_ITensorFloat16Bit* = guid"0AB994FC-5B89-4C3C-B5E4-5282A5316C0A"
-const Slot_ITensorFloat16Bit_GetAsVectorView* = 6
-type Fn_ITensorFloat16Bit_GetAsVectorView* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorFloat16BitVtbl* = object of IInspectableVtbl
+  GetAsVectorView*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorFloat16BitStatics
 const IID_ITensorFloat16BitStatics* = guid"A52DB6F5-318A-44D4-820B-0CDC7054A84A"
-const Slot_ITensorFloat16BitStatics_Create* = 6
-type Fn_ITensorFloat16BitStatics_Create* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorFloat16BitStatics_Create2* = 7
-type Fn_ITensorFloat16BitStatics_Create2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorFloat16BitStatics_CreateFromArray* = 8
-type Fn_ITensorFloat16BitStatics_CreateFromArray* =
-  proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr float32,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorFloat16BitStatics_CreateFromIterable* = 9
-type Fn_ITensorFloat16BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITensorFloat16BitStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromArray*: proc(self: pointer, a1: pointer, a2Size: uint32,
+                         a2: ptr float32, value: ptr pointer): HRESULT {.abi.}
+  CreateFromIterable*: proc(self: pointer, a1: pointer, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorFloat16BitStatics2
 const IID_ITensorFloat16BitStatics2* = guid"68545726-2DC7-51BF-B470-0B344CC2A1BC"
-const Slot_ITensorFloat16BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-type Fn_ITensorFloat16BitStatics2_CreateFromShapeArrayAndDataArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32,
-       a2: ptr float32, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorFloat16BitStatics2_CreateFromBuffer* = 7
-type Fn_ITensorFloat16BitStatics2_CreateFromBuffer* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ITensorFloat16BitStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromShapeArrayAndDataArray*: proc(self: pointer, a1Size: uint32,
+                                          a1: ptr int64, a2Size: uint32,
+                                          a2: ptr float32, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  CreateFromBuffer*: proc(self: pointer, a1Size: uint32, a1: ptr int64,
+                          a2IBuffer: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorFloatStatics
 const IID_ITensorFloatStatics* = guid"DBCD395B-3BA3-452F-B10D-3C135E573FA9"
-const Slot_ITensorFloatStatics_Create* = 6
-type Fn_ITensorFloatStatics_Create* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorFloatStatics_Create2* = 7
-type Fn_ITensorFloatStatics_Create2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorFloatStatics_CreateFromArray* = 8
-type Fn_ITensorFloatStatics_CreateFromArray* =
-  proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr float32,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorFloatStatics_CreateFromIterable* = 9
-type Fn_ITensorFloatStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITensorFloatStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromArray*: proc(self: pointer, a1: pointer, a2Size: uint32,
+                         a2: ptr float32, value: ptr pointer): HRESULT {.abi.}
+  CreateFromIterable*: proc(self: pointer, a1: pointer, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorFloatStatics2
 const IID_ITensorFloatStatics2* = guid"24610BC1-5E44-5713-B281-8F4AD4D555E8"
-const Slot_ITensorFloatStatics2_CreateFromShapeArrayAndDataArray* = 6
-type Fn_ITensorFloatStatics2_CreateFromShapeArrayAndDataArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32,
-       a2: ptr float32, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorFloatStatics2_CreateFromBuffer* = 7
-type Fn_ITensorFloatStatics2_CreateFromBuffer* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ITensorFloatStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromShapeArrayAndDataArray*: proc(self: pointer, a1Size: uint32,
+                                          a1: ptr int64, a2Size: uint32,
+                                          a2: ptr float32, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  CreateFromBuffer*: proc(self: pointer, a1Size: uint32, a1: ptr int64,
+                          a2IBuffer: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt16Bit
 const IID_ITensorInt16Bit* = guid"98A32D39-E6D6-44AF-8AFA-BAEBC44DC020"
-const Slot_ITensorInt16Bit_GetAsVectorView* = 6
-type Fn_ITensorInt16Bit_GetAsVectorView* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorInt16BitVtbl* = object of IInspectableVtbl
+  GetAsVectorView*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt16BitStatics
 const IID_ITensorInt16BitStatics* = guid"98646293-266E-4B1A-821F-E60D70898B91"
-const Slot_ITensorInt16BitStatics_Create* = 6
-type Fn_ITensorInt16BitStatics_Create* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt16BitStatics_Create2* = 7
-type Fn_ITensorInt16BitStatics_Create2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt16BitStatics_CreateFromArray* = 8
-type Fn_ITensorInt16BitStatics_CreateFromArray* =
-  proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr int16,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt16BitStatics_CreateFromIterable* = 9
-type Fn_ITensorInt16BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITensorInt16BitStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromArray*: proc(self: pointer, a1: pointer, a2Size: uint32,
+                         a2: ptr int16, value: ptr pointer): HRESULT {.abi.}
+  CreateFromIterable*: proc(self: pointer, a1: pointer, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt16BitStatics2
 const IID_ITensorInt16BitStatics2* = guid"0CD70CF4-696C-5E5F-95D8-5EBF9670148B"
-const Slot_ITensorInt16BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-type Fn_ITensorInt16BitStatics2_CreateFromShapeArrayAndDataArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32,
-       a2: ptr int16, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt16BitStatics2_CreateFromBuffer* = 7
-type Fn_ITensorInt16BitStatics2_CreateFromBuffer* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ITensorInt16BitStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromShapeArrayAndDataArray*: proc(self: pointer, a1Size: uint32,
+                                          a1: ptr int64, a2Size: uint32,
+                                          a2: ptr int16, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  CreateFromBuffer*: proc(self: pointer, a1Size: uint32, a1: ptr int64,
+                          a2IBuffer: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt32Bit
 const IID_ITensorInt32Bit* = guid"2C0C28D3-207C-4486-A7D2-884522C5E589"
-const Slot_ITensorInt32Bit_GetAsVectorView* = 6
-type Fn_ITensorInt32Bit_GetAsVectorView* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorInt32BitVtbl* = object of IInspectableVtbl
+  GetAsVectorView*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt32BitStatics
 const IID_ITensorInt32BitStatics* = guid"6539864B-52FA-4E35-907C-834CAC417B50"
-const Slot_ITensorInt32BitStatics_Create* = 6
-type Fn_ITensorInt32BitStatics_Create* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt32BitStatics_Create2* = 7
-type Fn_ITensorInt32BitStatics_Create2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt32BitStatics_CreateFromArray* = 8
-type Fn_ITensorInt32BitStatics_CreateFromArray* =
-  proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr int32,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt32BitStatics_CreateFromIterable* = 9
-type Fn_ITensorInt32BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITensorInt32BitStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromArray*: proc(self: pointer, a1: pointer, a2Size: uint32,
+                         a2: ptr int32, value: ptr pointer): HRESULT {.abi.}
+  CreateFromIterable*: proc(self: pointer, a1: pointer, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt32BitStatics2
 const IID_ITensorInt32BitStatics2* = guid"7C4B079A-E956-5CE0-A3BD-157D9D79B5EC"
-const Slot_ITensorInt32BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-type Fn_ITensorInt32BitStatics2_CreateFromShapeArrayAndDataArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32,
-       a2: ptr int32, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt32BitStatics2_CreateFromBuffer* = 7
-type Fn_ITensorInt32BitStatics2_CreateFromBuffer* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ITensorInt32BitStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromShapeArrayAndDataArray*: proc(self: pointer, a1Size: uint32,
+                                          a1: ptr int64, a2Size: uint32,
+                                          a2: ptr int32, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  CreateFromBuffer*: proc(self: pointer, a1Size: uint32, a1: ptr int64,
+                          a2IBuffer: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt64Bit
 const IID_ITensorInt64Bit* = guid"499665BA-1FA2-45AD-AF25-A0BD9BDA4C87"
-const Slot_ITensorInt64Bit_GetAsVectorView* = 6
-type Fn_ITensorInt64Bit_GetAsVectorView* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorInt64BitVtbl* = object of IInspectableVtbl
+  GetAsVectorView*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt64BitStatics
 const IID_ITensorInt64BitStatics* = guid"9648AD9D-1198-4D74-9517-783AB62B9CC2"
-const Slot_ITensorInt64BitStatics_Create* = 6
-type Fn_ITensorInt64BitStatics_Create* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt64BitStatics_Create2* = 7
-type Fn_ITensorInt64BitStatics_Create2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt64BitStatics_CreateFromArray* = 8
-type Fn_ITensorInt64BitStatics_CreateFromArray* =
-  proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr int64,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt64BitStatics_CreateFromIterable* = 9
-type Fn_ITensorInt64BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITensorInt64BitStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromArray*: proc(self: pointer, a1: pointer, a2Size: uint32,
+                         a2: ptr int64, value: ptr pointer): HRESULT {.abi.}
+  CreateFromIterable*: proc(self: pointer, a1: pointer, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt64BitStatics2
 const IID_ITensorInt64BitStatics2* = guid"6D3D9DCB-FF40-5EC2-89FE-084E2B6BC6DB"
-const Slot_ITensorInt64BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-type Fn_ITensorInt64BitStatics2_CreateFromShapeArrayAndDataArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32,
-       a2: ptr int64, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt64BitStatics2_CreateFromBuffer* = 7
-type Fn_ITensorInt64BitStatics2_CreateFromBuffer* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ITensorInt64BitStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromShapeArrayAndDataArray*: proc(self: pointer, a1Size: uint32,
+                                          a1: ptr int64, a2Size: uint32,
+                                          a2: ptr int64, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  CreateFromBuffer*: proc(self: pointer, a1Size: uint32, a1: ptr int64,
+                          a2IBuffer: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt8Bit
 const IID_ITensorInt8Bit* = guid"CDDD97C5-FFD8-4FEF-AEFB-30E1A485B2EE"
-const Slot_ITensorInt8Bit_GetAsVectorView* = 6
-type Fn_ITensorInt8Bit_GetAsVectorView* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorInt8BitVtbl* = object of IInspectableVtbl
+  GetAsVectorView*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt8BitStatics
 const IID_ITensorInt8BitStatics* = guid"B1A12284-095C-4C76-A661-AC4CEE1F3E8B"
-const Slot_ITensorInt8BitStatics_Create* = 6
-type Fn_ITensorInt8BitStatics_Create* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt8BitStatics_Create2* = 7
-type Fn_ITensorInt8BitStatics_Create2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt8BitStatics_CreateFromArray* = 8
-type Fn_ITensorInt8BitStatics_CreateFromArray* =
-  proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr uint8,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt8BitStatics_CreateFromIterable* = 9
-type Fn_ITensorInt8BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITensorInt8BitStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromArray*: proc(self: pointer, a1: pointer, a2Size: uint32,
+                         a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  CreateFromIterable*: proc(self: pointer, a1: pointer, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt8BitStatics2
 const IID_ITensorInt8BitStatics2* = guid"C0D59637-C468-56FB-9535-C052BDB93DC0"
-const Slot_ITensorInt8BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-type Fn_ITensorInt8BitStatics2_CreateFromShapeArrayAndDataArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32,
-       a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorInt8BitStatics2_CreateFromBuffer* = 7
-type Fn_ITensorInt8BitStatics2_CreateFromBuffer* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ITensorInt8BitStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromShapeArrayAndDataArray*: proc(self: pointer, a1Size: uint32,
+                                          a1: ptr int64, a2Size: uint32,
+                                          a2: ptr uint8, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  CreateFromBuffer*: proc(self: pointer, a1Size: uint32, a1: ptr int64,
+                          a2IBuffer: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorString
 const IID_ITensorString* = guid"582335C8-BDB1-4610-BC75-35E9CBF009B7"
-const Slot_ITensorString_GetAsVectorView* = 6
-type Fn_ITensorString_GetAsVectorView* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorStringVtbl* = object of IInspectableVtbl
+  GetAsVectorView*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorStringStatics
 const IID_ITensorStringStatics* = guid"83623324-CF26-4F17-A2D4-20EF8D097D53"
-const Slot_ITensorStringStatics_Create* = 6
-type Fn_ITensorStringStatics_Create* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorStringStatics_Create2* = 7
-type Fn_ITensorStringStatics_Create2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorStringStatics_CreateFromArray* = 8
-type Fn_ITensorStringStatics_CreateFromArray* =
-  proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorStringStatics_CreateFromIterable* = 9
-type Fn_ITensorStringStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITensorStringStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromArray*: proc(self: pointer, a1: pointer, a2Size: uint32,
+                         a2: ptr HSTRING, value: ptr pointer): HRESULT {.abi.}
+  CreateFromIterable*: proc(self: pointer, a1: pointer, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorStringStatics2
 const IID_ITensorStringStatics2* = guid"9E355ED0-C8E2-5254-9137-0193A3668FD8"
-const Slot_ITensorStringStatics2_CreateFromShapeArrayAndDataArray* = 6
-type Fn_ITensorStringStatics2_CreateFromShapeArrayAndDataArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32,
-       a2: ptr HSTRING, value: ptr pointer): HRESULT {.abi.}
+type ITensorStringStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromShapeArrayAndDataArray*: proc(self: pointer, a1Size: uint32,
+                                          a1: ptr int64, a2Size: uint32,
+                                          a2: ptr HSTRING, value: ptr pointer
+                                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt16Bit
 const IID_ITensorUInt16Bit* = guid"68140F4B-23C0-42F3-81F6-A891C011BC3F"
-const Slot_ITensorUInt16Bit_GetAsVectorView* = 6
-type Fn_ITensorUInt16Bit_GetAsVectorView* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorUInt16BitVtbl* = object of IInspectableVtbl
+  GetAsVectorView*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt16BitStatics
 const IID_ITensorUInt16BitStatics* = guid"5DF745DD-028A-481A-A27C-C7E6435E52DD"
-const Slot_ITensorUInt16BitStatics_Create* = 6
-type Fn_ITensorUInt16BitStatics_Create* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt16BitStatics_Create2* = 7
-type Fn_ITensorUInt16BitStatics_Create2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt16BitStatics_CreateFromArray* = 8
-type Fn_ITensorUInt16BitStatics_CreateFromArray* =
-  proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr uint16,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt16BitStatics_CreateFromIterable* = 9
-type Fn_ITensorUInt16BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITensorUInt16BitStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromArray*: proc(self: pointer, a1: pointer, a2Size: uint32,
+                         a2: ptr uint16, value: ptr pointer): HRESULT {.abi.}
+  CreateFromIterable*: proc(self: pointer, a1: pointer, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt16BitStatics2
 const IID_ITensorUInt16BitStatics2* = guid"8AF40C64-D69F-5315-9348-490877BBD642"
-const Slot_ITensorUInt16BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-type Fn_ITensorUInt16BitStatics2_CreateFromShapeArrayAndDataArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32,
-       a2: ptr uint16, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt16BitStatics2_CreateFromBuffer* = 7
-type Fn_ITensorUInt16BitStatics2_CreateFromBuffer* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ITensorUInt16BitStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromShapeArrayAndDataArray*: proc(self: pointer, a1Size: uint32,
+                                          a1: ptr int64, a2Size: uint32,
+                                          a2: ptr uint16, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  CreateFromBuffer*: proc(self: pointer, a1Size: uint32, a1: ptr int64,
+                          a2IBuffer: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt32Bit
 const IID_ITensorUInt32Bit* = guid"D8C9C2FF-7511-45A3-BFAC-C38F370D2237"
-const Slot_ITensorUInt32Bit_GetAsVectorView* = 6
-type Fn_ITensorUInt32Bit_GetAsVectorView* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorUInt32BitVtbl* = object of IInspectableVtbl
+  GetAsVectorView*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt32BitStatics
 const IID_ITensorUInt32BitStatics* = guid"417C3837-E773-4378-8E7F-0CC33DBEA697"
-const Slot_ITensorUInt32BitStatics_Create* = 6
-type Fn_ITensorUInt32BitStatics_Create* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt32BitStatics_Create2* = 7
-type Fn_ITensorUInt32BitStatics_Create2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt32BitStatics_CreateFromArray* = 8
-type Fn_ITensorUInt32BitStatics_CreateFromArray* =
-  proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr uint32,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt32BitStatics_CreateFromIterable* = 9
-type Fn_ITensorUInt32BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITensorUInt32BitStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromArray*: proc(self: pointer, a1: pointer, a2Size: uint32,
+                         a2: ptr uint32, value: ptr pointer): HRESULT {.abi.}
+  CreateFromIterable*: proc(self: pointer, a1: pointer, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt32BitStatics2
 const IID_ITensorUInt32BitStatics2* = guid"EF1A1F1C-314E-569D-B496-5C8447D20CD2"
-const Slot_ITensorUInt32BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-type Fn_ITensorUInt32BitStatics2_CreateFromShapeArrayAndDataArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32,
-       a2: ptr uint32, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt32BitStatics2_CreateFromBuffer* = 7
-type Fn_ITensorUInt32BitStatics2_CreateFromBuffer* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ITensorUInt32BitStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromShapeArrayAndDataArray*: proc(self: pointer, a1Size: uint32,
+                                          a1: ptr int64, a2Size: uint32,
+                                          a2: ptr uint32, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  CreateFromBuffer*: proc(self: pointer, a1Size: uint32, a1: ptr int64,
+                          a2IBuffer: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt64Bit
 const IID_ITensorUInt64Bit* = guid"2E70FFAD-04BF-4825-839A-82BAEF8C7886"
-const Slot_ITensorUInt64Bit_GetAsVectorView* = 6
-type Fn_ITensorUInt64Bit_GetAsVectorView* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorUInt64BitVtbl* = object of IInspectableVtbl
+  GetAsVectorView*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt64BitStatics
 const IID_ITensorUInt64BitStatics* = guid"7A7E20EB-242F-47CB-A9C6-F602ECFBFEE4"
-const Slot_ITensorUInt64BitStatics_Create* = 6
-type Fn_ITensorUInt64BitStatics_Create* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt64BitStatics_Create2* = 7
-type Fn_ITensorUInt64BitStatics_Create2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt64BitStatics_CreateFromArray* = 8
-type Fn_ITensorUInt64BitStatics_CreateFromArray* =
-  proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr uint64,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt64BitStatics_CreateFromIterable* = 9
-type Fn_ITensorUInt64BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITensorUInt64BitStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromArray*: proc(self: pointer, a1: pointer, a2Size: uint32,
+                         a2: ptr uint64, value: ptr pointer): HRESULT {.abi.}
+  CreateFromIterable*: proc(self: pointer, a1: pointer, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt64BitStatics2
 const IID_ITensorUInt64BitStatics2* = guid"085A687D-67E1-5B1E-B232-4FABE9CA20B3"
-const Slot_ITensorUInt64BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-type Fn_ITensorUInt64BitStatics2_CreateFromShapeArrayAndDataArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32,
-       a2: ptr uint64, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt64BitStatics2_CreateFromBuffer* = 7
-type Fn_ITensorUInt64BitStatics2_CreateFromBuffer* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ITensorUInt64BitStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromShapeArrayAndDataArray*: proc(self: pointer, a1Size: uint32,
+                                          a1: ptr int64, a2Size: uint32,
+                                          a2: ptr uint64, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  CreateFromBuffer*: proc(self: pointer, a1Size: uint32, a1: ptr int64,
+                          a2IBuffer: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt8Bit
 const IID_ITensorUInt8Bit* = guid"58E1AE27-622B-48E3-BE22-D867AED1DAAC"
-const Slot_ITensorUInt8Bit_GetAsVectorView* = 6
-type Fn_ITensorUInt8Bit_GetAsVectorView* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorUInt8BitVtbl* = object of IInspectableVtbl
+  GetAsVectorView*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt8BitStatics
 const IID_ITensorUInt8BitStatics* = guid"05F67583-BC24-4220-8A41-2DCD8C5ED33C"
-const Slot_ITensorUInt8BitStatics_Create* = 6
-type Fn_ITensorUInt8BitStatics_Create* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt8BitStatics_Create2* = 7
-type Fn_ITensorUInt8BitStatics_Create2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt8BitStatics_CreateFromArray* = 8
-type Fn_ITensorUInt8BitStatics_CreateFromArray* =
-  proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr uint8,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt8BitStatics_CreateFromIterable* = 9
-type Fn_ITensorUInt8BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITensorUInt8BitStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromArray*: proc(self: pointer, a1: pointer, a2Size: uint32,
+                         a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  CreateFromIterable*: proc(self: pointer, a1: pointer, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt8BitStatics2
 const IID_ITensorUInt8BitStatics2* = guid"2BA042D6-373E-5A3A-A2FC-A6C41BD52789"
-const Slot_ITensorUInt8BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-type Fn_ITensorUInt8BitStatics2_CreateFromShapeArrayAndDataArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32,
-       a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITensorUInt8BitStatics2_CreateFromBuffer* = 7
-type Fn_ITensorUInt8BitStatics2_CreateFromBuffer* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ITensorUInt8BitStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromShapeArrayAndDataArray*: proc(self: pointer, a1Size: uint32,
+                                          a1: ptr int64, a2Size: uint32,
+                                          a2: ptr uint8, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  CreateFromBuffer*: proc(self: pointer, a1Size: uint32, a1: ptr int64,
+                          a2IBuffer: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.IImageVariableDescriptorPreview
 const IID_IImageVariableDescriptorPreview* = guid"7AE1FA72-029E-4DC5-A2F8-5FB763154150"
-const Slot_IImageVariableDescriptorPreview_get_BitmapPixelFormat* = 6
-type Fn_IImageVariableDescriptorPreview_get_BitmapPixelFormat* =
-  proc(self: pointer, value: ptr BitmapPixelFormat): HRESULT {.abi.}
-const Slot_IImageVariableDescriptorPreview_get_Width* = 7
-type Fn_IImageVariableDescriptorPreview_get_Width* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IImageVariableDescriptorPreview_get_Height* = 8
-type Fn_IImageVariableDescriptorPreview_get_Height* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+type IImageVariableDescriptorPreviewVtbl* = object of IInspectableVtbl
+  get_BitmapPixelFormat*: proc(self: pointer, value: ptr BitmapPixelFormat
+                              ): HRESULT {.abi.}
+  get_Width*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_Height*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.IInferencingOptionsPreview
 const IID_IInferencingOptionsPreview* = guid"47BC8205-4D36-47A9-8F68-FFCB339DD0FC"
-const Slot_IInferencingOptionsPreview_get_PreferredDeviceKind* = 6
-type Fn_IInferencingOptionsPreview_get_PreferredDeviceKind* =
-  proc(self: pointer, value: ptr LearningModelDeviceKindPreview
-      ): HRESULT {.abi.}
-const Slot_IInferencingOptionsPreview_put_PreferredDeviceKind* = 7
-type Fn_IInferencingOptionsPreview_put_PreferredDeviceKind* =
-  proc(self: pointer, a1: LearningModelDeviceKindPreview): HRESULT {.abi.}
-const Slot_IInferencingOptionsPreview_get_IsTracingEnabled* = 8
-type Fn_IInferencingOptionsPreview_get_IsTracingEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IInferencingOptionsPreview_put_IsTracingEnabled* = 9
-type Fn_IInferencingOptionsPreview_put_IsTracingEnabled* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IInferencingOptionsPreview_get_MaxBatchSize* = 10
-type Fn_IInferencingOptionsPreview_get_MaxBatchSize* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_IInferencingOptionsPreview_put_MaxBatchSize* = 11
-type Fn_IInferencingOptionsPreview_put_MaxBatchSize* =
-  proc(self: pointer, a1: int32): HRESULT {.abi.}
-const Slot_IInferencingOptionsPreview_get_MinimizeMemoryAllocation* = 12
-type Fn_IInferencingOptionsPreview_get_MinimizeMemoryAllocation* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IInferencingOptionsPreview_put_MinimizeMemoryAllocation* = 13
-type Fn_IInferencingOptionsPreview_put_MinimizeMemoryAllocation* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IInferencingOptionsPreview_get_ReclaimMemoryAfterEvaluation* = 14
-type Fn_IInferencingOptionsPreview_get_ReclaimMemoryAfterEvaluation* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IInferencingOptionsPreview_put_ReclaimMemoryAfterEvaluation* = 15
-type Fn_IInferencingOptionsPreview_put_ReclaimMemoryAfterEvaluation* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type IInferencingOptionsPreviewVtbl* = object of IInspectableVtbl
+  get_PreferredDeviceKind*: proc(self: pointer,
+                                 value: ptr LearningModelDeviceKindPreview
+                                ): HRESULT {.abi.}
+  put_PreferredDeviceKind*: proc(self: pointer,
+                                 a1: LearningModelDeviceKindPreview
+                                ): HRESULT {.abi.}
+  get_IsTracingEnabled*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_IsTracingEnabled*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_MaxBatchSize*: proc(self: pointer, value: ptr int32): HRESULT {.abi.}
+  put_MaxBatchSize*: proc(self: pointer, a1: int32): HRESULT {.abi.}
+  get_MinimizeMemoryAllocation*: proc(self: pointer, value: ptr bool
+                                     ): HRESULT {.abi.}
+  put_MinimizeMemoryAllocation*: proc(self: pointer, a1: bool
+                                     ): HRESULT {.abi.}
+  get_ReclaimMemoryAfterEvaluation*: proc(self: pointer, value: ptr bool
+                                         ): HRESULT {.abi.}
+  put_ReclaimMemoryAfterEvaluation*: proc(self: pointer, a1: bool
+                                         ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.ILearningModelBindingPreview
 const IID_ILearningModelBindingPreview* = guid"93C901E8-6C78-4B4F-AEC1-A6BB9E691624"
-const Slot_ILearningModelBindingPreview_Bind* = 6
-type Fn_ILearningModelBindingPreview_Bind* =
-  proc(self: pointer, a1: HSTRING, a2: pointer): HRESULT {.abi.}
-const Slot_ILearningModelBindingPreview_Bind2* = 7
-type Fn_ILearningModelBindingPreview_Bind2* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, a3IPropertySet: pointer
-      ): HRESULT {.abi.}
-const Slot_ILearningModelBindingPreview_Clear* = 8
-type Fn_ILearningModelBindingPreview_Clear* =
-  proc(self: pointer): HRESULT {.abi.}
+type ILearningModelBindingPreviewVtbl* = object of IInspectableVtbl
+  `Bind`*: proc(self: pointer, a1: HSTRING, a2: pointer): HRESULT {.abi.}
+  Bind2*: proc(self: pointer, a1: HSTRING, a2: pointer,
+               a3IPropertySet: pointer): HRESULT {.abi.}
+  Clear*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.ILearningModelBindingPreviewFactory
 const IID_ILearningModelBindingPreviewFactory* = guid"48B8219F-1E51-4D77-AE50-3EC164AD3480"
-const Slot_ILearningModelBindingPreviewFactory_CreateFromModel* = 6
-type Fn_ILearningModelBindingPreviewFactory_CreateFromModel* =
-  proc(self: pointer, a1LearningModelPreview: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ILearningModelBindingPreviewFactoryVtbl* = object of IInspectableVtbl
+  CreateFromModel*: proc(self: pointer, a1LearningModelPreview: pointer,
+                         value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.ILearningModelDescriptionPreview
 const IID_ILearningModelDescriptionPreview* = guid"F52C09C6-8611-40AD-8E59-DE3FD7030A40"
-const Slot_ILearningModelDescriptionPreview_get_Author* = 6
-type Fn_ILearningModelDescriptionPreview_get_Author* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModelDescriptionPreview_get_Name* = 7
-type Fn_ILearningModelDescriptionPreview_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModelDescriptionPreview_get_Domain* = 8
-type Fn_ILearningModelDescriptionPreview_get_Domain* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModelDescriptionPreview_get_Description* = 9
-type Fn_ILearningModelDescriptionPreview_get_Description* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModelDescriptionPreview_get_Version* = 10
-type Fn_ILearningModelDescriptionPreview_get_Version* =
-  proc(self: pointer, value: ptr int64): HRESULT {.abi.}
-const Slot_ILearningModelDescriptionPreview_get_Metadata* = 11
-type Fn_ILearningModelDescriptionPreview_get_Metadata* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelDescriptionPreview_get_InputFeatures* = 12
-type Fn_ILearningModelDescriptionPreview_get_InputFeatures* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelDescriptionPreview_get_OutputFeatures* = 13
-type Fn_ILearningModelDescriptionPreview_get_OutputFeatures* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ILearningModelDescriptionPreviewVtbl* = object of IInspectableVtbl
+  get_Author*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Domain*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Description*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Version*: proc(self: pointer, value: ptr int64): HRESULT {.abi.}
+  get_Metadata*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_InputFeatures*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_OutputFeatures*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.ILearningModelEvaluationResultPreview
 const IID_ILearningModelEvaluationResultPreview* = guid"DF25EA9F-9863-4088-8498-87A1F4686F92"
-const Slot_ILearningModelEvaluationResultPreview_get_CorrelationId* = 6
-type Fn_ILearningModelEvaluationResultPreview_get_CorrelationId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModelEvaluationResultPreview_get_Outputs* = 7
-type Fn_ILearningModelEvaluationResultPreview_get_Outputs* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ILearningModelEvaluationResultPreviewVtbl* = object of IInspectableVtbl
+  get_CorrelationId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Outputs*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.ILearningModelPreview
 const IID_ILearningModelPreview* = guid"049C266A-93B4-478C-AEB8-70157BF0FF94"
-const Slot_ILearningModelPreview_EvaluateAsync* = 6
-type Fn_ILearningModelPreview_EvaluateAsync* =
-  proc(self: pointer, a1LearningModelBindingPreview: pointer, a2: HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelPreview_EvaluateFeaturesAsync* = 7
-type Fn_ILearningModelPreview_EvaluateFeaturesAsync* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILearningModelPreview_get_Description* = 8
-type Fn_ILearningModelPreview_get_Description* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelPreview_get_InferencingOptions* = 9
-type Fn_ILearningModelPreview_get_InferencingOptions* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILearningModelPreview_put_InferencingOptions* = 10
-type Fn_ILearningModelPreview_put_InferencingOptions* =
-  proc(self: pointer, a1InferencingOptionsPreview: pointer): HRESULT {.abi.}
+type ILearningModelPreviewVtbl* = object of IInspectableVtbl
+  EvaluateAsync*: proc(self: pointer, a1LearningModelBindingPreview: pointer,
+                       a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  EvaluateFeaturesAsync*: proc(self: pointer, a1: pointer, a2: HSTRING,
+                               value: ptr pointer): HRESULT {.abi.}
+  get_Description*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_InferencingOptions*: proc(self: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
+  put_InferencingOptions*: proc(self: pointer,
+                                a1InferencingOptionsPreview: pointer
+                               ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.ILearningModelPreviewStatics
 const IID_ILearningModelPreviewStatics* = guid"164BBB60-8465-4786-8B93-2C16A89289D7"
-const Slot_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync* = 6
-type Fn_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILearningModelPreviewStatics_LoadModelFromStreamAsync* = 7
-type Fn_ILearningModelPreviewStatics_LoadModelFromStreamAsync* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ILearningModelPreviewStaticsVtbl* = object of IInspectableVtbl
+  LoadModelFromStorageFileAsync*: proc(self: pointer, a1IStorageFile: pointer,
+                                       value: ptr pointer): HRESULT {.abi.}
+  LoadModelFromStreamAsync*: proc(self: pointer,
+                                  a1IRandomAccessStreamReference: pointer,
+                                  value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview
 const IID_ILearningModelVariableDescriptorPreview* = guid"B13DF682-FC30-492B-8EA0-ED1F53C0B038"
-const Slot_ILearningModelVariableDescriptorPreview_get_Name* = 6
-type Fn_ILearningModelVariableDescriptorPreview_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModelVariableDescriptorPreview_get_Description* = 7
-type Fn_ILearningModelVariableDescriptorPreview_get_Description* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILearningModelVariableDescriptorPreview_get_ModelFeatureKind* = 8
-type Fn_ILearningModelVariableDescriptorPreview_get_ModelFeatureKind* =
-  proc(self: pointer, value: ptr LearningModelFeatureKindPreview
-      ): HRESULT {.abi.}
-const Slot_ILearningModelVariableDescriptorPreview_get_IsRequired* = 9
-type Fn_ILearningModelVariableDescriptorPreview_get_IsRequired* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type ILearningModelVariableDescriptorPreviewVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Description*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ModelFeatureKind*: proc(self: pointer,
+                              value: ptr LearningModelFeatureKindPreview
+                             ): HRESULT {.abi.}
+  get_IsRequired*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.IMapVariableDescriptorPreview
 const IID_IMapVariableDescriptorPreview* = guid"3CB38370-C02B-4236-B3E8-6BDCA49C3129"
-const Slot_IMapVariableDescriptorPreview_get_KeyKind* = 6
-type Fn_IMapVariableDescriptorPreview_get_KeyKind* =
-  proc(self: pointer, value: ptr FeatureElementKindPreview): HRESULT {.abi.}
-const Slot_IMapVariableDescriptorPreview_get_ValidStringKeys* = 7
-type Fn_IMapVariableDescriptorPreview_get_ValidStringKeys* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapVariableDescriptorPreview_get_ValidIntegerKeys* = 8
-type Fn_IMapVariableDescriptorPreview_get_ValidIntegerKeys* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapVariableDescriptorPreview_get_Fields* = 9
-type Fn_IMapVariableDescriptorPreview_get_Fields* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IMapVariableDescriptorPreviewVtbl* = object of IInspectableVtbl
+  get_KeyKind*: proc(self: pointer, value: ptr FeatureElementKindPreview
+                    ): HRESULT {.abi.}
+  get_ValidStringKeys*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  get_ValidIntegerKeys*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  get_Fields*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.ISequenceVariableDescriptorPreview
 const IID_ISequenceVariableDescriptorPreview* = guid"9CD8F292-98B2-4530-A1B6-2DED5FECBC26"
-const Slot_ISequenceVariableDescriptorPreview_get_ElementType* = 6
-type Fn_ISequenceVariableDescriptorPreview_get_ElementType* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISequenceVariableDescriptorPreviewVtbl* = object of IInspectableVtbl
+  get_ElementType*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.ITensorVariableDescriptorPreview
 const IID_ITensorVariableDescriptorPreview* = guid"A80F501A-9AAC-4233-9784-ACEAF92510B5"
-const Slot_ITensorVariableDescriptorPreview_get_DataType* = 6
-type Fn_ITensorVariableDescriptorPreview_get_DataType* =
-  proc(self: pointer, value: ptr FeatureElementKindPreview): HRESULT {.abi.}
-const Slot_ITensorVariableDescriptorPreview_get_Shape* = 7
-type Fn_ITensorVariableDescriptorPreview_get_Shape* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITensorVariableDescriptorPreviewVtbl* = object of IInspectableVtbl
+  get_DataType*: proc(self: pointer, value: ptr FeatureElementKindPreview
+                     ): HRESULT {.abi.}
+  get_Shape*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 

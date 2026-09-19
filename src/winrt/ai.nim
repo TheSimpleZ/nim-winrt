@@ -74,40 +74,32 @@ const IID_IIterator_1_U8* = guid"C473ED96-76E3-5FF2-9435-47FEEBFE9539"
 proc kind*(self: ActionEntity): ActionEntityKind =
   ## Windows.AI.Actions.ActionEntity.get_Kind
   withIface(self.p, IActionEntity, it):
-    var tmp: ActionEntityKind
-    it.call(IActionEntity_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, ActionEntityKind)
 
 proc displayInfo*(self: ActionEntity): ActionEntityDisplayInfo =
   ## Windows.AI.Actions.ActionEntity.get_DisplayInfo
   withIface(self.p, IActionEntity, it):
-    var tmp: pointer
-    it.call(IActionEntity_get_DisplayInfo, tmp.addr)
-    result = adopt[ActionEntityDisplayInfo](tmp)
+    result = it.getObject(get_DisplayInfo, ActionEntityDisplayInfo)
 
 proc id*(self: ActionEntity): string =
   ## Windows.AI.Actions.ActionEntity.get_Id
   withIface(self.p, IActionEntity2, it):
-    var tmp: HSTRING
-    it.call(IActionEntity2_get_Id, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Id)
 
 proc close*(self: ActionEntity) =
   ## Windows.AI.Actions.ActionEntity.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "ActionEntity.Close"
 
 proc title*(self: ActionEntityDisplayInfo): string =
   ## Windows.AI.Actions.ActionEntityDisplayInfo.get_Title
   withIface(self.p, IActionEntityDisplayInfo, it):
-    var tmp: HSTRING
-    it.call(IActionEntityDisplayInfo_get_Title, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Title)
 
 proc close*(self: ActionEntityDisplayInfo) =
   ## Windows.AI.Actions.ActionEntityDisplayInfo.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "ActionEntityDisplayInfo.Close"
 
 proc createFileEntity*(self: ActionEntityFactory, path: string
                       ): FileActionEntity =
@@ -115,7 +107,8 @@ proc createFileEntity*(self: ActionEntityFactory, path: string
   withIface(self.p, IActionEntityFactory2, it):
     withHString(path, h0):
       var tmp: pointer
-      it.call(IActionEntityFactory2_CreateFileEntity, h0, tmp.addr)
+      check it.vtbl.CreateFileEntity(it, h0, tmp.addr
+                                    ), "ActionEntityFactory.CreateFileEntity"
       result = adopt[FileActionEntity](tmp)
 
 proc createDocumentEntity*(self: ActionEntityFactory, path: string
@@ -124,7 +117,8 @@ proc createDocumentEntity*(self: ActionEntityFactory, path: string
   withIface(self.p, IActionEntityFactory2, it):
     withHString(path, h0):
       var tmp: pointer
-      it.call(IActionEntityFactory2_CreateDocumentEntity, h0, tmp.addr)
+      check it.vtbl.CreateDocumentEntity(it, h0, tmp.addr
+                                        ), "ActionEntityFactory.CreateDocumentEntity"
       result = adopt[DocumentActionEntity](tmp)
 
 proc createPhotoEntity*(self: ActionEntityFactory, path: string
@@ -133,7 +127,8 @@ proc createPhotoEntity*(self: ActionEntityFactory, path: string
   withIface(self.p, IActionEntityFactory2, it):
     withHString(path, h0):
       var tmp: pointer
-      it.call(IActionEntityFactory2_CreatePhotoEntity, h0, tmp.addr)
+      check it.vtbl.CreatePhotoEntity(it, h0, tmp.addr
+                                     ), "ActionEntityFactory.CreatePhotoEntity"
       result = adopt[PhotoActionEntity](tmp)
 
 proc createTextEntity*(self: ActionEntityFactory, text: string
@@ -142,7 +137,8 @@ proc createTextEntity*(self: ActionEntityFactory, text: string
   withIface(self.p, IActionEntityFactory2, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(IActionEntityFactory2_CreateTextEntity, h0, tmp.addr)
+      check it.vtbl.CreateTextEntity(it, h0, tmp.addr
+                                    ), "ActionEntityFactory.CreateTextEntity"
       result = adopt[TextActionEntity](tmp)
 
 proc createRemoteFileEntity*(self: ActionEntityFactory, sourceId: string,
@@ -160,8 +156,9 @@ proc createRemoteFileEntity*(self: ActionEntityFactory, sourceId: string,
               withHString(accountId, h6):
                 withHString(extension, h7):
                   var tmp: pointer
-                  it.call(IActionEntityFactory3_CreateRemoteFileEntity, h0,
-                          fileKind, p2, h3, h4, h5, h6, h7, tmp.addr)
+                  check it.vtbl.CreateRemoteFileEntity(it, h0, fileKind, p2, h3,
+                                                       h4, h5, h6, h7, tmp.addr
+                                                      ), "ActionEntityFactory.CreateRemoteFileEntity"
                   result = adopt[RemoteFileActionEntity](tmp)
 
 proc createTextEntity*(self: ActionEntityFactory, text: string,
@@ -170,7 +167,8 @@ proc createTextEntity*(self: ActionEntityFactory, text: string,
   withIface(self.p, IActionEntityFactory3, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(IActionEntityFactory3_CreateTextEntity, h0, textFormat, tmp.addr)
+      check it.vtbl.CreateTextEntity(it, h0, textFormat, tmp.addr
+                                    ), "ActionEntityFactory.CreateTextEntity"
       result = adopt[TextActionEntity](tmp)
 
 proc createStreamingTextActionEntityWriter*(self: ActionEntityFactory,
@@ -179,8 +177,8 @@ proc createStreamingTextActionEntityWriter*(self: ActionEntityFactory,
   ## Windows.AI.Actions.ActionEntityFactory.CreateStreamingTextActionEntityWriter
   withIface(self.p, IActionEntityFactory3, it):
     var tmp: pointer
-    it.call(IActionEntityFactory3_CreateStreamingTextActionEntityWriter,
-            textFormat, tmp.addr)
+    check it.vtbl.CreateStreamingTextActionEntityWriter(it, textFormat, tmp.addr
+                                                       ), "ActionEntityFactory.CreateStreamingTextActionEntityWriter"
     result = adopt[StreamingTextActionEntityWriter](tmp)
 
 proc createTableEntity*(self: ActionEntityFactory, data: openArray[string],
@@ -189,8 +187,8 @@ proc createTableEntity*(self: ActionEntityFactory, data: openArray[string],
   withIface(self.p, IActionEntityFactory4, it):
     withStringArray(data, n0, d0):
       var tmp: pointer
-      it.call(IActionEntityFactory4_CreateTableEntity, n0, d0, columnCount,
-              tmp.addr)
+      check it.vtbl.CreateTableEntity(it, n0, d0, columnCount, tmp.addr
+                                     ), "ActionEntityFactory.CreateTableEntity"
       result = adopt[TableActionEntity](tmp)
 
 proc createContactEntity*(self: ActionEntityFactory, contact: Contact
@@ -199,7 +197,8 @@ proc createContactEntity*(self: ActionEntityFactory, contact: Contact
   withIface(self.p, IActionEntityFactory4, it):
     withIface(contact.p, IContact, p0):
       var tmp: pointer
-      it.call(IActionEntityFactory4_CreateContactEntity, p0, tmp.addr)
+      check it.vtbl.CreateContactEntity(it, p0, tmp.addr
+                                       ), "ActionEntityFactory.CreateContactEntity"
       result = adopt[ContactActionEntity](tmp)
 
 proc createUriEntity*(self: ActionEntityFactory, uri: Uri): UriActionEntity =
@@ -207,7 +206,8 @@ proc createUriEntity*(self: ActionEntityFactory, uri: Uri): UriActionEntity =
   withIface(self.p, IActionEntityFactory5, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       var tmp: pointer
-      it.call(IActionEntityFactory5_CreateUriEntity, p0, tmp.addr)
+      check it.vtbl.CreateUriEntity(it, p0, tmp.addr
+                                   ), "ActionEntityFactory.CreateUriEntity"
       result = adopt[UriActionEntity](tmp)
 
 proc createArrayEntity*(self: ActionEntityFactory, kind: ActionEntityKind,
@@ -216,7 +216,8 @@ proc createArrayEntity*(self: ActionEntityFactory, kind: ActionEntityKind,
   withIface(self.p, IActionEntityFactory5, it):
     withObjectArray(entities, IID_IActionEntity, n1, d1):
       var tmp: pointer
-      it.call(IActionEntityFactory5_CreateArrayEntity, kind, n1, d1, tmp.addr)
+      check it.vtbl.CreateArrayEntity(it, kind, n1, d1, tmp.addr
+                                     ), "ActionEntityFactory.CreateArrayEntity"
       result = adopt[ArrayActionEntity](tmp)
 
 proc createDateTimeEntity*(self: ActionEntityFactory, dateTime: DateTime
@@ -224,7 +225,8 @@ proc createDateTimeEntity*(self: ActionEntityFactory, dateTime: DateTime
   ## Windows.AI.Actions.ActionEntityFactory.CreateDateTimeEntity
   withIface(self.p, IActionEntityFactory6, it):
     var tmp: pointer
-    it.call(IActionEntityFactory6_CreateDateTimeEntity, dateTime, tmp.addr)
+    check it.vtbl.CreateDateTimeEntity(it, dateTime, tmp.addr
+                                      ), "ActionEntityFactory.CreateDateTimeEntity"
     result = adopt[DateTimeActionEntity](tmp)
 
 proc createAppointmentEntity*(self: ActionEntityFactory, sourceId: string,
@@ -237,8 +239,8 @@ proc createAppointmentEntity*(self: ActionEntityFactory, sourceId: string,
       withIface(appointment.p, IAppointment, p1):
         withObjectArray(attendees, IID_IContactActionEntity, n2, d2):
           var tmp: pointer
-          it.call(IActionEntityFactory6_CreateAppointmentEntity, h0, p1, n2, d2,
-                  tmp.addr)
+          check it.vtbl.CreateAppointmentEntity(it, h0, p1, n2, d2, tmp.addr
+                                               ), "ActionEntityFactory.CreateAppointmentEntity"
           result = adopt[AppointmentActionEntity](tmp)
 
 proc createCustomTextEntity*(self: ActionEntityFactory, kind: string,
@@ -256,8 +258,8 @@ proc createCustomTextEntity*(self: ActionEntityFactory, kind: string,
                                       map: IID_IMap_2_String_Object))
         defer: discard release(p2)
         var tmp: pointer
-        it.call(IActionEntityFactory7_CreateCustomTextEntity, h0, h1, p2,
-                tmp.addr)
+        check it.vtbl.CreateCustomTextEntity(it, h0, h1, p2, tmp.addr
+                                            ), "ActionEntityFactory.CreateCustomTextEntity"
         result = adopt[CustomTextActionEntity](tmp)
 
 proc createArrayEntityWithCustomKind*(self: ActionEntityFactory,
@@ -270,33 +272,30 @@ proc createArrayEntityWithCustomKind*(self: ActionEntityFactory,
     withHString(customKind, h1):
       withObjectArray(entities, IID_IActionEntity, n2, d2):
         var tmp: pointer
-        it.call(IActionEntityFactory7_CreateArrayEntityWithCustomKind,
-                elementKind, h1, n2, d2, tmp.addr)
+        check it.vtbl.CreateArrayEntityWithCustomKind(it, elementKind, h1, n2,
+                                                      d2, tmp.addr
+                                                     ), "ActionEntityFactory.CreateArrayEntityWithCustomKind"
         result = adopt[ArrayActionEntity](tmp)
 
 proc close*(self: ActionEntityFactory) =
   ## Windows.AI.Actions.ActionEntityFactory.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "ActionEntityFactory.Close"
 
 proc feedbackKind*(self: ActionFeedback): ActionFeedbackKind =
   ## Windows.AI.Actions.ActionFeedback.get_FeedbackKind
   withIface(self.p, IActionFeedback, it):
-    var tmp: ActionFeedbackKind
-    it.call(IActionFeedback_get_FeedbackKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FeedbackKind, ActionFeedbackKind)
 
 proc close*(self: ActionFeedback) =
   ## Windows.AI.Actions.ActionFeedback.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "ActionFeedback.Close"
 
 proc entityFactory*(self: ActionInvocationContext): ActionEntityFactory =
   ## Windows.AI.Actions.ActionInvocationContext.get_EntityFactory
   withIface(self.p, IActionInvocationContext, it):
-    var tmp: pointer
-    it.call(IActionInvocationContext_get_EntityFactory, tmp.addr)
-    result = adopt[ActionEntityFactory](tmp)
+    result = it.getObject(get_EntityFactory, ActionEntityFactory)
 
 proc setInputEntity*(self: ActionInvocationContext, inputName: string,
                      inputValue: ActionEntity) =
@@ -304,14 +303,16 @@ proc setInputEntity*(self: ActionInvocationContext, inputName: string,
   withIface(self.p, IActionInvocationContext, it):
     withHString(inputName, h0):
       withIface(inputValue.p, IActionEntity, p1):
-        it.call(IActionInvocationContext_SetInputEntity, h0, p1)
+        check it.vtbl.SetInputEntity(it, h0, p1
+                                    ), "ActionInvocationContext.SetInputEntity"
 
 proc getInputEntities*(self: ActionInvocationContext): seq[NamedActionEntity] =
   ## Windows.AI.Actions.ActionInvocationContext.GetInputEntities
   withIface(self.p, IActionInvocationContext, it):
     var tmpSize: uint32
     var tmp: ptr pointer
-    it.call(IActionInvocationContext_GetInputEntities, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetInputEntities(it, tmpSize.addr, tmp.addr
+                                  ), "ActionInvocationContext.GetInputEntities"
     result = takeArrayObject[NamedActionEntity](tmpSize, tmp)
 
 proc setOutputEntity*(self: ActionInvocationContext, outputName: string,
@@ -320,137 +321,115 @@ proc setOutputEntity*(self: ActionInvocationContext, outputName: string,
   withIface(self.p, IActionInvocationContext, it):
     withHString(outputName, h0):
       withIface(outputValue.p, IActionEntity, p1):
-        it.call(IActionInvocationContext_SetOutputEntity, h0, p1)
+        check it.vtbl.SetOutputEntity(it, h0, p1
+                                     ), "ActionInvocationContext.SetOutputEntity"
 
 proc getOutputEntities*(self: ActionInvocationContext): seq[NamedActionEntity] =
   ## Windows.AI.Actions.ActionInvocationContext.GetOutputEntities
   withIface(self.p, IActionInvocationContext, it):
     var tmpSize: uint32
     var tmp: ptr pointer
-    it.call(IActionInvocationContext_GetOutputEntities, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetOutputEntities(it, tmpSize.addr, tmp.addr
+                                   ), "ActionInvocationContext.GetOutputEntities"
     result = takeArrayObject[NamedActionEntity](tmpSize, tmp)
 
 proc `result`*(self: ActionInvocationContext): ActionInvocationResult =
   ## Windows.AI.Actions.ActionInvocationContext.get_Result
   withIface(self.p, IActionInvocationContext, it):
-    var tmp: ActionInvocationResult
-    it.call(IActionInvocationContext_get_Result, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Result, ActionInvocationResult)
 
 proc `result=`*(self: ActionInvocationContext, value: ActionInvocationResult) =
   ## Windows.AI.Actions.ActionInvocationContext.put_Result
   withIface(self.p, IActionInvocationContext, it):
-    it.call(IActionInvocationContext_put_Result, value)
+    it.putValue(put_Result, value)
 
 proc extendedError*(self: ActionInvocationContext): HRESULT =
   ## Windows.AI.Actions.ActionInvocationContext.get_ExtendedError
   withIface(self.p, IActionInvocationContext, it):
-    var tmp: HRESULT
-    it.call(IActionInvocationContext_get_ExtendedError, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExtendedError, HRESULT)
 
 proc `extendedError=`*(self: ActionInvocationContext, value: HRESULT) =
   ## Windows.AI.Actions.ActionInvocationContext.put_ExtendedError
   withIface(self.p, IActionInvocationContext, it):
-    it.call(IActionInvocationContext_put_ExtendedError, value)
+    it.putValue(put_ExtendedError, value)
 
 proc invokerWindowId*(self: ActionInvocationContext): WindowId =
   ## Windows.AI.Actions.ActionInvocationContext.get_InvokerWindowId
   withIface(self.p, IActionInvocationContext2, it):
-    var tmp: WindowId
-    it.call(IActionInvocationContext2_get_InvokerWindowId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_InvokerWindowId, WindowId)
 
 proc helpDetails*(self: ActionInvocationContext): ActionInvocationHelpDetails =
   ## Windows.AI.Actions.ActionInvocationContext.get_HelpDetails
   withIface(self.p, IActionInvocationContext2, it):
-    var tmp: pointer
-    it.call(IActionInvocationContext2_get_HelpDetails, tmp.addr)
-    result = adopt[ActionInvocationHelpDetails](tmp)
+    result = it.getObject(get_HelpDetails, ActionInvocationHelpDetails)
 
 proc actionId*(self: ActionInvocationContext): string =
   ## Windows.AI.Actions.ActionInvocationContext.get_ActionId
   withIface(self.p, IActionInvocationContext2, it):
-    var tmp: HSTRING
-    it.call(IActionInvocationContext2_get_ActionId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ActionId)
 
 proc invokerAppUserModelId*(self: ActionInvocationContext): string =
   ## Windows.AI.Actions.ActionInvocationContext.get_InvokerAppUserModelId
   withIface(self.p, IActionInvocationContext2, it):
-    var tmp: HSTRING
-    it.call(IActionInvocationContext2_get_InvokerAppUserModelId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InvokerAppUserModelId)
 
 proc close*(self: ActionInvocationContext) =
   ## Windows.AI.Actions.ActionInvocationContext.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "ActionInvocationContext.Close"
 
 proc kind*(self: ActionInvocationHelpDetails): ActionInvocationHelpKind =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.get_Kind
   withIface(self.p, IActionInvocationHelpDetails, it):
-    var tmp: ActionInvocationHelpKind
-    it.call(IActionInvocationHelpDetails_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, ActionInvocationHelpKind)
 
 proc `kind=`*(self: ActionInvocationHelpDetails, value: ActionInvocationHelpKind
              ) =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.put_Kind
   withIface(self.p, IActionInvocationHelpDetails, it):
-    it.call(IActionInvocationHelpDetails_put_Kind, value)
+    it.putValue(put_Kind, value)
 
 proc title*(self: ActionInvocationHelpDetails): string =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.get_Title
   withIface(self.p, IActionInvocationHelpDetails, it):
-    var tmp: HSTRING
-    it.call(IActionInvocationHelpDetails_get_Title, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Title)
 
 proc `title=`*(self: ActionInvocationHelpDetails, value: string) =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.put_Title
   withIface(self.p, IActionInvocationHelpDetails, it):
-    withHString(value, h0):
-      it.call(IActionInvocationHelpDetails_put_Title, h0)
+    it.putString(put_Title, value)
 
 proc description*(self: ActionInvocationHelpDetails): string =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.get_Description
   withIface(self.p, IActionInvocationHelpDetails, it):
-    var tmp: HSTRING
-    it.call(IActionInvocationHelpDetails_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc `description=`*(self: ActionInvocationHelpDetails, value: string) =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.put_Description
   withIface(self.p, IActionInvocationHelpDetails, it):
-    withHString(value, h0):
-      it.call(IActionInvocationHelpDetails_put_Description, h0)
+    it.putString(put_Description, value)
 
 proc helpUri*(self: ActionInvocationHelpDetails): Uri =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.get_HelpUri
   withIface(self.p, IActionInvocationHelpDetails, it):
-    var tmp: pointer
-    it.call(IActionInvocationHelpDetails_get_HelpUri, tmp.addr)
-    result = adopt[Uri](tmp)
+    result = it.getObject(get_HelpUri, Uri)
 
 proc `helpUri=`*(self: ActionInvocationHelpDetails, value: Uri) =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.put_HelpUri
   withIface(self.p, IActionInvocationHelpDetails, it):
     withIface(value.p, IUriRuntimeClass, p0):
-      it.call(IActionInvocationHelpDetails_put_HelpUri, p0)
+      check it.vtbl.put_HelpUri(it, p0
+                               ), "ActionInvocationHelpDetails.put_HelpUri"
 
 proc helpUriDescription*(self: ActionInvocationHelpDetails): string =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.get_HelpUriDescription
   withIface(self.p, IActionInvocationHelpDetails, it):
-    var tmp: HSTRING
-    it.call(IActionInvocationHelpDetails_get_HelpUriDescription, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_HelpUriDescription)
 
 proc `helpUriDescription=`*(self: ActionInvocationHelpDetails, value: string) =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.put_HelpUriDescription
   withIface(self.p, IActionInvocationHelpDetails, it):
-    withHString(value, h0):
-      it.call(IActionInvocationHelpDetails_put_HelpUriDescription, h0)
+    it.putString(put_HelpUriDescription, value)
 
 proc onChanged*(self: ActionInvocationHelpDetails,
                 handler: EventHandler[ActionInvocationHelpDetails, WinRtObject]
@@ -463,32 +442,28 @@ proc onChanged*(self: ActionInvocationHelpDetails,
     let cb = newDelegate(IID_TypedEventHandler_2_ActionInvocationHelpDetails_Object,
                          shim, event = true)
     try:
-      it.call(IActionInvocationHelpDetails2_add_Changed, cb, result.addr)
+      check it.vtbl.add_Changed(it, cb, result.addr), "ActionInvocationHelpDetails.add_Changed"
     finally:
       release(cb)
 
 proc removeChanged*(self: ActionInvocationHelpDetails, token: EventRegistrationToken) =
   withIface(self.p, IActionInvocationHelpDetails2, it):
-    it.call(IActionInvocationHelpDetails2_remove_Changed, token)
+    check it.vtbl.remove_Changed(it, token), "ActionInvocationHelpDetails.remove_Changed"
 
 proc close*(self: ActionInvocationHelpDetails) =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "ActionInvocationHelpDetails.Close"
 
 proc actionCatalog*(self: ActionRuntime): ActionCatalog =
   ## Windows.AI.Actions.ActionRuntime.get_ActionCatalog
   withIface(self.p, IActionRuntime, it):
-    var tmp: pointer
-    it.call(IActionRuntime_get_ActionCatalog, tmp.addr)
-    result = adopt[ActionCatalog](tmp)
+    result = it.getObject(get_ActionCatalog, ActionCatalog)
 
 proc entityFactory*(self: ActionRuntime): ActionEntityFactory =
   ## Windows.AI.Actions.ActionRuntime.get_EntityFactory
   withIface(self.p, IActionRuntime, it):
-    var tmp: pointer
-    it.call(IActionRuntime_get_EntityFactory, tmp.addr)
-    result = adopt[ActionEntityFactory](tmp)
+    result = it.getObject(get_EntityFactory, ActionEntityFactory)
 
 proc createInvocationContext*(self: ActionRuntime, actionId: string
                              ): ActionInvocationContext =
@@ -496,7 +471,8 @@ proc createInvocationContext*(self: ActionRuntime, actionId: string
   withIface(self.p, IActionRuntime, it):
     withHString(actionId, h0):
       var tmp: pointer
-      it.call(IActionRuntime_CreateInvocationContext, h0, tmp.addr)
+      check it.vtbl.CreateInvocationContext(it, h0, tmp.addr
+                                           ), "ActionRuntime.CreateInvocationContext"
       result = adopt[ActionInvocationContext](tmp)
 
 proc createActionFeedback*(self: ActionRuntime, feedbackKind: ActionFeedbackKind
@@ -504,7 +480,8 @@ proc createActionFeedback*(self: ActionRuntime, feedbackKind: ActionFeedbackKind
   ## Windows.AI.Actions.ActionRuntime.CreateActionFeedback
   withIface(self.p, IActionRuntime2, it):
     var tmp: pointer
-    it.call(IActionRuntime2_CreateActionFeedback, feedbackKind, tmp.addr)
+    check it.vtbl.CreateActionFeedback(it, feedbackKind, tmp.addr
+                                      ), "ActionRuntime.CreateActionFeedback"
     result = adopt[ActionFeedback](tmp)
 
 proc setActionAvailability*(self: ActionRuntime, actionId: string,
@@ -512,14 +489,16 @@ proc setActionAvailability*(self: ActionRuntime, actionId: string,
   ## Windows.AI.Actions.ActionRuntime.SetActionAvailability
   withIface(self.p, IActionRuntime2, it):
     withHString(actionId, h0):
-      it.call(IActionRuntime2_SetActionAvailability, h0, isAvailable)
+      check it.vtbl.SetActionAvailability(it, h0, isAvailable
+                                         ), "ActionRuntime.SetActionAvailability"
 
 proc getActionAvailability*(self: ActionRuntime, actionId: string): bool =
   ## Windows.AI.Actions.ActionRuntime.GetActionAvailability
   withIface(self.p, IActionRuntime2, it):
     withHString(actionId, h0):
       var tmp: bool
-      it.call(IActionRuntime2_GetActionAvailability, h0, tmp.addr)
+      check it.vtbl.GetActionAvailability(it, h0, tmp.addr
+                                         ), "ActionRuntime.GetActionAvailability"
       result = tmp
 
 proc createInvocationContextWithWindowId*(self: ActionRuntime, actionId: string,
@@ -529,8 +508,9 @@ proc createInvocationContextWithWindowId*(self: ActionRuntime, actionId: string,
   withIface(self.p, IActionRuntime3, it):
     withHString(actionId, h0):
       var tmp: pointer
-      it.call(IActionRuntime3_CreateInvocationContextWithWindowId, h0,
-              invokerWindowId, tmp.addr)
+      check it.vtbl.CreateInvocationContextWithWindowId(it, h0, invokerWindowId,
+                                                        tmp.addr
+                                                       ), "ActionRuntime.CreateInvocationContextWithWindowId"
       result = adopt[ActionInvocationContext](tmp)
 
 proc getActionEntityById*(self: ActionRuntime, entityId: string): ActionEntity =
@@ -538,15 +518,14 @@ proc getActionEntityById*(self: ActionRuntime, entityId: string): ActionEntity =
   withIface(self.p, IActionRuntime3, it):
     withHString(entityId, h0):
       var tmp: pointer
-      it.call(IActionRuntime3_GetActionEntityById, h0, tmp.addr)
+      check it.vtbl.GetActionEntityById(it, h0, tmp.addr
+                                       ), "ActionRuntime.GetActionEntityById"
       result = adopt[ActionEntity](tmp)
 
 proc latestSupportedSchemaVersion*(self: ActionRuntime): uint32 =
   ## Windows.AI.Actions.ActionRuntime.get_LatestSupportedSchemaVersion
   withIface(self.p, IActionRuntime3, it):
-    var tmp: uint32
-    it.call(IActionRuntime3_get_LatestSupportedSchemaVersion, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LatestSupportedSchemaVersion, uint32)
 
 proc getActionInvocationContextFromToken*(self: ActionRuntime, token: string
                                          ): ActionInvocationContext =
@@ -554,48 +533,44 @@ proc getActionInvocationContextFromToken*(self: ActionRuntime, token: string
   withIface(self.p, IActionRuntime4, it):
     withHString(token, h0):
       var tmp: pointer
-      it.call(IActionRuntime4_GetActionInvocationContextFromToken, h0, tmp.addr)
+      check it.vtbl.GetActionInvocationContextFromToken(it, h0, tmp.addr
+                                                       ), "ActionRuntime.GetActionInvocationContextFromToken"
       result = adopt[ActionInvocationContext](tmp)
 
 proc customEntityStore*(self: ActionRuntime): CustomActionEntityStore =
   ## Windows.AI.Actions.ActionRuntime.get_CustomEntityStore
   withIface(self.p, IActionRuntime5, it):
-    var tmp: pointer
-    it.call(IActionRuntime5_get_CustomEntityStore, tmp.addr)
-    result = adopt[CustomActionEntityStore](tmp)
+    result = it.getObject(get_CustomEntityStore, CustomActionEntityStore)
 
 proc close*(self: ActionRuntime) =
   ## Windows.AI.Actions.ActionRuntime.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "ActionRuntime.Close"
 
 proc getDefault*(_: typedesc[ActionRuntime]): ActionRuntime =
   ## Windows.AI.Actions.ActionRuntime.GetDefault
   withStatics("Windows.AI.Actions.ActionRuntime", IActionRuntimeStatics, it):
     var tmp: pointer
-    it.call(IActionRuntimeStatics_GetDefault, tmp.addr)
+    check it.vtbl.GetDefault(it, tmp.addr), "ActionRuntime.GetDefault"
     result = adopt[ActionRuntime](tmp)
 
 proc sourceId*(self: AppointmentActionEntity): string =
   ## Windows.AI.Actions.AppointmentActionEntity.get_SourceId
   withIface(self.p, IAppointmentActionEntity, it):
-    var tmp: HSTRING
-    it.call(IAppointmentActionEntity_get_SourceId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SourceId)
 
 proc appointment*(self: AppointmentActionEntity): Appointment =
   ## Windows.AI.Actions.AppointmentActionEntity.get_Appointment
   withIface(self.p, IAppointmentActionEntity, it):
-    var tmp: pointer
-    it.call(IAppointmentActionEntity_get_Appointment, tmp.addr)
-    result = adopt[Appointment](tmp)
+    result = it.getObject(get_Appointment, Appointment)
 
 proc getAttendees*(self: AppointmentActionEntity): seq[ContactActionEntity] =
   ## Windows.AI.Actions.AppointmentActionEntity.GetAttendees
   withIface(self.p, IAppointmentActionEntity, it):
     var tmpSize: uint32
     var tmp: ptr pointer
-    it.call(IAppointmentActionEntity_GetAttendees, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetAttendees(it, tmpSize.addr, tmp.addr
+                              ), "AppointmentActionEntity.GetAttendees"
     result = takeArrayObject[ContactActionEntity](tmpSize, tmp)
 
 proc getPresentedFiles*(self: AppointmentActionEntity): seq[RemoteFileActionEntity] =
@@ -603,7 +578,8 @@ proc getPresentedFiles*(self: AppointmentActionEntity): seq[RemoteFileActionEnti
   withIface(self.p, IAppointmentActionEntity, it):
     var tmpSize: uint32
     var tmp: ptr pointer
-    it.call(IAppointmentActionEntity_GetPresentedFiles, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetPresentedFiles(it, tmpSize.addr, tmp.addr
+                                   ), "AppointmentActionEntity.GetPresentedFiles"
     result = takeArrayObject[RemoteFileActionEntity](tmpSize, tmp)
 
 proc setPresentedFiles*(self: AppointmentActionEntity,
@@ -611,14 +587,16 @@ proc setPresentedFiles*(self: AppointmentActionEntity,
   ## Windows.AI.Actions.AppointmentActionEntity.SetPresentedFiles
   withIface(self.p, IAppointmentActionEntity, it):
     withObjectArray(files, IID_IRemoteFileActionEntity, n0, d0):
-      it.call(IAppointmentActionEntity_SetPresentedFiles, n0, d0)
+      check it.vtbl.SetPresentedFiles(it, n0, d0
+                                     ), "AppointmentActionEntity.SetPresentedFiles"
 
 proc getSharedFiles*(self: AppointmentActionEntity): seq[RemoteFileActionEntity] =
   ## Windows.AI.Actions.AppointmentActionEntity.GetSharedFiles
   withIface(self.p, IAppointmentActionEntity, it):
     var tmpSize: uint32
     var tmp: ptr pointer
-    it.call(IAppointmentActionEntity_GetSharedFiles, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetSharedFiles(it, tmpSize.addr, tmp.addr
+                                ), "AppointmentActionEntity.GetSharedFiles"
     result = takeArrayObject[RemoteFileActionEntity](tmpSize, tmp)
 
 proc setSharedFiles*(self: AppointmentActionEntity,
@@ -626,36 +604,31 @@ proc setSharedFiles*(self: AppointmentActionEntity,
   ## Windows.AI.Actions.AppointmentActionEntity.SetSharedFiles
   withIface(self.p, IAppointmentActionEntity, it):
     withObjectArray(files, IID_IRemoteFileActionEntity, n0, d0):
-      it.call(IAppointmentActionEntity_SetSharedFiles, n0, d0)
+      check it.vtbl.SetSharedFiles(it, n0, d0
+                                  ), "AppointmentActionEntity.SetSharedFiles"
 
 proc elementKind*(self: ArrayActionEntity): ActionEntityKind =
   ## Windows.AI.Actions.ArrayActionEntity.get_ElementKind
   withIface(self.p, IArrayActionEntity, it):
-    var tmp: ActionEntityKind
-    it.call(IArrayActionEntity_get_ElementKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ElementKind, ActionEntityKind)
 
 proc getAll*(self: ArrayActionEntity): seq[ActionEntity] =
   ## Windows.AI.Actions.ArrayActionEntity.GetAll
   withIface(self.p, IArrayActionEntity, it):
     var tmpSize: uint32
     var tmp: ptr pointer
-    it.call(IArrayActionEntity_GetAll, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetAll(it, tmpSize.addr, tmp.addr), "ArrayActionEntity.GetAll"
     result = takeArrayObject[ActionEntity](tmpSize, tmp)
 
 proc customElementKind*(self: ArrayActionEntity): string =
   ## Windows.AI.Actions.ArrayActionEntity.get_CustomElementKind
   withIface(self.p, IArrayActionEntity2, it):
-    var tmp: HSTRING
-    it.call(IArrayActionEntity2_get_CustomElementKind, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CustomElementKind)
 
 proc contact*(self: ContactActionEntity): Contact =
   ## Windows.AI.Actions.ContactActionEntity.get_Contact
   withIface(self.p, IContactActionEntity, it):
-    var tmp: pointer
-    it.call(IContactActionEntity_get_Contact, tmp.addr)
-    result = adopt[Contact](tmp)
+    result = it.getObject(get_Contact, Contact)
 
 proc getLastModifiedTime*(self: CustomActionEntityStore, kind: string
                          ): DateTime =
@@ -663,52 +636,50 @@ proc getLastModifiedTime*(self: CustomActionEntityStore, kind: string
   withIface(self.p, ICustomActionEntityStore, it):
     withHString(kind, h0):
       var tmp: DateTime
-      it.call(ICustomActionEntityStore_GetLastModifiedTime, h0, tmp.addr)
+      check it.vtbl.GetLastModifiedTime(it, h0, tmp.addr
+                                       ), "CustomActionEntityStore.GetLastModifiedTime"
       result = tmp
 
 proc insert*(self: CustomActionEntityStore, entity: CustomTextActionEntity) =
   ## Windows.AI.Actions.CustomActionEntityStore.Insert
   withIface(self.p, ICustomActionEntityStore, it):
     withIface(entity.p, ICustomTextActionEntity, p0):
-      it.call(ICustomActionEntityStore_Insert, p0)
+      check it.vtbl.Insert(it, p0), "CustomActionEntityStore.Insert"
 
 proc insertMany*(self: CustomActionEntityStore,
                  entities: openArray[CustomTextActionEntity]) =
   ## Windows.AI.Actions.CustomActionEntityStore.InsertMany
   withIface(self.p, ICustomActionEntityStore, it):
     withObjectArray(entities, IID_ICustomTextActionEntity, n0, d0):
-      it.call(ICustomActionEntityStore_InsertMany, n0, d0)
+      check it.vtbl.InsertMany(it, n0, d0), "CustomActionEntityStore.InsertMany"
 
 proc delete*(self: CustomActionEntityStore, kind: string) =
   ## Windows.AI.Actions.CustomActionEntityStore.Delete
   withIface(self.p, ICustomActionEntityStore, it):
     withHString(kind, h0):
-      it.call(ICustomActionEntityStore_Delete, h0)
+      check it.vtbl.Delete(it, h0), "CustomActionEntityStore.Delete"
 
 proc close*(self: CustomActionEntityStore) =
   ## Windows.AI.Actions.CustomActionEntityStore.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "CustomActionEntityStore.Close"
 
 proc customTextKind*(self: CustomTextActionEntity): string =
   ## Windows.AI.Actions.CustomTextActionEntity.get_CustomTextKind
   withIface(self.p, ICustomTextActionEntity, it):
-    var tmp: HSTRING
-    it.call(ICustomTextActionEntity_get_CustomTextKind, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CustomTextKind)
 
 proc keyPhrase*(self: CustomTextActionEntity): string =
   ## Windows.AI.Actions.CustomTextActionEntity.get_KeyPhrase
   withIface(self.p, ICustomTextActionEntity, it):
-    var tmp: HSTRING
-    it.call(ICustomTextActionEntity_get_KeyPhrase, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_KeyPhrase)
 
 proc properties*(self: CustomTextActionEntity): Table[string, WinRtObject] =
   ## Windows.AI.Actions.CustomTextActionEntity.get_Properties
   withIface(self.p, ICustomTextActionEntity, it):
     var tmp: pointer
-    it.call(ICustomTextActionEntity_get_Properties, tmp.addr)
+    check it.vtbl.get_Properties(it, tmp.addr
+                                ), "CustomTextActionEntity.get_Properties"
     result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_2,
                                           IID_IKeyValuePair_2_String_Object)
     release(tmp)
@@ -716,30 +687,25 @@ proc properties*(self: CustomTextActionEntity): Table[string, WinRtObject] =
 proc dateTime*(self: DateTimeActionEntity): DateTime =
   ## Windows.AI.Actions.DateTimeActionEntity.get_DateTime
   withIface(self.p, IDateTimeActionEntity, it):
-    var tmp: DateTime
-    it.call(IDateTimeActionEntity_get_DateTime, tmp.addr)
-    result = tmp
+    result = it.getValue(get_DateTime, DateTime)
 
 proc fullPath*(self: DocumentActionEntity): string =
   ## Windows.AI.Actions.DocumentActionEntity.get_FullPath
   withIface(self.p, IDocumentActionEntity, it):
-    var tmp: HSTRING
-    it.call(IDocumentActionEntity_get_FullPath, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_FullPath)
 
 proc fullPath*(self: FileActionEntity): string =
   ## Windows.AI.Actions.FileActionEntity.get_FullPath
   withIface(self.p, IFileActionEntity, it):
-    var tmp: HSTRING
-    it.call(IFileActionEntity_get_FullPath, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_FullPath)
 
 proc getAllActions*(self: ActionCatalog): seq[ActionDefinition] =
   ## Windows.AI.Actions.Hosting.ActionCatalog.GetAllActions
   withIface(self.p, IActionCatalog, it):
     var tmpSize: uint32
     var tmp: ptr pointer
-    it.call(IActionCatalog_GetAllActions, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetAllActions(it, tmpSize.addr, tmp.addr
+                               ), "ActionCatalog.GetAllActions"
     result = takeArrayObject[ActionDefinition](tmpSize, tmp)
 
 proc onChanged*(self: ActionCatalog,
@@ -753,13 +719,13 @@ proc onChanged*(self: ActionCatalog,
     let cb = newDelegate(IID_TypedEventHandler_2_ActionCatalog_Object, shim,
                          event = true)
     try:
-      it.call(IActionCatalog_add_Changed, cb, result.addr)
+      check it.vtbl.add_Changed(it, cb, result.addr), "ActionCatalog.add_Changed"
     finally:
       release(cb)
 
 proc removeChanged*(self: ActionCatalog, token: EventRegistrationToken) =
   withIface(self.p, IActionCatalog, it):
-    it.call(IActionCatalog_remove_Changed, token)
+    check it.vtbl.remove_Changed(it, token), "ActionCatalog.remove_Changed"
 
 proc getActionsForInputs*(self: ActionCatalog,
                           inputEntities: openArray[ActionEntity]
@@ -769,8 +735,8 @@ proc getActionsForInputs*(self: ActionCatalog,
     withObjectArray(inputEntities, IID_IActionEntity, n0, d0):
       var tmpSize: uint32
       var tmp: ptr pointer
-      it.call(IActionCatalog2_GetActionsForInputs, n0, d0, tmpSize.addr,
-              tmp.addr)
+      check it.vtbl.GetActionsForInputs(it, n0, d0, tmpSize.addr, tmp.addr
+                                       ), "ActionCatalog.GetActionsForInputs"
       result = takeArrayObject[ActionInstance](tmpSize, tmp)
 
 proc getActionsForInputs*(self: ActionCatalog,
@@ -781,8 +747,9 @@ proc getActionsForInputs*(self: ActionCatalog,
     withObjectArray(inputEntities, IID_IActionEntity, n0, d0):
       var tmpSize: uint32
       var tmp: ptr pointer
-      it.call(IActionCatalog2_GetActionsForInputs2, n0, d0, invokerWindowId,
-              tmpSize.addr, tmp.addr)
+      check it.vtbl.GetActionsForInputs2(it, n0, d0, invokerWindowId,
+                                         tmpSize.addr, tmp.addr
+                                        ), "ActionCatalog.GetActionsForInputs"
       result = takeArrayObject[ActionInstance](tmpSize, tmp)
 
 proc getActionsForCurrentApp*(self: ActionCatalog): seq[ActionDefinition] =
@@ -790,48 +757,42 @@ proc getActionsForCurrentApp*(self: ActionCatalog): seq[ActionDefinition] =
   withIface(self.p, IActionCatalog3, it):
     var tmpSize: uint32
     var tmp: ptr pointer
-    it.call(IActionCatalog3_GetActionsForCurrentApp, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetActionsForCurrentApp(it, tmpSize.addr, tmp.addr
+                                         ), "ActionCatalog.GetActionsForCurrentApp"
     result = takeArrayObject[ActionDefinition](tmpSize, tmp)
 
 proc close*(self: ActionCatalog) =
   ## Windows.AI.Actions.Hosting.ActionCatalog.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "ActionCatalog.Close"
 
 proc id*(self: ActionDefinition): string =
   ## Windows.AI.Actions.Hosting.ActionDefinition.get_Id
   withIface(self.p, IActionDefinition, it):
-    var tmp: HSTRING
-    it.call(IActionDefinition_get_Id, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Id)
 
 proc description*(self: ActionDefinition): string =
   ## Windows.AI.Actions.Hosting.ActionDefinition.get_Description
   withIface(self.p, IActionDefinition, it):
-    var tmp: HSTRING
-    it.call(IActionDefinition_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc iconFullPath*(self: ActionDefinition): string =
   ## Windows.AI.Actions.Hosting.ActionDefinition.get_IconFullPath
   withIface(self.p, IActionDefinition, it):
-    var tmp: HSTRING
-    it.call(IActionDefinition_get_IconFullPath, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_IconFullPath)
 
 proc packageFamilyName*(self: ActionDefinition): string =
   ## Windows.AI.Actions.Hosting.ActionDefinition.get_PackageFamilyName
   withIface(self.p, IActionDefinition, it):
-    var tmp: HSTRING
-    it.call(IActionDefinition_get_PackageFamilyName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PackageFamilyName)
 
 proc getInputs*(self: ActionDefinition): seq[ActionEntityRegistrationInfo] =
   ## Windows.AI.Actions.Hosting.ActionDefinition.GetInputs
   withIface(self.p, IActionDefinition, it):
     var tmpSize: uint32
     var tmp: ptr pointer
-    it.call(IActionDefinition_GetInputs, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetInputs(it, tmpSize.addr, tmp.addr
+                           ), "ActionDefinition.GetInputs"
     result = takeArrayObject[ActionEntityRegistrationInfo](tmpSize, tmp)
 
 proc getOutputs*(self: ActionDefinition): seq[ActionEntityRegistrationInfo] =
@@ -839,7 +800,8 @@ proc getOutputs*(self: ActionDefinition): seq[ActionEntityRegistrationInfo] =
   withIface(self.p, IActionDefinition, it):
     var tmpSize: uint32
     var tmp: ptr pointer
-    it.call(IActionDefinition_GetOutputs, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetOutputs(it, tmpSize.addr, tmp.addr
+                            ), "ActionDefinition.GetOutputs"
     result = takeArrayObject[ActionEntityRegistrationInfo](tmpSize, tmp)
 
 proc getOverloads*(self: ActionDefinition): seq[ActionOverload] =
@@ -847,43 +809,34 @@ proc getOverloads*(self: ActionDefinition): seq[ActionOverload] =
   withIface(self.p, IActionDefinition, it):
     var tmpSize: uint32
     var tmp: ptr pointer
-    it.call(IActionDefinition_GetOverloads, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetOverloads(it, tmpSize.addr, tmp.addr
+                              ), "ActionDefinition.GetOverloads"
     result = takeArrayObject[ActionOverload](tmpSize, tmp)
 
 proc displaysUI*(self: ActionDefinition): bool =
   ## Windows.AI.Actions.Hosting.ActionDefinition.get_DisplaysUI
   withIface(self.p, IActionDefinition2, it):
-    var tmp: bool
-    it.call(IActionDefinition2_get_DisplaysUI, tmp.addr)
-    result = tmp
+    result = it.getValue(get_DisplaysUI, bool)
 
 proc usesGenerativeAI*(self: ActionDefinition): bool =
   ## Windows.AI.Actions.Hosting.ActionDefinition.get_UsesGenerativeAI
   withIface(self.p, IActionDefinition2, it):
-    var tmp: bool
-    it.call(IActionDefinition2_get_UsesGenerativeAI, tmp.addr)
-    result = tmp
+    result = it.getValue(get_UsesGenerativeAI, bool)
 
 proc schemaVersion*(self: ActionDefinition): uint32 =
   ## Windows.AI.Actions.Hosting.ActionDefinition.get_SchemaVersion
   withIface(self.p, IActionDefinition2, it):
-    var tmp: uint32
-    it.call(IActionDefinition2_get_SchemaVersion, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SchemaVersion, uint32)
 
 proc packageRelativeApplicationId*(self: ActionDefinition): string =
   ## Windows.AI.Actions.Hosting.ActionDefinition.get_PackageRelativeApplicationId
   withIface(self.p, IActionDefinition3, it):
-    var tmp: HSTRING
-    it.call(IActionDefinition3_get_PackageRelativeApplicationId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PackageRelativeApplicationId)
 
 proc isCurrentlyAvailable*(self: ActionDefinition): bool =
   ## Windows.AI.Actions.Hosting.ActionDefinition.get_IsCurrentlyAvailable
   withIface(self.p, IActionDefinition4, it):
-    var tmp: bool
-    it.call(IActionDefinition4_get_IsCurrentlyAvailable, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsCurrentlyAvailable, bool)
 
 proc getIconFullPath*(self: ActionDefinition, qualifierValues: PropertySet
                      ): string =
@@ -891,93 +844,80 @@ proc getIconFullPath*(self: ActionDefinition, qualifierValues: PropertySet
   withIface(self.p, IActionDefinition5, it):
     withIface(qualifierValues.p, IPropertySet, p0):
       var tmp: HSTRING
-      it.call(IActionDefinition5_GetIconFullPath, p0, tmp.addr)
+      check it.vtbl.GetIconFullPath(it, p0, tmp.addr
+                                   ), "ActionDefinition.GetIconFullPath"
       result = takeString(tmp)
 
 proc close*(self: ActionDefinition) =
   ## Windows.AI.Actions.Hosting.ActionDefinition.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "ActionDefinition.Close"
 
 proc name*(self: ActionEntityRegistrationInfo): string =
   ## Windows.AI.Actions.Hosting.ActionEntityRegistrationInfo.get_Name
   withIface(self.p, IActionEntityRegistrationInfo, it):
-    var tmp: HSTRING
-    it.call(IActionEntityRegistrationInfo_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc `name=`*(self: ActionEntityRegistrationInfo, value: string) =
   ## Windows.AI.Actions.Hosting.ActionEntityRegistrationInfo.put_Name
   withIface(self.p, IActionEntityRegistrationInfo, it):
-    withHString(value, h0):
-      it.call(IActionEntityRegistrationInfo_put_Name, h0)
+    it.putString(put_Name, value)
 
 proc kind*(self: ActionEntityRegistrationInfo): ActionEntityKind =
   ## Windows.AI.Actions.Hosting.ActionEntityRegistrationInfo.get_Kind
   withIface(self.p, IActionEntityRegistrationInfo, it):
-    var tmp: ActionEntityKind
-    it.call(IActionEntityRegistrationInfo_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, ActionEntityKind)
 
 proc `kind=`*(self: ActionEntityRegistrationInfo, value: ActionEntityKind) =
   ## Windows.AI.Actions.Hosting.ActionEntityRegistrationInfo.put_Kind
   withIface(self.p, IActionEntityRegistrationInfo, it):
-    it.call(IActionEntityRegistrationInfo_put_Kind, value)
+    it.putValue(put_Kind, value)
 
 proc close*(self: ActionEntityRegistrationInfo) =
   ## Windows.AI.Actions.Hosting.ActionEntityRegistrationInfo.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "ActionEntityRegistrationInfo.Close"
 
 proc displayInfo*(self: ActionInstance): ActionInstanceDisplayInfo =
   ## Windows.AI.Actions.Hosting.ActionInstance.get_DisplayInfo
   withIface(self.p, IActionInstance, it):
-    var tmp: pointer
-    it.call(IActionInstance_get_DisplayInfo, tmp.addr)
-    result = adopt[ActionInstanceDisplayInfo](tmp)
+    result = it.getObject(get_DisplayInfo, ActionInstanceDisplayInfo)
 
 proc definition*(self: ActionInstance): ActionDefinition =
   ## Windows.AI.Actions.Hosting.ActionInstance.get_Definition
   withIface(self.p, IActionInstance, it):
-    var tmp: pointer
-    it.call(IActionInstance_get_Definition, tmp.addr)
-    result = adopt[ActionDefinition](tmp)
+    result = it.getObject(get_Definition, ActionDefinition)
 
 proc context*(self: ActionInstance): ActionInvocationContext =
   ## Windows.AI.Actions.Hosting.ActionInstance.get_Context
   withIface(self.p, IActionInstance, it):
-    var tmp: pointer
-    it.call(IActionInstance_get_Context, tmp.addr)
-    result = adopt[ActionInvocationContext](tmp)
+    result = it.getObject(get_Context, ActionInvocationContext)
 
 proc invokeAsync*(self: ActionInstance) {.async.} =
   ## Windows.AI.Actions.Hosting.ActionInstance.InvokeAsync
   var op: pointer
   withIface(self.p, IActionInstance, it):
-    it.call(IActionInstance_InvokeAsync, op.addr)
+    check it.vtbl.InvokeAsync(it, op.addr), "ActionInstance.InvokeAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "ActionInstance.InvokeAsync")
 
 proc description*(self: ActionInstanceDisplayInfo): string =
   ## Windows.AI.Actions.Hosting.ActionInstanceDisplayInfo.get_Description
   withIface(self.p, IActionInstanceDisplayInfo, it):
-    var tmp: HSTRING
-    it.call(IActionInstanceDisplayInfo_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc descriptionTemplate*(self: ActionOverload): string =
   ## Windows.AI.Actions.Hosting.ActionOverload.get_DescriptionTemplate
   withIface(self.p, IActionOverload, it):
-    var tmp: HSTRING
-    it.call(IActionOverload_get_DescriptionTemplate, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DescriptionTemplate)
 
 proc getInputs*(self: ActionOverload): seq[ActionEntityRegistrationInfo] =
   ## Windows.AI.Actions.Hosting.ActionOverload.GetInputs
   withIface(self.p, IActionOverload, it):
     var tmpSize: uint32
     var tmp: ptr pointer
-    it.call(IActionOverload_GetInputs, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetInputs(it, tmpSize.addr, tmp.addr
+                           ), "ActionOverload.GetInputs"
     result = takeArrayObject[ActionEntityRegistrationInfo](tmpSize, tmp)
 
 proc invokeAsync*(self: ActionOverload, context: ActionInvocationContext
@@ -986,7 +926,7 @@ proc invokeAsync*(self: ActionOverload, context: ActionInvocationContext
   var op: pointer
   withIface(self.p, IActionOverload, it):
     withIface(context.p, IActionInvocationContext, p0):
-      it.call(IActionOverload_InvokeAsync, p0, op.addr)
+      check it.vtbl.InvokeAsync(it, p0, op.addr), "ActionOverload.InvokeAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "ActionOverload.InvokeAsync")
 
@@ -998,7 +938,8 @@ proc invokeFeedbackAsync*(self: ActionOverload,
   withIface(self.p, IActionOverload2, it):
     withIface(context.p, IActionInvocationContext, p0):
       withIface(feedback.p, IActionFeedback, p1):
-        it.call(IActionOverload2_InvokeFeedbackAsync, p0, p1, op.addr)
+        check it.vtbl.InvokeFeedbackAsync(it, p0, p1, op.addr
+                                         ), "ActionOverload.InvokeFeedbackAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "ActionOverload.InvokeFeedbackAsync")
 
@@ -1006,139 +947,113 @@ proc getSupportsFeedback*(self: ActionOverload): bool =
   ## Windows.AI.Actions.Hosting.ActionOverload.GetSupportsFeedback
   withIface(self.p, IActionOverload2, it):
     var tmp: bool
-    it.call(IActionOverload2_GetSupportsFeedback, tmp.addr)
+    check it.vtbl.GetSupportsFeedback(it, tmp.addr
+                                     ), "ActionOverload.GetSupportsFeedback"
     result = tmp
 
 proc close*(self: ActionOverload) =
   ## Windows.AI.Actions.Hosting.ActionOverload.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "ActionOverload.Close"
 
 proc name*(self: NamedActionEntity): string =
   ## Windows.AI.Actions.NamedActionEntity.get_Name
   withIface(self.p, INamedActionEntity, it):
-    var tmp: HSTRING
-    it.call(INamedActionEntity_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc `name=`*(self: NamedActionEntity, value: string) =
   ## Windows.AI.Actions.NamedActionEntity.put_Name
   withIface(self.p, INamedActionEntity, it):
-    withHString(value, h0):
-      it.call(INamedActionEntity_put_Name, h0)
+    it.putString(put_Name, value)
 
 proc entity*(self: NamedActionEntity): ActionEntity =
   ## Windows.AI.Actions.NamedActionEntity.get_Entity
   withIface(self.p, INamedActionEntity, it):
-    var tmp: pointer
-    it.call(INamedActionEntity_get_Entity, tmp.addr)
-    result = adopt[ActionEntity](tmp)
+    result = it.getObject(get_Entity, ActionEntity)
 
 proc `entity=`*(self: NamedActionEntity, value: ActionEntity) =
   ## Windows.AI.Actions.NamedActionEntity.put_Entity
   withIface(self.p, INamedActionEntity, it):
     withIface(value.p, IActionEntity, p0):
-      it.call(INamedActionEntity_put_Entity, p0)
+      check it.vtbl.put_Entity(it, p0), "NamedActionEntity.put_Entity"
 
 proc close*(self: NamedActionEntity) =
   ## Windows.AI.Actions.NamedActionEntity.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "NamedActionEntity.Close"
 
 proc fullPath*(self: PhotoActionEntity): string =
   ## Windows.AI.Actions.PhotoActionEntity.get_FullPath
   withIface(self.p, IPhotoActionEntity, it):
-    var tmp: HSTRING
-    it.call(IPhotoActionEntity_get_FullPath, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_FullPath)
 
 proc sourceId*(self: RemoteFileActionEntity): string =
   ## Windows.AI.Actions.RemoteFileActionEntity.get_SourceId
   withIface(self.p, IRemoteFileActionEntity, it):
-    var tmp: HSTRING
-    it.call(IRemoteFileActionEntity_get_SourceId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SourceId)
 
 proc fileKind*(self: RemoteFileActionEntity): RemoteFileKind =
   ## Windows.AI.Actions.RemoteFileActionEntity.get_FileKind
   withIface(self.p, IRemoteFileActionEntity, it):
-    var tmp: RemoteFileKind
-    it.call(IRemoteFileActionEntity_get_FileKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FileKind, RemoteFileKind)
 
 proc sourceUri*(self: RemoteFileActionEntity): Uri =
   ## Windows.AI.Actions.RemoteFileActionEntity.get_SourceUri
   withIface(self.p, IRemoteFileActionEntity, it):
-    var tmp: pointer
-    it.call(IRemoteFileActionEntity_get_SourceUri, tmp.addr)
-    result = adopt[Uri](tmp)
+    result = it.getObject(get_SourceUri, Uri)
 
 proc fileId*(self: RemoteFileActionEntity): string =
   ## Windows.AI.Actions.RemoteFileActionEntity.get_FileId
   withIface(self.p, IRemoteFileActionEntity, it):
-    var tmp: HSTRING
-    it.call(IRemoteFileActionEntity_get_FileId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_FileId)
 
 proc contentType*(self: RemoteFileActionEntity): string =
   ## Windows.AI.Actions.RemoteFileActionEntity.get_ContentType
   withIface(self.p, IRemoteFileActionEntity, it):
-    var tmp: HSTRING
-    it.call(IRemoteFileActionEntity_get_ContentType, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ContentType)
 
 proc driveId*(self: RemoteFileActionEntity): string =
   ## Windows.AI.Actions.RemoteFileActionEntity.get_DriveId
   withIface(self.p, IRemoteFileActionEntity, it):
-    var tmp: HSTRING
-    it.call(IRemoteFileActionEntity_get_DriveId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DriveId)
 
 proc accountId*(self: RemoteFileActionEntity): string =
   ## Windows.AI.Actions.RemoteFileActionEntity.get_AccountId
   withIface(self.p, IRemoteFileActionEntity, it):
-    var tmp: HSTRING
-    it.call(IRemoteFileActionEntity_get_AccountId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AccountId)
 
 proc extension*(self: RemoteFileActionEntity): string =
   ## Windows.AI.Actions.RemoteFileActionEntity.get_Extension
   withIface(self.p, IRemoteFileActionEntity, it):
-    var tmp: HSTRING
-    it.call(IRemoteFileActionEntity_get_Extension, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Extension)
 
 proc filename*(self: RemoteFileActionEntity): string =
   ## Windows.AI.Actions.RemoteFileActionEntity.get_Filename
   withIface(self.p, IRemoteFileActionEntity2, it):
-    var tmp: HSTRING
-    it.call(IRemoteFileActionEntity2_get_Filename, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Filename)
 
 proc `filename=`*(self: RemoteFileActionEntity, value: string) =
   ## Windows.AI.Actions.RemoteFileActionEntity.put_Filename
   withIface(self.p, IRemoteFileActionEntity2, it):
-    withHString(value, h0):
-      it.call(IRemoteFileActionEntity2_put_Filename, h0)
+    it.putString(put_Filename, value)
 
 proc creator*(self: RemoteFileActionEntity): ContactActionEntity =
   ## Windows.AI.Actions.RemoteFileActionEntity.get_Creator
   withIface(self.p, IRemoteFileActionEntity2, it):
-    var tmp: pointer
-    it.call(IRemoteFileActionEntity2_get_Creator, tmp.addr)
-    result = adopt[ContactActionEntity](tmp)
+    result = it.getObject(get_Creator, ContactActionEntity)
 
 proc `creator=`*(self: RemoteFileActionEntity, value: ContactActionEntity) =
   ## Windows.AI.Actions.RemoteFileActionEntity.put_Creator
   withIface(self.p, IRemoteFileActionEntity2, it):
     withIface(value.p, IContactActionEntity, p0):
-      it.call(IRemoteFileActionEntity2_put_Creator, p0)
+      check it.vtbl.put_Creator(it, p0), "RemoteFileActionEntity.put_Creator"
 
 proc lastUpdatedTime*(self: RemoteFileActionEntity): Option[DateTime] =
   ## Windows.AI.Actions.RemoteFileActionEntity.get_LastUpdatedTime
   withIface(self.p, IRemoteFileActionEntity2, it):
     var tmp: pointer
-    it.call(IRemoteFileActionEntity2_get_LastUpdatedTime, tmp.addr)
+    check it.vtbl.get_LastUpdatedTime(it, tmp.addr
+                                     ), "RemoteFileActionEntity.get_LastUpdatedTime"
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
                                      "RemoteFileActionEntity.get_LastUpdatedTime"
                                     )
@@ -1150,43 +1065,42 @@ proc `lastUpdatedTime=`*(self: RemoteFileActionEntity, value: Option[DateTime]
   withIface(self.p, IRemoteFileActionEntity2, it):
     let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
     defer: discard release(p0)
-    it.call(IRemoteFileActionEntity2_put_LastUpdatedTime, p0)
+    check it.vtbl.put_LastUpdatedTime(it, p0
+                                     ), "RemoteFileActionEntity.put_LastUpdatedTime"
 
 proc setContributors*(self: RemoteFileActionEntity,
                       contributors: openArray[ContactActionEntity]) =
   ## Windows.AI.Actions.RemoteFileActionEntity.SetContributors
   withIface(self.p, IRemoteFileActionEntity2, it):
     withObjectArray(contributors, IID_IContactActionEntity, n0, d0):
-      it.call(IRemoteFileActionEntity2_SetContributors, n0, d0)
+      check it.vtbl.SetContributors(it, n0, d0
+                                   ), "RemoteFileActionEntity.SetContributors"
 
 proc getContributors*(self: RemoteFileActionEntity): seq[ContactActionEntity] =
   ## Windows.AI.Actions.RemoteFileActionEntity.GetContributors
   withIface(self.p, IRemoteFileActionEntity2, it):
     var tmpSize: uint32
     var tmp: ptr pointer
-    it.call(IRemoteFileActionEntity2_GetContributors, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetContributors(it, tmpSize.addr, tmp.addr
+                                 ), "RemoteFileActionEntity.GetContributors"
     result = takeArrayObject[ContactActionEntity](tmpSize, tmp)
 
 proc isComplete*(self: StreamingTextActionEntity): bool =
   ## Windows.AI.Actions.StreamingTextActionEntity.get_IsComplete
   withIface(self.p, IStreamingTextActionEntity, it):
-    var tmp: bool
-    it.call(IStreamingTextActionEntity_get_IsComplete, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsComplete, bool)
 
 proc getText*(self: StreamingTextActionEntity): string =
   ## Windows.AI.Actions.StreamingTextActionEntity.GetText
   withIface(self.p, IStreamingTextActionEntity, it):
     var tmp: HSTRING
-    it.call(IStreamingTextActionEntity_GetText, tmp.addr)
+    check it.vtbl.GetText(it, tmp.addr), "StreamingTextActionEntity.GetText"
     result = takeString(tmp)
 
 proc textFormat*(self: StreamingTextActionEntity): ActionEntityTextFormat =
   ## Windows.AI.Actions.StreamingTextActionEntity.get_TextFormat
   withIface(self.p, IStreamingTextActionEntity, it):
-    var tmp: ActionEntityTextFormat
-    it.call(IStreamingTextActionEntity_get_TextFormat, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TextFormat, ActionEntityTextFormat)
 
 proc onTextChanged*(self: StreamingTextActionEntity,
                     handler: EventHandler[StreamingTextActionEntity, StreamingTextActionEntityTextChangedArgs]
@@ -1200,172 +1114,133 @@ proc onTextChanged*(self: StreamingTextActionEntity,
     let cb = newDelegate(IID_TypedEventHandler_2_StreamingTextActionEntity_StreamingTextActionEntityTextChangedArgs,
                          shim, event = true)
     try:
-      it.call(IStreamingTextActionEntity_add_TextChanged, cb, result.addr)
+      check it.vtbl.add_TextChanged(it, cb, result.addr), "StreamingTextActionEntity.add_TextChanged"
     finally:
       release(cb)
 
 proc removeTextChanged*(self: StreamingTextActionEntity, token: EventRegistrationToken) =
   withIface(self.p, IStreamingTextActionEntity, it):
-    it.call(IStreamingTextActionEntity_remove_TextChanged, token)
+    check it.vtbl.remove_TextChanged(it, token), "StreamingTextActionEntity.remove_TextChanged"
 
 proc text*(self: StreamingTextActionEntityTextChangedArgs): string =
   ## Windows.AI.Actions.StreamingTextActionEntityTextChangedArgs.get_Text
   withIface(self.p, IStreamingTextActionEntityTextChangedArgs, it):
-    var tmp: HSTRING
-    it.call(IStreamingTextActionEntityTextChangedArgs_get_Text, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Text)
 
 proc isComplete*(self: StreamingTextActionEntityTextChangedArgs): bool =
   ## Windows.AI.Actions.StreamingTextActionEntityTextChangedArgs.get_IsComplete
   withIface(self.p, IStreamingTextActionEntityTextChangedArgs, it):
-    var tmp: bool
-    it.call(IStreamingTextActionEntityTextChangedArgs_get_IsComplete, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsComplete, bool)
 
 proc readerEntity*(self: StreamingTextActionEntityWriter): StreamingTextActionEntity =
   ## Windows.AI.Actions.StreamingTextActionEntityWriter.get_ReaderEntity
   withIface(self.p, IStreamingTextActionEntityWriter, it):
-    var tmp: pointer
-    it.call(IStreamingTextActionEntityWriter_get_ReaderEntity, tmp.addr)
-    result = adopt[StreamingTextActionEntity](tmp)
+    result = it.getObject(get_ReaderEntity, StreamingTextActionEntity)
 
 proc textFormat*(self: StreamingTextActionEntityWriter): ActionEntityTextFormat =
   ## Windows.AI.Actions.StreamingTextActionEntityWriter.get_TextFormat
   withIface(self.p, IStreamingTextActionEntityWriter, it):
-    var tmp: ActionEntityTextFormat
-    it.call(IStreamingTextActionEntityWriter_get_TextFormat, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TextFormat, ActionEntityTextFormat)
 
 proc setText*(self: StreamingTextActionEntityWriter, text: string) =
   ## Windows.AI.Actions.StreamingTextActionEntityWriter.SetText
   withIface(self.p, IStreamingTextActionEntityWriter, it):
     withHString(text, h0):
-      it.call(IStreamingTextActionEntityWriter_SetText, h0)
+      check it.vtbl.SetText(it, h0), "StreamingTextActionEntityWriter.SetText"
 
 proc close*(self: StreamingTextActionEntityWriter) =
   ## Windows.AI.Actions.StreamingTextActionEntityWriter.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "StreamingTextActionEntityWriter.Close"
 
 proc getTextContent*(self: TableActionEntity): seq[string] =
   ## Windows.AI.Actions.TableActionEntity.GetTextContent
   withIface(self.p, ITableActionEntity, it):
     var tmpSize: uint32
     var tmp: ptr HSTRING
-    it.call(ITableActionEntity_GetTextContent, tmpSize.addr, tmp.addr)
+    check it.vtbl.GetTextContent(it, tmpSize.addr, tmp.addr
+                                ), "TableActionEntity.GetTextContent"
     result = takeArrayString(tmpSize, tmp)
 
 proc rowCount*(self: TableActionEntity): uint32 =
   ## Windows.AI.Actions.TableActionEntity.get_RowCount
   withIface(self.p, ITableActionEntity, it):
-    var tmp: uint32
-    it.call(ITableActionEntity_get_RowCount, tmp.addr)
-    result = tmp
+    result = it.getValue(get_RowCount, uint32)
 
 proc columnCount*(self: TableActionEntity): uint32 =
   ## Windows.AI.Actions.TableActionEntity.get_ColumnCount
   withIface(self.p, ITableActionEntity, it):
-    var tmp: uint32
-    it.call(ITableActionEntity_get_ColumnCount, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ColumnCount, uint32)
 
 proc text*(self: TextActionEntity): string =
   ## Windows.AI.Actions.TextActionEntity.get_Text
   withIface(self.p, ITextActionEntity, it):
-    var tmp: HSTRING
-    it.call(ITextActionEntity_get_Text, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Text)
 
 proc textFormat*(self: TextActionEntity): ActionEntityTextFormat =
   ## Windows.AI.Actions.TextActionEntity.get_TextFormat
   withIface(self.p, ITextActionEntity2, it):
-    var tmp: ActionEntityTextFormat
-    it.call(ITextActionEntity2_get_TextFormat, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TextFormat, ActionEntityTextFormat)
 
 proc uri*(self: UriActionEntity): Uri =
   ## Windows.AI.Actions.UriActionEntity.get_Uri
   withIface(self.p, IUriActionEntity, it):
-    var tmp: pointer
-    it.call(IUriActionEntity_get_Uri, tmp.addr)
-    result = adopt[Uri](tmp)
+    result = it.getObject(get_Uri, Uri)
 
 proc bitmapPixelFormat*(self: ImageFeatureDescriptor): BitmapPixelFormat =
   ## Windows.AI.MachineLearning.ImageFeatureDescriptor.get_BitmapPixelFormat
   withIface(self.p, IImageFeatureDescriptor, it):
-    var tmp: BitmapPixelFormat
-    it.call(IImageFeatureDescriptor_get_BitmapPixelFormat, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BitmapPixelFormat, BitmapPixelFormat)
 
 proc bitmapAlphaMode*(self: ImageFeatureDescriptor): BitmapAlphaMode =
   ## Windows.AI.MachineLearning.ImageFeatureDescriptor.get_BitmapAlphaMode
   withIface(self.p, IImageFeatureDescriptor, it):
-    var tmp: BitmapAlphaMode
-    it.call(IImageFeatureDescriptor_get_BitmapAlphaMode, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BitmapAlphaMode, BitmapAlphaMode)
 
 proc width*(self: ImageFeatureDescriptor): uint32 =
   ## Windows.AI.MachineLearning.ImageFeatureDescriptor.get_Width
   withIface(self.p, IImageFeatureDescriptor, it):
-    var tmp: uint32
-    it.call(IImageFeatureDescriptor_get_Width, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Width, uint32)
 
 proc height*(self: ImageFeatureDescriptor): uint32 =
   ## Windows.AI.MachineLearning.ImageFeatureDescriptor.get_Height
   withIface(self.p, IImageFeatureDescriptor, it):
-    var tmp: uint32
-    it.call(IImageFeatureDescriptor_get_Height, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Height, uint32)
 
 proc pixelRange*(self: ImageFeatureDescriptor): LearningModelPixelRange =
   ## Windows.AI.MachineLearning.ImageFeatureDescriptor.get_PixelRange
   withIface(self.p, IImageFeatureDescriptor2, it):
-    var tmp: LearningModelPixelRange
-    it.call(IImageFeatureDescriptor2_get_PixelRange, tmp.addr)
-    result = tmp
+    result = it.getValue(get_PixelRange, LearningModelPixelRange)
 
 proc name*(self: ImageFeatureDescriptor): string =
   ## Windows.AI.MachineLearning.ImageFeatureDescriptor.get_Name
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: HSTRING
-    it.call(ILearningModelFeatureDescriptor_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc description*(self: ImageFeatureDescriptor): string =
   ## Windows.AI.MachineLearning.ImageFeatureDescriptor.get_Description
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: HSTRING
-    it.call(ILearningModelFeatureDescriptor_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc kind*(self: ImageFeatureDescriptor): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.ImageFeatureDescriptor.get_Kind
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureDescriptor_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc isRequired*(self: ImageFeatureDescriptor): bool =
   ## Windows.AI.MachineLearning.ImageFeatureDescriptor.get_IsRequired
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: bool
-    it.call(ILearningModelFeatureDescriptor_get_IsRequired, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsRequired, bool)
 
 proc videoFrame*(self: ImageFeatureValue): VideoFrame =
   ## Windows.AI.MachineLearning.ImageFeatureValue.get_VideoFrame
   withIface(self.p, IImageFeatureValue, it):
-    var tmp: pointer
-    it.call(IImageFeatureValue_get_VideoFrame, tmp.addr)
-    result = adopt[VideoFrame](tmp)
+    result = it.getObject(get_VideoFrame, VideoFrame)
 
 proc kind*(self: ImageFeatureValue): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.ImageFeatureValue.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createFromVideoFrame*(_: typedesc[ImageFeatureValue], image: VideoFrame
                           ): ImageFeatureValue =
@@ -1374,49 +1249,40 @@ proc createFromVideoFrame*(_: typedesc[ImageFeatureValue], image: VideoFrame
               IImageFeatureValueStatics, it):
     withIface(image.p, IVideoFrame, p0):
       var tmp: pointer
-      it.call(IImageFeatureValueStatics_CreateFromVideoFrame, p0, tmp.addr)
+      check it.vtbl.CreateFromVideoFrame(it, p0, tmp.addr
+                                        ), "ImageFeatureValue.CreateFromVideoFrame"
       result = adopt[ImageFeatureValue](tmp)
 
 proc author*(self: LearningModel): string =
   ## Windows.AI.MachineLearning.LearningModel.get_Author
   withIface(self.p, ILearningModel, it):
-    var tmp: HSTRING
-    it.call(ILearningModel_get_Author, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Author)
 
 proc name*(self: LearningModel): string =
   ## Windows.AI.MachineLearning.LearningModel.get_Name
   withIface(self.p, ILearningModel, it):
-    var tmp: HSTRING
-    it.call(ILearningModel_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc domain*(self: LearningModel): string =
   ## Windows.AI.MachineLearning.LearningModel.get_Domain
   withIface(self.p, ILearningModel, it):
-    var tmp: HSTRING
-    it.call(ILearningModel_get_Domain, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Domain)
 
 proc description*(self: LearningModel): string =
   ## Windows.AI.MachineLearning.LearningModel.get_Description
   withIface(self.p, ILearningModel, it):
-    var tmp: HSTRING
-    it.call(ILearningModel_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc version*(self: LearningModel): int64 =
   ## Windows.AI.MachineLearning.LearningModel.get_Version
   withIface(self.p, ILearningModel, it):
-    var tmp: int64
-    it.call(ILearningModel_get_Version, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Version, int64)
 
 proc metadata*(self: LearningModel): Table[string, string] =
   ## Windows.AI.MachineLearning.LearningModel.get_Metadata
   withIface(self.p, ILearningModel, it):
     var tmp: pointer
-    it.call(ILearningModel_get_Metadata, tmp.addr)
+    check it.vtbl.get_Metadata(it, tmp.addr), "LearningModel.get_Metadata"
     result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_22,
                                      IID_IKeyValuePair_2_String_String)
     release(tmp)
@@ -1425,7 +1291,8 @@ proc inputFeatures*(self: LearningModel): seq[WinRtObject] =
   ## Windows.AI.MachineLearning.LearningModel.get_InputFeatures
   withIface(self.p, ILearningModel, it):
     var tmp: pointer
-    it.call(ILearningModel_get_InputFeatures, tmp.addr)
+    check it.vtbl.get_InputFeatures(it, tmp.addr
+                                   ), "LearningModel.get_InputFeatures"
     result = toSeq[WinRtObject](tmp,
                                 IID_IVectorView_1_ILearningModelFeatureDescriptor
                                )
@@ -1435,7 +1302,8 @@ proc outputFeatures*(self: LearningModel): seq[WinRtObject] =
   ## Windows.AI.MachineLearning.LearningModel.get_OutputFeatures
   withIface(self.p, ILearningModel, it):
     var tmp: pointer
-    it.call(ILearningModel_get_OutputFeatures, tmp.addr)
+    check it.vtbl.get_OutputFeatures(it, tmp.addr
+                                    ), "LearningModel.get_OutputFeatures"
     result = toSeq[WinRtObject](tmp,
                                 IID_IVectorView_1_ILearningModelFeatureDescriptor
                                )
@@ -1444,7 +1312,7 @@ proc outputFeatures*(self: LearningModel): seq[WinRtObject] =
 proc close*(self: LearningModel) =
   ## Windows.AI.MachineLearning.LearningModel.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "LearningModel.Close"
 
 proc loadFromStorageFileAsync*(_: typedesc[LearningModel],
                                modelFile: StorageFile
@@ -1454,7 +1322,8 @@ proc loadFromStorageFileAsync*(_: typedesc[LearningModel],
   withStatics("Windows.AI.MachineLearning.LearningModel", ILearningModelStatics,
               it):
     withIface(modelFile.p, IStorageFile, p0):
-      it.call(ILearningModelStatics_LoadFromStorageFileAsync, p0, op.addr)
+      check it.vtbl.LoadFromStorageFileAsync(it, p0, op.addr
+                                            ), "LearningModel.LoadFromStorageFileAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModel,
                               IID_AsyncOperationCompletedHandler_1_LearningModel,
                               alPlain, "LearningModel.LoadFromStorageFileAsync")
@@ -1467,7 +1336,8 @@ proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: WinRtObject
   withStatics("Windows.AI.MachineLearning.LearningModel", ILearningModelStatics,
               it):
     withIface(modelStream.p, IRandomAccessStreamReference, p0):
-      it.call(ILearningModelStatics_LoadFromStreamAsync, p0, op.addr)
+      check it.vtbl.LoadFromStreamAsync(it, p0, op.addr
+                                       ), "LearningModel.LoadFromStreamAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModel,
                               IID_AsyncOperationCompletedHandler_1_LearningModel,
                               alPlain, "LearningModel.LoadFromStreamAsync")
@@ -1480,7 +1350,8 @@ proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string
               it):
     withHString(filePath, h0):
       var tmp: pointer
-      it.call(ILearningModelStatics_LoadFromFilePath, h0, tmp.addr)
+      check it.vtbl.LoadFromFilePath(it, h0, tmp.addr
+                                    ), "LearningModel.LoadFromFilePath"
       result = adopt[LearningModel](tmp)
 
 proc loadFromStream*(_: typedesc[LearningModel], modelStream: WinRtObject
@@ -1490,7 +1361,8 @@ proc loadFromStream*(_: typedesc[LearningModel], modelStream: WinRtObject
               it):
     withIface(modelStream.p, IRandomAccessStreamReference, p0):
       var tmp: pointer
-      it.call(ILearningModelStatics_LoadFromStream, p0, tmp.addr)
+      check it.vtbl.LoadFromStream(it, p0, tmp.addr
+                                  ), "LearningModel.LoadFromStream"
       result = adopt[LearningModel](tmp)
 
 proc loadFromStorageFileAsync*(_: typedesc[LearningModel],
@@ -1503,8 +1375,8 @@ proc loadFromStorageFileAsync*(_: typedesc[LearningModel],
               it):
     withIface(modelFile.p, IStorageFile, p0):
       withIface(operatorProvider.p, ILearningModelOperatorProvider, p1):
-        it.call(ILearningModelStatics_LoadFromStorageFileAsync2, p0, p1, op.addr
-               )
+        check it.vtbl.LoadFromStorageFileAsync2(it, p0, p1, op.addr
+                                               ), "LearningModel.LoadFromStorageFileAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModel,
                               IID_AsyncOperationCompletedHandler_1_LearningModel,
                               alPlain, "LearningModel.LoadFromStorageFileAsync")
@@ -1519,7 +1391,8 @@ proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: WinRtObject,
               it):
     withIface(modelStream.p, IRandomAccessStreamReference, p0):
       withIface(operatorProvider.p, ILearningModelOperatorProvider, p1):
-        it.call(ILearningModelStatics_LoadFromStreamAsync2, p0, p1, op.addr)
+        check it.vtbl.LoadFromStreamAsync2(it, p0, p1, op.addr
+                                          ), "LearningModel.LoadFromStreamAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModel,
                               IID_AsyncOperationCompletedHandler_1_LearningModel,
                               alPlain, "LearningModel.LoadFromStreamAsync")
@@ -1533,7 +1406,8 @@ proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string,
     withHString(filePath, h0):
       withIface(operatorProvider.p, ILearningModelOperatorProvider, p1):
         var tmp: pointer
-        it.call(ILearningModelStatics_LoadFromFilePath2, h0, p1, tmp.addr)
+        check it.vtbl.LoadFromFilePath2(it, h0, p1, tmp.addr
+                                       ), "LearningModel.LoadFromFilePath"
         result = adopt[LearningModel](tmp)
 
 proc loadFromStream*(_: typedesc[LearningModel], modelStream: WinRtObject,
@@ -1544,14 +1418,15 @@ proc loadFromStream*(_: typedesc[LearningModel], modelStream: WinRtObject,
     withIface(modelStream.p, IRandomAccessStreamReference, p0):
       withIface(operatorProvider.p, ILearningModelOperatorProvider, p1):
         var tmp: pointer
-        it.call(ILearningModelStatics_LoadFromStream2, p0, p1, tmp.addr)
+        check it.vtbl.LoadFromStream2(it, p0, p1, tmp.addr
+                                     ), "LearningModel.LoadFromStream"
         result = adopt[LearningModel](tmp)
 
 proc `bind`*(self: LearningModelBinding, name: string, value: WinRtObject) =
   ## Windows.AI.MachineLearning.LearningModelBinding.Bind
   withIface(self.p, ILearningModelBinding, it):
     withHString(name, h0):
-      it.call(ILearningModelBinding_Bind, h0, value.p)
+      check it.vtbl.`Bind`(it, h0, value.p), "LearningModelBinding.Bind"
 
 proc `bind`*(self: LearningModelBinding, name: string, value: WinRtObject,
              props: WinRtObject) =
@@ -1559,12 +1434,12 @@ proc `bind`*(self: LearningModelBinding, name: string, value: WinRtObject,
   withIface(self.p, ILearningModelBinding, it):
     withHString(name, h0):
       withIface(props.p, IPropertySet, p2):
-        it.call(ILearningModelBinding_Bind2, h0, value.p, p2)
+        check it.vtbl.Bind2(it, h0, value.p, p2), "LearningModelBinding.Bind"
 
 proc clear*(self: LearningModelBinding) =
   ## Windows.AI.MachineLearning.LearningModelBinding.Clear
   withIface(self.p, ILearningModelBinding, it):
-    it.call(ILearningModelBinding_Clear)
+    check it.vtbl.Clear(it), "LearningModelBinding.Clear"
 
 proc createFromSession*(_: typedesc[LearningModelBinding],
                         session: LearningModelSession): LearningModelBinding =
@@ -1573,22 +1448,19 @@ proc createFromSession*(_: typedesc[LearningModelBinding],
               ILearningModelBindingFactory, it):
     withIface(session.p, ILearningModelSession, p0):
       var tmp: pointer
-      it.call(ILearningModelBindingFactory_CreateFromSession, p0, tmp.addr)
+      check it.vtbl.CreateFromSession(it, p0, tmp.addr
+                                     ), "LearningModelBinding.CreateFromSession"
       result = adopt[LearningModelBinding](tmp)
 
 proc adapterId*(self: LearningModelDevice): DisplayAdapterId =
   ## Windows.AI.MachineLearning.LearningModelDevice.get_AdapterId
   withIface(self.p, ILearningModelDevice, it):
-    var tmp: DisplayAdapterId
-    it.call(ILearningModelDevice_get_AdapterId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_AdapterId, DisplayAdapterId)
 
 proc direct3D11Device*(self: LearningModelDevice): WinRtObject =
   ## Windows.AI.MachineLearning.LearningModelDevice.get_Direct3D11Device
   withIface(self.p, ILearningModelDevice, it):
-    var tmp: pointer
-    it.call(ILearningModelDevice_get_Direct3D11Device, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Direct3D11Device, WinRtObject)
 
 proc createFromDirect3D11Device*(_: typedesc[LearningModelDevice],
                                  device: WinRtObject): LearningModelDevice =
@@ -1597,8 +1469,8 @@ proc createFromDirect3D11Device*(_: typedesc[LearningModelDevice],
               ILearningModelDeviceStatics, it):
     withIface(device.p, IDirect3DDevice, p0):
       var tmp: pointer
-      it.call(ILearningModelDeviceStatics_CreateFromDirect3D11Device, p0,
-              tmp.addr)
+      check it.vtbl.CreateFromDirect3D11Device(it, p0, tmp.addr
+                                              ), "LearningModelDevice.CreateFromDirect3D11Device"
       result = adopt[LearningModelDevice](tmp)
 
 proc create*(_: typedesc[LearningModelDevice],
@@ -1607,35 +1479,30 @@ proc create*(_: typedesc[LearningModelDevice],
   withStatics("Windows.AI.MachineLearning.LearningModelDevice",
               ILearningModelDeviceFactory, it):
     var tmp: pointer
-    it.call(ILearningModelDeviceFactory_Create, deviceKind, tmp.addr)
+    check it.vtbl.Create(it, deviceKind, tmp.addr), "LearningModelDevice.Create"
     result = adopt[LearningModelDevice](tmp)
 
 proc correlationId*(self: LearningModelEvaluationResult): string =
   ## Windows.AI.MachineLearning.LearningModelEvaluationResult.get_CorrelationId
   withIface(self.p, ILearningModelEvaluationResult, it):
-    var tmp: HSTRING
-    it.call(ILearningModelEvaluationResult_get_CorrelationId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CorrelationId)
 
 proc errorStatus*(self: LearningModelEvaluationResult): int32 =
   ## Windows.AI.MachineLearning.LearningModelEvaluationResult.get_ErrorStatus
   withIface(self.p, ILearningModelEvaluationResult, it):
-    var tmp: int32
-    it.call(ILearningModelEvaluationResult_get_ErrorStatus, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ErrorStatus, int32)
 
 proc succeeded*(self: LearningModelEvaluationResult): bool =
   ## Windows.AI.MachineLearning.LearningModelEvaluationResult.get_Succeeded
   withIface(self.p, ILearningModelEvaluationResult, it):
-    var tmp: bool
-    it.call(ILearningModelEvaluationResult_get_Succeeded, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Succeeded, bool)
 
 proc outputs*(self: LearningModelEvaluationResult): Table[string, WinRtObject] =
   ## Windows.AI.MachineLearning.LearningModelEvaluationResult.get_Outputs
   withIface(self.p, ILearningModelEvaluationResult, it):
     var tmp: pointer
-    it.call(ILearningModelEvaluationResult_get_Outputs, tmp.addr)
+    check it.vtbl.get_Outputs(it, tmp.addr
+                             ), "LearningModelEvaluationResult.get_Outputs"
     result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_2,
                                           IID_IKeyValuePair_2_String_Object)
     release(tmp)
@@ -1643,23 +1510,17 @@ proc outputs*(self: LearningModelEvaluationResult): Table[string, WinRtObject] =
 proc model*(self: LearningModelSession): LearningModel =
   ## Windows.AI.MachineLearning.LearningModelSession.get_Model
   withIface(self.p, ILearningModelSession, it):
-    var tmp: pointer
-    it.call(ILearningModelSession_get_Model, tmp.addr)
-    result = adopt[LearningModel](tmp)
+    result = it.getObject(get_Model, LearningModel)
 
 proc device*(self: LearningModelSession): LearningModelDevice =
   ## Windows.AI.MachineLearning.LearningModelSession.get_Device
   withIface(self.p, ILearningModelSession, it):
-    var tmp: pointer
-    it.call(ILearningModelSession_get_Device, tmp.addr)
-    result = adopt[LearningModelDevice](tmp)
+    result = it.getObject(get_Device, LearningModelDevice)
 
 proc evaluationProperties*(self: LearningModelSession): WinRtObject =
   ## Windows.AI.MachineLearning.LearningModelSession.get_EvaluationProperties
   withIface(self.p, ILearningModelSession, it):
-    var tmp: pointer
-    it.call(ILearningModelSession_get_EvaluationProperties, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_EvaluationProperties, WinRtObject)
 
 proc evaluateAsync*(self: LearningModelSession, bindings: LearningModelBinding,
                     correlationId: string
@@ -1669,7 +1530,8 @@ proc evaluateAsync*(self: LearningModelSession, bindings: LearningModelBinding,
   withIface(self.p, ILearningModelSession, it):
     withIface(bindings.p, ILearningModelBinding, p0):
       withHString(correlationId, h1):
-        it.call(ILearningModelSession_EvaluateAsync, p0, h1, op.addr)
+        check it.vtbl.EvaluateAsync(it, p0, h1, op.addr
+                                   ), "LearningModelSession.EvaluateAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_LearningModelEvaluationResult,
                               IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResult,
@@ -1690,7 +1552,8 @@ proc evaluateFeaturesAsync*(self: LearningModelSession,
                                      map: IID_IMap_2_String_Object))
     defer: discard release(p0)
     withHString(correlationId, h1):
-      it.call(ILearningModelSession_EvaluateFeaturesAsync, p0, h1, op.addr)
+      check it.vtbl.EvaluateFeaturesAsync(it, p0, h1, op.addr
+                                         ), "LearningModelSession.EvaluateFeaturesAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_LearningModelEvaluationResult,
                               IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResult,
@@ -1705,7 +1568,8 @@ proc evaluate*(self: LearningModelSession, bindings: LearningModelBinding,
     withIface(bindings.p, ILearningModelBinding, p0):
       withHString(correlationId, h1):
         var tmp: pointer
-        it.call(ILearningModelSession_Evaluate, p0, h1, tmp.addr)
+        check it.vtbl.Evaluate(it, p0, h1, tmp.addr
+                              ), "LearningModelSession.Evaluate"
         result = adopt[LearningModelEvaluationResult](tmp)
 
 proc evaluateFeatures*(self: LearningModelSession,
@@ -1721,13 +1585,14 @@ proc evaluateFeatures*(self: LearningModelSession,
     defer: discard release(p0)
     withHString(correlationId, h1):
       var tmp: pointer
-      it.call(ILearningModelSession_EvaluateFeatures, p0, h1, tmp.addr)
+      check it.vtbl.EvaluateFeatures(it, p0, h1, tmp.addr
+                                    ), "LearningModelSession.EvaluateFeatures"
       result = adopt[LearningModelEvaluationResult](tmp)
 
 proc close*(self: LearningModelSession) =
   ## Windows.AI.MachineLearning.LearningModelSession.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "LearningModelSession.Close"
 
 proc createFromModel*(_: typedesc[LearningModelSession], model: LearningModel
                      ): LearningModelSession =
@@ -1736,7 +1601,8 @@ proc createFromModel*(_: typedesc[LearningModelSession], model: LearningModel
               ILearningModelSessionFactory, it):
     withIface(model.p, ILearningModel, p0):
       var tmp: pointer
-      it.call(ILearningModelSessionFactory_CreateFromModel, p0, tmp.addr)
+      check it.vtbl.CreateFromModel(it, p0, tmp.addr
+                                   ), "LearningModelSession.CreateFromModel"
       result = adopt[LearningModelSession](tmp)
 
 proc createFromModelOnDevice*(_: typedesc[LearningModelSession],
@@ -1749,8 +1615,8 @@ proc createFromModelOnDevice*(_: typedesc[LearningModelSession],
     withIface(model.p, ILearningModel, p0):
       withIface(deviceToRunOn.p, ILearningModelDevice, p1):
         var tmp: pointer
-        it.call(ILearningModelSessionFactory_CreateFromModelOnDevice, p0, p1,
-                tmp.addr)
+        check it.vtbl.CreateFromModelOnDevice(it, p0, p1, tmp.addr
+                                             ), "LearningModelSession.CreateFromModelOnDevice"
         result = adopt[LearningModelSession](tmp)
 
 proc createFromModelOnDeviceWithSessionOptions*(_: typedesc[LearningModelSession],
@@ -1765,8 +1631,9 @@ proc createFromModelOnDeviceWithSessionOptions*(_: typedesc[LearningModelSession
       withIface(deviceToRunOn.p, ILearningModelDevice, p1):
         withIface(learningModelSessionOptions.p, ILearningModelSessionOptions, p2):
           var tmp: pointer
-          it.call(ILearningModelSessionFactory2_CreateFromModelOnDeviceWithSessionOptions,
-                  p0, p1, p2, tmp.addr)
+          check it.vtbl.CreateFromModelOnDeviceWithSessionOptions(it, p0, p1,
+                                                                  p2, tmp.addr
+                                                                 ), "LearningModelSession.CreateFromModelOnDeviceWithSessionOptions"
           result = adopt[LearningModelSession](tmp)
 
 proc newLearningModelSessionOptions*(): LearningModelSessionOptions =
@@ -1776,200 +1643,156 @@ proc newLearningModelSessionOptions*(): LearningModelSessionOptions =
 proc batchSizeOverride*(self: LearningModelSessionOptions): uint32 =
   ## Windows.AI.MachineLearning.LearningModelSessionOptions.get_BatchSizeOverride
   withIface(self.p, ILearningModelSessionOptions, it):
-    var tmp: uint32
-    it.call(ILearningModelSessionOptions_get_BatchSizeOverride, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BatchSizeOverride, uint32)
 
 proc `batchSizeOverride=`*(self: LearningModelSessionOptions, value: uint32) =
   ## Windows.AI.MachineLearning.LearningModelSessionOptions.put_BatchSizeOverride
   withIface(self.p, ILearningModelSessionOptions, it):
-    it.call(ILearningModelSessionOptions_put_BatchSizeOverride, value)
+    it.putValue(put_BatchSizeOverride, value)
 
 proc closeModelOnSessionCreation*(self: LearningModelSessionOptions): bool =
   ## Windows.AI.MachineLearning.LearningModelSessionOptions.get_CloseModelOnSessionCreation
   withIface(self.p, ILearningModelSessionOptions2, it):
-    var tmp: bool
-    it.call(ILearningModelSessionOptions2_get_CloseModelOnSessionCreation,
-            tmp.addr)
-    result = tmp
+    result = it.getValue(get_CloseModelOnSessionCreation, bool)
 
 proc `closeModelOnSessionCreation=`*(self: LearningModelSessionOptions,
                                      value: bool) =
   ## Windows.AI.MachineLearning.LearningModelSessionOptions.put_CloseModelOnSessionCreation
   withIface(self.p, ILearningModelSessionOptions2, it):
-    it.call(ILearningModelSessionOptions2_put_CloseModelOnSessionCreation, value
-           )
+    it.putValue(put_CloseModelOnSessionCreation, value)
 
 proc overrideNamedDimension*(self: LearningModelSessionOptions, name: string,
                              dimension: uint32) =
   ## Windows.AI.MachineLearning.LearningModelSessionOptions.OverrideNamedDimension
   withIface(self.p, ILearningModelSessionOptions3, it):
     withHString(name, h0):
-      it.call(ILearningModelSessionOptions3_OverrideNamedDimension, h0,
-              dimension)
+      check it.vtbl.OverrideNamedDimension(it, h0, dimension
+                                          ), "LearningModelSessionOptions.OverrideNamedDimension"
 
 proc keyKind*(self: MapFeatureDescriptor): TensorKind =
   ## Windows.AI.MachineLearning.MapFeatureDescriptor.get_KeyKind
   withIface(self.p, IMapFeatureDescriptor, it):
-    var tmp: TensorKind
-    it.call(IMapFeatureDescriptor_get_KeyKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_KeyKind, TensorKind)
 
 proc valueDescriptor*(self: MapFeatureDescriptor): WinRtObject =
   ## Windows.AI.MachineLearning.MapFeatureDescriptor.get_ValueDescriptor
   withIface(self.p, IMapFeatureDescriptor, it):
-    var tmp: pointer
-    it.call(IMapFeatureDescriptor_get_ValueDescriptor, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ValueDescriptor, WinRtObject)
 
 proc name*(self: MapFeatureDescriptor): string =
   ## Windows.AI.MachineLearning.MapFeatureDescriptor.get_Name
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: HSTRING
-    it.call(ILearningModelFeatureDescriptor_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc description*(self: MapFeatureDescriptor): string =
   ## Windows.AI.MachineLearning.MapFeatureDescriptor.get_Description
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: HSTRING
-    it.call(ILearningModelFeatureDescriptor_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc kind*(self: MapFeatureDescriptor): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.MapFeatureDescriptor.get_Kind
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureDescriptor_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc isRequired*(self: MapFeatureDescriptor): bool =
   ## Windows.AI.MachineLearning.MapFeatureDescriptor.get_IsRequired
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: bool
-    it.call(ILearningModelFeatureDescriptor_get_IsRequired, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsRequired, bool)
 
 proc bitmapPixelFormat*(self: ImageVariableDescriptorPreview): BitmapPixelFormat =
   ## Windows.AI.MachineLearning.Preview.ImageVariableDescriptorPreview.get_BitmapPixelFormat
   withIface(self.p, IImageVariableDescriptorPreview, it):
-    var tmp: BitmapPixelFormat
-    it.call(IImageVariableDescriptorPreview_get_BitmapPixelFormat, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BitmapPixelFormat, BitmapPixelFormat)
 
 proc width*(self: ImageVariableDescriptorPreview): uint32 =
   ## Windows.AI.MachineLearning.Preview.ImageVariableDescriptorPreview.get_Width
   withIface(self.p, IImageVariableDescriptorPreview, it):
-    var tmp: uint32
-    it.call(IImageVariableDescriptorPreview_get_Width, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Width, uint32)
 
 proc height*(self: ImageVariableDescriptorPreview): uint32 =
   ## Windows.AI.MachineLearning.Preview.ImageVariableDescriptorPreview.get_Height
   withIface(self.p, IImageVariableDescriptorPreview, it):
-    var tmp: uint32
-    it.call(IImageVariableDescriptorPreview_get_Height, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Height, uint32)
 
 proc name*(self: ImageVariableDescriptorPreview): string =
   ## Windows.AI.MachineLearning.Preview.ImageVariableDescriptorPreview.get_Name
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelVariableDescriptorPreview_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc description*(self: ImageVariableDescriptorPreview): string =
   ## Windows.AI.MachineLearning.Preview.ImageVariableDescriptorPreview.get_Description
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelVariableDescriptorPreview_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc modelFeatureKind*(self: ImageVariableDescriptorPreview): LearningModelFeatureKindPreview =
   ## Windows.AI.MachineLearning.Preview.ImageVariableDescriptorPreview.get_ModelFeatureKind
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: LearningModelFeatureKindPreview
-    it.call(ILearningModelVariableDescriptorPreview_get_ModelFeatureKind,
-            tmp.addr)
-    result = tmp
+    result = it.getValue(get_ModelFeatureKind, LearningModelFeatureKindPreview)
 
 proc isRequired*(self: ImageVariableDescriptorPreview): bool =
   ## Windows.AI.MachineLearning.Preview.ImageVariableDescriptorPreview.get_IsRequired
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: bool
-    it.call(ILearningModelVariableDescriptorPreview_get_IsRequired, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsRequired, bool)
 
 proc preferredDeviceKind*(self: InferencingOptionsPreview): LearningModelDeviceKindPreview =
   ## Windows.AI.MachineLearning.Preview.InferencingOptionsPreview.get_PreferredDeviceKind
   withIface(self.p, IInferencingOptionsPreview, it):
-    var tmp: LearningModelDeviceKindPreview
-    it.call(IInferencingOptionsPreview_get_PreferredDeviceKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_PreferredDeviceKind, LearningModelDeviceKindPreview)
 
 proc `preferredDeviceKind=`*(self: InferencingOptionsPreview,
                              value: LearningModelDeviceKindPreview) =
   ## Windows.AI.MachineLearning.Preview.InferencingOptionsPreview.put_PreferredDeviceKind
   withIface(self.p, IInferencingOptionsPreview, it):
-    it.call(IInferencingOptionsPreview_put_PreferredDeviceKind, value)
+    it.putValue(put_PreferredDeviceKind, value)
 
 proc isTracingEnabled*(self: InferencingOptionsPreview): bool =
   ## Windows.AI.MachineLearning.Preview.InferencingOptionsPreview.get_IsTracingEnabled
   withIface(self.p, IInferencingOptionsPreview, it):
-    var tmp: bool
-    it.call(IInferencingOptionsPreview_get_IsTracingEnabled, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsTracingEnabled, bool)
 
 proc `isTracingEnabled=`*(self: InferencingOptionsPreview, value: bool) =
   ## Windows.AI.MachineLearning.Preview.InferencingOptionsPreview.put_IsTracingEnabled
   withIface(self.p, IInferencingOptionsPreview, it):
-    it.call(IInferencingOptionsPreview_put_IsTracingEnabled, value)
+    it.putValue(put_IsTracingEnabled, value)
 
 proc maxBatchSize*(self: InferencingOptionsPreview): int32 =
   ## Windows.AI.MachineLearning.Preview.InferencingOptionsPreview.get_MaxBatchSize
   withIface(self.p, IInferencingOptionsPreview, it):
-    var tmp: int32
-    it.call(IInferencingOptionsPreview_get_MaxBatchSize, tmp.addr)
-    result = tmp
+    result = it.getValue(get_MaxBatchSize, int32)
 
 proc `maxBatchSize=`*(self: InferencingOptionsPreview, value: int32) =
   ## Windows.AI.MachineLearning.Preview.InferencingOptionsPreview.put_MaxBatchSize
   withIface(self.p, IInferencingOptionsPreview, it):
-    it.call(IInferencingOptionsPreview_put_MaxBatchSize, value)
+    it.putValue(put_MaxBatchSize, value)
 
 proc minimizeMemoryAllocation*(self: InferencingOptionsPreview): bool =
   ## Windows.AI.MachineLearning.Preview.InferencingOptionsPreview.get_MinimizeMemoryAllocation
   withIface(self.p, IInferencingOptionsPreview, it):
-    var tmp: bool
-    it.call(IInferencingOptionsPreview_get_MinimizeMemoryAllocation, tmp.addr)
-    result = tmp
+    result = it.getValue(get_MinimizeMemoryAllocation, bool)
 
 proc `minimizeMemoryAllocation=`*(self: InferencingOptionsPreview, value: bool
                                  ) =
   ## Windows.AI.MachineLearning.Preview.InferencingOptionsPreview.put_MinimizeMemoryAllocation
   withIface(self.p, IInferencingOptionsPreview, it):
-    it.call(IInferencingOptionsPreview_put_MinimizeMemoryAllocation, value)
+    it.putValue(put_MinimizeMemoryAllocation, value)
 
 proc reclaimMemoryAfterEvaluation*(self: InferencingOptionsPreview): bool =
   ## Windows.AI.MachineLearning.Preview.InferencingOptionsPreview.get_ReclaimMemoryAfterEvaluation
   withIface(self.p, IInferencingOptionsPreview, it):
-    var tmp: bool
-    it.call(IInferencingOptionsPreview_get_ReclaimMemoryAfterEvaluation,
-            tmp.addr)
-    result = tmp
+    result = it.getValue(get_ReclaimMemoryAfterEvaluation, bool)
 
 proc `reclaimMemoryAfterEvaluation=`*(self: InferencingOptionsPreview,
                                       value: bool) =
   ## Windows.AI.MachineLearning.Preview.InferencingOptionsPreview.put_ReclaimMemoryAfterEvaluation
   withIface(self.p, IInferencingOptionsPreview, it):
-    it.call(IInferencingOptionsPreview_put_ReclaimMemoryAfterEvaluation, value)
+    it.putValue(put_ReclaimMemoryAfterEvaluation, value)
 
 proc `bind`*(self: LearningModelBindingPreview, name: string, value: WinRtObject
             ) =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.Bind
   withIface(self.p, ILearningModelBindingPreview, it):
     withHString(name, h0):
-      it.call(ILearningModelBindingPreview_Bind, h0, value.p)
+      check it.vtbl.`Bind`(it, h0, value.p), "LearningModelBindingPreview.Bind"
 
 proc `bind`*(self: LearningModelBindingPreview, name: string,
              value: WinRtObject, metadata: WinRtObject) =
@@ -1977,12 +1800,13 @@ proc `bind`*(self: LearningModelBindingPreview, name: string,
   withIface(self.p, ILearningModelBindingPreview, it):
     withHString(name, h0):
       withIface(metadata.p, IPropertySet, p2):
-        it.call(ILearningModelBindingPreview_Bind2, h0, value.p, p2)
+        check it.vtbl.Bind2(it, h0, value.p, p2
+                           ), "LearningModelBindingPreview.Bind"
 
 proc clear*(self: LearningModelBindingPreview) =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.Clear
   withIface(self.p, ILearningModelBindingPreview, it):
-    it.call(ILearningModelBindingPreview_Clear)
+    check it.vtbl.Clear(it), "LearningModelBindingPreview.Clear"
 
 proc createFromModel*(_: typedesc[LearningModelBindingPreview],
                       model: LearningModelPreview
@@ -1992,49 +1816,41 @@ proc createFromModel*(_: typedesc[LearningModelBindingPreview],
               ILearningModelBindingPreviewFactory, it):
     withIface(model.p, ILearningModelPreview, p0):
       var tmp: pointer
-      it.call(ILearningModelBindingPreviewFactory_CreateFromModel, p0, tmp.addr)
+      check it.vtbl.CreateFromModel(it, p0, tmp.addr
+                                   ), "LearningModelBindingPreview.CreateFromModel"
       result = adopt[LearningModelBindingPreview](tmp)
 
 proc author*(self: LearningModelDescriptionPreview): string =
   ## Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview.get_Author
   withIface(self.p, ILearningModelDescriptionPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelDescriptionPreview_get_Author, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Author)
 
 proc name*(self: LearningModelDescriptionPreview): string =
   ## Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview.get_Name
   withIface(self.p, ILearningModelDescriptionPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelDescriptionPreview_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc domain*(self: LearningModelDescriptionPreview): string =
   ## Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview.get_Domain
   withIface(self.p, ILearningModelDescriptionPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelDescriptionPreview_get_Domain, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Domain)
 
 proc description*(self: LearningModelDescriptionPreview): string =
   ## Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview.get_Description
   withIface(self.p, ILearningModelDescriptionPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelDescriptionPreview_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc version*(self: LearningModelDescriptionPreview): int64 =
   ## Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview.get_Version
   withIface(self.p, ILearningModelDescriptionPreview, it):
-    var tmp: int64
-    it.call(ILearningModelDescriptionPreview_get_Version, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Version, int64)
 
 proc metadata*(self: LearningModelDescriptionPreview): Table[string, string] =
   ## Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview.get_Metadata
   withIface(self.p, ILearningModelDescriptionPreview, it):
     var tmp: pointer
-    it.call(ILearningModelDescriptionPreview_get_Metadata, tmp.addr)
+    check it.vtbl.get_Metadata(it, tmp.addr
+                              ), "LearningModelDescriptionPreview.get_Metadata"
     result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_22,
                                      IID_IKeyValuePair_2_String_String)
     release(tmp)
@@ -2043,7 +1859,8 @@ proc inputFeatures*(self: LearningModelDescriptionPreview): seq[LearningModelVar
   ## Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview.get_InputFeatures
   withIface(self.p, ILearningModelDescriptionPreview, it):
     var tmp: pointer
-    it.call(ILearningModelDescriptionPreview_get_InputFeatures, tmp.addr)
+    check it.vtbl.get_InputFeatures(it, tmp.addr
+                                   ), "LearningModelDescriptionPreview.get_InputFeatures"
     result = toSeq[LearningModelVariableDescriptorPreview](tmp,
                                                            IID_IIterable_1_ILearningModelVariableDescriptorPreview
                                                           )
@@ -2053,7 +1870,8 @@ proc outputFeatures*(self: LearningModelDescriptionPreview): seq[LearningModelVa
   ## Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview.get_OutputFeatures
   withIface(self.p, ILearningModelDescriptionPreview, it):
     var tmp: pointer
-    it.call(ILearningModelDescriptionPreview_get_OutputFeatures, tmp.addr)
+    check it.vtbl.get_OutputFeatures(it, tmp.addr
+                                    ), "LearningModelDescriptionPreview.get_OutputFeatures"
     result = toSeq[LearningModelVariableDescriptorPreview](tmp,
                                                            IID_IIterable_1_ILearningModelVariableDescriptorPreview
                                                           )
@@ -2062,15 +1880,14 @@ proc outputFeatures*(self: LearningModelDescriptionPreview): seq[LearningModelVa
 proc correlationId*(self: LearningModelEvaluationResultPreview): string =
   ## Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview.get_CorrelationId
   withIface(self.p, ILearningModelEvaluationResultPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelEvaluationResultPreview_get_CorrelationId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CorrelationId)
 
 proc outputs*(self: LearningModelEvaluationResultPreview): Table[string, WinRtObject] =
   ## Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview.get_Outputs
   withIface(self.p, ILearningModelEvaluationResultPreview, it):
     var tmp: pointer
-    it.call(ILearningModelEvaluationResultPreview_get_Outputs, tmp.addr)
+    check it.vtbl.get_Outputs(it, tmp.addr
+                             ), "LearningModelEvaluationResultPreview.get_Outputs"
     result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_2,
                                           IID_IKeyValuePair_2_String_Object)
     release(tmp)
@@ -2083,7 +1900,8 @@ proc evaluateAsync*(self: LearningModelPreview,
   withIface(self.p, ILearningModelPreview, it):
     withIface(binding.p, ILearningModelBindingPreview, p0):
       withHString(correlationId, h1):
-        it.call(ILearningModelPreview_EvaluateAsync, p0, h1, op.addr)
+        check it.vtbl.EvaluateAsync(it, p0, h1, op.addr
+                                   ), "LearningModelPreview.EvaluateAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_LearningModelEvaluationResultPreview,
                               IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResultPreview,
@@ -2104,7 +1922,8 @@ proc evaluateFeaturesAsync*(self: LearningModelPreview,
                                      map: IID_IMap_2_String_Object))
     defer: discard release(p0)
     withHString(correlationId, h1):
-      it.call(ILearningModelPreview_EvaluateFeaturesAsync, p0, h1, op.addr)
+      check it.vtbl.EvaluateFeaturesAsync(it, p0, h1, op.addr
+                                         ), "LearningModelPreview.EvaluateFeaturesAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_LearningModelEvaluationResultPreview,
                               IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResultPreview,
@@ -2115,23 +1934,20 @@ proc evaluateFeaturesAsync*(self: LearningModelPreview,
 proc description*(self: LearningModelPreview): LearningModelDescriptionPreview =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.get_Description
   withIface(self.p, ILearningModelPreview, it):
-    var tmp: pointer
-    it.call(ILearningModelPreview_get_Description, tmp.addr)
-    result = adopt[LearningModelDescriptionPreview](tmp)
+    result = it.getObject(get_Description, LearningModelDescriptionPreview)
 
 proc inferencingOptions*(self: LearningModelPreview): InferencingOptionsPreview =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.get_InferencingOptions
   withIface(self.p, ILearningModelPreview, it):
-    var tmp: pointer
-    it.call(ILearningModelPreview_get_InferencingOptions, tmp.addr)
-    result = adopt[InferencingOptionsPreview](tmp)
+    result = it.getObject(get_InferencingOptions, InferencingOptionsPreview)
 
 proc `inferencingOptions=`*(self: LearningModelPreview,
                             value: InferencingOptionsPreview) =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.put_InferencingOptions
   withIface(self.p, ILearningModelPreview, it):
     withIface(value.p, IInferencingOptionsPreview, p0):
-      it.call(ILearningModelPreview_put_InferencingOptions, p0)
+      check it.vtbl.put_InferencingOptions(it, p0
+                                          ), "LearningModelPreview.put_InferencingOptions"
 
 proc loadModelFromStorageFileAsync*(_: typedesc[LearningModelPreview],
                                     modelFile: StorageFile
@@ -2141,8 +1957,8 @@ proc loadModelFromStorageFileAsync*(_: typedesc[LearningModelPreview],
   withStatics("Windows.AI.MachineLearning.Preview.LearningModelPreview",
               ILearningModelPreviewStatics, it):
     withIface(modelFile.p, IStorageFile, p0):
-      it.call(ILearningModelPreviewStatics_LoadModelFromStorageFileAsync, p0,
-              op.addr)
+      check it.vtbl.LoadModelFromStorageFileAsync(it, p0, op.addr
+                                                 ), "LearningModelPreview.LoadModelFromStorageFileAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModelPreview,
                               IID_AsyncOperationCompletedHandler_1_LearningModelPreview,
                               alPlain,
@@ -2158,8 +1974,8 @@ proc loadModelFromStreamAsync*(_: typedesc[LearningModelPreview],
   withStatics("Windows.AI.MachineLearning.Preview.LearningModelPreview",
               ILearningModelPreviewStatics, it):
     withIface(modelStream.p, IRandomAccessStreamReference, p0):
-      it.call(ILearningModelPreviewStatics_LoadModelFromStreamAsync, p0, op.addr
-             )
+      check it.vtbl.LoadModelFromStreamAsync(it, p0, op.addr
+                                            ), "LearningModelPreview.LoadModelFromStreamAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModelPreview,
                               IID_AsyncOperationCompletedHandler_1_LearningModelPreview,
                               alPlain,
@@ -2169,44 +1985,34 @@ proc loadModelFromStreamAsync*(_: typedesc[LearningModelPreview],
 proc name*(self: LearningModelVariableDescriptorPreview): string =
   ## Windows.AI.MachineLearning.Preview.LearningModelVariableDescriptorPreview.get_Name
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelVariableDescriptorPreview_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc description*(self: LearningModelVariableDescriptorPreview): string =
   ## Windows.AI.MachineLearning.Preview.LearningModelVariableDescriptorPreview.get_Description
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelVariableDescriptorPreview_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc modelFeatureKind*(self: LearningModelVariableDescriptorPreview): LearningModelFeatureKindPreview =
   ## Windows.AI.MachineLearning.Preview.LearningModelVariableDescriptorPreview.get_ModelFeatureKind
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: LearningModelFeatureKindPreview
-    it.call(ILearningModelVariableDescriptorPreview_get_ModelFeatureKind,
-            tmp.addr)
-    result = tmp
+    result = it.getValue(get_ModelFeatureKind, LearningModelFeatureKindPreview)
 
 proc isRequired*(self: LearningModelVariableDescriptorPreview): bool =
   ## Windows.AI.MachineLearning.Preview.LearningModelVariableDescriptorPreview.get_IsRequired
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: bool
-    it.call(ILearningModelVariableDescriptorPreview_get_IsRequired, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsRequired, bool)
 
 proc keyKind*(self: MapVariableDescriptorPreview): FeatureElementKindPreview =
   ## Windows.AI.MachineLearning.Preview.MapVariableDescriptorPreview.get_KeyKind
   withIface(self.p, IMapVariableDescriptorPreview, it):
-    var tmp: FeatureElementKindPreview
-    it.call(IMapVariableDescriptorPreview_get_KeyKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_KeyKind, FeatureElementKindPreview)
 
 proc validStringKeys*(self: MapVariableDescriptorPreview): seq[string] =
   ## Windows.AI.MachineLearning.Preview.MapVariableDescriptorPreview.get_ValidStringKeys
   withIface(self.p, IMapVariableDescriptorPreview, it):
     var tmp: pointer
-    it.call(IMapVariableDescriptorPreview_get_ValidStringKeys, tmp.addr)
+    check it.vtbl.get_ValidStringKeys(it, tmp.addr
+                                     ), "MapVariableDescriptorPreview.get_ValidStringKeys"
     result = toSeq[string](tmp, IID_IIterable_1_String)
     release(tmp)
 
@@ -2214,209 +2020,164 @@ proc validIntegerKeys*(self: MapVariableDescriptorPreview): seq[int64] =
   ## Windows.AI.MachineLearning.Preview.MapVariableDescriptorPreview.get_ValidIntegerKeys
   withIface(self.p, IMapVariableDescriptorPreview, it):
     var tmp: pointer
-    it.call(IMapVariableDescriptorPreview_get_ValidIntegerKeys, tmp.addr)
+    check it.vtbl.get_ValidIntegerKeys(it, tmp.addr
+                                      ), "MapVariableDescriptorPreview.get_ValidIntegerKeys"
     result = toSeq[int64](tmp, IID_IIterable_1_I8)
     release(tmp)
 
 proc fields*(self: MapVariableDescriptorPreview): LearningModelVariableDescriptorPreview =
   ## Windows.AI.MachineLearning.Preview.MapVariableDescriptorPreview.get_Fields
   withIface(self.p, IMapVariableDescriptorPreview, it):
-    var tmp: pointer
-    it.call(IMapVariableDescriptorPreview_get_Fields, tmp.addr)
-    result = adopt[LearningModelVariableDescriptorPreview](tmp)
+    result = it.getObject(get_Fields, LearningModelVariableDescriptorPreview)
 
 proc name*(self: MapVariableDescriptorPreview): string =
   ## Windows.AI.MachineLearning.Preview.MapVariableDescriptorPreview.get_Name
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelVariableDescriptorPreview_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc description*(self: MapVariableDescriptorPreview): string =
   ## Windows.AI.MachineLearning.Preview.MapVariableDescriptorPreview.get_Description
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelVariableDescriptorPreview_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc modelFeatureKind*(self: MapVariableDescriptorPreview): LearningModelFeatureKindPreview =
   ## Windows.AI.MachineLearning.Preview.MapVariableDescriptorPreview.get_ModelFeatureKind
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: LearningModelFeatureKindPreview
-    it.call(ILearningModelVariableDescriptorPreview_get_ModelFeatureKind,
-            tmp.addr)
-    result = tmp
+    result = it.getValue(get_ModelFeatureKind, LearningModelFeatureKindPreview)
 
 proc isRequired*(self: MapVariableDescriptorPreview): bool =
   ## Windows.AI.MachineLearning.Preview.MapVariableDescriptorPreview.get_IsRequired
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: bool
-    it.call(ILearningModelVariableDescriptorPreview_get_IsRequired, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsRequired, bool)
 
 proc elementType*(self: SequenceVariableDescriptorPreview): LearningModelVariableDescriptorPreview =
   ## Windows.AI.MachineLearning.Preview.SequenceVariableDescriptorPreview.get_ElementType
   withIface(self.p, ISequenceVariableDescriptorPreview, it):
-    var tmp: pointer
-    it.call(ISequenceVariableDescriptorPreview_get_ElementType, tmp.addr)
-    result = adopt[LearningModelVariableDescriptorPreview](tmp)
+    result = it.getObject(get_ElementType, LearningModelVariableDescriptorPreview)
 
 proc name*(self: SequenceVariableDescriptorPreview): string =
   ## Windows.AI.MachineLearning.Preview.SequenceVariableDescriptorPreview.get_Name
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelVariableDescriptorPreview_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc description*(self: SequenceVariableDescriptorPreview): string =
   ## Windows.AI.MachineLearning.Preview.SequenceVariableDescriptorPreview.get_Description
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelVariableDescriptorPreview_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc modelFeatureKind*(self: SequenceVariableDescriptorPreview): LearningModelFeatureKindPreview =
   ## Windows.AI.MachineLearning.Preview.SequenceVariableDescriptorPreview.get_ModelFeatureKind
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: LearningModelFeatureKindPreview
-    it.call(ILearningModelVariableDescriptorPreview_get_ModelFeatureKind,
-            tmp.addr)
-    result = tmp
+    result = it.getValue(get_ModelFeatureKind, LearningModelFeatureKindPreview)
 
 proc isRequired*(self: SequenceVariableDescriptorPreview): bool =
   ## Windows.AI.MachineLearning.Preview.SequenceVariableDescriptorPreview.get_IsRequired
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: bool
-    it.call(ILearningModelVariableDescriptorPreview_get_IsRequired, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsRequired, bool)
 
 proc dataType*(self: TensorVariableDescriptorPreview): FeatureElementKindPreview =
   ## Windows.AI.MachineLearning.Preview.TensorVariableDescriptorPreview.get_DataType
   withIface(self.p, ITensorVariableDescriptorPreview, it):
-    var tmp: FeatureElementKindPreview
-    it.call(ITensorVariableDescriptorPreview_get_DataType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_DataType, FeatureElementKindPreview)
 
 proc shape*(self: TensorVariableDescriptorPreview): seq[int64] =
   ## Windows.AI.MachineLearning.Preview.TensorVariableDescriptorPreview.get_Shape
   withIface(self.p, ITensorVariableDescriptorPreview, it):
     var tmp: pointer
-    it.call(ITensorVariableDescriptorPreview_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr
+                           ), "TensorVariableDescriptorPreview.get_Shape"
     result = toSeq[int64](tmp, IID_IIterable_1_I8)
     release(tmp)
 
 proc name*(self: TensorVariableDescriptorPreview): string =
   ## Windows.AI.MachineLearning.Preview.TensorVariableDescriptorPreview.get_Name
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelVariableDescriptorPreview_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc description*(self: TensorVariableDescriptorPreview): string =
   ## Windows.AI.MachineLearning.Preview.TensorVariableDescriptorPreview.get_Description
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: HSTRING
-    it.call(ILearningModelVariableDescriptorPreview_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc modelFeatureKind*(self: TensorVariableDescriptorPreview): LearningModelFeatureKindPreview =
   ## Windows.AI.MachineLearning.Preview.TensorVariableDescriptorPreview.get_ModelFeatureKind
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: LearningModelFeatureKindPreview
-    it.call(ILearningModelVariableDescriptorPreview_get_ModelFeatureKind,
-            tmp.addr)
-    result = tmp
+    result = it.getValue(get_ModelFeatureKind, LearningModelFeatureKindPreview)
 
 proc isRequired*(self: TensorVariableDescriptorPreview): bool =
   ## Windows.AI.MachineLearning.Preview.TensorVariableDescriptorPreview.get_IsRequired
   withIface(self.p, ILearningModelVariableDescriptorPreview, it):
-    var tmp: bool
-    it.call(ILearningModelVariableDescriptorPreview_get_IsRequired, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsRequired, bool)
 
 proc elementDescriptor*(self: SequenceFeatureDescriptor): WinRtObject =
   ## Windows.AI.MachineLearning.SequenceFeatureDescriptor.get_ElementDescriptor
   withIface(self.p, ISequenceFeatureDescriptor, it):
-    var tmp: pointer
-    it.call(ISequenceFeatureDescriptor_get_ElementDescriptor, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ElementDescriptor, WinRtObject)
 
 proc name*(self: SequenceFeatureDescriptor): string =
   ## Windows.AI.MachineLearning.SequenceFeatureDescriptor.get_Name
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: HSTRING
-    it.call(ILearningModelFeatureDescriptor_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc description*(self: SequenceFeatureDescriptor): string =
   ## Windows.AI.MachineLearning.SequenceFeatureDescriptor.get_Description
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: HSTRING
-    it.call(ILearningModelFeatureDescriptor_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc kind*(self: SequenceFeatureDescriptor): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.SequenceFeatureDescriptor.get_Kind
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureDescriptor_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc isRequired*(self: SequenceFeatureDescriptor): bool =
   ## Windows.AI.MachineLearning.SequenceFeatureDescriptor.get_IsRequired
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: bool
-    it.call(ILearningModelFeatureDescriptor_get_IsRequired, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsRequired, bool)
 
 proc getAsVectorView*(self: TensorBoolean): seq[bool] =
   ## Windows.AI.MachineLearning.TensorBoolean.GetAsVectorView
   withIface(self.p, ITensorBoolean, it):
     var tmp: pointer
-    it.call(ITensorBoolean_GetAsVectorView, tmp.addr)
+    check it.vtbl.GetAsVectorView(it, tmp.addr), "TensorBoolean.GetAsVectorView"
     result = toSeq[bool](tmp, IID_IVectorView_1_Bool)
     release(tmp)
 
 proc tensorKind*(self: TensorBoolean): TensorKind =
   ## Windows.AI.MachineLearning.TensorBoolean.get_TensorKind
   withIface(self.p, ITensor, it):
-    var tmp: TensorKind
-    it.call(ITensor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorBoolean): seq[int64] =
   ## Windows.AI.MachineLearning.TensorBoolean.get_Shape
   withIface(self.p, ITensor, it):
     var tmp: pointer
-    it.call(ITensor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorBoolean.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorBoolean): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorBoolean.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createReference*(self: TensorBoolean): WinRtObject =
   ## Windows.AI.MachineLearning.TensorBoolean.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr), "TensorBoolean.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: TensorBoolean) =
   ## Windows.AI.MachineLearning.TensorBoolean.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "TensorBoolean.Close"
 
 proc create*(_: typedesc[TensorBoolean]): TensorBoolean =
   ## Windows.AI.MachineLearning.TensorBoolean.Create
   withStatics("Windows.AI.MachineLearning.TensorBoolean", ITensorBooleanStatics,
               it):
     var tmp: pointer
-    it.call(ITensorBooleanStatics_Create, tmp.addr)
+    check it.vtbl.Create(it, tmp.addr), "TensorBoolean.Create"
     result = adopt[TensorBoolean](tmp)
 
 proc create*(_: typedesc[TensorBoolean], shape: seq[int64]): TensorBoolean =
@@ -2428,7 +2189,7 @@ proc create*(_: typedesc[TensorBoolean], shape: seq[int64]): TensorBoolean =
                                            IID_IIterator_1_I8)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ITensorBooleanStatics_Create2, p0, tmp.addr)
+    check it.vtbl.Create2(it, p0, tmp.addr), "TensorBoolean.Create"
     result = adopt[TensorBoolean](tmp)
 
 proc createFromArray*(_: typedesc[TensorBoolean], shape: seq[int64],
@@ -2443,7 +2204,8 @@ proc createFromArray*(_: typedesc[TensorBoolean], shape: seq[int64],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorBooleanStatics_CreateFromArray, p0, n1, d1, tmp.addr)
+    check it.vtbl.CreateFromArray(it, p0, n1, d1, tmp.addr
+                                 ), "TensorBoolean.CreateFromArray"
     result = adopt[TensorBoolean](tmp)
 
 proc createFromIterable*(_: typedesc[TensorBoolean], shape: seq[int64],
@@ -2460,7 +2222,8 @@ proc createFromIterable*(_: typedesc[TensorBoolean], shape: seq[int64],
                                          IID_IIterator_1_Bool)
     defer: discard release(p1)
     var tmp: pointer
-    it.call(ITensorBooleanStatics_CreateFromIterable, p0, p1, tmp.addr)
+    check it.vtbl.CreateFromIterable(it, p0, p1, tmp.addr
+                                    ), "TensorBoolean.CreateFromIterable"
     result = adopt[TensorBoolean](tmp)
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorBoolean],
@@ -2474,8 +2237,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorBoolean],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorBooleanStatics2_CreateFromShapeArrayAndDataArray, n0, d0, n1,
-            d1, tmp.addr)
+    check it.vtbl.CreateFromShapeArrayAndDataArray(it, n0, d0, n1, d1, tmp.addr
+                                                  ), "TensorBoolean.CreateFromShapeArrayAndDataArray"
     result = adopt[TensorBoolean](tmp)
 
 proc createFromBuffer*(_: typedesc[TensorBoolean], shape: openArray[int64],
@@ -2487,57 +2250,54 @@ proc createFromBuffer*(_: typedesc[TensorBoolean], shape: openArray[int64],
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withIface(buffer.p, IBuffer, p1):
       var tmp: pointer
-      it.call(ITensorBooleanStatics2_CreateFromBuffer, n0, d0, p1, tmp.addr)
+      check it.vtbl.CreateFromBuffer(it, n0, d0, p1, tmp.addr
+                                    ), "TensorBoolean.CreateFromBuffer"
       result = adopt[TensorBoolean](tmp)
 
 proc getAsVectorView*(self: TensorDouble): seq[float64] =
   ## Windows.AI.MachineLearning.TensorDouble.GetAsVectorView
   withIface(self.p, ITensorDouble, it):
     var tmp: pointer
-    it.call(ITensorDouble_GetAsVectorView, tmp.addr)
+    check it.vtbl.GetAsVectorView(it, tmp.addr), "TensorDouble.GetAsVectorView"
     result = toSeq[float64](tmp, IID_IVectorView_1_F8)
     release(tmp)
 
 proc tensorKind*(self: TensorDouble): TensorKind =
   ## Windows.AI.MachineLearning.TensorDouble.get_TensorKind
   withIface(self.p, ITensor, it):
-    var tmp: TensorKind
-    it.call(ITensor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorDouble): seq[int64] =
   ## Windows.AI.MachineLearning.TensorDouble.get_Shape
   withIface(self.p, ITensor, it):
     var tmp: pointer
-    it.call(ITensor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorDouble.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorDouble): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorDouble.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createReference*(self: TensorDouble): WinRtObject =
   ## Windows.AI.MachineLearning.TensorDouble.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr), "TensorDouble.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: TensorDouble) =
   ## Windows.AI.MachineLearning.TensorDouble.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "TensorDouble.Close"
 
 proc create*(_: typedesc[TensorDouble]): TensorDouble =
   ## Windows.AI.MachineLearning.TensorDouble.Create
   withStatics("Windows.AI.MachineLearning.TensorDouble", ITensorDoubleStatics,
               it):
     var tmp: pointer
-    it.call(ITensorDoubleStatics_Create, tmp.addr)
+    check it.vtbl.Create(it, tmp.addr), "TensorDouble.Create"
     result = adopt[TensorDouble](tmp)
 
 proc create*(_: typedesc[TensorDouble], shape: seq[int64]): TensorDouble =
@@ -2549,7 +2309,7 @@ proc create*(_: typedesc[TensorDouble], shape: seq[int64]): TensorDouble =
                                            IID_IIterator_1_I8)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ITensorDoubleStatics_Create2, p0, tmp.addr)
+    check it.vtbl.Create2(it, p0, tmp.addr), "TensorDouble.Create"
     result = adopt[TensorDouble](tmp)
 
 proc createFromArray*(_: typedesc[TensorDouble], shape: seq[int64],
@@ -2564,7 +2324,8 @@ proc createFromArray*(_: typedesc[TensorDouble], shape: seq[int64],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorDoubleStatics_CreateFromArray, p0, n1, d1, tmp.addr)
+    check it.vtbl.CreateFromArray(it, p0, n1, d1, tmp.addr
+                                 ), "TensorDouble.CreateFromArray"
     result = adopt[TensorDouble](tmp)
 
 proc createFromIterable*(_: typedesc[TensorDouble], shape: seq[int64],
@@ -2581,7 +2342,8 @@ proc createFromIterable*(_: typedesc[TensorDouble], shape: seq[int64],
                                             IID_IIterator_1_F8)
     defer: discard release(p1)
     var tmp: pointer
-    it.call(ITensorDoubleStatics_CreateFromIterable, p0, p1, tmp.addr)
+    check it.vtbl.CreateFromIterable(it, p0, p1, tmp.addr
+                                    ), "TensorDouble.CreateFromIterable"
     result = adopt[TensorDouble](tmp)
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorDouble],
@@ -2595,8 +2357,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorDouble],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorDoubleStatics2_CreateFromShapeArrayAndDataArray, n0, d0, n1,
-            d1, tmp.addr)
+    check it.vtbl.CreateFromShapeArrayAndDataArray(it, n0, d0, n1, d1, tmp.addr
+                                                  ), "TensorDouble.CreateFromShapeArrayAndDataArray"
     result = adopt[TensorDouble](tmp)
 
 proc createFromBuffer*(_: typedesc[TensorDouble], shape: openArray[int64],
@@ -2608,100 +2370,87 @@ proc createFromBuffer*(_: typedesc[TensorDouble], shape: openArray[int64],
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withIface(buffer.p, IBuffer, p1):
       var tmp: pointer
-      it.call(ITensorDoubleStatics2_CreateFromBuffer, n0, d0, p1, tmp.addr)
+      check it.vtbl.CreateFromBuffer(it, n0, d0, p1, tmp.addr
+                                    ), "TensorDouble.CreateFromBuffer"
       result = adopt[TensorDouble](tmp)
 
 proc tensorKind*(self: TensorFeatureDescriptor): TensorKind =
   ## Windows.AI.MachineLearning.TensorFeatureDescriptor.get_TensorKind
   withIface(self.p, ITensorFeatureDescriptor, it):
-    var tmp: TensorKind
-    it.call(ITensorFeatureDescriptor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorFeatureDescriptor): seq[int64] =
   ## Windows.AI.MachineLearning.TensorFeatureDescriptor.get_Shape
   withIface(self.p, ITensorFeatureDescriptor, it):
     var tmp: pointer
-    it.call(ITensorFeatureDescriptor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorFeatureDescriptor.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc name*(self: TensorFeatureDescriptor): string =
   ## Windows.AI.MachineLearning.TensorFeatureDescriptor.get_Name
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: HSTRING
-    it.call(ILearningModelFeatureDescriptor_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc description*(self: TensorFeatureDescriptor): string =
   ## Windows.AI.MachineLearning.TensorFeatureDescriptor.get_Description
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: HSTRING
-    it.call(ILearningModelFeatureDescriptor_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc kind*(self: TensorFeatureDescriptor): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorFeatureDescriptor.get_Kind
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureDescriptor_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc isRequired*(self: TensorFeatureDescriptor): bool =
   ## Windows.AI.MachineLearning.TensorFeatureDescriptor.get_IsRequired
   withIface(self.p, ILearningModelFeatureDescriptor, it):
-    var tmp: bool
-    it.call(ILearningModelFeatureDescriptor_get_IsRequired, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsRequired, bool)
 
 proc getAsVectorView*(self: TensorFloat): seq[float32] =
   ## Windows.AI.MachineLearning.TensorFloat.GetAsVectorView
   withIface(self.p, ITensorFloat, it):
     var tmp: pointer
-    it.call(ITensorFloat_GetAsVectorView, tmp.addr)
+    check it.vtbl.GetAsVectorView(it, tmp.addr), "TensorFloat.GetAsVectorView"
     result = toSeq[float32](tmp, IID_IVectorView_1_F4)
     release(tmp)
 
 proc tensorKind*(self: TensorFloat): TensorKind =
   ## Windows.AI.MachineLearning.TensorFloat.get_TensorKind
   withIface(self.p, ITensor, it):
-    var tmp: TensorKind
-    it.call(ITensor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorFloat): seq[int64] =
   ## Windows.AI.MachineLearning.TensorFloat.get_Shape
   withIface(self.p, ITensor, it):
     var tmp: pointer
-    it.call(ITensor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorFloat.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorFloat): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorFloat.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createReference*(self: TensorFloat): WinRtObject =
   ## Windows.AI.MachineLearning.TensorFloat.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr), "TensorFloat.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: TensorFloat) =
   ## Windows.AI.MachineLearning.TensorFloat.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "TensorFloat.Close"
 
 proc create*(_: typedesc[TensorFloat]): TensorFloat =
   ## Windows.AI.MachineLearning.TensorFloat.Create
   withStatics("Windows.AI.MachineLearning.TensorFloat", ITensorFloatStatics, it
              ):
     var tmp: pointer
-    it.call(ITensorFloatStatics_Create, tmp.addr)
+    check it.vtbl.Create(it, tmp.addr), "TensorFloat.Create"
     result = adopt[TensorFloat](tmp)
 
 proc create*(_: typedesc[TensorFloat], shape: seq[int64]): TensorFloat =
@@ -2713,7 +2462,7 @@ proc create*(_: typedesc[TensorFloat], shape: seq[int64]): TensorFloat =
                                            IID_IIterator_1_I8)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ITensorFloatStatics_Create2, p0, tmp.addr)
+    check it.vtbl.Create2(it, p0, tmp.addr), "TensorFloat.Create"
     result = adopt[TensorFloat](tmp)
 
 proc createFromArray*(_: typedesc[TensorFloat], shape: seq[int64],
@@ -2728,7 +2477,8 @@ proc createFromArray*(_: typedesc[TensorFloat], shape: seq[int64],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorFloatStatics_CreateFromArray, p0, n1, d1, tmp.addr)
+    check it.vtbl.CreateFromArray(it, p0, n1, d1, tmp.addr
+                                 ), "TensorFloat.CreateFromArray"
     result = adopt[TensorFloat](tmp)
 
 proc createFromIterable*(_: typedesc[TensorFloat], shape: seq[int64],
@@ -2745,7 +2495,8 @@ proc createFromIterable*(_: typedesc[TensorFloat], shape: seq[int64],
                                             IID_IIterator_1_F4)
     defer: discard release(p1)
     var tmp: pointer
-    it.call(ITensorFloatStatics_CreateFromIterable, p0, p1, tmp.addr)
+    check it.vtbl.CreateFromIterable(it, p0, p1, tmp.addr
+                                    ), "TensorFloat.CreateFromIterable"
     result = adopt[TensorFloat](tmp)
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat],
@@ -2759,8 +2510,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorFloatStatics2_CreateFromShapeArrayAndDataArray, n0, d0, n1,
-            d1, tmp.addr)
+    check it.vtbl.CreateFromShapeArrayAndDataArray(it, n0, d0, n1, d1, tmp.addr
+                                                  ), "TensorFloat.CreateFromShapeArrayAndDataArray"
     result = adopt[TensorFloat](tmp)
 
 proc createFromBuffer*(_: typedesc[TensorFloat], shape: openArray[int64],
@@ -2772,50 +2523,49 @@ proc createFromBuffer*(_: typedesc[TensorFloat], shape: openArray[int64],
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withIface(buffer.p, IBuffer, p1):
       var tmp: pointer
-      it.call(ITensorFloatStatics2_CreateFromBuffer, n0, d0, p1, tmp.addr)
+      check it.vtbl.CreateFromBuffer(it, n0, d0, p1, tmp.addr
+                                    ), "TensorFloat.CreateFromBuffer"
       result = adopt[TensorFloat](tmp)
 
 proc getAsVectorView*(self: TensorFloat16Bit): seq[float32] =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.GetAsVectorView
   withIface(self.p, ITensorFloat16Bit, it):
     var tmp: pointer
-    it.call(ITensorFloat16Bit_GetAsVectorView, tmp.addr)
+    check it.vtbl.GetAsVectorView(it, tmp.addr
+                                 ), "TensorFloat16Bit.GetAsVectorView"
     result = toSeq[float32](tmp, IID_IVectorView_1_F4)
     release(tmp)
 
 proc tensorKind*(self: TensorFloat16Bit): TensorKind =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.get_TensorKind
   withIface(self.p, ITensor, it):
-    var tmp: TensorKind
-    it.call(ITensor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorFloat16Bit): seq[int64] =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.get_Shape
   withIface(self.p, ITensor, it):
     var tmp: pointer
-    it.call(ITensor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorFloat16Bit.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorFloat16Bit): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createReference*(self: TensorFloat16Bit): WinRtObject =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr
+                                 ), "TensorFloat16Bit.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: TensorFloat16Bit) =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "TensorFloat16Bit.Close"
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat16Bit],
                                        shape: openArray[int64],
@@ -2829,8 +2579,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat16Bit],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorFloat16BitStatics2_CreateFromShapeArrayAndDataArray, n0, d0,
-            n1, d1, tmp.addr)
+    check it.vtbl.CreateFromShapeArrayAndDataArray(it, n0, d0, n1, d1, tmp.addr
+                                                  ), "TensorFloat16Bit.CreateFromShapeArrayAndDataArray"
     result = adopt[TensorFloat16Bit](tmp)
 
 proc createFromBuffer*(_: typedesc[TensorFloat16Bit], shape: openArray[int64],
@@ -2842,7 +2592,8 @@ proc createFromBuffer*(_: typedesc[TensorFloat16Bit], shape: openArray[int64],
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withIface(buffer.p, IBuffer, p1):
       var tmp: pointer
-      it.call(ITensorFloat16BitStatics2_CreateFromBuffer, n0, d0, p1, tmp.addr)
+      check it.vtbl.CreateFromBuffer(it, n0, d0, p1, tmp.addr
+                                    ), "TensorFloat16Bit.CreateFromBuffer"
       result = adopt[TensorFloat16Bit](tmp)
 
 proc create*(_: typedesc[TensorFloat16Bit]): TensorFloat16Bit =
@@ -2850,7 +2601,7 @@ proc create*(_: typedesc[TensorFloat16Bit]): TensorFloat16Bit =
   withStatics("Windows.AI.MachineLearning.TensorFloat16Bit",
               ITensorFloat16BitStatics, it):
     var tmp: pointer
-    it.call(ITensorFloat16BitStatics_Create, tmp.addr)
+    check it.vtbl.Create(it, tmp.addr), "TensorFloat16Bit.Create"
     result = adopt[TensorFloat16Bit](tmp)
 
 proc create*(_: typedesc[TensorFloat16Bit], shape: seq[int64]
@@ -2863,7 +2614,7 @@ proc create*(_: typedesc[TensorFloat16Bit], shape: seq[int64]
                                            IID_IIterator_1_I8)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ITensorFloat16BitStatics_Create2, p0, tmp.addr)
+    check it.vtbl.Create2(it, p0, tmp.addr), "TensorFloat16Bit.Create"
     result = adopt[TensorFloat16Bit](tmp)
 
 proc createFromArray*(_: typedesc[TensorFloat16Bit], shape: seq[int64],
@@ -2878,7 +2629,8 @@ proc createFromArray*(_: typedesc[TensorFloat16Bit], shape: seq[int64],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorFloat16BitStatics_CreateFromArray, p0, n1, d1, tmp.addr)
+    check it.vtbl.CreateFromArray(it, p0, n1, d1, tmp.addr
+                                 ), "TensorFloat16Bit.CreateFromArray"
     result = adopt[TensorFloat16Bit](tmp)
 
 proc createFromIterable*(_: typedesc[TensorFloat16Bit], shape: seq[int64],
@@ -2895,57 +2647,56 @@ proc createFromIterable*(_: typedesc[TensorFloat16Bit], shape: seq[int64],
                                             IID_IIterator_1_F4)
     defer: discard release(p1)
     var tmp: pointer
-    it.call(ITensorFloat16BitStatics_CreateFromIterable, p0, p1, tmp.addr)
+    check it.vtbl.CreateFromIterable(it, p0, p1, tmp.addr
+                                    ), "TensorFloat16Bit.CreateFromIterable"
     result = adopt[TensorFloat16Bit](tmp)
 
 proc getAsVectorView*(self: TensorInt16Bit): seq[int16] =
   ## Windows.AI.MachineLearning.TensorInt16Bit.GetAsVectorView
   withIface(self.p, ITensorInt16Bit, it):
     var tmp: pointer
-    it.call(ITensorInt16Bit_GetAsVectorView, tmp.addr)
+    check it.vtbl.GetAsVectorView(it, tmp.addr
+                                 ), "TensorInt16Bit.GetAsVectorView"
     result = toSeq[int16](tmp, IID_IVectorView_1_I2)
     release(tmp)
 
 proc tensorKind*(self: TensorInt16Bit): TensorKind =
   ## Windows.AI.MachineLearning.TensorInt16Bit.get_TensorKind
   withIface(self.p, ITensor, it):
-    var tmp: TensorKind
-    it.call(ITensor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorInt16Bit): seq[int64] =
   ## Windows.AI.MachineLearning.TensorInt16Bit.get_Shape
   withIface(self.p, ITensor, it):
     var tmp: pointer
-    it.call(ITensor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorInt16Bit.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorInt16Bit): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorInt16Bit.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createReference*(self: TensorInt16Bit): WinRtObject =
   ## Windows.AI.MachineLearning.TensorInt16Bit.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr
+                                 ), "TensorInt16Bit.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: TensorInt16Bit) =
   ## Windows.AI.MachineLearning.TensorInt16Bit.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "TensorInt16Bit.Close"
 
 proc create*(_: typedesc[TensorInt16Bit]): TensorInt16Bit =
   ## Windows.AI.MachineLearning.TensorInt16Bit.Create
   withStatics("Windows.AI.MachineLearning.TensorInt16Bit",
               ITensorInt16BitStatics, it):
     var tmp: pointer
-    it.call(ITensorInt16BitStatics_Create, tmp.addr)
+    check it.vtbl.Create(it, tmp.addr), "TensorInt16Bit.Create"
     result = adopt[TensorInt16Bit](tmp)
 
 proc create*(_: typedesc[TensorInt16Bit], shape: seq[int64]): TensorInt16Bit =
@@ -2957,7 +2708,7 @@ proc create*(_: typedesc[TensorInt16Bit], shape: seq[int64]): TensorInt16Bit =
                                            IID_IIterator_1_I8)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ITensorInt16BitStatics_Create2, p0, tmp.addr)
+    check it.vtbl.Create2(it, p0, tmp.addr), "TensorInt16Bit.Create"
     result = adopt[TensorInt16Bit](tmp)
 
 proc createFromArray*(_: typedesc[TensorInt16Bit], shape: seq[int64],
@@ -2972,7 +2723,8 @@ proc createFromArray*(_: typedesc[TensorInt16Bit], shape: seq[int64],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorInt16BitStatics_CreateFromArray, p0, n1, d1, tmp.addr)
+    check it.vtbl.CreateFromArray(it, p0, n1, d1, tmp.addr
+                                 ), "TensorInt16Bit.CreateFromArray"
     result = adopt[TensorInt16Bit](tmp)
 
 proc createFromIterable*(_: typedesc[TensorInt16Bit], shape: seq[int64],
@@ -2989,7 +2741,8 @@ proc createFromIterable*(_: typedesc[TensorInt16Bit], shape: seq[int64],
                                           IID_IIterator_1_I2)
     defer: discard release(p1)
     var tmp: pointer
-    it.call(ITensorInt16BitStatics_CreateFromIterable, p0, p1, tmp.addr)
+    check it.vtbl.CreateFromIterable(it, p0, p1, tmp.addr
+                                    ), "TensorInt16Bit.CreateFromIterable"
     result = adopt[TensorInt16Bit](tmp)
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt16Bit],
@@ -3003,8 +2756,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt16Bit],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorInt16BitStatics2_CreateFromShapeArrayAndDataArray, n0, d0,
-            n1, d1, tmp.addr)
+    check it.vtbl.CreateFromShapeArrayAndDataArray(it, n0, d0, n1, d1, tmp.addr
+                                                  ), "TensorInt16Bit.CreateFromShapeArrayAndDataArray"
     result = adopt[TensorInt16Bit](tmp)
 
 proc createFromBuffer*(_: typedesc[TensorInt16Bit], shape: openArray[int64],
@@ -3016,50 +2769,49 @@ proc createFromBuffer*(_: typedesc[TensorInt16Bit], shape: openArray[int64],
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withIface(buffer.p, IBuffer, p1):
       var tmp: pointer
-      it.call(ITensorInt16BitStatics2_CreateFromBuffer, n0, d0, p1, tmp.addr)
+      check it.vtbl.CreateFromBuffer(it, n0, d0, p1, tmp.addr
+                                    ), "TensorInt16Bit.CreateFromBuffer"
       result = adopt[TensorInt16Bit](tmp)
 
 proc getAsVectorView*(self: TensorInt32Bit): seq[int32] =
   ## Windows.AI.MachineLearning.TensorInt32Bit.GetAsVectorView
   withIface(self.p, ITensorInt32Bit, it):
     var tmp: pointer
-    it.call(ITensorInt32Bit_GetAsVectorView, tmp.addr)
+    check it.vtbl.GetAsVectorView(it, tmp.addr
+                                 ), "TensorInt32Bit.GetAsVectorView"
     result = toSeq[int32](tmp, IID_IVectorView_1_I4)
     release(tmp)
 
 proc tensorKind*(self: TensorInt32Bit): TensorKind =
   ## Windows.AI.MachineLearning.TensorInt32Bit.get_TensorKind
   withIface(self.p, ITensor, it):
-    var tmp: TensorKind
-    it.call(ITensor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorInt32Bit): seq[int64] =
   ## Windows.AI.MachineLearning.TensorInt32Bit.get_Shape
   withIface(self.p, ITensor, it):
     var tmp: pointer
-    it.call(ITensor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorInt32Bit.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorInt32Bit): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorInt32Bit.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createReference*(self: TensorInt32Bit): WinRtObject =
   ## Windows.AI.MachineLearning.TensorInt32Bit.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr
+                                 ), "TensorInt32Bit.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: TensorInt32Bit) =
   ## Windows.AI.MachineLearning.TensorInt32Bit.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "TensorInt32Bit.Close"
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt32Bit],
                                        shape: openArray[int64],
@@ -3072,8 +2824,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt32Bit],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorInt32BitStatics2_CreateFromShapeArrayAndDataArray, n0, d0,
-            n1, d1, tmp.addr)
+    check it.vtbl.CreateFromShapeArrayAndDataArray(it, n0, d0, n1, d1, tmp.addr
+                                                  ), "TensorInt32Bit.CreateFromShapeArrayAndDataArray"
     result = adopt[TensorInt32Bit](tmp)
 
 proc createFromBuffer*(_: typedesc[TensorInt32Bit], shape: openArray[int64],
@@ -3085,7 +2837,8 @@ proc createFromBuffer*(_: typedesc[TensorInt32Bit], shape: openArray[int64],
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withIface(buffer.p, IBuffer, p1):
       var tmp: pointer
-      it.call(ITensorInt32BitStatics2_CreateFromBuffer, n0, d0, p1, tmp.addr)
+      check it.vtbl.CreateFromBuffer(it, n0, d0, p1, tmp.addr
+                                    ), "TensorInt32Bit.CreateFromBuffer"
       result = adopt[TensorInt32Bit](tmp)
 
 proc create*(_: typedesc[TensorInt32Bit]): TensorInt32Bit =
@@ -3093,7 +2846,7 @@ proc create*(_: typedesc[TensorInt32Bit]): TensorInt32Bit =
   withStatics("Windows.AI.MachineLearning.TensorInt32Bit",
               ITensorInt32BitStatics, it):
     var tmp: pointer
-    it.call(ITensorInt32BitStatics_Create, tmp.addr)
+    check it.vtbl.Create(it, tmp.addr), "TensorInt32Bit.Create"
     result = adopt[TensorInt32Bit](tmp)
 
 proc create*(_: typedesc[TensorInt32Bit], shape: seq[int64]): TensorInt32Bit =
@@ -3105,7 +2858,7 @@ proc create*(_: typedesc[TensorInt32Bit], shape: seq[int64]): TensorInt32Bit =
                                            IID_IIterator_1_I8)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ITensorInt32BitStatics_Create2, p0, tmp.addr)
+    check it.vtbl.Create2(it, p0, tmp.addr), "TensorInt32Bit.Create"
     result = adopt[TensorInt32Bit](tmp)
 
 proc createFromArray*(_: typedesc[TensorInt32Bit], shape: seq[int64],
@@ -3120,7 +2873,8 @@ proc createFromArray*(_: typedesc[TensorInt32Bit], shape: seq[int64],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorInt32BitStatics_CreateFromArray, p0, n1, d1, tmp.addr)
+    check it.vtbl.CreateFromArray(it, p0, n1, d1, tmp.addr
+                                 ), "TensorInt32Bit.CreateFromArray"
     result = adopt[TensorInt32Bit](tmp)
 
 proc createFromIterable*(_: typedesc[TensorInt32Bit], shape: seq[int64],
@@ -3137,57 +2891,56 @@ proc createFromIterable*(_: typedesc[TensorInt32Bit], shape: seq[int64],
                                           IID_IIterator_1_I4)
     defer: discard release(p1)
     var tmp: pointer
-    it.call(ITensorInt32BitStatics_CreateFromIterable, p0, p1, tmp.addr)
+    check it.vtbl.CreateFromIterable(it, p0, p1, tmp.addr
+                                    ), "TensorInt32Bit.CreateFromIterable"
     result = adopt[TensorInt32Bit](tmp)
 
 proc getAsVectorView*(self: TensorInt64Bit): seq[int64] =
   ## Windows.AI.MachineLearning.TensorInt64Bit.GetAsVectorView
   withIface(self.p, ITensorInt64Bit, it):
     var tmp: pointer
-    it.call(ITensorInt64Bit_GetAsVectorView, tmp.addr)
+    check it.vtbl.GetAsVectorView(it, tmp.addr
+                                 ), "TensorInt64Bit.GetAsVectorView"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc tensorKind*(self: TensorInt64Bit): TensorKind =
   ## Windows.AI.MachineLearning.TensorInt64Bit.get_TensorKind
   withIface(self.p, ITensor, it):
-    var tmp: TensorKind
-    it.call(ITensor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorInt64Bit): seq[int64] =
   ## Windows.AI.MachineLearning.TensorInt64Bit.get_Shape
   withIface(self.p, ITensor, it):
     var tmp: pointer
-    it.call(ITensor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorInt64Bit.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorInt64Bit): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorInt64Bit.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createReference*(self: TensorInt64Bit): WinRtObject =
   ## Windows.AI.MachineLearning.TensorInt64Bit.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr
+                                 ), "TensorInt64Bit.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: TensorInt64Bit) =
   ## Windows.AI.MachineLearning.TensorInt64Bit.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "TensorInt64Bit.Close"
 
 proc create*(_: typedesc[TensorInt64Bit]): TensorInt64Bit =
   ## Windows.AI.MachineLearning.TensorInt64Bit.Create
   withStatics("Windows.AI.MachineLearning.TensorInt64Bit",
               ITensorInt64BitStatics, it):
     var tmp: pointer
-    it.call(ITensorInt64BitStatics_Create, tmp.addr)
+    check it.vtbl.Create(it, tmp.addr), "TensorInt64Bit.Create"
     result = adopt[TensorInt64Bit](tmp)
 
 proc create*(_: typedesc[TensorInt64Bit], shape: seq[int64]): TensorInt64Bit =
@@ -3199,7 +2952,7 @@ proc create*(_: typedesc[TensorInt64Bit], shape: seq[int64]): TensorInt64Bit =
                                            IID_IIterator_1_I8)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ITensorInt64BitStatics_Create2, p0, tmp.addr)
+    check it.vtbl.Create2(it, p0, tmp.addr), "TensorInt64Bit.Create"
     result = adopt[TensorInt64Bit](tmp)
 
 proc createFromArray*(_: typedesc[TensorInt64Bit], shape: seq[int64],
@@ -3214,7 +2967,8 @@ proc createFromArray*(_: typedesc[TensorInt64Bit], shape: seq[int64],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorInt64BitStatics_CreateFromArray, p0, n1, d1, tmp.addr)
+    check it.vtbl.CreateFromArray(it, p0, n1, d1, tmp.addr
+                                 ), "TensorInt64Bit.CreateFromArray"
     result = adopt[TensorInt64Bit](tmp)
 
 proc createFromIterable*(_: typedesc[TensorInt64Bit], shape: seq[int64],
@@ -3231,7 +2985,8 @@ proc createFromIterable*(_: typedesc[TensorInt64Bit], shape: seq[int64],
                                           IID_IIterator_1_I8)
     defer: discard release(p1)
     var tmp: pointer
-    it.call(ITensorInt64BitStatics_CreateFromIterable, p0, p1, tmp.addr)
+    check it.vtbl.CreateFromIterable(it, p0, p1, tmp.addr
+                                    ), "TensorInt64Bit.CreateFromIterable"
     result = adopt[TensorInt64Bit](tmp)
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt64Bit],
@@ -3245,8 +3000,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt64Bit],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorInt64BitStatics2_CreateFromShapeArrayAndDataArray, n0, d0,
-            n1, d1, tmp.addr)
+    check it.vtbl.CreateFromShapeArrayAndDataArray(it, n0, d0, n1, d1, tmp.addr
+                                                  ), "TensorInt64Bit.CreateFromShapeArrayAndDataArray"
     result = adopt[TensorInt64Bit](tmp)
 
 proc createFromBuffer*(_: typedesc[TensorInt64Bit], shape: openArray[int64],
@@ -3258,50 +3013,47 @@ proc createFromBuffer*(_: typedesc[TensorInt64Bit], shape: openArray[int64],
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withIface(buffer.p, IBuffer, p1):
       var tmp: pointer
-      it.call(ITensorInt64BitStatics2_CreateFromBuffer, n0, d0, p1, tmp.addr)
+      check it.vtbl.CreateFromBuffer(it, n0, d0, p1, tmp.addr
+                                    ), "TensorInt64Bit.CreateFromBuffer"
       result = adopt[TensorInt64Bit](tmp)
 
 proc getAsVectorView*(self: TensorInt8Bit): seq[uint8] =
   ## Windows.AI.MachineLearning.TensorInt8Bit.GetAsVectorView
   withIface(self.p, ITensorInt8Bit, it):
     var tmp: pointer
-    it.call(ITensorInt8Bit_GetAsVectorView, tmp.addr)
+    check it.vtbl.GetAsVectorView(it, tmp.addr), "TensorInt8Bit.GetAsVectorView"
     result = toSeq[uint8](tmp, IID_IVectorView_1_U1)
     release(tmp)
 
 proc tensorKind*(self: TensorInt8Bit): TensorKind =
   ## Windows.AI.MachineLearning.TensorInt8Bit.get_TensorKind
   withIface(self.p, ITensor, it):
-    var tmp: TensorKind
-    it.call(ITensor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorInt8Bit): seq[int64] =
   ## Windows.AI.MachineLearning.TensorInt8Bit.get_Shape
   withIface(self.p, ITensor, it):
     var tmp: pointer
-    it.call(ITensor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorInt8Bit.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorInt8Bit): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorInt8Bit.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createReference*(self: TensorInt8Bit): WinRtObject =
   ## Windows.AI.MachineLearning.TensorInt8Bit.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr), "TensorInt8Bit.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: TensorInt8Bit) =
   ## Windows.AI.MachineLearning.TensorInt8Bit.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "TensorInt8Bit.Close"
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt8Bit],
                                        shape: openArray[int64],
@@ -3314,8 +3066,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt8Bit],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorInt8BitStatics2_CreateFromShapeArrayAndDataArray, n0, d0, n1,
-            d1, tmp.addr)
+    check it.vtbl.CreateFromShapeArrayAndDataArray(it, n0, d0, n1, d1, tmp.addr
+                                                  ), "TensorInt8Bit.CreateFromShapeArrayAndDataArray"
     result = adopt[TensorInt8Bit](tmp)
 
 proc createFromBuffer*(_: typedesc[TensorInt8Bit], shape: openArray[int64],
@@ -3327,7 +3079,8 @@ proc createFromBuffer*(_: typedesc[TensorInt8Bit], shape: openArray[int64],
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withIface(buffer.p, IBuffer, p1):
       var tmp: pointer
-      it.call(ITensorInt8BitStatics2_CreateFromBuffer, n0, d0, p1, tmp.addr)
+      check it.vtbl.CreateFromBuffer(it, n0, d0, p1, tmp.addr
+                                    ), "TensorInt8Bit.CreateFromBuffer"
       result = adopt[TensorInt8Bit](tmp)
 
 proc create*(_: typedesc[TensorInt8Bit]): TensorInt8Bit =
@@ -3335,7 +3088,7 @@ proc create*(_: typedesc[TensorInt8Bit]): TensorInt8Bit =
   withStatics("Windows.AI.MachineLearning.TensorInt8Bit", ITensorInt8BitStatics,
               it):
     var tmp: pointer
-    it.call(ITensorInt8BitStatics_Create, tmp.addr)
+    check it.vtbl.Create(it, tmp.addr), "TensorInt8Bit.Create"
     result = adopt[TensorInt8Bit](tmp)
 
 proc create*(_: typedesc[TensorInt8Bit], shape: seq[int64]): TensorInt8Bit =
@@ -3347,7 +3100,7 @@ proc create*(_: typedesc[TensorInt8Bit], shape: seq[int64]): TensorInt8Bit =
                                            IID_IIterator_1_I8)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ITensorInt8BitStatics_Create2, p0, tmp.addr)
+    check it.vtbl.Create2(it, p0, tmp.addr), "TensorInt8Bit.Create"
     result = adopt[TensorInt8Bit](tmp)
 
 proc createFromArray*(_: typedesc[TensorInt8Bit], shape: seq[int64],
@@ -3362,7 +3115,8 @@ proc createFromArray*(_: typedesc[TensorInt8Bit], shape: seq[int64],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorInt8BitStatics_CreateFromArray, p0, n1, d1, tmp.addr)
+    check it.vtbl.CreateFromArray(it, p0, n1, d1, tmp.addr
+                                 ), "TensorInt8Bit.CreateFromArray"
     result = adopt[TensorInt8Bit](tmp)
 
 proc createFromIterable*(_: typedesc[TensorInt8Bit], shape: seq[int64],
@@ -3379,50 +3133,47 @@ proc createFromIterable*(_: typedesc[TensorInt8Bit], shape: seq[int64],
                                           IID_IIterator_1_U1)
     defer: discard release(p1)
     var tmp: pointer
-    it.call(ITensorInt8BitStatics_CreateFromIterable, p0, p1, tmp.addr)
+    check it.vtbl.CreateFromIterable(it, p0, p1, tmp.addr
+                                    ), "TensorInt8Bit.CreateFromIterable"
     result = adopt[TensorInt8Bit](tmp)
 
 proc getAsVectorView*(self: TensorString): seq[string] =
   ## Windows.AI.MachineLearning.TensorString.GetAsVectorView
   withIface(self.p, ITensorString, it):
     var tmp: pointer
-    it.call(ITensorString_GetAsVectorView, tmp.addr)
+    check it.vtbl.GetAsVectorView(it, tmp.addr), "TensorString.GetAsVectorView"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc tensorKind*(self: TensorString): TensorKind =
   ## Windows.AI.MachineLearning.TensorString.get_TensorKind
   withIface(self.p, ITensor, it):
-    var tmp: TensorKind
-    it.call(ITensor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorString): seq[int64] =
   ## Windows.AI.MachineLearning.TensorString.get_Shape
   withIface(self.p, ITensor, it):
     var tmp: pointer
-    it.call(ITensor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorString.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorString): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorString.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createReference*(self: TensorString): WinRtObject =
   ## Windows.AI.MachineLearning.TensorString.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr), "TensorString.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: TensorString) =
   ## Windows.AI.MachineLearning.TensorString.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "TensorString.Close"
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorString],
                                        shape: openArray[int64],
@@ -3434,8 +3185,9 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorString],
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withStringArray(data, n1, d1):
       var tmp: pointer
-      it.call(ITensorStringStatics2_CreateFromShapeArrayAndDataArray, n0, d0,
-              n1, d1, tmp.addr)
+      check it.vtbl.CreateFromShapeArrayAndDataArray(it, n0, d0, n1, d1,
+                                                     tmp.addr
+                                                    ), "TensorString.CreateFromShapeArrayAndDataArray"
       result = adopt[TensorString](tmp)
 
 proc create*(_: typedesc[TensorString]): TensorString =
@@ -3443,7 +3195,7 @@ proc create*(_: typedesc[TensorString]): TensorString =
   withStatics("Windows.AI.MachineLearning.TensorString", ITensorStringStatics,
               it):
     var tmp: pointer
-    it.call(ITensorStringStatics_Create, tmp.addr)
+    check it.vtbl.Create(it, tmp.addr), "TensorString.Create"
     result = adopt[TensorString](tmp)
 
 proc create*(_: typedesc[TensorString], shape: seq[int64]): TensorString =
@@ -3455,7 +3207,7 @@ proc create*(_: typedesc[TensorString], shape: seq[int64]): TensorString =
                                            IID_IIterator_1_I8)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ITensorStringStatics_Create2, p0, tmp.addr)
+    check it.vtbl.Create2(it, p0, tmp.addr), "TensorString.Create"
     result = adopt[TensorString](tmp)
 
 proc createFromArray*(_: typedesc[TensorString], shape: seq[int64],
@@ -3469,7 +3221,8 @@ proc createFromArray*(_: typedesc[TensorString], shape: seq[int64],
     defer: discard release(p0)
     withStringArray(data, n1, d1):
       var tmp: pointer
-      it.call(ITensorStringStatics_CreateFromArray, p0, n1, d1, tmp.addr)
+      check it.vtbl.CreateFromArray(it, p0, n1, d1, tmp.addr
+                                   ), "TensorString.CreateFromArray"
       result = adopt[TensorString](tmp)
 
 proc createFromIterable*(_: typedesc[TensorString], shape: seq[int64],
@@ -3486,57 +3239,56 @@ proc createFromIterable*(_: typedesc[TensorString], shape: seq[int64],
                                     IID_IIterator_1_String)
     defer: discard release(p1)
     var tmp: pointer
-    it.call(ITensorStringStatics_CreateFromIterable, p0, p1, tmp.addr)
+    check it.vtbl.CreateFromIterable(it, p0, p1, tmp.addr
+                                    ), "TensorString.CreateFromIterable"
     result = adopt[TensorString](tmp)
 
 proc getAsVectorView*(self: TensorUInt16Bit): seq[uint16] =
   ## Windows.AI.MachineLearning.TensorUInt16Bit.GetAsVectorView
   withIface(self.p, ITensorUInt16Bit, it):
     var tmp: pointer
-    it.call(ITensorUInt16Bit_GetAsVectorView, tmp.addr)
+    check it.vtbl.GetAsVectorView(it, tmp.addr
+                                 ), "TensorUInt16Bit.GetAsVectorView"
     result = toSeq[uint16](tmp, IID_IVectorView_1_U2)
     release(tmp)
 
 proc tensorKind*(self: TensorUInt16Bit): TensorKind =
   ## Windows.AI.MachineLearning.TensorUInt16Bit.get_TensorKind
   withIface(self.p, ITensor, it):
-    var tmp: TensorKind
-    it.call(ITensor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorUInt16Bit): seq[int64] =
   ## Windows.AI.MachineLearning.TensorUInt16Bit.get_Shape
   withIface(self.p, ITensor, it):
     var tmp: pointer
-    it.call(ITensor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorUInt16Bit.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorUInt16Bit): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorUInt16Bit.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createReference*(self: TensorUInt16Bit): WinRtObject =
   ## Windows.AI.MachineLearning.TensorUInt16Bit.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr
+                                 ), "TensorUInt16Bit.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: TensorUInt16Bit) =
   ## Windows.AI.MachineLearning.TensorUInt16Bit.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "TensorUInt16Bit.Close"
 
 proc create*(_: typedesc[TensorUInt16Bit]): TensorUInt16Bit =
   ## Windows.AI.MachineLearning.TensorUInt16Bit.Create
   withStatics("Windows.AI.MachineLearning.TensorUInt16Bit",
               ITensorUInt16BitStatics, it):
     var tmp: pointer
-    it.call(ITensorUInt16BitStatics_Create, tmp.addr)
+    check it.vtbl.Create(it, tmp.addr), "TensorUInt16Bit.Create"
     result = adopt[TensorUInt16Bit](tmp)
 
 proc create*(_: typedesc[TensorUInt16Bit], shape: seq[int64]): TensorUInt16Bit =
@@ -3548,7 +3300,7 @@ proc create*(_: typedesc[TensorUInt16Bit], shape: seq[int64]): TensorUInt16Bit =
                                            IID_IIterator_1_I8)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ITensorUInt16BitStatics_Create2, p0, tmp.addr)
+    check it.vtbl.Create2(it, p0, tmp.addr), "TensorUInt16Bit.Create"
     result = adopt[TensorUInt16Bit](tmp)
 
 proc createFromArray*(_: typedesc[TensorUInt16Bit], shape: seq[int64],
@@ -3563,7 +3315,8 @@ proc createFromArray*(_: typedesc[TensorUInt16Bit], shape: seq[int64],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorUInt16BitStatics_CreateFromArray, p0, n1, d1, tmp.addr)
+    check it.vtbl.CreateFromArray(it, p0, n1, d1, tmp.addr
+                                 ), "TensorUInt16Bit.CreateFromArray"
     result = adopt[TensorUInt16Bit](tmp)
 
 proc createFromIterable*(_: typedesc[TensorUInt16Bit], shape: seq[int64],
@@ -3580,7 +3333,8 @@ proc createFromIterable*(_: typedesc[TensorUInt16Bit], shape: seq[int64],
                                            IID_IIterator_1_U2)
     defer: discard release(p1)
     var tmp: pointer
-    it.call(ITensorUInt16BitStatics_CreateFromIterable, p0, p1, tmp.addr)
+    check it.vtbl.CreateFromIterable(it, p0, p1, tmp.addr
+                                    ), "TensorUInt16Bit.CreateFromIterable"
     result = adopt[TensorUInt16Bit](tmp)
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt16Bit],
@@ -3595,8 +3349,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt16Bit],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorUInt16BitStatics2_CreateFromShapeArrayAndDataArray, n0, d0,
-            n1, d1, tmp.addr)
+    check it.vtbl.CreateFromShapeArrayAndDataArray(it, n0, d0, n1, d1, tmp.addr
+                                                  ), "TensorUInt16Bit.CreateFromShapeArrayAndDataArray"
     result = adopt[TensorUInt16Bit](tmp)
 
 proc createFromBuffer*(_: typedesc[TensorUInt16Bit], shape: openArray[int64],
@@ -3608,57 +3362,56 @@ proc createFromBuffer*(_: typedesc[TensorUInt16Bit], shape: openArray[int64],
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withIface(buffer.p, IBuffer, p1):
       var tmp: pointer
-      it.call(ITensorUInt16BitStatics2_CreateFromBuffer, n0, d0, p1, tmp.addr)
+      check it.vtbl.CreateFromBuffer(it, n0, d0, p1, tmp.addr
+                                    ), "TensorUInt16Bit.CreateFromBuffer"
       result = adopt[TensorUInt16Bit](tmp)
 
 proc getAsVectorView*(self: TensorUInt32Bit): seq[uint32] =
   ## Windows.AI.MachineLearning.TensorUInt32Bit.GetAsVectorView
   withIface(self.p, ITensorUInt32Bit, it):
     var tmp: pointer
-    it.call(ITensorUInt32Bit_GetAsVectorView, tmp.addr)
+    check it.vtbl.GetAsVectorView(it, tmp.addr
+                                 ), "TensorUInt32Bit.GetAsVectorView"
     result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc tensorKind*(self: TensorUInt32Bit): TensorKind =
   ## Windows.AI.MachineLearning.TensorUInt32Bit.get_TensorKind
   withIface(self.p, ITensor, it):
-    var tmp: TensorKind
-    it.call(ITensor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorUInt32Bit): seq[int64] =
   ## Windows.AI.MachineLearning.TensorUInt32Bit.get_Shape
   withIface(self.p, ITensor, it):
     var tmp: pointer
-    it.call(ITensor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorUInt32Bit.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorUInt32Bit): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorUInt32Bit.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createReference*(self: TensorUInt32Bit): WinRtObject =
   ## Windows.AI.MachineLearning.TensorUInt32Bit.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr
+                                 ), "TensorUInt32Bit.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: TensorUInt32Bit) =
   ## Windows.AI.MachineLearning.TensorUInt32Bit.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "TensorUInt32Bit.Close"
 
 proc create*(_: typedesc[TensorUInt32Bit]): TensorUInt32Bit =
   ## Windows.AI.MachineLearning.TensorUInt32Bit.Create
   withStatics("Windows.AI.MachineLearning.TensorUInt32Bit",
               ITensorUInt32BitStatics, it):
     var tmp: pointer
-    it.call(ITensorUInt32BitStatics_Create, tmp.addr)
+    check it.vtbl.Create(it, tmp.addr), "TensorUInt32Bit.Create"
     result = adopt[TensorUInt32Bit](tmp)
 
 proc create*(_: typedesc[TensorUInt32Bit], shape: seq[int64]): TensorUInt32Bit =
@@ -3670,7 +3423,7 @@ proc create*(_: typedesc[TensorUInt32Bit], shape: seq[int64]): TensorUInt32Bit =
                                            IID_IIterator_1_I8)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ITensorUInt32BitStatics_Create2, p0, tmp.addr)
+    check it.vtbl.Create2(it, p0, tmp.addr), "TensorUInt32Bit.Create"
     result = adopt[TensorUInt32Bit](tmp)
 
 proc createFromArray*(_: typedesc[TensorUInt32Bit], shape: seq[int64],
@@ -3685,7 +3438,8 @@ proc createFromArray*(_: typedesc[TensorUInt32Bit], shape: seq[int64],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorUInt32BitStatics_CreateFromArray, p0, n1, d1, tmp.addr)
+    check it.vtbl.CreateFromArray(it, p0, n1, d1, tmp.addr
+                                 ), "TensorUInt32Bit.CreateFromArray"
     result = adopt[TensorUInt32Bit](tmp)
 
 proc createFromIterable*(_: typedesc[TensorUInt32Bit], shape: seq[int64],
@@ -3702,7 +3456,8 @@ proc createFromIterable*(_: typedesc[TensorUInt32Bit], shape: seq[int64],
                                            IID_IIterator_1_U4)
     defer: discard release(p1)
     var tmp: pointer
-    it.call(ITensorUInt32BitStatics_CreateFromIterable, p0, p1, tmp.addr)
+    check it.vtbl.CreateFromIterable(it, p0, p1, tmp.addr
+                                    ), "TensorUInt32Bit.CreateFromIterable"
     result = adopt[TensorUInt32Bit](tmp)
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt32Bit],
@@ -3717,8 +3472,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt32Bit],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorUInt32BitStatics2_CreateFromShapeArrayAndDataArray, n0, d0,
-            n1, d1, tmp.addr)
+    check it.vtbl.CreateFromShapeArrayAndDataArray(it, n0, d0, n1, d1, tmp.addr
+                                                  ), "TensorUInt32Bit.CreateFromShapeArrayAndDataArray"
     result = adopt[TensorUInt32Bit](tmp)
 
 proc createFromBuffer*(_: typedesc[TensorUInt32Bit], shape: openArray[int64],
@@ -3730,50 +3485,49 @@ proc createFromBuffer*(_: typedesc[TensorUInt32Bit], shape: openArray[int64],
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withIface(buffer.p, IBuffer, p1):
       var tmp: pointer
-      it.call(ITensorUInt32BitStatics2_CreateFromBuffer, n0, d0, p1, tmp.addr)
+      check it.vtbl.CreateFromBuffer(it, n0, d0, p1, tmp.addr
+                                    ), "TensorUInt32Bit.CreateFromBuffer"
       result = adopt[TensorUInt32Bit](tmp)
 
 proc getAsVectorView*(self: TensorUInt64Bit): seq[uint64] =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.GetAsVectorView
   withIface(self.p, ITensorUInt64Bit, it):
     var tmp: pointer
-    it.call(ITensorUInt64Bit_GetAsVectorView, tmp.addr)
+    check it.vtbl.GetAsVectorView(it, tmp.addr
+                                 ), "TensorUInt64Bit.GetAsVectorView"
     result = toSeq[uint64](tmp, IID_IVectorView_1_U8)
     release(tmp)
 
 proc tensorKind*(self: TensorUInt64Bit): TensorKind =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.get_TensorKind
   withIface(self.p, ITensor, it):
-    var tmp: TensorKind
-    it.call(ITensor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorUInt64Bit): seq[int64] =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.get_Shape
   withIface(self.p, ITensor, it):
     var tmp: pointer
-    it.call(ITensor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorUInt64Bit.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorUInt64Bit): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createReference*(self: TensorUInt64Bit): WinRtObject =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr
+                                 ), "TensorUInt64Bit.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: TensorUInt64Bit) =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "TensorUInt64Bit.Close"
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt64Bit],
                                        shape: openArray[int64],
@@ -3787,8 +3541,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt64Bit],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorUInt64BitStatics2_CreateFromShapeArrayAndDataArray, n0, d0,
-            n1, d1, tmp.addr)
+    check it.vtbl.CreateFromShapeArrayAndDataArray(it, n0, d0, n1, d1, tmp.addr
+                                                  ), "TensorUInt64Bit.CreateFromShapeArrayAndDataArray"
     result = adopt[TensorUInt64Bit](tmp)
 
 proc createFromBuffer*(_: typedesc[TensorUInt64Bit], shape: openArray[int64],
@@ -3800,7 +3554,8 @@ proc createFromBuffer*(_: typedesc[TensorUInt64Bit], shape: openArray[int64],
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withIface(buffer.p, IBuffer, p1):
       var tmp: pointer
-      it.call(ITensorUInt64BitStatics2_CreateFromBuffer, n0, d0, p1, tmp.addr)
+      check it.vtbl.CreateFromBuffer(it, n0, d0, p1, tmp.addr
+                                    ), "TensorUInt64Bit.CreateFromBuffer"
       result = adopt[TensorUInt64Bit](tmp)
 
 proc create*(_: typedesc[TensorUInt64Bit]): TensorUInt64Bit =
@@ -3808,7 +3563,7 @@ proc create*(_: typedesc[TensorUInt64Bit]): TensorUInt64Bit =
   withStatics("Windows.AI.MachineLearning.TensorUInt64Bit",
               ITensorUInt64BitStatics, it):
     var tmp: pointer
-    it.call(ITensorUInt64BitStatics_Create, tmp.addr)
+    check it.vtbl.Create(it, tmp.addr), "TensorUInt64Bit.Create"
     result = adopt[TensorUInt64Bit](tmp)
 
 proc create*(_: typedesc[TensorUInt64Bit], shape: seq[int64]): TensorUInt64Bit =
@@ -3820,7 +3575,7 @@ proc create*(_: typedesc[TensorUInt64Bit], shape: seq[int64]): TensorUInt64Bit =
                                            IID_IIterator_1_I8)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ITensorUInt64BitStatics_Create2, p0, tmp.addr)
+    check it.vtbl.Create2(it, p0, tmp.addr), "TensorUInt64Bit.Create"
     result = adopt[TensorUInt64Bit](tmp)
 
 proc createFromArray*(_: typedesc[TensorUInt64Bit], shape: seq[int64],
@@ -3835,7 +3590,8 @@ proc createFromArray*(_: typedesc[TensorUInt64Bit], shape: seq[int64],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorUInt64BitStatics_CreateFromArray, p0, n1, d1, tmp.addr)
+    check it.vtbl.CreateFromArray(it, p0, n1, d1, tmp.addr
+                                 ), "TensorUInt64Bit.CreateFromArray"
     result = adopt[TensorUInt64Bit](tmp)
 
 proc createFromIterable*(_: typedesc[TensorUInt64Bit], shape: seq[int64],
@@ -3852,57 +3608,56 @@ proc createFromIterable*(_: typedesc[TensorUInt64Bit], shape: seq[int64],
                                            IID_IIterator_1_U8)
     defer: discard release(p1)
     var tmp: pointer
-    it.call(ITensorUInt64BitStatics_CreateFromIterable, p0, p1, tmp.addr)
+    check it.vtbl.CreateFromIterable(it, p0, p1, tmp.addr
+                                    ), "TensorUInt64Bit.CreateFromIterable"
     result = adopt[TensorUInt64Bit](tmp)
 
 proc getAsVectorView*(self: TensorUInt8Bit): seq[uint8] =
   ## Windows.AI.MachineLearning.TensorUInt8Bit.GetAsVectorView
   withIface(self.p, ITensorUInt8Bit, it):
     var tmp: pointer
-    it.call(ITensorUInt8Bit_GetAsVectorView, tmp.addr)
+    check it.vtbl.GetAsVectorView(it, tmp.addr
+                                 ), "TensorUInt8Bit.GetAsVectorView"
     result = toSeq[uint8](tmp, IID_IVectorView_1_U1)
     release(tmp)
 
 proc tensorKind*(self: TensorUInt8Bit): TensorKind =
   ## Windows.AI.MachineLearning.TensorUInt8Bit.get_TensorKind
   withIface(self.p, ITensor, it):
-    var tmp: TensorKind
-    it.call(ITensor_get_TensorKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TensorKind, TensorKind)
 
 proc shape*(self: TensorUInt8Bit): seq[int64] =
   ## Windows.AI.MachineLearning.TensorUInt8Bit.get_Shape
   withIface(self.p, ITensor, it):
     var tmp: pointer
-    it.call(ITensor_get_Shape, tmp.addr)
+    check it.vtbl.get_Shape(it, tmp.addr), "TensorUInt8Bit.get_Shape"
     result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorUInt8Bit): LearningModelFeatureKind =
   ## Windows.AI.MachineLearning.TensorUInt8Bit.get_Kind
   withIface(self.p, ILearningModelFeatureValue, it):
-    var tmp: LearningModelFeatureKind
-    it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, LearningModelFeatureKind)
 
 proc createReference*(self: TensorUInt8Bit): WinRtObject =
   ## Windows.AI.MachineLearning.TensorUInt8Bit.CreateReference
   withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    it.call(IMemoryBuffer_CreateReference, tmp.addr)
+    check it.vtbl.CreateReference(it, tmp.addr
+                                 ), "TensorUInt8Bit.CreateReference"
     result = adopt[WinRtObject](tmp)
 
 proc close*(self: TensorUInt8Bit) =
   ## Windows.AI.MachineLearning.TensorUInt8Bit.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "TensorUInt8Bit.Close"
 
 proc create*(_: typedesc[TensorUInt8Bit]): TensorUInt8Bit =
   ## Windows.AI.MachineLearning.TensorUInt8Bit.Create
   withStatics("Windows.AI.MachineLearning.TensorUInt8Bit",
               ITensorUInt8BitStatics, it):
     var tmp: pointer
-    it.call(ITensorUInt8BitStatics_Create, tmp.addr)
+    check it.vtbl.Create(it, tmp.addr), "TensorUInt8Bit.Create"
     result = adopt[TensorUInt8Bit](tmp)
 
 proc create*(_: typedesc[TensorUInt8Bit], shape: seq[int64]): TensorUInt8Bit =
@@ -3914,7 +3669,7 @@ proc create*(_: typedesc[TensorUInt8Bit], shape: seq[int64]): TensorUInt8Bit =
                                            IID_IIterator_1_I8)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ITensorUInt8BitStatics_Create2, p0, tmp.addr)
+    check it.vtbl.Create2(it, p0, tmp.addr), "TensorUInt8Bit.Create"
     result = adopt[TensorUInt8Bit](tmp)
 
 proc createFromArray*(_: typedesc[TensorUInt8Bit], shape: seq[int64],
@@ -3929,7 +3684,8 @@ proc createFromArray*(_: typedesc[TensorUInt8Bit], shape: seq[int64],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorUInt8BitStatics_CreateFromArray, p0, n1, d1, tmp.addr)
+    check it.vtbl.CreateFromArray(it, p0, n1, d1, tmp.addr
+                                 ), "TensorUInt8Bit.CreateFromArray"
     result = adopt[TensorUInt8Bit](tmp)
 
 proc createFromIterable*(_: typedesc[TensorUInt8Bit], shape: seq[int64],
@@ -3946,7 +3702,8 @@ proc createFromIterable*(_: typedesc[TensorUInt8Bit], shape: seq[int64],
                                           IID_IIterator_1_U1)
     defer: discard release(p1)
     var tmp: pointer
-    it.call(ITensorUInt8BitStatics_CreateFromIterable, p0, p1, tmp.addr)
+    check it.vtbl.CreateFromIterable(it, p0, p1, tmp.addr
+                                    ), "TensorUInt8Bit.CreateFromIterable"
     result = adopt[TensorUInt8Bit](tmp)
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt8Bit],
@@ -3960,8 +3717,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt8Bit],
     let n1 = uint32(data.len)
     let d1 = if data.len > 0: data[0].unsafeAddr else: nil
     var tmp: pointer
-    it.call(ITensorUInt8BitStatics2_CreateFromShapeArrayAndDataArray, n0, d0,
-            n1, d1, tmp.addr)
+    check it.vtbl.CreateFromShapeArrayAndDataArray(it, n0, d0, n1, d1, tmp.addr
+                                                  ), "TensorUInt8Bit.CreateFromShapeArrayAndDataArray"
     result = adopt[TensorUInt8Bit](tmp)
 
 proc createFromBuffer*(_: typedesc[TensorUInt8Bit], shape: openArray[int64],
@@ -3973,6 +3730,7 @@ proc createFromBuffer*(_: typedesc[TensorUInt8Bit], shape: openArray[int64],
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withIface(buffer.p, IBuffer, p1):
       var tmp: pointer
-      it.call(ITensorUInt8BitStatics2_CreateFromBuffer, n0, d0, p1, tmp.addr)
+      check it.vtbl.CreateFromBuffer(it, n0, d0, p1, tmp.addr
+                                    ), "TensorUInt8Bit.CreateFromBuffer"
       result = adopt[TensorUInt8Bit](tmp)
 

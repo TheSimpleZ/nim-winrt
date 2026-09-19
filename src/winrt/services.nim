@@ -137,15 +137,14 @@ const IID_IVectorView_1_TargetedContentAction* = guid"4299BD84-E44E-5FCB-A465-E1
 proc user*(self: CortanaActionableInsights): User =
   ## Windows.Services.Cortana.CortanaActionableInsights.get_User
   withIface(self.p, ICortanaActionableInsights, it):
-    var tmp: pointer
-    it.call(ICortanaActionableInsights_get_User, tmp.addr)
-    result = adopt[User](tmp)
+    result = it.getObject(get_User, User)
 
 proc isAvailableAsync*(self: CortanaActionableInsights): Future[bool] {.async.} =
   ## Windows.Services.Cortana.CortanaActionableInsights.IsAvailableAsync
   var op: pointer
   withIface(self.p, ICortanaActionableInsights, it):
-    it.call(ICortanaActionableInsights_IsAvailableAsync, op.addr)
+    check it.vtbl.IsAvailableAsync(it, op.addr
+                                  ), "CortanaActionableInsights.IsAvailableAsync"
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
@@ -157,7 +156,8 @@ proc showInsightsForImageAsync*(self: CortanaActionableInsights,
   var op: pointer
   withIface(self.p, ICortanaActionableInsights, it):
     withIface(imageStream.p, IRandomAccessStreamReference, p0):
-      it.call(ICortanaActionableInsights_ShowInsightsForImageAsync, p0, op.addr)
+      check it.vtbl.ShowInsightsForImageAsync(it, p0, op.addr
+                                             ), "CortanaActionableInsights.ShowInsightsForImageAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "CortanaActionableInsights.ShowInsightsForImageAsync")
 
@@ -170,8 +170,8 @@ proc showInsightsForImageAsync*(self: CortanaActionableInsights,
   withIface(self.p, ICortanaActionableInsights, it):
     withIface(imageStream.p, IRandomAccessStreamReference, p0):
       withIface(options.p, ICortanaActionableInsightsOptions, p1):
-        it.call(ICortanaActionableInsights_ShowInsightsForImageAsync2, p0, p1,
-                op.addr)
+        check it.vtbl.ShowInsightsForImageAsync2(it, p0, p1, op.addr
+                                                ), "CortanaActionableInsights.ShowInsightsForImageAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "CortanaActionableInsights.ShowInsightsForImageAsync")
 
@@ -181,7 +181,8 @@ proc showInsightsForTextAsync*(self: CortanaActionableInsights, text: string
   var op: pointer
   withIface(self.p, ICortanaActionableInsights, it):
     withHString(text, h0):
-      it.call(ICortanaActionableInsights_ShowInsightsForTextAsync, h0, op.addr)
+      check it.vtbl.ShowInsightsForTextAsync(it, h0, op.addr
+                                            ), "CortanaActionableInsights.ShowInsightsForTextAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "CortanaActionableInsights.ShowInsightsForTextAsync")
 
@@ -193,8 +194,8 @@ proc showInsightsForTextAsync*(self: CortanaActionableInsights, text: string,
   withIface(self.p, ICortanaActionableInsights, it):
     withHString(text, h0):
       withIface(options.p, ICortanaActionableInsightsOptions, p1):
-        it.call(ICortanaActionableInsights_ShowInsightsForTextAsync2, h0, p1,
-                op.addr)
+        check it.vtbl.ShowInsightsForTextAsync2(it, h0, p1, op.addr
+                                               ), "CortanaActionableInsights.ShowInsightsForTextAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "CortanaActionableInsights.ShowInsightsForTextAsync")
 
@@ -204,7 +205,8 @@ proc showInsightsAsync*(self: CortanaActionableInsights,
   var op: pointer
   withIface(self.p, ICortanaActionableInsights, it):
     withIface(datapackage.p, IDataPackage, p0):
-      it.call(ICortanaActionableInsights_ShowInsightsAsync, p0, op.addr)
+      check it.vtbl.ShowInsightsAsync(it, p0, op.addr
+                                     ), "CortanaActionableInsights.ShowInsightsAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "CortanaActionableInsights.ShowInsightsAsync")
 
@@ -216,7 +218,8 @@ proc showInsightsAsync*(self: CortanaActionableInsights,
   withIface(self.p, ICortanaActionableInsights, it):
     withIface(datapackage.p, IDataPackage, p0):
       withIface(options.p, ICortanaActionableInsightsOptions, p1):
-        it.call(ICortanaActionableInsights_ShowInsightsAsync2, p0, p1, op.addr)
+        check it.vtbl.ShowInsightsAsync2(it, p0, p1, op.addr
+                                        ), "CortanaActionableInsights.ShowInsightsAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "CortanaActionableInsights.ShowInsightsAsync")
 
@@ -225,7 +228,8 @@ proc getDefault*(_: typedesc[CortanaActionableInsights]): CortanaActionableInsig
   withStatics("Windows.Services.Cortana.CortanaActionableInsights",
               ICortanaActionableInsightsStatics, it):
     var tmp: pointer
-    it.call(ICortanaActionableInsightsStatics_GetDefault, tmp.addr)
+    check it.vtbl.GetDefault(it, tmp.addr
+                            ), "CortanaActionableInsights.GetDefault"
     result = adopt[CortanaActionableInsights](tmp)
 
 proc getForUser*(_: typedesc[CortanaActionableInsights], user: User
@@ -235,7 +239,8 @@ proc getForUser*(_: typedesc[CortanaActionableInsights], user: User
               ICortanaActionableInsightsStatics, it):
     withIface(user.p, IUser, p0):
       var tmp: pointer
-      it.call(ICortanaActionableInsightsStatics_GetForUser, p0, tmp.addr)
+      check it.vtbl.GetForUser(it, p0, tmp.addr
+                              ), "CortanaActionableInsights.GetForUser"
       result = adopt[CortanaActionableInsights](tmp)
 
 proc newCortanaActionableInsightsOptions*(): CortanaActionableInsightsOptions =
@@ -245,37 +250,33 @@ proc newCortanaActionableInsightsOptions*(): CortanaActionableInsightsOptions =
 proc contentSourceWebLink*(self: CortanaActionableInsightsOptions): Uri =
   ## Windows.Services.Cortana.CortanaActionableInsightsOptions.get_ContentSourceWebLink
   withIface(self.p, ICortanaActionableInsightsOptions, it):
-    var tmp: pointer
-    it.call(ICortanaActionableInsightsOptions_get_ContentSourceWebLink, tmp.addr
-           )
-    result = adopt[Uri](tmp)
+    result = it.getObject(get_ContentSourceWebLink, Uri)
 
 proc `contentSourceWebLink=`*(self: CortanaActionableInsightsOptions, value: Uri
                              ) =
   ## Windows.Services.Cortana.CortanaActionableInsightsOptions.put_ContentSourceWebLink
   withIface(self.p, ICortanaActionableInsightsOptions, it):
     withIface(value.p, IUriRuntimeClass, p0):
-      it.call(ICortanaActionableInsightsOptions_put_ContentSourceWebLink, p0)
+      check it.vtbl.put_ContentSourceWebLink(it, p0
+                                            ), "CortanaActionableInsightsOptions.put_ContentSourceWebLink"
 
 proc surroundingText*(self: CortanaActionableInsightsOptions): string =
   ## Windows.Services.Cortana.CortanaActionableInsightsOptions.get_SurroundingText
   withIface(self.p, ICortanaActionableInsightsOptions, it):
-    var tmp: HSTRING
-    it.call(ICortanaActionableInsightsOptions_get_SurroundingText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SurroundingText)
 
 proc `surroundingText=`*(self: CortanaActionableInsightsOptions, value: string
                         ) =
   ## Windows.Services.Cortana.CortanaActionableInsightsOptions.put_SurroundingText
   withIface(self.p, ICortanaActionableInsightsOptions, it):
-    withHString(value, h0):
-      it.call(ICortanaActionableInsightsOptions_put_SurroundingText, h0)
+    it.putString(put_SurroundingText, value)
 
 proc isSupported*(self: CortanaPermissionsManager): bool =
   ## Windows.Services.Cortana.CortanaPermissionsManager.IsSupported
   withIface(self.p, ICortanaPermissionsManager, it):
     var tmp: bool
-    it.call(ICortanaPermissionsManager_IsSupported, tmp.addr)
+    check it.vtbl.IsSupported(it, tmp.addr
+                             ), "CortanaPermissionsManager.IsSupported"
     result = tmp
 
 proc arePermissionsGrantedAsync*(self: CortanaPermissionsManager,
@@ -289,7 +290,8 @@ proc arePermissionsGrantedAsync*(self: CortanaPermissionsManager,
                                                              IID_IIterator_1_CortanaPermission
                                                             )
     defer: discard release(p0)
-    it.call(ICortanaPermissionsManager_ArePermissionsGrantedAsync, p0, op.addr)
+    check it.vtbl.ArePermissionsGrantedAsync(it, p0, op.addr
+                                            ), "CortanaPermissionsManager.ArePermissionsGrantedAsync"
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
@@ -307,7 +309,8 @@ proc grantPermissionsAsync*(self: CortanaPermissionsManager,
                                                              IID_IIterator_1_CortanaPermission
                                                             )
     defer: discard release(p0)
-    it.call(ICortanaPermissionsManager_GrantPermissionsAsync, p0, op.addr)
+    check it.vtbl.GrantPermissionsAsync(it, p0, op.addr
+                                       ), "CortanaPermissionsManager.GrantPermissionsAsync"
   result = await awaitValue[CortanaPermissionsChangeResult](op,
                                                             IID_IAsyncOperation_1_CortanaPermissionsChangeResult,
                                                             IID_AsyncOperationCompletedHandler_1_CortanaPermissionsChangeResult,
@@ -326,7 +329,8 @@ proc revokePermissionsAsync*(self: CortanaPermissionsManager,
                                                              IID_IIterator_1_CortanaPermission
                                                             )
     defer: discard release(p0)
-    it.call(ICortanaPermissionsManager_RevokePermissionsAsync, p0, op.addr)
+    check it.vtbl.RevokePermissionsAsync(it, p0, op.addr
+                                        ), "CortanaPermissionsManager.RevokePermissionsAsync"
   result = await awaitValue[CortanaPermissionsChangeResult](op,
                                                             IID_IAsyncOperation_1_CortanaPermissionsChangeResult,
                                                             IID_AsyncOperationCompletedHandler_1_CortanaPermissionsChangeResult,
@@ -339,34 +343,31 @@ proc getDefault*(_: typedesc[CortanaPermissionsManager]): CortanaPermissionsMana
   withStatics("Windows.Services.Cortana.CortanaPermissionsManager",
               ICortanaPermissionsManagerStatics, it):
     var tmp: pointer
-    it.call(ICortanaPermissionsManagerStatics_GetDefault, tmp.addr)
+    check it.vtbl.GetDefault(it, tmp.addr
+                            ), "CortanaPermissionsManager.GetDefault"
     result = adopt[CortanaPermissionsManager](tmp)
 
 proc hasUserConsentToVoiceActivation*(self: CortanaSettings): bool =
   ## Windows.Services.Cortana.CortanaSettings.get_HasUserConsentToVoiceActivation
   withIface(self.p, ICortanaSettings, it):
-    var tmp: bool
-    it.call(ICortanaSettings_get_HasUserConsentToVoiceActivation, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HasUserConsentToVoiceActivation, bool)
 
 proc isVoiceActivationEnabled*(self: CortanaSettings): bool =
   ## Windows.Services.Cortana.CortanaSettings.get_IsVoiceActivationEnabled
   withIface(self.p, ICortanaSettings, it):
-    var tmp: bool
-    it.call(ICortanaSettings_get_IsVoiceActivationEnabled, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsVoiceActivationEnabled, bool)
 
 proc `isVoiceActivationEnabled=`*(self: CortanaSettings, value: bool) =
   ## Windows.Services.Cortana.CortanaSettings.put_IsVoiceActivationEnabled
   withIface(self.p, ICortanaSettings, it):
-    it.call(ICortanaSettings_put_IsVoiceActivationEnabled, value)
+    it.putValue(put_IsVoiceActivationEnabled, value)
 
 proc isSupported*(_: typedesc[CortanaSettings]): bool =
   ## Windows.Services.Cortana.CortanaSettings.IsSupported
   withStatics("Windows.Services.Cortana.CortanaSettings",
               ICortanaSettingsStatics, it):
     var tmp: bool
-    it.call(ICortanaSettingsStatics_IsSupported, tmp.addr)
+    check it.vtbl.IsSupported(it, tmp.addr), "CortanaSettings.IsSupported"
     result = tmp
 
 proc getDefault*(_: typedesc[CortanaSettings]): CortanaSettings =
@@ -374,22 +375,18 @@ proc getDefault*(_: typedesc[CortanaSettings]): CortanaSettings =
   withStatics("Windows.Services.Cortana.CortanaSettings",
               ICortanaSettingsStatics, it):
     var tmp: pointer
-    it.call(ICortanaSettingsStatics_GetDefault, tmp.addr)
+    check it.vtbl.GetDefault(it, tmp.addr), "CortanaSettings.GetDefault"
     result = adopt[CortanaSettings](tmp)
 
 proc point*(self: EnhancedWaypoint): Geopoint =
   ## Windows.Services.Maps.EnhancedWaypoint.get_Point
   withIface(self.p, IEnhancedWaypoint, it):
-    var tmp: pointer
-    it.call(IEnhancedWaypoint_get_Point, tmp.addr)
-    result = adopt[Geopoint](tmp)
+    result = it.getObject(get_Point, Geopoint)
 
 proc kind*(self: EnhancedWaypoint): WaypointKind =
   ## Windows.Services.Maps.EnhancedWaypoint.get_Kind
   withIface(self.p, IEnhancedWaypoint, it):
-    var tmp: WaypointKind
-    it.call(IEnhancedWaypoint_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, WaypointKind)
 
 proc create*(_: typedesc[EnhancedWaypoint], point: Geopoint, kind: WaypointKind
             ): EnhancedWaypoint =
@@ -398,230 +395,183 @@ proc create*(_: typedesc[EnhancedWaypoint], point: Geopoint, kind: WaypointKind
               IEnhancedWaypointFactory, it):
     withIface(point.p, IGeopoint, p0):
       var tmp: pointer
-      it.call(IEnhancedWaypointFactory_Create, p0, kind, tmp.addr)
+      check it.vtbl.Create(it, p0, kind, tmp.addr), "EnhancedWaypoint.Create"
       result = adopt[EnhancedWaypoint](tmp)
 
 proc audioNotification*(self: GuidanceAudioNotificationRequestedEventArgs): GuidanceAudioNotificationKind =
   ## Windows.Services.Maps.Guidance.GuidanceAudioNotificationRequestedEventArgs.get_AudioNotification
   withIface(self.p, IGuidanceAudioNotificationRequestedEventArgs, it):
-    var tmp: GuidanceAudioNotificationKind
-    it.call(IGuidanceAudioNotificationRequestedEventArgs_get_AudioNotification,
-            tmp.addr)
-    result = tmp
+    result = it.getValue(get_AudioNotification, GuidanceAudioNotificationKind)
 
 proc audioFilePaths*(self: GuidanceAudioNotificationRequestedEventArgs): seq[string] =
   ## Windows.Services.Maps.Guidance.GuidanceAudioNotificationRequestedEventArgs.get_AudioFilePaths
   withIface(self.p, IGuidanceAudioNotificationRequestedEventArgs, it):
     var tmp: pointer
-    it.call(IGuidanceAudioNotificationRequestedEventArgs_get_AudioFilePaths,
-            tmp.addr)
+    check it.vtbl.get_AudioFilePaths(it, tmp.addr
+                                    ), "GuidanceAudioNotificationRequestedEventArgs.get_AudioFilePaths"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc audioText*(self: GuidanceAudioNotificationRequestedEventArgs): string =
   ## Windows.Services.Maps.Guidance.GuidanceAudioNotificationRequestedEventArgs.get_AudioText
   withIface(self.p, IGuidanceAudioNotificationRequestedEventArgs, it):
-    var tmp: HSTRING
-    it.call(IGuidanceAudioNotificationRequestedEventArgs_get_AudioText, tmp.addr
-           )
-    result = takeString(tmp)
+    result = it.getString(get_AudioText)
 
 proc laneMarkers*(self: GuidanceLaneInfo): GuidanceLaneMarkers =
   ## Windows.Services.Maps.Guidance.GuidanceLaneInfo.get_LaneMarkers
   withIface(self.p, IGuidanceLaneInfo, it):
-    var tmp: GuidanceLaneMarkers
-    it.call(IGuidanceLaneInfo_get_LaneMarkers, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LaneMarkers, GuidanceLaneMarkers)
 
 proc isOnRoute*(self: GuidanceLaneInfo): bool =
   ## Windows.Services.Maps.Guidance.GuidanceLaneInfo.get_IsOnRoute
   withIface(self.p, IGuidanceLaneInfo, it):
-    var tmp: bool
-    it.call(IGuidanceLaneInfo_get_IsOnRoute, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsOnRoute, bool)
 
 proc startLocation*(self: GuidanceManeuver): Geopoint =
   ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_StartLocation
   withIface(self.p, IGuidanceManeuver, it):
-    var tmp: pointer
-    it.call(IGuidanceManeuver_get_StartLocation, tmp.addr)
-    result = adopt[Geopoint](tmp)
+    result = it.getObject(get_StartLocation, Geopoint)
 
 proc distanceFromRouteStart*(self: GuidanceManeuver): int32 =
   ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_DistanceFromRouteStart
   withIface(self.p, IGuidanceManeuver, it):
-    var tmp: int32
-    it.call(IGuidanceManeuver_get_DistanceFromRouteStart, tmp.addr)
-    result = tmp
+    result = it.getValue(get_DistanceFromRouteStart, int32)
 
 proc distanceFromPreviousManeuver*(self: GuidanceManeuver): int32 =
   ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_DistanceFromPreviousManeuver
   withIface(self.p, IGuidanceManeuver, it):
-    var tmp: int32
-    it.call(IGuidanceManeuver_get_DistanceFromPreviousManeuver, tmp.addr)
-    result = tmp
+    result = it.getValue(get_DistanceFromPreviousManeuver, int32)
 
 proc departureRoadName*(self: GuidanceManeuver): string =
   ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_DepartureRoadName
   withIface(self.p, IGuidanceManeuver, it):
-    var tmp: HSTRING
-    it.call(IGuidanceManeuver_get_DepartureRoadName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DepartureRoadName)
 
 proc nextRoadName*(self: GuidanceManeuver): string =
   ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_NextRoadName
   withIface(self.p, IGuidanceManeuver, it):
-    var tmp: HSTRING
-    it.call(IGuidanceManeuver_get_NextRoadName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NextRoadName)
 
 proc departureShortRoadName*(self: GuidanceManeuver): string =
   ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_DepartureShortRoadName
   withIface(self.p, IGuidanceManeuver, it):
-    var tmp: HSTRING
-    it.call(IGuidanceManeuver_get_DepartureShortRoadName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DepartureShortRoadName)
 
 proc nextShortRoadName*(self: GuidanceManeuver): string =
   ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_NextShortRoadName
   withIface(self.p, IGuidanceManeuver, it):
-    var tmp: HSTRING
-    it.call(IGuidanceManeuver_get_NextShortRoadName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NextShortRoadName)
 
 proc kind*(self: GuidanceManeuver): GuidanceManeuverKind =
   ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_Kind
   withIface(self.p, IGuidanceManeuver, it):
-    var tmp: GuidanceManeuverKind
-    it.call(IGuidanceManeuver_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, GuidanceManeuverKind)
 
 proc startAngle*(self: GuidanceManeuver): int32 =
   ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_StartAngle
   withIface(self.p, IGuidanceManeuver, it):
-    var tmp: int32
-    it.call(IGuidanceManeuver_get_StartAngle, tmp.addr)
-    result = tmp
+    result = it.getValue(get_StartAngle, int32)
 
 proc endAngle*(self: GuidanceManeuver): int32 =
   ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_EndAngle
   withIface(self.p, IGuidanceManeuver, it):
-    var tmp: int32
-    it.call(IGuidanceManeuver_get_EndAngle, tmp.addr)
-    result = tmp
+    result = it.getValue(get_EndAngle, int32)
 
 proc roadSignpost*(self: GuidanceManeuver): GuidanceRoadSignpost =
   ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_RoadSignpost
   withIface(self.p, IGuidanceManeuver, it):
-    var tmp: pointer
-    it.call(IGuidanceManeuver_get_RoadSignpost, tmp.addr)
-    result = adopt[GuidanceRoadSignpost](tmp)
+    result = it.getObject(get_RoadSignpost, GuidanceRoadSignpost)
 
 proc instructionText*(self: GuidanceManeuver): string =
   ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_InstructionText
   withIface(self.p, IGuidanceManeuver, it):
-    var tmp: HSTRING
-    it.call(IGuidanceManeuver_get_InstructionText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InstructionText)
 
 proc location*(self: GuidanceMapMatchedCoordinate): Geopoint =
   ## Windows.Services.Maps.Guidance.GuidanceMapMatchedCoordinate.get_Location
   withIface(self.p, IGuidanceMapMatchedCoordinate, it):
-    var tmp: pointer
-    it.call(IGuidanceMapMatchedCoordinate_get_Location, tmp.addr)
-    result = adopt[Geopoint](tmp)
+    result = it.getObject(get_Location, Geopoint)
 
 proc currentHeading*(self: GuidanceMapMatchedCoordinate): float64 =
   ## Windows.Services.Maps.Guidance.GuidanceMapMatchedCoordinate.get_CurrentHeading
   withIface(self.p, IGuidanceMapMatchedCoordinate, it):
-    var tmp: float64
-    it.call(IGuidanceMapMatchedCoordinate_get_CurrentHeading, tmp.addr)
-    result = tmp
+    result = it.getValue(get_CurrentHeading, float64)
 
 proc currentSpeed*(self: GuidanceMapMatchedCoordinate): float64 =
   ## Windows.Services.Maps.Guidance.GuidanceMapMatchedCoordinate.get_CurrentSpeed
   withIface(self.p, IGuidanceMapMatchedCoordinate, it):
-    var tmp: float64
-    it.call(IGuidanceMapMatchedCoordinate_get_CurrentSpeed, tmp.addr)
-    result = tmp
+    result = it.getValue(get_CurrentSpeed, float64)
 
 proc isOnStreet*(self: GuidanceMapMatchedCoordinate): bool =
   ## Windows.Services.Maps.Guidance.GuidanceMapMatchedCoordinate.get_IsOnStreet
   withIface(self.p, IGuidanceMapMatchedCoordinate, it):
-    var tmp: bool
-    it.call(IGuidanceMapMatchedCoordinate_get_IsOnStreet, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsOnStreet, bool)
 
 proc road*(self: GuidanceMapMatchedCoordinate): GuidanceRoadSegment =
   ## Windows.Services.Maps.Guidance.GuidanceMapMatchedCoordinate.get_Road
   withIface(self.p, IGuidanceMapMatchedCoordinate, it):
-    var tmp: pointer
-    it.call(IGuidanceMapMatchedCoordinate_get_Road, tmp.addr)
-    result = adopt[GuidanceRoadSegment](tmp)
+    result = it.getObject(get_Road, GuidanceRoadSegment)
 
 proc startNavigating*(self: GuidanceNavigator, route: GuidanceRoute) =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.StartNavigating
   withIface(self.p, IGuidanceNavigator, it):
     withIface(route.p, IGuidanceRoute, p0):
-      it.call(IGuidanceNavigator_StartNavigating, p0)
+      check it.vtbl.StartNavigating(it, p0), "GuidanceNavigator.StartNavigating"
 
 proc startSimulating*(self: GuidanceNavigator, route: GuidanceRoute,
                       speedInMetersPerSecond: int32) =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.StartSimulating
   withIface(self.p, IGuidanceNavigator, it):
     withIface(route.p, IGuidanceRoute, p0):
-      it.call(IGuidanceNavigator_StartSimulating, p0, speedInMetersPerSecond)
+      check it.vtbl.StartSimulating(it, p0, speedInMetersPerSecond
+                                   ), "GuidanceNavigator.StartSimulating"
 
 proc startTracking*(self: GuidanceNavigator) =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.StartTracking
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_StartTracking)
+    check it.vtbl.StartTracking(it), "GuidanceNavigator.StartTracking"
 
 proc pause*(self: GuidanceNavigator) =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.Pause
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_Pause)
+    check it.vtbl.Pause(it), "GuidanceNavigator.Pause"
 
 proc resume*(self: GuidanceNavigator) =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.Resume
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_Resume)
+    check it.vtbl.Resume(it), "GuidanceNavigator.Resume"
 
 proc stop*(self: GuidanceNavigator) =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.Stop
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_Stop)
+    check it.vtbl.Stop(it), "GuidanceNavigator.Stop"
 
 proc repeatLastAudioNotification*(self: GuidanceNavigator) =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.RepeatLastAudioNotification
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_RepeatLastAudioNotification)
+    check it.vtbl.RepeatLastAudioNotification(it), "GuidanceNavigator.RepeatLastAudioNotification"
 
 proc audioMeasurementSystem*(self: GuidanceNavigator): GuidanceAudioMeasurementSystem =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.get_AudioMeasurementSystem
   withIface(self.p, IGuidanceNavigator, it):
-    var tmp: GuidanceAudioMeasurementSystem
-    it.call(IGuidanceNavigator_get_AudioMeasurementSystem, tmp.addr)
-    result = tmp
+    result = it.getValue(get_AudioMeasurementSystem, GuidanceAudioMeasurementSystem)
 
 proc `audioMeasurementSystem=`*(self: GuidanceNavigator,
                                 value: GuidanceAudioMeasurementSystem) =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.put_AudioMeasurementSystem
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_put_AudioMeasurementSystem, value)
+    it.putValue(put_AudioMeasurementSystem, value)
 
 proc audioNotifications*(self: GuidanceNavigator): GuidanceAudioNotifications =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.get_AudioNotifications
   withIface(self.p, IGuidanceNavigator, it):
-    var tmp: GuidanceAudioNotifications
-    it.call(IGuidanceNavigator_get_AudioNotifications, tmp.addr)
-    result = tmp
+    result = it.getValue(get_AudioNotifications, GuidanceAudioNotifications)
 
 proc `audioNotifications=`*(self: GuidanceNavigator,
                             value: GuidanceAudioNotifications) =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.put_AudioNotifications
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_put_AudioNotifications, value)
+    it.putValue(put_AudioNotifications, value)
 
 proc onGuidanceUpdated*(self: GuidanceNavigator,
                         handler: EventHandler[GuidanceNavigator, GuidanceUpdatedEventArgs]
@@ -635,13 +585,13 @@ proc onGuidanceUpdated*(self: GuidanceNavigator,
     let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceUpdatedEventArgs,
                          shim, event = true)
     try:
-      it.call(IGuidanceNavigator_add_GuidanceUpdated, cb, result.addr)
+      check it.vtbl.add_GuidanceUpdated(it, cb, result.addr), "GuidanceNavigator.add_GuidanceUpdated"
     finally:
       release(cb)
 
 proc removeGuidanceUpdated*(self: GuidanceNavigator, token: EventRegistrationToken) =
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_remove_GuidanceUpdated, token)
+    check it.vtbl.remove_GuidanceUpdated(it, token), "GuidanceNavigator.remove_GuidanceUpdated"
 
 proc onDestinationReached*(self: GuidanceNavigator,
                            handler: EventHandler[GuidanceNavigator, WinRtObject]
@@ -654,13 +604,13 @@ proc onDestinationReached*(self: GuidanceNavigator,
     let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim,
                          event = true)
     try:
-      it.call(IGuidanceNavigator_add_DestinationReached, cb, result.addr)
+      check it.vtbl.add_DestinationReached(it, cb, result.addr), "GuidanceNavigator.add_DestinationReached"
     finally:
       release(cb)
 
 proc removeDestinationReached*(self: GuidanceNavigator, token: EventRegistrationToken) =
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_remove_DestinationReached, token)
+    check it.vtbl.remove_DestinationReached(it, token), "GuidanceNavigator.remove_DestinationReached"
 
 proc onRerouting*(self: GuidanceNavigator,
                   handler: EventHandler[GuidanceNavigator, WinRtObject]
@@ -673,13 +623,13 @@ proc onRerouting*(self: GuidanceNavigator,
     let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim,
                          event = true)
     try:
-      it.call(IGuidanceNavigator_add_Rerouting, cb, result.addr)
+      check it.vtbl.add_Rerouting(it, cb, result.addr), "GuidanceNavigator.add_Rerouting"
     finally:
       release(cb)
 
 proc removeRerouting*(self: GuidanceNavigator, token: EventRegistrationToken) =
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_remove_Rerouting, token)
+    check it.vtbl.remove_Rerouting(it, token), "GuidanceNavigator.remove_Rerouting"
 
 proc onRerouted*(self: GuidanceNavigator,
                  handler: EventHandler[GuidanceNavigator, GuidanceReroutedEventArgs]
@@ -693,13 +643,13 @@ proc onRerouted*(self: GuidanceNavigator,
     let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceReroutedEventArgs,
                          shim, event = true)
     try:
-      it.call(IGuidanceNavigator_add_Rerouted, cb, result.addr)
+      check it.vtbl.add_Rerouted(it, cb, result.addr), "GuidanceNavigator.add_Rerouted"
     finally:
       release(cb)
 
 proc removeRerouted*(self: GuidanceNavigator, token: EventRegistrationToken) =
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_remove_Rerouted, token)
+    check it.vtbl.remove_Rerouted(it, token), "GuidanceNavigator.remove_Rerouted"
 
 proc onRerouteFailed*(self: GuidanceNavigator,
                       handler: EventHandler[GuidanceNavigator, WinRtObject]
@@ -712,13 +662,13 @@ proc onRerouteFailed*(self: GuidanceNavigator,
     let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim,
                          event = true)
     try:
-      it.call(IGuidanceNavigator_add_RerouteFailed, cb, result.addr)
+      check it.vtbl.add_RerouteFailed(it, cb, result.addr), "GuidanceNavigator.add_RerouteFailed"
     finally:
       release(cb)
 
 proc removeRerouteFailed*(self: GuidanceNavigator, token: EventRegistrationToken) =
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_remove_RerouteFailed, token)
+    check it.vtbl.remove_RerouteFailed(it, token), "GuidanceNavigator.remove_RerouteFailed"
 
 proc onUserLocationLost*(self: GuidanceNavigator,
                          handler: EventHandler[GuidanceNavigator, WinRtObject]
@@ -731,13 +681,13 @@ proc onUserLocationLost*(self: GuidanceNavigator,
     let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim,
                          event = true)
     try:
-      it.call(IGuidanceNavigator_add_UserLocationLost, cb, result.addr)
+      check it.vtbl.add_UserLocationLost(it, cb, result.addr), "GuidanceNavigator.add_UserLocationLost"
     finally:
       release(cb)
 
 proc removeUserLocationLost*(self: GuidanceNavigator, token: EventRegistrationToken) =
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_remove_UserLocationLost, token)
+    check it.vtbl.remove_UserLocationLost(it, token), "GuidanceNavigator.remove_UserLocationLost"
 
 proc onUserLocationRestored*(self: GuidanceNavigator,
                              handler: EventHandler[GuidanceNavigator, WinRtObject]
@@ -750,33 +700,36 @@ proc onUserLocationRestored*(self: GuidanceNavigator,
     let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim,
                          event = true)
     try:
-      it.call(IGuidanceNavigator_add_UserLocationRestored, cb, result.addr)
+      check it.vtbl.add_UserLocationRestored(it, cb, result.addr), "GuidanceNavigator.add_UserLocationRestored"
     finally:
       release(cb)
 
 proc removeUserLocationRestored*(self: GuidanceNavigator, token: EventRegistrationToken) =
   withIface(self.p, IGuidanceNavigator, it):
-    it.call(IGuidanceNavigator_remove_UserLocationRestored, token)
+    check it.vtbl.remove_UserLocationRestored(it, token), "GuidanceNavigator.remove_UserLocationRestored"
 
 proc setGuidanceVoice*(self: GuidanceNavigator, voiceId: int32,
                        voiceFolder: string) =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.SetGuidanceVoice
   withIface(self.p, IGuidanceNavigator, it):
     withHString(voiceFolder, h1):
-      it.call(IGuidanceNavigator_SetGuidanceVoice, voiceId, h1)
+      check it.vtbl.SetGuidanceVoice(it, voiceId, h1
+                                    ), "GuidanceNavigator.SetGuidanceVoice"
 
 proc updateUserLocation*(self: GuidanceNavigator, userLocation: Geocoordinate) =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.UpdateUserLocation
   withIface(self.p, IGuidanceNavigator, it):
     withIface(userLocation.p, IGeocoordinate, p0):
-      it.call(IGuidanceNavigator_UpdateUserLocation, p0)
+      check it.vtbl.UpdateUserLocation(it, p0
+                                      ), "GuidanceNavigator.UpdateUserLocation"
 
 proc updateUserLocation*(self: GuidanceNavigator, userLocation: Geocoordinate,
                          positionOverride: BasicGeoposition) =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.UpdateUserLocation
   withIface(self.p, IGuidanceNavigator, it):
     withIface(userLocation.p, IGeocoordinate, p0):
-      it.call(IGuidanceNavigator_UpdateUserLocation2, p0, positionOverride)
+      check it.vtbl.UpdateUserLocation2(it, p0, positionOverride
+                                       ), "GuidanceNavigator.UpdateUserLocation"
 
 proc onAudioNotificationRequested*(self: GuidanceNavigator,
                                    handler: EventHandler[GuidanceNavigator, GuidanceAudioNotificationRequestedEventArgs]
@@ -790,196 +743,156 @@ proc onAudioNotificationRequested*(self: GuidanceNavigator,
     let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceAudioNotificationRequestedEventArgs,
                          shim, event = true)
     try:
-      it.call(IGuidanceNavigator2_add_AudioNotificationRequested, cb, result.addr)
+      check it.vtbl.add_AudioNotificationRequested(it, cb, result.addr), "GuidanceNavigator.add_AudioNotificationRequested"
     finally:
       release(cb)
 
 proc removeAudioNotificationRequested*(self: GuidanceNavigator, token: EventRegistrationToken) =
   withIface(self.p, IGuidanceNavigator2, it):
-    it.call(IGuidanceNavigator2_remove_AudioNotificationRequested, token)
+    check it.vtbl.remove_AudioNotificationRequested(it, token), "GuidanceNavigator.remove_AudioNotificationRequested"
 
 proc isGuidanceAudioMuted*(self: GuidanceNavigator): bool =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.get_IsGuidanceAudioMuted
   withIface(self.p, IGuidanceNavigator2, it):
-    var tmp: bool
-    it.call(IGuidanceNavigator2_get_IsGuidanceAudioMuted, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsGuidanceAudioMuted, bool)
 
 proc `isGuidanceAudioMuted=`*(self: GuidanceNavigator, value: bool) =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.put_IsGuidanceAudioMuted
   withIface(self.p, IGuidanceNavigator2, it):
-    it.call(IGuidanceNavigator2_put_IsGuidanceAudioMuted, value)
+    it.putValue(put_IsGuidanceAudioMuted, value)
 
 proc getCurrent*(_: typedesc[GuidanceNavigator]): GuidanceNavigator =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.GetCurrent
   withStatics("Windows.Services.Maps.Guidance.GuidanceNavigator",
               IGuidanceNavigatorStatics, it):
     var tmp: pointer
-    it.call(IGuidanceNavigatorStatics_GetCurrent, tmp.addr)
+    check it.vtbl.GetCurrent(it, tmp.addr), "GuidanceNavigator.GetCurrent"
     result = adopt[GuidanceNavigator](tmp)
 
 proc useAppProvidedVoice*(_: typedesc[GuidanceNavigator]): bool =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.get_UseAppProvidedVoice
   withStatics("Windows.Services.Maps.Guidance.GuidanceNavigator",
               IGuidanceNavigatorStatics2, it):
-    var tmp: bool
-    it.call(IGuidanceNavigatorStatics2_get_UseAppProvidedVoice, tmp.addr)
-    result = tmp
+    result = it.getValue(get_UseAppProvidedVoice, bool)
 
 proc route*(self: GuidanceReroutedEventArgs): GuidanceRoute =
   ## Windows.Services.Maps.Guidance.GuidanceReroutedEventArgs.get_Route
   withIface(self.p, IGuidanceReroutedEventArgs, it):
-    var tmp: pointer
-    it.call(IGuidanceReroutedEventArgs_get_Route, tmp.addr)
-    result = adopt[GuidanceRoute](tmp)
+    result = it.getObject(get_Route, GuidanceRoute)
 
 proc roadName*(self: GuidanceRoadSegment): string =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSegment.get_RoadName
   withIface(self.p, IGuidanceRoadSegment, it):
-    var tmp: HSTRING
-    it.call(IGuidanceRoadSegment_get_RoadName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_RoadName)
 
 proc shortRoadName*(self: GuidanceRoadSegment): string =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSegment.get_ShortRoadName
   withIface(self.p, IGuidanceRoadSegment, it):
-    var tmp: HSTRING
-    it.call(IGuidanceRoadSegment_get_ShortRoadName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ShortRoadName)
 
 proc speedLimit*(self: GuidanceRoadSegment): float64 =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSegment.get_SpeedLimit
   withIface(self.p, IGuidanceRoadSegment, it):
-    var tmp: float64
-    it.call(IGuidanceRoadSegment_get_SpeedLimit, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SpeedLimit, float64)
 
 proc travelTime*(self: GuidanceRoadSegment): TimeSpan =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSegment.get_TravelTime
   withIface(self.p, IGuidanceRoadSegment, it):
-    var tmp: TimeSpan
-    it.call(IGuidanceRoadSegment_get_TravelTime, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TravelTime, TimeSpan)
 
 proc path*(self: GuidanceRoadSegment): Geopath =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSegment.get_Path
   withIface(self.p, IGuidanceRoadSegment, it):
-    var tmp: pointer
-    it.call(IGuidanceRoadSegment_get_Path, tmp.addr)
-    result = adopt[Geopath](tmp)
+    result = it.getObject(get_Path, Geopath)
 
 proc id*(self: GuidanceRoadSegment): string =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSegment.get_Id
   withIface(self.p, IGuidanceRoadSegment, it):
-    var tmp: HSTRING
-    it.call(IGuidanceRoadSegment_get_Id, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Id)
 
 proc isHighway*(self: GuidanceRoadSegment): bool =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSegment.get_IsHighway
   withIface(self.p, IGuidanceRoadSegment, it):
-    var tmp: bool
-    it.call(IGuidanceRoadSegment_get_IsHighway, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsHighway, bool)
 
 proc isTunnel*(self: GuidanceRoadSegment): bool =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSegment.get_IsTunnel
   withIface(self.p, IGuidanceRoadSegment, it):
-    var tmp: bool
-    it.call(IGuidanceRoadSegment_get_IsTunnel, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsTunnel, bool)
 
 proc isTollRoad*(self: GuidanceRoadSegment): bool =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSegment.get_IsTollRoad
   withIface(self.p, IGuidanceRoadSegment, it):
-    var tmp: bool
-    it.call(IGuidanceRoadSegment_get_IsTollRoad, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsTollRoad, bool)
 
 proc isScenic*(self: GuidanceRoadSegment): bool =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSegment.get_IsScenic
   withIface(self.p, IGuidanceRoadSegment2, it):
-    var tmp: bool
-    it.call(IGuidanceRoadSegment2_get_IsScenic, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsScenic, bool)
 
 proc exitNumber*(self: GuidanceRoadSignpost): string =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSignpost.get_ExitNumber
   withIface(self.p, IGuidanceRoadSignpost, it):
-    var tmp: HSTRING
-    it.call(IGuidanceRoadSignpost_get_ExitNumber, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ExitNumber)
 
 proc exit*(self: GuidanceRoadSignpost): string =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSignpost.get_Exit
   withIface(self.p, IGuidanceRoadSignpost, it):
-    var tmp: HSTRING
-    it.call(IGuidanceRoadSignpost_get_Exit, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Exit)
 
 proc backgroundColor*(self: GuidanceRoadSignpost): Color =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSignpost.get_BackgroundColor
   withIface(self.p, IGuidanceRoadSignpost, it):
-    var tmp: Color
-    it.call(IGuidanceRoadSignpost_get_BackgroundColor, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BackgroundColor, Color)
 
 proc foregroundColor*(self: GuidanceRoadSignpost): Color =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSignpost.get_ForegroundColor
   withIface(self.p, IGuidanceRoadSignpost, it):
-    var tmp: Color
-    it.call(IGuidanceRoadSignpost_get_ForegroundColor, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ForegroundColor, Color)
 
 proc exitDirections*(self: GuidanceRoadSignpost): seq[string] =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSignpost.get_ExitDirections
   withIface(self.p, IGuidanceRoadSignpost, it):
     var tmp: pointer
-    it.call(IGuidanceRoadSignpost_get_ExitDirections, tmp.addr)
+    check it.vtbl.get_ExitDirections(it, tmp.addr
+                                    ), "GuidanceRoadSignpost.get_ExitDirections"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc duration*(self: GuidanceRoute): TimeSpan =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.get_Duration
   withIface(self.p, IGuidanceRoute, it):
-    var tmp: TimeSpan
-    it.call(IGuidanceRoute_get_Duration, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Duration, TimeSpan)
 
 proc distance*(self: GuidanceRoute): int32 =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.get_Distance
   withIface(self.p, IGuidanceRoute, it):
-    var tmp: int32
-    it.call(IGuidanceRoute_get_Distance, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Distance, int32)
 
 proc maneuvers*(self: GuidanceRoute): seq[GuidanceManeuver] =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.get_Maneuvers
   withIface(self.p, IGuidanceRoute, it):
     var tmp: pointer
-    it.call(IGuidanceRoute_get_Maneuvers, tmp.addr)
+    check it.vtbl.get_Maneuvers(it, tmp.addr), "GuidanceRoute.get_Maneuvers"
     result = toSeq[GuidanceManeuver](tmp, IID_IVectorView_1_GuidanceManeuver)
     release(tmp)
 
 proc boundingBox*(self: GuidanceRoute): GeoboundingBox =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.get_BoundingBox
   withIface(self.p, IGuidanceRoute, it):
-    var tmp: pointer
-    it.call(IGuidanceRoute_get_BoundingBox, tmp.addr)
-    result = adopt[GeoboundingBox](tmp)
+    result = it.getObject(get_BoundingBox, GeoboundingBox)
 
 proc path*(self: GuidanceRoute): Geopath =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.get_Path
   withIface(self.p, IGuidanceRoute, it):
-    var tmp: pointer
-    it.call(IGuidanceRoute_get_Path, tmp.addr)
-    result = adopt[Geopath](tmp)
+    result = it.getObject(get_Path, Geopath)
 
 proc roadSegments*(self: GuidanceRoute): seq[GuidanceRoadSegment] =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.get_RoadSegments
   withIface(self.p, IGuidanceRoute, it):
     var tmp: pointer
-    it.call(IGuidanceRoute_get_RoadSegments, tmp.addr)
+    check it.vtbl.get_RoadSegments(it, tmp.addr
+                                  ), "GuidanceRoute.get_RoadSegments"
     result = toSeq[GuidanceRoadSegment](tmp,
                                         IID_IVectorView_1_GuidanceRoadSegment)
     release(tmp)
@@ -988,7 +901,8 @@ proc convertToMapRoute*(self: GuidanceRoute): MapRoute =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.ConvertToMapRoute
   withIface(self.p, IGuidanceRoute, it):
     var tmp: pointer
-    it.call(IGuidanceRoute_ConvertToMapRoute, tmp.addr)
+    check it.vtbl.ConvertToMapRoute(it, tmp.addr
+                                   ), "GuidanceRoute.ConvertToMapRoute"
     result = adopt[MapRoute](tmp)
 
 proc canCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute
@@ -998,7 +912,8 @@ proc canCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute
               IGuidanceRouteStatics, it):
     withIface(mapRoute.p, IMapRoute, p0):
       var tmp: bool
-      it.call(IGuidanceRouteStatics_CanCreateFromMapRoute, p0, tmp.addr)
+      check it.vtbl.CanCreateFromMapRoute(it, p0, tmp.addr
+                                         ), "GuidanceRoute.CanCreateFromMapRoute"
       result = tmp
 
 proc tryCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute
@@ -1008,154 +923,125 @@ proc tryCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute
               IGuidanceRouteStatics, it):
     withIface(mapRoute.p, IMapRoute, p0):
       var tmp: pointer
-      it.call(IGuidanceRouteStatics_TryCreateFromMapRoute, p0, tmp.addr)
+      check it.vtbl.TryCreateFromMapRoute(it, p0, tmp.addr
+                                         ), "GuidanceRoute.TryCreateFromMapRoute"
       result = adopt[GuidanceRoute](tmp)
 
 proc enabled*(self: GuidanceTelemetryCollector): bool =
   ## Windows.Services.Maps.Guidance.GuidanceTelemetryCollector.get_Enabled
   withIface(self.p, IGuidanceTelemetryCollector, it):
-    var tmp: bool
-    it.call(IGuidanceTelemetryCollector_get_Enabled, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Enabled, bool)
 
 proc `enabled=`*(self: GuidanceTelemetryCollector, value: bool) =
   ## Windows.Services.Maps.Guidance.GuidanceTelemetryCollector.put_Enabled
   withIface(self.p, IGuidanceTelemetryCollector, it):
-    it.call(IGuidanceTelemetryCollector_put_Enabled, value)
+    it.putValue(put_Enabled, value)
 
 proc clearLocalData*(self: GuidanceTelemetryCollector) =
   ## Windows.Services.Maps.Guidance.GuidanceTelemetryCollector.ClearLocalData
   withIface(self.p, IGuidanceTelemetryCollector, it):
-    it.call(IGuidanceTelemetryCollector_ClearLocalData)
+    check it.vtbl.ClearLocalData(it), "GuidanceTelemetryCollector.ClearLocalData"
 
 proc speedTrigger*(self: GuidanceTelemetryCollector): float64 =
   ## Windows.Services.Maps.Guidance.GuidanceTelemetryCollector.get_SpeedTrigger
   withIface(self.p, IGuidanceTelemetryCollector, it):
-    var tmp: float64
-    it.call(IGuidanceTelemetryCollector_get_SpeedTrigger, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SpeedTrigger, float64)
 
 proc `speedTrigger=`*(self: GuidanceTelemetryCollector, value: float64) =
   ## Windows.Services.Maps.Guidance.GuidanceTelemetryCollector.put_SpeedTrigger
   withIface(self.p, IGuidanceTelemetryCollector, it):
-    it.call(IGuidanceTelemetryCollector_put_SpeedTrigger, value)
+    it.putValue(put_SpeedTrigger, value)
 
 proc uploadFrequency*(self: GuidanceTelemetryCollector): int32 =
   ## Windows.Services.Maps.Guidance.GuidanceTelemetryCollector.get_UploadFrequency
   withIface(self.p, IGuidanceTelemetryCollector, it):
-    var tmp: int32
-    it.call(IGuidanceTelemetryCollector_get_UploadFrequency, tmp.addr)
-    result = tmp
+    result = it.getValue(get_UploadFrequency, int32)
 
 proc `uploadFrequency=`*(self: GuidanceTelemetryCollector, value: int32) =
   ## Windows.Services.Maps.Guidance.GuidanceTelemetryCollector.put_UploadFrequency
   withIface(self.p, IGuidanceTelemetryCollector, it):
-    it.call(IGuidanceTelemetryCollector_put_UploadFrequency, value)
+    it.putValue(put_UploadFrequency, value)
 
 proc getCurrent*(_: typedesc[GuidanceTelemetryCollector]): GuidanceTelemetryCollector =
   ## Windows.Services.Maps.Guidance.GuidanceTelemetryCollector.GetCurrent
   withStatics("Windows.Services.Maps.Guidance.GuidanceTelemetryCollector",
               IGuidanceTelemetryCollectorStatics, it):
     var tmp: pointer
-    it.call(IGuidanceTelemetryCollectorStatics_GetCurrent, tmp.addr)
+    check it.vtbl.GetCurrent(it, tmp.addr
+                            ), "GuidanceTelemetryCollector.GetCurrent"
     result = adopt[GuidanceTelemetryCollector](tmp)
 
 proc mode*(self: GuidanceUpdatedEventArgs): GuidanceMode =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_Mode
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
-    var tmp: GuidanceMode
-    it.call(IGuidanceUpdatedEventArgs_get_Mode, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Mode, GuidanceMode)
 
 proc nextManeuver*(self: GuidanceUpdatedEventArgs): GuidanceManeuver =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_NextManeuver
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
-    var tmp: pointer
-    it.call(IGuidanceUpdatedEventArgs_get_NextManeuver, tmp.addr)
-    result = adopt[GuidanceManeuver](tmp)
+    result = it.getObject(get_NextManeuver, GuidanceManeuver)
 
 proc nextManeuverDistance*(self: GuidanceUpdatedEventArgs): int32 =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_NextManeuverDistance
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
-    var tmp: int32
-    it.call(IGuidanceUpdatedEventArgs_get_NextManeuverDistance, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NextManeuverDistance, int32)
 
 proc afterNextManeuver*(self: GuidanceUpdatedEventArgs): GuidanceManeuver =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_AfterNextManeuver
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
-    var tmp: pointer
-    it.call(IGuidanceUpdatedEventArgs_get_AfterNextManeuver, tmp.addr)
-    result = adopt[GuidanceManeuver](tmp)
+    result = it.getObject(get_AfterNextManeuver, GuidanceManeuver)
 
 proc afterNextManeuverDistance*(self: GuidanceUpdatedEventArgs): int32 =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_AfterNextManeuverDistance
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
-    var tmp: int32
-    it.call(IGuidanceUpdatedEventArgs_get_AfterNextManeuverDistance, tmp.addr)
-    result = tmp
+    result = it.getValue(get_AfterNextManeuverDistance, int32)
 
 proc distanceToDestination*(self: GuidanceUpdatedEventArgs): int32 =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_DistanceToDestination
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
-    var tmp: int32
-    it.call(IGuidanceUpdatedEventArgs_get_DistanceToDestination, tmp.addr)
-    result = tmp
+    result = it.getValue(get_DistanceToDestination, int32)
 
 proc elapsedDistance*(self: GuidanceUpdatedEventArgs): int32 =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_ElapsedDistance
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
-    var tmp: int32
-    it.call(IGuidanceUpdatedEventArgs_get_ElapsedDistance, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ElapsedDistance, int32)
 
 proc elapsedTime*(self: GuidanceUpdatedEventArgs): TimeSpan =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_ElapsedTime
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
-    var tmp: TimeSpan
-    it.call(IGuidanceUpdatedEventArgs_get_ElapsedTime, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ElapsedTime, TimeSpan)
 
 proc timeToDestination*(self: GuidanceUpdatedEventArgs): TimeSpan =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_TimeToDestination
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
-    var tmp: TimeSpan
-    it.call(IGuidanceUpdatedEventArgs_get_TimeToDestination, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TimeToDestination, TimeSpan)
 
 proc roadName*(self: GuidanceUpdatedEventArgs): string =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_RoadName
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
-    var tmp: HSTRING
-    it.call(IGuidanceUpdatedEventArgs_get_RoadName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_RoadName)
 
 proc route*(self: GuidanceUpdatedEventArgs): GuidanceRoute =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_Route
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
-    var tmp: pointer
-    it.call(IGuidanceUpdatedEventArgs_get_Route, tmp.addr)
-    result = adopt[GuidanceRoute](tmp)
+    result = it.getObject(get_Route, GuidanceRoute)
 
 proc currentLocation*(self: GuidanceUpdatedEventArgs): GuidanceMapMatchedCoordinate =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_CurrentLocation
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
-    var tmp: pointer
-    it.call(IGuidanceUpdatedEventArgs_get_CurrentLocation, tmp.addr)
-    result = adopt[GuidanceMapMatchedCoordinate](tmp)
+    result = it.getObject(get_CurrentLocation, GuidanceMapMatchedCoordinate)
 
 proc isNewManeuver*(self: GuidanceUpdatedEventArgs): bool =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_IsNewManeuver
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
-    var tmp: bool
-    it.call(IGuidanceUpdatedEventArgs_get_IsNewManeuver, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsNewManeuver, bool)
 
 proc laneInfo*(self: GuidanceUpdatedEventArgs): seq[GuidanceLaneInfo] =
   ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_LaneInfo
   withIface(self.p, IGuidanceUpdatedEventArgs, it):
     var tmp: pointer
-    it.call(IGuidanceUpdatedEventArgs_get_LaneInfo, tmp.addr)
+    check it.vtbl.get_LaneInfo(it, tmp.addr
+                              ), "GuidanceUpdatedEventArgs.get_LaneInfo"
     result = toSeq[GuidanceLaneInfo](tmp, IID_IVectorView_1_GuidanceLaneInfo)
     release(tmp)
 
@@ -1163,134 +1049,101 @@ proc bankAndCreditUnions*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.LocalCategories.get_BankAndCreditUnions
   withStatics("Windows.Services.Maps.LocalSearch.LocalCategories",
               ILocalCategoriesStatics, it):
-    var tmp: HSTRING
-    it.call(ILocalCategoriesStatics_get_BankAndCreditUnions, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BankAndCreditUnions)
 
 proc eatDrink*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.LocalCategories.get_EatDrink
   withStatics("Windows.Services.Maps.LocalSearch.LocalCategories",
               ILocalCategoriesStatics, it):
-    var tmp: HSTRING
-    it.call(ILocalCategoriesStatics_get_EatDrink, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_EatDrink)
 
 proc hospitals*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.LocalCategories.get_Hospitals
   withStatics("Windows.Services.Maps.LocalSearch.LocalCategories",
               ILocalCategoriesStatics, it):
-    var tmp: HSTRING
-    it.call(ILocalCategoriesStatics_get_Hospitals, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Hospitals)
 
 proc hotelsAndMotels*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.LocalCategories.get_HotelsAndMotels
   withStatics("Windows.Services.Maps.LocalSearch.LocalCategories",
               ILocalCategoriesStatics, it):
-    var tmp: HSTRING
-    it.call(ILocalCategoriesStatics_get_HotelsAndMotels, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_HotelsAndMotels)
 
 proc all*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.LocalCategories.get_All
   withStatics("Windows.Services.Maps.LocalSearch.LocalCategories",
               ILocalCategoriesStatics, it):
-    var tmp: HSTRING
-    it.call(ILocalCategoriesStatics_get_All, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_All)
 
 proc parking*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.LocalCategories.get_Parking
   withStatics("Windows.Services.Maps.LocalSearch.LocalCategories",
               ILocalCategoriesStatics, it):
-    var tmp: HSTRING
-    it.call(ILocalCategoriesStatics_get_Parking, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Parking)
 
 proc seeDo*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.LocalCategories.get_SeeDo
   withStatics("Windows.Services.Maps.LocalSearch.LocalCategories",
               ILocalCategoriesStatics, it):
-    var tmp: HSTRING
-    it.call(ILocalCategoriesStatics_get_SeeDo, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SeeDo)
 
 proc shop*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.LocalCategories.get_Shop
   withStatics("Windows.Services.Maps.LocalSearch.LocalCategories",
               ILocalCategoriesStatics, it):
-    var tmp: HSTRING
-    it.call(ILocalCategoriesStatics_get_Shop, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Shop)
 
 proc address*(self: LocalLocation): MapAddress =
   ## Windows.Services.Maps.LocalSearch.LocalLocation.get_Address
   withIface(self.p, ILocalLocation, it):
-    var tmp: pointer
-    it.call(ILocalLocation_get_Address, tmp.addr)
-    result = adopt[MapAddress](tmp)
+    result = it.getObject(get_Address, MapAddress)
 
 proc identifier*(self: LocalLocation): string =
   ## Windows.Services.Maps.LocalSearch.LocalLocation.get_Identifier
   withIface(self.p, ILocalLocation, it):
-    var tmp: HSTRING
-    it.call(ILocalLocation_get_Identifier, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Identifier)
 
 proc description*(self: LocalLocation): string =
   ## Windows.Services.Maps.LocalSearch.LocalLocation.get_Description
   withIface(self.p, ILocalLocation, it):
-    var tmp: HSTRING
-    it.call(ILocalLocation_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc displayName*(self: LocalLocation): string =
   ## Windows.Services.Maps.LocalSearch.LocalLocation.get_DisplayName
   withIface(self.p, ILocalLocation, it):
-    var tmp: HSTRING
-    it.call(ILocalLocation_get_DisplayName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayName)
 
 proc point*(self: LocalLocation): Geopoint =
   ## Windows.Services.Maps.LocalSearch.LocalLocation.get_Point
   withIface(self.p, ILocalLocation, it):
-    var tmp: pointer
-    it.call(ILocalLocation_get_Point, tmp.addr)
-    result = adopt[Geopoint](tmp)
+    result = it.getObject(get_Point, Geopoint)
 
 proc phoneNumber*(self: LocalLocation): string =
   ## Windows.Services.Maps.LocalSearch.LocalLocation.get_PhoneNumber
   withIface(self.p, ILocalLocation, it):
-    var tmp: HSTRING
-    it.call(ILocalLocation_get_PhoneNumber, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PhoneNumber)
 
 proc dataAttribution*(self: LocalLocation): string =
   ## Windows.Services.Maps.LocalSearch.LocalLocation.get_DataAttribution
   withIface(self.p, ILocalLocation, it):
-    var tmp: HSTRING
-    it.call(ILocalLocation_get_DataAttribution, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DataAttribution)
 
 proc category*(self: LocalLocation): string =
   ## Windows.Services.Maps.LocalSearch.LocalLocation.get_Category
   withIface(self.p, ILocalLocation2, it):
-    var tmp: HSTRING
-    it.call(ILocalLocation2_get_Category, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Category)
 
 proc ratingInfo*(self: LocalLocation): LocalLocationRatingInfo =
   ## Windows.Services.Maps.LocalSearch.LocalLocation.get_RatingInfo
   withIface(self.p, ILocalLocation2, it):
-    var tmp: pointer
-    it.call(ILocalLocation2_get_RatingInfo, tmp.addr)
-    result = adopt[LocalLocationRatingInfo](tmp)
+    result = it.getObject(get_RatingInfo, LocalLocationRatingInfo)
 
 proc hoursOfOperation*(self: LocalLocation): seq[LocalLocationHoursOfOperationItem] =
   ## Windows.Services.Maps.LocalSearch.LocalLocation.get_HoursOfOperation
   withIface(self.p, ILocalLocation2, it):
     var tmp: pointer
-    it.call(ILocalLocation2_get_HoursOfOperation, tmp.addr)
+    check it.vtbl.get_HoursOfOperation(it, tmp.addr
+                                      ), "LocalLocation.get_HoursOfOperation"
     result = toSeq[LocalLocationHoursOfOperationItem](tmp,
                                                       IID_IVectorView_1_LocalLocationHoursOfOperationItem
                                                      )
@@ -1307,8 +1160,9 @@ proc findLocalLocationsAsync*(_: typedesc[LocalLocationFinder],
     withHString(searchTerm, h0):
       withIface(searchArea.p, IGeocircle, p1):
         withHString(localCategory, h2):
-          it.call(ILocalLocationFinderStatics_FindLocalLocationsAsync, h0, p1,
-                  h2, maxResults, op.addr)
+          check it.vtbl.FindLocalLocationsAsync(it, h0, p1, h2, maxResults,
+                                                op.addr
+                                               ), "LocalLocationFinder.FindLocalLocationsAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_LocalLocationFinderResult,
                               IID_AsyncOperationCompletedHandler_1_LocalLocationFinderResult,
@@ -1320,43 +1174,37 @@ proc localLocations*(self: LocalLocationFinderResult): seq[LocalLocation] =
   ## Windows.Services.Maps.LocalSearch.LocalLocationFinderResult.get_LocalLocations
   withIface(self.p, ILocalLocationFinderResult, it):
     var tmp: pointer
-    it.call(ILocalLocationFinderResult_get_LocalLocations, tmp.addr)
+    check it.vtbl.get_LocalLocations(it, tmp.addr
+                                    ), "LocalLocationFinderResult.get_LocalLocations"
     result = toSeq[LocalLocation](tmp, IID_IVectorView_1_LocalLocation)
     release(tmp)
 
 proc status*(self: LocalLocationFinderResult): LocalLocationFinderStatus =
   ## Windows.Services.Maps.LocalSearch.LocalLocationFinderResult.get_Status
   withIface(self.p, ILocalLocationFinderResult, it):
-    var tmp: LocalLocationFinderStatus
-    it.call(ILocalLocationFinderResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, LocalLocationFinderStatus)
 
 proc day*(self: LocalLocationHoursOfOperationItem): DayOfWeek =
   ## Windows.Services.Maps.LocalSearch.LocalLocationHoursOfOperationItem.get_Day
   withIface(self.p, ILocalLocationHoursOfOperationItem, it):
-    var tmp: DayOfWeek
-    it.call(ILocalLocationHoursOfOperationItem_get_Day, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Day, DayOfWeek)
 
 proc start*(self: LocalLocationHoursOfOperationItem): TimeSpan =
   ## Windows.Services.Maps.LocalSearch.LocalLocationHoursOfOperationItem.get_Start
   withIface(self.p, ILocalLocationHoursOfOperationItem, it):
-    var tmp: TimeSpan
-    it.call(ILocalLocationHoursOfOperationItem_get_Start, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Start, TimeSpan)
 
 proc span*(self: LocalLocationHoursOfOperationItem): TimeSpan =
   ## Windows.Services.Maps.LocalSearch.LocalLocationHoursOfOperationItem.get_Span
   withIface(self.p, ILocalLocationHoursOfOperationItem, it):
-    var tmp: TimeSpan
-    it.call(ILocalLocationHoursOfOperationItem_get_Span, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Span, TimeSpan)
 
 proc aggregateRating*(self: LocalLocationRatingInfo): Option[float64] =
   ## Windows.Services.Maps.LocalSearch.LocalLocationRatingInfo.get_AggregateRating
   withIface(self.p, ILocalLocationRatingInfo, it):
     var tmp: pointer
-    it.call(ILocalLocationRatingInfo_get_AggregateRating, tmp.addr)
+    check it.vtbl.get_AggregateRating(it, tmp.addr
+                                     ), "LocalLocationRatingInfo.get_AggregateRating"
     result = readReference[float64](tmp, IID_IReference_1_F8,
                                     "LocalLocationRatingInfo.get_AggregateRating"
                                    )
@@ -1366,7 +1214,8 @@ proc ratingCount*(self: LocalLocationRatingInfo): Option[int32] =
   ## Windows.Services.Maps.LocalSearch.LocalLocationRatingInfo.get_RatingCount
   withIface(self.p, ILocalLocationRatingInfo, it):
     var tmp: pointer
-    it.call(ILocalLocationRatingInfo_get_RatingCount, tmp.addr)
+    check it.vtbl.get_RatingCount(it, tmp.addr
+                                 ), "LocalLocationRatingInfo.get_RatingCount"
     result = readReference[int32](tmp, IID_IReference_1_I4,
                                   "LocalLocationRatingInfo.get_RatingCount")
     release(tmp)
@@ -1374,9 +1223,7 @@ proc ratingCount*(self: LocalLocationRatingInfo): Option[int32] =
 proc providerIdentifier*(self: LocalLocationRatingInfo): string =
   ## Windows.Services.Maps.LocalSearch.LocalLocationRatingInfo.get_ProviderIdentifier
   withIface(self.p, ILocalLocationRatingInfo, it):
-    var tmp: HSTRING
-    it.call(ILocalLocationRatingInfo_get_ProviderIdentifier, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ProviderIdentifier)
 
 proc createFromLocalLocation*(_: typedesc[PlaceInfoHelper],
                               location: LocalLocation): PlaceInfo =
@@ -1385,162 +1232,119 @@ proc createFromLocalLocation*(_: typedesc[PlaceInfoHelper],
               IPlaceInfoHelperStatics, it):
     withIface(location.p, ILocalLocation, p0):
       var tmp: pointer
-      it.call(IPlaceInfoHelperStatics_CreateFromLocalLocation, p0, tmp.addr)
+      check it.vtbl.CreateFromLocalLocation(it, p0, tmp.addr
+                                           ), "PlaceInfoHelper.CreateFromLocalLocation"
       result = adopt[PlaceInfo](tmp)
 
 proc kind*(self: ManeuverWarning): ManeuverWarningKind =
   ## Windows.Services.Maps.ManeuverWarning.get_Kind
   withIface(self.p, IManeuverWarning, it):
-    var tmp: ManeuverWarningKind
-    it.call(IManeuverWarning_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, ManeuverWarningKind)
 
 proc severity*(self: ManeuverWarning): ManeuverWarningSeverity =
   ## Windows.Services.Maps.ManeuverWarning.get_Severity
   withIface(self.p, IManeuverWarning, it):
-    var tmp: ManeuverWarningSeverity
-    it.call(IManeuverWarning_get_Severity, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Severity, ManeuverWarningSeverity)
 
 proc buildingName*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_BuildingName
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_BuildingName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BuildingName)
 
 proc buildingFloor*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_BuildingFloor
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_BuildingFloor, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BuildingFloor)
 
 proc buildingRoom*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_BuildingRoom
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_BuildingRoom, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BuildingRoom)
 
 proc buildingWing*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_BuildingWing
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_BuildingWing, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BuildingWing)
 
 proc streetNumber*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_StreetNumber
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_StreetNumber, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_StreetNumber)
 
 proc street*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_Street
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_Street, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Street)
 
 proc neighborhood*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_Neighborhood
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_Neighborhood, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Neighborhood)
 
 proc district*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_District
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_District, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_District)
 
 proc town*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_Town
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_Town, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Town)
 
 proc region*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_Region
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_Region, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Region)
 
 proc regionCode*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_RegionCode
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_RegionCode, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_RegionCode)
 
 proc country*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_Country
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_Country, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Country)
 
 proc countryCode*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_CountryCode
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_CountryCode, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CountryCode)
 
 proc postCode*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_PostCode
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_PostCode, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PostCode)
 
 proc continent*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_Continent
   withIface(self.p, IMapAddress, it):
-    var tmp: HSTRING
-    it.call(IMapAddress_get_Continent, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Continent)
 
 proc formattedAddress*(self: MapAddress): string =
   ## Windows.Services.Maps.MapAddress.get_FormattedAddress
   withIface(self.p, IMapAddress2, it):
-    var tmp: HSTRING
-    it.call(IMapAddress2_get_FormattedAddress, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_FormattedAddress)
 
 proc point*(self: MapLocation): Geopoint =
   ## Windows.Services.Maps.MapLocation.get_Point
   withIface(self.p, IMapLocation, it):
-    var tmp: pointer
-    it.call(IMapLocation_get_Point, tmp.addr)
-    result = adopt[Geopoint](tmp)
+    result = it.getObject(get_Point, Geopoint)
 
 proc displayName*(self: MapLocation): string =
   ## Windows.Services.Maps.MapLocation.get_DisplayName
   withIface(self.p, IMapLocation, it):
-    var tmp: HSTRING
-    it.call(IMapLocation_get_DisplayName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayName)
 
 proc description*(self: MapLocation): string =
   ## Windows.Services.Maps.MapLocation.get_Description
   withIface(self.p, IMapLocation, it):
-    var tmp: HSTRING
-    it.call(IMapLocation_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc address*(self: MapLocation): MapAddress =
   ## Windows.Services.Maps.MapLocation.get_Address
   withIface(self.p, IMapLocation, it):
-    var tmp: pointer
-    it.call(IMapLocation_get_Address, tmp.addr)
-    result = adopt[MapAddress](tmp)
+    result = it.getObject(get_Address, MapAddress)
 
 proc findLocationsAtAsync*(_: typedesc[MapLocationFinder], queryPoint: Geopoint
                           ): Future[MapLocationFinderResult] {.async.} =
@@ -1549,7 +1353,8 @@ proc findLocationsAtAsync*(_: typedesc[MapLocationFinder], queryPoint: Geopoint
   withStatics("Windows.Services.Maps.MapLocationFinder",
               IMapLocationFinderStatics, it):
     withIface(queryPoint.p, IGeopoint, p0):
-      it.call(IMapLocationFinderStatics_FindLocationsAtAsync, p0, op.addr)
+      check it.vtbl.FindLocationsAtAsync(it, p0, op.addr
+                                        ), "MapLocationFinder.FindLocationsAtAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapLocationFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult,
                               alPlain, "MapLocationFinder.FindLocationsAtAsync")
@@ -1564,7 +1369,8 @@ proc findLocationsAsync*(_: typedesc[MapLocationFinder], searchText: string,
               IMapLocationFinderStatics, it):
     withHString(searchText, h0):
       withIface(referencePoint.p, IGeopoint, p1):
-        it.call(IMapLocationFinderStatics_FindLocationsAsync, h0, p1, op.addr)
+        check it.vtbl.FindLocationsAsync(it, h0, p1, op.addr
+                                        ), "MapLocationFinder.FindLocationsAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapLocationFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult,
                               alPlain, "MapLocationFinder.FindLocationsAsync")
@@ -1579,8 +1385,8 @@ proc findLocationsAsync*(_: typedesc[MapLocationFinder], searchText: string,
               IMapLocationFinderStatics, it):
     withHString(searchText, h0):
       withIface(referencePoint.p, IGeopoint, p1):
-        it.call(IMapLocationFinderStatics_FindLocationsAsync2, h0, p1, maxCount,
-                op.addr)
+        check it.vtbl.FindLocationsAsync2(it, h0, p1, maxCount, op.addr
+                                         ), "MapLocationFinder.FindLocationsAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapLocationFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult,
                               alPlain, "MapLocationFinder.FindLocationsAsync")
@@ -1594,8 +1400,8 @@ proc findLocationsAtAsync*(_: typedesc[MapLocationFinder], queryPoint: Geopoint,
   withStatics("Windows.Services.Maps.MapLocationFinder",
               IMapLocationFinderStatics2, it):
     withIface(queryPoint.p, IGeopoint, p0):
-      it.call(IMapLocationFinderStatics2_FindLocationsAtAsync, p0, accuracy,
-              op.addr)
+      check it.vtbl.FindLocationsAtAsync(it, p0, accuracy, op.addr
+                                        ), "MapLocationFinder.FindLocationsAtAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapLocationFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult,
                               alPlain, "MapLocationFinder.FindLocationsAtAsync")
@@ -1605,104 +1411,83 @@ proc locations*(self: MapLocationFinderResult): seq[MapLocation] =
   ## Windows.Services.Maps.MapLocationFinderResult.get_Locations
   withIface(self.p, IMapLocationFinderResult, it):
     var tmp: pointer
-    it.call(IMapLocationFinderResult_get_Locations, tmp.addr)
+    check it.vtbl.get_Locations(it, tmp.addr
+                               ), "MapLocationFinderResult.get_Locations"
     result = toSeq[MapLocation](tmp, IID_IVectorView_1_MapLocation)
     release(tmp)
 
 proc status*(self: MapLocationFinderResult): MapLocationFinderStatus =
   ## Windows.Services.Maps.MapLocationFinderResult.get_Status
   withIface(self.p, IMapLocationFinderResult, it):
-    var tmp: MapLocationFinderStatus
-    it.call(IMapLocationFinderResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, MapLocationFinderStatus)
 
 proc showDownloadedMapsUI*(_: typedesc[MapManager]) =
   ## Windows.Services.Maps.MapManager.ShowDownloadedMapsUI
   withStatics("Windows.Services.Maps.MapManager", IMapManagerStatics, it):
-    it.call(IMapManagerStatics_ShowDownloadedMapsUI)
+    check it.vtbl.ShowDownloadedMapsUI(it), "MapManager.ShowDownloadedMapsUI"
 
 proc showMapsUpdateUI*(_: typedesc[MapManager]) =
   ## Windows.Services.Maps.MapManager.ShowMapsUpdateUI
   withStatics("Windows.Services.Maps.MapManager", IMapManagerStatics, it):
-    it.call(IMapManagerStatics_ShowMapsUpdateUI)
+    check it.vtbl.ShowMapsUpdateUI(it), "MapManager.ShowMapsUpdateUI"
 
 proc boundingBox*(self: MapRoute): GeoboundingBox =
   ## Windows.Services.Maps.MapRoute.get_BoundingBox
   withIface(self.p, IMapRoute, it):
-    var tmp: pointer
-    it.call(IMapRoute_get_BoundingBox, tmp.addr)
-    result = adopt[GeoboundingBox](tmp)
+    result = it.getObject(get_BoundingBox, GeoboundingBox)
 
 proc lengthInMeters*(self: MapRoute): float64 =
   ## Windows.Services.Maps.MapRoute.get_LengthInMeters
   withIface(self.p, IMapRoute, it):
-    var tmp: float64
-    it.call(IMapRoute_get_LengthInMeters, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LengthInMeters, float64)
 
 proc estimatedDuration*(self: MapRoute): TimeSpan =
   ## Windows.Services.Maps.MapRoute.get_EstimatedDuration
   withIface(self.p, IMapRoute, it):
-    var tmp: TimeSpan
-    it.call(IMapRoute_get_EstimatedDuration, tmp.addr)
-    result = tmp
+    result = it.getValue(get_EstimatedDuration, TimeSpan)
 
 proc path*(self: MapRoute): Geopath =
   ## Windows.Services.Maps.MapRoute.get_Path
   withIface(self.p, IMapRoute, it):
-    var tmp: pointer
-    it.call(IMapRoute_get_Path, tmp.addr)
-    result = adopt[Geopath](tmp)
+    result = it.getObject(get_Path, Geopath)
 
 proc legs*(self: MapRoute): seq[MapRouteLeg] =
   ## Windows.Services.Maps.MapRoute.get_Legs
   withIface(self.p, IMapRoute, it):
     var tmp: pointer
-    it.call(IMapRoute_get_Legs, tmp.addr)
+    check it.vtbl.get_Legs(it, tmp.addr), "MapRoute.get_Legs"
     result = toSeq[MapRouteLeg](tmp, IID_IVectorView_1_MapRouteLeg)
     release(tmp)
 
 proc isTrafficBased*(self: MapRoute): bool =
   ## Windows.Services.Maps.MapRoute.get_IsTrafficBased
   withIface(self.p, IMapRoute, it):
-    var tmp: bool
-    it.call(IMapRoute_get_IsTrafficBased, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsTrafficBased, bool)
 
 proc violatedRestrictions*(self: MapRoute): MapRouteRestrictions =
   ## Windows.Services.Maps.MapRoute.get_ViolatedRestrictions
   withIface(self.p, IMapRoute2, it):
-    var tmp: MapRouteRestrictions
-    it.call(IMapRoute2_get_ViolatedRestrictions, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ViolatedRestrictions, MapRouteRestrictions)
 
 proc hasBlockedRoads*(self: MapRoute): bool =
   ## Windows.Services.Maps.MapRoute.get_HasBlockedRoads
   withIface(self.p, IMapRoute2, it):
-    var tmp: bool
-    it.call(IMapRoute2_get_HasBlockedRoads, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HasBlockedRoads, bool)
 
 proc durationWithoutTraffic*(self: MapRoute): TimeSpan =
   ## Windows.Services.Maps.MapRoute.get_DurationWithoutTraffic
   withIface(self.p, IMapRoute3, it):
-    var tmp: TimeSpan
-    it.call(IMapRoute3_get_DurationWithoutTraffic, tmp.addr)
-    result = tmp
+    result = it.getValue(get_DurationWithoutTraffic, TimeSpan)
 
 proc trafficCongestion*(self: MapRoute): TrafficCongestion =
   ## Windows.Services.Maps.MapRoute.get_TrafficCongestion
   withIface(self.p, IMapRoute3, it):
-    var tmp: TrafficCongestion
-    it.call(IMapRoute3_get_TrafficCongestion, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TrafficCongestion, TrafficCongestion)
 
 proc isScenic*(self: MapRoute): bool =
   ## Windows.Services.Maps.MapRoute.get_IsScenic
   withIface(self.p, IMapRoute4, it):
-    var tmp: bool
-    it.call(IMapRoute4_get_IsScenic, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsScenic, bool)
 
 proc newMapRouteDrivingOptions*(): MapRouteDrivingOptions =
   ## Activate a `Windows.Services.Maps.MapRouteDrivingOptions`.
@@ -1711,20 +1496,19 @@ proc newMapRouteDrivingOptions*(): MapRouteDrivingOptions =
 proc maxAlternateRouteCount*(self: MapRouteDrivingOptions): uint32 =
   ## Windows.Services.Maps.MapRouteDrivingOptions.get_MaxAlternateRouteCount
   withIface(self.p, IMapRouteDrivingOptions, it):
-    var tmp: uint32
-    it.call(IMapRouteDrivingOptions_get_MaxAlternateRouteCount, tmp.addr)
-    result = tmp
+    result = it.getValue(get_MaxAlternateRouteCount, uint32)
 
 proc `maxAlternateRouteCount=`*(self: MapRouteDrivingOptions, value: uint32) =
   ## Windows.Services.Maps.MapRouteDrivingOptions.put_MaxAlternateRouteCount
   withIface(self.p, IMapRouteDrivingOptions, it):
-    it.call(IMapRouteDrivingOptions_put_MaxAlternateRouteCount, value)
+    it.putValue(put_MaxAlternateRouteCount, value)
 
 proc initialHeading*(self: MapRouteDrivingOptions): Option[float64] =
   ## Windows.Services.Maps.MapRouteDrivingOptions.get_InitialHeading
   withIface(self.p, IMapRouteDrivingOptions, it):
     var tmp: pointer
-    it.call(IMapRouteDrivingOptions_get_InitialHeading, tmp.addr)
+    check it.vtbl.get_InitialHeading(it, tmp.addr
+                                    ), "MapRouteDrivingOptions.get_InitialHeading"
     result = readReference[float64](tmp, IID_IReference_1_F8,
                                     "MapRouteDrivingOptions.get_InitialHeading")
     release(tmp)
@@ -1734,39 +1518,37 @@ proc `initialHeading=`*(self: MapRouteDrivingOptions, value: Option[float64]) =
   withIface(self.p, IMapRouteDrivingOptions, it):
     let p0 = if value.isSome: boxAs(value.get, 15, IID_IReference_1_F8) else: nil
     defer: discard release(p0)
-    it.call(IMapRouteDrivingOptions_put_InitialHeading, p0)
+    check it.vtbl.put_InitialHeading(it, p0
+                                    ), "MapRouteDrivingOptions.put_InitialHeading"
 
 proc routeOptimization*(self: MapRouteDrivingOptions): MapRouteOptimization =
   ## Windows.Services.Maps.MapRouteDrivingOptions.get_RouteOptimization
   withIface(self.p, IMapRouteDrivingOptions, it):
-    var tmp: MapRouteOptimization
-    it.call(IMapRouteDrivingOptions_get_RouteOptimization, tmp.addr)
-    result = tmp
+    result = it.getValue(get_RouteOptimization, MapRouteOptimization)
 
 proc `routeOptimization=`*(self: MapRouteDrivingOptions,
                            value: MapRouteOptimization) =
   ## Windows.Services.Maps.MapRouteDrivingOptions.put_RouteOptimization
   withIface(self.p, IMapRouteDrivingOptions, it):
-    it.call(IMapRouteDrivingOptions_put_RouteOptimization, value)
+    it.putValue(put_RouteOptimization, value)
 
 proc routeRestrictions*(self: MapRouteDrivingOptions): MapRouteRestrictions =
   ## Windows.Services.Maps.MapRouteDrivingOptions.get_RouteRestrictions
   withIface(self.p, IMapRouteDrivingOptions, it):
-    var tmp: MapRouteRestrictions
-    it.call(IMapRouteDrivingOptions_get_RouteRestrictions, tmp.addr)
-    result = tmp
+    result = it.getValue(get_RouteRestrictions, MapRouteRestrictions)
 
 proc `routeRestrictions=`*(self: MapRouteDrivingOptions,
                            value: MapRouteRestrictions) =
   ## Windows.Services.Maps.MapRouteDrivingOptions.put_RouteRestrictions
   withIface(self.p, IMapRouteDrivingOptions, it):
-    it.call(IMapRouteDrivingOptions_put_RouteRestrictions, value)
+    it.putValue(put_RouteRestrictions, value)
 
 proc departureTime*(self: MapRouteDrivingOptions): Option[DateTime] =
   ## Windows.Services.Maps.MapRouteDrivingOptions.get_DepartureTime
   withIface(self.p, IMapRouteDrivingOptions2, it):
     var tmp: pointer
-    it.call(IMapRouteDrivingOptions2_get_DepartureTime, tmp.addr)
+    check it.vtbl.get_DepartureTime(it, tmp.addr
+                                   ), "MapRouteDrivingOptions.get_DepartureTime"
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
                                      "MapRouteDrivingOptions.get_DepartureTime")
     release(tmp)
@@ -1776,7 +1558,8 @@ proc `departureTime=`*(self: MapRouteDrivingOptions, value: Option[DateTime]) =
   withIface(self.p, IMapRouteDrivingOptions2, it):
     let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
     defer: discard release(p0)
-    it.call(IMapRouteDrivingOptions2_put_DepartureTime, p0)
+    check it.vtbl.put_DepartureTime(it, p0
+                                   ), "MapRouteDrivingOptions.put_DepartureTime"
 
 proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
                            endPoint: Geopoint
@@ -1787,7 +1570,8 @@ proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
              ):
     withIface(startPoint.p, IGeopoint, p0):
       withIface(endPoint.p, IGeopoint, p1):
-        it.call(IMapRouteFinderStatics_GetDrivingRouteAsync, p0, p1, op.addr)
+        check it.vtbl.GetDrivingRouteAsync(it, p0, p1, op.addr
+                                          ), "MapRouteFinder.GetDrivingRouteAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
                               alPlain, "MapRouteFinder.GetDrivingRouteAsync")
@@ -1803,8 +1587,8 @@ proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
              ):
     withIface(startPoint.p, IGeopoint, p0):
       withIface(endPoint.p, IGeopoint, p1):
-        it.call(IMapRouteFinderStatics_GetDrivingRouteAsync2, p0, p1,
-                optimization, op.addr)
+        check it.vtbl.GetDrivingRouteAsync2(it, p0, p1, optimization, op.addr
+                                           ), "MapRouteFinder.GetDrivingRouteAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
                               alPlain, "MapRouteFinder.GetDrivingRouteAsync")
@@ -1821,8 +1605,9 @@ proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
              ):
     withIface(startPoint.p, IGeopoint, p0):
       withIface(endPoint.p, IGeopoint, p1):
-        it.call(IMapRouteFinderStatics_GetDrivingRouteAsync3, p0, p1,
-                optimization, restrictions, op.addr)
+        check it.vtbl.GetDrivingRouteAsync3(it, p0, p1, optimization,
+                                            restrictions, op.addr
+                                           ), "MapRouteFinder.GetDrivingRouteAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
                               alPlain, "MapRouteFinder.GetDrivingRouteAsync")
@@ -1840,8 +1625,10 @@ proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
              ):
     withIface(startPoint.p, IGeopoint, p0):
       withIface(endPoint.p, IGeopoint, p1):
-        it.call(IMapRouteFinderStatics_GetDrivingRouteAsync4, p0, p1,
-                optimization, restrictions, headingInDegrees, op.addr)
+        check it.vtbl.GetDrivingRouteAsync4(it, p0, p1, optimization,
+                                            restrictions, headingInDegrees,
+                                            op.addr
+                                           ), "MapRouteFinder.GetDrivingRouteAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
                               alPlain, "MapRouteFinder.GetDrivingRouteAsync")
@@ -1858,8 +1645,8 @@ proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
                                              IID_IVectorView_1_Geopoint,
                                              IID_IIterator_1_Geopoint)
     defer: discard release(p0)
-    it.call(IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync, p0,
-            op.addr)
+    check it.vtbl.GetDrivingRouteFromWaypointsAsync(it, p0, op.addr
+                                                   ), "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
                               alPlain,
@@ -1879,8 +1666,9 @@ proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
                                              IID_IVectorView_1_Geopoint,
                                              IID_IIterator_1_Geopoint)
     defer: discard release(p0)
-    it.call(IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync2, p0,
-            optimization, op.addr)
+    check it.vtbl.GetDrivingRouteFromWaypointsAsync2(it, p0, optimization,
+                                                     op.addr
+                                                    ), "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
                               alPlain,
@@ -1901,8 +1689,9 @@ proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
                                              IID_IVectorView_1_Geopoint,
                                              IID_IIterator_1_Geopoint)
     defer: discard release(p0)
-    it.call(IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync3, p0,
-            optimization, restrictions, op.addr)
+    check it.vtbl.GetDrivingRouteFromWaypointsAsync3(it, p0, optimization,
+                                                     restrictions, op.addr
+                                                    ), "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
                               alPlain,
@@ -1924,8 +1713,10 @@ proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
                                              IID_IVectorView_1_Geopoint,
                                              IID_IIterator_1_Geopoint)
     defer: discard release(p0)
-    it.call(IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync4, p0,
-            optimization, restrictions, headingInDegrees, op.addr)
+    check it.vtbl.GetDrivingRouteFromWaypointsAsync4(it, p0, optimization,
+                                                     restrictions,
+                                                     headingInDegrees, op.addr
+                                                    ), "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
                               alPlain,
@@ -1942,7 +1733,8 @@ proc getWalkingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
              ):
     withIface(startPoint.p, IGeopoint, p0):
       withIface(endPoint.p, IGeopoint, p1):
-        it.call(IMapRouteFinderStatics_GetWalkingRouteAsync, p0, p1, op.addr)
+        check it.vtbl.GetWalkingRouteAsync(it, p0, p1, op.addr
+                                          ), "MapRouteFinder.GetWalkingRouteAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
                               alPlain, "MapRouteFinder.GetWalkingRouteAsync")
@@ -1959,8 +1751,8 @@ proc getWalkingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
                                              IID_IVectorView_1_Geopoint,
                                              IID_IIterator_1_Geopoint)
     defer: discard release(p0)
-    it.call(IMapRouteFinderStatics_GetWalkingRouteFromWaypointsAsync, p0,
-            op.addr)
+    check it.vtbl.GetWalkingRouteFromWaypointsAsync(it, p0, op.addr
+                                                   ), "MapRouteFinder.GetWalkingRouteFromWaypointsAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
                               alPlain,
@@ -1978,8 +1770,8 @@ proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
     withIface(startPoint.p, IGeopoint, p0):
       withIface(endPoint.p, IGeopoint, p1):
         withIface(options.p, IMapRouteDrivingOptions, p2):
-          it.call(IMapRouteFinderStatics2_GetDrivingRouteAsync, p0, p1, p2,
-                  op.addr)
+          check it.vtbl.GetDrivingRouteAsync(it, p0, p1, p2, op.addr
+                                            ), "MapRouteFinder.GetDrivingRouteAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
                               alPlain, "MapRouteFinder.GetDrivingRouteAsync")
@@ -1997,8 +1789,8 @@ proc getDrivingRouteFromEnhancedWaypointsAsync*(_: typedesc[MapRouteFinder],
                                                      IID_IIterator_1_EnhancedWaypoint
                                                     )
     defer: discard release(p0)
-    it.call(IMapRouteFinderStatics3_GetDrivingRouteFromEnhancedWaypointsAsync,
-            p0, op.addr)
+    check it.vtbl.GetDrivingRouteFromEnhancedWaypointsAsync(it, p0, op.addr
+                                                           ), "MapRouteFinder.GetDrivingRouteFromEnhancedWaypointsAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
                               alPlain,
@@ -2020,8 +1812,9 @@ proc getDrivingRouteFromEnhancedWaypointsAsync*(_: typedesc[MapRouteFinder],
                                                     )
     defer: discard release(p0)
     withIface(options.p, IMapRouteDrivingOptions, p1):
-      it.call(IMapRouteFinderStatics3_GetDrivingRouteFromEnhancedWaypointsAsync2,
-              p0, p1, op.addr)
+      check it.vtbl.GetDrivingRouteFromEnhancedWaypointsAsync2(it, p0, p1,
+                                                               op.addr
+                                                              ), "MapRouteFinder.GetDrivingRouteFromEnhancedWaypointsAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
                               IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
                               alPlain,
@@ -2032,143 +1825,110 @@ proc getDrivingRouteFromEnhancedWaypointsAsync*(_: typedesc[MapRouteFinder],
 proc route*(self: MapRouteFinderResult): MapRoute =
   ## Windows.Services.Maps.MapRouteFinderResult.get_Route
   withIface(self.p, IMapRouteFinderResult, it):
-    var tmp: pointer
-    it.call(IMapRouteFinderResult_get_Route, tmp.addr)
-    result = adopt[MapRoute](tmp)
+    result = it.getObject(get_Route, MapRoute)
 
 proc status*(self: MapRouteFinderResult): MapRouteFinderStatus =
   ## Windows.Services.Maps.MapRouteFinderResult.get_Status
   withIface(self.p, IMapRouteFinderResult, it):
-    var tmp: MapRouteFinderStatus
-    it.call(IMapRouteFinderResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, MapRouteFinderStatus)
 
 proc alternateRoutes*(self: MapRouteFinderResult): seq[MapRoute] =
   ## Windows.Services.Maps.MapRouteFinderResult.get_AlternateRoutes
   withIface(self.p, IMapRouteFinderResult2, it):
     var tmp: pointer
-    it.call(IMapRouteFinderResult2_get_AlternateRoutes, tmp.addr)
+    check it.vtbl.get_AlternateRoutes(it, tmp.addr
+                                     ), "MapRouteFinderResult.get_AlternateRoutes"
     result = toSeq[MapRoute](tmp, IID_IVectorView_1_MapRoute)
     release(tmp)
 
 proc boundingBox*(self: MapRouteLeg): GeoboundingBox =
   ## Windows.Services.Maps.MapRouteLeg.get_BoundingBox
   withIface(self.p, IMapRouteLeg, it):
-    var tmp: pointer
-    it.call(IMapRouteLeg_get_BoundingBox, tmp.addr)
-    result = adopt[GeoboundingBox](tmp)
+    result = it.getObject(get_BoundingBox, GeoboundingBox)
 
 proc path*(self: MapRouteLeg): Geopath =
   ## Windows.Services.Maps.MapRouteLeg.get_Path
   withIface(self.p, IMapRouteLeg, it):
-    var tmp: pointer
-    it.call(IMapRouteLeg_get_Path, tmp.addr)
-    result = adopt[Geopath](tmp)
+    result = it.getObject(get_Path, Geopath)
 
 proc lengthInMeters*(self: MapRouteLeg): float64 =
   ## Windows.Services.Maps.MapRouteLeg.get_LengthInMeters
   withIface(self.p, IMapRouteLeg, it):
-    var tmp: float64
-    it.call(IMapRouteLeg_get_LengthInMeters, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LengthInMeters, float64)
 
 proc estimatedDuration*(self: MapRouteLeg): TimeSpan =
   ## Windows.Services.Maps.MapRouteLeg.get_EstimatedDuration
   withIface(self.p, IMapRouteLeg, it):
-    var tmp: TimeSpan
-    it.call(IMapRouteLeg_get_EstimatedDuration, tmp.addr)
-    result = tmp
+    result = it.getValue(get_EstimatedDuration, TimeSpan)
 
 proc maneuvers*(self: MapRouteLeg): seq[MapRouteManeuver] =
   ## Windows.Services.Maps.MapRouteLeg.get_Maneuvers
   withIface(self.p, IMapRouteLeg, it):
     var tmp: pointer
-    it.call(IMapRouteLeg_get_Maneuvers, tmp.addr)
+    check it.vtbl.get_Maneuvers(it, tmp.addr), "MapRouteLeg.get_Maneuvers"
     result = toSeq[MapRouteManeuver](tmp, IID_IVectorView_1_MapRouteManeuver)
     release(tmp)
 
 proc durationWithoutTraffic*(self: MapRouteLeg): TimeSpan =
   ## Windows.Services.Maps.MapRouteLeg.get_DurationWithoutTraffic
   withIface(self.p, IMapRouteLeg2, it):
-    var tmp: TimeSpan
-    it.call(IMapRouteLeg2_get_DurationWithoutTraffic, tmp.addr)
-    result = tmp
+    result = it.getValue(get_DurationWithoutTraffic, TimeSpan)
 
 proc trafficCongestion*(self: MapRouteLeg): TrafficCongestion =
   ## Windows.Services.Maps.MapRouteLeg.get_TrafficCongestion
   withIface(self.p, IMapRouteLeg2, it):
-    var tmp: TrafficCongestion
-    it.call(IMapRouteLeg2_get_TrafficCongestion, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TrafficCongestion, TrafficCongestion)
 
 proc startingPoint*(self: MapRouteManeuver): Geopoint =
   ## Windows.Services.Maps.MapRouteManeuver.get_StartingPoint
   withIface(self.p, IMapRouteManeuver, it):
-    var tmp: pointer
-    it.call(IMapRouteManeuver_get_StartingPoint, tmp.addr)
-    result = adopt[Geopoint](tmp)
+    result = it.getObject(get_StartingPoint, Geopoint)
 
 proc lengthInMeters*(self: MapRouteManeuver): float64 =
   ## Windows.Services.Maps.MapRouteManeuver.get_LengthInMeters
   withIface(self.p, IMapRouteManeuver, it):
-    var tmp: float64
-    it.call(IMapRouteManeuver_get_LengthInMeters, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LengthInMeters, float64)
 
 proc instructionText*(self: MapRouteManeuver): string =
   ## Windows.Services.Maps.MapRouteManeuver.get_InstructionText
   withIface(self.p, IMapRouteManeuver, it):
-    var tmp: HSTRING
-    it.call(IMapRouteManeuver_get_InstructionText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InstructionText)
 
 proc kind*(self: MapRouteManeuver): MapRouteManeuverKind =
   ## Windows.Services.Maps.MapRouteManeuver.get_Kind
   withIface(self.p, IMapRouteManeuver, it):
-    var tmp: MapRouteManeuverKind
-    it.call(IMapRouteManeuver_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, MapRouteManeuverKind)
 
 proc exitNumber*(self: MapRouteManeuver): string =
   ## Windows.Services.Maps.MapRouteManeuver.get_ExitNumber
   withIface(self.p, IMapRouteManeuver, it):
-    var tmp: HSTRING
-    it.call(IMapRouteManeuver_get_ExitNumber, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ExitNumber)
 
 proc maneuverNotices*(self: MapRouteManeuver): MapManeuverNotices =
   ## Windows.Services.Maps.MapRouteManeuver.get_ManeuverNotices
   withIface(self.p, IMapRouteManeuver, it):
-    var tmp: MapManeuverNotices
-    it.call(IMapRouteManeuver_get_ManeuverNotices, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ManeuverNotices, MapManeuverNotices)
 
 proc startHeading*(self: MapRouteManeuver): float64 =
   ## Windows.Services.Maps.MapRouteManeuver.get_StartHeading
   withIface(self.p, IMapRouteManeuver2, it):
-    var tmp: float64
-    it.call(IMapRouteManeuver2_get_StartHeading, tmp.addr)
-    result = tmp
+    result = it.getValue(get_StartHeading, float64)
 
 proc endHeading*(self: MapRouteManeuver): float64 =
   ## Windows.Services.Maps.MapRouteManeuver.get_EndHeading
   withIface(self.p, IMapRouteManeuver2, it):
-    var tmp: float64
-    it.call(IMapRouteManeuver2_get_EndHeading, tmp.addr)
-    result = tmp
+    result = it.getValue(get_EndHeading, float64)
 
 proc streetName*(self: MapRouteManeuver): string =
   ## Windows.Services.Maps.MapRouteManeuver.get_StreetName
   withIface(self.p, IMapRouteManeuver2, it):
-    var tmp: HSTRING
-    it.call(IMapRouteManeuver2_get_StreetName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_StreetName)
 
 proc warnings*(self: MapRouteManeuver): seq[ManeuverWarning] =
   ## Windows.Services.Maps.MapRouteManeuver.get_Warnings
   withIface(self.p, IMapRouteManeuver3, it):
     var tmp: pointer
-    it.call(IMapRouteManeuver3_get_Warnings, tmp.addr)
+    check it.vtbl.get_Warnings(it, tmp.addr), "MapRouteManeuver.get_Warnings"
     result = toSeq[ManeuverWarning](tmp, IID_IVectorView_1_ManeuverWarning)
     release(tmp)
 
@@ -2176,73 +1936,56 @@ proc `dataUsagePreference=`*(_: typedesc[MapService],
                              value: MapServiceDataUsagePreference) =
   ## Windows.Services.Maps.MapService.put_DataUsagePreference
   withStatics("Windows.Services.Maps.MapService", IMapServiceStatics4, it):
-    it.call(IMapServiceStatics4_put_DataUsagePreference, value)
+    it.putValue(put_DataUsagePreference, value)
 
 proc dataUsagePreference*(_: typedesc[MapService]): MapServiceDataUsagePreference =
   ## Windows.Services.Maps.MapService.get_DataUsagePreference
   withStatics("Windows.Services.Maps.MapService", IMapServiceStatics4, it):
-    var tmp: MapServiceDataUsagePreference
-    it.call(IMapServiceStatics4_get_DataUsagePreference, tmp.addr)
-    result = tmp
+    result = it.getValue(get_DataUsagePreference, MapServiceDataUsagePreference)
 
 proc `serviceToken=`*(_: typedesc[MapService], value: string) =
   ## Windows.Services.Maps.MapService.put_ServiceToken
   withStatics("Windows.Services.Maps.MapService", IMapServiceStatics, it):
-    withHString(value, h0):
-      it.call(IMapServiceStatics_put_ServiceToken, h0)
+    it.putString(put_ServiceToken, value)
 
 proc serviceToken*(_: typedesc[MapService]): string =
   ## Windows.Services.Maps.MapService.get_ServiceToken
   withStatics("Windows.Services.Maps.MapService", IMapServiceStatics, it):
-    var tmp: HSTRING
-    it.call(IMapServiceStatics_get_ServiceToken, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ServiceToken)
 
 proc worldViewRegionCode*(_: typedesc[MapService]): string =
   ## Windows.Services.Maps.MapService.get_WorldViewRegionCode
   withStatics("Windows.Services.Maps.MapService", IMapServiceStatics2, it):
-    var tmp: HSTRING
-    it.call(IMapServiceStatics2_get_WorldViewRegionCode, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_WorldViewRegionCode)
 
 proc dataAttributions*(_: typedesc[MapService]): string =
   ## Windows.Services.Maps.MapService.get_DataAttributions
   withStatics("Windows.Services.Maps.MapService", IMapServiceStatics3, it):
-    var tmp: HSTRING
-    it.call(IMapServiceStatics3_get_DataAttributions, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DataAttributions)
 
 proc status*(self: OfflineMapPackage): OfflineMapPackageStatus =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackage.get_Status
   withIface(self.p, IOfflineMapPackage, it):
-    var tmp: OfflineMapPackageStatus
-    it.call(IOfflineMapPackage_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, OfflineMapPackageStatus)
 
 proc displayName*(self: OfflineMapPackage): string =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackage.get_DisplayName
   withIface(self.p, IOfflineMapPackage, it):
-    var tmp: HSTRING
-    it.call(IOfflineMapPackage_get_DisplayName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayName)
 
 proc enclosingRegionName*(self: OfflineMapPackage): string =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackage.get_EnclosingRegionName
   withIface(self.p, IOfflineMapPackage, it):
-    var tmp: HSTRING
-    it.call(IOfflineMapPackage_get_EnclosingRegionName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_EnclosingRegionName)
 
 proc estimatedSizeInBytes*(self: OfflineMapPackage): uint64 =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackage.get_EstimatedSizeInBytes
   withIface(self.p, IOfflineMapPackage, it):
-    var tmp: uint64
-    it.call(IOfflineMapPackage_get_EstimatedSizeInBytes, tmp.addr)
-    result = tmp
+    result = it.getValue(get_EstimatedSizeInBytes, uint64)
 
 proc removeStatusChanged*(self: OfflineMapPackage, token: EventRegistrationToken) =
   withIface(self.p, IOfflineMapPackage, it):
-    it.call(IOfflineMapPackage_remove_StatusChanged, token)
+    check it.vtbl.remove_StatusChanged(it, token), "OfflineMapPackage.remove_StatusChanged"
 
 proc onStatusChanged*(self: OfflineMapPackage,
                       handler: EventHandler[OfflineMapPackage, WinRtObject]
@@ -2255,7 +1998,7 @@ proc onStatusChanged*(self: OfflineMapPackage,
     let cb = newDelegate(IID_TypedEventHandler_2_OfflineMapPackage_Object, shim,
                          event = true)
     try:
-      it.call(IOfflineMapPackage_add_StatusChanged, cb, result.addr)
+      check it.vtbl.add_StatusChanged(it, cb, result.addr), "OfflineMapPackage.add_StatusChanged"
     finally:
       release(cb)
 
@@ -2263,7 +2006,8 @@ proc requestStartDownloadAsync*(self: OfflineMapPackage): Future[OfflineMapPacka
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackage.RequestStartDownloadAsync
   var op: pointer
   withIface(self.p, IOfflineMapPackage, it):
-    it.call(IOfflineMapPackage_RequestStartDownloadAsync, op.addr)
+    check it.vtbl.RequestStartDownloadAsync(it, op.addr
+                                           ), "OfflineMapPackage.RequestStartDownloadAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_OfflineMapPackageStartDownloadResult,
                               IID_AsyncOperationCompletedHandler_1_OfflineMapPackageStartDownloadResult,
@@ -2278,7 +2022,8 @@ proc findPackagesAsync*(_: typedesc[OfflineMapPackage], queryPoint: Geopoint
   withStatics("Windows.Services.Maps.OfflineMaps.OfflineMapPackage",
               IOfflineMapPackageStatics, it):
     withIface(queryPoint.p, IGeopoint, p0):
-      it.call(IOfflineMapPackageStatics_FindPackagesAsync, p0, op.addr)
+      check it.vtbl.FindPackagesAsync(it, p0, op.addr
+                                     ), "OfflineMapPackage.FindPackagesAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_OfflineMapPackageQueryResult,
                               IID_AsyncOperationCompletedHandler_1_OfflineMapPackageQueryResult,
@@ -2293,8 +2038,8 @@ proc findPackagesInBoundingBoxAsync*(_: typedesc[OfflineMapPackage],
   withStatics("Windows.Services.Maps.OfflineMaps.OfflineMapPackage",
               IOfflineMapPackageStatics, it):
     withIface(queryBoundingBox.p, IGeoboundingBox, p0):
-      it.call(IOfflineMapPackageStatics_FindPackagesInBoundingBoxAsync, p0,
-              op.addr)
+      check it.vtbl.FindPackagesInBoundingBoxAsync(it, p0, op.addr
+                                                  ), "OfflineMapPackage.FindPackagesInBoundingBoxAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_OfflineMapPackageQueryResult,
                               IID_AsyncOperationCompletedHandler_1_OfflineMapPackageQueryResult,
@@ -2311,8 +2056,8 @@ proc findPackagesInGeocircleAsync*(_: typedesc[OfflineMapPackage],
   withStatics("Windows.Services.Maps.OfflineMaps.OfflineMapPackage",
               IOfflineMapPackageStatics, it):
     withIface(queryCircle.p, IGeocircle, p0):
-      it.call(IOfflineMapPackageStatics_FindPackagesInGeocircleAsync, p0,
-              op.addr)
+      check it.vtbl.FindPackagesInGeocircleAsync(it, p0, op.addr
+                                                ), "OfflineMapPackage.FindPackagesInGeocircleAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_OfflineMapPackageQueryResult,
                               IID_AsyncOperationCompletedHandler_1_OfflineMapPackageQueryResult,
@@ -2323,62 +2068,51 @@ proc findPackagesInGeocircleAsync*(_: typedesc[OfflineMapPackage],
 proc status*(self: OfflineMapPackageQueryResult): OfflineMapPackageQueryStatus =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult.get_Status
   withIface(self.p, IOfflineMapPackageQueryResult, it):
-    var tmp: OfflineMapPackageQueryStatus
-    it.call(IOfflineMapPackageQueryResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, OfflineMapPackageQueryStatus)
 
 proc packages*(self: OfflineMapPackageQueryResult): seq[OfflineMapPackage] =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult.get_Packages
   withIface(self.p, IOfflineMapPackageQueryResult, it):
     var tmp: pointer
-    it.call(IOfflineMapPackageQueryResult_get_Packages, tmp.addr)
+    check it.vtbl.get_Packages(it, tmp.addr
+                              ), "OfflineMapPackageQueryResult.get_Packages"
     result = toSeq[OfflineMapPackage](tmp, IID_IVectorView_1_OfflineMapPackage)
     release(tmp)
 
 proc status*(self: OfflineMapPackageStartDownloadResult): OfflineMapPackageStartDownloadStatus =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadResult.get_Status
   withIface(self.p, IOfflineMapPackageStartDownloadResult, it):
-    var tmp: OfflineMapPackageStartDownloadStatus
-    it.call(IOfflineMapPackageStartDownloadResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, OfflineMapPackageStartDownloadStatus)
 
 proc show*(self: PlaceInfo, selection: Rect) =
   ## Windows.Services.Maps.PlaceInfo.Show
   withIface(self.p, IPlaceInfo, it):
-    it.call(IPlaceInfo_Show, selection)
+    check it.vtbl.Show(it, selection), "PlaceInfo.Show"
 
 proc show*(self: PlaceInfo, selection: Rect, preferredPlacement: Placement) =
   ## Windows.Services.Maps.PlaceInfo.Show
   withIface(self.p, IPlaceInfo, it):
-    it.call(IPlaceInfo_Show2, selection, preferredPlacement)
+    check it.vtbl.Show2(it, selection, preferredPlacement), "PlaceInfo.Show"
 
 proc identifier*(self: PlaceInfo): string =
   ## Windows.Services.Maps.PlaceInfo.get_Identifier
   withIface(self.p, IPlaceInfo, it):
-    var tmp: HSTRING
-    it.call(IPlaceInfo_get_Identifier, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Identifier)
 
 proc displayName*(self: PlaceInfo): string =
   ## Windows.Services.Maps.PlaceInfo.get_DisplayName
   withIface(self.p, IPlaceInfo, it):
-    var tmp: HSTRING
-    it.call(IPlaceInfo_get_DisplayName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayName)
 
 proc displayAddress*(self: PlaceInfo): string =
   ## Windows.Services.Maps.PlaceInfo.get_DisplayAddress
   withIface(self.p, IPlaceInfo, it):
-    var tmp: HSTRING
-    it.call(IPlaceInfo_get_DisplayAddress, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayAddress)
 
 proc geoshape*(self: PlaceInfo): WinRtObject =
   ## Windows.Services.Maps.PlaceInfo.get_Geoshape
   withIface(self.p, IPlaceInfo, it):
-    var tmp: pointer
-    it.call(IPlaceInfo_get_Geoshape, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Geoshape, WinRtObject)
 
 proc createFromAddress*(_: typedesc[PlaceInfo], displayAddress: string
                        ): PlaceInfo =
@@ -2386,7 +2120,8 @@ proc createFromAddress*(_: typedesc[PlaceInfo], displayAddress: string
   withStatics("Windows.Services.Maps.PlaceInfo", IPlaceInfoStatics2, it):
     withHString(displayAddress, h0):
       var tmp: pointer
-      it.call(IPlaceInfoStatics2_CreateFromAddress, h0, tmp.addr)
+      check it.vtbl.CreateFromAddress(it, h0, tmp.addr
+                                     ), "PlaceInfo.CreateFromAddress"
       result = adopt[PlaceInfo](tmp)
 
 proc createFromAddress*(_: typedesc[PlaceInfo], displayAddress: string,
@@ -2396,7 +2131,8 @@ proc createFromAddress*(_: typedesc[PlaceInfo], displayAddress: string,
     withHString(displayAddress, h0):
       withHString(displayName, h1):
         var tmp: pointer
-        it.call(IPlaceInfoStatics2_CreateFromAddress2, h0, h1, tmp.addr)
+        check it.vtbl.CreateFromAddress2(it, h0, h1, tmp.addr
+                                        ), "PlaceInfo.CreateFromAddress"
         result = adopt[PlaceInfo](tmp)
 
 proc create*(_: typedesc[PlaceInfo], referencePoint: Geopoint): PlaceInfo =
@@ -2404,7 +2140,7 @@ proc create*(_: typedesc[PlaceInfo], referencePoint: Geopoint): PlaceInfo =
   withStatics("Windows.Services.Maps.PlaceInfo", IPlaceInfoStatics, it):
     withIface(referencePoint.p, IGeopoint, p0):
       var tmp: pointer
-      it.call(IPlaceInfoStatics_Create, p0, tmp.addr)
+      check it.vtbl.Create(it, p0, tmp.addr), "PlaceInfo.Create"
       result = adopt[PlaceInfo](tmp)
 
 proc create*(_: typedesc[PlaceInfo], referencePoint: Geopoint,
@@ -2414,7 +2150,7 @@ proc create*(_: typedesc[PlaceInfo], referencePoint: Geopoint,
     withIface(referencePoint.p, IGeopoint, p0):
       withIface(options.p, IPlaceInfoCreateOptions, p1):
         var tmp: pointer
-        it.call(IPlaceInfoStatics_Create2, p0, p1, tmp.addr)
+        check it.vtbl.Create2(it, p0, p1, tmp.addr), "PlaceInfo.Create"
         result = adopt[PlaceInfo](tmp)
 
 proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string
@@ -2423,7 +2159,8 @@ proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string
   withStatics("Windows.Services.Maps.PlaceInfo", IPlaceInfoStatics, it):
     withHString(identifier, h0):
       var tmp: pointer
-      it.call(IPlaceInfoStatics_CreateFromIdentifier, h0, tmp.addr)
+      check it.vtbl.CreateFromIdentifier(it, h0, tmp.addr
+                                        ), "PlaceInfo.CreateFromIdentifier"
       result = adopt[PlaceInfo](tmp)
 
 proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string,
@@ -2435,7 +2172,8 @@ proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string,
       withIface(defaultPoint.p, IGeopoint, p1):
         withIface(options.p, IPlaceInfoCreateOptions, p2):
           var tmp: pointer
-          it.call(IPlaceInfoStatics_CreateFromIdentifier2, h0, p1, p2, tmp.addr)
+          check it.vtbl.CreateFromIdentifier2(it, h0, p1, p2, tmp.addr
+                                             ), "PlaceInfo.CreateFromIdentifier"
           result = adopt[PlaceInfo](tmp)
 
 proc createFromMapLocation*(_: typedesc[PlaceInfo], location: MapLocation
@@ -2444,15 +2182,14 @@ proc createFromMapLocation*(_: typedesc[PlaceInfo], location: MapLocation
   withStatics("Windows.Services.Maps.PlaceInfo", IPlaceInfoStatics, it):
     withIface(location.p, IMapLocation, p0):
       var tmp: pointer
-      it.call(IPlaceInfoStatics_CreateFromMapLocation, p0, tmp.addr)
+      check it.vtbl.CreateFromMapLocation(it, p0, tmp.addr
+                                         ), "PlaceInfo.CreateFromMapLocation"
       result = adopt[PlaceInfo](tmp)
 
 proc isShowSupported*(_: typedesc[PlaceInfo]): bool =
   ## Windows.Services.Maps.PlaceInfo.get_IsShowSupported
   withStatics("Windows.Services.Maps.PlaceInfo", IPlaceInfoStatics, it):
-    var tmp: bool
-    it.call(IPlaceInfoStatics_get_IsShowSupported, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsShowSupported, bool)
 
 proc newPlaceInfoCreateOptions*(): PlaceInfoCreateOptions =
   ## Activate a `Windows.Services.Maps.PlaceInfoCreateOptions`.
@@ -2461,83 +2198,64 @@ proc newPlaceInfoCreateOptions*(): PlaceInfoCreateOptions =
 proc `displayName=`*(self: PlaceInfoCreateOptions, value: string) =
   ## Windows.Services.Maps.PlaceInfoCreateOptions.put_DisplayName
   withIface(self.p, IPlaceInfoCreateOptions, it):
-    withHString(value, h0):
-      it.call(IPlaceInfoCreateOptions_put_DisplayName, h0)
+    it.putString(put_DisplayName, value)
 
 proc displayName*(self: PlaceInfoCreateOptions): string =
   ## Windows.Services.Maps.PlaceInfoCreateOptions.get_DisplayName
   withIface(self.p, IPlaceInfoCreateOptions, it):
-    var tmp: HSTRING
-    it.call(IPlaceInfoCreateOptions_get_DisplayName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayName)
 
 proc `displayAddress=`*(self: PlaceInfoCreateOptions, value: string) =
   ## Windows.Services.Maps.PlaceInfoCreateOptions.put_DisplayAddress
   withIface(self.p, IPlaceInfoCreateOptions, it):
-    withHString(value, h0):
-      it.call(IPlaceInfoCreateOptions_put_DisplayAddress, h0)
+    it.putString(put_DisplayAddress, value)
 
 proc displayAddress*(self: PlaceInfoCreateOptions): string =
   ## Windows.Services.Maps.PlaceInfoCreateOptions.get_DisplayAddress
   withIface(self.p, IPlaceInfoCreateOptions, it):
-    var tmp: HSTRING
-    it.call(IPlaceInfoCreateOptions_get_DisplayAddress, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayAddress)
 
 proc storePackageLicense*(self: StoreAcquireLicenseResult): StorePackageLicense =
   ## Windows.Services.Store.StoreAcquireLicenseResult.get_StorePackageLicense
   withIface(self.p, IStoreAcquireLicenseResult, it):
-    var tmp: pointer
-    it.call(IStoreAcquireLicenseResult_get_StorePackageLicense, tmp.addr)
-    result = adopt[StorePackageLicense](tmp)
+    result = it.getObject(get_StorePackageLicense, StorePackageLicense)
 
 proc extendedError*(self: StoreAcquireLicenseResult): HRESULT =
   ## Windows.Services.Store.StoreAcquireLicenseResult.get_ExtendedError
   withIface(self.p, IStoreAcquireLicenseResult, it):
-    var tmp: HRESULT
-    it.call(IStoreAcquireLicenseResult_get_ExtendedError, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExtendedError, HRESULT)
 
 proc skuStoreId*(self: StoreAppLicense): string =
   ## Windows.Services.Store.StoreAppLicense.get_SkuStoreId
   withIface(self.p, IStoreAppLicense, it):
-    var tmp: HSTRING
-    it.call(IStoreAppLicense_get_SkuStoreId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SkuStoreId)
 
 proc isActive*(self: StoreAppLicense): bool =
   ## Windows.Services.Store.StoreAppLicense.get_IsActive
   withIface(self.p, IStoreAppLicense, it):
-    var tmp: bool
-    it.call(IStoreAppLicense_get_IsActive, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsActive, bool)
 
 proc isTrial*(self: StoreAppLicense): bool =
   ## Windows.Services.Store.StoreAppLicense.get_IsTrial
   withIface(self.p, IStoreAppLicense, it):
-    var tmp: bool
-    it.call(IStoreAppLicense_get_IsTrial, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsTrial, bool)
 
 proc expirationDate*(self: StoreAppLicense): DateTime =
   ## Windows.Services.Store.StoreAppLicense.get_ExpirationDate
   withIface(self.p, IStoreAppLicense, it):
-    var tmp: DateTime
-    it.call(IStoreAppLicense_get_ExpirationDate, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExpirationDate, DateTime)
 
 proc extendedJsonData*(self: StoreAppLicense): string =
   ## Windows.Services.Store.StoreAppLicense.get_ExtendedJsonData
   withIface(self.p, IStoreAppLicense, it):
-    var tmp: HSTRING
-    it.call(IStoreAppLicense_get_ExtendedJsonData, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ExtendedJsonData)
 
 proc addOnLicenses*(self: StoreAppLicense): Table[string, StoreLicense] =
   ## Windows.Services.Store.StoreAppLicense.get_AddOnLicenses
   withIface(self.p, IStoreAppLicense, it):
     var tmp: pointer
-    it.call(IStoreAppLicense_get_AddOnLicenses, tmp.addr)
+    check it.vtbl.get_AddOnLicenses(it, tmp.addr
+                                   ), "StoreAppLicense.get_AddOnLicenses"
     result = toTable[string, StoreLicense](tmp, IID_IIterable_1_IKeyValuePair_2,
                                            IID_IKeyValuePair_2_String_StoreLicense
                                           )
@@ -2546,64 +2264,49 @@ proc addOnLicenses*(self: StoreAppLicense): Table[string, StoreLicense] =
 proc trialTimeRemaining*(self: StoreAppLicense): TimeSpan =
   ## Windows.Services.Store.StoreAppLicense.get_TrialTimeRemaining
   withIface(self.p, IStoreAppLicense, it):
-    var tmp: TimeSpan
-    it.call(IStoreAppLicense_get_TrialTimeRemaining, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TrialTimeRemaining, TimeSpan)
 
 proc isTrialOwnedByThisUser*(self: StoreAppLicense): bool =
   ## Windows.Services.Store.StoreAppLicense.get_IsTrialOwnedByThisUser
   withIface(self.p, IStoreAppLicense, it):
-    var tmp: bool
-    it.call(IStoreAppLicense_get_IsTrialOwnedByThisUser, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsTrialOwnedByThisUser, bool)
 
 proc trialUniqueId*(self: StoreAppLicense): string =
   ## Windows.Services.Store.StoreAppLicense.get_TrialUniqueId
   withIface(self.p, IStoreAppLicense, it):
-    var tmp: HSTRING
-    it.call(IStoreAppLicense_get_TrialUniqueId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TrialUniqueId)
 
 proc isDiscLicense*(self: StoreAppLicense): bool =
   ## Windows.Services.Store.StoreAppLicense.get_IsDiscLicense
   withIface(self.p, IStoreAppLicense2, it):
-    var tmp: bool
-    it.call(IStoreAppLicense2_get_IsDiscLicense, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsDiscLicense, bool)
 
 proc storeId*(self: StoreAvailability): string =
   ## Windows.Services.Store.StoreAvailability.get_StoreId
   withIface(self.p, IStoreAvailability, it):
-    var tmp: HSTRING
-    it.call(IStoreAvailability_get_StoreId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_StoreId)
 
 proc endDate*(self: StoreAvailability): DateTime =
   ## Windows.Services.Store.StoreAvailability.get_EndDate
   withIface(self.p, IStoreAvailability, it):
-    var tmp: DateTime
-    it.call(IStoreAvailability_get_EndDate, tmp.addr)
-    result = tmp
+    result = it.getValue(get_EndDate, DateTime)
 
 proc price*(self: StoreAvailability): StorePrice =
   ## Windows.Services.Store.StoreAvailability.get_Price
   withIface(self.p, IStoreAvailability, it):
-    var tmp: pointer
-    it.call(IStoreAvailability_get_Price, tmp.addr)
-    result = adopt[StorePrice](tmp)
+    result = it.getObject(get_Price, StorePrice)
 
 proc extendedJsonData*(self: StoreAvailability): string =
   ## Windows.Services.Store.StoreAvailability.get_ExtendedJsonData
   withIface(self.p, IStoreAvailability, it):
-    var tmp: HSTRING
-    it.call(IStoreAvailability_get_ExtendedJsonData, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ExtendedJsonData)
 
 proc requestPurchaseAsync*(self: StoreAvailability): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreAvailability.RequestPurchaseAsync
   var op: pointer
   withIface(self.p, IStoreAvailability, it):
-    it.call(IStoreAvailability_RequestPurchaseAsync, op.addr)
+    check it.vtbl.RequestPurchaseAsync(it, op.addr
+                                      ), "StoreAvailability.RequestPurchaseAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
                               IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
                               alPlain, "StoreAvailability.RequestPurchaseAsync")
@@ -2616,7 +2319,8 @@ proc requestPurchaseAsync*(self: StoreAvailability,
   var op: pointer
   withIface(self.p, IStoreAvailability, it):
     withIface(storePurchaseProperties.p, IStorePurchaseProperties, p0):
-      it.call(IStoreAvailability_RequestPurchaseAsync2, p0, op.addr)
+      check it.vtbl.RequestPurchaseAsync2(it, p0, op.addr
+                                         ), "StoreAvailability.RequestPurchaseAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
                               IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
                               alPlain, "StoreAvailability.RequestPurchaseAsync")
@@ -2625,114 +2329,82 @@ proc requestPurchaseAsync*(self: StoreAvailability,
 proc extendedError*(self: StoreCanAcquireLicenseResult): HRESULT =
   ## Windows.Services.Store.StoreCanAcquireLicenseResult.get_ExtendedError
   withIface(self.p, IStoreCanAcquireLicenseResult, it):
-    var tmp: HRESULT
-    it.call(IStoreCanAcquireLicenseResult_get_ExtendedError, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExtendedError, HRESULT)
 
 proc licensableSku*(self: StoreCanAcquireLicenseResult): string =
   ## Windows.Services.Store.StoreCanAcquireLicenseResult.get_LicensableSku
   withIface(self.p, IStoreCanAcquireLicenseResult, it):
-    var tmp: HSTRING
-    it.call(IStoreCanAcquireLicenseResult_get_LicensableSku, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_LicensableSku)
 
 proc status*(self: StoreCanAcquireLicenseResult): StoreCanLicenseStatus =
   ## Windows.Services.Store.StoreCanAcquireLicenseResult.get_Status
   withIface(self.p, IStoreCanAcquireLicenseResult, it):
-    var tmp: StoreCanLicenseStatus
-    it.call(IStoreCanAcquireLicenseResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, StoreCanLicenseStatus)
 
 proc isTrial*(self: StoreCollectionData): bool =
   ## Windows.Services.Store.StoreCollectionData.get_IsTrial
   withIface(self.p, IStoreCollectionData, it):
-    var tmp: bool
-    it.call(IStoreCollectionData_get_IsTrial, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsTrial, bool)
 
 proc campaignId*(self: StoreCollectionData): string =
   ## Windows.Services.Store.StoreCollectionData.get_CampaignId
   withIface(self.p, IStoreCollectionData, it):
-    var tmp: HSTRING
-    it.call(IStoreCollectionData_get_CampaignId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CampaignId)
 
 proc developerOfferId*(self: StoreCollectionData): string =
   ## Windows.Services.Store.StoreCollectionData.get_DeveloperOfferId
   withIface(self.p, IStoreCollectionData, it):
-    var tmp: HSTRING
-    it.call(IStoreCollectionData_get_DeveloperOfferId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DeveloperOfferId)
 
 proc acquiredDate*(self: StoreCollectionData): DateTime =
   ## Windows.Services.Store.StoreCollectionData.get_AcquiredDate
   withIface(self.p, IStoreCollectionData, it):
-    var tmp: DateTime
-    it.call(IStoreCollectionData_get_AcquiredDate, tmp.addr)
-    result = tmp
+    result = it.getValue(get_AcquiredDate, DateTime)
 
 proc startDate*(self: StoreCollectionData): DateTime =
   ## Windows.Services.Store.StoreCollectionData.get_StartDate
   withIface(self.p, IStoreCollectionData, it):
-    var tmp: DateTime
-    it.call(IStoreCollectionData_get_StartDate, tmp.addr)
-    result = tmp
+    result = it.getValue(get_StartDate, DateTime)
 
 proc endDate*(self: StoreCollectionData): DateTime =
   ## Windows.Services.Store.StoreCollectionData.get_EndDate
   withIface(self.p, IStoreCollectionData, it):
-    var tmp: DateTime
-    it.call(IStoreCollectionData_get_EndDate, tmp.addr)
-    result = tmp
+    result = it.getValue(get_EndDate, DateTime)
 
 proc trialTimeRemaining*(self: StoreCollectionData): TimeSpan =
   ## Windows.Services.Store.StoreCollectionData.get_TrialTimeRemaining
   withIface(self.p, IStoreCollectionData, it):
-    var tmp: TimeSpan
-    it.call(IStoreCollectionData_get_TrialTimeRemaining, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TrialTimeRemaining, TimeSpan)
 
 proc extendedJsonData*(self: StoreCollectionData): string =
   ## Windows.Services.Store.StoreCollectionData.get_ExtendedJsonData
   withIface(self.p, IStoreCollectionData, it):
-    var tmp: HSTRING
-    it.call(IStoreCollectionData_get_ExtendedJsonData, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ExtendedJsonData)
 
 proc status*(self: StoreConsumableResult): StoreConsumableStatus =
   ## Windows.Services.Store.StoreConsumableResult.get_Status
   withIface(self.p, IStoreConsumableResult, it):
-    var tmp: StoreConsumableStatus
-    it.call(IStoreConsumableResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, StoreConsumableStatus)
 
 proc trackingId*(self: StoreConsumableResult): GUID =
   ## Windows.Services.Store.StoreConsumableResult.get_TrackingId
   withIface(self.p, IStoreConsumableResult, it):
-    var tmp: GUID
-    it.call(IStoreConsumableResult_get_TrackingId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TrackingId, GUID)
 
 proc balanceRemaining*(self: StoreConsumableResult): uint32 =
   ## Windows.Services.Store.StoreConsumableResult.get_BalanceRemaining
   withIface(self.p, IStoreConsumableResult, it):
-    var tmp: uint32
-    it.call(IStoreConsumableResult_get_BalanceRemaining, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BalanceRemaining, uint32)
 
 proc extendedError*(self: StoreConsumableResult): HRESULT =
   ## Windows.Services.Store.StoreConsumableResult.get_ExtendedError
   withIface(self.p, IStoreConsumableResult, it):
-    var tmp: HRESULT
-    it.call(IStoreConsumableResult_get_ExtendedError, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExtendedError, HRESULT)
 
 proc user*(self: StoreContext): User =
   ## Windows.Services.Store.StoreContext.get_User
   withIface(self.p, IStoreContext, it):
-    var tmp: pointer
-    it.call(IStoreContext_get_User, tmp.addr)
-    result = adopt[User](tmp)
+    result = it.getObject(get_User, User)
 
 proc onOfflineLicensesChanged*(self: StoreContext,
                                handler: EventHandler[StoreContext, WinRtObject]
@@ -2745,13 +2417,13 @@ proc onOfflineLicensesChanged*(self: StoreContext,
     let cb = newDelegate(IID_TypedEventHandler_2_StoreContext_Object, shim,
                          event = true)
     try:
-      it.call(IStoreContext_add_OfflineLicensesChanged, cb, result.addr)
+      check it.vtbl.add_OfflineLicensesChanged(it, cb, result.addr), "StoreContext.add_OfflineLicensesChanged"
     finally:
       release(cb)
 
 proc removeOfflineLicensesChanged*(self: StoreContext, token: EventRegistrationToken) =
   withIface(self.p, IStoreContext, it):
-    it.call(IStoreContext_remove_OfflineLicensesChanged, token)
+    check it.vtbl.remove_OfflineLicensesChanged(it, token), "StoreContext.remove_OfflineLicensesChanged"
 
 proc getCustomerPurchaseIdAsync*(self: StoreContext, serviceTicket: string,
                                  publisherUserId: string
@@ -2761,7 +2433,8 @@ proc getCustomerPurchaseIdAsync*(self: StoreContext, serviceTicket: string,
   withIface(self.p, IStoreContext, it):
     withHString(serviceTicket, h0):
       withHString(publisherUserId, h1):
-        it.call(IStoreContext_GetCustomerPurchaseIdAsync, h0, h1, op.addr)
+        check it.vtbl.GetCustomerPurchaseIdAsync(it, h0, h1, op.addr
+                                                ), "StoreContext.GetCustomerPurchaseIdAsync"
   result = await awaitString(op, IID_IAsyncOperation_1_String,
                              IID_AsyncOperationCompletedHandler_1_String,
                              alPlain, "StoreContext.GetCustomerPurchaseIdAsync")
@@ -2774,7 +2447,8 @@ proc getCustomerCollectionsIdAsync*(self: StoreContext, serviceTicket: string,
   withIface(self.p, IStoreContext, it):
     withHString(serviceTicket, h0):
       withHString(publisherUserId, h1):
-        it.call(IStoreContext_GetCustomerCollectionsIdAsync, h0, h1, op.addr)
+        check it.vtbl.GetCustomerCollectionsIdAsync(it, h0, h1, op.addr
+                                                   ), "StoreContext.GetCustomerCollectionsIdAsync"
   result = await awaitString(op, IID_IAsyncOperation_1_String,
                              IID_AsyncOperationCompletedHandler_1_String,
                              alPlain,
@@ -2784,7 +2458,8 @@ proc getAppLicenseAsync*(self: StoreContext): Future[StoreAppLicense] {.async.} 
   ## Windows.Services.Store.StoreContext.GetAppLicenseAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
-    it.call(IStoreContext_GetAppLicenseAsync, op.addr)
+    check it.vtbl.GetAppLicenseAsync(it, op.addr
+                                    ), "StoreContext.GetAppLicenseAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreAppLicense,
                               IID_AsyncOperationCompletedHandler_1_StoreAppLicense,
                               alPlain, "StoreContext.GetAppLicenseAsync")
@@ -2794,7 +2469,8 @@ proc getStoreProductForCurrentAppAsync*(self: StoreContext): Future[StoreProduct
   ## Windows.Services.Store.StoreContext.GetStoreProductForCurrentAppAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
-    it.call(IStoreContext_GetStoreProductForCurrentAppAsync, op.addr)
+    check it.vtbl.GetStoreProductForCurrentAppAsync(it, op.addr
+                                                   ), "StoreContext.GetStoreProductForCurrentAppAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductResult,
                               IID_AsyncOperationCompletedHandler_1_StoreProductResult,
                               alPlain,
@@ -2815,7 +2491,8 @@ proc getStoreProductsAsync*(self: StoreContext, productKinds: seq[string],
                                         IID_IVectorView_1_String,
                                         IID_IIterator_1_String)
     defer: discard release(p1)
-    it.call(IStoreContext_GetStoreProductsAsync, p0, p1, op.addr)
+    check it.vtbl.GetStoreProductsAsync(it, p0, p1, op.addr
+                                       ), "StoreContext.GetStoreProductsAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductQueryResult,
                               IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
                               alPlain, "StoreContext.GetStoreProductsAsync")
@@ -2831,7 +2508,8 @@ proc getAssociatedStoreProductsAsync*(self: StoreContext,
                                             IID_IVectorView_1_String,
                                             IID_IIterator_1_String)
     defer: discard release(p0)
-    it.call(IStoreContext_GetAssociatedStoreProductsAsync, p0, op.addr)
+    check it.vtbl.GetAssociatedStoreProductsAsync(it, p0, op.addr
+                                                 ), "StoreContext.GetAssociatedStoreProductsAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductQueryResult,
                               IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
                               alPlain,
@@ -2849,8 +2527,10 @@ proc getAssociatedStoreProductsWithPagingAsync*(self: StoreContext,
                                             IID_IVectorView_1_String,
                                             IID_IIterator_1_String)
     defer: discard release(p0)
-    it.call(IStoreContext_GetAssociatedStoreProductsWithPagingAsync, p0,
-            maxItemsToRetrievePerPage, op.addr)
+    check it.vtbl.GetAssociatedStoreProductsWithPagingAsync(it, p0,
+                                                            maxItemsToRetrievePerPage,
+                                                            op.addr
+                                                           ), "StoreContext.GetAssociatedStoreProductsWithPagingAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_StoreProductPagedQueryResult,
                               IID_AsyncOperationCompletedHandler_1_StoreProductPagedQueryResult,
@@ -2868,7 +2548,8 @@ proc getUserCollectionAsync*(self: StoreContext, productKinds: seq[string]
                                             IID_IVectorView_1_String,
                                             IID_IIterator_1_String)
     defer: discard release(p0)
-    it.call(IStoreContext_GetUserCollectionAsync, p0, op.addr)
+    check it.vtbl.GetUserCollectionAsync(it, p0, op.addr
+                                        ), "StoreContext.GetUserCollectionAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductQueryResult,
                               IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
                               alPlain, "StoreContext.GetUserCollectionAsync")
@@ -2885,8 +2566,10 @@ proc getUserCollectionWithPagingAsync*(self: StoreContext,
                                             IID_IVectorView_1_String,
                                             IID_IIterator_1_String)
     defer: discard release(p0)
-    it.call(IStoreContext_GetUserCollectionWithPagingAsync, p0,
-            maxItemsToRetrievePerPage, op.addr)
+    check it.vtbl.GetUserCollectionWithPagingAsync(it, p0,
+                                                   maxItemsToRetrievePerPage,
+                                                   op.addr
+                                                  ), "StoreContext.GetUserCollectionWithPagingAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_StoreProductPagedQueryResult,
                               IID_AsyncOperationCompletedHandler_1_StoreProductPagedQueryResult,
@@ -2902,8 +2585,9 @@ proc reportConsumableFulfillmentAsync*(self: StoreContext,
   var op: pointer
   withIface(self.p, IStoreContext, it):
     withHString(productStoreId, h0):
-      it.call(IStoreContext_ReportConsumableFulfillmentAsync, h0, quantity,
-              trackingId, op.addr)
+      check it.vtbl.ReportConsumableFulfillmentAsync(it, h0, quantity,
+                                                     trackingId, op.addr
+                                                    ), "StoreContext.ReportConsumableFulfillmentAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreConsumableResult,
                               IID_AsyncOperationCompletedHandler_1_StoreConsumableResult,
                               alPlain,
@@ -2917,7 +2601,8 @@ proc getConsumableBalanceRemainingAsync*(self: StoreContext,
   var op: pointer
   withIface(self.p, IStoreContext, it):
     withHString(productStoreId, h0):
-      it.call(IStoreContext_GetConsumableBalanceRemainingAsync, h0, op.addr)
+      check it.vtbl.GetConsumableBalanceRemainingAsync(it, h0, op.addr
+                                                      ), "StoreContext.GetConsumableBalanceRemainingAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreConsumableResult,
                               IID_AsyncOperationCompletedHandler_1_StoreConsumableResult,
                               alPlain,
@@ -2931,8 +2616,8 @@ proc acquireStoreLicenseForOptionalPackageAsync*(self: StoreContext,
   var op: pointer
   withIface(self.p, IStoreContext, it):
     withIface(optionalPackage.p, IPackage, p0):
-      it.call(IStoreContext_AcquireStoreLicenseForOptionalPackageAsync, p0,
-              op.addr)
+      check it.vtbl.AcquireStoreLicenseForOptionalPackageAsync(it, p0, op.addr
+                                                              ), "StoreContext.AcquireStoreLicenseForOptionalPackageAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_StoreAcquireLicenseResult,
                               IID_AsyncOperationCompletedHandler_1_StoreAcquireLicenseResult,
@@ -2947,7 +2632,8 @@ proc requestPurchaseAsync*(self: StoreContext, storeId: string
   var op: pointer
   withIface(self.p, IStoreContext, it):
     withHString(storeId, h0):
-      it.call(IStoreContext_RequestPurchaseAsync, h0, op.addr)
+      check it.vtbl.RequestPurchaseAsync(it, h0, op.addr
+                                        ), "StoreContext.RequestPurchaseAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
                               IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
                               alPlain, "StoreContext.RequestPurchaseAsync")
@@ -2961,7 +2647,8 @@ proc requestPurchaseAsync*(self: StoreContext, storeId: string,
   withIface(self.p, IStoreContext, it):
     withHString(storeId, h0):
       withIface(storePurchaseProperties.p, IStorePurchaseProperties, p1):
-        it.call(IStoreContext_RequestPurchaseAsync2, h0, p1, op.addr)
+        check it.vtbl.RequestPurchaseAsync2(it, h0, p1, op.addr
+                                           ), "StoreContext.RequestPurchaseAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
                               IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
                               alPlain, "StoreContext.RequestPurchaseAsync")
@@ -2971,7 +2658,8 @@ proc getAppAndOptionalStorePackageUpdatesAsync*(self: StoreContext): Future[seq[
   ## Windows.Services.Store.StoreContext.GetAppAndOptionalStorePackageUpdatesAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
-    it.call(IStoreContext_GetAppAndOptionalStorePackageUpdatesAsync, op.addr)
+    check it.vtbl.GetAppAndOptionalStorePackageUpdatesAsync(it, op.addr
+                                                           ), "StoreContext.GetAppAndOptionalStorePackageUpdatesAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_1,
                                alPlain,
@@ -2991,7 +2679,8 @@ proc requestDownloadStorePackageUpdatesAsync*(self: StoreContext,
                                                                  IID_IIterator_1_StorePackageUpdate
                                                                 )
     defer: discard release(p0)
-    it.call(IStoreContext_RequestDownloadStorePackageUpdatesAsync, p0, op.addr)
+    check it.vtbl.RequestDownloadStorePackageUpdatesAsync(it, p0, op.addr
+                                                         ), "StoreContext.RequestDownloadStorePackageUpdatesAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
                               IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
@@ -3011,8 +2700,9 @@ proc requestDownloadAndInstallStorePackageUpdatesAsync*(self: StoreContext,
                                                                  IID_IIterator_1_StorePackageUpdate
                                                                 )
     defer: discard release(p0)
-    it.call(IStoreContext_RequestDownloadAndInstallStorePackageUpdatesAsync, p0,
-            op.addr)
+    check it.vtbl.RequestDownloadAndInstallStorePackageUpdatesAsync(it, p0,
+                                                                    op.addr
+                                                                   ), "StoreContext.RequestDownloadAndInstallStorePackageUpdatesAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
                               IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
@@ -3031,8 +2721,8 @@ proc requestDownloadAndInstallStorePackagesAsync*(self: StoreContext,
                                         IID_IVectorView_1_String,
                                         IID_IIterator_1_String)
     defer: discard release(p0)
-    it.call(IStoreContext_RequestDownloadAndInstallStorePackagesAsync, p0,
-            op.addr)
+    check it.vtbl.RequestDownloadAndInstallStorePackagesAsync(it, p0, op.addr
+                                                             ), "StoreContext.RequestDownloadAndInstallStorePackagesAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
                               IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
@@ -3053,7 +2743,8 @@ proc findStoreProductForPackageAsync*(self: StoreContext,
                                             IID_IIterator_1_String)
     defer: discard release(p0)
     withIface(package.p, IPackage, p1):
-      it.call(IStoreContext2_FindStoreProductForPackageAsync, p0, p1, op.addr)
+      check it.vtbl.FindStoreProductForPackageAsync(it, p0, p1, op.addr
+                                                   ), "StoreContext.FindStoreProductForPackageAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductResult,
                               IID_AsyncOperationCompletedHandler_1_StoreProductResult,
                               alPlain,
@@ -3063,9 +2754,7 @@ proc findStoreProductForPackageAsync*(self: StoreContext,
 proc canSilentlyDownloadStorePackageUpdates*(self: StoreContext): bool =
   ## Windows.Services.Store.StoreContext.get_CanSilentlyDownloadStorePackageUpdates
   withIface(self.p, IStoreContext3, it):
-    var tmp: bool
-    it.call(IStoreContext3_get_CanSilentlyDownloadStorePackageUpdates, tmp.addr)
-    result = tmp
+    result = it.getValue(get_CanSilentlyDownloadStorePackageUpdates, bool)
 
 proc trySilentDownloadStorePackageUpdatesAsync*(self: StoreContext,
                                                 storePackageUpdates: seq[StorePackageUpdate]
@@ -3078,8 +2767,8 @@ proc trySilentDownloadStorePackageUpdatesAsync*(self: StoreContext,
                                                                  IID_IIterator_1_StorePackageUpdate
                                                                 )
     defer: discard release(p0)
-    it.call(IStoreContext3_TrySilentDownloadStorePackageUpdatesAsync, p0,
-            op.addr)
+    check it.vtbl.TrySilentDownloadStorePackageUpdatesAsync(it, p0, op.addr
+                                                           ), "StoreContext.TrySilentDownloadStorePackageUpdatesAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
                               IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
@@ -3099,8 +2788,9 @@ proc trySilentDownloadAndInstallStorePackageUpdatesAsync*(self: StoreContext,
                                                                  IID_IIterator_1_StorePackageUpdate
                                                                 )
     defer: discard release(p0)
-    it.call(IStoreContext3_TrySilentDownloadAndInstallStorePackageUpdatesAsync,
-            p0, op.addr)
+    check it.vtbl.TrySilentDownloadAndInstallStorePackageUpdatesAsync(it, p0,
+                                                                      op.addr
+                                                                     ), "StoreContext.TrySilentDownloadAndInstallStorePackageUpdatesAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
                               IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
@@ -3116,8 +2806,9 @@ proc canAcquireStoreLicenseForOptionalPackageAsync*(self: StoreContext,
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     withIface(optionalPackage.p, IPackage, p0):
-      it.call(IStoreContext3_CanAcquireStoreLicenseForOptionalPackageAsync, p0,
-              op.addr)
+      check it.vtbl.CanAcquireStoreLicenseForOptionalPackageAsync(it, p0,
+                                                                  op.addr
+                                                                 ), "StoreContext.CanAcquireStoreLicenseForOptionalPackageAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_StoreCanAcquireLicenseResult,
                               IID_AsyncOperationCompletedHandler_1_StoreCanAcquireLicenseResult,
@@ -3132,7 +2823,8 @@ proc canAcquireStoreLicenseAsync*(self: StoreContext, productStoreId: string
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     withHString(productStoreId, h0):
-      it.call(IStoreContext3_CanAcquireStoreLicenseAsync, h0, op.addr)
+      check it.vtbl.CanAcquireStoreLicenseAsync(it, h0, op.addr
+                                               ), "StoreContext.CanAcquireStoreLicenseAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_StoreCanAcquireLicenseResult,
                               IID_AsyncOperationCompletedHandler_1_StoreCanAcquireLicenseResult,
@@ -3156,7 +2848,8 @@ proc getStoreProductsAsync*(self: StoreContext, productKinds: seq[string],
                                         IID_IIterator_1_String)
     defer: discard release(p1)
     withIface(storeProductOptions.p, IStoreProductOptions, p2):
-      it.call(IStoreContext3_GetStoreProductsAsync, p0, p1, p2, op.addr)
+      check it.vtbl.GetStoreProductsAsync(it, p0, p1, p2, op.addr
+                                         ), "StoreContext.GetStoreProductsAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductQueryResult,
                               IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
                               alPlain, "StoreContext.GetStoreProductsAsync")
@@ -3166,7 +2859,8 @@ proc getAssociatedStoreQueueItemsAsync*(self: StoreContext): Future[seq[StoreQue
   ## Windows.Services.Store.StoreContext.GetAssociatedStoreQueueItemsAsync
   var op: pointer
   withIface(self.p, IStoreContext3, it):
-    it.call(IStoreContext3_GetAssociatedStoreQueueItemsAsync, op.addr)
+    check it.vtbl.GetAssociatedStoreQueueItemsAsync(it, op.addr
+                                                   ), "StoreContext.GetAssociatedStoreQueueItemsAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_12,
                                alPlain,
@@ -3183,7 +2877,8 @@ proc getStoreQueueItemsAsync*(self: StoreContext, storeIds: seq[string]
                                         IID_IVectorView_1_String,
                                         IID_IIterator_1_String)
     defer: discard release(p0)
-    it.call(IStoreContext3_GetStoreQueueItemsAsync, p0, op.addr)
+    check it.vtbl.GetStoreQueueItemsAsync(it, p0, op.addr
+                                         ), "StoreContext.GetStoreQueueItemsAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_12,
                                alPlain, "StoreContext.GetStoreQueueItemsAsync")
@@ -3202,8 +2897,9 @@ proc requestDownloadAndInstallStorePackagesAsync*(self: StoreContext,
                                         IID_IIterator_1_String)
     defer: discard release(p0)
     withIface(storePackageInstallOptions.p, IStorePackageInstallOptions, p1):
-      it.call(IStoreContext3_RequestDownloadAndInstallStorePackagesAsync, p0,
-              p1, op.addr)
+      check it.vtbl.RequestDownloadAndInstallStorePackagesAsync(it, p0, p1,
+                                                                op.addr
+                                                               ), "StoreContext.RequestDownloadAndInstallStorePackagesAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
                               IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
@@ -3222,7 +2918,8 @@ proc downloadAndInstallStorePackagesAsync*(self: StoreContext,
                                         IID_IVectorView_1_String,
                                         IID_IIterator_1_String)
     defer: discard release(p0)
-    it.call(IStoreContext3_DownloadAndInstallStorePackagesAsync, p0, op.addr)
+    check it.vtbl.DownloadAndInstallStorePackagesAsync(it, p0, op.addr
+                                                      ), "StoreContext.DownloadAndInstallStorePackagesAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
                               IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
@@ -3237,7 +2934,8 @@ proc requestUninstallStorePackageAsync*(self: StoreContext, package: Package
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     withIface(package.p, IPackage, p0):
-      it.call(IStoreContext3_RequestUninstallStorePackageAsync, p0, op.addr)
+      check it.vtbl.RequestUninstallStorePackageAsync(it, p0, op.addr
+                                                     ), "StoreContext.RequestUninstallStorePackageAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_StoreUninstallStorePackageResult,
                               IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult,
@@ -3252,8 +2950,8 @@ proc requestUninstallStorePackageByStoreIdAsync*(self: StoreContext,
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     withHString(storeId, h0):
-      it.call(IStoreContext3_RequestUninstallStorePackageByStoreIdAsync, h0,
-              op.addr)
+      check it.vtbl.RequestUninstallStorePackageByStoreIdAsync(it, h0, op.addr
+                                                              ), "StoreContext.RequestUninstallStorePackageByStoreIdAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_StoreUninstallStorePackageResult,
                               IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult,
@@ -3268,7 +2966,8 @@ proc uninstallStorePackageAsync*(self: StoreContext, package: Package
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     withIface(package.p, IPackage, p0):
-      it.call(IStoreContext3_UninstallStorePackageAsync, p0, op.addr)
+      check it.vtbl.UninstallStorePackageAsync(it, p0, op.addr
+                                              ), "StoreContext.UninstallStorePackageAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_StoreUninstallStorePackageResult,
                               IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult,
@@ -3282,7 +2981,8 @@ proc uninstallStorePackageByStoreIdAsync*(self: StoreContext, storeId: string
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     withHString(storeId, h0):
-      it.call(IStoreContext3_UninstallStorePackageByStoreIdAsync, h0, op.addr)
+      check it.vtbl.UninstallStorePackageByStoreIdAsync(it, h0, op.addr
+                                                       ), "StoreContext.UninstallStorePackageByStoreIdAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_StoreUninstallStorePackageResult,
                               IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult,
@@ -3295,7 +2995,8 @@ proc requestRateAndReviewAppAsync*(self: StoreContext): Future[StoreRateAndRevie
   ## Windows.Services.Store.StoreContext.RequestRateAndReviewAppAsync
   var op: pointer
   withIface(self.p, IStoreContext4, it):
-    it.call(IStoreContext4_RequestRateAndReviewAppAsync, op.addr)
+    check it.vtbl.RequestRateAndReviewAppAsync(it, op.addr
+                                              ), "StoreContext.RequestRateAndReviewAppAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_StoreRateAndReviewResult,
                               IID_AsyncOperationCompletedHandler_1_StoreRateAndReviewResult,
@@ -3313,8 +3014,9 @@ proc setInstallOrderForAssociatedStoreQueueItemsAsync*(self: StoreContext,
                                                IID_IVectorView_1_StoreQueueItem,
                                                IID_IIterator_1_StoreQueueItem)
     defer: discard release(p0)
-    it.call(IStoreContext4_SetInstallOrderForAssociatedStoreQueueItemsAsync, p0,
-            op.addr)
+    check it.vtbl.SetInstallOrderForAssociatedStoreQueueItemsAsync(it, p0,
+                                                                   op.addr
+                                                                  ), "StoreContext.SetInstallOrderForAssociatedStoreQueueItemsAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_12,
                                alPlain,
@@ -3332,7 +3034,8 @@ proc getUserPurchaseHistoryAsync*(self: StoreContext, productKinds: seq[string]
                                             IID_IVectorView_1_String,
                                             IID_IIterator_1_String)
     defer: discard release(p0)
-    it.call(IStoreContext5_GetUserPurchaseHistoryAsync, p0, op.addr)
+    check it.vtbl.GetUserPurchaseHistoryAsync(it, p0, op.addr
+                                             ), "StoreContext.GetUserPurchaseHistoryAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductQueryResult,
                               IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
                               alPlain,
@@ -3349,8 +3052,9 @@ proc getAssociatedStoreProductsByInAppOfferTokenAsync*(self: StoreContext,
                                                 IID_IVectorView_1_String,
                                                 IID_IIterator_1_String)
     defer: discard release(p0)
-    it.call(IStoreContext5_GetAssociatedStoreProductsByInAppOfferTokenAsync, p0,
-            op.addr)
+    check it.vtbl.GetAssociatedStoreProductsByInAppOfferTokenAsync(it, p0,
+                                                                   op.addr
+                                                                  ), "StoreContext.GetAssociatedStoreProductsByInAppOfferTokenAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductQueryResult,
                               IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
                               alPlain,
@@ -3365,7 +3069,8 @@ proc requestPurchaseByInAppOfferTokenAsync*(self: StoreContext,
   var op: pointer
   withIface(self.p, IStoreContext5, it):
     withHString(inAppOfferToken, h0):
-      it.call(IStoreContext5_RequestPurchaseByInAppOfferTokenAsync, h0, op.addr)
+      check it.vtbl.RequestPurchaseByInAppOfferTokenAsync(it, h0, op.addr
+                                                         ), "StoreContext.RequestPurchaseByInAppOfferTokenAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
                               IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
                               alPlain,
@@ -3377,7 +3082,7 @@ proc getDefault*(_: typedesc[StoreContext]): StoreContext =
   ## Windows.Services.Store.StoreContext.GetDefault
   withStatics("Windows.Services.Store.StoreContext", IStoreContextStatics, it):
     var tmp: pointer
-    it.call(IStoreContextStatics_GetDefault, tmp.addr)
+    check it.vtbl.GetDefault(it, tmp.addr), "StoreContext.GetDefault"
     result = adopt[StoreContext](tmp)
 
 proc getForUser*(_: typedesc[StoreContext], user: User): StoreContext =
@@ -3385,78 +3090,58 @@ proc getForUser*(_: typedesc[StoreContext], user: User): StoreContext =
   withStatics("Windows.Services.Store.StoreContext", IStoreContextStatics, it):
     withIface(user.p, IUser, p0):
       var tmp: pointer
-      it.call(IStoreContextStatics_GetForUser, p0, tmp.addr)
+      check it.vtbl.GetForUser(it, p0, tmp.addr), "StoreContext.GetForUser"
       result = adopt[StoreContext](tmp)
 
 proc uri*(self: StoreImage): Uri =
   ## Windows.Services.Store.StoreImage.get_Uri
   withIface(self.p, IStoreImage, it):
-    var tmp: pointer
-    it.call(IStoreImage_get_Uri, tmp.addr)
-    result = adopt[Uri](tmp)
+    result = it.getObject(get_Uri, Uri)
 
 proc imagePurposeTag*(self: StoreImage): string =
   ## Windows.Services.Store.StoreImage.get_ImagePurposeTag
   withIface(self.p, IStoreImage, it):
-    var tmp: HSTRING
-    it.call(IStoreImage_get_ImagePurposeTag, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ImagePurposeTag)
 
 proc width*(self: StoreImage): uint32 =
   ## Windows.Services.Store.StoreImage.get_Width
   withIface(self.p, IStoreImage, it):
-    var tmp: uint32
-    it.call(IStoreImage_get_Width, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Width, uint32)
 
 proc height*(self: StoreImage): uint32 =
   ## Windows.Services.Store.StoreImage.get_Height
   withIface(self.p, IStoreImage, it):
-    var tmp: uint32
-    it.call(IStoreImage_get_Height, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Height, uint32)
 
 proc caption*(self: StoreImage): string =
   ## Windows.Services.Store.StoreImage.get_Caption
   withIface(self.p, IStoreImage, it):
-    var tmp: HSTRING
-    it.call(IStoreImage_get_Caption, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Caption)
 
 proc skuStoreId*(self: StoreLicense): string =
   ## Windows.Services.Store.StoreLicense.get_SkuStoreId
   withIface(self.p, IStoreLicense, it):
-    var tmp: HSTRING
-    it.call(IStoreLicense_get_SkuStoreId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SkuStoreId)
 
 proc isActive*(self: StoreLicense): bool =
   ## Windows.Services.Store.StoreLicense.get_IsActive
   withIface(self.p, IStoreLicense, it):
-    var tmp: bool
-    it.call(IStoreLicense_get_IsActive, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsActive, bool)
 
 proc expirationDate*(self: StoreLicense): DateTime =
   ## Windows.Services.Store.StoreLicense.get_ExpirationDate
   withIface(self.p, IStoreLicense, it):
-    var tmp: DateTime
-    it.call(IStoreLicense_get_ExpirationDate, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExpirationDate, DateTime)
 
 proc extendedJsonData*(self: StoreLicense): string =
   ## Windows.Services.Store.StoreLicense.get_ExtendedJsonData
   withIface(self.p, IStoreLicense, it):
-    var tmp: HSTRING
-    it.call(IStoreLicense_get_ExtendedJsonData, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ExtendedJsonData)
 
 proc inAppOfferToken*(self: StoreLicense): string =
   ## Windows.Services.Store.StoreLicense.get_InAppOfferToken
   withIface(self.p, IStoreLicense, it):
-    var tmp: HSTRING
-    it.call(IStoreLicense_get_InAppOfferToken, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InAppOfferToken)
 
 proc newStorePackageInstallOptions*(): StorePackageInstallOptions =
   ## Activate a `Windows.Services.Store.StorePackageInstallOptions`.
@@ -3465,14 +3150,12 @@ proc newStorePackageInstallOptions*(): StorePackageInstallOptions =
 proc allowForcedAppRestart*(self: StorePackageInstallOptions): bool =
   ## Windows.Services.Store.StorePackageInstallOptions.get_AllowForcedAppRestart
   withIface(self.p, IStorePackageInstallOptions, it):
-    var tmp: bool
-    it.call(IStorePackageInstallOptions_get_AllowForcedAppRestart, tmp.addr)
-    result = tmp
+    result = it.getValue(get_AllowForcedAppRestart, bool)
 
 proc `allowForcedAppRestart=`*(self: StorePackageInstallOptions, value: bool) =
   ## Windows.Services.Store.StorePackageInstallOptions.put_AllowForcedAppRestart
   withIface(self.p, IStorePackageInstallOptions, it):
-    it.call(IStorePackageInstallOptions_put_AllowForcedAppRestart, value)
+    it.putValue(put_AllowForcedAppRestart, value)
 
 proc onLicenseLost*(self: StorePackageLicense,
                     handler: EventHandler[StorePackageLicense, WinRtObject]
@@ -3485,64 +3168,55 @@ proc onLicenseLost*(self: StorePackageLicense,
     let cb = newDelegate(IID_TypedEventHandler_2_StorePackageLicense_Object,
                          shim, event = true)
     try:
-      it.call(IStorePackageLicense_add_LicenseLost, cb, result.addr)
+      check it.vtbl.add_LicenseLost(it, cb, result.addr), "StorePackageLicense.add_LicenseLost"
     finally:
       release(cb)
 
 proc removeLicenseLost*(self: StorePackageLicense, token: EventRegistrationToken) =
   withIface(self.p, IStorePackageLicense, it):
-    it.call(IStorePackageLicense_remove_LicenseLost, token)
+    check it.vtbl.remove_LicenseLost(it, token), "StorePackageLicense.remove_LicenseLost"
 
 proc package*(self: StorePackageLicense): Package =
   ## Windows.Services.Store.StorePackageLicense.get_Package
   withIface(self.p, IStorePackageLicense, it):
-    var tmp: pointer
-    it.call(IStorePackageLicense_get_Package, tmp.addr)
-    result = adopt[Package](tmp)
+    result = it.getObject(get_Package, Package)
 
 proc isValid*(self: StorePackageLicense): bool =
   ## Windows.Services.Store.StorePackageLicense.get_IsValid
   withIface(self.p, IStorePackageLicense, it):
-    var tmp: bool
-    it.call(IStorePackageLicense_get_IsValid, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsValid, bool)
 
 proc releaseLicense*(self: StorePackageLicense) =
   ## Windows.Services.Store.StorePackageLicense.ReleaseLicense
   withIface(self.p, IStorePackageLicense, it):
-    it.call(IStorePackageLicense_ReleaseLicense)
+    check it.vtbl.ReleaseLicense(it), "StorePackageLicense.ReleaseLicense"
 
 proc close*(self: StorePackageLicense) =
   ## Windows.Services.Store.StorePackageLicense.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "StorePackageLicense.Close"
 
 proc package*(self: StorePackageUpdate): Package =
   ## Windows.Services.Store.StorePackageUpdate.get_Package
   withIface(self.p, IStorePackageUpdate, it):
-    var tmp: pointer
-    it.call(IStorePackageUpdate_get_Package, tmp.addr)
-    result = adopt[Package](tmp)
+    result = it.getObject(get_Package, Package)
 
 proc mandatory*(self: StorePackageUpdate): bool =
   ## Windows.Services.Store.StorePackageUpdate.get_Mandatory
   withIface(self.p, IStorePackageUpdate, it):
-    var tmp: bool
-    it.call(IStorePackageUpdate_get_Mandatory, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Mandatory, bool)
 
 proc overallState*(self: StorePackageUpdateResult): StorePackageUpdateState =
   ## Windows.Services.Store.StorePackageUpdateResult.get_OverallState
   withIface(self.p, IStorePackageUpdateResult, it):
-    var tmp: StorePackageUpdateState
-    it.call(IStorePackageUpdateResult_get_OverallState, tmp.addr)
-    result = tmp
+    result = it.getValue(get_OverallState, StorePackageUpdateState)
 
 proc storePackageUpdateStatuses*(self: StorePackageUpdateResult): seq[StorePackageUpdateStatus] =
   ## Windows.Services.Store.StorePackageUpdateResult.get_StorePackageUpdateStatuses
   withIface(self.p, IStorePackageUpdateResult, it):
     var tmp: pointer
-    it.call(IStorePackageUpdateResult_get_StorePackageUpdateStatuses, tmp.addr)
+    check it.vtbl.get_StorePackageUpdateStatuses(it, tmp.addr
+                                                ), "StorePackageUpdateResult.get_StorePackageUpdateStatuses"
     result = toSeq[StorePackageUpdateStatus](tmp,
                                              IID_IVectorView_1_StorePackageUpdateStatus
                                             )
@@ -3552,120 +3226,91 @@ proc storeQueueItems*(self: StorePackageUpdateResult): seq[StoreQueueItem] =
   ## Windows.Services.Store.StorePackageUpdateResult.get_StoreQueueItems
   withIface(self.p, IStorePackageUpdateResult2, it):
     var tmp: pointer
-    it.call(IStorePackageUpdateResult2_get_StoreQueueItems, tmp.addr)
+    check it.vtbl.get_StoreQueueItems(it, tmp.addr
+                                     ), "StorePackageUpdateResult.get_StoreQueueItems"
     result = toSeq[StoreQueueItem](tmp, IID_IVectorView_1_StoreQueueItem)
     release(tmp)
 
 proc formattedBasePrice*(self: StorePrice): string =
   ## Windows.Services.Store.StorePrice.get_FormattedBasePrice
   withIface(self.p, IStorePrice, it):
-    var tmp: HSTRING
-    it.call(IStorePrice_get_FormattedBasePrice, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_FormattedBasePrice)
 
 proc formattedPrice*(self: StorePrice): string =
   ## Windows.Services.Store.StorePrice.get_FormattedPrice
   withIface(self.p, IStorePrice, it):
-    var tmp: HSTRING
-    it.call(IStorePrice_get_FormattedPrice, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_FormattedPrice)
 
 proc isOnSale*(self: StorePrice): bool =
   ## Windows.Services.Store.StorePrice.get_IsOnSale
   withIface(self.p, IStorePrice, it):
-    var tmp: bool
-    it.call(IStorePrice_get_IsOnSale, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsOnSale, bool)
 
 proc saleEndDate*(self: StorePrice): DateTime =
   ## Windows.Services.Store.StorePrice.get_SaleEndDate
   withIface(self.p, IStorePrice, it):
-    var tmp: DateTime
-    it.call(IStorePrice_get_SaleEndDate, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SaleEndDate, DateTime)
 
 proc currencyCode*(self: StorePrice): string =
   ## Windows.Services.Store.StorePrice.get_CurrencyCode
   withIface(self.p, IStorePrice, it):
-    var tmp: HSTRING
-    it.call(IStorePrice_get_CurrencyCode, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CurrencyCode)
 
 proc formattedRecurrencePrice*(self: StorePrice): string =
   ## Windows.Services.Store.StorePrice.get_FormattedRecurrencePrice
   withIface(self.p, IStorePrice, it):
-    var tmp: HSTRING
-    it.call(IStorePrice_get_FormattedRecurrencePrice, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_FormattedRecurrencePrice)
 
 proc unformattedBasePrice*(self: StorePrice): string =
   ## Windows.Services.Store.StorePrice.get_UnformattedBasePrice
   withIface(self.p, IStorePrice2, it):
-    var tmp: HSTRING
-    it.call(IStorePrice2_get_UnformattedBasePrice, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_UnformattedBasePrice)
 
 proc unformattedPrice*(self: StorePrice): string =
   ## Windows.Services.Store.StorePrice.get_UnformattedPrice
   withIface(self.p, IStorePrice2, it):
-    var tmp: HSTRING
-    it.call(IStorePrice2_get_UnformattedPrice, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_UnformattedPrice)
 
 proc unformattedRecurrencePrice*(self: StorePrice): string =
   ## Windows.Services.Store.StorePrice.get_UnformattedRecurrencePrice
   withIface(self.p, IStorePrice2, it):
-    var tmp: HSTRING
-    it.call(IStorePrice2_get_UnformattedRecurrencePrice, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_UnformattedRecurrencePrice)
 
 proc storeId*(self: StoreProduct): string =
   ## Windows.Services.Store.StoreProduct.get_StoreId
   withIface(self.p, IStoreProduct, it):
-    var tmp: HSTRING
-    it.call(IStoreProduct_get_StoreId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_StoreId)
 
 proc language*(self: StoreProduct): string =
   ## Windows.Services.Store.StoreProduct.get_Language
   withIface(self.p, IStoreProduct, it):
-    var tmp: HSTRING
-    it.call(IStoreProduct_get_Language, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Language)
 
 proc title*(self: StoreProduct): string =
   ## Windows.Services.Store.StoreProduct.get_Title
   withIface(self.p, IStoreProduct, it):
-    var tmp: HSTRING
-    it.call(IStoreProduct_get_Title, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Title)
 
 proc description*(self: StoreProduct): string =
   ## Windows.Services.Store.StoreProduct.get_Description
   withIface(self.p, IStoreProduct, it):
-    var tmp: HSTRING
-    it.call(IStoreProduct_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc productKind*(self: StoreProduct): string =
   ## Windows.Services.Store.StoreProduct.get_ProductKind
   withIface(self.p, IStoreProduct, it):
-    var tmp: HSTRING
-    it.call(IStoreProduct_get_ProductKind, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ProductKind)
 
 proc hasDigitalDownload*(self: StoreProduct): bool =
   ## Windows.Services.Store.StoreProduct.get_HasDigitalDownload
   withIface(self.p, IStoreProduct, it):
-    var tmp: bool
-    it.call(IStoreProduct_get_HasDigitalDownload, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HasDigitalDownload, bool)
 
 proc keywords*(self: StoreProduct): seq[string] =
   ## Windows.Services.Store.StoreProduct.get_Keywords
   withIface(self.p, IStoreProduct, it):
     var tmp: pointer
-    it.call(IStoreProduct_get_Keywords, tmp.addr)
+    check it.vtbl.get_Keywords(it, tmp.addr), "StoreProduct.get_Keywords"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
@@ -3673,7 +3318,7 @@ proc images*(self: StoreProduct): seq[StoreImage] =
   ## Windows.Services.Store.StoreProduct.get_Images
   withIface(self.p, IStoreProduct, it):
     var tmp: pointer
-    it.call(IStoreProduct_get_Images, tmp.addr)
+    check it.vtbl.get_Images(it, tmp.addr), "StoreProduct.get_Images"
     result = toSeq[StoreImage](tmp, IID_IVectorView_1_StoreImage)
     release(tmp)
 
@@ -3681,7 +3326,7 @@ proc videos*(self: StoreProduct): seq[StoreVideo] =
   ## Windows.Services.Store.StoreProduct.get_Videos
   withIface(self.p, IStoreProduct, it):
     var tmp: pointer
-    it.call(IStoreProduct_get_Videos, tmp.addr)
+    check it.vtbl.get_Videos(it, tmp.addr), "StoreProduct.get_Videos"
     result = toSeq[StoreVideo](tmp, IID_IVectorView_1_StoreVideo)
     release(tmp)
 
@@ -3689,43 +3334,36 @@ proc skus*(self: StoreProduct): seq[StoreSku] =
   ## Windows.Services.Store.StoreProduct.get_Skus
   withIface(self.p, IStoreProduct, it):
     var tmp: pointer
-    it.call(IStoreProduct_get_Skus, tmp.addr)
+    check it.vtbl.get_Skus(it, tmp.addr), "StoreProduct.get_Skus"
     result = toSeq[StoreSku](tmp, IID_IVectorView_1_StoreSku)
     release(tmp)
 
 proc isInUserCollection*(self: StoreProduct): bool =
   ## Windows.Services.Store.StoreProduct.get_IsInUserCollection
   withIface(self.p, IStoreProduct, it):
-    var tmp: bool
-    it.call(IStoreProduct_get_IsInUserCollection, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsInUserCollection, bool)
 
 proc price*(self: StoreProduct): StorePrice =
   ## Windows.Services.Store.StoreProduct.get_Price
   withIface(self.p, IStoreProduct, it):
-    var tmp: pointer
-    it.call(IStoreProduct_get_Price, tmp.addr)
-    result = adopt[StorePrice](tmp)
+    result = it.getObject(get_Price, StorePrice)
 
 proc extendedJsonData*(self: StoreProduct): string =
   ## Windows.Services.Store.StoreProduct.get_ExtendedJsonData
   withIface(self.p, IStoreProduct, it):
-    var tmp: HSTRING
-    it.call(IStoreProduct_get_ExtendedJsonData, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ExtendedJsonData)
 
 proc linkUri*(self: StoreProduct): Uri =
   ## Windows.Services.Store.StoreProduct.get_LinkUri
   withIface(self.p, IStoreProduct, it):
-    var tmp: pointer
-    it.call(IStoreProduct_get_LinkUri, tmp.addr)
-    result = adopt[Uri](tmp)
+    result = it.getObject(get_LinkUri, Uri)
 
 proc getIsAnySkuInstalledAsync*(self: StoreProduct): Future[bool] {.async.} =
   ## Windows.Services.Store.StoreProduct.GetIsAnySkuInstalledAsync
   var op: pointer
   withIface(self.p, IStoreProduct, it):
-    it.call(IStoreProduct_GetIsAnySkuInstalledAsync, op.addr)
+    check it.vtbl.GetIsAnySkuInstalledAsync(it, op.addr
+                                           ), "StoreProduct.GetIsAnySkuInstalledAsync"
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
@@ -3735,7 +3373,8 @@ proc requestPurchaseAsync*(self: StoreProduct): Future[StorePurchaseResult] {.as
   ## Windows.Services.Store.StoreProduct.RequestPurchaseAsync
   var op: pointer
   withIface(self.p, IStoreProduct, it):
-    it.call(IStoreProduct_RequestPurchaseAsync, op.addr)
+    check it.vtbl.RequestPurchaseAsync(it, op.addr
+                                      ), "StoreProduct.RequestPurchaseAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
                               IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
                               alPlain, "StoreProduct.RequestPurchaseAsync")
@@ -3748,7 +3387,8 @@ proc requestPurchaseAsync*(self: StoreProduct,
   var op: pointer
   withIface(self.p, IStoreProduct, it):
     withIface(storePurchaseProperties.p, IStorePurchaseProperties, p0):
-      it.call(IStoreProduct_RequestPurchaseAsync2, p0, op.addr)
+      check it.vtbl.RequestPurchaseAsync2(it, p0, op.addr
+                                         ), "StoreProduct.RequestPurchaseAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
                               IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
                               alPlain, "StoreProduct.RequestPurchaseAsync")
@@ -3757,9 +3397,7 @@ proc requestPurchaseAsync*(self: StoreProduct,
 proc inAppOfferToken*(self: StoreProduct): string =
   ## Windows.Services.Store.StoreProduct.get_InAppOfferToken
   withIface(self.p, IStoreProduct, it):
-    var tmp: HSTRING
-    it.call(IStoreProduct_get_InAppOfferToken, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InAppOfferToken)
 
 proc newStoreProductOptions*(): StoreProductOptions =
   ## Activate a `Windows.Services.Store.StoreProductOptions`.
@@ -3769,7 +3407,8 @@ proc actionFilters*(self: StoreProductOptions): seq[string] =
   ## Windows.Services.Store.StoreProductOptions.get_ActionFilters
   withIface(self.p, IStoreProductOptions, it):
     var tmp: pointer
-    it.call(IStoreProductOptions_get_ActionFilters, tmp.addr)
+    check it.vtbl.get_ActionFilters(it, tmp.addr
+                                   ), "StoreProductOptions.get_ActionFilters"
     result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
@@ -3777,7 +3416,8 @@ proc products*(self: StoreProductPagedQueryResult): Table[string, StoreProduct] 
   ## Windows.Services.Store.StoreProductPagedQueryResult.get_Products
   withIface(self.p, IStoreProductPagedQueryResult, it):
     var tmp: pointer
-    it.call(IStoreProductPagedQueryResult_get_Products, tmp.addr)
+    check it.vtbl.get_Products(it, tmp.addr
+                              ), "StoreProductPagedQueryResult.get_Products"
     result = toTable[string, StoreProduct](tmp,
                                            IID_IIterable_1_IKeyValuePair_22,
                                            IID_IKeyValuePair_2_String_StoreProduct
@@ -3787,22 +3427,19 @@ proc products*(self: StoreProductPagedQueryResult): Table[string, StoreProduct] 
 proc hasMoreResults*(self: StoreProductPagedQueryResult): bool =
   ## Windows.Services.Store.StoreProductPagedQueryResult.get_HasMoreResults
   withIface(self.p, IStoreProductPagedQueryResult, it):
-    var tmp: bool
-    it.call(IStoreProductPagedQueryResult_get_HasMoreResults, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HasMoreResults, bool)
 
 proc extendedError*(self: StoreProductPagedQueryResult): HRESULT =
   ## Windows.Services.Store.StoreProductPagedQueryResult.get_ExtendedError
   withIface(self.p, IStoreProductPagedQueryResult, it):
-    var tmp: HRESULT
-    it.call(IStoreProductPagedQueryResult_get_ExtendedError, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExtendedError, HRESULT)
 
 proc getNextAsync*(self: StoreProductPagedQueryResult): Future[StoreProductPagedQueryResult] {.async.} =
   ## Windows.Services.Store.StoreProductPagedQueryResult.GetNextAsync
   var op: pointer
   withIface(self.p, IStoreProductPagedQueryResult, it):
-    it.call(IStoreProductPagedQueryResult_GetNextAsync, op.addr)
+    check it.vtbl.GetNextAsync(it, op.addr
+                              ), "StoreProductPagedQueryResult.GetNextAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_StoreProductPagedQueryResult,
                               IID_AsyncOperationCompletedHandler_1_StoreProductPagedQueryResult,
@@ -3814,7 +3451,8 @@ proc products*(self: StoreProductQueryResult): Table[string, StoreProduct] =
   ## Windows.Services.Store.StoreProductQueryResult.get_Products
   withIface(self.p, IStoreProductQueryResult, it):
     var tmp: pointer
-    it.call(IStoreProductQueryResult_get_Products, tmp.addr)
+    check it.vtbl.get_Products(it, tmp.addr
+                              ), "StoreProductQueryResult.get_Products"
     result = toTable[string, StoreProduct](tmp,
                                            IID_IIterable_1_IKeyValuePair_22,
                                            IID_IKeyValuePair_2_String_StoreProduct
@@ -3824,23 +3462,17 @@ proc products*(self: StoreProductQueryResult): Table[string, StoreProduct] =
 proc extendedError*(self: StoreProductQueryResult): HRESULT =
   ## Windows.Services.Store.StoreProductQueryResult.get_ExtendedError
   withIface(self.p, IStoreProductQueryResult, it):
-    var tmp: HRESULT
-    it.call(IStoreProductQueryResult_get_ExtendedError, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExtendedError, HRESULT)
 
 proc product*(self: StoreProductResult): StoreProduct =
   ## Windows.Services.Store.StoreProductResult.get_Product
   withIface(self.p, IStoreProductResult, it):
-    var tmp: pointer
-    it.call(IStoreProductResult_get_Product, tmp.addr)
-    result = adopt[StoreProduct](tmp)
+    result = it.getObject(get_Product, StoreProduct)
 
 proc extendedError*(self: StoreProductResult): HRESULT =
   ## Windows.Services.Store.StoreProductResult.get_ExtendedError
   withIface(self.p, IStoreProductResult, it):
-    var tmp: HRESULT
-    it.call(IStoreProductResult_get_ExtendedError, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExtendedError, HRESULT)
 
 proc newStorePurchaseProperties*(): StorePurchaseProperties =
   ## Activate a `Windows.Services.Store.StorePurchaseProperties`.
@@ -3849,28 +3481,22 @@ proc newStorePurchaseProperties*(): StorePurchaseProperties =
 proc name*(self: StorePurchaseProperties): string =
   ## Windows.Services.Store.StorePurchaseProperties.get_Name
   withIface(self.p, IStorePurchaseProperties, it):
-    var tmp: HSTRING
-    it.call(IStorePurchaseProperties_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc `name=`*(self: StorePurchaseProperties, value: string) =
   ## Windows.Services.Store.StorePurchaseProperties.put_Name
   withIface(self.p, IStorePurchaseProperties, it):
-    withHString(value, h0):
-      it.call(IStorePurchaseProperties_put_Name, h0)
+    it.putString(put_Name, value)
 
 proc extendedJsonData*(self: StorePurchaseProperties): string =
   ## Windows.Services.Store.StorePurchaseProperties.get_ExtendedJsonData
   withIface(self.p, IStorePurchaseProperties, it):
-    var tmp: HSTRING
-    it.call(IStorePurchaseProperties_get_ExtendedJsonData, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ExtendedJsonData)
 
 proc `extendedJsonData=`*(self: StorePurchaseProperties, value: string) =
   ## Windows.Services.Store.StorePurchaseProperties.put_ExtendedJsonData
   withIface(self.p, IStorePurchaseProperties, it):
-    withHString(value, h0):
-      it.call(IStorePurchaseProperties_put_ExtendedJsonData, h0)
+    it.putString(put_ExtendedJsonData, value)
 
 proc create*(_: typedesc[StorePurchaseProperties], name: string
             ): StorePurchaseProperties =
@@ -3879,49 +3505,40 @@ proc create*(_: typedesc[StorePurchaseProperties], name: string
               IStorePurchasePropertiesFactory, it):
     withHString(name, h0):
       var tmp: pointer
-      it.call(IStorePurchasePropertiesFactory_Create, h0, tmp.addr)
+      check it.vtbl.Create(it, h0, tmp.addr), "StorePurchaseProperties.Create"
       result = adopt[StorePurchaseProperties](tmp)
 
 proc status*(self: StorePurchaseResult): StorePurchaseStatus =
   ## Windows.Services.Store.StorePurchaseResult.get_Status
   withIface(self.p, IStorePurchaseResult, it):
-    var tmp: StorePurchaseStatus
-    it.call(IStorePurchaseResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, StorePurchaseStatus)
 
 proc extendedError*(self: StorePurchaseResult): HRESULT =
   ## Windows.Services.Store.StorePurchaseResult.get_ExtendedError
   withIface(self.p, IStorePurchaseResult, it):
-    var tmp: HRESULT
-    it.call(IStorePurchaseResult_get_ExtendedError, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExtendedError, HRESULT)
 
 proc productId*(self: StoreQueueItem): string =
   ## Windows.Services.Store.StoreQueueItem.get_ProductId
   withIface(self.p, IStoreQueueItem, it):
-    var tmp: HSTRING
-    it.call(IStoreQueueItem_get_ProductId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ProductId)
 
 proc packageFamilyName*(self: StoreQueueItem): string =
   ## Windows.Services.Store.StoreQueueItem.get_PackageFamilyName
   withIface(self.p, IStoreQueueItem, it):
-    var tmp: HSTRING
-    it.call(IStoreQueueItem_get_PackageFamilyName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PackageFamilyName)
 
 proc installKind*(self: StoreQueueItem): StoreQueueItemKind =
   ## Windows.Services.Store.StoreQueueItem.get_InstallKind
   withIface(self.p, IStoreQueueItem, it):
-    var tmp: StoreQueueItemKind
-    it.call(IStoreQueueItem_get_InstallKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_InstallKind, StoreQueueItemKind)
 
 proc getCurrentStatus*(self: StoreQueueItem): StoreQueueItemStatus =
   ## Windows.Services.Store.StoreQueueItem.GetCurrentStatus
   withIface(self.p, IStoreQueueItem, it):
     var tmp: pointer
-    it.call(IStoreQueueItem_GetCurrentStatus, tmp.addr)
+    check it.vtbl.GetCurrentStatus(it, tmp.addr
+                                  ), "StoreQueueItem.GetCurrentStatus"
     result = adopt[StoreQueueItemStatus](tmp)
 
 proc onCompleted*(self: StoreQueueItem,
@@ -3936,13 +3553,13 @@ proc onCompleted*(self: StoreQueueItem,
     let cb = newDelegate(IID_TypedEventHandler_2_StoreQueueItem_StoreQueueItemCompletedEventArgs,
                          shim, event = true)
     try:
-      it.call(IStoreQueueItem_add_Completed, cb, result.addr)
+      check it.vtbl.add_Completed(it, cb, result.addr), "StoreQueueItem.add_Completed"
     finally:
       release(cb)
 
 proc removeCompleted*(self: StoreQueueItem, token: EventRegistrationToken) =
   withIface(self.p, IStoreQueueItem, it):
-    it.call(IStoreQueueItem_remove_Completed, token)
+    check it.vtbl.remove_Completed(it, token), "StoreQueueItem.remove_Completed"
 
 proc onStatusChanged*(self: StoreQueueItem,
                       handler: EventHandler[StoreQueueItem, WinRtObject]
@@ -3955,19 +3572,20 @@ proc onStatusChanged*(self: StoreQueueItem,
     let cb = newDelegate(IID_TypedEventHandler_2_StoreQueueItem_Object, shim,
                          event = true)
     try:
-      it.call(IStoreQueueItem_add_StatusChanged, cb, result.addr)
+      check it.vtbl.add_StatusChanged(it, cb, result.addr), "StoreQueueItem.add_StatusChanged"
     finally:
       release(cb)
 
 proc removeStatusChanged*(self: StoreQueueItem, token: EventRegistrationToken) =
   withIface(self.p, IStoreQueueItem, it):
-    it.call(IStoreQueueItem_remove_StatusChanged, token)
+    check it.vtbl.remove_StatusChanged(it, token), "StoreQueueItem.remove_StatusChanged"
 
 proc cancelInstallAsync*(self: StoreQueueItem) {.async.} =
   ## Windows.Services.Store.StoreQueueItem.CancelInstallAsync
   var op: pointer
   withIface(self.p, IStoreQueueItem2, it):
-    it.call(IStoreQueueItem2_CancelInstallAsync, op.addr)
+    check it.vtbl.CancelInstallAsync(it, op.addr
+                                    ), "StoreQueueItem.CancelInstallAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "StoreQueueItem.CancelInstallAsync")
 
@@ -3975,7 +3593,8 @@ proc pauseInstallAsync*(self: StoreQueueItem) {.async.} =
   ## Windows.Services.Store.StoreQueueItem.PauseInstallAsync
   var op: pointer
   withIface(self.p, IStoreQueueItem2, it):
-    it.call(IStoreQueueItem2_PauseInstallAsync, op.addr)
+    check it.vtbl.PauseInstallAsync(it, op.addr
+                                   ), "StoreQueueItem.PauseInstallAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "StoreQueueItem.PauseInstallAsync")
 
@@ -3983,72 +3602,55 @@ proc resumeInstallAsync*(self: StoreQueueItem) {.async.} =
   ## Windows.Services.Store.StoreQueueItem.ResumeInstallAsync
   var op: pointer
   withIface(self.p, IStoreQueueItem2, it):
-    it.call(IStoreQueueItem2_ResumeInstallAsync, op.addr)
+    check it.vtbl.ResumeInstallAsync(it, op.addr
+                                    ), "StoreQueueItem.ResumeInstallAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "StoreQueueItem.ResumeInstallAsync")
 
 proc status*(self: StoreQueueItemCompletedEventArgs): StoreQueueItemStatus =
   ## Windows.Services.Store.StoreQueueItemCompletedEventArgs.get_Status
   withIface(self.p, IStoreQueueItemCompletedEventArgs, it):
-    var tmp: pointer
-    it.call(IStoreQueueItemCompletedEventArgs_get_Status, tmp.addr)
-    result = adopt[StoreQueueItemStatus](tmp)
+    result = it.getObject(get_Status, StoreQueueItemStatus)
 
 proc packageInstallState*(self: StoreQueueItemStatus): StoreQueueItemState =
   ## Windows.Services.Store.StoreQueueItemStatus.get_PackageInstallState
   withIface(self.p, IStoreQueueItemStatus, it):
-    var tmp: StoreQueueItemState
-    it.call(IStoreQueueItemStatus_get_PackageInstallState, tmp.addr)
-    result = tmp
+    result = it.getValue(get_PackageInstallState, StoreQueueItemState)
 
 proc packageInstallExtendedState*(self: StoreQueueItemStatus): StoreQueueItemExtendedState =
   ## Windows.Services.Store.StoreQueueItemStatus.get_PackageInstallExtendedState
   withIface(self.p, IStoreQueueItemStatus, it):
-    var tmp: StoreQueueItemExtendedState
-    it.call(IStoreQueueItemStatus_get_PackageInstallExtendedState, tmp.addr)
-    result = tmp
+    result = it.getValue(get_PackageInstallExtendedState, StoreQueueItemExtendedState)
 
 proc updateStatus*(self: StoreQueueItemStatus): StorePackageUpdateStatus =
   ## Windows.Services.Store.StoreQueueItemStatus.get_UpdateStatus
   withIface(self.p, IStoreQueueItemStatus, it):
-    var tmp: StorePackageUpdateStatus
-    it.call(IStoreQueueItemStatus_get_UpdateStatus, tmp.addr)
-    result = tmp
+    result = it.getValue(get_UpdateStatus, StorePackageUpdateStatus)
 
 proc extendedError*(self: StoreQueueItemStatus): HRESULT =
   ## Windows.Services.Store.StoreQueueItemStatus.get_ExtendedError
   withIface(self.p, IStoreQueueItemStatus, it):
-    var tmp: HRESULT
-    it.call(IStoreQueueItemStatus_get_ExtendedError, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExtendedError, HRESULT)
 
 proc extendedError*(self: StoreRateAndReviewResult): HRESULT =
   ## Windows.Services.Store.StoreRateAndReviewResult.get_ExtendedError
   withIface(self.p, IStoreRateAndReviewResult, it):
-    var tmp: HRESULT
-    it.call(IStoreRateAndReviewResult_get_ExtendedError, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExtendedError, HRESULT)
 
 proc extendedJsonData*(self: StoreRateAndReviewResult): string =
   ## Windows.Services.Store.StoreRateAndReviewResult.get_ExtendedJsonData
   withIface(self.p, IStoreRateAndReviewResult, it):
-    var tmp: HSTRING
-    it.call(IStoreRateAndReviewResult_get_ExtendedJsonData, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ExtendedJsonData)
 
 proc wasUpdated*(self: StoreRateAndReviewResult): bool =
   ## Windows.Services.Store.StoreRateAndReviewResult.get_WasUpdated
   withIface(self.p, IStoreRateAndReviewResult, it):
-    var tmp: bool
-    it.call(IStoreRateAndReviewResult_get_WasUpdated, tmp.addr)
-    result = tmp
+    result = it.getValue(get_WasUpdated, bool)
 
 proc status*(self: StoreRateAndReviewResult): StoreRateAndReviewStatus =
   ## Windows.Services.Store.StoreRateAndReviewResult.get_Status
   withIface(self.p, IStoreRateAndReviewResult, it):
-    var tmp: StoreRateAndReviewStatus
-    it.call(IStoreRateAndReviewResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, StoreRateAndReviewStatus)
 
 proc sendRequestAsync*(_: typedesc[StoreRequestHelper], context: StoreContext,
                        requestKind: uint32, parametersAsJson: string
@@ -4059,8 +3661,8 @@ proc sendRequestAsync*(_: typedesc[StoreRequestHelper], context: StoreContext,
               IStoreRequestHelperStatics, it):
     withIface(context.p, IStoreContext, p0):
       withHString(parametersAsJson, h2):
-        it.call(IStoreRequestHelperStatics_SendRequestAsync, p0, requestKind,
-                h2, op.addr)
+        check it.vtbl.SendRequestAsync(it, p0, requestKind, h2, op.addr
+                                      ), "StoreRequestHelper.SendRequestAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreSendRequestResult,
                               IID_AsyncOperationCompletedHandler_1_StoreSendRequestResult,
                               alPlain, "StoreRequestHelper.SendRequestAsync")
@@ -4069,71 +3671,53 @@ proc sendRequestAsync*(_: typedesc[StoreRequestHelper], context: StoreContext,
 proc response*(self: StoreSendRequestResult): string =
   ## Windows.Services.Store.StoreSendRequestResult.get_Response
   withIface(self.p, IStoreSendRequestResult, it):
-    var tmp: HSTRING
-    it.call(IStoreSendRequestResult_get_Response, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Response)
 
 proc extendedError*(self: StoreSendRequestResult): HRESULT =
   ## Windows.Services.Store.StoreSendRequestResult.get_ExtendedError
   withIface(self.p, IStoreSendRequestResult, it):
-    var tmp: HRESULT
-    it.call(IStoreSendRequestResult_get_ExtendedError, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExtendedError, HRESULT)
 
 proc httpStatusCode*(self: StoreSendRequestResult): HttpStatusCode =
   ## Windows.Services.Store.StoreSendRequestResult.get_HttpStatusCode
   withIface(self.p, IStoreSendRequestResult2, it):
-    var tmp: HttpStatusCode
-    it.call(IStoreSendRequestResult2_get_HttpStatusCode, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HttpStatusCode, HttpStatusCode)
 
 proc storeId*(self: StoreSku): string =
   ## Windows.Services.Store.StoreSku.get_StoreId
   withIface(self.p, IStoreSku, it):
-    var tmp: HSTRING
-    it.call(IStoreSku_get_StoreId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_StoreId)
 
 proc language*(self: StoreSku): string =
   ## Windows.Services.Store.StoreSku.get_Language
   withIface(self.p, IStoreSku, it):
-    var tmp: HSTRING
-    it.call(IStoreSku_get_Language, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Language)
 
 proc title*(self: StoreSku): string =
   ## Windows.Services.Store.StoreSku.get_Title
   withIface(self.p, IStoreSku, it):
-    var tmp: HSTRING
-    it.call(IStoreSku_get_Title, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Title)
 
 proc description*(self: StoreSku): string =
   ## Windows.Services.Store.StoreSku.get_Description
   withIface(self.p, IStoreSku, it):
-    var tmp: HSTRING
-    it.call(IStoreSku_get_Description, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Description)
 
 proc isTrial*(self: StoreSku): bool =
   ## Windows.Services.Store.StoreSku.get_IsTrial
   withIface(self.p, IStoreSku, it):
-    var tmp: bool
-    it.call(IStoreSku_get_IsTrial, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsTrial, bool)
 
 proc customDeveloperData*(self: StoreSku): string =
   ## Windows.Services.Store.StoreSku.get_CustomDeveloperData
   withIface(self.p, IStoreSku, it):
-    var tmp: HSTRING
-    it.call(IStoreSku_get_CustomDeveloperData, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CustomDeveloperData)
 
 proc images*(self: StoreSku): seq[StoreImage] =
   ## Windows.Services.Store.StoreSku.get_Images
   withIface(self.p, IStoreSku, it):
     var tmp: pointer
-    it.call(IStoreSku_get_Images, tmp.addr)
+    check it.vtbl.get_Images(it, tmp.addr), "StoreSku.get_Images"
     result = toSeq[StoreImage](tmp, IID_IVectorView_1_StoreImage)
     release(tmp)
 
@@ -4141,7 +3725,7 @@ proc videos*(self: StoreSku): seq[StoreVideo] =
   ## Windows.Services.Store.StoreSku.get_Videos
   withIface(self.p, IStoreSku, it):
     var tmp: pointer
-    it.call(IStoreSku_get_Videos, tmp.addr)
+    check it.vtbl.get_Videos(it, tmp.addr), "StoreSku.get_Videos"
     result = toSeq[StoreVideo](tmp, IID_IVectorView_1_StoreVideo)
     release(tmp)
 
@@ -4149,51 +3733,45 @@ proc availabilities*(self: StoreSku): seq[StoreAvailability] =
   ## Windows.Services.Store.StoreSku.get_Availabilities
   withIface(self.p, IStoreSku, it):
     var tmp: pointer
-    it.call(IStoreSku_get_Availabilities, tmp.addr)
+    check it.vtbl.get_Availabilities(it, tmp.addr
+                                    ), "StoreSku.get_Availabilities"
     result = toSeq[StoreAvailability](tmp, IID_IVectorView_1_StoreAvailability)
     release(tmp)
 
 proc price*(self: StoreSku): StorePrice =
   ## Windows.Services.Store.StoreSku.get_Price
   withIface(self.p, IStoreSku, it):
-    var tmp: pointer
-    it.call(IStoreSku_get_Price, tmp.addr)
-    result = adopt[StorePrice](tmp)
+    result = it.getObject(get_Price, StorePrice)
 
 proc extendedJsonData*(self: StoreSku): string =
   ## Windows.Services.Store.StoreSku.get_ExtendedJsonData
   withIface(self.p, IStoreSku, it):
-    var tmp: HSTRING
-    it.call(IStoreSku_get_ExtendedJsonData, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ExtendedJsonData)
 
 proc isInUserCollection*(self: StoreSku): bool =
   ## Windows.Services.Store.StoreSku.get_IsInUserCollection
   withIface(self.p, IStoreSku, it):
-    var tmp: bool
-    it.call(IStoreSku_get_IsInUserCollection, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsInUserCollection, bool)
 
 proc bundledSkus*(self: StoreSku): seq[string] =
   ## Windows.Services.Store.StoreSku.get_BundledSkus
   withIface(self.p, IStoreSku, it):
     var tmp: pointer
-    it.call(IStoreSku_get_BundledSkus, tmp.addr)
+    check it.vtbl.get_BundledSkus(it, tmp.addr), "StoreSku.get_BundledSkus"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc collectionData*(self: StoreSku): StoreCollectionData =
   ## Windows.Services.Store.StoreSku.get_CollectionData
   withIface(self.p, IStoreSku, it):
-    var tmp: pointer
-    it.call(IStoreSku_get_CollectionData, tmp.addr)
-    result = adopt[StoreCollectionData](tmp)
+    result = it.getObject(get_CollectionData, StoreCollectionData)
 
 proc getIsInstalledAsync*(self: StoreSku): Future[bool] {.async.} =
   ## Windows.Services.Store.StoreSku.GetIsInstalledAsync
   var op: pointer
   withIface(self.p, IStoreSku, it):
-    it.call(IStoreSku_GetIsInstalledAsync, op.addr)
+    check it.vtbl.GetIsInstalledAsync(it, op.addr
+                                     ), "StoreSku.GetIsInstalledAsync"
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain, "StoreSku.GetIsInstalledAsync")
@@ -4202,7 +3780,8 @@ proc requestPurchaseAsync*(self: StoreSku): Future[StorePurchaseResult] {.async.
   ## Windows.Services.Store.StoreSku.RequestPurchaseAsync
   var op: pointer
   withIface(self.p, IStoreSku, it):
-    it.call(IStoreSku_RequestPurchaseAsync, op.addr)
+    check it.vtbl.RequestPurchaseAsync(it, op.addr
+                                      ), "StoreSku.RequestPurchaseAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
                               IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
                               alPlain, "StoreSku.RequestPurchaseAsync")
@@ -4215,7 +3794,8 @@ proc requestPurchaseAsync*(self: StoreSku,
   var op: pointer
   withIface(self.p, IStoreSku, it):
     withIface(storePurchaseProperties.p, IStorePurchaseProperties, p0):
-      it.call(IStoreSku_RequestPurchaseAsync2, p0, op.addr)
+      check it.vtbl.RequestPurchaseAsync2(it, p0, op.addr
+                                         ), "StoreSku.RequestPurchaseAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
                               IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
                               alPlain, "StoreSku.RequestPurchaseAsync")
@@ -4224,113 +3804,83 @@ proc requestPurchaseAsync*(self: StoreSku,
 proc isSubscription*(self: StoreSku): bool =
   ## Windows.Services.Store.StoreSku.get_IsSubscription
   withIface(self.p, IStoreSku, it):
-    var tmp: bool
-    it.call(IStoreSku_get_IsSubscription, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsSubscription, bool)
 
 proc subscriptionInfo*(self: StoreSku): StoreSubscriptionInfo =
   ## Windows.Services.Store.StoreSku.get_SubscriptionInfo
   withIface(self.p, IStoreSku, it):
-    var tmp: pointer
-    it.call(IStoreSku_get_SubscriptionInfo, tmp.addr)
-    result = adopt[StoreSubscriptionInfo](tmp)
+    result = it.getObject(get_SubscriptionInfo, StoreSubscriptionInfo)
 
 proc billingPeriod*(self: StoreSubscriptionInfo): uint32 =
   ## Windows.Services.Store.StoreSubscriptionInfo.get_BillingPeriod
   withIface(self.p, IStoreSubscriptionInfo, it):
-    var tmp: uint32
-    it.call(IStoreSubscriptionInfo_get_BillingPeriod, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BillingPeriod, uint32)
 
 proc billingPeriodUnit*(self: StoreSubscriptionInfo): StoreDurationUnit =
   ## Windows.Services.Store.StoreSubscriptionInfo.get_BillingPeriodUnit
   withIface(self.p, IStoreSubscriptionInfo, it):
-    var tmp: StoreDurationUnit
-    it.call(IStoreSubscriptionInfo_get_BillingPeriodUnit, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BillingPeriodUnit, StoreDurationUnit)
 
 proc hasTrialPeriod*(self: StoreSubscriptionInfo): bool =
   ## Windows.Services.Store.StoreSubscriptionInfo.get_HasTrialPeriod
   withIface(self.p, IStoreSubscriptionInfo, it):
-    var tmp: bool
-    it.call(IStoreSubscriptionInfo_get_HasTrialPeriod, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HasTrialPeriod, bool)
 
 proc trialPeriod*(self: StoreSubscriptionInfo): uint32 =
   ## Windows.Services.Store.StoreSubscriptionInfo.get_TrialPeriod
   withIface(self.p, IStoreSubscriptionInfo, it):
-    var tmp: uint32
-    it.call(IStoreSubscriptionInfo_get_TrialPeriod, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TrialPeriod, uint32)
 
 proc trialPeriodUnit*(self: StoreSubscriptionInfo): StoreDurationUnit =
   ## Windows.Services.Store.StoreSubscriptionInfo.get_TrialPeriodUnit
   withIface(self.p, IStoreSubscriptionInfo, it):
-    var tmp: StoreDurationUnit
-    it.call(IStoreSubscriptionInfo_get_TrialPeriodUnit, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TrialPeriodUnit, StoreDurationUnit)
 
 proc extendedError*(self: StoreUninstallStorePackageResult): HRESULT =
   ## Windows.Services.Store.StoreUninstallStorePackageResult.get_ExtendedError
   withIface(self.p, IStoreUninstallStorePackageResult, it):
-    var tmp: HRESULT
-    it.call(IStoreUninstallStorePackageResult_get_ExtendedError, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExtendedError, HRESULT)
 
 proc status*(self: StoreUninstallStorePackageResult): StoreUninstallStorePackageStatus =
   ## Windows.Services.Store.StoreUninstallStorePackageResult.get_Status
   withIface(self.p, IStoreUninstallStorePackageResult, it):
-    var tmp: StoreUninstallStorePackageStatus
-    it.call(IStoreUninstallStorePackageResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, StoreUninstallStorePackageStatus)
 
 proc uri*(self: StoreVideo): Uri =
   ## Windows.Services.Store.StoreVideo.get_Uri
   withIface(self.p, IStoreVideo, it):
-    var tmp: pointer
-    it.call(IStoreVideo_get_Uri, tmp.addr)
-    result = adopt[Uri](tmp)
+    result = it.getObject(get_Uri, Uri)
 
 proc videoPurposeTag*(self: StoreVideo): string =
   ## Windows.Services.Store.StoreVideo.get_VideoPurposeTag
   withIface(self.p, IStoreVideo, it):
-    var tmp: HSTRING
-    it.call(IStoreVideo_get_VideoPurposeTag, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_VideoPurposeTag)
 
 proc width*(self: StoreVideo): uint32 =
   ## Windows.Services.Store.StoreVideo.get_Width
   withIface(self.p, IStoreVideo, it):
-    var tmp: uint32
-    it.call(IStoreVideo_get_Width, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Width, uint32)
 
 proc height*(self: StoreVideo): uint32 =
   ## Windows.Services.Store.StoreVideo.get_Height
   withIface(self.p, IStoreVideo, it):
-    var tmp: uint32
-    it.call(IStoreVideo_get_Height, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Height, uint32)
 
 proc caption*(self: StoreVideo): string =
   ## Windows.Services.Store.StoreVideo.get_Caption
   withIface(self.p, IStoreVideo, it):
-    var tmp: HSTRING
-    it.call(IStoreVideo_get_Caption, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Caption)
 
 proc previewImage*(self: StoreVideo): StoreImage =
   ## Windows.Services.Store.StoreVideo.get_PreviewImage
   withIface(self.p, IStoreVideo, it):
-    var tmp: pointer
-    it.call(IStoreVideo_get_PreviewImage, tmp.addr)
-    result = adopt[StoreImage](tmp)
+    result = it.getObject(get_PreviewImage, StoreImage)
 
 proc invokeAsync*(self: TargetedContentAction) {.async.} =
   ## Windows.Services.TargetedContent.TargetedContentAction.InvokeAsync
   var op: pointer
   withIface(self.p, ITargetedContentAction, it):
-    it.call(ITargetedContentAction_InvokeAsync, op.addr)
+    check it.vtbl.InvokeAsync(it, op.addr), "TargetedContentAction.InvokeAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "TargetedContentAction.InvokeAsync")
 
@@ -4338,56 +3888,54 @@ proc getDeferral*(self: TargetedContentAvailabilityChangedEventArgs): Deferral =
   ## Windows.Services.TargetedContent.TargetedContentAvailabilityChangedEventArgs.GetDeferral
   withIface(self.p, ITargetedContentAvailabilityChangedEventArgs, it):
     var tmp: pointer
-    it.call(ITargetedContentAvailabilityChangedEventArgs_GetDeferral, tmp.addr)
+    check it.vtbl.GetDeferral(it, tmp.addr
+                             ), "TargetedContentAvailabilityChangedEventArgs.GetDeferral"
     result = adopt[Deferral](tmp)
 
 proc getDeferral*(self: TargetedContentChangedEventArgs): Deferral =
   ## Windows.Services.TargetedContent.TargetedContentChangedEventArgs.GetDeferral
   withIface(self.p, ITargetedContentChangedEventArgs, it):
     var tmp: pointer
-    it.call(ITargetedContentChangedEventArgs_GetDeferral, tmp.addr)
+    check it.vtbl.GetDeferral(it, tmp.addr
+                             ), "TargetedContentChangedEventArgs.GetDeferral"
     result = adopt[Deferral](tmp)
 
 proc hasPreviousContentExpired*(self: TargetedContentChangedEventArgs): bool =
   ## Windows.Services.TargetedContent.TargetedContentChangedEventArgs.get_HasPreviousContentExpired
   withIface(self.p, ITargetedContentChangedEventArgs, it):
-    var tmp: bool
-    it.call(ITargetedContentChangedEventArgs_get_HasPreviousContentExpired,
-            tmp.addr)
-    result = tmp
+    result = it.getValue(get_HasPreviousContentExpired, bool)
 
 proc id*(self: TargetedContentCollection): string =
   ## Windows.Services.TargetedContent.TargetedContentCollection.get_Id
   withIface(self.p, ITargetedContentCollection, it):
-    var tmp: HSTRING
-    it.call(ITargetedContentCollection_get_Id, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Id)
 
 proc reportInteraction*(self: TargetedContentCollection,
                         interaction: TargetedContentInteraction) =
   ## Windows.Services.TargetedContent.TargetedContentCollection.ReportInteraction
   withIface(self.p, ITargetedContentCollection, it):
-    it.call(ITargetedContentCollection_ReportInteraction, interaction)
+    check it.vtbl.ReportInteraction(it, interaction
+                                   ), "TargetedContentCollection.ReportInteraction"
 
 proc reportCustomInteraction*(self: TargetedContentCollection,
                               customInteractionName: string) =
   ## Windows.Services.TargetedContent.TargetedContentCollection.ReportCustomInteraction
   withIface(self.p, ITargetedContentCollection, it):
     withHString(customInteractionName, h0):
-      it.call(ITargetedContentCollection_ReportCustomInteraction, h0)
+      check it.vtbl.ReportCustomInteraction(it, h0
+                                           ), "TargetedContentCollection.ReportCustomInteraction"
 
 proc path*(self: TargetedContentCollection): string =
   ## Windows.Services.TargetedContent.TargetedContentCollection.get_Path
   withIface(self.p, ITargetedContentCollection, it):
-    var tmp: HSTRING
-    it.call(ITargetedContentCollection_get_Path, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Path)
 
 proc properties*(self: TargetedContentCollection): Table[string, TargetedContentValue] =
   ## Windows.Services.TargetedContent.TargetedContentCollection.get_Properties
   withIface(self.p, ITargetedContentCollection, it):
     var tmp: pointer
-    it.call(ITargetedContentCollection_get_Properties, tmp.addr)
+    check it.vtbl.get_Properties(it, tmp.addr
+                                ), "TargetedContentCollection.get_Properties"
     result = toTable[string, TargetedContentValue](tmp,
                                                    IID_IIterable_1_IKeyValuePair_23,
                                                    IID_IKeyValuePair_2_String_TargetedContentValue
@@ -4398,7 +3946,8 @@ proc collections*(self: TargetedContentCollection): seq[TargetedContentCollectio
   ## Windows.Services.TargetedContent.TargetedContentCollection.get_Collections
   withIface(self.p, ITargetedContentCollection, it):
     var tmp: pointer
-    it.call(ITargetedContentCollection_get_Collections, tmp.addr)
+    check it.vtbl.get_Collections(it, tmp.addr
+                                 ), "TargetedContentCollection.get_Collections"
     result = toSeq[TargetedContentCollection](tmp,
                                               IID_IVectorView_1_TargetedContentCollection
                                              )
@@ -4408,7 +3957,7 @@ proc items*(self: TargetedContentCollection): seq[TargetedContentItem] =
   ## Windows.Services.TargetedContent.TargetedContentCollection.get_Items
   withIface(self.p, ITargetedContentCollection, it):
     var tmp: pointer
-    it.call(ITargetedContentCollection_get_Items, tmp.addr)
+    check it.vtbl.get_Items(it, tmp.addr), "TargetedContentCollection.get_Items"
     result = toSeq[TargetedContentItem](tmp,
                                         IID_IVectorView_1_TargetedContentItem)
     release(tmp)
@@ -4416,30 +3965,22 @@ proc items*(self: TargetedContentCollection): seq[TargetedContentItem] =
 proc id*(self: TargetedContentContainer): string =
   ## Windows.Services.TargetedContent.TargetedContentContainer.get_Id
   withIface(self.p, ITargetedContentContainer, it):
-    var tmp: HSTRING
-    it.call(ITargetedContentContainer_get_Id, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Id)
 
 proc timestamp*(self: TargetedContentContainer): DateTime =
   ## Windows.Services.TargetedContent.TargetedContentContainer.get_Timestamp
   withIface(self.p, ITargetedContentContainer, it):
-    var tmp: DateTime
-    it.call(ITargetedContentContainer_get_Timestamp, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Timestamp, DateTime)
 
 proc availability*(self: TargetedContentContainer): TargetedContentAvailability =
   ## Windows.Services.TargetedContent.TargetedContentContainer.get_Availability
   withIface(self.p, ITargetedContentContainer, it):
-    var tmp: TargetedContentAvailability
-    it.call(ITargetedContentContainer_get_Availability, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Availability, TargetedContentAvailability)
 
 proc content*(self: TargetedContentContainer): TargetedContentCollection =
   ## Windows.Services.TargetedContent.TargetedContentContainer.get_Content
   withIface(self.p, ITargetedContentContainer, it):
-    var tmp: pointer
-    it.call(ITargetedContentContainer_get_Content, tmp.addr)
-    result = adopt[TargetedContentCollection](tmp)
+    result = it.getObject(get_Content, TargetedContentCollection)
 
 proc selectSingleObject*(self: TargetedContentContainer, path: string
                         ): TargetedContentObject =
@@ -4447,7 +3988,8 @@ proc selectSingleObject*(self: TargetedContentContainer, path: string
   withIface(self.p, ITargetedContentContainer, it):
     withHString(path, h0):
       var tmp: pointer
-      it.call(ITargetedContentContainer_SelectSingleObject, h0, tmp.addr)
+      check it.vtbl.SelectSingleObject(it, h0, tmp.addr
+                                      ), "TargetedContentContainer.SelectSingleObject"
       result = adopt[TargetedContentObject](tmp)
 
 proc getAsync*(_: typedesc[TargetedContentContainer], contentId: string
@@ -4457,7 +3999,8 @@ proc getAsync*(_: typedesc[TargetedContentContainer], contentId: string
   withStatics("Windows.Services.TargetedContent.TargetedContentContainer",
               ITargetedContentContainerStatics, it):
     withHString(contentId, h0):
-      it.call(ITargetedContentContainerStatics_GetAsync, h0, op.addr)
+      check it.vtbl.GetAsync(it, h0, op.addr
+                            ), "TargetedContentContainer.GetAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_TargetedContentContainer,
                               IID_AsyncOperationCompletedHandler_1_TargetedContentContainer,
@@ -4468,7 +4011,8 @@ proc openReadAsync*(self: TargetedContentFile): Future[WinRtObject] {.async.} =
   ## Windows.Services.TargetedContent.TargetedContentFile.OpenReadAsync
   var op: pointer
   withIface(self.p, IRandomAccessStreamReference, it):
-    it.call(IRandomAccessStreamReference_OpenReadAsync, op.addr)
+    check it.vtbl.OpenReadAsync(it, op.addr
+                               ), "TargetedContentFile.OpenReadAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
                               IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
@@ -4478,22 +4022,19 @@ proc openReadAsync*(self: TargetedContentFile): Future[WinRtObject] {.async.} =
 proc height*(self: TargetedContentImage): uint32 =
   ## Windows.Services.TargetedContent.TargetedContentImage.get_Height
   withIface(self.p, ITargetedContentImage, it):
-    var tmp: uint32
-    it.call(ITargetedContentImage_get_Height, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Height, uint32)
 
 proc width*(self: TargetedContentImage): uint32 =
   ## Windows.Services.TargetedContent.TargetedContentImage.get_Width
   withIface(self.p, ITargetedContentImage, it):
-    var tmp: uint32
-    it.call(ITargetedContentImage_get_Width, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Width, uint32)
 
 proc openReadAsync*(self: TargetedContentImage): Future[WinRtObject] {.async.} =
   ## Windows.Services.TargetedContent.TargetedContentImage.OpenReadAsync
   var op: pointer
   withIface(self.p, IRandomAccessStreamReference, it):
-    it.call(IRandomAccessStreamReference_OpenReadAsync, op.addr)
+    check it.vtbl.OpenReadAsync(it, op.addr
+                               ), "TargetedContentImage.OpenReadAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
                               IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
@@ -4503,35 +4044,34 @@ proc openReadAsync*(self: TargetedContentImage): Future[WinRtObject] {.async.} =
 proc path*(self: TargetedContentItem): string =
   ## Windows.Services.TargetedContent.TargetedContentItem.get_Path
   withIface(self.p, ITargetedContentItem, it):
-    var tmp: HSTRING
-    it.call(ITargetedContentItem_get_Path, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Path)
 
 proc reportInteraction*(self: TargetedContentItem,
                         interaction: TargetedContentInteraction) =
   ## Windows.Services.TargetedContent.TargetedContentItem.ReportInteraction
   withIface(self.p, ITargetedContentItem, it):
-    it.call(ITargetedContentItem_ReportInteraction, interaction)
+    check it.vtbl.ReportInteraction(it, interaction
+                                   ), "TargetedContentItem.ReportInteraction"
 
 proc reportCustomInteraction*(self: TargetedContentItem,
                               customInteractionName: string) =
   ## Windows.Services.TargetedContent.TargetedContentItem.ReportCustomInteraction
   withIface(self.p, ITargetedContentItem, it):
     withHString(customInteractionName, h0):
-      it.call(ITargetedContentItem_ReportCustomInteraction, h0)
+      check it.vtbl.ReportCustomInteraction(it, h0
+                                           ), "TargetedContentItem.ReportCustomInteraction"
 
 proc state*(self: TargetedContentItem): TargetedContentItemState =
   ## Windows.Services.TargetedContent.TargetedContentItem.get_State
   withIface(self.p, ITargetedContentItem, it):
-    var tmp: pointer
-    it.call(ITargetedContentItem_get_State, tmp.addr)
-    result = adopt[TargetedContentItemState](tmp)
+    result = it.getObject(get_State, TargetedContentItemState)
 
 proc properties*(self: TargetedContentItem): Table[string, TargetedContentValue] =
   ## Windows.Services.TargetedContent.TargetedContentItem.get_Properties
   withIface(self.p, ITargetedContentItem, it):
     var tmp: pointer
-    it.call(ITargetedContentItem_get_Properties, tmp.addr)
+    check it.vtbl.get_Properties(it, tmp.addr
+                                ), "TargetedContentItem.get_Properties"
     result = toTable[string, TargetedContentValue](tmp,
                                                    IID_IIterable_1_IKeyValuePair_23,
                                                    IID_IKeyValuePair_2_String_TargetedContentValue
@@ -4542,7 +4082,8 @@ proc collections*(self: TargetedContentItem): seq[TargetedContentCollection] =
   ## Windows.Services.TargetedContent.TargetedContentItem.get_Collections
   withIface(self.p, ITargetedContentItem, it):
     var tmp: pointer
-    it.call(ITargetedContentItem_get_Collections, tmp.addr)
+    check it.vtbl.get_Collections(it, tmp.addr
+                                 ), "TargetedContentItem.get_Collections"
     result = toSeq[TargetedContentCollection](tmp,
                                               IID_IVectorView_1_TargetedContentCollection
                                              )
@@ -4551,64 +4092,52 @@ proc collections*(self: TargetedContentItem): seq[TargetedContentCollection] =
 proc shouldDisplay*(self: TargetedContentItemState): bool =
   ## Windows.Services.TargetedContent.TargetedContentItemState.get_ShouldDisplay
   withIface(self.p, ITargetedContentItemState, it):
-    var tmp: bool
-    it.call(ITargetedContentItemState_get_ShouldDisplay, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ShouldDisplay, bool)
 
 proc appInstallationState*(self: TargetedContentItemState): TargetedContentAppInstallationState =
   ## Windows.Services.TargetedContent.TargetedContentItemState.get_AppInstallationState
   withIface(self.p, ITargetedContentItemState, it):
-    var tmp: TargetedContentAppInstallationState
-    it.call(ITargetedContentItemState_get_AppInstallationState, tmp.addr)
-    result = tmp
+    result = it.getValue(get_AppInstallationState, TargetedContentAppInstallationState)
 
 proc objectKind*(self: TargetedContentObject): TargetedContentObjectKind =
   ## Windows.Services.TargetedContent.TargetedContentObject.get_ObjectKind
   withIface(self.p, ITargetedContentObject, it):
-    var tmp: TargetedContentObjectKind
-    it.call(ITargetedContentObject_get_ObjectKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ObjectKind, TargetedContentObjectKind)
 
 proc collection*(self: TargetedContentObject): TargetedContentCollection =
   ## Windows.Services.TargetedContent.TargetedContentObject.get_Collection
   withIface(self.p, ITargetedContentObject, it):
-    var tmp: pointer
-    it.call(ITargetedContentObject_get_Collection, tmp.addr)
-    result = adopt[TargetedContentCollection](tmp)
+    result = it.getObject(get_Collection, TargetedContentCollection)
 
 proc item*(self: TargetedContentObject): TargetedContentItem =
   ## Windows.Services.TargetedContent.TargetedContentObject.get_Item
   withIface(self.p, ITargetedContentObject, it):
-    var tmp: pointer
-    it.call(ITargetedContentObject_get_Item, tmp.addr)
-    result = adopt[TargetedContentItem](tmp)
+    result = it.getObject(get_Item, TargetedContentItem)
 
 proc value*(self: TargetedContentObject): TargetedContentValue =
   ## Windows.Services.TargetedContent.TargetedContentObject.get_Value
   withIface(self.p, ITargetedContentObject, it):
-    var tmp: pointer
-    it.call(ITargetedContentObject_get_Value, tmp.addr)
-    result = adopt[TargetedContentValue](tmp)
+    result = it.getObject(get_Value, TargetedContentValue)
 
 proc getDeferral*(self: TargetedContentStateChangedEventArgs): Deferral =
   ## Windows.Services.TargetedContent.TargetedContentStateChangedEventArgs.GetDeferral
   withIface(self.p, ITargetedContentStateChangedEventArgs, it):
     var tmp: pointer
-    it.call(ITargetedContentStateChangedEventArgs_GetDeferral, tmp.addr)
+    check it.vtbl.GetDeferral(it, tmp.addr
+                             ), "TargetedContentStateChangedEventArgs.GetDeferral"
     result = adopt[Deferral](tmp)
 
 proc id*(self: TargetedContentSubscription): string =
   ## Windows.Services.TargetedContent.TargetedContentSubscription.get_Id
   withIface(self.p, ITargetedContentSubscription, it):
-    var tmp: HSTRING
-    it.call(ITargetedContentSubscription_get_Id, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Id)
 
 proc getContentContainerAsync*(self: TargetedContentSubscription): Future[TargetedContentContainer] {.async.} =
   ## Windows.Services.TargetedContent.TargetedContentSubscription.GetContentContainerAsync
   var op: pointer
   withIface(self.p, ITargetedContentSubscription, it):
-    it.call(ITargetedContentSubscription_GetContentContainerAsync, op.addr)
+    check it.vtbl.GetContentContainerAsync(it, op.addr
+                                          ), "TargetedContentSubscription.GetContentContainerAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_TargetedContentContainer,
                               IID_AsyncOperationCompletedHandler_1_TargetedContentContainer,
@@ -4629,13 +4158,13 @@ proc onContentChanged*(self: TargetedContentSubscription,
     let cb = newDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentChangedEventArgs,
                          shim, event = true)
     try:
-      it.call(ITargetedContentSubscription_add_ContentChanged, cb, result.addr)
+      check it.vtbl.add_ContentChanged(it, cb, result.addr), "TargetedContentSubscription.add_ContentChanged"
     finally:
       release(cb)
 
 proc removeContentChanged*(self: TargetedContentSubscription, token: EventRegistrationToken) =
   withIface(self.p, ITargetedContentSubscription, it):
-    it.call(ITargetedContentSubscription_remove_ContentChanged, token)
+    check it.vtbl.remove_ContentChanged(it, token), "TargetedContentSubscription.remove_ContentChanged"
 
 proc onAvailabilityChanged*(self: TargetedContentSubscription,
                             handler: EventHandler[TargetedContentSubscription, TargetedContentAvailabilityChangedEventArgs]
@@ -4649,13 +4178,13 @@ proc onAvailabilityChanged*(self: TargetedContentSubscription,
     let cb = newDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentAvailabilityChangedEventArgs,
                          shim, event = true)
     try:
-      it.call(ITargetedContentSubscription_add_AvailabilityChanged, cb, result.addr)
+      check it.vtbl.add_AvailabilityChanged(it, cb, result.addr), "TargetedContentSubscription.add_AvailabilityChanged"
     finally:
       release(cb)
 
 proc removeAvailabilityChanged*(self: TargetedContentSubscription, token: EventRegistrationToken) =
   withIface(self.p, ITargetedContentSubscription, it):
-    it.call(ITargetedContentSubscription_remove_AvailabilityChanged, token)
+    check it.vtbl.remove_AvailabilityChanged(it, token), "TargetedContentSubscription.remove_AvailabilityChanged"
 
 proc onStateChanged*(self: TargetedContentSubscription,
                      handler: EventHandler[TargetedContentSubscription, TargetedContentStateChangedEventArgs]
@@ -4669,13 +4198,13 @@ proc onStateChanged*(self: TargetedContentSubscription,
     let cb = newDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentStateChangedEventArgs,
                          shim, event = true)
     try:
-      it.call(ITargetedContentSubscription_add_StateChanged, cb, result.addr)
+      check it.vtbl.add_StateChanged(it, cb, result.addr), "TargetedContentSubscription.add_StateChanged"
     finally:
       release(cb)
 
 proc removeStateChanged*(self: TargetedContentSubscription, token: EventRegistrationToken) =
   withIface(self.p, ITargetedContentSubscription, it):
-    it.call(ITargetedContentSubscription_remove_StateChanged, token)
+    check it.vtbl.remove_StateChanged(it, token), "TargetedContentSubscription.remove_StateChanged"
 
 proc getAsync*(_: typedesc[TargetedContentSubscription], subscriptionId: string
               ): Future[TargetedContentSubscription] {.async.} =
@@ -4684,7 +4213,8 @@ proc getAsync*(_: typedesc[TargetedContentSubscription], subscriptionId: string
   withStatics("Windows.Services.TargetedContent.TargetedContentSubscription",
               ITargetedContentSubscriptionStatics, it):
     withHString(subscriptionId, h0):
-      it.call(ITargetedContentSubscriptionStatics_GetAsync, h0, op.addr)
+      check it.vtbl.GetAsync(it, h0, op.addr
+                            ), "TargetedContentSubscription.GetAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_TargetedContentSubscription,
                               IID_AsyncOperationCompletedHandler_1_TargetedContentSubscription,
@@ -4698,37 +4228,32 @@ proc getOptions*(_: typedesc[TargetedContentSubscription],
               ITargetedContentSubscriptionStatics, it):
     withHString(subscriptionId, h0):
       var tmp: pointer
-      it.call(ITargetedContentSubscriptionStatics_GetOptions, h0, tmp.addr)
+      check it.vtbl.GetOptions(it, h0, tmp.addr
+                              ), "TargetedContentSubscription.GetOptions"
       result = adopt[TargetedContentSubscriptionOptions](tmp)
 
 proc subscriptionId*(self: TargetedContentSubscriptionOptions): string =
   ## Windows.Services.TargetedContent.TargetedContentSubscriptionOptions.get_SubscriptionId
   withIface(self.p, ITargetedContentSubscriptionOptions, it):
-    var tmp: HSTRING
-    it.call(ITargetedContentSubscriptionOptions_get_SubscriptionId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SubscriptionId)
 
 proc allowPartialContentAvailability*(self: TargetedContentSubscriptionOptions): bool =
   ## Windows.Services.TargetedContent.TargetedContentSubscriptionOptions.get_AllowPartialContentAvailability
   withIface(self.p, ITargetedContentSubscriptionOptions, it):
-    var tmp: bool
-    it.call(ITargetedContentSubscriptionOptions_get_AllowPartialContentAvailability,
-            tmp.addr)
-    result = tmp
+    result = it.getValue(get_AllowPartialContentAvailability, bool)
 
 proc `allowPartialContentAvailability=`*(self: TargetedContentSubscriptionOptions,
                                          value: bool) =
   ## Windows.Services.TargetedContent.TargetedContentSubscriptionOptions.put_AllowPartialContentAvailability
   withIface(self.p, ITargetedContentSubscriptionOptions, it):
-    it.call(ITargetedContentSubscriptionOptions_put_AllowPartialContentAvailability,
-            value)
+    it.putValue(put_AllowPartialContentAvailability, value)
 
 proc cloudQueryParameters*(self: TargetedContentSubscriptionOptions): Table[string, string] =
   ## Windows.Services.TargetedContent.TargetedContentSubscriptionOptions.get_CloudQueryParameters
   withIface(self.p, ITargetedContentSubscriptionOptions, it):
     var tmp: pointer
-    it.call(ITargetedContentSubscriptionOptions_get_CloudQueryParameters,
-            tmp.addr)
+    check it.vtbl.get_CloudQueryParameters(it, tmp.addr
+                                          ), "TargetedContentSubscriptionOptions.get_CloudQueryParameters"
     result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_24,
                                      IID_IKeyValuePair_2_String_String)
     release(tmp)
@@ -4737,83 +4262,66 @@ proc localFilters*(self: TargetedContentSubscriptionOptions): seq[string] =
   ## Windows.Services.TargetedContent.TargetedContentSubscriptionOptions.get_LocalFilters
   withIface(self.p, ITargetedContentSubscriptionOptions, it):
     var tmp: pointer
-    it.call(ITargetedContentSubscriptionOptions_get_LocalFilters, tmp.addr)
+    check it.vtbl.get_LocalFilters(it, tmp.addr
+                                  ), "TargetedContentSubscriptionOptions.get_LocalFilters"
     result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc update*(self: TargetedContentSubscriptionOptions) =
   ## Windows.Services.TargetedContent.TargetedContentSubscriptionOptions.Update
   withIface(self.p, ITargetedContentSubscriptionOptions, it):
-    it.call(ITargetedContentSubscriptionOptions_Update)
+    check it.vtbl.Update(it), "TargetedContentSubscriptionOptions.Update"
 
 proc valueKind*(self: TargetedContentValue): TargetedContentValueKind =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_ValueKind
   withIface(self.p, ITargetedContentValue, it):
-    var tmp: TargetedContentValueKind
-    it.call(ITargetedContentValue_get_ValueKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ValueKind, TargetedContentValueKind)
 
 proc path*(self: TargetedContentValue): string =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_Path
   withIface(self.p, ITargetedContentValue, it):
-    var tmp: HSTRING
-    it.call(ITargetedContentValue_get_Path, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Path)
 
 proc stringValue*(self: TargetedContentValue): string =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_String
   withIface(self.p, ITargetedContentValue, it):
-    var tmp: HSTRING
-    it.call(ITargetedContentValue_get_String, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_String)
 
 proc uri*(self: TargetedContentValue): Uri =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_Uri
   withIface(self.p, ITargetedContentValue, it):
-    var tmp: pointer
-    it.call(ITargetedContentValue_get_Uri, tmp.addr)
-    result = adopt[Uri](tmp)
+    result = it.getObject(get_Uri, Uri)
 
 proc number*(self: TargetedContentValue): float64 =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_Number
   withIface(self.p, ITargetedContentValue, it):
-    var tmp: float64
-    it.call(ITargetedContentValue_get_Number, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Number, float64)
 
 proc boolean*(self: TargetedContentValue): bool =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_Boolean
   withIface(self.p, ITargetedContentValue, it):
-    var tmp: bool
-    it.call(ITargetedContentValue_get_Boolean, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Boolean, bool)
 
 proc file*(self: TargetedContentValue): TargetedContentFile =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_File
   withIface(self.p, ITargetedContentValue, it):
-    var tmp: pointer
-    it.call(ITargetedContentValue_get_File, tmp.addr)
-    result = adopt[TargetedContentFile](tmp)
+    result = it.getObject(get_File, TargetedContentFile)
 
 proc imageFile*(self: TargetedContentValue): TargetedContentImage =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_ImageFile
   withIface(self.p, ITargetedContentValue, it):
-    var tmp: pointer
-    it.call(ITargetedContentValue_get_ImageFile, tmp.addr)
-    result = adopt[TargetedContentImage](tmp)
+    result = it.getObject(get_ImageFile, TargetedContentImage)
 
 proc action*(self: TargetedContentValue): TargetedContentAction =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_Action
   withIface(self.p, ITargetedContentValue, it):
-    var tmp: pointer
-    it.call(ITargetedContentValue_get_Action, tmp.addr)
-    result = adopt[TargetedContentAction](tmp)
+    result = it.getObject(get_Action, TargetedContentAction)
 
 proc strings*(self: TargetedContentValue): seq[string] =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_Strings
   withIface(self.p, ITargetedContentValue, it):
     var tmp: pointer
-    it.call(ITargetedContentValue_get_Strings, tmp.addr)
+    check it.vtbl.get_Strings(it, tmp.addr), "TargetedContentValue.get_Strings"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
@@ -4821,7 +4329,7 @@ proc uris*(self: TargetedContentValue): seq[Uri] =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_Uris
   withIface(self.p, ITargetedContentValue, it):
     var tmp: pointer
-    it.call(ITargetedContentValue_get_Uris, tmp.addr)
+    check it.vtbl.get_Uris(it, tmp.addr), "TargetedContentValue.get_Uris"
     result = toSeq[Uri](tmp, IID_IVectorView_1_Uri)
     release(tmp)
 
@@ -4829,7 +4337,7 @@ proc numbers*(self: TargetedContentValue): seq[float64] =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_Numbers
   withIface(self.p, ITargetedContentValue, it):
     var tmp: pointer
-    it.call(ITargetedContentValue_get_Numbers, tmp.addr)
+    check it.vtbl.get_Numbers(it, tmp.addr), "TargetedContentValue.get_Numbers"
     result = toSeq[float64](tmp, IID_IVectorView_1_F8)
     release(tmp)
 
@@ -4837,7 +4345,8 @@ proc booleans*(self: TargetedContentValue): seq[bool] =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_Booleans
   withIface(self.p, ITargetedContentValue, it):
     var tmp: pointer
-    it.call(ITargetedContentValue_get_Booleans, tmp.addr)
+    check it.vtbl.get_Booleans(it, tmp.addr
+                              ), "TargetedContentValue.get_Booleans"
     result = toSeq[bool](tmp, IID_IVectorView_1_Bool)
     release(tmp)
 
@@ -4845,7 +4354,7 @@ proc files*(self: TargetedContentValue): seq[TargetedContentFile] =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_Files
   withIface(self.p, ITargetedContentValue, it):
     var tmp: pointer
-    it.call(ITargetedContentValue_get_Files, tmp.addr)
+    check it.vtbl.get_Files(it, tmp.addr), "TargetedContentValue.get_Files"
     result = toSeq[TargetedContentFile](tmp,
                                         IID_IVectorView_1_TargetedContentFile)
     release(tmp)
@@ -4854,7 +4363,8 @@ proc imageFiles*(self: TargetedContentValue): seq[TargetedContentImage] =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_ImageFiles
   withIface(self.p, ITargetedContentValue, it):
     var tmp: pointer
-    it.call(ITargetedContentValue_get_ImageFiles, tmp.addr)
+    check it.vtbl.get_ImageFiles(it, tmp.addr
+                                ), "TargetedContentValue.get_ImageFiles"
     result = toSeq[TargetedContentImage](tmp,
                                          IID_IVectorView_1_TargetedContentImage)
     release(tmp)
@@ -4863,7 +4373,7 @@ proc actions*(self: TargetedContentValue): seq[TargetedContentAction] =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_Actions
   withIface(self.p, ITargetedContentValue, it):
     var tmp: pointer
-    it.call(ITargetedContentValue_get_Actions, tmp.addr)
+    check it.vtbl.get_Actions(it, tmp.addr), "TargetedContentValue.get_Actions"
     result = toSeq[TargetedContentAction](tmp,
                                           IID_IVectorView_1_TargetedContentAction
                                          )

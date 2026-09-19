@@ -3,12 +3,10 @@
 ## Source:    Windows.winmd
 ## Namespace: Windows.Perception
 ##
-## Slot numbers are vtable indices. WinRT interfaces begin with
-## IInspectable's six slots, so the first declared method is slot 6;
-## delegates derive from IUnknown and begin at slot 3.
-##
-## Every method returns HRESULT and its declared return type becomes
-## a trailing out-parameter.
+## Each interface is its vtable: an object whose fields are the
+## methods in declaration order, after IInspectable's six (IUnknown's
+## three for a delegate). Every method returns HRESULT and its
+## declared return type becomes a trailing out-parameter.
 
 import std/hashes
 export hashes
@@ -20,710 +18,571 @@ export types
 
 ## Windows.Perception.Automation.Core.ICorePerceptionAutomationStatics
 const IID_ICorePerceptionAutomationStatics* = guid"0BB04541-4CE2-4923-9A76-8187ECC59112"
-const Slot_ICorePerceptionAutomationStatics_SetActivationFactoryProvider* = 6
-type Fn_ICorePerceptionAutomationStatics_SetActivationFactoryProvider* =
-  proc(self: pointer, a1IGetActivationFactory: pointer): HRESULT {.abi.}
+type ICorePerceptionAutomationStaticsVtbl* = object of IInspectableVtbl
+  SetActivationFactoryProvider*: proc(self: pointer,
+                                      a1IGetActivationFactory: pointer
+                                     ): HRESULT {.abi.}
 
 ## Windows.Perception.IPerceptionTimestamp
 const IID_IPerceptionTimestamp* = guid"87C24804-A22E-4ADB-BA26-D78EF639BCF4"
-const Slot_IPerceptionTimestamp_get_TargetTime* = 6
-type Fn_IPerceptionTimestamp_get_TargetTime* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_IPerceptionTimestamp_get_PredictionAmount* = 7
-type Fn_IPerceptionTimestamp_get_PredictionAmount* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+type IPerceptionTimestampVtbl* = object of IInspectableVtbl
+  get_TargetTime*: proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
+  get_PredictionAmount*: proc(self: pointer, value: ptr TimeSpan
+                             ): HRESULT {.abi.}
 
 ## Windows.Perception.IPerceptionTimestamp2
 const IID_IPerceptionTimestamp2* = guid"E354B7ED-2BD1-41B7-9ED0-74A15C354537"
-const Slot_IPerceptionTimestamp2_get_SystemRelativeTargetTime* = 6
-type Fn_IPerceptionTimestamp2_get_SystemRelativeTargetTime* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+type IPerceptionTimestamp2Vtbl* = object of IInspectableVtbl
+  get_SystemRelativeTargetTime*: proc(self: pointer, value: ptr TimeSpan
+                                     ): HRESULT {.abi.}
 
 ## Windows.Perception.IPerceptionTimestampHelperStatics
 const IID_IPerceptionTimestampHelperStatics* = guid"47A611D4-A9DF-4EDC-855D-F4D339D967AC"
-const Slot_IPerceptionTimestampHelperStatics_FromHistoricalTargetTime* = 6
-type Fn_IPerceptionTimestampHelperStatics_FromHistoricalTargetTime* =
-  proc(self: pointer, a1: DateTime, value: ptr pointer): HRESULT {.abi.}
+type IPerceptionTimestampHelperStaticsVtbl* = object of IInspectableVtbl
+  FromHistoricalTargetTime*: proc(self: pointer, a1: DateTime,
+                                  value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.IPerceptionTimestampHelperStatics2
 const IID_IPerceptionTimestampHelperStatics2* = guid"73D1A7FE-3FB9-4571-87D4-3C920A5E86EB"
-const Slot_IPerceptionTimestampHelperStatics2_FromSystemRelativeTargetTime* = 6
-type Fn_IPerceptionTimestampHelperStatics2_FromSystemRelativeTargetTime* =
-  proc(self: pointer, a1: TimeSpan, value: ptr pointer): HRESULT {.abi.}
+type IPerceptionTimestampHelperStatics2Vtbl* = object of IInspectableVtbl
+  FromSystemRelativeTargetTime*: proc(self: pointer, a1: TimeSpan,
+                                      value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.People.IEyesPose
 const IID_IEyesPose* = guid"682A9B23-8A1E-5B86-A060-906FFACB62A4"
-const Slot_IEyesPose_get_IsCalibrationValid* = 6
-type Fn_IEyesPose_get_IsCalibrationValid* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IEyesPose_get_Gaze* = 7
-type Fn_IEyesPose_get_Gaze* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IEyesPose_get_UpdateTimestamp* = 8
-type Fn_IEyesPose_get_UpdateTimestamp* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IEyesPoseVtbl* = object of IInspectableVtbl
+  get_IsCalibrationValid*: proc(self: pointer, value: ptr bool
+                               ): HRESULT {.abi.}
+  get_Gaze*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_UpdateTimestamp*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.Perception.People.IEyesPoseStatics
 const IID_IEyesPoseStatics* = guid"1CFF7413-B21F-54C0-80C1-E60D994CA58C"
-const Slot_IEyesPoseStatics_IsSupported* = 6
-type Fn_IEyesPoseStatics_IsSupported* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IEyesPoseStatics_RequestAccessAsync* = 7
-type Fn_IEyesPoseStatics_RequestAccessAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IEyesPoseStaticsVtbl* = object of IInspectableVtbl
+  IsSupported*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  RequestAccessAsync*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.Perception.People.IHandMeshObserver
 const IID_IHandMeshObserver* = guid"85AE30CB-6FC3-55C4-A7B4-29E33896CA69"
-const Slot_IHandMeshObserver_get_Source* = 6
-type Fn_IHandMeshObserver_get_Source* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHandMeshObserver_get_TriangleIndexCount* = 7
-type Fn_IHandMeshObserver_get_TriangleIndexCount* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IHandMeshObserver_get_VertexCount* = 8
-type Fn_IHandMeshObserver_get_VertexCount* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IHandMeshObserver_GetTriangleIndices* = 9
-type Fn_IHandMeshObserver_GetTriangleIndices* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint16): HRESULT {.abi.}
-const Slot_IHandMeshObserver_GetVertexStateForPose* = 10
-type Fn_IHandMeshObserver_GetVertexStateForPose* =
-  proc(self: pointer, a1HandPose: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IHandMeshObserver_get_NeutralPose* = 11
-type Fn_IHandMeshObserver_get_NeutralPose* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHandMeshObserver_get_NeutralPoseVersion* = 12
-type Fn_IHandMeshObserver_get_NeutralPoseVersion* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_IHandMeshObserver_get_ModelId* = 13
-type Fn_IHandMeshObserver_get_ModelId* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
+type IHandMeshObserverVtbl* = object of IInspectableVtbl
+  get_Source*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_TriangleIndexCount*: proc(self: pointer, value: ptr uint32
+                               ): HRESULT {.abi.}
+  get_VertexCount*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  GetTriangleIndices*: proc(self: pointer, a1Size: uint32, a1: ptr uint16
+                           ): HRESULT {.abi.}
+  GetVertexStateForPose*: proc(self: pointer, a1HandPose: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
+  get_NeutralPose*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_NeutralPoseVersion*: proc(self: pointer, value: ptr int32
+                               ): HRESULT {.abi.}
+  get_ModelId*: proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 
 ## Windows.Perception.People.IHandMeshVertexState
 const IID_IHandMeshVertexState* = guid"046C5FEF-1D8B-55DE-AB2C-1CD424886D8F"
-const Slot_IHandMeshVertexState_get_CoordinateSystem* = 6
-type Fn_IHandMeshVertexState_get_CoordinateSystem* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHandMeshVertexState_GetVertices* = 7
-type Fn_IHandMeshVertexState_GetVertices* =
-  proc(self: pointer, a1Size: uint32, a1: ptr HandMeshVertex): HRESULT {.abi.}
-const Slot_IHandMeshVertexState_get_UpdateTimestamp* = 8
-type Fn_IHandMeshVertexState_get_UpdateTimestamp* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHandMeshVertexStateVtbl* = object of IInspectableVtbl
+  get_CoordinateSystem*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  GetVertices*: proc(self: pointer, a1Size: uint32, a1: ptr HandMeshVertex
+                    ): HRESULT {.abi.}
+  get_UpdateTimestamp*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.Perception.People.IHandPose
 const IID_IHandPose* = guid"4D98E79A-BB08-5D09-91DE-DF0DD3FAE46C"
-const Slot_IHandPose_TryGetJoint* = 6
-type Fn_IHandPose_TryGetJoint* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: HandJointKind,
-       a3: ptr JointPose, value: ptr bool): HRESULT {.abi.}
-const Slot_IHandPose_TryGetJoints* = 7
-type Fn_IHandPose_TryGetJoints* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2Size: uint32,
-       a2: ptr HandJointKind, a3Size: uint32, a3: ptr JointPose,
-       value: ptr bool): HRESULT {.abi.}
-const Slot_IHandPose_GetRelativeJoint* = 8
-type Fn_IHandPose_GetRelativeJoint* =
-  proc(self: pointer, a1: HandJointKind, a2: HandJointKind,
-       value: ptr JointPose): HRESULT {.abi.}
-const Slot_IHandPose_GetRelativeJoints* = 9
-type Fn_IHandPose_GetRelativeJoints* =
-  proc(self: pointer, a1Size: uint32, a1: ptr HandJointKind, a2Size: uint32,
-       a2: ptr HandJointKind, a3Size: uint32, a3: ptr JointPose
-      ): HRESULT {.abi.}
+type IHandPoseVtbl* = object of IInspectableVtbl
+  TryGetJoint*: proc(self: pointer, a1SpatialCoordinateSystem: pointer,
+                     a2: HandJointKind, a3: ptr JointPose, value: ptr bool
+                    ): HRESULT {.abi.}
+  TryGetJoints*: proc(self: pointer, a1SpatialCoordinateSystem: pointer,
+                      a2Size: uint32, a2: ptr HandJointKind, a3Size: uint32,
+                      a3: ptr JointPose, value: ptr bool): HRESULT {.abi.}
+  GetRelativeJoint*: proc(self: pointer, a1: HandJointKind, a2: HandJointKind,
+                          value: ptr JointPose): HRESULT {.abi.}
+  GetRelativeJoints*: proc(self: pointer, a1Size: uint32,
+                           a1: ptr HandJointKind, a2Size: uint32,
+                           a2: ptr HandJointKind, a3Size: uint32,
+                           a3: ptr JointPose): HRESULT {.abi.}
 
 ## Windows.Perception.People.IHeadPose
 const IID_IHeadPose* = guid"7F5AC5A5-49DB-379F-9429-32A2FAF34FA6"
-const Slot_IHeadPose_get_Position* = 6
-type Fn_IHeadPose_get_Position* =
-  proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
-const Slot_IHeadPose_get_ForwardDirection* = 7
-type Fn_IHeadPose_get_ForwardDirection* =
-  proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
-const Slot_IHeadPose_get_UpDirection* = 8
-type Fn_IHeadPose_get_UpDirection* =
-  proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
+type IHeadPoseVtbl* = object of IInspectableVtbl
+  get_Position*: proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
+  get_ForwardDirection*: proc(self: pointer, value: ptr Vector3
+                             ): HRESULT {.abi.}
+  get_UpDirection*: proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialAnchor
 const IID_ISpatialAnchor* = guid"0529E5CE-1D34-3702-BCEC-EABFF578A869"
-const Slot_ISpatialAnchor_get_CoordinateSystem* = 6
-type Fn_ISpatialAnchor_get_CoordinateSystem* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialAnchor_get_RawCoordinateSystem* = 7
-type Fn_ISpatialAnchor_get_RawCoordinateSystem* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialAnchor_add_RawCoordinateSystemAdjusted* = 8
-type Fn_ISpatialAnchor_add_RawCoordinateSystemAdjusted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ISpatialAnchor_remove_RawCoordinateSystemAdjusted* = 9
-type Fn_ISpatialAnchor_remove_RawCoordinateSystemAdjusted* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type ISpatialAnchorVtbl* = object of IInspectableVtbl
+  get_CoordinateSystem*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  get_RawCoordinateSystem*: proc(self: pointer, value: ptr pointer
+                                ): HRESULT {.abi.}
+  add_RawCoordinateSystemAdjusted*: proc(self: pointer, a1: pointer,
+                                         value: ptr EventRegistrationToken
+                                        ): HRESULT {.abi.}
+  remove_RawCoordinateSystemAdjusted*: proc(self: pointer,
+                                            a1: EventRegistrationToken
+                                           ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialAnchor2
 const IID_ISpatialAnchor2* = guid"ED17C908-A695-4CF6-92FD-97263BA71047"
-const Slot_ISpatialAnchor2_get_RemovedByUser* = 6
-type Fn_ISpatialAnchor2_get_RemovedByUser* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type ISpatialAnchor2Vtbl* = object of IInspectableVtbl
+  get_RemovedByUser*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorExportSufficiency
 const IID_ISpatialAnchorExportSufficiency* = guid"77C25B2B-3409-4088-B91B-FDFD05D1648F"
-const Slot_ISpatialAnchorExportSufficiency_get_IsMinimallySufficient* = 6
-type Fn_ISpatialAnchorExportSufficiency_get_IsMinimallySufficient* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ISpatialAnchorExportSufficiency_get_SufficiencyLevel* = 7
-type Fn_ISpatialAnchorExportSufficiency_get_SufficiencyLevel* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_ISpatialAnchorExportSufficiency_get_RecommendedSufficiencyLevel* = 8
-type Fn_ISpatialAnchorExportSufficiency_get_RecommendedSufficiencyLevel* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
+type ISpatialAnchorExportSufficiencyVtbl* = object of IInspectableVtbl
+  get_IsMinimallySufficient*: proc(self: pointer, value: ptr bool
+                                  ): HRESULT {.abi.}
+  get_SufficiencyLevel*: proc(self: pointer, value: ptr float64
+                             ): HRESULT {.abi.}
+  get_RecommendedSufficiencyLevel*: proc(self: pointer, value: ptr float64
+                                        ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorExporter
 const IID_ISpatialAnchorExporter* = guid"9A2A4338-24FB-4269-89C5-88304AEEF20F"
-const Slot_ISpatialAnchorExporter_GetAnchorExportSufficiencyAsync* = 6
-type Fn_ISpatialAnchorExporter_GetAnchorExportSufficiencyAsync* =
-  proc(self: pointer, a1SpatialAnchor: pointer,
-       a2: SpatialAnchorExportPurpose, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialAnchorExporter_TryExportAnchorAsync* = 7
-type Fn_ISpatialAnchorExporter_TryExportAnchorAsync* =
-  proc(self: pointer, a1SpatialAnchor: pointer,
-       a2: SpatialAnchorExportPurpose, a3IOutputStream: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ISpatialAnchorExporterVtbl* = object of IInspectableVtbl
+  GetAnchorExportSufficiencyAsync*: proc(self: pointer,
+                                         a1SpatialAnchor: pointer,
+                                         a2: SpatialAnchorExportPurpose,
+                                         value: ptr pointer): HRESULT {.abi.}
+  TryExportAnchorAsync*: proc(self: pointer, a1SpatialAnchor: pointer,
+                              a2: SpatialAnchorExportPurpose,
+                              a3IOutputStream: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorExporterStatics
 const IID_ISpatialAnchorExporterStatics* = guid"ED2507B8-2475-439C-85FF-7FED341FDC88"
-const Slot_ISpatialAnchorExporterStatics_GetDefault* = 6
-type Fn_ISpatialAnchorExporterStatics_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialAnchorExporterStatics_RequestAccessAsync* = 7
-type Fn_ISpatialAnchorExporterStatics_RequestAccessAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialAnchorExporterStaticsVtbl* = object of IInspectableVtbl
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  RequestAccessAsync*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorManagerStatics
 const IID_ISpatialAnchorManagerStatics* = guid"88E30EAB-F3B7-420B-B086-8A80C07D910D"
-const Slot_ISpatialAnchorManagerStatics_RequestStoreAsync* = 6
-type Fn_ISpatialAnchorManagerStatics_RequestStoreAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialAnchorManagerStaticsVtbl* = object of IInspectableVtbl
+  RequestStoreAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorRawCoordinateSystemAdjustedEventArgs
 const IID_ISpatialAnchorRawCoordinateSystemAdjustedEventArgs* = guid"A1E81EB8-56C7-3117-A2E4-81E0FCF28E00"
-const Slot_ISpatialAnchorRawCoordinateSystemAdjustedEventArgs_get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform* = 6
-type Fn_ISpatialAnchorRawCoordinateSystemAdjustedEventArgs_get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform* =
-  proc(self: pointer, value: ptr Matrix4x4): HRESULT {.abi.}
+type ISpatialAnchorRawCoordinateSystemAdjustedEventArgsVtbl* = object of IInspectableVtbl
+  get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform*: proc(self: pointer,
+                                                                     value: ptr Matrix4x4
+                                                                    ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorStatics
 const IID_ISpatialAnchorStatics* = guid"A9928642-0174-311C-AE79-0E5107669F16"
-const Slot_ISpatialAnchorStatics_TryCreateRelativeTo* = 6
-type Fn_ISpatialAnchorStatics_TryCreateRelativeTo* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISpatialAnchorStatics_TryCreateRelativeTo2* = 7
-type Fn_ISpatialAnchorStatics_TryCreateRelativeTo2* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialAnchorStatics_TryCreateRelativeTo3* = 8
-type Fn_ISpatialAnchorStatics_TryCreateRelativeTo3* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3,
-       a3: Quaternion, value: ptr pointer): HRESULT {.abi.}
+type ISpatialAnchorStaticsVtbl* = object of IInspectableVtbl
+  TryCreateRelativeTo*: proc(self: pointer,
+                             a1SpatialCoordinateSystem: pointer,
+                             value: ptr pointer): HRESULT {.abi.}
+  TryCreateRelativeTo2*: proc(self: pointer,
+                              a1SpatialCoordinateSystem: pointer, a2: Vector3,
+                              value: ptr pointer): HRESULT {.abi.}
+  TryCreateRelativeTo3*: proc(self: pointer,
+                              a1SpatialCoordinateSystem: pointer, a2: Vector3,
+                              a3: Quaternion, value: ptr pointer
+                             ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorStore
 const IID_ISpatialAnchorStore* = guid"B0BC3636-486A-3CB0-9E6F-1245165C4DB6"
-const Slot_ISpatialAnchorStore_GetAllSavedAnchors* = 6
-type Fn_ISpatialAnchorStore_GetAllSavedAnchors* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialAnchorStore_TrySave* = 7
-type Fn_ISpatialAnchorStore_TrySave* =
-  proc(self: pointer, a1: HSTRING, a2SpatialAnchor: pointer, value: ptr bool
-      ): HRESULT {.abi.}
-const Slot_ISpatialAnchorStore_Remove* = 8
-type Fn_ISpatialAnchorStore_Remove* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ISpatialAnchorStore_Clear* = 9
-type Fn_ISpatialAnchorStore_Clear* =
-  proc(self: pointer): HRESULT {.abi.}
+type ISpatialAnchorStoreVtbl* = object of IInspectableVtbl
+  GetAllSavedAnchors*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  TrySave*: proc(self: pointer, a1: HSTRING, a2SpatialAnchor: pointer,
+                 value: ptr bool): HRESULT {.abi.}
+  Remove*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  Clear*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorTransferManagerStatics
 const IID_ISpatialAnchorTransferManagerStatics* = guid"03BBF9B9-12D8-4BCE-8835-C5DF3AC0ADAB"
-const Slot_ISpatialAnchorTransferManagerStatics_TryImportAnchorsAsync* = 6
-type Fn_ISpatialAnchorTransferManagerStatics_TryImportAnchorsAsync* =
-  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISpatialAnchorTransferManagerStatics_TryExportAnchorsAsync* = 7
-type Fn_ISpatialAnchorTransferManagerStatics_TryExportAnchorsAsync* =
-  proc(self: pointer, a1: pointer, a2IOutputStream: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialAnchorTransferManagerStatics_RequestAccessAsync* = 8
-type Fn_ISpatialAnchorTransferManagerStatics_RequestAccessAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialAnchorTransferManagerStaticsVtbl* = object of IInspectableVtbl
+  TryImportAnchorsAsync*: proc(self: pointer, a1IInputStream: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
+  TryExportAnchorsAsync*: proc(self: pointer, a1: pointer,
+                               a2IOutputStream: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  RequestAccessAsync*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialBoundingVolume
 const IID_ISpatialBoundingVolume* = guid"FB2065DA-68C3-33DF-B7AF-4C787207999C"
+type ISpatialBoundingVolumeVtbl* = object of IInspectableVtbl
 
 ## Windows.Perception.Spatial.ISpatialBoundingVolumeStatics
 const IID_ISpatialBoundingVolumeStatics* = guid"05889117-B3E1-36D8-B017-566181A5B196"
-const Slot_ISpatialBoundingVolumeStatics_FromBox* = 6
-type Fn_ISpatialBoundingVolumeStatics_FromBox* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer,
-       a2: SpatialBoundingBox, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialBoundingVolumeStatics_FromOrientedBox* = 7
-type Fn_ISpatialBoundingVolumeStatics_FromOrientedBox* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer,
-       a2: SpatialBoundingOrientedBox, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialBoundingVolumeStatics_FromSphere* = 8
-type Fn_ISpatialBoundingVolumeStatics_FromSphere* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer,
-       a2: SpatialBoundingSphere, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialBoundingVolumeStatics_FromFrustum* = 9
-type Fn_ISpatialBoundingVolumeStatics_FromFrustum* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer,
-       a2: SpatialBoundingFrustum, value: ptr pointer): HRESULT {.abi.}
+type ISpatialBoundingVolumeStaticsVtbl* = object of IInspectableVtbl
+  FromBox*: proc(self: pointer, a1SpatialCoordinateSystem: pointer,
+                 a2: SpatialBoundingBox, value: ptr pointer): HRESULT {.abi.}
+  FromOrientedBox*: proc(self: pointer, a1SpatialCoordinateSystem: pointer,
+                         a2: SpatialBoundingOrientedBox, value: ptr pointer
+                        ): HRESULT {.abi.}
+  FromSphere*: proc(self: pointer, a1SpatialCoordinateSystem: pointer,
+                    a2: SpatialBoundingSphere, value: ptr pointer
+                   ): HRESULT {.abi.}
+  FromFrustum*: proc(self: pointer, a1SpatialCoordinateSystem: pointer,
+                     a2: SpatialBoundingFrustum, value: ptr pointer
+                    ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialCoordinateSystem
 const IID_ISpatialCoordinateSystem* = guid"69EBCA4B-60A3-3586-A653-59A7BD676D07"
-const Slot_ISpatialCoordinateSystem_TryGetTransformTo* = 6
-type Fn_ISpatialCoordinateSystem_TryGetTransformTo* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ISpatialCoordinateSystemVtbl* = object of IInspectableVtbl
+  TryGetTransformTo*: proc(self: pointer, a1SpatialCoordinateSystem: pointer,
+                           value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialEntity
 const IID_ISpatialEntity* = guid"166DE955-E1EB-454C-BA08-E6C0668DDC65"
-const Slot_ISpatialEntity_get_Id* = 6
-type Fn_ISpatialEntity_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISpatialEntity_get_Anchor* = 7
-type Fn_ISpatialEntity_get_Anchor* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialEntity_get_Properties* = 8
-type Fn_ISpatialEntity_get_Properties* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialEntityVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Anchor*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Properties*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialEntityAddedEventArgs
 const IID_ISpatialEntityAddedEventArgs* = guid"A397F49B-156A-4707-AC2C-D31D570ED399"
-const Slot_ISpatialEntityAddedEventArgs_get_Entity* = 6
-type Fn_ISpatialEntityAddedEventArgs_get_Entity* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialEntityAddedEventArgsVtbl* = object of IInspectableVtbl
+  get_Entity*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialEntityFactory
 const IID_ISpatialEntityFactory* = guid"E1F1E325-349F-4225-A2F3-4B01C15FE056"
-const Slot_ISpatialEntityFactory_CreateWithSpatialAnchor* = 6
-type Fn_ISpatialEntityFactory_CreateWithSpatialAnchor* =
-  proc(self: pointer, a1SpatialAnchor: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISpatialEntityFactory_CreateWithSpatialAnchorAndProperties* = 7
-type Fn_ISpatialEntityFactory_CreateWithSpatialAnchorAndProperties* =
-  proc(self: pointer, a1SpatialAnchor: pointer, a2ValueSet: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ISpatialEntityFactoryVtbl* = object of IInspectableVtbl
+  CreateWithSpatialAnchor*: proc(self: pointer, a1SpatialAnchor: pointer,
+                                 value: ptr pointer): HRESULT {.abi.}
+  CreateWithSpatialAnchorAndProperties*: proc(self: pointer,
+                                              a1SpatialAnchor: pointer,
+                                              a2ValueSet: pointer,
+                                              value: ptr pointer
+                                             ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialEntityRemovedEventArgs
 const IID_ISpatialEntityRemovedEventArgs* = guid"91741800-536D-4E9F-ABF6-415B5444D651"
-const Slot_ISpatialEntityRemovedEventArgs_get_Entity* = 6
-type Fn_ISpatialEntityRemovedEventArgs_get_Entity* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialEntityRemovedEventArgsVtbl* = object of IInspectableVtbl
+  get_Entity*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialEntityStore
 const IID_ISpatialEntityStore* = guid"329788BA-E513-4F06-889D-1BE30ECF43E6"
-const Slot_ISpatialEntityStore_SaveAsync* = 6
-type Fn_ISpatialEntityStore_SaveAsync* =
-  proc(self: pointer, a1SpatialEntity: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISpatialEntityStore_RemoveAsync* = 7
-type Fn_ISpatialEntityStore_RemoveAsync* =
-  proc(self: pointer, a1SpatialEntity: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISpatialEntityStore_CreateEntityWatcher* = 8
-type Fn_ISpatialEntityStore_CreateEntityWatcher* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialEntityStoreVtbl* = object of IInspectableVtbl
+  SaveAsync*: proc(self: pointer, a1SpatialEntity: pointer, value: ptr pointer
+                  ): HRESULT {.abi.}
+  RemoveAsync*: proc(self: pointer, a1SpatialEntity: pointer,
+                     value: ptr pointer): HRESULT {.abi.}
+  CreateEntityWatcher*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialEntityStoreStatics
 const IID_ISpatialEntityStoreStatics* = guid"6B4B389E-7C50-4E92-8A62-4D1D4B7CCD3E"
-const Slot_ISpatialEntityStoreStatics_get_IsSupported* = 6
-type Fn_ISpatialEntityStoreStatics_get_IsSupported* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ISpatialEntityStoreStatics_TryGet* = 7
-type Fn_ISpatialEntityStoreStatics_TryGet* =
-  proc(self: pointer, a1RemoteSystemSession: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ISpatialEntityStoreStaticsVtbl* = object of IInspectableVtbl
+  get_IsSupported*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  TryGet*: proc(self: pointer, a1RemoteSystemSession: pointer,
+                value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialEntityUpdatedEventArgs
 const IID_ISpatialEntityUpdatedEventArgs* = guid"E5671766-627B-43CB-A49F-B3BE6D47DEED"
-const Slot_ISpatialEntityUpdatedEventArgs_get_Entity* = 6
-type Fn_ISpatialEntityUpdatedEventArgs_get_Entity* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialEntityUpdatedEventArgsVtbl* = object of IInspectableVtbl
+  get_Entity*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialEntityWatcher
 const IID_ISpatialEntityWatcher* = guid"B3B85FA0-6D5E-4BBC-805D-5FE5B9BA1959"
-const Slot_ISpatialEntityWatcher_get_Status* = 6
-type Fn_ISpatialEntityWatcher_get_Status* =
-  proc(self: pointer, value: ptr SpatialEntityWatcherStatus): HRESULT {.abi.}
-const Slot_ISpatialEntityWatcher_add_Added* = 7
-type Fn_ISpatialEntityWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ISpatialEntityWatcher_remove_Added* = 8
-type Fn_ISpatialEntityWatcher_remove_Added* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_ISpatialEntityWatcher_add_Updated* = 9
-type Fn_ISpatialEntityWatcher_add_Updated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ISpatialEntityWatcher_remove_Updated* = 10
-type Fn_ISpatialEntityWatcher_remove_Updated* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_ISpatialEntityWatcher_add_Removed* = 11
-type Fn_ISpatialEntityWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ISpatialEntityWatcher_remove_Removed* = 12
-type Fn_ISpatialEntityWatcher_remove_Removed* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_ISpatialEntityWatcher_add_EnumerationCompleted* = 13
-type Fn_ISpatialEntityWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ISpatialEntityWatcher_remove_EnumerationCompleted* = 14
-type Fn_ISpatialEntityWatcher_remove_EnumerationCompleted* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_ISpatialEntityWatcher_Start* = 15
-type Fn_ISpatialEntityWatcher_Start* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_ISpatialEntityWatcher_Stop* = 16
-type Fn_ISpatialEntityWatcher_Stop* =
-  proc(self: pointer): HRESULT {.abi.}
+type ISpatialEntityWatcherVtbl* = object of IInspectableVtbl
+  get_Status*: proc(self: pointer, value: ptr SpatialEntityWatcherStatus
+                   ): HRESULT {.abi.}
+  add_Added*: proc(self: pointer, a1: pointer,
+                   value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Added*: proc(self: pointer, a1: EventRegistrationToken
+                     ): HRESULT {.abi.}
+  add_Updated*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Updated*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
+  add_Removed*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Removed*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
+  add_EnumerationCompleted*: proc(self: pointer, a1: pointer,
+                                  value: ptr EventRegistrationToken
+                                 ): HRESULT {.abi.}
+  remove_EnumerationCompleted*: proc(self: pointer, a1: EventRegistrationToken
+                                    ): HRESULT {.abi.}
+  Start*: proc(self: pointer): HRESULT {.abi.}
+  Stop*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialLocation
 const IID_ISpatialLocation* = guid"1D81D29D-24A1-37D5-8FA1-39B4F9AD67E2"
-const Slot_ISpatialLocation_get_Position* = 6
-type Fn_ISpatialLocation_get_Position* =
-  proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
-const Slot_ISpatialLocation_get_Orientation* = 7
-type Fn_ISpatialLocation_get_Orientation* =
-  proc(self: pointer, value: ptr Quaternion): HRESULT {.abi.}
-const Slot_ISpatialLocation_get_AbsoluteLinearVelocity* = 8
-type Fn_ISpatialLocation_get_AbsoluteLinearVelocity* =
-  proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
-const Slot_ISpatialLocation_get_AbsoluteLinearAcceleration* = 9
-type Fn_ISpatialLocation_get_AbsoluteLinearAcceleration* =
-  proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
-const Slot_ISpatialLocation_get_AbsoluteAngularVelocity* = 10
-type Fn_ISpatialLocation_get_AbsoluteAngularVelocity* =
-  proc(self: pointer, value: ptr Quaternion): HRESULT {.abi.}
-const Slot_ISpatialLocation_get_AbsoluteAngularAcceleration* = 11
-type Fn_ISpatialLocation_get_AbsoluteAngularAcceleration* =
-  proc(self: pointer, value: ptr Quaternion): HRESULT {.abi.}
+type ISpatialLocationVtbl* = object of IInspectableVtbl
+  get_Position*: proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
+  get_Orientation*: proc(self: pointer, value: ptr Quaternion
+                        ): HRESULT {.abi.}
+  get_AbsoluteLinearVelocity*: proc(self: pointer, value: ptr Vector3
+                                   ): HRESULT {.abi.}
+  get_AbsoluteLinearAcceleration*: proc(self: pointer, value: ptr Vector3
+                                       ): HRESULT {.abi.}
+  get_AbsoluteAngularVelocity*: proc(self: pointer, value: ptr Quaternion
+                                    ): HRESULT {.abi.}
+  get_AbsoluteAngularAcceleration*: proc(self: pointer, value: ptr Quaternion
+                                        ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialLocation2
 const IID_ISpatialLocation2* = guid"117F2416-38A7-4A18-B404-AB8FABE1D78B"
-const Slot_ISpatialLocation2_get_AbsoluteAngularVelocityAxisAngle* = 6
-type Fn_ISpatialLocation2_get_AbsoluteAngularVelocityAxisAngle* =
-  proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
-const Slot_ISpatialLocation2_get_AbsoluteAngularAccelerationAxisAngle* = 7
-type Fn_ISpatialLocation2_get_AbsoluteAngularAccelerationAxisAngle* =
-  proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
+type ISpatialLocation2Vtbl* = object of IInspectableVtbl
+  get_AbsoluteAngularVelocityAxisAngle*: proc(self: pointer,
+                                              value: ptr Vector3
+                                             ): HRESULT {.abi.}
+  get_AbsoluteAngularAccelerationAxisAngle*: proc(self: pointer,
+                                                  value: ptr Vector3
+                                                 ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialLocator
 const IID_ISpatialLocator* = guid"F6478925-9E0C-3BB6-997E-B64ECCA24CF4"
-const Slot_ISpatialLocator_get_Locatability* = 6
-type Fn_ISpatialLocator_get_Locatability* =
-  proc(self: pointer, value: ptr SpatialLocatability): HRESULT {.abi.}
-const Slot_ISpatialLocator_add_LocatabilityChanged* = 7
-type Fn_ISpatialLocator_add_LocatabilityChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ISpatialLocator_remove_LocatabilityChanged* = 8
-type Fn_ISpatialLocator_remove_LocatabilityChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_ISpatialLocator_add_PositionalTrackingDeactivating* = 9
-type Fn_ISpatialLocator_add_PositionalTrackingDeactivating* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ISpatialLocator_remove_PositionalTrackingDeactivating* = 10
-type Fn_ISpatialLocator_remove_PositionalTrackingDeactivating* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_ISpatialLocator_TryLocateAtTimestamp* = 11
-type Fn_ISpatialLocator_TryLocateAtTimestamp* =
-  proc(self: pointer, a1PerceptionTimestamp: pointer,
-       a2SpatialCoordinateSystem: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading* = 12
-type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading2* = 13
-type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading2* =
-  proc(self: pointer, a1: Vector3, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading3* = 14
-type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading3* =
-  proc(self: pointer, a1: Vector3, a2: Quaternion, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading4* = 15
-type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading4* =
-  proc(self: pointer, a1: Vector3, a2: Quaternion, a3: float64,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation* = 16
-type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation2* = 17
-type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation2* =
-  proc(self: pointer, a1: Vector3, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation3* = 18
-type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation3* =
-  proc(self: pointer, a1: Vector3, a2: Quaternion, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation4* = 19
-type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation4* =
-  proc(self: pointer, a1: Vector3, a2: Quaternion, a3: float64,
-       value: ptr pointer): HRESULT {.abi.}
+type ISpatialLocatorVtbl* = object of IInspectableVtbl
+  get_Locatability*: proc(self: pointer, value: ptr SpatialLocatability
+                         ): HRESULT {.abi.}
+  add_LocatabilityChanged*: proc(self: pointer, a1: pointer,
+                                 value: ptr EventRegistrationToken
+                                ): HRESULT {.abi.}
+  remove_LocatabilityChanged*: proc(self: pointer, a1: EventRegistrationToken
+                                   ): HRESULT {.abi.}
+  add_PositionalTrackingDeactivating*: proc(self: pointer, a1: pointer,
+                                            value: ptr EventRegistrationToken
+                                           ): HRESULT {.abi.}
+  remove_PositionalTrackingDeactivating*: proc(self: pointer,
+                                               a1: EventRegistrationToken
+                                              ): HRESULT {.abi.}
+  TryLocateAtTimestamp*: proc(self: pointer, a1PerceptionTimestamp: pointer,
+                              a2SpatialCoordinateSystem: pointer,
+                              value: ptr pointer): HRESULT {.abi.}
+  CreateAttachedFrameOfReferenceAtCurrentHeading*: proc(self: pointer,
+                                                        value: ptr pointer
+                                                       ): HRESULT {.abi.}
+  CreateAttachedFrameOfReferenceAtCurrentHeading2*: proc(self: pointer,
+                                                         a1: Vector3,
+                                                         value: ptr pointer
+                                                        ): HRESULT {.abi.}
+  CreateAttachedFrameOfReferenceAtCurrentHeading3*: proc(self: pointer,
+                                                         a1: Vector3,
+                                                         a2: Quaternion,
+                                                         value: ptr pointer
+                                                        ): HRESULT {.abi.}
+  CreateAttachedFrameOfReferenceAtCurrentHeading4*: proc(self: pointer,
+                                                         a1: Vector3,
+                                                         a2: Quaternion,
+                                                         a3: float64,
+                                                         value: ptr pointer
+                                                        ): HRESULT {.abi.}
+  CreateStationaryFrameOfReferenceAtCurrentLocation*: proc(self: pointer,
+                                                           value: ptr pointer
+                                                          ): HRESULT {.abi.}
+  CreateStationaryFrameOfReferenceAtCurrentLocation2*: proc(self: pointer,
+                                                            a1: Vector3,
+                                                            value: ptr pointer
+                                                           ): HRESULT {.abi.}
+  CreateStationaryFrameOfReferenceAtCurrentLocation3*: proc(self: pointer,
+                                                            a1: Vector3,
+                                                            a2: Quaternion,
+                                                            value: ptr pointer
+                                                           ): HRESULT {.abi.}
+  CreateStationaryFrameOfReferenceAtCurrentLocation4*: proc(self: pointer,
+                                                            a1: Vector3,
+                                                            a2: Quaternion,
+                                                            a3: float64,
+                                                            value: ptr pointer
+                                                           ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialLocatorAttachedFrameOfReference
 const IID_ISpatialLocatorAttachedFrameOfReference* = guid"E1774EF6-1F4F-499C-9625-EF5E6ED7A048"
-const Slot_ISpatialLocatorAttachedFrameOfReference_get_RelativePosition* = 6
-type Fn_ISpatialLocatorAttachedFrameOfReference_get_RelativePosition* =
-  proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
-const Slot_ISpatialLocatorAttachedFrameOfReference_put_RelativePosition* = 7
-type Fn_ISpatialLocatorAttachedFrameOfReference_put_RelativePosition* =
-  proc(self: pointer, a1: Vector3): HRESULT {.abi.}
-const Slot_ISpatialLocatorAttachedFrameOfReference_get_RelativeOrientation* = 8
-type Fn_ISpatialLocatorAttachedFrameOfReference_get_RelativeOrientation* =
-  proc(self: pointer, value: ptr Quaternion): HRESULT {.abi.}
-const Slot_ISpatialLocatorAttachedFrameOfReference_put_RelativeOrientation* = 9
-type Fn_ISpatialLocatorAttachedFrameOfReference_put_RelativeOrientation* =
-  proc(self: pointer, a1: Quaternion): HRESULT {.abi.}
-const Slot_ISpatialLocatorAttachedFrameOfReference_AdjustHeading* = 10
-type Fn_ISpatialLocatorAttachedFrameOfReference_AdjustHeading* =
-  proc(self: pointer, a1: float64): HRESULT {.abi.}
-const Slot_ISpatialLocatorAttachedFrameOfReference_GetStationaryCoordinateSystemAtTimestamp* = 11
-type Fn_ISpatialLocatorAttachedFrameOfReference_GetStationaryCoordinateSystemAtTimestamp* =
-  proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISpatialLocatorAttachedFrameOfReference_TryGetRelativeHeadingAtTimestamp* = 12
-type Fn_ISpatialLocatorAttachedFrameOfReference_TryGetRelativeHeadingAtTimestamp* =
-  proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ISpatialLocatorAttachedFrameOfReferenceVtbl* = object of IInspectableVtbl
+  get_RelativePosition*: proc(self: pointer, value: ptr Vector3
+                             ): HRESULT {.abi.}
+  put_RelativePosition*: proc(self: pointer, a1: Vector3): HRESULT {.abi.}
+  get_RelativeOrientation*: proc(self: pointer, value: ptr Quaternion
+                                ): HRESULT {.abi.}
+  put_RelativeOrientation*: proc(self: pointer, a1: Quaternion
+                                ): HRESULT {.abi.}
+  AdjustHeading*: proc(self: pointer, a1: float64): HRESULT {.abi.}
+  GetStationaryCoordinateSystemAtTimestamp*: proc(self: pointer,
+                                                  a1PerceptionTimestamp: pointer,
+                                                  value: ptr pointer
+                                                 ): HRESULT {.abi.}
+  TryGetRelativeHeadingAtTimestamp*: proc(self: pointer,
+                                          a1PerceptionTimestamp: pointer,
+                                          value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialLocatorPositionalTrackingDeactivatingEventArgs
 const IID_ISpatialLocatorPositionalTrackingDeactivatingEventArgs* = guid"B8A84063-E3F4-368B-9061-9EA9D1D6CC16"
-const Slot_ISpatialLocatorPositionalTrackingDeactivatingEventArgs_get_Canceled* = 6
-type Fn_ISpatialLocatorPositionalTrackingDeactivatingEventArgs_get_Canceled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ISpatialLocatorPositionalTrackingDeactivatingEventArgs_put_Canceled* = 7
-type Fn_ISpatialLocatorPositionalTrackingDeactivatingEventArgs_put_Canceled* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type ISpatialLocatorPositionalTrackingDeactivatingEventArgsVtbl* = object of IInspectableVtbl
+  get_Canceled*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_Canceled*: proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialLocatorStatics
 const IID_ISpatialLocatorStatics* = guid"B76E3340-A7C2-361B-BB82-56E93B89B1BB"
-const Slot_ISpatialLocatorStatics_GetDefault* = 6
-type Fn_ISpatialLocatorStatics_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialLocatorStaticsVtbl* = object of IInspectableVtbl
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialStageFrameOfReference
 const IID_ISpatialStageFrameOfReference* = guid"7A8A3464-AD0D-4590-AB86-33062B674926"
-const Slot_ISpatialStageFrameOfReference_get_CoordinateSystem* = 6
-type Fn_ISpatialStageFrameOfReference_get_CoordinateSystem* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialStageFrameOfReference_get_MovementRange* = 7
-type Fn_ISpatialStageFrameOfReference_get_MovementRange* =
-  proc(self: pointer, value: ptr SpatialMovementRange): HRESULT {.abi.}
-const Slot_ISpatialStageFrameOfReference_get_LookDirectionRange* = 8
-type Fn_ISpatialStageFrameOfReference_get_LookDirectionRange* =
-  proc(self: pointer, value: ptr SpatialLookDirectionRange): HRESULT {.abi.}
-const Slot_ISpatialStageFrameOfReference_GetCoordinateSystemAtCurrentLocation* = 9
-type Fn_ISpatialStageFrameOfReference_GetCoordinateSystemAtCurrentLocation* =
-  proc(self: pointer, a1SpatialLocator: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISpatialStageFrameOfReference_TryGetMovementBounds* = 10
-type Fn_ISpatialStageFrameOfReference_TryGetMovementBounds* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer,
-       valueSize: ptr uint32, value: ptr ptr Vector3): HRESULT {.abi.}
+type ISpatialStageFrameOfReferenceVtbl* = object of IInspectableVtbl
+  get_CoordinateSystem*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  get_MovementRange*: proc(self: pointer, value: ptr SpatialMovementRange
+                          ): HRESULT {.abi.}
+  get_LookDirectionRange*: proc(self: pointer,
+                                value: ptr SpatialLookDirectionRange
+                               ): HRESULT {.abi.}
+  GetCoordinateSystemAtCurrentLocation*: proc(self: pointer,
+                                              a1SpatialLocator: pointer,
+                                              value: ptr pointer
+                                             ): HRESULT {.abi.}
+  TryGetMovementBounds*: proc(self: pointer,
+                              a1SpatialCoordinateSystem: pointer,
+                              valueSize: ptr uint32, value: ptr ptr Vector3
+                             ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialStageFrameOfReferenceStatics
 const IID_ISpatialStageFrameOfReferenceStatics* = guid"F78D5C4D-A0A4-499C-8D91-A8C965D40654"
-const Slot_ISpatialStageFrameOfReferenceStatics_get_Current* = 6
-type Fn_ISpatialStageFrameOfReferenceStatics_get_Current* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialStageFrameOfReferenceStatics_add_CurrentChanged* = 7
-type Fn_ISpatialStageFrameOfReferenceStatics_add_CurrentChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ISpatialStageFrameOfReferenceStatics_remove_CurrentChanged* = 8
-type Fn_ISpatialStageFrameOfReferenceStatics_remove_CurrentChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_ISpatialStageFrameOfReferenceStatics_RequestNewStageAsync* = 9
-type Fn_ISpatialStageFrameOfReferenceStatics_RequestNewStageAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialStageFrameOfReferenceStaticsVtbl* = object of IInspectableVtbl
+  get_Current*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  add_CurrentChanged*: proc(self: pointer, a1: pointer,
+                            value: ptr EventRegistrationToken
+                           ): HRESULT {.abi.}
+  remove_CurrentChanged*: proc(self: pointer, a1: EventRegistrationToken
+                              ): HRESULT {.abi.}
+  RequestNewStageAsync*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialStationaryFrameOfReference
 const IID_ISpatialStationaryFrameOfReference* = guid"09DBCCB9-BCF8-3E7F-BE7E-7EDCCBB178A8"
-const Slot_ISpatialStationaryFrameOfReference_get_CoordinateSystem* = 6
-type Fn_ISpatialStationaryFrameOfReference_get_CoordinateSystem* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialStationaryFrameOfReferenceVtbl* = object of IInspectableVtbl
+  get_CoordinateSystem*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.Preview.ISpatialGraphInteropFrameOfReferencePreview
 const IID_ISpatialGraphInteropFrameOfReferencePreview* = guid"A8271B23-735F-5729-A98E-E64ED189ABC5"
-const Slot_ISpatialGraphInteropFrameOfReferencePreview_get_CoordinateSystem* = 6
-type Fn_ISpatialGraphInteropFrameOfReferencePreview_get_CoordinateSystem* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialGraphInteropFrameOfReferencePreview_get_NodeId* = 7
-type Fn_ISpatialGraphInteropFrameOfReferencePreview_get_NodeId* =
-  proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
-const Slot_ISpatialGraphInteropFrameOfReferencePreview_get_CoordinateSystemToNodeTransform* = 8
-type Fn_ISpatialGraphInteropFrameOfReferencePreview_get_CoordinateSystemToNodeTransform* =
-  proc(self: pointer, value: ptr Matrix4x4): HRESULT {.abi.}
+type ISpatialGraphInteropFrameOfReferencePreviewVtbl* = object of IInspectableVtbl
+  get_CoordinateSystem*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  get_NodeId*: proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
+  get_CoordinateSystemToNodeTransform*: proc(self: pointer,
+                                             value: ptr Matrix4x4
+                                            ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.Preview.ISpatialGraphInteropPreviewStatics
 const IID_ISpatialGraphInteropPreviewStatics* = guid"C042644C-20D8-4ED0-AEF7-6805B8E53F55"
-const Slot_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode* = 6
-type Fn_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode* =
-  proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode2* = 7
-type Fn_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode2* =
-  proc(self: pointer, a1: GUID, a2: Vector3, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode3* = 8
-type Fn_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode3* =
-  proc(self: pointer, a1: GUID, a2: Vector3, a3: Quaternion,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialGraphInteropPreviewStatics_CreateLocatorForNode* = 9
-type Fn_ISpatialGraphInteropPreviewStatics_CreateLocatorForNode* =
-  proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.abi.}
+type ISpatialGraphInteropPreviewStaticsVtbl* = object of IInspectableVtbl
+  CreateCoordinateSystemForNode*: proc(self: pointer, a1: GUID,
+                                       value: ptr pointer): HRESULT {.abi.}
+  CreateCoordinateSystemForNode2*: proc(self: pointer, a1: GUID, a2: Vector3,
+                                        value: ptr pointer): HRESULT {.abi.}
+  CreateCoordinateSystemForNode3*: proc(self: pointer, a1: GUID, a2: Vector3,
+                                        a3: Quaternion, value: ptr pointer
+                                       ): HRESULT {.abi.}
+  CreateLocatorForNode*: proc(self: pointer, a1: GUID, value: ptr pointer
+                             ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.Preview.ISpatialGraphInteropPreviewStatics2
 const IID_ISpatialGraphInteropPreviewStatics2* = guid"2490B15F-6CBD-4B1E-B765-31E462A32DF2"
-const Slot_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference* = 6
-type Fn_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference2* = 7
-type Fn_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference2* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference3* = 8
-type Fn_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference3* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3,
-       a3: Quaternion, value: ptr pointer): HRESULT {.abi.}
+type ISpatialGraphInteropPreviewStatics2Vtbl* = object of IInspectableVtbl
+  TryCreateFrameOfReference*: proc(self: pointer,
+                                   a1SpatialCoordinateSystem: pointer,
+                                   value: ptr pointer): HRESULT {.abi.}
+  TryCreateFrameOfReference2*: proc(self: pointer,
+                                    a1SpatialCoordinateSystem: pointer,
+                                    a2: Vector3, value: ptr pointer
+                                   ): HRESULT {.abi.}
+  TryCreateFrameOfReference3*: proc(self: pointer,
+                                    a1SpatialCoordinateSystem: pointer,
+                                    a2: Vector3, a3: Quaternion,
+                                    value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceInfo
 const IID_ISpatialSurfaceInfo* = guid"F8E9EBE7-39B7-3962-BB03-57F56E1FB0A1"
-const Slot_ISpatialSurfaceInfo_get_Id* = 6
-type Fn_ISpatialSurfaceInfo_get_Id* =
-  proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
-const Slot_ISpatialSurfaceInfo_get_UpdateTime* = 7
-type Fn_ISpatialSurfaceInfo_get_UpdateTime* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_ISpatialSurfaceInfo_TryGetBounds* = 8
-type Fn_ISpatialSurfaceInfo_TryGetBounds* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISpatialSurfaceInfo_TryComputeLatestMeshAsync* = 9
-type Fn_ISpatialSurfaceInfo_TryComputeLatestMeshAsync* =
-  proc(self: pointer, a1: float64, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialSurfaceInfo_TryComputeLatestMeshAsync2* = 10
-type Fn_ISpatialSurfaceInfo_TryComputeLatestMeshAsync2* =
-  proc(self: pointer, a1: float64, a2SpatialSurfaceMeshOptions: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ISpatialSurfaceInfoVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
+  get_UpdateTime*: proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
+  TryGetBounds*: proc(self: pointer, a1SpatialCoordinateSystem: pointer,
+                      value: ptr pointer): HRESULT {.abi.}
+  TryComputeLatestMeshAsync*: proc(self: pointer, a1: float64,
+                                   value: ptr pointer): HRESULT {.abi.}
+  TryComputeLatestMeshAsync2*: proc(self: pointer, a1: float64,
+                                    a2SpatialSurfaceMeshOptions: pointer,
+                                    value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMesh
 const IID_ISpatialSurfaceMesh* = guid"108F57D9-DF0D-3950-A0FD-F972C77C27B4"
-const Slot_ISpatialSurfaceMesh_get_SurfaceInfo* = 6
-type Fn_ISpatialSurfaceMesh_get_SurfaceInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMesh_get_CoordinateSystem* = 7
-type Fn_ISpatialSurfaceMesh_get_CoordinateSystem* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMesh_get_TriangleIndices* = 8
-type Fn_ISpatialSurfaceMesh_get_TriangleIndices* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMesh_get_VertexPositions* = 9
-type Fn_ISpatialSurfaceMesh_get_VertexPositions* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMesh_get_VertexPositionScale* = 10
-type Fn_ISpatialSurfaceMesh_get_VertexPositionScale* =
-  proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMesh_get_VertexNormals* = 11
-type Fn_ISpatialSurfaceMesh_get_VertexNormals* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialSurfaceMeshVtbl* = object of IInspectableVtbl
+  get_SurfaceInfo*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_CoordinateSystem*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  get_TriangleIndices*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  get_VertexPositions*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  get_VertexPositionScale*: proc(self: pointer, value: ptr Vector3
+                                ): HRESULT {.abi.}
+  get_VertexNormals*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshBuffer
 const IID_ISpatialSurfaceMeshBuffer* = guid"93CF59E0-871F-33F8-98B2-03D101458F6F"
-const Slot_ISpatialSurfaceMeshBuffer_get_Format* = 6
-type Fn_ISpatialSurfaceMeshBuffer_get_Format* =
-  proc(self: pointer, value: ptr DirectXPixelFormat): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMeshBuffer_get_Stride* = 7
-type Fn_ISpatialSurfaceMeshBuffer_get_Stride* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMeshBuffer_get_ElementCount* = 8
-type Fn_ISpatialSurfaceMeshBuffer_get_ElementCount* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMeshBuffer_get_Data* = 9
-type Fn_ISpatialSurfaceMeshBuffer_get_Data* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialSurfaceMeshBufferVtbl* = object of IInspectableVtbl
+  get_Format*: proc(self: pointer, value: ptr DirectXPixelFormat
+                   ): HRESULT {.abi.}
+  get_Stride*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_ElementCount*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_Data*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptions
 const IID_ISpatialSurfaceMeshOptions* = guid"D2759F89-3572-3D2D-A10D-5FEE9394AA37"
-const Slot_ISpatialSurfaceMeshOptions_get_VertexPositionFormat* = 6
-type Fn_ISpatialSurfaceMeshOptions_get_VertexPositionFormat* =
-  proc(self: pointer, value: ptr DirectXPixelFormat): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMeshOptions_put_VertexPositionFormat* = 7
-type Fn_ISpatialSurfaceMeshOptions_put_VertexPositionFormat* =
-  proc(self: pointer, a1: DirectXPixelFormat): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMeshOptions_get_TriangleIndexFormat* = 8
-type Fn_ISpatialSurfaceMeshOptions_get_TriangleIndexFormat* =
-  proc(self: pointer, value: ptr DirectXPixelFormat): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMeshOptions_put_TriangleIndexFormat* = 9
-type Fn_ISpatialSurfaceMeshOptions_put_TriangleIndexFormat* =
-  proc(self: pointer, a1: DirectXPixelFormat): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMeshOptions_get_VertexNormalFormat* = 10
-type Fn_ISpatialSurfaceMeshOptions_get_VertexNormalFormat* =
-  proc(self: pointer, value: ptr DirectXPixelFormat): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMeshOptions_put_VertexNormalFormat* = 11
-type Fn_ISpatialSurfaceMeshOptions_put_VertexNormalFormat* =
-  proc(self: pointer, a1: DirectXPixelFormat): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMeshOptions_get_IncludeVertexNormals* = 12
-type Fn_ISpatialSurfaceMeshOptions_get_IncludeVertexNormals* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMeshOptions_put_IncludeVertexNormals* = 13
-type Fn_ISpatialSurfaceMeshOptions_put_IncludeVertexNormals* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type ISpatialSurfaceMeshOptionsVtbl* = object of IInspectableVtbl
+  get_VertexPositionFormat*: proc(self: pointer, value: ptr DirectXPixelFormat
+                                 ): HRESULT {.abi.}
+  put_VertexPositionFormat*: proc(self: pointer, a1: DirectXPixelFormat
+                                 ): HRESULT {.abi.}
+  get_TriangleIndexFormat*: proc(self: pointer, value: ptr DirectXPixelFormat
+                                ): HRESULT {.abi.}
+  put_TriangleIndexFormat*: proc(self: pointer, a1: DirectXPixelFormat
+                                ): HRESULT {.abi.}
+  get_VertexNormalFormat*: proc(self: pointer, value: ptr DirectXPixelFormat
+                               ): HRESULT {.abi.}
+  put_VertexNormalFormat*: proc(self: pointer, a1: DirectXPixelFormat
+                               ): HRESULT {.abi.}
+  get_IncludeVertexNormals*: proc(self: pointer, value: ptr bool
+                                 ): HRESULT {.abi.}
+  put_IncludeVertexNormals*: proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptionsStatics
 const IID_ISpatialSurfaceMeshOptionsStatics* = guid"9B340ABF-9781-4505-8935-013575CAAE5E"
-const Slot_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexPositionFormats* = 6
-type Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexPositionFormats* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMeshOptionsStatics_get_SupportedTriangleIndexFormats* = 7
-type Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedTriangleIndexFormats* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexNormalFormats* = 8
-type Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexNormalFormats* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialSurfaceMeshOptionsStaticsVtbl* = object of IInspectableVtbl
+  get_SupportedVertexPositionFormats*: proc(self: pointer, value: ptr pointer
+                                           ): HRESULT {.abi.}
+  get_SupportedTriangleIndexFormats*: proc(self: pointer, value: ptr pointer
+                                          ): HRESULT {.abi.}
+  get_SupportedVertexNormalFormats*: proc(self: pointer, value: ptr pointer
+                                         ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserver
 const IID_ISpatialSurfaceObserver* = guid"10B69819-DDCA-3483-AC3A-748FE8C86DF5"
-const Slot_ISpatialSurfaceObserver_GetObservedSurfaces* = 6
-type Fn_ISpatialSurfaceObserver_GetObservedSurfaces* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISpatialSurfaceObserver_SetBoundingVolume* = 7
-type Fn_ISpatialSurfaceObserver_SetBoundingVolume* =
-  proc(self: pointer, a1SpatialBoundingVolume: pointer): HRESULT {.abi.}
-const Slot_ISpatialSurfaceObserver_SetBoundingVolumes* = 8
-type Fn_ISpatialSurfaceObserver_SetBoundingVolumes* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_ISpatialSurfaceObserver_add_ObservedSurfacesChanged* = 9
-type Fn_ISpatialSurfaceObserver_add_ObservedSurfacesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ISpatialSurfaceObserver_remove_ObservedSurfacesChanged* = 10
-type Fn_ISpatialSurfaceObserver_remove_ObservedSurfacesChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type ISpatialSurfaceObserverVtbl* = object of IInspectableVtbl
+  GetObservedSurfaces*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  SetBoundingVolume*: proc(self: pointer, a1SpatialBoundingVolume: pointer
+                          ): HRESULT {.abi.}
+  SetBoundingVolumes*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  add_ObservedSurfacesChanged*: proc(self: pointer, a1: pointer,
+                                     value: ptr EventRegistrationToken
+                                    ): HRESULT {.abi.}
+  remove_ObservedSurfacesChanged*: proc(self: pointer,
+                                        a1: EventRegistrationToken
+                                       ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics
 const IID_ISpatialSurfaceObserverStatics* = guid"165951ED-2108-4168-9175-87E027BC9285"
-const Slot_ISpatialSurfaceObserverStatics_RequestAccessAsync* = 6
-type Fn_ISpatialSurfaceObserverStatics_RequestAccessAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISpatialSurfaceObserverStaticsVtbl* = object of IInspectableVtbl
+  RequestAccessAsync*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics2
 const IID_ISpatialSurfaceObserverStatics2* = guid"0F534261-C55D-4E6B-A895-A19DE69A42E3"
-const Slot_ISpatialSurfaceObserverStatics2_IsSupported* = 6
-type Fn_ISpatialSurfaceObserverStatics2_IsSupported* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type ISpatialSurfaceObserverStatics2Vtbl* = object of IInspectableVtbl
+  IsSupported*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 

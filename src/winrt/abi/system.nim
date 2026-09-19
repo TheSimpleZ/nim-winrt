@@ -3,12 +3,10 @@
 ## Source:    Windows.winmd
 ## Namespace: Windows.System
 ##
-## Slot numbers are vtable indices. WinRT interfaces begin with
-## IInspectable's six slots, so the first declared method is slot 6;
-## delegates derive from IUnknown and begin at slot 3.
-##
-## Every method returns HRESULT and its declared return type becomes
-## a trailing out-parameter.
+## Each interface is its vtable: an object whose fields are the
+## methods in declaration order, after IInspectable's six (IUnknown's
+## three for a delegate). Every method returns HRESULT and its
+## declared return type becomes a trailing out-parameter.
 
 import std/hashes
 export hashes
@@ -20,3516 +18,2655 @@ export types
 
 ## Windows.System.Diagnostics.DevicePortal.IDevicePortalConnection
 const IID_IDevicePortalConnection* = guid"0F447F51-1198-4DA1-8D54-BDEF393E09B6"
-const Slot_IDevicePortalConnection_add_Closed* = 6
-type Fn_IDevicePortalConnection_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IDevicePortalConnection_remove_Closed* = 7
-type Fn_IDevicePortalConnection_remove_Closed* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IDevicePortalConnection_add_RequestReceived* = 8
-type Fn_IDevicePortalConnection_add_RequestReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IDevicePortalConnection_remove_RequestReceived* = 9
-type Fn_IDevicePortalConnection_remove_RequestReceived* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IDevicePortalConnectionVtbl* = object of IInspectableVtbl
+  add_Closed*: proc(self: pointer, a1: pointer,
+                    value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Closed*: proc(self: pointer, a1: EventRegistrationToken
+                      ): HRESULT {.abi.}
+  add_RequestReceived*: proc(self: pointer, a1: pointer,
+                             value: ptr EventRegistrationToken
+                            ): HRESULT {.abi.}
+  remove_RequestReceived*: proc(self: pointer, a1: EventRegistrationToken
+                               ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionClosedEventArgs
 const IID_IDevicePortalConnectionClosedEventArgs* = guid"FCF70E38-7032-428C-9F50-945C15A9F0CB"
-const Slot_IDevicePortalConnectionClosedEventArgs_get_Reason* = 6
-type Fn_IDevicePortalConnectionClosedEventArgs_get_Reason* =
-  proc(self: pointer, value: ptr DevicePortalConnectionClosedReason
-      ): HRESULT {.abi.}
+type IDevicePortalConnectionClosedEventArgsVtbl* = object of IInspectableVtbl
+  get_Reason*: proc(self: pointer,
+                    value: ptr DevicePortalConnectionClosedReason
+                   ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionRequestReceivedEventArgs
 const IID_IDevicePortalConnectionRequestReceivedEventArgs* = guid"64DAE045-6FDA-4459-9EBD-ECCE22E38559"
-const Slot_IDevicePortalConnectionRequestReceivedEventArgs_get_RequestMessage* = 6
-type Fn_IDevicePortalConnectionRequestReceivedEventArgs_get_RequestMessage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IDevicePortalConnectionRequestReceivedEventArgs_get_ResponseMessage* = 7
-type Fn_IDevicePortalConnectionRequestReceivedEventArgs_get_ResponseMessage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IDevicePortalConnectionRequestReceivedEventArgsVtbl* = object of IInspectableVtbl
+  get_RequestMessage*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_ResponseMessage*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionStatics
 const IID_IDevicePortalConnectionStatics* = guid"4BBE31E7-E9B9-4645-8FED-A53EEA0EDBD6"
-const Slot_IDevicePortalConnectionStatics_GetForAppServiceConnection* = 6
-type Fn_IDevicePortalConnectionStatics_GetForAppServiceConnection* =
-  proc(self: pointer, a1AppServiceConnection: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IDevicePortalConnectionStaticsVtbl* = object of IInspectableVtbl
+  GetForAppServiceConnection*: proc(self: pointer,
+                                    a1AppServiceConnection: pointer,
+                                    value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.DevicePortal.IDevicePortalWebSocketConnection
 const IID_IDevicePortalWebSocketConnection* = guid"67657920-D65A-42F0-AEF4-787808098B7B"
-const Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest* = 6
-type Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest2* = 7
-type Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest2* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, a2: SocketMessageType,
-       a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest3* = 8
-type Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest3* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, a2: SocketMessageType,
-       a3: HSTRING, a4: uint32, a5: uint32, a6: MessageWebSocketReceiveMode,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest* = 9
-type Fn_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest2* = 10
-type Fn_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest2* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, a2: HSTRING, a3: uint32,
-       a4: bool, value: ptr pointer): HRESULT {.abi.}
+type IDevicePortalWebSocketConnectionVtbl* = object of IInspectableVtbl
+  GetServerMessageWebSocketForRequest*: proc(self: pointer,
+                                             a1HttpRequestMessage: pointer,
+                                             value: ptr pointer
+                                            ): HRESULT {.abi.}
+  GetServerMessageWebSocketForRequest2*: proc(self: pointer,
+                                              a1HttpRequestMessage: pointer,
+                                              a2: SocketMessageType,
+                                              a3: HSTRING, value: ptr pointer
+                                             ): HRESULT {.abi.}
+  GetServerMessageWebSocketForRequest3*: proc(self: pointer,
+                                              a1HttpRequestMessage: pointer,
+                                              a2: SocketMessageType,
+                                              a3: HSTRING, a4: uint32,
+                                              a5: uint32,
+                                              a6: MessageWebSocketReceiveMode,
+                                              value: ptr pointer
+                                             ): HRESULT {.abi.}
+  GetServerStreamWebSocketForRequest*: proc(self: pointer,
+                                            a1HttpRequestMessage: pointer,
+                                            value: ptr pointer
+                                           ): HRESULT {.abi.}
+  GetServerStreamWebSocketForRequest2*: proc(self: pointer,
+                                             a1HttpRequestMessage: pointer,
+                                             a2: HSTRING, a3: uint32,
+                                             a4: bool, value: ptr pointer
+                                            ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.DevicePortal.IDevicePortalWebSocketConnectionRequestReceivedEventArgs
 const IID_IDevicePortalWebSocketConnectionRequestReceivedEventArgs* = guid"79FDCABA-175C-4739-9F74-DDA797C35B3F"
-const Slot_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_IsWebSocketUpgradeRequest* = 6
-type Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_IsWebSocketUpgradeRequest* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_WebSocketProtocolsRequested* = 7
-type Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_WebSocketProtocolsRequested* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_GetDeferral* = 8
-type Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_GetDeferral* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IDevicePortalWebSocketConnectionRequestReceivedEventArgsVtbl* = object of IInspectableVtbl
+  get_IsWebSocketUpgradeRequest*: proc(self: pointer, value: ptr bool
+                                      ): HRESULT {.abi.}
+  get_WebSocketProtocolsRequested*: proc(self: pointer, value: ptr pointer
+                                        ): HRESULT {.abi.}
+  GetDeferral*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IDiagnosticActionResult
 const IID_IDiagnosticActionResult* = guid"C265A296-E73B-4097-B28F-3442F03DD831"
-const Slot_IDiagnosticActionResult_get_ExtendedError* = 6
-type Fn_IDiagnosticActionResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
-const Slot_IDiagnosticActionResult_get_Results* = 7
-type Fn_IDiagnosticActionResult_get_Results* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IDiagnosticActionResultVtbl* = object of IInspectableVtbl
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+  get_Results*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IDiagnosticInvoker
 const IID_IDiagnosticInvoker* = guid"187B270A-02E3-4F86-84FC-FDD892B5940F"
-const Slot_IDiagnosticInvoker_RunDiagnosticActionAsync* = 6
-type Fn_IDiagnosticInvoker_RunDiagnosticActionAsync* =
-  proc(self: pointer, a1JsonObject: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IDiagnosticInvokerVtbl* = object of IInspectableVtbl
+  RunDiagnosticActionAsync*: proc(self: pointer, a1JsonObject: pointer,
+                                  value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IDiagnosticInvoker2
 const IID_IDiagnosticInvoker2* = guid"E3BF945C-155A-4B52-A8EC-070C44F95000"
-const Slot_IDiagnosticInvoker2_RunDiagnosticActionFromStringAsync* = 6
-type Fn_IDiagnosticInvoker2_RunDiagnosticActionFromStringAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IDiagnosticInvoker2Vtbl* = object of IInspectableVtbl
+  RunDiagnosticActionFromStringAsync*: proc(self: pointer, a1: HSTRING,
+                                            value: ptr pointer
+                                           ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IDiagnosticInvokerStatics
 const IID_IDiagnosticInvokerStatics* = guid"5CFAD8DE-F15C-4554-A813-C113C3881B09"
-const Slot_IDiagnosticInvokerStatics_GetDefault* = 6
-type Fn_IDiagnosticInvokerStatics_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IDiagnosticInvokerStatics_GetForUser* = 7
-type Fn_IDiagnosticInvokerStatics_GetForUser* =
-  proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IDiagnosticInvokerStatics_get_IsSupported* = 8
-type Fn_IDiagnosticInvokerStatics_get_IsSupported* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IDiagnosticInvokerStaticsVtbl* = object of IInspectableVtbl
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetForUser*: proc(self: pointer, a1User: pointer, value: ptr pointer
+                   ): HRESULT {.abi.}
+  get_IsSupported*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessCpuUsage
 const IID_IProcessCpuUsage* = guid"0BBB2472-C8BF-423A-A810-B559AE4354E2"
-const Slot_IProcessCpuUsage_GetReport* = 6
-type Fn_IProcessCpuUsage_GetReport* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IProcessCpuUsageVtbl* = object of IInspectableVtbl
+  GetReport*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessCpuUsageReport
 const IID_IProcessCpuUsageReport* = guid"8A6D9CAC-3987-4E2F-A119-6B5FA214F1B4"
-const Slot_IProcessCpuUsageReport_get_KernelTime* = 6
-type Fn_IProcessCpuUsageReport_get_KernelTime* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IProcessCpuUsageReport_get_UserTime* = 7
-type Fn_IProcessCpuUsageReport_get_UserTime* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+type IProcessCpuUsageReportVtbl* = object of IInspectableVtbl
+  get_KernelTime*: proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+  get_UserTime*: proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessDiagnosticInfo
 const IID_IProcessDiagnosticInfo* = guid"E830B04B-300E-4EE6-A0AB-5B5F5231B434"
-const Slot_IProcessDiagnosticInfo_get_ProcessId* = 6
-type Fn_IProcessDiagnosticInfo_get_ProcessId* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IProcessDiagnosticInfo_get_ExecutableFileName* = 7
-type Fn_IProcessDiagnosticInfo_get_ExecutableFileName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IProcessDiagnosticInfo_get_Parent* = 8
-type Fn_IProcessDiagnosticInfo_get_Parent* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IProcessDiagnosticInfo_get_ProcessStartTime* = 9
-type Fn_IProcessDiagnosticInfo_get_ProcessStartTime* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_IProcessDiagnosticInfo_get_DiskUsage* = 10
-type Fn_IProcessDiagnosticInfo_get_DiskUsage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IProcessDiagnosticInfo_get_MemoryUsage* = 11
-type Fn_IProcessDiagnosticInfo_get_MemoryUsage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IProcessDiagnosticInfo_get_CpuUsage* = 12
-type Fn_IProcessDiagnosticInfo_get_CpuUsage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IProcessDiagnosticInfoVtbl* = object of IInspectableVtbl
+  get_ProcessId*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_ExecutableFileName*: proc(self: pointer, value: ptr HSTRING
+                               ): HRESULT {.abi.}
+  get_Parent*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ProcessStartTime*: proc(self: pointer, value: ptr DateTime
+                             ): HRESULT {.abi.}
+  get_DiskUsage*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_MemoryUsage*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_CpuUsage*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessDiagnosticInfo2
 const IID_IProcessDiagnosticInfo2* = guid"9558CB1A-3D0B-49EC-AB70-4F7A112805DE"
-const Slot_IProcessDiagnosticInfo2_GetAppDiagnosticInfos* = 6
-type Fn_IProcessDiagnosticInfo2_GetAppDiagnosticInfos* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IProcessDiagnosticInfo2_get_IsPackaged* = 7
-type Fn_IProcessDiagnosticInfo2_get_IsPackaged* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IProcessDiagnosticInfo2Vtbl* = object of IInspectableVtbl
+  GetAppDiagnosticInfos*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  get_IsPackaged*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessDiagnosticInfoStatics
 const IID_IProcessDiagnosticInfoStatics* = guid"2F41B260-B49F-428C-AA0E-84744F49CA95"
-const Slot_IProcessDiagnosticInfoStatics_GetForProcesses* = 6
-type Fn_IProcessDiagnosticInfoStatics_GetForProcesses* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IProcessDiagnosticInfoStatics_GetForCurrentProcess* = 7
-type Fn_IProcessDiagnosticInfoStatics_GetForCurrentProcess* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IProcessDiagnosticInfoStaticsVtbl* = object of IInspectableVtbl
+  GetForProcesses*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetForCurrentProcess*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessDiagnosticInfoStatics2
 const IID_IProcessDiagnosticInfoStatics2* = guid"4A869897-9899-4A44-A29B-091663BE09B6"
-const Slot_IProcessDiagnosticInfoStatics2_TryGetForProcessId* = 6
-type Fn_IProcessDiagnosticInfoStatics2_TryGetForProcessId* =
-  proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
+type IProcessDiagnosticInfoStatics2Vtbl* = object of IInspectableVtbl
+  TryGetForProcessId*: proc(self: pointer, a1: uint32, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessDiskUsage
 const IID_IProcessDiskUsage* = guid"5AD78BFD-7E51-4E53-BFAA-5A6EE1AABBF8"
-const Slot_IProcessDiskUsage_GetReport* = 6
-type Fn_IProcessDiskUsage_GetReport* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IProcessDiskUsageVtbl* = object of IInspectableVtbl
+  GetReport*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessDiskUsageReport
 const IID_IProcessDiskUsageReport* = guid"401627FD-535D-4C1F-81B8-DA54E1BE635E"
-const Slot_IProcessDiskUsageReport_get_ReadOperationCount* = 6
-type Fn_IProcessDiskUsageReport_get_ReadOperationCount* =
-  proc(self: pointer, value: ptr int64): HRESULT {.abi.}
-const Slot_IProcessDiskUsageReport_get_WriteOperationCount* = 7
-type Fn_IProcessDiskUsageReport_get_WriteOperationCount* =
-  proc(self: pointer, value: ptr int64): HRESULT {.abi.}
-const Slot_IProcessDiskUsageReport_get_OtherOperationCount* = 8
-type Fn_IProcessDiskUsageReport_get_OtherOperationCount* =
-  proc(self: pointer, value: ptr int64): HRESULT {.abi.}
-const Slot_IProcessDiskUsageReport_get_BytesReadCount* = 9
-type Fn_IProcessDiskUsageReport_get_BytesReadCount* =
-  proc(self: pointer, value: ptr int64): HRESULT {.abi.}
-const Slot_IProcessDiskUsageReport_get_BytesWrittenCount* = 10
-type Fn_IProcessDiskUsageReport_get_BytesWrittenCount* =
-  proc(self: pointer, value: ptr int64): HRESULT {.abi.}
-const Slot_IProcessDiskUsageReport_get_OtherBytesCount* = 11
-type Fn_IProcessDiskUsageReport_get_OtherBytesCount* =
-  proc(self: pointer, value: ptr int64): HRESULT {.abi.}
+type IProcessDiskUsageReportVtbl* = object of IInspectableVtbl
+  get_ReadOperationCount*: proc(self: pointer, value: ptr int64
+                               ): HRESULT {.abi.}
+  get_WriteOperationCount*: proc(self: pointer, value: ptr int64
+                                ): HRESULT {.abi.}
+  get_OtherOperationCount*: proc(self: pointer, value: ptr int64
+                                ): HRESULT {.abi.}
+  get_BytesReadCount*: proc(self: pointer, value: ptr int64): HRESULT {.abi.}
+  get_BytesWrittenCount*: proc(self: pointer, value: ptr int64
+                              ): HRESULT {.abi.}
+  get_OtherBytesCount*: proc(self: pointer, value: ptr int64): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessMemoryUsage
 const IID_IProcessMemoryUsage* = guid"F50B229B-827C-42B7-B07C-0E32627E6B3E"
-const Slot_IProcessMemoryUsage_GetReport* = 6
-type Fn_IProcessMemoryUsage_GetReport* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IProcessMemoryUsageVtbl* = object of IInspectableVtbl
+  GetReport*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessMemoryUsageReport
 const IID_IProcessMemoryUsageReport* = guid"C2C77CBA-1951-4685-8532-7E749ECF8EEB"
-const Slot_IProcessMemoryUsageReport_get_NonPagedPoolSizeInBytes* = 6
-type Fn_IProcessMemoryUsageReport_get_NonPagedPoolSizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IProcessMemoryUsageReport_get_PageFaultCount* = 7
-type Fn_IProcessMemoryUsageReport_get_PageFaultCount* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IProcessMemoryUsageReport_get_PageFileSizeInBytes* = 8
-type Fn_IProcessMemoryUsageReport_get_PageFileSizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IProcessMemoryUsageReport_get_PagedPoolSizeInBytes* = 9
-type Fn_IProcessMemoryUsageReport_get_PagedPoolSizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IProcessMemoryUsageReport_get_PeakNonPagedPoolSizeInBytes* = 10
-type Fn_IProcessMemoryUsageReport_get_PeakNonPagedPoolSizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IProcessMemoryUsageReport_get_PeakPageFileSizeInBytes* = 11
-type Fn_IProcessMemoryUsageReport_get_PeakPageFileSizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IProcessMemoryUsageReport_get_PeakPagedPoolSizeInBytes* = 12
-type Fn_IProcessMemoryUsageReport_get_PeakPagedPoolSizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IProcessMemoryUsageReport_get_PeakVirtualMemorySizeInBytes* = 13
-type Fn_IProcessMemoryUsageReport_get_PeakVirtualMemorySizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IProcessMemoryUsageReport_get_PeakWorkingSetSizeInBytes* = 14
-type Fn_IProcessMemoryUsageReport_get_PeakWorkingSetSizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IProcessMemoryUsageReport_get_PrivatePageCount* = 15
-type Fn_IProcessMemoryUsageReport_get_PrivatePageCount* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IProcessMemoryUsageReport_get_VirtualMemorySizeInBytes* = 16
-type Fn_IProcessMemoryUsageReport_get_VirtualMemorySizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IProcessMemoryUsageReport_get_WorkingSetSizeInBytes* = 17
-type Fn_IProcessMemoryUsageReport_get_WorkingSetSizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
+type IProcessMemoryUsageReportVtbl* = object of IInspectableVtbl
+  get_NonPagedPoolSizeInBytes*: proc(self: pointer, value: ptr uint64
+                                    ): HRESULT {.abi.}
+  get_PageFaultCount*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_PageFileSizeInBytes*: proc(self: pointer, value: ptr uint64
+                                ): HRESULT {.abi.}
+  get_PagedPoolSizeInBytes*: proc(self: pointer, value: ptr uint64
+                                 ): HRESULT {.abi.}
+  get_PeakNonPagedPoolSizeInBytes*: proc(self: pointer, value: ptr uint64
+                                        ): HRESULT {.abi.}
+  get_PeakPageFileSizeInBytes*: proc(self: pointer, value: ptr uint64
+                                    ): HRESULT {.abi.}
+  get_PeakPagedPoolSizeInBytes*: proc(self: pointer, value: ptr uint64
+                                     ): HRESULT {.abi.}
+  get_PeakVirtualMemorySizeInBytes*: proc(self: pointer, value: ptr uint64
+                                         ): HRESULT {.abi.}
+  get_PeakWorkingSetSizeInBytes*: proc(self: pointer, value: ptr uint64
+                                      ): HRESULT {.abi.}
+  get_PrivatePageCount*: proc(self: pointer, value: ptr uint64
+                             ): HRESULT {.abi.}
+  get_VirtualMemorySizeInBytes*: proc(self: pointer, value: ptr uint64
+                                     ): HRESULT {.abi.}
+  get_WorkingSetSizeInBytes*: proc(self: pointer, value: ptr uint64
+                                  ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemCpuUsage
 const IID_ISystemCpuUsage* = guid"6037B3AC-02D6-4234-8362-7FE3ADC81F5F"
-const Slot_ISystemCpuUsage_GetReport* = 6
-type Fn_ISystemCpuUsage_GetReport* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISystemCpuUsageVtbl* = object of IInspectableVtbl
+  GetReport*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemCpuUsageReport
 const IID_ISystemCpuUsageReport* = guid"2C26D0B2-9483-4F62-AB57-82B29D9719B8"
-const Slot_ISystemCpuUsageReport_get_KernelTime* = 6
-type Fn_ISystemCpuUsageReport_get_KernelTime* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_ISystemCpuUsageReport_get_UserTime* = 7
-type Fn_ISystemCpuUsageReport_get_UserTime* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_ISystemCpuUsageReport_get_IdleTime* = 8
-type Fn_ISystemCpuUsageReport_get_IdleTime* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+type ISystemCpuUsageReportVtbl* = object of IInspectableVtbl
+  get_KernelTime*: proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+  get_UserTime*: proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+  get_IdleTime*: proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemDiagnosticInfo
 const IID_ISystemDiagnosticInfo* = guid"A290FE05-DFF3-407F-9A1B-0B2B317CA800"
-const Slot_ISystemDiagnosticInfo_get_MemoryUsage* = 6
-type Fn_ISystemDiagnosticInfo_get_MemoryUsage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISystemDiagnosticInfo_get_CpuUsage* = 7
-type Fn_ISystemDiagnosticInfo_get_CpuUsage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISystemDiagnosticInfoVtbl* = object of IInspectableVtbl
+  get_MemoryUsage*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_CpuUsage*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemDiagnosticInfoStatics
 const IID_ISystemDiagnosticInfoStatics* = guid"D404AC21-FC7D-45F0-9A3F-39203AED9F7E"
-const Slot_ISystemDiagnosticInfoStatics_GetForCurrentSystem* = 6
-type Fn_ISystemDiagnosticInfoStatics_GetForCurrentSystem* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISystemDiagnosticInfoStaticsVtbl* = object of IInspectableVtbl
+  GetForCurrentSystem*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemDiagnosticInfoStatics2
 const IID_ISystemDiagnosticInfoStatics2* = guid"79DED189-6AF9-4DA9-A422-15F73255B3EB"
-const Slot_ISystemDiagnosticInfoStatics2_IsArchitectureSupported* = 6
-type Fn_ISystemDiagnosticInfoStatics2_IsArchitectureSupported* =
-  proc(self: pointer, a1: ProcessorArchitecture, value: ptr bool
-      ): HRESULT {.abi.}
-const Slot_ISystemDiagnosticInfoStatics2_get_PreferredArchitecture* = 7
-type Fn_ISystemDiagnosticInfoStatics2_get_PreferredArchitecture* =
-  proc(self: pointer, value: ptr ProcessorArchitecture): HRESULT {.abi.}
+type ISystemDiagnosticInfoStatics2Vtbl* = object of IInspectableVtbl
+  IsArchitectureSupported*: proc(self: pointer, a1: ProcessorArchitecture,
+                                 value: ptr bool): HRESULT {.abi.}
+  get_PreferredArchitecture*: proc(self: pointer,
+                                   value: ptr ProcessorArchitecture
+                                  ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemMemoryUsage
 const IID_ISystemMemoryUsage* = guid"17FFC595-1702-49CF-AA27-2F0A32591404"
-const Slot_ISystemMemoryUsage_GetReport* = 6
-type Fn_ISystemMemoryUsage_GetReport* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISystemMemoryUsageVtbl* = object of IInspectableVtbl
+  GetReport*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemMemoryUsageReport
 const IID_ISystemMemoryUsageReport* = guid"38663C87-2A9F-403A-BD19-2CF3E8169500"
-const Slot_ISystemMemoryUsageReport_get_TotalPhysicalSizeInBytes* = 6
-type Fn_ISystemMemoryUsageReport_get_TotalPhysicalSizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_ISystemMemoryUsageReport_get_AvailableSizeInBytes* = 7
-type Fn_ISystemMemoryUsageReport_get_AvailableSizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_ISystemMemoryUsageReport_get_CommittedSizeInBytes* = 8
-type Fn_ISystemMemoryUsageReport_get_CommittedSizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
+type ISystemMemoryUsageReportVtbl* = object of IInspectableVtbl
+  get_TotalPhysicalSizeInBytes*: proc(self: pointer, value: ptr uint64
+                                     ): HRESULT {.abi.}
+  get_AvailableSizeInBytes*: proc(self: pointer, value: ptr uint64
+                                 ): HRESULT {.abi.}
+  get_CommittedSizeInBytes*: proc(self: pointer, value: ptr uint64
+                                 ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.Telemetry.IPlatformTelemetryClientStatics
 const IID_IPlatformTelemetryClientStatics* = guid"9BF3F25D-D5C3-4EEA-8DBE-9C8DBB0D9D8F"
-const Slot_IPlatformTelemetryClientStatics_Register* = 6
-type Fn_IPlatformTelemetryClientStatics_Register* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IPlatformTelemetryClientStatics_Register2* = 7
-type Fn_IPlatformTelemetryClientStatics_Register2* =
-  proc(self: pointer, a1: HSTRING,
-       a2PlatformTelemetryRegistrationSettings: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IPlatformTelemetryClientStaticsVtbl* = object of IInspectableVtbl
+  Register*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                 ): HRESULT {.abi.}
+  Register2*: proc(self: pointer, a1: HSTRING,
+                   a2PlatformTelemetryRegistrationSettings: pointer,
+                   value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.Telemetry.IPlatformTelemetryRegistrationResult
 const IID_IPlatformTelemetryRegistrationResult* = guid"4D8518AB-2292-49BD-A15A-3D71D2145112"
-const Slot_IPlatformTelemetryRegistrationResult_get_Status* = 6
-type Fn_IPlatformTelemetryRegistrationResult_get_Status* =
-  proc(self: pointer, value: ptr PlatformTelemetryRegistrationStatus
-      ): HRESULT {.abi.}
+type IPlatformTelemetryRegistrationResultVtbl* = object of IInspectableVtbl
+  get_Status*: proc(self: pointer,
+                    value: ptr PlatformTelemetryRegistrationStatus
+                   ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.Telemetry.IPlatformTelemetryRegistrationSettings
 const IID_IPlatformTelemetryRegistrationSettings* = guid"819A8582-CA19-415E-BB79-9C224BFA3A73"
-const Slot_IPlatformTelemetryRegistrationSettings_get_StorageSize* = 6
-type Fn_IPlatformTelemetryRegistrationSettings_get_StorageSize* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IPlatformTelemetryRegistrationSettings_put_StorageSize* = 7
-type Fn_IPlatformTelemetryRegistrationSettings_put_StorageSize* =
-  proc(self: pointer, a1: uint32): HRESULT {.abi.}
-const Slot_IPlatformTelemetryRegistrationSettings_get_UploadQuotaSize* = 8
-type Fn_IPlatformTelemetryRegistrationSettings_get_UploadQuotaSize* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IPlatformTelemetryRegistrationSettings_put_UploadQuotaSize* = 9
-type Fn_IPlatformTelemetryRegistrationSettings_put_UploadQuotaSize* =
-  proc(self: pointer, a1: uint32): HRESULT {.abi.}
+type IPlatformTelemetryRegistrationSettingsVtbl* = object of IInspectableVtbl
+  get_StorageSize*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  put_StorageSize*: proc(self: pointer, a1: uint32): HRESULT {.abi.}
+  get_UploadQuotaSize*: proc(self: pointer, value: ptr uint32
+                            ): HRESULT {.abi.}
+  put_UploadQuotaSize*: proc(self: pointer, a1: uint32): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics
 const IID_IPlatformDiagnosticActionsStatics* = guid"C1145CFA-9292-4267-890A-9EA3ED072312"
-const Slot_IPlatformDiagnosticActionsStatics_IsScenarioEnabled* = 6
-type Fn_IPlatformDiagnosticActionsStatics_IsScenarioEnabled* =
-  proc(self: pointer, a1: GUID, value: ptr bool): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticActionsStatics_TryEscalateScenario* = 7
-type Fn_IPlatformDiagnosticActionsStatics_TryEscalateScenario* =
-  proc(self: pointer, a1: GUID, a2: PlatformDiagnosticEscalationType,
-       a3: HSTRING, a4: bool, a5: bool, a6: pointer, value: ptr bool
-      ): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticActionsStatics_DownloadLatestSettingsForNamespace* = 8
-type Fn_IPlatformDiagnosticActionsStatics_DownloadLatestSettingsForNamespace* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: bool, a4: bool, a5: bool,
-       value: ptr PlatformDiagnosticActionState): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticActionsStatics_GetActiveScenarioList* = 9
-type Fn_IPlatformDiagnosticActionsStatics_GetActiveScenarioList* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticActionsStatics_ForceUpload* = 10
-type Fn_IPlatformDiagnosticActionsStatics_ForceUpload* =
-  proc(self: pointer, a1: PlatformDiagnosticEventBufferLatencies, a2: bool,
-       a3: bool, value: ptr PlatformDiagnosticActionState): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticActionsStatics_IsTraceRunning* = 11
-type Fn_IPlatformDiagnosticActionsStatics_IsTraceRunning* =
-  proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, a2: GUID,
-       a3: uint64, value: ptr PlatformDiagnosticTraceSlotState
-      ): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticActionsStatics_GetActiveTraceRuntime* = 12
-type Fn_IPlatformDiagnosticActionsStatics_GetActiveTraceRuntime* =
-  proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticActionsStatics_GetKnownTraceList* = 13
-type Fn_IPlatformDiagnosticActionsStatics_GetKnownTraceList* =
-  proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, value: ptr pointer
-      ): HRESULT {.abi.}
+type IPlatformDiagnosticActionsStaticsVtbl* = object of IInspectableVtbl
+  IsScenarioEnabled*: proc(self: pointer, a1: GUID, value: ptr bool
+                          ): HRESULT {.abi.}
+  TryEscalateScenario*: proc(self: pointer, a1: GUID,
+                             a2: PlatformDiagnosticEscalationType,
+                             a3: HSTRING, a4: bool, a5: bool, a6: pointer,
+                             value: ptr bool): HRESULT {.abi.}
+  DownloadLatestSettingsForNamespace*: proc(self: pointer, a1: HSTRING,
+                                            a2: HSTRING, a3: bool, a4: bool,
+                                            a5: bool,
+                                            value: ptr PlatformDiagnosticActionState
+                                           ): HRESULT {.abi.}
+  GetActiveScenarioList*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  ForceUpload*: proc(self: pointer,
+                     a1: PlatformDiagnosticEventBufferLatencies, a2: bool,
+                     a3: bool, value: ptr PlatformDiagnosticActionState
+                    ): HRESULT {.abi.}
+  IsTraceRunning*: proc(self: pointer, a1: PlatformDiagnosticTraceSlotType,
+                        a2: GUID, a3: uint64,
+                        value: ptr PlatformDiagnosticTraceSlotState
+                       ): HRESULT {.abi.}
+  GetActiveTraceRuntime*: proc(self: pointer,
+                               a1: PlatformDiagnosticTraceSlotType,
+                               value: ptr pointer): HRESULT {.abi.}
+  GetKnownTraceList*: proc(self: pointer, a1: PlatformDiagnosticTraceSlotType,
+                           value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceInfo
 const IID_IPlatformDiagnosticTraceInfo* = guid"F870ED97-D597-4BF7-88DC-CF5C7DC2A1D2"
-const Slot_IPlatformDiagnosticTraceInfo_get_ScenarioId* = 6
-type Fn_IPlatformDiagnosticTraceInfo_get_ScenarioId* =
-  proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticTraceInfo_get_ProfileHash* = 7
-type Fn_IPlatformDiagnosticTraceInfo_get_ProfileHash* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticTraceInfo_get_IsExclusive* = 8
-type Fn_IPlatformDiagnosticTraceInfo_get_IsExclusive* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticTraceInfo_get_IsAutoLogger* = 9
-type Fn_IPlatformDiagnosticTraceInfo_get_IsAutoLogger* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticTraceInfo_get_MaxTraceDurationFileTime* = 10
-type Fn_IPlatformDiagnosticTraceInfo_get_MaxTraceDurationFileTime* =
-  proc(self: pointer, value: ptr int64): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticTraceInfo_get_Priority* = 11
-type Fn_IPlatformDiagnosticTraceInfo_get_Priority* =
-  proc(self: pointer, value: ptr PlatformDiagnosticTracePriority
-      ): HRESULT {.abi.}
+type IPlatformDiagnosticTraceInfoVtbl* = object of IInspectableVtbl
+  get_ScenarioId*: proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
+  get_ProfileHash*: proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
+  get_IsExclusive*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_IsAutoLogger*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_MaxTraceDurationFileTime*: proc(self: pointer, value: ptr int64
+                                     ): HRESULT {.abi.}
+  get_Priority*: proc(self: pointer,
+                      value: ptr PlatformDiagnosticTracePriority
+                     ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo
 const IID_IPlatformDiagnosticTraceRuntimeInfo* = guid"3D4D5E2D-01D8-4768-8554-1EB1CA610986"
-const Slot_IPlatformDiagnosticTraceRuntimeInfo_get_RuntimeFileTime* = 6
-type Fn_IPlatformDiagnosticTraceRuntimeInfo_get_RuntimeFileTime* =
-  proc(self: pointer, value: ptr int64): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticTraceRuntimeInfo_get_EtwRuntimeFileTime* = 7
-type Fn_IPlatformDiagnosticTraceRuntimeInfo_get_EtwRuntimeFileTime* =
-  proc(self: pointer, value: ptr int64): HRESULT {.abi.}
+type IPlatformDiagnosticTraceRuntimeInfoVtbl* = object of IInspectableVtbl
+  get_RuntimeFileTime*: proc(self: pointer, value: ptr int64): HRESULT {.abi.}
+  get_EtwRuntimeFileTime*: proc(self: pointer, value: ptr int64
+                               ): HRESULT {.abi.}
 
 ## Windows.System.DispatcherQueueHandler  (delegate)
 const IID_DispatcherQueueHandler* = guid"DFA2DC9C-1A2D-4917-98F2-939AF1D6E0C8"
-const Slot_DispatcherQueueHandler_Invoke* = 3
-type Fn_DispatcherQueueHandler_Invoke* =
-  proc(self: pointer): HRESULT {.abi.}
+type DispatcherQueueHandlerVtbl* = object of IUnknownVtbl
+  Invoke*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.Display.IDisplayRequest
 const IID_IDisplayRequest* = guid"E5732044-F49F-4B60-8DD4-5E7E3A632AC0"
-const Slot_IDisplayRequest_RequestActive* = 6
-type Fn_IDisplayRequest_RequestActive* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IDisplayRequest_RequestRelease* = 7
-type Fn_IDisplayRequest_RequestRelease* =
-  proc(self: pointer): HRESULT {.abi.}
+type IDisplayRequestVtbl* = object of IInspectableVtbl
+  RequestActive*: proc(self: pointer): HRESULT {.abi.}
+  RequestRelease*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppActivationResult
 const IID_IAppActivationResult* = guid"6B528900-F46E-4EB0-AA6C-38AF557CF9ED"
-const Slot_IAppActivationResult_get_ExtendedError* = 6
-type Fn_IAppActivationResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
-const Slot_IAppActivationResult_get_AppResourceGroupInfo* = 7
-type Fn_IAppActivationResult_get_AppResourceGroupInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAppActivationResultVtbl* = object of IInspectableVtbl
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+  get_AppResourceGroupInfo*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfo
 const IID_IAppDiagnosticInfo* = guid"E348A69A-8889-4CA3-BE07-D5FFFF5F0804"
-const Slot_IAppDiagnosticInfo_get_AppInfo* = 6
-type Fn_IAppDiagnosticInfo_get_AppInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAppDiagnosticInfoVtbl* = object of IInspectableVtbl
+  get_AppInfo*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfo2
 const IID_IAppDiagnosticInfo2* = guid"DF46FBD7-191A-446C-9473-8FBC2374A354"
-const Slot_IAppDiagnosticInfo2_GetResourceGroups* = 6
-type Fn_IAppDiagnosticInfo2_GetResourceGroups* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfo2_CreateResourceGroupWatcher* = 7
-type Fn_IAppDiagnosticInfo2_CreateResourceGroupWatcher* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAppDiagnosticInfo2Vtbl* = object of IInspectableVtbl
+  GetResourceGroups*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  CreateResourceGroupWatcher*: proc(self: pointer, value: ptr pointer
+                                   ): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfo3
 const IID_IAppDiagnosticInfo3* = guid"C895C63D-DD61-4C65-BABD-81A10B4F9815"
-const Slot_IAppDiagnosticInfo3_LaunchAsync* = 6
-type Fn_IAppDiagnosticInfo3_LaunchAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAppDiagnosticInfo3Vtbl* = object of IInspectableVtbl
+  LaunchAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfoStatics
 const IID_IAppDiagnosticInfoStatics* = guid"CE6925BF-10CA-40C8-A9CA-C5C96501866E"
-const Slot_IAppDiagnosticInfoStatics_RequestInfoAsync* = 6
-type Fn_IAppDiagnosticInfoStatics_RequestInfoAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAppDiagnosticInfoStaticsVtbl* = object of IInspectableVtbl
+  RequestInfoAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfoStatics2
 const IID_IAppDiagnosticInfoStatics2* = guid"05B24B86-1000-4C90-BB9F-7235071C50FE"
-const Slot_IAppDiagnosticInfoStatics2_CreateWatcher* = 6
-type Fn_IAppDiagnosticInfoStatics2_CreateWatcher* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoStatics2_RequestAccessAsync* = 7
-type Fn_IAppDiagnosticInfoStatics2_RequestAccessAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoStatics2_RequestInfoForPackageAsync* = 8
-type Fn_IAppDiagnosticInfoStatics2_RequestInfoForPackageAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync* = 9
-type Fn_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync2* = 10
-type Fn_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync2* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IAppDiagnosticInfoStatics2Vtbl* = object of IInspectableVtbl
+  CreateWatcher*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  RequestAccessAsync*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  RequestInfoForPackageAsync*: proc(self: pointer, a1: HSTRING,
+                                    value: ptr pointer): HRESULT {.abi.}
+  RequestInfoForAppAsync*: proc(self: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
+  RequestInfoForAppAsync2*: proc(self: pointer, a1: HSTRING,
+                                 value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfoWatcher
 const IID_IAppDiagnosticInfoWatcher* = guid"75575070-01D3-489A-9325-52F9CC6EDE0A"
-const Slot_IAppDiagnosticInfoWatcher_add_Added* = 6
-type Fn_IAppDiagnosticInfoWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoWatcher_remove_Added* = 7
-type Fn_IAppDiagnosticInfoWatcher_remove_Added* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoWatcher_add_Removed* = 8
-type Fn_IAppDiagnosticInfoWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoWatcher_remove_Removed* = 9
-type Fn_IAppDiagnosticInfoWatcher_remove_Removed* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoWatcher_add_EnumerationCompleted* = 10
-type Fn_IAppDiagnosticInfoWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoWatcher_remove_EnumerationCompleted* = 11
-type Fn_IAppDiagnosticInfoWatcher_remove_EnumerationCompleted* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoWatcher_add_Stopped* = 12
-type Fn_IAppDiagnosticInfoWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoWatcher_remove_Stopped* = 13
-type Fn_IAppDiagnosticInfoWatcher_remove_Stopped* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoWatcher_get_Status* = 14
-type Fn_IAppDiagnosticInfoWatcher_get_Status* =
-  proc(self: pointer, value: ptr AppDiagnosticInfoWatcherStatus
-      ): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoWatcher_Start* = 15
-type Fn_IAppDiagnosticInfoWatcher_Start* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IAppDiagnosticInfoWatcher_Stop* = 16
-type Fn_IAppDiagnosticInfoWatcher_Stop* =
-  proc(self: pointer): HRESULT {.abi.}
+type IAppDiagnosticInfoWatcherVtbl* = object of IInspectableVtbl
+  add_Added*: proc(self: pointer, a1: pointer,
+                   value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Added*: proc(self: pointer, a1: EventRegistrationToken
+                     ): HRESULT {.abi.}
+  add_Removed*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Removed*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
+  add_EnumerationCompleted*: proc(self: pointer, a1: pointer,
+                                  value: ptr EventRegistrationToken
+                                 ): HRESULT {.abi.}
+  remove_EnumerationCompleted*: proc(self: pointer, a1: EventRegistrationToken
+                                    ): HRESULT {.abi.}
+  add_Stopped*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Stopped*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
+  get_Status*: proc(self: pointer, value: ptr AppDiagnosticInfoWatcherStatus
+                   ): HRESULT {.abi.}
+  Start*: proc(self: pointer): HRESULT {.abi.}
+  Stop*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfoWatcherEventArgs
 const IID_IAppDiagnosticInfoWatcherEventArgs* = guid"7017C716-E1DA-4C65-99DF-046DFF5BE71A"
-const Slot_IAppDiagnosticInfoWatcherEventArgs_get_AppDiagnosticInfo* = 6
-type Fn_IAppDiagnosticInfoWatcherEventArgs_get_AppDiagnosticInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAppDiagnosticInfoWatcherEventArgsVtbl* = object of IInspectableVtbl
+  get_AppDiagnosticInfo*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
 
 ## Windows.System.IAppExecutionStateChangeResult
 const IID_IAppExecutionStateChangeResult* = guid"6F039BF0-F91B-4DF8-AE77-3033CCB69114"
-const Slot_IAppExecutionStateChangeResult_get_ExtendedError* = 6
-type Fn_IAppExecutionStateChangeResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+type IAppExecutionStateChangeResultVtbl* = object of IInspectableVtbl
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 
 ## Windows.System.IAppMemoryReport
 const IID_IAppMemoryReport* = guid"6D65339B-4D6F-45BC-9C5E-E49B3FF2758D"
-const Slot_IAppMemoryReport_get_PrivateCommitUsage* = 6
-type Fn_IAppMemoryReport_get_PrivateCommitUsage* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IAppMemoryReport_get_PeakPrivateCommitUsage* = 7
-type Fn_IAppMemoryReport_get_PeakPrivateCommitUsage* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IAppMemoryReport_get_TotalCommitUsage* = 8
-type Fn_IAppMemoryReport_get_TotalCommitUsage* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IAppMemoryReport_get_TotalCommitLimit* = 9
-type Fn_IAppMemoryReport_get_TotalCommitLimit* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
+type IAppMemoryReportVtbl* = object of IInspectableVtbl
+  get_PrivateCommitUsage*: proc(self: pointer, value: ptr uint64
+                               ): HRESULT {.abi.}
+  get_PeakPrivateCommitUsage*: proc(self: pointer, value: ptr uint64
+                                   ): HRESULT {.abi.}
+  get_TotalCommitUsage*: proc(self: pointer, value: ptr uint64
+                             ): HRESULT {.abi.}
+  get_TotalCommitLimit*: proc(self: pointer, value: ptr uint64
+                             ): HRESULT {.abi.}
 
 ## Windows.System.IAppMemoryReport2
 const IID_IAppMemoryReport2* = guid"5F7F3738-51B7-42DC-B7ED-79BA46D28857"
-const Slot_IAppMemoryReport2_get_ExpectedTotalCommitLimit* = 6
-type Fn_IAppMemoryReport2_get_ExpectedTotalCommitLimit* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
+type IAppMemoryReport2Vtbl* = object of IInspectableVtbl
+  get_ExpectedTotalCommitLimit*: proc(self: pointer, value: ptr uint64
+                                     ): HRESULT {.abi.}
 
 ## Windows.System.IAppMemoryUsageLimitChangingEventArgs
 const IID_IAppMemoryUsageLimitChangingEventArgs* = guid"79F86664-FECA-4DA5-9E40-2BC63EFDC979"
-const Slot_IAppMemoryUsageLimitChangingEventArgs_get_OldLimit* = 6
-type Fn_IAppMemoryUsageLimitChangingEventArgs_get_OldLimit* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IAppMemoryUsageLimitChangingEventArgs_get_NewLimit* = 7
-type Fn_IAppMemoryUsageLimitChangingEventArgs_get_NewLimit* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
+type IAppMemoryUsageLimitChangingEventArgsVtbl* = object of IInspectableVtbl
+  get_OldLimit*: proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
+  get_NewLimit*: proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupBackgroundTaskReport
 const IID_IAppResourceGroupBackgroundTaskReport* = guid"2566E74E-B05D-40C2-9DC1-1A4F039EA120"
-const Slot_IAppResourceGroupBackgroundTaskReport_get_TaskId* = 6
-type Fn_IAppResourceGroupBackgroundTaskReport_get_TaskId* =
-  proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
-const Slot_IAppResourceGroupBackgroundTaskReport_get_Name* = 7
-type Fn_IAppResourceGroupBackgroundTaskReport_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IAppResourceGroupBackgroundTaskReport_get_Trigger* = 8
-type Fn_IAppResourceGroupBackgroundTaskReport_get_Trigger* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IAppResourceGroupBackgroundTaskReport_get_EntryPoint* = 9
-type Fn_IAppResourceGroupBackgroundTaskReport_get_EntryPoint* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IAppResourceGroupBackgroundTaskReportVtbl* = object of IInspectableVtbl
+  get_TaskId*: proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Trigger*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_EntryPoint*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupInfo
 const IID_IAppResourceGroupInfo* = guid"B913F77A-E807-49F4-845E-7B8BDCFE8EE7"
-const Slot_IAppResourceGroupInfo_get_InstanceId* = 6
-type Fn_IAppResourceGroupInfo_get_InstanceId* =
-  proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfo_get_IsShared* = 7
-type Fn_IAppResourceGroupInfo_get_IsShared* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfo_GetBackgroundTaskReports* = 8
-type Fn_IAppResourceGroupInfo_GetBackgroundTaskReports* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfo_GetMemoryReport* = 9
-type Fn_IAppResourceGroupInfo_GetMemoryReport* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfo_GetProcessDiagnosticInfos* = 10
-type Fn_IAppResourceGroupInfo_GetProcessDiagnosticInfos* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfo_GetStateReport* = 11
-type Fn_IAppResourceGroupInfo_GetStateReport* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAppResourceGroupInfoVtbl* = object of IInspectableVtbl
+  get_InstanceId*: proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
+  get_IsShared*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  GetBackgroundTaskReports*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
+  GetMemoryReport*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetProcessDiagnosticInfos*: proc(self: pointer, value: ptr pointer
+                                  ): HRESULT {.abi.}
+  GetStateReport*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupInfo2
 const IID_IAppResourceGroupInfo2* = guid"EE9B236D-D305-4D6B-92F7-6AFDAD72DEDC"
-const Slot_IAppResourceGroupInfo2_StartSuspendAsync* = 6
-type Fn_IAppResourceGroupInfo2_StartSuspendAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfo2_StartResumeAsync* = 7
-type Fn_IAppResourceGroupInfo2_StartResumeAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfo2_StartTerminateAsync* = 8
-type Fn_IAppResourceGroupInfo2_StartTerminateAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAppResourceGroupInfo2Vtbl* = object of IInspectableVtbl
+  StartSuspendAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  StartResumeAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  StartTerminateAsync*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupInfoWatcher
 const IID_IAppResourceGroupInfoWatcher* = guid"D9B0A0FD-6E5A-4C72-8B17-09FEC4A212BD"
-const Slot_IAppResourceGroupInfoWatcher_add_Added* = 6
-type Fn_IAppResourceGroupInfoWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcher_remove_Added* = 7
-type Fn_IAppResourceGroupInfoWatcher_remove_Added* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcher_add_Removed* = 8
-type Fn_IAppResourceGroupInfoWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcher_remove_Removed* = 9
-type Fn_IAppResourceGroupInfoWatcher_remove_Removed* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcher_add_EnumerationCompleted* = 10
-type Fn_IAppResourceGroupInfoWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcher_remove_EnumerationCompleted* = 11
-type Fn_IAppResourceGroupInfoWatcher_remove_EnumerationCompleted* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcher_add_Stopped* = 12
-type Fn_IAppResourceGroupInfoWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcher_remove_Stopped* = 13
-type Fn_IAppResourceGroupInfoWatcher_remove_Stopped* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcher_add_ExecutionStateChanged* = 14
-type Fn_IAppResourceGroupInfoWatcher_add_ExecutionStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcher_remove_ExecutionStateChanged* = 15
-type Fn_IAppResourceGroupInfoWatcher_remove_ExecutionStateChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcher_get_Status* = 16
-type Fn_IAppResourceGroupInfoWatcher_get_Status* =
-  proc(self: pointer, value: ptr AppResourceGroupInfoWatcherStatus
-      ): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcher_Start* = 17
-type Fn_IAppResourceGroupInfoWatcher_Start* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcher_Stop* = 18
-type Fn_IAppResourceGroupInfoWatcher_Stop* =
-  proc(self: pointer): HRESULT {.abi.}
+type IAppResourceGroupInfoWatcherVtbl* = object of IInspectableVtbl
+  add_Added*: proc(self: pointer, a1: pointer,
+                   value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Added*: proc(self: pointer, a1: EventRegistrationToken
+                     ): HRESULT {.abi.}
+  add_Removed*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Removed*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
+  add_EnumerationCompleted*: proc(self: pointer, a1: pointer,
+                                  value: ptr EventRegistrationToken
+                                 ): HRESULT {.abi.}
+  remove_EnumerationCompleted*: proc(self: pointer, a1: EventRegistrationToken
+                                    ): HRESULT {.abi.}
+  add_Stopped*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Stopped*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
+  add_ExecutionStateChanged*: proc(self: pointer, a1: pointer,
+                                   value: ptr EventRegistrationToken
+                                  ): HRESULT {.abi.}
+  remove_ExecutionStateChanged*: proc(self: pointer,
+                                      a1: EventRegistrationToken
+                                     ): HRESULT {.abi.}
+  get_Status*: proc(self: pointer,
+                    value: ptr AppResourceGroupInfoWatcherStatus
+                   ): HRESULT {.abi.}
+  Start*: proc(self: pointer): HRESULT {.abi.}
+  Stop*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupInfoWatcherEventArgs
 const IID_IAppResourceGroupInfoWatcherEventArgs* = guid"7A787637-6302-4D2F-BF89-1C12D0B2A6B9"
-const Slot_IAppResourceGroupInfoWatcherEventArgs_get_AppDiagnosticInfos* = 6
-type Fn_IAppResourceGroupInfoWatcherEventArgs_get_AppDiagnosticInfos* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcherEventArgs_get_AppResourceGroupInfo* = 7
-type Fn_IAppResourceGroupInfoWatcherEventArgs_get_AppResourceGroupInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAppResourceGroupInfoWatcherEventArgsVtbl* = object of IInspectableVtbl
+  get_AppDiagnosticInfos*: proc(self: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
+  get_AppResourceGroupInfo*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs
 const IID_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs* = guid"1BDBEDD7-FEE6-4FD4-98DD-E92A2CC299F3"
-const Slot_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppDiagnosticInfos* = 6
-type Fn_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppDiagnosticInfos* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppResourceGroupInfo* = 7
-type Fn_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppResourceGroupInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAppResourceGroupInfoWatcherExecutionStateChangedEventArgsVtbl* = object of IInspectableVtbl
+  get_AppDiagnosticInfos*: proc(self: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
+  get_AppResourceGroupInfo*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupMemoryReport
 const IID_IAppResourceGroupMemoryReport* = guid"2C8C06B1-7DB1-4C51-A225-7FAE2D49E431"
-const Slot_IAppResourceGroupMemoryReport_get_CommitUsageLimit* = 6
-type Fn_IAppResourceGroupMemoryReport_get_CommitUsageLimit* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IAppResourceGroupMemoryReport_get_CommitUsageLevel* = 7
-type Fn_IAppResourceGroupMemoryReport_get_CommitUsageLevel* =
-  proc(self: pointer, value: ptr AppMemoryUsageLevel): HRESULT {.abi.}
-const Slot_IAppResourceGroupMemoryReport_get_PrivateCommitUsage* = 8
-type Fn_IAppResourceGroupMemoryReport_get_PrivateCommitUsage* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IAppResourceGroupMemoryReport_get_TotalCommitUsage* = 9
-type Fn_IAppResourceGroupMemoryReport_get_TotalCommitUsage* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
+type IAppResourceGroupMemoryReportVtbl* = object of IInspectableVtbl
+  get_CommitUsageLimit*: proc(self: pointer, value: ptr uint64
+                             ): HRESULT {.abi.}
+  get_CommitUsageLevel*: proc(self: pointer, value: ptr AppMemoryUsageLevel
+                             ): HRESULT {.abi.}
+  get_PrivateCommitUsage*: proc(self: pointer, value: ptr uint64
+                               ): HRESULT {.abi.}
+  get_TotalCommitUsage*: proc(self: pointer, value: ptr uint64
+                             ): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupStateReport
 const IID_IAppResourceGroupStateReport* = guid"52849F18-2F70-4236-AB40-D04DB0C7B931"
-const Slot_IAppResourceGroupStateReport_get_ExecutionState* = 6
-type Fn_IAppResourceGroupStateReport_get_ExecutionState* =
-  proc(self: pointer, value: ptr AppResourceGroupExecutionState
-      ): HRESULT {.abi.}
-const Slot_IAppResourceGroupStateReport_get_EnergyQuotaState* = 7
-type Fn_IAppResourceGroupStateReport_get_EnergyQuotaState* =
-  proc(self: pointer, value: ptr AppResourceGroupEnergyQuotaState
-      ): HRESULT {.abi.}
+type IAppResourceGroupStateReportVtbl* = object of IInspectableVtbl
+  get_ExecutionState*: proc(self: pointer,
+                            value: ptr AppResourceGroupExecutionState
+                           ): HRESULT {.abi.}
+  get_EnergyQuotaState*: proc(self: pointer,
+                              value: ptr AppResourceGroupEnergyQuotaState
+                             ): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerHost
 const IID_IAppUriHandlerHost* = guid"5D50CAC5-92D2-5409-B56F-7F73E10EA4C3"
-const Slot_IAppUriHandlerHost_get_Name* = 6
-type Fn_IAppUriHandlerHost_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IAppUriHandlerHost_put_Name* = 7
-type Fn_IAppUriHandlerHost_put_Name* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IAppUriHandlerHostVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Name*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerHost2
 const IID_IAppUriHandlerHost2* = guid"3A0BEE95-29E4-51BF-8095-A3C068E3C72A"
-const Slot_IAppUriHandlerHost2_get_IsEnabled* = 6
-type Fn_IAppUriHandlerHost2_get_IsEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IAppUriHandlerHost2_put_IsEnabled* = 7
-type Fn_IAppUriHandlerHost2_put_IsEnabled* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type IAppUriHandlerHost2Vtbl* = object of IInspectableVtbl
+  get_IsEnabled*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_IsEnabled*: proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerHostFactory
 const IID_IAppUriHandlerHostFactory* = guid"257C3C96-CE04-5F98-96BB-3EBD3E9275BB"
-const Slot_IAppUriHandlerHostFactory_CreateInstance* = 6
-type Fn_IAppUriHandlerHostFactory_CreateInstance* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IAppUriHandlerHostFactoryVtbl* = object of IInspectableVtbl
+  CreateInstance*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                       ): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerRegistration
 const IID_IAppUriHandlerRegistration* = guid"6F73AEB1-4569-5C3F-9BA0-99123EEA32C3"
-const Slot_IAppUriHandlerRegistration_get_Name* = 6
-type Fn_IAppUriHandlerRegistration_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IAppUriHandlerRegistration_get_User* = 7
-type Fn_IAppUriHandlerRegistration_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppUriHandlerRegistration_GetAppAddedHostsAsync* = 8
-type Fn_IAppUriHandlerRegistration_GetAppAddedHostsAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppUriHandlerRegistration_SetAppAddedHostsAsync* = 9
-type Fn_IAppUriHandlerRegistration_SetAppAddedHostsAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAppUriHandlerRegistrationVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetAppAddedHostsAsync*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  SetAppAddedHostsAsync*: proc(self: pointer, a1: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerRegistration2
 const IID_IAppUriHandlerRegistration2* = guid"D54DAC97-CB39-5F1F-883E-01853730BD6D"
-const Slot_IAppUriHandlerRegistration2_GetAllHosts* = 6
-type Fn_IAppUriHandlerRegistration2_GetAllHosts* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppUriHandlerRegistration2_UpdateHosts* = 7
-type Fn_IAppUriHandlerRegistration2_UpdateHosts* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IAppUriHandlerRegistration2_get_PackageFamilyName* = 8
-type Fn_IAppUriHandlerRegistration2_get_PackageFamilyName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IAppUriHandlerRegistration2Vtbl* = object of IInspectableVtbl
+  GetAllHosts*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  UpdateHosts*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_PackageFamilyName*: proc(self: pointer, value: ptr HSTRING
+                              ): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerRegistrationManager
 const IID_IAppUriHandlerRegistrationManager* = guid"E62C9A52-AC94-5750-AC1B-6CFB6F250263"
-const Slot_IAppUriHandlerRegistrationManager_get_User* = 6
-type Fn_IAppUriHandlerRegistrationManager_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppUriHandlerRegistrationManager_TryGetRegistration* = 7
-type Fn_IAppUriHandlerRegistrationManager_TryGetRegistration* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IAppUriHandlerRegistrationManagerVtbl* = object of IInspectableVtbl
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  TryGetRegistration*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerRegistrationManager2
 const IID_IAppUriHandlerRegistrationManager2* = guid"BDDFCAF1-B51A-5E69-AEFD-7088D9F2B123"
-const Slot_IAppUriHandlerRegistrationManager2_get_PackageFamilyName* = 6
-type Fn_IAppUriHandlerRegistrationManager2_get_PackageFamilyName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IAppUriHandlerRegistrationManager2Vtbl* = object of IInspectableVtbl
+  get_PackageFamilyName*: proc(self: pointer, value: ptr HSTRING
+                              ): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerRegistrationManagerStatics
 const IID_IAppUriHandlerRegistrationManagerStatics* = guid"D5CEDD9F-5729-5B76-A1D4-0285F295C124"
-const Slot_IAppUriHandlerRegistrationManagerStatics_GetDefault* = 6
-type Fn_IAppUriHandlerRegistrationManagerStatics_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppUriHandlerRegistrationManagerStatics_GetForUser* = 7
-type Fn_IAppUriHandlerRegistrationManagerStatics_GetForUser* =
-  proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAppUriHandlerRegistrationManagerStaticsVtbl* = object of IInspectableVtbl
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetForUser*: proc(self: pointer, a1User: pointer, value: ptr pointer
+                   ): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerRegistrationManagerStatics2
 const IID_IAppUriHandlerRegistrationManagerStatics2* = guid"14F78379-6890-5080-90A7-98824A7F079E"
-const Slot_IAppUriHandlerRegistrationManagerStatics2_GetForPackage* = 6
-type Fn_IAppUriHandlerRegistrationManagerStatics2_GetForPackage* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAppUriHandlerRegistrationManagerStatics2_GetForPackageForUser* = 7
-type Fn_IAppUriHandlerRegistrationManagerStatics2_GetForPackageForUser* =
-  proc(self: pointer, a1: HSTRING, a2User: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IAppUriHandlerRegistrationManagerStatics2Vtbl* = object of IInspectableVtbl
+  GetForPackage*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                      ): HRESULT {.abi.}
+  GetForPackageForUser*: proc(self: pointer, a1: HSTRING, a2User: pointer,
+                              value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IDateTimeSettingsStatics
 const IID_IDateTimeSettingsStatics* = guid"5D2150D1-47EE-48AB-A52B-9F1954278D82"
-const Slot_IDateTimeSettingsStatics_SetSystemDateTime* = 6
-type Fn_IDateTimeSettingsStatics_SetSystemDateTime* =
-  proc(self: pointer, a1: DateTime): HRESULT {.abi.}
+type IDateTimeSettingsStaticsVtbl* = object of IInspectableVtbl
+  SetSystemDateTime*: proc(self: pointer, a1: DateTime): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueue
 const IID_IDispatcherQueue* = guid"603E88E4-A338-4FFE-A457-A5CFB9CEB899"
-const Slot_IDispatcherQueue_CreateTimer* = 6
-type Fn_IDispatcherQueue_CreateTimer* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IDispatcherQueue_TryEnqueue* = 7
-type Fn_IDispatcherQueue_TryEnqueue* =
-  proc(self: pointer, a1DispatcherQueueHandler: pointer, value: ptr bool
-      ): HRESULT {.abi.}
-const Slot_IDispatcherQueue_TryEnqueue2* = 8
-type Fn_IDispatcherQueue_TryEnqueue2* =
-  proc(self: pointer, a1: DispatcherQueuePriority,
-       a2DispatcherQueueHandler: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IDispatcherQueue_add_ShutdownStarting* = 9
-type Fn_IDispatcherQueue_add_ShutdownStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IDispatcherQueue_remove_ShutdownStarting* = 10
-type Fn_IDispatcherQueue_remove_ShutdownStarting* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IDispatcherQueue_add_ShutdownCompleted* = 11
-type Fn_IDispatcherQueue_add_ShutdownCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IDispatcherQueue_remove_ShutdownCompleted* = 12
-type Fn_IDispatcherQueue_remove_ShutdownCompleted* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IDispatcherQueueVtbl* = object of IInspectableVtbl
+  CreateTimer*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  TryEnqueue*: proc(self: pointer, a1DispatcherQueueHandler: pointer,
+                    value: ptr bool): HRESULT {.abi.}
+  TryEnqueue2*: proc(self: pointer, a1: DispatcherQueuePriority,
+                     a2DispatcherQueueHandler: pointer, value: ptr bool
+                    ): HRESULT {.abi.}
+  add_ShutdownStarting*: proc(self: pointer, a1: pointer,
+                              value: ptr EventRegistrationToken
+                             ): HRESULT {.abi.}
+  remove_ShutdownStarting*: proc(self: pointer, a1: EventRegistrationToken
+                                ): HRESULT {.abi.}
+  add_ShutdownCompleted*: proc(self: pointer, a1: pointer,
+                               value: ptr EventRegistrationToken
+                              ): HRESULT {.abi.}
+  remove_ShutdownCompleted*: proc(self: pointer, a1: EventRegistrationToken
+                                 ): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueue2
 const IID_IDispatcherQueue2* = guid"C822C647-30EF-506E-BD1E-A647AE6675FF"
-const Slot_IDispatcherQueue2_get_HasThreadAccess* = 6
-type Fn_IDispatcherQueue2_get_HasThreadAccess* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IDispatcherQueue2Vtbl* = object of IInspectableVtbl
+  get_HasThreadAccess*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueueController
 const IID_IDispatcherQueueController* = guid"22F34E66-50DB-4E36-A98D-61C01B384D20"
-const Slot_IDispatcherQueueController_get_DispatcherQueue* = 6
-type Fn_IDispatcherQueueController_get_DispatcherQueue* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IDispatcherQueueController_ShutdownQueueAsync* = 7
-type Fn_IDispatcherQueueController_ShutdownQueueAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IDispatcherQueueControllerVtbl* = object of IInspectableVtbl
+  get_DispatcherQueue*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  ShutdownQueueAsync*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueueControllerStatics
 const IID_IDispatcherQueueControllerStatics* = guid"0A6C98E0-5198-49A2-A313-3F70D1F13C27"
-const Slot_IDispatcherQueueControllerStatics_CreateOnDedicatedThread* = 6
-type Fn_IDispatcherQueueControllerStatics_CreateOnDedicatedThread* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IDispatcherQueueControllerStaticsVtbl* = object of IInspectableVtbl
+  CreateOnDedicatedThread*: proc(self: pointer, value: ptr pointer
+                                ): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueueShutdownStartingEventArgs
 const IID_IDispatcherQueueShutdownStartingEventArgs* = guid"C4724C4C-FF97-40C0-A226-CC0AAA545E89"
-const Slot_IDispatcherQueueShutdownStartingEventArgs_GetDeferral* = 6
-type Fn_IDispatcherQueueShutdownStartingEventArgs_GetDeferral* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IDispatcherQueueShutdownStartingEventArgsVtbl* = object of IInspectableVtbl
+  GetDeferral*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueueStatics
 const IID_IDispatcherQueueStatics* = guid"A96D83D7-9371-4517-9245-D0824AC12C74"
-const Slot_IDispatcherQueueStatics_GetForCurrentThread* = 6
-type Fn_IDispatcherQueueStatics_GetForCurrentThread* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IDispatcherQueueStaticsVtbl* = object of IInspectableVtbl
+  GetForCurrentThread*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueueTimer
 const IID_IDispatcherQueueTimer* = guid"5FEABB1D-A31C-4727-B1AC-37454649D56A"
-const Slot_IDispatcherQueueTimer_get_Interval* = 6
-type Fn_IDispatcherQueueTimer_get_Interval* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IDispatcherQueueTimer_put_Interval* = 7
-type Fn_IDispatcherQueueTimer_put_Interval* =
-  proc(self: pointer, a1: TimeSpan): HRESULT {.abi.}
-const Slot_IDispatcherQueueTimer_get_IsRunning* = 8
-type Fn_IDispatcherQueueTimer_get_IsRunning* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IDispatcherQueueTimer_get_IsRepeating* = 9
-type Fn_IDispatcherQueueTimer_get_IsRepeating* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IDispatcherQueueTimer_put_IsRepeating* = 10
-type Fn_IDispatcherQueueTimer_put_IsRepeating* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IDispatcherQueueTimer_Start* = 11
-type Fn_IDispatcherQueueTimer_Start* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IDispatcherQueueTimer_Stop* = 12
-type Fn_IDispatcherQueueTimer_Stop* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IDispatcherQueueTimer_add_Tick* = 13
-type Fn_IDispatcherQueueTimer_add_Tick* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IDispatcherQueueTimer_remove_Tick* = 14
-type Fn_IDispatcherQueueTimer_remove_Tick* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IDispatcherQueueTimerVtbl* = object of IInspectableVtbl
+  get_Interval*: proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+  put_Interval*: proc(self: pointer, a1: TimeSpan): HRESULT {.abi.}
+  get_IsRunning*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_IsRepeating*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_IsRepeating*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  Start*: proc(self: pointer): HRESULT {.abi.}
+  Stop*: proc(self: pointer): HRESULT {.abi.}
+  add_Tick*: proc(self: pointer, a1: pointer,
+                  value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Tick*: proc(self: pointer, a1: EventRegistrationToken
+                    ): HRESULT {.abi.}
 
 ## Windows.System.IFolderLauncherOptions
 const IID_IFolderLauncherOptions* = guid"BB91C27D-6B87-432A-BD04-776C6F5FB2AB"
-const Slot_IFolderLauncherOptions_get_ItemsToSelect* = 6
-type Fn_IFolderLauncherOptions_get_ItemsToSelect* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IFolderLauncherOptionsVtbl* = object of IInspectableVtbl
+  get_ItemsToSelect*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IKnownUserPropertiesStatics
 const IID_IKnownUserPropertiesStatics* = guid"7755911A-70C5-48E5-B637-5BA3441E4EE4"
-const Slot_IKnownUserPropertiesStatics_get_DisplayName* = 6
-type Fn_IKnownUserPropertiesStatics_get_DisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownUserPropertiesStatics_get_FirstName* = 7
-type Fn_IKnownUserPropertiesStatics_get_FirstName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownUserPropertiesStatics_get_LastName* = 8
-type Fn_IKnownUserPropertiesStatics_get_LastName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownUserPropertiesStatics_get_ProviderName* = 9
-type Fn_IKnownUserPropertiesStatics_get_ProviderName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownUserPropertiesStatics_get_AccountName* = 10
-type Fn_IKnownUserPropertiesStatics_get_AccountName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownUserPropertiesStatics_get_GuestHost* = 11
-type Fn_IKnownUserPropertiesStatics_get_GuestHost* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownUserPropertiesStatics_get_PrincipalName* = 12
-type Fn_IKnownUserPropertiesStatics_get_PrincipalName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownUserPropertiesStatics_get_DomainName* = 13
-type Fn_IKnownUserPropertiesStatics_get_DomainName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownUserPropertiesStatics_get_SessionInitiationProtocolUri* = 14
-type Fn_IKnownUserPropertiesStatics_get_SessionInitiationProtocolUri* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IKnownUserPropertiesStaticsVtbl* = object of IInspectableVtbl
+  get_DisplayName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_FirstName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_LastName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ProviderName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_AccountName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_GuestHost*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_PrincipalName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DomainName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_SessionInitiationProtocolUri*: proc(self: pointer, value: ptr HSTRING
+                                         ): HRESULT {.abi.}
 
 ## Windows.System.IKnownUserPropertiesStatics2
 const IID_IKnownUserPropertiesStatics2* = guid"5B450782-F620-577E-B1B3-DD56644D79B1"
-const Slot_IKnownUserPropertiesStatics2_get_AgeEnforcementRegion* = 6
-type Fn_IKnownUserPropertiesStatics2_get_AgeEnforcementRegion* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IKnownUserPropertiesStatics2Vtbl* = object of IInspectableVtbl
+  get_AgeEnforcementRegion*: proc(self: pointer, value: ptr HSTRING
+                                 ): HRESULT {.abi.}
 
 ## Windows.System.ILaunchUriResult
 const IID_ILaunchUriResult* = guid"EC27A8DF-F6D5-45CA-913A-70A40C5C8221"
-const Slot_ILaunchUriResult_get_Status* = 6
-type Fn_ILaunchUriResult_get_Status* =
-  proc(self: pointer, value: ptr LaunchUriStatus): HRESULT {.abi.}
-const Slot_ILaunchUriResult_get_Result* = 7
-type Fn_ILaunchUriResult_get_Result* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ILaunchUriResultVtbl* = object of IInspectableVtbl
+  get_Status*: proc(self: pointer, value: ptr LaunchUriStatus
+                   ): HRESULT {.abi.}
+  get_Result*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.ILauncherOptions
 const IID_ILauncherOptions* = guid"BAFA21D8-B071-4CD8-853E-341203E557D3"
-const Slot_ILauncherOptions_get_TreatAsUntrusted* = 6
-type Fn_ILauncherOptions_get_TreatAsUntrusted* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ILauncherOptions_put_TreatAsUntrusted* = 7
-type Fn_ILauncherOptions_put_TreatAsUntrusted* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_ILauncherOptions_get_DisplayApplicationPicker* = 8
-type Fn_ILauncherOptions_get_DisplayApplicationPicker* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ILauncherOptions_put_DisplayApplicationPicker* = 9
-type Fn_ILauncherOptions_put_DisplayApplicationPicker* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_ILauncherOptions_get_UI* = 10
-type Fn_ILauncherOptions_get_UI* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherOptions_get_PreferredApplicationPackageFamilyName* = 11
-type Fn_ILauncherOptions_get_PreferredApplicationPackageFamilyName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILauncherOptions_put_PreferredApplicationPackageFamilyName* = 12
-type Fn_ILauncherOptions_put_PreferredApplicationPackageFamilyName* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ILauncherOptions_get_PreferredApplicationDisplayName* = 13
-type Fn_ILauncherOptions_get_PreferredApplicationDisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILauncherOptions_put_PreferredApplicationDisplayName* = 14
-type Fn_ILauncherOptions_put_PreferredApplicationDisplayName* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ILauncherOptions_get_FallbackUri* = 15
-type Fn_ILauncherOptions_get_FallbackUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherOptions_put_FallbackUri* = 16
-type Fn_ILauncherOptions_put_FallbackUri* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_ILauncherOptions_get_ContentType* = 17
-type Fn_ILauncherOptions_get_ContentType* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILauncherOptions_put_ContentType* = 18
-type Fn_ILauncherOptions_put_ContentType* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type ILauncherOptionsVtbl* = object of IInspectableVtbl
+  get_TreatAsUntrusted*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_TreatAsUntrusted*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_DisplayApplicationPicker*: proc(self: pointer, value: ptr bool
+                                     ): HRESULT {.abi.}
+  put_DisplayApplicationPicker*: proc(self: pointer, a1: bool
+                                     ): HRESULT {.abi.}
+  get_UI*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_PreferredApplicationPackageFamilyName*: proc(self: pointer,
+                                                   value: ptr HSTRING
+                                                  ): HRESULT {.abi.}
+  put_PreferredApplicationPackageFamilyName*: proc(self: pointer, a1: HSTRING
+                                                  ): HRESULT {.abi.}
+  get_PreferredApplicationDisplayName*: proc(self: pointer, value: ptr HSTRING
+                                            ): HRESULT {.abi.}
+  put_PreferredApplicationDisplayName*: proc(self: pointer, a1: HSTRING
+                                            ): HRESULT {.abi.}
+  get_FallbackUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_FallbackUri*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_ContentType*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_ContentType*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.System.ILauncherOptions2
 const IID_ILauncherOptions2* = guid"3BA08EB4-6E40-4DCE-A1A3-2F53950AFB49"
-const Slot_ILauncherOptions2_get_TargetApplicationPackageFamilyName* = 6
-type Fn_ILauncherOptions2_get_TargetApplicationPackageFamilyName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILauncherOptions2_put_TargetApplicationPackageFamilyName* = 7
-type Fn_ILauncherOptions2_put_TargetApplicationPackageFamilyName* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ILauncherOptions2_get_NeighboringFilesQuery* = 8
-type Fn_ILauncherOptions2_get_NeighboringFilesQuery* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherOptions2_put_NeighboringFilesQuery* = 9
-type Fn_ILauncherOptions2_put_NeighboringFilesQuery* =
-  proc(self: pointer, a1StorageFileQueryResult: pointer): HRESULT {.abi.}
+type ILauncherOptions2Vtbl* = object of IInspectableVtbl
+  get_TargetApplicationPackageFamilyName*: proc(self: pointer,
+                                                value: ptr HSTRING
+                                               ): HRESULT {.abi.}
+  put_TargetApplicationPackageFamilyName*: proc(self: pointer, a1: HSTRING
+                                               ): HRESULT {.abi.}
+  get_NeighboringFilesQuery*: proc(self: pointer, value: ptr pointer
+                                  ): HRESULT {.abi.}
+  put_NeighboringFilesQuery*: proc(self: pointer,
+                                   a1StorageFileQueryResult: pointer
+                                  ): HRESULT {.abi.}
 
 ## Windows.System.ILauncherOptions3
 const IID_ILauncherOptions3* = guid"F0770655-4B63-4E3A-9107-4E687841923A"
-const Slot_ILauncherOptions3_get_IgnoreAppUriHandlers* = 6
-type Fn_ILauncherOptions3_get_IgnoreAppUriHandlers* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ILauncherOptions3_put_IgnoreAppUriHandlers* = 7
-type Fn_ILauncherOptions3_put_IgnoreAppUriHandlers* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type ILauncherOptions3Vtbl* = object of IInspectableVtbl
+  get_IgnoreAppUriHandlers*: proc(self: pointer, value: ptr bool
+                                 ): HRESULT {.abi.}
+  put_IgnoreAppUriHandlers*: proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.System.ILauncherOptions4
 const IID_ILauncherOptions4* = guid"EF6FD10E-E6FB-4814-A44E-57E8B9D9A01B"
-const Slot_ILauncherOptions4_get_LimitPickerToCurrentAppAndAppUriHandlers* = 6
-type Fn_ILauncherOptions4_get_LimitPickerToCurrentAppAndAppUriHandlers* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ILauncherOptions4_put_LimitPickerToCurrentAppAndAppUriHandlers* = 7
-type Fn_ILauncherOptions4_put_LimitPickerToCurrentAppAndAppUriHandlers* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type ILauncherOptions4Vtbl* = object of IInspectableVtbl
+  get_LimitPickerToCurrentAppAndAppUriHandlers*: proc(self: pointer,
+                                                      value: ptr bool
+                                                     ): HRESULT {.abi.}
+  put_LimitPickerToCurrentAppAndAppUriHandlers*: proc(self: pointer, a1: bool
+                                                     ): HRESULT {.abi.}
 
 ## Windows.System.ILauncherStatics
 const IID_ILauncherStatics* = guid"277151C3-9E3E-42F6-91A4-5DFDEB232451"
-const Slot_ILauncherStatics_LaunchFileAsync* = 6
-type Fn_ILauncherStatics_LaunchFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILauncherStatics_LaunchFileAsync2* = 7
-type Fn_ILauncherStatics_LaunchFileAsync2* =
-  proc(self: pointer, a1IStorageFile: pointer, a2LauncherOptions: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics_LaunchUriAsync* = 8
-type Fn_ILauncherStatics_LaunchUriAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics_LaunchUriAsync2* = 9
-type Fn_ILauncherStatics_LaunchUriAsync2* =
-  proc(self: pointer, a1Uri: pointer, a2LauncherOptions: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type ILauncherStaticsVtbl* = object of IInspectableVtbl
+  LaunchFileAsync*: proc(self: pointer, a1IStorageFile: pointer,
+                         value: ptr pointer): HRESULT {.abi.}
+  LaunchFileAsync2*: proc(self: pointer, a1IStorageFile: pointer,
+                          a2LauncherOptions: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
+  LaunchUriAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                       ): HRESULT {.abi.}
+  LaunchUriAsync2*: proc(self: pointer, a1Uri: pointer,
+                         a2LauncherOptions: pointer, value: ptr pointer
+                        ): HRESULT {.abi.}
 
 ## Windows.System.ILauncherStatics2
 const IID_ILauncherStatics2* = guid"59BA2FBB-24CB-4C02-A4C4-8294569D54F1"
-const Slot_ILauncherStatics2_LaunchUriForResultsAsync* = 6
-type Fn_ILauncherStatics2_LaunchUriForResultsAsync* =
-  proc(self: pointer, a1Uri: pointer, a2LauncherOptions: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics2_LaunchUriForResultsAsync2* = 7
-type Fn_ILauncherStatics2_LaunchUriForResultsAsync2* =
-  proc(self: pointer, a1Uri: pointer, a2LauncherOptions: pointer,
-       a3ValueSet: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics2_LaunchUriAsync* = 8
-type Fn_ILauncherStatics2_LaunchUriAsync* =
-  proc(self: pointer, a1Uri: pointer, a2LauncherOptions: pointer,
-       a3ValueSet: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics2_QueryUriSupportAsync* = 9
-type Fn_ILauncherStatics2_QueryUriSupportAsync* =
-  proc(self: pointer, a1Uri: pointer, a2: LaunchQuerySupportType,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics2_QueryUriSupportAsync2* = 10
-type Fn_ILauncherStatics2_QueryUriSupportAsync2* =
-  proc(self: pointer, a1Uri: pointer, a2: LaunchQuerySupportType, a3: HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics2_QueryFileSupportAsync* = 11
-type Fn_ILauncherStatics2_QueryFileSupportAsync* =
-  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILauncherStatics2_QueryFileSupportAsync2* = 12
-type Fn_ILauncherStatics2_QueryFileSupportAsync2* =
-  proc(self: pointer, a1StorageFile: pointer, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILauncherStatics2_FindUriSchemeHandlersAsync* = 13
-type Fn_ILauncherStatics2_FindUriSchemeHandlersAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics2_FindUriSchemeHandlersAsync2* = 14
-type Fn_ILauncherStatics2_FindUriSchemeHandlersAsync2* =
-  proc(self: pointer, a1: HSTRING, a2: LaunchQuerySupportType,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics2_FindFileHandlersAsync* = 15
-type Fn_ILauncherStatics2_FindFileHandlersAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type ILauncherStatics2Vtbl* = object of IInspectableVtbl
+  LaunchUriForResultsAsync*: proc(self: pointer, a1Uri: pointer,
+                                  a2LauncherOptions: pointer,
+                                  value: ptr pointer): HRESULT {.abi.}
+  LaunchUriForResultsAsync2*: proc(self: pointer, a1Uri: pointer,
+                                   a2LauncherOptions: pointer,
+                                   a3ValueSet: pointer, value: ptr pointer
+                                  ): HRESULT {.abi.}
+  LaunchUriAsync*: proc(self: pointer, a1Uri: pointer,
+                        a2LauncherOptions: pointer, a3ValueSet: pointer,
+                        value: ptr pointer): HRESULT {.abi.}
+  QueryUriSupportAsync*: proc(self: pointer, a1Uri: pointer,
+                              a2: LaunchQuerySupportType, value: ptr pointer
+                             ): HRESULT {.abi.}
+  QueryUriSupportAsync2*: proc(self: pointer, a1Uri: pointer,
+                               a2: LaunchQuerySupportType, a3: HSTRING,
+                               value: ptr pointer): HRESULT {.abi.}
+  QueryFileSupportAsync*: proc(self: pointer, a1StorageFile: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
+  QueryFileSupportAsync2*: proc(self: pointer, a1StorageFile: pointer,
+                                a2: HSTRING, value: ptr pointer
+                               ): HRESULT {.abi.}
+  FindUriSchemeHandlersAsync*: proc(self: pointer, a1: HSTRING,
+                                    value: ptr pointer): HRESULT {.abi.}
+  FindUriSchemeHandlersAsync2*: proc(self: pointer, a1: HSTRING,
+                                     a2: LaunchQuerySupportType,
+                                     value: ptr pointer): HRESULT {.abi.}
+  FindFileHandlersAsync*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                              ): HRESULT {.abi.}
 
 ## Windows.System.ILauncherStatics3
 const IID_ILauncherStatics3* = guid"234261A8-9DB3-4683-AA42-DC6F51D33847"
-const Slot_ILauncherStatics3_LaunchFolderAsync* = 6
-type Fn_ILauncherStatics3_LaunchFolderAsync* =
-  proc(self: pointer, a1IStorageFolder: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILauncherStatics3_LaunchFolderAsync2* = 7
-type Fn_ILauncherStatics3_LaunchFolderAsync2* =
-  proc(self: pointer, a1IStorageFolder: pointer,
-       a2FolderLauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+type ILauncherStatics3Vtbl* = object of IInspectableVtbl
+  LaunchFolderAsync*: proc(self: pointer, a1IStorageFolder: pointer,
+                           value: ptr pointer): HRESULT {.abi.}
+  LaunchFolderAsync2*: proc(self: pointer, a1IStorageFolder: pointer,
+                            a2FolderLauncherOptions: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.ILauncherStatics4
 const IID_ILauncherStatics4* = guid"B9EC819F-B5A5-41C6-B3B3-DD1B3178BCF2"
-const Slot_ILauncherStatics4_QueryAppUriSupportAsync* = 6
-type Fn_ILauncherStatics4_QueryAppUriSupportAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics4_QueryAppUriSupportAsync2* = 7
-type Fn_ILauncherStatics4_QueryAppUriSupportAsync2* =
-  proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILauncherStatics4_FindAppUriHandlersAsync* = 8
-type Fn_ILauncherStatics4_FindAppUriHandlersAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics4_LaunchUriForUserAsync* = 9
-type Fn_ILauncherStatics4_LaunchUriForUserAsync* =
-  proc(self: pointer, a1User: pointer, a2Uri: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILauncherStatics4_LaunchUriForUserAsync2* = 10
-type Fn_ILauncherStatics4_LaunchUriForUserAsync2* =
-  proc(self: pointer, a1User: pointer, a2Uri: pointer,
-       a3LauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics4_LaunchUriForUserAsync3* = 11
-type Fn_ILauncherStatics4_LaunchUriForUserAsync3* =
-  proc(self: pointer, a1User: pointer, a2Uri: pointer,
-       a3LauncherOptions: pointer, a4ValueSet: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILauncherStatics4_LaunchUriForResultsForUserAsync* = 12
-type Fn_ILauncherStatics4_LaunchUriForResultsForUserAsync* =
-  proc(self: pointer, a1User: pointer, a2Uri: pointer,
-       a3LauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics4_LaunchUriForResultsForUserAsync2* = 13
-type Fn_ILauncherStatics4_LaunchUriForResultsForUserAsync2* =
-  proc(self: pointer, a1User: pointer, a2Uri: pointer,
-       a3LauncherOptions: pointer, a4ValueSet: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ILauncherStatics4Vtbl* = object of IInspectableVtbl
+  QueryAppUriSupportAsync*: proc(self: pointer, a1Uri: pointer,
+                                 value: ptr pointer): HRESULT {.abi.}
+  QueryAppUriSupportAsync2*: proc(self: pointer, a1Uri: pointer, a2: HSTRING,
+                                  value: ptr pointer): HRESULT {.abi.}
+  FindAppUriHandlersAsync*: proc(self: pointer, a1Uri: pointer,
+                                 value: ptr pointer): HRESULT {.abi.}
+  LaunchUriForUserAsync*: proc(self: pointer, a1User: pointer, a2Uri: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
+  LaunchUriForUserAsync2*: proc(self: pointer, a1User: pointer,
+                                a2Uri: pointer, a3LauncherOptions: pointer,
+                                value: ptr pointer): HRESULT {.abi.}
+  LaunchUriForUserAsync3*: proc(self: pointer, a1User: pointer,
+                                a2Uri: pointer, a3LauncherOptions: pointer,
+                                a4ValueSet: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
+  LaunchUriForResultsForUserAsync*: proc(self: pointer, a1User: pointer,
+                                         a2Uri: pointer,
+                                         a3LauncherOptions: pointer,
+                                         value: ptr pointer): HRESULT {.abi.}
+  LaunchUriForResultsForUserAsync2*: proc(self: pointer, a1User: pointer,
+                                          a2Uri: pointer,
+                                          a3LauncherOptions: pointer,
+                                          a4ValueSet: pointer,
+                                          value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.ILauncherStatics5
 const IID_ILauncherStatics5* = guid"5B24EF84-D895-5FEA-9153-1AC49AED9BA9"
-const Slot_ILauncherStatics5_LaunchFolderPathAsync* = 6
-type Fn_ILauncherStatics5_LaunchFolderPathAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics5_LaunchFolderPathAsync2* = 7
-type Fn_ILauncherStatics5_LaunchFolderPathAsync2* =
-  proc(self: pointer, a1: HSTRING, a2FolderLauncherOptions: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherStatics5_LaunchFolderPathForUserAsync* = 8
-type Fn_ILauncherStatics5_LaunchFolderPathForUserAsync* =
-  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILauncherStatics5_LaunchFolderPathForUserAsync2* = 9
-type Fn_ILauncherStatics5_LaunchFolderPathForUserAsync2* =
-  proc(self: pointer, a1User: pointer, a2: HSTRING,
-       a3FolderLauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+type ILauncherStatics5Vtbl* = object of IInspectableVtbl
+  LaunchFolderPathAsync*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                              ): HRESULT {.abi.}
+  LaunchFolderPathAsync2*: proc(self: pointer, a1: HSTRING,
+                                a2FolderLauncherOptions: pointer,
+                                value: ptr pointer): HRESULT {.abi.}
+  LaunchFolderPathForUserAsync*: proc(self: pointer, a1User: pointer,
+                                      a2: HSTRING, value: ptr pointer
+                                     ): HRESULT {.abi.}
+  LaunchFolderPathForUserAsync2*: proc(self: pointer, a1User: pointer,
+                                       a2: HSTRING,
+                                       a3FolderLauncherOptions: pointer,
+                                       value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.ILauncherUIOptions
 const IID_ILauncherUIOptions* = guid"1B25DA6E-8AA6-41E9-8251-4165F5985F49"
-const Slot_ILauncherUIOptions_get_InvocationPoint* = 6
-type Fn_ILauncherUIOptions_get_InvocationPoint* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherUIOptions_put_InvocationPoint* = 7
-type Fn_ILauncherUIOptions_put_InvocationPoint* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_ILauncherUIOptions_get_SelectionRect* = 8
-type Fn_ILauncherUIOptions_get_SelectionRect* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILauncherUIOptions_put_SelectionRect* = 9
-type Fn_ILauncherUIOptions_put_SelectionRect* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_ILauncherUIOptions_get_PreferredPlacement* = 10
-type Fn_ILauncherUIOptions_get_PreferredPlacement* =
-  proc(self: pointer, value: ptr Placement): HRESULT {.abi.}
-const Slot_ILauncherUIOptions_put_PreferredPlacement* = 11
-type Fn_ILauncherUIOptions_put_PreferredPlacement* =
-  proc(self: pointer, a1: Placement): HRESULT {.abi.}
+type ILauncherUIOptionsVtbl* = object of IInspectableVtbl
+  get_InvocationPoint*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  put_InvocationPoint*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_SelectionRect*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_SelectionRect*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_PreferredPlacement*: proc(self: pointer, value: ptr Placement
+                               ): HRESULT {.abi.}
+  put_PreferredPlacement*: proc(self: pointer, a1: Placement): HRESULT {.abi.}
 
 ## Windows.System.ILauncherViewOptions
 const IID_ILauncherViewOptions* = guid"8A9B29F1-7CA7-49DE-9BD3-3C5B7184F616"
-const Slot_ILauncherViewOptions_get_DesiredRemainingView* = 6
-type Fn_ILauncherViewOptions_get_DesiredRemainingView* =
-  proc(self: pointer, value: ptr ViewSizePreference): HRESULT {.abi.}
-const Slot_ILauncherViewOptions_put_DesiredRemainingView* = 7
-type Fn_ILauncherViewOptions_put_DesiredRemainingView* =
-  proc(self: pointer, a1: ViewSizePreference): HRESULT {.abi.}
+type ILauncherViewOptionsVtbl* = object of IInspectableVtbl
+  get_DesiredRemainingView*: proc(self: pointer, value: ptr ViewSizePreference
+                                 ): HRESULT {.abi.}
+  put_DesiredRemainingView*: proc(self: pointer, a1: ViewSizePreference
+                                 ): HRESULT {.abi.}
 
 ## Windows.System.IMemoryManagerStatics
 const IID_IMemoryManagerStatics* = guid"5C6C279C-D7CA-4779-9188-4057219CE64C"
-const Slot_IMemoryManagerStatics_get_AppMemoryUsage* = 6
-type Fn_IMemoryManagerStatics_get_AppMemoryUsage* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IMemoryManagerStatics_get_AppMemoryUsageLimit* = 7
-type Fn_IMemoryManagerStatics_get_AppMemoryUsageLimit* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IMemoryManagerStatics_get_AppMemoryUsageLevel* = 8
-type Fn_IMemoryManagerStatics_get_AppMemoryUsageLevel* =
-  proc(self: pointer, value: ptr AppMemoryUsageLevel): HRESULT {.abi.}
-const Slot_IMemoryManagerStatics_add_AppMemoryUsageIncreased* = 9
-type Fn_IMemoryManagerStatics_add_AppMemoryUsageIncreased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IMemoryManagerStatics_remove_AppMemoryUsageIncreased* = 10
-type Fn_IMemoryManagerStatics_remove_AppMemoryUsageIncreased* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IMemoryManagerStatics_add_AppMemoryUsageDecreased* = 11
-type Fn_IMemoryManagerStatics_add_AppMemoryUsageDecreased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IMemoryManagerStatics_remove_AppMemoryUsageDecreased* = 12
-type Fn_IMemoryManagerStatics_remove_AppMemoryUsageDecreased* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IMemoryManagerStatics_add_AppMemoryUsageLimitChanging* = 13
-type Fn_IMemoryManagerStatics_add_AppMemoryUsageLimitChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IMemoryManagerStatics_remove_AppMemoryUsageLimitChanging* = 14
-type Fn_IMemoryManagerStatics_remove_AppMemoryUsageLimitChanging* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IMemoryManagerStaticsVtbl* = object of IInspectableVtbl
+  get_AppMemoryUsage*: proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
+  get_AppMemoryUsageLimit*: proc(self: pointer, value: ptr uint64
+                                ): HRESULT {.abi.}
+  get_AppMemoryUsageLevel*: proc(self: pointer, value: ptr AppMemoryUsageLevel
+                                ): HRESULT {.abi.}
+  add_AppMemoryUsageIncreased*: proc(self: pointer, a1: pointer,
+                                     value: ptr EventRegistrationToken
+                                    ): HRESULT {.abi.}
+  remove_AppMemoryUsageIncreased*: proc(self: pointer,
+                                        a1: EventRegistrationToken
+                                       ): HRESULT {.abi.}
+  add_AppMemoryUsageDecreased*: proc(self: pointer, a1: pointer,
+                                     value: ptr EventRegistrationToken
+                                    ): HRESULT {.abi.}
+  remove_AppMemoryUsageDecreased*: proc(self: pointer,
+                                        a1: EventRegistrationToken
+                                       ): HRESULT {.abi.}
+  add_AppMemoryUsageLimitChanging*: proc(self: pointer, a1: pointer,
+                                         value: ptr EventRegistrationToken
+                                        ): HRESULT {.abi.}
+  remove_AppMemoryUsageLimitChanging*: proc(self: pointer,
+                                            a1: EventRegistrationToken
+                                           ): HRESULT {.abi.}
 
 ## Windows.System.IMemoryManagerStatics2
 const IID_IMemoryManagerStatics2* = guid"6EEE351F-6D62-423F-9479-B01F9C9F7669"
-const Slot_IMemoryManagerStatics2_GetAppMemoryReport* = 6
-type Fn_IMemoryManagerStatics2_GetAppMemoryReport* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMemoryManagerStatics2_GetProcessMemoryReport* = 7
-type Fn_IMemoryManagerStatics2_GetProcessMemoryReport* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IMemoryManagerStatics2Vtbl* = object of IInspectableVtbl
+  GetAppMemoryReport*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  GetProcessMemoryReport*: proc(self: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
 
 ## Windows.System.IMemoryManagerStatics3
 const IID_IMemoryManagerStatics3* = guid"149B59CE-92AD-4E35-89EB-50DFB4C0D91C"
-const Slot_IMemoryManagerStatics3_TrySetAppMemoryUsageLimit* = 6
-type Fn_IMemoryManagerStatics3_TrySetAppMemoryUsageLimit* =
-  proc(self: pointer, a1: uint64, value: ptr bool): HRESULT {.abi.}
+type IMemoryManagerStatics3Vtbl* = object of IInspectableVtbl
+  TrySetAppMemoryUsageLimit*: proc(self: pointer, a1: uint64, value: ptr bool
+                                  ): HRESULT {.abi.}
 
 ## Windows.System.IMemoryManagerStatics4
 const IID_IMemoryManagerStatics4* = guid"C5A94828-E84E-4886-8A0D-44B3190E3B72"
-const Slot_IMemoryManagerStatics4_get_ExpectedAppMemoryUsageLimit* = 6
-type Fn_IMemoryManagerStatics4_get_ExpectedAppMemoryUsageLimit* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
+type IMemoryManagerStatics4Vtbl* = object of IInspectableVtbl
+  get_ExpectedAppMemoryUsageLimit*: proc(self: pointer, value: ptr uint64
+                                        ): HRESULT {.abi.}
 
 ## Windows.System.IProcessLauncherOptions
 const IID_IProcessLauncherOptions* = guid"3080B9CF-F444-4A83-BEAF-A549A0F3229C"
-const Slot_IProcessLauncherOptions_get_StandardInput* = 6
-type Fn_IProcessLauncherOptions_get_StandardInput* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IProcessLauncherOptions_put_StandardInput* = 7
-type Fn_IProcessLauncherOptions_put_StandardInput* =
-  proc(self: pointer, a1IInputStream: pointer): HRESULT {.abi.}
-const Slot_IProcessLauncherOptions_get_StandardOutput* = 8
-type Fn_IProcessLauncherOptions_get_StandardOutput* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IProcessLauncherOptions_put_StandardOutput* = 9
-type Fn_IProcessLauncherOptions_put_StandardOutput* =
-  proc(self: pointer, a1IOutputStream: pointer): HRESULT {.abi.}
-const Slot_IProcessLauncherOptions_get_StandardError* = 10
-type Fn_IProcessLauncherOptions_get_StandardError* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IProcessLauncherOptions_put_StandardError* = 11
-type Fn_IProcessLauncherOptions_put_StandardError* =
-  proc(self: pointer, a1IOutputStream: pointer): HRESULT {.abi.}
-const Slot_IProcessLauncherOptions_get_WorkingDirectory* = 12
-type Fn_IProcessLauncherOptions_get_WorkingDirectory* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IProcessLauncherOptions_put_WorkingDirectory* = 13
-type Fn_IProcessLauncherOptions_put_WorkingDirectory* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IProcessLauncherOptionsVtbl* = object of IInspectableVtbl
+  get_StandardInput*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_StandardInput*: proc(self: pointer, a1IInputStream: pointer
+                          ): HRESULT {.abi.}
+  get_StandardOutput*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  put_StandardOutput*: proc(self: pointer, a1IOutputStream: pointer
+                           ): HRESULT {.abi.}
+  get_StandardError*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_StandardError*: proc(self: pointer, a1IOutputStream: pointer
+                          ): HRESULT {.abi.}
+  get_WorkingDirectory*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  put_WorkingDirectory*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.System.IProcessLauncherResult
 const IID_IProcessLauncherResult* = guid"544C8934-86D8-4991-8E75-ECE8A43B6B6D"
-const Slot_IProcessLauncherResult_get_ExitCode* = 6
-type Fn_IProcessLauncherResult_get_ExitCode* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+type IProcessLauncherResultVtbl* = object of IInspectableVtbl
+  get_ExitCode*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 
 ## Windows.System.IProcessLauncherStatics
 const IID_IProcessLauncherStatics* = guid"33AB66E7-2D0E-448B-A6A0-C13C3836D09C"
-const Slot_IProcessLauncherStatics_RunToCompletionAsync* = 6
-type Fn_IProcessLauncherStatics_RunToCompletionAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IProcessLauncherStatics_RunToCompletionAsync2* = 7
-type Fn_IProcessLauncherStatics_RunToCompletionAsync2* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING,
-       a3ProcessLauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+type IProcessLauncherStaticsVtbl* = object of IInspectableVtbl
+  RunToCompletionAsync*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                              value: ptr pointer): HRESULT {.abi.}
+  RunToCompletionAsync2*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                               a3ProcessLauncherOptions: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IProcessMemoryReport
 const IID_IProcessMemoryReport* = guid"087305A8-9B70-4782-8741-3A982B6CE5E4"
-const Slot_IProcessMemoryReport_get_PrivateWorkingSetUsage* = 6
-type Fn_IProcessMemoryReport_get_PrivateWorkingSetUsage* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IProcessMemoryReport_get_TotalWorkingSetUsage* = 7
-type Fn_IProcessMemoryReport_get_TotalWorkingSetUsage* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
+type IProcessMemoryReportVtbl* = object of IInspectableVtbl
+  get_PrivateWorkingSetUsage*: proc(self: pointer, value: ptr uint64
+                                   ): HRESULT {.abi.}
+  get_TotalWorkingSetUsage*: proc(self: pointer, value: ptr uint64
+                                 ): HRESULT {.abi.}
 
 ## Windows.System.IProtocolForResultsOperation
 const IID_IProtocolForResultsOperation* = guid"D581293A-6DE9-4D28-9378-F86782E182BB"
-const Slot_IProtocolForResultsOperation_ReportCompleted* = 6
-type Fn_IProtocolForResultsOperation_ReportCompleted* =
-  proc(self: pointer, a1ValueSet: pointer): HRESULT {.abi.}
+type IProtocolForResultsOperationVtbl* = object of IInspectableVtbl
+  ReportCompleted*: proc(self: pointer, a1ValueSet: pointer): HRESULT {.abi.}
 
 ## Windows.System.IRemoteLauncherOptions
 const IID_IRemoteLauncherOptions* = guid"9E3A2788-2891-4CDF-A2D6-9DFF7D02E693"
-const Slot_IRemoteLauncherOptions_get_FallbackUri* = 6
-type Fn_IRemoteLauncherOptions_get_FallbackUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteLauncherOptions_put_FallbackUri* = 7
-type Fn_IRemoteLauncherOptions_put_FallbackUri* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_IRemoteLauncherOptions_get_PreferredAppIds* = 8
-type Fn_IRemoteLauncherOptions_get_PreferredAppIds* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteLauncherOptionsVtbl* = object of IInspectableVtbl
+  get_FallbackUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_FallbackUri*: proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
+  get_PreferredAppIds*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.System.IRemoteLauncherStatics
 const IID_IRemoteLauncherStatics* = guid"D7DB7A93-A30C-48B7-9F21-051026A4E517"
-const Slot_IRemoteLauncherStatics_LaunchUriAsync* = 6
-type Fn_IRemoteLauncherStatics_LaunchUriAsync* =
-  proc(self: pointer, a1RemoteSystemConnectionRequest: pointer,
-       a2Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteLauncherStatics_LaunchUriAsync2* = 7
-type Fn_IRemoteLauncherStatics_LaunchUriAsync2* =
-  proc(self: pointer, a1RemoteSystemConnectionRequest: pointer,
-       a2Uri: pointer, a3RemoteLauncherOptions: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IRemoteLauncherStatics_LaunchUriAsync3* = 8
-type Fn_IRemoteLauncherStatics_LaunchUriAsync3* =
-  proc(self: pointer, a1RemoteSystemConnectionRequest: pointer,
-       a2Uri: pointer, a3RemoteLauncherOptions: pointer, a4ValueSet: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type IRemoteLauncherStaticsVtbl* = object of IInspectableVtbl
+  LaunchUriAsync*: proc(self: pointer,
+                        a1RemoteSystemConnectionRequest: pointer,
+                        a2Uri: pointer, value: ptr pointer): HRESULT {.abi.}
+  LaunchUriAsync2*: proc(self: pointer,
+                         a1RemoteSystemConnectionRequest: pointer,
+                         a2Uri: pointer, a3RemoteLauncherOptions: pointer,
+                         value: ptr pointer): HRESULT {.abi.}
+  LaunchUriAsync3*: proc(self: pointer,
+                         a1RemoteSystemConnectionRequest: pointer,
+                         a2Uri: pointer, a3RemoteLauncherOptions: pointer,
+                         a4ValueSet: pointer, value: ptr pointer
+                        ): HRESULT {.abi.}
 
 ## Windows.System.IShutdownManagerStatics
 const IID_IShutdownManagerStatics* = guid"72E247ED-DD5B-4D6C-B1D0-C57A7BBB5F94"
-const Slot_IShutdownManagerStatics_BeginShutdown* = 6
-type Fn_IShutdownManagerStatics_BeginShutdown* =
-  proc(self: pointer, a1: ShutdownKind, a2: TimeSpan): HRESULT {.abi.}
-const Slot_IShutdownManagerStatics_CancelShutdown* = 7
-type Fn_IShutdownManagerStatics_CancelShutdown* =
-  proc(self: pointer): HRESULT {.abi.}
+type IShutdownManagerStaticsVtbl* = object of IInspectableVtbl
+  BeginShutdown*: proc(self: pointer, a1: ShutdownKind, a2: TimeSpan
+                      ): HRESULT {.abi.}
+  CancelShutdown*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.IShutdownManagerStatics2
 const IID_IShutdownManagerStatics2* = guid"0F69A02F-9C34-43C7-A8C3-70B30A7F7504"
-const Slot_IShutdownManagerStatics2_IsPowerStateSupported* = 6
-type Fn_IShutdownManagerStatics2_IsPowerStateSupported* =
-  proc(self: pointer, a1: PowerState, value: ptr bool): HRESULT {.abi.}
-const Slot_IShutdownManagerStatics2_EnterPowerState* = 7
-type Fn_IShutdownManagerStatics2_EnterPowerState* =
-  proc(self: pointer, a1: PowerState): HRESULT {.abi.}
-const Slot_IShutdownManagerStatics2_EnterPowerState2* = 8
-type Fn_IShutdownManagerStatics2_EnterPowerState2* =
-  proc(self: pointer, a1: PowerState, a2: TimeSpan): HRESULT {.abi.}
+type IShutdownManagerStatics2Vtbl* = object of IInspectableVtbl
+  IsPowerStateSupported*: proc(self: pointer, a1: PowerState, value: ptr bool
+                              ): HRESULT {.abi.}
+  EnterPowerState*: proc(self: pointer, a1: PowerState): HRESULT {.abi.}
+  EnterPowerState2*: proc(self: pointer, a1: PowerState, a2: TimeSpan
+                         ): HRESULT {.abi.}
 
 ## Windows.System.ITimeZoneSettingsStatics
 const IID_ITimeZoneSettingsStatics* = guid"9B3B2BEA-A101-41AE-9FBD-028728BAB73D"
-const Slot_ITimeZoneSettingsStatics_get_CurrentTimeZoneDisplayName* = 6
-type Fn_ITimeZoneSettingsStatics_get_CurrentTimeZoneDisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITimeZoneSettingsStatics_get_SupportedTimeZoneDisplayNames* = 7
-type Fn_ITimeZoneSettingsStatics_get_SupportedTimeZoneDisplayNames* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITimeZoneSettingsStatics_get_CanChangeTimeZone* = 8
-type Fn_ITimeZoneSettingsStatics_get_CanChangeTimeZone* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ITimeZoneSettingsStatics_ChangeTimeZoneByDisplayName* = 9
-type Fn_ITimeZoneSettingsStatics_ChangeTimeZoneByDisplayName* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type ITimeZoneSettingsStaticsVtbl* = object of IInspectableVtbl
+  get_CurrentTimeZoneDisplayName*: proc(self: pointer, value: ptr HSTRING
+                                       ): HRESULT {.abi.}
+  get_SupportedTimeZoneDisplayNames*: proc(self: pointer, value: ptr pointer
+                                          ): HRESULT {.abi.}
+  get_CanChangeTimeZone*: proc(self: pointer, value: ptr bool
+                              ): HRESULT {.abi.}
+  ChangeTimeZoneByDisplayName*: proc(self: pointer, a1: HSTRING
+                                    ): HRESULT {.abi.}
 
 ## Windows.System.ITimeZoneSettingsStatics2
 const IID_ITimeZoneSettingsStatics2* = guid"555C0DB8-39A8-49FA-B4F6-A2C7FC2842EC"
-const Slot_ITimeZoneSettingsStatics2_AutoUpdateTimeZoneAsync* = 6
-type Fn_ITimeZoneSettingsStatics2_AutoUpdateTimeZoneAsync* =
-  proc(self: pointer, a1: TimeSpan, value: ptr pointer): HRESULT {.abi.}
+type ITimeZoneSettingsStatics2Vtbl* = object of IInspectableVtbl
+  AutoUpdateTimeZoneAsync*: proc(self: pointer, a1: TimeSpan,
+                                 value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUser
 const IID_IUser* = guid"DF9A26C6-E746-4BCD-B5D4-120103C4209B"
-const Slot_IUser_get_NonRoamableId* = 6
-type Fn_IUser_get_NonRoamableId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IUser_get_AuthenticationStatus* = 7
-type Fn_IUser_get_AuthenticationStatus* =
-  proc(self: pointer, value: ptr UserAuthenticationStatus): HRESULT {.abi.}
-const Slot_IUser_get_Type* = 8
-type Fn_IUser_get_Type* =
-  proc(self: pointer, value: ptr UserType): HRESULT {.abi.}
-const Slot_IUser_GetPropertyAsync* = 9
-type Fn_IUser_GetPropertyAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUser_GetPropertiesAsync* = 10
-type Fn_IUser_GetPropertiesAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUser_GetPictureAsync* = 11
-type Fn_IUser_GetPictureAsync* =
-  proc(self: pointer, a1: UserPictureSize, value: ptr pointer
-      ): HRESULT {.abi.}
+type IUserVtbl* = object of IInspectableVtbl
+  get_NonRoamableId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_AuthenticationStatus*: proc(self: pointer,
+                                  value: ptr UserAuthenticationStatus
+                                 ): HRESULT {.abi.}
+  get_Type*: proc(self: pointer, value: ptr UserType): HRESULT {.abi.}
+  GetPropertyAsync*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                         ): HRESULT {.abi.}
+  GetPropertiesAsync*: proc(self: pointer, a1: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  GetPictureAsync*: proc(self: pointer, a1: UserPictureSize,
+                         value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUser2
 const IID_IUser2* = guid"98BA5628-A6E3-518E-89D9-D3B2B1991A10"
-const Slot_IUser2_CheckUserAgeConsentGroupAsync* = 6
-type Fn_IUser2_CheckUserAgeConsentGroupAsync* =
-  proc(self: pointer, a1: UserAgeConsentGroup, value: ptr pointer
-      ): HRESULT {.abi.}
+type IUser2Vtbl* = object of IInspectableVtbl
+  CheckUserAgeConsentGroupAsync*: proc(self: pointer, a1: UserAgeConsentGroup,
+                                       value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUserAuthenticationStatusChangeDeferral
 const IID_IUserAuthenticationStatusChangeDeferral* = guid"88B59568-BB30-42FB-A270-E9902E40EFA7"
-const Slot_IUserAuthenticationStatusChangeDeferral_Complete* = 6
-type Fn_IUserAuthenticationStatusChangeDeferral_Complete* =
-  proc(self: pointer): HRESULT {.abi.}
+type IUserAuthenticationStatusChangeDeferralVtbl* = object of IInspectableVtbl
+  Complete*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.IUserAuthenticationStatusChangingEventArgs
 const IID_IUserAuthenticationStatusChangingEventArgs* = guid"8C030F28-A711-4C1E-AB48-04179C15938F"
-const Slot_IUserAuthenticationStatusChangingEventArgs_GetDeferral* = 6
-type Fn_IUserAuthenticationStatusChangingEventArgs_GetDeferral* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserAuthenticationStatusChangingEventArgs_get_User* = 7
-type Fn_IUserAuthenticationStatusChangingEventArgs_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserAuthenticationStatusChangingEventArgs_get_NewStatus* = 8
-type Fn_IUserAuthenticationStatusChangingEventArgs_get_NewStatus* =
-  proc(self: pointer, value: ptr UserAuthenticationStatus): HRESULT {.abi.}
-const Slot_IUserAuthenticationStatusChangingEventArgs_get_CurrentStatus* = 9
-type Fn_IUserAuthenticationStatusChangingEventArgs_get_CurrentStatus* =
-  proc(self: pointer, value: ptr UserAuthenticationStatus): HRESULT {.abi.}
+type IUserAuthenticationStatusChangingEventArgsVtbl* = object of IInspectableVtbl
+  GetDeferral*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_NewStatus*: proc(self: pointer, value: ptr UserAuthenticationStatus
+                      ): HRESULT {.abi.}
+  get_CurrentStatus*: proc(self: pointer, value: ptr UserAuthenticationStatus
+                          ): HRESULT {.abi.}
 
 ## Windows.System.IUserChangedEventArgs
 const IID_IUserChangedEventArgs* = guid"086459DC-18C6-48DB-BC99-724FB9203CCC"
-const Slot_IUserChangedEventArgs_get_User* = 6
-type Fn_IUserChangedEventArgs_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IUserChangedEventArgsVtbl* = object of IInspectableVtbl
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUserChangedEventArgs2
 const IID_IUserChangedEventArgs2* = guid"6B2CCB44-6F01-560C-97AD-FC7F32EC581F"
-const Slot_IUserChangedEventArgs2_get_ChangedPropertyKinds* = 6
-type Fn_IUserChangedEventArgs2_get_ChangedPropertyKinds* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IUserChangedEventArgs2Vtbl* = object of IInspectableVtbl
+  get_ChangedPropertyKinds*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
 
 ## Windows.System.IUserDeviceAssociationChangedEventArgs
 const IID_IUserDeviceAssociationChangedEventArgs* = guid"BD1F6F6C-BB5D-4D7B-A5F0-C8CD11A38D42"
-const Slot_IUserDeviceAssociationChangedEventArgs_get_DeviceId* = 6
-type Fn_IUserDeviceAssociationChangedEventArgs_get_DeviceId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IUserDeviceAssociationChangedEventArgs_get_NewUser* = 7
-type Fn_IUserDeviceAssociationChangedEventArgs_get_NewUser* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserDeviceAssociationChangedEventArgs_get_OldUser* = 8
-type Fn_IUserDeviceAssociationChangedEventArgs_get_OldUser* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IUserDeviceAssociationChangedEventArgsVtbl* = object of IInspectableVtbl
+  get_DeviceId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_NewUser*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_OldUser*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUserDeviceAssociationStatics
 const IID_IUserDeviceAssociationStatics* = guid"7E491E14-F85A-4C07-8DA9-7FE3D0542343"
-const Slot_IUserDeviceAssociationStatics_FindUserFromDeviceId* = 6
-type Fn_IUserDeviceAssociationStatics_FindUserFromDeviceId* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserDeviceAssociationStatics_add_UserDeviceAssociationChanged* = 7
-type Fn_IUserDeviceAssociationStatics_add_UserDeviceAssociationChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IUserDeviceAssociationStatics_remove_UserDeviceAssociationChanged* = 8
-type Fn_IUserDeviceAssociationStatics_remove_UserDeviceAssociationChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IUserDeviceAssociationStaticsVtbl* = object of IInspectableVtbl
+  FindUserFromDeviceId*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                             ): HRESULT {.abi.}
+  add_UserDeviceAssociationChanged*: proc(self: pointer, a1: pointer,
+                                          value: ptr EventRegistrationToken
+                                         ): HRESULT {.abi.}
+  remove_UserDeviceAssociationChanged*: proc(self: pointer,
+                                             a1: EventRegistrationToken
+                                            ): HRESULT {.abi.}
 
 ## Windows.System.IUserPicker
 const IID_IUserPicker* = guid"7D548008-F1E3-4A6C-8DDC-A9BB0F488AED"
-const Slot_IUserPicker_get_AllowGuestAccounts* = 6
-type Fn_IUserPicker_get_AllowGuestAccounts* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IUserPicker_put_AllowGuestAccounts* = 7
-type Fn_IUserPicker_put_AllowGuestAccounts* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IUserPicker_get_SuggestedSelectedUser* = 8
-type Fn_IUserPicker_get_SuggestedSelectedUser* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserPicker_put_SuggestedSelectedUser* = 9
-type Fn_IUserPicker_put_SuggestedSelectedUser* =
-  proc(self: pointer, a1User: pointer): HRESULT {.abi.}
-const Slot_IUserPicker_PickSingleUserAsync* = 10
-type Fn_IUserPicker_PickSingleUserAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IUserPickerVtbl* = object of IInspectableVtbl
+  get_AllowGuestAccounts*: proc(self: pointer, value: ptr bool
+                               ): HRESULT {.abi.}
+  put_AllowGuestAccounts*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_SuggestedSelectedUser*: proc(self: pointer, value: ptr pointer
+                                  ): HRESULT {.abi.}
+  put_SuggestedSelectedUser*: proc(self: pointer, a1User: pointer
+                                  ): HRESULT {.abi.}
+  PickSingleUserAsync*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.System.IUserPickerStatics
 const IID_IUserPickerStatics* = guid"DE3290DC-7E73-4DF6-A1AE-4D7ECA82B40D"
-const Slot_IUserPickerStatics_IsSupported* = 6
-type Fn_IUserPickerStatics_IsSupported* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IUserPickerStaticsVtbl* = object of IInspectableVtbl
+  IsSupported*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.IUserStatics
 const IID_IUserStatics* = guid"155EB23B-242A-45E0-A2E9-3171FC6A7FDD"
-const Slot_IUserStatics_CreateWatcher* = 6
-type Fn_IUserStatics_CreateWatcher* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserStatics_FindAllAsync* = 7
-type Fn_IUserStatics_FindAllAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserStatics_FindAllAsync2* = 8
-type Fn_IUserStatics_FindAllAsync2* =
-  proc(self: pointer, a1: UserType, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserStatics_FindAllAsync3* = 9
-type Fn_IUserStatics_FindAllAsync3* =
-  proc(self: pointer, a1: UserType, a2: UserAuthenticationStatus,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserStatics_GetFromId* = 10
-type Fn_IUserStatics_GetFromId* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IUserStaticsVtbl* = object of IInspectableVtbl
+  CreateWatcher*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  FindAllAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  FindAllAsync2*: proc(self: pointer, a1: UserType, value: ptr pointer
+                      ): HRESULT {.abi.}
+  FindAllAsync3*: proc(self: pointer, a1: UserType,
+                       a2: UserAuthenticationStatus, value: ptr pointer
+                      ): HRESULT {.abi.}
+  GetFromId*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                  ): HRESULT {.abi.}
 
 ## Windows.System.IUserStatics2
 const IID_IUserStatics2* = guid"74A37E11-2EB5-4487-B0D5-2C6790E013E9"
-const Slot_IUserStatics2_GetDefault* = 6
-type Fn_IUserStatics2_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IUserStatics2Vtbl* = object of IInspectableVtbl
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUserWatcher
 const IID_IUserWatcher* = guid"155EB23B-242A-45E0-A2E9-3171FC6A7FBB"
-const Slot_IUserWatcher_get_Status* = 6
-type Fn_IUserWatcher_get_Status* =
-  proc(self: pointer, value: ptr UserWatcherStatus): HRESULT {.abi.}
-const Slot_IUserWatcher_Start* = 7
-type Fn_IUserWatcher_Start* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IUserWatcher_Stop* = 8
-type Fn_IUserWatcher_Stop* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IUserWatcher_add_Added* = 9
-type Fn_IUserWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IUserWatcher_remove_Added* = 10
-type Fn_IUserWatcher_remove_Added* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IUserWatcher_add_Removed* = 11
-type Fn_IUserWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IUserWatcher_remove_Removed* = 12
-type Fn_IUserWatcher_remove_Removed* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IUserWatcher_add_Updated* = 13
-type Fn_IUserWatcher_add_Updated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IUserWatcher_remove_Updated* = 14
-type Fn_IUserWatcher_remove_Updated* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IUserWatcher_add_AuthenticationStatusChanged* = 15
-type Fn_IUserWatcher_add_AuthenticationStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IUserWatcher_remove_AuthenticationStatusChanged* = 16
-type Fn_IUserWatcher_remove_AuthenticationStatusChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IUserWatcher_add_AuthenticationStatusChanging* = 17
-type Fn_IUserWatcher_add_AuthenticationStatusChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IUserWatcher_remove_AuthenticationStatusChanging* = 18
-type Fn_IUserWatcher_remove_AuthenticationStatusChanging* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IUserWatcher_add_EnumerationCompleted* = 19
-type Fn_IUserWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IUserWatcher_remove_EnumerationCompleted* = 20
-type Fn_IUserWatcher_remove_EnumerationCompleted* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IUserWatcher_add_Stopped* = 21
-type Fn_IUserWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IUserWatcher_remove_Stopped* = 22
-type Fn_IUserWatcher_remove_Stopped* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IUserWatcherVtbl* = object of IInspectableVtbl
+  get_Status*: proc(self: pointer, value: ptr UserWatcherStatus
+                   ): HRESULT {.abi.}
+  Start*: proc(self: pointer): HRESULT {.abi.}
+  Stop*: proc(self: pointer): HRESULT {.abi.}
+  add_Added*: proc(self: pointer, a1: pointer,
+                   value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Added*: proc(self: pointer, a1: EventRegistrationToken
+                     ): HRESULT {.abi.}
+  add_Removed*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Removed*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
+  add_Updated*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Updated*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
+  add_AuthenticationStatusChanged*: proc(self: pointer, a1: pointer,
+                                         value: ptr EventRegistrationToken
+                                        ): HRESULT {.abi.}
+  remove_AuthenticationStatusChanged*: proc(self: pointer,
+                                            a1: EventRegistrationToken
+                                           ): HRESULT {.abi.}
+  add_AuthenticationStatusChanging*: proc(self: pointer, a1: pointer,
+                                          value: ptr EventRegistrationToken
+                                         ): HRESULT {.abi.}
+  remove_AuthenticationStatusChanging*: proc(self: pointer,
+                                             a1: EventRegistrationToken
+                                            ): HRESULT {.abi.}
+  add_EnumerationCompleted*: proc(self: pointer, a1: pointer,
+                                  value: ptr EventRegistrationToken
+                                 ): HRESULT {.abi.}
+  remove_EnumerationCompleted*: proc(self: pointer, a1: EventRegistrationToken
+                                    ): HRESULT {.abi.}
+  add_Stopped*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Stopped*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
 
 ## Windows.System.Implementation.FileExplorer.ISysStorageProviderEventReceivedEventArgs
 const IID_ISysStorageProviderEventReceivedEventArgs* = guid"E132D1B9-7B9D-5820-9728-4262B5289142"
-const Slot_ISysStorageProviderEventReceivedEventArgs_get_Json* = 6
-type Fn_ISysStorageProviderEventReceivedEventArgs_get_Json* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type ISysStorageProviderEventReceivedEventArgsVtbl* = object of IInspectableVtbl
+  get_Json*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Implementation.FileExplorer.ISysStorageProviderEventReceivedEventArgsFactory
 const IID_ISysStorageProviderEventReceivedEventArgsFactory* = guid"DE1A780E-E975-5F68-BCC6-FB46281C6A61"
-const Slot_ISysStorageProviderEventReceivedEventArgsFactory_CreateInstance* = 6
-type Fn_ISysStorageProviderEventReceivedEventArgsFactory_CreateInstance* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type ISysStorageProviderEventReceivedEventArgsFactoryVtbl* = object of IInspectableVtbl
+  CreateInstance*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                       ): HRESULT {.abi.}
 
 ## Windows.System.Implementation.FileExplorer.ISysStorageProviderEventSource
 const IID_ISysStorageProviderEventSource* = guid"1F36C476-9546-536A-8381-2F9A2C08CEDD"
-const Slot_ISysStorageProviderEventSource_add_EventReceived* = 6
-type Fn_ISysStorageProviderEventSource_add_EventReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ISysStorageProviderEventSource_remove_EventReceived* = 7
-type Fn_ISysStorageProviderEventSource_remove_EventReceived* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type ISysStorageProviderEventSourceVtbl* = object of IInspectableVtbl
+  add_EventReceived*: proc(self: pointer, a1: pointer,
+                           value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_EventReceived*: proc(self: pointer, a1: EventRegistrationToken
+                             ): HRESULT {.abi.}
 
 ## Windows.System.Implementation.FileExplorer.ISysStorageProviderHandlerFactory
 const IID_ISysStorageProviderHandlerFactory* = guid"EE798431-8213-5E89-A623-14D8C72B8A61"
-const Slot_ISysStorageProviderHandlerFactory_GetHttpRequestProvider* = 6
-type Fn_ISysStorageProviderHandlerFactory_GetHttpRequestProvider* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISysStorageProviderHandlerFactory_GetEventSource* = 7
-type Fn_ISysStorageProviderHandlerFactory_GetEventSource* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type ISysStorageProviderHandlerFactoryVtbl* = object of IInspectableVtbl
+  GetHttpRequestProvider*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                               ): HRESULT {.abi.}
+  GetEventSource*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                        value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Implementation.FileExplorer.ISysStorageProviderHttpRequestProvider
 const IID_ISysStorageProviderHttpRequestProvider* = guid"CB6FEFB6-E76A-5C25-A33E-3E78A6E0E0CE"
-const Slot_ISysStorageProviderHttpRequestProvider_SendRequestAsync* = 6
-type Fn_ISysStorageProviderHttpRequestProvider_SendRequestAsync* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ISysStorageProviderHttpRequestProviderVtbl* = object of IInspectableVtbl
+  SendRequestAsync*: proc(self: pointer, a1HttpRequestMessage: pointer,
+                          value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Inventory.IInstalledDesktopApp
 const IID_IInstalledDesktopApp* = guid"75EAB8ED-C0BC-5364-4C28-166E0545167A"
-const Slot_IInstalledDesktopApp_get_Id* = 6
-type Fn_IInstalledDesktopApp_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IInstalledDesktopApp_get_DisplayName* = 7
-type Fn_IInstalledDesktopApp_get_DisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IInstalledDesktopApp_get_Publisher* = 8
-type Fn_IInstalledDesktopApp_get_Publisher* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IInstalledDesktopApp_get_DisplayVersion* = 9
-type Fn_IInstalledDesktopApp_get_DisplayVersion* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IInstalledDesktopAppVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DisplayName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Publisher*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DisplayVersion*: proc(self: pointer, value: ptr HSTRING
+                           ): HRESULT {.abi.}
 
 ## Windows.System.Inventory.IInstalledDesktopAppStatics
 const IID_IInstalledDesktopAppStatics* = guid"264CF74E-21CD-5F9B-6056-7866AD72489A"
-const Slot_IInstalledDesktopAppStatics_GetInventoryAsync* = 6
-type Fn_IInstalledDesktopAppStatics_GetInventoryAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IInstalledDesktopAppStaticsVtbl* = object of IInspectableVtbl
+  GetInventoryAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics
 const IID_IBackgroundEnergyDiagnosticsStatics* = guid"D7663702-D3A6-46E0-8F9B-50B95BB4F9C5"
-const Slot_IBackgroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor* = 6
-type Fn_IBackgroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_IBackgroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage* = 7
-type Fn_IBackgroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IBackgroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage* = 8
-type Fn_IBackgroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage* =
-  proc(self: pointer): HRESULT {.abi.}
+type IBackgroundEnergyDiagnosticsStaticsVtbl* = object of IInspectableVtbl
+  get_DeviceSpecificConversionFactor*: proc(self: pointer, value: ptr float64
+                                           ): HRESULT {.abi.}
+  ComputeTotalEnergyUsage*: proc(self: pointer, value: ptr uint64
+                                ): HRESULT {.abi.}
+  ResetTotalEnergyUsage*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.Power.Diagnostics.IForegroundEnergyDiagnosticsStatics
 const IID_IForegroundEnergyDiagnosticsStatics* = guid"23CA0917-CD07-4609-BE15-8FE894C5E41E"
-const Slot_IForegroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor* = 6
-type Fn_IForegroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_IForegroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage* = 7
-type Fn_IForegroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IForegroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage* = 8
-type Fn_IForegroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage* =
-  proc(self: pointer): HRESULT {.abi.}
+type IForegroundEnergyDiagnosticsStaticsVtbl* = object of IInspectableVtbl
+  get_DeviceSpecificConversionFactor*: proc(self: pointer, value: ptr float64
+                                           ): HRESULT {.abi.}
+  ComputeTotalEnergyUsage*: proc(self: pointer, value: ptr uint64
+                                ): HRESULT {.abi.}
+  ResetTotalEnergyUsage*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.Power.IBackgroundEnergyManagerStatics
 const IID_IBackgroundEnergyManagerStatics* = guid"B3161D95-1180-4376-96E1-4095568147CE"
-const Slot_IBackgroundEnergyManagerStatics_get_LowUsageLevel* = 6
-type Fn_IBackgroundEnergyManagerStatics_get_LowUsageLevel* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IBackgroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel* = 7
-type Fn_IBackgroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IBackgroundEnergyManagerStatics_get_MaxAcceptableUsageLevel* = 8
-type Fn_IBackgroundEnergyManagerStatics_get_MaxAcceptableUsageLevel* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IBackgroundEnergyManagerStatics_get_ExcessiveUsageLevel* = 9
-type Fn_IBackgroundEnergyManagerStatics_get_ExcessiveUsageLevel* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IBackgroundEnergyManagerStatics_get_NearTerminationUsageLevel* = 10
-type Fn_IBackgroundEnergyManagerStatics_get_NearTerminationUsageLevel* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IBackgroundEnergyManagerStatics_get_TerminationUsageLevel* = 11
-type Fn_IBackgroundEnergyManagerStatics_get_TerminationUsageLevel* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IBackgroundEnergyManagerStatics_get_RecentEnergyUsage* = 12
-type Fn_IBackgroundEnergyManagerStatics_get_RecentEnergyUsage* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IBackgroundEnergyManagerStatics_get_RecentEnergyUsageLevel* = 13
-type Fn_IBackgroundEnergyManagerStatics_get_RecentEnergyUsageLevel* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* = 14
-type Fn_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* = 15
-type Fn_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* = 16
-type Fn_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* = 17
-type Fn_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IBackgroundEnergyManagerStaticsVtbl* = object of IInspectableVtbl
+  get_LowUsageLevel*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_NearMaxAcceptableUsageLevel*: proc(self: pointer, value: ptr uint32
+                                        ): HRESULT {.abi.}
+  get_MaxAcceptableUsageLevel*: proc(self: pointer, value: ptr uint32
+                                    ): HRESULT {.abi.}
+  get_ExcessiveUsageLevel*: proc(self: pointer, value: ptr uint32
+                                ): HRESULT {.abi.}
+  get_NearTerminationUsageLevel*: proc(self: pointer, value: ptr uint32
+                                      ): HRESULT {.abi.}
+  get_TerminationUsageLevel*: proc(self: pointer, value: ptr uint32
+                                  ): HRESULT {.abi.}
+  get_RecentEnergyUsage*: proc(self: pointer, value: ptr uint32
+                              ): HRESULT {.abi.}
+  get_RecentEnergyUsageLevel*: proc(self: pointer, value: ptr uint32
+                                   ): HRESULT {.abi.}
+  add_RecentEnergyUsageIncreased*: proc(self: pointer, a1: pointer,
+                                        value: ptr EventRegistrationToken
+                                       ): HRESULT {.abi.}
+  remove_RecentEnergyUsageIncreased*: proc(self: pointer,
+                                           a1: EventRegistrationToken
+                                          ): HRESULT {.abi.}
+  add_RecentEnergyUsageReturnedToLow*: proc(self: pointer, a1: pointer,
+                                            value: ptr EventRegistrationToken
+                                           ): HRESULT {.abi.}
+  remove_RecentEnergyUsageReturnedToLow*: proc(self: pointer,
+                                               a1: EventRegistrationToken
+                                              ): HRESULT {.abi.}
 
 ## Windows.System.Power.IForegroundEnergyManagerStatics
 const IID_IForegroundEnergyManagerStatics* = guid"9FF86872-E677-4814-9A20-5337CA732B98"
-const Slot_IForegroundEnergyManagerStatics_get_LowUsageLevel* = 6
-type Fn_IForegroundEnergyManagerStatics_get_LowUsageLevel* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IForegroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel* = 7
-type Fn_IForegroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IForegroundEnergyManagerStatics_get_MaxAcceptableUsageLevel* = 8
-type Fn_IForegroundEnergyManagerStatics_get_MaxAcceptableUsageLevel* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IForegroundEnergyManagerStatics_get_ExcessiveUsageLevel* = 9
-type Fn_IForegroundEnergyManagerStatics_get_ExcessiveUsageLevel* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IForegroundEnergyManagerStatics_get_RecentEnergyUsage* = 10
-type Fn_IForegroundEnergyManagerStatics_get_RecentEnergyUsage* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IForegroundEnergyManagerStatics_get_RecentEnergyUsageLevel* = 11
-type Fn_IForegroundEnergyManagerStatics_get_RecentEnergyUsageLevel* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IForegroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* = 12
-type Fn_IForegroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* = 13
-type Fn_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IForegroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* = 14
-type Fn_IForegroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* = 15
-type Fn_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IForegroundEnergyManagerStaticsVtbl* = object of IInspectableVtbl
+  get_LowUsageLevel*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_NearMaxAcceptableUsageLevel*: proc(self: pointer, value: ptr uint32
+                                        ): HRESULT {.abi.}
+  get_MaxAcceptableUsageLevel*: proc(self: pointer, value: ptr uint32
+                                    ): HRESULT {.abi.}
+  get_ExcessiveUsageLevel*: proc(self: pointer, value: ptr uint32
+                                ): HRESULT {.abi.}
+  get_RecentEnergyUsage*: proc(self: pointer, value: ptr uint32
+                              ): HRESULT {.abi.}
+  get_RecentEnergyUsageLevel*: proc(self: pointer, value: ptr uint32
+                                   ): HRESULT {.abi.}
+  add_RecentEnergyUsageIncreased*: proc(self: pointer, a1: pointer,
+                                        value: ptr EventRegistrationToken
+                                       ): HRESULT {.abi.}
+  remove_RecentEnergyUsageIncreased*: proc(self: pointer,
+                                           a1: EventRegistrationToken
+                                          ): HRESULT {.abi.}
+  add_RecentEnergyUsageReturnedToLow*: proc(self: pointer, a1: pointer,
+                                            value: ptr EventRegistrationToken
+                                           ): HRESULT {.abi.}
+  remove_RecentEnergyUsageReturnedToLow*: proc(self: pointer,
+                                               a1: EventRegistrationToken
+                                              ): HRESULT {.abi.}
 
 ## Windows.System.Power.IPowerManagerStatics
 const IID_IPowerManagerStatics* = guid"1394825D-62CE-4364-98D5-AA28C7FBD15B"
-const Slot_IPowerManagerStatics_get_EnergySaverStatus* = 6
-type Fn_IPowerManagerStatics_get_EnergySaverStatus* =
-  proc(self: pointer, value: ptr EnergySaverStatus): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_add_EnergySaverStatusChanged* = 7
-type Fn_IPowerManagerStatics_add_EnergySaverStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_remove_EnergySaverStatusChanged* = 8
-type Fn_IPowerManagerStatics_remove_EnergySaverStatusChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_get_BatteryStatus* = 9
-type Fn_IPowerManagerStatics_get_BatteryStatus* =
-  proc(self: pointer, value: ptr BatteryStatus): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_add_BatteryStatusChanged* = 10
-type Fn_IPowerManagerStatics_add_BatteryStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_remove_BatteryStatusChanged* = 11
-type Fn_IPowerManagerStatics_remove_BatteryStatusChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_get_PowerSupplyStatus* = 12
-type Fn_IPowerManagerStatics_get_PowerSupplyStatus* =
-  proc(self: pointer, value: ptr PowerSupplyStatus): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_add_PowerSupplyStatusChanged* = 13
-type Fn_IPowerManagerStatics_add_PowerSupplyStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_remove_PowerSupplyStatusChanged* = 14
-type Fn_IPowerManagerStatics_remove_PowerSupplyStatusChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_get_RemainingChargePercent* = 15
-type Fn_IPowerManagerStatics_get_RemainingChargePercent* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_add_RemainingChargePercentChanged* = 16
-type Fn_IPowerManagerStatics_add_RemainingChargePercentChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_remove_RemainingChargePercentChanged* = 17
-type Fn_IPowerManagerStatics_remove_RemainingChargePercentChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_get_RemainingDischargeTime* = 18
-type Fn_IPowerManagerStatics_get_RemainingDischargeTime* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_add_RemainingDischargeTimeChanged* = 19
-type Fn_IPowerManagerStatics_add_RemainingDischargeTimeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IPowerManagerStatics_remove_RemainingDischargeTimeChanged* = 20
-type Fn_IPowerManagerStatics_remove_RemainingDischargeTimeChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IPowerManagerStaticsVtbl* = object of IInspectableVtbl
+  get_EnergySaverStatus*: proc(self: pointer, value: ptr EnergySaverStatus
+                              ): HRESULT {.abi.}
+  add_EnergySaverStatusChanged*: proc(self: pointer, a1: pointer,
+                                      value: ptr EventRegistrationToken
+                                     ): HRESULT {.abi.}
+  remove_EnergySaverStatusChanged*: proc(self: pointer,
+                                         a1: EventRegistrationToken
+                                        ): HRESULT {.abi.}
+  get_BatteryStatus*: proc(self: pointer, value: ptr BatteryStatus
+                          ): HRESULT {.abi.}
+  add_BatteryStatusChanged*: proc(self: pointer, a1: pointer,
+                                  value: ptr EventRegistrationToken
+                                 ): HRESULT {.abi.}
+  remove_BatteryStatusChanged*: proc(self: pointer, a1: EventRegistrationToken
+                                    ): HRESULT {.abi.}
+  get_PowerSupplyStatus*: proc(self: pointer, value: ptr PowerSupplyStatus
+                              ): HRESULT {.abi.}
+  add_PowerSupplyStatusChanged*: proc(self: pointer, a1: pointer,
+                                      value: ptr EventRegistrationToken
+                                     ): HRESULT {.abi.}
+  remove_PowerSupplyStatusChanged*: proc(self: pointer,
+                                         a1: EventRegistrationToken
+                                        ): HRESULT {.abi.}
+  get_RemainingChargePercent*: proc(self: pointer, value: ptr int32
+                                   ): HRESULT {.abi.}
+  add_RemainingChargePercentChanged*: proc(self: pointer, a1: pointer,
+                                           value: ptr EventRegistrationToken
+                                          ): HRESULT {.abi.}
+  remove_RemainingChargePercentChanged*: proc(self: pointer,
+                                              a1: EventRegistrationToken
+                                             ): HRESULT {.abi.}
+  get_RemainingDischargeTime*: proc(self: pointer, value: ptr TimeSpan
+                                   ): HRESULT {.abi.}
+  add_RemainingDischargeTimeChanged*: proc(self: pointer, a1: pointer,
+                                           value: ptr EventRegistrationToken
+                                          ): HRESULT {.abi.}
+  remove_RemainingDischargeTimeChanged*: proc(self: pointer,
+                                              a1: EventRegistrationToken
+                                             ): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelConfiguration
 const IID_IPowerThermalChannelConfiguration* = guid"AD8383FA-172D-5D82-B29D-81D93710FB45"
-const Slot_IPowerThermalChannelConfiguration_get_Id* = 6
-type Fn_IPowerThermalChannelConfiguration_get_Id* =
-  proc(self: pointer, value: ptr PowerThermalChannelId): HRESULT {.abi.}
-const Slot_IPowerThermalChannelConfiguration_get_ConfigurationString* = 7
-type Fn_IPowerThermalChannelConfiguration_get_ConfigurationString* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IPowerThermalChannelConfiguration_GetConfigurationNumericParameters* = 8
-type Fn_IPowerThermalChannelConfiguration_GetConfigurationNumericParameters* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr int32
-      ): HRESULT {.abi.}
+type IPowerThermalChannelConfigurationVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr PowerThermalChannelId
+               ): HRESULT {.abi.}
+  get_ConfigurationString*: proc(self: pointer, value: ptr HSTRING
+                                ): HRESULT {.abi.}
+  GetConfigurationNumericParameters*: proc(self: pointer,
+                                           valueSize: ptr uint32,
+                                           value: ptr ptr int32
+                                          ): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDataConsumer
 const IID_IPowerThermalChannelDataConsumer* = guid"47CCA211-7348-5026-898C-B1873123760D"
-const Slot_IPowerThermalChannelDataConsumer_GetChannelIds* = 6
-type Fn_IPowerThermalChannelDataConsumer_GetChannelIds* =
-  proc(self: pointer, valueSize: ptr uint32,
-       value: ptr ptr PowerThermalChannelId): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataConsumer_GetChannelConfigurations* = 7
-type Fn_IPowerThermalChannelDataConsumer_GetChannelConfigurations* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataConsumer_Start* = 8
-type Fn_IPowerThermalChannelDataConsumer_Start* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataConsumer_Stop* = 9
-type Fn_IPowerThermalChannelDataConsumer_Stop* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataConsumer_add_ChannelDataReceived* = 10
-type Fn_IPowerThermalChannelDataConsumer_add_ChannelDataReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataConsumer_remove_ChannelDataReceived* = 11
-type Fn_IPowerThermalChannelDataConsumer_remove_ChannelDataReceived* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataConsumer_get_BackEndStatus* = 12
-type Fn_IPowerThermalChannelDataConsumer_get_BackEndStatus* =
-  proc(self: pointer, value: ptr PowerThermalBackEndStatus): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataConsumer_add_BackEndStatusChanged* = 13
-type Fn_IPowerThermalChannelDataConsumer_add_BackEndStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataConsumer_remove_BackEndStatusChanged* = 14
-type Fn_IPowerThermalChannelDataConsumer_remove_BackEndStatusChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IPowerThermalChannelDataConsumerVtbl* = object of IInspectableVtbl
+  GetChannelIds*: proc(self: pointer, valueSize: ptr uint32,
+                       value: ptr ptr PowerThermalChannelId): HRESULT {.abi.}
+  GetChannelConfigurations*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
+  Start*: proc(self: pointer): HRESULT {.abi.}
+  Stop*: proc(self: pointer): HRESULT {.abi.}
+  add_ChannelDataReceived*: proc(self: pointer, a1: pointer,
+                                 value: ptr EventRegistrationToken
+                                ): HRESULT {.abi.}
+  remove_ChannelDataReceived*: proc(self: pointer, a1: EventRegistrationToken
+                                   ): HRESULT {.abi.}
+  get_BackEndStatus*: proc(self: pointer, value: ptr PowerThermalBackEndStatus
+                          ): HRESULT {.abi.}
+  add_BackEndStatusChanged*: proc(self: pointer, a1: pointer,
+                                  value: ptr EventRegistrationToken
+                                 ): HRESULT {.abi.}
+  remove_BackEndStatusChanged*: proc(self: pointer, a1: EventRegistrationToken
+                                    ): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDataConsumerFactory
 const IID_IPowerThermalChannelDataConsumerFactory* = guid"B42D9AB1-32F0-54BB-899A-9AE0529DA381"
-const Slot_IPowerThermalChannelDataConsumerFactory_CreateInstance* = 6
-type Fn_IPowerThermalChannelDataConsumerFactory_CreateInstance* =
-  proc(self: pointer, a1Size: uint32, a1: ptr PowerThermalChannelId,
-       value: ptr pointer): HRESULT {.abi.}
+type IPowerThermalChannelDataConsumerFactoryVtbl* = object of IInspectableVtbl
+  CreateInstance*: proc(self: pointer, a1Size: uint32,
+                        a1: ptr PowerThermalChannelId, value: ptr pointer
+                       ): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDataProducer
 const IID_IPowerThermalChannelDataProducer* = guid"A935F244-1A7D-55D5-9C69-8ADC1CD1D993"
-const Slot_IPowerThermalChannelDataProducer_GetChannelIds* = 6
-type Fn_IPowerThermalChannelDataProducer_GetChannelIds* =
-  proc(self: pointer, valueSize: ptr uint32,
-       value: ptr ptr PowerThermalChannelId): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataProducer_GetChannelConfigurations* = 7
-type Fn_IPowerThermalChannelDataProducer_GetChannelConfigurations* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataProducer_DisableChannel* = 8
-type Fn_IPowerThermalChannelDataProducer_DisableChannel* =
-  proc(self: pointer, a1: PowerThermalChannelId): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataProducer_Start* = 9
-type Fn_IPowerThermalChannelDataProducer_Start* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataProducer_Stop* = 10
-type Fn_IPowerThermalChannelDataProducer_Stop* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataProducer_PublishInputChannelData* = 11
-type Fn_IPowerThermalChannelDataProducer_PublishInputChannelData* =
-  proc(self: pointer, a1Size: uint32, a1: ptr PowerThermalChannelData
-      ): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataProducer_get_BackEndStatus* = 12
-type Fn_IPowerThermalChannelDataProducer_get_BackEndStatus* =
-  proc(self: pointer, value: ptr PowerThermalBackEndStatus): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataProducer_add_BackEndStatusChanged* = 13
-type Fn_IPowerThermalChannelDataProducer_add_BackEndStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDataProducer_remove_BackEndStatusChanged* = 14
-type Fn_IPowerThermalChannelDataProducer_remove_BackEndStatusChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IPowerThermalChannelDataProducerVtbl* = object of IInspectableVtbl
+  GetChannelIds*: proc(self: pointer, valueSize: ptr uint32,
+                       value: ptr ptr PowerThermalChannelId): HRESULT {.abi.}
+  GetChannelConfigurations*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
+  DisableChannel*: proc(self: pointer, a1: PowerThermalChannelId
+                       ): HRESULT {.abi.}
+  Start*: proc(self: pointer): HRESULT {.abi.}
+  Stop*: proc(self: pointer): HRESULT {.abi.}
+  PublishInputChannelData*: proc(self: pointer, a1Size: uint32,
+                                 a1: ptr PowerThermalChannelData
+                                ): HRESULT {.abi.}
+  get_BackEndStatus*: proc(self: pointer, value: ptr PowerThermalBackEndStatus
+                          ): HRESULT {.abi.}
+  add_BackEndStatusChanged*: proc(self: pointer, a1: pointer,
+                                  value: ptr EventRegistrationToken
+                                 ): HRESULT {.abi.}
+  remove_BackEndStatusChanged*: proc(self: pointer, a1: EventRegistrationToken
+                                    ): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDataProducerFactory
 const IID_IPowerThermalChannelDataProducerFactory* = guid"D2D380CD-E09D-5472-AD62-70061E630067"
-const Slot_IPowerThermalChannelDataProducerFactory_CreateInstance* = 6
-type Fn_IPowerThermalChannelDataProducerFactory_CreateInstance* =
-  proc(self: pointer, a1Size: uint32, a1: ptr PowerThermalChannelId,
-       value: ptr pointer): HRESULT {.abi.}
+type IPowerThermalChannelDataProducerFactoryVtbl* = object of IInspectableVtbl
+  CreateInstance*: proc(self: pointer, a1Size: uint32,
+                        a1: ptr PowerThermalChannelId, value: ptr pointer
+                       ): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDataReceivedEventArgs
 const IID_IPowerThermalChannelDataReceivedEventArgs* = guid"D6B643E0-6AB6-5683-A8FC-5ED65EE20DC5"
-const Slot_IPowerThermalChannelDataReceivedEventArgs_GetData* = 6
-type Fn_IPowerThermalChannelDataReceivedEventArgs_GetData* =
-  proc(self: pointer, valueSize: ptr uint32,
-       value: ptr ptr PowerThermalChannelData): HRESULT {.abi.}
+type IPowerThermalChannelDataReceivedEventArgsVtbl* = object of IInspectableVtbl
+  GetData*: proc(self: pointer, valueSize: ptr uint32,
+                 value: ptr ptr PowerThermalChannelData): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDiagnostics
 const IID_IPowerThermalChannelDiagnostics* = guid"628FD5C4-49B7-508F-AD9F-2309B1168AAD"
+type IPowerThermalChannelDiagnosticsVtbl* = object of IInspectableVtbl
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDiagnosticsStatics
 const IID_IPowerThermalChannelDiagnosticsStatics* = guid"A86EC393-B684-5633-A6CA-DFA1C7EECF87"
-const Slot_IPowerThermalChannelDiagnosticsStatics_get_Current* = 6
-type Fn_IPowerThermalChannelDiagnosticsStatics_get_Current* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IPowerThermalChannelDiagnosticsStatics_GetDataForChannels* = 7
-type Fn_IPowerThermalChannelDiagnosticsStatics_GetDataForChannels* =
-  proc(self: pointer, a1Size: uint32, a1: ptr PowerThermalChannelId,
-       valueSize: ptr uint32, value: ptr ptr PowerThermalChannelData
-      ): HRESULT {.abi.}
+type IPowerThermalChannelDiagnosticsStaticsVtbl* = object of IInspectableVtbl
+  get_Current*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetDataForChannels*: proc(self: pointer, a1Size: uint32,
+                            a1: ptr PowerThermalChannelId,
+                            valueSize: ptr uint32,
+                            value: ptr ptr PowerThermalChannelData
+                           ): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelFinderStatics
 const IID_IPowerThermalChannelFinderStatics* = guid"DF8D288B-F056-55CE-B370-F3E1C4E32063"
-const Slot_IPowerThermalChannelFinderStatics_FindChannels* = 6
-type Fn_IPowerThermalChannelFinderStatics_FindChannels* =
-  proc(self: pointer, a1: GUID, valueSize: ptr uint32,
-       value: ptr ptr PowerThermalChannelId): HRESULT {.abi.}
+type IPowerThermalChannelFinderStaticsVtbl* = object of IInspectableVtbl
+  FindChannels*: proc(self: pointer, a1: GUID, valueSize: ptr uint32,
+                      value: ptr ptr PowerThermalChannelId): HRESULT {.abi.}
 
 ## Windows.System.Preview.ITwoPanelHingedDevicePosturePreview
 const IID_ITwoPanelHingedDevicePosturePreview* = guid"72245C31-4B39-42A6-8E73-7235ADE16853"
-const Slot_ITwoPanelHingedDevicePosturePreview_GetCurrentPostureAsync* = 6
-type Fn_ITwoPanelHingedDevicePosturePreview_GetCurrentPostureAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITwoPanelHingedDevicePosturePreview_add_PostureChanged* = 7
-type Fn_ITwoPanelHingedDevicePosturePreview_add_PostureChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ITwoPanelHingedDevicePosturePreview_remove_PostureChanged* = 8
-type Fn_ITwoPanelHingedDevicePosturePreview_remove_PostureChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type ITwoPanelHingedDevicePosturePreviewVtbl* = object of IInspectableVtbl
+  GetCurrentPostureAsync*: proc(self: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
+  add_PostureChanged*: proc(self: pointer, a1: pointer,
+                            value: ptr EventRegistrationToken
+                           ): HRESULT {.abi.}
+  remove_PostureChanged*: proc(self: pointer, a1: EventRegistrationToken
+                              ): HRESULT {.abi.}
 
 ## Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReading
 const IID_ITwoPanelHingedDevicePosturePreviewReading* = guid"A0251452-4AD6-4B38-8426-C59A15493A7D"
-const Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Timestamp* = 6
-type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Timestamp* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_ITwoPanelHingedDevicePosturePreviewReading_get_HingeState* = 7
-type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_HingeState* =
-  proc(self: pointer, value: ptr HingeState): HRESULT {.abi.}
-const Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Orientation* = 8
-type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Orientation* =
-  proc(self: pointer, value: ptr SimpleOrientation): HRESULT {.abi.}
-const Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Id* = 9
-type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Orientation* = 10
-type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Orientation* =
-  proc(self: pointer, value: ptr SimpleOrientation): HRESULT {.abi.}
-const Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Id* = 11
-type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type ITwoPanelHingedDevicePosturePreviewReadingVtbl* = object of IInspectableVtbl
+  get_Timestamp*: proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
+  get_HingeState*: proc(self: pointer, value: ptr HingeState): HRESULT {.abi.}
+  get_Panel1Orientation*: proc(self: pointer, value: ptr SimpleOrientation
+                              ): HRESULT {.abi.}
+  get_Panel1Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Panel2Orientation*: proc(self: pointer, value: ptr SimpleOrientation
+                              ): HRESULT {.abi.}
+  get_Panel2Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs
 const IID_ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs* = guid"2D2D1BC6-02CE-474A-A556-A75B1CF93A03"
-const Slot_ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs_get_Reading* = 6
-type Fn_ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs_get_Reading* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgsVtbl* = object of IInspectableVtbl
+  get_Reading*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewStatics
 const IID_ITwoPanelHingedDevicePosturePreviewStatics* = guid"0C4733D2-57E0-4180-BD5E-F31A2138423E"
-const Slot_ITwoPanelHingedDevicePosturePreviewStatics_GetDefaultAsync* = 6
-type Fn_ITwoPanelHingedDevicePosturePreviewStatics_GetDefaultAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITwoPanelHingedDevicePosturePreviewStaticsVtbl* = object of IInspectableVtbl
+  GetDefaultAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.IAnalyticsInfoStatics
 const IID_IAnalyticsInfoStatics* = guid"1D5EE066-188D-5BA9-4387-ACAEB0E7E305"
-const Slot_IAnalyticsInfoStatics_get_VersionInfo* = 6
-type Fn_IAnalyticsInfoStatics_get_VersionInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAnalyticsInfoStatics_get_DeviceForm* = 7
-type Fn_IAnalyticsInfoStatics_get_DeviceForm* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IAnalyticsInfoStaticsVtbl* = object of IInspectableVtbl
+  get_VersionInfo*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_DeviceForm*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Profile.IAnalyticsInfoStatics2
 const IID_IAnalyticsInfoStatics2* = guid"101704EA-A7F9-46D2-AB94-016865AFDB25"
-const Slot_IAnalyticsInfoStatics2_GetSystemPropertiesAsync* = 6
-type Fn_IAnalyticsInfoStatics2_GetSystemPropertiesAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAnalyticsInfoStatics2Vtbl* = object of IInspectableVtbl
+  GetSystemPropertiesAsync*: proc(self: pointer, a1: pointer,
+                                  value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.IAnalyticsVersionInfo
 const IID_IAnalyticsVersionInfo* = guid"926130B8-9955-4C74-BDC1-7CD0DECF9B03"
-const Slot_IAnalyticsVersionInfo_get_DeviceFamily* = 6
-type Fn_IAnalyticsVersionInfo_get_DeviceFamily* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IAnalyticsVersionInfo_get_DeviceFamilyVersion* = 7
-type Fn_IAnalyticsVersionInfo_get_DeviceFamilyVersion* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IAnalyticsVersionInfoVtbl* = object of IInspectableVtbl
+  get_DeviceFamily*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DeviceFamilyVersion*: proc(self: pointer, value: ptr HSTRING
+                                ): HRESULT {.abi.}
 
 ## Windows.System.Profile.IAnalyticsVersionInfo2
 const IID_IAnalyticsVersionInfo2* = guid"76E915B1-FF36-407C-9F57-160D3E540747"
-const Slot_IAnalyticsVersionInfo2_get_ProductName* = 6
-type Fn_IAnalyticsVersionInfo2_get_ProductName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IAnalyticsVersionInfo2Vtbl* = object of IInspectableVtbl
+  get_ProductName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Profile.IAppApplicabilityStatics
 const IID_IAppApplicabilityStatics* = guid"1664A082-0F38-5C99-83E4-48995970861C"
-const Slot_IAppApplicabilityStatics_GetUnsupportedAppRequirements* = 6
-type Fn_IAppApplicabilityStatics_GetUnsupportedAppRequirements* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAppApplicabilityStaticsVtbl* = object of IInspectableVtbl
+  GetUnsupportedAppRequirements*: proc(self: pointer, a1: pointer,
+                                       value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.IEducationSettingsStatics
 const IID_IEducationSettingsStatics* = guid"FC53F0EF-4D3E-4E13-9B23-505F4D091E92"
-const Slot_IEducationSettingsStatics_get_IsEducationEnvironment* = 6
-type Fn_IEducationSettingsStatics_get_IsEducationEnvironment* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IEducationSettingsStaticsVtbl* = object of IInspectableVtbl
+  get_IsEducationEnvironment*: proc(self: pointer, value: ptr bool
+                                   ): HRESULT {.abi.}
 
 ## Windows.System.Profile.IHardwareIdentificationStatics
 const IID_IHardwareIdentificationStatics* = guid"971260E0-F170-4A42-BD55-A900B212DAE2"
-const Slot_IHardwareIdentificationStatics_GetPackageSpecificToken* = 6
-type Fn_IHardwareIdentificationStatics_GetPackageSpecificToken* =
-  proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHardwareIdentificationStaticsVtbl* = object of IInspectableVtbl
+  GetPackageSpecificToken*: proc(self: pointer, a1IBuffer: pointer,
+                                 value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.IHardwareToken
 const IID_IHardwareToken* = guid"28F6D4C0-FB12-40A4-8167-7F4E03D2724C"
-const Slot_IHardwareToken_get_Id* = 6
-type Fn_IHardwareToken_get_Id* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHardwareToken_get_Signature* = 7
-type Fn_IHardwareToken_get_Signature* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IHardwareToken_get_Certificate* = 8
-type Fn_IHardwareToken_get_Certificate* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IHardwareTokenVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Signature*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Certificate*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics
 const IID_IKnownRetailInfoPropertiesStatics* = guid"99571178-500F-487E-8E75-29E551728712"
-const Slot_IKnownRetailInfoPropertiesStatics_get_RetailAccessCode* = 6
-type Fn_IKnownRetailInfoPropertiesStatics_get_RetailAccessCode* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_ManufacturerName* = 7
-type Fn_IKnownRetailInfoPropertiesStatics_get_ManufacturerName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_ModelName* = 8
-type Fn_IKnownRetailInfoPropertiesStatics_get_ModelName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_DisplayModelName* = 9
-type Fn_IKnownRetailInfoPropertiesStatics_get_DisplayModelName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_Price* = 10
-type Fn_IKnownRetailInfoPropertiesStatics_get_Price* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_IsFeatured* = 11
-type Fn_IKnownRetailInfoPropertiesStatics_get_IsFeatured* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_FormFactor* = 12
-type Fn_IKnownRetailInfoPropertiesStatics_get_FormFactor* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_ScreenSize* = 13
-type Fn_IKnownRetailInfoPropertiesStatics_get_ScreenSize* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_Weight* = 14
-type Fn_IKnownRetailInfoPropertiesStatics_get_Weight* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_DisplayDescription* = 15
-type Fn_IKnownRetailInfoPropertiesStatics_get_DisplayDescription* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_BatteryLifeDescription* = 16
-type Fn_IKnownRetailInfoPropertiesStatics_get_BatteryLifeDescription* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_ProcessorDescription* = 17
-type Fn_IKnownRetailInfoPropertiesStatics_get_ProcessorDescription* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_Memory* = 18
-type Fn_IKnownRetailInfoPropertiesStatics_get_Memory* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_StorageDescription* = 19
-type Fn_IKnownRetailInfoPropertiesStatics_get_StorageDescription* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_GraphicsDescription* = 20
-type Fn_IKnownRetailInfoPropertiesStatics_get_GraphicsDescription* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_FrontCameraDescription* = 21
-type Fn_IKnownRetailInfoPropertiesStatics_get_FrontCameraDescription* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_RearCameraDescription* = 22
-type Fn_IKnownRetailInfoPropertiesStatics_get_RearCameraDescription* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_HasNfc* = 23
-type Fn_IKnownRetailInfoPropertiesStatics_get_HasNfc* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_HasSdSlot* = 24
-type Fn_IKnownRetailInfoPropertiesStatics_get_HasSdSlot* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_HasOpticalDrive* = 25
-type Fn_IKnownRetailInfoPropertiesStatics_get_HasOpticalDrive* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_IsOfficeInstalled* = 26
-type Fn_IKnownRetailInfoPropertiesStatics_get_IsOfficeInstalled* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRetailInfoPropertiesStatics_get_WindowsEdition* = 27
-type Fn_IKnownRetailInfoPropertiesStatics_get_WindowsEdition* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IKnownRetailInfoPropertiesStaticsVtbl* = object of IInspectableVtbl
+  get_RetailAccessCode*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  get_ManufacturerName*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  get_ModelName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DisplayModelName*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  get_Price*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_IsFeatured*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_FormFactor*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ScreenSize*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Weight*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DisplayDescription*: proc(self: pointer, value: ptr HSTRING
+                               ): HRESULT {.abi.}
+  get_BatteryLifeDescription*: proc(self: pointer, value: ptr HSTRING
+                                   ): HRESULT {.abi.}
+  get_ProcessorDescription*: proc(self: pointer, value: ptr HSTRING
+                                 ): HRESULT {.abi.}
+  get_Memory*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_StorageDescription*: proc(self: pointer, value: ptr HSTRING
+                               ): HRESULT {.abi.}
+  get_GraphicsDescription*: proc(self: pointer, value: ptr HSTRING
+                                ): HRESULT {.abi.}
+  get_FrontCameraDescription*: proc(self: pointer, value: ptr HSTRING
+                                   ): HRESULT {.abi.}
+  get_RearCameraDescription*: proc(self: pointer, value: ptr HSTRING
+                                  ): HRESULT {.abi.}
+  get_HasNfc*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_HasSdSlot*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_HasOpticalDrive*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
+  get_IsOfficeInstalled*: proc(self: pointer, value: ptr HSTRING
+                              ): HRESULT {.abi.}
+  get_WindowsEdition*: proc(self: pointer, value: ptr HSTRING
+                           ): HRESULT {.abi.}
 
 ## Windows.System.Profile.IPlatformAutomaticAppSignInManagerStatics
 const IID_IPlatformAutomaticAppSignInManagerStatics* = guid"1AC9AFCE-8DD5-5C2D-B420-767D1F3B7D03"
-const Slot_IPlatformAutomaticAppSignInManagerStatics_get_Policy* = 6
-type Fn_IPlatformAutomaticAppSignInManagerStatics_get_Policy* =
-  proc(self: pointer, value: ptr PlatformAutomaticAppSignInPolicy
-      ): HRESULT {.abi.}
+type IPlatformAutomaticAppSignInManagerStaticsVtbl* = object of IInspectableVtbl
+  get_Policy*: proc(self: pointer, value: ptr PlatformAutomaticAppSignInPolicy
+                   ): HRESULT {.abi.}
 
 ## Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics
 const IID_IPlatformDiagnosticsAndUsageDataSettingsStatics* = guid"B6E24C1B-7B1C-4B32-8C62-A66597CE723A"
-const Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_get_CollectionLevel* = 6
-type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_get_CollectionLevel* =
-  proc(self: pointer, value: ptr PlatformDataCollectionLevel): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_add_CollectionLevelChanged* = 7
-type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_add_CollectionLevelChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_remove_CollectionLevelChanged* = 8
-type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_remove_CollectionLevelChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_CanCollectDiagnostics* = 9
-type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_CanCollectDiagnostics* =
-  proc(self: pointer, a1: PlatformDataCollectionLevel, value: ptr bool
-      ): HRESULT {.abi.}
+type IPlatformDiagnosticsAndUsageDataSettingsStaticsVtbl* = object of IInspectableVtbl
+  get_CollectionLevel*: proc(self: pointer,
+                             value: ptr PlatformDataCollectionLevel
+                            ): HRESULT {.abi.}
+  add_CollectionLevelChanged*: proc(self: pointer, a1: pointer,
+                                    value: ptr EventRegistrationToken
+                                   ): HRESULT {.abi.}
+  remove_CollectionLevelChanged*: proc(self: pointer,
+                                       a1: EventRegistrationToken
+                                      ): HRESULT {.abi.}
+  CanCollectDiagnostics*: proc(self: pointer, a1: PlatformDataCollectionLevel,
+                               value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.Profile.IRetailInfoStatics
 const IID_IRetailInfoStatics* = guid"0712C6B8-8B92-4F2A-8499-031F1798D6EF"
-const Slot_IRetailInfoStatics_get_IsDemoModeEnabled* = 6
-type Fn_IRetailInfoStatics_get_IsDemoModeEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IRetailInfoStatics_get_Properties* = 7
-type Fn_IRetailInfoStatics_get_Properties* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRetailInfoStaticsVtbl* = object of IInspectableVtbl
+  get_IsDemoModeEnabled*: proc(self: pointer, value: ptr bool
+                              ): HRESULT {.abi.}
+  get_Properties*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.ISharedModeSettingsStatics
 const IID_ISharedModeSettingsStatics* = guid"893DF40E-CAD6-4D50-8C49-6FCFC03EDB29"
-const Slot_ISharedModeSettingsStatics_get_IsEnabled* = 6
-type Fn_ISharedModeSettingsStatics_get_IsEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type ISharedModeSettingsStaticsVtbl* = object of IInspectableVtbl
+  get_IsEnabled*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.Profile.ISharedModeSettingsStatics2
 const IID_ISharedModeSettingsStatics2* = guid"608988A4-CCF1-4EE8-A5E2-FD6A1D0CFAC8"
-const Slot_ISharedModeSettingsStatics2_get_ShouldAvoidLocalStorage* = 6
-type Fn_ISharedModeSettingsStatics2_get_ShouldAvoidLocalStorage* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type ISharedModeSettingsStatics2Vtbl* = object of IInspectableVtbl
+  get_ShouldAvoidLocalStorage*: proc(self: pointer, value: ptr bool
+                                    ): HRESULT {.abi.}
 
 ## Windows.System.Profile.ISmartAppControlPolicyStatics
 const IID_ISmartAppControlPolicyStatics* = guid"5FF8C75B-073E-5015-8D98-5FF224180A0B"
-const Slot_ISmartAppControlPolicyStatics_get_IsEnabled* = 6
-type Fn_ISmartAppControlPolicyStatics_get_IsEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ISmartAppControlPolicyStatics_add_Changed* = 7
-type Fn_ISmartAppControlPolicyStatics_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ISmartAppControlPolicyStatics_remove_Changed* = 8
-type Fn_ISmartAppControlPolicyStatics_remove_Changed* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type ISmartAppControlPolicyStaticsVtbl* = object of IInspectableVtbl
+  get_IsEnabled*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  add_Changed*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Changed*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
 
 ## Windows.System.Profile.ISystemIdentificationInfo
 const IID_ISystemIdentificationInfo* = guid"0C659E7D-C3C2-4D33-A2DF-21BC41916EB3"
-const Slot_ISystemIdentificationInfo_get_Id* = 6
-type Fn_ISystemIdentificationInfo_get_Id* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISystemIdentificationInfo_get_Source* = 7
-type Fn_ISystemIdentificationInfo_get_Source* =
-  proc(self: pointer, value: ptr SystemIdentificationSource): HRESULT {.abi.}
+type ISystemIdentificationInfoVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Source*: proc(self: pointer, value: ptr SystemIdentificationSource
+                   ): HRESULT {.abi.}
 
 ## Windows.System.Profile.ISystemIdentificationStatics
 const IID_ISystemIdentificationStatics* = guid"5581F42A-D3DF-4D93-A37D-C41A616C6D01"
-const Slot_ISystemIdentificationStatics_GetSystemIdForPublisher* = 6
-type Fn_ISystemIdentificationStatics_GetSystemIdForPublisher* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISystemIdentificationStatics_GetSystemIdForUser* = 7
-type Fn_ISystemIdentificationStatics_GetSystemIdForUser* =
-  proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISystemIdentificationStaticsVtbl* = object of IInspectableVtbl
+  GetSystemIdForPublisher*: proc(self: pointer, value: ptr pointer
+                                ): HRESULT {.abi.}
+  GetSystemIdForUser*: proc(self: pointer, a1User: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.System.Profile.ISystemSetupInfoStatics
 const IID_ISystemSetupInfoStatics* = guid"B8366A4B-FB6A-4571-BE0A-9A0F67954123"
-const Slot_ISystemSetupInfoStatics_get_OutOfBoxExperienceState* = 6
-type Fn_ISystemSetupInfoStatics_get_OutOfBoxExperienceState* =
-  proc(self: pointer, value: ptr SystemOutOfBoxExperienceState
-      ): HRESULT {.abi.}
-const Slot_ISystemSetupInfoStatics_add_OutOfBoxExperienceStateChanged* = 7
-type Fn_ISystemSetupInfoStatics_add_OutOfBoxExperienceStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ISystemSetupInfoStatics_remove_OutOfBoxExperienceStateChanged* = 8
-type Fn_ISystemSetupInfoStatics_remove_OutOfBoxExperienceStateChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type ISystemSetupInfoStaticsVtbl* = object of IInspectableVtbl
+  get_OutOfBoxExperienceState*: proc(self: pointer,
+                                     value: ptr SystemOutOfBoxExperienceState
+                                    ): HRESULT {.abi.}
+  add_OutOfBoxExperienceStateChanged*: proc(self: pointer, a1: pointer,
+                                            value: ptr EventRegistrationToken
+                                           ): HRESULT {.abi.}
+  remove_OutOfBoxExperienceStateChanged*: proc(self: pointer,
+                                               a1: EventRegistrationToken
+                                              ): HRESULT {.abi.}
 
 ## Windows.System.Profile.IUnsupportedAppRequirement
 const IID_IUnsupportedAppRequirement* = guid"6182445C-894B-5CBC-8976-A98E0A9B998D"
-const Slot_IUnsupportedAppRequirement_get_Requirement* = 6
-type Fn_IUnsupportedAppRequirement_get_Requirement* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IUnsupportedAppRequirement_get_Reasons* = 7
-type Fn_IUnsupportedAppRequirement_get_Reasons* =
-  proc(self: pointer, value: ptr UnsupportedAppRequirementReasons
-      ): HRESULT {.abi.}
+type IUnsupportedAppRequirementVtbl* = object of IInspectableVtbl
+  get_Requirement*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Reasons*: proc(self: pointer,
+                     value: ptr UnsupportedAppRequirementReasons
+                    ): HRESULT {.abi.}
 
 ## Windows.System.Profile.IWindowsIntegrityPolicyStatics
 const IID_IWindowsIntegrityPolicyStatics* = guid"7D1D81DB-8D63-4789-9EA5-DDCF65A94F3C"
-const Slot_IWindowsIntegrityPolicyStatics_get_IsEnabled* = 6
-type Fn_IWindowsIntegrityPolicyStatics_get_IsEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWindowsIntegrityPolicyStatics_get_IsEnabledForTrial* = 7
-type Fn_IWindowsIntegrityPolicyStatics_get_IsEnabledForTrial* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWindowsIntegrityPolicyStatics_get_CanDisable* = 8
-type Fn_IWindowsIntegrityPolicyStatics_get_CanDisable* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWindowsIntegrityPolicyStatics_get_IsDisableSupported* = 9
-type Fn_IWindowsIntegrityPolicyStatics_get_IsDisableSupported* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IWindowsIntegrityPolicyStatics_add_PolicyChanged* = 10
-type Fn_IWindowsIntegrityPolicyStatics_add_PolicyChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IWindowsIntegrityPolicyStatics_remove_PolicyChanged* = 11
-type Fn_IWindowsIntegrityPolicyStatics_remove_PolicyChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IWindowsIntegrityPolicyStaticsVtbl* = object of IInspectableVtbl
+  get_IsEnabled*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_IsEnabledForTrial*: proc(self: pointer, value: ptr bool
+                              ): HRESULT {.abi.}
+  get_CanDisable*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_IsDisableSupported*: proc(self: pointer, value: ptr bool
+                               ): HRESULT {.abi.}
+  add_PolicyChanged*: proc(self: pointer, a1: pointer,
+                           value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_PolicyChanged*: proc(self: pointer, a1: EventRegistrationToken
+                             ): HRESULT {.abi.}
 
 ## Windows.System.Profile.SystemManufacturers.IOemSupportInfo
 const IID_IOemSupportInfo* = guid"8D2EAE55-87EF-4266-86D0-C4AFBEB29BB9"
-const Slot_IOemSupportInfo_get_SupportLink* = 6
-type Fn_IOemSupportInfo_get_SupportLink* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IOemSupportInfo_get_SupportAppLink* = 7
-type Fn_IOemSupportInfo_get_SupportAppLink* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IOemSupportInfo_get_SupportProvider* = 8
-type Fn_IOemSupportInfo_get_SupportProvider* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IOemSupportInfoVtbl* = object of IInspectableVtbl
+  get_SupportLink*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_SupportAppLink*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_SupportProvider*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
 
 ## Windows.System.Profile.SystemManufacturers.ISmbiosInformationStatics
 const IID_ISmbiosInformationStatics* = guid"080CCA7C-637C-48C4-B728-F9273812DB8E"
-const Slot_ISmbiosInformationStatics_get_SerialNumber* = 6
-type Fn_ISmbiosInformationStatics_get_SerialNumber* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type ISmbiosInformationStaticsVtbl* = object of IInspectableVtbl
+  get_SerialNumber*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Profile.SystemManufacturers.ISystemSupportDeviceInfo
 const IID_ISystemSupportDeviceInfo* = guid"05880B99-8247-441B-A996-A1784BAB79A8"
-const Slot_ISystemSupportDeviceInfo_get_OperatingSystem* = 6
-type Fn_ISystemSupportDeviceInfo_get_OperatingSystem* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISystemSupportDeviceInfo_get_FriendlyName* = 7
-type Fn_ISystemSupportDeviceInfo_get_FriendlyName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISystemSupportDeviceInfo_get_SystemManufacturer* = 8
-type Fn_ISystemSupportDeviceInfo_get_SystemManufacturer* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISystemSupportDeviceInfo_get_SystemProductName* = 9
-type Fn_ISystemSupportDeviceInfo_get_SystemProductName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISystemSupportDeviceInfo_get_SystemSku* = 10
-type Fn_ISystemSupportDeviceInfo_get_SystemSku* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISystemSupportDeviceInfo_get_SystemHardwareVersion* = 11
-type Fn_ISystemSupportDeviceInfo_get_SystemHardwareVersion* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISystemSupportDeviceInfo_get_SystemFirmwareVersion* = 12
-type Fn_ISystemSupportDeviceInfo_get_SystemFirmwareVersion* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type ISystemSupportDeviceInfoVtbl* = object of IInspectableVtbl
+  get_OperatingSystem*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
+  get_FriendlyName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_SystemManufacturer*: proc(self: pointer, value: ptr HSTRING
+                               ): HRESULT {.abi.}
+  get_SystemProductName*: proc(self: pointer, value: ptr HSTRING
+                              ): HRESULT {.abi.}
+  get_SystemSku*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_SystemHardwareVersion*: proc(self: pointer, value: ptr HSTRING
+                                  ): HRESULT {.abi.}
+  get_SystemFirmwareVersion*: proc(self: pointer, value: ptr HSTRING
+                                  ): HRESULT {.abi.}
 
 ## Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics
 const IID_ISystemSupportInfoStatics* = guid"EF750974-C422-45D7-A44D-5C1C0043A2B3"
-const Slot_ISystemSupportInfoStatics_get_LocalSystemEdition* = 6
-type Fn_ISystemSupportInfoStatics_get_LocalSystemEdition* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISystemSupportInfoStatics_get_OemSupportInfo* = 7
-type Fn_ISystemSupportInfoStatics_get_OemSupportInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISystemSupportInfoStaticsVtbl* = object of IInspectableVtbl
+  get_LocalSystemEdition*: proc(self: pointer, value: ptr HSTRING
+                               ): HRESULT {.abi.}
+  get_OemSupportInfo*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics2
 const IID_ISystemSupportInfoStatics2* = guid"33F349A4-3FA1-4986-AA4B-057420455E6D"
-const Slot_ISystemSupportInfoStatics2_get_LocalDeviceInfo* = 6
-type Fn_ISystemSupportInfoStatics2_get_LocalDeviceInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ISystemSupportInfoStatics2Vtbl* = object of IInspectableVtbl
+  get_LocalDeviceInfo*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.IInteractiveSessionStatics
 const IID_IInteractiveSessionStatics* = guid"60884631-DD3A-4576-9C8D-E8027618BDCE"
-const Slot_IInteractiveSessionStatics_get_IsRemote* = 6
-type Fn_IInteractiveSessionStatics_get_IsRemote* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IInteractiveSessionStaticsVtbl* = object of IInspectableVtbl
+  get_IsRemote*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Input.IRemoteTextConnection
 const IID_IRemoteTextConnection* = guid"4E7BB02A-183E-5E66-B5E4-3E6E5C570CF1"
-const Slot_IRemoteTextConnection_get_IsEnabled* = 6
-type Fn_IRemoteTextConnection_get_IsEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IRemoteTextConnection_put_IsEnabled* = 7
-type Fn_IRemoteTextConnection_put_IsEnabled* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IRemoteTextConnection_RegisterThread* = 8
-type Fn_IRemoteTextConnection_RegisterThread* =
-  proc(self: pointer, a1: uint32): HRESULT {.abi.}
-const Slot_IRemoteTextConnection_UnregisterThread* = 9
-type Fn_IRemoteTextConnection_UnregisterThread* =
-  proc(self: pointer, a1: uint32): HRESULT {.abi.}
-const Slot_IRemoteTextConnection_ReportDataReceived* = 10
-type Fn_IRemoteTextConnection_ReportDataReceived* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
+type IRemoteTextConnectionVtbl* = object of IInspectableVtbl
+  get_IsEnabled*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_IsEnabled*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  RegisterThread*: proc(self: pointer, a1: uint32): HRESULT {.abi.}
+  UnregisterThread*: proc(self: pointer, a1: uint32): HRESULT {.abi.}
+  ReportDataReceived*: proc(self: pointer, a1Size: uint32, a1: ptr uint8
+                           ): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Input.IRemoteTextConnection2
 const IID_IRemoteTextConnection2* = guid"05F99345-84C8-56C5-934F-73EA00F8C2D5"
-const Slot_IRemoteTextConnection2_ReportPredictedKeyEvent* = 6
-type Fn_IRemoteTextConnection2_ReportPredictedKeyEvent* =
-  proc(self: pointer, a1: uint16, a2: RemoteKeyEventAttributes
-      ): HRESULT {.abi.}
+type IRemoteTextConnection2Vtbl* = object of IInspectableVtbl
+  ReportPredictedKeyEvent*: proc(self: pointer, a1: uint16,
+                                 a2: RemoteKeyEventAttributes
+                                ): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Input.IRemoteTextConnectionFactory
 const IID_IRemoteTextConnectionFactory* = guid"88E075C2-0CAE-596C-850F-78D345CD728B"
-const Slot_IRemoteTextConnectionFactory_CreateInstance* = 6
-type Fn_IRemoteTextConnectionFactory_CreateInstance* =
-  proc(self: pointer, a1: GUID, a2RemoteTextConnectionDataHandler: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type IRemoteTextConnectionFactoryVtbl* = object of IInspectableVtbl
+  CreateInstance*: proc(self: pointer, a1: GUID,
+                        a2RemoteTextConnectionDataHandler: pointer,
+                        value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Input.IRemoteTextConnectionFactory2
 const IID_IRemoteTextConnectionFactory2* = guid"9425C7D9-ED9B-5D00-99CC-B0B8DC9E4C60"
-const Slot_IRemoteTextConnectionFactory2_CreateInstance* = 6
-type Fn_IRemoteTextConnectionFactory2_CreateInstance* =
-  proc(self: pointer, a1: GUID, a2RemoteTextConnectionDataHandler: pointer,
-       a3: RemoteTextConnectionOptions, value: ptr pointer): HRESULT {.abi.}
+type IRemoteTextConnectionFactory2Vtbl* = object of IInspectableVtbl
+  CreateInstance*: proc(self: pointer, a1: GUID,
+                        a2RemoteTextConnectionDataHandler: pointer,
+                        a3: RemoteTextConnectionOptions, value: ptr pointer
+                       ): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Input.RemoteTextConnectionDataHandler  (delegate)
 const IID_RemoteTextConnectionDataHandler* = guid"099FFBC8-8BCB-41B5-B056-57E77021BF1B"
-const Slot_RemoteTextConnectionDataHandler_Invoke* = 3
-type Fn_RemoteTextConnectionDataHandler_Invoke* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr bool
-      ): HRESULT {.abi.}
+type RemoteTextConnectionDataHandlerVtbl* = object of IUnknownVtbl
+  Invoke*: proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr bool
+               ): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IPerformLocalActionRequestedEventArgs
 const IID_IPerformLocalActionRequestedEventArgs* = guid"59359F4F-0862-53A3-A3B3-C932FB718CDC"
-const Slot_IPerformLocalActionRequestedEventArgs_get_Action* = 6
-type Fn_IPerformLocalActionRequestedEventArgs_get_Action* =
-  proc(self: pointer, value: ptr RemoteDesktopLocalAction): HRESULT {.abi.}
+type IPerformLocalActionRequestedEventArgsVtbl* = object of IInspectableVtbl
+  get_Action*: proc(self: pointer, value: ptr RemoteDesktopLocalAction
+                   ): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionInfo
 const IID_IRemoteDesktopConnectionInfo* = guid"68BD69D6-6DEA-543B-B737-F347919F5093"
-const Slot_IRemoteDesktopConnectionInfo_SetConnectionStatus* = 6
-type Fn_IRemoteDesktopConnectionInfo_SetConnectionStatus* =
-  proc(self: pointer, a1: RemoteDesktopConnectionStatus): HRESULT {.abi.}
-const Slot_IRemoteDesktopConnectionInfo_SwitchToLocalSession* = 7
-type Fn_IRemoteDesktopConnectionInfo_SwitchToLocalSession* =
-  proc(self: pointer): HRESULT {.abi.}
+type IRemoteDesktopConnectionInfoVtbl* = object of IInspectableVtbl
+  SetConnectionStatus*: proc(self: pointer, a1: RemoteDesktopConnectionStatus
+                            ): HRESULT {.abi.}
+  SwitchToLocalSession*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionInfo2
 const IID_IRemoteDesktopConnectionInfo2* = guid"871C0B26-23BF-5D3C-BC35-A85C405E25E6"
-const Slot_IRemoteDesktopConnectionInfo2_PerformLocalActionFromRemote* = 6
-type Fn_IRemoteDesktopConnectionInfo2_PerformLocalActionFromRemote* =
-  proc(self: pointer, a1: RemoteDesktopLocalAction): HRESULT {.abi.}
+type IRemoteDesktopConnectionInfo2Vtbl* = object of IInspectableVtbl
+  PerformLocalActionFromRemote*: proc(self: pointer,
+                                      a1: RemoteDesktopLocalAction
+                                     ): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionInfoStatics
 const IID_IRemoteDesktopConnectionInfoStatics* = guid"4A7DC5A1-3368-5A75-BB78-807DF7EBC439"
-const Slot_IRemoteDesktopConnectionInfoStatics_GetForLaunchUri* = 6
-type Fn_IRemoteDesktopConnectionInfoStatics_GetForLaunchUri* =
-  proc(self: pointer, a1Uri: pointer, a2: WindowId, value: ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteDesktopConnectionInfoStaticsVtbl* = object of IInspectableVtbl
+  GetForLaunchUri*: proc(self: pointer, a1Uri: pointer, a2: WindowId,
+                         value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfo
 const IID_IRemoteDesktopConnectionRemoteInfo* = guid"2A3DFA7E-A7AB-547E-9A6A-4C565BBB8D71"
-const Slot_IRemoteDesktopConnectionRemoteInfo_ReportSwitched* = 6
-type Fn_IRemoteDesktopConnectionRemoteInfo_ReportSwitched* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IRemoteDesktopConnectionRemoteInfo_add_SwitchToLocalSessionRequested* = 7
-type Fn_IRemoteDesktopConnectionRemoteInfo_add_SwitchToLocalSessionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteDesktopConnectionRemoteInfo_remove_SwitchToLocalSessionRequested* = 8
-type Fn_IRemoteDesktopConnectionRemoteInfo_remove_SwitchToLocalSessionRequested* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IRemoteDesktopConnectionRemoteInfo_add_PerformLocalActionRequested* = 9
-type Fn_IRemoteDesktopConnectionRemoteInfo_add_PerformLocalActionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteDesktopConnectionRemoteInfo_remove_PerformLocalActionRequested* = 10
-type Fn_IRemoteDesktopConnectionRemoteInfo_remove_PerformLocalActionRequested* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IRemoteDesktopConnectionRemoteInfoVtbl* = object of IInspectableVtbl
+  ReportSwitched*: proc(self: pointer): HRESULT {.abi.}
+  add_SwitchToLocalSessionRequested*: proc(self: pointer, a1: pointer,
+                                           value: ptr EventRegistrationToken
+                                          ): HRESULT {.abi.}
+  remove_SwitchToLocalSessionRequested*: proc(self: pointer,
+                                              a1: EventRegistrationToken
+                                             ): HRESULT {.abi.}
+  add_PerformLocalActionRequested*: proc(self: pointer, a1: pointer,
+                                         value: ptr EventRegistrationToken
+                                        ): HRESULT {.abi.}
+  remove_PerformLocalActionRequested*: proc(self: pointer,
+                                            a1: EventRegistrationToken
+                                           ): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfoStatics
 const IID_IRemoteDesktopConnectionRemoteInfoStatics* = guid"B590E64A-E4C9-53E8-B83D-A0DB3676246A"
-const Slot_IRemoteDesktopConnectionRemoteInfoStatics_IsSwitchSupported* = 6
-type Fn_IRemoteDesktopConnectionRemoteInfoStatics_IsSwitchSupported* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IRemoteDesktopConnectionRemoteInfoStatics_GetForLaunchUri* = 7
-type Fn_IRemoteDesktopConnectionRemoteInfoStatics_GetForLaunchUri* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteDesktopConnectionRemoteInfoStaticsVtbl* = object of IInspectableVtbl
+  IsSwitchSupported*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  GetForLaunchUri*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                        ): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfo
 const IID_IRemoteDesktopInfo* = guid"D185BB25-2F1E-5098-B9E0-F46D6358C5C4"
-const Slot_IRemoteDesktopInfo_get_DisplayName* = 6
-type Fn_IRemoteDesktopInfo_get_DisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteDesktopInfo_get_Id* = 7
-type Fn_IRemoteDesktopInfo_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IRemoteDesktopInfoVtbl* = object of IInspectableVtbl
+  get_DisplayName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfoFactory
 const IID_IRemoteDesktopInfoFactory* = guid"AD0E8D58-B56F-5A8B-B419-8002EE0C5EE9"
-const Slot_IRemoteDesktopInfoFactory_CreateInstance* = 6
-type Fn_IRemoteDesktopInfoFactory_CreateInstance* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteDesktopInfoFactoryVtbl* = object of IInspectableVtbl
+  CreateInstance*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                        value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopRegistrarStatics
 const IID_IRemoteDesktopRegistrarStatics* = guid"687C2750-46D9-5DE3-8DC3-84A9202CECFB"
-const Slot_IRemoteDesktopRegistrarStatics_get_DesktopInfos* = 6
-type Fn_IRemoteDesktopRegistrarStatics_get_DesktopInfos* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteDesktopRegistrarStatics_IsSwitchToLocalSessionEnabled* = 7
-type Fn_IRemoteDesktopRegistrarStatics_IsSwitchToLocalSessionEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IRemoteDesktopRegistrarStaticsVtbl* = object of IInspectableVtbl
+  get_DesktopInfos*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  IsSwitchToLocalSessionEnabled*: proc(self: pointer, value: ptr bool
+                                      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IKnownRemoteSystemCapabilitiesStatics
 const IID_IKnownRemoteSystemCapabilitiesStatics* = guid"8108E380-7F8A-44E4-92CD-03B6469B94A3"
-const Slot_IKnownRemoteSystemCapabilitiesStatics_get_AppService* = 6
-type Fn_IKnownRemoteSystemCapabilitiesStatics_get_AppService* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRemoteSystemCapabilitiesStatics_get_LaunchUri* = 7
-type Fn_IKnownRemoteSystemCapabilitiesStatics_get_LaunchUri* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRemoteSystemCapabilitiesStatics_get_RemoteSession* = 8
-type Fn_IKnownRemoteSystemCapabilitiesStatics_get_RemoteSession* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IKnownRemoteSystemCapabilitiesStatics_get_SpatialEntity* = 9
-type Fn_IKnownRemoteSystemCapabilitiesStatics_get_SpatialEntity* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IKnownRemoteSystemCapabilitiesStaticsVtbl* = object of IInspectableVtbl
+  get_AppService*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_LaunchUri*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_RemoteSession*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_SpatialEntity*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystem
 const IID_IRemoteSystem* = guid"ED5838CD-1E10-4A8C-B4A6-4E5FD6F97721"
-const Slot_IRemoteSystem_get_DisplayName* = 6
-type Fn_IRemoteSystem_get_DisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystem_get_Id* = 7
-type Fn_IRemoteSystem_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystem_get_Kind* = 8
-type Fn_IRemoteSystem_get_Kind* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystem_get_Status* = 9
-type Fn_IRemoteSystem_get_Status* =
-  proc(self: pointer, value: ptr RemoteSystemStatus): HRESULT {.abi.}
-const Slot_IRemoteSystem_get_IsAvailableByProximity* = 10
-type Fn_IRemoteSystem_get_IsAvailableByProximity* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IRemoteSystemVtbl* = object of IInspectableVtbl
+  get_DisplayName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Kind*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Status*: proc(self: pointer, value: ptr RemoteSystemStatus
+                   ): HRESULT {.abi.}
+  get_IsAvailableByProximity*: proc(self: pointer, value: ptr bool
+                                   ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystem2
 const IID_IRemoteSystem2* = guid"09DFE4EC-FB8B-4A08-A758-6876435D769E"
-const Slot_IRemoteSystem2_get_IsAvailableBySpatialProximity* = 6
-type Fn_IRemoteSystem2_get_IsAvailableBySpatialProximity* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IRemoteSystem2_GetCapabilitySupportedAsync* = 7
-type Fn_IRemoteSystem2_GetCapabilitySupportedAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystem2Vtbl* = object of IInspectableVtbl
+  get_IsAvailableBySpatialProximity*: proc(self: pointer, value: ptr bool
+                                          ): HRESULT {.abi.}
+  GetCapabilitySupportedAsync*: proc(self: pointer, a1: HSTRING,
+                                     value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystem3
 const IID_IRemoteSystem3* = guid"72B4B495-B7C6-40BE-831B-73562F12FFA8"
-const Slot_IRemoteSystem3_get_ManufacturerDisplayName* = 6
-type Fn_IRemoteSystem3_get_ManufacturerDisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystem3_get_ModelDisplayName* = 7
-type Fn_IRemoteSystem3_get_ModelDisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IRemoteSystem3Vtbl* = object of IInspectableVtbl
+  get_ManufacturerDisplayName*: proc(self: pointer, value: ptr HSTRING
+                                    ): HRESULT {.abi.}
+  get_ModelDisplayName*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystem4
 const IID_IRemoteSystem4* = guid"F164FFE5-B987-4CA5-9926-FA0438BE6273"
-const Slot_IRemoteSystem4_get_Platform* = 6
-type Fn_IRemoteSystem4_get_Platform* =
-  proc(self: pointer, value: ptr RemoteSystemPlatform): HRESULT {.abi.}
+type IRemoteSystem4Vtbl* = object of IInspectableVtbl
+  get_Platform*: proc(self: pointer, value: ptr RemoteSystemPlatform
+                     ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystem5
 const IID_IRemoteSystem5* = guid"EB2AD723-E5E2-4AE2-A7A7-A1097A098E90"
-const Slot_IRemoteSystem5_get_Apps* = 6
-type Fn_IRemoteSystem5_get_Apps* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystem5Vtbl* = object of IInspectableVtbl
+  get_Apps*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystem6
 const IID_IRemoteSystem6* = guid"D4CDA942-C027-533E-9384-3A19B4F7EEF3"
-const Slot_IRemoteSystem6_get_User* = 6
-type Fn_IRemoteSystem6_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystem6Vtbl* = object of IInspectableVtbl
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemAddedEventArgs
 const IID_IRemoteSystemAddedEventArgs* = guid"8F39560F-E534-4697-8836-7ABEA151516E"
-const Slot_IRemoteSystemAddedEventArgs_get_RemoteSystem* = 6
-type Fn_IRemoteSystemAddedEventArgs_get_RemoteSystem* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemAddedEventArgsVtbl* = object of IInspectableVtbl
+  get_RemoteSystem*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemApp
 const IID_IRemoteSystemApp* = guid"80E5BCBD-D54D-41B1-9B16-6810A871ED4F"
-const Slot_IRemoteSystemApp_get_Id* = 6
-type Fn_IRemoteSystemApp_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystemApp_get_DisplayName* = 7
-type Fn_IRemoteSystemApp_get_DisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystemApp_get_IsAvailableByProximity* = 8
-type Fn_IRemoteSystemApp_get_IsAvailableByProximity* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IRemoteSystemApp_get_IsAvailableBySpatialProximity* = 9
-type Fn_IRemoteSystemApp_get_IsAvailableBySpatialProximity* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IRemoteSystemApp_get_Attributes* = 10
-type Fn_IRemoteSystemApp_get_Attributes* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemAppVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DisplayName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_IsAvailableByProximity*: proc(self: pointer, value: ptr bool
+                                   ): HRESULT {.abi.}
+  get_IsAvailableBySpatialProximity*: proc(self: pointer, value: ptr bool
+                                          ): HRESULT {.abi.}
+  get_Attributes*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemApp2
 const IID_IRemoteSystemApp2* = guid"6369BF15-0A96-577A-8FF6-C35904DFA8F3"
-const Slot_IRemoteSystemApp2_get_User* = 6
-type Fn_IRemoteSystemApp2_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemApp2_get_ConnectionToken* = 7
-type Fn_IRemoteSystemApp2_get_ConnectionToken* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IRemoteSystemApp2Vtbl* = object of IInspectableVtbl
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ConnectionToken*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemAppRegistration
 const IID_IRemoteSystemAppRegistration* = guid"B47947B5-7035-4A5A-B8DF-962D8F8431F4"
-const Slot_IRemoteSystemAppRegistration_get_User* = 6
-type Fn_IRemoteSystemAppRegistration_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemAppRegistration_get_Attributes* = 7
-type Fn_IRemoteSystemAppRegistration_get_Attributes* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemAppRegistration_SaveAsync* = 8
-type Fn_IRemoteSystemAppRegistration_SaveAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemAppRegistrationVtbl* = object of IInspectableVtbl
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Attributes*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  SaveAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemAppRegistrationStatics
 const IID_IRemoteSystemAppRegistrationStatics* = guid"01B99840-CFD2-453F-AE25-C2539F086AFD"
-const Slot_IRemoteSystemAppRegistrationStatics_GetDefault* = 6
-type Fn_IRemoteSystemAppRegistrationStatics_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemAppRegistrationStatics_GetForUser* = 7
-type Fn_IRemoteSystemAppRegistrationStatics_GetForUser* =
-  proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemAppRegistrationStaticsVtbl* = object of IInspectableVtbl
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetForUser*: proc(self: pointer, a1User: pointer, value: ptr pointer
+                   ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemAuthorizationKindFilter
 const IID_IRemoteSystemAuthorizationKindFilter* = guid"6B0DDE8E-04D0-40F4-A27F-C2ACBBD6B734"
-const Slot_IRemoteSystemAuthorizationKindFilter_get_RemoteSystemAuthorizationKind* = 6
-type Fn_IRemoteSystemAuthorizationKindFilter_get_RemoteSystemAuthorizationKind* =
-  proc(self: pointer, value: ptr RemoteSystemAuthorizationKind
-      ): HRESULT {.abi.}
+type IRemoteSystemAuthorizationKindFilterVtbl* = object of IInspectableVtbl
+  get_RemoteSystemAuthorizationKind*: proc(self: pointer,
+                                           value: ptr RemoteSystemAuthorizationKind
+                                          ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemAuthorizationKindFilterFactory
 const IID_IRemoteSystemAuthorizationKindFilterFactory* = guid"AD65DF4D-B66A-45A4-8177-8CAED75D9E5A"
-const Slot_IRemoteSystemAuthorizationKindFilterFactory_Create* = 6
-type Fn_IRemoteSystemAuthorizationKindFilterFactory_Create* =
-  proc(self: pointer, a1: RemoteSystemAuthorizationKind, value: ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteSystemAuthorizationKindFilterFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: RemoteSystemAuthorizationKind,
+                value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionInfo
 const IID_IRemoteSystemConnectionInfo* = guid"23278BC3-0D09-52CB-9C6A-EED2940BEE43"
-const Slot_IRemoteSystemConnectionInfo_get_IsProximal* = 6
-type Fn_IRemoteSystemConnectionInfo_get_IsProximal* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IRemoteSystemConnectionInfoVtbl* = object of IInspectableVtbl
+  get_IsProximal*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionInfoStatics
 const IID_IRemoteSystemConnectionInfoStatics* = guid"AC831E2D-66C5-56D7-A4CE-705D94925AD6"
-const Slot_IRemoteSystemConnectionInfoStatics_TryCreateFromAppServiceConnection* = 6
-type Fn_IRemoteSystemConnectionInfoStatics_TryCreateFromAppServiceConnection* =
-  proc(self: pointer, a1AppServiceConnection: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteSystemConnectionInfoStaticsVtbl* = object of IInspectableVtbl
+  TryCreateFromAppServiceConnection*: proc(self: pointer,
+                                           a1AppServiceConnection: pointer,
+                                           value: ptr pointer
+                                          ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequest
 const IID_IRemoteSystemConnectionRequest* = guid"84ED4104-8D5E-4D72-8238-7621576C7A67"
-const Slot_IRemoteSystemConnectionRequest_get_RemoteSystem* = 6
-type Fn_IRemoteSystemConnectionRequest_get_RemoteSystem* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemConnectionRequestVtbl* = object of IInspectableVtbl
+  get_RemoteSystem*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequest2
 const IID_IRemoteSystemConnectionRequest2* = guid"12DF6D6F-BFFC-483A-8ABE-D34A6C19F92B"
-const Slot_IRemoteSystemConnectionRequest2_get_RemoteSystemApp* = 6
-type Fn_IRemoteSystemConnectionRequest2_get_RemoteSystemApp* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemConnectionRequest2Vtbl* = object of IInspectableVtbl
+  get_RemoteSystemApp*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequest3
 const IID_IRemoteSystemConnectionRequest3* = guid"DE86C3E7-C9CC-5A50-B8D9-BA7B34BB8D0E"
-const Slot_IRemoteSystemConnectionRequest3_get_ConnectionToken* = 6
-type Fn_IRemoteSystemConnectionRequest3_get_ConnectionToken* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IRemoteSystemConnectionRequest3Vtbl* = object of IInspectableVtbl
+  get_ConnectionToken*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequestFactory
 const IID_IRemoteSystemConnectionRequestFactory* = guid"AA0A0A20-BAEB-4575-B530-810BB9786334"
-const Slot_IRemoteSystemConnectionRequestFactory_Create* = 6
-type Fn_IRemoteSystemConnectionRequestFactory_Create* =
-  proc(self: pointer, a1RemoteSystem: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteSystemConnectionRequestFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1RemoteSystem: pointer, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequestStatics
 const IID_IRemoteSystemConnectionRequestStatics* = guid"86CA143D-8214-425C-8932-DB49032D1306"
-const Slot_IRemoteSystemConnectionRequestStatics_CreateForApp* = 6
-type Fn_IRemoteSystemConnectionRequestStatics_CreateForApp* =
-  proc(self: pointer, a1RemoteSystemApp: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteSystemConnectionRequestStaticsVtbl* = object of IInspectableVtbl
+  CreateForApp*: proc(self: pointer, a1RemoteSystemApp: pointer,
+                      value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequestStatics2
 const IID_IRemoteSystemConnectionRequestStatics2* = guid"460F1027-64EC-598E-A800-4F2EE58DEF19"
-const Slot_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionToken* = 6
-type Fn_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionToken* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionTokenForUser* = 7
-type Fn_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionTokenForUser* =
-  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteSystemConnectionRequestStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromConnectionToken*: proc(self: pointer, a1: HSTRING,
+                                   value: ptr pointer): HRESULT {.abi.}
+  CreateFromConnectionTokenForUser*: proc(self: pointer, a1User: pointer,
+                                          a2: HSTRING, value: ptr pointer
+                                         ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemDiscoveryTypeFilter
 const IID_IRemoteSystemDiscoveryTypeFilter* = guid"42D9041F-EE5A-43DA-AC6A-6FEE25460741"
-const Slot_IRemoteSystemDiscoveryTypeFilter_get_RemoteSystemDiscoveryType* = 6
-type Fn_IRemoteSystemDiscoveryTypeFilter_get_RemoteSystemDiscoveryType* =
-  proc(self: pointer, value: ptr RemoteSystemDiscoveryType): HRESULT {.abi.}
+type IRemoteSystemDiscoveryTypeFilterVtbl* = object of IInspectableVtbl
+  get_RemoteSystemDiscoveryType*: proc(self: pointer,
+                                       value: ptr RemoteSystemDiscoveryType
+                                      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemDiscoveryTypeFilterFactory
 const IID_IRemoteSystemDiscoveryTypeFilterFactory* = guid"9F9EB993-C260-4161-92F2-9C021F23FE5D"
-const Slot_IRemoteSystemDiscoveryTypeFilterFactory_Create* = 6
-type Fn_IRemoteSystemDiscoveryTypeFilterFactory_Create* =
-  proc(self: pointer, a1: RemoteSystemDiscoveryType, value: ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteSystemDiscoveryTypeFilterFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: RemoteSystemDiscoveryType,
+                value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemEnumerationCompletedEventArgs
 const IID_IRemoteSystemEnumerationCompletedEventArgs* = guid"C6E83D5F-4030-4354-A060-14F1B22C545D"
+type IRemoteSystemEnumerationCompletedEventArgsVtbl* = object of IInspectableVtbl
 
 ## Windows.System.RemoteSystems.IRemoteSystemFilter
 const IID_IRemoteSystemFilter* = guid"4A3BA9E4-99EB-45EB-BA16-0367728FF374"
+type IRemoteSystemFilterVtbl* = object of IInspectableVtbl
 
 ## Windows.System.RemoteSystems.IRemoteSystemKindFilter
 const IID_IRemoteSystemKindFilter* = guid"38E1C9EC-22C3-4EF6-901A-BBB1C7AAD4ED"
-const Slot_IRemoteSystemKindFilter_get_RemoteSystemKinds* = 6
-type Fn_IRemoteSystemKindFilter_get_RemoteSystemKinds* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemKindFilterVtbl* = object of IInspectableVtbl
+  get_RemoteSystemKinds*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemKindFilterFactory
 const IID_IRemoteSystemKindFilterFactory* = guid"A1FB18EE-99EA-40BC-9A39-C670AA804A28"
-const Slot_IRemoteSystemKindFilterFactory_Create* = 6
-type Fn_IRemoteSystemKindFilterFactory_Create* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemKindFilterFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: pointer, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemKindStatics
 const IID_IRemoteSystemKindStatics* = guid"F6317633-AB14-41D0-9553-796AADB882DB"
-const Slot_IRemoteSystemKindStatics_get_Phone* = 6
-type Fn_IRemoteSystemKindStatics_get_Phone* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystemKindStatics_get_Hub* = 7
-type Fn_IRemoteSystemKindStatics_get_Hub* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystemKindStatics_get_Holographic* = 8
-type Fn_IRemoteSystemKindStatics_get_Holographic* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystemKindStatics_get_Desktop* = 9
-type Fn_IRemoteSystemKindStatics_get_Desktop* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystemKindStatics_get_Xbox* = 10
-type Fn_IRemoteSystemKindStatics_get_Xbox* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IRemoteSystemKindStaticsVtbl* = object of IInspectableVtbl
+  get_Phone*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Hub*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Holographic*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Desktop*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Xbox*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemKindStatics2
 const IID_IRemoteSystemKindStatics2* = guid"B9E3A3D0-0466-4749-91E8-65F9D19A96A5"
-const Slot_IRemoteSystemKindStatics2_get_Iot* = 6
-type Fn_IRemoteSystemKindStatics2_get_Iot* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystemKindStatics2_get_Tablet* = 7
-type Fn_IRemoteSystemKindStatics2_get_Tablet* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystemKindStatics2_get_Laptop* = 8
-type Fn_IRemoteSystemKindStatics2_get_Laptop* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IRemoteSystemKindStatics2Vtbl* = object of IInspectableVtbl
+  get_Iot*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Tablet*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Laptop*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemRemovedEventArgs
 const IID_IRemoteSystemRemovedEventArgs* = guid"8B3D16BB-7306-49EA-B7DF-67D5714CB013"
-const Slot_IRemoteSystemRemovedEventArgs_get_RemoteSystemId* = 6
-type Fn_IRemoteSystemRemovedEventArgs_get_RemoteSystemId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IRemoteSystemRemovedEventArgsVtbl* = object of IInspectableVtbl
+  get_RemoteSystemId*: proc(self: pointer, value: ptr HSTRING
+                           ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSession
 const IID_IRemoteSystemSession* = guid"69476A01-9ADA-490F-9549-D31CB14C9E95"
-const Slot_IRemoteSystemSession_get_Id* = 6
-type Fn_IRemoteSystemSession_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystemSession_get_DisplayName* = 7
-type Fn_IRemoteSystemSession_get_DisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystemSession_get_ControllerDisplayName* = 8
-type Fn_IRemoteSystemSession_get_ControllerDisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystemSession_add_Disconnected* = 9
-type Fn_IRemoteSystemSession_add_Disconnected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSession_remove_Disconnected* = 10
-type Fn_IRemoteSystemSession_remove_Disconnected* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IRemoteSystemSession_CreateParticipantWatcher* = 11
-type Fn_IRemoteSystemSession_CreateParticipantWatcher* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSession_SendInvitationAsync* = 12
-type Fn_IRemoteSystemSession_SendInvitationAsync* =
-  proc(self: pointer, a1RemoteSystem: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteSystemSessionVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DisplayName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ControllerDisplayName*: proc(self: pointer, value: ptr HSTRING
+                                  ): HRESULT {.abi.}
+  add_Disconnected*: proc(self: pointer, a1: pointer,
+                          value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Disconnected*: proc(self: pointer, a1: EventRegistrationToken
+                            ): HRESULT {.abi.}
+  CreateParticipantWatcher*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
+  SendInvitationAsync*: proc(self: pointer, a1RemoteSystem: pointer,
+                             value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionAddedEventArgs
 const IID_IRemoteSystemSessionAddedEventArgs* = guid"D585D754-BC97-4C39-99B4-BECA76E04C3F"
-const Slot_IRemoteSystemSessionAddedEventArgs_get_SessionInfo* = 6
-type Fn_IRemoteSystemSessionAddedEventArgs_get_SessionInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionAddedEventArgsVtbl* = object of IInspectableVtbl
+  get_SessionInfo*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionController
 const IID_IRemoteSystemSessionController* = guid"E48B2DD2-6820-4867-B425-D89C0A3EF7BA"
-const Slot_IRemoteSystemSessionController_add_JoinRequested* = 6
-type Fn_IRemoteSystemSessionController_add_JoinRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionController_remove_JoinRequested* = 7
-type Fn_IRemoteSystemSessionController_remove_JoinRequested* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionController_RemoveParticipantAsync* = 8
-type Fn_IRemoteSystemSessionController_RemoveParticipantAsync* =
-  proc(self: pointer, a1RemoteSystemSessionParticipant: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionController_CreateSessionAsync* = 9
-type Fn_IRemoteSystemSessionController_CreateSessionAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionControllerVtbl* = object of IInspectableVtbl
+  add_JoinRequested*: proc(self: pointer, a1: pointer,
+                           value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_JoinRequested*: proc(self: pointer, a1: EventRegistrationToken
+                             ): HRESULT {.abi.}
+  RemoveParticipantAsync*: proc(self: pointer,
+                                a1RemoteSystemSessionParticipant: pointer,
+                                value: ptr pointer): HRESULT {.abi.}
+  CreateSessionAsync*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionControllerFactory
 const IID_IRemoteSystemSessionControllerFactory* = guid"BFCC2F6B-AC3D-4199-82CD-6670A773EF2E"
-const Slot_IRemoteSystemSessionControllerFactory_CreateController* = 6
-type Fn_IRemoteSystemSessionControllerFactory_CreateController* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionControllerFactory_CreateController2* = 7
-type Fn_IRemoteSystemSessionControllerFactory_CreateController2* =
-  proc(self: pointer, a1: HSTRING, a2RemoteSystemSessionOptions: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionControllerFactoryVtbl* = object of IInspectableVtbl
+  CreateController*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                         ): HRESULT {.abi.}
+  CreateController2*: proc(self: pointer, a1: HSTRING,
+                           a2RemoteSystemSessionOptions: pointer,
+                           value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionCreationResult
 const IID_IRemoteSystemSessionCreationResult* = guid"A79812C2-37DE-448C-8B83-A30AA3C4EAD6"
-const Slot_IRemoteSystemSessionCreationResult_get_Status* = 6
-type Fn_IRemoteSystemSessionCreationResult_get_Status* =
-  proc(self: pointer, value: ptr RemoteSystemSessionCreationStatus
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionCreationResult_get_Session* = 7
-type Fn_IRemoteSystemSessionCreationResult_get_Session* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionCreationResultVtbl* = object of IInspectableVtbl
+  get_Status*: proc(self: pointer,
+                    value: ptr RemoteSystemSessionCreationStatus
+                   ): HRESULT {.abi.}
+  get_Session*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionDisconnectedEventArgs
 const IID_IRemoteSystemSessionDisconnectedEventArgs* = guid"DE0BC69B-77C5-461C-8209-7C6C5D3111AB"
-const Slot_IRemoteSystemSessionDisconnectedEventArgs_get_Reason* = 6
-type Fn_IRemoteSystemSessionDisconnectedEventArgs_get_Reason* =
-  proc(self: pointer, value: ptr RemoteSystemSessionDisconnectedReason
-      ): HRESULT {.abi.}
+type IRemoteSystemSessionDisconnectedEventArgsVtbl* = object of IInspectableVtbl
+  get_Reason*: proc(self: pointer,
+                    value: ptr RemoteSystemSessionDisconnectedReason
+                   ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionInfo
 const IID_IRemoteSystemSessionInfo* = guid"FF4DF648-8B0A-4E9A-9905-69E4B841C588"
-const Slot_IRemoteSystemSessionInfo_get_DisplayName* = 6
-type Fn_IRemoteSystemSessionInfo_get_DisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionInfo_get_ControllerDisplayName* = 7
-type Fn_IRemoteSystemSessionInfo_get_ControllerDisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionInfo_JoinAsync* = 8
-type Fn_IRemoteSystemSessionInfo_JoinAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionInfoVtbl* = object of IInspectableVtbl
+  get_DisplayName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ControllerDisplayName*: proc(self: pointer, value: ptr HSTRING
+                                  ): HRESULT {.abi.}
+  JoinAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionInvitation
 const IID_IRemoteSystemSessionInvitation* = guid"3E32CC91-51D7-4766-A121-25516C3B8294"
-const Slot_IRemoteSystemSessionInvitation_get_Sender* = 6
-type Fn_IRemoteSystemSessionInvitation_get_Sender* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionInvitation_get_SessionInfo* = 7
-type Fn_IRemoteSystemSessionInvitation_get_SessionInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionInvitationVtbl* = object of IInspectableVtbl
+  get_Sender*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_SessionInfo*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionInvitationListener
 const IID_IRemoteSystemSessionInvitationListener* = guid"08F4003F-BC71-49E1-874A-31DDFF9A27B9"
-const Slot_IRemoteSystemSessionInvitationListener_add_InvitationReceived* = 6
-type Fn_IRemoteSystemSessionInvitationListener_add_InvitationReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionInvitationListener_remove_InvitationReceived* = 7
-type Fn_IRemoteSystemSessionInvitationListener_remove_InvitationReceived* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IRemoteSystemSessionInvitationListenerVtbl* = object of IInspectableVtbl
+  add_InvitationReceived*: proc(self: pointer, a1: pointer,
+                                value: ptr EventRegistrationToken
+                               ): HRESULT {.abi.}
+  remove_InvitationReceived*: proc(self: pointer, a1: EventRegistrationToken
+                                  ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionInvitationReceivedEventArgs
 const IID_IRemoteSystemSessionInvitationReceivedEventArgs* = guid"5E964A2D-A10D-4EDB-8DEA-54D20AC19543"
-const Slot_IRemoteSystemSessionInvitationReceivedEventArgs_get_Invitation* = 6
-type Fn_IRemoteSystemSessionInvitationReceivedEventArgs_get_Invitation* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionInvitationReceivedEventArgsVtbl* = object of IInspectableVtbl
+  get_Invitation*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionJoinRequest
 const IID_IRemoteSystemSessionJoinRequest* = guid"20600068-7994-4331-86D1-D89D882585EE"
-const Slot_IRemoteSystemSessionJoinRequest_get_Participant* = 6
-type Fn_IRemoteSystemSessionJoinRequest_get_Participant* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionJoinRequest_Accept* = 7
-type Fn_IRemoteSystemSessionJoinRequest_Accept* =
-  proc(self: pointer): HRESULT {.abi.}
+type IRemoteSystemSessionJoinRequestVtbl* = object of IInspectableVtbl
+  get_Participant*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Accept*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionJoinRequestedEventArgs
 const IID_IRemoteSystemSessionJoinRequestedEventArgs* = guid"DBCA4FC3-82B9-4816-9C24-E40E61774BD8"
-const Slot_IRemoteSystemSessionJoinRequestedEventArgs_get_JoinRequest* = 6
-type Fn_IRemoteSystemSessionJoinRequestedEventArgs_get_JoinRequest* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionJoinRequestedEventArgs_GetDeferral* = 7
-type Fn_IRemoteSystemSessionJoinRequestedEventArgs_GetDeferral* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionJoinRequestedEventArgsVtbl* = object of IInspectableVtbl
+  get_JoinRequest*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetDeferral*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionJoinResult
 const IID_IRemoteSystemSessionJoinResult* = guid"CE7B1F04-A03E-41A4-900B-1E79328C1267"
-const Slot_IRemoteSystemSessionJoinResult_get_Status* = 6
-type Fn_IRemoteSystemSessionJoinResult_get_Status* =
-  proc(self: pointer, value: ptr RemoteSystemSessionJoinStatus
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionJoinResult_get_Session* = 7
-type Fn_IRemoteSystemSessionJoinResult_get_Session* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionJoinResultVtbl* = object of IInspectableVtbl
+  get_Status*: proc(self: pointer, value: ptr RemoteSystemSessionJoinStatus
+                   ): HRESULT {.abi.}
+  get_Session*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionMessageChannel
 const IID_IRemoteSystemSessionMessageChannel* = guid"9524D12A-73D9-4C10-B751-C26784437127"
-const Slot_IRemoteSystemSessionMessageChannel_get_Session* = 6
-type Fn_IRemoteSystemSessionMessageChannel_get_Session* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionMessageChannel_BroadcastValueSetAsync* = 7
-type Fn_IRemoteSystemSessionMessageChannel_BroadcastValueSetAsync* =
-  proc(self: pointer, a1ValueSet: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionMessageChannel_SendValueSetAsync* = 8
-type Fn_IRemoteSystemSessionMessageChannel_SendValueSetAsync* =
-  proc(self: pointer, a1ValueSet: pointer,
-       a2RemoteSystemSessionParticipant: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionMessageChannel_SendValueSetToParticipantsAsync* = 9
-type Fn_IRemoteSystemSessionMessageChannel_SendValueSetToParticipantsAsync* =
-  proc(self: pointer, a1ValueSet: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionMessageChannel_add_ValueSetReceived* = 10
-type Fn_IRemoteSystemSessionMessageChannel_add_ValueSetReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionMessageChannel_remove_ValueSetReceived* = 11
-type Fn_IRemoteSystemSessionMessageChannel_remove_ValueSetReceived* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IRemoteSystemSessionMessageChannelVtbl* = object of IInspectableVtbl
+  get_Session*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  BroadcastValueSetAsync*: proc(self: pointer, a1ValueSet: pointer,
+                                value: ptr pointer): HRESULT {.abi.}
+  SendValueSetAsync*: proc(self: pointer, a1ValueSet: pointer,
+                           a2RemoteSystemSessionParticipant: pointer,
+                           value: ptr pointer): HRESULT {.abi.}
+  SendValueSetToParticipantsAsync*: proc(self: pointer, a1ValueSet: pointer,
+                                         a2: pointer, value: ptr pointer
+                                        ): HRESULT {.abi.}
+  add_ValueSetReceived*: proc(self: pointer, a1: pointer,
+                              value: ptr EventRegistrationToken
+                             ): HRESULT {.abi.}
+  remove_ValueSetReceived*: proc(self: pointer, a1: EventRegistrationToken
+                                ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionMessageChannelFactory
 const IID_IRemoteSystemSessionMessageChannelFactory* = guid"295E1C4A-BD16-4298-B7CE-415482B0E11D"
-const Slot_IRemoteSystemSessionMessageChannelFactory_Create* = 6
-type Fn_IRemoteSystemSessionMessageChannelFactory_Create* =
-  proc(self: pointer, a1RemoteSystemSession: pointer, a2: HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionMessageChannelFactory_Create2* = 7
-type Fn_IRemoteSystemSessionMessageChannelFactory_Create2* =
-  proc(self: pointer, a1RemoteSystemSession: pointer, a2: HSTRING,
-       a3: RemoteSystemSessionMessageChannelReliability, value: ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteSystemSessionMessageChannelFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1RemoteSystemSession: pointer, a2: HSTRING,
+                value: ptr pointer): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1RemoteSystemSession: pointer, a2: HSTRING,
+                 a3: RemoteSystemSessionMessageChannelReliability,
+                 value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionOptions
 const IID_IRemoteSystemSessionOptions* = guid"740ED755-8418-4F01-9353-E21C9ECC6CFC"
-const Slot_IRemoteSystemSessionOptions_get_IsInviteOnly* = 6
-type Fn_IRemoteSystemSessionOptions_get_IsInviteOnly* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionOptions_put_IsInviteOnly* = 7
-type Fn_IRemoteSystemSessionOptions_put_IsInviteOnly* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type IRemoteSystemSessionOptionsVtbl* = object of IInspectableVtbl
+  get_IsInviteOnly*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_IsInviteOnly*: proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionParticipant
 const IID_IRemoteSystemSessionParticipant* = guid"7E90058C-ACF9-4729-8A17-44E7BAED5DCC"
-const Slot_IRemoteSystemSessionParticipant_get_RemoteSystem* = 6
-type Fn_IRemoteSystemSessionParticipant_get_RemoteSystem* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionParticipant_GetHostNames* = 7
-type Fn_IRemoteSystemSessionParticipant_GetHostNames* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionParticipantVtbl* = object of IInspectableVtbl
+  get_RemoteSystem*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetHostNames*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionParticipantAddedEventArgs
 const IID_IRemoteSystemSessionParticipantAddedEventArgs* = guid"D35A57D8-C9A1-4BB7-B6B0-79BB91ADF93D"
-const Slot_IRemoteSystemSessionParticipantAddedEventArgs_get_Participant* = 6
-type Fn_IRemoteSystemSessionParticipantAddedEventArgs_get_Participant* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionParticipantAddedEventArgsVtbl* = object of IInspectableVtbl
+  get_Participant*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionParticipantRemovedEventArgs
 const IID_IRemoteSystemSessionParticipantRemovedEventArgs* = guid"866EF088-DE68-4ABF-88A1-F90D16274192"
-const Slot_IRemoteSystemSessionParticipantRemovedEventArgs_get_Participant* = 6
-type Fn_IRemoteSystemSessionParticipantRemovedEventArgs_get_Participant* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionParticipantRemovedEventArgsVtbl* = object of IInspectableVtbl
+  get_Participant*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionParticipantWatcher
 const IID_IRemoteSystemSessionParticipantWatcher* = guid"DCDD02CC-AA87-4D79-B6CC-4459B3E92075"
-const Slot_IRemoteSystemSessionParticipantWatcher_Start* = 6
-type Fn_IRemoteSystemSessionParticipantWatcher_Start* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionParticipantWatcher_Stop* = 7
-type Fn_IRemoteSystemSessionParticipantWatcher_Stop* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionParticipantWatcher_get_Status* = 8
-type Fn_IRemoteSystemSessionParticipantWatcher_get_Status* =
-  proc(self: pointer, value: ptr RemoteSystemSessionParticipantWatcherStatus
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionParticipantWatcher_add_Added* = 9
-type Fn_IRemoteSystemSessionParticipantWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionParticipantWatcher_remove_Added* = 10
-type Fn_IRemoteSystemSessionParticipantWatcher_remove_Added* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionParticipantWatcher_add_Removed* = 11
-type Fn_IRemoteSystemSessionParticipantWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionParticipantWatcher_remove_Removed* = 12
-type Fn_IRemoteSystemSessionParticipantWatcher_remove_Removed* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionParticipantWatcher_add_EnumerationCompleted* = 13
-type Fn_IRemoteSystemSessionParticipantWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionParticipantWatcher_remove_EnumerationCompleted* = 14
-type Fn_IRemoteSystemSessionParticipantWatcher_remove_EnumerationCompleted* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IRemoteSystemSessionParticipantWatcherVtbl* = object of IInspectableVtbl
+  Start*: proc(self: pointer): HRESULT {.abi.}
+  Stop*: proc(self: pointer): HRESULT {.abi.}
+  get_Status*: proc(self: pointer,
+                    value: ptr RemoteSystemSessionParticipantWatcherStatus
+                   ): HRESULT {.abi.}
+  add_Added*: proc(self: pointer, a1: pointer,
+                   value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Added*: proc(self: pointer, a1: EventRegistrationToken
+                     ): HRESULT {.abi.}
+  add_Removed*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Removed*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
+  add_EnumerationCompleted*: proc(self: pointer, a1: pointer,
+                                  value: ptr EventRegistrationToken
+                                 ): HRESULT {.abi.}
+  remove_EnumerationCompleted*: proc(self: pointer, a1: EventRegistrationToken
+                                    ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionRemovedEventArgs
 const IID_IRemoteSystemSessionRemovedEventArgs* = guid"AF82914E-39A1-4DEA-9D63-43798D5BBBD0"
-const Slot_IRemoteSystemSessionRemovedEventArgs_get_SessionInfo* = 6
-type Fn_IRemoteSystemSessionRemovedEventArgs_get_SessionInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionRemovedEventArgsVtbl* = object of IInspectableVtbl
+  get_SessionInfo*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionStatics
 const IID_IRemoteSystemSessionStatics* = guid"8524899F-FD20-44E3-9565-E75A3B14C66E"
-const Slot_IRemoteSystemSessionStatics_CreateWatcher* = 6
-type Fn_IRemoteSystemSessionStatics_CreateWatcher* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionStaticsVtbl* = object of IInspectableVtbl
+  CreateWatcher*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionUpdatedEventArgs
 const IID_IRemoteSystemSessionUpdatedEventArgs* = guid"16875069-231E-4C91-8EC8-B3A39D9E55A3"
-const Slot_IRemoteSystemSessionUpdatedEventArgs_get_SessionInfo* = 6
-type Fn_IRemoteSystemSessionUpdatedEventArgs_get_SessionInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionUpdatedEventArgsVtbl* = object of IInspectableVtbl
+  get_SessionInfo*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionValueSetReceivedEventArgs
 const IID_IRemoteSystemSessionValueSetReceivedEventArgs* = guid"06F31785-2DA5-4E58-A78F-9E8D0784EE25"
-const Slot_IRemoteSystemSessionValueSetReceivedEventArgs_get_Sender* = 6
-type Fn_IRemoteSystemSessionValueSetReceivedEventArgs_get_Sender* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionValueSetReceivedEventArgs_get_Message* = 7
-type Fn_IRemoteSystemSessionValueSetReceivedEventArgs_get_Message* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemSessionValueSetReceivedEventArgsVtbl* = object of IInspectableVtbl
+  get_Sender*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Message*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionWatcher
 const IID_IRemoteSystemSessionWatcher* = guid"8003E340-0C41-4A62-B6D7-BDBE2B19BE2D"
-const Slot_IRemoteSystemSessionWatcher_Start* = 6
-type Fn_IRemoteSystemSessionWatcher_Start* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionWatcher_Stop* = 7
-type Fn_IRemoteSystemSessionWatcher_Stop* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionWatcher_get_Status* = 8
-type Fn_IRemoteSystemSessionWatcher_get_Status* =
-  proc(self: pointer, value: ptr RemoteSystemSessionWatcherStatus
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionWatcher_add_Added* = 9
-type Fn_IRemoteSystemSessionWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionWatcher_remove_Added* = 10
-type Fn_IRemoteSystemSessionWatcher_remove_Added* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionWatcher_add_Updated* = 11
-type Fn_IRemoteSystemSessionWatcher_add_Updated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionWatcher_remove_Updated* = 12
-type Fn_IRemoteSystemSessionWatcher_remove_Updated* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionWatcher_add_Removed* = 13
-type Fn_IRemoteSystemSessionWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemSessionWatcher_remove_Removed* = 14
-type Fn_IRemoteSystemSessionWatcher_remove_Removed* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IRemoteSystemSessionWatcherVtbl* = object of IInspectableVtbl
+  Start*: proc(self: pointer): HRESULT {.abi.}
+  Stop*: proc(self: pointer): HRESULT {.abi.}
+  get_Status*: proc(self: pointer, value: ptr RemoteSystemSessionWatcherStatus
+                   ): HRESULT {.abi.}
+  add_Added*: proc(self: pointer, a1: pointer,
+                   value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Added*: proc(self: pointer, a1: EventRegistrationToken
+                     ): HRESULT {.abi.}
+  add_Updated*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Updated*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
+  add_Removed*: proc(self: pointer, a1: pointer,
+                     value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Removed*: proc(self: pointer, a1: EventRegistrationToken
+                       ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemStatics
 const IID_IRemoteSystemStatics* = guid"A485B392-FF2B-4B47-BE62-743F2F140F30"
-const Slot_IRemoteSystemStatics_FindByHostNameAsync* = 6
-type Fn_IRemoteSystemStatics_FindByHostNameAsync* =
-  proc(self: pointer, a1HostName: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemStatics_CreateWatcher* = 7
-type Fn_IRemoteSystemStatics_CreateWatcher* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemStatics_CreateWatcher2* = 8
-type Fn_IRemoteSystemStatics_CreateWatcher2* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemStatics_RequestAccessAsync* = 9
-type Fn_IRemoteSystemStatics_RequestAccessAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemStaticsVtbl* = object of IInspectableVtbl
+  FindByHostNameAsync*: proc(self: pointer, a1HostName: pointer,
+                             value: ptr pointer): HRESULT {.abi.}
+  CreateWatcher*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  CreateWatcher2*: proc(self: pointer, a1: pointer, value: ptr pointer
+                       ): HRESULT {.abi.}
+  RequestAccessAsync*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemStatics2
 const IID_IRemoteSystemStatics2* = guid"0C98EDCA-6F99-4C52-A272-EA4F36471744"
-const Slot_IRemoteSystemStatics2_IsAuthorizationKindEnabled* = 6
-type Fn_IRemoteSystemStatics2_IsAuthorizationKindEnabled* =
-  proc(self: pointer, a1: RemoteSystemAuthorizationKind, value: ptr bool
-      ): HRESULT {.abi.}
+type IRemoteSystemStatics2Vtbl* = object of IInspectableVtbl
+  IsAuthorizationKindEnabled*: proc(self: pointer,
+                                    a1: RemoteSystemAuthorizationKind,
+                                    value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemStatics3
 const IID_IRemoteSystemStatics3* = guid"9995F16F-0B3C-5AC5-B325-CC73F437DFCD"
-const Slot_IRemoteSystemStatics3_CreateWatcherForUser* = 6
-type Fn_IRemoteSystemStatics3_CreateWatcherForUser* =
-  proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemStatics3_CreateWatcherForUser2* = 7
-type Fn_IRemoteSystemStatics3_CreateWatcherForUser2* =
-  proc(self: pointer, a1User: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteSystemStatics3Vtbl* = object of IInspectableVtbl
+  CreateWatcherForUser*: proc(self: pointer, a1User: pointer,
+                              value: ptr pointer): HRESULT {.abi.}
+  CreateWatcherForUser2*: proc(self: pointer, a1User: pointer, a2: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemStatusTypeFilter
 const IID_IRemoteSystemStatusTypeFilter* = guid"0C39514E-CBB6-4777-8534-2E0C521AFFA2"
-const Slot_IRemoteSystemStatusTypeFilter_get_RemoteSystemStatusType* = 6
-type Fn_IRemoteSystemStatusTypeFilter_get_RemoteSystemStatusType* =
-  proc(self: pointer, value: ptr RemoteSystemStatusType): HRESULT {.abi.}
+type IRemoteSystemStatusTypeFilterVtbl* = object of IInspectableVtbl
+  get_RemoteSystemStatusType*: proc(self: pointer,
+                                    value: ptr RemoteSystemStatusType
+                                   ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemStatusTypeFilterFactory
 const IID_IRemoteSystemStatusTypeFilterFactory* = guid"33CF78FA-D724-4125-AC7A-8D281E44C949"
-const Slot_IRemoteSystemStatusTypeFilterFactory_Create* = 6
-type Fn_IRemoteSystemStatusTypeFilterFactory_Create* =
-  proc(self: pointer, a1: RemoteSystemStatusType, value: ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteSystemStatusTypeFilterFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: RemoteSystemStatusType, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemUpdatedEventArgs
 const IID_IRemoteSystemUpdatedEventArgs* = guid"7502FF0E-DBCB-4155-B4CA-B30A04F27627"
-const Slot_IRemoteSystemUpdatedEventArgs_get_RemoteSystem* = 6
-type Fn_IRemoteSystemUpdatedEventArgs_get_RemoteSystem* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemUpdatedEventArgsVtbl* = object of IInspectableVtbl
+  get_RemoteSystem*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemWatcher
 const IID_IRemoteSystemWatcher* = guid"5D600C7E-2C07-48C5-889C-455D2B099771"
-const Slot_IRemoteSystemWatcher_Start* = 6
-type Fn_IRemoteSystemWatcher_Start* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemWatcher_Stop* = 7
-type Fn_IRemoteSystemWatcher_Stop* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IRemoteSystemWatcher_add_RemoteSystemAdded* = 8
-type Fn_IRemoteSystemWatcher_add_RemoteSystemAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemWatcher_remove_RemoteSystemAdded* = 9
-type Fn_IRemoteSystemWatcher_remove_RemoteSystemAdded* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IRemoteSystemWatcher_add_RemoteSystemUpdated* = 10
-type Fn_IRemoteSystemWatcher_add_RemoteSystemUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemWatcher_remove_RemoteSystemUpdated* = 11
-type Fn_IRemoteSystemWatcher_remove_RemoteSystemUpdated* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IRemoteSystemWatcher_add_RemoteSystemRemoved* = 12
-type Fn_IRemoteSystemWatcher_add_RemoteSystemRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemWatcher_remove_RemoteSystemRemoved* = 13
-type Fn_IRemoteSystemWatcher_remove_RemoteSystemRemoved* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IRemoteSystemWatcherVtbl* = object of IInspectableVtbl
+  Start*: proc(self: pointer): HRESULT {.abi.}
+  Stop*: proc(self: pointer): HRESULT {.abi.}
+  add_RemoteSystemAdded*: proc(self: pointer, a1: pointer,
+                               value: ptr EventRegistrationToken
+                              ): HRESULT {.abi.}
+  remove_RemoteSystemAdded*: proc(self: pointer, a1: EventRegistrationToken
+                                 ): HRESULT {.abi.}
+  add_RemoteSystemUpdated*: proc(self: pointer, a1: pointer,
+                                 value: ptr EventRegistrationToken
+                                ): HRESULT {.abi.}
+  remove_RemoteSystemUpdated*: proc(self: pointer, a1: EventRegistrationToken
+                                   ): HRESULT {.abi.}
+  add_RemoteSystemRemoved*: proc(self: pointer, a1: pointer,
+                                 value: ptr EventRegistrationToken
+                                ): HRESULT {.abi.}
+  remove_RemoteSystemRemoved*: proc(self: pointer, a1: EventRegistrationToken
+                                   ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemWatcher2
 const IID_IRemoteSystemWatcher2* = guid"73436700-19CA-48F9-A4CD-780F7AD58C71"
-const Slot_IRemoteSystemWatcher2_add_EnumerationCompleted* = 6
-type Fn_IRemoteSystemWatcher2_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemWatcher2_remove_EnumerationCompleted* = 7
-type Fn_IRemoteSystemWatcher2_remove_EnumerationCompleted* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IRemoteSystemWatcher2_add_ErrorOccurred* = 8
-type Fn_IRemoteSystemWatcher2_add_ErrorOccurred* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IRemoteSystemWatcher2_remove_ErrorOccurred* = 9
-type Fn_IRemoteSystemWatcher2_remove_ErrorOccurred* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IRemoteSystemWatcher2Vtbl* = object of IInspectableVtbl
+  add_EnumerationCompleted*: proc(self: pointer, a1: pointer,
+                                  value: ptr EventRegistrationToken
+                                 ): HRESULT {.abi.}
+  remove_EnumerationCompleted*: proc(self: pointer, a1: EventRegistrationToken
+                                    ): HRESULT {.abi.}
+  add_ErrorOccurred*: proc(self: pointer, a1: pointer,
+                           value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_ErrorOccurred*: proc(self: pointer, a1: EventRegistrationToken
+                             ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemWatcher3
 const IID_IRemoteSystemWatcher3* = guid"F79C0FCF-A913-55D3-8413-418FCF15BA54"
-const Slot_IRemoteSystemWatcher3_get_User* = 6
-type Fn_IRemoteSystemWatcher3_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemWatcher3Vtbl* = object of IInspectableVtbl
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemWatcherErrorOccurredEventArgs
 const IID_IRemoteSystemWatcherErrorOccurredEventArgs* = guid"74C5C6AF-5114-4426-9216-20D81F8519AE"
-const Slot_IRemoteSystemWatcherErrorOccurredEventArgs_get_Error* = 6
-type Fn_IRemoteSystemWatcherErrorOccurredEventArgs_get_Error* =
-  proc(self: pointer, value: ptr RemoteSystemWatcherError): HRESULT {.abi.}
+type IRemoteSystemWatcherErrorOccurredEventArgsVtbl* = object of IInspectableVtbl
+  get_Error*: proc(self: pointer, value: ptr RemoteSystemWatcherError
+                  ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemWebAccountFilter
 const IID_IRemoteSystemWebAccountFilter* = guid"3FB75873-87C8-5D8F-977E-F69F96D67238"
-const Slot_IRemoteSystemWebAccountFilter_get_Account* = 6
-type Fn_IRemoteSystemWebAccountFilter_get_Account* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IRemoteSystemWebAccountFilterVtbl* = object of IInspectableVtbl
+  get_Account*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemWebAccountFilterFactory
 const IID_IRemoteSystemWebAccountFilterFactory* = guid"348A2709-5F4D-5127-B4A7-BF99D5252B1B"
-const Slot_IRemoteSystemWebAccountFilterFactory_Create* = 6
-type Fn_IRemoteSystemWebAccountFilterFactory_Create* =
-  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IRemoteSystemWebAccountFilterFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1WebAccount: pointer, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.System.Threading.Core.IPreallocatedWorkItem
 const IID_IPreallocatedWorkItem* = guid"B6DAA9FC-BC5B-401A-A8B2-6E754D14DAA6"
-const Slot_IPreallocatedWorkItem_RunAsync* = 6
-type Fn_IPreallocatedWorkItem_RunAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IPreallocatedWorkItemVtbl* = object of IInspectableVtbl
+  RunAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.Core.IPreallocatedWorkItemFactory
 const IID_IPreallocatedWorkItemFactory* = guid"E3D32B45-DFEA-469B-82C5-F6E3CEFDEAFB"
-const Slot_IPreallocatedWorkItemFactory_CreateWorkItem* = 6
-type Fn_IPreallocatedWorkItemFactory_CreateWorkItem* =
-  proc(self: pointer, a1WorkItemHandler: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IPreallocatedWorkItemFactory_CreateWorkItemWithPriority* = 7
-type Fn_IPreallocatedWorkItemFactory_CreateWorkItemWithPriority* =
-  proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IPreallocatedWorkItemFactory_CreateWorkItemWithPriorityAndOptions* = 8
-type Fn_IPreallocatedWorkItemFactory_CreateWorkItemWithPriorityAndOptions* =
-  proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority,
-       a3: WorkItemOptions, value: ptr pointer): HRESULT {.abi.}
+type IPreallocatedWorkItemFactoryVtbl* = object of IInspectableVtbl
+  CreateWorkItem*: proc(self: pointer, a1WorkItemHandler: pointer,
+                        value: ptr pointer): HRESULT {.abi.}
+  CreateWorkItemWithPriority*: proc(self: pointer, a1WorkItemHandler: pointer,
+                                    a2: WorkItemPriority, value: ptr pointer
+                                   ): HRESULT {.abi.}
+  CreateWorkItemWithPriorityAndOptions*: proc(self: pointer,
+                                              a1WorkItemHandler: pointer,
+                                              a2: WorkItemPriority,
+                                              a3: WorkItemOptions,
+                                              value: ptr pointer
+                                             ): HRESULT {.abi.}
 
 ## Windows.System.Threading.Core.ISignalNotifier
 const IID_ISignalNotifier* = guid"14285E06-63A7-4713-B6D9-62F64B56FB8B"
-const Slot_ISignalNotifier_Enable* = 6
-type Fn_ISignalNotifier_Enable* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_ISignalNotifier_Terminate* = 7
-type Fn_ISignalNotifier_Terminate* =
-  proc(self: pointer): HRESULT {.abi.}
+type ISignalNotifierVtbl* = object of IInspectableVtbl
+  Enable*: proc(self: pointer): HRESULT {.abi.}
+  Terminate*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.Core.ISignalNotifierStatics
 const IID_ISignalNotifierStatics* = guid"1C4E4566-8400-46D3-A115-7D0C0DFC9F62"
-const Slot_ISignalNotifierStatics_AttachToEvent* = 6
-type Fn_ISignalNotifierStatics_AttachToEvent* =
-  proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ISignalNotifierStatics_AttachToEvent2* = 7
-type Fn_ISignalNotifierStatics_AttachToEvent2* =
-  proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer, a3: TimeSpan,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ISignalNotifierStatics_AttachToSemaphore* = 8
-type Fn_ISignalNotifierStatics_AttachToSemaphore* =
-  proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ISignalNotifierStatics_AttachToSemaphore2* = 9
-type Fn_ISignalNotifierStatics_AttachToSemaphore2* =
-  proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer, a3: TimeSpan,
-       value: ptr pointer): HRESULT {.abi.}
+type ISignalNotifierStaticsVtbl* = object of IInspectableVtbl
+  AttachToEvent*: proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer,
+                       value: ptr pointer): HRESULT {.abi.}
+  AttachToEvent2*: proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer,
+                        a3: TimeSpan, value: ptr pointer): HRESULT {.abi.}
+  AttachToSemaphore*: proc(self: pointer, a1: HSTRING,
+                           a2SignalHandler: pointer, value: ptr pointer
+                          ): HRESULT {.abi.}
+  AttachToSemaphore2*: proc(self: pointer, a1: HSTRING,
+                            a2SignalHandler: pointer, a3: TimeSpan,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.Core.SignalHandler  (delegate)
 const IID_SignalHandler* = guid"923C402E-4721-440E-9DDA-55B6F2E07710"
-const Slot_SignalHandler_Invoke* = 3
-type Fn_SignalHandler_Invoke* =
-  proc(self: pointer, a1SignalNotifier: pointer, a2: bool): HRESULT {.abi.}
+type SignalHandlerVtbl* = object of IUnknownVtbl
+  Invoke*: proc(self: pointer, a1SignalNotifier: pointer, a2: bool
+               ): HRESULT {.abi.}
 
 ## Windows.System.Threading.IThreadPoolStatics
 const IID_IThreadPoolStatics* = guid"B6BF67DD-84BD-44F8-AC1C-93EBCB9DBA91"
-const Slot_IThreadPoolStatics_RunAsync* = 6
-type Fn_IThreadPoolStatics_RunAsync* =
-  proc(self: pointer, a1WorkItemHandler: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IThreadPoolStatics_RunAsync2* = 7
-type Fn_IThreadPoolStatics_RunAsync2* =
-  proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IThreadPoolStatics_RunAsync3* = 8
-type Fn_IThreadPoolStatics_RunAsync3* =
-  proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority,
-       a3: WorkItemOptions, value: ptr pointer): HRESULT {.abi.}
+type IThreadPoolStaticsVtbl* = object of IInspectableVtbl
+  RunAsync*: proc(self: pointer, a1WorkItemHandler: pointer,
+                  value: ptr pointer): HRESULT {.abi.}
+  RunAsync2*: proc(self: pointer, a1WorkItemHandler: pointer,
+                   a2: WorkItemPriority, value: ptr pointer): HRESULT {.abi.}
+  RunAsync3*: proc(self: pointer, a1WorkItemHandler: pointer,
+                   a2: WorkItemPriority, a3: WorkItemOptions,
+                   value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.IThreadPoolTimer
 const IID_IThreadPoolTimer* = guid"594EBE78-55EA-4A88-A50D-3402AE1F9CF2"
-const Slot_IThreadPoolTimer_get_Period* = 6
-type Fn_IThreadPoolTimer_get_Period* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IThreadPoolTimer_get_Delay* = 7
-type Fn_IThreadPoolTimer_get_Delay* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IThreadPoolTimer_Cancel* = 8
-type Fn_IThreadPoolTimer_Cancel* =
-  proc(self: pointer): HRESULT {.abi.}
+type IThreadPoolTimerVtbl* = object of IInspectableVtbl
+  get_Period*: proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+  get_Delay*: proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+  Cancel*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.IThreadPoolTimerStatics
 const IID_IThreadPoolTimerStatics* = guid"1A8A9D02-E482-461B-B8C7-8EFAD1CCE590"
-const Slot_IThreadPoolTimerStatics_CreatePeriodicTimer* = 6
-type Fn_IThreadPoolTimerStatics_CreatePeriodicTimer* =
-  proc(self: pointer, a1TimerElapsedHandler: pointer, a2: TimeSpan,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IThreadPoolTimerStatics_CreateTimer* = 7
-type Fn_IThreadPoolTimerStatics_CreateTimer* =
-  proc(self: pointer, a1TimerElapsedHandler: pointer, a2: TimeSpan,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IThreadPoolTimerStatics_CreatePeriodicTimer2* = 8
-type Fn_IThreadPoolTimerStatics_CreatePeriodicTimer2* =
-  proc(self: pointer, a1TimerElapsedHandler: pointer, a2: TimeSpan,
-       a3TimerDestroyedHandler: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IThreadPoolTimerStatics_CreateTimer2* = 9
-type Fn_IThreadPoolTimerStatics_CreateTimer2* =
-  proc(self: pointer, a1TimerElapsedHandler: pointer, a2: TimeSpan,
-       a3TimerDestroyedHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+type IThreadPoolTimerStaticsVtbl* = object of IInspectableVtbl
+  CreatePeriodicTimer*: proc(self: pointer, a1TimerElapsedHandler: pointer,
+                             a2: TimeSpan, value: ptr pointer
+                            ): HRESULT {.abi.}
+  CreateTimer*: proc(self: pointer, a1TimerElapsedHandler: pointer,
+                     a2: TimeSpan, value: ptr pointer): HRESULT {.abi.}
+  CreatePeriodicTimer2*: proc(self: pointer, a1TimerElapsedHandler: pointer,
+                              a2: TimeSpan, a3TimerDestroyedHandler: pointer,
+                              value: ptr pointer): HRESULT {.abi.}
+  CreateTimer2*: proc(self: pointer, a1TimerElapsedHandler: pointer,
+                      a2: TimeSpan, a3TimerDestroyedHandler: pointer,
+                      value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.TimerDestroyedHandler  (delegate)
 const IID_TimerDestroyedHandler* = guid"34ED19FA-8384-4EB9-8209-FB5094EEEC35"
-const Slot_TimerDestroyedHandler_Invoke* = 3
-type Fn_TimerDestroyedHandler_Invoke* =
-  proc(self: pointer, a1ThreadPoolTimer: pointer): HRESULT {.abi.}
+type TimerDestroyedHandlerVtbl* = object of IUnknownVtbl
+  Invoke*: proc(self: pointer, a1ThreadPoolTimer: pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.TimerElapsedHandler  (delegate)
 const IID_TimerElapsedHandler* = guid"FAAEA667-FBEB-49CB-ADB2-71184C556E43"
-const Slot_TimerElapsedHandler_Invoke* = 3
-type Fn_TimerElapsedHandler_Invoke* =
-  proc(self: pointer, a1ThreadPoolTimer: pointer): HRESULT {.abi.}
+type TimerElapsedHandlerVtbl* = object of IUnknownVtbl
+  Invoke*: proc(self: pointer, a1ThreadPoolTimer: pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.WorkItemHandler  (delegate)
 const IID_WorkItemHandler* = guid"1D1A8B8B-FA66-414F-9CBD-B65FC99D17FA"
-const Slot_WorkItemHandler_Invoke* = 3
-type Fn_WorkItemHandler_Invoke* =
-  proc(self: pointer, a1IAsyncAction: pointer): HRESULT {.abi.}
+type WorkItemHandlerVtbl* = object of IUnknownVtbl
+  Invoke*: proc(self: pointer, a1IAsyncAction: pointer): HRESULT {.abi.}
 
 ## Windows.System.Update.ISystemUpdateItem
 const IID_ISystemUpdateItem* = guid"779740EB-5624-519E-A8E2-09E9173B3FB7"
-const Slot_ISystemUpdateItem_get_State* = 6
-type Fn_ISystemUpdateItem_get_State* =
-  proc(self: pointer, value: ptr SystemUpdateItemState): HRESULT {.abi.}
-const Slot_ISystemUpdateItem_get_Title* = 7
-type Fn_ISystemUpdateItem_get_Title* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISystemUpdateItem_get_Description* = 8
-type Fn_ISystemUpdateItem_get_Description* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISystemUpdateItem_get_Id* = 9
-type Fn_ISystemUpdateItem_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISystemUpdateItem_get_Revision* = 10
-type Fn_ISystemUpdateItem_get_Revision* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_ISystemUpdateItem_get_DownloadProgress* = 11
-type Fn_ISystemUpdateItem_get_DownloadProgress* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_ISystemUpdateItem_get_InstallProgress* = 12
-type Fn_ISystemUpdateItem_get_InstallProgress* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_ISystemUpdateItem_get_ExtendedError* = 13
-type Fn_ISystemUpdateItem_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+type ISystemUpdateItemVtbl* = object of IInspectableVtbl
+  get_State*: proc(self: pointer, value: ptr SystemUpdateItemState
+                  ): HRESULT {.abi.}
+  get_Title*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Description*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Revision*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_DownloadProgress*: proc(self: pointer, value: ptr float64
+                             ): HRESULT {.abi.}
+  get_InstallProgress*: proc(self: pointer, value: ptr float64
+                            ): HRESULT {.abi.}
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 
 ## Windows.System.Update.ISystemUpdateLastErrorInfo
 const IID_ISystemUpdateLastErrorInfo* = guid"7EE887F7-8A44-5B6E-BD07-7AECE4116EA9"
-const Slot_ISystemUpdateLastErrorInfo_get_State* = 6
-type Fn_ISystemUpdateLastErrorInfo_get_State* =
-  proc(self: pointer, value: ptr SystemUpdateManagerState): HRESULT {.abi.}
-const Slot_ISystemUpdateLastErrorInfo_get_ExtendedError* = 7
-type Fn_ISystemUpdateLastErrorInfo_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
-const Slot_ISystemUpdateLastErrorInfo_get_IsInteractive* = 8
-type Fn_ISystemUpdateLastErrorInfo_get_IsInteractive* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type ISystemUpdateLastErrorInfoVtbl* = object of IInspectableVtbl
+  get_State*: proc(self: pointer, value: ptr SystemUpdateManagerState
+                  ): HRESULT {.abi.}
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+  get_IsInteractive*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.Update.ISystemUpdateManagerStatics
 const IID_ISystemUpdateManagerStatics* = guid"B2D3FCEF-2971-51BE-B41A-8BD703BB701A"
-const Slot_ISystemUpdateManagerStatics_IsSupported* = 6
-type Fn_ISystemUpdateManagerStatics_IsSupported* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_get_State* = 7
-type Fn_ISystemUpdateManagerStatics_get_State* =
-  proc(self: pointer, value: ptr SystemUpdateManagerState): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_add_StateChanged* = 8
-type Fn_ISystemUpdateManagerStatics_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_remove_StateChanged* = 9
-type Fn_ISystemUpdateManagerStatics_remove_StateChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_get_DownloadProgress* = 10
-type Fn_ISystemUpdateManagerStatics_get_DownloadProgress* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_get_InstallProgress* = 11
-type Fn_ISystemUpdateManagerStatics_get_InstallProgress* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_get_UserActiveHoursStart* = 12
-type Fn_ISystemUpdateManagerStatics_get_UserActiveHoursStart* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_get_UserActiveHoursEnd* = 13
-type Fn_ISystemUpdateManagerStatics_get_UserActiveHoursEnd* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_get_UserActiveHoursMax* = 14
-type Fn_ISystemUpdateManagerStatics_get_UserActiveHoursMax* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_TrySetUserActiveHours* = 15
-type Fn_ISystemUpdateManagerStatics_TrySetUserActiveHours* =
-  proc(self: pointer, a1: TimeSpan, a2: TimeSpan, value: ptr bool
-      ): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_get_LastUpdateCheckTime* = 16
-type Fn_ISystemUpdateManagerStatics_get_LastUpdateCheckTime* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_get_LastUpdateInstallTime* = 17
-type Fn_ISystemUpdateManagerStatics_get_LastUpdateInstallTime* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_get_LastErrorInfo* = 18
-type Fn_ISystemUpdateManagerStatics_get_LastErrorInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_GetAutomaticRebootBlockIds* = 19
-type Fn_ISystemUpdateManagerStatics_GetAutomaticRebootBlockIds* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_BlockAutomaticRebootAsync* = 20
-type Fn_ISystemUpdateManagerStatics_BlockAutomaticRebootAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_UnblockAutomaticRebootAsync* = 21
-type Fn_ISystemUpdateManagerStatics_UnblockAutomaticRebootAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_get_ExtendedError* = 22
-type Fn_ISystemUpdateManagerStatics_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_GetUpdateItems* = 23
-type Fn_ISystemUpdateManagerStatics_GetUpdateItems* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_get_AttentionRequiredReason* = 24
-type Fn_ISystemUpdateManagerStatics_get_AttentionRequiredReason* =
-  proc(self: pointer, value: ptr SystemUpdateAttentionRequiredReason
-      ): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_SetFlightRing* = 25
-type Fn_ISystemUpdateManagerStatics_SetFlightRing* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_GetFlightRing* = 26
-type Fn_ISystemUpdateManagerStatics_GetFlightRing* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_StartInstall* = 27
-type Fn_ISystemUpdateManagerStatics_StartInstall* =
-  proc(self: pointer, a1: SystemUpdateStartInstallAction): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_RebootToCompleteInstall* = 28
-type Fn_ISystemUpdateManagerStatics_RebootToCompleteInstall* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_ISystemUpdateManagerStatics_StartCancelUpdates* = 29
-type Fn_ISystemUpdateManagerStatics_StartCancelUpdates* =
-  proc(self: pointer): HRESULT {.abi.}
+type ISystemUpdateManagerStaticsVtbl* = object of IInspectableVtbl
+  IsSupported*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_State*: proc(self: pointer, value: ptr SystemUpdateManagerState
+                  ): HRESULT {.abi.}
+  add_StateChanged*: proc(self: pointer, a1: pointer,
+                          value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_StateChanged*: proc(self: pointer, a1: EventRegistrationToken
+                            ): HRESULT {.abi.}
+  get_DownloadProgress*: proc(self: pointer, value: ptr float64
+                             ): HRESULT {.abi.}
+  get_InstallProgress*: proc(self: pointer, value: ptr float64
+                            ): HRESULT {.abi.}
+  get_UserActiveHoursStart*: proc(self: pointer, value: ptr TimeSpan
+                                 ): HRESULT {.abi.}
+  get_UserActiveHoursEnd*: proc(self: pointer, value: ptr TimeSpan
+                               ): HRESULT {.abi.}
+  get_UserActiveHoursMax*: proc(self: pointer, value: ptr int32
+                               ): HRESULT {.abi.}
+  TrySetUserActiveHours*: proc(self: pointer, a1: TimeSpan, a2: TimeSpan,
+                               value: ptr bool): HRESULT {.abi.}
+  get_LastUpdateCheckTime*: proc(self: pointer, value: ptr DateTime
+                                ): HRESULT {.abi.}
+  get_LastUpdateInstallTime*: proc(self: pointer, value: ptr DateTime
+                                  ): HRESULT {.abi.}
+  get_LastErrorInfo*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetAutomaticRebootBlockIds*: proc(self: pointer, value: ptr pointer
+                                   ): HRESULT {.abi.}
+  BlockAutomaticRebootAsync*: proc(self: pointer, a1: HSTRING,
+                                   value: ptr pointer): HRESULT {.abi.}
+  UnblockAutomaticRebootAsync*: proc(self: pointer, a1: HSTRING,
+                                     value: ptr pointer): HRESULT {.abi.}
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+  GetUpdateItems*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_AttentionRequiredReason*: proc(self: pointer,
+                                     value: ptr SystemUpdateAttentionRequiredReason
+                                    ): HRESULT {.abi.}
+  SetFlightRing*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                      ): HRESULT {.abi.}
+  GetFlightRing*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  StartInstall*: proc(self: pointer, a1: SystemUpdateStartInstallAction
+                     ): HRESULT {.abi.}
+  RebootToCompleteInstall*: proc(self: pointer): HRESULT {.abi.}
+  StartCancelUpdates*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IAdvertisingManagerForUser
 const IID_IAdvertisingManagerForUser* = guid"928BF3D0-CF7C-4AB0-A7DC-6DC5BCD44252"
-const Slot_IAdvertisingManagerForUser_get_AdvertisingId* = 6
-type Fn_IAdvertisingManagerForUser_get_AdvertisingId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IAdvertisingManagerForUser_get_User* = 7
-type Fn_IAdvertisingManagerForUser_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAdvertisingManagerForUserVtbl* = object of IInspectableVtbl
+  get_AdvertisingId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IAdvertisingManagerStatics
 const IID_IAdvertisingManagerStatics* = guid"ADD3468C-A273-48CB-B346-3544522D5581"
-const Slot_IAdvertisingManagerStatics_get_AdvertisingId* = 6
-type Fn_IAdvertisingManagerStatics_get_AdvertisingId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IAdvertisingManagerStaticsVtbl* = object of IInspectableVtbl
+  get_AdvertisingId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IAdvertisingManagerStatics2
 const IID_IAdvertisingManagerStatics2* = guid"DD0947AF-1A6D-46B0-95BC-F3F9D6BEB9FB"
-const Slot_IAdvertisingManagerStatics2_GetForUser* = 6
-type Fn_IAdvertisingManagerStatics2_GetForUser* =
-  proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAdvertisingManagerStatics2Vtbl* = object of IInspectableVtbl
+  GetForUser*: proc(self: pointer, a1User: pointer, value: ptr pointer
+                   ): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IAssignedAccessSettings
 const IID_IAssignedAccessSettings* = guid"1BC57F1C-E971-5757-B8E0-512F8B8C46D2"
-const Slot_IAssignedAccessSettings_get_IsEnabled* = 6
-type Fn_IAssignedAccessSettings_get_IsEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IAssignedAccessSettings_get_IsSingleAppKioskMode* = 7
-type Fn_IAssignedAccessSettings_get_IsSingleAppKioskMode* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IAssignedAccessSettings_get_User* = 8
-type Fn_IAssignedAccessSettings_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAssignedAccessSettingsVtbl* = object of IInspectableVtbl
+  get_IsEnabled*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_IsSingleAppKioskMode*: proc(self: pointer, value: ptr bool
+                                 ): HRESULT {.abi.}
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IAssignedAccessSettingsStatics
 const IID_IAssignedAccessSettingsStatics* = guid"34A81D0D-8A29-5EF3-A7BE-618E6AC3BD01"
-const Slot_IAssignedAccessSettingsStatics_GetDefault* = 6
-type Fn_IAssignedAccessSettingsStatics_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IAssignedAccessSettingsStatics_GetForUser* = 7
-type Fn_IAssignedAccessSettingsStatics_GetForUser* =
-  proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
+type IAssignedAccessSettingsStaticsVtbl* = object of IInspectableVtbl
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetForUser*: proc(self: pointer, a1User: pointer, value: ptr pointer
+                   ): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IDiagnosticsSettings
 const IID_IDiagnosticsSettings* = guid"E5E9ECCD-2711-44E0-973C-491D78048D24"
-const Slot_IDiagnosticsSettings_get_CanUseDiagnosticsToTailorExperiences* = 6
-type Fn_IDiagnosticsSettings_get_CanUseDiagnosticsToTailorExperiences* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IDiagnosticsSettings_get_User* = 7
-type Fn_IDiagnosticsSettings_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IDiagnosticsSettingsVtbl* = object of IInspectableVtbl
+  get_CanUseDiagnosticsToTailorExperiences*: proc(self: pointer,
+                                                  value: ptr bool
+                                                 ): HRESULT {.abi.}
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IDiagnosticsSettingsStatics
 const IID_IDiagnosticsSettingsStatics* = guid"72D2E80F-5390-4793-990B-3CCC7D6AC9C8"
-const Slot_IDiagnosticsSettingsStatics_GetDefault* = 6
-type Fn_IDiagnosticsSettingsStatics_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IDiagnosticsSettingsStatics_GetForUser* = 7
-type Fn_IDiagnosticsSettingsStatics_GetForUser* =
-  proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
+type IDiagnosticsSettingsStaticsVtbl* = object of IInspectableVtbl
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetForUser*: proc(self: pointer, a1User: pointer, value: ptr pointer
+                   ): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IFirstSignInSettings
 const IID_IFirstSignInSettings* = guid"3E945153-3A5E-452E-A601-F5BAAD2A4870"
+type IFirstSignInSettingsVtbl* = object of IInspectableVtbl
 
 ## Windows.System.UserProfile.IFirstSignInSettingsStatics
 const IID_IFirstSignInSettingsStatics* = guid"1CE18F0F-1C41-4EA0-B7A2-6F0C1C7E8438"
-const Slot_IFirstSignInSettingsStatics_GetDefault* = 6
-type Fn_IFirstSignInSettingsStatics_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IFirstSignInSettingsStaticsVtbl* = object of IInspectableVtbl
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IGlobalizationPreferencesForUser
 const IID_IGlobalizationPreferencesForUser* = guid"150F0795-4F6E-40BA-A010-E27D81BDA7F5"
-const Slot_IGlobalizationPreferencesForUser_get_User* = 6
-type Fn_IGlobalizationPreferencesForUser_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGlobalizationPreferencesForUser_get_Calendars* = 7
-type Fn_IGlobalizationPreferencesForUser_get_Calendars* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGlobalizationPreferencesForUser_get_Clocks* = 8
-type Fn_IGlobalizationPreferencesForUser_get_Clocks* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGlobalizationPreferencesForUser_get_Currencies* = 9
-type Fn_IGlobalizationPreferencesForUser_get_Currencies* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGlobalizationPreferencesForUser_get_Languages* = 10
-type Fn_IGlobalizationPreferencesForUser_get_Languages* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGlobalizationPreferencesForUser_get_HomeGeographicRegion* = 11
-type Fn_IGlobalizationPreferencesForUser_get_HomeGeographicRegion* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IGlobalizationPreferencesForUser_get_WeekStartsOn* = 12
-type Fn_IGlobalizationPreferencesForUser_get_WeekStartsOn* =
-  proc(self: pointer, value: ptr DayOfWeek): HRESULT {.abi.}
+type IGlobalizationPreferencesForUserVtbl* = object of IInspectableVtbl
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Calendars*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Clocks*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Currencies*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Languages*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_HomeGeographicRegion*: proc(self: pointer, value: ptr HSTRING
+                                 ): HRESULT {.abi.}
+  get_WeekStartsOn*: proc(self: pointer, value: ptr DayOfWeek
+                         ): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IGlobalizationPreferencesStatics
 const IID_IGlobalizationPreferencesStatics* = guid"01BF4326-ED37-4E96-B0E9-C1340D1EA158"
-const Slot_IGlobalizationPreferencesStatics_get_Calendars* = 6
-type Fn_IGlobalizationPreferencesStatics_get_Calendars* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGlobalizationPreferencesStatics_get_Clocks* = 7
-type Fn_IGlobalizationPreferencesStatics_get_Clocks* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGlobalizationPreferencesStatics_get_Currencies* = 8
-type Fn_IGlobalizationPreferencesStatics_get_Currencies* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGlobalizationPreferencesStatics_get_Languages* = 9
-type Fn_IGlobalizationPreferencesStatics_get_Languages* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGlobalizationPreferencesStatics_get_HomeGeographicRegion* = 10
-type Fn_IGlobalizationPreferencesStatics_get_HomeGeographicRegion* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IGlobalizationPreferencesStatics_get_WeekStartsOn* = 11
-type Fn_IGlobalizationPreferencesStatics_get_WeekStartsOn* =
-  proc(self: pointer, value: ptr DayOfWeek): HRESULT {.abi.}
+type IGlobalizationPreferencesStaticsVtbl* = object of IInspectableVtbl
+  get_Calendars*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Clocks*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Currencies*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Languages*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_HomeGeographicRegion*: proc(self: pointer, value: ptr HSTRING
+                                 ): HRESULT {.abi.}
+  get_WeekStartsOn*: proc(self: pointer, value: ptr DayOfWeek
+                         ): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IGlobalizationPreferencesStatics2
 const IID_IGlobalizationPreferencesStatics2* = guid"FCCE85F1-4300-4CD0-9CAC-1A8E7B7E18F4"
-const Slot_IGlobalizationPreferencesStatics2_TrySetHomeGeographicRegion* = 6
-type Fn_IGlobalizationPreferencesStatics2_TrySetHomeGeographicRegion* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
-const Slot_IGlobalizationPreferencesStatics2_TrySetLanguages* = 7
-type Fn_IGlobalizationPreferencesStatics2_TrySetLanguages* =
-  proc(self: pointer, a1: pointer, value: ptr bool): HRESULT {.abi.}
+type IGlobalizationPreferencesStatics2Vtbl* = object of IInspectableVtbl
+  TrySetHomeGeographicRegion*: proc(self: pointer, a1: HSTRING,
+                                    value: ptr bool): HRESULT {.abi.}
+  TrySetLanguages*: proc(self: pointer, a1: pointer, value: ptr bool
+                        ): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IGlobalizationPreferencesStatics3
 const IID_IGlobalizationPreferencesStatics3* = guid"1E059733-35F5-40D8-B9E8-AEF3EF856FCE"
-const Slot_IGlobalizationPreferencesStatics3_GetForUser* = 6
-type Fn_IGlobalizationPreferencesStatics3_GetForUser* =
-  proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
+type IGlobalizationPreferencesStatics3Vtbl* = object of IInspectableVtbl
+  GetForUser*: proc(self: pointer, a1User: pointer, value: ptr pointer
+                   ): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.ILockScreenImageFeedStatics
 const IID_ILockScreenImageFeedStatics* = guid"2C0D73F6-03A9-41A6-9B01-495251FF51D5"
-const Slot_ILockScreenImageFeedStatics_RequestSetImageFeedAsync* = 6
-type Fn_ILockScreenImageFeedStatics_RequestSetImageFeedAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILockScreenImageFeedStatics_TryRemoveImageFeed* = 7
-type Fn_ILockScreenImageFeedStatics_TryRemoveImageFeed* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type ILockScreenImageFeedStaticsVtbl* = object of IInspectableVtbl
+  RequestSetImageFeedAsync*: proc(self: pointer, a1Uri: pointer,
+                                  value: ptr pointer): HRESULT {.abi.}
+  TryRemoveImageFeed*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.ILockScreenStatics
 const IID_ILockScreenStatics* = guid"3EE9D3AD-B607-40AE-B426-7631D9821269"
-const Slot_ILockScreenStatics_get_OriginalImageFile* = 6
-type Fn_ILockScreenStatics_get_OriginalImageFile* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILockScreenStatics_GetImageStream* = 7
-type Fn_ILockScreenStatics_GetImageStream* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILockScreenStatics_SetImageFileAsync* = 8
-type Fn_ILockScreenStatics_SetImageFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ILockScreenStatics_SetImageStreamAsync* = 9
-type Fn_ILockScreenStatics_SetImageStreamAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ILockScreenStaticsVtbl* = object of IInspectableVtbl
+  get_OriginalImageFile*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  GetImageStream*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  SetImageFileAsync*: proc(self: pointer, a1IStorageFile: pointer,
+                           value: ptr pointer): HRESULT {.abi.}
+  SetImageStreamAsync*: proc(self: pointer, a1IRandomAccessStream: pointer,
+                             value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IUserInformationStatics
 const IID_IUserInformationStatics* = guid"77F3A910-48FA-489C-934E-2AE85BA8F772"
-const Slot_IUserInformationStatics_get_AccountPictureChangeEnabled* = 6
-type Fn_IUserInformationStatics_get_AccountPictureChangeEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IUserInformationStatics_get_NameAccessAllowed* = 7
-type Fn_IUserInformationStatics_get_NameAccessAllowed* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IUserInformationStatics_GetAccountPicture* = 8
-type Fn_IUserInformationStatics_GetAccountPicture* =
-  proc(self: pointer, a1: AccountPictureKind, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IUserInformationStatics_SetAccountPictureAsync* = 9
-type Fn_IUserInformationStatics_SetAccountPictureAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IUserInformationStatics_SetAccountPicturesAsync* = 10
-type Fn_IUserInformationStatics_SetAccountPicturesAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, a2IStorageFile: pointer,
-       a3IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserInformationStatics_SetAccountPictureFromStreamAsync* = 11
-type Fn_IUserInformationStatics_SetAccountPictureFromStreamAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IUserInformationStatics_SetAccountPicturesFromStreamsAsync* = 12
-type Fn_IUserInformationStatics_SetAccountPicturesFromStreamsAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer,
-       a2IRandomAccessStream: pointer, a3IRandomAccessStream: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserInformationStatics_add_AccountPictureChanged* = 13
-type Fn_IUserInformationStatics_add_AccountPictureChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IUserInformationStatics_remove_AccountPictureChanged* = 14
-type Fn_IUserInformationStatics_remove_AccountPictureChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IUserInformationStatics_GetDisplayNameAsync* = 15
-type Fn_IUserInformationStatics_GetDisplayNameAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserInformationStatics_GetFirstNameAsync* = 16
-type Fn_IUserInformationStatics_GetFirstNameAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserInformationStatics_GetLastNameAsync* = 17
-type Fn_IUserInformationStatics_GetLastNameAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserInformationStatics_GetPrincipalNameAsync* = 18
-type Fn_IUserInformationStatics_GetPrincipalNameAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserInformationStatics_GetSessionInitiationProtocolUriAsync* = 19
-type Fn_IUserInformationStatics_GetSessionInitiationProtocolUriAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserInformationStatics_GetDomainNameAsync* = 20
-type Fn_IUserInformationStatics_GetDomainNameAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IUserInformationStaticsVtbl* = object of IInspectableVtbl
+  get_AccountPictureChangeEnabled*: proc(self: pointer, value: ptr bool
+                                        ): HRESULT {.abi.}
+  get_NameAccessAllowed*: proc(self: pointer, value: ptr bool
+                              ): HRESULT {.abi.}
+  GetAccountPicture*: proc(self: pointer, a1: AccountPictureKind,
+                           value: ptr pointer): HRESULT {.abi.}
+  SetAccountPictureAsync*: proc(self: pointer, a1IStorageFile: pointer,
+                                value: ptr pointer): HRESULT {.abi.}
+  SetAccountPicturesAsync*: proc(self: pointer, a1IStorageFile: pointer,
+                                 a2IStorageFile: pointer,
+                                 a3IStorageFile: pointer, value: ptr pointer
+                                ): HRESULT {.abi.}
+  SetAccountPictureFromStreamAsync*: proc(self: pointer,
+                                          a1IRandomAccessStream: pointer,
+                                          value: ptr pointer): HRESULT {.abi.}
+  SetAccountPicturesFromStreamsAsync*: proc(self: pointer,
+                                            a1IRandomAccessStream: pointer,
+                                            a2IRandomAccessStream: pointer,
+                                            a3IRandomAccessStream: pointer,
+                                            value: ptr pointer
+                                           ): HRESULT {.abi.}
+  add_AccountPictureChanged*: proc(self: pointer, a1: pointer,
+                                   value: ptr EventRegistrationToken
+                                  ): HRESULT {.abi.}
+  remove_AccountPictureChanged*: proc(self: pointer,
+                                      a1: EventRegistrationToken
+                                     ): HRESULT {.abi.}
+  GetDisplayNameAsync*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  GetFirstNameAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetLastNameAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetPrincipalNameAsync*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  GetSessionInitiationProtocolUriAsync*: proc(self: pointer,
+                                              value: ptr pointer
+                                             ): HRESULT {.abi.}
+  GetDomainNameAsync*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IUserProfilePersonalizationSettings
 const IID_IUserProfilePersonalizationSettings* = guid"8CEDDAB4-7998-46D5-8DD3-184F1C5F9AB9"
-const Slot_IUserProfilePersonalizationSettings_TrySetLockScreenImageAsync* = 6
-type Fn_IUserProfilePersonalizationSettings_TrySetLockScreenImageAsync* =
-  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IUserProfilePersonalizationSettings_TrySetWallpaperImageAsync* = 7
-type Fn_IUserProfilePersonalizationSettings_TrySetWallpaperImageAsync* =
-  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IUserProfilePersonalizationSettingsVtbl* = object of IInspectableVtbl
+  TrySetLockScreenImageAsync*: proc(self: pointer, a1StorageFile: pointer,
+                                    value: ptr pointer): HRESULT {.abi.}
+  TrySetWallpaperImageAsync*: proc(self: pointer, a1StorageFile: pointer,
+                                   value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IUserProfilePersonalizationSettingsStatics
 const IID_IUserProfilePersonalizationSettingsStatics* = guid"91ACB841-5037-454B-9883-BB772D08DD16"
-const Slot_IUserProfilePersonalizationSettingsStatics_get_Current* = 6
-type Fn_IUserProfilePersonalizationSettingsStatics_get_Current* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IUserProfilePersonalizationSettingsStatics_IsSupported* = 7
-type Fn_IUserProfilePersonalizationSettingsStatics_IsSupported* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IUserProfilePersonalizationSettingsStaticsVtbl* = object of IInspectableVtbl
+  get_Current*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  IsSupported*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 

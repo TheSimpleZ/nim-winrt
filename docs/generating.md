@@ -35,10 +35,10 @@ It prints what it did, which is the first thing to read afterwards:
 
 ```text
   types             1725 enums  124 structs
-  ai                 139 interfaces    355 slots (100% typed)
+  ai                 139 interfaces    355 methods (100% typed)
   ...
   19 modules  1725 enums  124 structs
-  8186 interfaces  33724 slots  99% typed  35 unmapped
+  8186 interfaces  33724 methods  99% typed  35 unmapped
 
 src\winrt\ai.nim
   classes    65

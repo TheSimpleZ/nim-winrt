@@ -3,12 +3,10 @@
 ## Source:    Windows.winmd
 ## Namespace: Windows
 ##
-## Slot numbers are vtable indices. WinRT interfaces begin with
-## IInspectable's six slots, so the first declared method is slot 6;
-## delegates derive from IUnknown and begin at slot 3.
-##
-## Every method returns HRESULT and its declared return type becomes
-## a trailing out-parameter.
+## Each interface is its vtable: an object whose fields are the
+## methods in declaration order, after IInspectable's six (IUnknown's
+## three for a delegate). Every method returns HRESULT and its
+## declared return type becomes a trailing out-parameter.
 
 import std/hashes
 export hashes
@@ -32,55 +30,26 @@ type ActionEntityKind* {.pure, size: 4.} = enum
   Appointment = 11'i32
   Date = 12'i32
   CustomText = 13'i32
-proc `$`*(v: ActionEntityKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Document"
-  of 2: "File"
-  of 3: "Photo"
-  of 4: "Text"
-  of 5: "StreamingText"
-  of 6: "RemoteFile"
-  of 7: "Table"
-  of 8: "Contact"
-  of 9: "Uri"
-  of 10: "Array"
-  of 11: "Appointment"
-  of 12: "Date"
-  of 13: "CustomText"
-  else: "ActionEntityKind(" & $ord(v) & ")"
+template `$`*(v: ActionEntityKind): string = enumName(v)
 
 ## Windows.AI.Actions.ActionEntityTextFormat  (enum)
 type ActionEntityTextFormat* {.pure, size: 4.} = enum
   Plain = 0'i32
   Markdown = 1'i32
-proc `$`*(v: ActionEntityTextFormat): string =
-  case ord(v)
-  of 0: "Plain"
-  of 1: "Markdown"
-  else: "ActionEntityTextFormat(" & $ord(v) & ")"
+template `$`*(v: ActionEntityTextFormat): string = enumName(v)
 
 ## Windows.AI.Actions.ActionFeedbackKind  (enum)
 type ActionFeedbackKind* {.pure, size: 4.} = enum
   Positive = 0'i32
   Negative = 1'i32
-proc `$`*(v: ActionFeedbackKind): string =
-  case ord(v)
-  of 0: "Positive"
-  of 1: "Negative"
-  else: "ActionFeedbackKind(" & $ord(v) & ")"
+template `$`*(v: ActionFeedbackKind): string = enumName(v)
 
 ## Windows.AI.Actions.ActionInvocationHelpKind  (enum)
 type ActionInvocationHelpKind* {.pure, size: 4.} = enum
   None = 0'i32
   Error = 1'i32
   Warning = 2'i32
-proc `$`*(v: ActionInvocationHelpKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Error"
-  of 2: "Warning"
-  else: "ActionInvocationHelpKind(" & $ord(v) & ")"
+template `$`*(v: ActionInvocationHelpKind): string = enumName(v)
 
 ## Windows.AI.Actions.ActionInvocationResult  (enum)
 type ActionInvocationResult* {.pure, size: 4.} = enum
@@ -88,35 +57,20 @@ type ActionInvocationResult* {.pure, size: 4.} = enum
   UserCanceled = 1'i32
   Unsupported = 2'i32
   Unavailable = 3'i32
-proc `$`*(v: ActionInvocationResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UserCanceled"
-  of 2: "Unsupported"
-  of 3: "Unavailable"
-  else: "ActionInvocationResult(" & $ord(v) & ")"
+template `$`*(v: ActionInvocationResult): string = enumName(v)
 
 ## Windows.AI.Actions.RemoteFileKind  (enum)
 type RemoteFileKind* {.pure, size: 4.} = enum
   Document = 0'i32
   Photo = 1'i32
   File = 2'i32
-proc `$`*(v: RemoteFileKind): string =
-  case ord(v)
-  of 0: "Document"
-  of 1: "Photo"
-  of 2: "File"
-  else: "RemoteFileKind(" & $ord(v) & ")"
+template `$`*(v: RemoteFileKind): string = enumName(v)
 
 ## Windows.AI.Agents.Mcp.McpMessageDirection  (enum)
 type McpMessageDirection* {.pure, size: 4.} = enum
   ClientToServer = 0'i32
   ServerToClient = 1'i32
-proc `$`*(v: McpMessageDirection): string =
-  case ord(v)
-  of 0: "ClientToServer"
-  of 1: "ServerToClient"
-  else: "McpMessageDirection(" & $ord(v) & ")"
+template `$`*(v: McpMessageDirection): string = enumName(v)
 
 ## Windows.AI.MachineLearning.LearningModelDeviceKind  (enum)
 type LearningModelDeviceKind* {.pure, size: 4.} = enum
@@ -125,14 +79,7 @@ type LearningModelDeviceKind* {.pure, size: 4.} = enum
   DirectX = 2'i32
   DirectXHighPerformance = 3'i32
   DirectXMinPower = 4'i32
-proc `$`*(v: LearningModelDeviceKind): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Cpu"
-  of 2: "DirectX"
-  of 3: "DirectXHighPerformance"
-  of 4: "DirectXMinPower"
-  else: "LearningModelDeviceKind(" & $ord(v) & ")"
+template `$`*(v: LearningModelDeviceKind): string = enumName(v)
 
 ## Windows.AI.MachineLearning.LearningModelFeatureKind  (enum)
 type LearningModelFeatureKind* {.pure, size: 4.} = enum
@@ -140,25 +87,14 @@ type LearningModelFeatureKind* {.pure, size: 4.} = enum
   Sequence = 1'i32
   Map = 2'i32
   Image = 3'i32
-proc `$`*(v: LearningModelFeatureKind): string =
-  case ord(v)
-  of 0: "Tensor"
-  of 1: "Sequence"
-  of 2: "Map"
-  of 3: "Image"
-  else: "LearningModelFeatureKind(" & $ord(v) & ")"
+template `$`*(v: LearningModelFeatureKind): string = enumName(v)
 
 ## Windows.AI.MachineLearning.LearningModelPixelRange  (enum)
 type LearningModelPixelRange* {.pure, size: 4.} = enum
   ZeroTo255 = 0'i32
   ZeroToOne = 1'i32
   MinusOneToOne = 2'i32
-proc `$`*(v: LearningModelPixelRange): string =
-  case ord(v)
-  of 0: "ZeroTo255"
-  of 1: "ZeroToOne"
-  of 2: "MinusOneToOne"
-  else: "LearningModelPixelRange(" & $ord(v) & ")"
+template `$`*(v: LearningModelPixelRange): string = enumName(v)
 
 ## Windows.AI.MachineLearning.Preview.FeatureElementKindPreview  (enum)
 type FeatureElementKindPreview* {.pure, size: 4.} = enum
@@ -178,25 +114,7 @@ type FeatureElementKindPreview* {.pure, size: 4.} = enum
   UInt64 = 13'i32
   Complex64 = 14'i32
   Complex128 = 15'i32
-proc `$`*(v: FeatureElementKindPreview): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "Float"
-  of 2: "UInt8"
-  of 3: "Int8"
-  of 4: "UInt16"
-  of 5: "Int16"
-  of 6: "Int32"
-  of 7: "Int64"
-  of 8: "String"
-  of 9: "Boolean"
-  of 10: "Float16"
-  of 11: "Double"
-  of 12: "UInt32"
-  of 13: "UInt64"
-  of 14: "Complex64"
-  of 15: "Complex128"
-  else: "FeatureElementKindPreview(" & $ord(v) & ")"
+template `$`*(v: FeatureElementKindPreview): string = enumName(v)
 
 ## Windows.AI.MachineLearning.Preview.LearningModelDeviceKindPreview  (enum)
 type LearningModelDeviceKindPreview* {.pure, size: 4.} = enum
@@ -206,15 +124,7 @@ type LearningModelDeviceKindPreview* {.pure, size: 4.} = enum
   LearningDeviceNpu = 3'i32
   LearningDeviceDsp = 4'i32
   LearningDeviceFpga = 5'i32
-proc `$`*(v: LearningModelDeviceKindPreview): string =
-  case ord(v)
-  of 0: "LearningDeviceAny"
-  of 1: "LearningDeviceCpu"
-  of 2: "LearningDeviceGpu"
-  of 3: "LearningDeviceNpu"
-  of 4: "LearningDeviceDsp"
-  of 5: "LearningDeviceFpga"
-  else: "LearningModelDeviceKindPreview(" & $ord(v) & ")"
+template `$`*(v: LearningModelDeviceKindPreview): string = enumName(v)
 
 ## Windows.AI.MachineLearning.Preview.LearningModelFeatureKindPreview  (enum)
 type LearningModelFeatureKindPreview* {.pure, size: 4.} = enum
@@ -223,14 +133,7 @@ type LearningModelFeatureKindPreview* {.pure, size: 4.} = enum
   Sequence = 2'i32
   Map = 3'i32
   Image = 4'i32
-proc `$`*(v: LearningModelFeatureKindPreview): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "Tensor"
-  of 2: "Sequence"
-  of 3: "Map"
-  of 4: "Image"
-  else: "LearningModelFeatureKindPreview(" & $ord(v) & ")"
+template `$`*(v: LearningModelFeatureKindPreview): string = enumName(v)
 
 ## Windows.AI.MachineLearning.TensorKind  (enum)
 type TensorKind* {.pure, size: 4.} = enum
@@ -250,25 +153,7 @@ type TensorKind* {.pure, size: 4.} = enum
   UInt64 = 13'i32
   Complex64 = 14'i32
   Complex128 = 15'i32
-proc `$`*(v: TensorKind): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "Float"
-  of 2: "UInt8"
-  of 3: "Int8"
-  of 4: "UInt16"
-  of 5: "Int16"
-  of 6: "Int32"
-  of 7: "Int64"
-  of 8: "String"
-  of 9: "Boolean"
-  of 10: "Float16"
-  of 11: "Double"
-  of 12: "UInt32"
-  of 13: "UInt64"
-  of 14: "Complex64"
-  of 15: "Complex128"
-  else: "TensorKind(" & $ord(v) & ")"
+template `$`*(v: TensorKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Activation.ActivationKind  (enum)
 type ActivationKind* {.pure, size: 4.} = enum
@@ -317,54 +202,7 @@ type ActivationKind* {.pure, size: 4.} = enum
   PhoneCallActivation = 1025'i32
   VpnForeground = 1026'i32
   PrintSupportEnterpriseManagementUI = 1027'i32
-proc `$`*(v: ActivationKind): string =
-  case ord(v)
-  of 0: "Launch"
-  of 1: "Search"
-  of 2: "ShareTarget"
-  of 3: "File"
-  of 4: "Protocol"
-  of 5: "FileOpenPicker"
-  of 6: "FileSavePicker"
-  of 7: "CachedFileUpdater"
-  of 8: "ContactPicker"
-  of 9: "Device"
-  of 10: "PrintTaskSettings"
-  of 11: "CameraSettings"
-  of 12: "RestrictedLaunch"
-  of 13: "AppointmentsProvider"
-  of 14: "Contact"
-  of 15: "LockScreenCall"
-  of 16: "VoiceCommand"
-  of 17: "LockScreen"
-  of 1000: "PickerReturned"
-  of 1001: "WalletAction"
-  of 1002: "PickFileContinuation"
-  of 1003: "PickSaveFileContinuation"
-  of 1004: "PickFolderContinuation"
-  of 1005: "WebAuthenticationBrokerContinuation"
-  of 1006: "WebAccountProvider"
-  of 1007: "ComponentUI"
-  of 1009: "ProtocolForResults"
-  of 1010: "ToastNotification"
-  of 1011: "Print3DWorkflow"
-  of 1012: "DialReceiver"
-  of 1013: "DevicePairing"
-  of 1014: "UserDataAccountsProvider"
-  of 1015: "FilePickerExperience"
-  of 1016: "LockScreenComponent"
-  of 1017: "ContactPanel"
-  of 1018: "PrintWorkflowForegroundTask"
-  of 1019: "GameUIProvider"
-  of 1020: "StartupTask"
-  of 1021: "CommandLineLaunch"
-  of 1022: "BarcodeScannerProvider"
-  of 1023: "PrintSupportJobUI"
-  of 1024: "PrintSupportSettingsUI"
-  of 1025: "PhoneCallActivation"
-  of 1026: "VpnForeground"
-  of 1027: "PrintSupportEnterpriseManagementUI"
-  else: "ActivationKind(" & $ord(v) & ")"
+template `$`*(v: ActivationKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Activation.ApplicationExecutionState  (enum)
 type ApplicationExecutionState* {.pure, size: 4.} = enum
@@ -373,14 +211,7 @@ type ApplicationExecutionState* {.pure, size: 4.} = enum
   Suspended = 2'i32
   Terminated = 3'i32
   ClosedByUser = 4'i32
-proc `$`*(v: ApplicationExecutionState): string =
-  case ord(v)
-  of 0: "NotRunning"
-  of 1: "Running"
-  of 2: "Suspended"
-  of 3: "Terminated"
-  of 4: "ClosedByUser"
-  else: "ApplicationExecutionState(" & $ord(v) & ")"
+template `$`*(v: ApplicationExecutionState): string = enumName(v)
 
 ## Windows.ApplicationModel.AddResourcePackageOptions  (enum)
 type AddResourcePackageOptions* = distinct uint32
@@ -415,22 +246,13 @@ type AppExecutionContext* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Host = 1'i32
   Guest = 2'i32
-proc `$`*(v: AppExecutionContext): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Host"
-  of 2: "Guest"
-  else: "AppExecutionContext(" & $ord(v) & ")"
+template `$`*(v: AppExecutionContext): string = enumName(v)
 
 ## Windows.ApplicationModel.AppInstallerPolicySource  (enum)
 type AppInstallerPolicySource* {.pure, size: 4.} = enum
   Default = 0'i32
   System = 1'i32
-proc `$`*(v: AppInstallerPolicySource): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "System"
-  else: "AppInstallerPolicySource(" & $ord(v) & ")"
+template `$`*(v: AppInstallerPolicySource): string = enumName(v)
 
 ## Windows.ApplicationModel.AppService.AppServiceClosedStatus  (enum)
 type AppServiceClosedStatus* {.pure, size: 4.} = enum
@@ -438,13 +260,7 @@ type AppServiceClosedStatus* {.pure, size: 4.} = enum
   Canceled = 1'i32
   ResourceLimitsExceeded = 2'i32
   Unknown = 3'i32
-proc `$`*(v: AppServiceClosedStatus): string =
-  case ord(v)
-  of 0: "Completed"
-  of 1: "Canceled"
-  of 2: "ResourceLimitsExceeded"
-  of 3: "Unknown"
-  else: "AppServiceClosedStatus(" & $ord(v) & ")"
+template `$`*(v: AppServiceClosedStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.AppService.AppServiceConnectionStatus  (enum)
 type AppServiceConnectionStatus* {.pure, size: 4.} = enum
@@ -460,21 +276,7 @@ type AppServiceConnectionStatus* {.pure, size: 4.} = enum
   NetworkNotAvailable = 9'i32
   DisabledByPolicy = 10'i32
   WebServiceUnavailable = 11'i32
-proc `$`*(v: AppServiceConnectionStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "AppNotInstalled"
-  of 2: "AppUnavailable"
-  of 3: "AppServiceUnavailable"
-  of 4: "Unknown"
-  of 5: "RemoteSystemUnavailable"
-  of 6: "RemoteSystemNotSupportedByApp"
-  of 7: "NotAuthorized"
-  of 8: "AuthenticationError"
-  of 9: "NetworkNotAvailable"
-  of 10: "DisabledByPolicy"
-  of 11: "WebServiceUnavailable"
-  else: "AppServiceConnectionStatus(" & $ord(v) & ")"
+template `$`*(v: AppServiceConnectionStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.AppService.AppServiceResponseStatus  (enum)
 type AppServiceResponseStatus* {.pure, size: 4.} = enum
@@ -489,20 +291,7 @@ type AppServiceResponseStatus* {.pure, size: 4.} = enum
   NetworkNotAvailable = 8'i32
   DisabledByPolicy = 9'i32
   WebServiceUnavailable = 10'i32
-proc `$`*(v: AppServiceResponseStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "Failure"
-  of 2: "ResourceLimitsExceeded"
-  of 3: "Unknown"
-  of 4: "RemoteSystemUnavailable"
-  of 5: "MessageSizeTooLarge"
-  of 6: "AppUnavailable"
-  of 7: "AuthenticationError"
-  of 8: "NetworkNotAvailable"
-  of 9: "DisabledByPolicy"
-  of 10: "WebServiceUnavailable"
-  else: "AppServiceResponseStatus(" & $ord(v) & ")"
+template `$`*(v: AppServiceResponseStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.AppService.StatelessAppServiceResponseStatus  (enum)
 type StatelessAppServiceResponseStatus* {.pure, size: 4.} = enum
@@ -521,24 +310,7 @@ type StatelessAppServiceResponseStatus* {.pure, size: 4.} = enum
   NetworkNotAvailable = 12'i32
   DisabledByPolicy = 13'i32
   WebServiceUnavailable = 14'i32
-proc `$`*(v: StatelessAppServiceResponseStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "AppNotInstalled"
-  of 2: "AppUnavailable"
-  of 3: "AppServiceUnavailable"
-  of 4: "RemoteSystemUnavailable"
-  of 5: "RemoteSystemNotSupportedByApp"
-  of 6: "NotAuthorized"
-  of 7: "ResourceLimitsExceeded"
-  of 8: "MessageSizeTooLarge"
-  of 9: "Failure"
-  of 10: "Unknown"
-  of 11: "AuthenticationError"
-  of 12: "NetworkNotAvailable"
-  of 13: "DisabledByPolicy"
-  of 14: "WebServiceUnavailable"
-  else: "StatelessAppServiceResponseStatus(" & $ord(v) & ")"
+template `$`*(v: StatelessAppServiceResponseStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentBusyStatus  (enum)
 type AppointmentBusyStatus* {.pure, size: 4.} = enum
@@ -547,14 +319,7 @@ type AppointmentBusyStatus* {.pure, size: 4.} = enum
   Free = 2'i32
   OutOfOffice = 3'i32
   WorkingElsewhere = 4'i32
-proc `$`*(v: AppointmentBusyStatus): string =
-  case ord(v)
-  of 0: "Busy"
-  of 1: "Tentative"
-  of 2: "Free"
-  of 3: "OutOfOffice"
-  of 4: "WorkingElsewhere"
-  else: "AppointmentBusyStatus(" & $ord(v) & ")"
+template `$`*(v: AppointmentBusyStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentCalendarOtherAppReadAccess  (enum)
 type AppointmentCalendarOtherAppReadAccess* {.pure, size: 4.} = enum
@@ -562,25 +327,14 @@ type AppointmentCalendarOtherAppReadAccess* {.pure, size: 4.} = enum
   Limited = 1'i32
   Full = 2'i32
   None = 3'i32
-proc `$`*(v: AppointmentCalendarOtherAppReadAccess): string =
-  case ord(v)
-  of 0: "SystemOnly"
-  of 1: "Limited"
-  of 2: "Full"
-  of 3: "None"
-  else: "AppointmentCalendarOtherAppReadAccess(" & $ord(v) & ")"
+template `$`*(v: AppointmentCalendarOtherAppReadAccess): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentCalendarOtherAppWriteAccess  (enum)
 type AppointmentCalendarOtherAppWriteAccess* {.pure, size: 4.} = enum
   None = 0'i32
   SystemOnly = 1'i32
   Limited = 2'i32
-proc `$`*(v: AppointmentCalendarOtherAppWriteAccess): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "SystemOnly"
-  of 2: "Limited"
-  else: "AppointmentCalendarOtherAppWriteAccess(" & $ord(v) & ")"
+template `$`*(v: AppointmentCalendarOtherAppWriteAccess): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentCalendarSyncStatus  (enum)
 type AppointmentCalendarSyncStatus* {.pure, size: 4.} = enum
@@ -591,28 +345,14 @@ type AppointmentCalendarSyncStatus* {.pure, size: 4.} = enum
   PolicyError = 4'i32
   UnknownError = 5'i32
   ManualAccountRemovalRequired = 6'i32
-proc `$`*(v: AppointmentCalendarSyncStatus): string =
-  case ord(v)
-  of 0: "Idle"
-  of 1: "Syncing"
-  of 2: "UpToDate"
-  of 3: "AuthenticationError"
-  of 4: "PolicyError"
-  of 5: "UnknownError"
-  of 6: "ManualAccountRemovalRequired"
-  else: "AppointmentCalendarSyncStatus(" & $ord(v) & ")"
+template `$`*(v: AppointmentCalendarSyncStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentConflictType  (enum)
 type AppointmentConflictType* {.pure, size: 4.} = enum
   None = 0'i32
   Adjacent = 1'i32
   Overlap = 2'i32
-proc `$`*(v: AppointmentConflictType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Adjacent"
-  of 2: "Overlap"
-  else: "AppointmentConflictType(" & $ord(v) & ")"
+template `$`*(v: AppointmentConflictType): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentDaysOfWeek  (enum)
 type AppointmentDaysOfWeek* = distinct uint32
@@ -671,11 +411,7 @@ const AppointmentDaysOfWeek_Saturday* = AppointmentDaysOfWeek(64'u32)
 type AppointmentDetailsKind* {.pure, size: 4.} = enum
   PlainText = 0'i32
   Html = 1'i32
-proc `$`*(v: AppointmentDetailsKind): string =
-  case ord(v)
-  of 0: "PlainText"
-  of 1: "Html"
-  else: "AppointmentDetailsKind(" & $ord(v) & ")"
+template `$`*(v: AppointmentDetailsKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentParticipantResponse  (enum)
 type AppointmentParticipantResponse* {.pure, size: 4.} = enum
@@ -684,26 +420,14 @@ type AppointmentParticipantResponse* {.pure, size: 4.} = enum
   Accepted = 2'i32
   Declined = 3'i32
   Unknown = 4'i32
-proc `$`*(v: AppointmentParticipantResponse): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Tentative"
-  of 2: "Accepted"
-  of 3: "Declined"
-  of 4: "Unknown"
-  else: "AppointmentParticipantResponse(" & $ord(v) & ")"
+template `$`*(v: AppointmentParticipantResponse): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentParticipantRole  (enum)
 type AppointmentParticipantRole* {.pure, size: 4.} = enum
   RequiredAttendee = 0'i32
   OptionalAttendee = 1'i32
   Resource = 2'i32
-proc `$`*(v: AppointmentParticipantRole): string =
-  case ord(v)
-  of 0: "RequiredAttendee"
-  of 1: "OptionalAttendee"
-  of 2: "Resource"
-  else: "AppointmentParticipantRole(" & $ord(v) & ")"
+template `$`*(v: AppointmentParticipantRole): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentRecurrenceUnit  (enum)
 type AppointmentRecurrenceUnit* {.pure, size: 4.} = enum
@@ -713,37 +437,20 @@ type AppointmentRecurrenceUnit* {.pure, size: 4.} = enum
   MonthlyOnDay = 3'i32
   Yearly = 4'i32
   YearlyOnDay = 5'i32
-proc `$`*(v: AppointmentRecurrenceUnit): string =
-  case ord(v)
-  of 0: "Daily"
-  of 1: "Weekly"
-  of 2: "Monthly"
-  of 3: "MonthlyOnDay"
-  of 4: "Yearly"
-  of 5: "YearlyOnDay"
-  else: "AppointmentRecurrenceUnit(" & $ord(v) & ")"
+template `$`*(v: AppointmentRecurrenceUnit): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentSensitivity  (enum)
 type AppointmentSensitivity* {.pure, size: 4.} = enum
   Public = 0'i32
   Private = 1'i32
-proc `$`*(v: AppointmentSensitivity): string =
-  case ord(v)
-  of 0: "Public"
-  of 1: "Private"
-  else: "AppointmentSensitivity(" & $ord(v) & ")"
+template `$`*(v: AppointmentSensitivity): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentStoreAccessType  (enum)
 type AppointmentStoreAccessType* {.pure, size: 4.} = enum
   AppCalendarsReadWrite = 0'i32
   AllCalendarsReadOnly = 1'i32
   AllCalendarsReadWrite = 2'i32
-proc `$`*(v: AppointmentStoreAccessType): string =
-  case ord(v)
-  of 0: "AppCalendarsReadWrite"
-  of 1: "AllCalendarsReadOnly"
-  of 2: "AllCalendarsReadWrite"
-  else: "AppointmentStoreAccessType(" & $ord(v) & ")"
+template `$`*(v: AppointmentStoreAccessType): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentStoreChangeType  (enum)
 type AppointmentStoreChangeType* {.pure, size: 4.} = enum
@@ -754,26 +461,13 @@ type AppointmentStoreChangeType* {.pure, size: 4.} = enum
   CalendarCreated = 4'i32
   CalendarModified = 5'i32
   CalendarDeleted = 6'i32
-proc `$`*(v: AppointmentStoreChangeType): string =
-  case ord(v)
-  of 0: "AppointmentCreated"
-  of 1: "AppointmentModified"
-  of 2: "AppointmentDeleted"
-  of 3: "ChangeTrackingLost"
-  of 4: "CalendarCreated"
-  of 5: "CalendarModified"
-  of 6: "CalendarDeleted"
-  else: "AppointmentStoreChangeType(" & $ord(v) & ")"
+template `$`*(v: AppointmentStoreChangeType): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentSummaryCardView  (enum)
 type AppointmentSummaryCardView* {.pure, size: 4.} = enum
   System = 0'i32
   App = 1'i32
-proc `$`*(v: AppointmentSummaryCardView): string =
-  case ord(v)
-  of 0: "System"
-  of 1: "App"
-  else: "AppointmentSummaryCardView(" & $ord(v) & ")"
+template `$`*(v: AppointmentSummaryCardView): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.AppointmentWeekOfMonth  (enum)
 type AppointmentWeekOfMonth* {.pure, size: 4.} = enum
@@ -782,14 +476,7 @@ type AppointmentWeekOfMonth* {.pure, size: 4.} = enum
   Third = 2'i32
   Fourth = 3'i32
   Last = 4'i32
-proc `$`*(v: AppointmentWeekOfMonth): string =
-  case ord(v)
-  of 0: "First"
-  of 1: "Second"
-  of 2: "Third"
-  of 3: "Fourth"
-  of 4: "Last"
-  else: "AppointmentWeekOfMonth(" & $ord(v) & ")"
+template `$`*(v: AppointmentWeekOfMonth): string = enumName(v)
 
 ## Windows.ApplicationModel.Appointments.FindAppointmentCalendarsOptions  (enum)
 type FindAppointmentCalendarsOptions* = distinct uint32
@@ -819,12 +506,7 @@ type RecurrenceType* {.pure, size: 4.} = enum
   Master = 0'i32
   Instance = 1'i32
   ExceptionInstance = 2'i32
-proc `$`*(v: RecurrenceType): string =
-  case ord(v)
-  of 0: "Master"
-  of 1: "Instance"
-  of 2: "ExceptionInstance"
-  else: "RecurrenceType(" & $ord(v) & ")"
+template `$`*(v: RecurrenceType): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.AlarmAccessStatus  (enum)
 type AlarmAccessStatus* {.pure, size: 4.} = enum
@@ -832,13 +514,7 @@ type AlarmAccessStatus* {.pure, size: 4.} = enum
   AllowedWithWakeupCapability = 1'i32
   AllowedWithoutWakeupCapability = 2'i32
   Denied = 3'i32
-proc `$`*(v: AlarmAccessStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "AllowedWithWakeupCapability"
-  of 2: "AllowedWithoutWakeupCapability"
-  of 3: "Denied"
-  else: "AlarmAccessStatus(" & $ord(v) & ")"
+template `$`*(v: AlarmAccessStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.ApplicationTriggerResult  (enum)
 type ApplicationTriggerResult* {.pure, size: 4.} = enum
@@ -846,23 +522,13 @@ type ApplicationTriggerResult* {.pure, size: 4.} = enum
   CurrentlyRunning = 1'i32
   DisabledByPolicy = 2'i32
   UnknownError = 3'i32
-proc `$`*(v: ApplicationTriggerResult): string =
-  case ord(v)
-  of 0: "Allowed"
-  of 1: "CurrentlyRunning"
-  of 2: "DisabledByPolicy"
-  of 3: "UnknownError"
-  else: "ApplicationTriggerResult(" & $ord(v) & ")"
+template `$`*(v: ApplicationTriggerResult): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.BackgroundAccessRequestKind  (enum)
 type BackgroundAccessRequestKind* {.pure, size: 4.} = enum
   AlwaysAllowed = 0'i32
   AllowedSubjectToSystemPolicy = 1'i32
-proc `$`*(v: BackgroundAccessRequestKind): string =
-  case ord(v)
-  of 0: "AlwaysAllowed"
-  of 1: "AllowedSubjectToSystemPolicy"
-  else: "BackgroundAccessRequestKind(" & $ord(v) & ")"
+template `$`*(v: BackgroundAccessRequestKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.BackgroundAccessStatus  (enum)
 type BackgroundAccessStatus* {.pure, size: 4.} = enum
@@ -874,17 +540,7 @@ type BackgroundAccessStatus* {.pure, size: 4.} = enum
   AllowedSubjectToSystemPolicy = 5'i32
   DeniedBySystemPolicy = 6'i32
   DeniedByUser = 7'i32
-proc `$`*(v: BackgroundAccessStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "AllowedWithAlwaysOnRealTimeConnectivity"
-  of 2: "AllowedMayUseActiveRealTimeConnectivity"
-  of 3: "Denied"
-  of 4: "AlwaysAllowed"
-  of 5: "AllowedSubjectToSystemPolicy"
-  of 6: "DeniedBySystemPolicy"
-  of 7: "DeniedByUser"
-  else: "BackgroundAccessStatus(" & $ord(v) & ")"
+template `$`*(v: BackgroundAccessStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.BackgroundTaskCancellationReason  (enum)
 type BackgroundTaskCancellationReason* {.pure, size: 4.} = enum
@@ -900,55 +556,27 @@ type BackgroundTaskCancellationReason* {.pure, size: 4.} = enum
   ExecutionTimeExceeded = 9'i32
   ResourceRevocation = 10'i32
   EnergySaver = 11'i32
-proc `$`*(v: BackgroundTaskCancellationReason): string =
-  case ord(v)
-  of 0: "Abort"
-  of 1: "Terminating"
-  of 2: "LoggingOff"
-  of 3: "ServicingUpdate"
-  of 4: "IdleTask"
-  of 5: "Uninstall"
-  of 6: "ConditionLoss"
-  of 7: "SystemPolicy"
-  of 8: "QuietHoursEntered"
-  of 9: "ExecutionTimeExceeded"
-  of 10: "ResourceRevocation"
-  of 11: "EnergySaver"
-  else: "BackgroundTaskCancellationReason(" & $ord(v) & ")"
+template `$`*(v: BackgroundTaskCancellationReason): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.BackgroundTaskThrottleCounter  (enum)
 type BackgroundTaskThrottleCounter* {.pure, size: 4.} = enum
   All = 0'i32
   Cpu = 1'i32
   Network = 2'i32
-proc `$`*(v: BackgroundTaskThrottleCounter): string =
-  case ord(v)
-  of 0: "All"
-  of 1: "Cpu"
-  of 2: "Network"
-  else: "BackgroundTaskThrottleCounter(" & $ord(v) & ")"
+template `$`*(v: BackgroundTaskThrottleCounter): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.BackgroundWorkCostValue  (enum)
 type BackgroundWorkCostValue* {.pure, size: 4.} = enum
   Low = 0'i32
   Medium = 1'i32
   High = 2'i32
-proc `$`*(v: BackgroundWorkCostValue): string =
-  case ord(v)
-  of 0: "Low"
-  of 1: "Medium"
-  of 2: "High"
-  else: "BackgroundWorkCostValue(" & $ord(v) & ")"
+template `$`*(v: BackgroundWorkCostValue): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.CustomSystemEventTriggerRecurrence  (enum)
 type CustomSystemEventTriggerRecurrence* {.pure, size: 4.} = enum
   Once = 0'i32
   Always = 1'i32
-proc `$`*(v: CustomSystemEventTriggerRecurrence): string =
-  case ord(v)
-  of 0: "Once"
-  of 1: "Always"
-  else: "CustomSystemEventTriggerRecurrence(" & $ord(v) & ")"
+template `$`*(v: CustomSystemEventTriggerRecurrence): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.DeviceTriggerResult  (enum)
 type DeviceTriggerResult* {.pure, size: 4.} = enum
@@ -956,13 +584,7 @@ type DeviceTriggerResult* {.pure, size: 4.} = enum
   DeniedByUser = 1'i32
   DeniedBySystem = 2'i32
   LowBattery = 3'i32
-proc `$`*(v: DeviceTriggerResult): string =
-  case ord(v)
-  of 0: "Allowed"
-  of 1: "DeniedByUser"
-  of 2: "DeniedBySystem"
-  of 3: "LowBattery"
-  else: "DeviceTriggerResult(" & $ord(v) & ")"
+template `$`*(v: DeviceTriggerResult): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.EnergyUseLevel  (enum)
 type EnergyUseLevel* {.pure, size: 4.} = enum
@@ -970,21 +592,12 @@ type EnergyUseLevel* {.pure, size: 4.} = enum
   UnderHalfOfBudget = 1'i32
   OverHalfOfBudget = 2'i32
   OverBudget = 3'i32
-proc `$`*(v: EnergyUseLevel): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "UnderHalfOfBudget"
-  of 2: "OverHalfOfBudget"
-  of 3: "OverBudget"
-  else: "EnergyUseLevel(" & $ord(v) & ")"
+template `$`*(v: EnergyUseLevel): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.LocationTriggerType  (enum)
 type LocationTriggerType* {.pure, size: 4.} = enum
   Geofence = 0'i32
-proc `$`*(v: LocationTriggerType): string =
-  case ord(v)
-  of 0: "Geofence"
-  else: "LocationTriggerType(" & $ord(v) & ")"
+template `$`*(v: LocationTriggerType): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.MediaProcessingTriggerResult  (enum)
 type MediaProcessingTriggerResult* {.pure, size: 4.} = enum
@@ -992,13 +605,7 @@ type MediaProcessingTriggerResult* {.pure, size: 4.} = enum
   CurrentlyRunning = 1'i32
   DisabledByPolicy = 2'i32
   UnknownError = 3'i32
-proc `$`*(v: MediaProcessingTriggerResult): string =
-  case ord(v)
-  of 0: "Allowed"
-  of 1: "CurrentlyRunning"
-  of 2: "DisabledByPolicy"
-  of 3: "UnknownError"
-  else: "MediaProcessingTriggerResult(" & $ord(v) & ")"
+template `$`*(v: MediaProcessingTriggerResult): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.SystemConditionType  (enum)
 type SystemConditionType* {.pure, size: 4.} = enum
@@ -1011,18 +618,7 @@ type SystemConditionType* {.pure, size: 4.} = enum
   SessionDisconnected = 6'i32
   FreeNetworkAvailable = 7'i32
   BackgroundWorkCostNotHigh = 8'i32
-proc `$`*(v: SystemConditionType): string =
-  case ord(v)
-  of 0: "Invalid"
-  of 1: "UserPresent"
-  of 2: "UserNotPresent"
-  of 3: "InternetAvailable"
-  of 4: "InternetNotAvailable"
-  of 5: "SessionConnected"
-  of 6: "SessionDisconnected"
-  of 7: "FreeNetworkAvailable"
-  of 8: "BackgroundWorkCostNotHigh"
-  else: "SystemConditionType(" & $ord(v) & ")"
+template `$`*(v: SystemConditionType): string = enumName(v)
 
 ## Windows.ApplicationModel.Background.SystemTriggerType  (enum)
 type SystemTriggerType* {.pure, size: 4.} = enum
@@ -1042,37 +638,14 @@ type SystemTriggerType* {.pure, size: 4.} = enum
   BackgroundWorkCostChange = 13'i32
   PowerStateChange = 14'i32
   DefaultSignInAccountChange = 15'i32
-proc `$`*(v: SystemTriggerType): string =
-  case ord(v)
-  of 0: "Invalid"
-  of 1: "SmsReceived"
-  of 2: "UserPresent"
-  of 3: "UserAway"
-  of 4: "NetworkStateChange"
-  of 5: "ControlChannelReset"
-  of 6: "InternetAvailable"
-  of 7: "SessionConnected"
-  of 8: "ServicingComplete"
-  of 9: "LockScreenApplicationAdded"
-  of 10: "LockScreenApplicationRemoved"
-  of 11: "TimeZoneChange"
-  of 12: "OnlineIdConnectedStateChange"
-  of 13: "BackgroundWorkCostChange"
-  of 14: "PowerStateChange"
-  of 15: "DefaultSignInAccountChange"
-  else: "SystemTriggerType(" & $ord(v) & ")"
+template `$`*(v: SystemTriggerType): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.Background.PhoneCallBlockedReason  (enum)
 type PhoneCallBlockedReason* {.pure, size: 4.} = enum
   InCallBlockingList = 0'i32
   PrivateNumber = 1'i32
   UnknownNumber = 2'i32
-proc `$`*(v: PhoneCallBlockedReason): string =
-  case ord(v)
-  of 0: "InCallBlockingList"
-  of 1: "PrivateNumber"
-  of 2: "UnknownNumber"
-  else: "PhoneCallBlockedReason(" & $ord(v) & ")"
+template `$`*(v: PhoneCallBlockedReason): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.Background.PhoneIncomingCallDismissedReason  (enum)
 type PhoneIncomingCallDismissedReason* {.pure, size: 4.} = enum
@@ -1080,25 +653,14 @@ type PhoneIncomingCallDismissedReason* {.pure, size: 4.} = enum
   CallRejected = 1'i32
   TextReply = 2'i32
   ConnectionLost = 3'i32
-proc `$`*(v: PhoneIncomingCallDismissedReason): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "CallRejected"
-  of 2: "TextReply"
-  of 3: "ConnectionLost"
-  else: "PhoneIncomingCallDismissedReason(" & $ord(v) & ")"
+template `$`*(v: PhoneIncomingCallDismissedReason): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.Background.PhoneLineChangeKind  (enum)
 type PhoneLineChangeKind* {.pure, size: 4.} = enum
   Added = 0'i32
   Removed = 1'i32
   PropertiesChanged = 2'i32
-proc `$`*(v: PhoneLineChangeKind): string =
-  case ord(v)
-  of 0: "Added"
-  of 1: "Removed"
-  of 2: "PropertiesChanged"
-  else: "PhoneLineChangeKind(" & $ord(v) & ")"
+template `$`*(v: PhoneLineChangeKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.Background.PhoneLineProperties  (enum)
 type PhoneLineProperties* = distinct uint32
@@ -1173,27 +735,13 @@ type PhoneTriggerType* {.pure, size: 4.} = enum
   CallBlocked = 5'i32
   IncomingCallDismissed = 6'i32
   IncomingCallNotification = 7'i32
-proc `$`*(v: PhoneTriggerType): string =
-  case ord(v)
-  of 0: "NewVoicemailMessage"
-  of 1: "CallHistoryChanged"
-  of 2: "LineChanged"
-  of 3: "AirplaneModeDisabledForEmergencyCall"
-  of 4: "CallOriginDataRequest"
-  of 5: "CallBlocked"
-  of 6: "IncomingCallDismissed"
-  of 7: "IncomingCallNotification"
-  else: "PhoneTriggerType(" & $ord(v) & ")"
+template `$`*(v: PhoneTriggerType): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.CellularDtmfMode  (enum)
 type CellularDtmfMode* {.pure, size: 4.} = enum
   Continuous = 0'i32
   Burst = 1'i32
-proc `$`*(v: CellularDtmfMode): string =
-  case ord(v)
-  of 0: "Continuous"
-  of 1: "Burst"
-  else: "CellularDtmfMode(" & $ord(v) & ")"
+template `$`*(v: CellularDtmfMode): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.DtmfKey  (enum)
 type DtmfKey* {.pure, size: 4.} = enum
@@ -1209,87 +757,46 @@ type DtmfKey* {.pure, size: 4.} = enum
   D9 = 9'i32
   Star = 10'i32
   Pound = 11'i32
-proc `$`*(v: DtmfKey): string =
-  case ord(v)
-  of 0: "D0"
-  of 1: "D1"
-  of 2: "D2"
-  of 3: "D3"
-  of 4: "D4"
-  of 5: "D5"
-  of 6: "D6"
-  of 7: "D7"
-  of 8: "D8"
-  of 9: "D9"
-  of 10: "Star"
-  of 11: "Pound"
-  else: "DtmfKey(" & $ord(v) & ")"
+template `$`*(v: DtmfKey): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.DtmfToneAudioPlayback  (enum)
 type DtmfToneAudioPlayback* {.pure, size: 4.} = enum
   Play = 0'i32
   DoNotPlay = 1'i32
-proc `$`*(v: DtmfToneAudioPlayback): string =
-  case ord(v)
-  of 0: "Play"
-  of 1: "DoNotPlay"
-  else: "DtmfToneAudioPlayback(" & $ord(v) & ")"
+template `$`*(v: DtmfToneAudioPlayback): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneAudioRoutingEndpoint  (enum)
 type PhoneAudioRoutingEndpoint* {.pure, size: 4.} = enum
   Default = 0'i32
   Bluetooth = 1'i32
   Speakerphone = 2'i32
-proc `$`*(v: PhoneAudioRoutingEndpoint): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Bluetooth"
-  of 2: "Speakerphone"
-  else: "PhoneAudioRoutingEndpoint(" & $ord(v) & ")"
+template `$`*(v: PhoneAudioRoutingEndpoint): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneCallAudioDevice  (enum)
 type PhoneCallAudioDevice* {.pure, size: 4.} = enum
   Unknown = 0'i32
   LocalDevice = 1'i32
   RemoteDevice = 2'i32
-proc `$`*(v: PhoneCallAudioDevice): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "LocalDevice"
-  of 2: "RemoteDevice"
-  else: "PhoneCallAudioDevice(" & $ord(v) & ")"
+template `$`*(v: PhoneCallAudioDevice): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneCallDirection  (enum)
 type PhoneCallDirection* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Incoming = 1'i32
   Outgoing = 2'i32
-proc `$`*(v: PhoneCallDirection): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Incoming"
-  of 2: "Outgoing"
-  else: "PhoneCallDirection(" & $ord(v) & ")"
+template `$`*(v: PhoneCallDirection): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneCallHistoryEntryMedia  (enum)
 type PhoneCallHistoryEntryMedia* {.pure, size: 4.} = enum
   Audio = 0'i32
   Video = 1'i32
-proc `$`*(v: PhoneCallHistoryEntryMedia): string =
-  case ord(v)
-  of 0: "Audio"
-  of 1: "Video"
-  else: "PhoneCallHistoryEntryMedia(" & $ord(v) & ")"
+template `$`*(v: PhoneCallHistoryEntryMedia): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneCallHistoryEntryOtherAppReadAccess  (enum)
 type PhoneCallHistoryEntryOtherAppReadAccess* {.pure, size: 4.} = enum
   Full = 0'i32
   SystemOnly = 1'i32
-proc `$`*(v: PhoneCallHistoryEntryOtherAppReadAccess): string =
-  case ord(v)
-  of 0: "Full"
-  of 1: "SystemOnly"
-  else: "PhoneCallHistoryEntryOtherAppReadAccess(" & $ord(v) & ")"
+template `$`*(v: PhoneCallHistoryEntryOtherAppReadAccess): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneCallHistoryEntryQueryDesiredMedia  (enum)
 type PhoneCallHistoryEntryQueryDesiredMedia* = distinct uint32
@@ -1328,45 +835,27 @@ const PhoneCallHistoryEntryQueryDesiredMedia_All* = PhoneCallHistoryEntryQueryDe
 type PhoneCallHistoryEntryRawAddressKind* {.pure, size: 4.} = enum
   PhoneNumber = 0'i32
   Custom = 1'i32
-proc `$`*(v: PhoneCallHistoryEntryRawAddressKind): string =
-  case ord(v)
-  of 0: "PhoneNumber"
-  of 1: "Custom"
-  else: "PhoneCallHistoryEntryRawAddressKind(" & $ord(v) & ")"
+template `$`*(v: PhoneCallHistoryEntryRawAddressKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneCallHistorySourceIdKind  (enum)
 type PhoneCallHistorySourceIdKind* {.pure, size: 4.} = enum
   CellularPhoneLineId = 0'i32
   PackageFamilyName = 1'i32
-proc `$`*(v: PhoneCallHistorySourceIdKind): string =
-  case ord(v)
-  of 0: "CellularPhoneLineId"
-  of 1: "PackageFamilyName"
-  else: "PhoneCallHistorySourceIdKind(" & $ord(v) & ")"
+template `$`*(v: PhoneCallHistorySourceIdKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneCallHistoryStoreAccessType  (enum)
 type PhoneCallHistoryStoreAccessType* {.pure, size: 4.} = enum
   AppEntriesReadWrite = 0'i32
   AllEntriesLimitedReadWrite = 1'i32
   AllEntriesReadWrite = 2'i32
-proc `$`*(v: PhoneCallHistoryStoreAccessType): string =
-  case ord(v)
-  of 0: "AppEntriesReadWrite"
-  of 1: "AllEntriesLimitedReadWrite"
-  of 2: "AllEntriesReadWrite"
-  else: "PhoneCallHistoryStoreAccessType(" & $ord(v) & ")"
+template `$`*(v: PhoneCallHistoryStoreAccessType): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneCallMedia  (enum)
 type PhoneCallMedia* {.pure, size: 4.} = enum
   Audio = 0'i32
   AudioAndVideo = 1'i32
   AudioAndRealTimeText = 2'i32
-proc `$`*(v: PhoneCallMedia): string =
-  case ord(v)
-  of 0: "Audio"
-  of 1: "AudioAndVideo"
-  of 2: "AudioAndRealTimeText"
-  else: "PhoneCallMedia(" & $ord(v) & ")"
+template `$`*(v: PhoneCallMedia): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneCallOperationStatus  (enum)
 type PhoneCallOperationStatus* {.pure, size: 4.} = enum
@@ -1375,14 +864,7 @@ type PhoneCallOperationStatus* {.pure, size: 4.} = enum
   TimedOut = 2'i32
   ConnectionLost = 3'i32
   InvalidCallState = 4'i32
-proc `$`*(v: PhoneCallOperationStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "OtherFailure"
-  of 2: "TimedOut"
-  of 3: "ConnectionLost"
-  of 4: "InvalidCallState"
-  else: "PhoneCallOperationStatus(" & $ord(v) & ")"
+template `$`*(v: PhoneCallOperationStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneCallStatus  (enum)
 type PhoneCallStatus* {.pure, size: 4.} = enum
@@ -1392,15 +874,7 @@ type PhoneCallStatus* {.pure, size: 4.} = enum
   Talking = 3'i32
   Held = 4'i32
   Ended = 5'i32
-proc `$`*(v: PhoneCallStatus): string =
-  case ord(v)
-  of 0: "Lost"
-  of 1: "Incoming"
-  of 2: "Dialing"
-  of 3: "Talking"
-  of 4: "Held"
-  of 5: "Ended"
-  else: "PhoneCallStatus(" & $ord(v) & ")"
+template `$`*(v: PhoneCallStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneLineNetworkOperatorDisplayTextLocation  (enum)
 type PhoneLineNetworkOperatorDisplayTextLocation* {.pure, size: 4.} = enum
@@ -1408,13 +882,7 @@ type PhoneLineNetworkOperatorDisplayTextLocation* {.pure, size: 4.} = enum
   Tile = 1'i32
   Dialer = 2'i32
   InCallUI = 3'i32
-proc `$`*(v: PhoneLineNetworkOperatorDisplayTextLocation): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Tile"
-  of 2: "Dialer"
-  of 3: "InCallUI"
-  else: "PhoneLineNetworkOperatorDisplayTextLocation(" & $ord(v) & ")"
+template `$`*(v: PhoneLineNetworkOperatorDisplayTextLocation): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneLineOperationStatus  (enum)
 type PhoneLineOperationStatus* {.pure, size: 4.} = enum
@@ -1423,26 +891,14 @@ type PhoneLineOperationStatus* {.pure, size: 4.} = enum
   TimedOut = 2'i32
   ConnectionLost = 3'i32
   InvalidCallState = 4'i32
-proc `$`*(v: PhoneLineOperationStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "OtherFailure"
-  of 2: "TimedOut"
-  of 3: "ConnectionLost"
-  of 4: "InvalidCallState"
-  else: "PhoneLineOperationStatus(" & $ord(v) & ")"
+template `$`*(v: PhoneLineOperationStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneLineTransport  (enum)
 type PhoneLineTransport* {.pure, size: 4.} = enum
   Cellular = 0'i32
   VoipApp = 1'i32
   Bluetooth = 2'i32
-proc `$`*(v: PhoneLineTransport): string =
-  case ord(v)
-  of 0: "Cellular"
-  of 1: "VoipApp"
-  of 2: "Bluetooth"
-  else: "PhoneLineTransport(" & $ord(v) & ")"
+template `$`*(v: PhoneLineTransport): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneLineWatcherStatus  (enum)
 type PhoneLineWatcherStatus* {.pure, size: 4.} = enum
@@ -1450,13 +906,7 @@ type PhoneLineWatcherStatus* {.pure, size: 4.} = enum
   Started = 1'i32
   EnumerationCompleted = 2'i32
   Stopped = 3'i32
-proc `$`*(v: PhoneLineWatcherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "EnumerationCompleted"
-  of 3: "Stopped"
-  else: "PhoneLineWatcherStatus(" & $ord(v) & ")"
+template `$`*(v: PhoneLineWatcherStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneNetworkState  (enum)
 type PhoneNetworkState* {.pure, size: 4.} = enum
@@ -1468,17 +918,7 @@ type PhoneNetworkState* {.pure, size: 4.} = enum
   Home = 5'i32
   RoamingInternational = 6'i32
   RoamingDomestic = 7'i32
-proc `$`*(v: PhoneNetworkState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "NoSignal"
-  of 2: "Deregistered"
-  of 3: "Denied"
-  of 4: "Searching"
-  of 5: "Home"
-  of 6: "RoamingInternational"
-  of 7: "RoamingDomestic"
-  else: "PhoneNetworkState(" & $ord(v) & ")"
+template `$`*(v: PhoneNetworkState): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneSimState  (enum)
 type PhoneSimState* {.pure, size: 4.} = enum
@@ -1490,51 +930,27 @@ type PhoneSimState* {.pure, size: 4.} = enum
   NotInserted = 5'i32
   Invalid = 6'i32
   Disabled = 7'i32
-proc `$`*(v: PhoneSimState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "PinNotRequired"
-  of 2: "PinUnlocked"
-  of 3: "PinLocked"
-  of 4: "PukLocked"
-  of 5: "NotInserted"
-  of 6: "Invalid"
-  of 7: "Disabled"
-  else: "PhoneSimState(" & $ord(v) & ")"
+template `$`*(v: PhoneSimState): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.PhoneVoicemailType  (enum)
 type PhoneVoicemailType* {.pure, size: 4.} = enum
   None = 0'i32
   Traditional = 1'i32
   Visual = 2'i32
-proc `$`*(v: PhoneVoicemailType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Traditional"
-  of 2: "Visual"
-  else: "PhoneVoicemailType(" & $ord(v) & ")"
+template `$`*(v: PhoneVoicemailType): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.TransportDeviceAudioRoutingStatus  (enum)
 type TransportDeviceAudioRoutingStatus* {.pure, size: 4.} = enum
   Unknown = 0'i32
   CanRouteToLocalDevice = 1'i32
   CannotRouteToLocalDevice = 2'i32
-proc `$`*(v: TransportDeviceAudioRoutingStatus): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "CanRouteToLocalDevice"
-  of 2: "CannotRouteToLocalDevice"
-  else: "TransportDeviceAudioRoutingStatus(" & $ord(v) & ")"
+template `$`*(v: TransportDeviceAudioRoutingStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.VoipCallControlDeviceKind  (enum)
 type VoipCallControlDeviceKind* {.pure, size: 4.} = enum
   Bluetooth = 0'i32
   Usb = 1'i32
-proc `$`*(v: VoipCallControlDeviceKind): string =
-  case ord(v)
-  of 0: "Bluetooth"
-  of 1: "Usb"
-  else: "VoipCallControlDeviceKind(" & $ord(v) & ")"
+template `$`*(v: VoipCallControlDeviceKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.VoipPhoneCallMedia  (enum)
 type VoipPhoneCallMedia* = distinct uint32
@@ -1571,24 +987,13 @@ type VoipPhoneCallRejectReason* {.pure, size: 4.} = enum
   OtherIncomingCall = 2'i32
   EmergencyCallExists = 3'i32
   InvalidCallState = 4'i32
-proc `$`*(v: VoipPhoneCallRejectReason): string =
-  case ord(v)
-  of 0: "UserIgnored"
-  of 1: "TimedOut"
-  of 2: "OtherIncomingCall"
-  of 3: "EmergencyCallExists"
-  of 4: "InvalidCallState"
-  else: "VoipPhoneCallRejectReason(" & $ord(v) & ")"
+template `$`*(v: VoipPhoneCallRejectReason): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.VoipPhoneCallResourceReservationStatus  (enum)
 type VoipPhoneCallResourceReservationStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   ResourcesNotAvailable = 1'i32
-proc `$`*(v: VoipPhoneCallResourceReservationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "ResourcesNotAvailable"
-  else: "VoipPhoneCallResourceReservationStatus(" & $ord(v) & ")"
+template `$`*(v: VoipPhoneCallResourceReservationStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Calls.VoipPhoneCallState  (enum)
 type VoipPhoneCallState* {.pure, size: 4.} = enum
@@ -1597,14 +1002,7 @@ type VoipPhoneCallState* {.pure, size: 4.} = enum
   Active = 2'i32
   Incoming = 3'i32
   Outgoing = 4'i32
-proc `$`*(v: VoipPhoneCallState): string =
-  case ord(v)
-  of 0: "Ended"
-  of 1: "Held"
-  of 2: "Active"
-  of 3: "Incoming"
-  of 4: "Outgoing"
-  else: "VoipPhoneCallState(" & $ord(v) & ")"
+template `$`*(v: VoipPhoneCallState): string = enumName(v)
 
 ## Windows.ApplicationModel.Chat.ChatConversationThreadingKind  (enum)
 type ChatConversationThreadingKind* {.pure, size: 4.} = enum
@@ -1612,23 +1010,13 @@ type ChatConversationThreadingKind* {.pure, size: 4.} = enum
   ContactId = 1'i32
   ConversationId = 2'i32
   Custom = 3'i32
-proc `$`*(v: ChatConversationThreadingKind): string =
-  case ord(v)
-  of 0: "Participants"
-  of 1: "ContactId"
-  of 2: "ConversationId"
-  of 3: "Custom"
-  else: "ChatConversationThreadingKind(" & $ord(v) & ")"
+template `$`*(v: ChatConversationThreadingKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Chat.ChatItemKind  (enum)
 type ChatItemKind* {.pure, size: 4.} = enum
   Message = 0'i32
   Conversation = 1'i32
-proc `$`*(v: ChatItemKind): string =
-  case ord(v)
-  of 0: "Message"
-  of 1: "Conversation"
-  else: "ChatItemKind(" & $ord(v) & ")"
+template `$`*(v: ChatItemKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Chat.ChatMessageChangeType  (enum)
 type ChatMessageChangeType* {.pure, size: 4.} = enum
@@ -1636,13 +1024,7 @@ type ChatMessageChangeType* {.pure, size: 4.} = enum
   MessageModified = 1'i32
   MessageDeleted = 2'i32
   ChangeTrackingLost = 3'i32
-proc `$`*(v: ChatMessageChangeType): string =
-  case ord(v)
-  of 0: "MessageCreated"
-  of 1: "MessageModified"
-  of 2: "MessageDeleted"
-  of 3: "ChangeTrackingLost"
-  else: "ChatMessageChangeType(" & $ord(v) & ")"
+template `$`*(v: ChatMessageChangeType): string = enumName(v)
 
 ## Windows.ApplicationModel.Chat.ChatMessageKind  (enum)
 type ChatMessageKind* {.pure, size: 4.} = enum
@@ -1653,16 +1035,7 @@ type ChatMessageKind* {.pure, size: 4.} = enum
   LeftConversation = 4'i32
   OtherParticipantJoinedConversation = 5'i32
   OtherParticipantLeftConversation = 6'i32
-proc `$`*(v: ChatMessageKind): string =
-  case ord(v)
-  of 0: "Standard"
-  of 1: "FileTransferRequest"
-  of 2: "TransportCustom"
-  of 3: "JoinedConversation"
-  of 4: "LeftConversation"
-  of 5: "OtherParticipantJoinedConversation"
-  of 6: "OtherParticipantLeftConversation"
-  else: "ChatMessageKind(" & $ord(v) & ")"
+template `$`*(v: ChatMessageKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Chat.ChatMessageOperatorKind  (enum)
 type ChatMessageOperatorKind* {.pure, size: 4.} = enum
@@ -1670,13 +1043,7 @@ type ChatMessageOperatorKind* {.pure, size: 4.} = enum
   Sms = 1'i32
   Mms = 2'i32
   Rcs = 3'i32
-proc `$`*(v: ChatMessageOperatorKind): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Sms"
-  of 2: "Mms"
-  of 3: "Rcs"
-  else: "ChatMessageOperatorKind(" & $ord(v) & ")"
+template `$`*(v: ChatMessageOperatorKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Chat.ChatMessageStatus  (enum)
 type ChatMessageStatus* {.pure, size: 4.} = enum
@@ -1694,23 +1061,7 @@ type ChatMessageStatus* {.pure, size: 4.} = enum
   Cancelled = 11'i32
   Recalled = 12'i32
   ReceiveRetryNeeded = 13'i32
-proc `$`*(v: ChatMessageStatus): string =
-  case ord(v)
-  of 0: "Draft"
-  of 1: "Sending"
-  of 2: "Sent"
-  of 3: "SendRetryNeeded"
-  of 4: "SendFailed"
-  of 5: "Received"
-  of 6: "ReceiveDownloadNeeded"
-  of 7: "ReceiveDownloadFailed"
-  of 8: "ReceiveDownloading"
-  of 9: "Deleted"
-  of 10: "Declined"
-  of 11: "Cancelled"
-  of 12: "Recalled"
-  of 13: "ReceiveRetryNeeded"
-  else: "ChatMessageStatus(" & $ord(v) & ")"
+template `$`*(v: ChatMessageStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Chat.ChatMessageTransportKind  (enum)
 type ChatMessageTransportKind* {.pure, size: 4.} = enum
@@ -1718,13 +1069,7 @@ type ChatMessageTransportKind* {.pure, size: 4.} = enum
   Untriaged = 1'i32
   Blocked = 2'i32
   Custom = 3'i32
-proc `$`*(v: ChatMessageTransportKind): string =
-  case ord(v)
-  of 0: "Text"
-  of 1: "Untriaged"
-  of 2: "Blocked"
-  of 3: "Custom"
-  else: "ChatMessageTransportKind(" & $ord(v) & ")"
+template `$`*(v: ChatMessageTransportKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Chat.ChatMessageValidationStatus  (enum)
 type ChatMessageValidationStatus* {.pure, size: 4.} = enum
@@ -1742,35 +1087,14 @@ type ChatMessageValidationStatus* {.pure, size: 4.} = enum
   ValidWithLargeMessage = 11'i32
   VoiceRoamingRestriction = 12'i32
   DataRoamingRestriction = 13'i32
-proc `$`*(v: ChatMessageValidationStatus): string =
-  case ord(v)
-  of 0: "Valid"
-  of 1: "NoRecipients"
-  of 2: "InvalidData"
-  of 3: "MessageTooLarge"
-  of 4: "TooManyRecipients"
-  of 5: "TransportInactive"
-  of 6: "TransportNotFound"
-  of 7: "TooManyAttachments"
-  of 8: "InvalidRecipients"
-  of 9: "InvalidBody"
-  of 10: "InvalidOther"
-  of 11: "ValidWithLargeMessage"
-  of 12: "VoiceRoamingRestriction"
-  of 13: "DataRoamingRestriction"
-  else: "ChatMessageValidationStatus(" & $ord(v) & ")"
+template `$`*(v: ChatMessageValidationStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Chat.ChatRestoreHistorySpan  (enum)
 type ChatRestoreHistorySpan* {.pure, size: 4.} = enum
   LastMonth = 0'i32
   LastYear = 1'i32
   AnyTime = 2'i32
-proc `$`*(v: ChatRestoreHistorySpan): string =
-  case ord(v)
-  of 0: "LastMonth"
-  of 1: "LastYear"
-  of 2: "AnyTime"
-  else: "ChatRestoreHistorySpan(" & $ord(v) & ")"
+template `$`*(v: ChatRestoreHistorySpan): string = enumName(v)
 
 ## Windows.ApplicationModel.Chat.ChatStoreChangedEventKind  (enum)
 type ChatStoreChangedEventKind* {.pure, size: 4.} = enum
@@ -1782,17 +1106,7 @@ type ChatStoreChangedEventKind* {.pure, size: 4.} = enum
   ConversationModified = 5'i32
   ConversationDeleted = 6'i32
   ConversationTransportDeleted = 7'i32
-proc `$`*(v: ChatStoreChangedEventKind): string =
-  case ord(v)
-  of 0: "NotificationsMissed"
-  of 1: "StoreModified"
-  of 2: "MessageCreated"
-  of 3: "MessageModified"
-  of 4: "MessageDeleted"
-  of 5: "ConversationModified"
-  of 6: "ConversationDeleted"
-  of 7: "ConversationTransportDeleted"
-  else: "ChatStoreChangedEventKind(" & $ord(v) & ")"
+template `$`*(v: ChatStoreChangedEventKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Chat.ChatTransportErrorCodeCategory  (enum)
 type ChatTransportErrorCodeCategory* {.pure, size: 4.} = enum
@@ -1800,13 +1114,7 @@ type ChatTransportErrorCodeCategory* {.pure, size: 4.} = enum
   Http = 1'i32
   Network = 2'i32
   MmsServer = 3'i32
-proc `$`*(v: ChatTransportErrorCodeCategory): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Http"
-  of 2: "Network"
-  of 3: "MmsServer"
-  else: "ChatTransportErrorCodeCategory(" & $ord(v) & ")"
+template `$`*(v: ChatTransportErrorCodeCategory): string = enumName(v)
 
 ## Windows.ApplicationModel.Chat.ChatTransportInterpretedErrorCode  (enum)
 type ChatTransportInterpretedErrorCode* {.pure, size: 4.} = enum
@@ -1816,15 +1124,7 @@ type ChatTransportInterpretedErrorCode* {.pure, size: 4.} = enum
   NetworkConnectivity = 3'i32
   ServiceDenied = 4'i32
   Timeout = 5'i32
-proc `$`*(v: ChatTransportInterpretedErrorCode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Unknown"
-  of 2: "InvalidRecipientAddress"
-  of 3: "NetworkConnectivity"
-  of 4: "ServiceDenied"
-  of 5: "Timeout"
-  else: "ChatTransportInterpretedErrorCode(" & $ord(v) & ")"
+template `$`*(v: ChatTransportInterpretedErrorCode): string = enumName(v)
 
 ## Windows.ApplicationModel.Chat.RcsServiceKind  (enum)
 type RcsServiceKind* {.pure, size: 4.} = enum
@@ -1832,25 +1132,14 @@ type RcsServiceKind* {.pure, size: 4.} = enum
   GroupChat = 1'i32
   FileTransfer = 2'i32
   Capability = 3'i32
-proc `$`*(v: RcsServiceKind): string =
-  case ord(v)
-  of 0: "Chat"
-  of 1: "GroupChat"
-  of 2: "FileTransfer"
-  of 3: "Capability"
-  else: "RcsServiceKind(" & $ord(v) & ")"
+template `$`*(v: RcsServiceKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactAddressKind  (enum)
 type ContactAddressKind* {.pure, size: 4.} = enum
   Home = 0'i32
   Work = 1'i32
   Other = 2'i32
-proc `$`*(v: ContactAddressKind): string =
-  case ord(v)
-  of 0: "Home"
-  of 1: "Work"
-  of 2: "Other"
-  else: "ContactAddressKind(" & $ord(v) & ")"
+template `$`*(v: ContactAddressKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactAnnotationOperations  (enum)
 type ContactAnnotationOperations* = distinct uint32
@@ -1909,35 +1198,21 @@ const ContactAnnotationOperations_Activity* = ContactAnnotationOperations(64'u32
 type ContactAnnotationStoreAccessType* {.pure, size: 4.} = enum
   AppAnnotationsReadWrite = 0'i32
   AllAnnotationsReadWrite = 1'i32
-proc `$`*(v: ContactAnnotationStoreAccessType): string =
-  case ord(v)
-  of 0: "AppAnnotationsReadWrite"
-  of 1: "AllAnnotationsReadWrite"
-  else: "ContactAnnotationStoreAccessType(" & $ord(v) & ")"
+template `$`*(v: ContactAnnotationStoreAccessType): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactBatchStatus  (enum)
 type ContactBatchStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   ServerSearchSyncManagerError = 1'i32
   ServerSearchUnknownError = 2'i32
-proc `$`*(v: ContactBatchStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "ServerSearchSyncManagerError"
-  of 2: "ServerSearchUnknownError"
-  else: "ContactBatchStatus(" & $ord(v) & ")"
+template `$`*(v: ContactBatchStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactCardHeaderKind  (enum)
 type ContactCardHeaderKind* {.pure, size: 4.} = enum
   Default = 0'i32
   Basic = 1'i32
   Enterprise = 2'i32
-proc `$`*(v: ContactCardHeaderKind): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Basic"
-  of 2: "Enterprise"
-  else: "ContactCardHeaderKind(" & $ord(v) & ")"
+template `$`*(v: ContactCardHeaderKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactCardTabKind  (enum)
 type ContactCardTabKind* {.pure, size: 4.} = enum
@@ -1947,15 +1222,7 @@ type ContactCardTabKind* {.pure, size: 4.} = enum
   Phone = 3'i32
   Video = 4'i32
   OrganizationalHierarchy = 5'i32
-proc `$`*(v: ContactCardTabKind): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Email"
-  of 2: "Messaging"
-  of 3: "Phone"
-  of 4: "Video"
-  of 5: "OrganizationalHierarchy"
-  else: "ContactCardTabKind(" & $ord(v) & ")"
+template `$`*(v: ContactCardTabKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactChangeType  (enum)
 type ContactChangeType* {.pure, size: 4.} = enum
@@ -1963,37 +1230,21 @@ type ContactChangeType* {.pure, size: 4.} = enum
   Modified = 1'i32
   Deleted = 2'i32
   ChangeTrackingLost = 3'i32
-proc `$`*(v: ContactChangeType): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Modified"
-  of 2: "Deleted"
-  of 3: "ChangeTrackingLost"
-  else: "ContactChangeType(" & $ord(v) & ")"
+template `$`*(v: ContactChangeType): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactDateKind  (enum)
 type ContactDateKind* {.pure, size: 4.} = enum
   Birthday = 0'i32
   Anniversary = 1'i32
   Other = 2'i32
-proc `$`*(v: ContactDateKind): string =
-  case ord(v)
-  of 0: "Birthday"
-  of 1: "Anniversary"
-  of 2: "Other"
-  else: "ContactDateKind(" & $ord(v) & ")"
+template `$`*(v: ContactDateKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactEmailKind  (enum)
 type ContactEmailKind* {.pure, size: 4.} = enum
   Personal = 0'i32
   Work = 1'i32
   Other = 2'i32
-proc `$`*(v: ContactEmailKind): string =
-  case ord(v)
-  of 0: "Personal"
-  of 1: "Work"
-  of 2: "Other"
-  else: "ContactEmailKind(" & $ord(v) & ")"
+template `$`*(v: ContactEmailKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactFieldCategory  (enum)
 type ContactFieldCategory* {.pure, size: 4.} = enum
@@ -2002,14 +1253,7 @@ type ContactFieldCategory* {.pure, size: 4.} = enum
   Work = 2'i32
   Mobile = 3'i32
   Other = 4'i32
-proc `$`*(v: ContactFieldCategory): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Home"
-  of 2: "Work"
-  of 3: "Mobile"
-  of 4: "Other"
-  else: "ContactFieldCategory(" & $ord(v) & ")"
+template `$`*(v: ContactFieldCategory): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactFieldType  (enum)
 type ContactFieldType* {.pure, size: 4.} = enum
@@ -2025,21 +1269,7 @@ type ContactFieldType* {.pure, size: 4.} = enum
   Notes = 9'i32
   Website = 10'i32
   JobInfo = 11'i32
-proc `$`*(v: ContactFieldType): string =
-  case ord(v)
-  of 0: "Email"
-  of 1: "PhoneNumber"
-  of 2: "Location"
-  of 3: "InstantMessage"
-  of 4: "Custom"
-  of 5: "ConnectedServiceAccount"
-  of 6: "ImportantDate"
-  of 7: "Address"
-  of 8: "SignificantOther"
-  of 9: "Notes"
-  of 10: "Website"
-  of 11: "JobInfo"
-  else: "ContactFieldType(" & $ord(v) & ")"
+template `$`*(v: ContactFieldType): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactListOtherAppReadAccess  (enum)
 type ContactListOtherAppReadAccess* {.pure, size: 4.} = enum
@@ -2047,25 +1277,14 @@ type ContactListOtherAppReadAccess* {.pure, size: 4.} = enum
   Limited = 1'i32
   Full = 2'i32
   None = 3'i32
-proc `$`*(v: ContactListOtherAppReadAccess): string =
-  case ord(v)
-  of 0: "SystemOnly"
-  of 1: "Limited"
-  of 2: "Full"
-  of 3: "None"
-  else: "ContactListOtherAppReadAccess(" & $ord(v) & ")"
+template `$`*(v: ContactListOtherAppReadAccess): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactListOtherAppWriteAccess  (enum)
 type ContactListOtherAppWriteAccess* {.pure, size: 4.} = enum
   None = 0'i32
   SystemOnly = 1'i32
   Limited = 2'i32
-proc `$`*(v: ContactListOtherAppWriteAccess): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "SystemOnly"
-  of 2: "Limited"
-  else: "ContactListOtherAppWriteAccess(" & $ord(v) & ")"
+template `$`*(v: ContactListOtherAppWriteAccess): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactListSyncStatus  (enum)
 type ContactListSyncStatus* {.pure, size: 4.} = enum
@@ -2076,16 +1295,7 @@ type ContactListSyncStatus* {.pure, size: 4.} = enum
   PolicyError = 4'i32
   UnknownError = 5'i32
   ManualAccountRemovalRequired = 6'i32
-proc `$`*(v: ContactListSyncStatus): string =
-  case ord(v)
-  of 0: "Idle"
-  of 1: "Syncing"
-  of 2: "UpToDate"
-  of 3: "AuthenticationError"
-  of 4: "PolicyError"
-  of 5: "UnknownError"
-  of 6: "ManualAccountRemovalRequired"
-  else: "ContactListSyncStatus(" & $ord(v) & ")"
+template `$`*(v: ContactListSyncStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactMatchReasonKind  (enum)
 type ContactMatchReasonKind* {.pure, size: 4.} = enum
@@ -2095,25 +1305,13 @@ type ContactMatchReasonKind* {.pure, size: 4.} = enum
   JobInfo = 3'i32
   YomiName = 4'i32
   Other = 5'i32
-proc `$`*(v: ContactMatchReasonKind): string =
-  case ord(v)
-  of 0: "Name"
-  of 1: "EmailAddress"
-  of 2: "PhoneNumber"
-  of 3: "JobInfo"
-  of 4: "YomiName"
-  of 5: "Other"
-  else: "ContactMatchReasonKind(" & $ord(v) & ")"
+template `$`*(v: ContactMatchReasonKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactNameOrder  (enum)
 type ContactNameOrder* {.pure, size: 4.} = enum
   FirstNameLastName = 0'i32
   LastNameFirstName = 1'i32
-proc `$`*(v: ContactNameOrder): string =
-  case ord(v)
-  of 0: "FirstNameLastName"
-  of 1: "LastNameFirstName"
-  else: "ContactNameOrder(" & $ord(v) & ")"
+template `$`*(v: ContactNameOrder): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactPhoneKind  (enum)
 type ContactPhoneKind* {.pure, size: 4.} = enum
@@ -2127,19 +1325,7 @@ type ContactPhoneKind* {.pure, size: 4.} = enum
   Company = 7'i32
   Assistant = 8'i32
   Radio = 9'i32
-proc `$`*(v: ContactPhoneKind): string =
-  case ord(v)
-  of 0: "Home"
-  of 1: "Mobile"
-  of 2: "Work"
-  of 3: "Other"
-  of 4: "Pager"
-  of 5: "BusinessFax"
-  of 6: "HomeFax"
-  of 7: "Company"
-  of 8: "Assistant"
-  of 9: "Radio"
-  else: "ContactPhoneKind(" & $ord(v) & ")"
+template `$`*(v: ContactPhoneKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactQueryDesiredFields  (enum)
 type ContactQueryDesiredFields* = distinct uint32
@@ -2216,11 +1402,7 @@ const ContactQuerySearchFields_All* = ContactQuerySearchFields(4294967295'u32)
 type ContactQuerySearchScope* {.pure, size: 4.} = enum
   Local = 0'i32
   Server = 1'i32
-proc `$`*(v: ContactQuerySearchScope): string =
-  case ord(v)
-  of 0: "Local"
-  of 1: "Server"
-  else: "ContactQuerySearchScope(" & $ord(v) & ")"
+template `$`*(v: ContactQuerySearchScope): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactRelationship  (enum)
 type ContactRelationship* {.pure, size: 4.} = enum
@@ -2230,59 +1412,33 @@ type ContactRelationship* {.pure, size: 4.} = enum
   Sibling = 3'i32
   Parent = 4'i32
   Child = 5'i32
-proc `$`*(v: ContactRelationship): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "Spouse"
-  of 2: "Partner"
-  of 3: "Sibling"
-  of 4: "Parent"
-  of 5: "Child"
-  else: "ContactRelationship(" & $ord(v) & ")"
+template `$`*(v: ContactRelationship): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactSelectionMode  (enum)
 type ContactSelectionMode* {.pure, size: 4.} = enum
   Contacts = 0'i32
   Fields = 1'i32
-proc `$`*(v: ContactSelectionMode): string =
-  case ord(v)
-  of 0: "Contacts"
-  of 1: "Fields"
-  else: "ContactSelectionMode(" & $ord(v) & ")"
+template `$`*(v: ContactSelectionMode): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.ContactStoreAccessType  (enum)
 type ContactStoreAccessType* {.pure, size: 4.} = enum
   AppContactsReadWrite = 0'i32
   AllContactsReadOnly = 1'i32
   AllContactsReadWrite = 2'i32
-proc `$`*(v: ContactStoreAccessType): string =
-  case ord(v)
-  of 0: "AppContactsReadWrite"
-  of 1: "AllContactsReadOnly"
-  of 2: "AllContactsReadWrite"
-  else: "ContactStoreAccessType(" & $ord(v) & ")"
+template `$`*(v: ContactStoreAccessType): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.PinnedContactSurface  (enum)
 type PinnedContactSurface* {.pure, size: 4.} = enum
   StartMenu = 0'i32
   Taskbar = 1'i32
-proc `$`*(v: PinnedContactSurface): string =
-  case ord(v)
-  of 0: "StartMenu"
-  of 1: "Taskbar"
-  else: "PinnedContactSurface(" & $ord(v) & ")"
+template `$`*(v: PinnedContactSurface): string = enumName(v)
 
 ## Windows.ApplicationModel.Contacts.Provider.AddContactResult  (enum)
 type AddContactResult* {.pure, size: 4.} = enum
   Added = 0'i32
   AlreadyAdded = 1'i32
   Unavailable = 2'i32
-proc `$`*(v: AddContactResult): string =
-  case ord(v)
-  of 0: "Added"
-  of 1: "AlreadyAdded"
-  of 2: "Unavailable"
-  else: "AddContactResult(" & $ord(v) & ")"
+template `$`*(v: AddContactResult): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfigurationCreationStatus  (enum)
 type ActivationSignalDetectionConfigurationCreationStatus* {.pure, size: 4.} = enum
@@ -2294,17 +1450,7 @@ type ActivationSignalDetectionConfigurationCreationStatus* {.pure, size: 4.} = e
   InvalidDisplayName = 5'i32
   ConfigurationAlreadyExists = 6'i32
   CreationNotSupported = 7'i32
-proc `$`*(v: ActivationSignalDetectionConfigurationCreationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "SignalIdNotAvailable"
-  of 2: "ModelIdNotSupported"
-  of 3: "InvalidSignalId"
-  of 4: "InvalidModelId"
-  of 5: "InvalidDisplayName"
-  of 6: "ConfigurationAlreadyExists"
-  of 7: "CreationNotSupported"
-  else: "ActivationSignalDetectionConfigurationCreationStatus(" & $ord(v) & ")"
+template `$`*(v: ActivationSignalDetectionConfigurationCreationStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfigurationRemovalResult  (enum)
 type ActivationSignalDetectionConfigurationRemovalResult* {.pure, size: 4.} = enum
@@ -2312,13 +1458,7 @@ type ActivationSignalDetectionConfigurationRemovalResult* {.pure, size: 4.} = en
   NotFound = 1'i32
   CurrentlyEnabled = 2'i32
   RemovalNotSupported = 3'i32
-proc `$`*(v: ActivationSignalDetectionConfigurationRemovalResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "NotFound"
-  of 2: "CurrentlyEnabled"
-  of 3: "RemovalNotSupported"
-  else: "ActivationSignalDetectionConfigurationRemovalResult(" & $ord(v) & ")"
+template `$`*(v: ActivationSignalDetectionConfigurationRemovalResult): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfigurationSetModelDataResult  (enum)
 type ActivationSignalDetectionConfigurationSetModelDataResult* {.pure, size: 4.} = enum
@@ -2330,29 +1470,14 @@ type ActivationSignalDetectionConfigurationSetModelDataResult* {.pure, size: 4.}
   SetModelDataNotSupported = 5'i32
   ConfigurationNotFound = 6'i32
   UnknownError = 7'i32
-proc `$`*(v: ActivationSignalDetectionConfigurationSetModelDataResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "EmptyModelData"
-  of 2: "UnsupportedFormat"
-  of 3: "ConfigurationCurrentlyEnabled"
-  of 4: "InvalidData"
-  of 5: "SetModelDataNotSupported"
-  of 6: "ConfigurationNotFound"
-  of 7: "UnknownError"
-  else: "ActivationSignalDetectionConfigurationSetModelDataResult(" & $ord(v) & ")"
+template `$`*(v: ActivationSignalDetectionConfigurationSetModelDataResult): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfigurationStateChangeResult  (enum)
 type ActivationSignalDetectionConfigurationStateChangeResult* {.pure, size: 4.} = enum
   Success = 0'i32
   NoModelData = 1'i32
   ConfigurationNotFound = 2'i32
-proc `$`*(v: ActivationSignalDetectionConfigurationStateChangeResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "NoModelData"
-  of 2: "ConfigurationNotFound"
-  else: "ActivationSignalDetectionConfigurationStateChangeResult(" & $ord(v) & ")"
+template `$`*(v: ActivationSignalDetectionConfigurationStateChangeResult): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionTrainingDataFormat  (enum)
 type ActivationSignalDetectionTrainingDataFormat* {.pure, size: 4.} = enum
@@ -2367,54 +1492,27 @@ type ActivationSignalDetectionTrainingDataFormat* {.pure, size: 4.} = enum
   Audio48kHz16BitMono = 8'i32
   AudioOEMDefined = 9'i32
   OtherOEMDefined = 10'i32
-proc `$`*(v: ActivationSignalDetectionTrainingDataFormat): string =
-  case ord(v)
-  of 0: "Voice8kHz8BitMono"
-  of 1: "Voice8kHz16BitMono"
-  of 2: "Voice16kHz8BitMono"
-  of 3: "Voice16kHz16BitMono"
-  of 4: "VoiceOEMDefined"
-  of 5: "Audio44kHz8BitMono"
-  of 6: "Audio44kHz16BitMono"
-  of 7: "Audio48kHz8BitMono"
-  of 8: "Audio48kHz16BitMono"
-  of 9: "AudioOEMDefined"
-  of 10: "OtherOEMDefined"
-  else: "ActivationSignalDetectionTrainingDataFormat(" & $ord(v) & ")"
+template `$`*(v: ActivationSignalDetectionTrainingDataFormat): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectorKind  (enum)
 type ActivationSignalDetectorKind* {.pure, size: 4.} = enum
   AudioPattern = 0'i32
   AudioImpulse = 1'i32
   HardwareEvent = 2'i32
-proc `$`*(v: ActivationSignalDetectorKind): string =
-  case ord(v)
-  of 0: "AudioPattern"
-  of 1: "AudioImpulse"
-  of 2: "HardwareEvent"
-  else: "ActivationSignalDetectorKind(" & $ord(v) & ")"
+template `$`*(v: ActivationSignalDetectorKind): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectorPowerState  (enum)
 type ActivationSignalDetectorPowerState* {.pure, size: 4.} = enum
   HighPower = 0'i32
   ConnectedLowPower = 1'i32
   DisconnectedLowPower = 2'i32
-proc `$`*(v: ActivationSignalDetectorPowerState): string =
-  case ord(v)
-  of 0: "HighPower"
-  of 1: "ConnectedLowPower"
-  of 2: "DisconnectedLowPower"
-  else: "ActivationSignalDetectorPowerState(" & $ord(v) & ")"
+template `$`*(v: ActivationSignalDetectorPowerState): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentActivationKind  (enum)
 type ConversationalAgentActivationKind* {.pure, size: 4.} = enum
   VoiceActivationPreview = 0'i32
   Foreground = 1'i32
-proc `$`*(v: ConversationalAgentActivationKind): string =
-  case ord(v)
-  of 0: "VoiceActivationPreview"
-  of 1: "Foreground"
-  else: "ConversationalAgentActivationKind(" & $ord(v) & ")"
+template `$`*(v: ConversationalAgentActivationKind): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentActivationResult  (enum)
 type ConversationalAgentActivationResult* {.pure, size: 4.} = enum
@@ -2422,23 +1520,13 @@ type ConversationalAgentActivationResult* {.pure, size: 4.} = enum
   AgentInactive = 1'i32
   ScreenNotAvailable = 2'i32
   AgentInterrupted = 3'i32
-proc `$`*(v: ConversationalAgentActivationResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "AgentInactive"
-  of 2: "ScreenNotAvailable"
-  of 3: "AgentInterrupted"
-  else: "ConversationalAgentActivationResult(" & $ord(v) & ")"
+template `$`*(v: ConversationalAgentActivationResult): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSessionUpdateResponse  (enum)
 type ConversationalAgentSessionUpdateResponse* {.pure, size: 4.} = enum
   Success = 0'i32
   Failed = 1'i32
-proc `$`*(v: ConversationalAgentSessionUpdateResponse): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "Failed"
-  else: "ConversationalAgentSessionUpdateResponse(" & $ord(v) & ")"
+template `$`*(v: ConversationalAgentSessionUpdateResponse): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentState  (enum)
 type ConversationalAgentState* {.pure, size: 4.} = enum
@@ -2448,15 +1536,7 @@ type ConversationalAgentState* {.pure, size: 4.} = enum
   Working = 3'i32
   Speaking = 4'i32
   ListeningAndSpeaking = 5'i32
-proc `$`*(v: ConversationalAgentState): string =
-  case ord(v)
-  of 0: "Inactive"
-  of 1: "Detecting"
-  of 2: "Listening"
-  of 3: "Working"
-  of 4: "Speaking"
-  of 5: "ListeningAndSpeaking"
-  else: "ConversationalAgentState(" & $ord(v) & ")"
+template `$`*(v: ConversationalAgentState): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSystemStateChangeType  (enum)
 type ConversationalAgentSystemStateChangeType* {.pure, size: 4.} = enum
@@ -2464,13 +1544,7 @@ type ConversationalAgentSystemStateChangeType* {.pure, size: 4.} = enum
   ScreenAvailability = 1'i32
   IndicatorLightAvailability = 2'i32
   VoiceActivationAvailability = 3'i32
-proc `$`*(v: ConversationalAgentSystemStateChangeType): string =
-  case ord(v)
-  of 0: "UserAuthentication"
-  of 1: "ScreenAvailability"
-  of 2: "IndicatorLightAvailability"
-  of 3: "VoiceActivationAvailability"
-  else: "ConversationalAgentSystemStateChangeType(" & $ord(v) & ")"
+template `$`*(v: ConversationalAgentSystemStateChangeType): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentVoiceActivationPrerequisiteKind  (enum)
 type ConversationalAgentVoiceActivationPrerequisiteKind* {.pure, size: 4.} = enum
@@ -2480,27 +1554,14 @@ type ConversationalAgentVoiceActivationPrerequisiteKind* {.pure, size: 4.} = enu
   AppCapability = 3'i32
   BackgroundTaskRegistration = 4'i32
   PolicyPermission = 5'i32
-proc `$`*(v: ConversationalAgentVoiceActivationPrerequisiteKind): string =
-  case ord(v)
-  of 0: "MicrophonePermission"
-  of 1: "KnownAgents"
-  of 2: "AgentAllowed"
-  of 3: "AppCapability"
-  of 4: "BackgroundTaskRegistration"
-  of 5: "PolicyPermission"
-  else: "ConversationalAgentVoiceActivationPrerequisiteKind(" & $ord(v) & ")"
+template `$`*(v: ConversationalAgentVoiceActivationPrerequisiteKind): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.DetectionConfigurationAvailabilityChangeKind  (enum)
 type DetectionConfigurationAvailabilityChangeKind* {.pure, size: 4.} = enum
   SystemResourceAccess = 0'i32
   Permission = 1'i32
   LockScreenPermission = 2'i32
-proc `$`*(v: DetectionConfigurationAvailabilityChangeKind): string =
-  case ord(v)
-  of 0: "SystemResourceAccess"
-  of 1: "Permission"
-  of 2: "LockScreenPermission"
-  else: "DetectionConfigurationAvailabilityChangeKind(" & $ord(v) & ")"
+template `$`*(v: DetectionConfigurationAvailabilityChangeKind): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.DetectionConfigurationTrainingStatus  (enum)
 type DetectionConfigurationTrainingStatus* {.pure, size: 4.} = enum
@@ -2514,19 +1575,7 @@ type DetectionConfigurationTrainingStatus* {.pure, size: 4.} = enum
   TrainingSystemInternalError = 7'i32
   TrainingTimedOut = 8'i32
   ConfigurationNotFound = 9'i32
-proc `$`*(v: DetectionConfigurationTrainingStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "FormatNotSupported"
-  of 2: "VoiceTooQuiet"
-  of 3: "VoiceTooLoud"
-  of 4: "VoiceTooFast"
-  of 5: "VoiceTooSlow"
-  of 6: "VoiceQualityProblem"
-  of 7: "TrainingSystemInternalError"
-  of 8: "TrainingTimedOut"
-  of 9: "ConfigurationNotFound"
-  else: "DetectionConfigurationTrainingStatus(" & $ord(v) & ")"
+template `$`*(v: DetectionConfigurationTrainingStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.ConversationalAgent.SignalDetectorResourceKind  (enum)
 type SignalDetectorResourceKind* {.pure, size: 4.} = enum
@@ -2544,23 +1593,7 @@ type SignalDetectorResourceKind* {.pure, size: 4.} = enum
   AcousticEchoCancellation = 11'i32
   ModelIdSupport = 12'i32
   DataChannel = 13'i32
-proc `$`*(v: SignalDetectorResourceKind): string =
-  case ord(v)
-  of 0: "ParallelModelSupport"
-  of 1: "ParallelModelSupportForAgent"
-  of 2: "ParallelSignalSupport"
-  of 3: "ParallelSignalSupportForAgent"
-  of 4: "DisplayOffSupport"
-  of 5: "PluggedInPower"
-  of 6: "Detector"
-  of 7: "SupportedSleepState"
-  of 8: "SupportedBatterySaverState"
-  of 9: "ScreenAvailability"
-  of 10: "InputHardware"
-  of 11: "AcousticEchoCancellation"
-  of 12: "ModelIdSupport"
-  of 13: "DataChannel"
-  else: "SignalDetectorResourceKind(" & $ord(v) & ")"
+template `$`*(v: SignalDetectorResourceKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Core.AppRestartFailureReason  (enum)
 type AppRestartFailureReason* {.pure, size: 4.} = enum
@@ -2568,25 +1601,14 @@ type AppRestartFailureReason* {.pure, size: 4.} = enum
   NotInForeground = 1'i32
   InvalidUser = 2'i32
   Other = 3'i32
-proc `$`*(v: AppRestartFailureReason): string =
-  case ord(v)
-  of 0: "RestartPending"
-  of 1: "NotInForeground"
-  of 2: "InvalidUser"
-  of 3: "Other"
-  else: "AppRestartFailureReason(" & $ord(v) & ")"
+template `$`*(v: AppRestartFailureReason): string = enumName(v)
 
 ## Windows.ApplicationModel.DataTransfer.ClipboardHistoryItemsResultStatus  (enum)
 type ClipboardHistoryItemsResultStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   AccessDenied = 1'i32
   ClipboardHistoryDisabled = 2'i32
-proc `$`*(v: ClipboardHistoryItemsResultStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "AccessDenied"
-  of 2: "ClipboardHistoryDisabled"
-  else: "ClipboardHistoryItemsResultStatus(" & $ord(v) & ")"
+template `$`*(v: ClipboardHistoryItemsResultStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.DataTransfer.DataPackageOperation  (enum)
 type DataPackageOperation* = distinct uint32
@@ -2697,24 +1719,14 @@ type SetHistoryItemAsContentStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   AccessDenied = 1'i32
   ItemDeleted = 2'i32
-proc `$`*(v: SetHistoryItemAsContentStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "AccessDenied"
-  of 2: "ItemDeleted"
-  else: "SetHistoryItemAsContentStatus(" & $ord(v) & ")"
+template `$`*(v: SetHistoryItemAsContentStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.DataTransfer.ShareUITheme  (enum)
 type ShareUITheme* {.pure, size: 4.} = enum
   Default = 0'i32
   Light = 1'i32
   Dark = 2'i32
-proc `$`*(v: ShareUITheme): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Light"
-  of 2: "Dark"
-  else: "ShareUITheme(" & $ord(v) & ")"
+template `$`*(v: ShareUITheme): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailAttachmentDownloadState  (enum)
 type EmailAttachmentDownloadState* {.pure, size: 4.} = enum
@@ -2722,25 +1734,14 @@ type EmailAttachmentDownloadState* {.pure, size: 4.} = enum
   Downloading = 1'i32
   Downloaded = 2'i32
   Failed = 3'i32
-proc `$`*(v: EmailAttachmentDownloadState): string =
-  case ord(v)
-  of 0: "NotDownloaded"
-  of 1: "Downloading"
-  of 2: "Downloaded"
-  of 3: "Failed"
-  else: "EmailAttachmentDownloadState(" & $ord(v) & ")"
+template `$`*(v: EmailAttachmentDownloadState): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailBatchStatus  (enum)
 type EmailBatchStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   ServerSearchSyncManagerError = 1'i32
   ServerSearchUnknownError = 2'i32
-proc `$`*(v: EmailBatchStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "ServerSearchSyncManagerError"
-  of 2: "ServerSearchUnknownError"
-  else: "EmailBatchStatus(" & $ord(v) & ")"
+template `$`*(v: EmailBatchStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailCertificateValidationStatus  (enum)
 type EmailCertificateValidationStatus* {.pure, size: 4.} = enum
@@ -2755,20 +1756,7 @@ type EmailCertificateValidationStatus* {.pure, size: 4.} = enum
   Untrusted = 8'i32
   ServerError = 9'i32
   UnknownFailure = 10'i32
-proc `$`*(v: EmailCertificateValidationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "NoMatch"
-  of 2: "InvalidUsage"
-  of 3: "InvalidCertificate"
-  of 4: "Revoked"
-  of 5: "ChainRevoked"
-  of 6: "RevocationServerFailure"
-  of 7: "Expired"
-  of 8: "Untrusted"
-  of 9: "ServerError"
-  of 10: "UnknownFailure"
-  else: "EmailCertificateValidationStatus(" & $ord(v) & ")"
+template `$`*(v: EmailCertificateValidationStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailFlagState  (enum)
 type EmailFlagState* {.pure, size: 4.} = enum
@@ -2776,25 +1764,14 @@ type EmailFlagState* {.pure, size: 4.} = enum
   Flagged = 1'i32
   Completed = 2'i32
   Cleared = 3'i32
-proc `$`*(v: EmailFlagState): string =
-  case ord(v)
-  of 0: "Unflagged"
-  of 1: "Flagged"
-  of 2: "Completed"
-  of 3: "Cleared"
-  else: "EmailFlagState(" & $ord(v) & ")"
+template `$`*(v: EmailFlagState): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailImportance  (enum)
 type EmailImportance* {.pure, size: 4.} = enum
   Normal = 0'i32
   High = 1'i32
   Low = 2'i32
-proc `$`*(v: EmailImportance): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "High"
-  of 2: "Low"
-  else: "EmailImportance(" & $ord(v) & ")"
+template `$`*(v: EmailImportance): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMailboxActionKind  (enum)
 type EmailMailboxActionKind* {.pure, size: 4.} = enum
@@ -2809,42 +1786,20 @@ type EmailMailboxActionKind* {.pure, size: 4.} = enum
   CreateResponseForwardMessage = 8'i32
   MoveFolder = 9'i32
   MarkFolderForSyncEnabled = 10'i32
-proc `$`*(v: EmailMailboxActionKind): string =
-  case ord(v)
-  of 0: "MarkMessageAsSeen"
-  of 1: "MarkMessageRead"
-  of 2: "ChangeMessageFlagState"
-  of 3: "MoveMessage"
-  of 4: "SaveDraft"
-  of 5: "SendMessage"
-  of 6: "CreateResponseReplyMessage"
-  of 7: "CreateResponseReplyAllMessage"
-  of 8: "CreateResponseForwardMessage"
-  of 9: "MoveFolder"
-  of 10: "MarkFolderForSyncEnabled"
-  else: "EmailMailboxActionKind(" & $ord(v) & ")"
+template `$`*(v: EmailMailboxActionKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMailboxAllowedSmimeEncryptionAlgorithmNegotiation  (enum)
 type EmailMailboxAllowedSmimeEncryptionAlgorithmNegotiation* {.pure, size: 4.} = enum
   None = 0'i32
   StrongAlgorithm = 1'i32
   AnyAlgorithm = 2'i32
-proc `$`*(v: EmailMailboxAllowedSmimeEncryptionAlgorithmNegotiation): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "StrongAlgorithm"
-  of 2: "AnyAlgorithm"
-  else: "EmailMailboxAllowedSmimeEncryptionAlgorithmNegotiation(" & $ord(v) & ")"
+template `$`*(v: EmailMailboxAllowedSmimeEncryptionAlgorithmNegotiation): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMailboxAutoReplyMessageResponseKind  (enum)
 type EmailMailboxAutoReplyMessageResponseKind* {.pure, size: 4.} = enum
   Html = 0'i32
   PlainText = 1'i32
-proc `$`*(v: EmailMailboxAutoReplyMessageResponseKind): string =
-  case ord(v)
-  of 0: "Html"
-  of 1: "PlainText"
-  else: "EmailMailboxAutoReplyMessageResponseKind(" & $ord(v) & ")"
+template `$`*(v: EmailMailboxAutoReplyMessageResponseKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMailboxChangeType  (enum)
 type EmailMailboxChangeType* {.pure, size: 4.} = enum
@@ -2855,16 +1810,7 @@ type EmailMailboxChangeType* {.pure, size: 4.} = enum
   FolderModified = 4'i32
   FolderDeleted = 5'i32
   ChangeTrackingLost = 6'i32
-proc `$`*(v: EmailMailboxChangeType): string =
-  case ord(v)
-  of 0: "MessageCreated"
-  of 1: "MessageModified"
-  of 2: "MessageDeleted"
-  of 3: "FolderCreated"
-  of 4: "FolderModified"
-  of 5: "FolderDeleted"
-  of 6: "ChangeTrackingLost"
-  else: "EmailMailboxChangeType(" & $ord(v) & ")"
+template `$`*(v: EmailMailboxChangeType): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMailboxCreateFolderStatus  (enum)
 type EmailMailboxCreateFolderStatus* {.pure, size: 4.} = enum
@@ -2875,16 +1821,7 @@ type EmailMailboxCreateFolderStatus* {.pure, size: 4.} = enum
   UnknownFailure = 4'i32
   NameCollision = 5'i32
   ServerRejected = 6'i32
-proc `$`*(v: EmailMailboxCreateFolderStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "NetworkError"
-  of 2: "PermissionsError"
-  of 3: "ServerError"
-  of 4: "UnknownFailure"
-  of 5: "NameCollision"
-  of 6: "ServerRejected"
-  else: "EmailMailboxCreateFolderStatus(" & $ord(v) & ")"
+template `$`*(v: EmailMailboxCreateFolderStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMailboxDeleteFolderStatus  (enum)
 type EmailMailboxDeleteFolderStatus* {.pure, size: 4.} = enum
@@ -2894,15 +1831,7 @@ type EmailMailboxDeleteFolderStatus* {.pure, size: 4.} = enum
   ServerError = 3'i32
   UnknownFailure = 4'i32
   CouldNotDeleteEverything = 5'i32
-proc `$`*(v: EmailMailboxDeleteFolderStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "NetworkError"
-  of 2: "PermissionsError"
-  of 3: "ServerError"
-  of 4: "UnknownFailure"
-  of 5: "CouldNotDeleteEverything"
-  else: "EmailMailboxDeleteFolderStatus(" & $ord(v) & ")"
+template `$`*(v: EmailMailboxDeleteFolderStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMailboxEmptyFolderStatus  (enum)
 type EmailMailboxEmptyFolderStatus* {.pure, size: 4.} = enum
@@ -2912,37 +1841,20 @@ type EmailMailboxEmptyFolderStatus* {.pure, size: 4.} = enum
   ServerError = 3'i32
   UnknownFailure = 4'i32
   CouldNotDeleteEverything = 5'i32
-proc `$`*(v: EmailMailboxEmptyFolderStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "NetworkError"
-  of 2: "PermissionsError"
-  of 3: "ServerError"
-  of 4: "UnknownFailure"
-  of 5: "CouldNotDeleteEverything"
-  else: "EmailMailboxEmptyFolderStatus(" & $ord(v) & ")"
+template `$`*(v: EmailMailboxEmptyFolderStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMailboxOtherAppReadAccess  (enum)
 type EmailMailboxOtherAppReadAccess* {.pure, size: 4.} = enum
   SystemOnly = 0'i32
   Full = 1'i32
   None = 2'i32
-proc `$`*(v: EmailMailboxOtherAppReadAccess): string =
-  case ord(v)
-  of 0: "SystemOnly"
-  of 1: "Full"
-  of 2: "None"
-  else: "EmailMailboxOtherAppReadAccess(" & $ord(v) & ")"
+template `$`*(v: EmailMailboxOtherAppReadAccess): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMailboxOtherAppWriteAccess  (enum)
 type EmailMailboxOtherAppWriteAccess* {.pure, size: 4.} = enum
   None = 0'i32
   Limited = 1'i32
-proc `$`*(v: EmailMailboxOtherAppWriteAccess): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Limited"
-  else: "EmailMailboxOtherAppWriteAccess(" & $ord(v) & ")"
+template `$`*(v: EmailMailboxOtherAppWriteAccess): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMailboxSmimeEncryptionAlgorithm  (enum)
 type EmailMailboxSmimeEncryptionAlgorithm* {.pure, size: 4.} = enum
@@ -2952,27 +1864,14 @@ type EmailMailboxSmimeEncryptionAlgorithm* {.pure, size: 4.} = enum
   RC2128Bit = 3'i32
   RC264Bit = 4'i32
   RC240Bit = 5'i32
-proc `$`*(v: EmailMailboxSmimeEncryptionAlgorithm): string =
-  case ord(v)
-  of 0: "Any"
-  of 1: "TripleDes"
-  of 2: "Des"
-  of 3: "RC2128Bit"
-  of 4: "RC264Bit"
-  of 5: "RC240Bit"
-  else: "EmailMailboxSmimeEncryptionAlgorithm(" & $ord(v) & ")"
+template `$`*(v: EmailMailboxSmimeEncryptionAlgorithm): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMailboxSmimeSigningAlgorithm  (enum)
 type EmailMailboxSmimeSigningAlgorithm* {.pure, size: 4.} = enum
   Any = 0'i32
   Sha1 = 1'i32
   MD5 = 2'i32
-proc `$`*(v: EmailMailboxSmimeSigningAlgorithm): string =
-  case ord(v)
-  of 0: "Any"
-  of 1: "Sha1"
-  of 2: "MD5"
-  else: "EmailMailboxSmimeSigningAlgorithm(" & $ord(v) & ")"
+template `$`*(v: EmailMailboxSmimeSigningAlgorithm): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMailboxSyncStatus  (enum)
 type EmailMailboxSyncStatus* {.pure, size: 4.} = enum
@@ -2983,38 +1882,20 @@ type EmailMailboxSyncStatus* {.pure, size: 4.} = enum
   PolicyError = 4'i32
   UnknownError = 5'i32
   ManualAccountRemovalRequired = 6'i32
-proc `$`*(v: EmailMailboxSyncStatus): string =
-  case ord(v)
-  of 0: "Idle"
-  of 1: "Syncing"
-  of 2: "UpToDate"
-  of 3: "AuthenticationError"
-  of 4: "PolicyError"
-  of 5: "UnknownError"
-  of 6: "ManualAccountRemovalRequired"
-  else: "EmailMailboxSyncStatus(" & $ord(v) & ")"
+template `$`*(v: EmailMailboxSyncStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMeetingResponseType  (enum)
 type EmailMeetingResponseType* {.pure, size: 4.} = enum
   Accept = 0'i32
   Decline = 1'i32
   Tentative = 2'i32
-proc `$`*(v: EmailMeetingResponseType): string =
-  case ord(v)
-  of 0: "Accept"
-  of 1: "Decline"
-  of 2: "Tentative"
-  else: "EmailMeetingResponseType(" & $ord(v) & ")"
+template `$`*(v: EmailMeetingResponseType): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMessageBodyKind  (enum)
 type EmailMessageBodyKind* {.pure, size: 4.} = enum
   Html = 0'i32
   PlainText = 1'i32
-proc `$`*(v: EmailMessageBodyKind): string =
-  case ord(v)
-  of 0: "Html"
-  of 1: "PlainText"
-  else: "EmailMessageBodyKind(" & $ord(v) & ")"
+template `$`*(v: EmailMessageBodyKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMessageDownloadState  (enum)
 type EmailMessageDownloadState* {.pure, size: 4.} = enum
@@ -3022,13 +1903,7 @@ type EmailMessageDownloadState* {.pure, size: 4.} = enum
   Downloading = 1'i32
   Downloaded = 2'i32
   Failed = 3'i32
-proc `$`*(v: EmailMessageDownloadState): string =
-  case ord(v)
-  of 0: "PartiallyDownloaded"
-  of 1: "Downloading"
-  of 2: "Downloaded"
-  of 3: "Failed"
-  else: "EmailMessageDownloadState(" & $ord(v) & ")"
+template `$`*(v: EmailMessageDownloadState): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMessageResponseKind  (enum)
 type EmailMessageResponseKind* {.pure, size: 4.} = enum
@@ -3036,13 +1911,7 @@ type EmailMessageResponseKind* {.pure, size: 4.} = enum
   Reply = 1'i32
   ReplyAll = 2'i32
   Forward = 3'i32
-proc `$`*(v: EmailMessageResponseKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Reply"
-  of 2: "ReplyAll"
-  of 3: "Forward"
-  else: "EmailMessageResponseKind(" & $ord(v) & ")"
+template `$`*(v: EmailMessageResponseKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailMessageSmimeKind  (enum)
 type EmailMessageSmimeKind* {.pure, size: 4.} = enum
@@ -3050,13 +1919,7 @@ type EmailMessageSmimeKind* {.pure, size: 4.} = enum
   ClearSigned = 1'i32
   OpaqueSigned = 2'i32
   Encrypted = 3'i32
-proc `$`*(v: EmailMessageSmimeKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "ClearSigned"
-  of 2: "OpaqueSigned"
-  of 3: "Encrypted"
-  else: "EmailMessageSmimeKind(" & $ord(v) & ")"
+template `$`*(v: EmailMessageSmimeKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailQueryKind  (enum)
 type EmailQueryKind* {.pure, size: 4.} = enum
@@ -3066,15 +1929,7 @@ type EmailQueryKind* {.pure, size: 4.} = enum
   Unread = 3'i32
   Read = 4'i32
   Unseen = 5'i32
-proc `$`*(v: EmailQueryKind): string =
-  case ord(v)
-  of 0: "All"
-  of 1: "Important"
-  of 2: "Flagged"
-  of 3: "Unread"
-  of 4: "Read"
-  of 5: "Unseen"
-  else: "EmailQueryKind(" & $ord(v) & ")"
+template `$`*(v: EmailQueryKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailQuerySearchFields  (enum)
 type EmailQuerySearchFields* = distinct uint32
@@ -3123,29 +1978,18 @@ const EmailQuerySearchFields_All* = EmailQuerySearchFields(4294967295'u32)
 type EmailQuerySearchScope* {.pure, size: 4.} = enum
   Local = 0'i32
   Server = 1'i32
-proc `$`*(v: EmailQuerySearchScope): string =
-  case ord(v)
-  of 0: "Local"
-  of 1: "Server"
-  else: "EmailQuerySearchScope(" & $ord(v) & ")"
+template `$`*(v: EmailQuerySearchScope): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailQuerySortDirection  (enum)
 type EmailQuerySortDirection* {.pure, size: 4.} = enum
   Descending = 0'i32
   Ascending = 1'i32
-proc `$`*(v: EmailQuerySortDirection): string =
-  case ord(v)
-  of 0: "Descending"
-  of 1: "Ascending"
-  else: "EmailQuerySortDirection(" & $ord(v) & ")"
+template `$`*(v: EmailQuerySortDirection): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailQuerySortProperty  (enum)
 type EmailQuerySortProperty* {.pure, size: 4.} = enum
   Date = 0'i32
-proc `$`*(v: EmailQuerySortProperty): string =
-  case ord(v)
-  of 0: "Date"
-  else: "EmailQuerySortProperty(" & $ord(v) & ")"
+template `$`*(v: EmailQuerySortProperty): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailRecipientResolutionStatus  (enum)
 type EmailRecipientResolutionStatus* {.pure, size: 4.} = enum
@@ -3157,17 +2001,7 @@ type EmailRecipientResolutionStatus* {.pure, size: 4.} = enum
   CannotResolveDistributionList = 5'i32
   ServerError = 6'i32
   UnknownFailure = 7'i32
-proc `$`*(v: EmailRecipientResolutionStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "RecipientNotFound"
-  of 2: "AmbiguousRecipient"
-  of 3: "NoCertificate"
-  of 4: "CertificateRequestLimitReached"
-  of 5: "CannotResolveDistributionList"
-  of 6: "ServerError"
-  of 7: "UnknownFailure"
-  else: "EmailRecipientResolutionStatus(" & $ord(v) & ")"
+template `$`*(v: EmailRecipientResolutionStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailSpecialFolderKind  (enum)
 type EmailSpecialFolderKind* {.pure, size: 4.} = enum
@@ -3178,58 +2012,32 @@ type EmailSpecialFolderKind* {.pure, size: 4.} = enum
   Drafts = 4'i32
   DeletedItems = 5'i32
   Sent = 6'i32
-proc `$`*(v: EmailSpecialFolderKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Root"
-  of 2: "Inbox"
-  of 3: "Outbox"
-  of 4: "Drafts"
-  of 5: "DeletedItems"
-  of 6: "Sent"
-  else: "EmailSpecialFolderKind(" & $ord(v) & ")"
+template `$`*(v: EmailSpecialFolderKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Email.EmailStoreAccessType  (enum)
 type EmailStoreAccessType* {.pure, size: 4.} = enum
   AppMailboxesReadWrite = 0'i32
   AllMailboxesLimitedReadWrite = 1'i32
-proc `$`*(v: EmailStoreAccessType): string =
-  case ord(v)
-  of 0: "AppMailboxesReadWrite"
-  of 1: "AllMailboxesLimitedReadWrite"
-  else: "EmailStoreAccessType(" & $ord(v) & ")"
+template `$`*(v: EmailStoreAccessType): string = enumName(v)
 
 ## Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionReason  (enum)
 type ExtendedExecutionReason* {.pure, size: 4.} = enum
   Unspecified = 0'i32
   LocationTracking = 1'i32
   SavingData = 2'i32
-proc `$`*(v: ExtendedExecutionReason): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "LocationTracking"
-  of 2: "SavingData"
-  else: "ExtendedExecutionReason(" & $ord(v) & ")"
+template `$`*(v: ExtendedExecutionReason): string = enumName(v)
 
 ## Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionResult  (enum)
 type ExtendedExecutionResult* {.pure, size: 4.} = enum
   Allowed = 0'i32
   Denied = 1'i32
-proc `$`*(v: ExtendedExecutionResult): string =
-  case ord(v)
-  of 0: "Allowed"
-  of 1: "Denied"
-  else: "ExtendedExecutionResult(" & $ord(v) & ")"
+template `$`*(v: ExtendedExecutionResult): string = enumName(v)
 
 ## Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionRevokedReason  (enum)
 type ExtendedExecutionRevokedReason* {.pure, size: 4.} = enum
   Resumed = 0'i32
   SystemPolicy = 1'i32
-proc `$`*(v: ExtendedExecutionRevokedReason): string =
-  case ord(v)
-  of 0: "Resumed"
-  of 1: "SystemPolicy"
-  else: "ExtendedExecutionRevokedReason(" & $ord(v) & ")"
+template `$`*(v: ExtendedExecutionRevokedReason): string = enumName(v)
 
 ## Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundReason  (enum)
 type ExtendedExecutionForegroundReason* {.pure, size: 4.} = enum
@@ -3237,33 +2045,19 @@ type ExtendedExecutionForegroundReason* {.pure, size: 4.} = enum
   SavingData = 1'i32
   BackgroundAudio = 2'i32
   Unconstrained = 3'i32
-proc `$`*(v: ExtendedExecutionForegroundReason): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "SavingData"
-  of 2: "BackgroundAudio"
-  of 3: "Unconstrained"
-  else: "ExtendedExecutionForegroundReason(" & $ord(v) & ")"
+template `$`*(v: ExtendedExecutionForegroundReason): string = enumName(v)
 
 ## Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundResult  (enum)
 type ExtendedExecutionForegroundResult* {.pure, size: 4.} = enum
   Allowed = 0'i32
   Denied = 1'i32
-proc `$`*(v: ExtendedExecutionForegroundResult): string =
-  case ord(v)
-  of 0: "Allowed"
-  of 1: "Denied"
-  else: "ExtendedExecutionForegroundResult(" & $ord(v) & ")"
+template `$`*(v: ExtendedExecutionForegroundResult): string = enumName(v)
 
 ## Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundRevokedReason  (enum)
 type ExtendedExecutionForegroundRevokedReason* {.pure, size: 4.} = enum
   Resumed = 0'i32
   SystemPolicy = 1'i32
-proc `$`*(v: ExtendedExecutionForegroundRevokedReason): string =
-  case ord(v)
-  of 0: "Resumed"
-  of 1: "SystemPolicy"
-  else: "ExtendedExecutionForegroundRevokedReason(" & $ord(v) & ")"
+template `$`*(v: ExtendedExecutionForegroundRevokedReason): string = enumName(v)
 
 ## Windows.ApplicationModel.FullTrustLaunchResult  (enum)
 type FullTrustLaunchResult* {.pure, size: 4.} = enum
@@ -3271,13 +2065,7 @@ type FullTrustLaunchResult* {.pure, size: 4.} = enum
   AccessDenied = 1'i32
   FileNotFound = 2'i32
   Unknown = 3'i32
-proc `$`*(v: FullTrustLaunchResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "AccessDenied"
-  of 2: "FileNotFound"
-  of 3: "Unknown"
-  else: "FullTrustLaunchResult(" & $ord(v) & ")"
+template `$`*(v: FullTrustLaunchResult): string = enumName(v)
 
 ## Windows.ApplicationModel.LimitedAccessFeatureStatus  (enum)
 type LimitedAccessFeatureStatus* {.pure, size: 4.} = enum
@@ -3285,13 +2073,7 @@ type LimitedAccessFeatureStatus* {.pure, size: 4.} = enum
   Available = 1'i32
   AvailableWithoutToken = 2'i32
   Unknown = 3'i32
-proc `$`*(v: LimitedAccessFeatureStatus): string =
-  case ord(v)
-  of 0: "Unavailable"
-  of 1: "Available"
-  of 2: "AvailableWithoutToken"
-  of 3: "Unknown"
-  else: "LimitedAccessFeatureStatus(" & $ord(v) & ")"
+template `$`*(v: LimitedAccessFeatureStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.PackageContentGroupState  (enum)
 type PackageContentGroupState* {.pure, size: 4.} = enum
@@ -3299,25 +2081,14 @@ type PackageContentGroupState* {.pure, size: 4.} = enum
   Queued = 1'i32
   Staging = 2'i32
   Staged = 3'i32
-proc `$`*(v: PackageContentGroupState): string =
-  case ord(v)
-  of 0: "NotStaged"
-  of 1: "Queued"
-  of 2: "Staging"
-  of 3: "Staged"
-  else: "PackageContentGroupState(" & $ord(v) & ")"
+template `$`*(v: PackageContentGroupState): string = enumName(v)
 
 ## Windows.ApplicationModel.PackageRelationship  (enum)
 type PackageRelationship* {.pure, size: 4.} = enum
   Dependencies = 0'i32
   Dependents = 1'i32
   All = 2'i32
-proc `$`*(v: PackageRelationship): string =
-  case ord(v)
-  of 0: "Dependencies"
-  of 1: "Dependents"
-  of 2: "All"
-  else: "PackageRelationship(" & $ord(v) & ")"
+template `$`*(v: PackageRelationship): string = enumName(v)
 
 ## Windows.ApplicationModel.PackageSignatureKind  (enum)
 type PackageSignatureKind* {.pure, size: 4.} = enum
@@ -3326,14 +2097,7 @@ type PackageSignatureKind* {.pure, size: 4.} = enum
   Enterprise = 2'i32
   Store = 3'i32
   System = 4'i32
-proc `$`*(v: PackageSignatureKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Developer"
-  of 2: "Enterprise"
-  of 3: "Store"
-  of 4: "System"
-  else: "PackageSignatureKind(" & $ord(v) & ")"
+template `$`*(v: PackageSignatureKind): string = enumName(v)
 
 ## Windows.ApplicationModel.PackageUpdateAvailability  (enum)
 type PackageUpdateAvailability* {.pure, size: 4.} = enum
@@ -3342,14 +2106,7 @@ type PackageUpdateAvailability* {.pure, size: 4.} = enum
   Available = 2'i32
   Required = 3'i32
   Error = 4'i32
-proc `$`*(v: PackageUpdateAvailability): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "NoUpdates"
-  of 2: "Available"
-  of 3: "Required"
-  of 4: "Error"
-  else: "PackageUpdateAvailability(" & $ord(v) & ")"
+template `$`*(v: PackageUpdateAvailability): string = enumName(v)
 
 ## Windows.ApplicationModel.Payments.PaymentCanMakePaymentResultStatus  (enum)
 type PaymentCanMakePaymentResultStatus* {.pure, size: 4.} = enum
@@ -3360,74 +2117,41 @@ type PaymentCanMakePaymentResultStatus* {.pure, size: 4.} = enum
   UserNotSignedIn = 4'i32
   SpecifiedPaymentMethodIdsNotSupported = 5'i32
   NoQualifyingCardOnFile = 6'i32
-proc `$`*(v: PaymentCanMakePaymentResultStatus): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Yes"
-  of 2: "No"
-  of 3: "NotAllowed"
-  of 4: "UserNotSignedIn"
-  of 5: "SpecifiedPaymentMethodIdsNotSupported"
-  of 6: "NoQualifyingCardOnFile"
-  else: "PaymentCanMakePaymentResultStatus(" & $ord(v) & ")"
+template `$`*(v: PaymentCanMakePaymentResultStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Payments.PaymentOptionPresence  (enum)
 type PaymentOptionPresence* {.pure, size: 4.} = enum
   None = 0'i32
   Optional = 1'i32
   Required = 2'i32
-proc `$`*(v: PaymentOptionPresence): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Optional"
-  of 2: "Required"
-  else: "PaymentOptionPresence(" & $ord(v) & ")"
+template `$`*(v: PaymentOptionPresence): string = enumName(v)
 
 ## Windows.ApplicationModel.Payments.PaymentRequestChangeKind  (enum)
 type PaymentRequestChangeKind* {.pure, size: 4.} = enum
   ShippingOption = 0'i32
   ShippingAddress = 1'i32
-proc `$`*(v: PaymentRequestChangeKind): string =
-  case ord(v)
-  of 0: "ShippingOption"
-  of 1: "ShippingAddress"
-  else: "PaymentRequestChangeKind(" & $ord(v) & ")"
+template `$`*(v: PaymentRequestChangeKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Payments.PaymentRequestCompletionStatus  (enum)
 type PaymentRequestCompletionStatus* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   Failed = 1'i32
   Unknown = 2'i32
-proc `$`*(v: PaymentRequestCompletionStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "Failed"
-  of 2: "Unknown"
-  else: "PaymentRequestCompletionStatus(" & $ord(v) & ")"
+template `$`*(v: PaymentRequestCompletionStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Payments.PaymentRequestStatus  (enum)
 type PaymentRequestStatus* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   Failed = 1'i32
   Canceled = 2'i32
-proc `$`*(v: PaymentRequestStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "Failed"
-  of 2: "Canceled"
-  else: "PaymentRequestStatus(" & $ord(v) & ")"
+template `$`*(v: PaymentRequestStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Payments.PaymentShippingType  (enum)
 type PaymentShippingType* {.pure, size: 4.} = enum
   Shipping = 0'i32
   Delivery = 1'i32
   Pickup = 2'i32
-proc `$`*(v: PaymentShippingType): string =
-  case ord(v)
-  of 0: "Shipping"
-  of 1: "Delivery"
-  of 2: "Pickup"
-  else: "PaymentShippingType(" & $ord(v) & ")"
+template `$`*(v: PaymentShippingType): string = enumName(v)
 
 ## Windows.ApplicationModel.Preview.StartupAppImpactPreview  (enum)
 type StartupAppImpactPreview* {.pure, size: 4.} = enum
@@ -3436,104 +2160,60 @@ type StartupAppImpactPreview* {.pure, size: 4.} = enum
   Low = 2'i32
   Medium = 3'i32
   High = 4'i32
-proc `$`*(v: StartupAppImpactPreview): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "None"
-  of 2: "Low"
-  of 3: "Medium"
-  of 4: "High"
-  else: "StartupAppImpactPreview(" & $ord(v) & ")"
+template `$`*(v: StartupAppImpactPreview): string = enumName(v)
 
 ## Windows.ApplicationModel.Resources.Core.ResourceCandidateKind  (enum)
 type ResourceCandidateKind* {.pure, size: 4.} = enum
   String = 0'i32
   File = 1'i32
   EmbeddedData = 2'i32
-proc `$`*(v: ResourceCandidateKind): string =
-  case ord(v)
-  of 0: "String"
-  of 1: "File"
-  of 2: "EmbeddedData"
-  else: "ResourceCandidateKind(" & $ord(v) & ")"
+template `$`*(v: ResourceCandidateKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Resources.Core.ResourceQualifierPersistence  (enum)
 type ResourceQualifierPersistence* {.pure, size: 4.} = enum
   None = 0'i32
   LocalMachine = 1'i32
-proc `$`*(v: ResourceQualifierPersistence): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "LocalMachine"
-  else: "ResourceQualifierPersistence(" & $ord(v) & ")"
+template `$`*(v: ResourceQualifierPersistence): string = enumName(v)
 
 ## Windows.ApplicationModel.Resources.Management.IndexedResourceType  (enum)
 type IndexedResourceType* {.pure, size: 4.} = enum
   String = 0'i32
   Path = 1'i32
   EmbeddedData = 2'i32
-proc `$`*(v: IndexedResourceType): string =
-  case ord(v)
-  of 0: "String"
-  of 1: "Path"
-  of 2: "EmbeddedData"
-  else: "IndexedResourceType(" & $ord(v) & ")"
+template `$`*(v: IndexedResourceType): string = enumName(v)
 
 ## Windows.ApplicationModel.Search.Core.SearchSuggestionKind  (enum)
 type SearchSuggestionKind* {.pure, size: 4.} = enum
   Query = 0'i32
   `Result` = 1'i32
   Separator = 2'i32
-proc `$`*(v: SearchSuggestionKind): string =
-  case ord(v)
-  of 0: "Query"
-  of 1: "Result"
-  of 2: "Separator"
-  else: "SearchSuggestionKind(" & $ord(v) & ")"
+template `$`*(v: SearchSuggestionKind): string = enumName(v)
 
 ## Windows.ApplicationModel.SocialInfo.SocialFeedItemStyle  (enum)
 type SocialFeedItemStyle* {.pure, size: 4.} = enum
   Default = 0'i32
   Photo = 1'i32
-proc `$`*(v: SocialFeedItemStyle): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Photo"
-  else: "SocialFeedItemStyle(" & $ord(v) & ")"
+template `$`*(v: SocialFeedItemStyle): string = enumName(v)
 
 ## Windows.ApplicationModel.SocialInfo.SocialFeedKind  (enum)
 type SocialFeedKind* {.pure, size: 4.} = enum
   HomeFeed = 0'i32
   ContactFeed = 1'i32
   Dashboard = 2'i32
-proc `$`*(v: SocialFeedKind): string =
-  case ord(v)
-  of 0: "HomeFeed"
-  of 1: "ContactFeed"
-  of 2: "Dashboard"
-  else: "SocialFeedKind(" & $ord(v) & ")"
+template `$`*(v: SocialFeedKind): string = enumName(v)
 
 ## Windows.ApplicationModel.SocialInfo.SocialFeedUpdateMode  (enum)
 type SocialFeedUpdateMode* {.pure, size: 4.} = enum
   Append = 0'i32
   Replace = 1'i32
-proc `$`*(v: SocialFeedUpdateMode): string =
-  case ord(v)
-  of 0: "Append"
-  of 1: "Replace"
-  else: "SocialFeedUpdateMode(" & $ord(v) & ")"
+template `$`*(v: SocialFeedUpdateMode): string = enumName(v)
 
 ## Windows.ApplicationModel.SocialInfo.SocialItemBadgeStyle  (enum)
 type SocialItemBadgeStyle* {.pure, size: 4.} = enum
   Hidden = 0'i32
   Visible = 1'i32
   VisibleWithCount = 2'i32
-proc `$`*(v: SocialItemBadgeStyle): string =
-  case ord(v)
-  of 0: "Hidden"
-  of 1: "Visible"
-  of 2: "VisibleWithCount"
-  else: "SocialItemBadgeStyle(" & $ord(v) & ")"
+template `$`*(v: SocialItemBadgeStyle): string = enumName(v)
 
 ## Windows.ApplicationModel.StartupTaskState  (enum)
 type StartupTaskState* {.pure, size: 4.} = enum
@@ -3542,14 +2222,7 @@ type StartupTaskState* {.pure, size: 4.} = enum
   Enabled = 2'i32
   DisabledByPolicy = 3'i32
   EnabledByPolicy = 4'i32
-proc `$`*(v: StartupTaskState): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "DisabledByUser"
-  of 2: "Enabled"
-  of 3: "DisabledByPolicy"
-  of 4: "EnabledByPolicy"
-  else: "StartupTaskState(" & $ord(v) & ")"
+template `$`*(v: StartupTaskState): string = enumName(v)
 
 ## Windows.ApplicationModel.Store.FulfillmentResult  (enum)
 type FulfillmentResult* {.pure, size: 4.} = enum
@@ -3558,24 +2231,13 @@ type FulfillmentResult* {.pure, size: 4.} = enum
   PurchasePending = 2'i32
   PurchaseReverted = 3'i32
   ServerError = 4'i32
-proc `$`*(v: FulfillmentResult): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "NothingToFulfill"
-  of 2: "PurchasePending"
-  of 3: "PurchaseReverted"
-  of 4: "ServerError"
-  else: "FulfillmentResult(" & $ord(v) & ")"
+template `$`*(v: FulfillmentResult): string = enumName(v)
 
 ## Windows.ApplicationModel.Store.LicenseManagement.LicenseRefreshOption  (enum)
 type LicenseRefreshOption* {.pure, size: 4.} = enum
   RunningLicenses = 0'i32
   AllLicenses = 1'i32
-proc `$`*(v: LicenseRefreshOption): string =
-  case ord(v)
-  of 0: "RunningLicenses"
-  of 1: "AllLicenses"
-  else: "LicenseRefreshOption(" & $ord(v) & ")"
+template `$`*(v: LicenseRefreshOption): string = enumName(v)
 
 ## Windows.ApplicationModel.Store.Preview.DeliveryOptimizationDownloadMode  (enum)
 type DeliveryOptimizationDownloadMode* {.pure, size: 4.} = enum
@@ -3585,25 +2247,13 @@ type DeliveryOptimizationDownloadMode* {.pure, size: 4.} = enum
   Group = 3'i32
   Internet = 4'i32
   Bypass = 5'i32
-proc `$`*(v: DeliveryOptimizationDownloadMode): string =
-  case ord(v)
-  of 0: "Simple"
-  of 1: "HttpOnly"
-  of 2: "Lan"
-  of 3: "Group"
-  of 4: "Internet"
-  of 5: "Bypass"
-  else: "DeliveryOptimizationDownloadMode(" & $ord(v) & ")"
+template `$`*(v: DeliveryOptimizationDownloadMode): string = enumName(v)
 
 ## Windows.ApplicationModel.Store.Preview.DeliveryOptimizationDownloadModeSource  (enum)
 type DeliveryOptimizationDownloadModeSource* {.pure, size: 4.} = enum
   Default = 0'i32
   Policy = 1'i32
-proc `$`*(v: DeliveryOptimizationDownloadModeSource): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Policy"
-  else: "DeliveryOptimizationDownloadModeSource(" & $ord(v) & ")"
+template `$`*(v: DeliveryOptimizationDownloadModeSource): string = enumName(v)
 
 ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallState  (enum)
 type AppInstallState* {.pure, size: 4.} = enum
@@ -3621,35 +2271,14 @@ type AppInstallState* {.pure, size: 4.} = enum
   PausedWiFiRecommended = 11'i32
   PausedWiFiRequired = 12'i32
   ReadyToDownload = 13'i32
-proc `$`*(v: AppInstallState): string =
-  case ord(v)
-  of 0: "Pending"
-  of 1: "Starting"
-  of 2: "AcquiringLicense"
-  of 3: "Downloading"
-  of 4: "RestoringData"
-  of 5: "Installing"
-  of 6: "Completed"
-  of 7: "Canceled"
-  of 8: "Paused"
-  of 9: "Error"
-  of 10: "PausedLowBattery"
-  of 11: "PausedWiFiRecommended"
-  of 12: "PausedWiFiRequired"
-  of 13: "ReadyToDownload"
-  else: "AppInstallState(" & $ord(v) & ")"
+template `$`*(v: AppInstallState): string = enumName(v)
 
 ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallType  (enum)
 type AppInstallType* {.pure, size: 4.} = enum
   Install = 0'i32
   Update = 1'i32
   Repair = 2'i32
-proc `$`*(v: AppInstallType): string =
-  case ord(v)
-  of 0: "Install"
-  of 1: "Update"
-  of 2: "Repair"
-  else: "AppInstallType(" & $ord(v) & ")"
+template `$`*(v: AppInstallType): string = enumName(v)
 
 ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallationToastNotificationMode  (enum)
 type AppInstallationToastNotificationMode* {.pure, size: 4.} = enum
@@ -3657,13 +2286,7 @@ type AppInstallationToastNotificationMode* {.pure, size: 4.} = enum
   Toast = 1'i32
   ToastWithoutPopup = 2'i32
   NoToast = 3'i32
-proc `$`*(v: AppInstallationToastNotificationMode): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Toast"
-  of 2: "ToastWithoutPopup"
-  of 3: "NoToast"
-  else: "AppInstallationToastNotificationMode(" & $ord(v) & ")"
+template `$`*(v: AppInstallationToastNotificationMode): string = enumName(v)
 
 ## Windows.ApplicationModel.Store.Preview.InstallControl.AutoUpdateSetting  (enum)
 type AutoUpdateSetting* {.pure, size: 4.} = enum
@@ -3671,13 +2294,7 @@ type AutoUpdateSetting* {.pure, size: 4.} = enum
   Enabled = 1'i32
   DisabledByPolicy = 2'i32
   EnabledByPolicy = 3'i32
-proc `$`*(v: AutoUpdateSetting): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "Enabled"
-  of 2: "DisabledByPolicy"
-  of 3: "EnabledByPolicy"
-  else: "AutoUpdateSetting(" & $ord(v) & ")"
+template `$`*(v: AutoUpdateSetting): string = enumName(v)
 
 ## Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementStatus  (enum)
 type GetEntitlementStatus* {.pure, size: 4.} = enum
@@ -3685,13 +2302,7 @@ type GetEntitlementStatus* {.pure, size: 4.} = enum
   NoStoreAccount = 1'i32
   NetworkError = 2'i32
   ServerError = 3'i32
-proc `$`*(v: GetEntitlementStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "NoStoreAccount"
-  of 2: "NetworkError"
-  of 3: "ServerError"
-  else: "GetEntitlementStatus(" & $ord(v) & ")"
+template `$`*(v: GetEntitlementStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Store.Preview.StoreLogOptions  (enum)
 type StoreLogOptions* = distinct uint32
@@ -3722,13 +2333,7 @@ type StorePreviewProductPurchaseStatus* {.pure, size: 4.} = enum
   AlreadyPurchased = 1'i32
   NotFulfilled = 2'i32
   NotPurchased = 3'i32
-proc `$`*(v: StorePreviewProductPurchaseStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "AlreadyPurchased"
-  of 2: "NotFulfilled"
-  of 3: "NotPurchased"
-  else: "StorePreviewProductPurchaseStatus(" & $ord(v) & ")"
+template `$`*(v: StorePreviewProductPurchaseStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Store.Preview.StoreSystemFeature  (enum)
 type StoreSystemFeature* {.pure, size: 4.} = enum
@@ -3767,44 +2372,7 @@ type StoreSystemFeature* {.pure, size: 4.} = enum
   VideoMemory6GB = 32'i32
   VideoMemory1GB = 33'i32
   ArchitectureArm64 = 34'i32
-proc `$`*(v: StoreSystemFeature): string =
-  case ord(v)
-  of 0: "ArchitectureX86"
-  of 1: "ArchitectureX64"
-  of 2: "ArchitectureArm"
-  of 3: "DirectX9"
-  of 4: "DirectX10"
-  of 5: "DirectX11"
-  of 6: "D3D12HardwareFL11"
-  of 7: "D3D12HardwareFL12"
-  of 8: "Memory300MB"
-  of 9: "Memory750MB"
-  of 10: "Memory1GB"
-  of 11: "Memory2GB"
-  of 12: "CameraFront"
-  of 13: "CameraRear"
-  of 14: "Gyroscope"
-  of 15: "Hover"
-  of 16: "Magnetometer"
-  of 17: "Nfc"
-  of 18: "Resolution720P"
-  of 19: "ResolutionWvga"
-  of 20: "ResolutionWvgaOr720P"
-  of 21: "ResolutionWxga"
-  of 22: "ResolutionWvgaOrWxga"
-  of 23: "ResolutionWxgaOr720P"
-  of 24: "Memory4GB"
-  of 25: "Memory6GB"
-  of 26: "Memory8GB"
-  of 27: "Memory12GB"
-  of 28: "Memory16GB"
-  of 29: "Memory20GB"
-  of 30: "VideoMemory2GB"
-  of 31: "VideoMemory4GB"
-  of 32: "VideoMemory6GB"
-  of 33: "VideoMemory1GB"
-  of 34: "ArchitectureArm64"
-  else: "StoreSystemFeature(" & $ord(v) & ")"
+template `$`*(v: StoreSystemFeature): string = enumName(v)
 
 ## Windows.ApplicationModel.Store.ProductPurchaseStatus  (enum)
 type ProductPurchaseStatus* {.pure, size: 4.} = enum
@@ -3812,69 +2380,40 @@ type ProductPurchaseStatus* {.pure, size: 4.} = enum
   AlreadyPurchased = 1'i32
   NotFulfilled = 2'i32
   NotPurchased = 3'i32
-proc `$`*(v: ProductPurchaseStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "AlreadyPurchased"
-  of 2: "NotFulfilled"
-  of 3: "NotPurchased"
-  else: "ProductPurchaseStatus(" & $ord(v) & ")"
+template `$`*(v: ProductPurchaseStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.Store.ProductType  (enum)
 type ProductType* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Durable = 1'i32
   Consumable = 2'i32
-proc `$`*(v: ProductType): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Durable"
-  of 2: "Consumable"
-  else: "ProductType(" & $ord(v) & ")"
+template `$`*(v: ProductType): string = enumName(v)
 
 ## Windows.ApplicationModel.UserActivities.UserActivityState  (enum)
 type UserActivityState* {.pure, size: 4.} = enum
   New = 0'i32
   Published = 1'i32
-proc `$`*(v: UserActivityState): string =
-  case ord(v)
-  of 0: "New"
-  of 1: "Published"
-  else: "UserActivityState(" & $ord(v) & ")"
+template `$`*(v: UserActivityState): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderOperationKind  (enum)
 type UserDataAccountProviderOperationKind* {.pure, size: 4.} = enum
   AddAccount = 0'i32
   Settings = 1'i32
   ResolveErrors = 2'i32
-proc `$`*(v: UserDataAccountProviderOperationKind): string =
-  case ord(v)
-  of 0: "AddAccount"
-  of 1: "Settings"
-  of 2: "ResolveErrors"
-  else: "UserDataAccountProviderOperationKind(" & $ord(v) & ")"
+template `$`*(v: UserDataAccountProviderOperationKind): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderPartnerAccountKind  (enum)
 type UserDataAccountProviderPartnerAccountKind* {.pure, size: 4.} = enum
   Exchange = 0'i32
   PopOrImap = 1'i32
-proc `$`*(v: UserDataAccountProviderPartnerAccountKind): string =
-  case ord(v)
-  of 0: "Exchange"
-  of 1: "PopOrImap"
-  else: "UserDataAccountProviderPartnerAccountKind(" & $ord(v) & ")"
+template `$`*(v: UserDataAccountProviderPartnerAccountKind): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountAuthenticationType  (enum)
 type DeviceAccountAuthenticationType* {.pure, size: 4.} = enum
   Basic = 0'i32
   OAuth = 1'i32
   SingleSignOn = 2'i32
-proc `$`*(v: DeviceAccountAuthenticationType): string =
-  case ord(v)
-  of 0: "Basic"
-  of 1: "OAuth"
-  of 2: "SingleSignOn"
-  else: "DeviceAccountAuthenticationType(" & $ord(v) & ")"
+template `$`*(v: DeviceAccountAuthenticationType): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountIconId  (enum)
 type DeviceAccountIconId* {.pure, size: 4.} = enum
@@ -3882,13 +2421,7 @@ type DeviceAccountIconId* {.pure, size: 4.} = enum
   Msa = 1'i32
   Outlook = 2'i32
   Generic = 3'i32
-proc `$`*(v: DeviceAccountIconId): string =
-  case ord(v)
-  of 0: "Exchange"
-  of 1: "Msa"
-  of 2: "Outlook"
-  of 3: "Generic"
-  else: "DeviceAccountIconId(" & $ord(v) & ")"
+template `$`*(v: DeviceAccountIconId): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountMailAgeFilter  (enum)
 type DeviceAccountMailAgeFilter* {.pure, size: 4.} = enum
@@ -3899,28 +2432,14 @@ type DeviceAccountMailAgeFilter* {.pure, size: 4.} = enum
   Last14Days = 4'i32
   Last30Days = 5'i32
   Last90Days = 6'i32
-proc `$`*(v: DeviceAccountMailAgeFilter): string =
-  case ord(v)
-  of 0: "All"
-  of 1: "Last1Day"
-  of 2: "Last3Days"
-  of 3: "Last7Days"
-  of 4: "Last14Days"
-  of 5: "Last30Days"
-  of 6: "Last90Days"
-  else: "DeviceAccountMailAgeFilter(" & $ord(v) & ")"
+template `$`*(v: DeviceAccountMailAgeFilter): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountServerType  (enum)
 type DeviceAccountServerType* {.pure, size: 4.} = enum
   Exchange = 0'i32
   Pop = 1'i32
   Imap = 2'i32
-proc `$`*(v: DeviceAccountServerType): string =
-  case ord(v)
-  of 0: "Exchange"
-  of 1: "Pop"
-  of 2: "Imap"
-  else: "DeviceAccountServerType(" & $ord(v) & ")"
+template `$`*(v: DeviceAccountServerType): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountSyncScheduleKind  (enum)
 type DeviceAccountSyncScheduleKind* {.pure, size: 4.} = enum
@@ -3931,16 +2450,7 @@ type DeviceAccountSyncScheduleKind* {.pure, size: 4.} = enum
   Every2Hours = 4'i32
   Daily = 5'i32
   AsItemsArrive = 6'i32
-proc `$`*(v: DeviceAccountSyncScheduleKind): string =
-  case ord(v)
-  of 0: "Manual"
-  of 1: "Every15Minutes"
-  of 2: "Every30Minutes"
-  of 3: "Every60Minutes"
-  of 4: "Every2Hours"
-  of 5: "Daily"
-  of 6: "AsItemsArrive"
-  else: "DeviceAccountSyncScheduleKind(" & $ord(v) & ")"
+template `$`*(v: DeviceAccountSyncScheduleKind): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataAccounts.UserDataAccountContentKinds  (enum)
 type UserDataAccountContentKinds* = distinct uint32
@@ -3979,22 +2489,13 @@ type UserDataAccountOtherAppReadAccess* {.pure, size: 4.} = enum
   SystemOnly = 0'i32
   Full = 1'i32
   None = 2'i32
-proc `$`*(v: UserDataAccountOtherAppReadAccess): string =
-  case ord(v)
-  of 0: "SystemOnly"
-  of 1: "Full"
-  of 2: "None"
-  else: "UserDataAccountOtherAppReadAccess(" & $ord(v) & ")"
+template `$`*(v: UserDataAccountOtherAppReadAccess): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreAccessType  (enum)
 type UserDataAccountStoreAccessType* {.pure, size: 4.} = enum
   AllAccountsReadOnly = 0'i32
   AppAccountsReadWrite = 1'i32
-proc `$`*(v: UserDataAccountStoreAccessType): string =
-  case ord(v)
-  of 0: "AllAccountsReadOnly"
-  of 1: "AppAccountsReadWrite"
-  else: "UserDataAccountStoreAccessType(" & $ord(v) & ")"
+template `$`*(v: UserDataAccountStoreAccessType): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskDaysOfWeek  (enum)
 type UserDataTaskDaysOfWeek* = distinct uint32
@@ -4053,45 +2554,27 @@ const UserDataTaskDaysOfWeek_Saturday* = UserDataTaskDaysOfWeek(64'u32)
 type UserDataTaskDetailsKind* {.pure, size: 4.} = enum
   PlainText = 0'i32
   Html = 1'i32
-proc `$`*(v: UserDataTaskDetailsKind): string =
-  case ord(v)
-  of 0: "PlainText"
-  of 1: "Html"
-  else: "UserDataTaskDetailsKind(" & $ord(v) & ")"
+template `$`*(v: UserDataTaskDetailsKind): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskKind  (enum)
 type UserDataTaskKind* {.pure, size: 4.} = enum
   Single = 0'i32
   Recurring = 1'i32
   Regenerating = 2'i32
-proc `$`*(v: UserDataTaskKind): string =
-  case ord(v)
-  of 0: "Single"
-  of 1: "Recurring"
-  of 2: "Regenerating"
-  else: "UserDataTaskKind(" & $ord(v) & ")"
+template `$`*(v: UserDataTaskKind): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskListOtherAppReadAccess  (enum)
 type UserDataTaskListOtherAppReadAccess* {.pure, size: 4.} = enum
   Full = 0'i32
   SystemOnly = 1'i32
   None = 2'i32
-proc `$`*(v: UserDataTaskListOtherAppReadAccess): string =
-  case ord(v)
-  of 0: "Full"
-  of 1: "SystemOnly"
-  of 2: "None"
-  else: "UserDataTaskListOtherAppReadAccess(" & $ord(v) & ")"
+template `$`*(v: UserDataTaskListOtherAppReadAccess): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskListOtherAppWriteAccess  (enum)
 type UserDataTaskListOtherAppWriteAccess* {.pure, size: 4.} = enum
   Limited = 0'i32
   None = 1'i32
-proc `$`*(v: UserDataTaskListOtherAppWriteAccess): string =
-  case ord(v)
-  of 0: "Limited"
-  of 1: "None"
-  else: "UserDataTaskListOtherAppWriteAccess(" & $ord(v) & ")"
+template `$`*(v: UserDataTaskListOtherAppWriteAccess): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskListSyncStatus  (enum)
 type UserDataTaskListSyncStatus* {.pure, size: 4.} = enum
@@ -4101,47 +2584,26 @@ type UserDataTaskListSyncStatus* {.pure, size: 4.} = enum
   AuthenticationError = 3'i32
   PolicyError = 4'i32
   UnknownError = 5'i32
-proc `$`*(v: UserDataTaskListSyncStatus): string =
-  case ord(v)
-  of 0: "Idle"
-  of 1: "Syncing"
-  of 2: "UpToDate"
-  of 3: "AuthenticationError"
-  of 4: "PolicyError"
-  of 5: "UnknownError"
-  else: "UserDataTaskListSyncStatus(" & $ord(v) & ")"
+template `$`*(v: UserDataTaskListSyncStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskPriority  (enum)
 type UserDataTaskPriority* {.pure, size: 4.} = enum
   Low = -1'i32
   Normal = 0'i32
   High = 1'i32
-proc `$`*(v: UserDataTaskPriority): string =
-  case ord(v)
-  of -1: "Low"
-  of 0: "Normal"
-  of 1: "High"
-  else: "UserDataTaskPriority(" & $ord(v) & ")"
+template `$`*(v: UserDataTaskPriority): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryKind  (enum)
 type UserDataTaskQueryKind* {.pure, size: 4.} = enum
   All = 0'i32
   Incomplete = 1'i32
   Complete = 2'i32
-proc `$`*(v: UserDataTaskQueryKind): string =
-  case ord(v)
-  of 0: "All"
-  of 1: "Incomplete"
-  of 2: "Complete"
-  else: "UserDataTaskQueryKind(" & $ord(v) & ")"
+template `$`*(v: UserDataTaskQueryKind): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskQuerySortProperty  (enum)
 type UserDataTaskQuerySortProperty* {.pure, size: 4.} = enum
   DueDate = 0'i32
-proc `$`*(v: UserDataTaskQuerySortProperty): string =
-  case ord(v)
-  of 0: "DueDate"
-  else: "UserDataTaskQuerySortProperty(" & $ord(v) & ")"
+template `$`*(v: UserDataTaskQuerySortProperty): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceUnit  (enum)
 type UserDataTaskRecurrenceUnit* {.pure, size: 4.} = enum
@@ -4151,15 +2613,7 @@ type UserDataTaskRecurrenceUnit* {.pure, size: 4.} = enum
   MonthlyOnDay = 3'i32
   Yearly = 4'i32
   YearlyOnDay = 5'i32
-proc `$`*(v: UserDataTaskRecurrenceUnit): string =
-  case ord(v)
-  of 0: "Daily"
-  of 1: "Weekly"
-  of 2: "Monthly"
-  of 3: "MonthlyOnDay"
-  of 4: "Yearly"
-  of 5: "YearlyOnDay"
-  else: "UserDataTaskRecurrenceUnit(" & $ord(v) & ")"
+template `$`*(v: UserDataTaskRecurrenceUnit): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationUnit  (enum)
 type UserDataTaskRegenerationUnit* {.pure, size: 4.} = enum
@@ -4167,33 +2621,19 @@ type UserDataTaskRegenerationUnit* {.pure, size: 4.} = enum
   Weekly = 1'i32
   Monthly = 2'i32
   Yearly = 4'i32
-proc `$`*(v: UserDataTaskRegenerationUnit): string =
-  case ord(v)
-  of 0: "Daily"
-  of 1: "Weekly"
-  of 2: "Monthly"
-  of 4: "Yearly"
-  else: "UserDataTaskRegenerationUnit(" & $ord(v) & ")"
+template `$`*(v: UserDataTaskRegenerationUnit): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskSensitivity  (enum)
 type UserDataTaskSensitivity* {.pure, size: 4.} = enum
   Public = 0'i32
   Private = 1'i32
-proc `$`*(v: UserDataTaskSensitivity): string =
-  case ord(v)
-  of 0: "Public"
-  of 1: "Private"
-  else: "UserDataTaskSensitivity(" & $ord(v) & ")"
+template `$`*(v: UserDataTaskSensitivity): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskStoreAccessType  (enum)
 type UserDataTaskStoreAccessType* {.pure, size: 4.} = enum
   AppTasksReadWrite = 0'i32
   AllTasksLimitedReadWrite = 1'i32
-proc `$`*(v: UserDataTaskStoreAccessType): string =
-  case ord(v)
-  of 0: "AppTasksReadWrite"
-  of 1: "AllTasksLimitedReadWrite"
-  else: "UserDataTaskStoreAccessType(" & $ord(v) & ")"
+template `$`*(v: UserDataTaskStoreAccessType): string = enumName(v)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskWeekOfMonth  (enum)
 type UserDataTaskWeekOfMonth* {.pure, size: 4.} = enum
@@ -4202,14 +2642,7 @@ type UserDataTaskWeekOfMonth* {.pure, size: 4.} = enum
   Third = 2'i32
   Fourth = 3'i32
   Last = 4'i32
-proc `$`*(v: UserDataTaskWeekOfMonth): string =
-  case ord(v)
-  of 0: "First"
-  of 1: "Second"
-  of 2: "Third"
-  of 3: "Fourth"
-  of 4: "Last"
-  else: "UserDataTaskWeekOfMonth(" & $ord(v) & ")"
+template `$`*(v: UserDataTaskWeekOfMonth): string = enumName(v)
 
 ## Windows.ApplicationModel.VoiceCommands.VoiceCommandCompletionReason  (enum)
 type VoiceCommandCompletionReason* {.pure, size: 4.} = enum
@@ -4220,16 +2653,7 @@ type VoiceCommandCompletionReason* {.pure, size: 4.} = enum
   TimeoutExceeded = 4'i32
   AppLaunched = 5'i32
   Completed = 6'i32
-proc `$`*(v: VoiceCommandCompletionReason): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "CommunicationFailed"
-  of 2: "ResourceLimitsExceeded"
-  of 3: "Canceled"
-  of 4: "TimeoutExceeded"
-  of 5: "AppLaunched"
-  of 6: "Completed"
-  else: "VoiceCommandCompletionReason(" & $ord(v) & ")"
+template `$`*(v: VoiceCommandCompletionReason): string = enumName(v)
 
 ## Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTileType  (enum)
 type VoiceCommandContentTileType* {.pure, size: 4.} = enum
@@ -4241,29 +2665,14 @@ type VoiceCommandContentTileType* {.pure, size: 4.} = enum
   TitleWith68x92IconAndText = 5'i32
   TitleWith280x140Icon = 6'i32
   TitleWith280x140IconAndText = 7'i32
-proc `$`*(v: VoiceCommandContentTileType): string =
-  case ord(v)
-  of 0: "TitleOnly"
-  of 1: "TitleWithText"
-  of 2: "TitleWith68x68Icon"
-  of 3: "TitleWith68x68IconAndText"
-  of 4: "TitleWith68x92Icon"
-  of 5: "TitleWith68x92IconAndText"
-  of 6: "TitleWith280x140Icon"
-  of 7: "TitleWith280x140IconAndText"
-  else: "VoiceCommandContentTileType(" & $ord(v) & ")"
+template `$`*(v: VoiceCommandContentTileType): string = enumName(v)
 
 ## Windows.ApplicationModel.Wallet.System.WalletItemAppAssociation  (enum)
 type WalletItemAppAssociation* {.pure, size: 4.} = enum
   None = 0'i32
   AppInstalled = 1'i32
   AppNotInstalled = 2'i32
-proc `$`*(v: WalletItemAppAssociation): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "AppInstalled"
-  of 2: "AppNotInstalled"
-  else: "WalletItemAppAssociation(" & $ord(v) & ")"
+template `$`*(v: WalletItemAppAssociation): string = enumName(v)
 
 ## Windows.ApplicationModel.Wallet.WalletActionKind  (enum)
 type WalletActionKind* {.pure, size: 4.} = enum
@@ -4272,14 +2681,7 @@ type WalletActionKind* {.pure, size: 4.} = enum
   MoreTransactions = 2'i32
   Message = 3'i32
   Verb = 4'i32
-proc `$`*(v: WalletActionKind): string =
-  case ord(v)
-  of 0: "OpenItem"
-  of 1: "Transaction"
-  of 2: "MoreTransactions"
-  of 3: "Message"
-  of 4: "Verb"
-  else: "WalletActionKind(" & $ord(v) & ")"
+template `$`*(v: WalletActionKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Wallet.WalletBarcodeSymbology  (enum)
 type WalletBarcodeSymbology* {.pure, size: 4.} = enum
@@ -4295,21 +2697,7 @@ type WalletBarcodeSymbology* {.pure, size: 4.} = enum
   Pdf417 = 9'i32
   Aztec = 10'i32
   Custom = 100000'i32
-proc `$`*(v: WalletBarcodeSymbology): string =
-  case ord(v)
-  of 0: "Invalid"
-  of 1: "Upca"
-  of 2: "Upce"
-  of 3: "Ean13"
-  of 4: "Ean8"
-  of 5: "Itf"
-  of 6: "Code39"
-  of 7: "Code128"
-  of 8: "Qr"
-  of 9: "Pdf417"
-  of 10: "Aztec"
-  of 100000: "Custom"
-  else: "WalletBarcodeSymbology(" & $ord(v) & ")"
+template `$`*(v: WalletBarcodeSymbology): string = enumName(v)
 
 ## Windows.ApplicationModel.Wallet.WalletDetailViewPosition  (enum)
 type WalletDetailViewPosition* {.pure, size: 4.} = enum
@@ -4328,24 +2716,7 @@ type WalletDetailViewPosition* {.pure, size: 4.} = enum
   FooterField2 = 12'i32
   FooterField3 = 13'i32
   FooterField4 = 14'i32
-proc `$`*(v: WalletDetailViewPosition): string =
-  case ord(v)
-  of 0: "Hidden"
-  of 1: "HeaderField1"
-  of 2: "HeaderField2"
-  of 3: "PrimaryField1"
-  of 4: "PrimaryField2"
-  of 5: "SecondaryField1"
-  of 6: "SecondaryField2"
-  of 7: "SecondaryField3"
-  of 8: "SecondaryField4"
-  of 9: "SecondaryField5"
-  of 10: "CenterField1"
-  of 11: "FooterField1"
-  of 12: "FooterField2"
-  of 13: "FooterField3"
-  of 14: "FooterField4"
-  else: "WalletDetailViewPosition(" & $ord(v) & ")"
+template `$`*(v: WalletDetailViewPosition): string = enumName(v)
 
 ## Windows.ApplicationModel.Wallet.WalletItemKind  (enum)
 type WalletItemKind* {.pure, size: 4.} = enum
@@ -4356,28 +2727,14 @@ type WalletItemKind* {.pure, size: 4.} = enum
   Ticket = 4'i32
   BoardingPass = 5'i32
   MembershipCard = 6'i32
-proc `$`*(v: WalletItemKind): string =
-  case ord(v)
-  of 0: "Invalid"
-  of 1: "Deal"
-  of 2: "General"
-  of 3: "PaymentInstrument"
-  of 4: "Ticket"
-  of 5: "BoardingPass"
-  of 6: "MembershipCard"
-  else: "WalletItemKind(" & $ord(v) & ")"
+template `$`*(v: WalletItemKind): string = enumName(v)
 
 ## Windows.ApplicationModel.Wallet.WalletSummaryViewPosition  (enum)
 type WalletSummaryViewPosition* {.pure, size: 4.} = enum
   Hidden = 0'i32
   Field1 = 1'i32
   Field2 = 2'i32
-proc `$`*(v: WalletSummaryViewPosition): string =
-  case ord(v)
-  of 0: "Hidden"
-  of 1: "Field1"
-  of 2: "Field2"
-  else: "WalletSummaryViewPosition(" & $ord(v) & ")"
+template `$`*(v: WalletSummaryViewPosition): string = enumName(v)
 
 ## Windows.Data.Json.JsonErrorStatus  (enum)
 type JsonErrorStatus* {.pure, size: 4.} = enum
@@ -4386,14 +2743,7 @@ type JsonErrorStatus* {.pure, size: 4.} = enum
   InvalidJsonNumber = 2'i32
   JsonValueNotFound = 3'i32
   ImplementationLimit = 4'i32
-proc `$`*(v: JsonErrorStatus): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "InvalidJsonString"
-  of 2: "InvalidJsonNumber"
-  of 3: "JsonValueNotFound"
-  of 4: "ImplementationLimit"
-  else: "JsonErrorStatus(" & $ord(v) & ")"
+template `$`*(v: JsonErrorStatus): string = enumName(v)
 
 ## Windows.Data.Json.JsonValueType  (enum)
 type JsonValueType* {.pure, size: 4.} = enum
@@ -4403,15 +2753,7 @@ type JsonValueType* {.pure, size: 4.} = enum
   String = 3'i32
   Array = 4'i32
   `Object` = 5'i32
-proc `$`*(v: JsonValueType): string =
-  case ord(v)
-  of 0: "Null"
-  of 1: "Boolean"
-  of 2: "Number"
-  of 3: "String"
-  of 4: "Array"
-  of 5: "Object"
-  else: "JsonValueType(" & $ord(v) & ")"
+template `$`*(v: JsonValueType): string = enumName(v)
 
 ## Windows.Data.Pdf.PdfPageRotation  (enum)
 type PdfPageRotation* {.pure, size: 4.} = enum
@@ -4419,13 +2761,7 @@ type PdfPageRotation* {.pure, size: 4.} = enum
   Rotate90 = 1'i32
   Rotate180 = 2'i32
   Rotate270 = 3'i32
-proc `$`*(v: PdfPageRotation): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Rotate90"
-  of 2: "Rotate180"
-  of 3: "Rotate270"
-  else: "PdfPageRotation(" & $ord(v) & ")"
+template `$`*(v: PdfPageRotation): string = enumName(v)
 
 ## Windows.Data.Text.AlternateNormalizationFormat  (enum)
 type AlternateNormalizationFormat* {.pure, size: 4.} = enum
@@ -4434,14 +2770,7 @@ type AlternateNormalizationFormat* {.pure, size: 4.} = enum
   Currency = 3'i32
   Date = 4'i32
   Time = 5'i32
-proc `$`*(v: AlternateNormalizationFormat): string =
-  case ord(v)
-  of 0: "NotNormalized"
-  of 1: "Number"
-  of 3: "Currency"
-  of 4: "Date"
-  of 5: "Time"
-  else: "AlternateNormalizationFormat(" & $ord(v) & ")"
+template `$`*(v: AlternateNormalizationFormat): string = enumName(v)
 
 ## Windows.Data.Text.TextPredictionOptions  (enum)
 type TextPredictionOptions* = distinct uint32
@@ -4503,39 +2832,7 @@ type UnicodeGeneralCategory* {.pure, size: 4.} = enum
   ModifierSymbol = 27'i32
   OtherSymbol = 28'i32
   NotAssigned = 29'i32
-proc `$`*(v: UnicodeGeneralCategory): string =
-  case ord(v)
-  of 0: "UppercaseLetter"
-  of 1: "LowercaseLetter"
-  of 2: "TitlecaseLetter"
-  of 3: "ModifierLetter"
-  of 4: "OtherLetter"
-  of 5: "NonspacingMark"
-  of 6: "SpacingCombiningMark"
-  of 7: "EnclosingMark"
-  of 8: "DecimalDigitNumber"
-  of 9: "LetterNumber"
-  of 10: "OtherNumber"
-  of 11: "SpaceSeparator"
-  of 12: "LineSeparator"
-  of 13: "ParagraphSeparator"
-  of 14: "Control"
-  of 15: "Format"
-  of 16: "Surrogate"
-  of 17: "PrivateUse"
-  of 18: "ConnectorPunctuation"
-  of 19: "DashPunctuation"
-  of 20: "OpenPunctuation"
-  of 21: "ClosePunctuation"
-  of 22: "InitialQuotePunctuation"
-  of 23: "FinalQuotePunctuation"
-  of 24: "OtherPunctuation"
-  of 25: "MathSymbol"
-  of 26: "CurrencySymbol"
-  of 27: "ModifierSymbol"
-  of 28: "OtherSymbol"
-  of 29: "NotAssigned"
-  else: "UnicodeGeneralCategory(" & $ord(v) & ")"
+template `$`*(v: UnicodeGeneralCategory): string = enumName(v)
 
 ## Windows.Data.Text.UnicodeNumericType  (enum)
 type UnicodeNumericType* {.pure, size: 4.} = enum
@@ -4543,13 +2840,7 @@ type UnicodeNumericType* {.pure, size: 4.} = enum
   Decimal = 1'i32
   Digit = 2'i32
   Numeric = 3'i32
-proc `$`*(v: UnicodeNumericType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Decimal"
-  of 2: "Digit"
-  of 3: "Numeric"
-  else: "UnicodeNumericType(" & $ord(v) & ")"
+template `$`*(v: UnicodeNumericType): string = enumName(v)
 
 ## Windows.Data.Xml.Dom.NodeType  (enum)
 type NodeType* {.pure, size: 4.} = enum
@@ -4566,42 +2857,19 @@ type NodeType* {.pure, size: 4.} = enum
   DocumentTypeNode = 10'i32
   DocumentFragmentNode = 11'i32
   NotationNode = 12'i32
-proc `$`*(v: NodeType): string =
-  case ord(v)
-  of 0: "Invalid"
-  of 1: "ElementNode"
-  of 2: "AttributeNode"
-  of 3: "TextNode"
-  of 4: "DataSectionNode"
-  of 5: "EntityReferenceNode"
-  of 6: "EntityNode"
-  of 7: "ProcessingInstructionNode"
-  of 8: "CommentNode"
-  of 9: "DocumentNode"
-  of 10: "DocumentTypeNode"
-  of 11: "DocumentFragmentNode"
-  of 12: "NotationNode"
-  else: "NodeType(" & $ord(v) & ")"
+template `$`*(v: NodeType): string = enumName(v)
 
 ## Windows.Devices.Adc.AdcChannelMode  (enum)
 type AdcChannelMode* {.pure, size: 4.} = enum
   SingleEnded = 0'i32
   Differential = 1'i32
-proc `$`*(v: AdcChannelMode): string =
-  case ord(v)
-  of 0: "SingleEnded"
-  of 1: "Differential"
-  else: "AdcChannelMode(" & $ord(v) & ")"
+template `$`*(v: AdcChannelMode): string = enumName(v)
 
 ## Windows.Devices.Adc.Provider.ProviderAdcChannelMode  (enum)
 type ProviderAdcChannelMode* {.pure, size: 4.} = enum
   SingleEnded = 0'i32
   Differential = 1'i32
-proc `$`*(v: ProviderAdcChannelMode): string =
-  case ord(v)
-  of 0: "SingleEnded"
-  of 1: "Differential"
-  else: "ProviderAdcChannelMode(" & $ord(v) & ")"
+template `$`*(v: ProviderAdcChannelMode): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementFlags  (enum)
 type BluetoothLEAdvertisementFlags* = distinct uint32
@@ -4652,13 +2920,7 @@ type BluetoothLEAdvertisementPhyType* {.pure, size: 4.} = enum
   Uncoded1MPhy = 1'i32
   Uncoded2MPhy = 2'i32
   CodedPhy = 3'i32
-proc `$`*(v: BluetoothLEAdvertisementPhyType): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Uncoded1MPhy"
-  of 2: "Uncoded2MPhy"
-  of 3: "CodedPhy"
-  else: "BluetoothLEAdvertisementPhyType(" & $ord(v) & ")"
+template `$`*(v: BluetoothLEAdvertisementPhyType): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisherStatus  (enum)
 type BluetoothLEAdvertisementPublisherStatus* {.pure, size: 4.} = enum
@@ -4668,15 +2930,7 @@ type BluetoothLEAdvertisementPublisherStatus* {.pure, size: 4.} = enum
   Stopping = 3'i32
   Stopped = 4'i32
   Aborted = 5'i32
-proc `$`*(v: BluetoothLEAdvertisementPublisherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Waiting"
-  of 2: "Started"
-  of 3: "Stopping"
-  of 4: "Stopped"
-  of 5: "Aborted"
-  else: "BluetoothLEAdvertisementPublisherStatus(" & $ord(v) & ")"
+template `$`*(v: BluetoothLEAdvertisementPublisherStatus): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementType  (enum)
 type BluetoothLEAdvertisementType* {.pure, size: 4.} = enum
@@ -4686,15 +2940,7 @@ type BluetoothLEAdvertisementType* {.pure, size: 4.} = enum
   NonConnectableUndirected = 3'i32
   ScanResponse = 4'i32
   Extended = 5'i32
-proc `$`*(v: BluetoothLEAdvertisementType): string =
-  case ord(v)
-  of 0: "ConnectableUndirected"
-  of 1: "ConnectableDirected"
-  of 2: "ScannableUndirected"
-  of 3: "NonConnectableUndirected"
-  of 4: "ScanResponse"
-  of 5: "Extended"
-  else: "BluetoothLEAdvertisementType(" & $ord(v) & ")"
+template `$`*(v: BluetoothLEAdvertisementType): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcherStatus  (enum)
 type BluetoothLEAdvertisementWatcherStatus* {.pure, size: 4.} = enum
@@ -4703,70 +2949,40 @@ type BluetoothLEAdvertisementWatcherStatus* {.pure, size: 4.} = enum
   Stopping = 2'i32
   Stopped = 3'i32
   Aborted = 4'i32
-proc `$`*(v: BluetoothLEAdvertisementWatcherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "Stopping"
-  of 3: "Stopped"
-  of 4: "Aborted"
-  else: "BluetoothLEAdvertisementWatcherStatus(" & $ord(v) & ")"
+template `$`*(v: BluetoothLEAdvertisementWatcherStatus): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEScanningMode  (enum)
 type BluetoothLEScanningMode* {.pure, size: 4.} = enum
   Passive = 0'i32
   Active = 1'i32
   None = 2'i32
-proc `$`*(v: BluetoothLEScanningMode): string =
-  case ord(v)
-  of 0: "Passive"
-  of 1: "Active"
-  of 2: "None"
-  else: "BluetoothLEScanningMode(" & $ord(v) & ")"
+template `$`*(v: BluetoothLEScanningMode): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.Background.BluetoothEventTriggeringMode  (enum)
 type BluetoothEventTriggeringMode* {.pure, size: 4.} = enum
   Serial = 0'i32
   Batch = 1'i32
   KeepLatest = 2'i32
-proc `$`*(v: BluetoothEventTriggeringMode): string =
-  case ord(v)
-  of 0: "Serial"
-  of 1: "Batch"
-  of 2: "KeepLatest"
-  else: "BluetoothEventTriggeringMode(" & $ord(v) & ")"
+template `$`*(v: BluetoothEventTriggeringMode): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.BluetoothAddressType  (enum)
 type BluetoothAddressType* {.pure, size: 4.} = enum
   Public = 0'i32
   Random = 1'i32
   Unspecified = 2'i32
-proc `$`*(v: BluetoothAddressType): string =
-  case ord(v)
-  of 0: "Public"
-  of 1: "Random"
-  of 2: "Unspecified"
-  else: "BluetoothAddressType(" & $ord(v) & ")"
+template `$`*(v: BluetoothAddressType): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.BluetoothCacheMode  (enum)
 type BluetoothCacheMode* {.pure, size: 4.} = enum
   Cached = 0'i32
   Uncached = 1'i32
-proc `$`*(v: BluetoothCacheMode): string =
-  case ord(v)
-  of 0: "Cached"
-  of 1: "Uncached"
-  else: "BluetoothCacheMode(" & $ord(v) & ")"
+template `$`*(v: BluetoothCacheMode): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.BluetoothConnectionStatus  (enum)
 type BluetoothConnectionStatus* {.pure, size: 4.} = enum
   Disconnected = 0'i32
   Connected = 1'i32
-proc `$`*(v: BluetoothConnectionStatus): string =
-  case ord(v)
-  of 0: "Disconnected"
-  of 1: "Connected"
-  else: "BluetoothConnectionStatus(" & $ord(v) & ")"
+template `$`*(v: BluetoothConnectionStatus): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.BluetoothError  (enum)
 type BluetoothError* {.pure, size: 4.} = enum
@@ -4780,19 +2996,7 @@ type BluetoothError* {.pure, size: 4.} = enum
   DisabledByUser = 7'i32
   ConsentRequired = 8'i32
   TransportNotSupported = 9'i32
-proc `$`*(v: BluetoothError): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "RadioNotAvailable"
-  of 2: "ResourceInUse"
-  of 3: "DeviceNotConnected"
-  of 4: "OtherError"
-  of 5: "DisabledByPolicy"
-  of 6: "NotSupported"
-  of 7: "DisabledByUser"
-  of 8: "ConsentRequired"
-  of 9: "TransportNotSupported"
-  else: "BluetoothError(" & $ord(v) & ")"
+template `$`*(v: BluetoothError): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.BluetoothLEPreferredConnectionParametersRequestStatus  (enum)
 type BluetoothLEPreferredConnectionParametersRequestStatus* {.pure, size: 4.} = enum
@@ -4800,13 +3004,7 @@ type BluetoothLEPreferredConnectionParametersRequestStatus* {.pure, size: 4.} = 
   Success = 1'i32
   DeviceNotAvailable = 2'i32
   AccessDenied = 3'i32
-proc `$`*(v: BluetoothLEPreferredConnectionParametersRequestStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Success"
-  of 2: "DeviceNotAvailable"
-  of 3: "AccessDenied"
-  else: "BluetoothLEPreferredConnectionParametersRequestStatus(" & $ord(v) & ")"
+template `$`*(v: BluetoothLEPreferredConnectionParametersRequestStatus): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.BluetoothMajorClass  (enum)
 type BluetoothMajorClass* {.pure, size: 4.} = enum
@@ -4820,19 +3018,7 @@ type BluetoothMajorClass* {.pure, size: 4.} = enum
   Wearable = 7'i32
   Toy = 8'i32
   Health = 9'i32
-proc `$`*(v: BluetoothMajorClass): string =
-  case ord(v)
-  of 0: "Miscellaneous"
-  of 1: "Computer"
-  of 2: "Phone"
-  of 3: "NetworkAccessPoint"
-  of 4: "AudioVideo"
-  of 5: "Peripheral"
-  of 6: "Imaging"
-  of 7: "Wearable"
-  of 8: "Toy"
-  of 9: "Health"
-  else: "BluetoothMajorClass(" & $ord(v) & ")"
+template `$`*(v: BluetoothMajorClass): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.BluetoothMinorClass  (enum)
 type BluetoothMinorClass* {.pure, size: 4.} = enum
@@ -4907,32 +3093,7 @@ const BluetoothMinorClass_HealthKneeProsthesis* = BluetoothMinorClass.AudioVideo
 const BluetoothMinorClass_HealthAnkleProsthesis* = BluetoothMinorClass.AudioVideoCamcorder
 const BluetoothMinorClass_HealthGenericHealthManager* = BluetoothMinorClass.AudioVideoVideoMonitor
 const BluetoothMinorClass_HealthPersonalMobilityDevice* = BluetoothMinorClass.AudioVideoVideoDisplayAndLoudspeaker
-proc `$`*(v: BluetoothMinorClass): string =
-  case ord(v)
-  of 0: "Uncategorized"
-  of 1: "ComputerDesktop"
-  of 2: "ComputerServer"
-  of 3: "ComputerLaptop"
-  of 4: "ComputerHandheld"
-  of 5: "ComputerPalmSize"
-  of 6: "ComputerWearable"
-  of 7: "ComputerTablet"
-  of 8: "NetworkUsed01To17Percent"
-  of 9: "AudioVideoSetTopBox"
-  of 10: "AudioVideoHifiAudioDevice"
-  of 11: "AudioVideoVcr"
-  of 12: "AudioVideoVideoCamera"
-  of 13: "AudioVideoCamcorder"
-  of 14: "AudioVideoVideoMonitor"
-  of 15: "AudioVideoVideoDisplayAndLoudspeaker"
-  of 16: "NetworkUsed17To33Percent"
-  of 18: "AudioVideoGamingOrToy"
-  of 24: "NetworkUsed33To50Percent"
-  of 32: "NetworkUsed50To67Percent"
-  of 40: "NetworkUsed67To83Percent"
-  of 48: "NetworkUsed83To99Percent"
-  of 56: "NetworkNoServiceAvailable"
-  else: "BluetoothMinorClass(" & $ord(v) & ")"
+template `$`*(v: BluetoothMinorClass): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.BluetoothServiceCapabilities  (enum)
 type BluetoothServiceCapabilities* = distinct uint32
@@ -5070,12 +3231,7 @@ type GattClientCharacteristicConfigurationDescriptorValue* {.pure, size: 4.} = e
   None = 0'i32
   Notify = 1'i32
   Indicate = 2'i32
-proc `$`*(v: GattClientCharacteristicConfigurationDescriptorValue): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Notify"
-  of 2: "Indicate"
-  else: "GattClientCharacteristicConfigurationDescriptorValue(" & $ord(v) & ")"
+template `$`*(v: GattClientCharacteristicConfigurationDescriptorValue): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus  (enum)
 type GattCommunicationStatus* {.pure, size: 4.} = enum
@@ -5083,13 +3239,7 @@ type GattCommunicationStatus* {.pure, size: 4.} = enum
   Unreachable = 1'i32
   ProtocolError = 2'i32
   AccessDenied = 3'i32
-proc `$`*(v: GattCommunicationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "Unreachable"
-  of 2: "ProtocolError"
-  of 3: "AccessDenied"
-  else: "GattCommunicationStatus(" & $ord(v) & ")"
+template `$`*(v: GattCommunicationStatus): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattOpenStatus  (enum)
 type GattOpenStatus* {.pure, size: 4.} = enum
@@ -5099,15 +3249,7 @@ type GattOpenStatus* {.pure, size: 4.} = enum
   NotFound = 3'i32
   SharingViolation = 4'i32
   AccessDenied = 5'i32
-proc `$`*(v: GattOpenStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Success"
-  of 2: "AlreadyOpened"
-  of 3: "NotFound"
-  of 4: "SharingViolation"
-  of 5: "AccessDenied"
-  else: "GattOpenStatus(" & $ord(v) & ")"
+template `$`*(v: GattOpenStatus): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtectionLevel  (enum)
 type GattProtectionLevel* {.pure, size: 4.} = enum
@@ -5115,25 +3257,14 @@ type GattProtectionLevel* {.pure, size: 4.} = enum
   AuthenticationRequired = 1'i32
   EncryptionRequired = 2'i32
   EncryptionAndAuthenticationRequired = 3'i32
-proc `$`*(v: GattProtectionLevel): string =
-  case ord(v)
-  of 0: "Plain"
-  of 1: "AuthenticationRequired"
-  of 2: "EncryptionRequired"
-  of 3: "EncryptionAndAuthenticationRequired"
-  else: "GattProtectionLevel(" & $ord(v) & ")"
+template `$`*(v: GattProtectionLevel): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattRequestState  (enum)
 type GattRequestState* {.pure, size: 4.} = enum
   Pending = 0'i32
   Completed = 1'i32
   Canceled = 2'i32
-proc `$`*(v: GattRequestState): string =
-  case ord(v)
-  of 0: "Pending"
-  of 1: "Completed"
-  of 2: "Canceled"
-  else: "GattRequestState(" & $ord(v) & ")"
+template `$`*(v: GattRequestState): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisementStatus  (enum)
 type GattServiceProviderAdvertisementStatus* {.pure, size: 4.} = enum
@@ -5142,24 +3273,13 @@ type GattServiceProviderAdvertisementStatus* {.pure, size: 4.} = enum
   Started = 2'i32
   Aborted = 3'i32
   StartedWithoutAllAdvertisementData = 4'i32
-proc `$`*(v: GattServiceProviderAdvertisementStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Stopped"
-  of 2: "Started"
-  of 3: "Aborted"
-  of 4: "StartedWithoutAllAdvertisementData"
-  else: "GattServiceProviderAdvertisementStatus(" & $ord(v) & ")"
+template `$`*(v: GattServiceProviderAdvertisementStatus): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattSessionStatus  (enum)
 type GattSessionStatus* {.pure, size: 4.} = enum
   Closed = 0'i32
   Active = 1'i32
-proc `$`*(v: GattSessionStatus): string =
-  case ord(v)
-  of 0: "Closed"
-  of 1: "Active"
-  else: "GattSessionStatus(" & $ord(v) & ")"
+template `$`*(v: GattSessionStatus): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattSharingMode  (enum)
 type GattSharingMode* {.pure, size: 4.} = enum
@@ -5167,45 +3287,26 @@ type GattSharingMode* {.pure, size: 4.} = enum
   Exclusive = 1'i32
   SharedReadOnly = 2'i32
   SharedReadAndWrite = 3'i32
-proc `$`*(v: GattSharingMode): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Exclusive"
-  of 2: "SharedReadOnly"
-  of 3: "SharedReadAndWrite"
-  else: "GattSharingMode(" & $ord(v) & ")"
+template `$`*(v: GattSharingMode): string = enumName(v)
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteOption  (enum)
 type GattWriteOption* {.pure, size: 4.} = enum
   WriteWithResponse = 0'i32
   WriteWithoutResponse = 1'i32
-proc `$`*(v: GattWriteOption): string =
-  case ord(v)
-  of 0: "WriteWithResponse"
-  of 1: "WriteWithoutResponse"
-  else: "GattWriteOption(" & $ord(v) & ")"
+template `$`*(v: GattWriteOption): string = enumName(v)
 
 ## Windows.Devices.Custom.DeviceAccessMode  (enum)
 type DeviceAccessMode* {.pure, size: 4.} = enum
   Read = 0'i32
   Write = 1'i32
   ReadWrite = 2'i32
-proc `$`*(v: DeviceAccessMode): string =
-  case ord(v)
-  of 0: "Read"
-  of 1: "Write"
-  of 2: "ReadWrite"
-  else: "DeviceAccessMode(" & $ord(v) & ")"
+template `$`*(v: DeviceAccessMode): string = enumName(v)
 
 ## Windows.Devices.Custom.DeviceSharingMode  (enum)
 type DeviceSharingMode* {.pure, size: 4.} = enum
   Shared = 0'i32
   Exclusive = 1'i32
-proc `$`*(v: DeviceSharingMode): string =
-  case ord(v)
-  of 0: "Shared"
-  of 1: "Exclusive"
-  else: "DeviceSharingMode(" & $ord(v) & ")"
+template `$`*(v: DeviceSharingMode): string = enumName(v)
 
 ## Windows.Devices.Custom.IOControlAccessMode  (enum)
 type IOControlAccessMode* {.pure, size: 4.} = enum
@@ -5213,13 +3314,7 @@ type IOControlAccessMode* {.pure, size: 4.} = enum
   Read = 1'i32
   Write = 2'i32
   ReadWrite = 3'i32
-proc `$`*(v: IOControlAccessMode): string =
-  case ord(v)
-  of 0: "Any"
-  of 1: "Read"
-  of 2: "Write"
-  of 3: "ReadWrite"
-  else: "IOControlAccessMode(" & $ord(v) & ")"
+template `$`*(v: IOControlAccessMode): string = enumName(v)
 
 ## Windows.Devices.Custom.IOControlBufferingMethod  (enum)
 type IOControlBufferingMethod* {.pure, size: 4.} = enum
@@ -5227,13 +3322,7 @@ type IOControlBufferingMethod* {.pure, size: 4.} = enum
   DirectInput = 1'i32
   DirectOutput = 2'i32
   Neither = 3'i32
-proc `$`*(v: IOControlBufferingMethod): string =
-  case ord(v)
-  of 0: "Buffered"
-  of 1: "DirectInput"
-  of 2: "DirectOutput"
-  of 3: "Neither"
-  else: "IOControlBufferingMethod(" & $ord(v) & ")"
+template `$`*(v: IOControlBufferingMethod): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayBitsPerChannel  (enum)
 type DisplayBitsPerChannel* = distinct uint32
@@ -5286,10 +3375,7 @@ const DisplayBitsPerChannel_Bpc16* = DisplayBitsPerChannel(32'u32)
 ## Windows.Devices.Display.Core.DisplayDeviceCapability  (enum)
 type DisplayDeviceCapability* {.pure, size: 4.} = enum
   FlipOverride = 0'i32
-proc `$`*(v: DisplayDeviceCapability): string =
-  case ord(v)
-  of 0: "FlipOverride"
-  else: "DisplayDeviceCapability(" & $ord(v) & ")"
+template `$`*(v: DisplayDeviceCapability): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayManagerOptions  (enum)
 type DisplayManagerOptions* = distinct uint32
@@ -5326,14 +3412,7 @@ type DisplayManagerResult* {.pure, size: 4.} = enum
   TargetAccessDenied = 2'i32
   TargetStale = 3'i32
   RemoteSessionNotSupported = 4'i32
-proc `$`*(v: DisplayManagerResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "TargetAccessDenied"
-  of 3: "TargetStale"
-  of 4: "RemoteSessionNotSupported"
-  else: "DisplayManagerResult(" & $ord(v) & ")"
+template `$`*(v: DisplayManagerResult): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayModeQueryOptions  (enum)
 type DisplayModeQueryOptions* = distinct uint32
@@ -5366,15 +3445,7 @@ type DisplayPathScaling* {.pure, size: 4.} = enum
   AspectRatioStretched = 3'i32
   Custom = 4'i32
   DriverPreferred = 5'i32
-proc `$`*(v: DisplayPathScaling): string =
-  case ord(v)
-  of 0: "Identity"
-  of 1: "Centered"
-  of 2: "Stretched"
-  of 3: "AspectRatioStretched"
-  of 4: "Custom"
-  of 5: "DriverPreferred"
-  else: "DisplayPathScaling(" & $ord(v) & ")"
+template `$`*(v: DisplayPathScaling): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayPathStatus  (enum)
 type DisplayPathStatus* {.pure, size: 4.} = enum
@@ -5384,15 +3455,7 @@ type DisplayPathStatus* {.pure, size: 4.} = enum
   Failed = 3'i32
   FailedAsync = 4'i32
   InvalidatedAsync = 5'i32
-proc `$`*(v: DisplayPathStatus): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Succeeded"
-  of 2: "Pending"
-  of 3: "Failed"
-  of 4: "FailedAsync"
-  of 5: "InvalidatedAsync"
-  else: "DisplayPathStatus(" & $ord(v) & ")"
+template `$`*(v: DisplayPathStatus): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayPresentStatus  (enum)
 type DisplayPresentStatus* {.pure, size: 4.} = enum
@@ -5402,15 +3465,7 @@ type DisplayPresentStatus* {.pure, size: 4.} = enum
   SourceInvalid = 3'i32
   DeviceInvalid = 4'i32
   UnknownFailure = 5'i32
-proc `$`*(v: DisplayPresentStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "SourceStatusPreventedPresent"
-  of 2: "ScanoutInvalid"
-  of 3: "SourceInvalid"
-  of 4: "DeviceInvalid"
-  of 5: "UnknownFailure"
-  else: "DisplayPresentStatus(" & $ord(v) & ")"
+template `$`*(v: DisplayPresentStatus): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayRotation  (enum)
 type DisplayRotation* {.pure, size: 4.} = enum
@@ -5418,13 +3473,7 @@ type DisplayRotation* {.pure, size: 4.} = enum
   Clockwise90Degrees = 1'i32
   Clockwise180Degrees = 2'i32
   Clockwise270Degrees = 3'i32
-proc `$`*(v: DisplayRotation): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Clockwise90Degrees"
-  of 2: "Clockwise180Degrees"
-  of 3: "Clockwise270Degrees"
-  else: "DisplayRotation(" & $ord(v) & ")"
+template `$`*(v: DisplayRotation): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayScanoutOptions  (enum)
 type DisplayScanoutOptions* = distinct uint32
@@ -5456,14 +3505,7 @@ type DisplaySourceStatus* {.pure, size: 4.} = enum
   Invalid = 2'i32
   OwnedByAnotherDevice = 3'i32
   Unowned = 4'i32
-proc `$`*(v: DisplaySourceStatus): string =
-  case ord(v)
-  of 0: "Active"
-  of 1: "PoweredOff"
-  of 2: "Invalid"
-  of 3: "OwnedByAnotherDevice"
-  of 4: "Unowned"
-  else: "DisplaySourceStatus(" & $ord(v) & ")"
+template `$`*(v: DisplaySourceStatus): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayStateApplyOptions  (enum)
 type DisplayStateApplyOptions* = distinct uint32
@@ -5536,17 +3578,7 @@ type DisplayStateOperationStatus* {.pure, size: 4.} = enum
   TooManyPathsForAdapter = 5'i32
   ModesNotSupported = 6'i32
   RemoteSessionNotSupported = 7'i32
-proc `$`*(v: DisplayStateOperationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "PartialFailure"
-  of 2: "UnknownFailure"
-  of 3: "TargetOwnershipLost"
-  of 4: "SystemStateChanged"
-  of 5: "TooManyPathsForAdapter"
-  of 6: "ModesNotSupported"
-  of 7: "RemoteSessionNotSupported"
-  else: "DisplayStateOperationStatus(" & $ord(v) & ")"
+template `$`*(v: DisplayStateOperationStatus): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayTargetPersistence  (enum)
 type DisplayTargetPersistence* {.pure, size: 4.} = enum
@@ -5554,45 +3586,26 @@ type DisplayTargetPersistence* {.pure, size: 4.} = enum
   BootPersisted = 1'i32
   TemporaryPersisted = 2'i32
   PathPersisted = 3'i32
-proc `$`*(v: DisplayTargetPersistence): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "BootPersisted"
-  of 2: "TemporaryPersisted"
-  of 3: "PathPersisted"
-  else: "DisplayTargetPersistence(" & $ord(v) & ")"
+template `$`*(v: DisplayTargetPersistence): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayTaskSignalKind  (enum)
 type DisplayTaskSignalKind* {.pure, size: 4.} = enum
   OnPresentFlipAway = 0'i32
   OnPresentFlipTo = 1'i32
-proc `$`*(v: DisplayTaskSignalKind): string =
-  case ord(v)
-  of 0: "OnPresentFlipAway"
-  of 1: "OnPresentFlipTo"
-  else: "DisplayTaskSignalKind(" & $ord(v) & ")"
+template `$`*(v: DisplayTaskSignalKind): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayWireFormatColorSpace  (enum)
 type DisplayWireFormatColorSpace* {.pure, size: 4.} = enum
   BT709 = 0'i32
   BT2020 = 1'i32
   ProfileDefinedWideColorGamut = 2'i32
-proc `$`*(v: DisplayWireFormatColorSpace): string =
-  case ord(v)
-  of 0: "BT709"
-  of 1: "BT2020"
-  of 2: "ProfileDefinedWideColorGamut"
-  else: "DisplayWireFormatColorSpace(" & $ord(v) & ")"
+template `$`*(v: DisplayWireFormatColorSpace): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayWireFormatEotf  (enum)
 type DisplayWireFormatEotf* {.pure, size: 4.} = enum
   Sdr = 0'i32
   HdrSmpte2084 = 1'i32
-proc `$`*(v: DisplayWireFormatEotf): string =
-  case ord(v)
-  of 0: "Sdr"
-  of 1: "HdrSmpte2084"
-  else: "DisplayWireFormatEotf(" & $ord(v) & ")"
+template `$`*(v: DisplayWireFormatEotf): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayWireFormatHdrMetadata  (enum)
 type DisplayWireFormatHdrMetadata* {.pure, size: 4.} = enum
@@ -5600,13 +3613,7 @@ type DisplayWireFormatHdrMetadata* {.pure, size: 4.} = enum
   Hdr10 = 1'i32
   Hdr10Plus = 2'i32
   DolbyVisionLowLatency = 3'i32
-proc `$`*(v: DisplayWireFormatHdrMetadata): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Hdr10"
-  of 2: "Hdr10Plus"
-  of 3: "DolbyVisionLowLatency"
-  else: "DisplayWireFormatHdrMetadata(" & $ord(v) & ")"
+template `$`*(v: DisplayWireFormatHdrMetadata): string = enumName(v)
 
 ## Windows.Devices.Display.Core.DisplayWireFormatPixelEncoding  (enum)
 type DisplayWireFormatPixelEncoding* {.pure, size: 4.} = enum
@@ -5615,14 +3622,7 @@ type DisplayWireFormatPixelEncoding* {.pure, size: 4.} = enum
   Ycc422 = 2'i32
   Ycc420 = 3'i32
   Intensity = 4'i32
-proc `$`*(v: DisplayWireFormatPixelEncoding): string =
-  case ord(v)
-  of 0: "Rgb444"
-  of 1: "Ycc444"
-  of 2: "Ycc422"
-  of 3: "Ycc420"
-  of 4: "Intensity"
-  else: "DisplayWireFormatPixelEncoding(" & $ord(v) & ")"
+template `$`*(v: DisplayWireFormatPixelEncoding): string = enumName(v)
 
 ## Windows.Devices.Display.DisplayMonitorConnectionKind  (enum)
 type DisplayMonitorConnectionKind* {.pure, size: 4.} = enum
@@ -5630,23 +3630,13 @@ type DisplayMonitorConnectionKind* {.pure, size: 4.} = enum
   Wired = 1'i32
   Wireless = 2'i32
   Virtual = 3'i32
-proc `$`*(v: DisplayMonitorConnectionKind): string =
-  case ord(v)
-  of 0: "Internal"
-  of 1: "Wired"
-  of 2: "Wireless"
-  of 3: "Virtual"
-  else: "DisplayMonitorConnectionKind(" & $ord(v) & ")"
+template `$`*(v: DisplayMonitorConnectionKind): string = enumName(v)
 
 ## Windows.Devices.Display.DisplayMonitorDescriptorKind  (enum)
 type DisplayMonitorDescriptorKind* {.pure, size: 4.} = enum
   Edid = 0'i32
   DisplayId = 1'i32
-proc `$`*(v: DisplayMonitorDescriptorKind): string =
-  case ord(v)
-  of 0: "Edid"
-  of 1: "DisplayId"
-  else: "DisplayMonitorDescriptorKind(" & $ord(v) & ")"
+template `$`*(v: DisplayMonitorDescriptorKind): string = enumName(v)
 
 ## Windows.Devices.Display.DisplayMonitorPhysicalConnectorKind  (enum)
 type DisplayMonitorPhysicalConnectorKind* {.pure, size: 4.} = enum
@@ -5658,29 +3648,14 @@ type DisplayMonitorPhysicalConnectorKind* {.pure, size: 4.} = enum
   Lvds = 5'i32
   Sdi = 6'i32
   DisplayPort = 7'i32
-proc `$`*(v: DisplayMonitorPhysicalConnectorKind): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "HD15"
-  of 2: "AnalogTV"
-  of 3: "Dvi"
-  of 4: "Hdmi"
-  of 5: "Lvds"
-  of 6: "Sdi"
-  of 7: "DisplayPort"
-  else: "DisplayMonitorPhysicalConnectorKind(" & $ord(v) & ")"
+template `$`*(v: DisplayMonitorPhysicalConnectorKind): string = enumName(v)
 
 ## Windows.Devices.Display.DisplayMonitorUsageKind  (enum)
 type DisplayMonitorUsageKind* {.pure, size: 4.} = enum
   Standard = 0'i32
   HeadMounted = 1'i32
   SpecialPurpose = 2'i32
-proc `$`*(v: DisplayMonitorUsageKind): string =
-  case ord(v)
-  of 0: "Standard"
-  of 1: "HeadMounted"
-  of 2: "SpecialPurpose"
-  else: "DisplayMonitorUsageKind(" & $ord(v) & ")"
+template `$`*(v: DisplayMonitorUsageKind): string = enumName(v)
 
 ## Windows.Devices.Enumeration.DeviceAccessStatus  (enum)
 type DeviceAccessStatus* {.pure, size: 4.} = enum
@@ -5688,13 +3663,7 @@ type DeviceAccessStatus* {.pure, size: 4.} = enum
   Allowed = 1'i32
   DeniedByUser = 2'i32
   DeniedBySystem = 3'i32
-proc `$`*(v: DeviceAccessStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Allowed"
-  of 2: "DeniedByUser"
-  of 3: "DeniedBySystem"
-  else: "DeviceAccessStatus(" & $ord(v) & ")"
+template `$`*(v: DeviceAccessStatus): string = enumName(v)
 
 ## Windows.Devices.Enumeration.DeviceClass  (enum)
 type DeviceClass* {.pure, size: 4.} = enum
@@ -5705,16 +3674,7 @@ type DeviceClass* {.pure, size: 4.} = enum
   VideoCapture = 4'i32
   ImageScanner = 5'i32
   Location = 6'i32
-proc `$`*(v: DeviceClass): string =
-  case ord(v)
-  of 0: "All"
-  of 1: "AudioCapture"
-  of 2: "AudioRender"
-  of 3: "PortableStorageDevice"
-  of 4: "VideoCapture"
-  of 5: "ImageScanner"
-  of 6: "Location"
-  else: "DeviceClass(" & $ord(v) & ")"
+template `$`*(v: DeviceClass): string = enumName(v)
 
 ## Windows.Devices.Enumeration.DeviceInformationKind  (enum)
 type DeviceInformationKind* {.pure, size: 4.} = enum
@@ -5728,19 +3688,7 @@ type DeviceInformationKind* {.pure, size: 4.} = enum
   AssociationEndpointService = 7'i32
   DevicePanel = 8'i32
   AssociationEndpointProtocol = 9'i32
-proc `$`*(v: DeviceInformationKind): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "DeviceInterface"
-  of 2: "DeviceContainer"
-  of 3: "Device"
-  of 4: "DeviceInterfaceClass"
-  of 5: "AssociationEndpoint"
-  of 6: "AssociationEndpointContainer"
-  of 7: "AssociationEndpointService"
-  of 8: "DevicePanel"
-  of 9: "AssociationEndpointProtocol"
-  else: "DeviceInformationKind(" & $ord(v) & ")"
+template `$`*(v: DeviceInformationKind): string = enumName(v)
 
 ## Windows.Devices.Enumeration.DevicePairingAddPairingSetMemberStatus  (enum)
 type DevicePairingAddPairingSetMemberStatus* {.pure, size: 4.} = enum
@@ -5750,15 +3698,7 @@ type DevicePairingAddPairingSetMemberStatus* {.pure, size: 4.} = enum
   SetDiscoveryCompletedByProtocol = 3'i32
   SetDiscoveryPartiallyCompletedByProtocol = 4'i32
   Failed = 5'i32
-proc `$`*(v: DevicePairingAddPairingSetMemberStatus): string =
-  case ord(v)
-  of 0: "AddedToSet"
-  of 1: "CouldNotBeAddedToSet"
-  of 2: "SetDiscoveryNotAttemptedByProtocol"
-  of 3: "SetDiscoveryCompletedByProtocol"
-  of 4: "SetDiscoveryPartiallyCompletedByProtocol"
-  of 5: "Failed"
-  else: "DevicePairingAddPairingSetMemberStatus(" & $ord(v) & ")"
+template `$`*(v: DevicePairingAddPairingSetMemberStatus): string = enumName(v)
 
 ## Windows.Devices.Enumeration.DevicePairingKinds  (enum)
 type DevicePairingKinds* = distinct uint32
@@ -5814,13 +3754,7 @@ type DevicePairingProtectionLevel* {.pure, size: 4.} = enum
   None = 1'i32
   Encryption = 2'i32
   EncryptionAndAuthentication = 3'i32
-proc `$`*(v: DevicePairingProtectionLevel): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "None"
-  of 2: "Encryption"
-  of 3: "EncryptionAndAuthentication"
-  else: "DevicePairingProtectionLevel(" & $ord(v) & ")"
+template `$`*(v: DevicePairingProtectionLevel): string = enumName(v)
 
 ## Windows.Devices.Enumeration.DevicePairingResultStatus  (enum)
 type DevicePairingResultStatus* {.pure, size: 4.} = enum
@@ -5844,29 +3778,7 @@ type DevicePairingResultStatus* {.pure, size: 4.} = enum
   RejectedByHandler = 17'i32
   RemoteDeviceHasAssociation = 18'i32
   Failed = 19'i32
-proc `$`*(v: DevicePairingResultStatus): string =
-  case ord(v)
-  of 0: "Paired"
-  of 1: "NotReadyToPair"
-  of 2: "NotPaired"
-  of 3: "AlreadyPaired"
-  of 4: "ConnectionRejected"
-  of 5: "TooManyConnections"
-  of 6: "HardwareFailure"
-  of 7: "AuthenticationTimeout"
-  of 8: "AuthenticationNotAllowed"
-  of 9: "AuthenticationFailure"
-  of 10: "NoSupportedProfiles"
-  of 11: "ProtectionLevelCouldNotBeMet"
-  of 12: "AccessDenied"
-  of 13: "InvalidCeremonyData"
-  of 14: "PairingCanceled"
-  of 15: "OperationAlreadyInProgress"
-  of 16: "RequiredHandlerNotRegistered"
-  of 17: "RejectedByHandler"
-  of 18: "RemoteDeviceHasAssociation"
-  of 19: "Failed"
-  else: "DevicePairingResultStatus(" & $ord(v) & ")"
+template `$`*(v: DevicePairingResultStatus): string = enumName(v)
 
 ## Windows.Devices.Enumeration.DevicePickerDisplayStatusOptions  (enum)
 type DevicePickerDisplayStatusOptions* = distinct uint32
@@ -5908,26 +3820,14 @@ type DeviceUnpairingResultStatus* {.pure, size: 4.} = enum
   OperationAlreadyInProgress = 2'i32
   AccessDenied = 3'i32
   Failed = 4'i32
-proc `$`*(v: DeviceUnpairingResultStatus): string =
-  case ord(v)
-  of 0: "Unpaired"
-  of 1: "AlreadyUnpaired"
-  of 2: "OperationAlreadyInProgress"
-  of 3: "AccessDenied"
-  of 4: "Failed"
-  else: "DeviceUnpairingResultStatus(" & $ord(v) & ")"
+template `$`*(v: DeviceUnpairingResultStatus): string = enumName(v)
 
 ## Windows.Devices.Enumeration.DeviceWatcherEventKind  (enum)
 type DeviceWatcherEventKind* {.pure, size: 4.} = enum
   Add = 0'i32
   Update = 1'i32
   Remove = 2'i32
-proc `$`*(v: DeviceWatcherEventKind): string =
-  case ord(v)
-  of 0: "Add"
-  of 1: "Update"
-  of 2: "Remove"
-  else: "DeviceWatcherEventKind(" & $ord(v) & ")"
+template `$`*(v: DeviceWatcherEventKind): string = enumName(v)
 
 ## Windows.Devices.Enumeration.DeviceWatcherStatus  (enum)
 type DeviceWatcherStatus* {.pure, size: 4.} = enum
@@ -5937,15 +3837,7 @@ type DeviceWatcherStatus* {.pure, size: 4.} = enum
   Stopping = 3'i32
   Stopped = 4'i32
   Aborted = 5'i32
-proc `$`*(v: DeviceWatcherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "EnumerationCompleted"
-  of 3: "Stopping"
-  of 4: "Stopped"
-  of 5: "Aborted"
-  else: "DeviceWatcherStatus(" & $ord(v) & ")"
+template `$`*(v: DeviceWatcherStatus): string = enumName(v)
 
 ## Windows.Devices.Enumeration.Panel  (enum)
 type Panel* {.pure, size: 4.} = enum
@@ -5956,16 +3848,7 @@ type Panel* {.pure, size: 4.} = enum
   Bottom = 4'i32
   Left = 5'i32
   Right = 6'i32
-proc `$`*(v: Panel): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Front"
-  of 2: "Back"
-  of 3: "Top"
-  of 4: "Bottom"
-  of 5: "Left"
-  of 6: "Right"
-  else: "Panel(" & $ord(v) & ")"
+template `$`*(v: Panel): string = enumName(v)
 
 ## Windows.Devices.Enumeration.Pnp.PnpObjectType  (enum)
 type PnpObjectType* {.pure, size: 4.} = enum
@@ -5979,19 +3862,7 @@ type PnpObjectType* {.pure, size: 4.} = enum
   AssociationEndpointService = 7'i32
   DevicePanel = 8'i32
   AssociationEndpointProtocol = 9'i32
-proc `$`*(v: PnpObjectType): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "DeviceInterface"
-  of 2: "DeviceContainer"
-  of 3: "Device"
-  of 4: "DeviceInterfaceClass"
-  of 5: "AssociationEndpoint"
-  of 6: "AssociationEndpointContainer"
-  of 7: "AssociationEndpointService"
-  of 8: "DevicePanel"
-  of 9: "AssociationEndpointProtocol"
-  else: "PnpObjectType(" & $ord(v) & ")"
+template `$`*(v: PnpObjectType): string = enumName(v)
 
 ## Windows.Devices.Geolocation.AltitudeReferenceSystem  (enum)
 type AltitudeReferenceSystem* {.pure, size: 4.} = enum
@@ -6000,14 +3871,7 @@ type AltitudeReferenceSystem* {.pure, size: 4.} = enum
   Ellipsoid = 2'i32
   Geoid = 3'i32
   Surface = 4'i32
-proc `$`*(v: AltitudeReferenceSystem): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Terrain"
-  of 2: "Ellipsoid"
-  of 3: "Geoid"
-  of 4: "Surface"
-  else: "AltitudeReferenceSystem(" & $ord(v) & ")"
+template `$`*(v: AltitudeReferenceSystem): string = enumName(v)
 
 ## Windows.Devices.Geolocation.Geofencing.GeofenceMonitorStatus  (enum)
 type GeofenceMonitorStatus* {.pure, size: 4.} = enum
@@ -6017,25 +3881,13 @@ type GeofenceMonitorStatus* {.pure, size: 4.} = enum
   Disabled = 3'i32
   NotInitialized = 4'i32
   NotAvailable = 5'i32
-proc `$`*(v: GeofenceMonitorStatus): string =
-  case ord(v)
-  of 0: "Ready"
-  of 1: "Initializing"
-  of 2: "NoData"
-  of 3: "Disabled"
-  of 4: "NotInitialized"
-  of 5: "NotAvailable"
-  else: "GeofenceMonitorStatus(" & $ord(v) & ")"
+template `$`*(v: GeofenceMonitorStatus): string = enumName(v)
 
 ## Windows.Devices.Geolocation.Geofencing.GeofenceRemovalReason  (enum)
 type GeofenceRemovalReason* {.pure, size: 4.} = enum
   Used = 0'i32
   Expired = 1'i32
-proc `$`*(v: GeofenceRemovalReason): string =
-  case ord(v)
-  of 0: "Used"
-  of 1: "Expired"
-  else: "GeofenceRemovalReason(" & $ord(v) & ")"
+template `$`*(v: GeofenceRemovalReason): string = enumName(v)
 
 ## Windows.Devices.Geolocation.Geofencing.GeofenceState  (enum)
 type GeofenceState* = distinct uint32
@@ -6108,12 +3960,7 @@ type GeolocationAccessStatus* {.pure, size: 4.} = enum
   Unspecified = 0'i32
   Allowed = 1'i32
   Denied = 2'i32
-proc `$`*(v: GeolocationAccessStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Allowed"
-  of 2: "Denied"
-  else: "GeolocationAccessStatus(" & $ord(v) & ")"
+template `$`*(v: GeolocationAccessStatus): string = enumName(v)
 
 ## Windows.Devices.Geolocation.GeoshapeType  (enum)
 type GeoshapeType* {.pure, size: 4.} = enum
@@ -6121,23 +3968,13 @@ type GeoshapeType* {.pure, size: 4.} = enum
   Geocircle = 1'i32
   Geopath = 2'i32
   GeoboundingBox = 3'i32
-proc `$`*(v: GeoshapeType): string =
-  case ord(v)
-  of 0: "Geopoint"
-  of 1: "Geocircle"
-  of 2: "Geopath"
-  of 3: "GeoboundingBox"
-  else: "GeoshapeType(" & $ord(v) & ")"
+template `$`*(v: GeoshapeType): string = enumName(v)
 
 ## Windows.Devices.Geolocation.PositionAccuracy  (enum)
 type PositionAccuracy* {.pure, size: 4.} = enum
   Default = 0'i32
   High = 1'i32
-proc `$`*(v: PositionAccuracy): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "High"
-  else: "PositionAccuracy(" & $ord(v) & ")"
+template `$`*(v: PositionAccuracy): string = enumName(v)
 
 ## Windows.Devices.Geolocation.PositionSource  (enum)
 type PositionSource* {.pure, size: 4.} = enum
@@ -6148,16 +3985,7 @@ type PositionSource* {.pure, size: 4.} = enum
   Unknown = 4'i32
   Default = 5'i32
   Obfuscated = 6'i32
-proc `$`*(v: PositionSource): string =
-  case ord(v)
-  of 0: "Cellular"
-  of 1: "Satellite"
-  of 2: "WiFi"
-  of 3: "IPAddress"
-  of 4: "Unknown"
-  of 5: "Default"
-  of 6: "Obfuscated"
-  else: "PositionSource(" & $ord(v) & ")"
+template `$`*(v: PositionSource): string = enumName(v)
 
 ## Windows.Devices.Geolocation.PositionStatus  (enum)
 type PositionStatus* {.pure, size: 4.} = enum
@@ -6167,15 +3995,7 @@ type PositionStatus* {.pure, size: 4.} = enum
   Disabled = 3'i32
   NotInitialized = 4'i32
   NotAvailable = 5'i32
-proc `$`*(v: PositionStatus): string =
-  case ord(v)
-  of 0: "Ready"
-  of 1: "Initializing"
-  of 2: "NoData"
-  of 3: "Disabled"
-  of 4: "NotInitialized"
-  of 5: "NotAvailable"
-  else: "PositionStatus(" & $ord(v) & ")"
+template `$`*(v: PositionStatus): string = enumName(v)
 
 ## Windows.Devices.Geolocation.Provider.LocationOverrideStatus  (enum)
 type LocationOverrideStatus* {.pure, size: 4.} = enum
@@ -6183,23 +4003,13 @@ type LocationOverrideStatus* {.pure, size: 4.} = enum
   AccessDenied = 1'i32
   AlreadyStarted = 2'i32
   Other = 3'i32
-proc `$`*(v: LocationOverrideStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "AccessDenied"
-  of 2: "AlreadyStarted"
-  of 3: "Other"
-  else: "LocationOverrideStatus(" & $ord(v) & ")"
+template `$`*(v: LocationOverrideStatus): string = enumName(v)
 
 ## Windows.Devices.Geolocation.VisitMonitoringScope  (enum)
 type VisitMonitoringScope* {.pure, size: 4.} = enum
   Venue = 0'i32
   City = 1'i32
-proc `$`*(v: VisitMonitoringScope): string =
-  case ord(v)
-  of 0: "Venue"
-  of 1: "City"
-  else: "VisitMonitoringScope(" & $ord(v) & ")"
+template `$`*(v: VisitMonitoringScope): string = enumName(v)
 
 ## Windows.Devices.Geolocation.VisitStateChange  (enum)
 type VisitStateChange* {.pure, size: 4.} = enum
@@ -6207,25 +4017,14 @@ type VisitStateChange* {.pure, size: 4.} = enum
   Arrived = 1'i32
   Departed = 2'i32
   OtherMovement = 3'i32
-proc `$`*(v: VisitStateChange): string =
-  case ord(v)
-  of 0: "TrackingLost"
-  of 1: "Arrived"
-  of 2: "Departed"
-  of 3: "OtherMovement"
-  else: "VisitStateChange(" & $ord(v) & ")"
+template `$`*(v: VisitStateChange): string = enumName(v)
 
 ## Windows.Devices.Gpio.GpioChangePolarity  (enum)
 type GpioChangePolarity* {.pure, size: 4.} = enum
   Falling = 0'i32
   Rising = 1'i32
   Both = 2'i32
-proc `$`*(v: GpioChangePolarity): string =
-  case ord(v)
-  of 0: "Falling"
-  of 1: "Rising"
-  of 2: "Both"
-  else: "GpioChangePolarity(" & $ord(v) & ")"
+template `$`*(v: GpioChangePolarity): string = enumName(v)
 
 ## Windows.Devices.Gpio.GpioOpenStatus  (enum)
 type GpioOpenStatus* {.pure, size: 4.} = enum
@@ -6234,14 +4033,7 @@ type GpioOpenStatus* {.pure, size: 4.} = enum
   SharingViolation = 2'i32
   MuxingConflict = 3'i32
   UnknownError = 4'i32
-proc `$`*(v: GpioOpenStatus): string =
-  case ord(v)
-  of 0: "PinOpened"
-  of 1: "PinUnavailable"
-  of 2: "SharingViolation"
-  of 3: "MuxingConflict"
-  of 4: "UnknownError"
-  else: "GpioOpenStatus(" & $ord(v) & ")"
+template `$`*(v: GpioOpenStatus): string = enumName(v)
 
 ## Windows.Devices.Gpio.GpioPinDriveMode  (enum)
 type GpioPinDriveMode* {.pure, size: 4.} = enum
@@ -6253,47 +4045,25 @@ type GpioPinDriveMode* {.pure, size: 4.} = enum
   OutputOpenDrainPullUp = 5'i32
   OutputOpenSource = 6'i32
   OutputOpenSourcePullDown = 7'i32
-proc `$`*(v: GpioPinDriveMode): string =
-  case ord(v)
-  of 0: "Input"
-  of 1: "Output"
-  of 2: "InputPullUp"
-  of 3: "InputPullDown"
-  of 4: "OutputOpenDrain"
-  of 5: "OutputOpenDrainPullUp"
-  of 6: "OutputOpenSource"
-  of 7: "OutputOpenSourcePullDown"
-  else: "GpioPinDriveMode(" & $ord(v) & ")"
+template `$`*(v: GpioPinDriveMode): string = enumName(v)
 
 ## Windows.Devices.Gpio.GpioPinEdge  (enum)
 type GpioPinEdge* {.pure, size: 4.} = enum
   FallingEdge = 0'i32
   RisingEdge = 1'i32
-proc `$`*(v: GpioPinEdge): string =
-  case ord(v)
-  of 0: "FallingEdge"
-  of 1: "RisingEdge"
-  else: "GpioPinEdge(" & $ord(v) & ")"
+template `$`*(v: GpioPinEdge): string = enumName(v)
 
 ## Windows.Devices.Gpio.GpioPinValue  (enum)
 type GpioPinValue* {.pure, size: 4.} = enum
   Low = 0'i32
   High = 1'i32
-proc `$`*(v: GpioPinValue): string =
-  case ord(v)
-  of 0: "Low"
-  of 1: "High"
-  else: "GpioPinValue(" & $ord(v) & ")"
+template `$`*(v: GpioPinValue): string = enumName(v)
 
 ## Windows.Devices.Gpio.GpioSharingMode  (enum)
 type GpioSharingMode* {.pure, size: 4.} = enum
   Exclusive = 0'i32
   SharedReadOnly = 1'i32
-proc `$`*(v: GpioSharingMode): string =
-  case ord(v)
-  of 0: "Exclusive"
-  of 1: "SharedReadOnly"
-  else: "GpioSharingMode(" & $ord(v) & ")"
+template `$`*(v: GpioSharingMode): string = enumName(v)
 
 ## Windows.Devices.Gpio.Provider.ProviderGpioPinDriveMode  (enum)
 type ProviderGpioPinDriveMode* {.pure, size: 4.} = enum
@@ -6305,47 +4075,25 @@ type ProviderGpioPinDriveMode* {.pure, size: 4.} = enum
   OutputOpenDrainPullUp = 5'i32
   OutputOpenSource = 6'i32
   OutputOpenSourcePullDown = 7'i32
-proc `$`*(v: ProviderGpioPinDriveMode): string =
-  case ord(v)
-  of 0: "Input"
-  of 1: "Output"
-  of 2: "InputPullUp"
-  of 3: "InputPullDown"
-  of 4: "OutputOpenDrain"
-  of 5: "OutputOpenDrainPullUp"
-  of 6: "OutputOpenSource"
-  of 7: "OutputOpenSourcePullDown"
-  else: "ProviderGpioPinDriveMode(" & $ord(v) & ")"
+template `$`*(v: ProviderGpioPinDriveMode): string = enumName(v)
 
 ## Windows.Devices.Gpio.Provider.ProviderGpioPinEdge  (enum)
 type ProviderGpioPinEdge* {.pure, size: 4.} = enum
   FallingEdge = 0'i32
   RisingEdge = 1'i32
-proc `$`*(v: ProviderGpioPinEdge): string =
-  case ord(v)
-  of 0: "FallingEdge"
-  of 1: "RisingEdge"
-  else: "ProviderGpioPinEdge(" & $ord(v) & ")"
+template `$`*(v: ProviderGpioPinEdge): string = enumName(v)
 
 ## Windows.Devices.Gpio.Provider.ProviderGpioPinValue  (enum)
 type ProviderGpioPinValue* {.pure, size: 4.} = enum
   Low = 0'i32
   High = 1'i32
-proc `$`*(v: ProviderGpioPinValue): string =
-  case ord(v)
-  of 0: "Low"
-  of 1: "High"
-  else: "ProviderGpioPinValue(" & $ord(v) & ")"
+template `$`*(v: ProviderGpioPinValue): string = enumName(v)
 
 ## Windows.Devices.Gpio.Provider.ProviderGpioSharingMode  (enum)
 type ProviderGpioSharingMode* {.pure, size: 4.} = enum
   Exclusive = 0'i32
   SharedReadOnly = 1'i32
-proc `$`*(v: ProviderGpioSharingMode): string =
-  case ord(v)
-  of 0: "Exclusive"
-  of 1: "SharedReadOnly"
-  else: "ProviderGpioSharingMode(" & $ord(v) & ")"
+template `$`*(v: ProviderGpioSharingMode): string = enumName(v)
 
 ## Windows.Devices.Haptics.HapticDeviceType  (enum)
 type HapticDeviceType* {.pure, size: 4.} = enum
@@ -6354,14 +4102,7 @@ type HapticDeviceType* {.pure, size: 4.} = enum
   Pen = 2'i32
   Touchpad = 3'i32
   Mouse = 4'i32
-proc `$`*(v: HapticDeviceType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Generic"
-  of 2: "Pen"
-  of 3: "Touchpad"
-  of 4: "Mouse"
-  else: "HapticDeviceType(" & $ord(v) & ")"
+template `$`*(v: HapticDeviceType): string = enumName(v)
 
 ## Windows.Devices.Haptics.VibrationAccessStatus  (enum)
 type VibrationAccessStatus* {.pure, size: 4.} = enum
@@ -6369,13 +4110,7 @@ type VibrationAccessStatus* {.pure, size: 4.} = enum
   DeniedByUser = 1'i32
   DeniedBySystem = 2'i32
   DeniedByEnergySaver = 3'i32
-proc `$`*(v: VibrationAccessStatus): string =
-  case ord(v)
-  of 0: "Allowed"
-  of 1: "DeniedByUser"
-  of 2: "DeniedBySystem"
-  of 3: "DeniedByEnergySaver"
-  else: "VibrationAccessStatus(" & $ord(v) & ")"
+template `$`*(v: VibrationAccessStatus): string = enumName(v)
 
 ## Windows.Devices.HumanInterfaceDevice.HidCollectionType  (enum)
 type HidCollectionType* {.pure, size: 4.} = enum
@@ -6387,49 +4122,26 @@ type HidCollectionType* {.pure, size: 4.} = enum
   UsageSwitch = 5'i32
   UsageModifier = 6'i32
   Other = 7'i32
-proc `$`*(v: HidCollectionType): string =
-  case ord(v)
-  of 0: "Physical"
-  of 1: "Application"
-  of 2: "Logical"
-  of 3: "Report"
-  of 4: "NamedArray"
-  of 5: "UsageSwitch"
-  of 6: "UsageModifier"
-  of 7: "Other"
-  else: "HidCollectionType(" & $ord(v) & ")"
+template `$`*(v: HidCollectionType): string = enumName(v)
 
 ## Windows.Devices.HumanInterfaceDevice.HidReportType  (enum)
 type HidReportType* {.pure, size: 4.} = enum
   Input = 0'i32
   Output = 1'i32
   Feature = 2'i32
-proc `$`*(v: HidReportType): string =
-  case ord(v)
-  of 0: "Input"
-  of 1: "Output"
-  of 2: "Feature"
-  else: "HidReportType(" & $ord(v) & ")"
+template `$`*(v: HidReportType): string = enumName(v)
 
 ## Windows.Devices.I2c.I2cBusSpeed  (enum)
 type I2cBusSpeed* {.pure, size: 4.} = enum
   StandardMode = 0'i32
   FastMode = 1'i32
-proc `$`*(v: I2cBusSpeed): string =
-  case ord(v)
-  of 0: "StandardMode"
-  of 1: "FastMode"
-  else: "I2cBusSpeed(" & $ord(v) & ")"
+template `$`*(v: I2cBusSpeed): string = enumName(v)
 
 ## Windows.Devices.I2c.I2cSharingMode  (enum)
 type I2cSharingMode* {.pure, size: 4.} = enum
   Exclusive = 0'i32
   Shared = 1'i32
-proc `$`*(v: I2cSharingMode): string =
-  case ord(v)
-  of 0: "Exclusive"
-  of 1: "Shared"
-  else: "I2cSharingMode(" & $ord(v) & ")"
+template `$`*(v: I2cSharingMode): string = enumName(v)
 
 ## Windows.Devices.I2c.I2cTransferStatus  (enum)
 type I2cTransferStatus* {.pure, size: 4.} = enum
@@ -6438,46 +4150,26 @@ type I2cTransferStatus* {.pure, size: 4.} = enum
   SlaveAddressNotAcknowledged = 2'i32
   ClockStretchTimeout = 3'i32
   UnknownError = 4'i32
-proc `$`*(v: I2cTransferStatus): string =
-  case ord(v)
-  of 0: "FullTransfer"
-  of 1: "PartialTransfer"
-  of 2: "SlaveAddressNotAcknowledged"
-  of 3: "ClockStretchTimeout"
-  of 4: "UnknownError"
-  else: "I2cTransferStatus(" & $ord(v) & ")"
+template `$`*(v: I2cTransferStatus): string = enumName(v)
 
 ## Windows.Devices.I2c.Provider.ProviderI2cBusSpeed  (enum)
 type ProviderI2cBusSpeed* {.pure, size: 4.} = enum
   StandardMode = 0'i32
   FastMode = 1'i32
-proc `$`*(v: ProviderI2cBusSpeed): string =
-  case ord(v)
-  of 0: "StandardMode"
-  of 1: "FastMode"
-  else: "ProviderI2cBusSpeed(" & $ord(v) & ")"
+template `$`*(v: ProviderI2cBusSpeed): string = enumName(v)
 
 ## Windows.Devices.I2c.Provider.ProviderI2cSharingMode  (enum)
 type ProviderI2cSharingMode* {.pure, size: 4.} = enum
   Exclusive = 0'i32
   Shared = 1'i32
-proc `$`*(v: ProviderI2cSharingMode): string =
-  case ord(v)
-  of 0: "Exclusive"
-  of 1: "Shared"
-  else: "ProviderI2cSharingMode(" & $ord(v) & ")"
+template `$`*(v: ProviderI2cSharingMode): string = enumName(v)
 
 ## Windows.Devices.I2c.Provider.ProviderI2cTransferStatus  (enum)
 type ProviderI2cTransferStatus* {.pure, size: 4.} = enum
   FullTransfer = 0'i32
   PartialTransfer = 1'i32
   SlaveAddressNotAcknowledged = 2'i32
-proc `$`*(v: ProviderI2cTransferStatus): string =
-  case ord(v)
-  of 0: "FullTransfer"
-  of 1: "PartialTransfer"
-  of 2: "SlaveAddressNotAcknowledged"
-  else: "ProviderI2cTransferStatus(" & $ord(v) & ")"
+template `$`*(v: ProviderI2cTransferStatus): string = enumName(v)
 
 ## Windows.Devices.Input.PointerDeviceType  (enum)
 type PointerDeviceType* {.pure, size: 4.} = enum
@@ -6485,13 +4177,7 @@ type PointerDeviceType* {.pure, size: 4.} = enum
   Pen = 1'i32
   Mouse = 2'i32
   Touchpad = 3'i32
-proc `$`*(v: PointerDeviceType): string =
-  case ord(v)
-  of 0: "Touch"
-  of 1: "Pen"
-  of 2: "Mouse"
-  of 3: "Touchpad"
-  else: "PointerDeviceType(" & $ord(v) & ")"
+template `$`*(v: PointerDeviceType): string = enumName(v)
 
 ## Windows.Devices.Input.Preview.GazeDeviceConfigurationStatePreview  (enum)
 type GazeDeviceConfigurationStatePreview* {.pure, size: 4.} = enum
@@ -6500,44 +4186,25 @@ type GazeDeviceConfigurationStatePreview* {.pure, size: 4.} = enum
   Configuring = 2'i32
   ScreenSetupNeeded = 3'i32
   UserCalibrationNeeded = 4'i32
-proc `$`*(v: GazeDeviceConfigurationStatePreview): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Ready"
-  of 2: "Configuring"
-  of 3: "ScreenSetupNeeded"
-  of 4: "UserCalibrationNeeded"
-  else: "GazeDeviceConfigurationStatePreview(" & $ord(v) & ")"
+template `$`*(v: GazeDeviceConfigurationStatePreview): string = enumName(v)
 
 ## Windows.Devices.Lights.Effects.LampArrayEffectCompletionBehavior  (enum)
 type LampArrayEffectCompletionBehavior* {.pure, size: 4.} = enum
   ClearState = 0'i32
   KeepState = 1'i32
-proc `$`*(v: LampArrayEffectCompletionBehavior): string =
-  case ord(v)
-  of 0: "ClearState"
-  of 1: "KeepState"
-  else: "LampArrayEffectCompletionBehavior(" & $ord(v) & ")"
+template `$`*(v: LampArrayEffectCompletionBehavior): string = enumName(v)
 
 ## Windows.Devices.Lights.Effects.LampArrayEffectStartMode  (enum)
 type LampArrayEffectStartMode* {.pure, size: 4.} = enum
   Sequential = 0'i32
   Simultaneous = 1'i32
-proc `$`*(v: LampArrayEffectStartMode): string =
-  case ord(v)
-  of 0: "Sequential"
-  of 1: "Simultaneous"
-  else: "LampArrayEffectStartMode(" & $ord(v) & ")"
+template `$`*(v: LampArrayEffectStartMode): string = enumName(v)
 
 ## Windows.Devices.Lights.Effects.LampArrayRepetitionMode  (enum)
 type LampArrayRepetitionMode* {.pure, size: 4.} = enum
   Occurrences = 0'i32
   Forever = 1'i32
-proc `$`*(v: LampArrayRepetitionMode): string =
-  case ord(v)
-  of 0: "Occurrences"
-  of 1: "Forever"
-  else: "LampArrayRepetitionMode(" & $ord(v) & ")"
+template `$`*(v: LampArrayRepetitionMode): string = enumName(v)
 
 ## Windows.Devices.Lights.LampArrayKind  (enum)
 type LampArrayKind* {.pure, size: 4.} = enum
@@ -6555,23 +4222,7 @@ type LampArrayKind* {.pure, size: 4.} = enum
   Headset = 11'i32
   Microphone = 12'i32
   Speaker = 13'i32
-proc `$`*(v: LampArrayKind): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "Keyboard"
-  of 2: "Mouse"
-  of 3: "GameController"
-  of 4: "Peripheral"
-  of 5: "Scene"
-  of 6: "Notification"
-  of 7: "Chassis"
-  of 8: "Wearable"
-  of 9: "Furniture"
-  of 10: "Art"
-  of 11: "Headset"
-  of 12: "Microphone"
-  of 13: "Speaker"
-  else: "LampArrayKind(" & $ord(v) & ")"
+template `$`*(v: LampArrayKind): string = enumName(v)
 
 ## Windows.Devices.Lights.LampPurposes  (enum)
 type LampPurposes* = distinct uint32
@@ -6643,29 +4294,7 @@ type MidiMessageType* {.pure, size: 4.} = enum
   Stop = 252'i32
   ActiveSensing = 254'i32
   SystemReset = 255'i32
-proc `$`*(v: MidiMessageType): string =
-  case ord(v)
-  of 0: "None"
-  of 128: "NoteOff"
-  of 144: "NoteOn"
-  of 160: "PolyphonicKeyPressure"
-  of 176: "ControlChange"
-  of 192: "ProgramChange"
-  of 208: "ChannelPressure"
-  of 224: "PitchBendChange"
-  of 240: "SystemExclusive"
-  of 241: "MidiTimeCode"
-  of 242: "SongPositionPointer"
-  of 243: "SongSelect"
-  of 246: "TuneRequest"
-  of 247: "EndSystemExclusive"
-  of 248: "TimingClock"
-  of 250: "Start"
-  of 251: "Continue"
-  of 252: "Stop"
-  of 254: "ActiveSensing"
-  of 255: "SystemReset"
-  else: "MidiMessageType(" & $ord(v) & ")"
+template `$`*(v: MidiMessageType): string = enumName(v)
 
 ## Windows.Devices.Perception.PerceptionFrameSourceAccessStatus  (enum)
 type PerceptionFrameSourceAccessStatus* {.pure, size: 4.} = enum
@@ -6673,13 +4302,7 @@ type PerceptionFrameSourceAccessStatus* {.pure, size: 4.} = enum
   Allowed = 1'i32
   DeniedByUser = 2'i32
   DeniedBySystem = 3'i32
-proc `$`*(v: PerceptionFrameSourceAccessStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Allowed"
-  of 2: "DeniedByUser"
-  of 3: "DeniedBySystem"
-  else: "PerceptionFrameSourceAccessStatus(" & $ord(v) & ")"
+template `$`*(v: PerceptionFrameSourceAccessStatus): string = enumName(v)
 
 ## Windows.Devices.Perception.PerceptionFrameSourcePropertyChangeStatus  (enum)
 type PerceptionFrameSourcePropertyChangeStatus* {.pure, size: 4.} = enum
@@ -6689,15 +4312,7 @@ type PerceptionFrameSourcePropertyChangeStatus* {.pure, size: 4.} = enum
   PropertyNotSupported = 3'i32
   PropertyReadOnly = 4'i32
   ValueOutOfRange = 5'i32
-proc `$`*(v: PerceptionFrameSourcePropertyChangeStatus): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Accepted"
-  of 2: "LostControl"
-  of 3: "PropertyNotSupported"
-  of 4: "PropertyReadOnly"
-  of 5: "ValueOutOfRange"
-  else: "PerceptionFrameSourcePropertyChangeStatus(" & $ord(v) & ")"
+template `$`*(v: PerceptionFrameSourcePropertyChangeStatus): string = enumName(v)
 
 ## Windows.Devices.PointOfService.BarcodeScannerStatus  (enum)
 type BarcodeScannerStatus* {.pure, size: 4.} = enum
@@ -6706,26 +4321,14 @@ type BarcodeScannerStatus* {.pure, size: 4.} = enum
   Offline = 2'i32
   OffOrOffline = 3'i32
   Extended = 4'i32
-proc `$`*(v: BarcodeScannerStatus): string =
-  case ord(v)
-  of 0: "Online"
-  of 1: "Off"
-  of 2: "Offline"
-  of 3: "OffOrOffline"
-  of 4: "Extended"
-  else: "BarcodeScannerStatus(" & $ord(v) & ")"
+template `$`*(v: BarcodeScannerStatus): string = enumName(v)
 
 ## Windows.Devices.PointOfService.BarcodeSymbologyDecodeLengthKind  (enum)
 type BarcodeSymbologyDecodeLengthKind* {.pure, size: 4.} = enum
   AnyLength = 0'i32
   Discrete = 1'i32
   Range = 2'i32
-proc `$`*(v: BarcodeSymbologyDecodeLengthKind): string =
-  case ord(v)
-  of 0: "AnyLength"
-  of 1: "Discrete"
-  of 2: "Range"
-  else: "BarcodeSymbologyDecodeLengthKind(" & $ord(v) & ")"
+template `$`*(v: BarcodeSymbologyDecodeLengthKind): string = enumName(v)
 
 ## Windows.Devices.PointOfService.CashDrawerStatusKind  (enum)
 type CashDrawerStatusKind* {.pure, size: 4.} = enum
@@ -6734,14 +4337,7 @@ type CashDrawerStatusKind* {.pure, size: 4.} = enum
   Offline = 2'i32
   OffOrOffline = 3'i32
   Extended = 4'i32
-proc `$`*(v: CashDrawerStatusKind): string =
-  case ord(v)
-  of 0: "Online"
-  of 1: "Off"
-  of 2: "Offline"
-  of 3: "OffOrOffline"
-  of 4: "Extended"
-  else: "CashDrawerStatusKind(" & $ord(v) & ")"
+template `$`*(v: CashDrawerStatusKind): string = enumName(v)
 
 ## Windows.Devices.PointOfService.LineDisplayCursorType  (enum)
 type LineDisplayCursorType* {.pure, size: 4.} = enum
@@ -6751,51 +4347,28 @@ type LineDisplayCursorType* {.pure, size: 4.} = enum
   Underline = 3'i32
   Reverse = 4'i32
   Other = 5'i32
-proc `$`*(v: LineDisplayCursorType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Block"
-  of 2: "HalfBlock"
-  of 3: "Underline"
-  of 4: "Reverse"
-  of 5: "Other"
-  else: "LineDisplayCursorType(" & $ord(v) & ")"
+template `$`*(v: LineDisplayCursorType): string = enumName(v)
 
 ## Windows.Devices.PointOfService.LineDisplayDescriptorState  (enum)
 type LineDisplayDescriptorState* {.pure, size: 4.} = enum
   Off = 0'i32
   On = 1'i32
   Blink = 2'i32
-proc `$`*(v: LineDisplayDescriptorState): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "On"
-  of 2: "Blink"
-  else: "LineDisplayDescriptorState(" & $ord(v) & ")"
+template `$`*(v: LineDisplayDescriptorState): string = enumName(v)
 
 ## Windows.Devices.PointOfService.LineDisplayHorizontalAlignment  (enum)
 type LineDisplayHorizontalAlignment* {.pure, size: 4.} = enum
   Left = 0'i32
   Center = 1'i32
   Right = 2'i32
-proc `$`*(v: LineDisplayHorizontalAlignment): string =
-  case ord(v)
-  of 0: "Left"
-  of 1: "Center"
-  of 2: "Right"
-  else: "LineDisplayHorizontalAlignment(" & $ord(v) & ")"
+template `$`*(v: LineDisplayHorizontalAlignment): string = enumName(v)
 
 ## Windows.Devices.PointOfService.LineDisplayMarqueeFormat  (enum)
 type LineDisplayMarqueeFormat* {.pure, size: 4.} = enum
   None = 0'i32
   Walk = 1'i32
   Place = 2'i32
-proc `$`*(v: LineDisplayMarqueeFormat): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Walk"
-  of 2: "Place"
-  else: "LineDisplayMarqueeFormat(" & $ord(v) & ")"
+template `$`*(v: LineDisplayMarqueeFormat): string = enumName(v)
 
 ## Windows.Devices.PointOfService.LineDisplayPowerStatus  (enum)
 type LineDisplayPowerStatus* {.pure, size: 4.} = enum
@@ -6804,14 +4377,7 @@ type LineDisplayPowerStatus* {.pure, size: 4.} = enum
   Off = 2'i32
   Offline = 3'i32
   OffOrOffline = 4'i32
-proc `$`*(v: LineDisplayPowerStatus): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Online"
-  of 2: "Off"
-  of 3: "Offline"
-  of 4: "OffOrOffline"
-  else: "LineDisplayPowerStatus(" & $ord(v) & ")"
+template `$`*(v: LineDisplayPowerStatus): string = enumName(v)
 
 ## Windows.Devices.PointOfService.LineDisplayScrollDirection  (enum)
 type LineDisplayScrollDirection* {.pure, size: 4.} = enum
@@ -6819,13 +4385,7 @@ type LineDisplayScrollDirection* {.pure, size: 4.} = enum
   Down = 1'i32
   Left = 2'i32
   Right = 3'i32
-proc `$`*(v: LineDisplayScrollDirection): string =
-  case ord(v)
-  of 0: "Up"
-  of 1: "Down"
-  of 2: "Left"
-  of 3: "Right"
-  else: "LineDisplayScrollDirection(" & $ord(v) & ")"
+template `$`*(v: LineDisplayScrollDirection): string = enumName(v)
 
 ## Windows.Devices.PointOfService.LineDisplayTextAttribute  (enum)
 type LineDisplayTextAttribute* {.pure, size: 4.} = enum
@@ -6833,81 +4393,47 @@ type LineDisplayTextAttribute* {.pure, size: 4.} = enum
   Blink = 1'i32
   Reverse = 2'i32
   ReverseBlink = 3'i32
-proc `$`*(v: LineDisplayTextAttribute): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Blink"
-  of 2: "Reverse"
-  of 3: "ReverseBlink"
-  else: "LineDisplayTextAttribute(" & $ord(v) & ")"
+template `$`*(v: LineDisplayTextAttribute): string = enumName(v)
 
 ## Windows.Devices.PointOfService.LineDisplayTextAttributeGranularity  (enum)
 type LineDisplayTextAttributeGranularity* {.pure, size: 4.} = enum
   NotSupported = 0'i32
   EntireDisplay = 1'i32
   PerCharacter = 2'i32
-proc `$`*(v: LineDisplayTextAttributeGranularity): string =
-  case ord(v)
-  of 0: "NotSupported"
-  of 1: "EntireDisplay"
-  of 2: "PerCharacter"
-  else: "LineDisplayTextAttributeGranularity(" & $ord(v) & ")"
+template `$`*(v: LineDisplayTextAttributeGranularity): string = enumName(v)
 
 ## Windows.Devices.PointOfService.LineDisplayVerticalAlignment  (enum)
 type LineDisplayVerticalAlignment* {.pure, size: 4.} = enum
   Top = 0'i32
   Center = 1'i32
   Bottom = 2'i32
-proc `$`*(v: LineDisplayVerticalAlignment): string =
-  case ord(v)
-  of 0: "Top"
-  of 1: "Center"
-  of 2: "Bottom"
-  else: "LineDisplayVerticalAlignment(" & $ord(v) & ")"
+template `$`*(v: LineDisplayVerticalAlignment): string = enumName(v)
 
 ## Windows.Devices.PointOfService.MagneticStripeReaderAuthenticationLevel  (enum)
 type MagneticStripeReaderAuthenticationLevel* {.pure, size: 4.} = enum
   NotSupported = 0'i32
   Optional = 1'i32
   Required = 2'i32
-proc `$`*(v: MagneticStripeReaderAuthenticationLevel): string =
-  case ord(v)
-  of 0: "NotSupported"
-  of 1: "Optional"
-  of 2: "Required"
-  else: "MagneticStripeReaderAuthenticationLevel(" & $ord(v) & ")"
+template `$`*(v: MagneticStripeReaderAuthenticationLevel): string = enumName(v)
 
 ## Windows.Devices.PointOfService.MagneticStripeReaderAuthenticationProtocol  (enum)
 type MagneticStripeReaderAuthenticationProtocol* {.pure, size: 4.} = enum
   None = 0'i32
   ChallengeResponse = 1'i32
-proc `$`*(v: MagneticStripeReaderAuthenticationProtocol): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "ChallengeResponse"
-  else: "MagneticStripeReaderAuthenticationProtocol(" & $ord(v) & ")"
+template `$`*(v: MagneticStripeReaderAuthenticationProtocol): string = enumName(v)
 
 ## Windows.Devices.PointOfService.MagneticStripeReaderErrorReportingType  (enum)
 type MagneticStripeReaderErrorReportingType* {.pure, size: 4.} = enum
   CardLevel = 0'i32
   TrackLevel = 1'i32
-proc `$`*(v: MagneticStripeReaderErrorReportingType): string =
-  case ord(v)
-  of 0: "CardLevel"
-  of 1: "TrackLevel"
-  else: "MagneticStripeReaderErrorReportingType(" & $ord(v) & ")"
+template `$`*(v: MagneticStripeReaderErrorReportingType): string = enumName(v)
 
 ## Windows.Devices.PointOfService.MagneticStripeReaderStatus  (enum)
 type MagneticStripeReaderStatus* {.pure, size: 4.} = enum
   Unauthenticated = 0'i32
   Authenticated = 1'i32
   Extended = 2'i32
-proc `$`*(v: MagneticStripeReaderStatus): string =
-  case ord(v)
-  of 0: "Unauthenticated"
-  of 1: "Authenticated"
-  of 2: "Extended"
-  else: "MagneticStripeReaderStatus(" & $ord(v) & ")"
+template `$`*(v: MagneticStripeReaderStatus): string = enumName(v)
 
 ## Windows.Devices.PointOfService.MagneticStripeReaderTrackErrorType  (enum)
 type MagneticStripeReaderTrackErrorType* {.pure, size: 4.} = enum
@@ -6917,15 +4443,7 @@ type MagneticStripeReaderTrackErrorType* {.pure, size: 4.} = enum
   EndSentinelError = 2'i32
   ParityError = 3'i32
   LrcError = 4'i32
-proc `$`*(v: MagneticStripeReaderTrackErrorType): string =
-  case ord(v)
-  of -1: "Unknown"
-  of 0: "None"
-  of 1: "StartSentinelError"
-  of 2: "EndSentinelError"
-  of 3: "ParityError"
-  of 4: "LrcError"
-  else: "MagneticStripeReaderTrackErrorType(" & $ord(v) & ")"
+template `$`*(v: MagneticStripeReaderTrackErrorType): string = enumName(v)
 
 ## Windows.Devices.PointOfService.MagneticStripeReaderTrackIds  (enum)
 type MagneticStripeReaderTrackIds* {.pure, size: 4.} = enum
@@ -6934,14 +4452,7 @@ type MagneticStripeReaderTrackIds* {.pure, size: 4.} = enum
   Track2 = 2'i32
   Track3 = 4'i32
   Track4 = 8'i32
-proc `$`*(v: MagneticStripeReaderTrackIds): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Track1"
-  of 2: "Track2"
-  of 4: "Track3"
-  of 8: "Track4"
-  else: "MagneticStripeReaderTrackIds(" & $ord(v) & ")"
+template `$`*(v: MagneticStripeReaderTrackIds): string = enumName(v)
 
 ## Windows.Devices.PointOfService.PosConnectionTypes  (enum)
 type PosConnectionTypes* = distinct uint32
@@ -6985,24 +4496,14 @@ type PosPrinterAlignment* {.pure, size: 4.} = enum
   Left = 0'i32
   Center = 1'i32
   Right = 2'i32
-proc `$`*(v: PosPrinterAlignment): string =
-  case ord(v)
-  of 0: "Left"
-  of 1: "Center"
-  of 2: "Right"
-  else: "PosPrinterAlignment(" & $ord(v) & ")"
+template `$`*(v: PosPrinterAlignment): string = enumName(v)
 
 ## Windows.Devices.PointOfService.PosPrinterBarcodeTextPosition  (enum)
 type PosPrinterBarcodeTextPosition* {.pure, size: 4.} = enum
   None = 0'i32
   Above = 1'i32
   Below = 2'i32
-proc `$`*(v: PosPrinterBarcodeTextPosition): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Above"
-  of 2: "Below"
-  else: "PosPrinterBarcodeTextPosition(" & $ord(v) & ")"
+template `$`*(v: PosPrinterBarcodeTextPosition): string = enumName(v)
 
 ## Windows.Devices.PointOfService.PosPrinterCartridgeSensors  (enum)
 type PosPrinterCartridgeSensors* = distinct uint32
@@ -7128,30 +4629,13 @@ type PosPrinterColorCartridge* {.pure, size: 4.} = enum
   Cyan = 8'i32
   Magenta = 9'i32
   Yellow = 10'i32
-proc `$`*(v: PosPrinterColorCartridge): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Primary"
-  of 2: "Custom1"
-  of 3: "Custom2"
-  of 4: "Custom3"
-  of 5: "Custom4"
-  of 6: "Custom5"
-  of 7: "Custom6"
-  of 8: "Cyan"
-  of 9: "Magenta"
-  of 10: "Yellow"
-  else: "PosPrinterColorCartridge(" & $ord(v) & ")"
+template `$`*(v: PosPrinterColorCartridge): string = enumName(v)
 
 ## Windows.Devices.PointOfService.PosPrinterLineDirection  (enum)
 type PosPrinterLineDirection* {.pure, size: 4.} = enum
   Horizontal = 0'i32
   Vertical = 1'i32
-proc `$`*(v: PosPrinterLineDirection): string =
-  case ord(v)
-  of 0: "Horizontal"
-  of 1: "Vertical"
-  else: "PosPrinterLineDirection(" & $ord(v) & ")"
+template `$`*(v: PosPrinterLineDirection): string = enumName(v)
 
 ## Windows.Devices.PointOfService.PosPrinterLineStyle  (enum)
 type PosPrinterLineStyle* {.pure, size: 4.} = enum
@@ -7159,13 +4643,7 @@ type PosPrinterLineStyle* {.pure, size: 4.} = enum
   DoubleSolid = 1'i32
   Broken = 2'i32
   Chain = 3'i32
-proc `$`*(v: PosPrinterLineStyle): string =
-  case ord(v)
-  of 0: "SingleSolid"
-  of 1: "DoubleSolid"
-  of 2: "Broken"
-  of 3: "Chain"
-  else: "PosPrinterLineStyle(" & $ord(v) & ")"
+template `$`*(v: PosPrinterLineStyle): string = enumName(v)
 
 ## Windows.Devices.PointOfService.PosPrinterMapMode  (enum)
 type PosPrinterMapMode* {.pure, size: 4.} = enum
@@ -7173,13 +4651,7 @@ type PosPrinterMapMode* {.pure, size: 4.} = enum
   Twips = 1'i32
   English = 2'i32
   Metric = 3'i32
-proc `$`*(v: PosPrinterMapMode): string =
-  case ord(v)
-  of 0: "Dots"
-  of 1: "Twips"
-  of 2: "English"
-  of 3: "Metric"
-  else: "PosPrinterMapMode(" & $ord(v) & ")"
+template `$`*(v: PosPrinterMapMode): string = enumName(v)
 
 ## Windows.Devices.PointOfService.PosPrinterMarkFeedCapabilities  (enum)
 type PosPrinterMarkFeedCapabilities* = distinct uint32
@@ -7225,25 +4697,14 @@ type PosPrinterMarkFeedKind* {.pure, size: 4.} = enum
   ToCutter = 1'i32
   ToCurrentTopOfForm = 2'i32
   ToNextTopOfForm = 3'i32
-proc `$`*(v: PosPrinterMarkFeedKind): string =
-  case ord(v)
-  of 0: "ToTakeUp"
-  of 1: "ToCutter"
-  of 2: "ToCurrentTopOfForm"
-  of 3: "ToNextTopOfForm"
-  else: "PosPrinterMarkFeedKind(" & $ord(v) & ")"
+template `$`*(v: PosPrinterMarkFeedKind): string = enumName(v)
 
 ## Windows.Devices.PointOfService.PosPrinterPrintSide  (enum)
 type PosPrinterPrintSide* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Side1 = 1'i32
   Side2 = 2'i32
-proc `$`*(v: PosPrinterPrintSide): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Side1"
-  of 2: "Side2"
-  else: "PosPrinterPrintSide(" & $ord(v) & ")"
+template `$`*(v: PosPrinterPrintSide): string = enumName(v)
 
 ## Windows.Devices.PointOfService.PosPrinterRotation  (enum)
 type PosPrinterRotation* {.pure, size: 4.} = enum
@@ -7251,13 +4712,7 @@ type PosPrinterRotation* {.pure, size: 4.} = enum
   Right90 = 1'i32
   Left90 = 2'i32
   Rotate180 = 3'i32
-proc `$`*(v: PosPrinterRotation): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Right90"
-  of 2: "Left90"
-  of 3: "Rotate180"
-  else: "PosPrinterRotation(" & $ord(v) & ")"
+template `$`*(v: PosPrinterRotation): string = enumName(v)
 
 ## Windows.Devices.PointOfService.PosPrinterRuledLineCapabilities  (enum)
 type PosPrinterRuledLineCapabilities* = distinct uint32
@@ -7294,24 +4749,13 @@ type PosPrinterStatusKind* {.pure, size: 4.} = enum
   Offline = 2'i32
   OffOrOffline = 3'i32
   Extended = 4'i32
-proc `$`*(v: PosPrinterStatusKind): string =
-  case ord(v)
-  of 0: "Online"
-  of 1: "Off"
-  of 2: "Offline"
-  of 3: "OffOrOffline"
-  of 4: "Extended"
-  else: "PosPrinterStatusKind(" & $ord(v) & ")"
+template `$`*(v: PosPrinterStatusKind): string = enumName(v)
 
 ## Windows.Devices.PointOfService.Provider.BarcodeScannerTriggerState  (enum)
 type BarcodeScannerTriggerState* {.pure, size: 4.} = enum
   Released = 0'i32
   Pressed = 1'i32
-proc `$`*(v: BarcodeScannerTriggerState): string =
-  case ord(v)
-  of 0: "Released"
-  of 1: "Pressed"
-  else: "BarcodeScannerTriggerState(" & $ord(v) & ")"
+template `$`*(v: BarcodeScannerTriggerState): string = enumName(v)
 
 ## Windows.Devices.PointOfService.UnifiedPosErrorReason  (enum)
 type UnifiedPosErrorReason* {.pure, size: 4.} = enum
@@ -7326,20 +4770,7 @@ type UnifiedPosErrorReason* {.pure, size: 4.} = enum
   Timeout = 8'i32
   Busy = 9'i32
   Extended = 10'i32
-proc `$`*(v: UnifiedPosErrorReason): string =
-  case ord(v)
-  of 0: "UnknownErrorReason"
-  of 1: "NoService"
-  of 2: "Disabled"
-  of 3: "Illegal"
-  of 4: "NoHardware"
-  of 5: "Closed"
-  of 6: "Offline"
-  of 7: "Failure"
-  of 8: "Timeout"
-  of 9: "Busy"
-  of 10: "Extended"
-  else: "UnifiedPosErrorReason(" & $ord(v) & ")"
+template `$`*(v: UnifiedPosErrorReason): string = enumName(v)
 
 ## Windows.Devices.PointOfService.UnifiedPosErrorSeverity  (enum)
 type UnifiedPosErrorSeverity* {.pure, size: 4.} = enum
@@ -7349,15 +4780,7 @@ type UnifiedPosErrorSeverity* {.pure, size: 4.} = enum
   Unrecoverable = 3'i32
   AssistanceRequired = 4'i32
   Fatal = 5'i32
-proc `$`*(v: UnifiedPosErrorSeverity): string =
-  case ord(v)
-  of 0: "UnknownErrorSeverity"
-  of 1: "Warning"
-  of 2: "Recoverable"
-  of 3: "Unrecoverable"
-  of 4: "AssistanceRequired"
-  of 5: "Fatal"
-  else: "UnifiedPosErrorSeverity(" & $ord(v) & ")"
+template `$`*(v: UnifiedPosErrorSeverity): string = enumName(v)
 
 ## Windows.Devices.PointOfService.UnifiedPosHealthCheckLevel  (enum)
 type UnifiedPosHealthCheckLevel* {.pure, size: 4.} = enum
@@ -7365,25 +4788,14 @@ type UnifiedPosHealthCheckLevel* {.pure, size: 4.} = enum
   POSInternal = 1'i32
   External = 2'i32
   Interactive = 3'i32
-proc `$`*(v: UnifiedPosHealthCheckLevel): string =
-  case ord(v)
-  of 0: "UnknownHealthCheckLevel"
-  of 1: "POSInternal"
-  of 2: "External"
-  of 3: "Interactive"
-  else: "UnifiedPosHealthCheckLevel(" & $ord(v) & ")"
+template `$`*(v: UnifiedPosHealthCheckLevel): string = enumName(v)
 
 ## Windows.Devices.PointOfService.UnifiedPosPowerReportingType  (enum)
 type UnifiedPosPowerReportingType* {.pure, size: 4.} = enum
   UnknownPowerReportingType = 0'i32
   Standard = 1'i32
   Advanced = 2'i32
-proc `$`*(v: UnifiedPosPowerReportingType): string =
-  case ord(v)
-  of 0: "UnknownPowerReportingType"
-  of 1: "Standard"
-  of 2: "Advanced"
-  else: "UnifiedPosPowerReportingType(" & $ord(v) & ")"
+template `$`*(v: UnifiedPosPowerReportingType): string = enumName(v)
 
 ## Windows.Devices.Portable.ServiceDeviceType  (enum)
 type ServiceDeviceType* {.pure, size: 4.} = enum
@@ -7394,16 +4806,7 @@ type ServiceDeviceType* {.pure, size: 4.} = enum
   RingtonesService = 4'i32
   SmsService = 5'i32
   TasksService = 6'i32
-proc `$`*(v: ServiceDeviceType): string =
-  case ord(v)
-  of 0: "CalendarService"
-  of 1: "ContactsService"
-  of 2: "DeviceStatusService"
-  of 3: "NotesService"
-  of 4: "RingtonesService"
-  of 5: "SmsService"
-  of 6: "TasksService"
-  else: "ServiceDeviceType(" & $ord(v) & ")"
+template `$`*(v: ServiceDeviceType): string = enumName(v)
 
 ## Windows.Devices.Printers.Extensions.Print3DWorkflowDetail  (enum)
 type Print3DWorkflowDetail* {.pure, size: 4.} = enum
@@ -7414,16 +4817,7 @@ type Print3DWorkflowDetail* {.pure, size: 4.} = enum
   InvalidModel = 4'i32
   ModelNotManifold = 5'i32
   InvalidPrintTicket = 6'i32
-proc `$`*(v: Print3DWorkflowDetail): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "ModelExceedsPrintBed"
-  of 2: "UploadFailed"
-  of 3: "InvalidMaterialSelection"
-  of 4: "InvalidModel"
-  of 5: "ModelNotManifold"
-  of 6: "InvalidPrintTicket"
-  else: "Print3DWorkflowDetail(" & $ord(v) & ")"
+template `$`*(v: Print3DWorkflowDetail): string = enumName(v)
 
 ## Windows.Devices.Printers.Extensions.Print3DWorkflowStatus  (enum)
 type Print3DWorkflowStatus* {.pure, size: 4.} = enum
@@ -7432,14 +4826,7 @@ type Print3DWorkflowStatus* {.pure, size: 4.} = enum
   Failed = 2'i32
   Slicing = 3'i32
   Submitted = 4'i32
-proc `$`*(v: Print3DWorkflowStatus): string =
-  case ord(v)
-  of 0: "Abandoned"
-  of 1: "Canceled"
-  of 2: "Failed"
-  of 3: "Slicing"
-  of 4: "Submitted"
-  else: "Print3DWorkflowStatus(" & $ord(v) & ")"
+template `$`*(v: Print3DWorkflowStatus): string = enumName(v)
 
 ## Windows.Devices.Printers.IppAttributeErrorReason  (enum)
 type IppAttributeErrorReason* {.pure, size: 4.} = enum
@@ -7448,14 +4835,7 @@ type IppAttributeErrorReason* {.pure, size: 4.} = enum
   AttributeValuesNotSupported = 2'i32
   AttributeNotSettable = 3'i32
   ConflictingAttributes = 4'i32
-proc `$`*(v: IppAttributeErrorReason): string =
-  case ord(v)
-  of 0: "RequestEntityTooLarge"
-  of 1: "AttributeNotSupported"
-  of 2: "AttributeValuesNotSupported"
-  of 3: "AttributeNotSettable"
-  of 4: "ConflictingAttributes"
-  else: "IppAttributeErrorReason(" & $ord(v) & ")"
+template `$`*(v: IppAttributeErrorReason): string = enumName(v)
 
 ## Windows.Devices.Printers.IppAttributeValueKind  (enum)
 type IppAttributeValueKind* {.pure, size: 4.} = enum
@@ -7480,30 +4860,7 @@ type IppAttributeValueKind* {.pure, size: 4.} = enum
   Charset = 18'i32
   NaturalLanguage = 19'i32
   MimeMediaType = 20'i32
-proc `$`*(v: IppAttributeValueKind): string =
-  case ord(v)
-  of 0: "Unsupported"
-  of 1: "Unknown"
-  of 2: "NoValue"
-  of 3: "Integer"
-  of 4: "Boolean"
-  of 5: "Enum"
-  of 6: "OctetString"
-  of 7: "DateTime"
-  of 8: "Resolution"
-  of 9: "RangeOfInteger"
-  of 10: "Collection"
-  of 11: "TextWithLanguage"
-  of 12: "NameWithLanguage"
-  of 13: "TextWithoutLanguage"
-  of 14: "NameWithoutLanguage"
-  of 15: "Keyword"
-  of 16: "Uri"
-  of 17: "UriSchema"
-  of 18: "Charset"
-  of 19: "NaturalLanguage"
-  of 20: "MimeMediaType"
-  else: "IppAttributeValueKind(" & $ord(v) & ")"
+template `$`*(v: IppAttributeValueKind): string = enumName(v)
 
 ## Windows.Devices.Printers.IppPrintDeviceInstallationStatus  (enum)
 type IppPrintDeviceInstallationStatus* {.pure, size: 4.} = enum
@@ -7511,57 +4868,33 @@ type IppPrintDeviceInstallationStatus* {.pure, size: 4.} = enum
   PrinterAlreadyInstalled = 1'i32
   CommunicationError = 2'i32
   OtherFailure = 3'i32
-proc `$`*(v: IppPrintDeviceInstallationStatus): string =
-  case ord(v)
-  of 0: "InstallationSucceeded"
-  of 1: "PrinterAlreadyInstalled"
-  of 2: "CommunicationError"
-  of 3: "OtherFailure"
-  else: "IppPrintDeviceInstallationStatus(" & $ord(v) & ")"
+template `$`*(v: IppPrintDeviceInstallationStatus): string = enumName(v)
 
 ## Windows.Devices.Printers.IppPrintDeviceKind  (enum)
 type IppPrintDeviceKind* {.pure, size: 4.} = enum
   Printer = 0'i32
   FaxOut = 1'i32
   VirtualPrinter = 2'i32
-proc `$`*(v: IppPrintDeviceKind): string =
-  case ord(v)
-  of 0: "Printer"
-  of 1: "FaxOut"
-  of 2: "VirtualPrinter"
-  else: "IppPrintDeviceKind(" & $ord(v) & ")"
+template `$`*(v: IppPrintDeviceKind): string = enumName(v)
 
 ## Windows.Devices.Printers.IppResolutionUnit  (enum)
 type IppResolutionUnit* {.pure, size: 4.} = enum
   DotsPerInch = 0'i32
   DotsPerCentimeter = 1'i32
-proc `$`*(v: IppResolutionUnit): string =
-  case ord(v)
-  of 0: "DotsPerInch"
-  of 1: "DotsPerCentimeter"
-  else: "IppResolutionUnit(" & $ord(v) & ")"
+template `$`*(v: IppResolutionUnit): string = enumName(v)
 
 ## Windows.Devices.Printers.PageConfigurationSource  (enum)
 type PageConfigurationSource* {.pure, size: 4.} = enum
   PrintJobConfiguration = 0'i32
   PdlContent = 1'i32
-proc `$`*(v: PageConfigurationSource): string =
-  case ord(v)
-  of 0: "PrintJobConfiguration"
-  of 1: "PdlContent"
-  else: "PageConfigurationSource(" & $ord(v) & ")"
+template `$`*(v: PageConfigurationSource): string = enumName(v)
 
 ## Windows.Devices.Printers.ReplaceDevicePropertiesStatus  (enum)
 type ReplaceDevicePropertiesStatus* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   AccessDenied = 1'i32
   OtherFailure = 2'i32
-proc `$`*(v: ReplaceDevicePropertiesStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "AccessDenied"
-  of 2: "OtherFailure"
-  else: "ReplaceDevicePropertiesStatus(" & $ord(v) & ")"
+template `$`*(v: ReplaceDevicePropertiesStatus): string = enumName(v)
 
 ## Windows.Devices.Printers.VirtualPrinterInstallationStatus  (enum)
 type VirtualPrinterInstallationStatus* {.pure, size: 4.} = enum
@@ -7569,33 +4902,19 @@ type VirtualPrinterInstallationStatus* {.pure, size: 4.} = enum
   PrinterAlreadyInstalled = 1'i32
   PrinterInstallationAccessDenied = 2'i32
   PrinterInstallationFailed = 3'i32
-proc `$`*(v: VirtualPrinterInstallationStatus): string =
-  case ord(v)
-  of 0: "InstallationSucceeded"
-  of 1: "PrinterAlreadyInstalled"
-  of 2: "PrinterInstallationAccessDenied"
-  of 3: "PrinterInstallationFailed"
-  else: "VirtualPrinterInstallationStatus(" & $ord(v) & ")"
+template `$`*(v: VirtualPrinterInstallationStatus): string = enumName(v)
 
 ## Windows.Devices.Printers.VirtualPrinterPreferredInputFormat  (enum)
 type VirtualPrinterPreferredInputFormat* {.pure, size: 4.} = enum
   OpenXps = 0'i32
   PostScript = 1'i32
-proc `$`*(v: VirtualPrinterPreferredInputFormat): string =
-  case ord(v)
-  of 0: "OpenXps"
-  of 1: "PostScript"
-  else: "VirtualPrinterPreferredInputFormat(" & $ord(v) & ")"
+template `$`*(v: VirtualPrinterPreferredInputFormat): string = enumName(v)
 
 ## Windows.Devices.Pwm.PwmPulsePolarity  (enum)
 type PwmPulsePolarity* {.pure, size: 4.} = enum
   ActiveHigh = 0'i32
   ActiveLow = 1'i32
-proc `$`*(v: PwmPulsePolarity): string =
-  case ord(v)
-  of 0: "ActiveHigh"
-  of 1: "ActiveLow"
-  else: "PwmPulsePolarity(" & $ord(v) & ")"
+template `$`*(v: PwmPulsePolarity): string = enumName(v)
 
 ## Windows.Devices.Radios.RadioAccessStatus  (enum)
 type RadioAccessStatus* {.pure, size: 4.} = enum
@@ -7603,13 +4922,7 @@ type RadioAccessStatus* {.pure, size: 4.} = enum
   Allowed = 1'i32
   DeniedByUser = 2'i32
   DeniedBySystem = 3'i32
-proc `$`*(v: RadioAccessStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Allowed"
-  of 2: "DeniedByUser"
-  of 3: "DeniedBySystem"
-  else: "RadioAccessStatus(" & $ord(v) & ")"
+template `$`*(v: RadioAccessStatus): string = enumName(v)
 
 ## Windows.Devices.Radios.RadioKind  (enum)
 type RadioKind* {.pure, size: 4.} = enum
@@ -7618,14 +4931,7 @@ type RadioKind* {.pure, size: 4.} = enum
   MobileBroadband = 2'i32
   Bluetooth = 3'i32
   FM = 4'i32
-proc `$`*(v: RadioKind): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "WiFi"
-  of 2: "MobileBroadband"
-  of 3: "Bluetooth"
-  of 4: "FM"
-  else: "RadioKind(" & $ord(v) & ")"
+template `$`*(v: RadioKind): string = enumName(v)
 
 ## Windows.Devices.Radios.RadioState  (enum)
 type RadioState* {.pure, size: 4.} = enum
@@ -7633,25 +4939,14 @@ type RadioState* {.pure, size: 4.} = enum
   On = 1'i32
   Off = 2'i32
   Disabled = 3'i32
-proc `$`*(v: RadioState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "On"
-  of 2: "Off"
-  of 3: "Disabled"
-  else: "RadioState(" & $ord(v) & ")"
+template `$`*(v: RadioState): string = enumName(v)
 
 ## Windows.Devices.Scanners.ImageScannerAutoCroppingMode  (enum)
 type ImageScannerAutoCroppingMode* {.pure, size: 4.} = enum
   Disabled = 0'i32
   SingleRegion = 1'i32
   MultipleRegion = 2'i32
-proc `$`*(v: ImageScannerAutoCroppingMode): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "SingleRegion"
-  of 2: "MultipleRegion"
-  else: "ImageScannerAutoCroppingMode(" & $ord(v) & ")"
+template `$`*(v: ImageScannerAutoCroppingMode): string = enumName(v)
 
 ## Windows.Devices.Scanners.ImageScannerColorMode  (enum)
 type ImageScannerColorMode* {.pure, size: 4.} = enum
@@ -7659,13 +4954,7 @@ type ImageScannerColorMode* {.pure, size: 4.} = enum
   Grayscale = 1'i32
   Monochrome = 2'i32
   AutoColor = 3'i32
-proc `$`*(v: ImageScannerColorMode): string =
-  case ord(v)
-  of 0: "Color"
-  of 1: "Grayscale"
-  of 2: "Monochrome"
-  of 3: "AutoColor"
-  else: "ImageScannerColorMode(" & $ord(v) & ")"
+template `$`*(v: ImageScannerColorMode): string = enumName(v)
 
 ## Windows.Devices.Scanners.ImageScannerFormat  (enum)
 type ImageScannerFormat* {.pure, size: 4.} = enum
@@ -7676,16 +4965,7 @@ type ImageScannerFormat* {.pure, size: 4.} = enum
   Xps = 4'i32
   OpenXps = 5'i32
   Pdf = 6'i32
-proc `$`*(v: ImageScannerFormat): string =
-  case ord(v)
-  of 0: "Jpeg"
-  of 1: "Png"
-  of 2: "DeviceIndependentBitmap"
-  of 3: "Tiff"
-  of 4: "Xps"
-  of 5: "OpenXps"
-  of 6: "Pdf"
-  else: "ImageScannerFormat(" & $ord(v) & ")"
+template `$`*(v: ImageScannerFormat): string = enumName(v)
 
 ## Windows.Devices.Scanners.ImageScannerScanSource  (enum)
 type ImageScannerScanSource* {.pure, size: 4.} = enum
@@ -7693,35 +4973,20 @@ type ImageScannerScanSource* {.pure, size: 4.} = enum
   Flatbed = 1'i32
   Feeder = 2'i32
   AutoConfigured = 3'i32
-proc `$`*(v: ImageScannerScanSource): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Flatbed"
-  of 2: "Feeder"
-  of 3: "AutoConfigured"
-  else: "ImageScannerScanSource(" & $ord(v) & ")"
+template `$`*(v: ImageScannerScanSource): string = enumName(v)
 
 ## Windows.Devices.Sensors.AccelerometerReadingType  (enum)
 type AccelerometerReadingType* {.pure, size: 4.} = enum
   Standard = 0'i32
   Linear = 1'i32
   Gravity = 2'i32
-proc `$`*(v: AccelerometerReadingType): string =
-  case ord(v)
-  of 0: "Standard"
-  of 1: "Linear"
-  of 2: "Gravity"
-  else: "AccelerometerReadingType(" & $ord(v) & ")"
+template `$`*(v: AccelerometerReadingType): string = enumName(v)
 
 ## Windows.Devices.Sensors.ActivitySensorReadingConfidence  (enum)
 type ActivitySensorReadingConfidence* {.pure, size: 4.} = enum
   High = 0'i32
   Low = 1'i32
-proc `$`*(v: ActivitySensorReadingConfidence): string =
-  case ord(v)
-  of 0: "High"
-  of 1: "Low"
-  else: "ActivitySensorReadingConfidence(" & $ord(v) & ")"
+template `$`*(v: ActivitySensorReadingConfidence): string = enumName(v)
 
 ## Windows.Devices.Sensors.ActivityType  (enum)
 type ActivityType* {.pure, size: 4.} = enum
@@ -7733,41 +4998,21 @@ type ActivityType* {.pure, size: 4.} = enum
   Running = 5'i32
   InVehicle = 6'i32
   Biking = 7'i32
-proc `$`*(v: ActivityType): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Idle"
-  of 2: "Stationary"
-  of 3: "Fidgeting"
-  of 4: "Walking"
-  of 5: "Running"
-  of 6: "InVehicle"
-  of 7: "Biking"
-  else: "ActivityType(" & $ord(v) & ")"
+template `$`*(v: ActivityType): string = enumName(v)
 
 ## Windows.Devices.Sensors.HumanEngagement  (enum)
 type HumanEngagement* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Engaged = 1'i32
   Unengaged = 2'i32
-proc `$`*(v: HumanEngagement): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Engaged"
-  of 2: "Unengaged"
-  else: "HumanEngagement(" & $ord(v) & ")"
+template `$`*(v: HumanEngagement): string = enumName(v)
 
 ## Windows.Devices.Sensors.HumanPresence  (enum)
 type HumanPresence* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Present = 1'i32
   NotPresent = 2'i32
-proc `$`*(v: HumanPresence): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Present"
-  of 2: "NotPresent"
-  else: "HumanPresence(" & $ord(v) & ")"
+template `$`*(v: HumanPresence): string = enumName(v)
 
 ## Windows.Devices.Sensors.MagnetometerAccuracy  (enum)
 type MagnetometerAccuracy* {.pure, size: 4.} = enum
@@ -7775,25 +5020,14 @@ type MagnetometerAccuracy* {.pure, size: 4.} = enum
   Unreliable = 1'i32
   Approximate = 2'i32
   High = 3'i32
-proc `$`*(v: MagnetometerAccuracy): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Unreliable"
-  of 2: "Approximate"
-  of 3: "High"
-  else: "MagnetometerAccuracy(" & $ord(v) & ")"
+template `$`*(v: MagnetometerAccuracy): string = enumName(v)
 
 ## Windows.Devices.Sensors.OnlookerDetectionAction  (enum)
 type OnlookerDetectionAction* {.pure, size: 4.} = enum
   Dim = 0'i32
   Notify = 1'i32
   DimAndNotify = 2'i32
-proc `$`*(v: OnlookerDetectionAction): string =
-  case ord(v)
-  of 0: "Dim"
-  of 1: "Notify"
-  of 2: "DimAndNotify"
-  else: "OnlookerDetectionAction(" & $ord(v) & ")"
+template `$`*(v: OnlookerDetectionAction): string = enumName(v)
 
 ## Windows.Devices.Sensors.OnlookerDetectionBackOnMode  (enum)
 type OnlookerDetectionBackOnMode* {.pure, size: 4.} = enum
@@ -7801,45 +5035,26 @@ type OnlookerDetectionBackOnMode* {.pure, size: 4.} = enum
   OneHour = 1'i32
   FourHours = 2'i32
   OneDay = 3'i32
-proc `$`*(v: OnlookerDetectionBackOnMode): string =
-  case ord(v)
-  of 0: "Manually"
-  of 1: "OneHour"
-  of 2: "FourHours"
-  of 3: "OneDay"
-  else: "OnlookerDetectionBackOnMode(" & $ord(v) & ")"
+template `$`*(v: OnlookerDetectionBackOnMode): string = enumName(v)
 
 ## Windows.Devices.Sensors.PedometerStepKind  (enum)
 type PedometerStepKind* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Walking = 1'i32
   Running = 2'i32
-proc `$`*(v: PedometerStepKind): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Walking"
-  of 2: "Running"
-  else: "PedometerStepKind(" & $ord(v) & ")"
+template `$`*(v: PedometerStepKind): string = enumName(v)
 
 ## Windows.Devices.Sensors.SensorOptimizationGoal  (enum)
 type SensorOptimizationGoal* {.pure, size: 4.} = enum
   Precision = 0'i32
   PowerEfficiency = 1'i32
-proc `$`*(v: SensorOptimizationGoal): string =
-  case ord(v)
-  of 0: "Precision"
-  of 1: "PowerEfficiency"
-  else: "SensorOptimizationGoal(" & $ord(v) & ")"
+template `$`*(v: SensorOptimizationGoal): string = enumName(v)
 
 ## Windows.Devices.Sensors.SensorReadingType  (enum)
 type SensorReadingType* {.pure, size: 4.} = enum
   Absolute = 0'i32
   Relative = 1'i32
-proc `$`*(v: SensorReadingType): string =
-  case ord(v)
-  of 0: "Absolute"
-  of 1: "Relative"
-  else: "SensorReadingType(" & $ord(v) & ")"
+template `$`*(v: SensorReadingType): string = enumName(v)
 
 ## Windows.Devices.Sensors.SensorType  (enum)
 type SensorType* {.pure, size: 4.} = enum
@@ -7857,23 +5072,7 @@ type SensorType* {.pure, size: 4.} = enum
   RelativeInclinometer = 11'i32
   RelativeOrientationSensor = 12'i32
   SimpleOrientationSensor = 13'i32
-proc `$`*(v: SensorType): string =
-  case ord(v)
-  of 0: "Accelerometer"
-  of 1: "ActivitySensor"
-  of 2: "Barometer"
-  of 3: "Compass"
-  of 4: "CustomSensor"
-  of 5: "Gyroscope"
-  of 6: "ProximitySensor"
-  of 7: "Inclinometer"
-  of 8: "LightSensor"
-  of 9: "OrientationSensor"
-  of 10: "Pedometer"
-  of 11: "RelativeInclinometer"
-  of 12: "RelativeOrientationSensor"
-  of 13: "SimpleOrientationSensor"
-  else: "SensorType(" & $ord(v) & ")"
+template `$`*(v: SensorType): string = enumName(v)
 
 ## Windows.Devices.Sensors.SimpleOrientation  (enum)
 type SimpleOrientation* {.pure, size: 4.} = enum
@@ -7883,15 +5082,7 @@ type SimpleOrientation* {.pure, size: 4.} = enum
   Rotated270DegreesCounterclockwise = 3'i32
   Faceup = 4'i32
   Facedown = 5'i32
-proc `$`*(v: SimpleOrientation): string =
-  case ord(v)
-  of 0: "NotRotated"
-  of 1: "Rotated90DegreesCounterclockwise"
-  of 2: "Rotated180DegreesCounterclockwise"
-  of 3: "Rotated270DegreesCounterclockwise"
-  of 4: "Faceup"
-  of 5: "Facedown"
-  else: "SimpleOrientation(" & $ord(v) & ")"
+template `$`*(v: SimpleOrientation): string = enumName(v)
 
 ## Windows.Devices.SerialCommunication.SerialError  (enum)
 type SerialError* {.pure, size: 4.} = enum
@@ -7900,14 +5091,7 @@ type SerialError* {.pure, size: 4.} = enum
   ReceiveFull = 2'i32
   ReceiveParity = 3'i32
   TransmitFull = 4'i32
-proc `$`*(v: SerialError): string =
-  case ord(v)
-  of 0: "Frame"
-  of 1: "BufferOverrun"
-  of 2: "ReceiveFull"
-  of 3: "ReceiveParity"
-  of 4: "TransmitFull"
-  else: "SerialError(" & $ord(v) & ")"
+template `$`*(v: SerialError): string = enumName(v)
 
 ## Windows.Devices.SerialCommunication.SerialHandshake  (enum)
 type SerialHandshake* {.pure, size: 4.} = enum
@@ -7915,13 +5099,7 @@ type SerialHandshake* {.pure, size: 4.} = enum
   RequestToSend = 1'i32
   XOnXOff = 2'i32
   RequestToSendXOnXOff = 3'i32
-proc `$`*(v: SerialHandshake): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "RequestToSend"
-  of 2: "XOnXOff"
-  of 3: "RequestToSendXOnXOff"
-  else: "SerialHandshake(" & $ord(v) & ")"
+template `$`*(v: SerialHandshake): string = enumName(v)
 
 ## Windows.Devices.SerialCommunication.SerialParity  (enum)
 type SerialParity* {.pure, size: 4.} = enum
@@ -7930,14 +5108,7 @@ type SerialParity* {.pure, size: 4.} = enum
   Even = 2'i32
   Mark = 3'i32
   Space = 4'i32
-proc `$`*(v: SerialParity): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Odd"
-  of 2: "Even"
-  of 3: "Mark"
-  of 4: "Space"
-  else: "SerialParity(" & $ord(v) & ")"
+template `$`*(v: SerialParity): string = enumName(v)
 
 ## Windows.Devices.SerialCommunication.SerialPinChange  (enum)
 type SerialPinChange* {.pure, size: 4.} = enum
@@ -7946,60 +5117,34 @@ type SerialPinChange* {.pure, size: 4.} = enum
   ClearToSend = 2'i32
   DataSetReady = 3'i32
   RingIndicator = 4'i32
-proc `$`*(v: SerialPinChange): string =
-  case ord(v)
-  of 0: "BreakSignal"
-  of 1: "CarrierDetect"
-  of 2: "ClearToSend"
-  of 3: "DataSetReady"
-  of 4: "RingIndicator"
-  else: "SerialPinChange(" & $ord(v) & ")"
+template `$`*(v: SerialPinChange): string = enumName(v)
 
 ## Windows.Devices.SerialCommunication.SerialStopBitCount  (enum)
 type SerialStopBitCount* {.pure, size: 4.} = enum
   One = 0'i32
   OnePointFive = 1'i32
   Two = 2'i32
-proc `$`*(v: SerialStopBitCount): string =
-  case ord(v)
-  of 0: "One"
-  of 1: "OnePointFive"
-  of 2: "Two"
-  else: "SerialStopBitCount(" & $ord(v) & ")"
+template `$`*(v: SerialStopBitCount): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardActivationPolicyChangeResult  (enum)
 type SmartCardActivationPolicyChangeResult* {.pure, size: 4.} = enum
   Denied = 0'i32
   Allowed = 1'i32
-proc `$`*(v: SmartCardActivationPolicyChangeResult): string =
-  case ord(v)
-  of 0: "Denied"
-  of 1: "Allowed"
-  else: "SmartCardActivationPolicyChangeResult(" & $ord(v) & ")"
+template `$`*(v: SmartCardActivationPolicyChangeResult): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardAppletIdGroupActivationPolicy  (enum)
 type SmartCardAppletIdGroupActivationPolicy* {.pure, size: 4.} = enum
   Disabled = 0'i32
   ForegroundOverride = 1'i32
   Enabled = 2'i32
-proc `$`*(v: SmartCardAppletIdGroupActivationPolicy): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "ForegroundOverride"
-  of 2: "Enabled"
-  else: "SmartCardAppletIdGroupActivationPolicy(" & $ord(v) & ")"
+template `$`*(v: SmartCardAppletIdGroupActivationPolicy): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardAutomaticResponseStatus  (enum)
 type SmartCardAutomaticResponseStatus* {.pure, size: 4.} = enum
   None = 0'i32
   Success = 1'i32
   UnknownError = 2'i32
-proc `$`*(v: SmartCardAutomaticResponseStatus): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Success"
-  of 2: "UnknownError"
-  else: "SmartCardAutomaticResponseStatus(" & $ord(v) & ")"
+template `$`*(v: SmartCardAutomaticResponseStatus): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardCryptogramAlgorithm  (enum)
 type SmartCardCryptogramAlgorithm* {.pure, size: 4.} = enum
@@ -8012,18 +5157,7 @@ type SmartCardCryptogramAlgorithm* {.pure, size: 4.} = enum
   SignedDynamicApplicationData = 6'i32
   RsaPkcs1 = 7'i32
   Sha256Hmac = 8'i32
-proc `$`*(v: SmartCardCryptogramAlgorithm): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "CbcMac"
-  of 2: "Cvc3Umd"
-  of 3: "DecimalizedMsd"
-  of 4: "Cvc3MD"
-  of 5: "Sha1"
-  of 6: "SignedDynamicApplicationData"
-  of 7: "RsaPkcs1"
-  of 8: "Sha256Hmac"
-  else: "SmartCardCryptogramAlgorithm(" & $ord(v) & ")"
+template `$`*(v: SmartCardCryptogramAlgorithm): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardCryptogramGeneratorOperationStatus  (enum)
 type SmartCardCryptogramGeneratorOperationStatus* {.pure, size: 4.} = enum
@@ -8041,53 +5175,25 @@ type SmartCardCryptogramGeneratorOperationStatus* {.pure, size: 4.} = enum
   OtherError = 11'i32
   ValidationFailed = 12'i32
   NotSupported = 13'i32
-proc `$`*(v: SmartCardCryptogramGeneratorOperationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "AuthorizationFailed"
-  of 2: "AuthorizationCanceled"
-  of 3: "AuthorizationRequired"
-  of 4: "CryptogramMaterialPackageStorageKeyExists"
-  of 5: "NoCryptogramMaterialPackageStorageKey"
-  of 6: "NoCryptogramMaterialPackage"
-  of 7: "UnsupportedCryptogramMaterialPackage"
-  of 8: "UnknownCryptogramMaterialName"
-  of 9: "InvalidCryptogramMaterialUsage"
-  of 10: "ApduResponseNotSent"
-  of 11: "OtherError"
-  of 12: "ValidationFailed"
-  of 13: "NotSupported"
-  else: "SmartCardCryptogramGeneratorOperationStatus(" & $ord(v) & ")"
+template `$`*(v: SmartCardCryptogramGeneratorOperationStatus): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardCryptogramMaterialPackageConfirmationResponseFormat  (enum)
 type SmartCardCryptogramMaterialPackageConfirmationResponseFormat* {.pure, size: 4.} = enum
   None = 0'i32
   VisaHmac = 1'i32
-proc `$`*(v: SmartCardCryptogramMaterialPackageConfirmationResponseFormat): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "VisaHmac"
-  else: "SmartCardCryptogramMaterialPackageConfirmationResponseFormat(" & $ord(v) & ")"
+template `$`*(v: SmartCardCryptogramMaterialPackageConfirmationResponseFormat): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardCryptogramMaterialPackageFormat  (enum)
 type SmartCardCryptogramMaterialPackageFormat* {.pure, size: 4.} = enum
   None = 0'i32
   JweRsaPki = 1'i32
-proc `$`*(v: SmartCardCryptogramMaterialPackageFormat): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "JweRsaPki"
-  else: "SmartCardCryptogramMaterialPackageFormat(" & $ord(v) & ")"
+template `$`*(v: SmartCardCryptogramMaterialPackageFormat): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardCryptogramMaterialProtectionMethod  (enum)
 type SmartCardCryptogramMaterialProtectionMethod* {.pure, size: 4.} = enum
   None = 0'i32
   WhiteBoxing = 1'i32
-proc `$`*(v: SmartCardCryptogramMaterialProtectionMethod): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "WhiteBoxing"
-  else: "SmartCardCryptogramMaterialProtectionMethod(" & $ord(v) & ")"
+template `$`*(v: SmartCardCryptogramMaterialProtectionMethod): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardCryptogramMaterialType  (enum)
 type SmartCardCryptogramMaterialType* {.pure, size: 4.} = enum
@@ -8096,14 +5202,7 @@ type SmartCardCryptogramMaterialType* {.pure, size: 4.} = enum
   TripleDes112 = 2'i32
   Aes = 3'i32
   RsaPkcs1 = 4'i32
-proc `$`*(v: SmartCardCryptogramMaterialType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "StaticDataAuthentication"
-  of 2: "TripleDes112"
-  of 3: "Aes"
-  of 4: "RsaPkcs1"
-  else: "SmartCardCryptogramMaterialType(" & $ord(v) & ")"
+template `$`*(v: SmartCardCryptogramMaterialType): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardCryptogramPlacementOptions  (enum)
 type SmartCardCryptogramPlacementOptions* = distinct uint32
@@ -8137,11 +5236,7 @@ const SmartCardCryptogramPlacementOptions_ChainOutput* = SmartCardCryptogramPlac
 type SmartCardCryptogramStorageKeyAlgorithm* {.pure, size: 4.} = enum
   None = 0'i32
   Rsa2048 = 1'i32
-proc `$`*(v: SmartCardCryptogramStorageKeyAlgorithm): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Rsa2048"
-  else: "SmartCardCryptogramStorageKeyAlgorithm(" & $ord(v) & ")"
+template `$`*(v: SmartCardCryptogramStorageKeyAlgorithm): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyCapabilities  (enum)
 type SmartCardCryptogramStorageKeyCapabilities* = distinct uint32
@@ -8181,59 +5276,32 @@ type SmartCardCryptographicKeyAttestationStatus* {.pure, size: 4.} = enum
   TpmKeyWithTemporaryAttestationFailure = 5'i32
   TpmKeyWithLongTermAttestationFailure = 6'i32
   TpmKeyWithAttestation = 7'i32
-proc `$`*(v: SmartCardCryptographicKeyAttestationStatus): string =
-  case ord(v)
-  of 0: "NoAttestation"
-  of 1: "SoftwareKeyWithoutTpm"
-  of 2: "SoftwareKeyWithTpm"
-  of 3: "TpmKeyUnknownAttestationStatus"
-  of 4: "TpmKeyWithoutAttestationCapability"
-  of 5: "TpmKeyWithTemporaryAttestationFailure"
-  of 6: "TpmKeyWithLongTermAttestationFailure"
-  of 7: "TpmKeyWithAttestation"
-  else: "SmartCardCryptographicKeyAttestationStatus(" & $ord(v) & ")"
+template `$`*(v: SmartCardCryptographicKeyAttestationStatus): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardEmulationCategory  (enum)
 type SmartCardEmulationCategory* {.pure, size: 4.} = enum
   Other = 0'i32
   Payment = 1'i32
-proc `$`*(v: SmartCardEmulationCategory): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "Payment"
-  else: "SmartCardEmulationCategory(" & $ord(v) & ")"
+template `$`*(v: SmartCardEmulationCategory): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardEmulationType  (enum)
 type SmartCardEmulationType* {.pure, size: 4.} = enum
   Host = 0'i32
   Uicc = 1'i32
   EmbeddedSE = 2'i32
-proc `$`*(v: SmartCardEmulationType): string =
-  case ord(v)
-  of 0: "Host"
-  of 1: "Uicc"
-  of 2: "EmbeddedSE"
-  else: "SmartCardEmulationType(" & $ord(v) & ")"
+template `$`*(v: SmartCardEmulationType): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardEmulatorConnectionDeactivatedReason  (enum)
 type SmartCardEmulatorConnectionDeactivatedReason* {.pure, size: 4.} = enum
   ConnectionLost = 0'i32
   ConnectionRedirected = 1'i32
-proc `$`*(v: SmartCardEmulatorConnectionDeactivatedReason): string =
-  case ord(v)
-  of 0: "ConnectionLost"
-  of 1: "ConnectionRedirected"
-  else: "SmartCardEmulatorConnectionDeactivatedReason(" & $ord(v) & ")"
+template `$`*(v: SmartCardEmulatorConnectionDeactivatedReason): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardEmulatorConnectionSource  (enum)
 type SmartCardEmulatorConnectionSource* {.pure, size: 4.} = enum
   Unknown = 0'i32
   NfcReader = 1'i32
-proc `$`*(v: SmartCardEmulatorConnectionSource): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "NfcReader"
-  else: "SmartCardEmulatorConnectionSource(" & $ord(v) & ")"
+template `$`*(v: SmartCardEmulatorConnectionSource): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardEmulatorEnablementPolicy  (enum)
 type SmartCardEmulatorEnablementPolicy* {.pure, size: 4.} = enum
@@ -8241,35 +5309,20 @@ type SmartCardEmulatorEnablementPolicy* {.pure, size: 4.} = enum
   Always = 1'i32
   ScreenOn = 2'i32
   ScreenUnlocked = 3'i32
-proc `$`*(v: SmartCardEmulatorEnablementPolicy): string =
-  case ord(v)
-  of 0: "Never"
-  of 1: "Always"
-  of 2: "ScreenOn"
-  of 3: "ScreenUnlocked"
-  else: "SmartCardEmulatorEnablementPolicy(" & $ord(v) & ")"
+template `$`*(v: SmartCardEmulatorEnablementPolicy): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardLaunchBehavior  (enum)
 type SmartCardLaunchBehavior* {.pure, size: 4.} = enum
   Default = 0'i32
   AboveLock = 1'i32
-proc `$`*(v: SmartCardLaunchBehavior): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "AboveLock"
-  else: "SmartCardLaunchBehavior(" & $ord(v) & ")"
+template `$`*(v: SmartCardLaunchBehavior): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardPinCharacterPolicyOption  (enum)
 type SmartCardPinCharacterPolicyOption* {.pure, size: 4.} = enum
   Allow = 0'i32
   RequireAtLeastOne = 1'i32
   Disallow = 2'i32
-proc `$`*(v: SmartCardPinCharacterPolicyOption): string =
-  case ord(v)
-  of 0: "Allow"
-  of 1: "RequireAtLeastOne"
-  of 2: "Disallow"
-  else: "SmartCardPinCharacterPolicyOption(" & $ord(v) & ")"
+template `$`*(v: SmartCardPinCharacterPolicyOption): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardReaderKind  (enum)
 type SmartCardReaderKind* {.pure, size: 4.} = enum
@@ -8279,27 +5332,14 @@ type SmartCardReaderKind* {.pure, size: 4.} = enum
   Nfc = 3'i32
   Uicc = 4'i32
   EmbeddedSE = 5'i32
-proc `$`*(v: SmartCardReaderKind): string =
-  case ord(v)
-  of 0: "Any"
-  of 1: "Generic"
-  of 2: "Tpm"
-  of 3: "Nfc"
-  of 4: "Uicc"
-  of 5: "EmbeddedSE"
-  else: "SmartCardReaderKind(" & $ord(v) & ")"
+template `$`*(v: SmartCardReaderKind): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardReaderStatus  (enum)
 type SmartCardReaderStatus* {.pure, size: 4.} = enum
   Disconnected = 0'i32
   Ready = 1'i32
   Exclusive = 2'i32
-proc `$`*(v: SmartCardReaderStatus): string =
-  case ord(v)
-  of 0: "Disconnected"
-  of 1: "Ready"
-  of 2: "Exclusive"
-  else: "SmartCardReaderStatus(" & $ord(v) & ")"
+template `$`*(v: SmartCardReaderStatus): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardStatus  (enum)
 type SmartCardStatus* {.pure, size: 4.} = enum
@@ -8308,14 +5348,7 @@ type SmartCardStatus* {.pure, size: 4.} = enum
   Shared = 2'i32
   Exclusive = 3'i32
   Unresponsive = 4'i32
-proc `$`*(v: SmartCardStatus): string =
-  case ord(v)
-  of 0: "Disconnected"
-  of 1: "Ready"
-  of 2: "Shared"
-  of 3: "Exclusive"
-  of 4: "Unresponsive"
-  else: "SmartCardStatus(" & $ord(v) & ")"
+template `$`*(v: SmartCardStatus): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardTriggerType  (enum)
 type SmartCardTriggerType* {.pure, size: 4.} = enum
@@ -8325,39 +5358,21 @@ type SmartCardTriggerType* {.pure, size: 4.} = enum
   EmulatorHostApplicationActivated = 3'i32
   EmulatorAppletIdGroupRegistrationChanged = 4'i32
   ReaderCardAdded = 5'i32
-proc `$`*(v: SmartCardTriggerType): string =
-  case ord(v)
-  of 0: "EmulatorTransaction"
-  of 1: "EmulatorNearFieldEntry"
-  of 2: "EmulatorNearFieldExit"
-  of 3: "EmulatorHostApplicationActivated"
-  of 4: "EmulatorAppletIdGroupRegistrationChanged"
-  of 5: "ReaderCardAdded"
-  else: "SmartCardTriggerType(" & $ord(v) & ")"
+template `$`*(v: SmartCardTriggerType): string = enumName(v)
 
 ## Windows.Devices.SmartCards.SmartCardUnlockPromptingBehavior  (enum)
 type SmartCardUnlockPromptingBehavior* {.pure, size: 4.} = enum
   AllowUnlockPrompt = 0'i32
   RequireUnlockPrompt = 1'i32
   PreventUnlockPrompt = 2'i32
-proc `$`*(v: SmartCardUnlockPromptingBehavior): string =
-  case ord(v)
-  of 0: "AllowUnlockPrompt"
-  of 1: "RequireUnlockPrompt"
-  of 2: "PreventUnlockPrompt"
-  else: "SmartCardUnlockPromptingBehavior(" & $ord(v) & ")"
+template `$`*(v: SmartCardUnlockPromptingBehavior): string = enumName(v)
 
 ## Windows.Devices.Sms.CellularClass  (enum)
 type CellularClass* {.pure, size: 4.} = enum
   None = 0'i32
   Gsm = 1'i32
   Cdma = 2'i32
-proc `$`*(v: CellularClass): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Gsm"
-  of 2: "Cdma"
-  else: "CellularClass(" & $ord(v) & ")"
+template `$`*(v: CellularClass): string = enumName(v)
 
 ## Windows.Devices.Sms.SmsBroadcastType  (enum)
 type SmsBroadcastType* {.pure, size: 4.} = enum
@@ -8376,24 +5391,7 @@ type SmsBroadcastType* {.pure, size: 4.} = enum
   EtwsTsunami = 12'i32
   EtwsTsunamiAndEarthquake = 13'i32
   LatAlertLocal = 14'i32
-proc `$`*(v: SmsBroadcastType): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "CmasPresidential"
-  of 2: "CmasExtreme"
-  of 3: "CmasSevere"
-  of 4: "CmasAmber"
-  of 5: "CmasTest"
-  of 6: "EUAlert1"
-  of 7: "EUAlert2"
-  of 8: "EUAlert3"
-  of 9: "EUAlertAmber"
-  of 10: "EUAlertInfo"
-  of 11: "EtwsEarthquake"
-  of 12: "EtwsTsunami"
-  of 13: "EtwsTsunamiAndEarthquake"
-  of 14: "LatAlertLocal"
-  else: "SmsBroadcastType(" & $ord(v) & ")"
+template `$`*(v: SmsBroadcastType): string = enumName(v)
 
 ## Windows.Devices.Sms.SmsDataFormat  (enum)
 type SmsDataFormat* {.pure, size: 4.} = enum
@@ -8402,14 +5400,7 @@ type SmsDataFormat* {.pure, size: 4.} = enum
   GsmSubmit = 2'i32
   CdmaDeliver = 3'i32
   GsmDeliver = 4'i32
-proc `$`*(v: SmsDataFormat): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "CdmaSubmit"
-  of 2: "GsmSubmit"
-  of 3: "CdmaDeliver"
-  of 4: "GsmDeliver"
-  else: "SmsDataFormat(" & $ord(v) & ")"
+template `$`*(v: SmsDataFormat): string = enumName(v)
 
 ## Windows.Devices.Sms.SmsDeviceStatus  (enum)
 type SmsDeviceStatus* {.pure, size: 4.} = enum
@@ -8421,17 +5412,7 @@ type SmsDeviceStatus* {.pure, size: 4.} = enum
   SubscriptionNotActivated = 5'i32
   DeviceLocked = 6'i32
   DeviceBlocked = 7'i32
-proc `$`*(v: SmsDeviceStatus): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "Ready"
-  of 2: "SimNotInserted"
-  of 3: "BadSim"
-  of 4: "DeviceFailure"
-  of 5: "SubscriptionNotActivated"
-  of 6: "DeviceLocked"
-  of 7: "DeviceBlocked"
-  else: "SmsDeviceStatus(" & $ord(v) & ")"
+template `$`*(v: SmsDeviceStatus): string = enumName(v)
 
 ## Windows.Devices.Sms.SmsEncoding  (enum)
 type SmsEncoding* {.pure, size: 4.} = enum
@@ -8446,20 +5427,7 @@ type SmsEncoding* {.pure, size: 4.} = enum
   IA5 = 8'i32
   ShiftJis = 9'i32
   LatinHebrew = 10'i32
-proc `$`*(v: SmsEncoding): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Optimal"
-  of 2: "SevenBitAscii"
-  of 3: "Unicode"
-  of 4: "GsmSevenBit"
-  of 5: "EightBit"
-  of 6: "Latin"
-  of 7: "Korean"
-  of 8: "IA5"
-  of 9: "ShiftJis"
-  of 10: "LatinHebrew"
-  else: "SmsEncoding(" & $ord(v) & ")"
+template `$`*(v: SmsEncoding): string = enumName(v)
 
 ## Windows.Devices.Sms.SmsFilterActionType  (enum)
 type SmsFilterActionType* {.pure, size: 4.} = enum
@@ -8467,13 +5435,7 @@ type SmsFilterActionType* {.pure, size: 4.} = enum
   Drop = 1'i32
   Peek = 2'i32
   Accept = 3'i32
-proc `$`*(v: SmsFilterActionType): string =
-  case ord(v)
-  of 0: "AcceptImmediately"
-  of 1: "Drop"
-  of 2: "Peek"
-  of 3: "Accept"
-  else: "SmsFilterActionType(" & $ord(v) & ")"
+template `$`*(v: SmsFilterActionType): string = enumName(v)
 
 ## Windows.Devices.Sms.SmsGeographicalScope  (enum)
 type SmsGeographicalScope* {.pure, size: 4.} = enum
@@ -8482,14 +5444,7 @@ type SmsGeographicalScope* {.pure, size: 4.} = enum
   LocationArea = 2'i32
   Plmn = 3'i32
   Cell = 4'i32
-proc `$`*(v: SmsGeographicalScope): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "CellWithImmediateDisplay"
-  of 2: "LocationArea"
-  of 3: "Plmn"
-  of 4: "Cell"
-  else: "SmsGeographicalScope(" & $ord(v) & ")"
+template `$`*(v: SmsGeographicalScope): string = enumName(v)
 
 ## Windows.Devices.Sms.SmsMessageClass  (enum)
 type SmsMessageClass* {.pure, size: 4.} = enum
@@ -8498,14 +5453,7 @@ type SmsMessageClass* {.pure, size: 4.} = enum
   Class1 = 2'i32
   Class2 = 3'i32
   Class3 = 4'i32
-proc `$`*(v: SmsMessageClass): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Class0"
-  of 2: "Class1"
-  of 3: "Class2"
-  of 4: "Class3"
-  else: "SmsMessageClass(" & $ord(v) & ")"
+template `$`*(v: SmsMessageClass): string = enumName(v)
 
 ## Windows.Devices.Sms.SmsMessageFilter  (enum)
 type SmsMessageFilter* {.pure, size: 4.} = enum
@@ -8514,14 +5462,7 @@ type SmsMessageFilter* {.pure, size: 4.} = enum
   Read = 2'i32
   Sent = 3'i32
   Draft = 4'i32
-proc `$`*(v: SmsMessageFilter): string =
-  case ord(v)
-  of 0: "All"
-  of 1: "Unread"
-  of 2: "Read"
-  of 3: "Sent"
-  of 4: "Draft"
-  else: "SmsMessageFilter(" & $ord(v) & ")"
+template `$`*(v: SmsMessageFilter): string = enumName(v)
 
 ## Windows.Devices.Sms.SmsMessageType  (enum)
 type SmsMessageType* {.pure, size: 4.} = enum
@@ -8532,16 +5473,7 @@ type SmsMessageType* {.pure, size: 4.} = enum
   Broadcast = 4'i32
   Voicemail = 5'i32
   Status = 6'i32
-proc `$`*(v: SmsMessageType): string =
-  case ord(v)
-  of 0: "Binary"
-  of 1: "Text"
-  of 2: "Wap"
-  of 3: "App"
-  of 4: "Broadcast"
-  of 5: "Voicemail"
-  of 6: "Status"
-  else: "SmsMessageType(" & $ord(v) & ")"
+template `$`*(v: SmsMessageType): string = enumName(v)
 
 ## Windows.Devices.Sms.SmsModemErrorCode  (enum)
 type SmsModemErrorCode* {.pure, size: 4.} = enum
@@ -8557,21 +5489,7 @@ type SmsModemErrorCode* {.pure, size: 4.} = enum
   InvalidSmscAddress = 9'i32
   NetworkFailure = 10'i32
   FixedDialingNumberRestricted = 11'i32
-proc `$`*(v: SmsModemErrorCode): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "MessagingNetworkError"
-  of 2: "SmsOperationNotSupportedByDevice"
-  of 3: "SmsServiceNotSupportedByNetwork"
-  of 4: "DeviceFailure"
-  of 5: "MessageNotEncodedProperly"
-  of 6: "MessageTooLarge"
-  of 7: "DeviceNotReady"
-  of 8: "NetworkNotReady"
-  of 9: "InvalidSmscAddress"
-  of 10: "NetworkFailure"
-  of 11: "FixedDialingNumberRestricted"
-  else: "SmsModemErrorCode(" & $ord(v) & ")"
+template `$`*(v: SmsModemErrorCode): string = enumName(v)
 
 ## Windows.Devices.Spi.Provider.ProviderSpiMode  (enum)
 type ProviderSpiMode* {.pure, size: 4.} = enum
@@ -8579,23 +5497,13 @@ type ProviderSpiMode* {.pure, size: 4.} = enum
   Mode1 = 1'i32
   Mode2 = 2'i32
   Mode3 = 3'i32
-proc `$`*(v: ProviderSpiMode): string =
-  case ord(v)
-  of 0: "Mode0"
-  of 1: "Mode1"
-  of 2: "Mode2"
-  of 3: "Mode3"
-  else: "ProviderSpiMode(" & $ord(v) & ")"
+template `$`*(v: ProviderSpiMode): string = enumName(v)
 
 ## Windows.Devices.Spi.Provider.ProviderSpiSharingMode  (enum)
 type ProviderSpiSharingMode* {.pure, size: 4.} = enum
   Exclusive = 0'i32
   Shared = 1'i32
-proc `$`*(v: ProviderSpiSharingMode): string =
-  case ord(v)
-  of 0: "Exclusive"
-  of 1: "Shared"
-  else: "ProviderSpiSharingMode(" & $ord(v) & ")"
+template `$`*(v: ProviderSpiSharingMode): string = enumName(v)
 
 ## Windows.Devices.Spi.SpiMode  (enum)
 type SpiMode* {.pure, size: 4.} = enum
@@ -8603,23 +5511,13 @@ type SpiMode* {.pure, size: 4.} = enum
   Mode1 = 1'i32
   Mode2 = 2'i32
   Mode3 = 3'i32
-proc `$`*(v: SpiMode): string =
-  case ord(v)
-  of 0: "Mode0"
-  of 1: "Mode1"
-  of 2: "Mode2"
-  of 3: "Mode3"
-  else: "SpiMode(" & $ord(v) & ")"
+template `$`*(v: SpiMode): string = enumName(v)
 
 ## Windows.Devices.Spi.SpiSharingMode  (enum)
 type SpiSharingMode* {.pure, size: 4.} = enum
   Exclusive = 0'i32
   Shared = 1'i32
-proc `$`*(v: SpiSharingMode): string =
-  case ord(v)
-  of 0: "Exclusive"
-  of 1: "Shared"
-  else: "SpiSharingMode(" & $ord(v) & ")"
+template `$`*(v: SpiSharingMode): string = enumName(v)
 
 ## Windows.Devices.Usb.UsbControlRecipient  (enum)
 type UsbControlRecipient* {.pure, size: 4.} = enum
@@ -8628,26 +5526,14 @@ type UsbControlRecipient* {.pure, size: 4.} = enum
   Endpoint = 2'i32
   Other = 3'i32
   DefaultInterface = 4'i32
-proc `$`*(v: UsbControlRecipient): string =
-  case ord(v)
-  of 0: "Device"
-  of 1: "SpecifiedInterface"
-  of 2: "Endpoint"
-  of 3: "Other"
-  of 4: "DefaultInterface"
-  else: "UsbControlRecipient(" & $ord(v) & ")"
+template `$`*(v: UsbControlRecipient): string = enumName(v)
 
 ## Windows.Devices.Usb.UsbControlTransferType  (enum)
 type UsbControlTransferType* {.pure, size: 4.} = enum
   Standard = 0'i32
   Class = 1'i32
   Vendor = 2'i32
-proc `$`*(v: UsbControlTransferType): string =
-  case ord(v)
-  of 0: "Standard"
-  of 1: "Class"
-  of 2: "Vendor"
-  else: "UsbControlTransferType(" & $ord(v) & ")"
+template `$`*(v: UsbControlTransferType): string = enumName(v)
 
 ## Windows.Devices.Usb.UsbEndpointType  (enum)
 type UsbEndpointType* {.pure, size: 4.} = enum
@@ -8655,13 +5541,7 @@ type UsbEndpointType* {.pure, size: 4.} = enum
   Isochronous = 1'i32
   Bulk = 2'i32
   Interrupt = 3'i32
-proc `$`*(v: UsbEndpointType): string =
-  case ord(v)
-  of 0: "Control"
-  of 1: "Isochronous"
-  of 2: "Bulk"
-  of 3: "Interrupt"
-  else: "UsbEndpointType(" & $ord(v) & ")"
+template `$`*(v: UsbEndpointType): string = enumName(v)
 
 ## Windows.Devices.Usb.UsbReadOptions  (enum)
 type UsbReadOptions* = distinct uint32
@@ -8705,11 +5585,7 @@ const UsbReadOptions_AllowPartialReads* = UsbReadOptions(8'u32)
 type UsbTransferDirection* {.pure, size: 4.} = enum
   `Out` = 0'i32
   `In` = 1'i32
-proc `$`*(v: UsbTransferDirection): string =
-  case ord(v)
-  of 0: "Out"
-  of 1: "In"
-  else: "UsbTransferDirection(" & $ord(v) & ")"
+template `$`*(v: UsbTransferDirection): string = enumName(v)
 
 ## Windows.Devices.Usb.UsbWriteOptions  (enum)
 type UsbWriteOptions* = distinct uint32
@@ -8745,25 +5621,14 @@ type WiFiAccessStatus* {.pure, size: 4.} = enum
   Allowed = 1'i32
   DeniedByUser = 2'i32
   DeniedBySystem = 3'i32
-proc `$`*(v: WiFiAccessStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Allowed"
-  of 2: "DeniedByUser"
-  of 3: "DeniedBySystem"
-  else: "WiFiAccessStatus(" & $ord(v) & ")"
+template `$`*(v: WiFiAccessStatus): string = enumName(v)
 
 ## Windows.Devices.WiFi.WiFiConnectionMethod  (enum)
 type WiFiConnectionMethod* {.pure, size: 4.} = enum
   Default = 0'i32
   WpsPin = 1'i32
   WpsPushButton = 2'i32
-proc `$`*(v: WiFiConnectionMethod): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "WpsPin"
-  of 2: "WpsPushButton"
-  else: "WiFiConnectionMethod(" & $ord(v) & ")"
+template `$`*(v: WiFiConnectionMethod): string = enumName(v)
 
 ## Windows.Devices.WiFi.WiFiConnectionStatus  (enum)
 type WiFiConnectionStatus* {.pure, size: 4.} = enum
@@ -8774,38 +5639,20 @@ type WiFiConnectionStatus* {.pure, size: 4.} = enum
   NetworkNotAvailable = 4'i32
   Timeout = 5'i32
   UnsupportedAuthenticationProtocol = 6'i32
-proc `$`*(v: WiFiConnectionStatus): string =
-  case ord(v)
-  of 0: "UnspecifiedFailure"
-  of 1: "Success"
-  of 2: "AccessRevoked"
-  of 3: "InvalidCredential"
-  of 4: "NetworkNotAvailable"
-  of 5: "Timeout"
-  of 6: "UnsupportedAuthenticationProtocol"
-  else: "WiFiConnectionStatus(" & $ord(v) & ")"
+template `$`*(v: WiFiConnectionStatus): string = enumName(v)
 
 ## Windows.Devices.WiFi.WiFiNetworkKind  (enum)
 type WiFiNetworkKind* {.pure, size: 4.} = enum
   Any = 0'i32
   Infrastructure = 1'i32
   Adhoc = 2'i32
-proc `$`*(v: WiFiNetworkKind): string =
-  case ord(v)
-  of 0: "Any"
-  of 1: "Infrastructure"
-  of 2: "Adhoc"
-  else: "WiFiNetworkKind(" & $ord(v) & ")"
+template `$`*(v: WiFiNetworkKind): string = enumName(v)
 
 ## Windows.Devices.WiFi.WiFiOnDemandHotspotAvailability  (enum)
 type WiFiOnDemandHotspotAvailability* {.pure, size: 4.} = enum
   Available = 0'i32
   Unavailable = 1'i32
-proc `$`*(v: WiFiOnDemandHotspotAvailability): string =
-  case ord(v)
-  of 0: "Available"
-  of 1: "Unavailable"
-  else: "WiFiOnDemandHotspotAvailability(" & $ord(v) & ")"
+template `$`*(v: WiFiOnDemandHotspotAvailability): string = enumName(v)
 
 ## Windows.Devices.WiFi.WiFiOnDemandHotspotCellularBars  (enum)
 type WiFiOnDemandHotspotCellularBars* {.pure, size: 4.} = enum
@@ -8815,15 +5662,7 @@ type WiFiOnDemandHotspotCellularBars* {.pure, size: 4.} = enum
   ThreeBars = 3'i32
   FourBars = 4'i32
   FiveBars = 5'i32
-proc `$`*(v: WiFiOnDemandHotspotCellularBars): string =
-  case ord(v)
-  of 0: "ZeroBars"
-  of 1: "OneBar"
-  of 2: "TwoBars"
-  of 3: "ThreeBars"
-  of 4: "FourBars"
-  of 5: "FiveBars"
-  else: "WiFiOnDemandHotspotCellularBars(" & $ord(v) & ")"
+template `$`*(v: WiFiOnDemandHotspotCellularBars): string = enumName(v)
 
 ## Windows.Devices.WiFi.WiFiOnDemandHotspotConnectStatus  (enum)
 type WiFiOnDemandHotspotConnectStatus* {.pure, size: 4.} = enum
@@ -8846,28 +5685,7 @@ type WiFiOnDemandHotspotConnectStatus* {.pure, size: 4.} = enum
   RoamingNotAllowed = 16'i32
   PairingRequired = 17'i32
   DataLimitReached = 18'i32
-proc `$`*(v: WiFiOnDemandHotspotConnectStatus): string =
-  case ord(v)
-  of 0: "UnspecifiedFailure"
-  of 1: "Success"
-  of 2: "AppTimedOut"
-  of 3: "InvalidCredential"
-  of 4: "NetworkNotAvailable"
-  of 5: "UnsupportedAuthenticationProtocol"
-  of 6: "BluetoothConnectFailed"
-  of 7: "BluetoothTransmissionError"
-  of 8: "OperationCanceledByUser"
-  of 9: "EntitlementCheckFailed"
-  of 10: "NoCellularSignal"
-  of 11: "CellularDataTurnedOff"
-  of 12: "WlanConnectFailed"
-  of 13: "WlanNotVisible"
-  of 14: "AccessPointCannotConnect"
-  of 15: "CellularConnectTimedOut"
-  of 16: "RoamingNotAllowed"
-  of 17: "PairingRequired"
-  of 18: "DataLimitReached"
-  else: "WiFiOnDemandHotspotConnectStatus(" & $ord(v) & ")"
+template `$`*(v: WiFiOnDemandHotspotConnectStatus): string = enumName(v)
 
 ## Windows.Devices.WiFi.WiFiPhyKind  (enum)
 type WiFiPhyKind* {.pure, size: 4.} = enum
@@ -8883,43 +5701,20 @@ type WiFiPhyKind* {.pure, size: 4.} = enum
   Dmg = 9'i32
   HE = 10'i32
   Eht = 11'i32
-proc `$`*(v: WiFiPhyKind): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Fhss"
-  of 2: "Dsss"
-  of 3: "IRBaseband"
-  of 4: "Ofdm"
-  of 5: "Hrdsss"
-  of 6: "Erp"
-  of 7: "HT"
-  of 8: "Vht"
-  of 9: "Dmg"
-  of 10: "HE"
-  of 11: "Eht"
-  else: "WiFiPhyKind(" & $ord(v) & ")"
+template `$`*(v: WiFiPhyKind): string = enumName(v)
 
 ## Windows.Devices.WiFi.WiFiReconnectionKind  (enum)
 type WiFiReconnectionKind* {.pure, size: 4.} = enum
   Automatic = 0'i32
   Manual = 1'i32
-proc `$`*(v: WiFiReconnectionKind): string =
-  case ord(v)
-  of 0: "Automatic"
-  of 1: "Manual"
-  else: "WiFiReconnectionKind(" & $ord(v) & ")"
+template `$`*(v: WiFiReconnectionKind): string = enumName(v)
 
 ## Windows.Devices.WiFi.WiFiWpsConfigurationStatus  (enum)
 type WiFiWpsConfigurationStatus* {.pure, size: 4.} = enum
   UnspecifiedFailure = 0'i32
   Success = 1'i32
   Timeout = 2'i32
-proc `$`*(v: WiFiWpsConfigurationStatus): string =
-  case ord(v)
-  of 0: "UnspecifiedFailure"
-  of 1: "Success"
-  of 2: "Timeout"
-  else: "WiFiWpsConfigurationStatus(" & $ord(v) & ")"
+template `$`*(v: WiFiWpsConfigurationStatus): string = enumName(v)
 
 ## Windows.Devices.WiFi.WiFiWpsKind  (enum)
 type WiFiWpsKind* {.pure, size: 4.} = enum
@@ -8929,15 +5724,7 @@ type WiFiWpsKind* {.pure, size: 4.} = enum
   Nfc = 3'i32
   Ethernet = 4'i32
   Usb = 5'i32
-proc `$`*(v: WiFiWpsKind): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Pin"
-  of 2: "PushButton"
-  of 3: "Nfc"
-  of 4: "Ethernet"
-  of 5: "Usb"
-  else: "WiFiWpsKind(" & $ord(v) & ")"
+template `$`*(v: WiFiWpsKind): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertisementStatus  (enum)
 type WiFiDirectServiceAdvertisementStatus* {.pure, size: 4.} = enum
@@ -8945,25 +5732,14 @@ type WiFiDirectServiceAdvertisementStatus* {.pure, size: 4.} = enum
   Started = 1'i32
   Stopped = 2'i32
   Aborted = 3'i32
-proc `$`*(v: WiFiDirectServiceAdvertisementStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "Stopped"
-  of 3: "Aborted"
-  else: "WiFiDirectServiceAdvertisementStatus(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectServiceAdvertisementStatus): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceConfigurationMethod  (enum)
 type WiFiDirectServiceConfigurationMethod* {.pure, size: 4.} = enum
   Default = 0'i32
   PinDisplay = 1'i32
   PinEntry = 2'i32
-proc `$`*(v: WiFiDirectServiceConfigurationMethod): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "PinDisplay"
-  of 2: "PinEntry"
-  else: "WiFiDirectServiceConfigurationMethod(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectServiceConfigurationMethod): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceError  (enum)
 type WiFiDirectServiceError* {.pure, size: 4.} = enum
@@ -8972,24 +5748,13 @@ type WiFiDirectServiceError* {.pure, size: 4.} = enum
   ResourceInUse = 2'i32
   UnsupportedHardware = 3'i32
   NoHardware = 4'i32
-proc `$`*(v: WiFiDirectServiceError): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "RadioNotAvailable"
-  of 2: "ResourceInUse"
-  of 3: "UnsupportedHardware"
-  of 4: "NoHardware"
-  else: "WiFiDirectServiceError(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectServiceError): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceIPProtocol  (enum)
 type WiFiDirectServiceIPProtocol* {.pure, size: 4.} = enum
   Tcp = 6'i32
   Udp = 17'i32
-proc `$`*(v: WiFiDirectServiceIPProtocol): string =
-  case ord(v)
-  of 6: "Tcp"
-  of 17: "Udp"
-  else: "WiFiDirectServiceIPProtocol(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectServiceIPProtocol): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSessionErrorStatus  (enum)
 type WiFiDirectServiceSessionErrorStatus* {.pure, size: 4.} = enum
@@ -8999,15 +5764,7 @@ type WiFiDirectServiceSessionErrorStatus* {.pure, size: 4.} = enum
   RemoteClose = 3'i32
   SystemFailure = 4'i32
   NoResponseFromRemote = 5'i32
-proc `$`*(v: WiFiDirectServiceSessionErrorStatus): string =
-  case ord(v)
-  of 0: "Ok"
-  of 1: "Disassociated"
-  of 2: "LocalClose"
-  of 3: "RemoteClose"
-  of 4: "SystemFailure"
-  of 5: "NoResponseFromRemote"
-  else: "WiFiDirectServiceSessionErrorStatus(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectServiceSessionErrorStatus): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSessionStatus  (enum)
 type WiFiDirectServiceSessionStatus* {.pure, size: 4.} = enum
@@ -9015,37 +5772,21 @@ type WiFiDirectServiceSessionStatus* {.pure, size: 4.} = enum
   Initiated = 1'i32
   Requested = 2'i32
   Open = 3'i32
-proc `$`*(v: WiFiDirectServiceSessionStatus): string =
-  case ord(v)
-  of 0: "Closed"
-  of 1: "Initiated"
-  of 2: "Requested"
-  of 3: "Open"
-  else: "WiFiDirectServiceSessionStatus(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectServiceSessionStatus): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceStatus  (enum)
 type WiFiDirectServiceStatus* {.pure, size: 4.} = enum
   Available = 0'i32
   Busy = 1'i32
   Custom = 2'i32
-proc `$`*(v: WiFiDirectServiceStatus): string =
-  case ord(v)
-  of 0: "Available"
-  of 1: "Busy"
-  of 2: "Custom"
-  else: "WiFiDirectServiceStatus(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectServiceStatus): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.WiFiDirectAdvertisementListenStateDiscoverability  (enum)
 type WiFiDirectAdvertisementListenStateDiscoverability* {.pure, size: 4.} = enum
   None = 0'i32
   Normal = 1'i32
   Intensive = 2'i32
-proc `$`*(v: WiFiDirectAdvertisementListenStateDiscoverability): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Normal"
-  of 2: "Intensive"
-  else: "WiFiDirectAdvertisementListenStateDiscoverability(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectAdvertisementListenStateDiscoverability): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisherStatus  (enum)
 type WiFiDirectAdvertisementPublisherStatus* {.pure, size: 4.} = enum
@@ -9053,67 +5794,39 @@ type WiFiDirectAdvertisementPublisherStatus* {.pure, size: 4.} = enum
   Started = 1'i32
   Stopped = 2'i32
   Aborted = 3'i32
-proc `$`*(v: WiFiDirectAdvertisementPublisherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "Stopped"
-  of 3: "Aborted"
-  else: "WiFiDirectAdvertisementPublisherStatus(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectAdvertisementPublisherStatus): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.WiFiDirectConfigurationMethod  (enum)
 type WiFiDirectConfigurationMethod* {.pure, size: 4.} = enum
   ProvidePin = 0'i32
   DisplayPin = 1'i32
   PushButton = 2'i32
-proc `$`*(v: WiFiDirectConfigurationMethod): string =
-  case ord(v)
-  of 0: "ProvidePin"
-  of 1: "DisplayPin"
-  of 2: "PushButton"
-  else: "WiFiDirectConfigurationMethod(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectConfigurationMethod): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.WiFiDirectConnectionStatus  (enum)
 type WiFiDirectConnectionStatus* {.pure, size: 4.} = enum
   Disconnected = 0'i32
   Connected = 1'i32
-proc `$`*(v: WiFiDirectConnectionStatus): string =
-  case ord(v)
-  of 0: "Disconnected"
-  of 1: "Connected"
-  else: "WiFiDirectConnectionStatus(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectConnectionStatus): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.WiFiDirectDeviceSelectorType  (enum)
 type WiFiDirectDeviceSelectorType* {.pure, size: 4.} = enum
   DeviceInterface = 0'i32
   AssociationEndpoint = 1'i32
-proc `$`*(v: WiFiDirectDeviceSelectorType): string =
-  case ord(v)
-  of 0: "DeviceInterface"
-  of 1: "AssociationEndpoint"
-  else: "WiFiDirectDeviceSelectorType(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectDeviceSelectorType): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.WiFiDirectError  (enum)
 type WiFiDirectError* {.pure, size: 4.} = enum
   Success = 0'i32
   RadioNotAvailable = 1'i32
   ResourceInUse = 2'i32
-proc `$`*(v: WiFiDirectError): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "RadioNotAvailable"
-  of 2: "ResourceInUse"
-  else: "WiFiDirectError(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectError): string = enumName(v)
 
 ## Windows.Devices.WiFiDirect.WiFiDirectPairingProcedure  (enum)
 type WiFiDirectPairingProcedure* {.pure, size: 4.} = enum
   GroupOwnerNegotiation = 0'i32
   Invitation = 1'i32
-proc `$`*(v: WiFiDirectPairingProcedure): string =
-  case ord(v)
-  of 0: "GroupOwnerNegotiation"
-  of 1: "Invitation"
-  else: "WiFiDirectPairingProcedure(" & $ord(v) & ")"
+template `$`*(v: WiFiDirectPairingProcedure): string = enumName(v)
 
 ## Windows.Foundation.AsyncStatus  (enum)
 type AsyncStatus* {.pure, size: 4.} = enum
@@ -9121,13 +5834,7 @@ type AsyncStatus* {.pure, size: 4.} = enum
   Completed = 1'i32
   Canceled = 2'i32
   Error = 3'i32
-proc `$`*(v: AsyncStatus): string =
-  case ord(v)
-  of 0: "Started"
-  of 1: "Completed"
-  of 2: "Canceled"
-  of 3: "Error"
-  else: "AsyncStatus(" & $ord(v) & ")"
+template `$`*(v: AsyncStatus): string = enumName(v)
 
 ## Windows.Foundation.Collections.CollectionChange  (enum)
 type CollectionChange* {.pure, size: 4.} = enum
@@ -9135,13 +5842,7 @@ type CollectionChange* {.pure, size: 4.} = enum
   ItemInserted = 1'i32
   ItemRemoved = 2'i32
   ItemChanged = 3'i32
-proc `$`*(v: CollectionChange): string =
-  case ord(v)
-  of 0: "Reset"
-  of 1: "ItemInserted"
-  of 2: "ItemRemoved"
-  of 3: "ItemChanged"
-  else: "CollectionChange(" & $ord(v) & ")"
+template `$`*(v: CollectionChange): string = enumName(v)
 
 ## Windows.Foundation.Diagnostics.CausalityRelation  (enum)
 type CausalityRelation* {.pure, size: 4.} = enum
@@ -9150,50 +5851,28 @@ type CausalityRelation* {.pure, size: 4.} = enum
   Choice = 2'i32
   Cancel = 3'i32
   Error = 4'i32
-proc `$`*(v: CausalityRelation): string =
-  case ord(v)
-  of 0: "AssignDelegate"
-  of 1: "Join"
-  of 2: "Choice"
-  of 3: "Cancel"
-  of 4: "Error"
-  else: "CausalityRelation(" & $ord(v) & ")"
+template `$`*(v: CausalityRelation): string = enumName(v)
 
 ## Windows.Foundation.Diagnostics.CausalitySource  (enum)
 type CausalitySource* {.pure, size: 4.} = enum
   Application = 0'i32
   Library = 1'i32
   System = 2'i32
-proc `$`*(v: CausalitySource): string =
-  case ord(v)
-  of 0: "Application"
-  of 1: "Library"
-  of 2: "System"
-  else: "CausalitySource(" & $ord(v) & ")"
+template `$`*(v: CausalitySource): string = enumName(v)
 
 ## Windows.Foundation.Diagnostics.CausalitySynchronousWork  (enum)
 type CausalitySynchronousWork* {.pure, size: 4.} = enum
   CompletionNotification = 0'i32
   ProgressNotification = 1'i32
   Execution = 2'i32
-proc `$`*(v: CausalitySynchronousWork): string =
-  case ord(v)
-  of 0: "CompletionNotification"
-  of 1: "ProgressNotification"
-  of 2: "Execution"
-  else: "CausalitySynchronousWork(" & $ord(v) & ")"
+template `$`*(v: CausalitySynchronousWork): string = enumName(v)
 
 ## Windows.Foundation.Diagnostics.CausalityTraceLevel  (enum)
 type CausalityTraceLevel* {.pure, size: 4.} = enum
   Required = 0'i32
   Important = 1'i32
   Verbose = 2'i32
-proc `$`*(v: CausalityTraceLevel): string =
-  case ord(v)
-  of 0: "Required"
-  of 1: "Important"
-  of 2: "Verbose"
-  else: "CausalityTraceLevel(" & $ord(v) & ")"
+template `$`*(v: CausalityTraceLevel): string = enumName(v)
 
 ## Windows.Foundation.Diagnostics.ErrorOptions  (enum)
 type ErrorOptions* = distinct uint32
@@ -9254,28 +5933,7 @@ type LoggingFieldFormat* {.pure, size: 4.} = enum
   FileTime = 16'i32
   Signed = 17'i32
   Unsigned = 18'i32
-proc `$`*(v: LoggingFieldFormat): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Hidden"
-  of 2: "String"
-  of 3: "Boolean"
-  of 4: "Hexadecimal"
-  of 5: "ProcessId"
-  of 6: "ThreadId"
-  of 7: "Port"
-  of 8: "Ipv4Address"
-  of 9: "Ipv6Address"
-  of 10: "SocketAddress"
-  of 11: "Xml"
-  of 12: "Json"
-  of 13: "Win32Error"
-  of 14: "NTStatus"
-  of 15: "HResult"
-  of 16: "FileTime"
-  of 17: "Signed"
-  of 18: "Unsigned"
-  else: "LoggingFieldFormat(" & $ord(v) & ")"
+template `$`*(v: LoggingFieldFormat): string = enumName(v)
 
 ## Windows.Foundation.Diagnostics.LoggingLevel  (enum)
 type LoggingLevel* {.pure, size: 4.} = enum
@@ -9284,14 +5942,7 @@ type LoggingLevel* {.pure, size: 4.} = enum
   Warning = 2'i32
   Error = 3'i32
   Critical = 4'i32
-proc `$`*(v: LoggingLevel): string =
-  case ord(v)
-  of 0: "Verbose"
-  of 1: "Information"
-  of 2: "Warning"
-  of 3: "Error"
-  of 4: "Critical"
-  else: "LoggingLevel(" & $ord(v) & ")"
+template `$`*(v: LoggingLevel): string = enumName(v)
 
 ## Windows.Foundation.Diagnostics.LoggingOpcode  (enum)
 type LoggingOpcode* {.pure, size: 4.} = enum
@@ -9302,16 +5953,7 @@ type LoggingOpcode* {.pure, size: 4.} = enum
   Resume = 7'i32
   Suspend = 8'i32
   Send = 9'i32
-proc `$`*(v: LoggingOpcode): string =
-  case ord(v)
-  of 0: "Info"
-  of 1: "Start"
-  of 2: "Stop"
-  of 6: "Reply"
-  of 7: "Resume"
-  of 8: "Suspend"
-  of 9: "Send"
-  else: "LoggingOpcode(" & $ord(v) & ")"
+template `$`*(v: LoggingOpcode): string = enumName(v)
 
 ## Windows.Foundation.Metadata.AttributeTargets  (enum)
 type AttributeTargets* = distinct uint32
@@ -9399,21 +6041,13 @@ const AttributeTargets_ApiContract* = AttributeTargets(8192'u32)
 type CompositionType* {.pure, size: 4.} = enum
   Protected = 1'i32
   Public = 2'i32
-proc `$`*(v: CompositionType): string =
-  case ord(v)
-  of 1: "Protected"
-  of 2: "Public"
-  else: "CompositionType(" & $ord(v) & ")"
+template `$`*(v: CompositionType): string = enumName(v)
 
 ## Windows.Foundation.Metadata.DeprecationType  (enum)
 type DeprecationType* {.pure, size: 4.} = enum
   Deprecate = 0'i32
   Remove = 1'i32
-proc `$`*(v: DeprecationType): string =
-  case ord(v)
-  of 0: "Deprecate"
-  of 1: "Remove"
-  else: "DeprecationType(" & $ord(v) & ")"
+template `$`*(v: DeprecationType): string = enumName(v)
 
 ## Windows.Foundation.Metadata.FeatureStage  (enum)
 type FeatureStage* {.pure, size: 4.} = enum
@@ -9421,25 +6055,14 @@ type FeatureStage* {.pure, size: 4.} = enum
   DisabledByDefault = 1'i32
   EnabledByDefault = 2'i32
   AlwaysEnabled = 3'i32
-proc `$`*(v: FeatureStage): string =
-  case ord(v)
-  of 0: "AlwaysDisabled"
-  of 1: "DisabledByDefault"
-  of 2: "EnabledByDefault"
-  of 3: "AlwaysEnabled"
-  else: "FeatureStage(" & $ord(v) & ")"
+template `$`*(v: FeatureStage): string = enumName(v)
 
 ## Windows.Foundation.Metadata.GCPressureAmount  (enum)
 type GCPressureAmount* {.pure, size: 4.} = enum
   Low = 0'i32
   Medium = 1'i32
   High = 2'i32
-proc `$`*(v: GCPressureAmount): string =
-  case ord(v)
-  of 0: "Low"
-  of 1: "Medium"
-  of 2: "High"
-  else: "GCPressureAmount(" & $ord(v) & ")"
+template `$`*(v: GCPressureAmount): string = enumName(v)
 
 ## Windows.Foundation.Metadata.MarshalingType  (enum)
 type MarshalingType* {.pure, size: 4.} = enum
@@ -9447,23 +6070,13 @@ type MarshalingType* {.pure, size: 4.} = enum
   None = 1'i32
   Agile = 2'i32
   Standard = 3'i32
-proc `$`*(v: MarshalingType): string =
-  case ord(v)
-  of 0: "InvalidMarshaling"
-  of 1: "None"
-  of 2: "Agile"
-  of 3: "Standard"
-  else: "MarshalingType(" & $ord(v) & ")"
+template `$`*(v: MarshalingType): string = enumName(v)
 
 ## Windows.Foundation.Metadata.Platform  (enum)
 type Platform* {.pure, size: 4.} = enum
   Windows = 0'i32
   WindowsPhone = 1'i32
-proc `$`*(v: Platform): string =
-  case ord(v)
-  of 0: "Windows"
-  of 1: "WindowsPhone"
-  else: "Platform(" & $ord(v) & ")"
+template `$`*(v: Platform): string = enumName(v)
 
 ## Windows.Foundation.Metadata.ThreadingModel  (enum)
 type ThreadingModel* {.pure, size: 4.} = enum
@@ -9471,13 +6084,7 @@ type ThreadingModel* {.pure, size: 4.} = enum
   STA = 1'i32
   MTA = 2'i32
   Both = 3'i32
-proc `$`*(v: ThreadingModel): string =
-  case ord(v)
-  of 0: "InvalidThreading"
-  of 1: "STA"
-  of 2: "MTA"
-  of 3: "Both"
-  else: "ThreadingModel(" & $ord(v) & ")"
+template `$`*(v: ThreadingModel): string = enumName(v)
 
 ## Windows.Foundation.PropertyType  (enum)
 type PropertyType* {.pure, size: 4.} = enum
@@ -9522,50 +6129,7 @@ type PropertyType* {.pure, size: 4.} = enum
   SizeArray = 1042'i32
   RectArray = 1043'i32
   OtherTypeArray = 1044'i32
-proc `$`*(v: PropertyType): string =
-  case ord(v)
-  of 0: "Empty"
-  of 1: "UInt8"
-  of 2: "Int16"
-  of 3: "UInt16"
-  of 4: "Int32"
-  of 5: "UInt32"
-  of 6: "Int64"
-  of 7: "UInt64"
-  of 8: "Single"
-  of 9: "Double"
-  of 10: "Char16"
-  of 11: "Boolean"
-  of 12: "String"
-  of 13: "Inspectable"
-  of 14: "DateTime"
-  of 15: "TimeSpan"
-  of 16: "Guid"
-  of 17: "Point"
-  of 18: "Size"
-  of 19: "Rect"
-  of 20: "OtherType"
-  of 1025: "UInt8Array"
-  of 1026: "Int16Array"
-  of 1027: "UInt16Array"
-  of 1028: "Int32Array"
-  of 1029: "UInt32Array"
-  of 1030: "Int64Array"
-  of 1031: "UInt64Array"
-  of 1032: "SingleArray"
-  of 1033: "DoubleArray"
-  of 1034: "Char16Array"
-  of 1035: "BooleanArray"
-  of 1036: "StringArray"
-  of 1037: "InspectableArray"
-  of 1038: "DateTimeArray"
-  of 1039: "TimeSpanArray"
-  of 1040: "GuidArray"
-  of 1041: "PointArray"
-  of 1042: "SizeArray"
-  of 1043: "RectArray"
-  of 1044: "OtherTypeArray"
-  else: "PropertyType(" & $ord(v) & ")"
+template `$`*(v: PropertyType): string = enumName(v)
 
 ## Windows.Gaming.Input.ArcadeStickButtons  (enum)
 type ArcadeStickButtons* = distinct uint32
@@ -9650,24 +6214,14 @@ type GipFirmwareUpdateStatus* {.pure, size: 4.} = enum
   Completed = 0'i32
   UpToDate = 1'i32
   Failed = 2'i32
-proc `$`*(v: GipFirmwareUpdateStatus): string =
-  case ord(v)
-  of 0: "Completed"
-  of 1: "UpToDate"
-  of 2: "Failed"
-  else: "GipFirmwareUpdateStatus(" & $ord(v) & ")"
+template `$`*(v: GipFirmwareUpdateStatus): string = enumName(v)
 
 ## Windows.Gaming.Input.Custom.GipMessageClass  (enum)
 type GipMessageClass* {.pure, size: 4.} = enum
   Command = 0'i32
   LowLatency = 1'i32
   StandardLatency = 2'i32
-proc `$`*(v: GipMessageClass): string =
-  case ord(v)
-  of 0: "Command"
-  of 1: "LowLatency"
-  of 2: "StandardLatency"
-  else: "GipMessageClass(" & $ord(v) & ")"
+template `$`*(v: GipMessageClass): string = enumName(v)
 
 ## Windows.Gaming.Input.Custom.XusbDeviceSubtype  (enum)
 type XusbDeviceSubtype* {.pure, size: 4.} = enum
@@ -9682,30 +6236,13 @@ type XusbDeviceSubtype* {.pure, size: 4.} = enum
   GuitarBass = 8'i32
   DrumKit = 9'i32
   DancePad = 10'i32
-proc `$`*(v: XusbDeviceSubtype): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Gamepad"
-  of 2: "ArcadePad"
-  of 3: "ArcadeStick"
-  of 4: "FlightStick"
-  of 5: "Wheel"
-  of 6: "Guitar"
-  of 7: "GuitarAlternate"
-  of 8: "GuitarBass"
-  of 9: "DrumKit"
-  of 10: "DancePad"
-  else: "XusbDeviceSubtype(" & $ord(v) & ")"
+template `$`*(v: XusbDeviceSubtype): string = enumName(v)
 
 ## Windows.Gaming.Input.Custom.XusbDeviceType  (enum)
 type XusbDeviceType* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Gamepad = 1'i32
-proc `$`*(v: XusbDeviceType): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Gamepad"
-  else: "XusbDeviceType(" & $ord(v) & ")"
+template `$`*(v: XusbDeviceType): string = enumName(v)
 
 ## Windows.Gaming.Input.FlightStickButtons  (enum)
 type FlightStickButtons* = distinct uint32
@@ -9741,13 +6278,7 @@ type ConditionForceEffectKind* {.pure, size: 4.} = enum
   Damper = 1'i32
   Inertia = 2'i32
   Friction = 3'i32
-proc `$`*(v: ConditionForceEffectKind): string =
-  case ord(v)
-  of 0: "Spring"
-  of 1: "Damper"
-  of 2: "Inertia"
-  of 3: "Friction"
-  else: "ConditionForceEffectKind(" & $ord(v) & ")"
+template `$`*(v: ConditionForceEffectKind): string = enumName(v)
 
 ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackEffectAxes  (enum)
 type ForceFeedbackEffectAxes* = distinct uint32
@@ -9788,25 +6319,14 @@ type ForceFeedbackEffectState* {.pure, size: 4.} = enum
   Running = 1'i32
   Paused = 2'i32
   Faulted = 3'i32
-proc `$`*(v: ForceFeedbackEffectState): string =
-  case ord(v)
-  of 0: "Stopped"
-  of 1: "Running"
-  of 2: "Paused"
-  of 3: "Faulted"
-  else: "ForceFeedbackEffectState(" & $ord(v) & ")"
+template `$`*(v: ForceFeedbackEffectState): string = enumName(v)
 
 ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackLoadEffectResult  (enum)
 type ForceFeedbackLoadEffectResult* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   EffectStorageFull = 1'i32
   EffectNotSupported = 2'i32
-proc `$`*(v: ForceFeedbackLoadEffectResult): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "EffectStorageFull"
-  of 2: "EffectNotSupported"
-  else: "ForceFeedbackLoadEffectResult(" & $ord(v) & ")"
+template `$`*(v: ForceFeedbackLoadEffectResult): string = enumName(v)
 
 ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffectKind  (enum)
 type PeriodicForceEffectKind* {.pure, size: 4.} = enum
@@ -9815,14 +6335,7 @@ type PeriodicForceEffectKind* {.pure, size: 4.} = enum
   TriangleWave = 2'i32
   SawtoothWaveUp = 3'i32
   SawtoothWaveDown = 4'i32
-proc `$`*(v: PeriodicForceEffectKind): string =
-  case ord(v)
-  of 0: "SquareWave"
-  of 1: "SineWave"
-  of 2: "TriangleWave"
-  of 3: "SawtoothWaveUp"
-  of 4: "SawtoothWaveDown"
-  else: "PeriodicForceEffectKind(" & $ord(v) & ")"
+template `$`*(v: PeriodicForceEffectKind): string = enumName(v)
 
 ## Windows.Gaming.Input.GameControllerButtonLabel  (enum)
 type GameControllerButtonLabel* {.pure, size: 4.} = enum
@@ -9895,90 +6408,14 @@ type GameControllerButtonLabel* {.pure, size: 4.} = enum
   DialLeft = 66'i32
   DialRight = 67'i32
   Suspension = 68'i32
-proc `$`*(v: GameControllerButtonLabel): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "XboxBack"
-  of 2: "XboxStart"
-  of 3: "XboxMenu"
-  of 4: "XboxView"
-  of 5: "XboxUp"
-  of 6: "XboxDown"
-  of 7: "XboxLeft"
-  of 8: "XboxRight"
-  of 9: "XboxA"
-  of 10: "XboxB"
-  of 11: "XboxX"
-  of 12: "XboxY"
-  of 13: "XboxLeftBumper"
-  of 14: "XboxLeftTrigger"
-  of 15: "XboxLeftStickButton"
-  of 16: "XboxRightBumper"
-  of 17: "XboxRightTrigger"
-  of 18: "XboxRightStickButton"
-  of 19: "XboxPaddle1"
-  of 20: "XboxPaddle2"
-  of 21: "XboxPaddle3"
-  of 22: "XboxPaddle4"
-  of 23: "Mode"
-  of 24: "Select"
-  of 25: "Menu"
-  of 26: "View"
-  of 27: "Back"
-  of 28: "Start"
-  of 29: "Options"
-  of 30: "Share"
-  of 31: "Up"
-  of 32: "Down"
-  of 33: "Left"
-  of 34: "Right"
-  of 35: "LetterA"
-  of 36: "LetterB"
-  of 37: "LetterC"
-  of 38: "LetterL"
-  of 39: "LetterR"
-  of 40: "LetterX"
-  of 41: "LetterY"
-  of 42: "LetterZ"
-  of 43: "Cross"
-  of 44: "Circle"
-  of 45: "Square"
-  of 46: "Triangle"
-  of 47: "LeftBumper"
-  of 48: "LeftTrigger"
-  of 49: "LeftStickButton"
-  of 50: "Left1"
-  of 51: "Left2"
-  of 52: "Left3"
-  of 53: "RightBumper"
-  of 54: "RightTrigger"
-  of 55: "RightStickButton"
-  of 56: "Right1"
-  of 57: "Right2"
-  of 58: "Right3"
-  of 59: "Paddle1"
-  of 60: "Paddle2"
-  of 61: "Paddle3"
-  of 62: "Paddle4"
-  of 63: "Plus"
-  of 64: "Minus"
-  of 65: "DownLeftArrow"
-  of 66: "DialLeft"
-  of 67: "DialRight"
-  of 68: "Suspension"
-  else: "GameControllerButtonLabel(" & $ord(v) & ")"
+template `$`*(v: GameControllerButtonLabel): string = enumName(v)
 
 ## Windows.Gaming.Input.GameControllerSwitchKind  (enum)
 type GameControllerSwitchKind* {.pure, size: 4.} = enum
   TwoWay = 0'i32
   FourWay = 1'i32
   EightWay = 2'i32
-proc `$`*(v: GameControllerSwitchKind): string =
-  case ord(v)
-  of 0: "TwoWay"
-  of 1: "FourWay"
-  of 2: "EightWay"
-  else: "GameControllerSwitchKind(" & $ord(v) & ")"
+template `$`*(v: GameControllerSwitchKind): string = enumName(v)
 
 ## Windows.Gaming.Input.GameControllerSwitchPosition  (enum)
 type GameControllerSwitchPosition* {.pure, size: 4.} = enum
@@ -9991,18 +6428,7 @@ type GameControllerSwitchPosition* {.pure, size: 4.} = enum
   DownLeft = 6'i32
   Left = 7'i32
   UpLeft = 8'i32
-proc `$`*(v: GameControllerSwitchPosition): string =
-  case ord(v)
-  of 0: "Center"
-  of 1: "Up"
-  of 2: "UpRight"
-  of 3: "Right"
-  of 4: "DownRight"
-  of 5: "Down"
-  of 6: "DownLeft"
-  of 7: "Left"
-  of 8: "UpLeft"
-  else: "GameControllerSwitchPosition(" & $ord(v) & ")"
+template `$`*(v: GameControllerSwitchPosition): string = enumName(v)
 
 ## Windows.Gaming.Input.GamepadButtons  (enum)
 type GamepadButtons* = distinct uint32
@@ -10193,10 +6619,7 @@ const OptionalUINavigationButtons_ScrollRight* = OptionalUINavigationButtons(204
 ## Windows.Gaming.Input.Preview.DeviceCommand  (enum)
 type DeviceCommand* {.pure, size: 4.} = enum
   Reset = 0'i32
-proc `$`*(v: DeviceCommand): string =
-  case ord(v)
-  of 0: "Reset"
-  else: "DeviceCommand(" & $ord(v) & ")"
+template `$`*(v: DeviceCommand): string = enumName(v)
 
 ## Windows.Gaming.Input.Preview.GameControllerBatteryChargingState  (enum)
 type GameControllerBatteryChargingState* {.pure, size: 4.} = enum
@@ -10204,13 +6627,7 @@ type GameControllerBatteryChargingState* {.pure, size: 4.} = enum
   Inactive = 1'i32
   Active = 2'i32
   Error = 3'i32
-proc `$`*(v: GameControllerBatteryChargingState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Inactive"
-  of 2: "Active"
-  of 3: "Error"
-  else: "GameControllerBatteryChargingState(" & $ord(v) & ")"
+template `$`*(v: GameControllerBatteryChargingState): string = enumName(v)
 
 ## Windows.Gaming.Input.Preview.GameControllerBatteryKind  (enum)
 type GameControllerBatteryKind* {.pure, size: 4.} = enum
@@ -10218,13 +6635,7 @@ type GameControllerBatteryKind* {.pure, size: 4.} = enum
   None = 1'i32
   Standard = 2'i32
   Rechargeable = 3'i32
-proc `$`*(v: GameControllerBatteryKind): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "None"
-  of 2: "Standard"
-  of 3: "Rechargeable"
-  else: "GameControllerBatteryKind(" & $ord(v) & ")"
+template `$`*(v: GameControllerBatteryKind): string = enumName(v)
 
 ## Windows.Gaming.Input.Preview.GameControllerBatteryLevel  (enum)
 type GameControllerBatteryLevel* {.pure, size: 4.} = enum
@@ -10233,14 +6644,7 @@ type GameControllerBatteryLevel* {.pure, size: 4.} = enum
   Low = 2'i32
   Medium = 3'i32
   Full = 4'i32
-proc `$`*(v: GameControllerBatteryLevel): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Critical"
-  of 2: "Low"
-  of 3: "Medium"
-  of 4: "Full"
-  else: "GameControllerBatteryLevel(" & $ord(v) & ")"
+template `$`*(v: GameControllerBatteryLevel): string = enumName(v)
 
 ## Windows.Gaming.Input.Preview.GameControllerFirmwareCorruptReason  (enum)
 type GameControllerFirmwareCorruptReason* {.pure, size: 4.} = enum
@@ -10251,16 +6655,7 @@ type GameControllerFirmwareCorruptReason* {.pure, size: 4.} = enum
   RadioCorrupt = 4'i32
   EepromCorrupt = 5'i32
   SafeToUpdate = 6'i32
-proc `$`*(v: GameControllerFirmwareCorruptReason): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "NotCorrupt"
-  of 2: "TwoUpCorrupt"
-  of 3: "AppCorrupt"
-  of 4: "RadioCorrupt"
-  of 5: "EepromCorrupt"
-  of 6: "SafeToUpdate"
-  else: "GameControllerFirmwareCorruptReason(" & $ord(v) & ")"
+template `$`*(v: GameControllerFirmwareCorruptReason): string = enumName(v)
 
 ## Windows.Gaming.Input.Preview.HeadsetLevel  (enum)
 type HeadsetLevel* {.pure, size: 4.} = enum
@@ -10268,13 +6663,7 @@ type HeadsetLevel* {.pure, size: 4.} = enum
   Low = 1'i32
   Medium = 2'i32
   High = 3'i32
-proc `$`*(v: HeadsetLevel): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "Low"
-  of 2: "Medium"
-  of 3: "High"
-  else: "HeadsetLevel(" & $ord(v) & ")"
+template `$`*(v: HeadsetLevel): string = enumName(v)
 
 ## Windows.Gaming.Input.Preview.HeadsetOperation  (enum)
 type HeadsetOperation* {.pure, size: 4.} = enum
@@ -10284,15 +6673,7 @@ type HeadsetOperation* {.pure, size: 4.} = enum
   SideTone = 3'i32
   MuteLedBrightness = 4'i32
   SwapMixAndVolumeDials = 5'i32
-proc `$`*(v: HeadsetOperation): string =
-  case ord(v)
-  of 0: "Geq"
-  of 1: "BassBoostGain"
-  of 2: "SmartMute"
-  of 3: "SideTone"
-  of 4: "MuteLedBrightness"
-  of 5: "SwapMixAndVolumeDials"
-  else: "HeadsetOperation(" & $ord(v) & ")"
+template `$`*(v: HeadsetOperation): string = enumName(v)
 
 ## Windows.Gaming.Input.Preview.RemappingButtonCategory  (enum)
 type RemappingButtonCategory* {.pure, size: 4.} = enum
@@ -10308,21 +6689,7 @@ type RemappingButtonCategory* {.pure, size: 4.} = enum
   ShareDoublePress = 9'i32
   ShareDoublePressMetaData = 10'i32
   ShareDoublePressMetaDataDisplay = 11'i32
-proc `$`*(v: RemappingButtonCategory): string =
-  case ord(v)
-  of 0: "ButtonSettings"
-  of 1: "AnalogSettings"
-  of 2: "VibrationSettings"
-  of 3: "ShareShortPress"
-  of 4: "ShareShortPressMetaData"
-  of 5: "ShareShortPressMetaDataDisplay"
-  of 6: "ShareLongPress"
-  of 7: "ShareLongPressMetaData"
-  of 8: "ShareLongPressMetaDataDisplay"
-  of 9: "ShareDoublePress"
-  of 10: "ShareDoublePressMetaData"
-  of 11: "ShareDoublePressMetaDataDisplay"
-  else: "RemappingButtonCategory(" & $ord(v) & ")"
+template `$`*(v: RemappingButtonCategory): string = enumName(v)
 
 ## Windows.Gaming.Input.RacingWheelButtons  (enum)
 type RacingWheelButtons* = distinct uint32
@@ -10515,12 +6882,7 @@ type GameListCategory* {.pure, size: 4.} = enum
   Candidate = 0'i32
   ConfirmedBySystem = 1'i32
   ConfirmedByUser = 2'i32
-proc `$`*(v: GameListCategory): string =
-  case ord(v)
-  of 0: "Candidate"
-  of 1: "ConfirmedBySystem"
-  of 2: "ConfirmedByUser"
-  else: "GameListCategory(" & $ord(v) & ")"
+template `$`*(v: GameListCategory): string = enumName(v)
 
 ## Windows.Gaming.Preview.GamesEnumeration.GameListEntryLaunchableState  (enum)
 type GameListEntryLaunchableState* {.pure, size: 4.} = enum
@@ -10528,23 +6890,13 @@ type GameListEntryLaunchableState* {.pure, size: 4.} = enum
   ByLastRunningFullPath = 1'i32
   ByUserProvidedPath = 2'i32
   ByTile = 3'i32
-proc `$`*(v: GameListEntryLaunchableState): string =
-  case ord(v)
-  of 0: "NotLaunchable"
-  of 1: "ByLastRunningFullPath"
-  of 2: "ByUserProvidedPath"
-  of 3: "ByTile"
-  else: "GameListEntryLaunchableState(" & $ord(v) & ")"
+template `$`*(v: GameListEntryLaunchableState): string = enumName(v)
 
 ## Windows.Gaming.UI.GameChatMessageOrigin  (enum)
 type GameChatMessageOrigin* {.pure, size: 4.} = enum
   Voice = 0'i32
   Text = 1'i32
-proc `$`*(v: GameChatMessageOrigin): string =
-  case ord(v)
-  of 0: "Voice"
-  of 1: "Text"
-  else: "GameChatMessageOrigin(" & $ord(v) & ")"
+template `$`*(v: GameChatMessageOrigin): string = enumName(v)
 
 ## Windows.Gaming.UI.GameChatOverlayPosition  (enum)
 type GameChatOverlayPosition* {.pure, size: 4.} = enum
@@ -10556,17 +6908,7 @@ type GameChatOverlayPosition* {.pure, size: 4.} = enum
   TopCenter = 5'i32
   TopLeft = 6'i32
   TopRight = 7'i32
-proc `$`*(v: GameChatOverlayPosition): string =
-  case ord(v)
-  of 0: "BottomCenter"
-  of 1: "BottomLeft"
-  of 2: "BottomRight"
-  of 3: "MiddleRight"
-  of 4: "MiddleLeft"
-  of 5: "TopCenter"
-  of 6: "TopLeft"
-  of 7: "TopRight"
-  else: "GameChatOverlayPosition(" & $ord(v) & ")"
+template `$`*(v: GameChatOverlayPosition): string = enumName(v)
 
 ## Windows.Gaming.XboxLive.Storage.GameSaveErrorStatus  (enum)
 type GameSaveErrorStatus* {.pure, size: 4.} = enum
@@ -10585,34 +6927,13 @@ type GameSaveErrorStatus* {.pure, size: 4.} = enum
   UserHasNoXboxLiveInfo = -2138898420'i32
   ObjectExpired = -2138898419'i32
   Ok = 0'i32
-proc `$`*(v: GameSaveErrorStatus): string =
-  case ord(v)
-  of -2147467260: "Abort"
-  of -2138898431: "InvalidContainerName"
-  of -2138898430: "NoAccess"
-  of -2138898429: "OutOfLocalStorage"
-  of -2138898428: "UserCanceled"
-  of -2138898427: "UpdateTooBig"
-  of -2138898426: "QuotaExceeded"
-  of -2138898425: "ProvidedBufferTooSmall"
-  of -2138898424: "BlobNotFound"
-  of -2138898423: "NoXboxLiveInfo"
-  of -2138898422: "ContainerNotInSync"
-  of -2138898421: "ContainerSyncFailed"
-  of -2138898420: "UserHasNoXboxLiveInfo"
-  of -2138898419: "ObjectExpired"
-  of 0: "Ok"
-  else: "GameSaveErrorStatus(" & $ord(v) & ")"
+template `$`*(v: GameSaveErrorStatus): string = enumName(v)
 
 ## Windows.Globalization.DateTimeFormatting.DayFormat  (enum)
 type DayFormat* {.pure, size: 4.} = enum
   None = 0'i32
   Default = 1'i32
-proc `$`*(v: DayFormat): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Default"
-  else: "DayFormat(" & $ord(v) & ")"
+template `$`*(v: DayFormat): string = enumName(v)
 
 ## Windows.Globalization.DateTimeFormatting.DayOfWeekFormat  (enum)
 type DayOfWeekFormat* {.pure, size: 4.} = enum
@@ -10620,33 +6941,19 @@ type DayOfWeekFormat* {.pure, size: 4.} = enum
   Default = 1'i32
   Abbreviated = 2'i32
   Full = 3'i32
-proc `$`*(v: DayOfWeekFormat): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Default"
-  of 2: "Abbreviated"
-  of 3: "Full"
-  else: "DayOfWeekFormat(" & $ord(v) & ")"
+template `$`*(v: DayOfWeekFormat): string = enumName(v)
 
 ## Windows.Globalization.DateTimeFormatting.HourFormat  (enum)
 type HourFormat* {.pure, size: 4.} = enum
   None = 0'i32
   Default = 1'i32
-proc `$`*(v: HourFormat): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Default"
-  else: "HourFormat(" & $ord(v) & ")"
+template `$`*(v: HourFormat): string = enumName(v)
 
 ## Windows.Globalization.DateTimeFormatting.MinuteFormat  (enum)
 type MinuteFormat* {.pure, size: 4.} = enum
   None = 0'i32
   Default = 1'i32
-proc `$`*(v: MinuteFormat): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Default"
-  else: "MinuteFormat(" & $ord(v) & ")"
+template `$`*(v: MinuteFormat): string = enumName(v)
 
 ## Windows.Globalization.DateTimeFormatting.MonthFormat  (enum)
 type MonthFormat* {.pure, size: 4.} = enum
@@ -10655,24 +6962,13 @@ type MonthFormat* {.pure, size: 4.} = enum
   Abbreviated = 2'i32
   Full = 3'i32
   Numeric = 4'i32
-proc `$`*(v: MonthFormat): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Default"
-  of 2: "Abbreviated"
-  of 3: "Full"
-  of 4: "Numeric"
-  else: "MonthFormat(" & $ord(v) & ")"
+template `$`*(v: MonthFormat): string = enumName(v)
 
 ## Windows.Globalization.DateTimeFormatting.SecondFormat  (enum)
 type SecondFormat* {.pure, size: 4.} = enum
   None = 0'i32
   Default = 1'i32
-proc `$`*(v: SecondFormat): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Default"
-  else: "SecondFormat(" & $ord(v) & ")"
+template `$`*(v: SecondFormat): string = enumName(v)
 
 ## Windows.Globalization.DateTimeFormatting.YearFormat  (enum)
 type YearFormat* {.pure, size: 4.} = enum
@@ -10680,13 +6976,7 @@ type YearFormat* {.pure, size: 4.} = enum
   Default = 1'i32
   Abbreviated = 2'i32
   Full = 3'i32
-proc `$`*(v: YearFormat): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Default"
-  of 2: "Abbreviated"
-  of 3: "Full"
-  else: "YearFormat(" & $ord(v) & ")"
+template `$`*(v: YearFormat): string = enumName(v)
 
 ## Windows.Globalization.DayOfWeek  (enum)
 type DayOfWeek* {.pure, size: 4.} = enum
@@ -10697,16 +6987,7 @@ type DayOfWeek* {.pure, size: 4.} = enum
   Thursday = 4'i32
   Friday = 5'i32
   Saturday = 6'i32
-proc `$`*(v: DayOfWeek): string =
-  case ord(v)
-  of 0: "Sunday"
-  of 1: "Monday"
-  of 2: "Tuesday"
-  of 3: "Wednesday"
-  of 4: "Thursday"
-  of 5: "Friday"
-  of 6: "Saturday"
-  else: "DayOfWeek(" & $ord(v) & ")"
+template `$`*(v: DayOfWeek): string = enumName(v)
 
 ## Windows.Globalization.LanguageLayoutDirection  (enum)
 type LanguageLayoutDirection* {.pure, size: 4.} = enum
@@ -10714,23 +6995,13 @@ type LanguageLayoutDirection* {.pure, size: 4.} = enum
   Rtl = 1'i32
   TtbLtr = 2'i32
   TtbRtl = 3'i32
-proc `$`*(v: LanguageLayoutDirection): string =
-  case ord(v)
-  of 0: "Ltr"
-  of 1: "Rtl"
-  of 2: "TtbLtr"
-  of 3: "TtbRtl"
-  else: "LanguageLayoutDirection(" & $ord(v) & ")"
+template `$`*(v: LanguageLayoutDirection): string = enumName(v)
 
 ## Windows.Globalization.NumberFormatting.CurrencyFormatterMode  (enum)
 type CurrencyFormatterMode* {.pure, size: 4.} = enum
   UseSymbol = 0'i32
   UseCurrencyCode = 1'i32
-proc `$`*(v: CurrencyFormatterMode): string =
-  case ord(v)
-  of 0: "UseSymbol"
-  of 1: "UseCurrencyCode"
-  else: "CurrencyFormatterMode(" & $ord(v) & ")"
+template `$`*(v: CurrencyFormatterMode): string = enumName(v)
 
 ## Windows.Globalization.NumberFormatting.RoundingAlgorithm  (enum)
 type RoundingAlgorithm* {.pure, size: 4.} = enum
@@ -10745,20 +7016,7 @@ type RoundingAlgorithm* {.pure, size: 4.} = enum
   RoundHalfAwayFromZero = 8'i32
   RoundHalfToEven = 9'i32
   RoundHalfToOdd = 10'i32
-proc `$`*(v: RoundingAlgorithm): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "RoundDown"
-  of 2: "RoundUp"
-  of 3: "RoundTowardsZero"
-  of 4: "RoundAwayFromZero"
-  of 5: "RoundHalfDown"
-  of 6: "RoundHalfUp"
-  of 7: "RoundHalfTowardsZero"
-  of 8: "RoundHalfAwayFromZero"
-  of 9: "RoundHalfToEven"
-  of 10: "RoundHalfToOdd"
-  else: "RoundingAlgorithm(" & $ord(v) & ")"
+template `$`*(v: RoundingAlgorithm): string = enumName(v)
 
 ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormat  (enum)
 type PhoneNumberFormat* {.pure, size: 4.} = enum
@@ -10766,13 +7024,7 @@ type PhoneNumberFormat* {.pure, size: 4.} = enum
   International = 1'i32
   National = 2'i32
   Rfc3966 = 3'i32
-proc `$`*(v: PhoneNumberFormat): string =
-  case ord(v)
-  of 0: "E164"
-  of 1: "International"
-  of 2: "National"
-  of 3: "Rfc3966"
-  else: "PhoneNumberFormat(" & $ord(v) & ")"
+template `$`*(v: PhoneNumberFormat): string = enumName(v)
 
 ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberMatchResult  (enum)
 type PhoneNumberMatchResult* {.pure, size: 4.} = enum
@@ -10780,13 +7032,7 @@ type PhoneNumberMatchResult* {.pure, size: 4.} = enum
   ShortNationalSignificantNumberMatch = 1'i32
   NationalSignificantNumberMatch = 2'i32
   ExactMatch = 3'i32
-proc `$`*(v: PhoneNumberMatchResult): string =
-  case ord(v)
-  of 0: "NoMatch"
-  of 1: "ShortNationalSignificantNumberMatch"
-  of 2: "NationalSignificantNumberMatch"
-  of 3: "ExactMatch"
-  else: "PhoneNumberMatchResult(" & $ord(v) & ")"
+template `$`*(v: PhoneNumberMatchResult): string = enumName(v)
 
 ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberParseResult  (enum)
 type PhoneNumberParseResult* {.pure, size: 4.} = enum
@@ -10795,14 +7041,7 @@ type PhoneNumberParseResult* {.pure, size: 4.} = enum
   InvalidCountryCode = 2'i32
   TooShort = 3'i32
   TooLong = 4'i32
-proc `$`*(v: PhoneNumberParseResult): string =
-  case ord(v)
-  of 0: "Valid"
-  of 1: "NotANumber"
-  of 2: "InvalidCountryCode"
-  of 3: "TooShort"
-  of 4: "TooLong"
-  else: "PhoneNumberParseResult(" & $ord(v) & ")"
+template `$`*(v: PhoneNumberParseResult): string = enumName(v)
 
 ## Windows.Globalization.PhoneNumberFormatting.PredictedPhoneNumberKind  (enum)
 type PredictedPhoneNumberKind* {.pure, size: 4.} = enum
@@ -10818,41 +7057,19 @@ type PredictedPhoneNumberKind* {.pure, size: 4.} = enum
   UniversalAccountNumber = 9'i32
   Voicemail = 10'i32
   Unknown = 11'i32
-proc `$`*(v: PredictedPhoneNumberKind): string =
-  case ord(v)
-  of 0: "FixedLine"
-  of 1: "Mobile"
-  of 2: "FixedLineOrMobile"
-  of 3: "TollFree"
-  of 4: "PremiumRate"
-  of 5: "SharedCost"
-  of 6: "Voip"
-  of 7: "PersonalNumber"
-  of 8: "Pager"
-  of 9: "UniversalAccountNumber"
-  of 10: "Voicemail"
-  of 11: "Unknown"
-  else: "PredictedPhoneNumberKind(" & $ord(v) & ")"
+template `$`*(v: PredictedPhoneNumberKind): string = enumName(v)
 
 ## Windows.Graphics.Capture.GraphicsCaptureAccessKind  (enum)
 type GraphicsCaptureAccessKind* {.pure, size: 4.} = enum
   Borderless = 0'i32
   Programmatic = 1'i32
-proc `$`*(v: GraphicsCaptureAccessKind): string =
-  case ord(v)
-  of 0: "Borderless"
-  of 1: "Programmatic"
-  else: "GraphicsCaptureAccessKind(" & $ord(v) & ")"
+template `$`*(v: GraphicsCaptureAccessKind): string = enumName(v)
 
 ## Windows.Graphics.Capture.GraphicsCaptureDirtyRegionMode  (enum)
 type GraphicsCaptureDirtyRegionMode* {.pure, size: 4.} = enum
   ReportOnly = 0'i32
   ReportAndRender = 1'i32
-proc `$`*(v: GraphicsCaptureDirtyRegionMode): string =
-  case ord(v)
-  of 0: "ReportOnly"
-  of 1: "ReportAndRender"
-  else: "GraphicsCaptureDirtyRegionMode(" & $ord(v) & ")"
+template `$`*(v: GraphicsCaptureDirtyRegionMode): string = enumName(v)
 
 ## Windows.Graphics.DirectX.Direct3D11.Direct3DBindings  (enum)
 type Direct3DBindings* = distinct uint32
@@ -10927,13 +7144,7 @@ type Direct3DUsage* {.pure, size: 4.} = enum
   Immutable = 1'i32
   Dynamic = 2'i32
   Staging = 3'i32
-proc `$`*(v: Direct3DUsage): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Immutable"
-  of 2: "Dynamic"
-  of 3: "Staging"
-  else: "Direct3DUsage(" & $ord(v) & ")"
+template `$`*(v: Direct3DUsage): string = enumName(v)
 
 ## Windows.Graphics.DirectX.DirectXAlphaMode  (enum)
 type DirectXAlphaMode* {.pure, size: 4.} = enum
@@ -10941,13 +7152,7 @@ type DirectXAlphaMode* {.pure, size: 4.} = enum
   Premultiplied = 1'i32
   Straight = 2'i32
   Ignore = 3'i32
-proc `$`*(v: DirectXAlphaMode): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Premultiplied"
-  of 2: "Straight"
-  of 3: "Ignore"
-  else: "DirectXAlphaMode(" & $ord(v) & ")"
+template `$`*(v: DirectXAlphaMode): string = enumName(v)
 
 ## Windows.Graphics.DirectX.DirectXColorSpace  (enum)
 type DirectXColorSpace* {.pure, size: 4.} = enum
@@ -10976,34 +7181,7 @@ type DirectXColorSpace* {.pure, size: 4.} = enum
   YccStudioG24LeftP709 = 22'i32
   YccStudioG24LeftP2020 = 23'i32
   YccStudioG24TopLeftP2020 = 24'i32
-proc `$`*(v: DirectXColorSpace): string =
-  case ord(v)
-  of 0: "RgbFullG22NoneP709"
-  of 1: "RgbFullG10NoneP709"
-  of 2: "RgbStudioG22NoneP709"
-  of 3: "RgbStudioG22NoneP2020"
-  of 4: "Reserved"
-  of 5: "YccFullG22NoneP709X601"
-  of 6: "YccStudioG22LeftP601"
-  of 7: "YccFullG22LeftP601"
-  of 8: "YccStudioG22LeftP709"
-  of 9: "YccFullG22LeftP709"
-  of 10: "YccStudioG22LeftP2020"
-  of 11: "YccFullG22LeftP2020"
-  of 12: "RgbFullG2084NoneP2020"
-  of 13: "YccStudioG2084LeftP2020"
-  of 14: "RgbStudioG2084NoneP2020"
-  of 15: "YccStudioG22TopLeftP2020"
-  of 16: "YccStudioG2084TopLeftP2020"
-  of 17: "RgbFullG22NoneP2020"
-  of 18: "YccStudioGHlgTopLeftP2020"
-  of 19: "YccFullGHlgTopLeftP2020"
-  of 20: "RgbStudioG24NoneP709"
-  of 21: "RgbStudioG24NoneP2020"
-  of 22: "YccStudioG24LeftP709"
-  of 23: "YccStudioG24LeftP2020"
-  of 24: "YccStudioG24TopLeftP2020"
-  else: "DirectXColorSpace(" & $ord(v) & ")"
+template `$`*(v: DirectXColorSpace): string = enumName(v)
 
 ## Windows.Graphics.DirectX.DirectXPixelFormat  (enum)
 type DirectXPixelFormat* {.pure, size: 4.} = enum
@@ -11129,131 +7307,7 @@ type DirectXPixelFormat* {.pure, size: 4.} = enum
   SamplerFeedbackMinMipOpaque = 189'i32
   SamplerFeedbackMipRegionUsedOpaque = 190'i32
   A4B4G4R4 = 191'i32
-proc `$`*(v: DirectXPixelFormat): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "R32G32B32A32Typeless"
-  of 2: "R32G32B32A32Float"
-  of 3: "R32G32B32A32UInt"
-  of 4: "R32G32B32A32Int"
-  of 5: "R32G32B32Typeless"
-  of 6: "R32G32B32Float"
-  of 7: "R32G32B32UInt"
-  of 8: "R32G32B32Int"
-  of 9: "R16G16B16A16Typeless"
-  of 10: "R16G16B16A16Float"
-  of 11: "R16G16B16A16UIntNormalized"
-  of 12: "R16G16B16A16UInt"
-  of 13: "R16G16B16A16IntNormalized"
-  of 14: "R16G16B16A16Int"
-  of 15: "R32G32Typeless"
-  of 16: "R32G32Float"
-  of 17: "R32G32UInt"
-  of 18: "R32G32Int"
-  of 19: "R32G8X24Typeless"
-  of 20: "D32FloatS8X24UInt"
-  of 21: "R32FloatX8X24Typeless"
-  of 22: "X32TypelessG8X24UInt"
-  of 23: "R10G10B10A2Typeless"
-  of 24: "R10G10B10A2UIntNormalized"
-  of 25: "R10G10B10A2UInt"
-  of 26: "R11G11B10Float"
-  of 27: "R8G8B8A8Typeless"
-  of 28: "R8G8B8A8UIntNormalized"
-  of 29: "R8G8B8A8UIntNormalizedSrgb"
-  of 30: "R8G8B8A8UInt"
-  of 31: "R8G8B8A8IntNormalized"
-  of 32: "R8G8B8A8Int"
-  of 33: "R16G16Typeless"
-  of 34: "R16G16Float"
-  of 35: "R16G16UIntNormalized"
-  of 36: "R16G16UInt"
-  of 37: "R16G16IntNormalized"
-  of 38: "R16G16Int"
-  of 39: "R32Typeless"
-  of 40: "D32Float"
-  of 41: "R32Float"
-  of 42: "R32UInt"
-  of 43: "R32Int"
-  of 44: "R24G8Typeless"
-  of 45: "D24UIntNormalizedS8UInt"
-  of 46: "R24UIntNormalizedX8Typeless"
-  of 47: "X24TypelessG8UInt"
-  of 48: "R8G8Typeless"
-  of 49: "R8G8UIntNormalized"
-  of 50: "R8G8UInt"
-  of 51: "R8G8IntNormalized"
-  of 52: "R8G8Int"
-  of 53: "R16Typeless"
-  of 54: "R16Float"
-  of 55: "D16UIntNormalized"
-  of 56: "R16UIntNormalized"
-  of 57: "R16UInt"
-  of 58: "R16IntNormalized"
-  of 59: "R16Int"
-  of 60: "R8Typeless"
-  of 61: "R8UIntNormalized"
-  of 62: "R8UInt"
-  of 63: "R8IntNormalized"
-  of 64: "R8Int"
-  of 65: "A8UIntNormalized"
-  of 66: "R1UIntNormalized"
-  of 67: "R9G9B9E5SharedExponent"
-  of 68: "R8G8B8G8UIntNormalized"
-  of 69: "G8R8G8B8UIntNormalized"
-  of 70: "BC1Typeless"
-  of 71: "BC1UIntNormalized"
-  of 72: "BC1UIntNormalizedSrgb"
-  of 73: "BC2Typeless"
-  of 74: "BC2UIntNormalized"
-  of 75: "BC2UIntNormalizedSrgb"
-  of 76: "BC3Typeless"
-  of 77: "BC3UIntNormalized"
-  of 78: "BC3UIntNormalizedSrgb"
-  of 79: "BC4Typeless"
-  of 80: "BC4UIntNormalized"
-  of 81: "BC4IntNormalized"
-  of 82: "BC5Typeless"
-  of 83: "BC5UIntNormalized"
-  of 84: "BC5IntNormalized"
-  of 85: "B5G6R5UIntNormalized"
-  of 86: "B5G5R5A1UIntNormalized"
-  of 87: "B8G8R8A8UIntNormalized"
-  of 88: "B8G8R8X8UIntNormalized"
-  of 89: "R10G10B10XRBiasA2UIntNormalized"
-  of 90: "B8G8R8A8Typeless"
-  of 91: "B8G8R8A8UIntNormalizedSrgb"
-  of 92: "B8G8R8X8Typeless"
-  of 93: "B8G8R8X8UIntNormalizedSrgb"
-  of 94: "BC6HTypeless"
-  of 95: "BC6H16UnsignedFloat"
-  of 96: "BC6H16Float"
-  of 97: "BC7Typeless"
-  of 98: "BC7UIntNormalized"
-  of 99: "BC7UIntNormalizedSrgb"
-  of 100: "Ayuv"
-  of 101: "Y410"
-  of 102: "Y416"
-  of 103: "NV12"
-  of 104: "P010"
-  of 105: "P016"
-  of 106: "Opaque420"
-  of 107: "Yuy2"
-  of 108: "Y210"
-  of 109: "Y216"
-  of 110: "NV11"
-  of 111: "AI44"
-  of 112: "IA44"
-  of 113: "P8"
-  of 114: "A8P8"
-  of 115: "B4G4R4A4UIntNormalized"
-  of 130: "P208"
-  of 131: "V208"
-  of 132: "V408"
-  of 189: "SamplerFeedbackMinMipOpaque"
-  of 190: "SamplerFeedbackMipRegionUsedOpaque"
-  of 191: "A4B4G4R4"
-  else: "DirectXPixelFormat(" & $ord(v) & ")"
+template `$`*(v: DirectXPixelFormat): string = enumName(v)
 
 ## Windows.Graphics.DirectX.DirectXPrimitiveTopology  (enum)
 type DirectXPrimitiveTopology* {.pure, size: 4.} = enum
@@ -11263,27 +7317,14 @@ type DirectXPrimitiveTopology* {.pure, size: 4.} = enum
   LineStrip = 3'i32
   TriangleList = 4'i32
   TriangleStrip = 5'i32
-proc `$`*(v: DirectXPrimitiveTopology): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "PointList"
-  of 2: "LineList"
-  of 3: "LineStrip"
-  of 4: "TriangleList"
-  of 5: "TriangleStrip"
-  else: "DirectXPrimitiveTopology(" & $ord(v) & ")"
+template `$`*(v: DirectXPrimitiveTopology): string = enumName(v)
 
 ## Windows.Graphics.Display.AdvancedColorKind  (enum)
 type AdvancedColorKind* {.pure, size: 4.} = enum
   StandardDynamicRange = 0'i32
   WideColorGamut = 1'i32
   HighDynamicRange = 2'i32
-proc `$`*(v: AdvancedColorKind): string =
-  case ord(v)
-  of 0: "StandardDynamicRange"
-  of 1: "WideColorGamut"
-  of 2: "HighDynamicRange"
-  else: "AdvancedColorKind(" & $ord(v) & ")"
+template `$`*(v: AdvancedColorKind): string = enumName(v)
 
 ## Windows.Graphics.Display.Core.HdmiDisplayColorSpace  (enum)
 type HdmiDisplayColorSpace* {.pure, size: 4.} = enum
@@ -11291,13 +7332,7 @@ type HdmiDisplayColorSpace* {.pure, size: 4.} = enum
   RgbFull = 1'i32
   BT2020 = 2'i32
   BT709 = 3'i32
-proc `$`*(v: HdmiDisplayColorSpace): string =
-  case ord(v)
-  of 0: "RgbLimited"
-  of 1: "RgbFull"
-  of 2: "BT2020"
-  of 3: "BT709"
-  else: "HdmiDisplayColorSpace(" & $ord(v) & ")"
+template `$`*(v: HdmiDisplayColorSpace): string = enumName(v)
 
 ## Windows.Graphics.Display.Core.HdmiDisplayHdrOption  (enum)
 type HdmiDisplayHdrOption* {.pure, size: 4.} = enum
@@ -11305,13 +7340,7 @@ type HdmiDisplayHdrOption* {.pure, size: 4.} = enum
   EotfSdr = 1'i32
   Eotf2084 = 2'i32
   DolbyVisionLowLatency = 3'i32
-proc `$`*(v: HdmiDisplayHdrOption): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "EotfSdr"
-  of 2: "Eotf2084"
-  of 3: "DolbyVisionLowLatency"
-  else: "HdmiDisplayHdrOption(" & $ord(v) & ")"
+template `$`*(v: HdmiDisplayHdrOption): string = enumName(v)
 
 ## Windows.Graphics.Display.Core.HdmiDisplayPixelEncoding  (enum)
 type HdmiDisplayPixelEncoding* {.pure, size: 4.} = enum
@@ -11319,13 +7348,7 @@ type HdmiDisplayPixelEncoding* {.pure, size: 4.} = enum
   Ycc444 = 1'i32
   Ycc422 = 2'i32
   Ycc420 = 3'i32
-proc `$`*(v: HdmiDisplayPixelEncoding): string =
-  case ord(v)
-  of 0: "Rgb444"
-  of 1: "Ycc444"
-  of 2: "Ycc422"
-  of 3: "Ycc420"
-  else: "HdmiDisplayPixelEncoding(" & $ord(v) & ")"
+template `$`*(v: HdmiDisplayPixelEncoding): string = enumName(v)
 
 ## Windows.Graphics.Display.DisplayBrightnessOverrideOptions  (enum)
 type DisplayBrightnessOverrideOptions* = distinct uint32
@@ -11355,12 +7378,7 @@ type DisplayBrightnessOverrideScenario* {.pure, size: 4.} = enum
   IdleBrightness = 0'i32
   BarcodeReadingBrightness = 1'i32
   FullBrightness = 2'i32
-proc `$`*(v: DisplayBrightnessOverrideScenario): string =
-  case ord(v)
-  of 0: "IdleBrightness"
-  of 1: "BarcodeReadingBrightness"
-  of 2: "FullBrightness"
-  else: "DisplayBrightnessOverrideScenario(" & $ord(v) & ")"
+template `$`*(v: DisplayBrightnessOverrideScenario): string = enumName(v)
 
 ## Windows.Graphics.Display.DisplayBrightnessScenario  (enum)
 type DisplayBrightnessScenario* {.pure, size: 4.} = enum
@@ -11368,21 +7386,12 @@ type DisplayBrightnessScenario* {.pure, size: 4.} = enum
   IdleBrightness = 1'i32
   BarcodeReadingBrightness = 2'i32
   FullBrightness = 3'i32
-proc `$`*(v: DisplayBrightnessScenario): string =
-  case ord(v)
-  of 0: "DefaultBrightness"
-  of 1: "IdleBrightness"
-  of 2: "BarcodeReadingBrightness"
-  of 3: "FullBrightness"
-  else: "DisplayBrightnessScenario(" & $ord(v) & ")"
+template `$`*(v: DisplayBrightnessScenario): string = enumName(v)
 
 ## Windows.Graphics.Display.DisplayColorOverrideScenario  (enum)
 type DisplayColorOverrideScenario* {.pure, size: 4.} = enum
   Accurate = 0'i32
-proc `$`*(v: DisplayColorOverrideScenario): string =
-  case ord(v)
-  of 0: "Accurate"
-  else: "DisplayColorOverrideScenario(" & $ord(v) & ")"
+template `$`*(v: DisplayColorOverrideScenario): string = enumName(v)
 
 ## Windows.Graphics.Display.DisplayOrientations  (enum)
 type DisplayOrientations* = distinct uint32
@@ -11426,11 +7435,7 @@ const DisplayOrientations_PortraitFlipped* = DisplayOrientations(8'u32)
 type HdrMetadataFormat* {.pure, size: 4.} = enum
   Hdr10 = 0'i32
   Hdr10Plus = 1'i32
-proc `$`*(v: HdrMetadataFormat): string =
-  case ord(v)
-  of 0: "Hdr10"
-  of 1: "Hdr10Plus"
-  else: "HdrMetadataFormat(" & $ord(v) & ")"
+template `$`*(v: HdrMetadataFormat): string = enumName(v)
 
 ## Windows.Graphics.Display.ResolutionScale  (enum)
 type ResolutionScale* {.pure, size: 4.} = enum
@@ -11451,126 +7456,66 @@ type ResolutionScale* {.pure, size: 4.} = enum
   Scale400Percent = 400'i32
   Scale450Percent = 450'i32
   Scale500Percent = 500'i32
-proc `$`*(v: ResolutionScale): string =
-  case ord(v)
-  of 0: "Invalid"
-  of 100: "Scale100Percent"
-  of 120: "Scale120Percent"
-  of 125: "Scale125Percent"
-  of 140: "Scale140Percent"
-  of 150: "Scale150Percent"
-  of 160: "Scale160Percent"
-  of 175: "Scale175Percent"
-  of 180: "Scale180Percent"
-  of 200: "Scale200Percent"
-  of 225: "Scale225Percent"
-  of 250: "Scale250Percent"
-  of 300: "Scale300Percent"
-  of 350: "Scale350Percent"
-  of 400: "Scale400Percent"
-  of 450: "Scale450Percent"
-  of 500: "Scale500Percent"
-  else: "ResolutionScale(" & $ord(v) & ")"
+template `$`*(v: ResolutionScale): string = enumName(v)
 
 ## Windows.Graphics.Holographic.HolographicDepthReprojectionMethod  (enum)
 type HolographicDepthReprojectionMethod* {.pure, size: 4.} = enum
   DepthReprojection = 0'i32
   AutoPlanar = 1'i32
-proc `$`*(v: HolographicDepthReprojectionMethod): string =
-  case ord(v)
-  of 0: "DepthReprojection"
-  of 1: "AutoPlanar"
-  else: "HolographicDepthReprojectionMethod(" & $ord(v) & ")"
+template `$`*(v: HolographicDepthReprojectionMethod): string = enumName(v)
 
 ## Windows.Graphics.Holographic.HolographicFramePresentResult  (enum)
 type HolographicFramePresentResult* {.pure, size: 4.} = enum
   Success = 0'i32
   DeviceRemoved = 1'i32
-proc `$`*(v: HolographicFramePresentResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "DeviceRemoved"
-  else: "HolographicFramePresentResult(" & $ord(v) & ")"
+template `$`*(v: HolographicFramePresentResult): string = enumName(v)
 
 ## Windows.Graphics.Holographic.HolographicFramePresentWaitBehavior  (enum)
 type HolographicFramePresentWaitBehavior* {.pure, size: 4.} = enum
   WaitForFrameToFinish = 0'i32
   DoNotWaitForFrameToFinish = 1'i32
-proc `$`*(v: HolographicFramePresentWaitBehavior): string =
-  case ord(v)
-  of 0: "WaitForFrameToFinish"
-  of 1: "DoNotWaitForFrameToFinish"
-  else: "HolographicFramePresentWaitBehavior(" & $ord(v) & ")"
+template `$`*(v: HolographicFramePresentWaitBehavior): string = enumName(v)
 
 ## Windows.Graphics.Holographic.HolographicReprojectionMode  (enum)
 type HolographicReprojectionMode* {.pure, size: 4.} = enum
   PositionAndOrientation = 0'i32
   OrientationOnly = 1'i32
   Disabled = 2'i32
-proc `$`*(v: HolographicReprojectionMode): string =
-  case ord(v)
-  of 0: "PositionAndOrientation"
-  of 1: "OrientationOnly"
-  of 2: "Disabled"
-  else: "HolographicReprojectionMode(" & $ord(v) & ")"
+template `$`*(v: HolographicReprojectionMode): string = enumName(v)
 
 ## Windows.Graphics.Holographic.HolographicSpaceUserPresence  (enum)
 type HolographicSpaceUserPresence* {.pure, size: 4.} = enum
   Absent = 0'i32
   PresentPassive = 1'i32
   PresentActive = 2'i32
-proc `$`*(v: HolographicSpaceUserPresence): string =
-  case ord(v)
-  of 0: "Absent"
-  of 1: "PresentPassive"
-  of 2: "PresentActive"
-  else: "HolographicSpaceUserPresence(" & $ord(v) & ")"
+template `$`*(v: HolographicSpaceUserPresence): string = enumName(v)
 
 ## Windows.Graphics.Holographic.HolographicViewConfigurationKind  (enum)
 type HolographicViewConfigurationKind* {.pure, size: 4.} = enum
   Display = 0'i32
   PhotoVideoCamera = 1'i32
-proc `$`*(v: HolographicViewConfigurationKind): string =
-  case ord(v)
-  of 0: "Display"
-  of 1: "PhotoVideoCamera"
-  else: "HolographicViewConfigurationKind(" & $ord(v) & ")"
+template `$`*(v: HolographicViewConfigurationKind): string = enumName(v)
 
 ## Windows.Graphics.Imaging.BitmapAlphaMode  (enum)
 type BitmapAlphaMode* {.pure, size: 4.} = enum
   Premultiplied = 0'i32
   Straight = 1'i32
   Ignore = 2'i32
-proc `$`*(v: BitmapAlphaMode): string =
-  case ord(v)
-  of 0: "Premultiplied"
-  of 1: "Straight"
-  of 2: "Ignore"
-  else: "BitmapAlphaMode(" & $ord(v) & ")"
+template `$`*(v: BitmapAlphaMode): string = enumName(v)
 
 ## Windows.Graphics.Imaging.BitmapBufferAccessMode  (enum)
 type BitmapBufferAccessMode* {.pure, size: 4.} = enum
   Read = 0'i32
   ReadWrite = 1'i32
   Write = 2'i32
-proc `$`*(v: BitmapBufferAccessMode): string =
-  case ord(v)
-  of 0: "Read"
-  of 1: "ReadWrite"
-  of 2: "Write"
-  else: "BitmapBufferAccessMode(" & $ord(v) & ")"
+template `$`*(v: BitmapBufferAccessMode): string = enumName(v)
 
 ## Windows.Graphics.Imaging.BitmapFlip  (enum)
 type BitmapFlip* {.pure, size: 4.} = enum
   None = 0'i32
   Horizontal = 1'i32
   Vertical = 2'i32
-proc `$`*(v: BitmapFlip): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Horizontal"
-  of 2: "Vertical"
-  else: "BitmapFlip(" & $ord(v) & ")"
+template `$`*(v: BitmapFlip): string = enumName(v)
 
 ## Windows.Graphics.Imaging.BitmapInterpolationMode  (enum)
 type BitmapInterpolationMode* {.pure, size: 4.} = enum
@@ -11578,13 +7523,7 @@ type BitmapInterpolationMode* {.pure, size: 4.} = enum
   Linear = 1'i32
   Cubic = 2'i32
   Fant = 3'i32
-proc `$`*(v: BitmapInterpolationMode): string =
-  case ord(v)
-  of 0: "NearestNeighbor"
-  of 1: "Linear"
-  of 2: "Cubic"
-  of 3: "Fant"
-  else: "BitmapInterpolationMode(" & $ord(v) & ")"
+template `$`*(v: BitmapInterpolationMode): string = enumName(v)
 
 ## Windows.Graphics.Imaging.BitmapPixelFormat  (enum)
 type BitmapPixelFormat* {.pure, size: 4.} = enum
@@ -11597,18 +7536,7 @@ type BitmapPixelFormat* {.pure, size: 4.} = enum
   Nv12 = 103'i32
   P010 = 104'i32
   Yuy2 = 107'i32
-proc `$`*(v: BitmapPixelFormat): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 12: "Rgba16"
-  of 30: "Rgba8"
-  of 57: "Gray16"
-  of 62: "Gray8"
-  of 87: "Bgra8"
-  of 103: "Nv12"
-  of 104: "P010"
-  of 107: "Yuy2"
-  else: "BitmapPixelFormat(" & $ord(v) & ")"
+template `$`*(v: BitmapPixelFormat): string = enumName(v)
 
 ## Windows.Graphics.Imaging.BitmapRotation  (enum)
 type BitmapRotation* {.pure, size: 4.} = enum
@@ -11616,33 +7544,19 @@ type BitmapRotation* {.pure, size: 4.} = enum
   Clockwise90Degrees = 1'i32
   Clockwise180Degrees = 2'i32
   Clockwise270Degrees = 3'i32
-proc `$`*(v: BitmapRotation): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Clockwise90Degrees"
-  of 2: "Clockwise180Degrees"
-  of 3: "Clockwise270Degrees"
-  else: "BitmapRotation(" & $ord(v) & ")"
+template `$`*(v: BitmapRotation): string = enumName(v)
 
 ## Windows.Graphics.Imaging.ColorManagementMode  (enum)
 type ColorManagementMode* {.pure, size: 4.} = enum
   DoNotColorManage = 0'i32
   ColorManageToSRgb = 1'i32
-proc `$`*(v: ColorManagementMode): string =
-  case ord(v)
-  of 0: "DoNotColorManage"
-  of 1: "ColorManageToSRgb"
-  else: "ColorManagementMode(" & $ord(v) & ")"
+template `$`*(v: ColorManagementMode): string = enumName(v)
 
 ## Windows.Graphics.Imaging.ExifOrientationMode  (enum)
 type ExifOrientationMode* {.pure, size: 4.} = enum
   IgnoreExifOrientation = 0'i32
   RespectExifOrientation = 1'i32
-proc `$`*(v: ExifOrientationMode): string =
-  case ord(v)
-  of 0: "IgnoreExifOrientation"
-  of 1: "RespectExifOrientation"
-  else: "ExifOrientationMode(" & $ord(v) & ")"
+template `$`*(v: ExifOrientationMode): string = enumName(v)
 
 ## Windows.Graphics.Imaging.JpegSubsamplingMode  (enum)
 type JpegSubsamplingMode* {.pure, size: 4.} = enum
@@ -11650,13 +7564,7 @@ type JpegSubsamplingMode* {.pure, size: 4.} = enum
   Y4Cb2Cr0 = 1'i32
   Y4Cb2Cr2 = 2'i32
   Y4Cb4Cr4 = 3'i32
-proc `$`*(v: JpegSubsamplingMode): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Y4Cb2Cr0"
-  of 2: "Y4Cb2Cr2"
-  of 3: "Y4Cb4Cr4"
-  else: "JpegSubsamplingMode(" & $ord(v) & ")"
+template `$`*(v: JpegSubsamplingMode): string = enumName(v)
 
 ## Windows.Graphics.Imaging.PngFilterMode  (enum)
 type PngFilterMode* {.pure, size: 4.} = enum
@@ -11667,16 +7575,7 @@ type PngFilterMode* {.pure, size: 4.} = enum
   Average = 4'i32
   Paeth = 5'i32
   Adaptive = 6'i32
-proc `$`*(v: PngFilterMode): string =
-  case ord(v)
-  of 0: "Automatic"
-  of 1: "None"
-  of 2: "Sub"
-  of 3: "Up"
-  of 4: "Average"
-  of 5: "Paeth"
-  of 6: "Adaptive"
-  else: "PngFilterMode(" & $ord(v) & ")"
+template `$`*(v: PngFilterMode): string = enumName(v)
 
 ## Windows.Graphics.Imaging.TiffCompressionMode  (enum)
 type TiffCompressionMode* {.pure, size: 4.} = enum
@@ -11688,17 +7587,7 @@ type TiffCompressionMode* {.pure, size: 4.} = enum
   Rle = 5'i32
   Zip = 6'i32
   LzwhDifferencing = 7'i32
-proc `$`*(v: TiffCompressionMode): string =
-  case ord(v)
-  of 0: "Automatic"
-  of 1: "None"
-  of 2: "Ccitt3"
-  of 3: "Ccitt4"
-  of 4: "Lzw"
-  of 5: "Rle"
-  of 6: "Zip"
-  of 7: "LzwhDifferencing"
-  else: "TiffCompressionMode(" & $ord(v) & ")"
+template `$`*(v: TiffCompressionMode): string = enumName(v)
 
 ## Windows.Graphics.Printing.OptionDetails.PrintOptionStates  (enum)
 type PrintOptionStates* = distinct uint32
@@ -11735,14 +7624,7 @@ type PrintOptionType* {.pure, size: 4.} = enum
   Text = 2'i32
   ItemList = 3'i32
   Toggle = 4'i32
-proc `$`*(v: PrintOptionType): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Number"
-  of 2: "Text"
-  of 3: "ItemList"
-  of 4: "Toggle"
-  else: "PrintOptionType(" & $ord(v) & ")"
+template `$`*(v: PrintOptionType): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintBinding  (enum)
 type PrintBinding* {.pure, size: 4.} = enum
@@ -11763,26 +7645,7 @@ type PrintBinding* {.pure, size: 4.} = enum
   Fold = 14'i32
   JogOffset = 15'i32
   Trim = 16'i32
-proc `$`*(v: PrintBinding): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NotAvailable"
-  of 2: "PrinterCustom"
-  of 3: "None"
-  of 4: "Bale"
-  of 5: "BindBottom"
-  of 6: "BindLeft"
-  of 7: "BindRight"
-  of 8: "BindTop"
-  of 9: "Booklet"
-  of 10: "EdgeStitchBottom"
-  of 11: "EdgeStitchLeft"
-  of 12: "EdgeStitchRight"
-  of 13: "EdgeStitchTop"
-  of 14: "Fold"
-  of 15: "JogOffset"
-  of 16: "Trim"
-  else: "PrintBinding(" & $ord(v) & ")"
+template `$`*(v: PrintBinding): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintBordering  (enum)
 type PrintBordering* {.pure, size: 4.} = enum
@@ -11791,14 +7654,7 @@ type PrintBordering* {.pure, size: 4.} = enum
   PrinterCustom = 2'i32
   Bordered = 3'i32
   Borderless = 4'i32
-proc `$`*(v: PrintBordering): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NotAvailable"
-  of 2: "PrinterCustom"
-  of 3: "Bordered"
-  of 4: "Borderless"
-  else: "PrintBordering(" & $ord(v) & ")"
+template `$`*(v: PrintBordering): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintCollation  (enum)
 type PrintCollation* {.pure, size: 4.} = enum
@@ -11807,14 +7663,7 @@ type PrintCollation* {.pure, size: 4.} = enum
   PrinterCustom = 2'i32
   Collated = 3'i32
   Uncollated = 4'i32
-proc `$`*(v: PrintCollation): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NotAvailable"
-  of 2: "PrinterCustom"
-  of 3: "Collated"
-  of 4: "Uncollated"
-  else: "PrintCollation(" & $ord(v) & ")"
+template `$`*(v: PrintCollation): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintColorMode  (enum)
 type PrintColorMode* {.pure, size: 4.} = enum
@@ -11825,16 +7674,7 @@ type PrintColorMode* {.pure, size: 4.} = enum
   Grayscale = 4'i32
   Monochrome = 5'i32
   AutoSelect = 6'i32
-proc `$`*(v: PrintColorMode): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NotAvailable"
-  of 2: "PrinterCustom"
-  of 3: "Color"
-  of 4: "Grayscale"
-  of 5: "Monochrome"
-  of 6: "AutoSelect"
-  else: "PrintColorMode(" & $ord(v) & ")"
+template `$`*(v: PrintColorMode): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintDuplex  (enum)
 type PrintDuplex* {.pure, size: 4.} = enum
@@ -11844,15 +7684,7 @@ type PrintDuplex* {.pure, size: 4.} = enum
   OneSided = 3'i32
   TwoSidedShortEdge = 4'i32
   TwoSidedLongEdge = 5'i32
-proc `$`*(v: PrintDuplex): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NotAvailable"
-  of 2: "PrinterCustom"
-  of 3: "OneSided"
-  of 4: "TwoSidedShortEdge"
-  of 5: "TwoSidedLongEdge"
-  else: "PrintDuplex(" & $ord(v) & ")"
+template `$`*(v: PrintDuplex): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintHolePunch  (enum)
 type PrintHolePunch* {.pure, size: 4.} = enum
@@ -11864,17 +7696,7 @@ type PrintHolePunch* {.pure, size: 4.} = enum
   RightEdge = 5'i32
   TopEdge = 6'i32
   BottomEdge = 7'i32
-proc `$`*(v: PrintHolePunch): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NotAvailable"
-  of 2: "PrinterCustom"
-  of 3: "None"
-  of 4: "LeftEdge"
-  of 5: "RightEdge"
-  of 6: "TopEdge"
-  of 7: "BottomEdge"
-  else: "PrintHolePunch(" & $ord(v) & ")"
+template `$`*(v: PrintHolePunch): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintMediaSize  (enum)
 type PrintMediaSize* {.pure, size: 4.} = enum
@@ -12051,182 +7873,7 @@ type PrintMediaSize* {.pure, size: 4.} = enum
   Roll30Inch = 170'i32
   Roll36Inch = 171'i32
   Roll54Inch = 172'i32
-proc `$`*(v: PrintMediaSize): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NotAvailable"
-  of 2: "PrinterCustom"
-  of 3: "BusinessCard"
-  of 4: "CreditCard"
-  of 5: "IsoA0"
-  of 6: "IsoA1"
-  of 7: "IsoA10"
-  of 8: "IsoA2"
-  of 9: "IsoA3"
-  of 10: "IsoA3Extra"
-  of 11: "IsoA3Rotated"
-  of 12: "IsoA4"
-  of 13: "IsoA4Extra"
-  of 14: "IsoA4Rotated"
-  of 15: "IsoA5"
-  of 16: "IsoA5Extra"
-  of 17: "IsoA5Rotated"
-  of 18: "IsoA6"
-  of 19: "IsoA6Rotated"
-  of 20: "IsoA7"
-  of 21: "IsoA8"
-  of 22: "IsoA9"
-  of 23: "IsoB0"
-  of 24: "IsoB1"
-  of 25: "IsoB10"
-  of 26: "IsoB2"
-  of 27: "IsoB3"
-  of 28: "IsoB4"
-  of 29: "IsoB4Envelope"
-  of 30: "IsoB5Envelope"
-  of 31: "IsoB5Extra"
-  of 32: "IsoB7"
-  of 33: "IsoB8"
-  of 34: "IsoB9"
-  of 35: "IsoC0"
-  of 36: "IsoC1"
-  of 37: "IsoC10"
-  of 38: "IsoC2"
-  of 39: "IsoC3"
-  of 40: "IsoC3Envelope"
-  of 41: "IsoC4"
-  of 42: "IsoC4Envelope"
-  of 43: "IsoC5"
-  of 44: "IsoC5Envelope"
-  of 45: "IsoC6"
-  of 46: "IsoC6C5Envelope"
-  of 47: "IsoC6Envelope"
-  of 48: "IsoC7"
-  of 49: "IsoC8"
-  of 50: "IsoC9"
-  of 51: "IsoDLEnvelope"
-  of 52: "IsoDLEnvelopeRotated"
-  of 53: "IsoSRA3"
-  of 54: "Japan2LPhoto"
-  of 55: "JapanChou3Envelope"
-  of 56: "JapanChou3EnvelopeRotated"
-  of 57: "JapanChou4Envelope"
-  of 58: "JapanChou4EnvelopeRotated"
-  of 59: "JapanDoubleHagakiPostcard"
-  of 60: "JapanDoubleHagakiPostcardRotated"
-  of 61: "JapanHagakiPostcard"
-  of 62: "JapanHagakiPostcardRotated"
-  of 63: "JapanKaku2Envelope"
-  of 64: "JapanKaku2EnvelopeRotated"
-  of 65: "JapanKaku3Envelope"
-  of 66: "JapanKaku3EnvelopeRotated"
-  of 67: "JapanLPhoto"
-  of 68: "JapanQuadrupleHagakiPostcard"
-  of 69: "JapanYou1Envelope"
-  of 70: "JapanYou2Envelope"
-  of 71: "JapanYou3Envelope"
-  of 72: "JapanYou4Envelope"
-  of 73: "JapanYou4EnvelopeRotated"
-  of 74: "JapanYou6Envelope"
-  of 75: "JapanYou6EnvelopeRotated"
-  of 76: "JisB0"
-  of 77: "JisB1"
-  of 78: "JisB10"
-  of 79: "JisB2"
-  of 80: "JisB3"
-  of 81: "JisB4"
-  of 82: "JisB4Rotated"
-  of 83: "JisB5"
-  of 84: "JisB5Rotated"
-  of 85: "JisB6"
-  of 86: "JisB6Rotated"
-  of 87: "JisB7"
-  of 88: "JisB8"
-  of 89: "JisB9"
-  of 90: "NorthAmerica10x11"
-  of 91: "NorthAmerica10x12"
-  of 92: "NorthAmerica10x14"
-  of 93: "NorthAmerica11x17"
-  of 94: "NorthAmerica14x17"
-  of 95: "NorthAmerica4x6"
-  of 96: "NorthAmerica4x8"
-  of 97: "NorthAmerica5x7"
-  of 98: "NorthAmerica8x10"
-  of 99: "NorthAmerica9x11"
-  of 100: "NorthAmericaArchitectureASheet"
-  of 101: "NorthAmericaArchitectureBSheet"
-  of 102: "NorthAmericaArchitectureCSheet"
-  of 103: "NorthAmericaArchitectureDSheet"
-  of 104: "NorthAmericaArchitectureESheet"
-  of 105: "NorthAmericaCSheet"
-  of 106: "NorthAmericaDSheet"
-  of 107: "NorthAmericaESheet"
-  of 108: "NorthAmericaExecutive"
-  of 109: "NorthAmericaGermanLegalFanfold"
-  of 110: "NorthAmericaGermanStandardFanfold"
-  of 111: "NorthAmericaLegal"
-  of 112: "NorthAmericaLegalExtra"
-  of 113: "NorthAmericaLetter"
-  of 114: "NorthAmericaLetterExtra"
-  of 115: "NorthAmericaLetterPlus"
-  of 116: "NorthAmericaLetterRotated"
-  of 117: "NorthAmericaMonarchEnvelope"
-  of 118: "NorthAmericaNote"
-  of 119: "NorthAmericaNumber10Envelope"
-  of 120: "NorthAmericaNumber10EnvelopeRotated"
-  of 121: "NorthAmericaNumber11Envelope"
-  of 122: "NorthAmericaNumber12Envelope"
-  of 123: "NorthAmericaNumber14Envelope"
-  of 124: "NorthAmericaNumber9Envelope"
-  of 125: "NorthAmericaPersonalEnvelope"
-  of 126: "NorthAmericaQuarto"
-  of 127: "NorthAmericaStatement"
-  of 128: "NorthAmericaSuperA"
-  of 129: "NorthAmericaSuperB"
-  of 130: "NorthAmericaTabloid"
-  of 131: "NorthAmericaTabloidExtra"
-  of 132: "OtherMetricA3Plus"
-  of 133: "OtherMetricA4Plus"
-  of 134: "OtherMetricFolio"
-  of 135: "OtherMetricInviteEnvelope"
-  of 136: "OtherMetricItalianEnvelope"
-  of 137: "Prc10Envelope"
-  of 138: "Prc10EnvelopeRotated"
-  of 139: "Prc16K"
-  of 140: "Prc16KRotated"
-  of 141: "Prc1Envelope"
-  of 142: "Prc1EnvelopeRotated"
-  of 143: "Prc2Envelope"
-  of 144: "Prc2EnvelopeRotated"
-  of 145: "Prc32K"
-  of 146: "Prc32KBig"
-  of 147: "Prc32KRotated"
-  of 148: "Prc3Envelope"
-  of 149: "Prc3EnvelopeRotated"
-  of 150: "Prc4Envelope"
-  of 151: "Prc4EnvelopeRotated"
-  of 152: "Prc5Envelope"
-  of 153: "Prc5EnvelopeRotated"
-  of 154: "Prc6Envelope"
-  of 155: "Prc6EnvelopeRotated"
-  of 156: "Prc7Envelope"
-  of 157: "Prc7EnvelopeRotated"
-  of 158: "Prc8Envelope"
-  of 159: "Prc8EnvelopeRotated"
-  of 160: "Prc9Envelope"
-  of 161: "Prc9EnvelopeRotated"
-  of 162: "Roll04Inch"
-  of 163: "Roll06Inch"
-  of 164: "Roll08Inch"
-  of 165: "Roll12Inch"
-  of 166: "Roll15Inch"
-  of 167: "Roll18Inch"
-  of 168: "Roll22Inch"
-  of 169: "Roll24Inch"
-  of 170: "Roll30Inch"
-  of 171: "Roll36Inch"
-  of 172: "Roll54Inch"
-  else: "PrintMediaSize(" & $ord(v) & ")"
+template `$`*(v: PrintMediaSize): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintMediaType  (enum)
 type PrintMediaType* {.pure, size: 4.} = enum
@@ -12262,41 +7909,7 @@ type PrintMediaType* {.pure, size: 4.} = enum
   Transparency = 29'i32
   TShirtTransfer = 30'i32
   None = 31'i32
-proc `$`*(v: PrintMediaType): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NotAvailable"
-  of 2: "PrinterCustom"
-  of 3: "AutoSelect"
-  of 4: "Archival"
-  of 5: "BackPrintFilm"
-  of 6: "Bond"
-  of 7: "CardStock"
-  of 8: "Continuous"
-  of 9: "EnvelopePlain"
-  of 10: "EnvelopeWindow"
-  of 11: "Fabric"
-  of 12: "HighResolution"
-  of 13: "Label"
-  of 14: "MultiLayerForm"
-  of 15: "MultiPartForm"
-  of 16: "Photographic"
-  of 17: "PhotographicFilm"
-  of 18: "PhotographicGlossy"
-  of 19: "PhotographicHighGloss"
-  of 20: "PhotographicMatte"
-  of 21: "PhotographicSatin"
-  of 22: "PhotographicSemiGloss"
-  of 23: "Plain"
-  of 24: "Screen"
-  of 25: "ScreenPaged"
-  of 26: "Stationery"
-  of 27: "TabStockFull"
-  of 28: "TabStockPreCut"
-  of 29: "Transparency"
-  of 30: "TShirtTransfer"
-  of 31: "None"
-  else: "PrintMediaType(" & $ord(v) & ")"
+template `$`*(v: PrintMediaType): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintOrientation  (enum)
 type PrintOrientation* {.pure, size: 4.} = enum
@@ -12307,16 +7920,7 @@ type PrintOrientation* {.pure, size: 4.} = enum
   PortraitFlipped = 4'i32
   Landscape = 5'i32
   LandscapeFlipped = 6'i32
-proc `$`*(v: PrintOrientation): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NotAvailable"
-  of 2: "PrinterCustom"
-  of 3: "Portrait"
-  of 4: "PortraitFlipped"
-  of 5: "Landscape"
-  of 6: "LandscapeFlipped"
-  else: "PrintOrientation(" & $ord(v) & ")"
+template `$`*(v: PrintOrientation): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintQuality  (enum)
 type PrintQuality* {.pure, size: 4.} = enum
@@ -12330,19 +7934,7 @@ type PrintQuality* {.pure, size: 4.} = enum
   Normal = 7'i32
   Photographic = 8'i32
   Text = 9'i32
-proc `$`*(v: PrintQuality): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NotAvailable"
-  of 2: "PrinterCustom"
-  of 3: "Automatic"
-  of 4: "Draft"
-  of 5: "Fax"
-  of 6: "High"
-  of 7: "Normal"
-  of 8: "Photographic"
-  of 9: "Text"
-  else: "PrintQuality(" & $ord(v) & ")"
+template `$`*(v: PrintQuality): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintStaple  (enum)
 type PrintStaple* {.pure, size: 4.} = enum
@@ -12359,22 +7951,7 @@ type PrintStaple* {.pure, size: 4.} = enum
   StapleDualTop = 10'i32
   StapleDualBottom = 11'i32
   SaddleStitch = 12'i32
-proc `$`*(v: PrintStaple): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NotAvailable"
-  of 2: "PrinterCustom"
-  of 3: "None"
-  of 4: "StapleTopLeft"
-  of 5: "StapleTopRight"
-  of 6: "StapleBottomLeft"
-  of 7: "StapleBottomRight"
-  of 8: "StapleDualLeft"
-  of 9: "StapleDualRight"
-  of 10: "StapleDualTop"
-  of 11: "StapleDualBottom"
-  of 12: "SaddleStitch"
-  else: "PrintStaple(" & $ord(v) & ")"
+template `$`*(v: PrintStaple): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintSupport.IppCommunicationErrorKind  (enum)
 type IppCommunicationErrorKind* {.pure, size: 4.} = enum
@@ -12382,13 +7959,7 @@ type IppCommunicationErrorKind* {.pure, size: 4.} = enum
   Timeout = 1'i32
   ConnectionError = 2'i32
   AccessDenied = 3'i32
-proc `$`*(v: IppCommunicationErrorKind): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "Timeout"
-  of 2: "ConnectionError"
-  of 3: "AccessDenied"
-  else: "IppCommunicationErrorKind(" & $ord(v) & ")"
+template `$`*(v: IppCommunicationErrorKind): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintSupport.IppPrinterCommunicationKind  (enum)
 type IppPrinterCommunicationKind* {.pure, size: 4.} = enum
@@ -12397,14 +7968,7 @@ type IppPrinterCommunicationKind* {.pure, size: 4.} = enum
   PrinterConnection = 2'i32
   UniversalPrint = 3'i32
   VirtualPrinter = 4'i32
-proc `$`*(v: IppPrinterCommunicationKind): string =
-  case ord(v)
-  of 0: "Network"
-  of 1: "Usb"
-  of 2: "PrinterConnection"
-  of 3: "UniversalPrint"
-  of 4: "VirtualPrinter"
-  else: "IppPrinterCommunicationKind(" & $ord(v) & ")"
+template `$`*(v: IppPrinterCommunicationKind): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintSupport.PrintSupportAppContracts  (enum)
 type PrintSupportAppContracts* = distinct uint32
@@ -12458,23 +8022,14 @@ const PrintSupportAppContracts_EnterpriseManagementUI* = PrintSupportAppContract
 type SettingsLaunchKind* {.pure, size: 4.} = enum
   JobPrintTicket = 0'i32
   UserDefaultPrintTicket = 1'i32
-proc `$`*(v: SettingsLaunchKind): string =
-  case ord(v)
-  of 0: "JobPrintTicket"
-  of 1: "UserDefaultPrintTicket"
-  else: "SettingsLaunchKind(" & $ord(v) & ")"
+template `$`*(v: SettingsLaunchKind): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintSupport.WorkflowPrintTicketValidationStatus  (enum)
 type WorkflowPrintTicketValidationStatus* {.pure, size: 4.} = enum
   Resolved = 0'i32
   Conflicting = 1'i32
   Invalid = 2'i32
-proc `$`*(v: WorkflowPrintTicketValidationStatus): string =
-  case ord(v)
-  of 0: "Resolved"
-  of 1: "Conflicting"
-  of 2: "Invalid"
-  else: "WorkflowPrintTicketValidationStatus(" & $ord(v) & ")"
+template `$`*(v: WorkflowPrintTicketValidationStatus): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintSupport.XpsImageQuality  (enum)
 type XpsImageQuality* {.pure, size: 4.} = enum
@@ -12482,13 +8037,7 @@ type XpsImageQuality* {.pure, size: 4.} = enum
   JpegMediumCompression = 1'i32
   JpegLowCompression = 2'i32
   Png = 3'i32
-proc `$`*(v: XpsImageQuality): string =
-  case ord(v)
-  of 0: "JpegHighCompression"
-  of 1: "JpegMediumCompression"
-  of 2: "JpegLowCompression"
-  of 3: "Png"
-  else: "XpsImageQuality(" & $ord(v) & ")"
+template `$`*(v: XpsImageQuality): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintTaskCompletion  (enum)
 type PrintTaskCompletion* {.pure, size: 4.} = enum
@@ -12496,47 +8045,27 @@ type PrintTaskCompletion* {.pure, size: 4.} = enum
   Canceled = 1'i32
   Failed = 2'i32
   Submitted = 3'i32
-proc `$`*(v: PrintTaskCompletion): string =
-  case ord(v)
-  of 0: "Abandoned"
-  of 1: "Canceled"
-  of 2: "Failed"
-  of 3: "Submitted"
-  else: "PrintTaskCompletion(" & $ord(v) & ")"
+template `$`*(v: PrintTaskCompletion): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintTicket.PrintTicketFeatureSelectionType  (enum)
 type PrintTicketFeatureSelectionType* {.pure, size: 4.} = enum
   PickOne = 0'i32
   PickMany = 1'i32
-proc `$`*(v: PrintTicketFeatureSelectionType): string =
-  case ord(v)
-  of 0: "PickOne"
-  of 1: "PickMany"
-  else: "PrintTicketFeatureSelectionType(" & $ord(v) & ")"
+template `$`*(v: PrintTicketFeatureSelectionType): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintTicket.PrintTicketParameterDataType  (enum)
 type PrintTicketParameterDataType* {.pure, size: 4.} = enum
   Integer = 0'i32
   NumericString = 1'i32
   String = 2'i32
-proc `$`*(v: PrintTicketParameterDataType): string =
-  case ord(v)
-  of 0: "Integer"
-  of 1: "NumericString"
-  of 2: "String"
-  else: "PrintTicketParameterDataType(" & $ord(v) & ")"
+template `$`*(v: PrintTicketParameterDataType): string = enumName(v)
 
 ## Windows.Graphics.Printing.PrintTicket.PrintTicketValueType  (enum)
 type PrintTicketValueType* {.pure, size: 4.} = enum
   Integer = 0'i32
   String = 1'i32
   Unknown = 2'i32
-proc `$`*(v: PrintTicketValueType): string =
-  case ord(v)
-  of 0: "Integer"
-  of 1: "String"
-  of 2: "Unknown"
-  else: "PrintTicketValueType(" & $ord(v) & ")"
+template `$`*(v: PrintTicketValueType): string = enumName(v)
 
 ## Windows.Graphics.Printing.Workflow.PdlConversionHostBasedProcessingOperations  (enum)
 type PdlConversionHostBasedProcessingOperations* = distinct uint32
@@ -12586,22 +8115,13 @@ type PrintWorkflowAttributesMergePolicy* {.pure, size: 4.} = enum
   MergePreferPrintTicketOnConflict = 0'i32
   MergePreferPsaOnConflict = 1'i32
   DoNotMergeWithPrintTicket = 2'i32
-proc `$`*(v: PrintWorkflowAttributesMergePolicy): string =
-  case ord(v)
-  of 0: "MergePreferPrintTicketOnConflict"
-  of 1: "MergePreferPsaOnConflict"
-  of 2: "DoNotMergeWithPrintTicket"
-  else: "PrintWorkflowAttributesMergePolicy(" & $ord(v) & ")"
+template `$`*(v: PrintWorkflowAttributesMergePolicy): string = enumName(v)
 
 ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobAbortReason  (enum)
 type PrintWorkflowJobAbortReason* {.pure, size: 4.} = enum
   JobFailed = 0'i32
   UserCanceled = 1'i32
-proc `$`*(v: PrintWorkflowJobAbortReason): string =
-  case ord(v)
-  of 0: "JobFailed"
-  of 1: "UserCanceled"
-  else: "PrintWorkflowJobAbortReason(" & $ord(v) & ")"
+template `$`*(v: PrintWorkflowJobAbortReason): string = enumName(v)
 
 ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobIssueKind  (enum)
 type PrintWorkflowJobIssueKind* {.pure, size: 4.} = enum
@@ -12616,20 +8136,7 @@ type PrintWorkflowJobIssueKind* {.pure, size: 4.} = enum
   OutputAreaAlmostFull = 8'i32
   OutputAreaFull = 9'i32
   JobPrintingError = 10'i32
-proc `$`*(v: PrintWorkflowJobIssueKind): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "AttentionRequired"
-  of 2: "DoorOpen"
-  of 3: "MarkerSupplyLow"
-  of 4: "MarkerSupplyEmpty"
-  of 5: "MediaJam"
-  of 6: "MediaEmpty"
-  of 7: "MediaLow"
-  of 8: "OutputAreaAlmostFull"
-  of 9: "OutputAreaFull"
-  of 10: "JobPrintingError"
-  else: "PrintWorkflowJobIssueKind(" & $ord(v) & ")"
+template `$`*(v: PrintWorkflowJobIssueKind): string = enumName(v)
 
 ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConversionType  (enum)
 type PrintWorkflowPdlConversionType* {.pure, size: 4.} = enum
@@ -12637,13 +8144,7 @@ type PrintWorkflowPdlConversionType* {.pure, size: 4.} = enum
   XpsToPwgr = 1'i32
   XpsToPclm = 2'i32
   XpsToTiff = 3'i32
-proc `$`*(v: PrintWorkflowPdlConversionType): string =
-  case ord(v)
-  of 0: "XpsToPdf"
-  of 1: "XpsToPwgr"
-  of 2: "XpsToPclm"
-  of 3: "XpsToTiff"
-  else: "PrintWorkflowPdlConversionType(" & $ord(v) & ")"
+template `$`*(v: PrintWorkflowPdlConversionType): string = enumName(v)
 
 ## Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJobStatus  (enum)
 type PrintWorkflowPrinterJobStatus* {.pure, size: 4.} = enum
@@ -12651,13 +8152,7 @@ type PrintWorkflowPrinterJobStatus* {.pure, size: 4.} = enum
   Aborted = 1'i32
   InProgress = 2'i32
   Completed = 3'i32
-proc `$`*(v: PrintWorkflowPrinterJobStatus): string =
-  case ord(v)
-  of 0: "Error"
-  of 1: "Aborted"
-  of 2: "InProgress"
-  of 3: "Completed"
-  else: "PrintWorkflowPrinterJobStatus(" & $ord(v) & ")"
+template `$`*(v: PrintWorkflowPrinterJobStatus): string = enumName(v)
 
 ## Windows.Graphics.Printing.Workflow.PrintWorkflowSessionStatus  (enum)
 type PrintWorkflowSessionStatus* {.pure, size: 4.} = enum
@@ -12666,26 +8161,14 @@ type PrintWorkflowSessionStatus* {.pure, size: 4.} = enum
   Aborted = 2'i32
   Closed = 3'i32
   PdlDataAvailableForModification = 4'i32
-proc `$`*(v: PrintWorkflowSessionStatus): string =
-  case ord(v)
-  of 0: "Started"
-  of 1: "Completed"
-  of 2: "Aborted"
-  of 3: "Closed"
-  of 4: "PdlDataAvailableForModification"
-  else: "PrintWorkflowSessionStatus(" & $ord(v) & ")"
+template `$`*(v: PrintWorkflowSessionStatus): string = enumName(v)
 
 ## Windows.Graphics.Printing.Workflow.PrintWorkflowSubmittedStatus  (enum)
 type PrintWorkflowSubmittedStatus* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   Canceled = 1'i32
   Failed = 2'i32
-proc `$`*(v: PrintWorkflowSubmittedStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "Canceled"
-  of 2: "Failed"
-  else: "PrintWorkflowSubmittedStatus(" & $ord(v) & ")"
+template `$`*(v: PrintWorkflowSubmittedStatus): string = enumName(v)
 
 ## Windows.Graphics.Printing.Workflow.PrintWorkflowUICompletionStatus  (enum)
 type PrintWorkflowUICompletionStatus* {.pure, size: 4.} = enum
@@ -12693,13 +8176,7 @@ type PrintWorkflowUICompletionStatus* {.pure, size: 4.} = enum
   LaunchFailed = 1'i32
   JobFailed = 2'i32
   UserCanceled = 3'i32
-proc `$`*(v: PrintWorkflowUICompletionStatus): string =
-  case ord(v)
-  of 0: "Completed"
-  of 1: "LaunchFailed"
-  of 2: "JobFailed"
-  of 3: "UserCanceled"
-  else: "PrintWorkflowUICompletionStatus(" & $ord(v) & ")"
+template `$`*(v: PrintWorkflowUICompletionStatus): string = enumName(v)
 
 ## Windows.Graphics.Printing3D.Print3DTaskCompletion  (enum)
 type Print3DTaskCompletion* {.pure, size: 4.} = enum
@@ -12708,14 +8185,7 @@ type Print3DTaskCompletion* {.pure, size: 4.} = enum
   Failed = 2'i32
   Slicing = 3'i32
   Submitted = 4'i32
-proc `$`*(v: Print3DTaskCompletion): string =
-  case ord(v)
-  of 0: "Abandoned"
-  of 1: "Canceled"
-  of 2: "Failed"
-  of 3: "Slicing"
-  of 4: "Submitted"
-  else: "Print3DTaskCompletion(" & $ord(v) & ")"
+template `$`*(v: Print3DTaskCompletion): string = enumName(v)
 
 ## Windows.Graphics.Printing3D.Print3DTaskDetail  (enum)
 type Print3DTaskDetail* {.pure, size: 4.} = enum
@@ -12726,16 +8196,7 @@ type Print3DTaskDetail* {.pure, size: 4.} = enum
   InvalidModel = 4'i32
   ModelNotManifold = 5'i32
   InvalidPrintTicket = 6'i32
-proc `$`*(v: Print3DTaskDetail): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "ModelExceedsPrintBed"
-  of 2: "UploadFailed"
-  of 3: "InvalidMaterialSelection"
-  of 4: "InvalidModel"
-  of 5: "ModelNotManifold"
-  of 6: "InvalidPrintTicket"
-  else: "Print3DTaskDetail(" & $ord(v) & ")"
+template `$`*(v: Print3DTaskDetail): string = enumName(v)
 
 ## Windows.Graphics.Printing3D.Printing3DBufferFormat  (enum)
 type Printing3DBufferFormat* {.pure, size: 4.} = enum
@@ -12746,26 +8207,13 @@ type Printing3DBufferFormat* {.pure, size: 4.} = enum
   R32G32B32UInt = 7'i32
   Printing3DDouble = 500'i32
   Printing3DUInt = 501'i32
-proc `$`*(v: Printing3DBufferFormat): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 2: "R32G32B32A32Float"
-  of 3: "R32G32B32A32UInt"
-  of 6: "R32G32B32Float"
-  of 7: "R32G32B32UInt"
-  of 500: "Printing3DDouble"
-  of 501: "Printing3DUInt"
-  else: "Printing3DBufferFormat(" & $ord(v) & ")"
+template `$`*(v: Printing3DBufferFormat): string = enumName(v)
 
 ## Windows.Graphics.Printing3D.Printing3DMeshVerificationMode  (enum)
 type Printing3DMeshVerificationMode* {.pure, size: 4.} = enum
   FindFirstError = 0'i32
   FindAllErrors = 1'i32
-proc `$`*(v: Printing3DMeshVerificationMode): string =
-  case ord(v)
-  of 0: "FindFirstError"
-  of 1: "FindAllErrors"
-  else: "Printing3DMeshVerificationMode(" & $ord(v) & ")"
+template `$`*(v: Printing3DMeshVerificationMode): string = enumName(v)
 
 ## Windows.Graphics.Printing3D.Printing3DModelUnit  (enum)
 type Printing3DModelUnit* {.pure, size: 4.} = enum
@@ -12775,39 +8223,21 @@ type Printing3DModelUnit* {.pure, size: 4.} = enum
   Centimeter = 3'i32
   Inch = 4'i32
   Foot = 5'i32
-proc `$`*(v: Printing3DModelUnit): string =
-  case ord(v)
-  of 0: "Meter"
-  of 1: "Micron"
-  of 2: "Millimeter"
-  of 3: "Centimeter"
-  of 4: "Inch"
-  of 5: "Foot"
-  else: "Printing3DModelUnit(" & $ord(v) & ")"
+template `$`*(v: Printing3DModelUnit): string = enumName(v)
 
 ## Windows.Graphics.Printing3D.Printing3DObjectType  (enum)
 type Printing3DObjectType* {.pure, size: 4.} = enum
   Model = 0'i32
   Support = 1'i32
   Others = 2'i32
-proc `$`*(v: Printing3DObjectType): string =
-  case ord(v)
-  of 0: "Model"
-  of 1: "Support"
-  of 2: "Others"
-  else: "Printing3DObjectType(" & $ord(v) & ")"
+template `$`*(v: Printing3DObjectType): string = enumName(v)
 
 ## Windows.Graphics.Printing3D.Printing3DPackageCompression  (enum)
 type Printing3DPackageCompression* {.pure, size: 4.} = enum
   Low = 0'i32
   Medium = 1'i32
   High = 2'i32
-proc `$`*(v: Printing3DPackageCompression): string =
-  case ord(v)
-  of 0: "Low"
-  of 1: "Medium"
-  of 2: "High"
-  else: "Printing3DPackageCompression(" & $ord(v) & ")"
+template `$`*(v: Printing3DPackageCompression): string = enumName(v)
 
 ## Windows.Graphics.Printing3D.Printing3DTextureEdgeBehavior  (enum)
 type Printing3DTextureEdgeBehavior* {.pure, size: 4.} = enum
@@ -12815,13 +8245,7 @@ type Printing3DTextureEdgeBehavior* {.pure, size: 4.} = enum
   Wrap = 1'i32
   Mirror = 2'i32
   Clamp = 3'i32
-proc `$`*(v: Printing3DTextureEdgeBehavior): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Wrap"
-  of 2: "Mirror"
-  of 3: "Clamp"
-  else: "Printing3DTextureEdgeBehavior(" & $ord(v) & ")"
+template `$`*(v: Printing3DTextureEdgeBehavior): string = enumName(v)
 
 ## Windows.Management.Deployment.AddPackageByAppInstallerOptions  (enum)
 type AddPackageByAppInstallerOptions* = distinct uint32
@@ -12923,11 +8347,7 @@ const DeploymentOptions_StageInPlace* = DeploymentOptions(4194304'u32)
 type DeploymentProgressState* {.pure, size: 4.} = enum
   Queued = 0'i32
   Processing = 1'i32
-proc `$`*(v: DeploymentProgressState): string =
-  case ord(v)
-  of 0: "Queued"
-  of 1: "Processing"
-  else: "DeploymentProgressState(" & $ord(v) & ")"
+template `$`*(v: DeploymentProgressState): string = enumName(v)
 
 ## Windows.Management.Deployment.PackageInstallState  (enum)
 type PackageInstallState* {.pure, size: 4.} = enum
@@ -12935,25 +8355,14 @@ type PackageInstallState* {.pure, size: 4.} = enum
   Staged = 1'i32
   Installed = 2'i32
   Paused = 6'i32
-proc `$`*(v: PackageInstallState): string =
-  case ord(v)
-  of 0: "NotInstalled"
-  of 1: "Staged"
-  of 2: "Installed"
-  of 6: "Paused"
-  else: "PackageInstallState(" & $ord(v) & ")"
+template `$`*(v: PackageInstallState): string = enumName(v)
 
 ## Windows.Management.Deployment.PackageOperationPriority  (enum)
 type PackageOperationPriority* {.pure, size: 4.} = enum
   Low = 0'i32
   Normal = 1'i32
   High = 2'i32
-proc `$`*(v: PackageOperationPriority): string =
-  case ord(v)
-  of 0: "Low"
-  of 1: "Normal"
-  of 2: "High"
-  else: "PackageOperationPriority(" & $ord(v) & ")"
+template `$`*(v: PackageOperationPriority): string = enumName(v)
 
 ## Windows.Management.Deployment.PackageState  (enum)
 type PackageState* {.pure, size: 4.} = enum
@@ -12961,13 +8370,7 @@ type PackageState* {.pure, size: 4.} = enum
   LicenseInvalid = 1'i32
   Modified = 2'i32
   Tampered = 3'i32
-proc `$`*(v: PackageState): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "LicenseInvalid"
-  of 2: "Modified"
-  of 3: "Tampered"
-  else: "PackageState(" & $ord(v) & ")"
+template `$`*(v: PackageState): string = enumName(v)
 
 ## Windows.Management.Deployment.PackageStatus  (enum)
 type PackageStatus* = distinct uint32
@@ -13011,11 +8414,7 @@ const PackageStatus_Disabled* = PackageStatus(8'u32)
 type PackageStubPreference* {.pure, size: 4.} = enum
   Full = 0'i32
   Stub = 1'i32
-proc `$`*(v: PackageStubPreference): string =
-  case ord(v)
-  of 0: "Full"
-  of 1: "Stub"
-  else: "PackageStubPreference(" & $ord(v) & ")"
+template `$`*(v: PackageStubPreference): string = enumName(v)
 
 ## Windows.Management.Deployment.PackageTypes  (enum)
 type PackageTypes* = distinct uint32
@@ -13113,12 +8512,7 @@ type SharedPackageContainerCreationCollisionOptions* {.pure, size: 4.} = enum
   FailIfExists = 0'i32
   MergeWithExisting = 1'i32
   ReplaceExisting = 2'i32
-proc `$`*(v: SharedPackageContainerCreationCollisionOptions): string =
-  case ord(v)
-  of 0: "FailIfExists"
-  of 1: "MergeWithExisting"
-  of 2: "ReplaceExisting"
-  else: "SharedPackageContainerCreationCollisionOptions(" & $ord(v) & ")"
+template `$`*(v: SharedPackageContainerCreationCollisionOptions): string = enumName(v)
 
 ## Windows.Management.Deployment.SharedPackageContainerOperationStatus  (enum)
 type SharedPackageContainerOperationStatus* {.pure, size: 4.} = enum
@@ -13128,15 +8522,7 @@ type SharedPackageContainerOperationStatus* {.pure, size: 4.} = enum
   PackageFamilyExistsInAnotherContainer = 3'i32
   NotFound = 4'i32
   UnknownFailure = 5'i32
-proc `$`*(v: SharedPackageContainerOperationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "BlockedByPolicy"
-  of 2: "AlreadyExists"
-  of 3: "PackageFamilyExistsInAnotherContainer"
-  of 4: "NotFound"
-  of 5: "UnknownFailure"
-  else: "SharedPackageContainerOperationStatus(" & $ord(v) & ")"
+template `$`*(v: SharedPackageContainerOperationStatus): string = enumName(v)
 
 ## Windows.Management.Deployment.StubPackageOption  (enum)
 type StubPackageOption* {.pure, size: 4.} = enum
@@ -13144,13 +8530,7 @@ type StubPackageOption* {.pure, size: 4.} = enum
   InstallFull = 1'i32
   InstallStub = 2'i32
   UsePreference = 3'i32
-proc `$`*(v: StubPackageOption): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "InstallFull"
-  of 2: "InstallStub"
-  of 3: "UsePreference"
-  else: "StubPackageOption(" & $ord(v) & ")"
+template `$`*(v: StubPackageOption): string = enumName(v)
 
 ## Windows.Management.MdmAlertDataType  (enum)
 type MdmAlertDataType* {.pure, size: 4.} = enum
@@ -13158,13 +8538,7 @@ type MdmAlertDataType* {.pure, size: 4.} = enum
   Base64 = 1'i32
   Boolean = 2'i32
   Integer = 3'i32
-proc `$`*(v: MdmAlertDataType): string =
-  case ord(v)
-  of 0: "String"
-  of 1: "Base64"
-  of 2: "Boolean"
-  of 3: "Integer"
-  else: "MdmAlertDataType(" & $ord(v) & ")"
+template `$`*(v: MdmAlertDataType): string = enumName(v)
 
 ## Windows.Management.MdmAlertMark  (enum)
 type MdmAlertMark* {.pure, size: 4.} = enum
@@ -13173,14 +8547,7 @@ type MdmAlertMark* {.pure, size: 4.} = enum
   Critical = 2'i32
   Warning = 3'i32
   Informational = 4'i32
-proc `$`*(v: MdmAlertMark): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Fatal"
-  of 2: "Critical"
-  of 3: "Warning"
-  of 4: "Informational"
-  else: "MdmAlertMark(" & $ord(v) & ")"
+template `$`*(v: MdmAlertMark): string = enumName(v)
 
 ## Windows.Management.MdmSessionState  (enum)
 type MdmSessionState* {.pure, size: 4.} = enum
@@ -13191,16 +8558,7 @@ type MdmSessionState* {.pure, size: 4.} = enum
   AlertStatusAvailable = 4'i32
   Retrying = 5'i32
   Completed = 6'i32
-proc `$`*(v: MdmSessionState): string =
-  case ord(v)
-  of 0: "NotStarted"
-  of 1: "Starting"
-  of 2: "Connecting"
-  of 3: "Communicating"
-  of 4: "AlertStatusAvailable"
-  of 5: "Retrying"
-  of 6: "Completed"
-  else: "MdmSessionState(" & $ord(v) & ")"
+template `$`*(v: MdmSessionState): string = enumName(v)
 
 ## Windows.Management.Policies.NamedPolicyKind  (enum)
 type NamedPolicyKind* {.pure, size: 4.} = enum
@@ -13210,15 +8568,7 @@ type NamedPolicyKind* {.pure, size: 4.} = enum
   Int32 = 3'i32
   Int64 = 4'i32
   String = 5'i32
-proc `$`*(v: NamedPolicyKind): string =
-  case ord(v)
-  of 0: "Invalid"
-  of 1: "Binary"
-  of 2: "Boolean"
-  of 3: "Int32"
-  of 4: "Int64"
-  of 5: "String"
-  else: "NamedPolicyKind(" & $ord(v) & ")"
+template `$`*(v: NamedPolicyKind): string = enumName(v)
 
 ## Windows.Management.Setup.DeploymentAgentProgressState  (enum)
 type DeploymentAgentProgressState* {.pure, size: 4.} = enum
@@ -13229,16 +8579,7 @@ type DeploymentAgentProgressState* {.pure, size: 4.} = enum
   ErrorOccurred = 4'i32
   RebootRequired = 5'i32
   Canceled = 6'i32
-proc `$`*(v: DeploymentAgentProgressState): string =
-  case ord(v)
-  of 0: "NotStarted"
-  of 1: "Initializing"
-  of 2: "InProgress"
-  of 3: "Completed"
-  of 4: "ErrorOccurred"
-  of 5: "RebootRequired"
-  of 6: "Canceled"
-  else: "DeploymentAgentProgressState(" & $ord(v) & ")"
+template `$`*(v: DeploymentAgentProgressState): string = enumName(v)
 
 ## Windows.Management.Setup.DeploymentSessionConnectionChange  (enum)
 type DeploymentSessionConnectionChange* {.pure, size: 4.} = enum
@@ -13249,28 +8590,14 @@ type DeploymentSessionConnectionChange* {.pure, size: 4.} = enum
   AgentConnectionRestored = 4'i32
   InternetConnectionLost = 5'i32
   InternetConnectionRestored = 6'i32
-proc `$`*(v: DeploymentSessionConnectionChange): string =
-  case ord(v)
-  of 0: "NoChange"
-  of 1: "HostConnectionLost"
-  of 2: "HostConnectionRestored"
-  of 3: "AgentConnectionLost"
-  of 4: "AgentConnectionRestored"
-  of 5: "InternetConnectionLost"
-  of 6: "InternetConnectionRestored"
-  else: "DeploymentSessionConnectionChange(" & $ord(v) & ")"
+template `$`*(v: DeploymentSessionConnectionChange): string = enumName(v)
 
 ## Windows.Management.Setup.DeploymentSessionStateChange  (enum)
 type DeploymentSessionStateChange* {.pure, size: 4.} = enum
   NoChange = 0'i32
   CancelRequestedByUser = 1'i32
   RetryRequestedByUser = 2'i32
-proc `$`*(v: DeploymentSessionStateChange): string =
-  case ord(v)
-  of 0: "NoChange"
-  of 1: "CancelRequestedByUser"
-  of 2: "RetryRequestedByUser"
-  else: "DeploymentSessionStateChange(" & $ord(v) & ")"
+template `$`*(v: DeploymentSessionStateChange): string = enumName(v)
 
 ## Windows.Management.Setup.DeploymentWorkloadState  (enum)
 type DeploymentWorkloadState* {.pure, size: 4.} = enum
@@ -13282,17 +8609,7 @@ type DeploymentWorkloadState* {.pure, size: 4.} = enum
   Skipped = 5'i32
   Uninstalled = 6'i32
   RebootRequired = 7'i32
-proc `$`*(v: DeploymentWorkloadState): string =
-  case ord(v)
-  of 0: "NotStarted"
-  of 1: "InProgress"
-  of 2: "Completed"
-  of 3: "Failed"
-  of 4: "Canceled"
-  of 5: "Skipped"
-  of 6: "Uninstalled"
-  of 7: "RebootRequired"
-  else: "DeploymentWorkloadState(" & $ord(v) & ")"
+template `$`*(v: DeploymentWorkloadState): string = enumName(v)
 
 ## Windows.Management.Update.WindowsSoftwareUpdateActionResult  (enum)
 type WindowsSoftwareUpdateActionResult* {.pure, size: 4.} = enum
@@ -13301,14 +8618,7 @@ type WindowsSoftwareUpdateActionResult* {.pure, size: 4.} = enum
   Failed = 2'i32
   Canceled = 3'i32
   Removed = 4'i32
-proc `$`*(v: WindowsSoftwareUpdateActionResult): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "Continue"
-  of 2: "Failed"
-  of 3: "Canceled"
-  of 4: "Removed"
-  else: "WindowsSoftwareUpdateActionResult(" & $ord(v) & ")"
+template `$`*(v: WindowsSoftwareUpdateActionResult): string = enumName(v)
 
 ## Windows.Management.Update.WindowsSoftwareUpdateActionType  (enum)
 type WindowsSoftwareUpdateActionType* {.pure, size: 4.} = enum
@@ -13317,14 +8627,7 @@ type WindowsSoftwareUpdateActionType* {.pure, size: 4.} = enum
   Deploy = 2'i32
   Reboot = 3'i32
   AppRestart = 4'i32
-proc `$`*(v: WindowsSoftwareUpdateActionType): string =
-  case ord(v)
-  of 0: "Download"
-  of 1: "Install"
-  of 2: "Deploy"
-  of 3: "Reboot"
-  of 4: "AppRestart"
-  else: "WindowsSoftwareUpdateActionType(" & $ord(v) & ")"
+template `$`*(v: WindowsSoftwareUpdateActionType): string = enumName(v)
 
 ## Windows.Management.Update.WindowsSoftwareUpdateArchitecture  (enum)
 type WindowsSoftwareUpdateArchitecture* {.pure, size: 4.} = enum
@@ -13333,14 +8636,7 @@ type WindowsSoftwareUpdateArchitecture* {.pure, size: 4.} = enum
   X64 = 2'i32
   Arm = 3'i32
   Arm64 = 4'i32
-proc `$`*(v: WindowsSoftwareUpdateArchitecture): string =
-  case ord(v)
-  of 0: "Neutral"
-  of 1: "X86"
-  of 2: "X64"
-  of 3: "Arm"
-  of 4: "Arm64"
-  else: "WindowsSoftwareUpdateArchitecture(" & $ord(v) & ")"
+template `$`*(v: WindowsSoftwareUpdateArchitecture): string = enumName(v)
 
 ## Windows.Management.Update.WindowsSoftwareUpdateInstallationType  (enum)
 type WindowsSoftwareUpdateInstallationType* {.pure, size: 4.} = enum
@@ -13348,13 +8644,7 @@ type WindowsSoftwareUpdateInstallationType* {.pure, size: 4.} = enum
   AppPackage = 1'i32
   Executable = 2'i32
   Powershell = 3'i32
-proc `$`*(v: WindowsSoftwareUpdateInstallationType): string =
-  case ord(v)
-  of 0: "WindowsUpdate"
-  of 1: "AppPackage"
-  of 2: "Executable"
-  of 3: "Powershell"
-  else: "WindowsSoftwareUpdateInstallationType(" & $ord(v) & ")"
+template `$`*(v: WindowsSoftwareUpdateInstallationType): string = enumName(v)
 
 ## Windows.Management.Update.WindowsSoftwareUpdateProviderRegistrationType  (enum)
 type WindowsSoftwareUpdateProviderRegistrationType* {.pure, size: 4.} = enum
@@ -13364,39 +8654,21 @@ type WindowsSoftwareUpdateProviderRegistrationType* {.pure, size: 4.} = enum
   Pending = 3'i32
   Registered = 4'i32
   Unregistered = 5'i32
-proc `$`*(v: WindowsSoftwareUpdateProviderRegistrationType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "System"
-  of 2: "Windows"
-  of 3: "Pending"
-  of 4: "Registered"
-  of 5: "Unregistered"
-  else: "WindowsSoftwareUpdateProviderRegistrationType(" & $ord(v) & ")"
+template `$`*(v: WindowsSoftwareUpdateProviderRegistrationType): string = enumName(v)
 
 ## Windows.Management.Update.WindowsSoftwareUpdateProviderTrustState  (enum)
 type WindowsSoftwareUpdateProviderTrustState* {.pure, size: 4.} = enum
   SignedTrusted = 0'i32
   SignedUntrusted = 1'i32
   Unsigned = 2'i32
-proc `$`*(v: WindowsSoftwareUpdateProviderTrustState): string =
-  case ord(v)
-  of 0: "SignedTrusted"
-  of 1: "SignedUntrusted"
-  of 2: "Unsigned"
-  else: "WindowsSoftwareUpdateProviderTrustState(" & $ord(v) & ")"
+template `$`*(v: WindowsSoftwareUpdateProviderTrustState): string = enumName(v)
 
 ## Windows.Management.Update.WindowsSoftwareUpdateProviderType  (enum)
 type WindowsSoftwareUpdateProviderType* {.pure, size: 4.} = enum
   WindowsUpdate = 0'i32
   Executable = 1'i32
   Powershell = 2'i32
-proc `$`*(v: WindowsSoftwareUpdateProviderType): string =
-  case ord(v)
-  of 0: "WindowsUpdate"
-  of 1: "Executable"
-  of 2: "Powershell"
-  else: "WindowsSoftwareUpdateProviderType(" & $ord(v) & ")"
+template `$`*(v: WindowsSoftwareUpdateProviderType): string = enumName(v)
 
 ## Windows.Management.Update.WindowsSoftwareUpdateRestartReason  (enum)
 type WindowsSoftwareUpdateRestartReason* {.pure, size: 4.} = enum
@@ -13404,13 +8676,7 @@ type WindowsSoftwareUpdateRestartReason* {.pure, size: 4.} = enum
   System = 1'i32
   AppClose = 2'i32
   AppRestart = 3'i32
-proc `$`*(v: WindowsSoftwareUpdateRestartReason): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "System"
-  of 2: "AppClose"
-  of 3: "AppRestart"
-  else: "WindowsSoftwareUpdateRestartReason(" & $ord(v) & ")"
+template `$`*(v: WindowsSoftwareUpdateRestartReason): string = enumName(v)
 
 ## Windows.Management.Update.WindowsUpdateAdministratorOptions  (enum)
 type WindowsUpdateAdministratorOptions* = distinct uint32
@@ -13450,12 +8716,7 @@ type WindowsUpdateAdministratorStatus* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   NoAdministratorRegistered = 1'i32
   OtherAdministratorIsRegistered = 2'i32
-proc `$`*(v: WindowsUpdateAdministratorStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "NoAdministratorRegistered"
-  of 2: "OtherAdministratorIsRegistered"
-  else: "WindowsUpdateAdministratorStatus(" & $ord(v) & ")"
+template `$`*(v: WindowsUpdateAdministratorStatus): string = enumName(v)
 
 ## Windows.Management.Update.WindowsUpdateAttentionRequiredReason  (enum)
 type WindowsUpdateAttentionRequiredReason* {.pure, size: 4.} = enum
@@ -13495,67 +8756,20 @@ type WindowsUpdateAttentionRequiredReason* {.pure, size: 4.} = enum
   BlockedByAppClose = 33'i32
   BlockedByAppRestart = 34'i32
   OtherUpdateReverting = 35'i32
-proc `$`*(v: WindowsUpdateAttentionRequiredReason): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "SeekerUpdate"
-  of 2: "ReadyToReboot"
-  of 3: "NeedNonMeteredNetwork"
-  of 4: "NeedUserAgreementForMeteredNetwork"
-  of 5: "NeedNetwork"
-  of 6: "NeedMoreSpace"
-  of 7: "BatterySaverEnabled"
-  of 8: "NeedUserInteraction"
-  of 9: "NeedUserAgreementForPolicy"
-  of 10: "CompatibilityError"
-  of 11: "NeedUserInteractionForEula"
-  of 12: "NeedUserInteractionForCta"
-  of 13: "Regulated"
-  of 14: "ExternalReboot"
-  of 15: "OtherUpdate"
-  of 16: "BlockedByProvider"
-  of 17: "BlockedByPostRebootFailure"
-  of 18: "UserEngaged"
-  of 19: "BlockedByBattery"
-  of 20: "Exclusivity"
-  of 21: "BlockedBySerialization"
-  of 22: "ConflictClass"
-  of 23: "BlockedByAdminApproval"
-  of 24: "BlockedByTooManyAttempts"
-  of 25: "BlockedByFailure"
-  of 26: "Demotion"
-  of 27: "BlockedByActiveHours"
-  of 28: "ScheduledForMaintenance"
-  of 29: "PolicyScheduledInstallTime"
-  of 30: "BlockedByOobe"
-  of 31: "DeferredDuringOobe"
-  of 32: "DeferredForSustainableTime"
-  of 33: "BlockedByAppClose"
-  of 34: "BlockedByAppRestart"
-  of 35: "OtherUpdateReverting"
-  else: "WindowsUpdateAttentionRequiredReason(" & $ord(v) & ")"
+template `$`*(v: WindowsUpdateAttentionRequiredReason): string = enumName(v)
 
 ## Windows.Management.Workplace.MessagingSyncPolicy  (enum)
 type MessagingSyncPolicy* {.pure, size: 4.} = enum
   Disallowed = 0'i32
   Allowed = 1'i32
   Required = 2'i32
-proc `$`*(v: MessagingSyncPolicy): string =
-  case ord(v)
-  of 0: "Disallowed"
-  of 1: "Allowed"
-  of 2: "Required"
-  else: "MessagingSyncPolicy(" & $ord(v) & ")"
+template `$`*(v: MessagingSyncPolicy): string = enumName(v)
 
 ## Windows.Media.AppRecording.AppRecordingSaveScreenshotOption  (enum)
 type AppRecordingSaveScreenshotOption* {.pure, size: 4.} = enum
   None = 0'i32
   HdrContentVisible = 1'i32
-proc `$`*(v: AppRecordingSaveScreenshotOption): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "HdrContentVisible"
-  else: "AppRecordingSaveScreenshotOption(" & $ord(v) & ")"
+template `$`*(v: AppRecordingSaveScreenshotOption): string = enumName(v)
 
 ## Windows.Media.Audio.AudioDeviceNodeCreationStatus  (enum)
 type AudioDeviceNodeCreationStatus* {.pure, size: 4.} = enum
@@ -13564,26 +8778,14 @@ type AudioDeviceNodeCreationStatus* {.pure, size: 4.} = enum
   FormatNotSupported = 2'i32
   UnknownFailure = 3'i32
   AccessDenied = 4'i32
-proc `$`*(v: AudioDeviceNodeCreationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "DeviceNotAvailable"
-  of 2: "FormatNotSupported"
-  of 3: "UnknownFailure"
-  of 4: "AccessDenied"
-  else: "AudioDeviceNodeCreationStatus(" & $ord(v) & ")"
+template `$`*(v: AudioDeviceNodeCreationStatus): string = enumName(v)
 
 ## Windows.Media.Audio.AudioEffectsPackStatus  (enum)
 type AudioEffectsPackStatus* {.pure, size: 4.} = enum
   NotEnabled = 0'i32
   Enabled = 1'i32
   NotSupported = 2'i32
-proc `$`*(v: AudioEffectsPackStatus): string =
-  case ord(v)
-  of 0: "NotEnabled"
-  of 1: "Enabled"
-  of 2: "NotSupported"
-  else: "AudioEffectsPackStatus(" & $ord(v) & ")"
+template `$`*(v: AudioEffectsPackStatus): string = enumName(v)
 
 ## Windows.Media.Audio.AudioFileNodeCreationStatus  (enum)
 type AudioFileNodeCreationStatus* {.pure, size: 4.} = enum
@@ -13592,14 +8794,7 @@ type AudioFileNodeCreationStatus* {.pure, size: 4.} = enum
   InvalidFileType = 2'i32
   FormatNotSupported = 3'i32
   UnknownFailure = 4'i32
-proc `$`*(v: AudioFileNodeCreationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "FileNotFound"
-  of 2: "InvalidFileType"
-  of 3: "FormatNotSupported"
-  of 4: "UnknownFailure"
-  else: "AudioFileNodeCreationStatus(" & $ord(v) & ")"
+template `$`*(v: AudioFileNodeCreationStatus): string = enumName(v)
 
 ## Windows.Media.Audio.AudioGraphCreationStatus  (enum)
 type AudioGraphCreationStatus* {.pure, size: 4.} = enum
@@ -13607,13 +8802,7 @@ type AudioGraphCreationStatus* {.pure, size: 4.} = enum
   DeviceNotAvailable = 1'i32
   FormatNotSupported = 2'i32
   UnknownFailure = 3'i32
-proc `$`*(v: AudioGraphCreationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "DeviceNotAvailable"
-  of 2: "FormatNotSupported"
-  of 3: "UnknownFailure"
-  else: "AudioGraphCreationStatus(" & $ord(v) & ")"
+template `$`*(v: AudioGraphCreationStatus): string = enumName(v)
 
 ## Windows.Media.Audio.AudioGraphUnrecoverableError  (enum)
 type AudioGraphUnrecoverableError* {.pure, size: 4.} = enum
@@ -13621,23 +8810,13 @@ type AudioGraphUnrecoverableError* {.pure, size: 4.} = enum
   AudioDeviceLost = 1'i32
   AudioSessionDisconnected = 2'i32
   UnknownFailure = 3'i32
-proc `$`*(v: AudioGraphUnrecoverableError): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "AudioDeviceLost"
-  of 2: "AudioSessionDisconnected"
-  of 3: "UnknownFailure"
-  else: "AudioGraphUnrecoverableError(" & $ord(v) & ")"
+template `$`*(v: AudioGraphUnrecoverableError): string = enumName(v)
 
 ## Windows.Media.Audio.AudioNodeEmitterDecayKind  (enum)
 type AudioNodeEmitterDecayKind* {.pure, size: 4.} = enum
   Natural = 0'i32
   Custom = 1'i32
-proc `$`*(v: AudioNodeEmitterDecayKind): string =
-  case ord(v)
-  of 0: "Natural"
-  of 1: "Custom"
-  else: "AudioNodeEmitterDecayKind(" & $ord(v) & ")"
+template `$`*(v: AudioNodeEmitterDecayKind): string = enumName(v)
 
 ## Windows.Media.Audio.AudioNodeEmitterSettings  (enum)
 type AudioNodeEmitterSettings* = distinct uint32
@@ -13666,11 +8845,7 @@ const AudioNodeEmitterSettings_DisableDoppler* = AudioNodeEmitterSettings(1'u32)
 type AudioNodeEmitterShapeKind* {.pure, size: 4.} = enum
   Omnidirectional = 0'i32
   Cone = 1'i32
-proc `$`*(v: AudioNodeEmitterShapeKind): string =
-  case ord(v)
-  of 0: "Omnidirectional"
-  of 1: "Cone"
-  else: "AudioNodeEmitterShapeKind(" & $ord(v) & ")"
+template `$`*(v: AudioNodeEmitterShapeKind): string = enumName(v)
 
 ## Windows.Media.Audio.AudioPlaybackConnectionOpenResultStatus  (enum)
 type AudioPlaybackConnectionOpenResultStatus* {.pure, size: 4.} = enum
@@ -13678,23 +8853,13 @@ type AudioPlaybackConnectionOpenResultStatus* {.pure, size: 4.} = enum
   RequestTimedOut = 1'i32
   DeniedBySystem = 2'i32
   UnknownFailure = 3'i32
-proc `$`*(v: AudioPlaybackConnectionOpenResultStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "RequestTimedOut"
-  of 2: "DeniedBySystem"
-  of 3: "UnknownFailure"
-  else: "AudioPlaybackConnectionOpenResultStatus(" & $ord(v) & ")"
+template `$`*(v: AudioPlaybackConnectionOpenResultStatus): string = enumName(v)
 
 ## Windows.Media.Audio.AudioPlaybackConnectionState  (enum)
 type AudioPlaybackConnectionState* {.pure, size: 4.} = enum
   Closed = 0'i32
   Opened = 1'i32
-proc `$`*(v: AudioPlaybackConnectionState): string =
-  case ord(v)
-  of 0: "Closed"
-  of 1: "Opened"
-  else: "AudioPlaybackConnectionState(" & $ord(v) & ")"
+template `$`*(v: AudioPlaybackConnectionState): string = enumName(v)
 
 ## Windows.Media.Audio.MediaSourceAudioInputNodeCreationStatus  (enum)
 type MediaSourceAudioInputNodeCreationStatus* {.pure, size: 4.} = enum
@@ -13702,35 +8867,20 @@ type MediaSourceAudioInputNodeCreationStatus* {.pure, size: 4.} = enum
   FormatNotSupported = 1'i32
   NetworkError = 2'i32
   UnknownFailure = 3'i32
-proc `$`*(v: MediaSourceAudioInputNodeCreationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "FormatNotSupported"
-  of 2: "NetworkError"
-  of 3: "UnknownFailure"
-  else: "MediaSourceAudioInputNodeCreationStatus(" & $ord(v) & ")"
+template `$`*(v: MediaSourceAudioInputNodeCreationStatus): string = enumName(v)
 
 ## Windows.Media.Audio.MixedRealitySpatialAudioFormatPolicy  (enum)
 type MixedRealitySpatialAudioFormatPolicy* {.pure, size: 4.} = enum
   UseMixedRealityDefaultSpatialAudioFormat = 0'i32
   UseDeviceConfigurationDefaultSpatialAudioFormat = 1'i32
-proc `$`*(v: MixedRealitySpatialAudioFormatPolicy): string =
-  case ord(v)
-  of 0: "UseMixedRealityDefaultSpatialAudioFormat"
-  of 1: "UseDeviceConfigurationDefaultSpatialAudioFormat"
-  else: "MixedRealitySpatialAudioFormatPolicy(" & $ord(v) & ")"
+template `$`*(v: MixedRealitySpatialAudioFormatPolicy): string = enumName(v)
 
 ## Windows.Media.Audio.QuantumSizeSelectionMode  (enum)
 type QuantumSizeSelectionMode* {.pure, size: 4.} = enum
   SystemDefault = 0'i32
   LowestLatency = 1'i32
   ClosestToDesired = 2'i32
-proc `$`*(v: QuantumSizeSelectionMode): string =
-  case ord(v)
-  of 0: "SystemDefault"
-  of 1: "LowestLatency"
-  of 2: "ClosestToDesired"
-  else: "QuantumSizeSelectionMode(" & $ord(v) & ")"
+template `$`*(v: QuantumSizeSelectionMode): string = enumName(v)
 
 ## Windows.Media.Audio.SetDefaultSpatialAudioFormatStatus  (enum)
 type SetDefaultSpatialAudioFormatStatus* {.pure, size: 4.} = enum
@@ -13740,59 +8890,33 @@ type SetDefaultSpatialAudioFormatStatus* {.pure, size: 4.} = enum
   LicenseNotValidForAudioEndpoint = 3'i32
   NotSupportedOnAudioEndpoint = 4'i32
   UnknownError = 5'i32
-proc `$`*(v: SetDefaultSpatialAudioFormatStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "AccessDenied"
-  of 2: "LicenseExpired"
-  of 3: "LicenseNotValidForAudioEndpoint"
-  of 4: "NotSupportedOnAudioEndpoint"
-  of 5: "UnknownError"
-  else: "SetDefaultSpatialAudioFormatStatus(" & $ord(v) & ")"
+template `$`*(v: SetDefaultSpatialAudioFormatStatus): string = enumName(v)
 
 ## Windows.Media.Audio.SpatialAudioModel  (enum)
 type SpatialAudioModel* {.pure, size: 4.} = enum
   ObjectBased = 0'i32
   FoldDown = 1'i32
-proc `$`*(v: SpatialAudioModel): string =
-  case ord(v)
-  of 0: "ObjectBased"
-  of 1: "FoldDown"
-  else: "SpatialAudioModel(" & $ord(v) & ")"
+template `$`*(v: SpatialAudioModel): string = enumName(v)
 
 ## Windows.Media.AudioBufferAccessMode  (enum)
 type AudioBufferAccessMode* {.pure, size: 4.} = enum
   Read = 0'i32
   ReadWrite = 1'i32
   Write = 2'i32
-proc `$`*(v: AudioBufferAccessMode): string =
-  case ord(v)
-  of 0: "Read"
-  of 1: "ReadWrite"
-  of 2: "Write"
-  else: "AudioBufferAccessMode(" & $ord(v) & ")"
+template `$`*(v: AudioBufferAccessMode): string = enumName(v)
 
 ## Windows.Media.AudioProcessing  (enum)
 type AudioProcessing* {.pure, size: 4.} = enum
   Default = 0'i32
   Raw = 1'i32
-proc `$`*(v: AudioProcessing): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Raw"
-  else: "AudioProcessing(" & $ord(v) & ")"
+template `$`*(v: AudioProcessing): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastCameraCaptureState  (enum)
 type AppBroadcastCameraCaptureState* {.pure, size: 4.} = enum
   Stopped = 0'i32
   Started = 1'i32
   Failed = 2'i32
-proc `$`*(v: AppBroadcastCameraCaptureState): string =
-  case ord(v)
-  of 0: "Stopped"
-  of 1: "Started"
-  of 2: "Failed"
-  else: "AppBroadcastCameraCaptureState(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastCameraCaptureState): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastCameraOverlayLocation  (enum)
 type AppBroadcastCameraOverlayLocation* {.pure, size: 4.} = enum
@@ -13805,40 +8929,20 @@ type AppBroadcastCameraOverlayLocation* {.pure, size: 4.} = enum
   BottomLeft = 6'i32
   BottomCenter = 7'i32
   BottomRight = 8'i32
-proc `$`*(v: AppBroadcastCameraOverlayLocation): string =
-  case ord(v)
-  of 0: "TopLeft"
-  of 1: "TopCenter"
-  of 2: "TopRight"
-  of 3: "MiddleLeft"
-  of 4: "MiddleCenter"
-  of 5: "MiddleRight"
-  of 6: "BottomLeft"
-  of 7: "BottomCenter"
-  of 8: "BottomRight"
-  else: "AppBroadcastCameraOverlayLocation(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastCameraOverlayLocation): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastCameraOverlaySize  (enum)
 type AppBroadcastCameraOverlaySize* {.pure, size: 4.} = enum
   Small = 0'i32
   Medium = 1'i32
   Large = 2'i32
-proc `$`*(v: AppBroadcastCameraOverlaySize): string =
-  case ord(v)
-  of 0: "Small"
-  of 1: "Medium"
-  of 2: "Large"
-  else: "AppBroadcastCameraOverlaySize(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastCameraOverlaySize): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastCaptureTargetType  (enum)
 type AppBroadcastCaptureTargetType* {.pure, size: 4.} = enum
   AppView = 0'i32
   EntireDisplay = 1'i32
-proc `$`*(v: AppBroadcastCaptureTargetType): string =
-  case ord(v)
-  of 0: "AppView"
-  of 1: "EntireDisplay"
-  else: "AppBroadcastCaptureTargetType(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastCaptureTargetType): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastExitBroadcastModeReason  (enum)
 type AppBroadcastExitBroadcastModeReason* {.pure, size: 4.} = enum
@@ -13846,25 +8950,14 @@ type AppBroadcastExitBroadcastModeReason* {.pure, size: 4.} = enum
   UserCanceled = 1'i32
   AuthorizationFail = 2'i32
   ForegroundAppActivated = 3'i32
-proc `$`*(v: AppBroadcastExitBroadcastModeReason): string =
-  case ord(v)
-  of 0: "NormalExit"
-  of 1: "UserCanceled"
-  of 2: "AuthorizationFail"
-  of 3: "ForegroundAppActivated"
-  else: "AppBroadcastExitBroadcastModeReason(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastExitBroadcastModeReason): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastMicrophoneCaptureState  (enum)
 type AppBroadcastMicrophoneCaptureState* {.pure, size: 4.} = enum
   Stopped = 0'i32
   Started = 1'i32
   Failed = 2'i32
-proc `$`*(v: AppBroadcastMicrophoneCaptureState): string =
-  case ord(v)
-  of 0: "Stopped"
-  of 1: "Started"
-  of 2: "Failed"
-  else: "AppBroadcastMicrophoneCaptureState(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastMicrophoneCaptureState): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastPlugInState  (enum)
 type AppBroadcastPlugInState* {.pure, size: 4.} = enum
@@ -13875,28 +8968,14 @@ type AppBroadcastPlugInState* {.pure, size: 4.} = enum
   ProviderSignInRequired = 4'i32
   InBandwidthTest = 5'i32
   ReadyToBroadcast = 6'i32
-proc `$`*(v: AppBroadcastPlugInState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Initialized"
-  of 2: "MicrosoftSignInRequired"
-  of 3: "OAuthSignInRequired"
-  of 4: "ProviderSignInRequired"
-  of 5: "InBandwidthTest"
-  of 6: "ReadyToBroadcast"
-  else: "AppBroadcastPlugInState(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastPlugInState): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastPreviewState  (enum)
 type AppBroadcastPreviewState* {.pure, size: 4.} = enum
   Started = 0'i32
   Stopped = 1'i32
   Failed = 2'i32
-proc `$`*(v: AppBroadcastPreviewState): string =
-  case ord(v)
-  of 0: "Started"
-  of 1: "Stopped"
-  of 2: "Failed"
-  else: "AppBroadcastPreviewState(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastPreviewState): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastSignInResult  (enum)
 type AppBroadcastSignInResult* {.pure, size: 4.} = enum
@@ -13905,14 +8984,7 @@ type AppBroadcastSignInResult* {.pure, size: 4.} = enum
   Unauthorized = 2'i32
   ServiceUnavailable = 3'i32
   Unknown = 4'i32
-proc `$`*(v: AppBroadcastSignInResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "AuthenticationFailed"
-  of 2: "Unauthorized"
-  of 3: "ServiceUnavailable"
-  of 4: "Unknown"
-  else: "AppBroadcastSignInResult(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastSignInResult): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastSignInState  (enum)
 type AppBroadcastSignInState* {.pure, size: 4.} = enum
@@ -13921,14 +8993,7 @@ type AppBroadcastSignInState* {.pure, size: 4.} = enum
   MicrosoftSignInComplete = 2'i32
   OAuthSignInInProgress = 3'i32
   OAuthSignInComplete = 4'i32
-proc `$`*(v: AppBroadcastSignInState): string =
-  case ord(v)
-  of 0: "NotSignedIn"
-  of 1: "MicrosoftSignInInProgress"
-  of 2: "MicrosoftSignInComplete"
-  of 3: "OAuthSignInInProgress"
-  of 4: "OAuthSignInComplete"
-  else: "AppBroadcastSignInState(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastSignInState): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastStreamState  (enum)
 type AppBroadcastStreamState* {.pure, size: 4.} = enum
@@ -13937,14 +9002,7 @@ type AppBroadcastStreamState* {.pure, size: 4.} = enum
   Started = 2'i32
   Paused = 3'i32
   Terminated = 4'i32
-proc `$`*(v: AppBroadcastStreamState): string =
-  case ord(v)
-  of 0: "Initializing"
-  of 1: "StreamReady"
-  of 2: "Started"
-  of 3: "Paused"
-  of 4: "Terminated"
-  else: "AppBroadcastStreamState(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastStreamState): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastTerminationReason  (enum)
 type AppBroadcastTerminationReason* {.pure, size: 4.} = enum
@@ -13958,117 +9016,65 @@ type AppBroadcastTerminationReason* {.pure, size: 4.} = enum
   UnsupportedFormat = 7'i32
   BackgroundTaskTerminated = 8'i32
   BackgroundTaskUnresponsive = 9'i32
-proc `$`*(v: AppBroadcastTerminationReason): string =
-  case ord(v)
-  of 0: "NormalTermination"
-  of 1: "LostConnectionToService"
-  of 2: "NoNetworkConnectivity"
-  of 3: "ServiceAbort"
-  of 4: "ServiceError"
-  of 5: "ServiceUnavailable"
-  of 6: "InternalError"
-  of 7: "UnsupportedFormat"
-  of 8: "BackgroundTaskTerminated"
-  of 9: "BackgroundTaskUnresponsive"
-  else: "AppBroadcastTerminationReason(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastTerminationReason): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastVideoEncodingBitrateMode  (enum)
 type AppBroadcastVideoEncodingBitrateMode* {.pure, size: 4.} = enum
   Custom = 0'i32
   Auto = 1'i32
-proc `$`*(v: AppBroadcastVideoEncodingBitrateMode): string =
-  case ord(v)
-  of 0: "Custom"
-  of 1: "Auto"
-  else: "AppBroadcastVideoEncodingBitrateMode(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastVideoEncodingBitrateMode): string = enumName(v)
 
 ## Windows.Media.Capture.AppBroadcastVideoEncodingResolutionMode  (enum)
 type AppBroadcastVideoEncodingResolutionMode* {.pure, size: 4.} = enum
   Custom = 0'i32
   Auto = 1'i32
-proc `$`*(v: AppBroadcastVideoEncodingResolutionMode): string =
-  case ord(v)
-  of 0: "Custom"
-  of 1: "Auto"
-  else: "AppBroadcastVideoEncodingResolutionMode(" & $ord(v) & ")"
+template `$`*(v: AppBroadcastVideoEncodingResolutionMode): string = enumName(v)
 
 ## Windows.Media.Capture.AppCaptureHistoricalBufferLengthUnit  (enum)
 type AppCaptureHistoricalBufferLengthUnit* {.pure, size: 4.} = enum
   Megabytes = 0'i32
   Seconds = 1'i32
-proc `$`*(v: AppCaptureHistoricalBufferLengthUnit): string =
-  case ord(v)
-  of 0: "Megabytes"
-  of 1: "Seconds"
-  else: "AppCaptureHistoricalBufferLengthUnit(" & $ord(v) & ")"
+template `$`*(v: AppCaptureHistoricalBufferLengthUnit): string = enumName(v)
 
 ## Windows.Media.Capture.AppCaptureMetadataPriority  (enum)
 type AppCaptureMetadataPriority* {.pure, size: 4.} = enum
   Informational = 0'i32
   Important = 1'i32
-proc `$`*(v: AppCaptureMetadataPriority): string =
-  case ord(v)
-  of 0: "Informational"
-  of 1: "Important"
-  else: "AppCaptureMetadataPriority(" & $ord(v) & ")"
+template `$`*(v: AppCaptureMetadataPriority): string = enumName(v)
 
 ## Windows.Media.Capture.AppCaptureMicrophoneCaptureState  (enum)
 type AppCaptureMicrophoneCaptureState* {.pure, size: 4.} = enum
   Stopped = 0'i32
   Started = 1'i32
   Failed = 2'i32
-proc `$`*(v: AppCaptureMicrophoneCaptureState): string =
-  case ord(v)
-  of 0: "Stopped"
-  of 1: "Started"
-  of 2: "Failed"
-  else: "AppCaptureMicrophoneCaptureState(" & $ord(v) & ")"
+template `$`*(v: AppCaptureMicrophoneCaptureState): string = enumName(v)
 
 ## Windows.Media.Capture.AppCaptureRecordingState  (enum)
 type AppCaptureRecordingState* {.pure, size: 4.} = enum
   InProgress = 0'i32
   Completed = 1'i32
   Failed = 2'i32
-proc `$`*(v: AppCaptureRecordingState): string =
-  case ord(v)
-  of 0: "InProgress"
-  of 1: "Completed"
-  of 2: "Failed"
-  else: "AppCaptureRecordingState(" & $ord(v) & ")"
+template `$`*(v: AppCaptureRecordingState): string = enumName(v)
 
 ## Windows.Media.Capture.AppCaptureVideoEncodingBitrateMode  (enum)
 type AppCaptureVideoEncodingBitrateMode* {.pure, size: 4.} = enum
   Custom = 0'i32
   High = 1'i32
   Standard = 2'i32
-proc `$`*(v: AppCaptureVideoEncodingBitrateMode): string =
-  case ord(v)
-  of 0: "Custom"
-  of 1: "High"
-  of 2: "Standard"
-  else: "AppCaptureVideoEncodingBitrateMode(" & $ord(v) & ")"
+template `$`*(v: AppCaptureVideoEncodingBitrateMode): string = enumName(v)
 
 ## Windows.Media.Capture.AppCaptureVideoEncodingFrameRateMode  (enum)
 type AppCaptureVideoEncodingFrameRateMode* {.pure, size: 4.} = enum
   Standard = 0'i32
   High = 1'i32
-proc `$`*(v: AppCaptureVideoEncodingFrameRateMode): string =
-  case ord(v)
-  of 0: "Standard"
-  of 1: "High"
-  else: "AppCaptureVideoEncodingFrameRateMode(" & $ord(v) & ")"
+template `$`*(v: AppCaptureVideoEncodingFrameRateMode): string = enumName(v)
 
 ## Windows.Media.Capture.AppCaptureVideoEncodingResolutionMode  (enum)
 type AppCaptureVideoEncodingResolutionMode* {.pure, size: 4.} = enum
   Custom = 0'i32
   High = 1'i32
   Standard = 2'i32
-proc `$`*(v: AppCaptureVideoEncodingResolutionMode): string =
-  case ord(v)
-  of 0: "Custom"
-  of 1: "High"
-  of 2: "Standard"
-  else: "AppCaptureVideoEncodingResolutionMode(" & $ord(v) & ")"
+template `$`*(v: AppCaptureVideoEncodingResolutionMode): string = enumName(v)
 
 ## Windows.Media.Capture.CameraCaptureUIMaxPhotoResolution  (enum)
 type CameraCaptureUIMaxPhotoResolution* {.pure, size: 4.} = enum
@@ -14078,15 +9084,7 @@ type CameraCaptureUIMaxPhotoResolution* {.pure, size: 4.} = enum
   MediumXga = 3'i32
   Large3M = 4'i32
   VeryLarge5M = 5'i32
-proc `$`*(v: CameraCaptureUIMaxPhotoResolution): string =
-  case ord(v)
-  of 0: "HighestAvailable"
-  of 1: "VerySmallQvga"
-  of 2: "SmallVga"
-  of 3: "MediumXga"
-  of 4: "Large3M"
-  of 5: "VeryLarge5M"
-  else: "CameraCaptureUIMaxPhotoResolution(" & $ord(v) & ")"
+template `$`*(v: CameraCaptureUIMaxPhotoResolution): string = enumName(v)
 
 ## Windows.Media.Capture.CameraCaptureUIMaxVideoResolution  (enum)
 type CameraCaptureUIMaxVideoResolution* {.pure, size: 4.} = enum
@@ -14094,67 +9092,39 @@ type CameraCaptureUIMaxVideoResolution* {.pure, size: 4.} = enum
   LowDefinition = 1'i32
   StandardDefinition = 2'i32
   HighDefinition = 3'i32
-proc `$`*(v: CameraCaptureUIMaxVideoResolution): string =
-  case ord(v)
-  of 0: "HighestAvailable"
-  of 1: "LowDefinition"
-  of 2: "StandardDefinition"
-  of 3: "HighDefinition"
-  else: "CameraCaptureUIMaxVideoResolution(" & $ord(v) & ")"
+template `$`*(v: CameraCaptureUIMaxVideoResolution): string = enumName(v)
 
 ## Windows.Media.Capture.CameraCaptureUIMode  (enum)
 type CameraCaptureUIMode* {.pure, size: 4.} = enum
   PhotoOrVideo = 0'i32
   Photo = 1'i32
   Video = 2'i32
-proc `$`*(v: CameraCaptureUIMode): string =
-  case ord(v)
-  of 0: "PhotoOrVideo"
-  of 1: "Photo"
-  of 2: "Video"
-  else: "CameraCaptureUIMode(" & $ord(v) & ")"
+template `$`*(v: CameraCaptureUIMode): string = enumName(v)
 
 ## Windows.Media.Capture.CameraCaptureUIPhotoFormat  (enum)
 type CameraCaptureUIPhotoFormat* {.pure, size: 4.} = enum
   Jpeg = 0'i32
   Png = 1'i32
   JpegXR = 2'i32
-proc `$`*(v: CameraCaptureUIPhotoFormat): string =
-  case ord(v)
-  of 0: "Jpeg"
-  of 1: "Png"
-  of 2: "JpegXR"
-  else: "CameraCaptureUIPhotoFormat(" & $ord(v) & ")"
+template `$`*(v: CameraCaptureUIPhotoFormat): string = enumName(v)
 
 ## Windows.Media.Capture.CameraCaptureUIVideoFormat  (enum)
 type CameraCaptureUIVideoFormat* {.pure, size: 4.} = enum
   Mp4 = 0'i32
   Wmv = 1'i32
-proc `$`*(v: CameraCaptureUIVideoFormat): string =
-  case ord(v)
-  of 0: "Mp4"
-  of 1: "Wmv"
-  else: "CameraCaptureUIVideoFormat(" & $ord(v) & ")"
+template `$`*(v: CameraCaptureUIVideoFormat): string = enumName(v)
 
 ## Windows.Media.Capture.ForegroundActivationArgument  (enum)
 type ForegroundActivationArgument* {.pure, size: 4.} = enum
   SignInRequired = 0'i32
   MoreSettings = 1'i32
-proc `$`*(v: ForegroundActivationArgument): string =
-  case ord(v)
-  of 0: "SignInRequired"
-  of 1: "MoreSettings"
-  else: "ForegroundActivationArgument(" & $ord(v) & ")"
+template `$`*(v: ForegroundActivationArgument): string = enumName(v)
 
 ## Windows.Media.Capture.Frames.MediaFrameReaderAcquisitionMode  (enum)
 type MediaFrameReaderAcquisitionMode* {.pure, size: 4.} = enum
   Realtime = 0'i32
   Buffered = 1'i32
-proc `$`*(v: MediaFrameReaderAcquisitionMode): string =
-  case ord(v)
-  of 0: "Realtime"
-  of 1: "Buffered"
-  else: "MediaFrameReaderAcquisitionMode(" & $ord(v) & ")"
+template `$`*(v: MediaFrameReaderAcquisitionMode): string = enumName(v)
 
 ## Windows.Media.Capture.Frames.MediaFrameReaderStartStatus  (enum)
 type MediaFrameReaderStartStatus* {.pure, size: 4.} = enum
@@ -14163,14 +9133,7 @@ type MediaFrameReaderStartStatus* {.pure, size: 4.} = enum
   DeviceNotAvailable = 2'i32
   OutputFormatNotSupported = 3'i32
   ExclusiveControlNotAvailable = 4'i32
-proc `$`*(v: MediaFrameReaderStartStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "DeviceNotAvailable"
-  of 3: "OutputFormatNotSupported"
-  of 4: "ExclusiveControlNotAvailable"
-  else: "MediaFrameReaderStartStatus(" & $ord(v) & ")"
+template `$`*(v: MediaFrameReaderStartStatus): string = enumName(v)
 
 ## Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyStatus  (enum)
 type MediaFrameSourceGetPropertyStatus* {.pure, size: 4.} = enum
@@ -14180,15 +9143,7 @@ type MediaFrameSourceGetPropertyStatus* {.pure, size: 4.} = enum
   DeviceNotAvailable = 3'i32
   MaxPropertyValueSizeTooSmall = 4'i32
   MaxPropertyValueSizeRequired = 5'i32
-proc `$`*(v: MediaFrameSourceGetPropertyStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "NotSupported"
-  of 3: "DeviceNotAvailable"
-  of 4: "MaxPropertyValueSizeTooSmall"
-  of 5: "MaxPropertyValueSizeRequired"
-  else: "MediaFrameSourceGetPropertyStatus(" & $ord(v) & ")"
+template `$`*(v: MediaFrameSourceGetPropertyStatus): string = enumName(v)
 
 ## Windows.Media.Capture.Frames.MediaFrameSourceKind  (enum)
 type MediaFrameSourceKind* {.pure, size: 4.} = enum
@@ -14199,16 +9154,7 @@ type MediaFrameSourceKind* {.pure, size: 4.} = enum
   Audio = 4'i32
   Image = 5'i32
   Metadata = 6'i32
-proc `$`*(v: MediaFrameSourceKind): string =
-  case ord(v)
-  of 0: "Custom"
-  of 1: "Color"
-  of 2: "Infrared"
-  of 3: "Depth"
-  of 4: "Audio"
-  of 5: "Image"
-  of 6: "Metadata"
-  else: "MediaFrameSourceKind(" & $ord(v) & ")"
+template `$`*(v: MediaFrameSourceKind): string = enumName(v)
 
 ## Windows.Media.Capture.Frames.MediaFrameSourceSetPropertyStatus  (enum)
 type MediaFrameSourceSetPropertyStatus* {.pure, size: 4.} = enum
@@ -14218,15 +9164,7 @@ type MediaFrameSourceSetPropertyStatus* {.pure, size: 4.} = enum
   InvalidValue = 3'i32
   DeviceNotAvailable = 4'i32
   NotInControl = 5'i32
-proc `$`*(v: MediaFrameSourceSetPropertyStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "NotSupported"
-  of 3: "InvalidValue"
-  of 4: "DeviceNotAvailable"
-  of 5: "NotInControl"
-  else: "MediaFrameSourceSetPropertyStatus(" & $ord(v) & ")"
+template `$`*(v: MediaFrameSourceSetPropertyStatus): string = enumName(v)
 
 ## Windows.Media.Capture.Frames.MultiSourceMediaFrameReaderStartStatus  (enum)
 type MultiSourceMediaFrameReaderStartStatus* {.pure, size: 4.} = enum
@@ -14235,14 +9173,7 @@ type MultiSourceMediaFrameReaderStartStatus* {.pure, size: 4.} = enum
   InsufficientResources = 2'i32
   DeviceNotAvailable = 3'i32
   UnknownFailure = 4'i32
-proc `$`*(v: MultiSourceMediaFrameReaderStartStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "NotSupported"
-  of 2: "InsufficientResources"
-  of 3: "DeviceNotAvailable"
-  of 4: "UnknownFailure"
-  else: "MultiSourceMediaFrameReaderStartStatus(" & $ord(v) & ")"
+template `$`*(v: MultiSourceMediaFrameReaderStartStatus): string = enumName(v)
 
 ## Windows.Media.Capture.GameBarCommand  (enum)
 type GameBarCommand* {.pure, size: 4.} = enum
@@ -14260,45 +9191,20 @@ type GameBarCommand* {.pure, size: 4.} = enum
   ToggleMicrophoneCapture = 11'i32
   ToggleCameraCapture = 12'i32
   ToggleRecordingIndicator = 13'i32
-proc `$`*(v: GameBarCommand): string =
-  case ord(v)
-  of 0: "OpenGameBar"
-  of 1: "RecordHistoricalBuffer"
-  of 2: "ToggleStartStopRecord"
-  of 3: "StartRecord"
-  of 4: "StopRecord"
-  of 5: "TakeScreenshot"
-  of 6: "StartBroadcast"
-  of 7: "StopBroadcast"
-  of 8: "PauseBroadcast"
-  of 9: "ResumeBroadcast"
-  of 10: "ToggleStartStopBroadcast"
-  of 11: "ToggleMicrophoneCapture"
-  of 12: "ToggleCameraCapture"
-  of 13: "ToggleRecordingIndicator"
-  else: "GameBarCommand(" & $ord(v) & ")"
+template `$`*(v: GameBarCommand): string = enumName(v)
 
 ## Windows.Media.Capture.GameBarCommandOrigin  (enum)
 type GameBarCommandOrigin* {.pure, size: 4.} = enum
   ShortcutKey = 0'i32
   Cortana = 1'i32
   AppCommand = 2'i32
-proc `$`*(v: GameBarCommandOrigin): string =
-  case ord(v)
-  of 0: "ShortcutKey"
-  of 1: "Cortana"
-  of 2: "AppCommand"
-  else: "GameBarCommandOrigin(" & $ord(v) & ")"
+template `$`*(v: GameBarCommandOrigin): string = enumName(v)
 
 ## Windows.Media.Capture.GameBarServicesDisplayMode  (enum)
 type GameBarServicesDisplayMode* {.pure, size: 4.} = enum
   Windowed = 0'i32
   FullScreenExclusive = 1'i32
-proc `$`*(v: GameBarServicesDisplayMode): string =
-  case ord(v)
-  of 0: "Windowed"
-  of 1: "FullScreenExclusive"
-  else: "GameBarServicesDisplayMode(" & $ord(v) & ")"
+template `$`*(v: GameBarServicesDisplayMode): string = enumName(v)
 
 ## Windows.Media.Capture.GameBarTargetCapturePolicy  (enum)
 type GameBarTargetCapturePolicy* {.pure, size: 4.} = enum
@@ -14307,14 +9213,7 @@ type GameBarTargetCapturePolicy* {.pure, size: 4.} = enum
   NotEnabled = 2'i32
   ProhibitedBySystem = 3'i32
   ProhibitedByPublisher = 4'i32
-proc `$`*(v: GameBarTargetCapturePolicy): string =
-  case ord(v)
-  of 0: "EnabledBySystem"
-  of 1: "EnabledByUser"
-  of 2: "NotEnabled"
-  of 3: "ProhibitedBySystem"
-  of 4: "ProhibitedByPublisher"
-  else: "GameBarTargetCapturePolicy(" & $ord(v) & ")"
+template `$`*(v: GameBarTargetCapturePolicy): string = enumName(v)
 
 ## Windows.Media.Capture.KnownVideoProfile  (enum)
 type KnownVideoProfile* {.pure, size: 4.} = enum
@@ -14329,70 +9228,37 @@ type KnownVideoProfile* {.pure, size: 4.} = enum
   HdrWithWcgPhoto = 8'i32
   VideoHdr8 = 9'i32
   CompressedCamera = 10'i32
-proc `$`*(v: KnownVideoProfile): string =
-  case ord(v)
-  of 0: "VideoRecording"
-  of 1: "HighQualityPhoto"
-  of 2: "BalancedVideoAndPhoto"
-  of 3: "VideoConferencing"
-  of 4: "PhotoSequence"
-  of 5: "HighFrameRate"
-  of 6: "VariablePhotoSequence"
-  of 7: "HdrWithWcgVideo"
-  of 8: "HdrWithWcgPhoto"
-  of 9: "VideoHdr8"
-  of 10: "CompressedCamera"
-  else: "KnownVideoProfile(" & $ord(v) & ")"
+template `$`*(v: KnownVideoProfile): string = enumName(v)
 
 ## Windows.Media.Capture.MediaCaptureDeviceExclusiveControlReleaseMode  (enum)
 type MediaCaptureDeviceExclusiveControlReleaseMode* {.pure, size: 4.} = enum
   OnDispose = 0'i32
   OnAllStreamsStopped = 1'i32
-proc `$`*(v: MediaCaptureDeviceExclusiveControlReleaseMode): string =
-  case ord(v)
-  of 0: "OnDispose"
-  of 1: "OnAllStreamsStopped"
-  else: "MediaCaptureDeviceExclusiveControlReleaseMode(" & $ord(v) & ")"
+template `$`*(v: MediaCaptureDeviceExclusiveControlReleaseMode): string = enumName(v)
 
 ## Windows.Media.Capture.MediaCaptureDeviceExclusiveControlStatus  (enum)
 type MediaCaptureDeviceExclusiveControlStatus* {.pure, size: 4.} = enum
   ExclusiveControlAvailable = 0'i32
   SharedReadOnlyAvailable = 1'i32
-proc `$`*(v: MediaCaptureDeviceExclusiveControlStatus): string =
-  case ord(v)
-  of 0: "ExclusiveControlAvailable"
-  of 1: "SharedReadOnlyAvailable"
-  else: "MediaCaptureDeviceExclusiveControlStatus(" & $ord(v) & ")"
+template `$`*(v: MediaCaptureDeviceExclusiveControlStatus): string = enumName(v)
 
 ## Windows.Media.Capture.MediaCaptureMemoryPreference  (enum)
 type MediaCaptureMemoryPreference* {.pure, size: 4.} = enum
   Auto = 0'i32
   Cpu = 1'i32
-proc `$`*(v: MediaCaptureMemoryPreference): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Cpu"
-  else: "MediaCaptureMemoryPreference(" & $ord(v) & ")"
+template `$`*(v: MediaCaptureMemoryPreference): string = enumName(v)
 
 ## Windows.Media.Capture.MediaCaptureSharingMode  (enum)
 type MediaCaptureSharingMode* {.pure, size: 4.} = enum
   ExclusiveControl = 0'i32
   SharedReadOnly = 1'i32
-proc `$`*(v: MediaCaptureSharingMode): string =
-  case ord(v)
-  of 0: "ExclusiveControl"
-  of 1: "SharedReadOnly"
-  else: "MediaCaptureSharingMode(" & $ord(v) & ")"
+template `$`*(v: MediaCaptureSharingMode): string = enumName(v)
 
 ## Windows.Media.Capture.MediaCaptureThermalStatus  (enum)
 type MediaCaptureThermalStatus* {.pure, size: 4.} = enum
   Normal = 0'i32
   Overheated = 1'i32
-proc `$`*(v: MediaCaptureThermalStatus): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Overheated"
-  else: "MediaCaptureThermalStatus(" & $ord(v) & ")"
+template `$`*(v: MediaCaptureThermalStatus): string = enumName(v)
 
 ## Windows.Media.Capture.MediaCategory  (enum)
 type MediaCategory* {.pure, size: 4.} = enum
@@ -14404,17 +9270,7 @@ type MediaCategory* {.pure, size: 4.} = enum
   FarFieldSpeech = 5'i32
   UniformSpeech = 6'i32
   VoiceTyping = 7'i32
-proc `$`*(v: MediaCategory): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "Communications"
-  of 2: "Media"
-  of 3: "GameChat"
-  of 4: "Speech"
-  of 5: "FarFieldSpeech"
-  of 6: "UniformSpeech"
-  of 7: "VoiceTyping"
-  else: "MediaCategory(" & $ord(v) & ")"
+template `$`*(v: MediaCategory): string = enumName(v)
 
 ## Windows.Media.Capture.MediaStreamType  (enum)
 type MediaStreamType* {.pure, size: 4.} = enum
@@ -14423,26 +9279,14 @@ type MediaStreamType* {.pure, size: 4.} = enum
   Audio = 2'i32
   Photo = 3'i32
   Metadata = 4'i32
-proc `$`*(v: MediaStreamType): string =
-  case ord(v)
-  of 0: "VideoPreview"
-  of 1: "VideoRecord"
-  of 2: "Audio"
-  of 3: "Photo"
-  of 4: "Metadata"
-  else: "MediaStreamType(" & $ord(v) & ")"
+template `$`*(v: MediaStreamType): string = enumName(v)
 
 ## Windows.Media.Capture.PhotoCaptureSource  (enum)
 type PhotoCaptureSource* {.pure, size: 4.} = enum
   Auto = 0'i32
   VideoPreview = 1'i32
   Photo = 2'i32
-proc `$`*(v: PhotoCaptureSource): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "VideoPreview"
-  of 2: "Photo"
-  else: "PhotoCaptureSource(" & $ord(v) & ")"
+template `$`*(v: PhotoCaptureSource): string = enumName(v)
 
 ## Windows.Media.Capture.PowerlineFrequency  (enum)
 type PowerlineFrequency* {.pure, size: 4.} = enum
@@ -14450,25 +9294,14 @@ type PowerlineFrequency* {.pure, size: 4.} = enum
   FiftyHertz = 1'i32
   SixtyHertz = 2'i32
   Auto = 3'i32
-proc `$`*(v: PowerlineFrequency): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "FiftyHertz"
-  of 2: "SixtyHertz"
-  of 3: "Auto"
-  else: "PowerlineFrequency(" & $ord(v) & ")"
+template `$`*(v: PowerlineFrequency): string = enumName(v)
 
 ## Windows.Media.Capture.StreamingCaptureMode  (enum)
 type StreamingCaptureMode* {.pure, size: 4.} = enum
   AudioAndVideo = 0'i32
   Audio = 1'i32
   Video = 2'i32
-proc `$`*(v: StreamingCaptureMode): string =
-  case ord(v)
-  of 0: "AudioAndVideo"
-  of 1: "Audio"
-  of 2: "Video"
-  else: "StreamingCaptureMode(" & $ord(v) & ")"
+template `$`*(v: StreamingCaptureMode): string = enumName(v)
 
 ## Windows.Media.Capture.VideoDeviceCharacteristic  (enum)
 type VideoDeviceCharacteristic* {.pure, size: 4.} = enum
@@ -14477,14 +9310,7 @@ type VideoDeviceCharacteristic* {.pure, size: 4.} = enum
   PreviewPhotoStreamsIdentical = 2'i32
   RecordPhotoStreamsIdentical = 3'i32
   AllStreamsIdentical = 4'i32
-proc `$`*(v: VideoDeviceCharacteristic): string =
-  case ord(v)
-  of 0: "AllStreamsIndependent"
-  of 1: "PreviewRecordStreamsIdentical"
-  of 2: "PreviewPhotoStreamsIdentical"
-  of 3: "RecordPhotoStreamsIdentical"
-  of 4: "AllStreamsIdentical"
-  else: "VideoDeviceCharacteristic(" & $ord(v) & ")"
+template `$`*(v: VideoDeviceCharacteristic): string = enumName(v)
 
 ## Windows.Media.Capture.VideoRotation  (enum)
 type VideoRotation* {.pure, size: 4.} = enum
@@ -14492,13 +9318,7 @@ type VideoRotation* {.pure, size: 4.} = enum
   Clockwise90Degrees = 1'i32
   Clockwise180Degrees = 2'i32
   Clockwise270Degrees = 3'i32
-proc `$`*(v: VideoRotation): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Clockwise90Degrees"
-  of 2: "Clockwise180Degrees"
-  of 3: "Clockwise270Degrees"
-  else: "VideoRotation(" & $ord(v) & ")"
+template `$`*(v: VideoRotation): string = enumName(v)
 
 ## Windows.Media.Casting.CastingConnectionErrorStatus  (enum)
 type CastingConnectionErrorStatus* {.pure, size: 4.} = enum
@@ -14509,16 +9329,7 @@ type CastingConnectionErrorStatus* {.pure, size: 4.} = enum
   ProtectedPlaybackFailed = 4'i32
   InvalidCastingSource = 5'i32
   Unknown = 6'i32
-proc `$`*(v: CastingConnectionErrorStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "DeviceDidNotRespond"
-  of 2: "DeviceError"
-  of 3: "DeviceLocked"
-  of 4: "ProtectedPlaybackFailed"
-  of 5: "InvalidCastingSource"
-  of 6: "Unknown"
-  else: "CastingConnectionErrorStatus(" & $ord(v) & ")"
+template `$`*(v: CastingConnectionErrorStatus): string = enumName(v)
 
 ## Windows.Media.Casting.CastingConnectionState  (enum)
 type CastingConnectionState* {.pure, size: 4.} = enum
@@ -14527,14 +9338,7 @@ type CastingConnectionState* {.pure, size: 4.} = enum
   Rendering = 2'i32
   Disconnecting = 3'i32
   Connecting = 4'i32
-proc `$`*(v: CastingConnectionState): string =
-  case ord(v)
-  of 0: "Disconnected"
-  of 1: "Connected"
-  of 2: "Rendering"
-  of 3: "Disconnecting"
-  of 4: "Connecting"
-  else: "CastingConnectionState(" & $ord(v) & ")"
+template `$`*(v: CastingConnectionState): string = enumName(v)
 
 ## Windows.Media.Casting.CastingPlaybackTypes  (enum)
 type CastingPlaybackTypes* = distinct uint32
@@ -14580,18 +9384,7 @@ type ClosedCaptionColor* {.pure, size: 4.} = enum
   Yellow = 6'i32
   Magenta = 7'i32
   Cyan = 8'i32
-proc `$`*(v: ClosedCaptionColor): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "White"
-  of 2: "Black"
-  of 3: "Red"
-  of 4: "Green"
-  of 5: "Blue"
-  of 6: "Yellow"
-  of 7: "Magenta"
-  of 8: "Cyan"
-  else: "ClosedCaptionColor(" & $ord(v) & ")"
+template `$`*(v: ClosedCaptionColor): string = enumName(v)
 
 ## Windows.Media.ClosedCaptioning.ClosedCaptionEdgeEffect  (enum)
 type ClosedCaptionEdgeEffect* {.pure, size: 4.} = enum
@@ -14601,15 +9394,7 @@ type ClosedCaptionEdgeEffect* {.pure, size: 4.} = enum
   Depressed = 3'i32
   Uniform = 4'i32
   DropShadow = 5'i32
-proc `$`*(v: ClosedCaptionEdgeEffect): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "None"
-  of 2: "Raised"
-  of 3: "Depressed"
-  of 4: "Uniform"
-  of 5: "DropShadow"
-  else: "ClosedCaptionEdgeEffect(" & $ord(v) & ")"
+template `$`*(v: ClosedCaptionEdgeEffect): string = enumName(v)
 
 ## Windows.Media.ClosedCaptioning.ClosedCaptionOpacity  (enum)
 type ClosedCaptionOpacity* {.pure, size: 4.} = enum
@@ -14618,14 +9403,7 @@ type ClosedCaptionOpacity* {.pure, size: 4.} = enum
   SeventyFivePercent = 2'i32
   TwentyFivePercent = 3'i32
   ZeroPercent = 4'i32
-proc `$`*(v: ClosedCaptionOpacity): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "OneHundredPercent"
-  of 2: "SeventyFivePercent"
-  of 3: "TwentyFivePercent"
-  of 4: "ZeroPercent"
-  else: "ClosedCaptionOpacity(" & $ord(v) & ")"
+template `$`*(v: ClosedCaptionOpacity): string = enumName(v)
 
 ## Windows.Media.ClosedCaptioning.ClosedCaptionSize  (enum)
 type ClosedCaptionSize* {.pure, size: 4.} = enum
@@ -14634,14 +9412,7 @@ type ClosedCaptionSize* {.pure, size: 4.} = enum
   OneHundredPercent = 2'i32
   OneHundredFiftyPercent = 3'i32
   TwoHundredPercent = 4'i32
-proc `$`*(v: ClosedCaptionSize): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "FiftyPercent"
-  of 2: "OneHundredPercent"
-  of 3: "OneHundredFiftyPercent"
-  of 4: "TwoHundredPercent"
-  else: "ClosedCaptionSize(" & $ord(v) & ")"
+template `$`*(v: ClosedCaptionSize): string = enumName(v)
 
 ## Windows.Media.ClosedCaptioning.ClosedCaptionStyle  (enum)
 type ClosedCaptionStyle* {.pure, size: 4.} = enum
@@ -14653,17 +9424,7 @@ type ClosedCaptionStyle* {.pure, size: 4.} = enum
   Casual = 5'i32
   Cursive = 6'i32
   SmallCapitals = 7'i32
-proc `$`*(v: ClosedCaptionStyle): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "MonospacedWithSerifs"
-  of 2: "ProportionalWithSerifs"
-  of 3: "MonospacedWithoutSerifs"
-  of 4: "ProportionalWithoutSerifs"
-  of 5: "Casual"
-  of 6: "Cursive"
-  of 7: "SmallCapitals"
-  else: "ClosedCaptionStyle(" & $ord(v) & ")"
+template `$`*(v: ClosedCaptionStyle): string = enumName(v)
 
 ## Windows.Media.ContentRestrictions.ContentAccessRestrictionLevel  (enum)
 type ContentAccessRestrictionLevel* {.pure, size: 4.} = enum
@@ -14671,13 +9432,7 @@ type ContentAccessRestrictionLevel* {.pure, size: 4.} = enum
   Warn = 1'i32
   `Block` = 2'i32
   Hide = 3'i32
-proc `$`*(v: ContentAccessRestrictionLevel): string =
-  case ord(v)
-  of 0: "Allow"
-  of 1: "Warn"
-  of 2: "Block"
-  of 3: "Hide"
-  else: "ContentAccessRestrictionLevel(" & $ord(v) & ")"
+template `$`*(v: ContentAccessRestrictionLevel): string = enumName(v)
 
 ## Windows.Media.ContentRestrictions.RatedContentCategory  (enum)
 type RatedContentCategory* {.pure, size: 4.} = enum
@@ -14687,15 +9442,7 @@ type RatedContentCategory* {.pure, size: 4.} = enum
   Movie = 3'i32
   Television = 4'i32
   Music = 5'i32
-proc `$`*(v: RatedContentCategory): string =
-  case ord(v)
-  of 0: "General"
-  of 1: "Application"
-  of 2: "Game"
-  of 3: "Movie"
-  of 4: "Television"
-  of 5: "Music"
-  else: "RatedContentCategory(" & $ord(v) & ")"
+template `$`*(v: RatedContentCategory): string = enumName(v)
 
 ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackStatus  (enum)
 type GlobalSystemMediaTransportControlsSessionPlaybackStatus* {.pure, size: 4.} = enum
@@ -14705,15 +9452,7 @@ type GlobalSystemMediaTransportControlsSessionPlaybackStatus* {.pure, size: 4.} 
   Stopped = 3'i32
   Playing = 4'i32
   Paused = 5'i32
-proc `$`*(v: GlobalSystemMediaTransportControlsSessionPlaybackStatus): string =
-  case ord(v)
-  of 0: "Closed"
-  of 1: "Opened"
-  of 2: "Changing"
-  of 3: "Stopped"
-  of 4: "Playing"
-  of 5: "Paused"
-  else: "GlobalSystemMediaTransportControlsSessionPlaybackStatus(" & $ord(v) & ")"
+template `$`*(v: GlobalSystemMediaTransportControlsSessionPlaybackStatus): string = enumName(v)
 
 ## Windows.Media.Core.AudioDecoderDegradation  (enum)
 type AudioDecoderDegradation* {.pure, size: 4.} = enum
@@ -14721,57 +9460,33 @@ type AudioDecoderDegradation* {.pure, size: 4.} = enum
   DownmixTo2Channels = 1'i32
   DownmixTo6Channels = 2'i32
   DownmixTo8Channels = 3'i32
-proc `$`*(v: AudioDecoderDegradation): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "DownmixTo2Channels"
-  of 2: "DownmixTo6Channels"
-  of 3: "DownmixTo8Channels"
-  else: "AudioDecoderDegradation(" & $ord(v) & ")"
+template `$`*(v: AudioDecoderDegradation): string = enumName(v)
 
 ## Windows.Media.Core.AudioDecoderDegradationReason  (enum)
 type AudioDecoderDegradationReason* {.pure, size: 4.} = enum
   None = 0'i32
   LicensingRequirement = 1'i32
   SpatialAudioNotSupported = 2'i32
-proc `$`*(v: AudioDecoderDegradationReason): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "LicensingRequirement"
-  of 2: "SpatialAudioNotSupported"
-  else: "AudioDecoderDegradationReason(" & $ord(v) & ")"
+template `$`*(v: AudioDecoderDegradationReason): string = enumName(v)
 
 ## Windows.Media.Core.CodecCategory  (enum)
 type CodecCategory* {.pure, size: 4.} = enum
   Encoder = 0'i32
   Decoder = 1'i32
-proc `$`*(v: CodecCategory): string =
-  case ord(v)
-  of 0: "Encoder"
-  of 1: "Decoder"
-  else: "CodecCategory(" & $ord(v) & ")"
+template `$`*(v: CodecCategory): string = enumName(v)
 
 ## Windows.Media.Core.CodecKind  (enum)
 type CodecKind* {.pure, size: 4.} = enum
   Audio = 0'i32
   Video = 1'i32
-proc `$`*(v: CodecKind): string =
-  case ord(v)
-  of 0: "Audio"
-  of 1: "Video"
-  else: "CodecKind(" & $ord(v) & ")"
+template `$`*(v: CodecKind): string = enumName(v)
 
 ## Windows.Media.Core.FaceDetectionMode  (enum)
 type FaceDetectionMode* {.pure, size: 4.} = enum
   HighPerformance = 0'i32
   Balanced = 1'i32
   HighQuality = 2'i32
-proc `$`*(v: FaceDetectionMode): string =
-  case ord(v)
-  of 0: "HighPerformance"
-  of 1: "Balanced"
-  of 2: "HighQuality"
-  else: "FaceDetectionMode(" & $ord(v) & ")"
+template `$`*(v: FaceDetectionMode): string = enumName(v)
 
 ## Windows.Media.Core.MediaDecoderStatus  (enum)
 type MediaDecoderStatus* {.pure, size: 4.} = enum
@@ -14779,13 +9494,7 @@ type MediaDecoderStatus* {.pure, size: 4.} = enum
   UnsupportedSubtype = 1'i32
   UnsupportedEncoderProperties = 2'i32
   Degraded = 3'i32
-proc `$`*(v: MediaDecoderStatus): string =
-  case ord(v)
-  of 0: "FullySupported"
-  of 1: "UnsupportedSubtype"
-  of 2: "UnsupportedEncoderProperties"
-  of 3: "Degraded"
-  else: "MediaDecoderStatus(" & $ord(v) & ")"
+template `$`*(v: MediaDecoderStatus): string = enumName(v)
 
 ## Windows.Media.Core.MediaSourceState  (enum)
 type MediaSourceState* {.pure, size: 4.} = enum
@@ -14794,24 +9503,13 @@ type MediaSourceState* {.pure, size: 4.} = enum
   Opened = 2'i32
   Failed = 3'i32
   Closed = 4'i32
-proc `$`*(v: MediaSourceState): string =
-  case ord(v)
-  of 0: "Initial"
-  of 1: "Opening"
-  of 2: "Opened"
-  of 3: "Failed"
-  of 4: "Closed"
-  else: "MediaSourceState(" & $ord(v) & ")"
+template `$`*(v: MediaSourceState): string = enumName(v)
 
 ## Windows.Media.Core.MediaSourceStatus  (enum)
 type MediaSourceStatus* {.pure, size: 4.} = enum
   FullySupported = 0'i32
   Unknown = 1'i32
-proc `$`*(v: MediaSourceStatus): string =
-  case ord(v)
-  of 0: "FullySupported"
-  of 1: "Unknown"
-  else: "MediaSourceStatus(" & $ord(v) & ")"
+template `$`*(v: MediaSourceStatus): string = enumName(v)
 
 ## Windows.Media.Core.MediaStreamSourceClosedReason  (enum)
 type MediaStreamSourceClosedReason* {.pure, size: 4.} = enum
@@ -14822,16 +9520,7 @@ type MediaStreamSourceClosedReason* {.pure, size: 4.} = enum
   ProtectionSystemFailure = 4'i32
   UnsupportedEncodingFormat = 5'i32
   MissingSampleRequestedEventHandler = 6'i32
-proc `$`*(v: MediaStreamSourceClosedReason): string =
-  case ord(v)
-  of 0: "Done"
-  of 1: "UnknownError"
-  of 2: "AppReportedError"
-  of 3: "UnsupportedProtectionSystem"
-  of 4: "ProtectionSystemFailure"
-  of 5: "UnsupportedEncodingFormat"
-  of 6: "MissingSampleRequestedEventHandler"
-  else: "MediaStreamSourceClosedReason(" & $ord(v) & ")"
+template `$`*(v: MediaStreamSourceClosedReason): string = enumName(v)
 
 ## Windows.Media.Core.MediaStreamSourceErrorStatus  (enum)
 type MediaStreamSourceErrorStatus* {.pure, size: 4.} = enum
@@ -14843,39 +9532,20 @@ type MediaStreamSourceErrorStatus* {.pure, size: 4.} = enum
   UnspecifiedNetworkError = 5'i32
   DecodeError = 6'i32
   UnsupportedMediaFormat = 7'i32
-proc `$`*(v: MediaStreamSourceErrorStatus): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "OutOfMemory"
-  of 2: "FailedToOpenFile"
-  of 3: "FailedToConnectToServer"
-  of 4: "ConnectionToServerLost"
-  of 5: "UnspecifiedNetworkError"
-  of 6: "DecodeError"
-  of 7: "UnsupportedMediaFormat"
-  else: "MediaStreamSourceErrorStatus(" & $ord(v) & ")"
+template `$`*(v: MediaStreamSourceErrorStatus): string = enumName(v)
 
 ## Windows.Media.Core.MediaTrackKind  (enum)
 type MediaTrackKind* {.pure, size: 4.} = enum
   Audio = 0'i32
   Video = 1'i32
   TimedMetadata = 2'i32
-proc `$`*(v: MediaTrackKind): string =
-  case ord(v)
-  of 0: "Audio"
-  of 1: "Video"
-  of 2: "TimedMetadata"
-  else: "MediaTrackKind(" & $ord(v) & ")"
+template `$`*(v: MediaTrackKind): string = enumName(v)
 
 ## Windows.Media.Core.MseAppendMode  (enum)
 type MseAppendMode* {.pure, size: 4.} = enum
   Segments = 0'i32
   Sequence = 1'i32
-proc `$`*(v: MseAppendMode): string =
-  case ord(v)
-  of 0: "Segments"
-  of 1: "Sequence"
-  else: "MseAppendMode(" & $ord(v) & ")"
+template `$`*(v: MseAppendMode): string = enumName(v)
 
 ## Windows.Media.Core.MseEndOfStreamStatus  (enum)
 type MseEndOfStreamStatus* {.pure, size: 4.} = enum
@@ -14883,37 +9553,21 @@ type MseEndOfStreamStatus* {.pure, size: 4.} = enum
   NetworkError = 1'i32
   DecodeError = 2'i32
   UnknownError = 3'i32
-proc `$`*(v: MseEndOfStreamStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "NetworkError"
-  of 2: "DecodeError"
-  of 3: "UnknownError"
-  else: "MseEndOfStreamStatus(" & $ord(v) & ")"
+template `$`*(v: MseEndOfStreamStatus): string = enumName(v)
 
 ## Windows.Media.Core.MseReadyState  (enum)
 type MseReadyState* {.pure, size: 4.} = enum
   Closed = 0'i32
   Open = 1'i32
   Ended = 2'i32
-proc `$`*(v: MseReadyState): string =
-  case ord(v)
-  of 0: "Closed"
-  of 1: "Open"
-  of 2: "Ended"
-  else: "MseReadyState(" & $ord(v) & ")"
+template `$`*(v: MseReadyState): string = enumName(v)
 
 ## Windows.Media.Core.SceneAnalysisRecommendation  (enum)
 type SceneAnalysisRecommendation* {.pure, size: 4.} = enum
   Standard = 0'i32
   Hdr = 1'i32
   LowLight = 2'i32
-proc `$`*(v: SceneAnalysisRecommendation): string =
-  case ord(v)
-  of 0: "Standard"
-  of 1: "Hdr"
-  of 2: "LowLight"
-  else: "SceneAnalysisRecommendation(" & $ord(v) & ")"
+template `$`*(v: SceneAnalysisRecommendation): string = enumName(v)
 
 ## Windows.Media.Core.TimedMetadataKind  (enum)
 type TimedMetadataKind* {.pure, size: 4.} = enum
@@ -14925,17 +9579,7 @@ type TimedMetadataKind* {.pure, size: 4.} = enum
   Subtitle = 5'i32
   ImageSubtitle = 6'i32
   Speech = 7'i32
-proc `$`*(v: TimedMetadataKind): string =
-  case ord(v)
-  of 0: "Caption"
-  of 1: "Chapter"
-  of 2: "Custom"
-  of 3: "Data"
-  of 4: "Description"
-  of 5: "Subtitle"
-  of 6: "ImageSubtitle"
-  of 7: "Speech"
-  else: "TimedMetadataKind(" & $ord(v) & ")"
+template `$`*(v: TimedMetadataKind): string = enumName(v)
 
 ## Windows.Media.Core.TimedMetadataTrackErrorCode  (enum)
 type TimedMetadataTrackErrorCode* {.pure, size: 4.} = enum
@@ -14943,25 +9587,14 @@ type TimedMetadataTrackErrorCode* {.pure, size: 4.} = enum
   DataFormatError = 1'i32
   NetworkError = 2'i32
   InternalError = 3'i32
-proc `$`*(v: TimedMetadataTrackErrorCode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "DataFormatError"
-  of 2: "NetworkError"
-  of 3: "InternalError"
-  else: "TimedMetadataTrackErrorCode(" & $ord(v) & ")"
+template `$`*(v: TimedMetadataTrackErrorCode): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextBoutenPosition  (enum)
 type TimedTextBoutenPosition* {.pure, size: 4.} = enum
   Before = 0'i32
   After = 1'i32
   Outside = 2'i32
-proc `$`*(v: TimedTextBoutenPosition): string =
-  case ord(v)
-  of 0: "Before"
-  of 1: "After"
-  of 2: "Outside"
-  else: "TimedTextBoutenPosition(" & $ord(v) & ")"
+template `$`*(v: TimedTextBoutenPosition): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextBoutenType  (enum)
 type TimedTextBoutenType* {.pure, size: 4.} = enum
@@ -14973,63 +9606,34 @@ type TimedTextBoutenType* {.pure, size: 4.} = enum
   OpenDot = 5'i32
   FilledSesame = 6'i32
   OpenSesame = 7'i32
-proc `$`*(v: TimedTextBoutenType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Auto"
-  of 2: "FilledCircle"
-  of 3: "OpenCircle"
-  of 4: "FilledDot"
-  of 5: "OpenDot"
-  of 6: "FilledSesame"
-  of 7: "OpenSesame"
-  else: "TimedTextBoutenType(" & $ord(v) & ")"
+template `$`*(v: TimedTextBoutenType): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextDisplayAlignment  (enum)
 type TimedTextDisplayAlignment* {.pure, size: 4.} = enum
   Before = 0'i32
   After = 1'i32
   Center = 2'i32
-proc `$`*(v: TimedTextDisplayAlignment): string =
-  case ord(v)
-  of 0: "Before"
-  of 1: "After"
-  of 2: "Center"
-  else: "TimedTextDisplayAlignment(" & $ord(v) & ")"
+template `$`*(v: TimedTextDisplayAlignment): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextFlowDirection  (enum)
 type TimedTextFlowDirection* {.pure, size: 4.} = enum
   LeftToRight = 0'i32
   RightToLeft = 1'i32
-proc `$`*(v: TimedTextFlowDirection): string =
-  case ord(v)
-  of 0: "LeftToRight"
-  of 1: "RightToLeft"
-  else: "TimedTextFlowDirection(" & $ord(v) & ")"
+template `$`*(v: TimedTextFlowDirection): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextFontStyle  (enum)
 type TimedTextFontStyle* {.pure, size: 4.} = enum
   Normal = 0'i32
   Oblique = 1'i32
   Italic = 2'i32
-proc `$`*(v: TimedTextFontStyle): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Oblique"
-  of 2: "Italic"
-  else: "TimedTextFontStyle(" & $ord(v) & ")"
+template `$`*(v: TimedTextFontStyle): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextLineAlignment  (enum)
 type TimedTextLineAlignment* {.pure, size: 4.} = enum
   Start = 0'i32
   `End` = 1'i32
   Center = 2'i32
-proc `$`*(v: TimedTextLineAlignment): string =
-  case ord(v)
-  of 0: "Start"
-  of 1: "End"
-  of 2: "Center"
-  else: "TimedTextLineAlignment(" & $ord(v) & ")"
+template `$`*(v: TimedTextLineAlignment): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextRubyAlign  (enum)
 type TimedTextRubyAlign* {.pure, size: 4.} = enum
@@ -15039,27 +9643,14 @@ type TimedTextRubyAlign* {.pure, size: 4.} = enum
   SpaceAround = 3'i32
   SpaceBetween = 4'i32
   WithBase = 5'i32
-proc `$`*(v: TimedTextRubyAlign): string =
-  case ord(v)
-  of 0: "Center"
-  of 1: "Start"
-  of 2: "End"
-  of 3: "SpaceAround"
-  of 4: "SpaceBetween"
-  of 5: "WithBase"
-  else: "TimedTextRubyAlign(" & $ord(v) & ")"
+template `$`*(v: TimedTextRubyAlign): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextRubyPosition  (enum)
 type TimedTextRubyPosition* {.pure, size: 4.} = enum
   Before = 0'i32
   After = 1'i32
   Outside = 2'i32
-proc `$`*(v: TimedTextRubyPosition): string =
-  case ord(v)
-  of 0: "Before"
-  of 1: "After"
-  of 2: "Outside"
-  else: "TimedTextRubyPosition(" & $ord(v) & ")"
+template `$`*(v: TimedTextRubyPosition): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextRubyReserve  (enum)
 type TimedTextRubyReserve* {.pure, size: 4.} = enum
@@ -15068,54 +9659,31 @@ type TimedTextRubyReserve* {.pure, size: 4.} = enum
   After = 2'i32
   Both = 3'i32
   Outside = 4'i32
-proc `$`*(v: TimedTextRubyReserve): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Before"
-  of 2: "After"
-  of 3: "Both"
-  of 4: "Outside"
-  else: "TimedTextRubyReserve(" & $ord(v) & ")"
+template `$`*(v: TimedTextRubyReserve): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextScrollMode  (enum)
 type TimedTextScrollMode* {.pure, size: 4.} = enum
   Popon = 0'i32
   Rollup = 1'i32
-proc `$`*(v: TimedTextScrollMode): string =
-  case ord(v)
-  of 0: "Popon"
-  of 1: "Rollup"
-  else: "TimedTextScrollMode(" & $ord(v) & ")"
+template `$`*(v: TimedTextScrollMode): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextUnit  (enum)
 type TimedTextUnit* {.pure, size: 4.} = enum
   Pixels = 0'i32
   Percentage = 1'i32
-proc `$`*(v: TimedTextUnit): string =
-  case ord(v)
-  of 0: "Pixels"
-  of 1: "Percentage"
-  else: "TimedTextUnit(" & $ord(v) & ")"
+template `$`*(v: TimedTextUnit): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextWeight  (enum)
 type TimedTextWeight* {.pure, size: 4.} = enum
   Normal = 400'i32
   Bold = 700'i32
-proc `$`*(v: TimedTextWeight): string =
-  case ord(v)
-  of 400: "Normal"
-  of 700: "Bold"
-  else: "TimedTextWeight(" & $ord(v) & ")"
+template `$`*(v: TimedTextWeight): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextWrapping  (enum)
 type TimedTextWrapping* {.pure, size: 4.} = enum
   NoWrap = 0'i32
   Wrap = 1'i32
-proc `$`*(v: TimedTextWrapping): string =
-  case ord(v)
-  of 0: "NoWrap"
-  of 1: "Wrap"
-  else: "TimedTextWrapping(" & $ord(v) & ")"
+template `$`*(v: TimedTextWrapping): string = enumName(v)
 
 ## Windows.Media.Core.TimedTextWritingMode  (enum)
 type TimedTextWritingMode* {.pure, size: 4.} = enum
@@ -15126,28 +9694,14 @@ type TimedTextWritingMode* {.pure, size: 4.} = enum
   LeftRight = 4'i32
   RightLeft = 5'i32
   TopBottom = 6'i32
-proc `$`*(v: TimedTextWritingMode): string =
-  case ord(v)
-  of 0: "LeftRightTopBottom"
-  of 1: "RightLeftTopBottom"
-  of 2: "TopBottomRightLeft"
-  of 3: "TopBottomLeftRight"
-  of 4: "LeftRight"
-  of 5: "RightLeft"
-  of 6: "TopBottom"
-  else: "TimedTextWritingMode(" & $ord(v) & ")"
+template `$`*(v: TimedTextWritingMode): string = enumName(v)
 
 ## Windows.Media.Core.VideoStabilizationEffectEnabledChangedReason  (enum)
 type VideoStabilizationEffectEnabledChangedReason* {.pure, size: 4.} = enum
   Programmatic = 0'i32
   PixelRateTooHigh = 1'i32
   RunningSlowly = 2'i32
-proc `$`*(v: VideoStabilizationEffectEnabledChangedReason): string =
-  case ord(v)
-  of 0: "Programmatic"
-  of 1: "PixelRateTooHigh"
-  of 2: "RunningSlowly"
-  else: "VideoStabilizationEffectEnabledChangedReason(" & $ord(v) & ")"
+template `$`*(v: VideoStabilizationEffectEnabledChangedReason): string = enumName(v)
 
 ## Windows.Media.Devices.AdvancedPhotoMode  (enum)
 type AdvancedPhotoMode* {.pure, size: 4.} = enum
@@ -15155,45 +9709,26 @@ type AdvancedPhotoMode* {.pure, size: 4.} = enum
   Standard = 1'i32
   Hdr = 2'i32
   LowLight = 3'i32
-proc `$`*(v: AdvancedPhotoMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Standard"
-  of 2: "Hdr"
-  of 3: "LowLight"
-  else: "AdvancedPhotoMode(" & $ord(v) & ")"
+template `$`*(v: AdvancedPhotoMode): string = enumName(v)
 
 ## Windows.Media.Devices.AudioDeviceRole  (enum)
 type AudioDeviceRole* {.pure, size: 4.} = enum
   Default = 0'i32
   Communications = 1'i32
-proc `$`*(v: AudioDeviceRole): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Communications"
-  else: "AudioDeviceRole(" & $ord(v) & ")"
+template `$`*(v: AudioDeviceRole): string = enumName(v)
 
 ## Windows.Media.Devices.AutoFocusRange  (enum)
 type AutoFocusRange* {.pure, size: 4.} = enum
   FullRange = 0'i32
   `Macro` = 1'i32
   Normal = 2'i32
-proc `$`*(v: AutoFocusRange): string =
-  case ord(v)
-  of 0: "FullRange"
-  of 1: "Macro"
-  of 2: "Normal"
-  else: "AutoFocusRange(" & $ord(v) & ")"
+template `$`*(v: AutoFocusRange): string = enumName(v)
 
 ## Windows.Media.Devices.CameraOcclusionKind  (enum)
 type CameraOcclusionKind* {.pure, size: 4.} = enum
   Lid = 0'i32
   CameraHardware = 1'i32
-proc `$`*(v: CameraOcclusionKind): string =
-  case ord(v)
-  of 0: "Lid"
-  of 1: "CameraHardware"
-  else: "CameraOcclusionKind(" & $ord(v) & ")"
+template `$`*(v: CameraOcclusionKind): string = enumName(v)
 
 ## Windows.Media.Devices.CameraStreamState  (enum)
 type CameraStreamState* {.pure, size: 4.} = enum
@@ -15201,13 +9736,7 @@ type CameraStreamState* {.pure, size: 4.} = enum
   Streaming = 1'i32
   BlockedForPrivacy = 2'i32
   Shutdown = 3'i32
-proc `$`*(v: CameraStreamState): string =
-  case ord(v)
-  of 0: "NotStreaming"
-  of 1: "Streaming"
-  of 2: "BlockedForPrivacy"
-  of 3: "Shutdown"
-  else: "CameraStreamState(" & $ord(v) & ")"
+template `$`*(v: CameraStreamState): string = enumName(v)
 
 ## Windows.Media.Devices.CaptureSceneMode  (enum)
 type CaptureSceneMode* {.pure, size: 4.} = enum
@@ -15224,34 +9753,14 @@ type CaptureSceneMode* {.pure, size: 4.} = enum
   Landscape = 10'i32
   NightPortrait = 11'i32
   Backlit = 12'i32
-proc `$`*(v: CaptureSceneMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Manual"
-  of 2: "Macro"
-  of 3: "Portrait"
-  of 4: "Sport"
-  of 5: "Snow"
-  of 6: "Night"
-  of 7: "Beach"
-  of 8: "Sunset"
-  of 9: "Candlelight"
-  of 10: "Landscape"
-  of 11: "NightPortrait"
-  of 12: "Backlit"
-  else: "CaptureSceneMode(" & $ord(v) & ")"
+template `$`*(v: CaptureSceneMode): string = enumName(v)
 
 ## Windows.Media.Devices.CaptureUse  (enum)
 type CaptureUse* {.pure, size: 4.} = enum
   None = 0'i32
   Photo = 1'i32
   Video = 2'i32
-proc `$`*(v: CaptureUse): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Photo"
-  of 2: "Video"
-  else: "CaptureUse(" & $ord(v) & ")"
+template `$`*(v: CaptureUse): string = enumName(v)
 
 ## Windows.Media.Devices.ColorTemperaturePreset  (enum)
 type ColorTemperaturePreset* {.pure, size: 4.} = enum
@@ -15263,41 +9772,21 @@ type ColorTemperaturePreset* {.pure, size: 4.} = enum
   Fluorescent = 5'i32
   Tungsten = 6'i32
   Candlelight = 7'i32
-proc `$`*(v: ColorTemperaturePreset): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Manual"
-  of 2: "Cloudy"
-  of 3: "Daylight"
-  of 4: "Flash"
-  of 5: "Fluorescent"
-  of 6: "Tungsten"
-  of 7: "Candlelight"
-  else: "ColorTemperaturePreset(" & $ord(v) & ")"
+template `$`*(v: ColorTemperaturePreset): string = enumName(v)
 
 ## Windows.Media.Devices.Core.FrameFlashMode  (enum)
 type FrameFlashMode* {.pure, size: 4.} = enum
   Disable = 0'i32
   Enable = 1'i32
   Global = 2'i32
-proc `$`*(v: FrameFlashMode): string =
-  case ord(v)
-  of 0: "Disable"
-  of 1: "Enable"
-  of 2: "Global"
-  else: "FrameFlashMode(" & $ord(v) & ")"
+template `$`*(v: FrameFlashMode): string = enumName(v)
 
 ## Windows.Media.Devices.DigitalWindowMode  (enum)
 type DigitalWindowMode* {.pure, size: 4.} = enum
   Off = 0'i32
   On = 1'i32
   Auto = 2'i32
-proc `$`*(v: DigitalWindowMode): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "On"
-  of 2: "Auto"
-  else: "DigitalWindowMode(" & $ord(v) & ")"
+template `$`*(v: DigitalWindowMode): string = enumName(v)
 
 ## Windows.Media.Devices.FocusMode  (enum)
 type FocusMode* {.pure, size: 4.} = enum
@@ -15305,13 +9794,7 @@ type FocusMode* {.pure, size: 4.} = enum
   Single = 1'i32
   Continuous = 2'i32
   Manual = 3'i32
-proc `$`*(v: FocusMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Single"
-  of 2: "Continuous"
-  of 3: "Manual"
-  else: "FocusMode(" & $ord(v) & ")"
+template `$`*(v: FocusMode): string = enumName(v)
 
 ## Windows.Media.Devices.FocusPreset  (enum)
 type FocusPreset* {.pure, size: 4.} = enum
@@ -15321,39 +9804,21 @@ type FocusPreset* {.pure, size: 4.} = enum
   AutoNormal = 3'i32
   AutoInfinity = 4'i32
   AutoHyperfocal = 5'i32
-proc `$`*(v: FocusPreset): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Manual"
-  of 2: "AutoMacro"
-  of 3: "AutoNormal"
-  of 4: "AutoInfinity"
-  of 5: "AutoHyperfocal"
-  else: "FocusPreset(" & $ord(v) & ")"
+template `$`*(v: FocusPreset): string = enumName(v)
 
 ## Windows.Media.Devices.HdrVideoMode  (enum)
 type HdrVideoMode* {.pure, size: 4.} = enum
   Off = 0'i32
   On = 1'i32
   Auto = 2'i32
-proc `$`*(v: HdrVideoMode): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "On"
-  of 2: "Auto"
-  else: "HdrVideoMode(" & $ord(v) & ")"
+template `$`*(v: HdrVideoMode): string = enumName(v)
 
 ## Windows.Media.Devices.InfraredTorchMode  (enum)
 type InfraredTorchMode* {.pure, size: 4.} = enum
   Off = 0'i32
   On = 1'i32
   AlternatingFrameIllumination = 2'i32
-proc `$`*(v: InfraredTorchMode): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "On"
-  of 2: "AlternatingFrameIllumination"
-  else: "InfraredTorchMode(" & $ord(v) & ")"
+template `$`*(v: InfraredTorchMode): string = enumName(v)
 
 ## Windows.Media.Devices.IsoSpeedPreset  (enum)
 type IsoSpeedPreset* {.pure, size: 4.} = enum
@@ -15369,33 +9834,14 @@ type IsoSpeedPreset* {.pure, size: 4.} = enum
   Iso6400 = 9'i32
   Iso12800 = 10'i32
   Iso25600 = 11'i32
-proc `$`*(v: IsoSpeedPreset): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Iso50"
-  of 2: "Iso80"
-  of 3: "Iso100"
-  of 4: "Iso200"
-  of 5: "Iso400"
-  of 6: "Iso800"
-  of 7: "Iso1600"
-  of 8: "Iso3200"
-  of 9: "Iso6400"
-  of 10: "Iso12800"
-  of 11: "Iso25600"
-  else: "IsoSpeedPreset(" & $ord(v) & ")"
+template `$`*(v: IsoSpeedPreset): string = enumName(v)
 
 ## Windows.Media.Devices.ManualFocusDistance  (enum)
 type ManualFocusDistance* {.pure, size: 4.} = enum
   Infinity = 0'i32
   Hyperfocal = 1'i32
   Nearest = 2'i32
-proc `$`*(v: ManualFocusDistance): string =
-  case ord(v)
-  of 0: "Infinity"
-  of 1: "Hyperfocal"
-  of 2: "Nearest"
-  else: "ManualFocusDistance(" & $ord(v) & ")"
+template `$`*(v: ManualFocusDistance): string = enumName(v)
 
 ## Windows.Media.Devices.MediaCaptureFocusState  (enum)
 type MediaCaptureFocusState* {.pure, size: 4.} = enum
@@ -15404,14 +9850,7 @@ type MediaCaptureFocusState* {.pure, size: 4.} = enum
   Searching = 2'i32
   Focused = 3'i32
   Failed = 4'i32
-proc `$`*(v: MediaCaptureFocusState): string =
-  case ord(v)
-  of 0: "Uninitialized"
-  of 1: "Lost"
-  of 2: "Searching"
-  of 3: "Focused"
-  of 4: "Failed"
-  else: "MediaCaptureFocusState(" & $ord(v) & ")"
+template `$`*(v: MediaCaptureFocusState): string = enumName(v)
 
 ## Windows.Media.Devices.MediaCaptureOptimization  (enum)
 type MediaCaptureOptimization* {.pure, size: 4.} = enum
@@ -15422,58 +9861,32 @@ type MediaCaptureOptimization* {.pure, size: 4.} = enum
   LatencyThenQuality = 4'i32
   LatencyThenPower = 5'i32
   PowerAndQuality = 6'i32
-proc `$`*(v: MediaCaptureOptimization): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Quality"
-  of 2: "Latency"
-  of 3: "Power"
-  of 4: "LatencyThenQuality"
-  of 5: "LatencyThenPower"
-  of 6: "PowerAndQuality"
-  else: "MediaCaptureOptimization(" & $ord(v) & ")"
+template `$`*(v: MediaCaptureOptimization): string = enumName(v)
 
 ## Windows.Media.Devices.MediaCapturePauseBehavior  (enum)
 type MediaCapturePauseBehavior* {.pure, size: 4.} = enum
   RetainHardwareResources = 0'i32
   ReleaseHardwareResources = 1'i32
-proc `$`*(v: MediaCapturePauseBehavior): string =
-  case ord(v)
-  of 0: "RetainHardwareResources"
-  of 1: "ReleaseHardwareResources"
-  else: "MediaCapturePauseBehavior(" & $ord(v) & ")"
+template `$`*(v: MediaCapturePauseBehavior): string = enumName(v)
 
 ## Windows.Media.Devices.OpticalImageStabilizationMode  (enum)
 type OpticalImageStabilizationMode* {.pure, size: 4.} = enum
   Off = 0'i32
   On = 1'i32
   Auto = 2'i32
-proc `$`*(v: OpticalImageStabilizationMode): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "On"
-  of 2: "Auto"
-  else: "OpticalImageStabilizationMode(" & $ord(v) & ")"
+template `$`*(v: OpticalImageStabilizationMode): string = enumName(v)
 
 ## Windows.Media.Devices.RegionOfInterestType  (enum)
 type RegionOfInterestType* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Face = 1'i32
-proc `$`*(v: RegionOfInterestType): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Face"
-  else: "RegionOfInterestType(" & $ord(v) & ")"
+template `$`*(v: RegionOfInterestType): string = enumName(v)
 
 ## Windows.Media.Devices.SendCommandStatus  (enum)
 type SendCommandStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   DeviceNotAvailable = 1'i32
-proc `$`*(v: SendCommandStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "DeviceNotAvailable"
-  else: "SendCommandStatus(" & $ord(v) & ")"
+template `$`*(v: SendCommandStatus): string = enumName(v)
 
 ## Windows.Media.Devices.TelephonyKey  (enum)
 type TelephonyKey* {.pure, size: 4.} = enum
@@ -15493,25 +9906,7 @@ type TelephonyKey* {.pure, size: 4.} = enum
   B = 13'i32
   C = 14'i32
   D = 15'i32
-proc `$`*(v: TelephonyKey): string =
-  case ord(v)
-  of 0: "D0"
-  of 1: "D1"
-  of 2: "D2"
-  of 3: "D3"
-  of 4: "D4"
-  of 5: "D5"
-  of 6: "D6"
-  of 7: "D7"
-  of 8: "D8"
-  of 9: "D9"
-  of 10: "Star"
-  of 11: "Pound"
-  of 12: "A"
-  of 13: "B"
-  of 14: "C"
-  of 15: "D"
-  else: "TelephonyKey(" & $ord(v) & ")"
+template `$`*(v: TelephonyKey): string = enumName(v)
 
 ## Windows.Media.Devices.VideoDeviceControllerGetDevicePropertyStatus  (enum)
 type VideoDeviceControllerGetDevicePropertyStatus* {.pure, size: 4.} = enum
@@ -15522,16 +9917,7 @@ type VideoDeviceControllerGetDevicePropertyStatus* {.pure, size: 4.} = enum
   DeviceNotAvailable = 4'i32
   MaxPropertyValueSizeTooSmall = 5'i32
   MaxPropertyValueSizeRequired = 6'i32
-proc `$`*(v: VideoDeviceControllerGetDevicePropertyStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "BufferTooSmall"
-  of 3: "NotSupported"
-  of 4: "DeviceNotAvailable"
-  of 5: "MaxPropertyValueSizeTooSmall"
-  of 6: "MaxPropertyValueSizeRequired"
-  else: "VideoDeviceControllerGetDevicePropertyStatus(" & $ord(v) & ")"
+template `$`*(v: VideoDeviceControllerGetDevicePropertyStatus): string = enumName(v)
 
 ## Windows.Media.Devices.VideoDeviceControllerSetDevicePropertyStatus  (enum)
 type VideoDeviceControllerSetDevicePropertyStatus* {.pure, size: 4.} = enum
@@ -15541,39 +9927,21 @@ type VideoDeviceControllerSetDevicePropertyStatus* {.pure, size: 4.} = enum
   InvalidValue = 3'i32
   DeviceNotAvailable = 4'i32
   NotInControl = 5'i32
-proc `$`*(v: VideoDeviceControllerSetDevicePropertyStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "NotSupported"
-  of 3: "InvalidValue"
-  of 4: "DeviceNotAvailable"
-  of 5: "NotInControl"
-  else: "VideoDeviceControllerSetDevicePropertyStatus(" & $ord(v) & ")"
+template `$`*(v: VideoDeviceControllerSetDevicePropertyStatus): string = enumName(v)
 
 ## Windows.Media.Devices.VideoTemporalDenoisingMode  (enum)
 type VideoTemporalDenoisingMode* {.pure, size: 4.} = enum
   Off = 0'i32
   On = 1'i32
   Auto = 2'i32
-proc `$`*(v: VideoTemporalDenoisingMode): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "On"
-  of 2: "Auto"
-  else: "VideoTemporalDenoisingMode(" & $ord(v) & ")"
+template `$`*(v: VideoTemporalDenoisingMode): string = enumName(v)
 
 ## Windows.Media.Devices.ZoomTransitionMode  (enum)
 type ZoomTransitionMode* {.pure, size: 4.} = enum
   Auto = 0'i32
   Direct = 1'i32
   Smooth = 2'i32
-proc `$`*(v: ZoomTransitionMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Direct"
-  of 2: "Smooth"
-  else: "ZoomTransitionMode(" & $ord(v) & ")"
+template `$`*(v: ZoomTransitionMode): string = enumName(v)
 
 ## Windows.Media.DialProtocol.DialAppLaunchResult  (enum)
 type DialAppLaunchResult* {.pure, size: 4.} = enum
@@ -15581,13 +9949,7 @@ type DialAppLaunchResult* {.pure, size: 4.} = enum
   FailedToLaunch = 1'i32
   NotFound = 2'i32
   NetworkFailure = 3'i32
-proc `$`*(v: DialAppLaunchResult): string =
-  case ord(v)
-  of 0: "Launched"
-  of 1: "FailedToLaunch"
-  of 2: "NotFound"
-  of 3: "NetworkFailure"
-  else: "DialAppLaunchResult(" & $ord(v) & ")"
+template `$`*(v: DialAppLaunchResult): string = enumName(v)
 
 ## Windows.Media.DialProtocol.DialAppState  (enum)
 type DialAppState* {.pure, size: 4.} = enum
@@ -15595,13 +9957,7 @@ type DialAppState* {.pure, size: 4.} = enum
   Stopped = 1'i32
   Running = 2'i32
   NetworkFailure = 3'i32
-proc `$`*(v: DialAppState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Stopped"
-  of 2: "Running"
-  of 3: "NetworkFailure"
-  else: "DialAppState(" & $ord(v) & ")"
+template `$`*(v: DialAppState): string = enumName(v)
 
 ## Windows.Media.DialProtocol.DialAppStopResult  (enum)
 type DialAppStopResult* {.pure, size: 4.} = enum
@@ -15609,13 +9965,7 @@ type DialAppStopResult* {.pure, size: 4.} = enum
   StopFailed = 1'i32
   OperationNotSupported = 2'i32
   NetworkFailure = 3'i32
-proc `$`*(v: DialAppStopResult): string =
-  case ord(v)
-  of 0: "Stopped"
-  of 1: "StopFailed"
-  of 2: "OperationNotSupported"
-  of 3: "NetworkFailure"
-  else: "DialAppStopResult(" & $ord(v) & ")"
+template `$`*(v: DialAppStopResult): string = enumName(v)
 
 ## Windows.Media.DialProtocol.DialDeviceDisplayStatus  (enum)
 type DialDeviceDisplayStatus* {.pure, size: 4.} = enum
@@ -15625,45 +9975,25 @@ type DialDeviceDisplayStatus* {.pure, size: 4.} = enum
   Disconnecting = 3'i32
   Disconnected = 4'i32
   Error = 5'i32
-proc `$`*(v: DialDeviceDisplayStatus): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Connecting"
-  of 2: "Connected"
-  of 3: "Disconnecting"
-  of 4: "Disconnected"
-  of 5: "Error"
-  else: "DialDeviceDisplayStatus(" & $ord(v) & ")"
+template `$`*(v: DialDeviceDisplayStatus): string = enumName(v)
 
 ## Windows.Media.Editing.MediaTrimmingPreference  (enum)
 type MediaTrimmingPreference* {.pure, size: 4.} = enum
   Fast = 0'i32
   Precise = 1'i32
-proc `$`*(v: MediaTrimmingPreference): string =
-  case ord(v)
-  of 0: "Fast"
-  of 1: "Precise"
-  else: "MediaTrimmingPreference(" & $ord(v) & ")"
+template `$`*(v: MediaTrimmingPreference): string = enumName(v)
 
 ## Windows.Media.Editing.VideoFramePrecision  (enum)
 type VideoFramePrecision* {.pure, size: 4.} = enum
   NearestFrame = 0'i32
   NearestKeyFrame = 1'i32
-proc `$`*(v: VideoFramePrecision): string =
-  case ord(v)
-  of 0: "NearestFrame"
-  of 1: "NearestKeyFrame"
-  else: "VideoFramePrecision(" & $ord(v) & ")"
+template `$`*(v: VideoFramePrecision): string = enumName(v)
 
 ## Windows.Media.Effects.AudioEffectState  (enum)
 type AudioEffectState* {.pure, size: 4.} = enum
   Off = 0'i32
   On = 1'i32
-proc `$`*(v: AudioEffectState): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "On"
-  else: "AudioEffectState(" & $ord(v) & ")"
+template `$`*(v: AudioEffectState): string = enumName(v)
 
 ## Windows.Media.Effects.AudioEffectType  (enum)
 type AudioEffectType* {.pure, size: 4.} = enum
@@ -15687,29 +10017,7 @@ type AudioEffectType* {.pure, size: 4.} = enum
   DynamicRangeCompression = 17'i32
   FarFieldBeamForming = 18'i32
   DeepNoiseSuppression = 19'i32
-proc `$`*(v: AudioEffectType): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "AcousticEchoCancellation"
-  of 2: "NoiseSuppression"
-  of 3: "AutomaticGainControl"
-  of 4: "BeamForming"
-  of 5: "ConstantToneRemoval"
-  of 6: "Equalizer"
-  of 7: "LoudnessEqualizer"
-  of 8: "BassBoost"
-  of 9: "VirtualSurround"
-  of 10: "VirtualHeadphones"
-  of 11: "SpeakerFill"
-  of 12: "RoomCorrection"
-  of 13: "BassManagement"
-  of 14: "EnvironmentalEffects"
-  of 15: "SpeakerProtection"
-  of 16: "SpeakerCompensation"
-  of 17: "DynamicRangeCompression"
-  of 18: "FarFieldBeamForming"
-  of 19: "DeepNoiseSuppression"
-  else: "AudioEffectType(" & $ord(v) & ")"
+template `$`*(v: AudioEffectType): string = enumName(v)
 
 ## Windows.Media.Effects.MediaEffectClosedReason  (enum)
 type MediaEffectClosedReason* {.pure, size: 4.} = enum
@@ -15717,37 +10025,21 @@ type MediaEffectClosedReason* {.pure, size: 4.} = enum
   UnknownError = 1'i32
   UnsupportedEncodingFormat = 2'i32
   EffectCurrentlyUnloaded = 3'i32
-proc `$`*(v: MediaEffectClosedReason): string =
-  case ord(v)
-  of 0: "Done"
-  of 1: "UnknownError"
-  of 2: "UnsupportedEncodingFormat"
-  of 3: "EffectCurrentlyUnloaded"
-  else: "MediaEffectClosedReason(" & $ord(v) & ")"
+template `$`*(v: MediaEffectClosedReason): string = enumName(v)
 
 ## Windows.Media.Effects.MediaMemoryTypes  (enum)
 type MediaMemoryTypes* {.pure, size: 4.} = enum
   Gpu = 0'i32
   Cpu = 1'i32
   GpuAndCpu = 2'i32
-proc `$`*(v: MediaMemoryTypes): string =
-  case ord(v)
-  of 0: "Gpu"
-  of 1: "Cpu"
-  of 2: "GpuAndCpu"
-  else: "MediaMemoryTypes(" & $ord(v) & ")"
+template `$`*(v: MediaMemoryTypes): string = enumName(v)
 
 ## Windows.Media.Import.PhotoImportAccessMode  (enum)
 type PhotoImportAccessMode* {.pure, size: 4.} = enum
   ReadWrite = 0'i32
   ReadOnly = 1'i32
   ReadAndDelete = 2'i32
-proc `$`*(v: PhotoImportAccessMode): string =
-  case ord(v)
-  of 0: "ReadWrite"
-  of 1: "ReadOnly"
-  of 2: "ReadAndDelete"
-  else: "PhotoImportAccessMode(" & $ord(v) & ")"
+template `$`*(v: PhotoImportAccessMode): string = enumName(v)
 
 ## Windows.Media.Import.PhotoImportConnectionTransport  (enum)
 type PhotoImportConnectionTransport* {.pure, size: 4.} = enum
@@ -15755,25 +10047,14 @@ type PhotoImportConnectionTransport* {.pure, size: 4.} = enum
   Usb = 1'i32
   IP = 2'i32
   Bluetooth = 3'i32
-proc `$`*(v: PhotoImportConnectionTransport): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Usb"
-  of 2: "IP"
-  of 3: "Bluetooth"
-  else: "PhotoImportConnectionTransport(" & $ord(v) & ")"
+template `$`*(v: PhotoImportConnectionTransport): string = enumName(v)
 
 ## Windows.Media.Import.PhotoImportContentType  (enum)
 type PhotoImportContentType* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Image = 1'i32
   Video = 2'i32
-proc `$`*(v: PhotoImportContentType): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Image"
-  of 2: "Video"
-  else: "PhotoImportContentType(" & $ord(v) & ")"
+template `$`*(v: PhotoImportContentType): string = enumName(v)
 
 ## Windows.Media.Import.PhotoImportContentTypeFilter  (enum)
 type PhotoImportContentTypeFilter* {.pure, size: 4.} = enum
@@ -15781,13 +10062,7 @@ type PhotoImportContentTypeFilter* {.pure, size: 4.} = enum
   OnlyVideos = 1'i32
   ImagesAndVideos = 2'i32
   ImagesAndVideosFromCameraRoll = 3'i32
-proc `$`*(v: PhotoImportContentTypeFilter): string =
-  case ord(v)
-  of 0: "OnlyImages"
-  of 1: "OnlyVideos"
-  of 2: "ImagesAndVideos"
-  of 3: "ImagesAndVideosFromCameraRoll"
-  else: "PhotoImportContentTypeFilter(" & $ord(v) & ")"
+template `$`*(v: PhotoImportContentTypeFilter): string = enumName(v)
 
 ## Windows.Media.Import.PhotoImportImportMode  (enum)
 type PhotoImportImportMode* {.pure, size: 4.} = enum
@@ -15795,37 +10070,21 @@ type PhotoImportImportMode* {.pure, size: 4.} = enum
   IgnoreSidecars = 1'i32
   IgnoreSiblings = 2'i32
   IgnoreSidecarsAndSiblings = 3'i32
-proc `$`*(v: PhotoImportImportMode): string =
-  case ord(v)
-  of 0: "ImportEverything"
-  of 1: "IgnoreSidecars"
-  of 2: "IgnoreSiblings"
-  of 3: "IgnoreSidecarsAndSiblings"
-  else: "PhotoImportImportMode(" & $ord(v) & ")"
+template `$`*(v: PhotoImportImportMode): string = enumName(v)
 
 ## Windows.Media.Import.PhotoImportItemSelectionMode  (enum)
 type PhotoImportItemSelectionMode* {.pure, size: 4.} = enum
   SelectAll = 0'i32
   SelectNone = 1'i32
   SelectNew = 2'i32
-proc `$`*(v: PhotoImportItemSelectionMode): string =
-  case ord(v)
-  of 0: "SelectAll"
-  of 1: "SelectNone"
-  of 2: "SelectNew"
-  else: "PhotoImportItemSelectionMode(" & $ord(v) & ")"
+template `$`*(v: PhotoImportItemSelectionMode): string = enumName(v)
 
 ## Windows.Media.Import.PhotoImportPowerSource  (enum)
 type PhotoImportPowerSource* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Battery = 1'i32
   External = 2'i32
-proc `$`*(v: PhotoImportPowerSource): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Battery"
-  of 2: "External"
-  else: "PhotoImportPowerSource(" & $ord(v) & ")"
+template `$`*(v: PhotoImportPowerSource): string = enumName(v)
 
 ## Windows.Media.Import.PhotoImportSourceType  (enum)
 type PhotoImportSourceType* {.pure, size: 4.} = enum
@@ -15836,16 +10095,7 @@ type PhotoImportSourceType* {.pure, size: 4.} = enum
   Video = 4'i32
   PersonalInfoManager = 5'i32
   AudioRecorder = 6'i32
-proc `$`*(v: PhotoImportSourceType): string =
-  case ord(v)
-  of 0: "Generic"
-  of 1: "Camera"
-  of 2: "MediaPlayer"
-  of 3: "Phone"
-  of 4: "Video"
-  of 5: "PersonalInfoManager"
-  of 6: "AudioRecorder"
-  else: "PhotoImportSourceType(" & $ord(v) & ")"
+template `$`*(v: PhotoImportSourceType): string = enumName(v)
 
 ## Windows.Media.Import.PhotoImportStage  (enum)
 type PhotoImportStage* {.pure, size: 4.} = enum
@@ -15853,25 +10103,14 @@ type PhotoImportStage* {.pure, size: 4.} = enum
   FindingItems = 1'i32
   ImportingItems = 2'i32
   DeletingImportedItemsFromSource = 3'i32
-proc `$`*(v: PhotoImportStage): string =
-  case ord(v)
-  of 0: "NotStarted"
-  of 1: "FindingItems"
-  of 2: "ImportingItems"
-  of 3: "DeletingImportedItemsFromSource"
-  else: "PhotoImportStage(" & $ord(v) & ")"
+template `$`*(v: PhotoImportStage): string = enumName(v)
 
 ## Windows.Media.Import.PhotoImportStorageMediumType  (enum)
 type PhotoImportStorageMediumType* {.pure, size: 4.} = enum
   Undefined = 0'i32
   Fixed = 1'i32
   Removable = 2'i32
-proc `$`*(v: PhotoImportStorageMediumType): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "Fixed"
-  of 2: "Removable"
-  else: "PhotoImportStorageMediumType(" & $ord(v) & ")"
+template `$`*(v: PhotoImportStorageMediumType): string = enumName(v)
 
 ## Windows.Media.Import.PhotoImportSubfolderCreationMode  (enum)
 type PhotoImportSubfolderCreationMode* {.pure, size: 4.} = enum
@@ -15879,37 +10118,21 @@ type PhotoImportSubfolderCreationMode* {.pure, size: 4.} = enum
   CreateSubfoldersFromFileDate = 1'i32
   CreateSubfoldersFromExifDate = 2'i32
   KeepOriginalFolderStructure = 3'i32
-proc `$`*(v: PhotoImportSubfolderCreationMode): string =
-  case ord(v)
-  of 0: "DoNotCreateSubfolders"
-  of 1: "CreateSubfoldersFromFileDate"
-  of 2: "CreateSubfoldersFromExifDate"
-  of 3: "KeepOriginalFolderStructure"
-  else: "PhotoImportSubfolderCreationMode(" & $ord(v) & ")"
+template `$`*(v: PhotoImportSubfolderCreationMode): string = enumName(v)
 
 ## Windows.Media.Import.PhotoImportSubfolderDateFormat  (enum)
 type PhotoImportSubfolderDateFormat* {.pure, size: 4.} = enum
   Year = 0'i32
   YearMonth = 1'i32
   YearMonthDay = 2'i32
-proc `$`*(v: PhotoImportSubfolderDateFormat): string =
-  case ord(v)
-  of 0: "Year"
-  of 1: "YearMonth"
-  of 2: "YearMonthDay"
-  else: "PhotoImportSubfolderDateFormat(" & $ord(v) & ")"
+template `$`*(v: PhotoImportSubfolderDateFormat): string = enumName(v)
 
 ## Windows.Media.MediaPlaybackAutoRepeatMode  (enum)
 type MediaPlaybackAutoRepeatMode* {.pure, size: 4.} = enum
   None = 0'i32
   Track = 1'i32
   List = 2'i32
-proc `$`*(v: MediaPlaybackAutoRepeatMode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Track"
-  of 2: "List"
-  else: "MediaPlaybackAutoRepeatMode(" & $ord(v) & ")"
+template `$`*(v: MediaPlaybackAutoRepeatMode): string = enumName(v)
 
 ## Windows.Media.MediaPlaybackStatus  (enum)
 type MediaPlaybackStatus* {.pure, size: 4.} = enum
@@ -15918,14 +10141,7 @@ type MediaPlaybackStatus* {.pure, size: 4.} = enum
   Stopped = 2'i32
   Playing = 3'i32
   Paused = 4'i32
-proc `$`*(v: MediaPlaybackStatus): string =
-  case ord(v)
-  of 0: "Closed"
-  of 1: "Changing"
-  of 2: "Stopped"
-  of 3: "Playing"
-  of 4: "Paused"
-  else: "MediaPlaybackStatus(" & $ord(v) & ")"
+template `$`*(v: MediaPlaybackStatus): string = enumName(v)
 
 ## Windows.Media.MediaPlaybackType  (enum)
 type MediaPlaybackType* {.pure, size: 4.} = enum
@@ -15933,13 +10149,7 @@ type MediaPlaybackType* {.pure, size: 4.} = enum
   Music = 1'i32
   Video = 2'i32
   Image = 3'i32
-proc `$`*(v: MediaPlaybackType): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Music"
-  of 2: "Video"
-  of 3: "Image"
-  else: "MediaPlaybackType(" & $ord(v) & ")"
+template `$`*(v: MediaPlaybackType): string = enumName(v)
 
 ## Windows.Media.MediaProperties.AudioEncodingQuality  (enum)
 type AudioEncodingQuality* {.pure, size: 4.} = enum
@@ -15947,13 +10157,7 @@ type AudioEncodingQuality* {.pure, size: 4.} = enum
   High = 1'i32
   Medium = 2'i32
   Low = 3'i32
-proc `$`*(v: AudioEncodingQuality): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "High"
-  of 2: "Medium"
-  of 3: "Low"
-  else: "AudioEncodingQuality(" & $ord(v) & ")"
+template `$`*(v: AudioEncodingQuality): string = enumName(v)
 
 ## Windows.Media.MediaProperties.MediaMirroringOptions  (enum)
 type MediaMirroringOptions* = distinct uint32
@@ -15988,12 +10192,7 @@ type MediaPixelFormat* {.pure, size: 4.} = enum
   Nv12 = 0'i32
   Bgra8 = 1'i32
   P010 = 2'i32
-proc `$`*(v: MediaPixelFormat): string =
-  case ord(v)
-  of 0: "Nv12"
-  of 1: "Bgra8"
-  of 2: "P010"
-  else: "MediaPixelFormat(" & $ord(v) & ")"
+template `$`*(v: MediaPixelFormat): string = enumName(v)
 
 ## Windows.Media.MediaProperties.MediaRotation  (enum)
 type MediaRotation* {.pure, size: 4.} = enum
@@ -16001,47 +10200,27 @@ type MediaRotation* {.pure, size: 4.} = enum
   Clockwise90Degrees = 1'i32
   Clockwise180Degrees = 2'i32
   Clockwise270Degrees = 3'i32
-proc `$`*(v: MediaRotation): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Clockwise90Degrees"
-  of 2: "Clockwise180Degrees"
-  of 3: "Clockwise270Degrees"
-  else: "MediaRotation(" & $ord(v) & ")"
+template `$`*(v: MediaRotation): string = enumName(v)
 
 ## Windows.Media.MediaProperties.MediaThumbnailFormat  (enum)
 type MediaThumbnailFormat* {.pure, size: 4.} = enum
   Bmp = 0'i32
   Bgra8 = 1'i32
-proc `$`*(v: MediaThumbnailFormat): string =
-  case ord(v)
-  of 0: "Bmp"
-  of 1: "Bgra8"
-  else: "MediaThumbnailFormat(" & $ord(v) & ")"
+template `$`*(v: MediaThumbnailFormat): string = enumName(v)
 
 ## Windows.Media.MediaProperties.SphericalVideoFrameFormat  (enum)
 type SphericalVideoFrameFormat* {.pure, size: 4.} = enum
   None = 0'i32
   Unsupported = 1'i32
   Equirectangular = 2'i32
-proc `$`*(v: SphericalVideoFrameFormat): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Unsupported"
-  of 2: "Equirectangular"
-  else: "SphericalVideoFrameFormat(" & $ord(v) & ")"
+template `$`*(v: SphericalVideoFrameFormat): string = enumName(v)
 
 ## Windows.Media.MediaProperties.StereoscopicVideoPackingMode  (enum)
 type StereoscopicVideoPackingMode* {.pure, size: 4.} = enum
   None = 0'i32
   SideBySide = 1'i32
   TopBottom = 2'i32
-proc `$`*(v: StereoscopicVideoPackingMode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "SideBySide"
-  of 2: "TopBottom"
-  else: "StereoscopicVideoPackingMode(" & $ord(v) & ")"
+template `$`*(v: StereoscopicVideoPackingMode): string = enumName(v)
 
 ## Windows.Media.MediaProperties.VideoEncodingQuality  (enum)
 type VideoEncodingQuality* {.pure, size: 4.} = enum
@@ -16055,19 +10234,7 @@ type VideoEncodingQuality* {.pure, size: 4.} = enum
   Qvga = 7'i32
   Uhd2160p = 8'i32
   Uhd4320p = 9'i32
-proc `$`*(v: VideoEncodingQuality): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "HD1080p"
-  of 2: "HD720p"
-  of 3: "Wvga"
-  of 4: "Ntsc"
-  of 5: "Pal"
-  of 6: "Vga"
-  of 7: "Qvga"
-  of 8: "Uhd2160p"
-  of 9: "Uhd4320p"
-  else: "VideoEncodingQuality(" & $ord(v) & ")"
+template `$`*(v: VideoEncodingQuality): string = enumName(v)
 
 ## Windows.Media.MediaTimelineControllerState  (enum)
 type MediaTimelineControllerState* {.pure, size: 4.} = enum
@@ -16075,13 +10242,7 @@ type MediaTimelineControllerState* {.pure, size: 4.} = enum
   Running = 1'i32
   Stalled = 2'i32
   Error = 3'i32
-proc `$`*(v: MediaTimelineControllerState): string =
-  case ord(v)
-  of 0: "Paused"
-  of 1: "Running"
-  of 2: "Stalled"
-  of 3: "Error"
-  else: "MediaTimelineControllerState(" & $ord(v) & ")"
+template `$`*(v: MediaTimelineControllerState): string = enumName(v)
 
 ## Windows.Media.Miracast.MiracastReceiverApplySettingsStatus  (enum)
 type MiracastReceiverApplySettingsStatus* {.pure, size: 4.} = enum
@@ -16093,17 +10254,7 @@ type MiracastReceiverApplySettingsStatus* {.pure, size: 4.} = enum
   ModelNameTooLong = 5'i32
   ModelNumberTooLong = 6'i32
   InvalidSettings = 7'i32
-proc `$`*(v: MiracastReceiverApplySettingsStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "MiracastNotSupported"
-  of 3: "AccessDenied"
-  of 4: "FriendlyNameTooLong"
-  of 5: "ModelNameTooLong"
-  of 6: "ModelNumberTooLong"
-  of 7: "InvalidSettings"
-  else: "MiracastReceiverApplySettingsStatus(" & $ord(v) & ")"
+template `$`*(v: MiracastReceiverApplySettingsStatus): string = enumName(v)
 
 ## Windows.Media.Miracast.MiracastReceiverAuthorizationMethod  (enum)
 type MiracastReceiverAuthorizationMethod* {.pure, size: 4.} = enum
@@ -16111,13 +10262,7 @@ type MiracastReceiverAuthorizationMethod* {.pure, size: 4.} = enum
   ConfirmConnection = 1'i32
   PinDisplayIfRequested = 2'i32
   PinDisplayRequired = 3'i32
-proc `$`*(v: MiracastReceiverAuthorizationMethod): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "ConfirmConnection"
-  of 2: "PinDisplayIfRequested"
-  of 3: "PinDisplayRequired"
-  else: "MiracastReceiverAuthorizationMethod(" & $ord(v) & ")"
+template `$`*(v: MiracastReceiverAuthorizationMethod): string = enumName(v)
 
 ## Windows.Media.Miracast.MiracastReceiverDisconnectReason  (enum)
 type MiracastReceiverDisconnectReason* {.pure, size: 4.} = enum
@@ -16129,27 +10274,13 @@ type MiracastReceiverDisconnectReason* {.pure, size: 4.} = enum
   MediaDecodingError = 5'i32
   MediaStreamingError = 6'i32
   MediaDecryptionError = 7'i32
-proc `$`*(v: MiracastReceiverDisconnectReason): string =
-  case ord(v)
-  of 0: "Finished"
-  of 1: "AppSpecificError"
-  of 2: "ConnectionNotAccepted"
-  of 3: "DisconnectedByUser"
-  of 4: "FailedToStartStreaming"
-  of 5: "MediaDecodingError"
-  of 6: "MediaStreamingError"
-  of 7: "MediaDecryptionError"
-  else: "MiracastReceiverDisconnectReason(" & $ord(v) & ")"
+template `$`*(v: MiracastReceiverDisconnectReason): string = enumName(v)
 
 ## Windows.Media.Miracast.MiracastReceiverGameControllerDeviceUsageMode  (enum)
 type MiracastReceiverGameControllerDeviceUsageMode* {.pure, size: 4.} = enum
   AsGameController = 0'i32
   AsMouseAndKeyboard = 1'i32
-proc `$`*(v: MiracastReceiverGameControllerDeviceUsageMode): string =
-  case ord(v)
-  of 0: "AsGameController"
-  of 1: "AsMouseAndKeyboard"
-  else: "MiracastReceiverGameControllerDeviceUsageMode(" & $ord(v) & ")"
+template `$`*(v: MiracastReceiverGameControllerDeviceUsageMode): string = enumName(v)
 
 ## Windows.Media.Miracast.MiracastReceiverListeningStatus  (enum)
 type MiracastReceiverListeningStatus* {.pure, size: 4.} = enum
@@ -16159,15 +10290,7 @@ type MiracastReceiverListeningStatus* {.pure, size: 4.} = enum
   Connected = 3'i32
   DisabledByPolicy = 4'i32
   TemporarilyDisabled = 5'i32
-proc `$`*(v: MiracastReceiverListeningStatus): string =
-  case ord(v)
-  of 0: "NotListening"
-  of 1: "Listening"
-  of 2: "ConnectionPending"
-  of 3: "Connected"
-  of 4: "DisabledByPolicy"
-  of 5: "TemporarilyDisabled"
-  else: "MiracastReceiverListeningStatus(" & $ord(v) & ")"
+template `$`*(v: MiracastReceiverListeningStatus): string = enumName(v)
 
 ## Windows.Media.Miracast.MiracastReceiverSessionStartStatus  (enum)
 type MiracastReceiverSessionStartStatus* {.pure, size: 4.} = enum
@@ -16175,13 +10298,7 @@ type MiracastReceiverSessionStartStatus* {.pure, size: 4.} = enum
   UnknownFailure = 1'i32
   MiracastNotSupported = 2'i32
   AccessDenied = 3'i32
-proc `$`*(v: MiracastReceiverSessionStartStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "MiracastNotSupported"
-  of 3: "AccessDenied"
-  else: "MiracastReceiverSessionStartStatus(" & $ord(v) & ")"
+template `$`*(v: MiracastReceiverSessionStartStatus): string = enumName(v)
 
 ## Windows.Media.Miracast.MiracastReceiverWiFiStatus  (enum)
 type MiracastReceiverWiFiStatus* {.pure, size: 4.} = enum
@@ -16189,13 +10306,7 @@ type MiracastReceiverWiFiStatus* {.pure, size: 4.} = enum
   MiracastNotSupported = 1'i32
   MiracastSupportNotOptimized = 2'i32
   MiracastSupported = 3'i32
-proc `$`*(v: MiracastReceiverWiFiStatus): string =
-  case ord(v)
-  of 0: "MiracastSupportUndetermined"
-  of 1: "MiracastNotSupported"
-  of 2: "MiracastSupportNotOptimized"
-  of 3: "MiracastSupported"
-  else: "MiracastReceiverWiFiStatus(" & $ord(v) & ")"
+template `$`*(v: MiracastReceiverWiFiStatus): string = enumName(v)
 
 ## Windows.Media.Miracast.MiracastTransmitterAuthorizationStatus  (enum)
 type MiracastTransmitterAuthorizationStatus* {.pure, size: 4.} = enum
@@ -16203,13 +10314,7 @@ type MiracastTransmitterAuthorizationStatus* {.pure, size: 4.} = enum
   Allowed = 1'i32
   AlwaysPrompt = 2'i32
   Blocked = 3'i32
-proc `$`*(v: MiracastTransmitterAuthorizationStatus): string =
-  case ord(v)
-  of 0: "Undecided"
-  of 1: "Allowed"
-  of 2: "AlwaysPrompt"
-  of 3: "Blocked"
-  else: "MiracastTransmitterAuthorizationStatus(" & $ord(v) & ")"
+template `$`*(v: MiracastTransmitterAuthorizationStatus): string = enumName(v)
 
 ## Windows.Media.PlayTo.PlayToConnectionError  (enum)
 type PlayToConnectionError* {.pure, size: 4.} = enum
@@ -16218,26 +10323,14 @@ type PlayToConnectionError* {.pure, size: 4.} = enum
   DeviceError = 2'i32
   DeviceLocked = 3'i32
   ProtectedPlaybackFailed = 4'i32
-proc `$`*(v: PlayToConnectionError): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "DeviceNotResponding"
-  of 2: "DeviceError"
-  of 3: "DeviceLocked"
-  of 4: "ProtectedPlaybackFailed"
-  else: "PlayToConnectionError(" & $ord(v) & ")"
+template `$`*(v: PlayToConnectionError): string = enumName(v)
 
 ## Windows.Media.PlayTo.PlayToConnectionState  (enum)
 type PlayToConnectionState* {.pure, size: 4.} = enum
   Disconnected = 0'i32
   Connected = 1'i32
   Rendering = 2'i32
-proc `$`*(v: PlayToConnectionState): string =
-  case ord(v)
-  of 0: "Disconnected"
-  of 1: "Connected"
-  of 2: "Rendering"
-  else: "PlayToConnectionState(" & $ord(v) & ")"
+template `$`*(v: PlayToConnectionState): string = enumName(v)
 
 ## Windows.Media.Playback.AutoLoadedDisplayPropertyKind  (enum)
 type AutoLoadedDisplayPropertyKind* {.pure, size: 4.} = enum
@@ -16245,47 +10338,27 @@ type AutoLoadedDisplayPropertyKind* {.pure, size: 4.} = enum
   MusicOrVideo = 1'i32
   Music = 2'i32
   Video = 3'i32
-proc `$`*(v: AutoLoadedDisplayPropertyKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "MusicOrVideo"
-  of 2: "Music"
-  of 3: "Video"
-  else: "AutoLoadedDisplayPropertyKind(" & $ord(v) & ")"
+template `$`*(v: AutoLoadedDisplayPropertyKind): string = enumName(v)
 
 ## Windows.Media.Playback.FailedMediaStreamKind  (enum)
 type FailedMediaStreamKind* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Audio = 1'i32
   Video = 2'i32
-proc `$`*(v: FailedMediaStreamKind): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Audio"
-  of 2: "Video"
-  else: "FailedMediaStreamKind(" & $ord(v) & ")"
+template `$`*(v: FailedMediaStreamKind): string = enumName(v)
 
 ## Windows.Media.Playback.MediaBreakInsertionMethod  (enum)
 type MediaBreakInsertionMethod* {.pure, size: 4.} = enum
   Interrupt = 0'i32
   Replace = 1'i32
-proc `$`*(v: MediaBreakInsertionMethod): string =
-  case ord(v)
-  of 0: "Interrupt"
-  of 1: "Replace"
-  else: "MediaBreakInsertionMethod(" & $ord(v) & ")"
+template `$`*(v: MediaBreakInsertionMethod): string = enumName(v)
 
 ## Windows.Media.Playback.MediaCommandEnablingRule  (enum)
 type MediaCommandEnablingRule* {.pure, size: 4.} = enum
   Auto = 0'i32
   Always = 1'i32
   Never = 2'i32
-proc `$`*(v: MediaCommandEnablingRule): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Always"
-  of 2: "Never"
-  else: "MediaCommandEnablingRule(" & $ord(v) & ")"
+template `$`*(v: MediaCommandEnablingRule): string = enumName(v)
 
 ## Windows.Media.Playback.MediaPlaybackItemChangedReason  (enum)
 type MediaPlaybackItemChangedReason* {.pure, size: 4.} = enum
@@ -16293,13 +10366,7 @@ type MediaPlaybackItemChangedReason* {.pure, size: 4.} = enum
   EndOfStream = 1'i32
   Error = 2'i32
   AppRequested = 3'i32
-proc `$`*(v: MediaPlaybackItemChangedReason): string =
-  case ord(v)
-  of 0: "InitialItem"
-  of 1: "EndOfStream"
-  of 2: "Error"
-  of 3: "AppRequested"
-  else: "MediaPlaybackItemChangedReason(" & $ord(v) & ")"
+template `$`*(v: MediaPlaybackItemChangedReason): string = enumName(v)
 
 ## Windows.Media.Playback.MediaPlaybackItemErrorCode  (enum)
 type MediaPlaybackItemErrorCode* {.pure, size: 4.} = enum
@@ -16309,15 +10376,7 @@ type MediaPlaybackItemErrorCode* {.pure, size: 4.} = enum
   DecodeError = 3'i32
   SourceNotSupportedError = 4'i32
   EncryptionError = 5'i32
-proc `$`*(v: MediaPlaybackItemErrorCode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Aborted"
-  of 2: "NetworkError"
-  of 3: "DecodeError"
-  of 4: "SourceNotSupportedError"
-  of 5: "EncryptionError"
-  else: "MediaPlaybackItemErrorCode(" & $ord(v) & ")"
+template `$`*(v: MediaPlaybackItemErrorCode): string = enumName(v)
 
 ## Windows.Media.Playback.MediaPlaybackSessionVideoConstrictionReason  (enum)
 type MediaPlaybackSessionVideoConstrictionReason* {.pure, size: 4.} = enum
@@ -16328,16 +10387,7 @@ type MediaPlaybackSessionVideoConstrictionReason* {.pure, size: 4.} = enum
   FrameServerEnabled = 4'i32
   OutputProtectionFailed = 5'i32
   Unknown = 6'i32
-proc `$`*(v: MediaPlaybackSessionVideoConstrictionReason): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "VirtualMachine"
-  of 2: "UnsupportedDisplayAdapter"
-  of 3: "UnsignedDriver"
-  of 4: "FrameServerEnabled"
-  of 5: "OutputProtectionFailed"
-  of 6: "Unknown"
-  else: "MediaPlaybackSessionVideoConstrictionReason(" & $ord(v) & ")"
+template `$`*(v: MediaPlaybackSessionVideoConstrictionReason): string = enumName(v)
 
 ## Windows.Media.Playback.MediaPlaybackState  (enum)
 type MediaPlaybackState* {.pure, size: 4.} = enum
@@ -16346,14 +10396,7 @@ type MediaPlaybackState* {.pure, size: 4.} = enum
   Buffering = 2'i32
   Playing = 3'i32
   Paused = 4'i32
-proc `$`*(v: MediaPlaybackState): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Opening"
-  of 2: "Buffering"
-  of 3: "Playing"
-  of 4: "Paused"
-  else: "MediaPlaybackState(" & $ord(v) & ")"
+template `$`*(v: MediaPlaybackState): string = enumName(v)
 
 ## Windows.Media.Playback.MediaPlayerAudioCategory  (enum)
 type MediaPlayerAudioCategory* {.pure, size: 4.} = enum
@@ -16367,31 +10410,14 @@ type MediaPlayerAudioCategory* {.pure, size: 4.} = enum
   Speech = 9'i32
   Movie = 10'i32
   Media = 11'i32
-proc `$`*(v: MediaPlayerAudioCategory): string =
-  case ord(v)
-  of 0: "Other"
-  of 3: "Communications"
-  of 4: "Alerts"
-  of 5: "SoundEffects"
-  of 6: "GameEffects"
-  of 7: "GameMedia"
-  of 8: "GameChat"
-  of 9: "Speech"
-  of 10: "Movie"
-  of 11: "Media"
-  else: "MediaPlayerAudioCategory(" & $ord(v) & ")"
+template `$`*(v: MediaPlayerAudioCategory): string = enumName(v)
 
 ## Windows.Media.Playback.MediaPlayerAudioDeviceType  (enum)
 type MediaPlayerAudioDeviceType* {.pure, size: 4.} = enum
   Console = 0'i32
   Multimedia = 1'i32
   Communications = 2'i32
-proc `$`*(v: MediaPlayerAudioDeviceType): string =
-  case ord(v)
-  of 0: "Console"
-  of 1: "Multimedia"
-  of 2: "Communications"
-  else: "MediaPlayerAudioDeviceType(" & $ord(v) & ")"
+template `$`*(v: MediaPlayerAudioDeviceType): string = enumName(v)
 
 ## Windows.Media.Playback.MediaPlayerError  (enum)
 type MediaPlayerError* {.pure, size: 4.} = enum
@@ -16400,14 +10426,7 @@ type MediaPlayerError* {.pure, size: 4.} = enum
   NetworkError = 2'i32
   DecodingError = 3'i32
   SourceNotSupported = 4'i32
-proc `$`*(v: MediaPlayerError): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Aborted"
-  of 2: "NetworkError"
-  of 3: "DecodingError"
-  of 4: "SourceNotSupported"
-  else: "MediaPlayerError(" & $ord(v) & ")"
+template `$`*(v: MediaPlayerError): string = enumName(v)
 
 ## Windows.Media.Playback.MediaPlayerState  (enum)
 type MediaPlayerState* {.pure, size: 4.} = enum
@@ -16417,35 +10436,19 @@ type MediaPlayerState* {.pure, size: 4.} = enum
   Playing = 3'i32
   Paused = 4'i32
   Stopped = 5'i32
-proc `$`*(v: MediaPlayerState): string =
-  case ord(v)
-  of 0: "Closed"
-  of 1: "Opening"
-  of 2: "Buffering"
-  of 3: "Playing"
-  of 4: "Paused"
-  of 5: "Stopped"
-  else: "MediaPlayerState(" & $ord(v) & ")"
+template `$`*(v: MediaPlayerState): string = enumName(v)
 
 ## Windows.Media.Playback.SphericalVideoProjectionMode  (enum)
 type SphericalVideoProjectionMode* {.pure, size: 4.} = enum
   Spherical = 0'i32
   Flat = 1'i32
-proc `$`*(v: SphericalVideoProjectionMode): string =
-  case ord(v)
-  of 0: "Spherical"
-  of 1: "Flat"
-  else: "SphericalVideoProjectionMode(" & $ord(v) & ")"
+template `$`*(v: SphericalVideoProjectionMode): string = enumName(v)
 
 ## Windows.Media.Playback.StereoscopicVideoRenderMode  (enum)
 type StereoscopicVideoRenderMode* {.pure, size: 4.} = enum
   Mono = 0'i32
   Stereo = 1'i32
-proc `$`*(v: StereoscopicVideoRenderMode): string =
-  case ord(v)
-  of 0: "Mono"
-  of 1: "Stereo"
-  else: "StereoscopicVideoRenderMode(" & $ord(v) & ")"
+template `$`*(v: StereoscopicVideoRenderMode): string = enumName(v)
 
 ## Windows.Media.Playback.TimedMetadataTrackPresentationMode  (enum)
 type TimedMetadataTrackPresentationMode* {.pure, size: 4.} = enum
@@ -16453,25 +10456,14 @@ type TimedMetadataTrackPresentationMode* {.pure, size: 4.} = enum
   Hidden = 1'i32
   ApplicationPresented = 2'i32
   PlatformPresented = 3'i32
-proc `$`*(v: TimedMetadataTrackPresentationMode): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "Hidden"
-  of 2: "ApplicationPresented"
-  of 3: "PlatformPresented"
-  else: "TimedMetadataTrackPresentationMode(" & $ord(v) & ")"
+template `$`*(v: TimedMetadataTrackPresentationMode): string = enumName(v)
 
 ## Windows.Media.Playlists.PlaylistFormat  (enum)
 type PlaylistFormat* {.pure, size: 4.} = enum
   WindowsMedia = 0'i32
   Zune = 1'i32
   M3u = 2'i32
-proc `$`*(v: PlaylistFormat): string =
-  case ord(v)
-  of 0: "WindowsMedia"
-  of 1: "Zune"
-  of 2: "M3u"
-  else: "PlaylistFormat(" & $ord(v) & ")"
+template `$`*(v: PlaylistFormat): string = enumName(v)
 
 ## Windows.Media.Protection.GraphicsTrustStatus  (enum)
 type GraphicsTrustStatus* {.pure, size: 4.} = enum
@@ -16481,27 +10473,14 @@ type GraphicsTrustStatus* {.pure, size: 4.} = enum
   DriverNotSupported = 3'i32
   DriverSigningFailure = 4'i32
   UnknownFailure = 5'i32
-proc `$`*(v: GraphicsTrustStatus): string =
-  case ord(v)
-  of 0: "TrustNotRequired"
-  of 1: "TrustEstablished"
-  of 2: "EnvironmentNotSupported"
-  of 3: "DriverNotSupported"
-  of 4: "DriverSigningFailure"
-  of 5: "UnknownFailure"
-  else: "GraphicsTrustStatus(" & $ord(v) & ")"
+template `$`*(v: GraphicsTrustStatus): string = enumName(v)
 
 ## Windows.Media.Protection.HdcpProtection  (enum)
 type HdcpProtection* {.pure, size: 4.} = enum
   Off = 0'i32
   On = 1'i32
   OnWithTypeEnforcement = 2'i32
-proc `$`*(v: HdcpProtection): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "On"
-  of 2: "OnWithTypeEnforcement"
-  else: "HdcpProtection(" & $ord(v) & ")"
+template `$`*(v: HdcpProtection): string = enumName(v)
 
 ## Windows.Media.Protection.HdcpSetProtectionResult  (enum)
 type HdcpSetProtectionResult* {.pure, size: 4.} = enum
@@ -16509,13 +10488,7 @@ type HdcpSetProtectionResult* {.pure, size: 4.} = enum
   TimedOut = 1'i32
   NotSupported = 2'i32
   UnknownFailure = 3'i32
-proc `$`*(v: HdcpSetProtectionResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "TimedOut"
-  of 2: "NotSupported"
-  of 3: "UnknownFailure"
-  else: "HdcpSetProtectionResult(" & $ord(v) & ")"
+template `$`*(v: HdcpSetProtectionResult): string = enumName(v)
 
 ## Windows.Media.Protection.PlayReady.NDCertificateFeature  (enum)
 type NDCertificateFeature* {.pure, size: 4.} = enum
@@ -16526,16 +10499,7 @@ type NDCertificateFeature* {.pure, size: 4.} = enum
   AntiRollBackClock = 5'i32
   CRLS = 9'i32
   PlayReady3Features = 13'i32
-proc `$`*(v: NDCertificateFeature): string =
-  case ord(v)
-  of 1: "Transmitter"
-  of 2: "Receiver"
-  of 3: "SharedCertificate"
-  of 4: "SecureClock"
-  of 5: "AntiRollBackClock"
-  of 9: "CRLS"
-  of 13: "PlayReady3Features"
-  else: "NDCertificateFeature(" & $ord(v) & ")"
+template `$`*(v: NDCertificateFeature): string = enumName(v)
 
 ## Windows.Media.Protection.PlayReady.NDCertificatePlatformID  (enum)
 type NDCertificatePlatformID* {.pure, size: 4.} = enum
@@ -16551,21 +10515,7 @@ type NDCertificatePlatformID* {.pure, size: 4.} = enum
   AndroidOnARM = 11'i32
   WindowsPhone81OnARM = 12'i32
   WindowsPhone81OnX86 = 13'i32
-proc `$`*(v: NDCertificatePlatformID): string =
-  case ord(v)
-  of 0: "Windows"
-  of 1: "OSX"
-  of 2: "WindowsOnARM"
-  of 5: "WindowsMobile7"
-  of 6: "iOSOnARM"
-  of 7: "XBoxOnPPC"
-  of 8: "WindowsPhone8OnARM"
-  of 9: "WindowsPhone8OnX86"
-  of 10: "XboxOne"
-  of 11: "AndroidOnARM"
-  of 12: "WindowsPhone81OnARM"
-  of 13: "WindowsPhone81OnX86"
-  else: "NDCertificatePlatformID(" & $ord(v) & ")"
+template `$`*(v: NDCertificatePlatformID): string = enumName(v)
 
 ## Windows.Media.Protection.PlayReady.NDCertificateType  (enum)
 type NDCertificateType* {.pure, size: 4.} = enum
@@ -16582,88 +10532,46 @@ type NDCertificateType* {.pure, size: 4.} = enum
   KeyFileSigner = 10'i32
   Server = 11'i32
   LicenseSigner = 12'i32
-proc `$`*(v: NDCertificateType): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "PC"
-  of 2: "Device"
-  of 3: "Domain"
-  of 4: "Issuer"
-  of 5: "CrlSigner"
-  of 6: "Service"
-  of 7: "Silverlight"
-  of 8: "Application"
-  of 9: "Metering"
-  of 10: "KeyFileSigner"
-  of 11: "Server"
-  of 12: "LicenseSigner"
-  else: "NDCertificateType(" & $ord(v) & ")"
+template `$`*(v: NDCertificateType): string = enumName(v)
 
 ## Windows.Media.Protection.PlayReady.NDClosedCaptionFormat  (enum)
 type NDClosedCaptionFormat* {.pure, size: 4.} = enum
   ATSC = 0'i32
   SCTE20 = 1'i32
   Unknown = 2'i32
-proc `$`*(v: NDClosedCaptionFormat): string =
-  case ord(v)
-  of 0: "ATSC"
-  of 1: "SCTE20"
-  of 2: "Unknown"
-  else: "NDClosedCaptionFormat(" & $ord(v) & ")"
+template `$`*(v: NDClosedCaptionFormat): string = enumName(v)
 
 ## Windows.Media.Protection.PlayReady.NDContentIDType  (enum)
 type NDContentIDType* {.pure, size: 4.} = enum
   KeyID = 1'i32
   PlayReadyObject = 2'i32
   Custom = 3'i32
-proc `$`*(v: NDContentIDType): string =
-  case ord(v)
-  of 1: "KeyID"
-  of 2: "PlayReadyObject"
-  of 3: "Custom"
-  else: "NDContentIDType(" & $ord(v) & ")"
+template `$`*(v: NDContentIDType): string = enumName(v)
 
 ## Windows.Media.Protection.PlayReady.NDMediaStreamType  (enum)
 type NDMediaStreamType* {.pure, size: 4.} = enum
   Audio = 1'i32
   Video = 2'i32
-proc `$`*(v: NDMediaStreamType): string =
-  case ord(v)
-  of 1: "Audio"
-  of 2: "Video"
-  else: "NDMediaStreamType(" & $ord(v) & ")"
+template `$`*(v: NDMediaStreamType): string = enumName(v)
 
 ## Windows.Media.Protection.PlayReady.NDProximityDetectionType  (enum)
 type NDProximityDetectionType* {.pure, size: 4.} = enum
   UDP = 1'i32
   TCP = 2'i32
   TransportAgnostic = 4'i32
-proc `$`*(v: NDProximityDetectionType): string =
-  case ord(v)
-  of 1: "UDP"
-  of 2: "TCP"
-  of 4: "TransportAgnostic"
-  else: "NDProximityDetectionType(" & $ord(v) & ")"
+template `$`*(v: NDProximityDetectionType): string = enumName(v)
 
 ## Windows.Media.Protection.PlayReady.NDStartAsyncOptions  (enum)
 type NDStartAsyncOptions* {.pure, size: 4.} = enum
   MutualAuthentication = 1'i32
   WaitForLicenseDescriptor = 2'i32
-proc `$`*(v: NDStartAsyncOptions): string =
-  case ord(v)
-  of 1: "MutualAuthentication"
-  of 2: "WaitForLicenseDescriptor"
-  else: "NDStartAsyncOptions(" & $ord(v) & ")"
+template `$`*(v: NDStartAsyncOptions): string = enumName(v)
 
 ## Windows.Media.Protection.PlayReady.PlayReadyDecryptorSetup  (enum)
 type PlayReadyDecryptorSetup* {.pure, size: 4.} = enum
   Uninitialized = 0'i32
   OnDemand = 1'i32
-proc `$`*(v: PlayReadyDecryptorSetup): string =
-  case ord(v)
-  of 0: "Uninitialized"
-  of 1: "OnDemand"
-  else: "PlayReadyDecryptorSetup(" & $ord(v) & ")"
+template `$`*(v: PlayReadyDecryptorSetup): string = enumName(v)
 
 ## Windows.Media.Protection.PlayReady.PlayReadyEncryptionAlgorithm  (enum)
 type PlayReadyEncryptionAlgorithm* {.pure, size: 4.} = enum
@@ -16673,49 +10581,27 @@ type PlayReadyEncryptionAlgorithm* {.pure, size: 4.} = enum
   Aes128Cbc = 5'i32
   Unspecified = 65535'i32
   Uninitialized = 2147483647'i32
-proc `$`*(v: PlayReadyEncryptionAlgorithm): string =
-  case ord(v)
-  of 0: "Unprotected"
-  of 1: "Aes128Ctr"
-  of 4: "Cocktail"
-  of 5: "Aes128Cbc"
-  of 65535: "Unspecified"
-  of 2147483647: "Uninitialized"
-  else: "PlayReadyEncryptionAlgorithm(" & $ord(v) & ")"
+template `$`*(v: PlayReadyEncryptionAlgorithm): string = enumName(v)
 
 ## Windows.Media.Protection.PlayReady.PlayReadyHardwareDRMFeatures  (enum)
 type PlayReadyHardwareDRMFeatures* {.pure, size: 4.} = enum
   HardwareDRM = 1'i32
   HEVC = 2'i32
   Aes128Cbc = 3'i32
-proc `$`*(v: PlayReadyHardwareDRMFeatures): string =
-  case ord(v)
-  of 1: "HardwareDRM"
-  of 2: "HEVC"
-  of 3: "Aes128Cbc"
-  else: "PlayReadyHardwareDRMFeatures(" & $ord(v) & ")"
+template `$`*(v: PlayReadyHardwareDRMFeatures): string = enumName(v)
 
 ## Windows.Media.Protection.PlayReady.PlayReadyITADataFormat  (enum)
 type PlayReadyITADataFormat* {.pure, size: 4.} = enum
   SerializedProperties = 0'i32
   SerializedProperties_WithContentProtectionWrapper = 1'i32
-proc `$`*(v: PlayReadyITADataFormat): string =
-  case ord(v)
-  of 0: "SerializedProperties"
-  of 1: "SerializedProperties_WithContentProtectionWrapper"
-  else: "PlayReadyITADataFormat(" & $ord(v) & ")"
+template `$`*(v: PlayReadyITADataFormat): string = enumName(v)
 
 ## Windows.Media.Protection.ProtectionCapabilityResult  (enum)
 type ProtectionCapabilityResult* {.pure, size: 4.} = enum
   NotSupported = 0'i32
   Maybe = 1'i32
   Probably = 2'i32
-proc `$`*(v: ProtectionCapabilityResult): string =
-  case ord(v)
-  of 0: "NotSupported"
-  of 1: "Maybe"
-  of 2: "Probably"
-  else: "ProtectionCapabilityResult(" & $ord(v) & ")"
+template `$`*(v: ProtectionCapabilityResult): string = enumName(v)
 
 ## Windows.Media.Protection.RenewalStatus  (enum)
 type RenewalStatus* {.pure, size: 4.} = enum
@@ -16724,14 +10610,7 @@ type RenewalStatus* {.pure, size: 4.} = enum
   UserCancelled = 2'i32
   AppComponentsMayNeedUpdating = 3'i32
   NoComponentsFound = 4'i32
-proc `$`*(v: RenewalStatus): string =
-  case ord(v)
-  of 0: "NotStarted"
-  of 1: "UpdatesInProgress"
-  of 2: "UserCancelled"
-  of 3: "AppComponentsMayNeedUpdating"
-  of 4: "NoComponentsFound"
-  else: "RenewalStatus(" & $ord(v) & ")"
+template `$`*(v: RenewalStatus): string = enumName(v)
 
 ## Windows.Media.Protection.RevocationAndRenewalReasons  (enum)
 type RevocationAndRenewalReasons* = distinct uint32
@@ -16839,43 +10718,20 @@ type AudioRenderCategory* {.pure, size: 4.} = enum
   Speech = 9'i32
   Movie = 10'i32
   Media = 11'i32
-proc `$`*(v: AudioRenderCategory): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "ForegroundOnlyMedia"
-  of 2: "BackgroundCapableMedia"
-  of 3: "Communications"
-  of 4: "Alerts"
-  of 5: "SoundEffects"
-  of 6: "GameEffects"
-  of 7: "GameMedia"
-  of 8: "GameChat"
-  of 9: "Speech"
-  of 10: "Movie"
-  of 11: "Media"
-  else: "AudioRenderCategory(" & $ord(v) & ")"
+template `$`*(v: AudioRenderCategory): string = enumName(v)
 
 ## Windows.Media.SoundLevel  (enum)
 type SoundLevel* {.pure, size: 4.} = enum
   Muted = 0'i32
   Low = 1'i32
   Full = 2'i32
-proc `$`*(v: SoundLevel): string =
-  case ord(v)
-  of 0: "Muted"
-  of 1: "Low"
-  of 2: "Full"
-  else: "SoundLevel(" & $ord(v) & ")"
+template `$`*(v: SoundLevel): string = enumName(v)
 
 ## Windows.Media.SpeechRecognition.SpeechContinuousRecognitionMode  (enum)
 type SpeechContinuousRecognitionMode* {.pure, size: 4.} = enum
   Default = 0'i32
   PauseOnRecognition = 1'i32
-proc `$`*(v: SpeechContinuousRecognitionMode): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "PauseOnRecognition"
-  else: "SpeechContinuousRecognitionMode(" & $ord(v) & ")"
+template `$`*(v: SpeechContinuousRecognitionMode): string = enumName(v)
 
 ## Windows.Media.SpeechRecognition.SpeechRecognitionAudioProblem  (enum)
 type SpeechRecognitionAudioProblem* {.pure, size: 4.} = enum
@@ -16886,16 +10742,7 @@ type SpeechRecognitionAudioProblem* {.pure, size: 4.} = enum
   TooQuiet = 4'i32
   TooFast = 5'i32
   TooSlow = 6'i32
-proc `$`*(v: SpeechRecognitionAudioProblem): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "TooNoisy"
-  of 2: "NoSignal"
-  of 3: "TooLoud"
-  of 4: "TooQuiet"
-  of 5: "TooFast"
-  of 6: "TooSlow"
-  else: "SpeechRecognitionAudioProblem(" & $ord(v) & ")"
+template `$`*(v: SpeechRecognitionAudioProblem): string = enumName(v)
 
 ## Windows.Media.SpeechRecognition.SpeechRecognitionConfidence  (enum)
 type SpeechRecognitionConfidence* {.pure, size: 4.} = enum
@@ -16903,25 +10750,14 @@ type SpeechRecognitionConfidence* {.pure, size: 4.} = enum
   Medium = 1'i32
   Low = 2'i32
   Rejected = 3'i32
-proc `$`*(v: SpeechRecognitionConfidence): string =
-  case ord(v)
-  of 0: "High"
-  of 1: "Medium"
-  of 2: "Low"
-  of 3: "Rejected"
-  else: "SpeechRecognitionConfidence(" & $ord(v) & ")"
+template `$`*(v: SpeechRecognitionConfidence): string = enumName(v)
 
 ## Windows.Media.SpeechRecognition.SpeechRecognitionConstraintProbability  (enum)
 type SpeechRecognitionConstraintProbability* {.pure, size: 4.} = enum
   Default = 0'i32
   Min = 1'i32
   Max = 2'i32
-proc `$`*(v: SpeechRecognitionConstraintProbability): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Min"
-  of 2: "Max"
-  else: "SpeechRecognitionConstraintProbability(" & $ord(v) & ")"
+template `$`*(v: SpeechRecognitionConstraintProbability): string = enumName(v)
 
 ## Windows.Media.SpeechRecognition.SpeechRecognitionConstraintType  (enum)
 type SpeechRecognitionConstraintType* {.pure, size: 4.} = enum
@@ -16929,13 +10765,7 @@ type SpeechRecognitionConstraintType* {.pure, size: 4.} = enum
   List = 1'i32
   Grammar = 2'i32
   VoiceCommandDefinition = 3'i32
-proc `$`*(v: SpeechRecognitionConstraintType): string =
-  case ord(v)
-  of 0: "Topic"
-  of 1: "List"
-  of 2: "Grammar"
-  of 3: "VoiceCommandDefinition"
-  else: "SpeechRecognitionConstraintType(" & $ord(v) & ")"
+template `$`*(v: SpeechRecognitionConstraintType): string = enumName(v)
 
 ## Windows.Media.SpeechRecognition.SpeechRecognitionResultStatus  (enum)
 type SpeechRecognitionResultStatus* {.pure, size: 4.} = enum
@@ -16950,32 +10780,14 @@ type SpeechRecognitionResultStatus* {.pure, size: 4.} = enum
   PauseLimitExceeded = 8'i32
   NetworkFailure = 9'i32
   MicrophoneUnavailable = 10'i32
-proc `$`*(v: SpeechRecognitionResultStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "TopicLanguageNotSupported"
-  of 2: "GrammarLanguageMismatch"
-  of 3: "GrammarCompilationFailure"
-  of 4: "AudioQualityFailure"
-  of 5: "UserCanceled"
-  of 6: "Unknown"
-  of 7: "TimeoutExceeded"
-  of 8: "PauseLimitExceeded"
-  of 9: "NetworkFailure"
-  of 10: "MicrophoneUnavailable"
-  else: "SpeechRecognitionResultStatus(" & $ord(v) & ")"
+template `$`*(v: SpeechRecognitionResultStatus): string = enumName(v)
 
 ## Windows.Media.SpeechRecognition.SpeechRecognitionScenario  (enum)
 type SpeechRecognitionScenario* {.pure, size: 4.} = enum
   WebSearch = 0'i32
   Dictation = 1'i32
   FormFilling = 2'i32
-proc `$`*(v: SpeechRecognitionScenario): string =
-  case ord(v)
-  of 0: "WebSearch"
-  of 1: "Dictation"
-  of 2: "FormFilling"
-  else: "SpeechRecognitionScenario(" & $ord(v) & ")"
+template `$`*(v: SpeechRecognitionScenario): string = enumName(v)
 
 ## Windows.Media.SpeechRecognition.SpeechRecognizerState  (enum)
 type SpeechRecognizerState* {.pure, size: 4.} = enum
@@ -16986,46 +10798,25 @@ type SpeechRecognizerState* {.pure, size: 4.} = enum
   SoundEnded = 4'i32
   SpeechDetected = 5'i32
   Paused = 6'i32
-proc `$`*(v: SpeechRecognizerState): string =
-  case ord(v)
-  of 0: "Idle"
-  of 1: "Capturing"
-  of 2: "Processing"
-  of 3: "SoundStarted"
-  of 4: "SoundEnded"
-  of 5: "SpeechDetected"
-  of 6: "Paused"
-  else: "SpeechRecognizerState(" & $ord(v) & ")"
+template `$`*(v: SpeechRecognizerState): string = enumName(v)
 
 ## Windows.Media.SpeechSynthesis.SpeechAppendedSilence  (enum)
 type SpeechAppendedSilence* {.pure, size: 4.} = enum
   Default = 0'i32
   Min = 1'i32
-proc `$`*(v: SpeechAppendedSilence): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Min"
-  else: "SpeechAppendedSilence(" & $ord(v) & ")"
+template `$`*(v: SpeechAppendedSilence): string = enumName(v)
 
 ## Windows.Media.SpeechSynthesis.SpeechPunctuationSilence  (enum)
 type SpeechPunctuationSilence* {.pure, size: 4.} = enum
   Default = 0'i32
   Min = 1'i32
-proc `$`*(v: SpeechPunctuationSilence): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Min"
-  else: "SpeechPunctuationSilence(" & $ord(v) & ")"
+template `$`*(v: SpeechPunctuationSilence): string = enumName(v)
 
 ## Windows.Media.SpeechSynthesis.VoiceGender  (enum)
 type VoiceGender* {.pure, size: 4.} = enum
   Male = 0'i32
   Female = 1'i32
-proc `$`*(v: VoiceGender): string =
-  case ord(v)
-  of 0: "Male"
-  of 1: "Female"
-  else: "VoiceGender(" & $ord(v) & ")"
+template `$`*(v: VoiceGender): string = enumName(v)
 
 ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceCreationStatus  (enum)
 type AdaptiveMediaSourceCreationStatus* {.pure, size: 4.} = enum
@@ -17036,16 +10827,7 @@ type AdaptiveMediaSourceCreationStatus* {.pure, size: 4.} = enum
   UnsupportedManifestVersion = 4'i32
   UnsupportedManifestProfile = 5'i32
   UnknownFailure = 6'i32
-proc `$`*(v: AdaptiveMediaSourceCreationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "ManifestDownloadFailure"
-  of 2: "ManifestParseFailure"
-  of 3: "UnsupportedManifestContentType"
-  of 4: "UnsupportedManifestVersion"
-  of 5: "UnsupportedManifestProfile"
-  of 6: "UnknownFailure"
-  else: "AdaptiveMediaSourceCreationStatus(" & $ord(v) & ")"
+template `$`*(v: AdaptiveMediaSourceCreationStatus): string = enumName(v)
 
 ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticType  (enum)
 type AdaptiveMediaSourceDiagnosticType* {.pure, size: 4.} = enum
@@ -17058,18 +10840,7 @@ type AdaptiveMediaSourceDiagnosticType* {.pure, size: 4.} = enum
   ResourceParsingError = 6'i32
   BitrateDisabled = 7'i32
   FatalMediaSourceError = 8'i32
-proc `$`*(v: AdaptiveMediaSourceDiagnosticType): string =
-  case ord(v)
-  of 0: "ManifestUnchangedUponReload"
-  of 1: "ManifestMismatchUponReload"
-  of 2: "ManifestSignaledEndOfLiveEventUponReload"
-  of 3: "MediaSegmentSkipped"
-  of 4: "ResourceNotFound"
-  of 5: "ResourceTimedOut"
-  of 6: "ResourceParsingError"
-  of 7: "BitrateDisabled"
-  of 8: "FatalMediaSourceError"
-  else: "AdaptiveMediaSourceDiagnosticType(" & $ord(v) & ")"
+template `$`*(v: AdaptiveMediaSourceDiagnosticType): string = enumName(v)
 
 ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadBitrateChangedReason  (enum)
 type AdaptiveMediaSourceDownloadBitrateChangedReason* {.pure, size: 4.} = enum
@@ -17080,16 +10851,7 @@ type AdaptiveMediaSourceDownloadBitrateChangedReason* {.pure, size: 4.} = enum
   TrackSelectionChanged = 4'i32
   DesiredBitratesChanged = 5'i32
   ErrorInPreviousBitrate = 6'i32
-proc `$`*(v: AdaptiveMediaSourceDownloadBitrateChangedReason): string =
-  case ord(v)
-  of 0: "SufficientInboundBitsPerSecond"
-  of 1: "InsufficientInboundBitsPerSecond"
-  of 2: "LowBufferLevel"
-  of 3: "PositionChanged"
-  of 4: "TrackSelectionChanged"
-  of 5: "DesiredBitratesChanged"
-  of 6: "ErrorInPreviousBitrate"
-  else: "AdaptiveMediaSourceDownloadBitrateChangedReason(" & $ord(v) & ")"
+template `$`*(v: AdaptiveMediaSourceDownloadBitrateChangedReason): string = enumName(v)
 
 ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceResourceType  (enum)
 type AdaptiveMediaSourceResourceType* {.pure, size: 4.} = enum
@@ -17099,15 +10861,7 @@ type AdaptiveMediaSourceResourceType* {.pure, size: 4.} = enum
   Key = 3'i32
   InitializationVector = 4'i32
   MediaSegmentIndex = 5'i32
-proc `$`*(v: AdaptiveMediaSourceResourceType): string =
-  case ord(v)
-  of 0: "Manifest"
-  of 1: "InitializationSegment"
-  of 2: "MediaSegment"
-  of 3: "Key"
-  of 4: "InitializationVector"
-  of 5: "MediaSegmentIndex"
-  else: "AdaptiveMediaSourceResourceType(" & $ord(v) & ")"
+template `$`*(v: AdaptiveMediaSourceResourceType): string = enumName(v)
 
 ## Windows.Media.SystemMediaTransportControlsButton  (enum)
 type SystemMediaTransportControlsButton* {.pure, size: 4.} = enum
@@ -17121,37 +10875,18 @@ type SystemMediaTransportControlsButton* {.pure, size: 4.} = enum
   Previous = 7'i32
   ChannelUp = 8'i32
   ChannelDown = 9'i32
-proc `$`*(v: SystemMediaTransportControlsButton): string =
-  case ord(v)
-  of 0: "Play"
-  of 1: "Pause"
-  of 2: "Stop"
-  of 3: "Record"
-  of 4: "FastForward"
-  of 5: "Rewind"
-  of 6: "Next"
-  of 7: "Previous"
-  of 8: "ChannelUp"
-  of 9: "ChannelDown"
-  else: "SystemMediaTransportControlsButton(" & $ord(v) & ")"
+template `$`*(v: SystemMediaTransportControlsButton): string = enumName(v)
 
 ## Windows.Media.SystemMediaTransportControlsProperty  (enum)
 type SystemMediaTransportControlsProperty* {.pure, size: 4.} = enum
   SoundLevel = 0'i32
-proc `$`*(v: SystemMediaTransportControlsProperty): string =
-  case ord(v)
-  of 0: "SoundLevel"
-  else: "SystemMediaTransportControlsProperty(" & $ord(v) & ")"
+template `$`*(v: SystemMediaTransportControlsProperty): string = enumName(v)
 
 ## Windows.Media.Transcoding.MediaVideoProcessingAlgorithm  (enum)
 type MediaVideoProcessingAlgorithm* {.pure, size: 4.} = enum
   Default = 0'i32
   MrfCrf444 = 1'i32
-proc `$`*(v: MediaVideoProcessingAlgorithm): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "MrfCrf444"
-  else: "MediaVideoProcessingAlgorithm(" & $ord(v) & ")"
+template `$`*(v: MediaVideoProcessingAlgorithm): string = enumName(v)
 
 ## Windows.Media.Transcoding.TranscodeFailureReason  (enum)
 type TranscodeFailureReason* {.pure, size: 4.} = enum
@@ -17159,47 +10894,27 @@ type TranscodeFailureReason* {.pure, size: 4.} = enum
   Unknown = 1'i32
   InvalidProfile = 2'i32
   CodecNotFound = 3'i32
-proc `$`*(v: TranscodeFailureReason): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Unknown"
-  of 2: "InvalidProfile"
-  of 3: "CodecNotFound"
-  else: "TranscodeFailureReason(" & $ord(v) & ")"
+template `$`*(v: TranscodeFailureReason): string = enumName(v)
 
 ## Windows.Networking.BackgroundTransfer.BackgroundTransferBehavior  (enum)
 type BackgroundTransferBehavior* {.pure, size: 4.} = enum
   Parallel = 0'i32
   Serialized = 1'i32
-proc `$`*(v: BackgroundTransferBehavior): string =
-  case ord(v)
-  of 0: "Parallel"
-  of 1: "Serialized"
-  else: "BackgroundTransferBehavior(" & $ord(v) & ")"
+template `$`*(v: BackgroundTransferBehavior): string = enumName(v)
 
 ## Windows.Networking.BackgroundTransfer.BackgroundTransferCostPolicy  (enum)
 type BackgroundTransferCostPolicy* {.pure, size: 4.} = enum
   Default = 0'i32
   UnrestrictedOnly = 1'i32
   Always = 2'i32
-proc `$`*(v: BackgroundTransferCostPolicy): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "UnrestrictedOnly"
-  of 2: "Always"
-  else: "BackgroundTransferCostPolicy(" & $ord(v) & ")"
+template `$`*(v: BackgroundTransferCostPolicy): string = enumName(v)
 
 ## Windows.Networking.BackgroundTransfer.BackgroundTransferPriority  (enum)
 type BackgroundTransferPriority* {.pure, size: 4.} = enum
   Default = 0'i32
   High = 1'i32
   Low = 2'i32
-proc `$`*(v: BackgroundTransferPriority): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "High"
-  of 2: "Low"
-  else: "BackgroundTransferPriority(" & $ord(v) & ")"
+template `$`*(v: BackgroundTransferPriority): string = enumName(v)
 
 ## Windows.Networking.BackgroundTransfer.BackgroundTransferStatus  (enum)
 type BackgroundTransferStatus* {.pure, size: 4.} = enum
@@ -17213,19 +10928,7 @@ type BackgroundTransferStatus* {.pure, size: 4.} = enum
   Error = 7'i32
   PausedRecoverableWebErrorStatus = 8'i32
   PausedSystemPolicy = 32'i32
-proc `$`*(v: BackgroundTransferStatus): string =
-  case ord(v)
-  of 0: "Idle"
-  of 1: "Running"
-  of 2: "PausedByApplication"
-  of 3: "PausedCostedNetwork"
-  of 4: "PausedNoNetwork"
-  of 5: "Completed"
-  of 6: "Canceled"
-  of 7: "Error"
-  of 8: "PausedRecoverableWebErrorStatus"
-  of 32: "PausedSystemPolicy"
-  else: "BackgroundTransferStatus(" & $ord(v) & ")"
+template `$`*(v: BackgroundTransferStatus): string = enumName(v)
 
 ## Windows.Networking.Connectivity.CellularApnAuthenticationType  (enum)
 type CellularApnAuthenticationType* {.pure, size: 4.} = enum
@@ -17233,13 +10936,7 @@ type CellularApnAuthenticationType* {.pure, size: 4.} = enum
   Pap = 1'i32
   Chap = 2'i32
   Mschapv2 = 3'i32
-proc `$`*(v: CellularApnAuthenticationType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Pap"
-  of 2: "Chap"
-  of 3: "Mschapv2"
-  else: "CellularApnAuthenticationType(" & $ord(v) & ")"
+template `$`*(v: CellularApnAuthenticationType): string = enumName(v)
 
 ## Windows.Networking.Connectivity.ConnectionProfileDeleteStatus  (enum)
 type ConnectionProfileDeleteStatus* {.pure, size: 4.} = enum
@@ -17247,13 +10944,7 @@ type ConnectionProfileDeleteStatus* {.pure, size: 4.} = enum
   DeniedByUser = 1'i32
   DeniedBySystem = 2'i32
   UnknownError = 3'i32
-proc `$`*(v: ConnectionProfileDeleteStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "DeniedByUser"
-  of 2: "DeniedBySystem"
-  of 3: "UnknownError"
-  else: "ConnectionProfileDeleteStatus(" & $ord(v) & ")"
+template `$`*(v: ConnectionProfileDeleteStatus): string = enumName(v)
 
 ## Windows.Networking.Connectivity.DataUsageGranularity  (enum)
 type DataUsageGranularity* {.pure, size: 4.} = enum
@@ -17261,37 +10952,21 @@ type DataUsageGranularity* {.pure, size: 4.} = enum
   PerHour = 1'i32
   PerDay = 2'i32
   Total = 3'i32
-proc `$`*(v: DataUsageGranularity): string =
-  case ord(v)
-  of 0: "PerMinute"
-  of 1: "PerHour"
-  of 2: "PerDay"
-  of 3: "Total"
-  else: "DataUsageGranularity(" & $ord(v) & ")"
+template `$`*(v: DataUsageGranularity): string = enumName(v)
 
 ## Windows.Networking.Connectivity.DomainAuthenticationKind  (enum)
 type DomainAuthenticationKind* {.pure, size: 4.} = enum
   None = 0'i32
   Ldap = 1'i32
   Tls = 2'i32
-proc `$`*(v: DomainAuthenticationKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Ldap"
-  of 2: "Tls"
-  else: "DomainAuthenticationKind(" & $ord(v) & ")"
+template `$`*(v: DomainAuthenticationKind): string = enumName(v)
 
 ## Windows.Networking.Connectivity.DomainConnectivityLevel  (enum)
 type DomainConnectivityLevel* {.pure, size: 4.} = enum
   None = 0'i32
   Unauthenticated = 1'i32
   Authenticated = 2'i32
-proc `$`*(v: DomainConnectivityLevel): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Unauthenticated"
-  of 2: "Authenticated"
-  else: "DomainConnectivityLevel(" & $ord(v) & ")"
+template `$`*(v: DomainConnectivityLevel): string = enumName(v)
 
 ## Windows.Networking.Connectivity.NetworkAuthenticationType  (enum)
 type NetworkAuthenticationType* {.pure, size: 4.} = enum
@@ -17310,23 +10985,7 @@ type NetworkAuthenticationType* {.pure, size: 4.} = enum
   Owe = 12'i32
   Wpa3Enterprise = 13'i32
 const NetworkAuthenticationType_Wpa3Enterprise192Bits* = NetworkAuthenticationType.Wpa3
-proc `$`*(v: NetworkAuthenticationType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Unknown"
-  of 2: "Open80211"
-  of 3: "SharedKey80211"
-  of 4: "Wpa"
-  of 5: "WpaPsk"
-  of 6: "WpaNone"
-  of 7: "Rsna"
-  of 8: "RsnaPsk"
-  of 9: "Ihv"
-  of 10: "Wpa3"
-  of 11: "Wpa3Sae"
-  of 12: "Owe"
-  of 13: "Wpa3Enterprise"
-  else: "NetworkAuthenticationType(" & $ord(v) & ")"
+template `$`*(v: NetworkAuthenticationType): string = enumName(v)
 
 ## Windows.Networking.Connectivity.NetworkConnectivityLevel  (enum)
 type NetworkConnectivityLevel* {.pure, size: 4.} = enum
@@ -17334,13 +10993,7 @@ type NetworkConnectivityLevel* {.pure, size: 4.} = enum
   LocalAccess = 1'i32
   ConstrainedInternetAccess = 2'i32
   InternetAccess = 3'i32
-proc `$`*(v: NetworkConnectivityLevel): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "LocalAccess"
-  of 2: "ConstrainedInternetAccess"
-  of 3: "InternetAccess"
-  else: "NetworkConnectivityLevel(" & $ord(v) & ")"
+template `$`*(v: NetworkConnectivityLevel): string = enumName(v)
 
 ## Windows.Networking.Connectivity.NetworkCostType  (enum)
 type NetworkCostType* {.pure, size: 4.} = enum
@@ -17348,13 +11001,7 @@ type NetworkCostType* {.pure, size: 4.} = enum
   Unrestricted = 1'i32
   Fixed = 2'i32
   Variable = 3'i32
-proc `$`*(v: NetworkCostType): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Unrestricted"
-  of 2: "Fixed"
-  of 3: "Variable"
-  else: "NetworkCostType(" & $ord(v) & ")"
+template `$`*(v: NetworkCostType): string = enumName(v)
 
 ## Windows.Networking.Connectivity.NetworkEncryptionType  (enum)
 type NetworkEncryptionType* {.pure, size: 4.} = enum
@@ -17370,21 +11017,7 @@ type NetworkEncryptionType* {.pure, size: 4.} = enum
   Ihv = 9'i32
   Gcmp = 10'i32
   Gcmp256 = 11'i32
-proc `$`*(v: NetworkEncryptionType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Unknown"
-  of 2: "Wep"
-  of 3: "Wep40"
-  of 4: "Wep104"
-  of 5: "Tkip"
-  of 6: "Ccmp"
-  of 7: "WpaUseGroup"
-  of 8: "RsnUseGroup"
-  of 9: "Ihv"
-  of 10: "Gcmp"
-  of 11: "Gcmp256"
-  else: "NetworkEncryptionType(" & $ord(v) & ")"
+template `$`*(v: NetworkEncryptionType): string = enumName(v)
 
 ## Windows.Networking.Connectivity.NetworkTypes  (enum)
 type NetworkTypes* = distinct uint32
@@ -17447,12 +11080,7 @@ type TriStates* {.pure, size: 4.} = enum
   DoNotCare = 0'i32
   No = 1'i32
   Yes = 2'i32
-proc `$`*(v: TriStates): string =
-  case ord(v)
-  of 0: "DoNotCare"
-  of 1: "No"
-  of 2: "Yes"
-  else: "TriStates(" & $ord(v) & ")"
+template `$`*(v: TriStates): string = enumName(v)
 
 ## Windows.Networking.Connectivity.WwanDataClass  (enum)
 type WwanDataClass* = distinct uint32
@@ -17559,14 +11187,7 @@ type WwanNetworkIPKind* {.pure, size: 4.} = enum
   Ipv6 = 2'i32
   Ipv4v6 = 3'i32
   Ipv4v6v4Xlat = 4'i32
-proc `$`*(v: WwanNetworkIPKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Ipv4"
-  of 2: "Ipv6"
-  of 3: "Ipv4v6"
-  of 4: "Ipv4v6v4Xlat"
-  else: "WwanNetworkIPKind(" & $ord(v) & ")"
+template `$`*(v: WwanNetworkIPKind): string = enumName(v)
 
 ## Windows.Networking.Connectivity.WwanNetworkRegistrationState  (enum)
 type WwanNetworkRegistrationState* {.pure, size: 4.} = enum
@@ -17577,26 +11198,13 @@ type WwanNetworkRegistrationState* {.pure, size: 4.} = enum
   Roaming = 4'i32
   Partner = 5'i32
   Denied = 6'i32
-proc `$`*(v: WwanNetworkRegistrationState): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Deregistered"
-  of 2: "Searching"
-  of 3: "Home"
-  of 4: "Roaming"
-  of 5: "Partner"
-  of 6: "Denied"
-  else: "WwanNetworkRegistrationState(" & $ord(v) & ")"
+template `$`*(v: WwanNetworkRegistrationState): string = enumName(v)
 
 ## Windows.Networking.DomainNameType  (enum)
 type DomainNameType* {.pure, size: 4.} = enum
   Suffix = 0'i32
   FullyQualified = 1'i32
-proc `$`*(v: DomainNameType): string =
-  case ord(v)
-  of 0: "Suffix"
-  of 1: "FullyQualified"
-  else: "DomainNameType(" & $ord(v) & ")"
+template `$`*(v: DomainNameType): string = enumName(v)
 
 ## Windows.Networking.HostNameSortOptions  (enum)
 type HostNameSortOptions* = distinct uint32
@@ -17627,13 +11235,7 @@ type HostNameType* {.pure, size: 4.} = enum
   Ipv4 = 1'i32
   Ipv6 = 2'i32
   Bluetooth = 3'i32
-proc `$`*(v: HostNameType): string =
-  case ord(v)
-  of 0: "DomainName"
-  of 1: "Ipv4"
-  of 2: "Ipv6"
-  of 3: "Bluetooth"
-  else: "HostNameType(" & $ord(v) & ")"
+template `$`*(v: HostNameType): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.DataClasses  (enum)
 type DataClasses* = distinct uint32
@@ -17738,24 +11340,14 @@ type ESimAuthenticationPreference* {.pure, size: 4.} = enum
   OnEntry = 0'i32
   OnAction = 1'i32
   Never = 2'i32
-proc `$`*(v: ESimAuthenticationPreference): string =
-  case ord(v)
-  of 0: "OnEntry"
-  of 1: "OnAction"
-  of 2: "Never"
-  else: "ESimAuthenticationPreference(" & $ord(v) & ")"
+template `$`*(v: ESimAuthenticationPreference): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.ESimDiscoverResultKind  (enum)
 type ESimDiscoverResultKind* {.pure, size: 4.} = enum
   None = 0'i32
   Events = 1'i32
   ProfileMetadata = 2'i32
-proc `$`*(v: ESimDiscoverResultKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Events"
-  of 2: "ProfileMetadata"
-  else: "ESimDiscoverResultKind(" & $ord(v) & ")"
+template `$`*(v: ESimDiscoverResultKind): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.ESimOperationStatus  (enum)
 type ESimOperationStatus* {.pure, size: 4.} = enum
@@ -17788,50 +11380,14 @@ type ESimOperationStatus* {.pure, size: 4.} = enum
   ProfileProcessingError = 26'i32
   ServerNotTrusted = 27'i32
   ProfileDownloadMaxRetriesExceeded = 28'i32
-proc `$`*(v: ESimOperationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "NotAuthorized"
-  of 2: "NotFound"
-  of 3: "PolicyViolation"
-  of 4: "InsufficientSpaceOnCard"
-  of 5: "ServerFailure"
-  of 6: "ServerNotReachable"
-  of 7: "TimeoutWaitingForUserConsent"
-  of 8: "IncorrectConfirmationCode"
-  of 9: "ConfirmationCodeMaxRetriesExceeded"
-  of 10: "CardRemoved"
-  of 11: "CardBusy"
-  of 12: "Other"
-  of 13: "CardGeneralFailure"
-  of 14: "ConfirmationCodeMissing"
-  of 15: "InvalidMatchingId"
-  of 16: "NoEligibleProfileForThisDevice"
-  of 17: "OperationAborted"
-  of 18: "EidMismatch"
-  of 19: "ProfileNotAvailableForNewBinding"
-  of 20: "ProfileNotReleasedByOperator"
-  of 21: "OperationProhibitedByProfileClass"
-  of 22: "ProfileNotPresent"
-  of 23: "NoCorrespondingRequest"
-  of 24: "TimeoutWaitingForResponse"
-  of 25: "IccidAlreadyExists"
-  of 26: "ProfileProcessingError"
-  of 27: "ServerNotTrusted"
-  of 28: "ProfileDownloadMaxRetriesExceeded"
-  else: "ESimOperationStatus(" & $ord(v) & ")"
+template `$`*(v: ESimOperationStatus): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.ESimProfileClass  (enum)
 type ESimProfileClass* {.pure, size: 4.} = enum
   Operational = 0'i32
   Test = 1'i32
   Provisioning = 2'i32
-proc `$`*(v: ESimProfileClass): string =
-  case ord(v)
-  of 0: "Operational"
-  of 1: "Test"
-  of 2: "Provisioning"
-  else: "ESimProfileClass(" & $ord(v) & ")"
+template `$`*(v: ESimProfileClass): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.ESimProfileMetadataState  (enum)
 type ESimProfileMetadataState* {.pure, size: 4.} = enum
@@ -17843,17 +11399,7 @@ type ESimProfileMetadataState* {.pure, size: 4.} = enum
   RejectingDownload = 5'i32
   NoLongerAvailable = 6'i32
   DeniedByPolicy = 7'i32
-proc `$`*(v: ESimProfileMetadataState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "WaitingForInstall"
-  of 2: "Downloading"
-  of 3: "Installing"
-  of 4: "Expired"
-  of 5: "RejectingDownload"
-  of 6: "NoLongerAvailable"
-  of 7: "DeniedByPolicy"
-  else: "ESimProfileMetadataState(" & $ord(v) & ")"
+template `$`*(v: ESimProfileMetadataState): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.ESimProfileState  (enum)
 type ESimProfileState* {.pure, size: 4.} = enum
@@ -17861,13 +11407,7 @@ type ESimProfileState* {.pure, size: 4.} = enum
   Disabled = 1'i32
   Enabled = 2'i32
   Deleted = 3'i32
-proc `$`*(v: ESimProfileState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Disabled"
-  of 2: "Enabled"
-  of 3: "Deleted"
-  else: "ESimProfileState(" & $ord(v) & ")"
+template `$`*(v: ESimProfileState): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.ESimState  (enum)
 type ESimState* {.pure, size: 4.} = enum
@@ -17875,13 +11415,7 @@ type ESimState* {.pure, size: 4.} = enum
   Idle = 1'i32
   Removed = 2'i32
   Busy = 3'i32
-proc `$`*(v: ESimState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Idle"
-  of 2: "Removed"
-  of 3: "Busy"
-  else: "ESimState(" & $ord(v) & ")"
+template `$`*(v: ESimState): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.ESimWatcherStatus  (enum)
 type ESimWatcherStatus* {.pure, size: 4.} = enum
@@ -17890,14 +11424,7 @@ type ESimWatcherStatus* {.pure, size: 4.} = enum
   EnumerationCompleted = 2'i32
   Stopping = 3'i32
   Stopped = 4'i32
-proc `$`*(v: ESimWatcherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "EnumerationCompleted"
-  of 3: "Stopping"
-  of 4: "Stopped"
-  else: "ESimWatcherStatus(" & $ord(v) & ")"
+template `$`*(v: ESimWatcherStatus): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.HotspotAuthenticationResponseCode  (enum)
 type HotspotAuthenticationResponseCode* {.pure, size: 4.} = enum
@@ -17908,16 +11435,7 @@ type HotspotAuthenticationResponseCode* {.pure, size: 4.} = enum
   NetworkAdministratorError = 105'i32
   LoginAborted = 151'i32
   AccessGatewayInternalError = 255'i32
-proc `$`*(v: HotspotAuthenticationResponseCode): string =
-  case ord(v)
-  of 0: "NoError"
-  of 50: "LoginSucceeded"
-  of 100: "LoginFailed"
-  of 102: "RadiusServerError"
-  of 105: "NetworkAdministratorError"
-  of 151: "LoginAborted"
-  of 255: "AccessGatewayInternalError"
-  else: "HotspotAuthenticationResponseCode(" & $ord(v) & ")"
+template `$`*(v: HotspotAuthenticationResponseCode): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcherStatus  (enum)
 type MobileBroadbandAccountWatcherStatus* {.pure, size: 4.} = enum
@@ -17926,14 +11444,7 @@ type MobileBroadbandAccountWatcherStatus* {.pure, size: 4.} = enum
   EnumerationCompleted = 2'i32
   Stopped = 3'i32
   Aborted = 4'i32
-proc `$`*(v: MobileBroadbandAccountWatcherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "EnumerationCompleted"
-  of 3: "Stopped"
-  of 4: "Aborted"
-  else: "MobileBroadbandAccountWatcherStatus(" & $ord(v) & ")"
+template `$`*(v: MobileBroadbandAccountWatcherStatus): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceType  (enum)
 type MobileBroadbandDeviceType* {.pure, size: 4.} = enum
@@ -17941,13 +11452,7 @@ type MobileBroadbandDeviceType* {.pure, size: 4.} = enum
   Embedded = 1'i32
   Removable = 2'i32
   Remote = 3'i32
-proc `$`*(v: MobileBroadbandDeviceType): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Embedded"
-  of 2: "Removable"
-  of 3: "Remote"
-  else: "MobileBroadbandDeviceType(" & $ord(v) & ")"
+template `$`*(v: MobileBroadbandDeviceType): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandModemStatus  (enum)
 type MobileBroadbandModemStatus* {.pure, size: 4.} = enum
@@ -17955,25 +11460,14 @@ type MobileBroadbandModemStatus* {.pure, size: 4.} = enum
   OtherFailure = 1'i32
   Busy = 2'i32
   NoDeviceSupport = 3'i32
-proc `$`*(v: MobileBroadbandModemStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "OtherFailure"
-  of 2: "Busy"
-  of 3: "NoDeviceSupport"
-  else: "MobileBroadbandModemStatus(" & $ord(v) & ")"
+template `$`*(v: MobileBroadbandModemStatus): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandPinFormat  (enum)
 type MobileBroadbandPinFormat* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Numeric = 1'i32
   Alphanumeric = 2'i32
-proc `$`*(v: MobileBroadbandPinFormat): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Numeric"
-  of 2: "Alphanumeric"
-  else: "MobileBroadbandPinFormat(" & $ord(v) & ")"
+template `$`*(v: MobileBroadbandPinFormat): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandPinLockState  (enum)
 type MobileBroadbandPinLockState* {.pure, size: 4.} = enum
@@ -17981,13 +11475,7 @@ type MobileBroadbandPinLockState* {.pure, size: 4.} = enum
   Unlocked = 1'i32
   PinRequired = 2'i32
   PinUnblockKeyRequired = 3'i32
-proc `$`*(v: MobileBroadbandPinLockState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Unlocked"
-  of 2: "PinRequired"
-  of 3: "PinUnblockKeyRequired"
-  else: "MobileBroadbandPinLockState(" & $ord(v) & ")"
+template `$`*(v: MobileBroadbandPinLockState): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandPinType  (enum)
 type MobileBroadbandPinType* {.pure, size: 4.} = enum
@@ -18002,30 +11490,13 @@ type MobileBroadbandPinType* {.pure, size: 4.} = enum
   ServiceProviderPin = 8'i32
   CorporatePin = 9'i32
   SubsidyLock = 10'i32
-proc `$`*(v: MobileBroadbandPinType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Custom"
-  of 2: "Pin1"
-  of 3: "Pin2"
-  of 4: "SimPin"
-  of 5: "FirstSimPin"
-  of 6: "NetworkPin"
-  of 7: "NetworkSubsetPin"
-  of 8: "ServiceProviderPin"
-  of 9: "CorporatePin"
-  of 10: "SubsidyLock"
-  else: "MobileBroadbandPinType(" & $ord(v) & ")"
+template `$`*(v: MobileBroadbandPinType): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandRadioState  (enum)
 type MobileBroadbandRadioState* {.pure, size: 4.} = enum
   Off = 0'i32
   On = 1'i32
-proc `$`*(v: MobileBroadbandRadioState): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "On"
-  else: "MobileBroadbandRadioState(" & $ord(v) & ")"
+template `$`*(v: MobileBroadbandRadioState): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandSlotState  (enum)
 type MobileBroadbandSlotState* {.pure, size: 4.} = enum
@@ -18039,19 +11510,7 @@ type MobileBroadbandSlotState* {.pure, size: 4.} = enum
   Error = 7'i32
   ActiveEsim = 8'i32
   ActiveEsimNoProfile = 9'i32
-proc `$`*(v: MobileBroadbandSlotState): string =
-  case ord(v)
-  of 0: "Unmanaged"
-  of 1: "Unknown"
-  of 2: "OffEmpty"
-  of 3: "Off"
-  of 4: "Empty"
-  of 5: "NotReady"
-  of 6: "Active"
-  of 7: "Error"
-  of 8: "ActiveEsim"
-  of 9: "ActiveEsimNoProfile"
-  else: "MobileBroadbandSlotState(" & $ord(v) & ")"
+template `$`*(v: MobileBroadbandSlotState): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandUiccAppOperationStatus  (enum)
 type MobileBroadbandUiccAppOperationStatus* {.pure, size: 4.} = enum
@@ -18059,13 +11518,7 @@ type MobileBroadbandUiccAppOperationStatus* {.pure, size: 4.} = enum
   InvalidUiccFilePath = 1'i32
   AccessConditionNotHeld = 2'i32
   UiccBusy = 3'i32
-proc `$`*(v: MobileBroadbandUiccAppOperationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "InvalidUiccFilePath"
-  of 2: "AccessConditionNotHeld"
-  of 3: "UiccBusy"
-  else: "MobileBroadbandUiccAppOperationStatus(" & $ord(v) & ")"
+template `$`*(v: MobileBroadbandUiccAppOperationStatus): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.NetworkDeviceStatus  (enum)
 type NetworkDeviceStatus* {.pure, size: 4.} = enum
@@ -18077,25 +11530,12 @@ type NetworkDeviceStatus* {.pure, size: 4.} = enum
   AccountNotActivated = 5'i32
   DeviceLocked = 6'i32
   DeviceBlocked = 7'i32
-proc `$`*(v: NetworkDeviceStatus): string =
-  case ord(v)
-  of 0: "DeviceNotReady"
-  of 1: "DeviceReady"
-  of 2: "SimNotInserted"
-  of 3: "BadSim"
-  of 4: "DeviceHardwareFailure"
-  of 5: "AccountNotActivated"
-  of 6: "DeviceLocked"
-  of 7: "DeviceBlocked"
-  else: "NetworkDeviceStatus(" & $ord(v) & ")"
+template `$`*(v: NetworkDeviceStatus): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.NetworkOperatorDataUsageNotificationKind  (enum)
 type NetworkOperatorDataUsageNotificationKind* {.pure, size: 4.} = enum
   DataUsageProgress = 0'i32
-proc `$`*(v: NetworkOperatorDataUsageNotificationKind): string =
-  case ord(v)
-  of 0: "DataUsageProgress"
-  else: "NetworkOperatorDataUsageNotificationKind(" & $ord(v) & ")"
+template `$`*(v: NetworkOperatorDataUsageNotificationKind): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.NetworkOperatorEventMessageType  (enum)
 type NetworkOperatorEventMessageType* {.pure, size: 4.} = enum
@@ -18112,22 +11552,7 @@ type NetworkOperatorEventMessageType* {.pure, size: 4.} = enum
   TetheringEntitlementCheck = 10'i32
   TetheringOperationalStateChanged = 11'i32
   TetheringNumberOfClientsChanged = 12'i32
-proc `$`*(v: NetworkOperatorEventMessageType): string =
-  case ord(v)
-  of 0: "Gsm"
-  of 1: "Cdma"
-  of 2: "Ussd"
-  of 3: "DataPlanThresholdReached"
-  of 4: "DataPlanReset"
-  of 5: "DataPlanDeleted"
-  of 6: "ProfileConnected"
-  of 7: "ProfileDisconnected"
-  of 8: "RegisteredRoaming"
-  of 9: "RegisteredHome"
-  of 10: "TetheringEntitlementCheck"
-  of 11: "TetheringOperationalStateChanged"
-  of 12: "TetheringNumberOfClientsChanged"
-  else: "NetworkOperatorEventMessageType(" & $ord(v) & ")"
+template `$`*(v: NetworkOperatorEventMessageType): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.NetworkRegistrationState  (enum)
 type NetworkRegistrationState* {.pure, size: 4.} = enum
@@ -18138,26 +11563,13 @@ type NetworkRegistrationState* {.pure, size: 4.} = enum
   Roaming = 4'i32
   Partner = 5'i32
   Denied = 6'i32
-proc `$`*(v: NetworkRegistrationState): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Deregistered"
-  of 2: "Searching"
-  of 3: "Home"
-  of 4: "Roaming"
-  of 5: "Partner"
-  of 6: "Denied"
-  else: "NetworkRegistrationState(" & $ord(v) & ")"
+template `$`*(v: NetworkRegistrationState): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.ProfileMediaType  (enum)
 type ProfileMediaType* {.pure, size: 4.} = enum
   Wlan = 0'i32
   Wwan = 1'i32
-proc `$`*(v: ProfileMediaType): string =
-  case ord(v)
-  of 0: "Wlan"
-  of 1: "Wwan"
-  else: "ProfileMediaType(" & $ord(v) & ")"
+template `$`*(v: ProfileMediaType): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.TetheringCapability  (enum)
 type TetheringCapability* {.pure, size: 4.} = enum
@@ -18169,17 +11581,7 @@ type TetheringCapability* {.pure, size: 4.} = enum
   DisabledByRequiredAppNotInstalled = 5'i32
   DisabledDueToUnknownCause = 6'i32
   DisabledBySystemCapability = 7'i32
-proc `$`*(v: TetheringCapability): string =
-  case ord(v)
-  of 0: "Enabled"
-  of 1: "DisabledByGroupPolicy"
-  of 2: "DisabledByHardwareLimitation"
-  of 3: "DisabledByOperator"
-  of 4: "DisabledBySku"
-  of 5: "DisabledByRequiredAppNotInstalled"
-  of 6: "DisabledDueToUnknownCause"
-  of 7: "DisabledBySystemCapability"
-  else: "TetheringCapability(" & $ord(v) & ")"
+template `$`*(v: TetheringCapability): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.TetheringOperationStatus  (enum)
 type TetheringOperationStatus* {.pure, size: 4.} = enum
@@ -18195,21 +11597,7 @@ type TetheringOperationStatus* {.pure, size: 4.} = enum
   AlreadyOn = 9'i32
   RadioRestriction = 10'i32
   BandInterference = 11'i32
-proc `$`*(v: TetheringOperationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "Unknown"
-  of 2: "MobileBroadbandDeviceOff"
-  of 3: "WiFiDeviceOff"
-  of 4: "EntitlementCheckTimeout"
-  of 5: "EntitlementCheckFailure"
-  of 6: "OperationInProgress"
-  of 7: "BluetoothDeviceOff"
-  of 8: "NetworkLimitedConnectivity"
-  of 9: "AlreadyOn"
-  of 10: "RadioRestriction"
-  of 11: "BandInterference"
-  else: "TetheringOperationStatus(" & $ord(v) & ")"
+template `$`*(v: TetheringOperationStatus): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.TetheringOperationalState  (enum)
 type TetheringOperationalState* {.pure, size: 4.} = enum
@@ -18217,25 +11605,14 @@ type TetheringOperationalState* {.pure, size: 4.} = enum
   On = 1'i32
   Off = 2'i32
   InTransition = 3'i32
-proc `$`*(v: TetheringOperationalState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "On"
-  of 2: "Off"
-  of 3: "InTransition"
-  else: "TetheringOperationalState(" & $ord(v) & ")"
+template `$`*(v: TetheringOperationalState): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind  (enum)
 type TetheringWiFiAuthenticationKind* {.pure, size: 4.} = enum
   Wpa2 = 0'i32
   Wpa3TransitionMode = 1'i32
   Wpa3 = 2'i32
-proc `$`*(v: TetheringWiFiAuthenticationKind): string =
-  case ord(v)
-  of 0: "Wpa2"
-  of 1: "Wpa3TransitionMode"
-  of 2: "Wpa3"
-  else: "TetheringWiFiAuthenticationKind(" & $ord(v) & ")"
+template `$`*(v: TetheringWiFiAuthenticationKind): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.TetheringWiFiBand  (enum)
 type TetheringWiFiBand* {.pure, size: 4.} = enum
@@ -18243,23 +11620,13 @@ type TetheringWiFiBand* {.pure, size: 4.} = enum
   TwoPointFourGigahertz = 1'i32
   FiveGigahertz = 2'i32
   SixGigahertz = 3'i32
-proc `$`*(v: TetheringWiFiBand): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "TwoPointFourGigahertz"
-  of 2: "FiveGigahertz"
-  of 3: "SixGigahertz"
-  else: "TetheringWiFiBand(" & $ord(v) & ")"
+template `$`*(v: TetheringWiFiBand): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.TetheringWiFiPerformancePriority  (enum)
 type TetheringWiFiPerformancePriority* {.pure, size: 4.} = enum
   Default = 0'i32
   TetheringOverStation = 1'i32
-proc `$`*(v: TetheringWiFiPerformancePriority): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "TetheringOverStation"
-  else: "TetheringWiFiPerformancePriority(" & $ord(v) & ")"
+template `$`*(v: TetheringWiFiPerformancePriority): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.UiccAccessCondition  (enum)
 type UiccAccessCondition* {.pure, size: 4.} = enum
@@ -18271,17 +11638,7 @@ type UiccAccessCondition* {.pure, size: 4.} = enum
   Administrative5 = 5'i32
   Administrative6 = 6'i32
   NeverAllowed = 7'i32
-proc `$`*(v: UiccAccessCondition): string =
-  case ord(v)
-  of 0: "AlwaysAllowed"
-  of 1: "Pin1"
-  of 2: "Pin2"
-  of 3: "Pin3"
-  of 4: "Pin4"
-  of 5: "Administrative5"
-  of 6: "Administrative6"
-  of 7: "NeverAllowed"
-  else: "UiccAccessCondition(" & $ord(v) & ")"
+template `$`*(v: UiccAccessCondition): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.UiccAppKind  (enum)
 type UiccAppKind* {.pure, size: 4.} = enum
@@ -18292,28 +11649,14 @@ type UiccAppKind* {.pure, size: 4.} = enum
   USim = 4'i32
   CSim = 5'i32
   ISim = 6'i32
-proc `$`*(v: UiccAppKind): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "MF"
-  of 2: "MFSim"
-  of 3: "MFRuim"
-  of 4: "USim"
-  of 5: "CSim"
-  of 6: "ISim"
-  else: "UiccAppKind(" & $ord(v) & ")"
+template `$`*(v: UiccAppKind): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.UiccAppRecordKind  (enum)
 type UiccAppRecordKind* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Transparent = 1'i32
   RecordOriented = 2'i32
-proc `$`*(v: UiccAppRecordKind): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Transparent"
-  of 2: "RecordOriented"
-  else: "UiccAppRecordKind(" & $ord(v) & ")"
+template `$`*(v: UiccAppRecordKind): string = enumName(v)
 
 ## Windows.Networking.NetworkOperators.UssdResultCode  (enum)
 type UssdResultCode* {.pure, size: 4.} = enum
@@ -18323,15 +11666,7 @@ type UssdResultCode* {.pure, size: 4.} = enum
   OtherLocalClient = 3'i32
   OperationNotSupported = 4'i32
   NetworkTimeout = 5'i32
-proc `$`*(v: UssdResultCode): string =
-  case ord(v)
-  of 0: "NoActionRequired"
-  of 1: "ActionRequired"
-  of 2: "Terminated"
-  of 3: "OtherLocalClient"
-  of 4: "OperationNotSupported"
-  of 5: "NetworkTimeout"
-  else: "UssdResultCode(" & $ord(v) & ")"
+template `$`*(v: UssdResultCode): string = enumName(v)
 
 ## Windows.Networking.Proximity.PeerDiscoveryTypes  (enum)
 type PeerDiscoveryTypes* = distinct uint32
@@ -18366,12 +11701,7 @@ type PeerRole* {.pure, size: 4.} = enum
   Peer = 0'i32
   Host = 1'i32
   Client = 2'i32
-proc `$`*(v: PeerRole): string =
-  case ord(v)
-  of 0: "Peer"
-  of 1: "Host"
-  of 2: "Client"
-  else: "PeerRole(" & $ord(v) & ")"
+template `$`*(v: PeerRole): string = enumName(v)
 
 ## Windows.Networking.Proximity.PeerWatcherStatus  (enum)
 type PeerWatcherStatus* {.pure, size: 4.} = enum
@@ -18381,15 +11711,7 @@ type PeerWatcherStatus* {.pure, size: 4.} = enum
   Stopping = 3'i32
   Stopped = 4'i32
   Aborted = 5'i32
-proc `$`*(v: PeerWatcherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "EnumerationCompleted"
-  of 3: "Stopping"
-  of 4: "Stopped"
-  of 5: "Aborted"
-  else: "PeerWatcherStatus(" & $ord(v) & ")"
+template `$`*(v: PeerWatcherStatus): string = enumName(v)
 
 ## Windows.Networking.Proximity.TriggeredConnectState  (enum)
 type TriggeredConnectState* {.pure, size: 4.} = enum
@@ -18399,15 +11721,7 @@ type TriggeredConnectState* {.pure, size: 4.} = enum
   Completed = 3'i32
   Canceled = 4'i32
   Failed = 5'i32
-proc `$`*(v: TriggeredConnectState): string =
-  case ord(v)
-  of 0: "PeerFound"
-  of 1: "Listening"
-  of 2: "Connecting"
-  of 3: "Completed"
-  of 4: "Canceled"
-  of 5: "Failed"
-  else: "TriggeredConnectState(" & $ord(v) & ")"
+template `$`*(v: TriggeredConnectState): string = enumName(v)
 
 ## Windows.Networking.PushNotifications.PushNotificationType  (enum)
 type PushNotificationType* {.pure, size: 4.} = enum
@@ -18416,14 +11730,7 @@ type PushNotificationType* {.pure, size: 4.} = enum
   Badge = 2'i32
   Raw = 3'i32
   TileFlyout = 4'i32
-proc `$`*(v: PushNotificationType): string =
-  case ord(v)
-  of 0: "Toast"
-  of 1: "Tile"
-  of 2: "Badge"
-  of 3: "Raw"
-  of 4: "TileFlyout"
-  else: "PushNotificationType(" & $ord(v) & ")"
+template `$`*(v: PushNotificationType): string = enumName(v)
 
 ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationStatus  (enum)
 type DnssdRegistrationStatus* {.pure, size: 4.} = enum
@@ -18431,13 +11738,7 @@ type DnssdRegistrationStatus* {.pure, size: 4.} = enum
   InvalidServiceName = 1'i32
   ServerError = 2'i32
   SecurityError = 3'i32
-proc `$`*(v: DnssdRegistrationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "InvalidServiceName"
-  of 2: "ServerError"
-  of 3: "SecurityError"
-  else: "DnssdRegistrationStatus(" & $ord(v) & ")"
+template `$`*(v: DnssdRegistrationStatus): string = enumName(v)
 
 ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcherStatus  (enum)
 type DnssdServiceWatcherStatus* {.pure, size: 4.} = enum
@@ -18447,15 +11748,7 @@ type DnssdServiceWatcherStatus* {.pure, size: 4.} = enum
   Stopping = 3'i32
   Stopped = 4'i32
   Aborted = 5'i32
-proc `$`*(v: DnssdServiceWatcherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "EnumerationCompleted"
-  of 3: "Stopping"
-  of 4: "Stopped"
-  of 5: "Aborted"
-  else: "DnssdServiceWatcherStatus(" & $ord(v) & ")"
+template `$`*(v: DnssdServiceWatcherStatus): string = enumName(v)
 
 ## Windows.Networking.Sockets.ControlChannelTriggerResetReason  (enum)
 type ControlChannelTriggerResetReason* {.pure, size: 4.} = enum
@@ -18463,23 +11756,13 @@ type ControlChannelTriggerResetReason* {.pure, size: 4.} = enum
   LowPowerExit = 1'i32
   QuietHoursExit = 2'i32
   ApplicationRestart = 3'i32
-proc `$`*(v: ControlChannelTriggerResetReason): string =
-  case ord(v)
-  of 0: "FastUserSwitched"
-  of 1: "LowPowerExit"
-  of 2: "QuietHoursExit"
-  of 3: "ApplicationRestart"
-  else: "ControlChannelTriggerResetReason(" & $ord(v) & ")"
+template `$`*(v: ControlChannelTriggerResetReason): string = enumName(v)
 
 ## Windows.Networking.Sockets.ControlChannelTriggerResourceType  (enum)
 type ControlChannelTriggerResourceType* {.pure, size: 4.} = enum
   RequestSoftwareSlot = 0'i32
   RequestHardwareSlot = 1'i32
-proc `$`*(v: ControlChannelTriggerResourceType): string =
-  case ord(v)
-  of 0: "RequestSoftwareSlot"
-  of 1: "RequestHardwareSlot"
-  else: "ControlChannelTriggerResourceType(" & $ord(v) & ")"
+template `$`*(v: ControlChannelTriggerResourceType): string = enumName(v)
 
 ## Windows.Networking.Sockets.ControlChannelTriggerStatus  (enum)
 type ControlChannelTriggerStatus* {.pure, size: 4.} = enum
@@ -18490,36 +11773,19 @@ type ControlChannelTriggerStatus* {.pure, size: 4.} = enum
   SystemError = 4'i32
   TransportDisconnected = 5'i32
   ServiceUnavailable = 6'i32
-proc `$`*(v: ControlChannelTriggerStatus): string =
-  case ord(v)
-  of 0: "HardwareSlotRequested"
-  of 1: "SoftwareSlotAllocated"
-  of 2: "HardwareSlotAllocated"
-  of 3: "PolicyError"
-  of 4: "SystemError"
-  of 5: "TransportDisconnected"
-  of 6: "ServiceUnavailable"
-  else: "ControlChannelTriggerStatus(" & $ord(v) & ")"
+template `$`*(v: ControlChannelTriggerStatus): string = enumName(v)
 
 ## Windows.Networking.Sockets.MessageWebSocketReceiveMode  (enum)
 type MessageWebSocketReceiveMode* {.pure, size: 4.} = enum
   FullMessage = 0'i32
   PartialMessage = 1'i32
-proc `$`*(v: MessageWebSocketReceiveMode): string =
-  case ord(v)
-  of 0: "FullMessage"
-  of 1: "PartialMessage"
-  else: "MessageWebSocketReceiveMode(" & $ord(v) & ")"
+template `$`*(v: MessageWebSocketReceiveMode): string = enumName(v)
 
 ## Windows.Networking.Sockets.SocketActivityConnectedStandbyAction  (enum)
 type SocketActivityConnectedStandbyAction* {.pure, size: 4.} = enum
   DoNotWake = 0'i32
   Wake = 1'i32
-proc `$`*(v: SocketActivityConnectedStandbyAction): string =
-  case ord(v)
-  of 0: "DoNotWake"
-  of 1: "Wake"
-  else: "SocketActivityConnectedStandbyAction(" & $ord(v) & ")"
+template `$`*(v: SocketActivityConnectedStandbyAction): string = enumName(v)
 
 ## Windows.Networking.Sockets.SocketActivityKind  (enum)
 type SocketActivityKind* {.pure, size: 4.} = enum
@@ -18527,13 +11793,7 @@ type SocketActivityKind* {.pure, size: 4.} = enum
   StreamSocketListener = 1'i32
   DatagramSocket = 2'i32
   StreamSocket = 3'i32
-proc `$`*(v: SocketActivityKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "StreamSocketListener"
-  of 2: "DatagramSocket"
-  of 3: "StreamSocket"
-  else: "SocketActivityKind(" & $ord(v) & ")"
+template `$`*(v: SocketActivityKind): string = enumName(v)
 
 ## Windows.Networking.Sockets.SocketActivityTriggerReason  (enum)
 type SocketActivityTriggerReason* {.pure, size: 4.} = enum
@@ -18542,14 +11802,7 @@ type SocketActivityTriggerReason* {.pure, size: 4.} = enum
   ConnectionAccepted = 2'i32
   KeepAliveTimerExpired = 3'i32
   SocketClosed = 4'i32
-proc `$`*(v: SocketActivityTriggerReason): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "SocketActivity"
-  of 2: "ConnectionAccepted"
-  of 3: "KeepAliveTimerExpired"
-  of 4: "SocketClosed"
-  else: "SocketActivityTriggerReason(" & $ord(v) & ")"
+template `$`*(v: SocketActivityTriggerReason): string = enumName(v)
 
 ## Windows.Networking.Sockets.SocketErrorStatus  (enum)
 type SocketErrorStatus* {.pure, size: 4.} = enum
@@ -18584,50 +11837,13 @@ type SocketErrorStatus* {.pure, size: 4.} = enum
   CertificateNoRevocationCheck = 28'i32
   CertificateRevocationServerOffline = 29'i32
   CertificateIsInvalid = 30'i32
-proc `$`*(v: SocketErrorStatus): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "OperationAborted"
-  of 2: "HttpInvalidServerResponse"
-  of 3: "ConnectionTimedOut"
-  of 4: "AddressFamilyNotSupported"
-  of 5: "SocketTypeNotSupported"
-  of 6: "HostNotFound"
-  of 7: "NoDataRecordOfRequestedType"
-  of 8: "NonAuthoritativeHostNotFound"
-  of 9: "ClassTypeNotFound"
-  of 10: "AddressAlreadyInUse"
-  of 11: "CannotAssignRequestedAddress"
-  of 12: "ConnectionRefused"
-  of 13: "NetworkIsUnreachable"
-  of 14: "UnreachableHost"
-  of 15: "NetworkIsDown"
-  of 16: "NetworkDroppedConnectionOnReset"
-  of 17: "SoftwareCausedConnectionAbort"
-  of 18: "ConnectionResetByPeer"
-  of 19: "HostIsDown"
-  of 20: "NoAddressesFound"
-  of 21: "TooManyOpenFiles"
-  of 22: "MessageTooLong"
-  of 23: "CertificateExpired"
-  of 24: "CertificateUntrustedRoot"
-  of 25: "CertificateCommonNameIsIncorrect"
-  of 26: "CertificateWrongUsage"
-  of 27: "CertificateRevoked"
-  of 28: "CertificateNoRevocationCheck"
-  of 29: "CertificateRevocationServerOffline"
-  of 30: "CertificateIsInvalid"
-  else: "SocketErrorStatus(" & $ord(v) & ")"
+template `$`*(v: SocketErrorStatus): string = enumName(v)
 
 ## Windows.Networking.Sockets.SocketMessageType  (enum)
 type SocketMessageType* {.pure, size: 4.} = enum
   Binary = 0'i32
   Utf8 = 1'i32
-proc `$`*(v: SocketMessageType): string =
-  case ord(v)
-  of 0: "Binary"
-  of 1: "Utf8"
-  else: "SocketMessageType(" & $ord(v) & ")"
+template `$`*(v: SocketMessageType): string = enumName(v)
 
 ## Windows.Networking.Sockets.SocketProtectionLevel  (enum)
 type SocketProtectionLevel* {.pure, size: 4.} = enum
@@ -18642,54 +11858,27 @@ type SocketProtectionLevel* {.pure, size: 4.} = enum
   Tls12 = 8'i32
   Unspecified = 9'i32
   Tls13 = 10'i32
-proc `$`*(v: SocketProtectionLevel): string =
-  case ord(v)
-  of 0: "PlainSocket"
-  of 1: "Ssl"
-  of 2: "SslAllowNullEncryption"
-  of 3: "BluetoothEncryptionAllowNullAuthentication"
-  of 4: "BluetoothEncryptionWithAuthentication"
-  of 5: "Ssl3AllowWeakEncryption"
-  of 6: "Tls10"
-  of 7: "Tls11"
-  of 8: "Tls12"
-  of 9: "Unspecified"
-  of 10: "Tls13"
-  else: "SocketProtectionLevel(" & $ord(v) & ")"
+template `$`*(v: SocketProtectionLevel): string = enumName(v)
 
 ## Windows.Networking.Sockets.SocketQualityOfService  (enum)
 type SocketQualityOfService* {.pure, size: 4.} = enum
   Normal = 0'i32
   LowLatency = 1'i32
-proc `$`*(v: SocketQualityOfService): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "LowLatency"
-  else: "SocketQualityOfService(" & $ord(v) & ")"
+template `$`*(v: SocketQualityOfService): string = enumName(v)
 
 ## Windows.Networking.Sockets.SocketSslErrorSeverity  (enum)
 type SocketSslErrorSeverity* {.pure, size: 4.} = enum
   None = 0'i32
   Ignorable = 1'i32
   Fatal = 2'i32
-proc `$`*(v: SocketSslErrorSeverity): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Ignorable"
-  of 2: "Fatal"
-  else: "SocketSslErrorSeverity(" & $ord(v) & ")"
+template `$`*(v: SocketSslErrorSeverity): string = enumName(v)
 
 ## Windows.Networking.Vpn.VpnAppIdType  (enum)
 type VpnAppIdType* {.pure, size: 4.} = enum
   PackageFamilyName = 0'i32
   FullyQualifiedBinaryName = 1'i32
   FilePath = 2'i32
-proc `$`*(v: VpnAppIdType): string =
-  case ord(v)
-  of 0: "PackageFamilyName"
-  of 1: "FullyQualifiedBinaryName"
-  of 2: "FilePath"
-  else: "VpnAppIdType(" & $ord(v) & ")"
+template `$`*(v: VpnAppIdType): string = enumName(v)
 
 ## Windows.Networking.Vpn.VpnAuthenticationMethod  (enum)
 type VpnAuthenticationMethod* {.pure, size: 4.} = enum
@@ -18697,23 +11886,13 @@ type VpnAuthenticationMethod* {.pure, size: 4.} = enum
   Eap = 1'i32
   Certificate = 2'i32
   PresharedKey = 3'i32
-proc `$`*(v: VpnAuthenticationMethod): string =
-  case ord(v)
-  of 0: "Mschapv2"
-  of 1: "Eap"
-  of 2: "Certificate"
-  of 3: "PresharedKey"
-  else: "VpnAuthenticationMethod(" & $ord(v) & ")"
+template `$`*(v: VpnAuthenticationMethod): string = enumName(v)
 
 ## Windows.Networking.Vpn.VpnChannelActivityEventType  (enum)
 type VpnChannelActivityEventType* {.pure, size: 4.} = enum
   Idle = 0'i32
   Active = 1'i32
-proc `$`*(v: VpnChannelActivityEventType): string =
-  case ord(v)
-  of 0: "Idle"
-  of 1: "Active"
-  else: "VpnChannelActivityEventType(" & $ord(v) & ")"
+template `$`*(v: VpnChannelActivityEventType): string = enumName(v)
 
 ## Windows.Networking.Vpn.VpnChannelRequestCredentialsOptions  (enum)
 type VpnChannelRequestCredentialsOptions* = distinct uint32
@@ -18752,38 +11931,20 @@ type VpnCredentialType* {.pure, size: 4.} = enum
   SmartCard = 4'i32
   ProtectedCertificate = 5'i32
   UnProtectedCertificate = 6'i32
-proc `$`*(v: VpnCredentialType): string =
-  case ord(v)
-  of 0: "UsernamePassword"
-  of 1: "UsernameOtpPin"
-  of 2: "UsernamePasswordAndPin"
-  of 3: "UsernamePasswordChange"
-  of 4: "SmartCard"
-  of 5: "ProtectedCertificate"
-  of 6: "UnProtectedCertificate"
-  else: "VpnCredentialType(" & $ord(v) & ")"
+template `$`*(v: VpnCredentialType): string = enumName(v)
 
 ## Windows.Networking.Vpn.VpnDataPathType  (enum)
 type VpnDataPathType* {.pure, size: 4.} = enum
   Send = 0'i32
   Receive = 1'i32
-proc `$`*(v: VpnDataPathType): string =
-  case ord(v)
-  of 0: "Send"
-  of 1: "Receive"
-  else: "VpnDataPathType(" & $ord(v) & ")"
+template `$`*(v: VpnDataPathType): string = enumName(v)
 
 ## Windows.Networking.Vpn.VpnDomainNameType  (enum)
 type VpnDomainNameType* {.pure, size: 4.} = enum
   Suffix = 0'i32
   FullyQualified = 1'i32
   Reserved = 65535'i32
-proc `$`*(v: VpnDomainNameType): string =
-  case ord(v)
-  of 0: "Suffix"
-  of 1: "FullyQualified"
-  of 65535: "Reserved"
-  else: "VpnDomainNameType(" & $ord(v) & ")"
+template `$`*(v: VpnDomainNameType): string = enumName(v)
 
 ## Windows.Networking.Vpn.VpnIPProtocol  (enum)
 type VpnIPProtocol* {.pure, size: 4.} = enum
@@ -18794,16 +11955,7 @@ type VpnIPProtocol* {.pure, size: 4.} = enum
   Udp = 17'i32
   Ipv6Icmp = 58'i32
   Pgm = 113'i32
-proc `$`*(v: VpnIPProtocol): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Icmp"
-  of 2: "Igmp"
-  of 6: "Tcp"
-  of 17: "Udp"
-  of 58: "Ipv6Icmp"
-  of 113: "Pgm"
-  else: "VpnIPProtocol(" & $ord(v) & ")"
+template `$`*(v: VpnIPProtocol): string = enumName(v)
 
 ## Windows.Networking.Vpn.VpnManagementConnectionStatus  (enum)
 type VpnManagementConnectionStatus* {.pure, size: 4.} = enum
@@ -18811,13 +11963,7 @@ type VpnManagementConnectionStatus* {.pure, size: 4.} = enum
   Disconnecting = 1'i32
   Connected = 2'i32
   Connecting = 3'i32
-proc `$`*(v: VpnManagementConnectionStatus): string =
-  case ord(v)
-  of 0: "Disconnected"
-  of 1: "Disconnecting"
-  of 2: "Connected"
-  of 3: "Connecting"
-  else: "VpnManagementConnectionStatus(" & $ord(v) & ")"
+template `$`*(v: VpnManagementConnectionStatus): string = enumName(v)
 
 ## Windows.Networking.Vpn.VpnManagementErrorStatus  (enum)
 type VpnManagementErrorStatus* {.pure, size: 4.} = enum
@@ -18840,60 +11986,26 @@ type VpnManagementErrorStatus* {.pure, size: 4.} = enum
   UserNamePassword = 16'i32
   DnsNotResolvable = 17'i32
   InvalidIP = 18'i32
-proc `$`*(v: VpnManagementErrorStatus): string =
-  case ord(v)
-  of 0: "Ok"
-  of 1: "Other"
-  of 2: "InvalidXmlSyntax"
-  of 3: "ProfileNameTooLong"
-  of 4: "ProfileInvalidAppId"
-  of 5: "AccessDenied"
-  of 6: "CannotFindProfile"
-  of 7: "AlreadyDisconnecting"
-  of 8: "AlreadyConnected"
-  of 9: "GeneralAuthenticationFailure"
-  of 10: "EapFailure"
-  of 11: "SmartCardFailure"
-  of 12: "CertificateFailure"
-  of 13: "ServerConfiguration"
-  of 14: "NoConnection"
-  of 15: "ServerConnection"
-  of 16: "UserNamePassword"
-  of 17: "DnsNotResolvable"
-  of 18: "InvalidIP"
-  else: "VpnManagementErrorStatus(" & $ord(v) & ")"
+template `$`*(v: VpnManagementErrorStatus): string = enumName(v)
 
 ## Windows.Networking.Vpn.VpnNativeProtocolType  (enum)
 type VpnNativeProtocolType* {.pure, size: 4.} = enum
   Pptp = 0'i32
   L2tp = 1'i32
   IpsecIkev2 = 2'i32
-proc `$`*(v: VpnNativeProtocolType): string =
-  case ord(v)
-  of 0: "Pptp"
-  of 1: "L2tp"
-  of 2: "IpsecIkev2"
-  else: "VpnNativeProtocolType(" & $ord(v) & ")"
+template `$`*(v: VpnNativeProtocolType): string = enumName(v)
 
 ## Windows.Networking.Vpn.VpnPacketBufferStatus  (enum)
 type VpnPacketBufferStatus* {.pure, size: 4.} = enum
   Ok = 0'i32
   InvalidBufferSize = 1'i32
-proc `$`*(v: VpnPacketBufferStatus): string =
-  case ord(v)
-  of 0: "Ok"
-  of 1: "InvalidBufferSize"
-  else: "VpnPacketBufferStatus(" & $ord(v) & ")"
+template `$`*(v: VpnPacketBufferStatus): string = enumName(v)
 
 ## Windows.Networking.Vpn.VpnRoutingPolicyType  (enum)
 type VpnRoutingPolicyType* {.pure, size: 4.} = enum
   SplitRouting = 0'i32
   ForceAllTrafficOverVpn = 1'i32
-proc `$`*(v: VpnRoutingPolicyType): string =
-  case ord(v)
-  of 0: "SplitRouting"
-  of 1: "ForceAllTrafficOverVpn"
-  else: "VpnRoutingPolicyType(" & $ord(v) & ")"
+template `$`*(v: VpnRoutingPolicyType): string = enumName(v)
 
 ## Windows.Networking.XboxLive.XboxLiveEndpointPairCreationBehaviors  (enum)
 type XboxLiveEndpointPairCreationBehaviors* = distinct uint32
@@ -18929,18 +12041,7 @@ type XboxLiveEndpointPairCreationStatus* {.pure, size: 4.} = enum
   RemoteSystemNotAuthorized = 6'i32
   RefusedDueToConfiguration = 7'i32
   UnexpectedInternalError = 8'i32
-proc `$`*(v: XboxLiveEndpointPairCreationStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "NoLocalNetworks"
-  of 2: "NoCompatibleNetworkPaths"
-  of 3: "LocalSystemNotAuthorized"
-  of 4: "Canceled"
-  of 5: "TimedOut"
-  of 6: "RemoteSystemNotAuthorized"
-  of 7: "RefusedDueToConfiguration"
-  of 8: "UnexpectedInternalError"
-  else: "XboxLiveEndpointPairCreationStatus(" & $ord(v) & ")"
+template `$`*(v: XboxLiveEndpointPairCreationStatus): string = enumName(v)
 
 ## Windows.Networking.XboxLive.XboxLiveEndpointPairState  (enum)
 type XboxLiveEndpointPairState* {.pure, size: 4.} = enum
@@ -18951,28 +12052,14 @@ type XboxLiveEndpointPairState* {.pure, size: 4.} = enum
   DeletingLocally = 4'i32
   RemoteEndpointTerminating = 5'i32
   Deleted = 6'i32
-proc `$`*(v: XboxLiveEndpointPairState): string =
-  case ord(v)
-  of 0: "Invalid"
-  of 1: "CreatingOutbound"
-  of 2: "CreatingInbound"
-  of 3: "Ready"
-  of 4: "DeletingLocally"
-  of 5: "RemoteEndpointTerminating"
-  of 6: "Deleted"
-  else: "XboxLiveEndpointPairState(" & $ord(v) & ")"
+template `$`*(v: XboxLiveEndpointPairState): string = enumName(v)
 
 ## Windows.Networking.XboxLive.XboxLiveNetworkAccessKind  (enum)
 type XboxLiveNetworkAccessKind* {.pure, size: 4.} = enum
   Open = 0'i32
   Moderate = 1'i32
   Strict = 2'i32
-proc `$`*(v: XboxLiveNetworkAccessKind): string =
-  case ord(v)
-  of 0: "Open"
-  of 1: "Moderate"
-  of 2: "Strict"
-  else: "XboxLiveNetworkAccessKind(" & $ord(v) & ")"
+template `$`*(v: XboxLiveNetworkAccessKind): string = enumName(v)
 
 ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurementStatus  (enum)
 type XboxLiveQualityOfServiceMeasurementStatus* {.pure, size: 4.} = enum
@@ -18988,21 +12075,7 @@ type XboxLiveQualityOfServiceMeasurementStatus* {.pure, size: 4.} = enum
   RemoteSystemNotAuthorized = 9'i32
   RefusedDueToConfiguration = 10'i32
   UnexpectedInternalError = 11'i32
-proc `$`*(v: XboxLiveQualityOfServiceMeasurementStatus): string =
-  case ord(v)
-  of 0: "NotStarted"
-  of 1: "InProgress"
-  of 2: "InProgressWithProvisionalResults"
-  of 3: "Succeeded"
-  of 4: "NoLocalNetworks"
-  of 5: "NoCompatibleNetworkPaths"
-  of 6: "LocalSystemNotAuthorized"
-  of 7: "Canceled"
-  of 8: "TimedOut"
-  of 9: "RemoteSystemNotAuthorized"
-  of 10: "RefusedDueToConfiguration"
-  of 11: "UnexpectedInternalError"
-  else: "XboxLiveQualityOfServiceMeasurementStatus(" & $ord(v) & ")"
+template `$`*(v: XboxLiveQualityOfServiceMeasurementStatus): string = enumName(v)
 
 ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMetric  (enum)
 type XboxLiveQualityOfServiceMetric* {.pure, size: 4.} = enum
@@ -19015,30 +12088,14 @@ type XboxLiveQualityOfServiceMetric* {.pure, size: 4.} = enum
   AverageInboundBitsPerSecond = 6'i32
   MinInboundBitsPerSecond = 7'i32
   MaxInboundBitsPerSecond = 8'i32
-proc `$`*(v: XboxLiveQualityOfServiceMetric): string =
-  case ord(v)
-  of 0: "AverageLatencyInMilliseconds"
-  of 1: "MinLatencyInMilliseconds"
-  of 2: "MaxLatencyInMilliseconds"
-  of 3: "AverageOutboundBitsPerSecond"
-  of 4: "MinOutboundBitsPerSecond"
-  of 5: "MaxOutboundBitsPerSecond"
-  of 6: "AverageInboundBitsPerSecond"
-  of 7: "MinInboundBitsPerSecond"
-  of 8: "MaxInboundBitsPerSecond"
-  else: "XboxLiveQualityOfServiceMetric(" & $ord(v) & ")"
+template `$`*(v: XboxLiveQualityOfServiceMetric): string = enumName(v)
 
 ## Windows.Networking.XboxLive.XboxLiveSocketKind  (enum)
 type XboxLiveSocketKind* {.pure, size: 4.} = enum
   None = 0'i32
   Datagram = 1'i32
   Stream = 2'i32
-proc `$`*(v: XboxLiveSocketKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Datagram"
-  of 2: "Stream"
-  else: "XboxLiveSocketKind(" & $ord(v) & ")"
+template `$`*(v: XboxLiveSocketKind): string = enumName(v)
 
 ## Windows.Perception.People.HandJointKind  (enum)
 type HandJointKind* {.pure, size: 4.} = enum
@@ -19068,55 +12125,19 @@ type HandJointKind* {.pure, size: 4.} = enum
   LittleIntermediate = 23'i32
   LittleDistal = 24'i32
   LittleTip = 25'i32
-proc `$`*(v: HandJointKind): string =
-  case ord(v)
-  of 0: "Palm"
-  of 1: "Wrist"
-  of 2: "ThumbMetacarpal"
-  of 3: "ThumbProximal"
-  of 4: "ThumbDistal"
-  of 5: "ThumbTip"
-  of 6: "IndexMetacarpal"
-  of 7: "IndexProximal"
-  of 8: "IndexIntermediate"
-  of 9: "IndexDistal"
-  of 10: "IndexTip"
-  of 11: "MiddleMetacarpal"
-  of 12: "MiddleProximal"
-  of 13: "MiddleIntermediate"
-  of 14: "MiddleDistal"
-  of 15: "MiddleTip"
-  of 16: "RingMetacarpal"
-  of 17: "RingProximal"
-  of 18: "RingIntermediate"
-  of 19: "RingDistal"
-  of 20: "RingTip"
-  of 21: "LittleMetacarpal"
-  of 22: "LittleProximal"
-  of 23: "LittleIntermediate"
-  of 24: "LittleDistal"
-  of 25: "LittleTip"
-  else: "HandJointKind(" & $ord(v) & ")"
+template `$`*(v: HandJointKind): string = enumName(v)
 
 ## Windows.Perception.People.JointPoseAccuracy  (enum)
 type JointPoseAccuracy* {.pure, size: 4.} = enum
   High = 0'i32
   Approximate = 1'i32
-proc `$`*(v: JointPoseAccuracy): string =
-  case ord(v)
-  of 0: "High"
-  of 1: "Approximate"
-  else: "JointPoseAccuracy(" & $ord(v) & ")"
+template `$`*(v: JointPoseAccuracy): string = enumName(v)
 
 ## Windows.Perception.Spatial.SpatialAnchorExportPurpose  (enum)
 type SpatialAnchorExportPurpose* {.pure, size: 4.} = enum
   Relocalization = 0'i32
   Sharing = 1'i32
-proc `$`*(v: SpatialAnchorExportPurpose): string =
-  case ord(v)
-  of 0: "Relocalization"
-  of 1: "Sharing"
-  else: "SpatialAnchorExportPurpose(" & $ord(v) & ")"
+template `$`*(v: SpatialAnchorExportPurpose): string = enumName(v)
 
 ## Windows.Perception.Spatial.SpatialEntityWatcherStatus  (enum)
 type SpatialEntityWatcherStatus* {.pure, size: 4.} = enum
@@ -19126,15 +12147,7 @@ type SpatialEntityWatcherStatus* {.pure, size: 4.} = enum
   Stopping = 3'i32
   Stopped = 4'i32
   Aborted = 5'i32
-proc `$`*(v: SpatialEntityWatcherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "EnumerationCompleted"
-  of 3: "Stopping"
-  of 4: "Stopped"
-  of 5: "Aborted"
-  else: "SpatialEntityWatcherStatus(" & $ord(v) & ")"
+template `$`*(v: SpatialEntityWatcherStatus): string = enumName(v)
 
 ## Windows.Perception.Spatial.SpatialLocatability  (enum)
 type SpatialLocatability* {.pure, size: 4.} = enum
@@ -19143,34 +12156,19 @@ type SpatialLocatability* {.pure, size: 4.} = enum
   PositionalTrackingActivating = 2'i32
   PositionalTrackingActive = 3'i32
   PositionalTrackingInhibited = 4'i32
-proc `$`*(v: SpatialLocatability): string =
-  case ord(v)
-  of 0: "Unavailable"
-  of 1: "OrientationOnly"
-  of 2: "PositionalTrackingActivating"
-  of 3: "PositionalTrackingActive"
-  of 4: "PositionalTrackingInhibited"
-  else: "SpatialLocatability(" & $ord(v) & ")"
+template `$`*(v: SpatialLocatability): string = enumName(v)
 
 ## Windows.Perception.Spatial.SpatialLookDirectionRange  (enum)
 type SpatialLookDirectionRange* {.pure, size: 4.} = enum
   ForwardOnly = 0'i32
   Omnidirectional = 1'i32
-proc `$`*(v: SpatialLookDirectionRange): string =
-  case ord(v)
-  of 0: "ForwardOnly"
-  of 1: "Omnidirectional"
-  else: "SpatialLookDirectionRange(" & $ord(v) & ")"
+template `$`*(v: SpatialLookDirectionRange): string = enumName(v)
 
 ## Windows.Perception.Spatial.SpatialMovementRange  (enum)
 type SpatialMovementRange* {.pure, size: 4.} = enum
   NoMovement = 0'i32
   Bounded = 1'i32
-proc `$`*(v: SpatialMovementRange): string =
-  case ord(v)
-  of 0: "NoMovement"
-  of 1: "Bounded"
-  else: "SpatialMovementRange(" & $ord(v) & ")"
+template `$`*(v: SpatialMovementRange): string = enumName(v)
 
 ## Windows.Perception.Spatial.SpatialPerceptionAccessStatus  (enum)
 type SpatialPerceptionAccessStatus* {.pure, size: 4.} = enum
@@ -19178,23 +12176,13 @@ type SpatialPerceptionAccessStatus* {.pure, size: 4.} = enum
   Allowed = 1'i32
   DeniedByUser = 2'i32
   DeniedBySystem = 3'i32
-proc `$`*(v: SpatialPerceptionAccessStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Allowed"
-  of 2: "DeniedByUser"
-  of 3: "DeniedBySystem"
-  else: "SpatialPerceptionAccessStatus(" & $ord(v) & ")"
+template `$`*(v: SpatialPerceptionAccessStatus): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationType  (enum)
 type MicrosoftAccountMultiFactorAuthenticationType* {.pure, size: 4.} = enum
   User = 0'i32
   Device = 1'i32
-proc `$`*(v: MicrosoftAccountMultiFactorAuthenticationType): string =
-  case ord(v)
-  of 0: "User"
-  of 1: "Device"
-  else: "MicrosoftAccountMultiFactorAuthenticationType(" & $ord(v) & ")"
+template `$`*(v: MicrosoftAccountMultiFactorAuthenticationType): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorServiceResponse  (enum)
 type MicrosoftAccountMultiFactorServiceResponse* {.pure, size: 4.} = enum
@@ -19220,53 +12208,20 @@ type MicrosoftAccountMultiFactorServiceResponse* {.pure, size: 4.} = enum
   NgcKeyNotFoundOnServer = 19'i32
   UIRequired = 20'i32
   DeviceIdChanged = 21'i32
-proc `$`*(v: MicrosoftAccountMultiFactorServiceResponse): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "Error"
-  of 2: "NoNetworkConnection"
-  of 3: "ServiceUnavailable"
-  of 4: "TotpSetupDenied"
-  of 5: "NgcNotSetup"
-  of 6: "SessionAlreadyDenied"
-  of 7: "SessionAlreadyApproved"
-  of 8: "SessionExpired"
-  of 9: "NgcNonceExpired"
-  of 10: "InvalidSessionId"
-  of 11: "InvalidSessionType"
-  of 12: "InvalidOperation"
-  of 13: "InvalidStateTransition"
-  of 14: "DeviceNotFound"
-  of 15: "FlowDisabled"
-  of 16: "SessionNotApproved"
-  of 17: "OperationCanceledByUser"
-  of 18: "NgcDisabledByServer"
-  of 19: "NgcKeyNotFoundOnServer"
-  of 20: "UIRequired"
-  of 21: "DeviceIdChanged"
-  else: "MicrosoftAccountMultiFactorServiceResponse(" & $ord(v) & ")"
+template `$`*(v: MicrosoftAccountMultiFactorServiceResponse): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionApprovalStatus  (enum)
 type MicrosoftAccountMultiFactorSessionApprovalStatus* {.pure, size: 4.} = enum
   Pending = 0'i32
   Approved = 1'i32
   Denied = 2'i32
-proc `$`*(v: MicrosoftAccountMultiFactorSessionApprovalStatus): string =
-  case ord(v)
-  of 0: "Pending"
-  of 1: "Approved"
-  of 2: "Denied"
-  else: "MicrosoftAccountMultiFactorSessionApprovalStatus(" & $ord(v) & ")"
+template `$`*(v: MicrosoftAccountMultiFactorSessionApprovalStatus): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionAuthenticationStatus  (enum)
 type MicrosoftAccountMultiFactorSessionAuthenticationStatus* {.pure, size: 4.} = enum
   Authenticated = 0'i32
   Unauthenticated = 1'i32
-proc `$`*(v: MicrosoftAccountMultiFactorSessionAuthenticationStatus): string =
-  case ord(v)
-  of 0: "Authenticated"
-  of 1: "Unauthenticated"
-  else: "MicrosoftAccountMultiFactorSessionAuthenticationStatus(" & $ord(v) & ")"
+template `$`*(v: MicrosoftAccountMultiFactorSessionAuthenticationStatus): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationMessage  (enum)
 type SecondaryAuthenticationFactorAuthenticationMessage* {.pure, size: 4.} = enum
@@ -19299,48 +12254,13 @@ type SecondaryAuthenticationFactorAuthenticationMessage* {.pure, size: 4.} = enu
   PlaceHandAbove = 26'i32
   RecognitionFailed = 27'i32
   DeviceUnavailable = 28'i32
-proc `$`*(v: SecondaryAuthenticationFactorAuthenticationMessage): string =
-  case ord(v)
-  of 0: "Invalid"
-  of 1: "SwipeUpWelcome"
-  of 2: "TapWelcome"
-  of 3: "DeviceNeedsAttention"
-  of 4: "LookingForDevice"
-  of 5: "LookingForDevicePluggedin"
-  of 6: "BluetoothIsDisabled"
-  of 7: "NfcIsDisabled"
-  of 8: "WiFiIsDisabled"
-  of 9: "ExtraTapIsRequired"
-  of 10: "DisabledByPolicy"
-  of 11: "TapOnDeviceRequired"
-  of 12: "HoldFinger"
-  of 13: "ScanFinger"
-  of 14: "UnauthorizedUser"
-  of 15: "ReregisterRequired"
-  of 16: "TryAgain"
-  of 17: "SayPassphrase"
-  of 18: "ReadyToSignIn"
-  of 19: "UseAnotherSignInOption"
-  of 20: "ConnectionRequired"
-  of 21: "TimeLimitExceeded"
-  of 22: "CanceledByUser"
-  of 23: "CenterHand"
-  of 24: "MoveHandCloser"
-  of 25: "MoveHandFarther"
-  of 26: "PlaceHandAbove"
-  of 27: "RecognitionFailed"
-  of 28: "DeviceUnavailable"
-  else: "SecondaryAuthenticationFactorAuthenticationMessage(" & $ord(v) & ")"
+template `$`*(v: SecondaryAuthenticationFactorAuthenticationMessage): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationScenario  (enum)
 type SecondaryAuthenticationFactorAuthenticationScenario* {.pure, size: 4.} = enum
   SignIn = 0'i32
   CredentialPrompt = 1'i32
-proc `$`*(v: SecondaryAuthenticationFactorAuthenticationScenario): string =
-  case ord(v)
-  of 0: "SignIn"
-  of 1: "CredentialPrompt"
-  else: "SecondaryAuthenticationFactorAuthenticationScenario(" & $ord(v) & ")"
+template `$`*(v: SecondaryAuthenticationFactorAuthenticationScenario): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStage  (enum)
 type SecondaryAuthenticationFactorAuthenticationStage* {.pure, size: 4.} = enum
@@ -19353,18 +12273,7 @@ type SecondaryAuthenticationFactorAuthenticationStage* {.pure, size: 4.} = enum
   StoppingAuthentication = 6'i32
   ReadyForLock = 7'i32
   CheckingDevicePresence = 8'i32
-proc `$`*(v: SecondaryAuthenticationFactorAuthenticationStage): string =
-  case ord(v)
-  of 0: "NotStarted"
-  of 1: "WaitingForUserConfirmation"
-  of 2: "CollectingCredential"
-  of 3: "SuspendingAuthentication"
-  of 4: "CredentialCollected"
-  of 5: "CredentialAuthenticated"
-  of 6: "StoppingAuthentication"
-  of 7: "ReadyForLock"
-  of 8: "CheckingDevicePresence"
-  else: "SecondaryAuthenticationFactorAuthenticationStage(" & $ord(v) & ")"
+template `$`*(v: SecondaryAuthenticationFactorAuthenticationStage): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStatus  (enum)
 type SecondaryAuthenticationFactorAuthenticationStatus* {.pure, size: 4.} = enum
@@ -19373,14 +12282,7 @@ type SecondaryAuthenticationFactorAuthenticationStatus* {.pure, size: 4.} = enum
   UnknownDevice = 2'i32
   DisabledByPolicy = 3'i32
   InvalidAuthenticationStage = 4'i32
-proc `$`*(v: SecondaryAuthenticationFactorAuthenticationStatus): string =
-  case ord(v)
-  of 0: "Failed"
-  of 1: "Started"
-  of 2: "UnknownDevice"
-  of 3: "DisabledByPolicy"
-  of 4: "InvalidAuthenticationStage"
-  else: "SecondaryAuthenticationFactorAuthenticationStatus(" & $ord(v) & ")"
+template `$`*(v: SecondaryAuthenticationFactorAuthenticationStatus): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorDeviceCapabilities  (enum)
 type SecondaryAuthenticationFactorDeviceCapabilities* = distinct uint32
@@ -19439,57 +12341,34 @@ const SecondaryAuthenticationFactorDeviceCapabilities_CloseRangeDataTransmission
 type SecondaryAuthenticationFactorDeviceFindScope* {.pure, size: 4.} = enum
   User = 0'i32
   AllUsers = 1'i32
-proc `$`*(v: SecondaryAuthenticationFactorDeviceFindScope): string =
-  case ord(v)
-  of 0: "User"
-  of 1: "AllUsers"
-  else: "SecondaryAuthenticationFactorDeviceFindScope(" & $ord(v) & ")"
+template `$`*(v: SecondaryAuthenticationFactorDeviceFindScope): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorDevicePresence  (enum)
 type SecondaryAuthenticationFactorDevicePresence* {.pure, size: 4.} = enum
   Absent = 0'i32
   Present = 1'i32
-proc `$`*(v: SecondaryAuthenticationFactorDevicePresence): string =
-  case ord(v)
-  of 0: "Absent"
-  of 1: "Present"
-  else: "SecondaryAuthenticationFactorDevicePresence(" & $ord(v) & ")"
+template `$`*(v: SecondaryAuthenticationFactorDevicePresence): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorDevicePresenceMonitoringMode  (enum)
 type SecondaryAuthenticationFactorDevicePresenceMonitoringMode* {.pure, size: 4.} = enum
   Unsupported = 0'i32
   AppManaged = 1'i32
   SystemManaged = 2'i32
-proc `$`*(v: SecondaryAuthenticationFactorDevicePresenceMonitoringMode): string =
-  case ord(v)
-  of 0: "Unsupported"
-  of 1: "AppManaged"
-  of 2: "SystemManaged"
-  else: "SecondaryAuthenticationFactorDevicePresenceMonitoringMode(" & $ord(v) & ")"
+template `$`*(v: SecondaryAuthenticationFactorDevicePresenceMonitoringMode): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus  (enum)
 type SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus* {.pure, size: 4.} = enum
   Unsupported = 0'i32
   Succeeded = 1'i32
   DisabledByPolicy = 2'i32
-proc `$`*(v: SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus): string =
-  case ord(v)
-  of 0: "Unsupported"
-  of 1: "Succeeded"
-  of 2: "DisabledByPolicy"
-  else: "SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus(" & $ord(v) & ")"
+template `$`*(v: SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorFinishAuthenticationStatus  (enum)
 type SecondaryAuthenticationFactorFinishAuthenticationStatus* {.pure, size: 4.} = enum
   Failed = 0'i32
   Completed = 1'i32
   NonceExpired = 2'i32
-proc `$`*(v: SecondaryAuthenticationFactorFinishAuthenticationStatus): string =
-  case ord(v)
-  of 0: "Failed"
-  of 1: "Completed"
-  of 2: "NonceExpired"
-  else: "SecondaryAuthenticationFactorFinishAuthenticationStatus(" & $ord(v) & ")"
+template `$`*(v: SecondaryAuthenticationFactorFinishAuthenticationStatus): string = enumName(v)
 
 ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistrationStatus  (enum)
 type SecondaryAuthenticationFactorRegistrationStatus* {.pure, size: 4.} = enum
@@ -19498,38 +12377,21 @@ type SecondaryAuthenticationFactorRegistrationStatus* {.pure, size: 4.} = enum
   CanceledByUser = 2'i32
   PinSetupRequired = 3'i32
   DisabledByPolicy = 4'i32
-proc `$`*(v: SecondaryAuthenticationFactorRegistrationStatus): string =
-  case ord(v)
-  of 0: "Failed"
-  of 1: "Started"
-  of 2: "CanceledByUser"
-  of 3: "PinSetupRequired"
-  of 4: "DisabledByPolicy"
-  else: "SecondaryAuthenticationFactorRegistrationStatus(" & $ord(v) & ")"
+template `$`*(v: SecondaryAuthenticationFactorRegistrationStatus): string = enumName(v)
 
 ## Windows.Security.Authentication.OnlineId.CredentialPromptType  (enum)
 type CredentialPromptType* {.pure, size: 4.} = enum
   PromptIfNeeded = 0'i32
   RetypeCredentials = 1'i32
   DoNotPrompt = 2'i32
-proc `$`*(v: CredentialPromptType): string =
-  case ord(v)
-  of 0: "PromptIfNeeded"
-  of 1: "RetypeCredentials"
-  of 2: "DoNotPrompt"
-  else: "CredentialPromptType(" & $ord(v) & ")"
+template `$`*(v: CredentialPromptType): string = enumName(v)
 
 ## Windows.Security.Authentication.OnlineId.OnlineIdSystemTicketStatus  (enum)
 type OnlineIdSystemTicketStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   Error = 1'i32
   ServiceConnectionError = 2'i32
-proc `$`*(v: OnlineIdSystemTicketStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "Error"
-  of 2: "ServiceConnectionError"
-  else: "OnlineIdSystemTicketStatus(" & $ord(v) & ")"
+template `$`*(v: OnlineIdSystemTicketStatus): string = enumName(v)
 
 ## Windows.Security.Authentication.Web.Core.FindAllWebAccountsStatus  (enum)
 type FindAllWebAccountsStatus* {.pure, size: 4.} = enum
@@ -19537,13 +12399,7 @@ type FindAllWebAccountsStatus* {.pure, size: 4.} = enum
   NotAllowedByProvider = 1'i32
   NotSupportedByProvider = 2'i32
   ProviderError = 3'i32
-proc `$`*(v: FindAllWebAccountsStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "NotAllowedByProvider"
-  of 2: "NotSupportedByProvider"
-  of 3: "ProviderError"
-  else: "FindAllWebAccountsStatus(" & $ord(v) & ")"
+template `$`*(v: FindAllWebAccountsStatus): string = enumName(v)
 
 ## Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountStatus  (enum)
 type WebAuthenticationAddAccountStatus* {.pure, size: 4.} = enum
@@ -19552,24 +12408,13 @@ type WebAuthenticationAddAccountStatus* {.pure, size: 4.} = enum
   NotSupportedByProvider = 2'i32
   ServiceConnectionError = 3'i32
   ProviderError = 4'i32
-proc `$`*(v: WebAuthenticationAddAccountStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "Error"
-  of 2: "NotSupportedByProvider"
-  of 3: "ServiceConnectionError"
-  of 4: "ProviderError"
-  else: "WebAuthenticationAddAccountStatus(" & $ord(v) & ")"
+template `$`*(v: WebAuthenticationAddAccountStatus): string = enumName(v)
 
 ## Windows.Security.Authentication.Web.Core.WebTokenRequestPromptType  (enum)
 type WebTokenRequestPromptType* {.pure, size: 4.} = enum
   Default = 0'i32
   ForceAuthentication = 1'i32
-proc `$`*(v: WebTokenRequestPromptType): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "ForceAuthentication"
-  else: "WebTokenRequestPromptType(" & $ord(v) & ")"
+template `$`*(v: WebTokenRequestPromptType): string = enumName(v)
 
 ## Windows.Security.Authentication.Web.Core.WebTokenRequestStatus  (enum)
 type WebTokenRequestStatus* {.pure, size: 4.} = enum
@@ -19579,25 +12424,13 @@ type WebTokenRequestStatus* {.pure, size: 4.} = enum
   UserInteractionRequired = 3'i32
   AccountProviderNotAvailable = 4'i32
   ProviderError = 5'i32
-proc `$`*(v: WebTokenRequestStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UserCancel"
-  of 2: "AccountSwitch"
-  of 3: "UserInteractionRequired"
-  of 4: "AccountProviderNotAvailable"
-  of 5: "ProviderError"
-  else: "WebTokenRequestStatus(" & $ord(v) & ")"
+template `$`*(v: WebTokenRequestStatus): string = enumName(v)
 
 ## Windows.Security.Authentication.Web.Provider.WebAccountClientViewType  (enum)
 type WebAccountClientViewType* {.pure, size: 4.} = enum
   IdOnly = 0'i32
   IdAndProperties = 1'i32
-proc `$`*(v: WebAccountClientViewType): string =
-  case ord(v)
-  of 0: "IdOnly"
-  of 1: "IdAndProperties"
-  else: "WebAccountClientViewType(" & $ord(v) & ")"
+template `$`*(v: WebAccountClientViewType): string = enumName(v)
 
 ## Windows.Security.Authentication.Web.Provider.WebAccountProviderOperationKind  (enum)
 type WebAccountProviderOperationKind* {.pure, size: 4.} = enum
@@ -19608,26 +12441,13 @@ type WebAccountProviderOperationKind* {.pure, size: 4.} = enum
   DeleteAccount = 4'i32
   RetrieveCookies = 5'i32
   SignOutAccount = 6'i32
-proc `$`*(v: WebAccountProviderOperationKind): string =
-  case ord(v)
-  of 0: "RequestToken"
-  of 1: "GetTokenSilently"
-  of 2: "AddAccount"
-  of 3: "ManageAccount"
-  of 4: "DeleteAccount"
-  of 5: "RetrieveCookies"
-  of 6: "SignOutAccount"
-  else: "WebAccountProviderOperationKind(" & $ord(v) & ")"
+template `$`*(v: WebAccountProviderOperationKind): string = enumName(v)
 
 ## Windows.Security.Authentication.Web.Provider.WebAccountScope  (enum)
 type WebAccountScope* {.pure, size: 4.} = enum
   PerUser = 0'i32
   PerApplication = 1'i32
-proc `$`*(v: WebAccountScope): string =
-  case ord(v)
-  of 0: "PerUser"
-  of 1: "PerApplication"
-  else: "WebAccountScope(" & $ord(v) & ")"
+template `$`*(v: WebAccountScope): string = enumName(v)
 
 ## Windows.Security.Authentication.Web.Provider.WebAccountSelectionOptions  (enum)
 type WebAccountSelectionOptions* = distinct uint32
@@ -19657,12 +12477,7 @@ type TokenBindingKeyType* {.pure, size: 4.} = enum
   Rsa2048 = 0'i32
   EcdsaP256 = 1'i32
   AnyExisting = 2'i32
-proc `$`*(v: TokenBindingKeyType): string =
-  case ord(v)
-  of 0: "Rsa2048"
-  of 1: "EcdsaP256"
-  of 2: "AnyExisting"
-  else: "TokenBindingKeyType(" & $ord(v) & ")"
+template `$`*(v: TokenBindingKeyType): string = enumName(v)
 
 ## Windows.Security.Authentication.Web.WebAuthenticationOptions  (enum)
 type WebAuthenticationOptions* = distinct uint32
@@ -19707,12 +12522,7 @@ type WebAuthenticationStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   UserCancel = 1'i32
   ErrorHttp = 2'i32
-proc `$`*(v: WebAuthenticationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UserCancel"
-  of 2: "ErrorHttp"
-  else: "WebAuthenticationStatus(" & $ord(v) & ")"
+template `$`*(v: WebAuthenticationStatus): string = enumName(v)
 
 ## Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessStatus  (enum)
 type AppCapabilityAccessStatus* {.pure, size: 4.} = enum
@@ -19721,22 +12531,12 @@ type AppCapabilityAccessStatus* {.pure, size: 4.} = enum
   DeniedByUser = 2'i32
   UserPromptRequired = 3'i32
   Allowed = 4'i32
-proc `$`*(v: AppCapabilityAccessStatus): string =
-  case ord(v)
-  of 0: "DeniedBySystem"
-  of 1: "NotDeclaredByApp"
-  of 2: "DeniedByUser"
-  of 3: "UserPromptRequired"
-  of 4: "Allowed"
-  else: "AppCapabilityAccessStatus(" & $ord(v) & ")"
+template `$`*(v: AppCapabilityAccessStatus): string = enumName(v)
 
 ## Windows.Security.Credentials.ChallengeResponseKind  (enum)
 type ChallengeResponseKind* {.pure, size: 4.} = enum
   VirtualizationBasedSecurityEnclave = 0'i32
-proc `$`*(v: ChallengeResponseKind): string =
-  case ord(v)
-  of 0: "VirtualizationBasedSecurityEnclave"
-  else: "ChallengeResponseKind(" & $ord(v) & ")"
+template `$`*(v: ChallengeResponseKind): string = enumName(v)
 
 ## Windows.Security.Credentials.KeyCredentialAttestationStatus  (enum)
 type KeyCredentialAttestationStatus* {.pure, size: 4.} = enum
@@ -19744,33 +12544,19 @@ type KeyCredentialAttestationStatus* {.pure, size: 4.} = enum
   UnknownError = 1'i32
   NotSupported = 2'i32
   TemporaryFailure = 3'i32
-proc `$`*(v: KeyCredentialAttestationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownError"
-  of 2: "NotSupported"
-  of 3: "TemporaryFailure"
-  else: "KeyCredentialAttestationStatus(" & $ord(v) & ")"
+template `$`*(v: KeyCredentialAttestationStatus): string = enumName(v)
 
 ## Windows.Security.Credentials.KeyCredentialCacheOption  (enum)
 type KeyCredentialCacheOption* {.pure, size: 4.} = enum
   NoCache = 0'i32
   CacheWhenUnlocked = 1'i32
-proc `$`*(v: KeyCredentialCacheOption): string =
-  case ord(v)
-  of 0: "NoCache"
-  of 1: "CacheWhenUnlocked"
-  else: "KeyCredentialCacheOption(" & $ord(v) & ")"
+template `$`*(v: KeyCredentialCacheOption): string = enumName(v)
 
 ## Windows.Security.Credentials.KeyCredentialCreationOption  (enum)
 type KeyCredentialCreationOption* {.pure, size: 4.} = enum
   ReplaceExisting = 0'i32
   FailIfExists = 1'i32
-proc `$`*(v: KeyCredentialCreationOption): string =
-  case ord(v)
-  of 0: "ReplaceExisting"
-  of 1: "FailIfExists"
-  else: "KeyCredentialCreationOption(" & $ord(v) & ")"
+template `$`*(v: KeyCredentialCreationOption): string = enumName(v)
 
 ## Windows.Security.Credentials.KeyCredentialStatus  (enum)
 type KeyCredentialStatus* {.pure, size: 4.} = enum
@@ -19782,17 +12568,7 @@ type KeyCredentialStatus* {.pure, size: 4.} = enum
   CredentialAlreadyExists = 5'i32
   SecurityDeviceLocked = 6'i32
   AlgorithmNotSupported = 7'i32
-proc `$`*(v: KeyCredentialStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownError"
-  of 2: "NotFound"
-  of 3: "UserCanceled"
-  of 4: "UserPrefersPassword"
-  of 5: "CredentialAlreadyExists"
-  of 6: "SecurityDeviceLocked"
-  of 7: "AlgorithmNotSupported"
-  else: "KeyCredentialStatus(" & $ord(v) & ")"
+template `$`*(v: KeyCredentialStatus): string = enumName(v)
 
 ## Windows.Security.Credentials.UI.AuthenticationProtocol  (enum)
 type AuthenticationProtocol* {.pure, size: 4.} = enum
@@ -19803,28 +12579,14 @@ type AuthenticationProtocol* {.pure, size: 4.} = enum
   Negotiate = 4'i32
   CredSsp = 5'i32
   Custom = 6'i32
-proc `$`*(v: AuthenticationProtocol): string =
-  case ord(v)
-  of 0: "Basic"
-  of 1: "Digest"
-  of 2: "Ntlm"
-  of 3: "Kerberos"
-  of 4: "Negotiate"
-  of 5: "CredSsp"
-  of 6: "Custom"
-  else: "AuthenticationProtocol(" & $ord(v) & ")"
+template `$`*(v: AuthenticationProtocol): string = enumName(v)
 
 ## Windows.Security.Credentials.UI.CredentialSaveOption  (enum)
 type CredentialSaveOption* {.pure, size: 4.} = enum
   Unselected = 0'i32
   Selected = 1'i32
   Hidden = 2'i32
-proc `$`*(v: CredentialSaveOption): string =
-  case ord(v)
-  of 0: "Unselected"
-  of 1: "Selected"
-  of 2: "Hidden"
-  else: "CredentialSaveOption(" & $ord(v) & ")"
+template `$`*(v: CredentialSaveOption): string = enumName(v)
 
 ## Windows.Security.Credentials.UI.UserConsentVerificationResult  (enum)
 type UserConsentVerificationResult* {.pure, size: 4.} = enum
@@ -19835,16 +12597,7 @@ type UserConsentVerificationResult* {.pure, size: 4.} = enum
   DeviceBusy = 4'i32
   RetriesExhausted = 5'i32
   Canceled = 6'i32
-proc `$`*(v: UserConsentVerificationResult): string =
-  case ord(v)
-  of 0: "Verified"
-  of 1: "DeviceNotPresent"
-  of 2: "NotConfiguredForUser"
-  of 3: "DisabledByPolicy"
-  of 4: "DeviceBusy"
-  of 5: "RetriesExhausted"
-  of 6: "Canceled"
-  else: "UserConsentVerificationResult(" & $ord(v) & ")"
+template `$`*(v: UserConsentVerificationResult): string = enumName(v)
 
 ## Windows.Security.Credentials.UI.UserConsentVerifierAvailability  (enum)
 type UserConsentVerifierAvailability* {.pure, size: 4.} = enum
@@ -19853,14 +12606,7 @@ type UserConsentVerifierAvailability* {.pure, size: 4.} = enum
   NotConfiguredForUser = 2'i32
   DisabledByPolicy = 3'i32
   DeviceBusy = 4'i32
-proc `$`*(v: UserConsentVerifierAvailability): string =
-  case ord(v)
-  of 0: "Available"
-  of 1: "DeviceNotPresent"
-  of 2: "NotConfiguredForUser"
-  of 3: "DisabledByPolicy"
-  of 4: "DeviceBusy"
-  else: "UserConsentVerifierAvailability(" & $ord(v) & ")"
+template `$`*(v: UserConsentVerifierAvailability): string = enumName(v)
 
 ## Windows.Security.Credentials.WebAccountPictureSize  (enum)
 type WebAccountPictureSize* {.pure, size: 4.} = enum
@@ -19868,37 +12614,21 @@ type WebAccountPictureSize* {.pure, size: 4.} = enum
   Size208x208 = 208'i32
   Size424x424 = 424'i32
   Size1080x1080 = 1080'i32
-proc `$`*(v: WebAccountPictureSize): string =
-  case ord(v)
-  of 64: "Size64x64"
-  of 208: "Size208x208"
-  of 424: "Size424x424"
-  of 1080: "Size1080x1080"
-  else: "WebAccountPictureSize(" & $ord(v) & ")"
+template `$`*(v: WebAccountPictureSize): string = enumName(v)
 
 ## Windows.Security.Credentials.WebAccountState  (enum)
 type WebAccountState* {.pure, size: 4.} = enum
   None = 0'i32
   Connected = 1'i32
   Error = 2'i32
-proc `$`*(v: WebAccountState): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Connected"
-  of 2: "Error"
-  else: "WebAccountState(" & $ord(v) & ")"
+template `$`*(v: WebAccountState): string = enumName(v)
 
 ## Windows.Security.Cryptography.BinaryStringEncoding  (enum)
 type BinaryStringEncoding* {.pure, size: 4.} = enum
   Utf8 = 0'i32
   Utf16LE = 1'i32
   Utf16BE = 2'i32
-proc `$`*(v: BinaryStringEncoding): string =
-  case ord(v)
-  of 0: "Utf8"
-  of 1: "Utf16LE"
-  of 2: "Utf16BE"
-  else: "BinaryStringEncoding(" & $ord(v) & ")"
+template `$`*(v: BinaryStringEncoding): string = enumName(v)
 
 ## Windows.Security.Cryptography.Certificates.CertificateChainPolicy  (enum)
 type CertificateChainPolicy* {.pure, size: 4.} = enum
@@ -19906,13 +12636,7 @@ type CertificateChainPolicy* {.pure, size: 4.} = enum
   Ssl = 1'i32
   NTAuthentication = 2'i32
   MicrosoftRoot = 3'i32
-proc `$`*(v: CertificateChainPolicy): string =
-  case ord(v)
-  of 0: "Base"
-  of 1: "Ssl"
-  of 2: "NTAuthentication"
-  of 3: "MicrosoftRoot"
-  else: "CertificateChainPolicy(" & $ord(v) & ")"
+template `$`*(v: CertificateChainPolicy): string = enumName(v)
 
 ## Windows.Security.Cryptography.Certificates.ChainValidationResult  (enum)
 type ChainValidationResult* {.pure, size: 4.} = enum
@@ -19930,23 +12654,7 @@ type ChainValidationResult* {.pure, size: 4.} = enum
   RevocationInformationMissing = 11'i32
   RevocationFailure = 12'i32
   OtherErrors = 13'i32
-proc `$`*(v: ChainValidationResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "Untrusted"
-  of 2: "Revoked"
-  of 3: "Expired"
-  of 4: "IncompleteChain"
-  of 5: "InvalidSignature"
-  of 6: "WrongUsage"
-  of 7: "InvalidName"
-  of 8: "InvalidCertificateAuthorityPolicy"
-  of 9: "BasicConstraintsError"
-  of 10: "UnknownCriticalExtension"
-  of 11: "RevocationInformationMissing"
-  of 12: "RevocationFailure"
-  of 13: "OtherErrors"
-  else: "ChainValidationResult(" & $ord(v) & ")"
+template `$`*(v: ChainValidationResult): string = enumName(v)
 
 ## Windows.Security.Cryptography.Certificates.EnrollKeyUsages  (enum)
 type EnrollKeyUsages* = distinct uint32
@@ -19990,11 +12698,7 @@ const EnrollKeyUsages_All* = EnrollKeyUsages(16777215'u32)
 type ExportOption* {.pure, size: 4.} = enum
   NotExportable = 0'i32
   Exportable = 1'i32
-proc `$`*(v: ExportOption): string =
-  case ord(v)
-  of 0: "NotExportable"
-  of 1: "Exportable"
-  else: "ExportOption(" & $ord(v) & ")"
+template `$`*(v: ExportOption): string = enumName(v)
 
 ## Windows.Security.Cryptography.Certificates.InstallOptions  (enum)
 type InstallOptions* = distinct uint32
@@ -20025,25 +12729,14 @@ type KeyProtectionLevel* {.pure, size: 4.} = enum
   ConsentOnly = 1'i32
   ConsentWithPassword = 2'i32
   ConsentWithFingerprint = 3'i32
-proc `$`*(v: KeyProtectionLevel): string =
-  case ord(v)
-  of 0: "NoConsent"
-  of 1: "ConsentOnly"
-  of 2: "ConsentWithPassword"
-  of 3: "ConsentWithFingerprint"
-  else: "KeyProtectionLevel(" & $ord(v) & ")"
+template `$`*(v: KeyProtectionLevel): string = enumName(v)
 
 ## Windows.Security.Cryptography.Certificates.KeySize  (enum)
 type KeySize* {.pure, size: 4.} = enum
   Invalid = 0'i32
   Rsa2048 = 2048'i32
   Rsa4096 = 4096'i32
-proc `$`*(v: KeySize): string =
-  case ord(v)
-  of 0: "Invalid"
-  of 2048: "Rsa2048"
-  of 4096: "Rsa4096"
-  else: "KeySize(" & $ord(v) & ")"
+template `$`*(v: KeySize): string = enumName(v)
 
 ## Windows.Security.Cryptography.Certificates.SignatureValidationResult  (enum)
 type SignatureValidationResult* {.pure, size: 4.} = enum
@@ -20052,24 +12745,13 @@ type SignatureValidationResult* {.pure, size: 4.} = enum
   BadMessage = 2'i32
   InvalidSignature = 3'i32
   OtherErrors = 4'i32
-proc `$`*(v: SignatureValidationResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "InvalidParameter"
-  of 2: "BadMessage"
-  of 3: "InvalidSignature"
-  of 4: "OtherErrors"
-  else: "SignatureValidationResult(" & $ord(v) & ")"
+template `$`*(v: SignatureValidationResult): string = enumName(v)
 
 ## Windows.Security.Cryptography.Core.Capi1KdfTargetAlgorithm  (enum)
 type Capi1KdfTargetAlgorithm* {.pure, size: 4.} = enum
   NotAes = 0'i32
   Aes = 1'i32
-proc `$`*(v: Capi1KdfTargetAlgorithm): string =
-  case ord(v)
-  of 0: "NotAes"
-  of 1: "Aes"
-  else: "Capi1KdfTargetAlgorithm(" & $ord(v) & ")"
+template `$`*(v: Capi1KdfTargetAlgorithm): string = enumName(v)
 
 ## Windows.Security.Cryptography.Core.CryptographicPadding  (enum)
 type CryptographicPadding* {.pure, size: 4.} = enum
@@ -20077,13 +12759,7 @@ type CryptographicPadding* {.pure, size: 4.} = enum
   RsaOaep = 1'i32
   RsaPkcs1V15 = 2'i32
   RsaPss = 3'i32
-proc `$`*(v: CryptographicPadding): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "RsaOaep"
-  of 2: "RsaPkcs1V15"
-  of 3: "RsaPss"
-  else: "CryptographicPadding(" & $ord(v) & ")"
+template `$`*(v: CryptographicPadding): string = enumName(v)
 
 ## Windows.Security.Cryptography.Core.CryptographicPrivateKeyBlobType  (enum)
 type CryptographicPrivateKeyBlobType* {.pure, size: 4.} = enum
@@ -20092,14 +12768,7 @@ type CryptographicPrivateKeyBlobType* {.pure, size: 4.} = enum
   BCryptPrivateKey = 2'i32
   Capi1PrivateKey = 3'i32
   BCryptEccFullPrivateKey = 4'i32
-proc `$`*(v: CryptographicPrivateKeyBlobType): string =
-  case ord(v)
-  of 0: "Pkcs8RawPrivateKeyInfo"
-  of 1: "Pkcs1RsaPrivateKey"
-  of 2: "BCryptPrivateKey"
-  of 3: "Capi1PrivateKey"
-  of 4: "BCryptEccFullPrivateKey"
-  else: "CryptographicPrivateKeyBlobType(" & $ord(v) & ")"
+template `$`*(v: CryptographicPrivateKeyBlobType): string = enumName(v)
 
 ## Windows.Security.Cryptography.Core.CryptographicPublicKeyBlobType  (enum)
 type CryptographicPublicKeyBlobType* {.pure, size: 4.} = enum
@@ -20108,48 +12777,27 @@ type CryptographicPublicKeyBlobType* {.pure, size: 4.} = enum
   BCryptPublicKey = 2'i32
   Capi1PublicKey = 3'i32
   BCryptEccFullPublicKey = 4'i32
-proc `$`*(v: CryptographicPublicKeyBlobType): string =
-  case ord(v)
-  of 0: "X509SubjectPublicKeyInfo"
-  of 1: "Pkcs1RsaPublicKey"
-  of 2: "BCryptPublicKey"
-  of 3: "Capi1PublicKey"
-  of 4: "BCryptEccFullPublicKey"
-  else: "CryptographicPublicKeyBlobType(" & $ord(v) & ")"
+template `$`*(v: CryptographicPublicKeyBlobType): string = enumName(v)
 
 ## Windows.Security.DataProtection.UserDataAvailability  (enum)
 type UserDataAvailability* {.pure, size: 4.} = enum
   Always = 0'i32
   AfterFirstUnlock = 1'i32
   WhileUnlocked = 2'i32
-proc `$`*(v: UserDataAvailability): string =
-  case ord(v)
-  of 0: "Always"
-  of 1: "AfterFirstUnlock"
-  of 2: "WhileUnlocked"
-  else: "UserDataAvailability(" & $ord(v) & ")"
+template `$`*(v: UserDataAvailability): string = enumName(v)
 
 ## Windows.Security.DataProtection.UserDataBufferUnprotectStatus  (enum)
 type UserDataBufferUnprotectStatus* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   Unavailable = 1'i32
-proc `$`*(v: UserDataBufferUnprotectStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "Unavailable"
-  else: "UserDataBufferUnprotectStatus(" & $ord(v) & ")"
+template `$`*(v: UserDataBufferUnprotectStatus): string = enumName(v)
 
 ## Windows.Security.DataProtection.UserDataStorageItemProtectionStatus  (enum)
 type UserDataStorageItemProtectionStatus* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   NotProtectable = 1'i32
   DataUnavailable = 2'i32
-proc `$`*(v: UserDataStorageItemProtectionStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "NotProtectable"
-  of 2: "DataUnavailable"
-  else: "UserDataStorageItemProtectionStatus(" & $ord(v) & ")"
+template `$`*(v: UserDataStorageItemProtectionStatus): string = enumName(v)
 
 ## Windows.Security.EnterpriseData.DataProtectionStatus  (enum)
 type DataProtectionStatus* {.pure, size: 4.} = enum
@@ -20159,15 +12807,7 @@ type DataProtectionStatus* {.pure, size: 4.} = enum
   Unprotected = 3'i32
   LicenseExpired = 4'i32
   AccessSuspended = 5'i32
-proc `$`*(v: DataProtectionStatus): string =
-  case ord(v)
-  of 0: "ProtectedToOtherIdentity"
-  of 1: "Protected"
-  of 2: "Revoked"
-  of 3: "Unprotected"
-  of 4: "LicenseExpired"
-  of 5: "AccessSuspended"
-  else: "DataProtectionStatus(" & $ord(v) & ")"
+template `$`*(v: DataProtectionStatus): string = enumName(v)
 
 ## Windows.Security.EnterpriseData.EnforcementLevel  (enum)
 type EnforcementLevel* {.pure, size: 4.} = enum
@@ -20175,13 +12815,7 @@ type EnforcementLevel* {.pure, size: 4.} = enum
   Silent = 1'i32
   Override = 2'i32
   `Block` = 3'i32
-proc `$`*(v: EnforcementLevel): string =
-  case ord(v)
-  of 0: "NoProtection"
-  of 1: "Silent"
-  of 2: "Override"
-  of 3: "Block"
-  else: "EnforcementLevel(" & $ord(v) & ")"
+template `$`*(v: EnforcementLevel): string = enumName(v)
 
 ## Windows.Security.EnterpriseData.FileProtectionStatus  (enum)
 type FileProtectionStatus* {.pure, size: 4.} = enum
@@ -20197,20 +12831,7 @@ type FileProtectionStatus* {.pure, size: 4.} = enum
   AccessSuspended = 9'i32
   FileInUse = 10'i32
 const FileProtectionStatus_Unknown* = FileProtectionStatus.Undetermined
-proc `$`*(v: FileProtectionStatus): string =
-  case ord(v)
-  of 0: "Undetermined"
-  of 1: "Unprotected"
-  of 2: "Revoked"
-  of 3: "Protected"
-  of 4: "ProtectedByOtherUser"
-  of 5: "ProtectedToOtherEnterprise"
-  of 6: "NotProtectable"
-  of 7: "ProtectedToOtherIdentity"
-  of 8: "LicenseExpired"
-  of 9: "AccessSuspended"
-  of 10: "FileInUse"
-  else: "FileProtectionStatus(" & $ord(v) & ")"
+template `$`*(v: FileProtectionStatus): string = enumName(v)
 
 ## Windows.Security.EnterpriseData.ProtectedImportExportStatus  (enum)
 type ProtectedImportExportStatus* {.pure, size: 4.} = enum
@@ -20222,17 +12843,7 @@ type ProtectedImportExportStatus* {.pure, size: 4.} = enum
   ProtectedToOtherIdentity = 5'i32
   LicenseExpired = 6'i32
   AccessSuspended = 7'i32
-proc `$`*(v: ProtectedImportExportStatus): string =
-  case ord(v)
-  of 0: "Ok"
-  of 1: "Undetermined"
-  of 2: "Unprotected"
-  of 3: "Revoked"
-  of 4: "NotRoamable"
-  of 5: "ProtectedToOtherIdentity"
-  of 6: "LicenseExpired"
-  of 7: "AccessSuspended"
-  else: "ProtectedImportExportStatus(" & $ord(v) & ")"
+template `$`*(v: ProtectedImportExportStatus): string = enumName(v)
 
 ## Windows.Security.EnterpriseData.ProtectionPolicyAuditAction  (enum)
 type ProtectionPolicyAuditAction* {.pure, size: 4.} = enum
@@ -20240,35 +12851,20 @@ type ProtectionPolicyAuditAction* {.pure, size: 4.} = enum
   CopyToLocation = 1'i32
   SendToRecipient = 2'i32
   Other = 3'i32
-proc `$`*(v: ProtectionPolicyAuditAction): string =
-  case ord(v)
-  of 0: "Decrypt"
-  of 1: "CopyToLocation"
-  of 2: "SendToRecipient"
-  of 3: "Other"
-  else: "ProtectionPolicyAuditAction(" & $ord(v) & ")"
+template `$`*(v: ProtectionPolicyAuditAction): string = enumName(v)
 
 ## Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult  (enum)
 type ProtectionPolicyEvaluationResult* {.pure, size: 4.} = enum
   Allowed = 0'i32
   Blocked = 1'i32
   ConsentRequired = 2'i32
-proc `$`*(v: ProtectionPolicyEvaluationResult): string =
-  case ord(v)
-  of 0: "Allowed"
-  of 1: "Blocked"
-  of 2: "ConsentRequired"
-  else: "ProtectionPolicyEvaluationResult(" & $ord(v) & ")"
+template `$`*(v: ProtectionPolicyEvaluationResult): string = enumName(v)
 
 ## Windows.Security.EnterpriseData.ProtectionPolicyRequestAccessBehavior  (enum)
 type ProtectionPolicyRequestAccessBehavior* {.pure, size: 4.} = enum
   Decrypt = 0'i32
   TreatOverridePolicyAsBlock = 1'i32
-proc `$`*(v: ProtectionPolicyRequestAccessBehavior): string =
-  case ord(v)
-  of 0: "Decrypt"
-  of 1: "TreatOverridePolicyAsBlock"
-  else: "ProtectionPolicyRequestAccessBehavior(" & $ord(v) & ")"
+template `$`*(v: ProtectionPolicyRequestAccessBehavior): string = enumName(v)
 
 ## Windows.Security.ExchangeActiveSyncProvisioning.EasDisallowConvenienceLogonResult  (enum)
 type EasDisallowConvenienceLogonResult* {.pure, size: 4.} = enum
@@ -20276,25 +12872,14 @@ type EasDisallowConvenienceLogonResult* {.pure, size: 4.} = enum
   Compliant = 1'i32
   CanBeCompliant = 2'i32
   RequestedPolicyIsStricter = 3'i32
-proc `$`*(v: EasDisallowConvenienceLogonResult): string =
-  case ord(v)
-  of 0: "NotEvaluated"
-  of 1: "Compliant"
-  of 2: "CanBeCompliant"
-  of 3: "RequestedPolicyIsStricter"
-  else: "EasDisallowConvenienceLogonResult(" & $ord(v) & ")"
+template `$`*(v: EasDisallowConvenienceLogonResult): string = enumName(v)
 
 ## Windows.Security.ExchangeActiveSyncProvisioning.EasEncryptionProviderType  (enum)
 type EasEncryptionProviderType* {.pure, size: 4.} = enum
   NotEvaluated = 0'i32
   WindowsEncryption = 1'i32
   OtherEncryption = 2'i32
-proc `$`*(v: EasEncryptionProviderType): string =
-  case ord(v)
-  of 0: "NotEvaluated"
-  of 1: "WindowsEncryption"
-  of 2: "OtherEncryption"
-  else: "EasEncryptionProviderType(" & $ord(v) & ")"
+template `$`*(v: EasEncryptionProviderType): string = enumName(v)
 
 ## Windows.Security.ExchangeActiveSyncProvisioning.EasMaxInactivityTimeLockResult  (enum)
 type EasMaxInactivityTimeLockResult* {.pure, size: 4.} = enum
@@ -20303,14 +12888,7 @@ type EasMaxInactivityTimeLockResult* {.pure, size: 4.} = enum
   CanBeCompliant = 2'i32
   RequestedPolicyIsStricter = 3'i32
   InvalidParameter = 4'i32
-proc `$`*(v: EasMaxInactivityTimeLockResult): string =
-  case ord(v)
-  of 0: "NotEvaluated"
-  of 1: "Compliant"
-  of 2: "CanBeCompliant"
-  of 3: "RequestedPolicyIsStricter"
-  of 4: "InvalidParameter"
-  else: "EasMaxInactivityTimeLockResult(" & $ord(v) & ")"
+template `$`*(v: EasMaxInactivityTimeLockResult): string = enumName(v)
 
 ## Windows.Security.ExchangeActiveSyncProvisioning.EasMaxPasswordFailedAttemptsResult  (enum)
 type EasMaxPasswordFailedAttemptsResult* {.pure, size: 4.} = enum
@@ -20319,14 +12897,7 @@ type EasMaxPasswordFailedAttemptsResult* {.pure, size: 4.} = enum
   CanBeCompliant = 2'i32
   RequestedPolicyIsStricter = 3'i32
   InvalidParameter = 4'i32
-proc `$`*(v: EasMaxPasswordFailedAttemptsResult): string =
-  case ord(v)
-  of 0: "NotEvaluated"
-  of 1: "Compliant"
-  of 2: "CanBeCompliant"
-  of 3: "RequestedPolicyIsStricter"
-  of 4: "InvalidParameter"
-  else: "EasMaxPasswordFailedAttemptsResult(" & $ord(v) & ")"
+template `$`*(v: EasMaxPasswordFailedAttemptsResult): string = enumName(v)
 
 ## Windows.Security.ExchangeActiveSyncProvisioning.EasMinPasswordComplexCharactersResult  (enum)
 type EasMinPasswordComplexCharactersResult* {.pure, size: 4.} = enum
@@ -20345,24 +12916,7 @@ type EasMinPasswordComplexCharactersResult* {.pure, size: 4.} = enum
   ConnectedUserProviderPolicyIsWeak = 12'i32
   ChangeConnectedAdminsPassword = 13'i32
   ChangeConnectedUserPassword = 14'i32
-proc `$`*(v: EasMinPasswordComplexCharactersResult): string =
-  case ord(v)
-  of 0: "NotEvaluated"
-  of 1: "Compliant"
-  of 2: "CanBeCompliant"
-  of 3: "RequestedPolicyIsStricter"
-  of 4: "RequestedPolicyNotEnforceable"
-  of 5: "InvalidParameter"
-  of 6: "CurrentUserHasBlankPassword"
-  of 7: "AdminsHaveBlankPassword"
-  of 8: "UserCannotChangePassword"
-  of 9: "AdminsCannotChangePassword"
-  of 10: "LocalControlledUsersCannotChangePassword"
-  of 11: "ConnectedAdminsProviderPolicyIsWeak"
-  of 12: "ConnectedUserProviderPolicyIsWeak"
-  of 13: "ChangeConnectedAdminsPassword"
-  of 14: "ChangeConnectedUserPassword"
-  else: "EasMinPasswordComplexCharactersResult(" & $ord(v) & ")"
+template `$`*(v: EasMinPasswordComplexCharactersResult): string = enumName(v)
 
 ## Windows.Security.ExchangeActiveSyncProvisioning.EasMinPasswordLengthResult  (enum)
 type EasMinPasswordLengthResult* {.pure, size: 4.} = enum
@@ -20381,24 +12935,7 @@ type EasMinPasswordLengthResult* {.pure, size: 4.} = enum
   ConnectedUserProviderPolicyIsWeak = 12'i32
   ChangeConnectedAdminsPassword = 13'i32
   ChangeConnectedUserPassword = 14'i32
-proc `$`*(v: EasMinPasswordLengthResult): string =
-  case ord(v)
-  of 0: "NotEvaluated"
-  of 1: "Compliant"
-  of 2: "CanBeCompliant"
-  of 3: "RequestedPolicyIsStricter"
-  of 4: "RequestedPolicyNotEnforceable"
-  of 5: "InvalidParameter"
-  of 6: "CurrentUserHasBlankPassword"
-  of 7: "AdminsHaveBlankPassword"
-  of 8: "UserCannotChangePassword"
-  of 9: "AdminsCannotChangePassword"
-  of 10: "LocalControlledUsersCannotChangePassword"
-  of 11: "ConnectedAdminsProviderPolicyIsWeak"
-  of 12: "ConnectedUserProviderPolicyIsWeak"
-  of 13: "ChangeConnectedAdminsPassword"
-  of 14: "ChangeConnectedUserPassword"
-  else: "EasMinPasswordLengthResult(" & $ord(v) & ")"
+template `$`*(v: EasMinPasswordLengthResult): string = enumName(v)
 
 ## Windows.Security.ExchangeActiveSyncProvisioning.EasPasswordExpirationResult  (enum)
 type EasPasswordExpirationResult* {.pure, size: 4.} = enum
@@ -20411,18 +12948,7 @@ type EasPasswordExpirationResult* {.pure, size: 4.} = enum
   UserCannotChangePassword = 6'i32
   AdminsCannotChangePassword = 7'i32
   LocalControlledUsersCannotChangePassword = 8'i32
-proc `$`*(v: EasPasswordExpirationResult): string =
-  case ord(v)
-  of 0: "NotEvaluated"
-  of 1: "Compliant"
-  of 2: "CanBeCompliant"
-  of 3: "RequestedPolicyIsStricter"
-  of 4: "RequestedExpirationIncompatible"
-  of 5: "InvalidParameter"
-  of 6: "UserCannotChangePassword"
-  of 7: "AdminsCannotChangePassword"
-  of 8: "LocalControlledUsersCannotChangePassword"
-  else: "EasPasswordExpirationResult(" & $ord(v) & ")"
+template `$`*(v: EasPasswordExpirationResult): string = enumName(v)
 
 ## Windows.Security.ExchangeActiveSyncProvisioning.EasPasswordHistoryResult  (enum)
 type EasPasswordHistoryResult* {.pure, size: 4.} = enum
@@ -20431,14 +12957,7 @@ type EasPasswordHistoryResult* {.pure, size: 4.} = enum
   CanBeCompliant = 2'i32
   RequestedPolicyIsStricter = 3'i32
   InvalidParameter = 4'i32
-proc `$`*(v: EasPasswordHistoryResult): string =
-  case ord(v)
-  of 0: "NotEvaluated"
-  of 1: "Compliant"
-  of 2: "CanBeCompliant"
-  of 3: "RequestedPolicyIsStricter"
-  of 4: "InvalidParameter"
-  else: "EasPasswordHistoryResult(" & $ord(v) & ")"
+template `$`*(v: EasPasswordHistoryResult): string = enumName(v)
 
 ## Windows.Security.ExchangeActiveSyncProvisioning.EasRequireEncryptionResult  (enum)
 type EasRequireEncryptionResult* {.pure, size: 4.} = enum
@@ -20461,32 +12980,13 @@ const EasRequireEncryptionResult_LockNotConfigured* = EasRequireEncryptionResult
 const EasRequireEncryptionResult_ProtectionSuspended* = EasRequireEncryptionResult.DeProtectionSuspended
 const EasRequireEncryptionResult_OsVolumeNotProtected* = EasRequireEncryptionResult.DeOsVolumeNotProtected
 const EasRequireEncryptionResult_ProtectionNotYetEnabled* = EasRequireEncryptionResult.DeProtectionNotYetEnabled
-proc `$`*(v: EasRequireEncryptionResult): string =
-  case ord(v)
-  of 0: "NotEvaluated"
-  of 1: "Compliant"
-  of 2: "CanBeCompliant"
-  of 3: "NotProvisionedOnAllVolumes"
-  of 4: "DeFixedDataNotSupported"
-  of 5: "DeHardwareNotCompliant"
-  of 6: "DeWinReNotConfigured"
-  of 7: "DeProtectionSuspended"
-  of 8: "DeOsVolumeNotProtected"
-  of 9: "DeProtectionNotYetEnabled"
-  of 10: "NoFeatureLicense"
-  of 11: "OsNotProtected"
-  of 12: "UnexpectedFailure"
-  else: "EasRequireEncryptionResult(" & $ord(v) & ")"
+template `$`*(v: EasRequireEncryptionResult): string = enumName(v)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentActivator  (enum)
 type IsolatedWindowsEnvironmentActivator* {.pure, size: 4.} = enum
   System = 0'i32
   User = 1'i32
-proc `$`*(v: IsolatedWindowsEnvironmentActivator): string =
-  case ord(v)
-  of 0: "System"
-  of 1: "User"
-  else: "IsolatedWindowsEnvironmentActivator(" & $ord(v) & ")"
+template `$`*(v: IsolatedWindowsEnvironmentActivator): string = enumName(v)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentAllowedClipboardFormats  (enum)
 type IsolatedWindowsEnvironmentAllowedClipboardFormats* = distinct uint32
@@ -20592,22 +13092,13 @@ type IsolatedWindowsEnvironmentCreateStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   FailureByPolicy = 1'i32
   UnknownFailure = 2'i32
-proc `$`*(v: IsolatedWindowsEnvironmentCreateStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "FailureByPolicy"
-  of 2: "UnknownFailure"
-  else: "IsolatedWindowsEnvironmentCreateStatus(" & $ord(v) & ")"
+template `$`*(v: IsolatedWindowsEnvironmentCreateStatus): string = enumName(v)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentCreationPriority  (enum)
 type IsolatedWindowsEnvironmentCreationPriority* {.pure, size: 4.} = enum
   Low = 0'i32
   Normal = 1'i32
-proc `$`*(v: IsolatedWindowsEnvironmentCreationPriority): string =
-  case ord(v)
-  of 0: "Low"
-  of 1: "Normal"
-  else: "IsolatedWindowsEnvironmentCreationPriority(" & $ord(v) & ")"
+template `$`*(v: IsolatedWindowsEnvironmentCreationPriority): string = enumName(v)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentHostError  (enum)
 type IsolatedWindowsEnvironmentHostError* {.pure, size: 4.} = enum
@@ -20616,14 +13107,7 @@ type IsolatedWindowsEnvironmentHostError* {.pure, size: 4.} = enum
   HardwareRequirementsNotMet = 2'i32
   RebootRequired = 3'i32
   UnknownError = 4'i32
-proc `$`*(v: IsolatedWindowsEnvironmentHostError): string =
-  case ord(v)
-  of 0: "AdminPolicyIsDisabledOrNotPresent"
-  of 1: "FeatureNotInstalled"
-  of 2: "HardwareRequirementsNotMet"
-  of 3: "RebootRequired"
-  of 4: "UnknownError"
-  else: "IsolatedWindowsEnvironmentHostError(" & $ord(v) & ")"
+template `$`*(v: IsolatedWindowsEnvironmentHostError): string = enumName(v)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentLaunchFileStatus  (enum)
 type IsolatedWindowsEnvironmentLaunchFileStatus* {.pure, size: 4.} = enum
@@ -20633,15 +13117,7 @@ type IsolatedWindowsEnvironmentLaunchFileStatus* {.pure, size: 4.} = enum
   FileNotFound = 3'i32
   TimedOut = 4'i32
   AlreadySharedWithConflictingOptions = 5'i32
-proc `$`*(v: IsolatedWindowsEnvironmentLaunchFileStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "EnvironmentUnavailable"
-  of 3: "FileNotFound"
-  of 4: "TimedOut"
-  of 5: "AlreadySharedWithConflictingOptions"
-  else: "IsolatedWindowsEnvironmentLaunchFileStatus(" & $ord(v) & ")"
+template `$`*(v: IsolatedWindowsEnvironmentLaunchFileStatus): string = enumName(v)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationStatus  (enum)
 type IsolatedWindowsEnvironmentOwnerRegistrationStatus* {.pure, size: 4.} = enum
@@ -20650,38 +13126,21 @@ type IsolatedWindowsEnvironmentOwnerRegistrationStatus* {.pure, size: 4.} = enum
   AccessDenied = 2'i32
   InsufficientMemory = 3'i32
   UnknownFailure = 4'i32
-proc `$`*(v: IsolatedWindowsEnvironmentOwnerRegistrationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "InvalidArgument"
-  of 2: "AccessDenied"
-  of 3: "InsufficientMemory"
-  of 4: "UnknownFailure"
-  else: "IsolatedWindowsEnvironmentOwnerRegistrationStatus(" & $ord(v) & ")"
+template `$`*(v: IsolatedWindowsEnvironmentOwnerRegistrationStatus): string = enumName(v)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageStatus  (enum)
 type IsolatedWindowsEnvironmentPostMessageStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   UnknownFailure = 1'i32
   EnvironmentUnavailable = 2'i32
-proc `$`*(v: IsolatedWindowsEnvironmentPostMessageStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "EnvironmentUnavailable"
-  else: "IsolatedWindowsEnvironmentPostMessageStatus(" & $ord(v) & ")"
+template `$`*(v: IsolatedWindowsEnvironmentPostMessageStatus): string = enumName(v)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentProcessState  (enum)
 type IsolatedWindowsEnvironmentProcessState* {.pure, size: 4.} = enum
   Running = 1'i32
   Aborted = 2'i32
   Completed = 3'i32
-proc `$`*(v: IsolatedWindowsEnvironmentProcessState): string =
-  case ord(v)
-  of 1: "Running"
-  of 2: "Aborted"
-  of 3: "Completed"
-  else: "IsolatedWindowsEnvironmentProcessState(" & $ord(v) & ")"
+template `$`*(v: IsolatedWindowsEnvironmentProcessState): string = enumName(v)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentProgressState  (enum)
 type IsolatedWindowsEnvironmentProgressState* {.pure, size: 4.} = enum
@@ -20692,16 +13151,7 @@ type IsolatedWindowsEnvironmentProgressState* {.pure, size: 4.} = enum
   Retrying = 4'i32
   Starting = 5'i32
   Finalizing = 6'i32
-proc `$`*(v: IsolatedWindowsEnvironmentProgressState): string =
-  case ord(v)
-  of 0: "Queued"
-  of 1: "Processing"
-  of 2: "Completed"
-  of 3: "Creating"
-  of 4: "Retrying"
-  of 5: "Starting"
-  of 6: "Finalizing"
-  else: "IsolatedWindowsEnvironmentProgressState(" & $ord(v) & ")"
+template `$`*(v: IsolatedWindowsEnvironmentProgressState): string = enumName(v)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileStatus  (enum)
 type IsolatedWindowsEnvironmentShareFileStatus* {.pure, size: 4.} = enum
@@ -20711,15 +13161,7 @@ type IsolatedWindowsEnvironmentShareFileStatus* {.pure, size: 4.} = enum
   AlreadySharedWithConflictingOptions = 3'i32
   FileNotFound = 4'i32
   AccessDenied = 5'i32
-proc `$`*(v: IsolatedWindowsEnvironmentShareFileStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "EnvironmentUnavailable"
-  of 3: "AlreadySharedWithConflictingOptions"
-  of 4: "FileNotFound"
-  of 5: "AccessDenied"
-  else: "IsolatedWindowsEnvironmentShareFileStatus(" & $ord(v) & ")"
+template `$`*(v: IsolatedWindowsEnvironmentShareFileStatus): string = enumName(v)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderStatus  (enum)
 type IsolatedWindowsEnvironmentShareFolderStatus* {.pure, size: 4.} = enum
@@ -20728,14 +13170,7 @@ type IsolatedWindowsEnvironmentShareFolderStatus* {.pure, size: 4.} = enum
   EnvironmentUnavailable = 2'i32
   FolderNotFound = 3'i32
   AccessDenied = 4'i32
-proc `$`*(v: IsolatedWindowsEnvironmentShareFolderStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "EnvironmentUnavailable"
-  of 3: "FolderNotFound"
-  of 4: "AccessDenied"
-  else: "IsolatedWindowsEnvironmentShareFolderStatus(" & $ord(v) & ")"
+template `$`*(v: IsolatedWindowsEnvironmentShareFolderStatus): string = enumName(v)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentSignInProgress  (enum)
 type IsolatedWindowsEnvironmentSignInProgress* {.pure, size: 4.} = enum
@@ -20745,15 +13180,7 @@ type IsolatedWindowsEnvironmentSignInProgress* {.pure, size: 4.} = enum
   SettingUpAccount = 3'i32
   Finalizing = 4'i32
   Completed = 5'i32
-proc `$`*(v: IsolatedWindowsEnvironmentSignInProgress): string =
-  case ord(v)
-  of 0: "Connecting"
-  of 1: "Connected"
-  of 2: "Authenticating"
-  of 3: "SettingUpAccount"
-  of 4: "Finalizing"
-  of 5: "Completed"
-  else: "IsolatedWindowsEnvironmentSignInProgress(" & $ord(v) & ")"
+template `$`*(v: IsolatedWindowsEnvironmentSignInProgress): string = enumName(v)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentStartProcessStatus  (enum)
 type IsolatedWindowsEnvironmentStartProcessStatus* {.pure, size: 4.} = enum
@@ -20762,14 +13189,7 @@ type IsolatedWindowsEnvironmentStartProcessStatus* {.pure, size: 4.} = enum
   EnvironmentUnavailable = 2'i32
   FileNotFound = 3'i32
   AppNotRegistered = 4'i32
-proc `$`*(v: IsolatedWindowsEnvironmentStartProcessStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "EnvironmentUnavailable"
-  of 3: "FileNotFound"
-  of 4: "AppNotRegistered"
-  else: "IsolatedWindowsEnvironmentStartProcessStatus(" & $ord(v) & ")"
+template `$`*(v: IsolatedWindowsEnvironmentStartProcessStatus): string = enumName(v)
 
 ## Windows.Services.Cortana.CortanaPermission  (enum)
 type CortanaPermission* {.pure, size: 4.} = enum
@@ -20784,44 +13204,21 @@ type CortanaPermission* {.pure, size: 4.} = enum
   Microphone = 8'i32
   Personalization = 9'i32
   PhoneCall = 10'i32
-proc `$`*(v: CortanaPermission): string =
-  case ord(v)
-  of 0: "BrowsingHistory"
-  of 1: "Calendar"
-  of 2: "CallHistory"
-  of 3: "Contacts"
-  of 4: "Email"
-  of 5: "InputPersonalization"
-  of 6: "Location"
-  of 7: "Messaging"
-  of 8: "Microphone"
-  of 9: "Personalization"
-  of 10: "PhoneCall"
-  else: "CortanaPermission(" & $ord(v) & ")"
+template `$`*(v: CortanaPermission): string = enumName(v)
 
 ## Windows.Services.Cortana.CortanaPermissionsChangeResult  (enum)
 type CortanaPermissionsChangeResult* {.pure, size: 4.} = enum
   Success = 0'i32
   Unavailable = 1'i32
   DisabledByPolicy = 2'i32
-proc `$`*(v: CortanaPermissionsChangeResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "Unavailable"
-  of 2: "DisabledByPolicy"
-  else: "CortanaPermissionsChangeResult(" & $ord(v) & ")"
+template `$`*(v: CortanaPermissionsChangeResult): string = enumName(v)
 
 ## Windows.Services.Maps.Guidance.GuidanceAudioMeasurementSystem  (enum)
 type GuidanceAudioMeasurementSystem* {.pure, size: 4.} = enum
   Meters = 0'i32
   MilesAndYards = 1'i32
   MilesAndFeet = 2'i32
-proc `$`*(v: GuidanceAudioMeasurementSystem): string =
-  case ord(v)
-  of 0: "Meters"
-  of 1: "MilesAndYards"
-  of 2: "MilesAndFeet"
-  else: "GuidanceAudioMeasurementSystem(" & $ord(v) & ")"
+template `$`*(v: GuidanceAudioMeasurementSystem): string = enumName(v)
 
 ## Windows.Services.Maps.Guidance.GuidanceAudioNotificationKind  (enum)
 type GuidanceAudioNotificationKind* {.pure, size: 4.} = enum
@@ -20831,15 +13228,7 @@ type GuidanceAudioNotificationKind* {.pure, size: 4.} = enum
   SpeedLimit = 3'i32
   Traffic = 4'i32
   TrafficCamera = 5'i32
-proc `$`*(v: GuidanceAudioNotificationKind): string =
-  case ord(v)
-  of 0: "Maneuver"
-  of 1: "Route"
-  of 2: "Gps"
-  of 3: "SpeedLimit"
-  of 4: "Traffic"
-  of 5: "TrafficCamera"
-  else: "GuidanceAudioNotificationKind(" & $ord(v) & ")"
+template `$`*(v: GuidanceAudioNotificationKind): string = enumName(v)
 
 ## Windows.Services.Maps.Guidance.GuidanceAudioNotifications  (enum)
 type GuidanceAudioNotifications* = distinct uint32
@@ -21007,57 +13396,7 @@ type GuidanceManeuverKind* {.pure, size: 4.} = enum
   TakeFerry = 45'i32
   PassTransitStation = 46'i32
   LeaveTransitStation = 47'i32
-proc `$`*(v: GuidanceManeuverKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "GoStraight"
-  of 2: "UTurnRight"
-  of 3: "UTurnLeft"
-  of 4: "TurnKeepRight"
-  of 5: "TurnLightRight"
-  of 6: "TurnRight"
-  of 7: "TurnHardRight"
-  of 8: "KeepMiddle"
-  of 9: "TurnKeepLeft"
-  of 10: "TurnLightLeft"
-  of 11: "TurnLeft"
-  of 12: "TurnHardLeft"
-  of 13: "FreewayEnterRight"
-  of 14: "FreewayEnterLeft"
-  of 15: "FreewayLeaveRight"
-  of 16: "FreewayLeaveLeft"
-  of 17: "FreewayKeepRight"
-  of 18: "FreewayKeepLeft"
-  of 19: "TrafficCircleRight1"
-  of 20: "TrafficCircleRight2"
-  of 21: "TrafficCircleRight3"
-  of 22: "TrafficCircleRight4"
-  of 23: "TrafficCircleRight5"
-  of 24: "TrafficCircleRight6"
-  of 25: "TrafficCircleRight7"
-  of 26: "TrafficCircleRight8"
-  of 27: "TrafficCircleRight9"
-  of 28: "TrafficCircleRight10"
-  of 29: "TrafficCircleRight11"
-  of 30: "TrafficCircleRight12"
-  of 31: "TrafficCircleLeft1"
-  of 32: "TrafficCircleLeft2"
-  of 33: "TrafficCircleLeft3"
-  of 34: "TrafficCircleLeft4"
-  of 35: "TrafficCircleLeft5"
-  of 36: "TrafficCircleLeft6"
-  of 37: "TrafficCircleLeft7"
-  of 38: "TrafficCircleLeft8"
-  of 39: "TrafficCircleLeft9"
-  of 40: "TrafficCircleLeft10"
-  of 41: "TrafficCircleLeft11"
-  of 42: "TrafficCircleLeft12"
-  of 43: "Start"
-  of 44: "End"
-  of 45: "TakeFerry"
-  of 46: "PassTransitStation"
-  of 47: "LeaveTransitStation"
-  else: "GuidanceManeuverKind(" & $ord(v) & ")"
+template `$`*(v: GuidanceManeuverKind): string = enumName(v)
 
 ## Windows.Services.Maps.Guidance.GuidanceMode  (enum)
 type GuidanceMode* {.pure, size: 4.} = enum
@@ -21065,13 +13404,7 @@ type GuidanceMode* {.pure, size: 4.} = enum
   Simulation = 1'i32
   Navigation = 2'i32
   Tracking = 3'i32
-proc `$`*(v: GuidanceMode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Simulation"
-  of 2: "Navigation"
-  of 3: "Tracking"
-  else: "GuidanceMode(" & $ord(v) & ")"
+template `$`*(v: GuidanceMode): string = enumName(v)
 
 ## Windows.Services.Maps.LocalSearch.LocalLocationFinderStatus  (enum)
 type LocalLocationFinderStatus* {.pure, size: 4.} = enum
@@ -21083,17 +13416,7 @@ type LocalLocationFinderStatus* {.pure, size: 4.} = enum
   InvalidSearchArea = 5'i32
   NetworkFailure = 6'i32
   NotSupported = 7'i32
-proc `$`*(v: LocalLocationFinderStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownError"
-  of 2: "InvalidCredentials"
-  of 3: "InvalidCategory"
-  of 4: "InvalidSearchTerm"
-  of 5: "InvalidSearchArea"
-  of 6: "NetworkFailure"
-  of 7: "NotSupported"
-  else: "LocalLocationFinderStatus(" & $ord(v) & ")"
+template `$`*(v: LocalLocationFinderStatus): string = enumName(v)
 
 ## Windows.Services.Maps.ManeuverWarningKind  (enum)
 type ManeuverWarningKind* {.pure, size: 4.} = enum
@@ -21133,45 +13456,7 @@ type ManeuverWarningKind* {.pure, size: 4.} = enum
   UnpavedRoad = 33'i32
   UnscheduledConstruction = 34'i32
   Weather = 35'i32
-proc `$`*(v: ManeuverWarningKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Accident"
-  of 2: "AdministrativeDivisionChange"
-  of 3: "Alert"
-  of 4: "BlockedRoad"
-  of 5: "CheckTimetable"
-  of 6: "Congestion"
-  of 7: "Construction"
-  of 8: "CountryChange"
-  of 9: "DisabledVehicle"
-  of 10: "GateAccess"
-  of 11: "GetOffTransit"
-  of 12: "GetOnTransit"
-  of 13: "IllegalUTurn"
-  of 14: "MassTransit"
-  of 15: "Miscellaneous"
-  of 16: "NoIncident"
-  of 17: "Other"
-  of 18: "OtherNews"
-  of 19: "OtherTrafficIncidents"
-  of 20: "PlannedEvent"
-  of 21: "PrivateRoad"
-  of 22: "RestrictedTurn"
-  of 23: "RoadClosures"
-  of 24: "RoadHazard"
-  of 25: "ScheduledConstruction"
-  of 26: "SeasonalClosures"
-  of 27: "Tollbooth"
-  of 28: "TollRoad"
-  of 29: "TollZoneEnter"
-  of 30: "TollZoneExit"
-  of 31: "TrafficFlow"
-  of 32: "TransitLineChange"
-  of 33: "UnpavedRoad"
-  of 34: "UnscheduledConstruction"
-  of 35: "Weather"
-  else: "ManeuverWarningKind(" & $ord(v) & ")"
+template `$`*(v: ManeuverWarningKind): string = enumName(v)
 
 ## Windows.Services.Maps.ManeuverWarningSeverity  (enum)
 type ManeuverWarningSeverity* {.pure, size: 4.} = enum
@@ -21180,24 +13465,13 @@ type ManeuverWarningSeverity* {.pure, size: 4.} = enum
   Minor = 2'i32
   Moderate = 3'i32
   Serious = 4'i32
-proc `$`*(v: ManeuverWarningSeverity): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "LowImpact"
-  of 2: "Minor"
-  of 3: "Moderate"
-  of 4: "Serious"
-  else: "ManeuverWarningSeverity(" & $ord(v) & ")"
+template `$`*(v: ManeuverWarningSeverity): string = enumName(v)
 
 ## Windows.Services.Maps.MapLocationDesiredAccuracy  (enum)
 type MapLocationDesiredAccuracy* {.pure, size: 4.} = enum
   High = 0'i32
   Low = 1'i32
-proc `$`*(v: MapLocationDesiredAccuracy): string =
-  case ord(v)
-  of 0: "High"
-  of 1: "Low"
-  else: "MapLocationDesiredAccuracy(" & $ord(v) & ")"
+template `$`*(v: MapLocationDesiredAccuracy): string = enumName(v)
 
 ## Windows.Services.Maps.MapLocationFinderStatus  (enum)
 type MapLocationFinderStatus* {.pure, size: 4.} = enum
@@ -21208,16 +13482,7 @@ type MapLocationFinderStatus* {.pure, size: 4.} = enum
   IndexFailure = 4'i32
   NetworkFailure = 5'i32
   NotSupported = 6'i32
-proc `$`*(v: MapLocationFinderStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownError"
-  of 2: "InvalidCredentials"
-  of 3: "BadLocation"
-  of 4: "IndexFailure"
-  of 5: "NetworkFailure"
-  of 6: "NotSupported"
-  else: "MapLocationFinderStatus(" & $ord(v) & ")"
+template `$`*(v: MapLocationFinderStatus): string = enumName(v)
 
 ## Windows.Services.Maps.MapManeuverNotices  (enum)
 type MapManeuverNotices* = distinct uint32
@@ -21259,19 +13524,7 @@ type MapRouteFinderStatus* {.pure, size: 4.} = enum
   NoPedestrianRouteFound = 7'i32
   NetworkFailure = 8'i32
   NotSupported = 9'i32
-proc `$`*(v: MapRouteFinderStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownError"
-  of 2: "InvalidCredentials"
-  of 3: "NoRouteFound"
-  of 4: "NoRouteFoundWithGivenOptions"
-  of 5: "StartPointNotFound"
-  of 6: "EndPointNotFound"
-  of 7: "NoPedestrianRouteFound"
-  of 8: "NetworkFailure"
-  of 9: "NotSupported"
-  else: "MapRouteFinderStatus(" & $ord(v) & ")"
+template `$`*(v: MapRouteFinderStatus): string = enumName(v)
 
 ## Windows.Services.Maps.MapRouteManeuverKind  (enum)
 type MapRouteManeuverKind* {.pure, size: 4.} = enum
@@ -21300,34 +13553,7 @@ type MapRouteManeuverKind* {.pure, size: 4.} = enum
   TrafficCircleLeft = 22'i32
   TrafficCircleRight = 23'i32
   TakeFerry = 24'i32
-proc `$`*(v: MapRouteManeuverKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Start"
-  of 2: "Stopover"
-  of 3: "StopoverResume"
-  of 4: "End"
-  of 5: "GoStraight"
-  of 6: "UTurnLeft"
-  of 7: "UTurnRight"
-  of 8: "TurnKeepLeft"
-  of 9: "TurnKeepRight"
-  of 10: "TurnLightLeft"
-  of 11: "TurnLightRight"
-  of 12: "TurnLeft"
-  of 13: "TurnRight"
-  of 14: "TurnHardLeft"
-  of 15: "TurnHardRight"
-  of 16: "FreewayEnterLeft"
-  of 17: "FreewayEnterRight"
-  of 18: "FreewayLeaveLeft"
-  of 19: "FreewayLeaveRight"
-  of 20: "FreewayContinueLeft"
-  of 21: "FreewayContinueRight"
-  of 22: "TrafficCircleLeft"
-  of 23: "TrafficCircleRight"
-  of 24: "TakeFerry"
-  else: "MapRouteManeuverKind(" & $ord(v) & ")"
+template `$`*(v: MapRouteManeuverKind): string = enumName(v)
 
 ## Windows.Services.Maps.MapRouteOptimization  (enum)
 type MapRouteOptimization* {.pure, size: 4.} = enum
@@ -21335,13 +13561,7 @@ type MapRouteOptimization* {.pure, size: 4.} = enum
   Distance = 1'i32
   TimeWithTraffic = 2'i32
   Scenic = 3'i32
-proc `$`*(v: MapRouteOptimization): string =
-  case ord(v)
-  of 0: "Time"
-  of 1: "Distance"
-  of 2: "TimeWithTraffic"
-  of 3: "Scenic"
-  else: "MapRouteOptimization(" & $ord(v) & ")"
+template `$`*(v: MapRouteOptimization): string = enumName(v)
 
 ## Windows.Services.Maps.MapRouteRestrictions  (enum)
 type MapRouteRestrictions* = distinct uint32
@@ -21395,11 +13615,7 @@ const MapRouteRestrictions_Motorail* = MapRouteRestrictions(32'u32)
 type MapServiceDataUsagePreference* {.pure, size: 4.} = enum
   Default = 0'i32
   OfflineMapDataOnly = 1'i32
-proc `$`*(v: MapServiceDataUsagePreference): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "OfflineMapDataOnly"
-  else: "MapServiceDataUsagePreference(" & $ord(v) & ")"
+template `$`*(v: MapServiceDataUsagePreference): string = enumName(v)
 
 ## Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryStatus  (enum)
 type OfflineMapPackageQueryStatus* {.pure, size: 4.} = enum
@@ -21407,13 +13623,7 @@ type OfflineMapPackageQueryStatus* {.pure, size: 4.} = enum
   UnknownError = 1'i32
   InvalidCredentials = 2'i32
   NetworkFailure = 3'i32
-proc `$`*(v: OfflineMapPackageQueryStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownError"
-  of 2: "InvalidCredentials"
-  of 3: "NetworkFailure"
-  else: "OfflineMapPackageQueryStatus(" & $ord(v) & ")"
+template `$`*(v: OfflineMapPackageQueryStatus): string = enumName(v)
 
 ## Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadStatus  (enum)
 type OfflineMapPackageStartDownloadStatus* {.pure, size: 4.} = enum
@@ -21421,13 +13631,7 @@ type OfflineMapPackageStartDownloadStatus* {.pure, size: 4.} = enum
   UnknownError = 1'i32
   InvalidCredentials = 2'i32
   DeniedWithoutCapability = 3'i32
-proc `$`*(v: OfflineMapPackageStartDownloadStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownError"
-  of 2: "InvalidCredentials"
-  of 3: "DeniedWithoutCapability"
-  else: "OfflineMapPackageStartDownloadStatus(" & $ord(v) & ")"
+template `$`*(v: OfflineMapPackageStartDownloadStatus): string = enumName(v)
 
 ## Windows.Services.Maps.OfflineMaps.OfflineMapPackageStatus  (enum)
 type OfflineMapPackageStatus* {.pure, size: 4.} = enum
@@ -21435,13 +13639,7 @@ type OfflineMapPackageStatus* {.pure, size: 4.} = enum
   Downloading = 1'i32
   Downloaded = 2'i32
   Deleting = 3'i32
-proc `$`*(v: OfflineMapPackageStatus): string =
-  case ord(v)
-  of 0: "NotDownloaded"
-  of 1: "Downloading"
-  of 2: "Downloaded"
-  of 3: "Deleting"
-  else: "OfflineMapPackageStatus(" & $ord(v) & ")"
+template `$`*(v: OfflineMapPackageStatus): string = enumName(v)
 
 ## Windows.Services.Maps.TrafficCongestion  (enum)
 type TrafficCongestion* {.pure, size: 4.} = enum
@@ -21450,24 +13648,13 @@ type TrafficCongestion* {.pure, size: 4.} = enum
   Mild = 2'i32
   Medium = 3'i32
   Heavy = 4'i32
-proc `$`*(v: TrafficCongestion): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Light"
-  of 2: "Mild"
-  of 3: "Medium"
-  of 4: "Heavy"
-  else: "TrafficCongestion(" & $ord(v) & ")"
+template `$`*(v: TrafficCongestion): string = enumName(v)
 
 ## Windows.Services.Maps.WaypointKind  (enum)
 type WaypointKind* {.pure, size: 4.} = enum
   Stop = 0'i32
   Via = 1'i32
-proc `$`*(v: WaypointKind): string =
-  case ord(v)
-  of 0: "Stop"
-  of 1: "Via"
-  else: "WaypointKind(" & $ord(v) & ")"
+template `$`*(v: WaypointKind): string = enumName(v)
 
 ## Windows.Services.Store.StoreCanLicenseStatus  (enum)
 type StoreCanLicenseStatus* {.pure, size: 4.} = enum
@@ -21476,14 +13663,7 @@ type StoreCanLicenseStatus* {.pure, size: 4.} = enum
   LicenseActionNotApplicableToProduct = 2'i32
   NetworkError = 3'i32
   ServerError = 4'i32
-proc `$`*(v: StoreCanLicenseStatus): string =
-  case ord(v)
-  of 0: "NotLicensableToUser"
-  of 1: "Licensable"
-  of 2: "LicenseActionNotApplicableToProduct"
-  of 3: "NetworkError"
-  of 4: "ServerError"
-  else: "StoreCanLicenseStatus(" & $ord(v) & ")"
+template `$`*(v: StoreCanLicenseStatus): string = enumName(v)
 
 ## Windows.Services.Store.StoreConsumableStatus  (enum)
 type StoreConsumableStatus* {.pure, size: 4.} = enum
@@ -21491,13 +13671,7 @@ type StoreConsumableStatus* {.pure, size: 4.} = enum
   InsufficentQuantity = 1'i32
   NetworkError = 2'i32
   ServerError = 3'i32
-proc `$`*(v: StoreConsumableStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "InsufficentQuantity"
-  of 2: "NetworkError"
-  of 3: "ServerError"
-  else: "StoreConsumableStatus(" & $ord(v) & ")"
+template `$`*(v: StoreConsumableStatus): string = enumName(v)
 
 ## Windows.Services.Store.StoreDurationUnit  (enum)
 type StoreDurationUnit* {.pure, size: 4.} = enum
@@ -21507,15 +13681,7 @@ type StoreDurationUnit* {.pure, size: 4.} = enum
   Week = 3'i32
   Month = 4'i32
   Year = 5'i32
-proc `$`*(v: StoreDurationUnit): string =
-  case ord(v)
-  of 0: "Minute"
-  of 1: "Hour"
-  of 2: "Day"
-  of 3: "Week"
-  of 4: "Month"
-  of 5: "Year"
-  else: "StoreDurationUnit(" & $ord(v) & ")"
+template `$`*(v: StoreDurationUnit): string = enumName(v)
 
 ## Windows.Services.Store.StorePackageUpdateState  (enum)
 type StorePackageUpdateState* {.pure, size: 4.} = enum
@@ -21528,18 +13694,7 @@ type StorePackageUpdateState* {.pure, size: 4.} = enum
   ErrorLowBattery = 6'i32
   ErrorWiFiRecommended = 7'i32
   ErrorWiFiRequired = 8'i32
-proc `$`*(v: StorePackageUpdateState): string =
-  case ord(v)
-  of 0: "Pending"
-  of 1: "Downloading"
-  of 2: "Deploying"
-  of 3: "Completed"
-  of 4: "Canceled"
-  of 5: "OtherError"
-  of 6: "ErrorLowBattery"
-  of 7: "ErrorWiFiRecommended"
-  of 8: "ErrorWiFiRequired"
-  else: "StorePackageUpdateState(" & $ord(v) & ")"
+template `$`*(v: StorePackageUpdateState): string = enumName(v)
 
 ## Windows.Services.Store.StorePurchaseStatus  (enum)
 type StorePurchaseStatus* {.pure, size: 4.} = enum
@@ -21548,14 +13703,7 @@ type StorePurchaseStatus* {.pure, size: 4.} = enum
   NotPurchased = 2'i32
   NetworkError = 3'i32
   ServerError = 4'i32
-proc `$`*(v: StorePurchaseStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "AlreadyPurchased"
-  of 2: "NotPurchased"
-  of 3: "NetworkError"
-  of 4: "ServerError"
-  else: "StorePurchaseStatus(" & $ord(v) & ")"
+template `$`*(v: StorePurchaseStatus): string = enumName(v)
 
 ## Windows.Services.Store.StoreQueueItemExtendedState  (enum)
 type StoreQueueItemExtendedState* {.pure, size: 4.} = enum
@@ -21574,36 +13722,14 @@ type StoreQueueItemExtendedState* {.pure, size: 4.} = enum
   PausedWiFiRecommended = 12'i32
   PausedWiFiRequired = 13'i32
   PausedReadyToInstall = 14'i32
-proc `$`*(v: StoreQueueItemExtendedState): string =
-  case ord(v)
-  of 0: "ActivePending"
-  of 1: "ActiveStarting"
-  of 2: "ActiveAcquiringLicense"
-  of 3: "ActiveDownloading"
-  of 4: "ActiveRestoringData"
-  of 5: "ActiveInstalling"
-  of 6: "Completed"
-  of 7: "Canceled"
-  of 8: "Paused"
-  of 9: "Error"
-  of 10: "PausedPackagesInUse"
-  of 11: "PausedLowBattery"
-  of 12: "PausedWiFiRecommended"
-  of 13: "PausedWiFiRequired"
-  of 14: "PausedReadyToInstall"
-  else: "StoreQueueItemExtendedState(" & $ord(v) & ")"
+template `$`*(v: StoreQueueItemExtendedState): string = enumName(v)
 
 ## Windows.Services.Store.StoreQueueItemKind  (enum)
 type StoreQueueItemKind* {.pure, size: 4.} = enum
   Install = 0'i32
   Update = 1'i32
   Repair = 2'i32
-proc `$`*(v: StoreQueueItemKind): string =
-  case ord(v)
-  of 0: "Install"
-  of 1: "Update"
-  of 2: "Repair"
-  else: "StoreQueueItemKind(" & $ord(v) & ")"
+template `$`*(v: StoreQueueItemKind): string = enumName(v)
 
 ## Windows.Services.Store.StoreQueueItemState  (enum)
 type StoreQueueItemState* {.pure, size: 4.} = enum
@@ -21612,14 +13738,7 @@ type StoreQueueItemState* {.pure, size: 4.} = enum
   Canceled = 2'i32
   Error = 3'i32
   Paused = 4'i32
-proc `$`*(v: StoreQueueItemState): string =
-  case ord(v)
-  of 0: "Active"
-  of 1: "Completed"
-  of 2: "Canceled"
-  of 3: "Error"
-  of 4: "Paused"
-  else: "StoreQueueItemState(" & $ord(v) & ")"
+template `$`*(v: StoreQueueItemState): string = enumName(v)
 
 ## Windows.Services.Store.StoreRateAndReviewStatus  (enum)
 type StoreRateAndReviewStatus* {.pure, size: 4.} = enum
@@ -21627,13 +13746,7 @@ type StoreRateAndReviewStatus* {.pure, size: 4.} = enum
   CanceledByUser = 1'i32
   NetworkError = 2'i32
   Error = 3'i32
-proc `$`*(v: StoreRateAndReviewStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "CanceledByUser"
-  of 2: "NetworkError"
-  of 3: "Error"
-  else: "StoreRateAndReviewStatus(" & $ord(v) & ")"
+template `$`*(v: StoreRateAndReviewStatus): string = enumName(v)
 
 ## Windows.Services.Store.StoreUninstallStorePackageStatus  (enum)
 type StoreUninstallStorePackageStatus* {.pure, size: 4.} = enum
@@ -21642,38 +13755,21 @@ type StoreUninstallStorePackageStatus* {.pure, size: 4.} = enum
   NetworkError = 2'i32
   UninstallNotApplicable = 3'i32
   Error = 4'i32
-proc `$`*(v: StoreUninstallStorePackageStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "CanceledByUser"
-  of 2: "NetworkError"
-  of 3: "UninstallNotApplicable"
-  of 4: "Error"
-  else: "StoreUninstallStorePackageStatus(" & $ord(v) & ")"
+template `$`*(v: StoreUninstallStorePackageStatus): string = enumName(v)
 
 ## Windows.Services.TargetedContent.TargetedContentAppInstallationState  (enum)
 type TargetedContentAppInstallationState* {.pure, size: 4.} = enum
   NotApplicable = 0'i32
   NotInstalled = 1'i32
   Installed = 2'i32
-proc `$`*(v: TargetedContentAppInstallationState): string =
-  case ord(v)
-  of 0: "NotApplicable"
-  of 1: "NotInstalled"
-  of 2: "Installed"
-  else: "TargetedContentAppInstallationState(" & $ord(v) & ")"
+template `$`*(v: TargetedContentAppInstallationState): string = enumName(v)
 
 ## Windows.Services.TargetedContent.TargetedContentAvailability  (enum)
 type TargetedContentAvailability* {.pure, size: 4.} = enum
   None = 0'i32
   Partial = 1'i32
   All = 2'i32
-proc `$`*(v: TargetedContentAvailability): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Partial"
-  of 2: "All"
-  else: "TargetedContentAvailability(" & $ord(v) & ")"
+template `$`*(v: TargetedContentAvailability): string = enumName(v)
 
 ## Windows.Services.TargetedContent.TargetedContentInteraction  (enum)
 type TargetedContentInteraction* {.pure, size: 4.} = enum
@@ -21690,34 +13786,14 @@ type TargetedContentInteraction* {.pure, size: 4.} = enum
   Canceled = 10'i32
   Conversion = 11'i32
   Opportunity = 12'i32
-proc `$`*(v: TargetedContentInteraction): string =
-  case ord(v)
-  of 0: "Impression"
-  of 1: "ClickThrough"
-  of 2: "Hover"
-  of 3: "Like"
-  of 4: "Dislike"
-  of 5: "Dismiss"
-  of 6: "Ineligible"
-  of 7: "Accept"
-  of 8: "Decline"
-  of 9: "Defer"
-  of 10: "Canceled"
-  of 11: "Conversion"
-  of 12: "Opportunity"
-  else: "TargetedContentInteraction(" & $ord(v) & ")"
+template `$`*(v: TargetedContentInteraction): string = enumName(v)
 
 ## Windows.Services.TargetedContent.TargetedContentObjectKind  (enum)
 type TargetedContentObjectKind* {.pure, size: 4.} = enum
   Collection = 0'i32
   Item = 1'i32
   Value = 2'i32
-proc `$`*(v: TargetedContentObjectKind): string =
-  case ord(v)
-  of 0: "Collection"
-  of 1: "Item"
-  of 2: "Value"
-  else: "TargetedContentObjectKind(" & $ord(v) & ")"
+template `$`*(v: TargetedContentObjectKind): string = enumName(v)
 
 ## Windows.Services.TargetedContent.TargetedContentValueKind  (enum)
 type TargetedContentValueKind* {.pure, size: 4.} = enum
@@ -21735,23 +13811,7 @@ type TargetedContentValueKind* {.pure, size: 4.} = enum
   Files = 11'i32
   ImageFiles = 12'i32
   Actions = 13'i32
-proc `$`*(v: TargetedContentValueKind): string =
-  case ord(v)
-  of 0: "String"
-  of 1: "Uri"
-  of 2: "Number"
-  of 3: "Boolean"
-  of 4: "File"
-  of 5: "ImageFile"
-  of 6: "Action"
-  of 7: "Strings"
-  of 8: "Uris"
-  of 9: "Numbers"
-  of 10: "Booleans"
-  of 11: "Files"
-  of 12: "ImageFiles"
-  of 13: "Actions"
-  else: "TargetedContentValueKind(" & $ord(v) & ")"
+template `$`*(v: TargetedContentValueKind): string = enumName(v)
 
 ## Windows.Storage.AccessCache.AccessCacheOptions  (enum)
 type AccessCacheOptions* = distinct uint32
@@ -21795,21 +13855,13 @@ const AccessCacheOptions_SuppressAccessTimeUpdate* = AccessCacheOptions(8'u32)
 type RecentStorageItemVisibility* {.pure, size: 4.} = enum
   AppOnly = 0'i32
   AppAndSystem = 1'i32
-proc `$`*(v: RecentStorageItemVisibility): string =
-  case ord(v)
-  of 0: "AppOnly"
-  of 1: "AppAndSystem"
-  else: "RecentStorageItemVisibility(" & $ord(v) & ")"
+template `$`*(v: RecentStorageItemVisibility): string = enumName(v)
 
 ## Windows.Storage.ApplicationDataCreateDisposition  (enum)
 type ApplicationDataCreateDisposition* {.pure, size: 4.} = enum
   Always = 0'i32
   Existing = 1'i32
-proc `$`*(v: ApplicationDataCreateDisposition): string =
-  case ord(v)
-  of 0: "Always"
-  of 1: "Existing"
-  else: "ApplicationDataCreateDisposition(" & $ord(v) & ")"
+template `$`*(v: ApplicationDataCreateDisposition): string = enumName(v)
 
 ## Windows.Storage.ApplicationDataLocality  (enum)
 type ApplicationDataLocality* {.pure, size: 4.} = enum
@@ -21818,14 +13870,7 @@ type ApplicationDataLocality* {.pure, size: 4.} = enum
   Temporary = 2'i32
   LocalCache = 3'i32
   SharedLocal = 4'i32
-proc `$`*(v: ApplicationDataLocality): string =
-  case ord(v)
-  of 0: "Local"
-  of 1: "Roaming"
-  of 2: "Temporary"
-  of 3: "LocalCache"
-  of 4: "SharedLocal"
-  else: "ApplicationDataLocality(" & $ord(v) & ")"
+template `$`*(v: ApplicationDataLocality): string = enumName(v)
 
 ## Windows.Storage.Compression.CompressAlgorithm  (enum)
 type CompressAlgorithm* {.pure, size: 4.} = enum
@@ -21835,15 +13880,7 @@ type CompressAlgorithm* {.pure, size: 4.} = enum
   Xpress = 3'i32
   XpressHuff = 4'i32
   Lzms = 5'i32
-proc `$`*(v: CompressAlgorithm): string =
-  case ord(v)
-  of 0: "InvalidAlgorithm"
-  of 1: "NullAlgorithm"
-  of 2: "Mszip"
-  of 3: "Xpress"
-  of 4: "XpressHuff"
-  of 5: "Lzms"
-  else: "CompressAlgorithm(" & $ord(v) & ")"
+template `$`*(v: CompressAlgorithm): string = enumName(v)
 
 ## Windows.Storage.CreationCollisionOption  (enum)
 type CreationCollisionOption* {.pure, size: 4.} = enum
@@ -21851,23 +13888,13 @@ type CreationCollisionOption* {.pure, size: 4.} = enum
   ReplaceExisting = 1'i32
   FailIfExists = 2'i32
   OpenIfExists = 3'i32
-proc `$`*(v: CreationCollisionOption): string =
-  case ord(v)
-  of 0: "GenerateUniqueName"
-  of 1: "ReplaceExisting"
-  of 2: "FailIfExists"
-  of 3: "OpenIfExists"
-  else: "CreationCollisionOption(" & $ord(v) & ")"
+template `$`*(v: CreationCollisionOption): string = enumName(v)
 
 ## Windows.Storage.FileAccessMode  (enum)
 type FileAccessMode* {.pure, size: 4.} = enum
   Read = 0'i32
   ReadWrite = 1'i32
-proc `$`*(v: FileAccessMode): string =
-  case ord(v)
-  of 0: "Read"
-  of 1: "ReadWrite"
-  else: "FileAccessMode(" & $ord(v) & ")"
+template `$`*(v: FileAccessMode): string = enumName(v)
 
 ## Windows.Storage.FileAttributes  (enum)
 type FileAttributes* = distinct uint32
@@ -21923,18 +13950,7 @@ type PhotoOrientation* {.pure, size: 4.} = enum
   Rotate270 = 6'i32
   Transverse = 7'i32
   Rotate90 = 8'i32
-proc `$`*(v: PhotoOrientation): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Normal"
-  of 2: "FlipHorizontal"
-  of 3: "Rotate180"
-  of 4: "FlipVertical"
-  of 5: "Transpose"
-  of 6: "Rotate270"
-  of 7: "Transverse"
-  of 8: "Rotate90"
-  else: "PhotoOrientation(" & $ord(v) & ")"
+template `$`*(v: PhotoOrientation): string = enumName(v)
 
 ## Windows.Storage.FileProperties.PropertyPrefetchOptions  (enum)
 type PropertyPrefetchOptions* = distinct uint32
@@ -21987,15 +14003,7 @@ type ThumbnailMode* {.pure, size: 4.} = enum
   DocumentsView = 3'i32
   ListView = 4'i32
   SingleItem = 5'i32
-proc `$`*(v: ThumbnailMode): string =
-  case ord(v)
-  of 0: "PicturesView"
-  of 1: "VideosView"
-  of 2: "MusicView"
-  of 3: "DocumentsView"
-  of 4: "ListView"
-  of 5: "SingleItem"
-  else: "ThumbnailMode(" & $ord(v) & ")"
+template `$`*(v: ThumbnailMode): string = enumName(v)
 
 ## Windows.Storage.FileProperties.ThumbnailOptions  (enum)
 type ThumbnailOptions* = distinct uint32
@@ -22034,11 +14042,7 @@ const ThumbnailOptions_UseCurrentScale* = ThumbnailOptions(4'u32)
 type ThumbnailType* {.pure, size: 4.} = enum
   Image = 0'i32
   Icon = 1'i32
-proc `$`*(v: ThumbnailType): string =
-  case ord(v)
-  of 0: "Image"
-  of 1: "Icon"
-  else: "ThumbnailType(" & $ord(v) & ")"
+template `$`*(v: ThumbnailType): string = enumName(v)
 
 ## Windows.Storage.FileProperties.VideoOrientation  (enum)
 type VideoOrientation* {.pure, size: 4.} = enum
@@ -22046,13 +14050,7 @@ type VideoOrientation* {.pure, size: 4.} = enum
   Rotate90 = 90'i32
   Rotate180 = 180'i32
   Rotate270 = 270'i32
-proc `$`*(v: VideoOrientation): string =
-  case ord(v)
-  of 0: "Normal"
-  of 90: "Rotate90"
-  of 180: "Rotate180"
-  of 270: "Rotate270"
-  else: "VideoOrientation(" & $ord(v) & ")"
+template `$`*(v: VideoOrientation): string = enumName(v)
 
 ## Windows.Storage.KnownFolderId  (enum)
 type KnownFolderId* {.pure, size: 4.} = enum
@@ -22073,26 +14071,7 @@ type KnownFolderId* {.pure, size: 4.} = enum
   AllAppMods = 14'i32
   CurrentAppMods = 15'i32
   DownloadsFolder = 16'i32
-proc `$`*(v: KnownFolderId): string =
-  case ord(v)
-  of 0: "AppCaptures"
-  of 1: "CameraRoll"
-  of 2: "DocumentsLibrary"
-  of 3: "HomeGroup"
-  of 4: "MediaServerDevices"
-  of 5: "MusicLibrary"
-  of 6: "Objects3D"
-  of 7: "PicturesLibrary"
-  of 8: "Playlists"
-  of 9: "RecordedCalls"
-  of 10: "RemovableDevices"
-  of 11: "SavedPictures"
-  of 12: "Screenshots"
-  of 13: "VideosLibrary"
-  of 14: "AllAppMods"
-  of 15: "CurrentAppMods"
-  of 16: "DownloadsFolder"
-  else: "KnownFolderId(" & $ord(v) & ")"
+template `$`*(v: KnownFolderId): string = enumName(v)
 
 ## Windows.Storage.KnownFoldersAccessStatus  (enum)
 type KnownFoldersAccessStatus* {.pure, size: 4.} = enum
@@ -22102,15 +14081,7 @@ type KnownFoldersAccessStatus* {.pure, size: 4.} = enum
   UserPromptRequired = 3'i32
   Allowed = 4'i32
   AllowedPerAppFolder = 5'i32
-proc `$`*(v: KnownFoldersAccessStatus): string =
-  case ord(v)
-  of 0: "DeniedBySystem"
-  of 1: "NotDeclaredByApp"
-  of 2: "DeniedByUser"
-  of 3: "UserPromptRequired"
-  of 4: "Allowed"
-  of 5: "AllowedPerAppFolder"
-  else: "KnownFoldersAccessStatus(" & $ord(v) & ")"
+template `$`*(v: KnownFoldersAccessStatus): string = enumName(v)
 
 ## Windows.Storage.KnownLibraryId  (enum)
 type KnownLibraryId* {.pure, size: 4.} = enum
@@ -22118,25 +14089,14 @@ type KnownLibraryId* {.pure, size: 4.} = enum
   Pictures = 1'i32
   Videos = 2'i32
   Documents = 3'i32
-proc `$`*(v: KnownLibraryId): string =
-  case ord(v)
-  of 0: "Music"
-  of 1: "Pictures"
-  of 2: "Videos"
-  of 3: "Documents"
-  else: "KnownLibraryId(" & $ord(v) & ")"
+template `$`*(v: KnownLibraryId): string = enumName(v)
 
 ## Windows.Storage.NameCollisionOption  (enum)
 type NameCollisionOption* {.pure, size: 4.} = enum
   GenerateUniqueName = 0'i32
   ReplaceExisting = 1'i32
   FailIfExists = 2'i32
-proc `$`*(v: NameCollisionOption): string =
-  case ord(v)
-  of 0: "GenerateUniqueName"
-  of 1: "ReplaceExisting"
-  of 2: "FailIfExists"
-  else: "NameCollisionOption(" & $ord(v) & ")"
+template `$`*(v: NameCollisionOption): string = enumName(v)
 
 ## Windows.Storage.Pickers.PickerLocationId  (enum)
 type PickerLocationId* {.pure, size: 4.} = enum
@@ -22150,29 +14110,13 @@ type PickerLocationId* {.pure, size: 4.} = enum
   VideosLibrary = 7'i32
   Objects3D = 8'i32
   Unspecified = 9'i32
-proc `$`*(v: PickerLocationId): string =
-  case ord(v)
-  of 0: "DocumentsLibrary"
-  of 1: "ComputerFolder"
-  of 2: "Desktop"
-  of 3: "Downloads"
-  of 4: "HomeGroup"
-  of 5: "MusicLibrary"
-  of 6: "PicturesLibrary"
-  of 7: "VideosLibrary"
-  of 8: "Objects3D"
-  of 9: "Unspecified"
-  else: "PickerLocationId(" & $ord(v) & ")"
+template `$`*(v: PickerLocationId): string = enumName(v)
 
 ## Windows.Storage.Pickers.PickerViewMode  (enum)
 type PickerViewMode* {.pure, size: 4.} = enum
   List = 0'i32
   Thumbnail = 1'i32
-proc `$`*(v: PickerViewMode): string =
-  case ord(v)
-  of 0: "List"
-  of 1: "Thumbnail"
-  else: "PickerViewMode(" & $ord(v) & ")"
+template `$`*(v: PickerViewMode): string = enumName(v)
 
 ## Windows.Storage.Pickers.Provider.AddFileResult  (enum)
 type AddFileResult* {.pure, size: 4.} = enum
@@ -22180,35 +14124,20 @@ type AddFileResult* {.pure, size: 4.} = enum
   AlreadyAdded = 1'i32
   NotAllowed = 2'i32
   Unavailable = 3'i32
-proc `$`*(v: AddFileResult): string =
-  case ord(v)
-  of 0: "Added"
-  of 1: "AlreadyAdded"
-  of 2: "NotAllowed"
-  of 3: "Unavailable"
-  else: "AddFileResult(" & $ord(v) & ")"
+template `$`*(v: AddFileResult): string = enumName(v)
 
 ## Windows.Storage.Pickers.Provider.FileSelectionMode  (enum)
 type FileSelectionMode* {.pure, size: 4.} = enum
   Single = 0'i32
   Multiple = 1'i32
-proc `$`*(v: FileSelectionMode): string =
-  case ord(v)
-  of 0: "Single"
-  of 1: "Multiple"
-  else: "FileSelectionMode(" & $ord(v) & ")"
+template `$`*(v: FileSelectionMode): string = enumName(v)
 
 ## Windows.Storage.Pickers.Provider.SetFileNameResult  (enum)
 type SetFileNameResult* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   NotAllowed = 1'i32
   Unavailable = 2'i32
-proc `$`*(v: SetFileNameResult): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "NotAllowed"
-  of 2: "Unavailable"
-  else: "SetFileNameResult(" & $ord(v) & ")"
+template `$`*(v: SetFileNameResult): string = enumName(v)
 
 ## Windows.Storage.Provider.CachedFileOptions  (enum)
 type CachedFileOptions* = distinct uint32
@@ -22247,11 +14176,7 @@ const CachedFileOptions_DenyAccessWhenOffline* = CachedFileOptions(4'u32)
 type CachedFileTarget* {.pure, size: 4.} = enum
   Local = 0'i32
   Remote = 1'i32
-proc `$`*(v: CachedFileTarget): string =
-  case ord(v)
-  of 0: "Local"
-  of 1: "Remote"
-  else: "CachedFileTarget(" & $ord(v) & ")"
+template `$`*(v: CachedFileTarget): string = enumName(v)
 
 ## Windows.Storage.Provider.FileUpdateStatus  (enum)
 type FileUpdateStatus* {.pure, size: 4.} = enum
@@ -22261,25 +14186,13 @@ type FileUpdateStatus* {.pure, size: 4.} = enum
   CurrentlyUnavailable = 3'i32
   Failed = 4'i32
   CompleteAndRenamed = 5'i32
-proc `$`*(v: FileUpdateStatus): string =
-  case ord(v)
-  of 0: "Incomplete"
-  of 1: "Complete"
-  of 2: "UserInputNeeded"
-  of 3: "CurrentlyUnavailable"
-  of 4: "Failed"
-  of 5: "CompleteAndRenamed"
-  else: "FileUpdateStatus(" & $ord(v) & ")"
+template `$`*(v: FileUpdateStatus): string = enumName(v)
 
 ## Windows.Storage.Provider.ReadActivationMode  (enum)
 type ReadActivationMode* {.pure, size: 4.} = enum
   NotNeeded = 0'i32
   BeforeAccess = 1'i32
-proc `$`*(v: ReadActivationMode): string =
-  case ord(v)
-  of 0: "NotNeeded"
-  of 1: "BeforeAccess"
-  else: "ReadActivationMode(" & $ord(v) & ")"
+template `$`*(v: ReadActivationMode): string = enumName(v)
 
 ## Windows.Storage.Provider.StorageProviderHardlinkPolicy  (enum)
 type StorageProviderHardlinkPolicy* = distinct uint32
@@ -22310,13 +14223,7 @@ type StorageProviderHydrationPolicy* {.pure, size: 4.} = enum
   Progressive = 1'i32
   Full = 2'i32
   AlwaysFull = 3'i32
-proc `$`*(v: StorageProviderHydrationPolicy): string =
-  case ord(v)
-  of 0: "Partial"
-  of 1: "Progressive"
-  of 2: "Full"
-  of 3: "AlwaysFull"
-  else: "StorageProviderHydrationPolicy(" & $ord(v) & ")"
+template `$`*(v: StorageProviderHydrationPolicy): string = enumName(v)
 
 ## Windows.Storage.Provider.StorageProviderHydrationPolicyModifier  (enum)
 type StorageProviderHydrationPolicyModifier* = distinct uint32
@@ -22434,32 +14341,19 @@ type StorageProviderKnownFolderSyncStatus* {.pure, size: 4.} = enum
   Available = 0'i32
   Enrolling = 1'i32
   Enrolled = 2'i32
-proc `$`*(v: StorageProviderKnownFolderSyncStatus): string =
-  case ord(v)
-  of 0: "Available"
-  of 1: "Enrolling"
-  of 2: "Enrolled"
-  else: "StorageProviderKnownFolderSyncStatus(" & $ord(v) & ")"
+template `$`*(v: StorageProviderKnownFolderSyncStatus): string = enumName(v)
 
 ## Windows.Storage.Provider.StorageProviderPopulationPolicy  (enum)
 type StorageProviderPopulationPolicy* {.pure, size: 4.} = enum
   Full = 1'i32
   AlwaysFull = 2'i32
-proc `$`*(v: StorageProviderPopulationPolicy): string =
-  case ord(v)
-  of 1: "Full"
-  of 2: "AlwaysFull"
-  else: "StorageProviderPopulationPolicy(" & $ord(v) & ")"
+template `$`*(v: StorageProviderPopulationPolicy): string = enumName(v)
 
 ## Windows.Storage.Provider.StorageProviderProtectionMode  (enum)
 type StorageProviderProtectionMode* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Personal = 1'i32
-proc `$`*(v: StorageProviderProtectionMode): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Personal"
-  else: "StorageProviderProtectionMode(" & $ord(v) & ")"
+template `$`*(v: StorageProviderProtectionMode): string = enumName(v)
 
 ## Windows.Storage.Provider.StorageProviderResultKind  (enum)
 type StorageProviderResultKind* {.pure, size: 4.} = enum
@@ -22470,38 +14364,20 @@ type StorageProviderResultKind* {.pure, size: 4.} = enum
   Shared = 4'i32
   RelatedFiles = 5'i32
   RelatedConversations = 6'i32
-proc `$`*(v: StorageProviderResultKind): string =
-  case ord(v)
-  of 0: "Search"
-  of 1: "Recommended"
-  of 2: "Favorites"
-  of 3: "Recent"
-  of 4: "Shared"
-  of 5: "RelatedFiles"
-  of 6: "RelatedConversations"
-  else: "StorageProviderResultKind(" & $ord(v) & ")"
+template `$`*(v: StorageProviderResultKind): string = enumName(v)
 
 ## Windows.Storage.Provider.StorageProviderResultUsageKind  (enum)
 type StorageProviderResultUsageKind* {.pure, size: 4.} = enum
   Rendered = 0'i32
   Opened = 1'i32
   SuggestionResponseReceived = 2'i32
-proc `$`*(v: StorageProviderResultUsageKind): string =
-  case ord(v)
-  of 0: "Rendered"
-  of 1: "Opened"
-  of 2: "SuggestionResponseReceived"
-  else: "StorageProviderResultUsageKind(" & $ord(v) & ")"
+template `$`*(v: StorageProviderResultUsageKind): string = enumName(v)
 
 ## Windows.Storage.Provider.StorageProviderSearchMatchKind  (enum)
 type StorageProviderSearchMatchKind* {.pure, size: 4.} = enum
   Lexical = 0'i32
   Semantic = 1'i32
-proc `$`*(v: StorageProviderSearchMatchKind): string =
-  case ord(v)
-  of 0: "Lexical"
-  of 1: "Semantic"
-  else: "StorageProviderSearchMatchKind(" & $ord(v) & ")"
+template `$`*(v: StorageProviderSearchMatchKind): string = enumName(v)
 
 ## Windows.Storage.Provider.StorageProviderSearchQueryStatus  (enum)
 type StorageProviderSearchQueryStatus* {.pure, size: 4.} = enum
@@ -22513,27 +14389,13 @@ type StorageProviderSearchQueryStatus* {.pure, size: 4.} = enum
   NotSignedIn = 5'i32
   QueryNotSupported = 6'i32
   SortOrderNotSupported = 7'i32
-proc `$`*(v: StorageProviderSearchQueryStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "Error"
-  of 2: "Timeout"
-  of 3: "NoNetwork"
-  of 4: "NetworkError"
-  of 5: "NotSignedIn"
-  of 6: "QueryNotSupported"
-  of 7: "SortOrderNotSupported"
-  else: "StorageProviderSearchQueryStatus(" & $ord(v) & ")"
+template `$`*(v: StorageProviderSearchQueryStatus): string = enumName(v)
 
 ## Windows.Storage.Provider.StorageProviderShareLinkState  (enum)
 type StorageProviderShareLinkState* {.pure, size: 4.} = enum
   Enabled = 0'i32
   Disabled = 1'i32
-proc `$`*(v: StorageProviderShareLinkState): string =
-  case ord(v)
-  of 0: "Enabled"
-  of 1: "Disabled"
-  else: "StorageProviderShareLinkState(" & $ord(v) & ")"
+template `$`*(v: StorageProviderShareLinkState): string = enumName(v)
 
 ## Windows.Storage.Provider.StorageProviderState  (enum)
 type StorageProviderState* {.pure, size: 4.} = enum
@@ -22543,39 +14405,21 @@ type StorageProviderState* {.pure, size: 4.} = enum
   Error = 3'i32
   Warning = 4'i32
   Offline = 5'i32
-proc `$`*(v: StorageProviderState): string =
-  case ord(v)
-  of 0: "InSync"
-  of 1: "Syncing"
-  of 2: "Paused"
-  of 3: "Error"
-  of 4: "Warning"
-  of 5: "Offline"
-  else: "StorageProviderState(" & $ord(v) & ")"
+template `$`*(v: StorageProviderState): string = enumName(v)
 
 ## Windows.Storage.Provider.StorageProviderUICommandState  (enum)
 type StorageProviderUICommandState* {.pure, size: 4.} = enum
   Enabled = 0'i32
   Disabled = 1'i32
   Hidden = 2'i32
-proc `$`*(v: StorageProviderUICommandState): string =
-  case ord(v)
-  of 0: "Enabled"
-  of 1: "Disabled"
-  of 2: "Hidden"
-  else: "StorageProviderUICommandState(" & $ord(v) & ")"
+template `$`*(v: StorageProviderUICommandState): string = enumName(v)
 
 ## Windows.Storage.Provider.StorageProviderUriSourceStatus  (enum)
 type StorageProviderUriSourceStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   NoSyncRoot = 1'i32
   FileNotFound = 2'i32
-proc `$`*(v: StorageProviderUriSourceStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "NoSyncRoot"
-  of 2: "FileNotFound"
-  else: "StorageProviderUriSourceStatus(" & $ord(v) & ")"
+template `$`*(v: StorageProviderUriSourceStatus): string = enumName(v)
 
 ## Windows.Storage.Provider.UIStatus  (enum)
 type UIStatus* {.pure, size: 4.} = enum
@@ -22583,25 +14427,14 @@ type UIStatus* {.pure, size: 4.} = enum
   Hidden = 1'i32
   Visible = 2'i32
   Complete = 3'i32
-proc `$`*(v: UIStatus): string =
-  case ord(v)
-  of 0: "Unavailable"
-  of 1: "Hidden"
-  of 2: "Visible"
-  of 3: "Complete"
-  else: "UIStatus(" & $ord(v) & ")"
+template `$`*(v: UIStatus): string = enumName(v)
 
 ## Windows.Storage.Provider.WriteActivationMode  (enum)
 type WriteActivationMode* {.pure, size: 4.} = enum
   ReadOnly = 0'i32
   NotNeeded = 1'i32
   AfterWrite = 2'i32
-proc `$`*(v: WriteActivationMode): string =
-  case ord(v)
-  of 0: "ReadOnly"
-  of 1: "NotNeeded"
-  of 2: "AfterWrite"
-  else: "WriteActivationMode(" & $ord(v) & ")"
+template `$`*(v: WriteActivationMode): string = enumName(v)
 
 ## Windows.Storage.Search.CommonFileQuery  (enum)
 type CommonFileQuery* {.pure, size: 4.} = enum
@@ -22611,15 +14444,7 @@ type CommonFileQuery* {.pure, size: 4.} = enum
   OrderByMusicProperties = 3'i32
   OrderBySearchRank = 4'i32
   OrderByDate = 5'i32
-proc `$`*(v: CommonFileQuery): string =
-  case ord(v)
-  of 0: "DefaultQuery"
-  of 1: "OrderByName"
-  of 2: "OrderByTitle"
-  of 3: "OrderByMusicProperties"
-  of 4: "OrderBySearchRank"
-  of 5: "OrderByDate"
-  else: "CommonFileQuery(" & $ord(v) & ")"
+template `$`*(v: CommonFileQuery): string = enumName(v)
 
 ## Windows.Storage.Search.CommonFolderQuery  (enum)
 type CommonFolderQuery* {.pure, size: 4.} = enum
@@ -22636,44 +14461,20 @@ type CommonFolderQuery* {.pure, size: 4.} = enum
   GroupByTag = 109'i32
   GroupByAuthor = 110'i32
   GroupByType = 111'i32
-proc `$`*(v: CommonFolderQuery): string =
-  case ord(v)
-  of 0: "DefaultQuery"
-  of 100: "GroupByYear"
-  of 101: "GroupByMonth"
-  of 102: "GroupByArtist"
-  of 103: "GroupByAlbum"
-  of 104: "GroupByAlbumArtist"
-  of 105: "GroupByComposer"
-  of 106: "GroupByGenre"
-  of 107: "GroupByPublishedYear"
-  of 108: "GroupByRating"
-  of 109: "GroupByTag"
-  of 110: "GroupByAuthor"
-  of 111: "GroupByType"
-  else: "CommonFolderQuery(" & $ord(v) & ")"
+template `$`*(v: CommonFolderQuery): string = enumName(v)
 
 ## Windows.Storage.Search.DateStackOption  (enum)
 type DateStackOption* {.pure, size: 4.} = enum
   None = 0'i32
   Year = 1'i32
   Month = 2'i32
-proc `$`*(v: DateStackOption): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Year"
-  of 2: "Month"
-  else: "DateStackOption(" & $ord(v) & ")"
+template `$`*(v: DateStackOption): string = enumName(v)
 
 ## Windows.Storage.Search.FolderDepth  (enum)
 type FolderDepth* {.pure, size: 4.} = enum
   Shallow = 0'i32
   Deep = 1'i32
-proc `$`*(v: FolderDepth): string =
-  case ord(v)
-  of 0: "Shallow"
-  of 1: "Deep"
-  else: "FolderDepth(" & $ord(v) & ")"
+template `$`*(v: FolderDepth): string = enumName(v)
 
 ## Windows.Storage.Search.IndexedState  (enum)
 type IndexedState* {.pure, size: 4.} = enum
@@ -22681,13 +14482,7 @@ type IndexedState* {.pure, size: 4.} = enum
   NotIndexed = 1'i32
   PartiallyIndexed = 2'i32
   FullyIndexed = 3'i32
-proc `$`*(v: IndexedState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "NotIndexed"
-  of 2: "PartiallyIndexed"
-  of 3: "FullyIndexed"
-  else: "IndexedState(" & $ord(v) & ")"
+template `$`*(v: IndexedState): string = enumName(v)
 
 ## Windows.Storage.Search.IndexerOption  (enum)
 type IndexerOption* {.pure, size: 4.} = enum
@@ -22695,23 +14490,13 @@ type IndexerOption* {.pure, size: 4.} = enum
   OnlyUseIndexer = 1'i32
   DoNotUseIndexer = 2'i32
   OnlyUseIndexerAndOptimizeForIndexedProperties = 3'i32
-proc `$`*(v: IndexerOption): string =
-  case ord(v)
-  of 0: "UseIndexerWhenAvailable"
-  of 1: "OnlyUseIndexer"
-  of 2: "DoNotUseIndexer"
-  of 3: "OnlyUseIndexerAndOptimizeForIndexedProperties"
-  else: "IndexerOption(" & $ord(v) & ")"
+template `$`*(v: IndexerOption): string = enumName(v)
 
 ## Windows.Storage.StorageDeleteOption  (enum)
 type StorageDeleteOption* {.pure, size: 4.} = enum
   Default = 0'i32
   PermanentDelete = 1'i32
-proc `$`*(v: StorageDeleteOption): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "PermanentDelete"
-  else: "StorageDeleteOption(" & $ord(v) & ")"
+template `$`*(v: StorageDeleteOption): string = enumName(v)
 
 ## Windows.Storage.StorageItemTypes  (enum)
 type StorageItemTypes* = distinct uint32
@@ -22753,19 +14538,7 @@ type StorageLibraryChangeType* {.pure, size: 4.} = enum
   IndexingStatusChanged = 7'i32
   EncryptionChanged = 8'i32
   ChangeTrackingLost = 9'i32
-proc `$`*(v: StorageLibraryChangeType): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Deleted"
-  of 2: "MovedOrRenamed"
-  of 3: "ContentsChanged"
-  of 4: "MovedOutOfLibrary"
-  of 5: "MovedIntoLibrary"
-  of 6: "ContentsReplaced"
-  of 7: "IndexingStatusChanged"
-  of 8: "EncryptionChanged"
-  of 9: "ChangeTrackingLost"
-  else: "StorageLibraryChangeType(" & $ord(v) & ")"
+template `$`*(v: StorageLibraryChangeType): string = enumName(v)
 
 ## Windows.Storage.StorageOpenOptions  (enum)
 type StorageOpenOptions* = distinct uint32
@@ -22800,22 +14573,13 @@ type StreamedFileFailureMode* {.pure, size: 4.} = enum
   Failed = 0'i32
   CurrentlyUnavailable = 1'i32
   Incomplete = 2'i32
-proc `$`*(v: StreamedFileFailureMode): string =
-  case ord(v)
-  of 0: "Failed"
-  of 1: "CurrentlyUnavailable"
-  of 2: "Incomplete"
-  else: "StreamedFileFailureMode(" & $ord(v) & ")"
+template `$`*(v: StreamedFileFailureMode): string = enumName(v)
 
 ## Windows.Storage.Streams.ByteOrder  (enum)
 type ByteOrder* {.pure, size: 4.} = enum
   LittleEndian = 0'i32
   BigEndian = 1'i32
-proc `$`*(v: ByteOrder): string =
-  case ord(v)
-  of 0: "LittleEndian"
-  of 1: "BigEndian"
-  else: "ByteOrder(" & $ord(v) & ")"
+template `$`*(v: ByteOrder): string = enumName(v)
 
 ## Windows.Storage.Streams.FileOpenDisposition  (enum)
 type FileOpenDisposition* {.pure, size: 4.} = enum
@@ -22824,14 +14588,7 @@ type FileOpenDisposition* {.pure, size: 4.} = enum
   CreateNew = 2'i32
   CreateAlways = 3'i32
   TruncateExisting = 4'i32
-proc `$`*(v: FileOpenDisposition): string =
-  case ord(v)
-  of 0: "OpenExisting"
-  of 1: "OpenAlways"
-  of 2: "CreateNew"
-  of 3: "CreateAlways"
-  of 4: "TruncateExisting"
-  else: "FileOpenDisposition(" & $ord(v) & ")"
+template `$`*(v: FileOpenDisposition): string = enumName(v)
 
 ## Windows.Storage.Streams.InputStreamOptions  (enum)
 type InputStreamOptions* = distinct uint32
@@ -22866,12 +14623,7 @@ type UnicodeEncoding* {.pure, size: 4.} = enum
   Utf8 = 0'i32
   Utf16LE = 1'i32
   Utf16BE = 2'i32
-proc `$`*(v: UnicodeEncoding): string =
-  case ord(v)
-  of 0: "Utf8"
-  of 1: "Utf16LE"
-  of 2: "Utf16BE"
-  else: "UnicodeEncoding(" & $ord(v) & ")"
+template `$`*(v: UnicodeEncoding): string = enumName(v)
 
 ## Windows.System.AppDiagnosticInfoWatcherStatus  (enum)
 type AppDiagnosticInfoWatcherStatus* {.pure, size: 4.} = enum
@@ -22881,15 +14633,7 @@ type AppDiagnosticInfoWatcherStatus* {.pure, size: 4.} = enum
   Stopping = 3'i32
   Stopped = 4'i32
   Aborted = 5'i32
-proc `$`*(v: AppDiagnosticInfoWatcherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "EnumerationCompleted"
-  of 3: "Stopping"
-  of 4: "Stopped"
-  of 5: "Aborted"
-  else: "AppDiagnosticInfoWatcherStatus(" & $ord(v) & ")"
+template `$`*(v: AppDiagnosticInfoWatcherStatus): string = enumName(v)
 
 ## Windows.System.AppMemoryUsageLevel  (enum)
 type AppMemoryUsageLevel* {.pure, size: 4.} = enum
@@ -22897,25 +14641,14 @@ type AppMemoryUsageLevel* {.pure, size: 4.} = enum
   Medium = 1'i32
   High = 2'i32
   OverLimit = 3'i32
-proc `$`*(v: AppMemoryUsageLevel): string =
-  case ord(v)
-  of 0: "Low"
-  of 1: "Medium"
-  of 2: "High"
-  of 3: "OverLimit"
-  else: "AppMemoryUsageLevel(" & $ord(v) & ")"
+template `$`*(v: AppMemoryUsageLevel): string = enumName(v)
 
 ## Windows.System.AppResourceGroupEnergyQuotaState  (enum)
 type AppResourceGroupEnergyQuotaState* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Over = 1'i32
   Under = 2'i32
-proc `$`*(v: AppResourceGroupEnergyQuotaState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Over"
-  of 2: "Under"
-  else: "AppResourceGroupEnergyQuotaState(" & $ord(v) & ")"
+template `$`*(v: AppResourceGroupEnergyQuotaState): string = enumName(v)
 
 ## Windows.System.AppResourceGroupExecutionState  (enum)
 type AppResourceGroupExecutionState* {.pure, size: 4.} = enum
@@ -22924,14 +14657,7 @@ type AppResourceGroupExecutionState* {.pure, size: 4.} = enum
   Suspending = 2'i32
   Suspended = 3'i32
   NotRunning = 4'i32
-proc `$`*(v: AppResourceGroupExecutionState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Running"
-  of 2: "Suspending"
-  of 3: "Suspended"
-  of 4: "NotRunning"
-  else: "AppResourceGroupExecutionState(" & $ord(v) & ")"
+template `$`*(v: AppResourceGroupExecutionState): string = enumName(v)
 
 ## Windows.System.AppResourceGroupInfoWatcherStatus  (enum)
 type AppResourceGroupInfoWatcherStatus* {.pure, size: 4.} = enum
@@ -22941,27 +14667,14 @@ type AppResourceGroupInfoWatcherStatus* {.pure, size: 4.} = enum
   Stopping = 3'i32
   Stopped = 4'i32
   Aborted = 5'i32
-proc `$`*(v: AppResourceGroupInfoWatcherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "EnumerationCompleted"
-  of 3: "Stopping"
-  of 4: "Stopped"
-  of 5: "Aborted"
-  else: "AppResourceGroupInfoWatcherStatus(" & $ord(v) & ")"
+template `$`*(v: AppResourceGroupInfoWatcherStatus): string = enumName(v)
 
 ## Windows.System.AutoUpdateTimeZoneStatus  (enum)
 type AutoUpdateTimeZoneStatus* {.pure, size: 4.} = enum
   Attempted = 0'i32
   TimedOut = 1'i32
   Failed = 2'i32
-proc `$`*(v: AutoUpdateTimeZoneStatus): string =
-  case ord(v)
-  of 0: "Attempted"
-  of 1: "TimedOut"
-  of 2: "Failed"
-  else: "AutoUpdateTimeZoneStatus(" & $ord(v) & ")"
+template `$`*(v: AutoUpdateTimeZoneStatus): string = enumName(v)
 
 ## Windows.System.DiagnosticAccessStatus  (enum)
 type DiagnosticAccessStatus* {.pure, size: 4.} = enum
@@ -22969,13 +14682,7 @@ type DiagnosticAccessStatus* {.pure, size: 4.} = enum
   Denied = 1'i32
   Limited = 2'i32
   Allowed = 3'i32
-proc `$`*(v: DiagnosticAccessStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Denied"
-  of 2: "Limited"
-  of 3: "Allowed"
-  else: "DiagnosticAccessStatus(" & $ord(v) & ")"
+template `$`*(v: DiagnosticAccessStatus): string = enumName(v)
 
 ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionClosedReason  (enum)
 type DevicePortalConnectionClosedReason* {.pure, size: 4.} = enum
@@ -22985,15 +14692,7 @@ type DevicePortalConnectionClosedReason* {.pure, size: 4.} = enum
   NotAuthorized = 3'i32
   UserNotPresent = 4'i32
   ServiceTerminated = 5'i32
-proc `$`*(v: DevicePortalConnectionClosedReason): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "ResourceLimitsExceeded"
-  of 2: "ProtocolError"
-  of 3: "NotAuthorized"
-  of 4: "UserNotPresent"
-  of 5: "ServiceTerminated"
-  else: "DevicePortalConnectionClosedReason(" & $ord(v) & ")"
+template `$`*(v: DevicePortalConnectionClosedReason): string = enumName(v)
 
 ## Windows.System.Diagnostics.DiagnosticActionState  (enum)
 type DiagnosticActionState* {.pure, size: 4.} = enum
@@ -23004,50 +14703,27 @@ type DiagnosticActionState* {.pure, size: 4.} = enum
   Resolving = 4'i32
   VerifyingResolution = 5'i32
   Executing = 6'i32
-proc `$`*(v: DiagnosticActionState): string =
-  case ord(v)
-  of 0: "Initializing"
-  of 1: "Downloading"
-  of 2: "VerifyingTrust"
-  of 3: "Detecting"
-  of 4: "Resolving"
-  of 5: "VerifyingResolution"
-  of 6: "Executing"
-  else: "DiagnosticActionState(" & $ord(v) & ")"
+template `$`*(v: DiagnosticActionState): string = enumName(v)
 
 ## Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationStatus  (enum)
 type PlatformTelemetryRegistrationStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   SettingsOutOfRange = 1'i32
   UnknownFailure = 2'i32
-proc `$`*(v: PlatformTelemetryRegistrationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "SettingsOutOfRange"
-  of 2: "UnknownFailure"
-  else: "PlatformTelemetryRegistrationStatus(" & $ord(v) & ")"
+template `$`*(v: PlatformTelemetryRegistrationStatus): string = enumName(v)
 
 ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActionState  (enum)
 type PlatformDiagnosticActionState* {.pure, size: 4.} = enum
   Success = 0'i32
   FreeNetworkNotAvailable = 1'i32
   ACPowerNotAvailable = 2'i32
-proc `$`*(v: PlatformDiagnosticActionState): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "FreeNetworkNotAvailable"
-  of 2: "ACPowerNotAvailable"
-  else: "PlatformDiagnosticActionState(" & $ord(v) & ")"
+template `$`*(v: PlatformDiagnosticActionState): string = enumName(v)
 
 ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticEscalationType  (enum)
 type PlatformDiagnosticEscalationType* {.pure, size: 4.} = enum
   OnCompletion = 0'i32
   OnFailure = 1'i32
-proc `$`*(v: PlatformDiagnosticEscalationType): string =
-  case ord(v)
-  of 0: "OnCompletion"
-  of 1: "OnFailure"
-  else: "PlatformDiagnosticEscalationType(" & $ord(v) & ")"
+template `$`*(v: PlatformDiagnosticEscalationType): string = enumName(v)
 
 ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticEventBufferLatencies  (enum)
 type PlatformDiagnosticEventBufferLatencies* = distinct uint32
@@ -23085,47 +14761,28 @@ const PlatformDiagnosticEventBufferLatencies_Realtime* = PlatformDiagnosticEvent
 type PlatformDiagnosticTracePriority* {.pure, size: 4.} = enum
   Normal = 0'i32
   UserElevated = 1'i32
-proc `$`*(v: PlatformDiagnosticTracePriority): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "UserElevated"
-  else: "PlatformDiagnosticTracePriority(" & $ord(v) & ")"
+template `$`*(v: PlatformDiagnosticTracePriority): string = enumName(v)
 
 ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotState  (enum)
 type PlatformDiagnosticTraceSlotState* {.pure, size: 4.} = enum
   NotRunning = 0'i32
   Running = 1'i32
   Throttled = 2'i32
-proc `$`*(v: PlatformDiagnosticTraceSlotState): string =
-  case ord(v)
-  of 0: "NotRunning"
-  of 1: "Running"
-  of 2: "Throttled"
-  else: "PlatformDiagnosticTraceSlotState(" & $ord(v) & ")"
+template `$`*(v: PlatformDiagnosticTraceSlotState): string = enumName(v)
 
 ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotType  (enum)
 type PlatformDiagnosticTraceSlotType* {.pure, size: 4.} = enum
   Alternative = 0'i32
   AlwaysOn = 1'i32
   Mini = 2'i32
-proc `$`*(v: PlatformDiagnosticTraceSlotType): string =
-  case ord(v)
-  of 0: "Alternative"
-  of 1: "AlwaysOn"
-  of 2: "Mini"
-  else: "PlatformDiagnosticTraceSlotType(" & $ord(v) & ")"
+template `$`*(v: PlatformDiagnosticTraceSlotType): string = enumName(v)
 
 ## Windows.System.DispatcherQueuePriority  (enum)
 type DispatcherQueuePriority* {.pure, size: 4.} = enum
   Low = -10'i32
   Normal = 0'i32
   High = 10'i32
-proc `$`*(v: DispatcherQueuePriority): string =
-  case ord(v)
-  of -10: "Low"
-  of 0: "Normal"
-  of 10: "High"
-  else: "DispatcherQueuePriority(" & $ord(v) & ")"
+template `$`*(v: DispatcherQueuePriority): string = enumName(v)
 
 ## Windows.System.LaunchFileStatus  (enum)
 type LaunchFileStatus* {.pure, size: 4.} = enum
@@ -23134,14 +14791,7 @@ type LaunchFileStatus* {.pure, size: 4.} = enum
   DeniedByPolicy = 2'i32
   FileTypeNotSupported = 3'i32
   Unknown = 4'i32
-proc `$`*(v: LaunchFileStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "AppUnavailable"
-  of 2: "DeniedByPolicy"
-  of 3: "FileTypeNotSupported"
-  of 4: "Unknown"
-  else: "LaunchFileStatus(" & $ord(v) & ")"
+template `$`*(v: LaunchFileStatus): string = enumName(v)
 
 ## Windows.System.LaunchQuerySupportStatus  (enum)
 type LaunchQuerySupportStatus* {.pure, size: 4.} = enum
@@ -23150,24 +14800,13 @@ type LaunchQuerySupportStatus* {.pure, size: 4.} = enum
   AppUnavailable = 2'i32
   NotSupported = 3'i32
   Unknown = 4'i32
-proc `$`*(v: LaunchQuerySupportStatus): string =
-  case ord(v)
-  of 0: "Available"
-  of 1: "AppNotInstalled"
-  of 2: "AppUnavailable"
-  of 3: "NotSupported"
-  of 4: "Unknown"
-  else: "LaunchQuerySupportStatus(" & $ord(v) & ")"
+template `$`*(v: LaunchQuerySupportStatus): string = enumName(v)
 
 ## Windows.System.LaunchQuerySupportType  (enum)
 type LaunchQuerySupportType* {.pure, size: 4.} = enum
   Uri = 0'i32
   UriForResults = 1'i32
-proc `$`*(v: LaunchQuerySupportType): string =
-  case ord(v)
-  of 0: "Uri"
-  of 1: "UriForResults"
-  else: "LaunchQuerySupportType(" & $ord(v) & ")"
+template `$`*(v: LaunchQuerySupportType): string = enumName(v)
 
 ## Windows.System.LaunchUriStatus  (enum)
 type LaunchUriStatus* {.pure, size: 4.} = enum
@@ -23175,13 +14814,7 @@ type LaunchUriStatus* {.pure, size: 4.} = enum
   AppUnavailable = 1'i32
   ProtocolUnavailable = 2'i32
   Unknown = 3'i32
-proc `$`*(v: LaunchUriStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "AppUnavailable"
-  of 2: "ProtocolUnavailable"
-  of 3: "Unknown"
-  else: "LaunchUriStatus(" & $ord(v) & ")"
+template `$`*(v: LaunchUriStatus): string = enumName(v)
 
 ## Windows.System.Power.BatteryStatus  (enum)
 type BatteryStatus* {.pure, size: 4.} = enum
@@ -23189,57 +14822,33 @@ type BatteryStatus* {.pure, size: 4.} = enum
   Discharging = 1'i32
   Idle = 2'i32
   Charging = 3'i32
-proc `$`*(v: BatteryStatus): string =
-  case ord(v)
-  of 0: "NotPresent"
-  of 1: "Discharging"
-  of 2: "Idle"
-  of 3: "Charging"
-  else: "BatteryStatus(" & $ord(v) & ")"
+template `$`*(v: BatteryStatus): string = enumName(v)
 
 ## Windows.System.Power.EnergySaverStatus  (enum)
 type EnergySaverStatus* {.pure, size: 4.} = enum
   Disabled = 0'i32
   Off = 1'i32
   On = 2'i32
-proc `$`*(v: EnergySaverStatus): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "Off"
-  of 2: "On"
-  else: "EnergySaverStatus(" & $ord(v) & ")"
+template `$`*(v: EnergySaverStatus): string = enumName(v)
 
 ## Windows.System.Power.PowerSupplyStatus  (enum)
 type PowerSupplyStatus* {.pure, size: 4.} = enum
   NotPresent = 0'i32
   Inadequate = 1'i32
   Adequate = 2'i32
-proc `$`*(v: PowerSupplyStatus): string =
-  case ord(v)
-  of 0: "NotPresent"
-  of 1: "Inadequate"
-  of 2: "Adequate"
-  else: "PowerSupplyStatus(" & $ord(v) & ")"
+template `$`*(v: PowerSupplyStatus): string = enumName(v)
 
 ## Windows.System.Power.Thermal.PowerThermalBackEndStatus  (enum)
 type PowerThermalBackEndStatus* {.pure, size: 4.} = enum
   Stopped = 0'i32
   Started = 1'i32
-proc `$`*(v: PowerThermalBackEndStatus): string =
-  case ord(v)
-  of 0: "Stopped"
-  of 1: "Started"
-  else: "PowerThermalBackEndStatus(" & $ord(v) & ")"
+template `$`*(v: PowerThermalBackEndStatus): string = enumName(v)
 
 ## Windows.System.PowerState  (enum)
 type PowerState* {.pure, size: 4.} = enum
   ConnectedStandby = 0'i32
   SleepS3 = 1'i32
-proc `$`*(v: PowerState): string =
-  case ord(v)
-  of 0: "ConnectedStandby"
-  of 1: "SleepS3"
-  else: "PowerState(" & $ord(v) & ")"
+template `$`*(v: PowerState): string = enumName(v)
 
 ## Windows.System.Preview.HingeState  (enum)
 type HingeState* {.pure, size: 4.} = enum
@@ -23249,15 +14858,7 @@ type HingeState* {.pure, size: 4.} = enum
   Flat = 3'i32
   Convex = 4'i32
   Full = 5'i32
-proc `$`*(v: HingeState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Closed"
-  of 2: "Concave"
-  of 3: "Flat"
-  of 4: "Convex"
-  of 5: "Full"
-  else: "HingeState(" & $ord(v) & ")"
+template `$`*(v: HingeState): string = enumName(v)
 
 ## Windows.System.ProcessorArchitecture  (enum)
 type ProcessorArchitecture* {.pure, size: 4.} = enum
@@ -23268,28 +14869,14 @@ type ProcessorArchitecture* {.pure, size: 4.} = enum
   Arm64 = 12'i32
   X86OnArm64 = 14'i32
   Unknown = 65535'i32
-proc `$`*(v: ProcessorArchitecture): string =
-  case ord(v)
-  of 0: "X86"
-  of 5: "Arm"
-  of 9: "X64"
-  of 11: "Neutral"
-  of 12: "Arm64"
-  of 14: "X86OnArm64"
-  of 65535: "Unknown"
-  else: "ProcessorArchitecture(" & $ord(v) & ")"
+template `$`*(v: ProcessorArchitecture): string = enumName(v)
 
 ## Windows.System.Profile.PlatformAutomaticAppSignInPolicy  (enum)
 type PlatformAutomaticAppSignInPolicy* {.pure, size: 4.} = enum
   Unknown = 0'i32
   PermissionRequired = 1'i32
   AlwaysAllowed = 2'i32
-proc `$`*(v: PlatformAutomaticAppSignInPolicy): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "PermissionRequired"
-  of 2: "AlwaysAllowed"
-  else: "PlatformAutomaticAppSignInPolicy(" & $ord(v) & ")"
+template `$`*(v: PlatformAutomaticAppSignInPolicy): string = enumName(v)
 
 ## Windows.System.Profile.PlatformDataCollectionLevel  (enum)
 type PlatformDataCollectionLevel* {.pure, size: 4.} = enum
@@ -23297,13 +14884,7 @@ type PlatformDataCollectionLevel* {.pure, size: 4.} = enum
   Basic = 1'i32
   Enhanced = 2'i32
   Full = 3'i32
-proc `$`*(v: PlatformDataCollectionLevel): string =
-  case ord(v)
-  of 0: "Security"
-  of 1: "Basic"
-  of 2: "Enhanced"
-  of 3: "Full"
-  else: "PlatformDataCollectionLevel(" & $ord(v) & ")"
+template `$`*(v: PlatformDataCollectionLevel): string = enumName(v)
 
 ## Windows.System.Profile.SystemIdentificationSource  (enum)
 type SystemIdentificationSource* {.pure, size: 4.} = enum
@@ -23311,25 +14892,14 @@ type SystemIdentificationSource* {.pure, size: 4.} = enum
   Tpm = 1'i32
   Uefi = 2'i32
   Registry = 3'i32
-proc `$`*(v: SystemIdentificationSource): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Tpm"
-  of 2: "Uefi"
-  of 3: "Registry"
-  else: "SystemIdentificationSource(" & $ord(v) & ")"
+template `$`*(v: SystemIdentificationSource): string = enumName(v)
 
 ## Windows.System.Profile.SystemOutOfBoxExperienceState  (enum)
 type SystemOutOfBoxExperienceState* {.pure, size: 4.} = enum
   NotStarted = 0'i32
   InProgress = 1'i32
   Completed = 2'i32
-proc `$`*(v: SystemOutOfBoxExperienceState): string =
-  case ord(v)
-  of 0: "NotStarted"
-  of 1: "InProgress"
-  of 2: "Completed"
-  else: "SystemOutOfBoxExperienceState(" & $ord(v) & ")"
+template `$`*(v: SystemOutOfBoxExperienceState): string = enumName(v)
 
 ## Windows.System.Profile.UnsupportedAppRequirementReasons  (enum)
 type UnsupportedAppRequirementReasons* = distinct uint32
@@ -23421,13 +14991,7 @@ type RemoteDesktopConnectionStatus* {.pure, size: 4.} = enum
   Connected = 1'i32
   UserInputNeeded = 2'i32
   Disconnected = 3'i32
-proc `$`*(v: RemoteDesktopConnectionStatus): string =
-  case ord(v)
-  of 0: "Connecting"
-  of 1: "Connected"
-  of 2: "UserInputNeeded"
-  of 3: "Disconnected"
-  else: "RemoteDesktopConnectionStatus(" & $ord(v) & ")"
+template `$`*(v: RemoteDesktopConnectionStatus): string = enumName(v)
 
 ## Windows.System.RemoteDesktop.Provider.RemoteDesktopLocalAction  (enum)
 type RemoteDesktopLocalAction* {.pure, size: 4.} = enum
@@ -23436,14 +15000,7 @@ type RemoteDesktopLocalAction* {.pure, size: 4.} = enum
   ShowSystemDisplaySettings = 2'i32
   ShowSystemAccountSettings = 3'i32
   ShowLocalSettings = 4'i32
-proc `$`*(v: RemoteDesktopLocalAction): string =
-  case ord(v)
-  of 0: "ShowBluetoothSettings"
-  of 1: "ShowSystemSoundSettings"
-  of 2: "ShowSystemDisplaySettings"
-  of 3: "ShowSystemAccountSettings"
-  of 4: "ShowLocalSettings"
-  else: "RemoteDesktopLocalAction(" & $ord(v) & ")"
+template `$`*(v: RemoteDesktopLocalAction): string = enumName(v)
 
 ## Windows.System.RemoteLaunchUriStatus  (enum)
 type RemoteLaunchUriStatus* {.pure, size: 4.} = enum
@@ -23455,17 +15012,7 @@ type RemoteLaunchUriStatus* {.pure, size: 4.} = enum
   ValueSetTooLarge = 5'i32
   DeniedByLocalSystem = 6'i32
   DeniedByRemoteSystem = 7'i32
-proc `$`*(v: RemoteLaunchUriStatus): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Success"
-  of 2: "AppUnavailable"
-  of 3: "ProtocolUnavailable"
-  of 4: "RemoteSystemUnavailable"
-  of 5: "ValueSetTooLarge"
-  of 6: "DeniedByLocalSystem"
-  of 7: "DeniedByRemoteSystem"
-  else: "RemoteLaunchUriStatus(" & $ord(v) & ")"
+template `$`*(v: RemoteLaunchUriStatus): string = enumName(v)
 
 ## Windows.System.RemoteSystems.RemoteSystemAccessStatus  (enum)
 type RemoteSystemAccessStatus* {.pure, size: 4.} = enum
@@ -23473,25 +15020,14 @@ type RemoteSystemAccessStatus* {.pure, size: 4.} = enum
   Allowed = 1'i32
   DeniedByUser = 2'i32
   DeniedBySystem = 3'i32
-proc `$`*(v: RemoteSystemAccessStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Allowed"
-  of 2: "DeniedByUser"
-  of 3: "DeniedBySystem"
-  else: "RemoteSystemAccessStatus(" & $ord(v) & ")"
+template `$`*(v: RemoteSystemAccessStatus): string = enumName(v)
 
 ## Windows.System.RemoteSystems.RemoteSystemAuthorizationKind  (enum)
 type RemoteSystemAuthorizationKind* {.pure, size: 4.} = enum
   SameUser = 0'i32
   Anonymous = 1'i32
   SameFamily = 2'i32
-proc `$`*(v: RemoteSystemAuthorizationKind): string =
-  case ord(v)
-  of 0: "SameUser"
-  of 1: "Anonymous"
-  of 2: "SameFamily"
-  else: "RemoteSystemAuthorizationKind(" & $ord(v) & ")"
+template `$`*(v: RemoteSystemAuthorizationKind): string = enumName(v)
 
 ## Windows.System.RemoteSystems.RemoteSystemDiscoveryType  (enum)
 type RemoteSystemDiscoveryType* {.pure, size: 4.} = enum
@@ -23499,13 +15035,7 @@ type RemoteSystemDiscoveryType* {.pure, size: 4.} = enum
   Proximal = 1'i32
   Cloud = 2'i32
   SpatiallyProximal = 3'i32
-proc `$`*(v: RemoteSystemDiscoveryType): string =
-  case ord(v)
-  of 0: "Any"
-  of 1: "Proximal"
-  of 2: "Cloud"
-  of 3: "SpatiallyProximal"
-  else: "RemoteSystemDiscoveryType(" & $ord(v) & ")"
+template `$`*(v: RemoteSystemDiscoveryType): string = enumName(v)
 
 ## Windows.System.RemoteSystems.RemoteSystemPlatform  (enum)
 type RemoteSystemPlatform* {.pure, size: 4.} = enum
@@ -23514,38 +15044,21 @@ type RemoteSystemPlatform* {.pure, size: 4.} = enum
   Android = 2'i32
   Ios = 3'i32
   Linux = 4'i32
-proc `$`*(v: RemoteSystemPlatform): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Windows"
-  of 2: "Android"
-  of 3: "Ios"
-  of 4: "Linux"
-  else: "RemoteSystemPlatform(" & $ord(v) & ")"
+template `$`*(v: RemoteSystemPlatform): string = enumName(v)
 
 ## Windows.System.RemoteSystems.RemoteSystemSessionCreationStatus  (enum)
 type RemoteSystemSessionCreationStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   SessionLimitsExceeded = 1'i32
   OperationAborted = 2'i32
-proc `$`*(v: RemoteSystemSessionCreationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "SessionLimitsExceeded"
-  of 2: "OperationAborted"
-  else: "RemoteSystemSessionCreationStatus(" & $ord(v) & ")"
+template `$`*(v: RemoteSystemSessionCreationStatus): string = enumName(v)
 
 ## Windows.System.RemoteSystems.RemoteSystemSessionDisconnectedReason  (enum)
 type RemoteSystemSessionDisconnectedReason* {.pure, size: 4.} = enum
   SessionUnavailable = 0'i32
   RemovedByController = 1'i32
   SessionClosed = 2'i32
-proc `$`*(v: RemoteSystemSessionDisconnectedReason): string =
-  case ord(v)
-  of 0: "SessionUnavailable"
-  of 1: "RemovedByController"
-  of 2: "SessionClosed"
-  else: "RemoteSystemSessionDisconnectedReason(" & $ord(v) & ")"
+template `$`*(v: RemoteSystemSessionDisconnectedReason): string = enumName(v)
 
 ## Windows.System.RemoteSystems.RemoteSystemSessionJoinStatus  (enum)
 type RemoteSystemSessionJoinStatus* {.pure, size: 4.} = enum
@@ -23554,24 +15067,13 @@ type RemoteSystemSessionJoinStatus* {.pure, size: 4.} = enum
   OperationAborted = 2'i32
   SessionUnavailable = 3'i32
   RejectedByController = 4'i32
-proc `$`*(v: RemoteSystemSessionJoinStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "SessionLimitsExceeded"
-  of 2: "OperationAborted"
-  of 3: "SessionUnavailable"
-  of 4: "RejectedByController"
-  else: "RemoteSystemSessionJoinStatus(" & $ord(v) & ")"
+template `$`*(v: RemoteSystemSessionJoinStatus): string = enumName(v)
 
 ## Windows.System.RemoteSystems.RemoteSystemSessionMessageChannelReliability  (enum)
 type RemoteSystemSessionMessageChannelReliability* {.pure, size: 4.} = enum
   Reliable = 0'i32
   Unreliable = 1'i32
-proc `$`*(v: RemoteSystemSessionMessageChannelReliability): string =
-  case ord(v)
-  of 0: "Reliable"
-  of 1: "Unreliable"
-  else: "RemoteSystemSessionMessageChannelReliability(" & $ord(v) & ")"
+template `$`*(v: RemoteSystemSessionMessageChannelReliability): string = enumName(v)
 
 ## Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcherStatus  (enum)
 type RemoteSystemSessionParticipantWatcherStatus* {.pure, size: 4.} = enum
@@ -23581,15 +15083,7 @@ type RemoteSystemSessionParticipantWatcherStatus* {.pure, size: 4.} = enum
   Stopping = 3'i32
   Stopped = 4'i32
   Aborted = 5'i32
-proc `$`*(v: RemoteSystemSessionParticipantWatcherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "EnumerationCompleted"
-  of 3: "Stopping"
-  of 4: "Stopped"
-  of 5: "Aborted"
-  else: "RemoteSystemSessionParticipantWatcherStatus(" & $ord(v) & ")"
+template `$`*(v: RemoteSystemSessionParticipantWatcherStatus): string = enumName(v)
 
 ## Windows.System.RemoteSystems.RemoteSystemSessionWatcherStatus  (enum)
 type RemoteSystemSessionWatcherStatus* {.pure, size: 4.} = enum
@@ -23599,15 +15093,7 @@ type RemoteSystemSessionWatcherStatus* {.pure, size: 4.} = enum
   Stopping = 3'i32
   Stopped = 4'i32
   Aborted = 5'i32
-proc `$`*(v: RemoteSystemSessionWatcherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "EnumerationCompleted"
-  of 3: "Stopping"
-  of 4: "Stopped"
-  of 5: "Aborted"
-  else: "RemoteSystemSessionWatcherStatus(" & $ord(v) & ")"
+template `$`*(v: RemoteSystemSessionWatcherStatus): string = enumName(v)
 
 ## Windows.System.RemoteSystems.RemoteSystemStatus  (enum)
 type RemoteSystemStatus* {.pure, size: 4.} = enum
@@ -23615,45 +15101,26 @@ type RemoteSystemStatus* {.pure, size: 4.} = enum
   DiscoveringAvailability = 1'i32
   Available = 2'i32
   Unknown = 3'i32
-proc `$`*(v: RemoteSystemStatus): string =
-  case ord(v)
-  of 0: "Unavailable"
-  of 1: "DiscoveringAvailability"
-  of 2: "Available"
-  of 3: "Unknown"
-  else: "RemoteSystemStatus(" & $ord(v) & ")"
+template `$`*(v: RemoteSystemStatus): string = enumName(v)
 
 ## Windows.System.RemoteSystems.RemoteSystemStatusType  (enum)
 type RemoteSystemStatusType* {.pure, size: 4.} = enum
   Any = 0'i32
   Available = 1'i32
-proc `$`*(v: RemoteSystemStatusType): string =
-  case ord(v)
-  of 0: "Any"
-  of 1: "Available"
-  else: "RemoteSystemStatusType(" & $ord(v) & ")"
+template `$`*(v: RemoteSystemStatusType): string = enumName(v)
 
 ## Windows.System.RemoteSystems.RemoteSystemWatcherError  (enum)
 type RemoteSystemWatcherError* {.pure, size: 4.} = enum
   Unknown = 0'i32
   InternetNotAvailable = 1'i32
   AuthenticationError = 2'i32
-proc `$`*(v: RemoteSystemWatcherError): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "InternetNotAvailable"
-  of 2: "AuthenticationError"
-  else: "RemoteSystemWatcherError(" & $ord(v) & ")"
+template `$`*(v: RemoteSystemWatcherError): string = enumName(v)
 
 ## Windows.System.ShutdownKind  (enum)
 type ShutdownKind* {.pure, size: 4.} = enum
   Shutdown = 0'i32
   Restart = 1'i32
-proc `$`*(v: ShutdownKind): string =
-  case ord(v)
-  of 0: "Shutdown"
-  of 1: "Restart"
-  else: "ShutdownKind(" & $ord(v) & ")"
+template `$`*(v: ShutdownKind): string = enumName(v)
 
 ## Windows.System.Threading.WorkItemOptions  (enum)
 type WorkItemOptions* = distinct uint32
@@ -23683,12 +15150,7 @@ type WorkItemPriority* {.pure, size: 4.} = enum
   Low = -1'i32
   Normal = 0'i32
   High = 1'i32
-proc `$`*(v: WorkItemPriority): string =
-  case ord(v)
-  of -1: "Low"
-  of 0: "Normal"
-  of 1: "High"
-  else: "WorkItemPriority(" & $ord(v) & ")"
+template `$`*(v: WorkItemPriority): string = enumName(v)
 
 ## Windows.System.Update.SystemUpdateAttentionRequiredReason  (enum)
 type SystemUpdateAttentionRequiredReason* {.pure, size: 4.} = enum
@@ -23697,14 +15159,7 @@ type SystemUpdateAttentionRequiredReason* {.pure, size: 4.} = enum
   InsufficientDiskSpace = 2'i32
   InsufficientBattery = 3'i32
   UpdateBlocked = 4'i32
-proc `$`*(v: SystemUpdateAttentionRequiredReason): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "NetworkRequired"
-  of 2: "InsufficientDiskSpace"
-  of 3: "InsufficientBattery"
-  of 4: "UpdateBlocked"
-  else: "SystemUpdateAttentionRequiredReason(" & $ord(v) & ")"
+template `$`*(v: SystemUpdateAttentionRequiredReason): string = enumName(v)
 
 ## Windows.System.Update.SystemUpdateItemState  (enum)
 type SystemUpdateItemState* {.pure, size: 4.} = enum
@@ -23717,18 +15172,7 @@ type SystemUpdateItemState* {.pure, size: 4.} = enum
   Completed = 6'i32
   RebootRequired = 7'i32
   Error = 8'i32
-proc `$`*(v: SystemUpdateItemState): string =
-  case ord(v)
-  of 0: "NotStarted"
-  of 1: "Initializing"
-  of 2: "Preparing"
-  of 3: "Calculating"
-  of 4: "Downloading"
-  of 5: "Installing"
-  of 6: "Completed"
-  of 7: "RebootRequired"
-  of 8: "Error"
-  else: "SystemUpdateItemState(" & $ord(v) & ")"
+template `$`*(v: SystemUpdateItemState): string = enumName(v)
 
 ## Windows.System.Update.SystemUpdateManagerState  (enum)
 type SystemUpdateManagerState* {.pure, size: 4.} = enum
@@ -23744,43 +15188,20 @@ type SystemUpdateManagerState* {.pure, size: 4.} = enum
   Completed = 9'i32
   AttentionRequired = 10'i32
   Error = 11'i32
-proc `$`*(v: SystemUpdateManagerState): string =
-  case ord(v)
-  of 0: "Idle"
-  of 1: "Detecting"
-  of 2: "ReadyToDownload"
-  of 3: "Downloading"
-  of 4: "ReadyToInstall"
-  of 5: "Installing"
-  of 6: "RebootRequired"
-  of 7: "ReadyToFinalize"
-  of 8: "Finalizing"
-  of 9: "Completed"
-  of 10: "AttentionRequired"
-  of 11: "Error"
-  else: "SystemUpdateManagerState(" & $ord(v) & ")"
+template `$`*(v: SystemUpdateManagerState): string = enumName(v)
 
 ## Windows.System.Update.SystemUpdateStartInstallAction  (enum)
 type SystemUpdateStartInstallAction* {.pure, size: 4.} = enum
   UpToReboot = 0'i32
   AllowReboot = 1'i32
-proc `$`*(v: SystemUpdateStartInstallAction): string =
-  case ord(v)
-  of 0: "UpToReboot"
-  of 1: "AllowReboot"
-  else: "SystemUpdateStartInstallAction(" & $ord(v) & ")"
+template `$`*(v: SystemUpdateStartInstallAction): string = enumName(v)
 
 ## Windows.System.UserAgeConsentGroup  (enum)
 type UserAgeConsentGroup* {.pure, size: 4.} = enum
   Child = 0'i32
   Minor = 1'i32
   Adult = 2'i32
-proc `$`*(v: UserAgeConsentGroup): string =
-  case ord(v)
-  of 0: "Child"
-  of 1: "Minor"
-  of 2: "Adult"
-  else: "UserAgeConsentGroup(" & $ord(v) & ")"
+template `$`*(v: UserAgeConsentGroup): string = enumName(v)
 
 ## Windows.System.UserAgeConsentResult  (enum)
 type UserAgeConsentResult* {.pure, size: 4.} = enum
@@ -23789,26 +15210,14 @@ type UserAgeConsentResult* {.pure, size: 4.} = enum
   NotIncluded = 2'i32
   Unknown = 3'i32
   Ambiguous = 4'i32
-proc `$`*(v: UserAgeConsentResult): string =
-  case ord(v)
-  of 0: "NotEnforced"
-  of 1: "Included"
-  of 2: "NotIncluded"
-  of 3: "Unknown"
-  of 4: "Ambiguous"
-  else: "UserAgeConsentResult(" & $ord(v) & ")"
+template `$`*(v: UserAgeConsentResult): string = enumName(v)
 
 ## Windows.System.UserAuthenticationStatus  (enum)
 type UserAuthenticationStatus* {.pure, size: 4.} = enum
   Unauthenticated = 0'i32
   LocallyAuthenticated = 1'i32
   RemotelyAuthenticated = 2'i32
-proc `$`*(v: UserAuthenticationStatus): string =
-  case ord(v)
-  of 0: "Unauthenticated"
-  of 1: "LocallyAuthenticated"
-  of 2: "RemotelyAuthenticated"
-  else: "UserAuthenticationStatus(" & $ord(v) & ")"
+template `$`*(v: UserAuthenticationStatus): string = enumName(v)
 
 ## Windows.System.UserPictureSize  (enum)
 type UserPictureSize* {.pure, size: 4.} = enum
@@ -23816,25 +15225,14 @@ type UserPictureSize* {.pure, size: 4.} = enum
   Size208x208 = 1'i32
   Size424x424 = 2'i32
   Size1080x1080 = 3'i32
-proc `$`*(v: UserPictureSize): string =
-  case ord(v)
-  of 0: "Size64x64"
-  of 1: "Size208x208"
-  of 2: "Size424x424"
-  of 3: "Size1080x1080"
-  else: "UserPictureSize(" & $ord(v) & ")"
+template `$`*(v: UserPictureSize): string = enumName(v)
 
 ## Windows.System.UserProfile.AccountPictureKind  (enum)
 type AccountPictureKind* {.pure, size: 4.} = enum
   SmallImage = 0'i32
   LargeImage = 1'i32
   Video = 2'i32
-proc `$`*(v: AccountPictureKind): string =
-  case ord(v)
-  of 0: "SmallImage"
-  of 1: "LargeImage"
-  of 2: "Video"
-  else: "AccountPictureKind(" & $ord(v) & ")"
+template `$`*(v: AccountPictureKind): string = enumName(v)
 
 ## Windows.System.UserProfile.SetAccountPictureResult  (enum)
 type SetAccountPictureResult* {.pure, size: 4.} = enum
@@ -23844,27 +15242,14 @@ type SetAccountPictureResult* {.pure, size: 4.} = enum
   VideoFrameSizeError = 3'i32
   FileSizeError = 4'i32
   Failure = 5'i32
-proc `$`*(v: SetAccountPictureResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "ChangeDisabled"
-  of 2: "LargeOrDynamicError"
-  of 3: "VideoFrameSizeError"
-  of 4: "FileSizeError"
-  of 5: "Failure"
-  else: "SetAccountPictureResult(" & $ord(v) & ")"
+template `$`*(v: SetAccountPictureResult): string = enumName(v)
 
 ## Windows.System.UserProfile.SetImageFeedResult  (enum)
 type SetImageFeedResult* {.pure, size: 4.} = enum
   Success = 0'i32
   ChangeDisabled = 1'i32
   UserCanceled = 2'i32
-proc `$`*(v: SetImageFeedResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "ChangeDisabled"
-  of 2: "UserCanceled"
-  else: "SetImageFeedResult(" & $ord(v) & ")"
+template `$`*(v: SetImageFeedResult): string = enumName(v)
 
 ## Windows.System.UserType  (enum)
 type UserType* {.pure, size: 4.} = enum
@@ -23873,14 +15258,7 @@ type UserType* {.pure, size: 4.} = enum
   LocalGuest = 2'i32
   RemoteGuest = 3'i32
   SystemManaged = 4'i32
-proc `$`*(v: UserType): string =
-  case ord(v)
-  of 0: "LocalUser"
-  of 1: "RemoteUser"
-  of 2: "LocalGuest"
-  of 3: "RemoteGuest"
-  of 4: "SystemManaged"
-  else: "UserType(" & $ord(v) & ")"
+template `$`*(v: UserType): string = enumName(v)
 
 ## Windows.System.UserWatcherStatus  (enum)
 type UserWatcherStatus* {.pure, size: 4.} = enum
@@ -23890,25 +15268,13 @@ type UserWatcherStatus* {.pure, size: 4.} = enum
   Stopping = 3'i32
   Stopped = 4'i32
   Aborted = 5'i32
-proc `$`*(v: UserWatcherStatus): string =
-  case ord(v)
-  of 0: "Created"
-  of 1: "Started"
-  of 2: "EnumerationCompleted"
-  of 3: "Stopping"
-  of 4: "Stopped"
-  of 5: "Aborted"
-  else: "UserWatcherStatus(" & $ord(v) & ")"
+template `$`*(v: UserWatcherStatus): string = enumName(v)
 
 ## Windows.System.UserWatcherUpdateKind  (enum)
 type UserWatcherUpdateKind* {.pure, size: 4.} = enum
   Properties = 0'i32
   Picture = 1'i32
-proc `$`*(v: UserWatcherUpdateKind): string =
-  case ord(v)
-  of 0: "Properties"
-  of 1: "Picture"
-  else: "UserWatcherUpdateKind(" & $ord(v) & ")"
+template `$`*(v: UserWatcherUpdateKind): string = enumName(v)
 
 ## Windows.System.VirtualKey  (enum)
 type VirtualKey* {.pure, size: 4.} = enum
@@ -24084,179 +15450,7 @@ type VirtualKey* {.pure, size: 4.} = enum
   GamepadRightThumbstickLeft = 218'i32
 const VirtualKey_Hangul* = VirtualKey.Kana
 const VirtualKey_Kanji* = VirtualKey.Hanja
-proc `$`*(v: VirtualKey): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "LeftButton"
-  of 2: "RightButton"
-  of 3: "Cancel"
-  of 4: "MiddleButton"
-  of 5: "XButton1"
-  of 6: "XButton2"
-  of 8: "Back"
-  of 9: "Tab"
-  of 12: "Clear"
-  of 13: "Enter"
-  of 16: "Shift"
-  of 17: "Control"
-  of 18: "Menu"
-  of 19: "Pause"
-  of 20: "CapitalLock"
-  of 21: "Kana"
-  of 22: "ImeOn"
-  of 23: "Junja"
-  of 24: "Final"
-  of 25: "Hanja"
-  of 26: "ImeOff"
-  of 27: "Escape"
-  of 28: "Convert"
-  of 29: "NonConvert"
-  of 30: "Accept"
-  of 31: "ModeChange"
-  of 32: "Space"
-  of 33: "PageUp"
-  of 34: "PageDown"
-  of 35: "End"
-  of 36: "Home"
-  of 37: "Left"
-  of 38: "Up"
-  of 39: "Right"
-  of 40: "Down"
-  of 41: "Select"
-  of 42: "Print"
-  of 43: "Execute"
-  of 44: "Snapshot"
-  of 45: "Insert"
-  of 46: "Delete"
-  of 47: "Help"
-  of 48: "Number0"
-  of 49: "Number1"
-  of 50: "Number2"
-  of 51: "Number3"
-  of 52: "Number4"
-  of 53: "Number5"
-  of 54: "Number6"
-  of 55: "Number7"
-  of 56: "Number8"
-  of 57: "Number9"
-  of 65: "A"
-  of 66: "B"
-  of 67: "C"
-  of 68: "D"
-  of 69: "E"
-  of 70: "F"
-  of 71: "G"
-  of 72: "H"
-  of 73: "I"
-  of 74: "J"
-  of 75: "K"
-  of 76: "L"
-  of 77: "M"
-  of 78: "N"
-  of 79: "O"
-  of 80: "P"
-  of 81: "Q"
-  of 82: "R"
-  of 83: "S"
-  of 84: "T"
-  of 85: "U"
-  of 86: "V"
-  of 87: "W"
-  of 88: "X"
-  of 89: "Y"
-  of 90: "Z"
-  of 91: "LeftWindows"
-  of 92: "RightWindows"
-  of 93: "Application"
-  of 95: "Sleep"
-  of 96: "NumberPad0"
-  of 97: "NumberPad1"
-  of 98: "NumberPad2"
-  of 99: "NumberPad3"
-  of 100: "NumberPad4"
-  of 101: "NumberPad5"
-  of 102: "NumberPad6"
-  of 103: "NumberPad7"
-  of 104: "NumberPad8"
-  of 105: "NumberPad9"
-  of 106: "Multiply"
-  of 107: "Add"
-  of 108: "Separator"
-  of 109: "Subtract"
-  of 110: "Decimal"
-  of 111: "Divide"
-  of 112: "F1"
-  of 113: "F2"
-  of 114: "F3"
-  of 115: "F4"
-  of 116: "F5"
-  of 117: "F6"
-  of 118: "F7"
-  of 119: "F8"
-  of 120: "F9"
-  of 121: "F10"
-  of 122: "F11"
-  of 123: "F12"
-  of 124: "F13"
-  of 125: "F14"
-  of 126: "F15"
-  of 127: "F16"
-  of 128: "F17"
-  of 129: "F18"
-  of 130: "F19"
-  of 131: "F20"
-  of 132: "F21"
-  of 133: "F22"
-  of 134: "F23"
-  of 135: "F24"
-  of 136: "NavigationView"
-  of 137: "NavigationMenu"
-  of 138: "NavigationUp"
-  of 139: "NavigationDown"
-  of 140: "NavigationLeft"
-  of 141: "NavigationRight"
-  of 142: "NavigationAccept"
-  of 143: "NavigationCancel"
-  of 144: "NumberKeyLock"
-  of 145: "Scroll"
-  of 160: "LeftShift"
-  of 161: "RightShift"
-  of 162: "LeftControl"
-  of 163: "RightControl"
-  of 164: "LeftMenu"
-  of 165: "RightMenu"
-  of 166: "GoBack"
-  of 167: "GoForward"
-  of 168: "Refresh"
-  of 169: "Stop"
-  of 170: "Search"
-  of 171: "Favorites"
-  of 172: "GoHome"
-  of 195: "GamepadA"
-  of 196: "GamepadB"
-  of 197: "GamepadX"
-  of 198: "GamepadY"
-  of 199: "GamepadRightShoulder"
-  of 200: "GamepadLeftShoulder"
-  of 201: "GamepadLeftTrigger"
-  of 202: "GamepadRightTrigger"
-  of 203: "GamepadDPadUp"
-  of 204: "GamepadDPadDown"
-  of 205: "GamepadDPadLeft"
-  of 206: "GamepadDPadRight"
-  of 207: "GamepadMenu"
-  of 208: "GamepadView"
-  of 209: "GamepadLeftThumbstickButton"
-  of 210: "GamepadRightThumbstickButton"
-  of 211: "GamepadLeftThumbstickUp"
-  of 212: "GamepadLeftThumbstickDown"
-  of 213: "GamepadLeftThumbstickRight"
-  of 214: "GamepadLeftThumbstickLeft"
-  of 215: "GamepadRightThumbstickUp"
-  of 216: "GamepadRightThumbstickDown"
-  of 217: "GamepadRightThumbstickRight"
-  of 218: "GamepadRightThumbstickLeft"
-  else: "VirtualKey(" & $ord(v) & ")"
+template `$`*(v: VirtualKey): string = enumName(v)
 
 ## Windows.System.VirtualKeyModifiers  (enum)
 type VirtualKeyModifiers* = distinct uint32
@@ -24300,11 +15494,7 @@ const VirtualKeyModifiers_Windows* = VirtualKeyModifiers(8'u32)
 type SettingsEdgeLocation* {.pure, size: 4.} = enum
   Right = 0'i32
   Left = 1'i32
-proc `$`*(v: SettingsEdgeLocation): string =
-  case ord(v)
-  of 0: "Right"
-  of 1: "Left"
-  else: "SettingsEdgeLocation(" & $ord(v) & ")"
+template `$`*(v: SettingsEdgeLocation): string = enumName(v)
 
 ## Windows.UI.ApplicationSettings.SupportedWebAccountActions  (enum)
 type SupportedWebAccountActions* = distinct uint32
@@ -24356,34 +15546,19 @@ type WebAccountAction* {.pure, size: 4.} = enum
   ViewDetails = 2'i32
   Manage = 3'i32
   More = 4'i32
-proc `$`*(v: WebAccountAction): string =
-  case ord(v)
-  of 0: "Reconnect"
-  of 1: "Remove"
-  of 2: "ViewDetails"
-  of 3: "Manage"
-  of 4: "More"
-  else: "WebAccountAction(" & $ord(v) & ")"
+template `$`*(v: WebAccountAction): string = enumName(v)
 
 ## Windows.UI.Composition.AnimationControllerProgressBehavior  (enum)
 type AnimationControllerProgressBehavior* {.pure, size: 4.} = enum
   Default = 0'i32
   IncludesDelayTime = 1'i32
-proc `$`*(v: AnimationControllerProgressBehavior): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "IncludesDelayTime"
-  else: "AnimationControllerProgressBehavior(" & $ord(v) & ")"
+template `$`*(v: AnimationControllerProgressBehavior): string = enumName(v)
 
 ## Windows.UI.Composition.AnimationDelayBehavior  (enum)
 type AnimationDelayBehavior* {.pure, size: 4.} = enum
   SetInitialValueAfterDelay = 0'i32
   SetInitialValueBeforeDelay = 1'i32
-proc `$`*(v: AnimationDelayBehavior): string =
-  case ord(v)
-  of 0: "SetInitialValueAfterDelay"
-  of 1: "SetInitialValueBeforeDelay"
-  else: "AnimationDelayBehavior(" & $ord(v) & ")"
+template `$`*(v: AnimationDelayBehavior): string = enumName(v)
 
 ## Windows.UI.Composition.AnimationDirection  (enum)
 type AnimationDirection* {.pure, size: 4.} = enum
@@ -24391,23 +15566,13 @@ type AnimationDirection* {.pure, size: 4.} = enum
   Reverse = 1'i32
   Alternate = 2'i32
   AlternateReverse = 3'i32
-proc `$`*(v: AnimationDirection): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Reverse"
-  of 2: "Alternate"
-  of 3: "AlternateReverse"
-  else: "AnimationDirection(" & $ord(v) & ")"
+template `$`*(v: AnimationDirection): string = enumName(v)
 
 ## Windows.UI.Composition.AnimationIterationBehavior  (enum)
 type AnimationIterationBehavior* {.pure, size: 4.} = enum
   Count = 0'i32
   Forever = 1'i32
-proc `$`*(v: AnimationIterationBehavior): string =
-  case ord(v)
-  of 0: "Count"
-  of 1: "Forever"
-  else: "AnimationIterationBehavior(" & $ord(v) & ")"
+template `$`*(v: AnimationIterationBehavior): string = enumName(v)
 
 ## Windows.UI.Composition.AnimationPropertyAccessMode  (enum)
 type AnimationPropertyAccessMode* {.pure, size: 4.} = enum
@@ -24415,37 +15580,21 @@ type AnimationPropertyAccessMode* {.pure, size: 4.} = enum
   ReadOnly = 1'i32
   WriteOnly = 2'i32
   ReadWrite = 3'i32
-proc `$`*(v: AnimationPropertyAccessMode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "ReadOnly"
-  of 2: "WriteOnly"
-  of 3: "ReadWrite"
-  else: "AnimationPropertyAccessMode(" & $ord(v) & ")"
+template `$`*(v: AnimationPropertyAccessMode): string = enumName(v)
 
 ## Windows.UI.Composition.AnimationStopBehavior  (enum)
 type AnimationStopBehavior* {.pure, size: 4.} = enum
   LeaveCurrentValue = 0'i32
   SetToInitialValue = 1'i32
   SetToFinalValue = 2'i32
-proc `$`*(v: AnimationStopBehavior): string =
-  case ord(v)
-  of 0: "LeaveCurrentValue"
-  of 1: "SetToInitialValue"
-  of 2: "SetToFinalValue"
-  else: "AnimationStopBehavior(" & $ord(v) & ")"
+template `$`*(v: AnimationStopBehavior): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionBackfaceVisibility  (enum)
 type CompositionBackfaceVisibility* {.pure, size: 4.} = enum
   Inherit = 0'i32
   Visible = 1'i32
   Hidden = 2'i32
-proc `$`*(v: CompositionBackfaceVisibility): string =
-  case ord(v)
-  of 0: "Inherit"
-  of 1: "Visible"
-  of 2: "Hidden"
-  else: "CompositionBackfaceVisibility(" & $ord(v) & ")"
+template `$`*(v: CompositionBackfaceVisibility): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionBatchTypes  (enum)
 type CompositionBatchTypes* = distinct uint32
@@ -24497,31 +15646,14 @@ type CompositionBitmapInterpolationMode* {.pure, size: 4.} = enum
   MagNearestMinLinearMipNearest = 7'i32
   MagNearestMinNearestMipLinear = 8'i32
   MagNearestMinNearestMipNearest = 9'i32
-proc `$`*(v: CompositionBitmapInterpolationMode): string =
-  case ord(v)
-  of 0: "NearestNeighbor"
-  of 1: "Linear"
-  of 2: "MagLinearMinLinearMipLinear"
-  of 3: "MagLinearMinLinearMipNearest"
-  of 4: "MagLinearMinNearestMipLinear"
-  of 5: "MagLinearMinNearestMipNearest"
-  of 6: "MagNearestMinLinearMipLinear"
-  of 7: "MagNearestMinLinearMipNearest"
-  of 8: "MagNearestMinNearestMipLinear"
-  of 9: "MagNearestMinNearestMipNearest"
-  else: "CompositionBitmapInterpolationMode(" & $ord(v) & ")"
+template `$`*(v: CompositionBitmapInterpolationMode): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionBorderMode  (enum)
 type CompositionBorderMode* {.pure, size: 4.} = enum
   Inherit = 0'i32
   Soft = 1'i32
   Hard = 2'i32
-proc `$`*(v: CompositionBorderMode): string =
-  case ord(v)
-  of 0: "Inherit"
-  of 1: "Soft"
-  of 2: "Hard"
-  else: "CompositionBorderMode(" & $ord(v) & ")"
+template `$`*(v: CompositionBorderMode): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionColorSpace  (enum)
 type CompositionColorSpace* {.pure, size: 4.} = enum
@@ -24530,14 +15662,7 @@ type CompositionColorSpace* {.pure, size: 4.} = enum
   Rgb = 2'i32
   HslLinear = 3'i32
   RgbLinear = 4'i32
-proc `$`*(v: CompositionColorSpace): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Hsl"
-  of 2: "Rgb"
-  of 3: "HslLinear"
-  of 4: "RgbLinear"
-  else: "CompositionColorSpace(" & $ord(v) & ")"
+template `$`*(v: CompositionColorSpace): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionCompositeMode  (enum)
 type CompositionCompositeMode* {.pure, size: 4.} = enum
@@ -24545,35 +15670,20 @@ type CompositionCompositeMode* {.pure, size: 4.} = enum
   SourceOver = 1'i32
   DestinationInvert = 2'i32
   MinBlend = 3'i32
-proc `$`*(v: CompositionCompositeMode): string =
-  case ord(v)
-  of 0: "Inherit"
-  of 1: "SourceOver"
-  of 2: "DestinationInvert"
-  of 3: "MinBlend"
-  else: "CompositionCompositeMode(" & $ord(v) & ")"
+template `$`*(v: CompositionCompositeMode): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionDropShadowSourcePolicy  (enum)
 type CompositionDropShadowSourcePolicy* {.pure, size: 4.} = enum
   Default = 0'i32
   InheritFromVisualContent = 1'i32
-proc `$`*(v: CompositionDropShadowSourcePolicy): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "InheritFromVisualContent"
-  else: "CompositionDropShadowSourcePolicy(" & $ord(v) & ")"
+template `$`*(v: CompositionDropShadowSourcePolicy): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionEasingFunctionMode  (enum)
 type CompositionEasingFunctionMode* {.pure, size: 4.} = enum
   `In` = 0'i32
   `Out` = 1'i32
   InOut = 2'i32
-proc `$`*(v: CompositionEasingFunctionMode): string =
-  case ord(v)
-  of 0: "In"
-  of 1: "Out"
-  of 2: "InOut"
-  else: "CompositionEasingFunctionMode(" & $ord(v) & ")"
+template `$`*(v: CompositionEasingFunctionMode): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionEffectFactoryLoadStatus  (enum)
 type CompositionEffectFactoryLoadStatus* {.pure, size: 4.} = enum
@@ -24581,47 +15691,27 @@ type CompositionEffectFactoryLoadStatus* {.pure, size: 4.} = enum
   Success = 0'i32
   EffectTooComplex = 1'i32
   Pending = 2'i32
-proc `$`*(v: CompositionEffectFactoryLoadStatus): string =
-  case ord(v)
-  of -1: "Other"
-  of 0: "Success"
-  of 1: "EffectTooComplex"
-  of 2: "Pending"
-  else: "CompositionEffectFactoryLoadStatus(" & $ord(v) & ")"
+template `$`*(v: CompositionEffectFactoryLoadStatus): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionGetValueStatus  (enum)
 type CompositionGetValueStatus* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   TypeMismatch = 1'i32
   NotFound = 2'i32
-proc `$`*(v: CompositionGetValueStatus): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "TypeMismatch"
-  of 2: "NotFound"
-  else: "CompositionGetValueStatus(" & $ord(v) & ")"
+template `$`*(v: CompositionGetValueStatus): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionGradientExtendMode  (enum)
 type CompositionGradientExtendMode* {.pure, size: 4.} = enum
   Clamp = 0'i32
   Wrap = 1'i32
   Mirror = 2'i32
-proc `$`*(v: CompositionGradientExtendMode): string =
-  case ord(v)
-  of 0: "Clamp"
-  of 1: "Wrap"
-  of 2: "Mirror"
-  else: "CompositionGradientExtendMode(" & $ord(v) & ")"
+template `$`*(v: CompositionGradientExtendMode): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionMappingMode  (enum)
 type CompositionMappingMode* {.pure, size: 4.} = enum
   Absolute = 0'i32
   Relative = 1'i32
-proc `$`*(v: CompositionMappingMode): string =
-  case ord(v)
-  of 0: "Absolute"
-  of 1: "Relative"
-  else: "CompositionMappingMode(" & $ord(v) & ")"
+template `$`*(v: CompositionMappingMode): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionStretch  (enum)
 type CompositionStretch* {.pure, size: 4.} = enum
@@ -24629,13 +15719,7 @@ type CompositionStretch* {.pure, size: 4.} = enum
   Fill = 1'i32
   Uniform = 2'i32
   UniformToFill = 3'i32
-proc `$`*(v: CompositionStretch): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Fill"
-  of 2: "Uniform"
-  of 3: "UniformToFill"
-  else: "CompositionStretch(" & $ord(v) & ")"
+template `$`*(v: CompositionStretch): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionStrokeCap  (enum)
 type CompositionStrokeCap* {.pure, size: 4.} = enum
@@ -24643,13 +15727,7 @@ type CompositionStrokeCap* {.pure, size: 4.} = enum
   Square = 1'i32
   Round = 2'i32
   Triangle = 3'i32
-proc `$`*(v: CompositionStrokeCap): string =
-  case ord(v)
-  of 0: "Flat"
-  of 1: "Square"
-  of 2: "Round"
-  of 3: "Triangle"
-  else: "CompositionStrokeCap(" & $ord(v) & ")"
+template `$`*(v: CompositionStrokeCap): string = enumName(v)
 
 ## Windows.UI.Composition.CompositionStrokeLineJoin  (enum)
 type CompositionStrokeLineJoin* {.pure, size: 4.} = enum
@@ -24657,13 +15735,7 @@ type CompositionStrokeLineJoin* {.pure, size: 4.} = enum
   Bevel = 1'i32
   Round = 2'i32
   MiterOrBevel = 3'i32
-proc `$`*(v: CompositionStrokeLineJoin): string =
-  case ord(v)
-  of 0: "Miter"
-  of 1: "Bevel"
-  of 2: "Round"
-  of 3: "MiterOrBevel"
-  else: "CompositionStrokeLineJoin(" & $ord(v) & ")"
+template `$`*(v: CompositionStrokeLineJoin): string = enumName(v)
 
 ## Windows.UI.Composition.Diagnostics.CompositionDebugOverdrawContentKinds  (enum)
 type CompositionDebugOverdrawContentKinds* = distinct uint32
@@ -24727,11 +15799,7 @@ const CompositionDebugOverdrawContentKinds_All* = CompositionDebugOverdrawConten
 type SceneLightingEffectReflectanceModel* {.pure, size: 4.} = enum
   BlinnPhong = 0'i32
   PhysicallyBasedBlinnPhong = 1'i32
-proc `$`*(v: SceneLightingEffectReflectanceModel): string =
-  case ord(v)
-  of 0: "BlinnPhong"
-  of 1: "PhysicallyBasedBlinnPhong"
-  else: "SceneLightingEffectReflectanceModel(" & $ord(v) & ")"
+template `$`*(v: SceneLightingEffectReflectanceModel): string = enumName(v)
 
 ## Windows.UI.Composition.Interactions.InteractionBindingAxisModes  (enum)
 type InteractionBindingAxisModes* = distinct uint32
@@ -24771,54 +15839,32 @@ type InteractionChainingMode* {.pure, size: 4.} = enum
   Auto = 0'i32
   Always = 1'i32
   Never = 2'i32
-proc `$`*(v: InteractionChainingMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Always"
-  of 2: "Never"
-  else: "InteractionChainingMode(" & $ord(v) & ")"
+template `$`*(v: InteractionChainingMode): string = enumName(v)
 
 ## Windows.UI.Composition.Interactions.InteractionSourceMode  (enum)
 type InteractionSourceMode* {.pure, size: 4.} = enum
   Disabled = 0'i32
   EnabledWithInertia = 1'i32
   EnabledWithoutInertia = 2'i32
-proc `$`*(v: InteractionSourceMode): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "EnabledWithInertia"
-  of 2: "EnabledWithoutInertia"
-  else: "InteractionSourceMode(" & $ord(v) & ")"
+template `$`*(v: InteractionSourceMode): string = enumName(v)
 
 ## Windows.UI.Composition.Interactions.InteractionSourceRedirectionMode  (enum)
 type InteractionSourceRedirectionMode* {.pure, size: 4.} = enum
   Disabled = 0'i32
   Enabled = 1'i32
-proc `$`*(v: InteractionSourceRedirectionMode): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "Enabled"
-  else: "InteractionSourceRedirectionMode(" & $ord(v) & ")"
+template `$`*(v: InteractionSourceRedirectionMode): string = enumName(v)
 
 ## Windows.UI.Composition.Interactions.InteractionTrackerClampingOption  (enum)
 type InteractionTrackerClampingOption* {.pure, size: 4.} = enum
   Auto = 0'i32
   Disabled = 1'i32
-proc `$`*(v: InteractionTrackerClampingOption): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Disabled"
-  else: "InteractionTrackerClampingOption(" & $ord(v) & ")"
+template `$`*(v: InteractionTrackerClampingOption): string = enumName(v)
 
 ## Windows.UI.Composition.Interactions.InteractionTrackerPositionUpdateOption  (enum)
 type InteractionTrackerPositionUpdateOption* {.pure, size: 4.} = enum
   Default = 0'i32
   AllowActiveCustomScaleAnimation = 1'i32
-proc `$`*(v: InteractionTrackerPositionUpdateOption): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "AllowActiveCustomScaleAnimation"
-  else: "InteractionTrackerPositionUpdateOption(" & $ord(v) & ")"
+template `$`*(v: InteractionTrackerPositionUpdateOption): string = enumName(v)
 
 ## Windows.UI.Composition.Interactions.VisualInteractionSourceRedirectionMode  (enum)
 type VisualInteractionSourceRedirectionMode* {.pure, size: 4.} = enum
@@ -24826,25 +15872,14 @@ type VisualInteractionSourceRedirectionMode* {.pure, size: 4.} = enum
   CapableTouchpadOnly = 1'i32
   PointerWheelOnly = 2'i32
   CapableTouchpadAndPointerWheel = 3'i32
-proc `$`*(v: VisualInteractionSourceRedirectionMode): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "CapableTouchpadOnly"
-  of 2: "PointerWheelOnly"
-  of 3: "CapableTouchpadAndPointerWheel"
-  else: "VisualInteractionSourceRedirectionMode(" & $ord(v) & ")"
+template `$`*(v: VisualInteractionSourceRedirectionMode): string = enumName(v)
 
 ## Windows.UI.Composition.Scenes.SceneAlphaMode  (enum)
 type SceneAlphaMode* {.pure, size: 4.} = enum
   Opaque = 0'i32
   AlphaTest = 1'i32
   Blend = 2'i32
-proc `$`*(v: SceneAlphaMode): string =
-  case ord(v)
-  of 0: "Opaque"
-  of 1: "AlphaTest"
-  of 2: "Blend"
-  else: "SceneAlphaMode(" & $ord(v) & ")"
+template `$`*(v: SceneAlphaMode): string = enumName(v)
 
 ## Windows.UI.Composition.Scenes.SceneAttributeSemantic  (enum)
 type SceneAttributeSemantic* {.pure, size: 4.} = enum
@@ -24855,36 +15890,19 @@ type SceneAttributeSemantic* {.pure, size: 4.} = enum
   TexCoord1 = 4'i32
   Color = 5'i32
   Tangent = 6'i32
-proc `$`*(v: SceneAttributeSemantic): string =
-  case ord(v)
-  of 0: "Index"
-  of 1: "Vertex"
-  of 2: "Normal"
-  of 3: "TexCoord0"
-  of 4: "TexCoord1"
-  of 5: "Color"
-  of 6: "Tangent"
-  else: "SceneAttributeSemantic(" & $ord(v) & ")"
+template `$`*(v: SceneAttributeSemantic): string = enumName(v)
 
 ## Windows.UI.Composition.Scenes.SceneComponentType  (enum)
 type SceneComponentType* {.pure, size: 4.} = enum
   MeshRendererComponent = 0'i32
-proc `$`*(v: SceneComponentType): string =
-  case ord(v)
-  of 0: "MeshRendererComponent"
-  else: "SceneComponentType(" & $ord(v) & ")"
+template `$`*(v: SceneComponentType): string = enumName(v)
 
 ## Windows.UI.Composition.Scenes.SceneWrappingMode  (enum)
 type SceneWrappingMode* {.pure, size: 4.} = enum
   ClampToEdge = 0'i32
   MirroredRepeat = 1'i32
   Repeat = 2'i32
-proc `$`*(v: SceneWrappingMode): string =
-  case ord(v)
-  of 0: "ClampToEdge"
-  of 1: "MirroredRepeat"
-  of 2: "Repeat"
-  else: "SceneWrappingMode(" & $ord(v) & ")"
+template `$`*(v: SceneWrappingMode): string = enumName(v)
 
 ## Windows.UI.Core.AnimationMetrics.AnimationEffect  (enum)
 type AnimationEffect* {.pure, size: 4.} = enum
@@ -24924,45 +15942,7 @@ type AnimationEffect* {.pure, size: 4.} = enum
   CrossFade = 33'i32
   Peek = 34'i32
   UpdateBadge = 35'i32
-proc `$`*(v: AnimationEffect): string =
-  case ord(v)
-  of 0: "Expand"
-  of 1: "Collapse"
-  of 2: "Reposition"
-  of 3: "FadeIn"
-  of 4: "FadeOut"
-  of 5: "AddToList"
-  of 6: "DeleteFromList"
-  of 7: "AddToGrid"
-  of 8: "DeleteFromGrid"
-  of 9: "AddToSearchGrid"
-  of 10: "DeleteFromSearchGrid"
-  of 11: "AddToSearchList"
-  of 12: "DeleteFromSearchList"
-  of 13: "ShowEdgeUI"
-  of 14: "ShowPanel"
-  of 15: "HideEdgeUI"
-  of 16: "HidePanel"
-  of 17: "ShowPopup"
-  of 18: "HidePopup"
-  of 19: "PointerDown"
-  of 20: "PointerUp"
-  of 21: "DragSourceStart"
-  of 22: "DragSourceEnd"
-  of 23: "TransitionContent"
-  of 24: "Reveal"
-  of 25: "Hide"
-  of 26: "DragBetweenEnter"
-  of 27: "DragBetweenLeave"
-  of 28: "SwipeSelect"
-  of 29: "SwipeDeselect"
-  of 30: "SwipeReveal"
-  of 31: "EnterPage"
-  of 32: "TransitionPage"
-  of 33: "CrossFade"
-  of 34: "Peek"
-  of 35: "UpdateBadge"
-  else: "AnimationEffect(" & $ord(v) & ")"
+template `$`*(v: AnimationEffect): string = enumName(v)
 
 ## Windows.UI.Core.AnimationMetrics.AnimationEffectTarget  (enum)
 type AnimationEffectTarget* {.pure, size: 4.} = enum
@@ -24986,53 +15966,21 @@ type AnimationEffectTarget* {.pure, size: 4.} = enum
   Selection = 17'i32
   Shown = 18'i32
   Tapped = 19'i32
-proc `$`*(v: AnimationEffectTarget): string =
-  case ord(v)
-  of 0: "Primary"
-  of 1: "Added"
-  of 2: "Affected"
-  of 3: "Background"
-  of 4: "Content"
-  of 5: "Deleted"
-  of 6: "Deselected"
-  of 7: "DragSource"
-  of 8: "Hidden"
-  of 9: "Incoming"
-  of 10: "Outgoing"
-  of 11: "Outline"
-  of 12: "Remaining"
-  of 13: "Revealed"
-  of 14: "RowIn"
-  of 15: "RowOut"
-  of 16: "Selected"
-  of 17: "Selection"
-  of 18: "Shown"
-  of 19: "Tapped"
-  else: "AnimationEffectTarget(" & $ord(v) & ")"
+template `$`*(v: AnimationEffectTarget): string = enumName(v)
 
 ## Windows.UI.Core.AnimationMetrics.PropertyAnimationType  (enum)
 type PropertyAnimationType* {.pure, size: 4.} = enum
   Scale = 0'i32
   Translation = 1'i32
   Opacity = 2'i32
-proc `$`*(v: PropertyAnimationType): string =
-  case ord(v)
-  of 0: "Scale"
-  of 1: "Translation"
-  of 2: "Opacity"
-  else: "PropertyAnimationType(" & $ord(v) & ")"
+template `$`*(v: PropertyAnimationType): string = enumName(v)
 
 ## Windows.UI.Core.AppViewBackButtonVisibility  (enum)
 type AppViewBackButtonVisibility* {.pure, size: 4.} = enum
   Visible = 0'i32
   Collapsed = 1'i32
   Disabled = 2'i32
-proc `$`*(v: AppViewBackButtonVisibility): string =
-  case ord(v)
-  of 0: "Visible"
-  of 1: "Collapsed"
-  of 2: "Disabled"
-  else: "AppViewBackButtonVisibility(" & $ord(v) & ")"
+template `$`*(v: AppViewBackButtonVisibility): string = enumName(v)
 
 ## Windows.UI.Core.CoreAcceleratorKeyEventType  (enum)
 type CoreAcceleratorKeyEventType* {.pure, size: 4.} = enum
@@ -25045,18 +15993,7 @@ type CoreAcceleratorKeyEventType* {.pure, size: 4.} = enum
   SystemCharacter = 6'i32
   SystemDeadCharacter = 7'i32
   UnicodeCharacter = 8'i32
-proc `$`*(v: CoreAcceleratorKeyEventType): string =
-  case ord(v)
-  of 0: "KeyDown"
-  of 1: "KeyUp"
-  of 2: "Character"
-  of 3: "DeadCharacter"
-  of 4: "SystemKeyDown"
-  of 5: "SystemKeyUp"
-  of 6: "SystemCharacter"
-  of 7: "SystemDeadCharacter"
-  of 8: "UnicodeCharacter"
-  else: "CoreAcceleratorKeyEventType(" & $ord(v) & ")"
+template `$`*(v: CoreAcceleratorKeyEventType): string = enumName(v)
 
 ## Windows.UI.Core.CoreCursorType  (enum)
 type CoreCursorType* {.pure, size: 4.} = enum
@@ -25076,25 +16013,7 @@ type CoreCursorType* {.pure, size: 4.} = enum
   Wait = 13'i32
   Pin = 14'i32
   Person = 15'i32
-proc `$`*(v: CoreCursorType): string =
-  case ord(v)
-  of 0: "Arrow"
-  of 1: "Cross"
-  of 2: "Custom"
-  of 3: "Hand"
-  of 4: "Help"
-  of 5: "IBeam"
-  of 6: "SizeAll"
-  of 7: "SizeNortheastSouthwest"
-  of 8: "SizeNorthSouth"
-  of 9: "SizeNorthwestSoutheast"
-  of 10: "SizeWestEast"
-  of 11: "UniversalNo"
-  of 12: "UpArrow"
-  of 13: "Wait"
-  of 14: "Pin"
-  of 15: "Person"
-  else: "CoreCursorType(" & $ord(v) & ")"
+template `$`*(v: CoreCursorType): string = enumName(v)
 
 ## Windows.UI.Core.CoreDispatcherPriority  (enum)
 type CoreDispatcherPriority* {.pure, size: 4.} = enum
@@ -25102,13 +16021,7 @@ type CoreDispatcherPriority* {.pure, size: 4.} = enum
   Low = -1'i32
   Normal = 0'i32
   High = 1'i32
-proc `$`*(v: CoreDispatcherPriority): string =
-  case ord(v)
-  of -2: "Idle"
-  of -1: "Low"
-  of 0: "Normal"
-  of 1: "High"
-  else: "CoreDispatcherPriority(" & $ord(v) & ")"
+template `$`*(v: CoreDispatcherPriority): string = enumName(v)
 
 ## Windows.UI.Core.CoreIndependentInputFilters  (enum)
 type CoreIndependentInputFilters* = distinct uint32
@@ -25192,23 +16105,13 @@ type CoreProcessEventsOption* {.pure, size: 4.} = enum
   ProcessOneIfPresent = 1'i32
   ProcessUntilQuit = 2'i32
   ProcessAllIfPresent = 3'i32
-proc `$`*(v: CoreProcessEventsOption): string =
-  case ord(v)
-  of 0: "ProcessOneAndAllPending"
-  of 1: "ProcessOneIfPresent"
-  of 2: "ProcessUntilQuit"
-  of 3: "ProcessAllIfPresent"
-  else: "CoreProcessEventsOption(" & $ord(v) & ")"
+template `$`*(v: CoreProcessEventsOption): string = enumName(v)
 
 ## Windows.UI.Core.CoreProximityEvaluationScore  (enum)
 type CoreProximityEvaluationScore* {.pure, size: 4.} = enum
   Closest = 0'i32
   Farthest = 2147483647'i32
-proc `$`*(v: CoreProximityEvaluationScore): string =
-  case ord(v)
-  of 0: "Closest"
-  of 2147483647: "Farthest"
-  else: "CoreProximityEvaluationScore(" & $ord(v) & ")"
+template `$`*(v: CoreProximityEvaluationScore): string = enumName(v)
 
 ## Windows.UI.Core.CoreVirtualKeyStates  (enum)
 type CoreVirtualKeyStates* = distinct uint32
@@ -25244,35 +16147,20 @@ type CoreWindowActivationMode* {.pure, size: 4.} = enum
   Deactivated = 1'i32
   ActivatedNotForeground = 2'i32
   ActivatedInForeground = 3'i32
-proc `$`*(v: CoreWindowActivationMode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Deactivated"
-  of 2: "ActivatedNotForeground"
-  of 3: "ActivatedInForeground"
-  else: "CoreWindowActivationMode(" & $ord(v) & ")"
+template `$`*(v: CoreWindowActivationMode): string = enumName(v)
 
 ## Windows.UI.Core.CoreWindowActivationState  (enum)
 type CoreWindowActivationState* {.pure, size: 4.} = enum
   CodeActivated = 0'i32
   Deactivated = 1'i32
   PointerActivated = 2'i32
-proc `$`*(v: CoreWindowActivationState): string =
-  case ord(v)
-  of 0: "CodeActivated"
-  of 1: "Deactivated"
-  of 2: "PointerActivated"
-  else: "CoreWindowActivationState(" & $ord(v) & ")"
+template `$`*(v: CoreWindowActivationState): string = enumName(v)
 
 ## Windows.UI.Core.CoreWindowFlowDirection  (enum)
 type CoreWindowFlowDirection* {.pure, size: 4.} = enum
   LeftToRight = 0'i32
   RightToLeft = 1'i32
-proc `$`*(v: CoreWindowFlowDirection): string =
-  case ord(v)
-  of 0: "LeftToRight"
-  of 1: "RightToLeft"
-  else: "CoreWindowFlowDirection(" & $ord(v) & ")"
+template `$`*(v: CoreWindowFlowDirection): string = enumName(v)
 
 ## Windows.UI.Input.CrossSlidingState  (enum)
 type CrossSlidingState* {.pure, size: 4.} = enum
@@ -25283,40 +16171,21 @@ type CrossSlidingState* {.pure, size: 4.} = enum
   SpeedBumping = 4'i32
   Rearranging = 5'i32
   Completed = 6'i32
-proc `$`*(v: CrossSlidingState): string =
-  case ord(v)
-  of 0: "Started"
-  of 1: "Dragging"
-  of 2: "Selecting"
-  of 3: "SelectSpeedBumping"
-  of 4: "SpeedBumping"
-  of 5: "Rearranging"
-  of 6: "Completed"
-  else: "CrossSlidingState(" & $ord(v) & ")"
+template `$`*(v: CrossSlidingState): string = enumName(v)
 
 ## Windows.UI.Input.DraggingState  (enum)
 type DraggingState* {.pure, size: 4.} = enum
   Started = 0'i32
   Continuing = 1'i32
   Completed = 2'i32
-proc `$`*(v: DraggingState): string =
-  case ord(v)
-  of 0: "Started"
-  of 1: "Continuing"
-  of 2: "Completed"
-  else: "DraggingState(" & $ord(v) & ")"
+template `$`*(v: DraggingState): string = enumName(v)
 
 ## Windows.UI.Input.EdgeGestureKind  (enum)
 type EdgeGestureKind* {.pure, size: 4.} = enum
   Touch = 0'i32
   Keyboard = 1'i32
   Mouse = 2'i32
-proc `$`*(v: EdgeGestureKind): string =
-  case ord(v)
-  of 0: "Touch"
-  of 1: "Keyboard"
-  of 2: "Mouse"
-  else: "EdgeGestureKind(" & $ord(v) & ")"
+template `$`*(v: EdgeGestureKind): string = enumName(v)
 
 ## Windows.UI.Input.GazeInputAccessStatus  (enum)
 type GazeInputAccessStatus* {.pure, size: 4.} = enum
@@ -25324,13 +16193,7 @@ type GazeInputAccessStatus* {.pure, size: 4.} = enum
   Allowed = 1'i32
   DeniedByUser = 2'i32
   DeniedBySystem = 3'i32
-proc `$`*(v: GazeInputAccessStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Allowed"
-  of 2: "DeniedByUser"
-  of 3: "DeniedBySystem"
-  else: "GazeInputAccessStatus(" & $ord(v) & ")"
+template `$`*(v: GazeInputAccessStatus): string = enumName(v)
 
 ## Windows.UI.Input.GestureSettings  (enum)
 type GestureSettings* = distinct uint32
@@ -25440,12 +16303,7 @@ type HoldingState* {.pure, size: 4.} = enum
   Started = 0'i32
   Completed = 1'i32
   Canceled = 2'i32
-proc `$`*(v: HoldingState): string =
-  case ord(v)
-  of 0: "Started"
-  of 1: "Completed"
-  of 2: "Canceled"
-  else: "HoldingState(" & $ord(v) & ")"
+template `$`*(v: HoldingState): string = enumName(v)
 
 ## Windows.UI.Input.Inking.Analysis.InkAnalysisDrawingKind  (enum)
 type InkAnalysisDrawingKind* {.pure, size: 4.} = enum
@@ -25464,24 +16322,7 @@ type InkAnalysisDrawingKind* {.pure, size: 4.} = enum
   Parallelogram = 12'i32
   Pentagon = 13'i32
   Hexagon = 14'i32
-proc `$`*(v: InkAnalysisDrawingKind): string =
-  case ord(v)
-  of 0: "Drawing"
-  of 1: "Circle"
-  of 2: "Ellipse"
-  of 3: "Triangle"
-  of 4: "IsoscelesTriangle"
-  of 5: "EquilateralTriangle"
-  of 6: "RightTriangle"
-  of 7: "Quadrilateral"
-  of 8: "Rectangle"
-  of 9: "Square"
-  of 10: "Diamond"
-  of 11: "Trapezoid"
-  of 12: "Parallelogram"
-  of 13: "Pentagon"
-  of 14: "Hexagon"
-  else: "InkAnalysisDrawingKind(" & $ord(v) & ")"
+template `$`*(v: InkAnalysisDrawingKind): string = enumName(v)
 
 ## Windows.UI.Input.Inking.Analysis.InkAnalysisNodeKind  (enum)
 type InkAnalysisNodeKind* {.pure, size: 4.} = enum
@@ -25494,184 +16335,105 @@ type InkAnalysisNodeKind* {.pure, size: 4.} = enum
   InkBullet = 6'i32
   InkDrawing = 7'i32
   ListItem = 8'i32
-proc `$`*(v: InkAnalysisNodeKind): string =
-  case ord(v)
-  of 0: "UnclassifiedInk"
-  of 1: "Root"
-  of 2: "WritingRegion"
-  of 3: "Paragraph"
-  of 4: "Line"
-  of 5: "InkWord"
-  of 6: "InkBullet"
-  of 7: "InkDrawing"
-  of 8: "ListItem"
-  else: "InkAnalysisNodeKind(" & $ord(v) & ")"
+template `$`*(v: InkAnalysisNodeKind): string = enumName(v)
 
 ## Windows.UI.Input.Inking.Analysis.InkAnalysisStatus  (enum)
 type InkAnalysisStatus* {.pure, size: 4.} = enum
   Updated = 0'i32
   Unchanged = 1'i32
-proc `$`*(v: InkAnalysisStatus): string =
-  case ord(v)
-  of 0: "Updated"
-  of 1: "Unchanged"
-  else: "InkAnalysisStatus(" & $ord(v) & ")"
+template `$`*(v: InkAnalysisStatus): string = enumName(v)
 
 ## Windows.UI.Input.Inking.Analysis.InkAnalysisStrokeKind  (enum)
 type InkAnalysisStrokeKind* {.pure, size: 4.} = enum
   Auto = 0'i32
   Writing = 1'i32
   Drawing = 2'i32
-proc `$`*(v: InkAnalysisStrokeKind): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Writing"
-  of 2: "Drawing"
-  else: "InkAnalysisStrokeKind(" & $ord(v) & ")"
+template `$`*(v: InkAnalysisStrokeKind): string = enumName(v)
 
 ## Windows.UI.Input.Inking.Core.CoreWetStrokeDisposition  (enum)
 type CoreWetStrokeDisposition* {.pure, size: 4.} = enum
   Inking = 0'i32
   Completed = 1'i32
   Canceled = 2'i32
-proc `$`*(v: CoreWetStrokeDisposition): string =
-  case ord(v)
-  of 0: "Inking"
-  of 1: "Completed"
-  of 2: "Canceled"
-  else: "CoreWetStrokeDisposition(" & $ord(v) & ")"
+template `$`*(v: CoreWetStrokeDisposition): string = enumName(v)
 
 ## Windows.UI.Input.Inking.HandwritingLineHeight  (enum)
 type HandwritingLineHeight* {.pure, size: 4.} = enum
   Small = 0'i32
   Medium = 1'i32
   Large = 2'i32
-proc `$`*(v: HandwritingLineHeight): string =
-  case ord(v)
-  of 0: "Small"
-  of 1: "Medium"
-  of 2: "Large"
-  else: "HandwritingLineHeight(" & $ord(v) & ")"
+template `$`*(v: HandwritingLineHeight): string = enumName(v)
 
 ## Windows.UI.Input.Inking.InkDrawingAttributesKind  (enum)
 type InkDrawingAttributesKind* {.pure, size: 4.} = enum
   Default = 0'i32
   Pencil = 1'i32
-proc `$`*(v: InkDrawingAttributesKind): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Pencil"
-  else: "InkDrawingAttributesKind(" & $ord(v) & ")"
+template `$`*(v: InkDrawingAttributesKind): string = enumName(v)
 
 ## Windows.UI.Input.Inking.InkHighContrastAdjustment  (enum)
 type InkHighContrastAdjustment* {.pure, size: 4.} = enum
   UseSystemColorsWhenNecessary = 0'i32
   UseSystemColors = 1'i32
   UseOriginalColors = 2'i32
-proc `$`*(v: InkHighContrastAdjustment): string =
-  case ord(v)
-  of 0: "UseSystemColorsWhenNecessary"
-  of 1: "UseSystemColors"
-  of 2: "UseOriginalColors"
-  else: "InkHighContrastAdjustment(" & $ord(v) & ")"
+template `$`*(v: InkHighContrastAdjustment): string = enumName(v)
 
 ## Windows.UI.Input.Inking.InkInputProcessingMode  (enum)
 type InkInputProcessingMode* {.pure, size: 4.} = enum
   None = 0'i32
   Inking = 1'i32
   Erasing = 2'i32
-proc `$`*(v: InkInputProcessingMode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Inking"
-  of 2: "Erasing"
-  else: "InkInputProcessingMode(" & $ord(v) & ")"
+template `$`*(v: InkInputProcessingMode): string = enumName(v)
 
 ## Windows.UI.Input.Inking.InkInputRightDragAction  (enum)
 type InkInputRightDragAction* {.pure, size: 4.} = enum
   LeaveUnprocessed = 0'i32
   AllowProcessing = 1'i32
-proc `$`*(v: InkInputRightDragAction): string =
-  case ord(v)
-  of 0: "LeaveUnprocessed"
-  of 1: "AllowProcessing"
-  else: "InkInputRightDragAction(" & $ord(v) & ")"
+template `$`*(v: InkInputRightDragAction): string = enumName(v)
 
 ## Windows.UI.Input.Inking.InkManipulationMode  (enum)
 type InkManipulationMode* {.pure, size: 4.} = enum
   Inking = 0'i32
   Erasing = 1'i32
   Selecting = 2'i32
-proc `$`*(v: InkManipulationMode): string =
-  case ord(v)
-  of 0: "Inking"
-  of 1: "Erasing"
-  of 2: "Selecting"
-  else: "InkManipulationMode(" & $ord(v) & ")"
+template `$`*(v: InkManipulationMode): string = enumName(v)
 
 ## Windows.UI.Input.Inking.InkPersistenceFormat  (enum)
 type InkPersistenceFormat* {.pure, size: 4.} = enum
   GifWithEmbeddedIsf = 0'i32
   Isf = 1'i32
-proc `$`*(v: InkPersistenceFormat): string =
-  case ord(v)
-  of 0: "GifWithEmbeddedIsf"
-  of 1: "Isf"
-  else: "InkPersistenceFormat(" & $ord(v) & ")"
+template `$`*(v: InkPersistenceFormat): string = enumName(v)
 
 ## Windows.UI.Input.Inking.InkPresenterPredefinedConfiguration  (enum)
 type InkPresenterPredefinedConfiguration* {.pure, size: 4.} = enum
   SimpleSinglePointer = 0'i32
   SimpleMultiplePointer = 1'i32
-proc `$`*(v: InkPresenterPredefinedConfiguration): string =
-  case ord(v)
-  of 0: "SimpleSinglePointer"
-  of 1: "SimpleMultiplePointer"
-  else: "InkPresenterPredefinedConfiguration(" & $ord(v) & ")"
+template `$`*(v: InkPresenterPredefinedConfiguration): string = enumName(v)
 
 ## Windows.UI.Input.Inking.InkPresenterStencilKind  (enum)
 type InkPresenterStencilKind* {.pure, size: 4.} = enum
   Other = 0'i32
   Ruler = 1'i32
   Protractor = 2'i32
-proc `$`*(v: InkPresenterStencilKind): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "Ruler"
-  of 2: "Protractor"
-  else: "InkPresenterStencilKind(" & $ord(v) & ")"
+template `$`*(v: InkPresenterStencilKind): string = enumName(v)
 
 ## Windows.UI.Input.Inking.InkRecognitionTarget  (enum)
 type InkRecognitionTarget* {.pure, size: 4.} = enum
   All = 0'i32
   Selected = 1'i32
   Recent = 2'i32
-proc `$`*(v: InkRecognitionTarget): string =
-  case ord(v)
-  of 0: "All"
-  of 1: "Selected"
-  of 2: "Recent"
-  else: "InkRecognitionTarget(" & $ord(v) & ")"
+template `$`*(v: InkRecognitionTarget): string = enumName(v)
 
 ## Windows.UI.Input.Inking.PenHandedness  (enum)
 type PenHandedness* {.pure, size: 4.} = enum
   Right = 0'i32
   Left = 1'i32
-proc `$`*(v: PenHandedness): string =
-  case ord(v)
-  of 0: "Right"
-  of 1: "Left"
-  else: "PenHandedness(" & $ord(v) & ")"
+template `$`*(v: PenHandedness): string = enumName(v)
 
 ## Windows.UI.Input.Inking.PenTipShape  (enum)
 type PenTipShape* {.pure, size: 4.} = enum
   Circle = 0'i32
   Rectangle = 1'i32
-proc `$`*(v: PenTipShape): string =
-  case ord(v)
-  of 0: "Circle"
-  of 1: "Rectangle"
-  else: "PenTipShape(" & $ord(v) & ")"
+template `$`*(v: PenTipShape): string = enumName(v)
 
 ## Windows.UI.Input.InputActivationState  (enum)
 type InputActivationState* {.pure, size: 4.} = enum
@@ -25679,13 +16441,7 @@ type InputActivationState* {.pure, size: 4.} = enum
   Deactivated = 1'i32
   ActivatedNotForeground = 2'i32
   ActivatedInForeground = 3'i32
-proc `$`*(v: InputActivationState): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Deactivated"
-  of 2: "ActivatedNotForeground"
-  of 3: "ActivatedInForeground"
-  else: "InputActivationState(" & $ord(v) & ")"
+template `$`*(v: InputActivationState): string = enumName(v)
 
 ## Windows.UI.Input.PointerUpdateKind  (enum)
 type PointerUpdateKind* {.pure, size: 4.} = enum
@@ -25700,20 +16456,7 @@ type PointerUpdateKind* {.pure, size: 4.} = enum
   XButton1Released = 8'i32
   XButton2Pressed = 9'i32
   XButton2Released = 10'i32
-proc `$`*(v: PointerUpdateKind): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "LeftButtonPressed"
-  of 2: "LeftButtonReleased"
-  of 3: "RightButtonPressed"
-  of 4: "RightButtonReleased"
-  of 5: "MiddleButtonPressed"
-  of 6: "MiddleButtonReleased"
-  of 7: "XButton1Pressed"
-  of 8: "XButton1Released"
-  of 9: "XButton2Pressed"
-  of 10: "XButton2Released"
-  else: "PointerUpdateKind(" & $ord(v) & ")"
+template `$`*(v: PointerUpdateKind): string = enumName(v)
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputButtonChangeKind  (enum)
 type InjectedInputButtonChangeKind* {.pure, size: 4.} = enum
@@ -25728,20 +16471,7 @@ type InjectedInputButtonChangeKind* {.pure, size: 4.} = enum
   FourthButtonUp = 8'i32
   FifthButtonDown = 9'i32
   FifthButtonUp = 10'i32
-proc `$`*(v: InjectedInputButtonChangeKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "FirstButtonDown"
-  of 2: "FirstButtonUp"
-  of 3: "SecondButtonDown"
-  of 4: "SecondButtonUp"
-  of 5: "ThirdButtonDown"
-  of 6: "ThirdButtonUp"
-  of 7: "FourthButtonDown"
-  of 8: "FourthButtonUp"
-  of 9: "FifthButtonDown"
-  of 10: "FifthButtonUp"
-  else: "InjectedInputButtonChangeKind(" & $ord(v) & ")"
+template `$`*(v: InjectedInputButtonChangeKind): string = enumName(v)
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputKeyOptions  (enum)
 type InjectedInputKeyOptions* = distinct uint32
@@ -26023,12 +16753,7 @@ type InjectedInputShortcut* {.pure, size: 4.} = enum
   Back = 0'i32
   Start = 1'i32
   Search = 2'i32
-proc `$`*(v: InjectedInputShortcut): string =
-  case ord(v)
-  of 0: "Back"
-  of 1: "Start"
-  of 2: "Search"
-  else: "InjectedInputShortcut(" & $ord(v) & ")"
+template `$`*(v: InjectedInputShortcut): string = enumName(v)
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputTouchParameters  (enum)
 type InjectedInputTouchParameters* = distinct uint32
@@ -26068,12 +16793,7 @@ type InjectedInputVisualizationMode* {.pure, size: 4.} = enum
   None = 0'i32
   Default = 1'i32
   Indirect = 2'i32
-proc `$`*(v: InjectedInputVisualizationMode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Default"
-  of 2: "Indirect"
-  else: "InjectedInputVisualizationMode(" & $ord(v) & ")"
+template `$`*(v: InjectedInputVisualizationMode): string = enumName(v)
 
 ## Windows.UI.Input.Preview.Text.KeyEventDeviceType  (enum)
 type KeyEventDeviceType* {.pure, size: 4.} = enum
@@ -26082,14 +16802,7 @@ type KeyEventDeviceType* {.pure, size: 4.} = enum
   SoftwareKeyboard = 2'i32
   Gamepad = 3'i32
   Injection = 4'i32
-proc `$`*(v: KeyEventDeviceType): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "HardwareKeyboard"
-  of 2: "SoftwareKeyboard"
-  of 3: "Gamepad"
-  of 4: "Injection"
-  else: "KeyEventDeviceType(" & $ord(v) & ")"
+template `$`*(v: KeyEventDeviceType): string = enumName(v)
 
 ## Windows.UI.Input.Preview.Text.PayloadResult  (enum)
 type PayloadResult* {.pure, size: 4.} = enum
@@ -26100,16 +16813,7 @@ type PayloadResult* {.pure, size: 4.} = enum
   Outrun = 4'i32
   Rejected = 5'i32
   Canceled = 6'i32
-proc `$`*(v: PayloadResult): string =
-  case ord(v)
-  of 0: "InEditing"
-  of 1: "Pending"
-  of 2: "Completed"
-  of 3: "Overridden"
-  of 4: "Outrun"
-  of 5: "Rejected"
-  of 6: "Canceled"
-  else: "PayloadResult(" & $ord(v) & ")"
+template `$`*(v: PayloadResult): string = enumName(v)
 
 ## Windows.UI.Input.Preview.Text.TextBoxContentAttribute  (enum)
 type TextBoxContentAttribute* {.pure, size: 4.} = enum
@@ -26118,14 +16822,7 @@ type TextBoxContentAttribute* {.pure, size: 4.} = enum
   Text = 2'i32
   Property = 3'i32
   Layout = 4'i32
-proc `$`*(v: TextBoxContentAttribute): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Selection"
-  of 2: "Text"
-  of 3: "Property"
-  of 4: "Layout"
-  else: "TextBoxContentAttribute(" & $ord(v) & ")"
+template `$`*(v: TextBoxContentAttribute): string = enumName(v)
 
 ## Windows.UI.Input.Preview.Text.TextBoxFeatures  (enum)
 type TextBoxFeatures* = distinct uint32
@@ -26203,17 +16900,7 @@ type TextChangeSource* {.pure, size: 4.} = enum
   Reconversion = 5'i32
   AutoCompletion = 6'i32
   Mixed = 7'i32
-proc `$`*(v: TextChangeSource): string =
-  case ord(v)
-  of 0: "External"
-  of 1: "HardwareKeyTyped"
-  of 2: "SoftwareKeyTyped"
-  of 3: "KeyboardImeInsertion"
-  of 4: "OtherImeInsertion"
-  of 5: "Reconversion"
-  of 6: "AutoCompletion"
-  of 7: "Mixed"
-  else: "TextChangeSource(" & $ord(v) & ")"
+template `$`*(v: TextChangeSource): string = enumName(v)
 
 ## Windows.UI.Input.Preview.Text.TextConversionMode  (enum)
 type TextConversionMode* {.pure, size: 4.} = enum
@@ -26229,21 +16916,7 @@ type TextConversionMode* {.pure, size: 4.} = enum
   NoConversion = 9'i32
   RequestConversion = 10'i32
   NativeEudc = 11'i32
-proc `$`*(v: TextConversionMode): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "AlphanumericHalfWidth"
-  of 2: "AlphanumericFullWidth"
-  of 3: "NativeHalfWidth"
-  of 4: "NativeFullWidth"
-  of 5: "KatakanaHalfWidth"
-  of 6: "KatakanaFullWidth"
-  of 7: "NativeHalfWidthNativeSymbol"
-  of 8: "NativeFullWidthNativeSymbol"
-  of 9: "NoConversion"
-  of 10: "RequestConversion"
-  of 11: "NativeEudc"
-  else: "TextConversionMode(" & $ord(v) & ")"
+template `$`*(v: TextConversionMode): string = enumName(v)
 
 ## Windows.UI.Input.Preview.Text.TextStyleAttributes  (enum)
 type TextStyleAttributes* = distinct uint32
@@ -26294,18 +16967,7 @@ type RadialControllerMenuKnownIcon* {.pure, size: 4.} = enum
   InkColor = 6'i32
   InkThickness = 7'i32
   PenType = 8'i32
-proc `$`*(v: RadialControllerMenuKnownIcon): string =
-  case ord(v)
-  of 0: "Scroll"
-  of 1: "Zoom"
-  of 2: "UndoRedo"
-  of 3: "Volume"
-  of 4: "NextPreviousTrack"
-  of 5: "Ruler"
-  of 6: "InkColor"
-  of 7: "InkThickness"
-  of 8: "PenType"
-  else: "RadialControllerMenuKnownIcon(" & $ord(v) & ")"
+template `$`*(v: RadialControllerMenuKnownIcon): string = enumName(v)
 
 ## Windows.UI.Input.RadialControllerSystemMenuItemKind  (enum)
 type RadialControllerSystemMenuItemKind* {.pure, size: 4.} = enum
@@ -26314,14 +16976,7 @@ type RadialControllerSystemMenuItemKind* {.pure, size: 4.} = enum
   UndoRedo = 2'i32
   Volume = 3'i32
   NextPreviousTrack = 4'i32
-proc `$`*(v: RadialControllerSystemMenuItemKind): string =
-  case ord(v)
-  of 0: "Scroll"
-  of 1: "Zoom"
-  of 2: "UndoRedo"
-  of 3: "Volume"
-  of 4: "NextPreviousTrack"
-  else: "RadialControllerSystemMenuItemKind(" & $ord(v) & ")"
+template `$`*(v: RadialControllerSystemMenuItemKind): string = enumName(v)
 
 ## Windows.UI.Input.Spatial.SpatialGestureSettings  (enum)
 type SpatialGestureSettings* = distinct uint32
@@ -26399,27 +17054,14 @@ type SpatialInteractionPressKind* {.pure, size: 4.} = enum
   Grasp = 3'i32
   Touchpad = 4'i32
   Thumbstick = 5'i32
-proc `$`*(v: SpatialInteractionPressKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Select"
-  of 2: "Menu"
-  of 3: "Grasp"
-  of 4: "Touchpad"
-  of 5: "Thumbstick"
-  else: "SpatialInteractionPressKind(" & $ord(v) & ")"
+template `$`*(v: SpatialInteractionPressKind): string = enumName(v)
 
 ## Windows.UI.Input.Spatial.SpatialInteractionSourceHandedness  (enum)
 type SpatialInteractionSourceHandedness* {.pure, size: 4.} = enum
   Unspecified = 0'i32
   Left = 1'i32
   Right = 2'i32
-proc `$`*(v: SpatialInteractionSourceHandedness): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Left"
-  of 2: "Right"
-  else: "SpatialInteractionSourceHandedness(" & $ord(v) & ")"
+template `$`*(v: SpatialInteractionSourceHandedness): string = enumName(v)
 
 ## Windows.UI.Input.Spatial.SpatialInteractionSourceKind  (enum)
 type SpatialInteractionSourceKind* {.pure, size: 4.} = enum
@@ -26427,23 +17069,13 @@ type SpatialInteractionSourceKind* {.pure, size: 4.} = enum
   Hand = 1'i32
   Voice = 2'i32
   Controller = 3'i32
-proc `$`*(v: SpatialInteractionSourceKind): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "Hand"
-  of 2: "Voice"
-  of 3: "Controller"
-  else: "SpatialInteractionSourceKind(" & $ord(v) & ")"
+template `$`*(v: SpatialInteractionSourceKind): string = enumName(v)
 
 ## Windows.UI.Input.Spatial.SpatialInteractionSourcePositionAccuracy  (enum)
 type SpatialInteractionSourcePositionAccuracy* {.pure, size: 4.} = enum
   High = 0'i32
   Approximate = 1'i32
-proc `$`*(v: SpatialInteractionSourcePositionAccuracy): string =
-  case ord(v)
-  of 0: "High"
-  of 1: "Approximate"
-  else: "SpatialInteractionSourcePositionAccuracy(" & $ord(v) & ")"
+template `$`*(v: SpatialInteractionSourcePositionAccuracy): string = enumName(v)
 
 ## Windows.UI.Input.TouchpadGlobalAction  (enum)
 type TouchpadGlobalAction* {.pure, size: 4.} = enum
@@ -26456,18 +17088,7 @@ type TouchpadGlobalAction* {.pure, size: 4.} = enum
   ThreeFingerPressUp = 6'i32
   FourFingerPressUp = 7'i32
   FiveFingerPressUp = 8'i32
-proc `$`*(v: TouchpadGlobalAction): string =
-  case ord(v)
-  of 0: "ThreeFingerTap"
-  of 1: "FourFingerTap"
-  of 2: "FiveFingerTap"
-  of 3: "ThreeFingerPressDown"
-  of 4: "FourFingerPressDown"
-  of 5: "FiveFingerPressDown"
-  of 6: "ThreeFingerPressUp"
-  of 7: "FourFingerPressUp"
-  of 8: "FiveFingerPressUp"
-  else: "TouchpadGlobalAction(" & $ord(v) & ")"
+template `$`*(v: TouchpadGlobalAction): string = enumName(v)
 
 ## Windows.UI.Input.TouchpadGlobalGestureKinds  (enum)
 type TouchpadGlobalGestureKinds* = distinct uint32
@@ -26520,32 +17141,20 @@ const TouchpadGlobalGestureKinds_FiveFingerActions* = TouchpadGlobalGestureKinds
 ## Windows.UI.Notifications.AdaptiveNotificationContentKind  (enum)
 type AdaptiveNotificationContentKind* {.pure, size: 4.} = enum
   Text = 0'i32
-proc `$`*(v: AdaptiveNotificationContentKind): string =
-  case ord(v)
-  of 0: "Text"
-  else: "AdaptiveNotificationContentKind(" & $ord(v) & ")"
+template `$`*(v: AdaptiveNotificationContentKind): string = enumName(v)
 
 ## Windows.UI.Notifications.BadgeTemplateType  (enum)
 type BadgeTemplateType* {.pure, size: 4.} = enum
   BadgeGlyph = 0'i32
   BadgeNumber = 1'i32
-proc `$`*(v: BadgeTemplateType): string =
-  case ord(v)
-  of 0: "BadgeGlyph"
-  of 1: "BadgeNumber"
-  else: "BadgeTemplateType(" & $ord(v) & ")"
+template `$`*(v: BadgeTemplateType): string = enumName(v)
 
 ## Windows.UI.Notifications.Management.UserNotificationListenerAccessStatus  (enum)
 type UserNotificationListenerAccessStatus* {.pure, size: 4.} = enum
   Unspecified = 0'i32
   Allowed = 1'i32
   Denied = 2'i32
-proc `$`*(v: UserNotificationListenerAccessStatus): string =
-  case ord(v)
-  of 0: "Unspecified"
-  of 1: "Allowed"
-  of 2: "Denied"
-  else: "UserNotificationListenerAccessStatus(" & $ord(v) & ")"
+template `$`*(v: UserNotificationListenerAccessStatus): string = enumName(v)
 
 ## Windows.UI.Notifications.NotificationKinds  (enum)
 type NotificationKinds* = distinct uint32
@@ -26574,11 +17183,7 @@ const NotificationKinds_Toast* = NotificationKinds(1'u32)
 type NotificationMirroring* {.pure, size: 4.} = enum
   Allowed = 0'i32
   Disabled = 1'i32
-proc `$`*(v: NotificationMirroring): string =
-  case ord(v)
-  of 0: "Allowed"
-  of 1: "Disabled"
-  else: "NotificationMirroring(" & $ord(v) & ")"
+template `$`*(v: NotificationMirroring): string = enumName(v)
 
 ## Windows.UI.Notifications.NotificationSetting  (enum)
 type NotificationSetting* {.pure, size: 4.} = enum
@@ -26587,26 +17192,14 @@ type NotificationSetting* {.pure, size: 4.} = enum
   DisabledForUser = 2'i32
   DisabledByGroupPolicy = 3'i32
   DisabledByManifest = 4'i32
-proc `$`*(v: NotificationSetting): string =
-  case ord(v)
-  of 0: "Enabled"
-  of 1: "DisabledForApplication"
-  of 2: "DisabledForUser"
-  of 3: "DisabledByGroupPolicy"
-  of 4: "DisabledByManifest"
-  else: "NotificationSetting(" & $ord(v) & ")"
+template `$`*(v: NotificationSetting): string = enumName(v)
 
 ## Windows.UI.Notifications.NotificationUpdateResult  (enum)
 type NotificationUpdateResult* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   Failed = 1'i32
   NotificationNotFound = 2'i32
-proc `$`*(v: NotificationUpdateResult): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "Failed"
-  of 2: "NotificationNotFound"
-  else: "NotificationUpdateResult(" & $ord(v) & ")"
+template `$`*(v: NotificationUpdateResult): string = enumName(v)
 
 ## Windows.UI.Notifications.PeriodicUpdateRecurrence  (enum)
 type PeriodicUpdateRecurrence* {.pure, size: 4.} = enum
@@ -26615,22 +17208,12 @@ type PeriodicUpdateRecurrence* {.pure, size: 4.} = enum
   SixHours = 2'i32
   TwelveHours = 3'i32
   Daily = 4'i32
-proc `$`*(v: PeriodicUpdateRecurrence): string =
-  case ord(v)
-  of 0: "HalfHour"
-  of 1: "Hour"
-  of 2: "SixHours"
-  of 3: "TwelveHours"
-  of 4: "Daily"
-  else: "PeriodicUpdateRecurrence(" & $ord(v) & ")"
+template `$`*(v: PeriodicUpdateRecurrence): string = enumName(v)
 
 ## Windows.UI.Notifications.TileFlyoutTemplateType  (enum)
 type TileFlyoutTemplateType* {.pure, size: 4.} = enum
   TileFlyoutTemplate01 = 0'i32
-proc `$`*(v: TileFlyoutTemplateType): string =
-  case ord(v)
-  of 0: "TileFlyoutTemplate01"
-  else: "TileFlyoutTemplateType(" & $ord(v) & ")"
+template `$`*(v: TileFlyoutTemplateType): string = enumName(v)
 
 ## Windows.UI.Notifications.TileTemplateType  (enum)
 type TileTemplateType* {.pure, size: 4.} = enum
@@ -26760,101 +17343,14 @@ const TileTemplateType_TileWide310x150Text08* = TileTemplateType.TileWideText08
 const TileTemplateType_TileWide310x150Text09* = TileTemplateType.TileWideText09
 const TileTemplateType_TileWide310x150Text10* = TileTemplateType.TileWideText10
 const TileTemplateType_TileWide310x150Text11* = TileTemplateType.TileWideText11
-proc `$`*(v: TileTemplateType): string =
-  case ord(v)
-  of 0: "TileSquareImage"
-  of 1: "TileSquareBlock"
-  of 2: "TileSquareText01"
-  of 3: "TileSquareText02"
-  of 4: "TileSquareText03"
-  of 5: "TileSquareText04"
-  of 6: "TileSquarePeekImageAndText01"
-  of 7: "TileSquarePeekImageAndText02"
-  of 8: "TileSquarePeekImageAndText03"
-  of 9: "TileSquarePeekImageAndText04"
-  of 10: "TileWideImage"
-  of 11: "TileWideImageCollection"
-  of 12: "TileWideImageAndText01"
-  of 13: "TileWideImageAndText02"
-  of 14: "TileWideBlockAndText01"
-  of 15: "TileWideBlockAndText02"
-  of 16: "TileWidePeekImageCollection01"
-  of 17: "TileWidePeekImageCollection02"
-  of 18: "TileWidePeekImageCollection03"
-  of 19: "TileWidePeekImageCollection04"
-  of 20: "TileWidePeekImageCollection05"
-  of 21: "TileWidePeekImageCollection06"
-  of 22: "TileWidePeekImageAndText01"
-  of 23: "TileWidePeekImageAndText02"
-  of 24: "TileWidePeekImage01"
-  of 25: "TileWidePeekImage02"
-  of 26: "TileWidePeekImage03"
-  of 27: "TileWidePeekImage04"
-  of 28: "TileWidePeekImage05"
-  of 29: "TileWidePeekImage06"
-  of 30: "TileWideSmallImageAndText01"
-  of 31: "TileWideSmallImageAndText02"
-  of 32: "TileWideSmallImageAndText03"
-  of 33: "TileWideSmallImageAndText04"
-  of 34: "TileWideSmallImageAndText05"
-  of 35: "TileWideText01"
-  of 36: "TileWideText02"
-  of 37: "TileWideText03"
-  of 38: "TileWideText04"
-  of 39: "TileWideText05"
-  of 40: "TileWideText06"
-  of 41: "TileWideText07"
-  of 42: "TileWideText08"
-  of 43: "TileWideText09"
-  of 44: "TileWideText10"
-  of 45: "TileWideText11"
-  of 46: "TileSquare310x310BlockAndText01"
-  of 47: "TileSquare310x310BlockAndText02"
-  of 48: "TileSquare310x310Image"
-  of 49: "TileSquare310x310ImageAndText01"
-  of 50: "TileSquare310x310ImageAndText02"
-  of 51: "TileSquare310x310ImageAndTextOverlay01"
-  of 52: "TileSquare310x310ImageAndTextOverlay02"
-  of 53: "TileSquare310x310ImageAndTextOverlay03"
-  of 54: "TileSquare310x310ImageCollectionAndText01"
-  of 55: "TileSquare310x310ImageCollectionAndText02"
-  of 56: "TileSquare310x310ImageCollection"
-  of 57: "TileSquare310x310SmallImagesAndTextList01"
-  of 58: "TileSquare310x310SmallImagesAndTextList02"
-  of 59: "TileSquare310x310SmallImagesAndTextList03"
-  of 60: "TileSquare310x310SmallImagesAndTextList04"
-  of 61: "TileSquare310x310Text01"
-  of 62: "TileSquare310x310Text02"
-  of 63: "TileSquare310x310Text03"
-  of 64: "TileSquare310x310Text04"
-  of 65: "TileSquare310x310Text05"
-  of 66: "TileSquare310x310Text06"
-  of 67: "TileSquare310x310Text07"
-  of 68: "TileSquare310x310Text08"
-  of 69: "TileSquare310x310TextList01"
-  of 70: "TileSquare310x310TextList02"
-  of 71: "TileSquare310x310TextList03"
-  of 72: "TileSquare310x310SmallImageAndText01"
-  of 73: "TileSquare310x310SmallImagesAndTextList05"
-  of 74: "TileSquare310x310Text09"
-  of 75: "TileSquare71x71IconWithBadge"
-  of 76: "TileSquare150x150IconWithBadge"
-  of 77: "TileWide310x150IconWithBadgeAndText"
-  of 78: "TileSquare71x71Image"
-  of 79: "TileTall150x310Image"
-  else: "TileTemplateType(" & $ord(v) & ")"
+template `$`*(v: TileTemplateType): string = enumName(v)
 
 ## Windows.UI.Notifications.ToastDismissalReason  (enum)
 type ToastDismissalReason* {.pure, size: 4.} = enum
   UserCanceled = 0'i32
   ApplicationHidden = 1'i32
   TimedOut = 2'i32
-proc `$`*(v: ToastDismissalReason): string =
-  case ord(v)
-  of 0: "UserCanceled"
-  of 1: "ApplicationHidden"
-  of 2: "TimedOut"
-  else: "ToastDismissalReason(" & $ord(v) & ")"
+template `$`*(v: ToastDismissalReason): string = enumName(v)
 
 ## Windows.UI.Notifications.ToastHistoryChangedType  (enum)
 type ToastHistoryChangedType* {.pure, size: 4.} = enum
@@ -26862,35 +17358,20 @@ type ToastHistoryChangedType* {.pure, size: 4.} = enum
   Removed = 1'i32
   Expired = 2'i32
   Added = 3'i32
-proc `$`*(v: ToastHistoryChangedType): string =
-  case ord(v)
-  of 0: "Cleared"
-  of 1: "Removed"
-  of 2: "Expired"
-  of 3: "Added"
-  else: "ToastHistoryChangedType(" & $ord(v) & ")"
+template `$`*(v: ToastHistoryChangedType): string = enumName(v)
 
 ## Windows.UI.Notifications.ToastNotificationMode  (enum)
 type ToastNotificationMode* {.pure, size: 4.} = enum
   Unrestricted = 0'i32
   PriorityOnly = 1'i32
   AlarmsOnly = 2'i32
-proc `$`*(v: ToastNotificationMode): string =
-  case ord(v)
-  of 0: "Unrestricted"
-  of 1: "PriorityOnly"
-  of 2: "AlarmsOnly"
-  else: "ToastNotificationMode(" & $ord(v) & ")"
+template `$`*(v: ToastNotificationMode): string = enumName(v)
 
 ## Windows.UI.Notifications.ToastNotificationPriority  (enum)
 type ToastNotificationPriority* {.pure, size: 4.} = enum
   Default = 0'i32
   High = 1'i32
-proc `$`*(v: ToastNotificationPriority): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "High"
-  else: "ToastNotificationPriority(" & $ord(v) & ")"
+template `$`*(v: ToastNotificationPriority): string = enumName(v)
 
 ## Windows.UI.Notifications.ToastTemplateType  (enum)
 type ToastTemplateType* {.pure, size: 4.} = enum
@@ -26902,27 +17383,13 @@ type ToastTemplateType* {.pure, size: 4.} = enum
   ToastText02 = 5'i32
   ToastText03 = 6'i32
   ToastText04 = 7'i32
-proc `$`*(v: ToastTemplateType): string =
-  case ord(v)
-  of 0: "ToastImageAndText01"
-  of 1: "ToastImageAndText02"
-  of 2: "ToastImageAndText03"
-  of 3: "ToastImageAndText04"
-  of 4: "ToastText01"
-  of 5: "ToastText02"
-  of 6: "ToastText03"
-  of 7: "ToastText04"
-  else: "ToastTemplateType(" & $ord(v) & ")"
+template `$`*(v: ToastTemplateType): string = enumName(v)
 
 ## Windows.UI.Notifications.UserNotificationChangedKind  (enum)
 type UserNotificationChangedKind* {.pure, size: 4.} = enum
   Added = 0'i32
   Removed = 1'i32
-proc `$`*(v: UserNotificationChangedKind): string =
-  case ord(v)
-  of 0: "Added"
-  of 1: "Removed"
-  else: "UserNotificationChangedKind(" & $ord(v) & ")"
+template `$`*(v: UserNotificationChangedKind): string = enumName(v)
 
 ## Windows.UI.Popups.MessageDialogOptions  (enum)
 type MessageDialogOptions* = distinct uint32
@@ -26954,14 +17421,7 @@ type Placement* {.pure, size: 4.} = enum
   Below = 2'i32
   Left = 3'i32
   Right = 4'i32
-proc `$`*(v: Placement): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Above"
-  of 2: "Below"
-  of 3: "Left"
-  of 4: "Right"
-  else: "Placement(" & $ord(v) & ")"
+template `$`*(v: Placement): string = enumName(v)
 
 ## Windows.UI.Shell.CompanionWindows.CompanionWindowRequestResultStatus  (enum)
 type CompanionWindowRequestResultStatus* {.pure, size: 4.} = enum
@@ -26970,32 +17430,18 @@ type CompanionWindowRequestResultStatus* {.pure, size: 4.} = enum
   RegistrationNotFound = 2'i32
   ActivationTimedOut = 3'i32
   RejectedByCompanionApp = 4'i32
-proc `$`*(v: CompanionWindowRequestResultStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UnknownFailure"
-  of 2: "RegistrationNotFound"
-  of 3: "ActivationTimedOut"
-  of 4: "RejectedByCompanionApp"
-  else: "CompanionWindowRequestResultStatus(" & $ord(v) & ")"
+template `$`*(v: CompanionWindowRequestResultStatus): string = enumName(v)
 
 ## Windows.UI.Shell.SecurityAppKind  (enum)
 type SecurityAppKind* {.pure, size: 4.} = enum
   WebProtection = 0'i32
-proc `$`*(v: SecurityAppKind): string =
-  case ord(v)
-  of 0: "WebProtection"
-  else: "SecurityAppKind(" & $ord(v) & ")"
+template `$`*(v: SecurityAppKind): string = enumName(v)
 
 ## Windows.UI.Shell.SecurityAppState  (enum)
 type SecurityAppState* {.pure, size: 4.} = enum
   Disabled = 0'i32
   Enabled = 1'i32
-proc `$`*(v: SecurityAppState): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "Enabled"
-  else: "SecurityAppState(" & $ord(v) & ")"
+template `$`*(v: SecurityAppState): string = enumName(v)
 
 ## Windows.UI.Shell.SecurityAppSubstatus  (enum)
 type SecurityAppSubstatus* {.pure, size: 4.} = enum
@@ -27003,25 +17449,14 @@ type SecurityAppSubstatus* {.pure, size: 4.} = enum
   NoActionNeeded = 1'i32
   ActionRecommended = 2'i32
   ActionNeeded = 3'i32
-proc `$`*(v: SecurityAppSubstatus): string =
-  case ord(v)
-  of 0: "Undetermined"
-  of 1: "NoActionNeeded"
-  of 2: "ActionRecommended"
-  of 3: "ActionNeeded"
-  else: "SecurityAppSubstatus(" & $ord(v) & ")"
+template `$`*(v: SecurityAppSubstatus): string = enumName(v)
 
 ## Windows.UI.Shell.ShareWindowCommand  (enum)
 type ShareWindowCommand* {.pure, size: 4.} = enum
   None = 0'i32
   StartSharing = 1'i32
   StopSharing = 2'i32
-proc `$`*(v: ShareWindowCommand): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "StartSharing"
-  of 2: "StopSharing"
-  else: "ShareWindowCommand(" & $ord(v) & ")"
+template `$`*(v: ShareWindowCommand): string = enumName(v)
 
 ## Windows.UI.Shell.Tasks.AppTaskState  (enum)
 type AppTaskState* {.pure, size: 4.} = enum
@@ -27030,56 +17465,32 @@ type AppTaskState* {.pure, size: 4.} = enum
   NeedsAttention = 2'i32
   Paused = 3'i32
   Error = 4'i32
-proc `$`*(v: AppTaskState): string =
-  case ord(v)
-  of 0: "Running"
-  of 1: "Completed"
-  of 2: "NeedsAttention"
-  of 3: "Paused"
-  of 4: "Error"
-  else: "AppTaskState(" & $ord(v) & ")"
+template `$`*(v: AppTaskState): string = enumName(v)
 
 ## Windows.UI.StartScreen.ForegroundText  (enum)
 type ForegroundText* {.pure, size: 4.} = enum
   Dark = 0'i32
   Light = 1'i32
-proc `$`*(v: ForegroundText): string =
-  case ord(v)
-  of 0: "Dark"
-  of 1: "Light"
-  else: "ForegroundText(" & $ord(v) & ")"
+template `$`*(v: ForegroundText): string = enumName(v)
 
 ## Windows.UI.StartScreen.JumpListItemKind  (enum)
 type JumpListItemKind* {.pure, size: 4.} = enum
   Arguments = 0'i32
   Separator = 1'i32
-proc `$`*(v: JumpListItemKind): string =
-  case ord(v)
-  of 0: "Arguments"
-  of 1: "Separator"
-  else: "JumpListItemKind(" & $ord(v) & ")"
+template `$`*(v: JumpListItemKind): string = enumName(v)
 
 ## Windows.UI.StartScreen.JumpListSystemGroupKind  (enum)
 type JumpListSystemGroupKind* {.pure, size: 4.} = enum
   None = 0'i32
   Frequent = 1'i32
   Recent = 2'i32
-proc `$`*(v: JumpListSystemGroupKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Frequent"
-  of 2: "Recent"
-  else: "JumpListSystemGroupKind(" & $ord(v) & ")"
+template `$`*(v: JumpListSystemGroupKind): string = enumName(v)
 
 ## Windows.UI.StartScreen.TileMixedRealityModelActivationBehavior  (enum)
 type TileMixedRealityModelActivationBehavior* {.pure, size: 4.} = enum
   Default = 0'i32
   None = 1'i32
-proc `$`*(v: TileMixedRealityModelActivationBehavior): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "None"
-  else: "TileMixedRealityModelActivationBehavior(" & $ord(v) & ")"
+template `$`*(v: TileMixedRealityModelActivationBehavior): string = enumName(v)
 
 ## Windows.UI.StartScreen.TileOptions  (enum)
 type TileOptions* = distinct uint32
@@ -27124,27 +17535,13 @@ type TileSize* {.pure, size: 4.} = enum
   Square310x310 = 5'i32
   Square71x71 = 6'i32
   Square44x44 = 7'i32
-proc `$`*(v: TileSize): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Square30x30"
-  of 2: "Square70x70"
-  of 3: "Square150x150"
-  of 4: "Wide310x150"
-  of 5: "Square310x310"
-  of 6: "Square71x71"
-  of 7: "Square44x44"
-  else: "TileSize(" & $ord(v) & ")"
+template `$`*(v: TileSize): string = enumName(v)
 
 ## Windows.UI.Text.CaretType  (enum)
 type CaretType* {.pure, size: 4.} = enum
   Normal = 0'i32
   Null = 1'i32
-proc `$`*(v: CaretType): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Null"
-  else: "CaretType(" & $ord(v) & ")"
+template `$`*(v: CaretType): string = enumName(v)
 
 ## Windows.UI.Text.Core.CoreTextFormatUpdatingReason  (enum)
 type CoreTextFormatUpdatingReason* {.pure, size: 4.} = enum
@@ -27153,34 +17550,19 @@ type CoreTextFormatUpdatingReason* {.pure, size: 4.} = enum
   CompositionConverted = 2'i32
   CompositionTargetUnconverted = 3'i32
   CompositionTargetConverted = 4'i32
-proc `$`*(v: CoreTextFormatUpdatingReason): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "CompositionUnconverted"
-  of 2: "CompositionConverted"
-  of 3: "CompositionTargetUnconverted"
-  of 4: "CompositionTargetConverted"
-  else: "CoreTextFormatUpdatingReason(" & $ord(v) & ")"
+template `$`*(v: CoreTextFormatUpdatingReason): string = enumName(v)
 
 ## Windows.UI.Text.Core.CoreTextFormatUpdatingResult  (enum)
 type CoreTextFormatUpdatingResult* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   Failed = 1'i32
-proc `$`*(v: CoreTextFormatUpdatingResult): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "Failed"
-  else: "CoreTextFormatUpdatingResult(" & $ord(v) & ")"
+template `$`*(v: CoreTextFormatUpdatingResult): string = enumName(v)
 
 ## Windows.UI.Text.Core.CoreTextInputPaneDisplayPolicy  (enum)
 type CoreTextInputPaneDisplayPolicy* {.pure, size: 4.} = enum
   Automatic = 0'i32
   Manual = 1'i32
-proc `$`*(v: CoreTextInputPaneDisplayPolicy): string =
-  case ord(v)
-  of 0: "Automatic"
-  of 1: "Manual"
-  else: "CoreTextInputPaneDisplayPolicy(" & $ord(v) & ")"
+template `$`*(v: CoreTextInputPaneDisplayPolicy): string = enumName(v)
 
 ## Windows.UI.Text.Core.CoreTextInputScope  (enum)
 type CoreTextInputScope* {.pure, size: 4.} = enum
@@ -27251,96 +17633,19 @@ type CoreTextInputScope* {.pure, size: 4.} = enum
   PinAlphanumeric = 65'i32
   FormulaNumber = 67'i32
   ChatWithoutEmoji = 68'i32
-proc `$`*(v: CoreTextInputScope): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Url"
-  of 2: "FilePath"
-  of 3: "FileName"
-  of 4: "EmailUserName"
-  of 5: "EmailAddress"
-  of 6: "UserName"
-  of 7: "PersonalFullName"
-  of 8: "PersonalNamePrefix"
-  of 9: "PersonalGivenName"
-  of 10: "PersonalMiddleName"
-  of 11: "PersonalSurname"
-  of 12: "PersonalNameSuffix"
-  of 13: "Address"
-  of 14: "AddressPostalCode"
-  of 15: "AddressStreet"
-  of 16: "AddressStateOrProvince"
-  of 17: "AddressCity"
-  of 18: "AddressCountryName"
-  of 19: "AddressCountryShortName"
-  of 20: "CurrencyAmountAndSymbol"
-  of 21: "CurrencyAmount"
-  of 22: "Date"
-  of 23: "DateMonth"
-  of 24: "DateDay"
-  of 25: "DateYear"
-  of 26: "DateMonthName"
-  of 27: "DateDayName"
-  of 28: "Digits"
-  of 29: "Number"
-  of 30: "SingleCharacter"
-  of 31: "Password"
-  of 32: "TelephoneNumber"
-  of 33: "TelephoneCountryCode"
-  of 34: "TelephoneAreaCode"
-  of 35: "TelephoneLocalNumber"
-  of 36: "Time"
-  of 37: "TimeHour"
-  of 38: "TimeMinuteOrSecond"
-  of 39: "NumberFullWidth"
-  of 40: "AlphanumericHalfWidth"
-  of 41: "AlphanumericFullWidth"
-  of 42: "CurrencyChinese"
-  of 43: "Bopomofo"
-  of 44: "Hiragana"
-  of 45: "KatakanaHalfWidth"
-  of 46: "KatakanaFullWidth"
-  of 47: "Hanja"
-  of 48: "HangulHalfWidth"
-  of 49: "HangulFullWidth"
-  of 50: "Search"
-  of 51: "Formula"
-  of 52: "SearchIncremental"
-  of 53: "ChineseHalfWidth"
-  of 54: "ChineseFullWidth"
-  of 55: "NativeScript"
-  of 57: "Text"
-  of 58: "Chat"
-  of 59: "NameOrPhoneNumber"
-  of 60: "EmailUserNameOrAddress"
-  of 61: "Private"
-  of 62: "Maps"
-  of 63: "PasswordNumeric"
-  of 64: "PinNumeric"
-  of 65: "PinAlphanumeric"
-  of 67: "FormulaNumber"
-  of 68: "ChatWithoutEmoji"
-  else: "CoreTextInputScope(" & $ord(v) & ")"
+template `$`*(v: CoreTextInputScope): string = enumName(v)
 
 ## Windows.UI.Text.Core.CoreTextSelectionUpdatingResult  (enum)
 type CoreTextSelectionUpdatingResult* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   Failed = 1'i32
-proc `$`*(v: CoreTextSelectionUpdatingResult): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "Failed"
-  else: "CoreTextSelectionUpdatingResult(" & $ord(v) & ")"
+template `$`*(v: CoreTextSelectionUpdatingResult): string = enumName(v)
 
 ## Windows.UI.Text.Core.CoreTextTextUpdatingResult  (enum)
 type CoreTextTextUpdatingResult* {.pure, size: 4.} = enum
   Succeeded = 0'i32
   Failed = 1'i32
-proc `$`*(v: CoreTextTextUpdatingResult): string =
-  case ord(v)
-  of 0: "Succeeded"
-  of 1: "Failed"
-  else: "CoreTextTextUpdatingResult(" & $ord(v) & ")"
+template `$`*(v: CoreTextTextUpdatingResult): string = enumName(v)
 
 ## Windows.UI.Text.FindOptions  (enum)
 type FindOptions* = distinct uint32
@@ -27382,31 +17687,14 @@ type FontStretch* {.pure, size: 4.} = enum
   Expanded = 7'i32
   ExtraExpanded = 8'i32
   UltraExpanded = 9'i32
-proc `$`*(v: FontStretch): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "UltraCondensed"
-  of 2: "ExtraCondensed"
-  of 3: "Condensed"
-  of 4: "SemiCondensed"
-  of 5: "Normal"
-  of 6: "SemiExpanded"
-  of 7: "Expanded"
-  of 8: "ExtraExpanded"
-  of 9: "UltraExpanded"
-  else: "FontStretch(" & $ord(v) & ")"
+template `$`*(v: FontStretch): string = enumName(v)
 
 ## Windows.UI.Text.FontStyle  (enum)
 type FontStyle* {.pure, size: 4.} = enum
   Normal = 0'i32
   Oblique = 1'i32
   Italic = 2'i32
-proc `$`*(v: FontStyle): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Oblique"
-  of 2: "Italic"
-  else: "FontStyle(" & $ord(v) & ")"
+template `$`*(v: FontStyle): string = enumName(v)
 
 ## Windows.UI.Text.FormatEffect  (enum)
 type FormatEffect* {.pure, size: 4.} = enum
@@ -27414,35 +17702,20 @@ type FormatEffect* {.pure, size: 4.} = enum
   On = 1'i32
   Toggle = 2'i32
   Undefined = 3'i32
-proc `$`*(v: FormatEffect): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "On"
-  of 2: "Toggle"
-  of 3: "Undefined"
-  else: "FormatEffect(" & $ord(v) & ")"
+template `$`*(v: FormatEffect): string = enumName(v)
 
 ## Windows.UI.Text.HorizontalCharacterAlignment  (enum)
 type HorizontalCharacterAlignment* {.pure, size: 4.} = enum
   Left = 0'i32
   Right = 1'i32
   Center = 2'i32
-proc `$`*(v: HorizontalCharacterAlignment): string =
-  case ord(v)
-  of 0: "Left"
-  of 1: "Right"
-  of 2: "Center"
-  else: "HorizontalCharacterAlignment(" & $ord(v) & ")"
+template `$`*(v: HorizontalCharacterAlignment): string = enumName(v)
 
 ## Windows.UI.Text.LetterCase  (enum)
 type LetterCase* {.pure, size: 4.} = enum
   Lower = 0'i32
   Upper = 1'i32
-proc `$`*(v: LetterCase): string =
-  case ord(v)
-  of 0: "Lower"
-  of 1: "Upper"
-  else: "LetterCase(" & $ord(v) & ")"
+template `$`*(v: LetterCase): string = enumName(v)
 
 ## Windows.UI.Text.LineSpacingRule  (enum)
 type LineSpacingRule* {.pure, size: 4.} = enum
@@ -27454,17 +17727,7 @@ type LineSpacingRule* {.pure, size: 4.} = enum
   Exactly = 5'i32
   Multiple = 6'i32
   Percent = 7'i32
-proc `$`*(v: LineSpacingRule): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "Single"
-  of 2: "OneAndHalf"
-  of 3: "Double"
-  of 4: "AtLeast"
-  of 5: "Exactly"
-  of 6: "Multiple"
-  of 7: "Percent"
-  else: "LineSpacingRule(" & $ord(v) & ")"
+template `$`*(v: LineSpacingRule): string = enumName(v)
 
 ## Windows.UI.Text.LinkType  (enum)
 type LinkType* {.pure, size: 4.} = enum
@@ -27477,18 +17740,7 @@ type LinkType* {.pure, size: 4.} = enum
   AutoLinkEmail = 6'i32
   AutoLinkPhone = 7'i32
   AutoLinkPath = 8'i32
-proc `$`*(v: LinkType): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "NotALink"
-  of 2: "ClientLink"
-  of 3: "FriendlyLinkName"
-  of 4: "FriendlyLinkAddress"
-  of 5: "AutoLink"
-  of 6: "AutoLinkEmail"
-  of 7: "AutoLinkPhone"
-  of 8: "AutoLinkPath"
-  else: "LinkType(" & $ord(v) & ")"
+template `$`*(v: LinkType): string = enumName(v)
 
 ## Windows.UI.Text.MarkerAlignment  (enum)
 type MarkerAlignment* {.pure, size: 4.} = enum
@@ -27496,13 +17748,7 @@ type MarkerAlignment* {.pure, size: 4.} = enum
   Left = 1'i32
   Center = 2'i32
   Right = 3'i32
-proc `$`*(v: MarkerAlignment): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "Left"
-  of 2: "Center"
-  of 3: "Right"
-  else: "MarkerAlignment(" & $ord(v) & ")"
+template `$`*(v: MarkerAlignment): string = enumName(v)
 
 ## Windows.UI.Text.MarkerStyle  (enum)
 type MarkerStyle* {.pure, size: 4.} = enum
@@ -27513,16 +17759,7 @@ type MarkerStyle* {.pure, size: 4.} = enum
   Plain = 4'i32
   Minus = 5'i32
   NoNumber = 6'i32
-proc `$`*(v: MarkerStyle): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "Parenthesis"
-  of 2: "Parentheses"
-  of 3: "Period"
-  of 4: "Plain"
-  of 5: "Minus"
-  of 6: "NoNumber"
-  else: "MarkerStyle(" & $ord(v) & ")"
+template `$`*(v: MarkerStyle): string = enumName(v)
 
 ## Windows.UI.Text.MarkerType  (enum)
 type MarkerType* {.pure, size: 4.} = enum
@@ -27551,34 +17788,7 @@ type MarkerType* {.pure, size: 4.} = enum
   DevanagariVowel = 22'i32
   DevanagariConsonant = 23'i32
   DevanagariNumeric = 24'i32
-proc `$`*(v: MarkerType): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "None"
-  of 2: "Bullet"
-  of 3: "Arabic"
-  of 4: "LowercaseEnglishLetter"
-  of 5: "UppercaseEnglishLetter"
-  of 6: "LowercaseRoman"
-  of 7: "UppercaseRoman"
-  of 8: "UnicodeSequence"
-  of 9: "CircledNumber"
-  of 10: "BlackCircleWingding"
-  of 11: "WhiteCircleWingding"
-  of 12: "ArabicWide"
-  of 13: "SimplifiedChinese"
-  of 14: "TraditionalChinese"
-  of 15: "JapanSimplifiedChinese"
-  of 16: "JapanKorea"
-  of 17: "ArabicDictionary"
-  of 18: "ArabicAbjad"
-  of 19: "Hebrew"
-  of 20: "ThaiAlphabetic"
-  of 21: "ThaiNumeric"
-  of 22: "DevanagariVowel"
-  of 23: "DevanagariConsonant"
-  of 24: "DevanagariNumeric"
-  else: "MarkerType(" & $ord(v) & ")"
+template `$`*(v: MarkerType): string = enumName(v)
 
 ## Windows.UI.Text.ParagraphAlignment  (enum)
 type ParagraphAlignment* {.pure, size: 4.} = enum
@@ -27587,14 +17797,7 @@ type ParagraphAlignment* {.pure, size: 4.} = enum
   Center = 2'i32
   Right = 3'i32
   Justify = 4'i32
-proc `$`*(v: ParagraphAlignment): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "Left"
-  of 2: "Center"
-  of 3: "Right"
-  of 4: "Justify"
-  else: "ParagraphAlignment(" & $ord(v) & ")"
+template `$`*(v: ParagraphAlignment): string = enumName(v)
 
 ## Windows.UI.Text.ParagraphStyle  (enum)
 type ParagraphStyle* {.pure, size: 4.} = enum
@@ -27610,21 +17813,7 @@ type ParagraphStyle* {.pure, size: 4.} = enum
   Heading7 = 9'i32
   Heading8 = 10'i32
   Heading9 = 11'i32
-proc `$`*(v: ParagraphStyle): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "None"
-  of 2: "Normal"
-  of 3: "Heading1"
-  of 4: "Heading2"
-  of 5: "Heading3"
-  of 6: "Heading4"
-  of 7: "Heading5"
-  of 8: "Heading6"
-  of 9: "Heading7"
-  of 10: "Heading8"
-  of 11: "Heading9"
-  else: "ParagraphStyle(" & $ord(v) & ")"
+template `$`*(v: ParagraphStyle): string = enumName(v)
 
 ## Windows.UI.Text.PointOptions  (enum)
 type PointOptions* = distinct uint32
@@ -27686,24 +17875,13 @@ type RangeGravity* {.pure, size: 4.} = enum
   Forward = 2'i32
   Inward = 3'i32
   Outward = 4'i32
-proc `$`*(v: RangeGravity): string =
-  case ord(v)
-  of 0: "UIBehavior"
-  of 1: "Backward"
-  of 2: "Forward"
-  of 3: "Inward"
-  of 4: "Outward"
-  else: "RangeGravity(" & $ord(v) & ")"
+template `$`*(v: RangeGravity): string = enumName(v)
 
 ## Windows.UI.Text.RichEditMathMode  (enum)
 type RichEditMathMode* {.pure, size: 4.} = enum
   NoMath = 0'i32
   MathOnly = 1'i32
-proc `$`*(v: RichEditMathMode): string =
-  case ord(v)
-  of 0: "NoMath"
-  of 1: "MathOnly"
-  else: "RichEditMathMode(" & $ord(v) & ")"
+template `$`*(v: RichEditMathMode): string = enumName(v)
 
 ## Windows.UI.Text.SelectionOptions  (enum)
 type SelectionOptions* = distinct uint32
@@ -27754,14 +17932,7 @@ type SelectionType* {.pure, size: 4.} = enum
   Normal = 2'i32
   InlineShape = 7'i32
   Shape = 8'i32
-proc `$`*(v: SelectionType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "InsertionPoint"
-  of 2: "Normal"
-  of 7: "InlineShape"
-  of 8: "Shape"
-  else: "SelectionType(" & $ord(v) & ")"
+template `$`*(v: SelectionType): string = enumName(v)
 
 ## Windows.UI.Text.TabAlignment  (enum)
 type TabAlignment* {.pure, size: 4.} = enum
@@ -27770,14 +17941,7 @@ type TabAlignment* {.pure, size: 4.} = enum
   Right = 2'i32
   Decimal = 3'i32
   Bar = 4'i32
-proc `$`*(v: TabAlignment): string =
-  case ord(v)
-  of 0: "Left"
-  of 1: "Center"
-  of 2: "Right"
-  of 3: "Decimal"
-  of 4: "Bar"
-  else: "TabAlignment(" & $ord(v) & ")"
+template `$`*(v: TabAlignment): string = enumName(v)
 
 ## Windows.UI.Text.TabLeader  (enum)
 type TabLeader* {.pure, size: 4.} = enum
@@ -27787,15 +17951,7 @@ type TabLeader* {.pure, size: 4.} = enum
   Lines = 3'i32
   ThickLines = 4'i32
   Equals = 5'i32
-proc `$`*(v: TabLeader): string =
-  case ord(v)
-  of 0: "Spaces"
-  of 1: "Dots"
-  of 2: "Dashes"
-  of 3: "Lines"
-  of 4: "ThickLines"
-  of 5: "Equals"
-  else: "TabLeader(" & $ord(v) & ")"
+template `$`*(v: TabLeader): string = enumName(v)
 
 ## Windows.UI.Text.TextDecorations  (enum)
 type TextDecorations* = distinct uint32
@@ -27918,42 +18074,7 @@ type TextRangeUnit* {.pure, size: 4.} = enum
   FontBound = 30'i32
   LinkProtected = 31'i32
   ContentLink = 32'i32
-proc `$`*(v: TextRangeUnit): string =
-  case ord(v)
-  of 0: "Character"
-  of 1: "Word"
-  of 2: "Sentence"
-  of 3: "Paragraph"
-  of 4: "Line"
-  of 5: "Story"
-  of 6: "Screen"
-  of 7: "Section"
-  of 8: "Window"
-  of 9: "CharacterFormat"
-  of 10: "ParagraphFormat"
-  of 11: "Object"
-  of 12: "HardParagraph"
-  of 13: "Cluster"
-  of 14: "Bold"
-  of 15: "Italic"
-  of 16: "Underline"
-  of 17: "Strikethrough"
-  of 18: "ProtectedText"
-  of 19: "Link"
-  of 20: "SmallCaps"
-  of 21: "AllCaps"
-  of 22: "Hidden"
-  of 23: "Outline"
-  of 24: "Shadow"
-  of 25: "Imprint"
-  of 26: "Disabled"
-  of 27: "Revised"
-  of 28: "Subscript"
-  of 29: "Superscript"
-  of 30: "FontBound"
-  of 31: "LinkProtected"
-  of 32: "ContentLink"
-  else: "TextRangeUnit(" & $ord(v) & ")"
+template `$`*(v: TextRangeUnit): string = enumName(v)
 
 ## Windows.UI.Text.TextScript  (enum)
 type TextScript* {.pure, size: 4.} = enum
@@ -28021,73 +18142,7 @@ type TextScript* {.pure, size: 4.} = enum
   Gothic = 61'i32
   Deseret = 62'i32
   Tifinagh = 63'i32
-proc `$`*(v: TextScript): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "Ansi"
-  of 2: "EastEurope"
-  of 3: "Cyrillic"
-  of 4: "Greek"
-  of 5: "Turkish"
-  of 6: "Hebrew"
-  of 7: "Arabic"
-  of 8: "Baltic"
-  of 9: "Vietnamese"
-  of 10: "Default"
-  of 11: "Symbol"
-  of 12: "Thai"
-  of 13: "ShiftJis"
-  of 14: "GB2312"
-  of 15: "Hangul"
-  of 16: "Big5"
-  of 17: "PC437"
-  of 18: "Oem"
-  of 19: "Mac"
-  of 20: "Armenian"
-  of 21: "Syriac"
-  of 22: "Thaana"
-  of 23: "Devanagari"
-  of 24: "Bengali"
-  of 25: "Gurmukhi"
-  of 26: "Gujarati"
-  of 27: "Oriya"
-  of 28: "Tamil"
-  of 29: "Telugu"
-  of 30: "Kannada"
-  of 31: "Malayalam"
-  of 32: "Sinhala"
-  of 33: "Lao"
-  of 34: "Tibetan"
-  of 35: "Myanmar"
-  of 36: "Georgian"
-  of 37: "Jamo"
-  of 38: "Ethiopic"
-  of 39: "Cherokee"
-  of 40: "Aboriginal"
-  of 41: "Ogham"
-  of 42: "Runic"
-  of 43: "Khmer"
-  of 44: "Mongolian"
-  of 45: "Braille"
-  of 46: "Yi"
-  of 47: "Limbu"
-  of 48: "TaiLe"
-  of 49: "NewTaiLue"
-  of 50: "SylotiNagri"
-  of 51: "Kharoshthi"
-  of 52: "Kayahli"
-  of 53: "UnicodeSymbol"
-  of 54: "Emoji"
-  of 55: "Glagolitic"
-  of 56: "Lisu"
-  of 57: "Vai"
-  of 58: "NKo"
-  of 59: "Osmanya"
-  of 60: "PhagsPa"
-  of 61: "Gothic"
-  of 62: "Deseret"
-  of 63: "Tifinagh"
-  else: "TextScript(" & $ord(v) & ")"
+template `$`*(v: TextScript): string = enumName(v)
 
 ## Windows.UI.Text.TextSetOptions  (enum)
 type TextSetOptions* = distinct uint32
@@ -28159,41 +18214,14 @@ type UnderlineType* {.pure, size: 4.} = enum
   ThickDashDotDot = 17'i32
   ThickDotted = 18'i32
   ThickLongDash = 19'i32
-proc `$`*(v: UnderlineType): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "None"
-  of 2: "Single"
-  of 3: "Words"
-  of 4: "Double"
-  of 5: "Dotted"
-  of 6: "Dash"
-  of 7: "DashDot"
-  of 8: "DashDotDot"
-  of 9: "Wave"
-  of 10: "Thick"
-  of 11: "Thin"
-  of 12: "DoubleWave"
-  of 13: "HeavyWave"
-  of 14: "LongDash"
-  of 15: "ThickDash"
-  of 16: "ThickDashDot"
-  of 17: "ThickDashDotDot"
-  of 18: "ThickDotted"
-  of 19: "ThickLongDash"
-  else: "UnderlineType(" & $ord(v) & ")"
+template `$`*(v: UnderlineType): string = enumName(v)
 
 ## Windows.UI.Text.VerticalCharacterAlignment  (enum)
 type VerticalCharacterAlignment* {.pure, size: 4.} = enum
   Top = 0'i32
   Baseline = 1'i32
   Bottom = 2'i32
-proc `$`*(v: VerticalCharacterAlignment): string =
-  case ord(v)
-  of 0: "Top"
-  of 1: "Baseline"
-  of 2: "Bottom"
-  else: "VerticalCharacterAlignment(" & $ord(v) & ")"
+template `$`*(v: VerticalCharacterAlignment): string = enumName(v)
 
 ## Windows.UI.UIAutomation.Core.AutomationRemoteOperationStatus  (enum)
 type AutomationRemoteOperationStatus* {.pure, size: 4.} = enum
@@ -28202,44 +18230,25 @@ type AutomationRemoteOperationStatus* {.pure, size: 4.} = enum
   InstructionLimitExceeded = 2'i32
   UnhandledException = 3'i32
   ExecutionFailure = 4'i32
-proc `$`*(v: AutomationRemoteOperationStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "MalformedBytecode"
-  of 2: "InstructionLimitExceeded"
-  of 3: "UnhandledException"
-  of 4: "ExecutionFailure"
-  else: "AutomationRemoteOperationStatus(" & $ord(v) & ")"
+template `$`*(v: AutomationRemoteOperationStatus): string = enumName(v)
 
 ## Windows.UI.ViewManagement.ApplicationViewBoundsMode  (enum)
 type ApplicationViewBoundsMode* {.pure, size: 4.} = enum
   UseVisible = 0'i32
   UseCoreWindow = 1'i32
-proc `$`*(v: ApplicationViewBoundsMode): string =
-  case ord(v)
-  of 0: "UseVisible"
-  of 1: "UseCoreWindow"
-  else: "ApplicationViewBoundsMode(" & $ord(v) & ")"
+template `$`*(v: ApplicationViewBoundsMode): string = enumName(v)
 
 ## Windows.UI.ViewManagement.ApplicationViewMode  (enum)
 type ApplicationViewMode* {.pure, size: 4.} = enum
   Default = 0'i32
   CompactOverlay = 1'i32
-proc `$`*(v: ApplicationViewMode): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "CompactOverlay"
-  else: "ApplicationViewMode(" & $ord(v) & ")"
+template `$`*(v: ApplicationViewMode): string = enumName(v)
 
 ## Windows.UI.ViewManagement.ApplicationViewOrientation  (enum)
 type ApplicationViewOrientation* {.pure, size: 4.} = enum
   Landscape = 0'i32
   Portrait = 1'i32
-proc `$`*(v: ApplicationViewOrientation): string =
-  case ord(v)
-  of 0: "Landscape"
-  of 1: "Portrait"
-  else: "ApplicationViewOrientation(" & $ord(v) & ")"
+template `$`*(v: ApplicationViewOrientation): string = enumName(v)
 
 ## Windows.UI.ViewManagement.ApplicationViewState  (enum)
 type ApplicationViewState* {.pure, size: 4.} = enum
@@ -28247,13 +18256,7 @@ type ApplicationViewState* {.pure, size: 4.} = enum
   Filled = 1'i32
   Snapped = 2'i32
   FullScreenPortrait = 3'i32
-proc `$`*(v: ApplicationViewState): string =
-  case ord(v)
-  of 0: "FullScreenLandscape"
-  of 1: "Filled"
-  of 2: "Snapped"
-  of 3: "FullScreenPortrait"
-  else: "ApplicationViewState(" & $ord(v) & ")"
+template `$`*(v: ApplicationViewState): string = enumName(v)
 
 ## Windows.UI.ViewManagement.ApplicationViewSwitchingOptions  (enum)
 type ApplicationViewSwitchingOptions* = distinct uint32
@@ -28290,14 +18293,7 @@ type ApplicationViewWindowingMode* {.pure, size: 4.} = enum
   FullScreen = 2'i32
   CompactOverlay = 3'i32
   Maximized = 4'i32
-proc `$`*(v: ApplicationViewWindowingMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "PreferredLaunchViewSize"
-  of 2: "FullScreen"
-  of 3: "CompactOverlay"
-  of 4: "Maximized"
-  else: "ApplicationViewWindowingMode(" & $ord(v) & ")"
+template `$`*(v: ApplicationViewWindowingMode): string = enumName(v)
 
 ## Windows.UI.ViewManagement.Core.CoreInputViewKind  (enum)
 type CoreInputViewKind* {.pure, size: 4.} = enum
@@ -28309,29 +18305,14 @@ type CoreInputViewKind* {.pure, size: 4.} = enum
   Clipboard = 5'i32
   Dictation = 6'i32
   Gamepad = 7'i32
-proc `$`*(v: CoreInputViewKind): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Keyboard"
-  of 2: "Handwriting"
-  of 3: "Emoji"
-  of 4: "Symbols"
-  of 5: "Clipboard"
-  of 6: "Dictation"
-  of 7: "Gamepad"
-  else: "CoreInputViewKind(" & $ord(v) & ")"
+template `$`*(v: CoreInputViewKind): string = enumName(v)
 
 ## Windows.UI.ViewManagement.Core.CoreInputViewOcclusionKind  (enum)
 type CoreInputViewOcclusionKind* {.pure, size: 4.} = enum
   Docked = 0'i32
   Floating = 1'i32
   Overlay = 2'i32
-proc `$`*(v: CoreInputViewOcclusionKind): string =
-  case ord(v)
-  of 0: "Docked"
-  of 1: "Floating"
-  of 2: "Overlay"
-  else: "CoreInputViewOcclusionKind(" & $ord(v) & ")"
+template `$`*(v: CoreInputViewOcclusionKind): string = enumName(v)
 
 ## Windows.UI.ViewManagement.Core.CoreInputViewXYFocusTransferDirection  (enum)
 type CoreInputViewXYFocusTransferDirection* {.pure, size: 4.} = enum
@@ -28339,43 +18320,25 @@ type CoreInputViewXYFocusTransferDirection* {.pure, size: 4.} = enum
   Right = 1'i32
   Down = 2'i32
   Left = 3'i32
-proc `$`*(v: CoreInputViewXYFocusTransferDirection): string =
-  case ord(v)
-  of 0: "Up"
-  of 1: "Right"
-  of 2: "Down"
-  of 3: "Left"
-  else: "CoreInputViewXYFocusTransferDirection(" & $ord(v) & ")"
+template `$`*(v: CoreInputViewXYFocusTransferDirection): string = enumName(v)
 
 ## Windows.UI.ViewManagement.FullScreenSystemOverlayMode  (enum)
 type FullScreenSystemOverlayMode* {.pure, size: 4.} = enum
   Standard = 0'i32
   Minimal = 1'i32
-proc `$`*(v: FullScreenSystemOverlayMode): string =
-  case ord(v)
-  of 0: "Standard"
-  of 1: "Minimal"
-  else: "FullScreenSystemOverlayMode(" & $ord(v) & ")"
+template `$`*(v: FullScreenSystemOverlayMode): string = enumName(v)
 
 ## Windows.UI.ViewManagement.HandPreference  (enum)
 type HandPreference* {.pure, size: 4.} = enum
   LeftHanded = 0'i32
   RightHanded = 1'i32
-proc `$`*(v: HandPreference): string =
-  case ord(v)
-  of 0: "LeftHanded"
-  of 1: "RightHanded"
-  else: "HandPreference(" & $ord(v) & ")"
+template `$`*(v: HandPreference): string = enumName(v)
 
 ## Windows.UI.ViewManagement.ScreenCaptureDisabledBehavior  (enum)
 type ScreenCaptureDisabledBehavior* {.pure, size: 4.} = enum
   DrawAsBlack = 0'i32
   ExcludeFromCapture = 1'i32
-proc `$`*(v: ScreenCaptureDisabledBehavior): string =
-  case ord(v)
-  of 0: "DrawAsBlack"
-  of 1: "ExcludeFromCapture"
-  else: "ScreenCaptureDisabledBehavior(" & $ord(v) & ")"
+template `$`*(v: ScreenCaptureDisabledBehavior): string = enumName(v)
 
 ## Windows.UI.ViewManagement.UIColorType  (enum)
 type UIColorType* {.pure, size: 4.} = enum
@@ -28389,19 +18352,7 @@ type UIColorType* {.pure, size: 4.} = enum
   AccentLight2 = 7'i32
   AccentLight3 = 8'i32
   Complement = 9'i32
-proc `$`*(v: UIColorType): string =
-  case ord(v)
-  of 0: "Background"
-  of 1: "Foreground"
-  of 2: "AccentDark3"
-  of 3: "AccentDark2"
-  of 4: "AccentDark1"
-  of 5: "Accent"
-  of 6: "AccentLight1"
-  of 7: "AccentLight2"
-  of 8: "AccentLight3"
-  of 9: "Complement"
-  else: "UIColorType(" & $ord(v) & ")"
+template `$`*(v: UIColorType): string = enumName(v)
 
 ## Windows.UI.ViewManagement.UIElementType  (enum)
 type UIElementType* {.pure, size: 4.} = enum
@@ -28431,45 +18382,13 @@ type UIElementType* {.pure, size: 4.} = enum
   PageBackground = 1010'i32
   PopupBackground = 1011'i32
   OverlayOutsidePopup = 1012'i32
-proc `$`*(v: UIElementType): string =
-  case ord(v)
-  of 0: "ActiveCaption"
-  of 1: "Background"
-  of 2: "ButtonFace"
-  of 3: "ButtonText"
-  of 4: "CaptionText"
-  of 5: "GrayText"
-  of 6: "Highlight"
-  of 7: "HighlightText"
-  of 8: "Hotlight"
-  of 9: "InactiveCaption"
-  of 10: "InactiveCaptionText"
-  of 11: "Window"
-  of 12: "WindowText"
-  of 1000: "AccentColor"
-  of 1001: "TextHigh"
-  of 1002: "TextMedium"
-  of 1003: "TextLow"
-  of 1004: "TextContrastWithHigh"
-  of 1005: "NonTextHigh"
-  of 1006: "NonTextMediumHigh"
-  of 1007: "NonTextMedium"
-  of 1008: "NonTextMediumLow"
-  of 1009: "NonTextLow"
-  of 1010: "PageBackground"
-  of 1011: "PopupBackground"
-  of 1012: "OverlayOutsidePopup"
-  else: "UIElementType(" & $ord(v) & ")"
+template `$`*(v: UIElementType): string = enumName(v)
 
 ## Windows.UI.ViewManagement.UserInteractionMode  (enum)
 type UserInteractionMode* {.pure, size: 4.} = enum
   Mouse = 0'i32
   Touch = 1'i32
-proc `$`*(v: UserInteractionMode): string =
-  case ord(v)
-  of 0: "Mouse"
-  of 1: "Touch"
-  else: "UserInteractionMode(" & $ord(v) & ")"
+template `$`*(v: UserInteractionMode): string = enumName(v)
 
 ## Windows.UI.ViewManagement.ViewSizePreference  (enum)
 type ViewSizePreference* {.pure, size: 4.} = enum
@@ -28480,16 +18399,7 @@ type ViewSizePreference* {.pure, size: 4.} = enum
   UseMinimum = 4'i32
   UseNone = 5'i32
   Custom = 6'i32
-proc `$`*(v: ViewSizePreference): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "UseLess"
-  of 2: "UseHalf"
-  of 3: "UseMore"
-  of 4: "UseMinimum"
-  of 5: "UseNone"
-  of 6: "Custom"
-  else: "ViewSizePreference(" & $ord(v) & ")"
+template `$`*(v: ViewSizePreference): string = enumName(v)
 
 ## Windows.UI.WebUI.PrintContent  (enum)
 type PrintContent* {.pure, size: 4.} = enum
@@ -28497,69 +18407,40 @@ type PrintContent* {.pure, size: 4.} = enum
   CurrentPage = 1'i32
   CustomPageRange = 2'i32
   CurrentSelection = 3'i32
-proc `$`*(v: PrintContent): string =
-  case ord(v)
-  of 0: "AllPages"
-  of 1: "CurrentPage"
-  of 2: "CustomPageRange"
-  of 3: "CurrentSelection"
-  else: "PrintContent(" & $ord(v) & ")"
+template `$`*(v: PrintContent): string = enumName(v)
 
 ## Windows.UI.WindowManagement.AppWindowClosedReason  (enum)
 type AppWindowClosedReason* {.pure, size: 4.} = enum
   Other = 0'i32
   AppInitiated = 1'i32
   UserInitiated = 2'i32
-proc `$`*(v: AppWindowClosedReason): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "AppInitiated"
-  of 2: "UserInitiated"
-  else: "AppWindowClosedReason(" & $ord(v) & ")"
+template `$`*(v: AppWindowClosedReason): string = enumName(v)
 
 ## Windows.UI.WindowManagement.AppWindowFrameStyle  (enum)
 type AppWindowFrameStyle* {.pure, size: 4.} = enum
   Default = 0'i32
   NoFrame = 1'i32
-proc `$`*(v: AppWindowFrameStyle): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NoFrame"
-  else: "AppWindowFrameStyle(" & $ord(v) & ")"
+template `$`*(v: AppWindowFrameStyle): string = enumName(v)
 
 ## Windows.UI.WindowManagement.AppWindowPresentationKind  (enum)
 type AppWindowPresentationKind* {.pure, size: 4.} = enum
   Default = 0'i32
   CompactOverlay = 1'i32
   FullScreen = 2'i32
-proc `$`*(v: AppWindowPresentationKind): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "CompactOverlay"
-  of 2: "FullScreen"
-  else: "AppWindowPresentationKind(" & $ord(v) & ")"
+template `$`*(v: AppWindowPresentationKind): string = enumName(v)
 
 ## Windows.UI.WindowManagement.AppWindowTitleBarVisibility  (enum)
 type AppWindowTitleBarVisibility* {.pure, size: 4.} = enum
   Default = 0'i32
   AlwaysHidden = 1'i32
-proc `$`*(v: AppWindowTitleBarVisibility): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "AlwaysHidden"
-  else: "AppWindowTitleBarVisibility(" & $ord(v) & ")"
+template `$`*(v: AppWindowTitleBarVisibility): string = enumName(v)
 
 ## Windows.UI.WindowManagement.WindowingEnvironmentKind  (enum)
 type WindowingEnvironmentKind* {.pure, size: 4.} = enum
   Unknown = 0'i32
   Overlapped = 1'i32
   Tiled = 2'i32
-proc `$`*(v: WindowingEnvironmentKind): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Overlapped"
-  of 2: "Tiled"
-  else: "WindowingEnvironmentKind(" & $ord(v) & ")"
+template `$`*(v: WindowingEnvironmentKind): string = enumName(v)
 
 ## Windows.UI.Xaml.ApplicationHighContrastAdjustment  (enum)
 type ApplicationHighContrastAdjustment* = distinct uint32
@@ -28588,21 +18469,13 @@ const ApplicationHighContrastAdjustment_Auto* = ApplicationHighContrastAdjustmen
 type ApplicationRequiresPointerMode* {.pure, size: 4.} = enum
   Auto = 0'i32
   WhenRequested = 1'i32
-proc `$`*(v: ApplicationRequiresPointerMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "WhenRequested"
-  else: "ApplicationRequiresPointerMode(" & $ord(v) & ")"
+template `$`*(v: ApplicationRequiresPointerMode): string = enumName(v)
 
 ## Windows.UI.Xaml.ApplicationTheme  (enum)
 type ApplicationTheme* {.pure, size: 4.} = enum
   Light = 0'i32
   Dark = 1'i32
-proc `$`*(v: ApplicationTheme): string =
-  case ord(v)
-  of 0: "Light"
-  of 1: "Dark"
-  else: "ApplicationTheme(" & $ord(v) & ")"
+template `$`*(v: ApplicationTheme): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.AnnotationType  (enum)
 type AnnotationType* {.pure, size: 4.} = enum
@@ -28629,44 +18502,14 @@ type AnnotationType* {.pure, size: 4.} = enum
   AdvancedProofingIssue = 60020'i32
   DataValidationError = 60021'i32
   CircularReferenceError = 60022'i32
-proc `$`*(v: AnnotationType): string =
-  case ord(v)
-  of 60000: "Unknown"
-  of 60001: "SpellingError"
-  of 60002: "GrammarError"
-  of 60003: "Comment"
-  of 60004: "FormulaError"
-  of 60005: "TrackChanges"
-  of 60006: "Header"
-  of 60007: "Footer"
-  of 60008: "Highlighted"
-  of 60009: "Endnote"
-  of 60010: "Footnote"
-  of 60011: "InsertionChange"
-  of 60012: "DeletionChange"
-  of 60013: "MoveChange"
-  of 60014: "FormatChange"
-  of 60015: "UnsyncedChange"
-  of 60016: "EditingLockedChange"
-  of 60017: "ExternalChange"
-  of 60018: "ConflictingChange"
-  of 60019: "Author"
-  of 60020: "AdvancedProofingIssue"
-  of 60021: "DataValidationError"
-  of 60022: "CircularReferenceError"
-  else: "AnnotationType(" & $ord(v) & ")"
+template `$`*(v: AnnotationType): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.AutomationActiveEnd  (enum)
 type AutomationActiveEnd* {.pure, size: 4.} = enum
   None = 0'i32
   Start = 1'i32
   `End` = 2'i32
-proc `$`*(v: AutomationActiveEnd): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Start"
-  of 2: "End"
-  else: "AutomationActiveEnd(" & $ord(v) & ")"
+template `$`*(v: AutomationActiveEnd): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.AutomationAnimationStyle  (enum)
 type AutomationAnimationStyle* {.pure, size: 4.} = enum
@@ -28678,17 +18521,7 @@ type AutomationAnimationStyle* {.pure, size: 4.} = enum
   MarchingRedAnts = 5'i32
   Shimmer = 6'i32
   Other = 7'i32
-proc `$`*(v: AutomationAnimationStyle): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "LasVegasLights"
-  of 2: "BlinkingBackground"
-  of 3: "SparkleText"
-  of 4: "MarchingBlackAnts"
-  of 5: "MarchingRedAnts"
-  of 6: "Shimmer"
-  of 7: "Other"
-  else: "AutomationAnimationStyle(" & $ord(v) & ")"
+template `$`*(v: AutomationAnimationStyle): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.AutomationBulletStyle  (enum)
 type AutomationBulletStyle* {.pure, size: 4.} = enum
@@ -28699,38 +18532,20 @@ type AutomationBulletStyle* {.pure, size: 4.} = enum
   FilledSquareBullet = 4'i32
   DashBullet = 5'i32
   Other = 6'i32
-proc `$`*(v: AutomationBulletStyle): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "HollowRoundBullet"
-  of 2: "FilledRoundBullet"
-  of 3: "HollowSquareBullet"
-  of 4: "FilledSquareBullet"
-  of 5: "DashBullet"
-  of 6: "Other"
-  else: "AutomationBulletStyle(" & $ord(v) & ")"
+template `$`*(v: AutomationBulletStyle): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.AutomationCaretBidiMode  (enum)
 type AutomationCaretBidiMode* {.pure, size: 4.} = enum
   LTR = 0'i32
   RTL = 1'i32
-proc `$`*(v: AutomationCaretBidiMode): string =
-  case ord(v)
-  of 0: "LTR"
-  of 1: "RTL"
-  else: "AutomationCaretBidiMode(" & $ord(v) & ")"
+template `$`*(v: AutomationCaretBidiMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.AutomationCaretPosition  (enum)
 type AutomationCaretPosition* {.pure, size: 4.} = enum
   Unknown = 0'i32
   EndOfLine = 1'i32
   BeginningOfLine = 2'i32
-proc `$`*(v: AutomationCaretPosition): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "EndOfLine"
-  of 2: "BeginningOfLine"
-  else: "AutomationCaretPosition(" & $ord(v) & ")"
+template `$`*(v: AutomationCaretPosition): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.AutomationFlowDirections  (enum)
 type AutomationFlowDirections* {.pure, size: 4.} = enum
@@ -28738,13 +18553,7 @@ type AutomationFlowDirections* {.pure, size: 4.} = enum
   RightToLeft = 1'i32
   BottomToTop = 2'i32
   Vertical = 3'i32
-proc `$`*(v: AutomationFlowDirections): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "RightToLeft"
-  of 2: "BottomToTop"
-  of 3: "Vertical"
-  else: "AutomationFlowDirections(" & $ord(v) & ")"
+template `$`*(v: AutomationFlowDirections): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.AutomationOutlineStyles  (enum)
 type AutomationOutlineStyles* {.pure, size: 4.} = enum
@@ -28753,14 +18562,7 @@ type AutomationOutlineStyles* {.pure, size: 4.} = enum
   Shadow = 2'i32
   Engraved = 3'i32
   Embossed = 4'i32
-proc `$`*(v: AutomationOutlineStyles): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Outline"
-  of 2: "Shadow"
-  of 3: "Engraved"
-  of 4: "Embossed"
-  else: "AutomationOutlineStyles(" & $ord(v) & ")"
+template `$`*(v: AutomationOutlineStyles): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.AutomationStyleId  (enum)
 type AutomationStyleId* {.pure, size: 4.} = enum
@@ -28779,24 +18581,7 @@ type AutomationStyleId* {.pure, size: 4.} = enum
   Emphasis = 70013'i32
   Quote = 70014'i32
   BulletedList = 70015'i32
-proc `$`*(v: AutomationStyleId): string =
-  case ord(v)
-  of 70001: "Heading1"
-  of 70002: "Heading2"
-  of 70003: "Heading3"
-  of 70004: "Heading4"
-  of 70005: "Heading5"
-  of 70006: "Heading6"
-  of 70007: "Heading7"
-  of 70008: "Heading8"
-  of 70009: "Heading9"
-  of 70010: "Title"
-  of 70011: "Subtitle"
-  of 70012: "Normal"
-  of 70013: "Emphasis"
-  of 70014: "Quote"
-  of 70015: "BulletedList"
-  else: "AutomationStyleId(" & $ord(v) & ")"
+template `$`*(v: AutomationStyleId): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.AutomationTextDecorationLineStyle  (enum)
 type AutomationTextDecorationLineStyle* {.pure, size: 4.} = enum
@@ -28819,28 +18604,7 @@ type AutomationTextDecorationLineStyle* {.pure, size: 4.} = enum
   ThickDot = 16'i32
   ThickLongDash = 17'i32
   Other = 18'i32
-proc `$`*(v: AutomationTextDecorationLineStyle): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Single"
-  of 2: "WordsOnly"
-  of 3: "Double"
-  of 4: "Dot"
-  of 5: "Dash"
-  of 6: "DashDot"
-  of 7: "DashDotDot"
-  of 8: "Wavy"
-  of 9: "ThickSingle"
-  of 10: "DoubleWavy"
-  of 11: "ThickWavy"
-  of 12: "LongDash"
-  of 13: "ThickDash"
-  of 14: "ThickDashDot"
-  of 15: "ThickDashDotDot"
-  of 16: "ThickDot"
-  of 17: "ThickLongDash"
-  of 18: "Other"
-  else: "AutomationTextDecorationLineStyle(" & $ord(v) & ")"
+template `$`*(v: AutomationTextDecorationLineStyle): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.AutomationTextEditChangeType  (enum)
 type AutomationTextEditChangeType* {.pure, size: 4.} = enum
@@ -28848,13 +18612,7 @@ type AutomationTextEditChangeType* {.pure, size: 4.} = enum
   AutoCorrect = 1'i32
   Composition = 2'i32
   CompositionFinalized = 3'i32
-proc `$`*(v: AutomationTextEditChangeType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "AutoCorrect"
-  of 2: "Composition"
-  of 3: "CompositionFinalized"
-  else: "AutomationTextEditChangeType(" & $ord(v) & ")"
+template `$`*(v: AutomationTextEditChangeType): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.DockPosition  (enum)
 type DockPosition* {.pure, size: 4.} = enum
@@ -28864,15 +18622,7 @@ type DockPosition* {.pure, size: 4.} = enum
   Right = 3'i32
   Fill = 4'i32
   None = 5'i32
-proc `$`*(v: DockPosition): string =
-  case ord(v)
-  of 0: "Top"
-  of 1: "Left"
-  of 2: "Bottom"
-  of 3: "Right"
-  of 4: "Fill"
-  of 5: "None"
-  else: "DockPosition(" & $ord(v) & ")"
+template `$`*(v: DockPosition): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.ExpandCollapseState  (enum)
 type ExpandCollapseState* {.pure, size: 4.} = enum
@@ -28880,25 +18630,14 @@ type ExpandCollapseState* {.pure, size: 4.} = enum
   Expanded = 1'i32
   PartiallyExpanded = 2'i32
   LeafNode = 3'i32
-proc `$`*(v: ExpandCollapseState): string =
-  case ord(v)
-  of 0: "Collapsed"
-  of 1: "Expanded"
-  of 2: "PartiallyExpanded"
-  of 3: "LeafNode"
-  else: "ExpandCollapseState(" & $ord(v) & ")"
+template `$`*(v: ExpandCollapseState): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Peers.AccessibilityView  (enum)
 type AccessibilityView* {.pure, size: 4.} = enum
   Raw = 0'i32
   Control = 1'i32
   Content = 2'i32
-proc `$`*(v: AccessibilityView): string =
-  case ord(v)
-  of 0: "Raw"
-  of 1: "Control"
-  of 2: "Content"
-  else: "AccessibilityView(" & $ord(v) & ")"
+template `$`*(v: AccessibilityView): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Peers.AutomationControlType  (enum)
 type AutomationControlType* {.pure, size: 4.} = enum
@@ -28943,50 +18682,7 @@ type AutomationControlType* {.pure, size: 4.} = enum
   Separator = 38'i32
   SemanticZoom = 39'i32
   AppBar = 40'i32
-proc `$`*(v: AutomationControlType): string =
-  case ord(v)
-  of 0: "Button"
-  of 1: "Calendar"
-  of 2: "CheckBox"
-  of 3: "ComboBox"
-  of 4: "Edit"
-  of 5: "Hyperlink"
-  of 6: "Image"
-  of 7: "ListItem"
-  of 8: "List"
-  of 9: "Menu"
-  of 10: "MenuBar"
-  of 11: "MenuItem"
-  of 12: "ProgressBar"
-  of 13: "RadioButton"
-  of 14: "ScrollBar"
-  of 15: "Slider"
-  of 16: "Spinner"
-  of 17: "StatusBar"
-  of 18: "Tab"
-  of 19: "TabItem"
-  of 20: "Text"
-  of 21: "ToolBar"
-  of 22: "ToolTip"
-  of 23: "Tree"
-  of 24: "TreeItem"
-  of 25: "Custom"
-  of 26: "Group"
-  of 27: "Thumb"
-  of 28: "DataGrid"
-  of 29: "DataItem"
-  of 30: "Document"
-  of 31: "SplitButton"
-  of 32: "Window"
-  of 33: "Pane"
-  of 34: "Header"
-  of 35: "HeaderItem"
-  of 36: "Table"
-  of 37: "TitleBar"
-  of 38: "Separator"
-  of 39: "SemanticZoom"
-  of 40: "AppBar"
-  else: "AutomationControlType(" & $ord(v) & ")"
+template `$`*(v: AutomationControlType): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Peers.AutomationEvents  (enum)
 type AutomationEvents* {.pure, size: 4.} = enum
@@ -29020,39 +18716,7 @@ type AutomationEvents* {.pure, size: 4.} = enum
   ConversionTargetChanged = 27'i32
   TextEditTextChanged = 28'i32
   LayoutInvalidated = 29'i32
-proc `$`*(v: AutomationEvents): string =
-  case ord(v)
-  of 0: "ToolTipOpened"
-  of 1: "ToolTipClosed"
-  of 2: "MenuOpened"
-  of 3: "MenuClosed"
-  of 4: "AutomationFocusChanged"
-  of 5: "InvokePatternOnInvoked"
-  of 6: "SelectionItemPatternOnElementAddedToSelection"
-  of 7: "SelectionItemPatternOnElementRemovedFromSelection"
-  of 8: "SelectionItemPatternOnElementSelected"
-  of 9: "SelectionPatternOnInvalidated"
-  of 10: "TextPatternOnTextSelectionChanged"
-  of 11: "TextPatternOnTextChanged"
-  of 12: "AsyncContentLoaded"
-  of 13: "PropertyChanged"
-  of 14: "StructureChanged"
-  of 15: "DragStart"
-  of 16: "DragCancel"
-  of 17: "DragComplete"
-  of 18: "DragEnter"
-  of 19: "DragLeave"
-  of 20: "Dropped"
-  of 21: "LiveRegionChanged"
-  of 22: "InputReachedTarget"
-  of 23: "InputReachedOtherElement"
-  of 24: "InputDiscarded"
-  of 25: "WindowClosed"
-  of 26: "WindowOpened"
-  of 27: "ConversionTargetChanged"
-  of 28: "TextEditTextChanged"
-  of 29: "LayoutInvalidated"
-  else: "AutomationEvents(" & $ord(v) & ")"
+template `$`*(v: AutomationEvents): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Peers.AutomationHeadingLevel  (enum)
 type AutomationHeadingLevel* {.pure, size: 4.} = enum
@@ -29066,19 +18730,7 @@ type AutomationHeadingLevel* {.pure, size: 4.} = enum
   Level7 = 7'i32
   Level8 = 8'i32
   Level9 = 9'i32
-proc `$`*(v: AutomationHeadingLevel): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Level1"
-  of 2: "Level2"
-  of 3: "Level3"
-  of 4: "Level4"
-  of 5: "Level5"
-  of 6: "Level6"
-  of 7: "Level7"
-  of 8: "Level8"
-  of 9: "Level9"
-  else: "AutomationHeadingLevel(" & $ord(v) & ")"
+template `$`*(v: AutomationHeadingLevel): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Peers.AutomationLandmarkType  (enum)
 type AutomationLandmarkType* {.pure, size: 4.} = enum
@@ -29088,27 +18740,14 @@ type AutomationLandmarkType* {.pure, size: 4.} = enum
   Main = 3'i32
   Navigation = 4'i32
   Search = 5'i32
-proc `$`*(v: AutomationLandmarkType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Custom"
-  of 2: "Form"
-  of 3: "Main"
-  of 4: "Navigation"
-  of 5: "Search"
-  else: "AutomationLandmarkType(" & $ord(v) & ")"
+template `$`*(v: AutomationLandmarkType): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Peers.AutomationLiveSetting  (enum)
 type AutomationLiveSetting* {.pure, size: 4.} = enum
   Off = 0'i32
   Polite = 1'i32
   Assertive = 2'i32
-proc `$`*(v: AutomationLiveSetting): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "Polite"
-  of 2: "Assertive"
-  else: "AutomationLiveSetting(" & $ord(v) & ")"
+template `$`*(v: AutomationLiveSetting): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Peers.AutomationNavigationDirection  (enum)
 type AutomationNavigationDirection* {.pure, size: 4.} = enum
@@ -29117,14 +18756,7 @@ type AutomationNavigationDirection* {.pure, size: 4.} = enum
   PreviousSibling = 2'i32
   FirstChild = 3'i32
   LastChild = 4'i32
-proc `$`*(v: AutomationNavigationDirection): string =
-  case ord(v)
-  of 0: "Parent"
-  of 1: "NextSibling"
-  of 2: "PreviousSibling"
-  of 3: "FirstChild"
-  of 4: "LastChild"
-  else: "AutomationNavigationDirection(" & $ord(v) & ")"
+template `$`*(v: AutomationNavigationDirection): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Peers.AutomationNotificationKind  (enum)
 type AutomationNotificationKind* {.pure, size: 4.} = enum
@@ -29133,14 +18765,7 @@ type AutomationNotificationKind* {.pure, size: 4.} = enum
   ActionCompleted = 2'i32
   ActionAborted = 3'i32
   Other = 4'i32
-proc `$`*(v: AutomationNotificationKind): string =
-  case ord(v)
-  of 0: "ItemAdded"
-  of 1: "ItemRemoved"
-  of 2: "ActionCompleted"
-  of 3: "ActionAborted"
-  of 4: "Other"
-  else: "AutomationNotificationKind(" & $ord(v) & ")"
+template `$`*(v: AutomationNotificationKind): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Peers.AutomationNotificationProcessing  (enum)
 type AutomationNotificationProcessing* {.pure, size: 4.} = enum
@@ -29149,26 +18774,14 @@ type AutomationNotificationProcessing* {.pure, size: 4.} = enum
   All = 2'i32
   MostRecent = 3'i32
   CurrentThenMostRecent = 4'i32
-proc `$`*(v: AutomationNotificationProcessing): string =
-  case ord(v)
-  of 0: "ImportantAll"
-  of 1: "ImportantMostRecent"
-  of 2: "All"
-  of 3: "MostRecent"
-  of 4: "CurrentThenMostRecent"
-  else: "AutomationNotificationProcessing(" & $ord(v) & ")"
+template `$`*(v: AutomationNotificationProcessing): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Peers.AutomationOrientation  (enum)
 type AutomationOrientation* {.pure, size: 4.} = enum
   None = 0'i32
   Horizontal = 1'i32
   Vertical = 2'i32
-proc `$`*(v: AutomationOrientation): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Horizontal"
-  of 2: "Vertical"
-  else: "AutomationOrientation(" & $ord(v) & ")"
+template `$`*(v: AutomationOrientation): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Peers.AutomationStructureChangeType  (enum)
 type AutomationStructureChangeType* {.pure, size: 4.} = enum
@@ -29178,15 +18791,7 @@ type AutomationStructureChangeType* {.pure, size: 4.} = enum
   ChildrenBulkAdded = 3'i32
   ChildrenBulkRemoved = 4'i32
   ChildrenReordered = 5'i32
-proc `$`*(v: AutomationStructureChangeType): string =
-  case ord(v)
-  of 0: "ChildAdded"
-  of 1: "ChildRemoved"
-  of 2: "ChildrenInvalidated"
-  of 3: "ChildrenBulkAdded"
-  of 4: "ChildrenBulkRemoved"
-  of 5: "ChildrenReordered"
-  else: "AutomationStructureChangeType(" & $ord(v) & ")"
+template `$`*(v: AutomationStructureChangeType): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Peers.PatternInterface  (enum)
 type PatternInterface* {.pure, size: 4.} = enum
@@ -29224,55 +18829,14 @@ type PatternInterface* {.pure, size: 4.} = enum
   SynchronizedInput = 31'i32
   TextEdit = 32'i32
   CustomNavigation = 33'i32
-proc `$`*(v: PatternInterface): string =
-  case ord(v)
-  of 0: "Invoke"
-  of 1: "Selection"
-  of 2: "Value"
-  of 3: "RangeValue"
-  of 4: "Scroll"
-  of 5: "ScrollItem"
-  of 6: "ExpandCollapse"
-  of 7: "Grid"
-  of 8: "GridItem"
-  of 9: "MultipleView"
-  of 10: "Window"
-  of 11: "SelectionItem"
-  of 12: "Dock"
-  of 13: "Table"
-  of 14: "TableItem"
-  of 15: "Toggle"
-  of 16: "Transform"
-  of 17: "Text"
-  of 18: "ItemContainer"
-  of 19: "VirtualizedItem"
-  of 20: "Text2"
-  of 21: "TextChild"
-  of 22: "TextRange"
-  of 23: "Annotation"
-  of 24: "Drag"
-  of 25: "DropTarget"
-  of 26: "ObjectModel"
-  of 27: "Spreadsheet"
-  of 28: "SpreadsheetItem"
-  of 29: "Styles"
-  of 30: "Transform2"
-  of 31: "SynchronizedInput"
-  of 32: "TextEdit"
-  of 33: "CustomNavigation"
-  else: "PatternInterface(" & $ord(v) & ")"
+template `$`*(v: PatternInterface): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.RowOrColumnMajor  (enum)
 type RowOrColumnMajor* {.pure, size: 4.} = enum
   RowMajor = 0'i32
   ColumnMajor = 1'i32
   Indeterminate = 2'i32
-proc `$`*(v: RowOrColumnMajor): string =
-  case ord(v)
-  of 0: "RowMajor"
-  of 1: "ColumnMajor"
-  of 2: "Indeterminate"
-  else: "RowOrColumnMajor(" & $ord(v) & ")"
+template `$`*(v: RowOrColumnMajor): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.ScrollAmount  (enum)
 type ScrollAmount* {.pure, size: 4.} = enum
@@ -29281,26 +18845,14 @@ type ScrollAmount* {.pure, size: 4.} = enum
   NoAmount = 2'i32
   LargeIncrement = 3'i32
   SmallIncrement = 4'i32
-proc `$`*(v: ScrollAmount): string =
-  case ord(v)
-  of 0: "LargeDecrement"
-  of 1: "SmallDecrement"
-  of 2: "NoAmount"
-  of 3: "LargeIncrement"
-  of 4: "SmallIncrement"
-  else: "ScrollAmount(" & $ord(v) & ")"
+template `$`*(v: ScrollAmount): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.SupportedTextSelection  (enum)
 type SupportedTextSelection* {.pure, size: 4.} = enum
   None = 0'i32
   Single = 1'i32
   Multiple = 2'i32
-proc `$`*(v: SupportedTextSelection): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Single"
-  of 2: "Multiple"
-  else: "SupportedTextSelection(" & $ord(v) & ")"
+template `$`*(v: SupportedTextSelection): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.SynchronizedInputType  (enum)
 type SynchronizedInputType* {.pure, size: 4.} = enum
@@ -29310,25 +18862,13 @@ type SynchronizedInputType* {.pure, size: 4.} = enum
   LeftMouseDown = 8'i32
   RightMouseUp = 16'i32
   RightMouseDown = 32'i32
-proc `$`*(v: SynchronizedInputType): string =
-  case ord(v)
-  of 1: "KeyUp"
-  of 2: "KeyDown"
-  of 4: "LeftMouseUp"
-  of 8: "LeftMouseDown"
-  of 16: "RightMouseUp"
-  of 32: "RightMouseDown"
-  else: "SynchronizedInputType(" & $ord(v) & ")"
+template `$`*(v: SynchronizedInputType): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Text.TextPatternRangeEndpoint  (enum)
 type TextPatternRangeEndpoint* {.pure, size: 4.} = enum
   Start = 0'i32
   `End` = 1'i32
-proc `$`*(v: TextPatternRangeEndpoint): string =
-  case ord(v)
-  of 0: "Start"
-  of 1: "End"
-  else: "TextPatternRangeEndpoint(" & $ord(v) & ")"
+template `$`*(v: TextPatternRangeEndpoint): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.Text.TextUnit  (enum)
 type TextUnit* {.pure, size: 4.} = enum
@@ -29339,28 +18879,14 @@ type TextUnit* {.pure, size: 4.} = enum
   Paragraph = 4'i32
   Page = 5'i32
   Document = 6'i32
-proc `$`*(v: TextUnit): string =
-  case ord(v)
-  of 0: "Character"
-  of 1: "Format"
-  of 2: "Word"
-  of 3: "Line"
-  of 4: "Paragraph"
-  of 5: "Page"
-  of 6: "Document"
-  else: "TextUnit(" & $ord(v) & ")"
+template `$`*(v: TextUnit): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.ToggleState  (enum)
 type ToggleState* {.pure, size: 4.} = enum
   Off = 0'i32
   On = 1'i32
   Indeterminate = 2'i32
-proc `$`*(v: ToggleState): string =
-  case ord(v)
-  of 0: "Off"
-  of 1: "On"
-  of 2: "Indeterminate"
-  else: "ToggleState(" & $ord(v) & ")"
+template `$`*(v: ToggleState): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.WindowInteractionState  (enum)
 type WindowInteractionState* {.pure, size: 4.} = enum
@@ -29369,26 +18895,14 @@ type WindowInteractionState* {.pure, size: 4.} = enum
   ReadyForUserInteraction = 2'i32
   BlockedByModalWindow = 3'i32
   NotResponding = 4'i32
-proc `$`*(v: WindowInteractionState): string =
-  case ord(v)
-  of 0: "Running"
-  of 1: "Closing"
-  of 2: "ReadyForUserInteraction"
-  of 3: "BlockedByModalWindow"
-  of 4: "NotResponding"
-  else: "WindowInteractionState(" & $ord(v) & ")"
+template `$`*(v: WindowInteractionState): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.WindowVisualState  (enum)
 type WindowVisualState* {.pure, size: 4.} = enum
   Normal = 0'i32
   Maximized = 1'i32
   Minimized = 2'i32
-proc `$`*(v: WindowVisualState): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Maximized"
-  of 2: "Minimized"
-  else: "WindowVisualState(" & $ord(v) & ")"
+template `$`*(v: WindowVisualState): string = enumName(v)
 
 ## Windows.UI.Xaml.Automation.ZoomUnit  (enum)
 type ZoomUnit* {.pure, size: 4.} = enum
@@ -29397,14 +18911,7 @@ type ZoomUnit* {.pure, size: 4.} = enum
   SmallDecrement = 2'i32
   LargeIncrement = 3'i32
   SmallIncrement = 4'i32
-proc `$`*(v: ZoomUnit): string =
-  case ord(v)
-  of 0: "NoAmount"
-  of 1: "LargeDecrement"
-  of 2: "SmallDecrement"
-  of 3: "LargeIncrement"
-  of 4: "SmallIncrement"
-  else: "ZoomUnit(" & $ord(v) & ")"
+template `$`*(v: ZoomUnit): string = enumName(v)
 
 ## Windows.UI.Xaml.AutomationTextAttributesEnum  (enum)
 type AutomationTextAttributesEnum* {.pure, size: 4.} = enum
@@ -29448,141 +18955,61 @@ type AutomationTextAttributesEnum* {.pure, size: 4.} = enum
   SelectionActiveEndAttribute = 40037'i32
   CaretPositionAttribute = 40038'i32
   CaretBidiModeAttribute = 40039'i32
-proc `$`*(v: AutomationTextAttributesEnum): string =
-  case ord(v)
-  of 40000: "AnimationStyleAttribute"
-  of 40001: "BackgroundColorAttribute"
-  of 40002: "BulletStyleAttribute"
-  of 40003: "CapStyleAttribute"
-  of 40004: "CultureAttribute"
-  of 40005: "FontNameAttribute"
-  of 40006: "FontSizeAttribute"
-  of 40007: "FontWeightAttribute"
-  of 40008: "ForegroundColorAttribute"
-  of 40009: "HorizontalTextAlignmentAttribute"
-  of 40010: "IndentationFirstLineAttribute"
-  of 40011: "IndentationLeadingAttribute"
-  of 40012: "IndentationTrailingAttribute"
-  of 40013: "IsHiddenAttribute"
-  of 40014: "IsItalicAttribute"
-  of 40015: "IsReadOnlyAttribute"
-  of 40016: "IsSubscriptAttribute"
-  of 40017: "IsSuperscriptAttribute"
-  of 40018: "MarginBottomAttribute"
-  of 40019: "MarginLeadingAttribute"
-  of 40020: "MarginTopAttribute"
-  of 40021: "MarginTrailingAttribute"
-  of 40022: "OutlineStylesAttribute"
-  of 40023: "OverlineColorAttribute"
-  of 40024: "OverlineStyleAttribute"
-  of 40025: "StrikethroughColorAttribute"
-  of 40026: "StrikethroughStyleAttribute"
-  of 40027: "TabsAttribute"
-  of 40028: "TextFlowDirectionsAttribute"
-  of 40029: "UnderlineColorAttribute"
-  of 40030: "UnderlineStyleAttribute"
-  of 40031: "AnnotationTypesAttribute"
-  of 40032: "AnnotationObjectsAttribute"
-  of 40033: "StyleNameAttribute"
-  of 40034: "StyleIdAttribute"
-  of 40035: "LinkAttribute"
-  of 40036: "IsActiveAttribute"
-  of 40037: "SelectionActiveEndAttribute"
-  of 40038: "CaretPositionAttribute"
-  of 40039: "CaretBidiModeAttribute"
-  else: "AutomationTextAttributesEnum(" & $ord(v) & ")"
+template `$`*(v: AutomationTextAttributesEnum): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.AppBarClosedDisplayMode  (enum)
 type AppBarClosedDisplayMode* {.pure, size: 4.} = enum
   Compact = 0'i32
   Minimal = 1'i32
   Hidden = 2'i32
-proc `$`*(v: AppBarClosedDisplayMode): string =
-  case ord(v)
-  of 0: "Compact"
-  of 1: "Minimal"
-  of 2: "Hidden"
-  else: "AppBarClosedDisplayMode(" & $ord(v) & ")"
+template `$`*(v: AppBarClosedDisplayMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.AutoSuggestionBoxTextChangeReason  (enum)
 type AutoSuggestionBoxTextChangeReason* {.pure, size: 4.} = enum
   UserInput = 0'i32
   ProgrammaticChange = 1'i32
   SuggestionChosen = 2'i32
-proc `$`*(v: AutoSuggestionBoxTextChangeReason): string =
-  case ord(v)
-  of 0: "UserInput"
-  of 1: "ProgrammaticChange"
-  of 2: "SuggestionChosen"
-  else: "AutoSuggestionBoxTextChangeReason(" & $ord(v) & ")"
+template `$`*(v: AutoSuggestionBoxTextChangeReason): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.BackgroundSizing  (enum)
 type BackgroundSizing* {.pure, size: 4.} = enum
   InnerBorderEdge = 0'i32
   OuterBorderEdge = 1'i32
-proc `$`*(v: BackgroundSizing): string =
-  case ord(v)
-  of 0: "InnerBorderEdge"
-  of 1: "OuterBorderEdge"
-  else: "BackgroundSizing(" & $ord(v) & ")"
+template `$`*(v: BackgroundSizing): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.CalendarViewDisplayMode  (enum)
 type CalendarViewDisplayMode* {.pure, size: 4.} = enum
   Month = 0'i32
   Year = 1'i32
   Decade = 2'i32
-proc `$`*(v: CalendarViewDisplayMode): string =
-  case ord(v)
-  of 0: "Month"
-  of 1: "Year"
-  of 2: "Decade"
-  else: "CalendarViewDisplayMode(" & $ord(v) & ")"
+template `$`*(v: CalendarViewDisplayMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.CalendarViewSelectionMode  (enum)
 type CalendarViewSelectionMode* {.pure, size: 4.} = enum
   None = 0'i32
   Single = 1'i32
   Multiple = 2'i32
-proc `$`*(v: CalendarViewSelectionMode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Single"
-  of 2: "Multiple"
-  else: "CalendarViewSelectionMode(" & $ord(v) & ")"
+template `$`*(v: CalendarViewSelectionMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.CandidateWindowAlignment  (enum)
 type CandidateWindowAlignment* {.pure, size: 4.} = enum
   Default = 0'i32
   BottomEdge = 1'i32
-proc `$`*(v: CandidateWindowAlignment): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "BottomEdge"
-  else: "CandidateWindowAlignment(" & $ord(v) & ")"
+template `$`*(v: CandidateWindowAlignment): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.CharacterCasing  (enum)
 type CharacterCasing* {.pure, size: 4.} = enum
   Normal = 0'i32
   Lower = 1'i32
   Upper = 2'i32
-proc `$`*(v: CharacterCasing): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Lower"
-  of 2: "Upper"
-  else: "CharacterCasing(" & $ord(v) & ")"
+template `$`*(v: CharacterCasing): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ClickMode  (enum)
 type ClickMode* {.pure, size: 4.} = enum
   Release = 0'i32
   Press = 1'i32
   Hover = 2'i32
-proc `$`*(v: ClickMode): string =
-  case ord(v)
-  of 0: "Release"
-  of 1: "Press"
-  of 2: "Hover"
-  else: "ClickMode(" & $ord(v) & ")"
+template `$`*(v: ClickMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ColorPickerHsvChannel  (enum)
 type ColorPickerHsvChannel* {.pure, size: 4.} = enum
@@ -29590,13 +19017,7 @@ type ColorPickerHsvChannel* {.pure, size: 4.} = enum
   Saturation = 1'i32
   Value = 2'i32
   Alpha = 3'i32
-proc `$`*(v: ColorPickerHsvChannel): string =
-  case ord(v)
-  of 0: "Hue"
-  of 1: "Saturation"
-  of 2: "Value"
-  of 3: "Alpha"
-  else: "ColorPickerHsvChannel(" & $ord(v) & ")"
+template `$`*(v: ColorPickerHsvChannel): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ColorSpectrumComponents  (enum)
 type ColorSpectrumComponents* {.pure, size: 4.} = enum
@@ -29606,79 +19027,45 @@ type ColorSpectrumComponents* {.pure, size: 4.} = enum
   SaturationHue = 3'i32
   SaturationValue = 4'i32
   ValueSaturation = 5'i32
-proc `$`*(v: ColorSpectrumComponents): string =
-  case ord(v)
-  of 0: "HueValue"
-  of 1: "ValueHue"
-  of 2: "HueSaturation"
-  of 3: "SaturationHue"
-  of 4: "SaturationValue"
-  of 5: "ValueSaturation"
-  else: "ColorSpectrumComponents(" & $ord(v) & ")"
+template `$`*(v: ColorSpectrumComponents): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ColorSpectrumShape  (enum)
 type ColorSpectrumShape* {.pure, size: 4.} = enum
   Box = 0'i32
   Ring = 1'i32
-proc `$`*(v: ColorSpectrumShape): string =
-  case ord(v)
-  of 0: "Box"
-  of 1: "Ring"
-  else: "ColorSpectrumShape(" & $ord(v) & ")"
+template `$`*(v: ColorSpectrumShape): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ComboBoxSelectionChangedTrigger  (enum)
 type ComboBoxSelectionChangedTrigger* {.pure, size: 4.} = enum
   Committed = 0'i32
   Always = 1'i32
-proc `$`*(v: ComboBoxSelectionChangedTrigger): string =
-  case ord(v)
-  of 0: "Committed"
-  of 1: "Always"
-  else: "ComboBoxSelectionChangedTrigger(" & $ord(v) & ")"
+template `$`*(v: ComboBoxSelectionChangedTrigger): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.CommandBarDefaultLabelPosition  (enum)
 type CommandBarDefaultLabelPosition* {.pure, size: 4.} = enum
   Bottom = 0'i32
   Right = 1'i32
   Collapsed = 2'i32
-proc `$`*(v: CommandBarDefaultLabelPosition): string =
-  case ord(v)
-  of 0: "Bottom"
-  of 1: "Right"
-  of 2: "Collapsed"
-  else: "CommandBarDefaultLabelPosition(" & $ord(v) & ")"
+template `$`*(v: CommandBarDefaultLabelPosition): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.CommandBarDynamicOverflowAction  (enum)
 type CommandBarDynamicOverflowAction* {.pure, size: 4.} = enum
   AddingToOverflow = 0'i32
   RemovingFromOverflow = 1'i32
-proc `$`*(v: CommandBarDynamicOverflowAction): string =
-  case ord(v)
-  of 0: "AddingToOverflow"
-  of 1: "RemovingFromOverflow"
-  else: "CommandBarDynamicOverflowAction(" & $ord(v) & ")"
+template `$`*(v: CommandBarDynamicOverflowAction): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.CommandBarLabelPosition  (enum)
 type CommandBarLabelPosition* {.pure, size: 4.} = enum
   Default = 0'i32
   Collapsed = 1'i32
-proc `$`*(v: CommandBarLabelPosition): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Collapsed"
-  else: "CommandBarLabelPosition(" & $ord(v) & ")"
+template `$`*(v: CommandBarLabelPosition): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.CommandBarOverflowButtonVisibility  (enum)
 type CommandBarOverflowButtonVisibility* {.pure, size: 4.} = enum
   Auto = 0'i32
   Visible = 1'i32
   Collapsed = 2'i32
-proc `$`*(v: CommandBarOverflowButtonVisibility): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Visible"
-  of 2: "Collapsed"
-  else: "CommandBarOverflowButtonVisibility(" & $ord(v) & ")"
+template `$`*(v: CommandBarOverflowButtonVisibility): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ContentDialogButton  (enum)
 type ContentDialogButton* {.pure, size: 4.} = enum
@@ -29686,47 +19073,27 @@ type ContentDialogButton* {.pure, size: 4.} = enum
   Primary = 1'i32
   Secondary = 2'i32
   Close = 3'i32
-proc `$`*(v: ContentDialogButton): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Primary"
-  of 2: "Secondary"
-  of 3: "Close"
-  else: "ContentDialogButton(" & $ord(v) & ")"
+template `$`*(v: ContentDialogButton): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ContentDialogPlacement  (enum)
 type ContentDialogPlacement* {.pure, size: 4.} = enum
   Popup = 0'i32
   InPlace = 1'i32
-proc `$`*(v: ContentDialogPlacement): string =
-  case ord(v)
-  of 0: "Popup"
-  of 1: "InPlace"
-  else: "ContentDialogPlacement(" & $ord(v) & ")"
+template `$`*(v: ContentDialogPlacement): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ContentDialogResult  (enum)
 type ContentDialogResult* {.pure, size: 4.} = enum
   None = 0'i32
   Primary = 1'i32
   Secondary = 2'i32
-proc `$`*(v: ContentDialogResult): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Primary"
-  of 2: "Secondary"
-  else: "ContentDialogResult(" & $ord(v) & ")"
+template `$`*(v: ContentDialogResult): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ContentLinkChangeKind  (enum)
 type ContentLinkChangeKind* {.pure, size: 4.} = enum
   Inserted = 0'i32
   Removed = 1'i32
   Edited = 2'i32
-proc `$`*(v: ContentLinkChangeKind): string =
-  case ord(v)
-  of 0: "Inserted"
-  of 1: "Removed"
-  of 2: "Edited"
-  else: "ContentLinkChangeKind(" & $ord(v) & ")"
+template `$`*(v: ContentLinkChangeKind): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.DisabledFormattingAccelerators  (enum)
 type DisabledFormattingAccelerators* = distinct uint32
@@ -29773,24 +19140,13 @@ type HandwritingPanelPlacementAlignment* {.pure, size: 4.} = enum
   TopRight = 2'i32
   BottomLeft = 3'i32
   BottomRight = 4'i32
-proc `$`*(v: HandwritingPanelPlacementAlignment): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "TopLeft"
-  of 2: "TopRight"
-  of 3: "BottomLeft"
-  of 4: "BottomRight"
-  else: "HandwritingPanelPlacementAlignment(" & $ord(v) & ")"
+template `$`*(v: HandwritingPanelPlacementAlignment): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.IncrementalLoadingTrigger  (enum)
 type IncrementalLoadingTrigger* {.pure, size: 4.} = enum
   None = 0'i32
   Edge = 1'i32
-proc `$`*(v: IncrementalLoadingTrigger): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Edge"
-  else: "IncrementalLoadingTrigger(" & $ord(v) & ")"
+template `$`*(v: IncrementalLoadingTrigger): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.InkToolbarButtonFlyoutPlacement  (enum)
 type InkToolbarButtonFlyoutPlacement* {.pure, size: 4.} = enum
@@ -29799,14 +19155,7 @@ type InkToolbarButtonFlyoutPlacement* {.pure, size: 4.} = enum
   Bottom = 2'i32
   Left = 3'i32
   Right = 4'i32
-proc `$`*(v: InkToolbarButtonFlyoutPlacement): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Top"
-  of 2: "Bottom"
-  of 3: "Left"
-  of 4: "Right"
-  else: "InkToolbarButtonFlyoutPlacement(" & $ord(v) & ")"
+template `$`*(v: InkToolbarButtonFlyoutPlacement): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.InkToolbarFlyoutItemKind  (enum)
 type InkToolbarFlyoutItemKind* {.pure, size: 4.} = enum
@@ -29814,13 +19163,7 @@ type InkToolbarFlyoutItemKind* {.pure, size: 4.} = enum
   Radio = 1'i32
   Check = 2'i32
   RadioCheck = 3'i32
-proc `$`*(v: InkToolbarFlyoutItemKind): string =
-  case ord(v)
-  of 0: "Simple"
-  of 1: "Radio"
-  of 2: "Check"
-  of 3: "RadioCheck"
-  else: "InkToolbarFlyoutItemKind(" & $ord(v) & ")"
+template `$`*(v: InkToolbarFlyoutItemKind): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.InkToolbarInitialControls  (enum)
 type InkToolbarInitialControls* {.pure, size: 4.} = enum
@@ -29828,41 +19171,24 @@ type InkToolbarInitialControls* {.pure, size: 4.} = enum
   None = 1'i32
   PensOnly = 2'i32
   AllExceptPens = 3'i32
-proc `$`*(v: InkToolbarInitialControls): string =
-  case ord(v)
-  of 0: "All"
-  of 1: "None"
-  of 2: "PensOnly"
-  of 3: "AllExceptPens"
-  else: "InkToolbarInitialControls(" & $ord(v) & ")"
+template `$`*(v: InkToolbarInitialControls): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.InkToolbarMenuKind  (enum)
 type InkToolbarMenuKind* {.pure, size: 4.} = enum
   Stencil = 0'i32
-proc `$`*(v: InkToolbarMenuKind): string =
-  case ord(v)
-  of 0: "Stencil"
-  else: "InkToolbarMenuKind(" & $ord(v) & ")"
+template `$`*(v: InkToolbarMenuKind): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.InkToolbarStencilKind  (enum)
 type InkToolbarStencilKind* {.pure, size: 4.} = enum
   Ruler = 0'i32
   Protractor = 1'i32
-proc `$`*(v: InkToolbarStencilKind): string =
-  case ord(v)
-  of 0: "Ruler"
-  of 1: "Protractor"
-  else: "InkToolbarStencilKind(" & $ord(v) & ")"
+template `$`*(v: InkToolbarStencilKind): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.InkToolbarToggle  (enum)
 type InkToolbarToggle* {.pure, size: 4.} = enum
   Ruler = 0'i32
   Custom = 1'i32
-proc `$`*(v: InkToolbarToggle): string =
-  case ord(v)
-  of 0: "Ruler"
-  of 1: "Custom"
-  else: "InkToolbarToggle(" & $ord(v) & ")"
+template `$`*(v: InkToolbarToggle): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.InkToolbarTool  (enum)
 type InkToolbarTool* {.pure, size: 4.} = enum
@@ -29872,59 +19198,33 @@ type InkToolbarTool* {.pure, size: 4.} = enum
   Eraser = 3'i32
   CustomPen = 4'i32
   CustomTool = 5'i32
-proc `$`*(v: InkToolbarTool): string =
-  case ord(v)
-  of 0: "BallpointPen"
-  of 1: "Pencil"
-  of 2: "Highlighter"
-  of 3: "Eraser"
-  of 4: "CustomPen"
-  of 5: "CustomTool"
-  else: "InkToolbarTool(" & $ord(v) & ")"
+template `$`*(v: InkToolbarTool): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ItemsUpdatingScrollMode  (enum)
 type ItemsUpdatingScrollMode* {.pure, size: 4.} = enum
   KeepItemsInView = 0'i32
   KeepScrollOffset = 1'i32
   KeepLastItemInView = 2'i32
-proc `$`*(v: ItemsUpdatingScrollMode): string =
-  case ord(v)
-  of 0: "KeepItemsInView"
-  of 1: "KeepScrollOffset"
-  of 2: "KeepLastItemInView"
-  else: "ItemsUpdatingScrollMode(" & $ord(v) & ")"
+template `$`*(v: ItemsUpdatingScrollMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.LightDismissOverlayMode  (enum)
 type LightDismissOverlayMode* {.pure, size: 4.} = enum
   Auto = 0'i32
   On = 1'i32
   Off = 2'i32
-proc `$`*(v: LightDismissOverlayMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "On"
-  of 2: "Off"
-  else: "LightDismissOverlayMode(" & $ord(v) & ")"
+template `$`*(v: LightDismissOverlayMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ListPickerFlyoutSelectionMode  (enum)
 type ListPickerFlyoutSelectionMode* {.pure, size: 4.} = enum
   Single = 0'i32
   Multiple = 1'i32
-proc `$`*(v: ListPickerFlyoutSelectionMode): string =
-  case ord(v)
-  of 0: "Single"
-  of 1: "Multiple"
-  else: "ListPickerFlyoutSelectionMode(" & $ord(v) & ")"
+template `$`*(v: ListPickerFlyoutSelectionMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ListViewReorderMode  (enum)
 type ListViewReorderMode* {.pure, size: 4.} = enum
   Disabled = 0'i32
   Enabled = 1'i32
-proc `$`*(v: ListViewReorderMode): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "Enabled"
-  else: "ListViewReorderMode(" & $ord(v) & ")"
+template `$`*(v: ListViewReorderMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ListViewSelectionMode  (enum)
 type ListViewSelectionMode* {.pure, size: 4.} = enum
@@ -29932,13 +19232,7 @@ type ListViewSelectionMode* {.pure, size: 4.} = enum
   Single = 1'i32
   Multiple = 2'i32
   Extended = 3'i32
-proc `$`*(v: ListViewSelectionMode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Single"
-  of 2: "Multiple"
-  of 3: "Extended"
-  else: "ListViewSelectionMode(" & $ord(v) & ")"
+template `$`*(v: ListViewSelectionMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapAnimationKind  (enum)
 type MapAnimationKind* {.pure, size: 4.} = enum
@@ -29946,45 +19240,26 @@ type MapAnimationKind* {.pure, size: 4.} = enum
   None = 1'i32
   Linear = 2'i32
   Bow = 3'i32
-proc `$`*(v: MapAnimationKind): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "None"
-  of 2: "Linear"
-  of 3: "Bow"
-  else: "MapAnimationKind(" & $ord(v) & ")"
+template `$`*(v: MapAnimationKind): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapCameraChangeReason  (enum)
 type MapCameraChangeReason* {.pure, size: 4.} = enum
   System = 0'i32
   UserInteraction = 1'i32
   Programmatic = 2'i32
-proc `$`*(v: MapCameraChangeReason): string =
-  case ord(v)
-  of 0: "System"
-  of 1: "UserInteraction"
-  of 2: "Programmatic"
-  else: "MapCameraChangeReason(" & $ord(v) & ")"
+template `$`*(v: MapCameraChangeReason): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapColorScheme  (enum)
 type MapColorScheme* {.pure, size: 4.} = enum
   Light = 0'i32
   Dark = 1'i32
-proc `$`*(v: MapColorScheme): string =
-  case ord(v)
-  of 0: "Light"
-  of 1: "Dark"
-  else: "MapColorScheme(" & $ord(v) & ")"
+template `$`*(v: MapColorScheme): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapElementCollisionBehavior  (enum)
 type MapElementCollisionBehavior* {.pure, size: 4.} = enum
   Hide = 0'i32
   RemainVisible = 1'i32
-proc `$`*(v: MapElementCollisionBehavior): string =
-  case ord(v)
-  of 0: "Hide"
-  of 1: "RemainVisible"
-  else: "MapElementCollisionBehavior(" & $ord(v) & ")"
+template `$`*(v: MapElementCollisionBehavior): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapInteractionMode  (enum)
 type MapInteractionMode* {.pure, size: 4.} = enum
@@ -29996,15 +19271,7 @@ type MapInteractionMode* {.pure, size: 4.} = enum
   PointerOnly = 5'i32
 const MapInteractionMode_PointerAndKeyboard* = MapInteractionMode.GestureOnly
 const MapInteractionMode_PointerKeyboardAndControl* = MapInteractionMode.GestureAndControl
-proc `$`*(v: MapInteractionMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Disabled"
-  of 2: "GestureOnly"
-  of 3: "ControlOnly"
-  of 4: "GestureAndControl"
-  of 5: "PointerOnly"
-  else: "MapInteractionMode(" & $ord(v) & ")"
+template `$`*(v: MapInteractionMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapLoadingStatus  (enum)
 type MapLoadingStatus* {.pure, size: 4.} = enum
@@ -30012,45 +19279,26 @@ type MapLoadingStatus* {.pure, size: 4.} = enum
   Loaded = 1'i32
   DataUnavailable = 2'i32
   DownloadedMapsManagerUnavailable = 3'i32
-proc `$`*(v: MapLoadingStatus): string =
-  case ord(v)
-  of 0: "Loading"
-  of 1: "Loaded"
-  of 2: "DataUnavailable"
-  of 3: "DownloadedMapsManagerUnavailable"
-  else: "MapLoadingStatus(" & $ord(v) & ")"
+template `$`*(v: MapLoadingStatus): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapModel3DShadingOption  (enum)
 type MapModel3DShadingOption* {.pure, size: 4.} = enum
   Default = 0'i32
   Flat = 1'i32
   Smooth = 2'i32
-proc `$`*(v: MapModel3DShadingOption): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Flat"
-  of 2: "Smooth"
-  else: "MapModel3DShadingOption(" & $ord(v) & ")"
+template `$`*(v: MapModel3DShadingOption): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapPanInteractionMode  (enum)
 type MapPanInteractionMode* {.pure, size: 4.} = enum
   Auto = 0'i32
   Disabled = 1'i32
-proc `$`*(v: MapPanInteractionMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Disabled"
-  else: "MapPanInteractionMode(" & $ord(v) & ")"
+template `$`*(v: MapPanInteractionMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapProjection  (enum)
 type MapProjection* {.pure, size: 4.} = enum
   WebMercator = 0'i32
   Globe = 1'i32
-proc `$`*(v: MapProjection): string =
-  case ord(v)
-  of 0: "WebMercator"
-  of 1: "Globe"
-  else: "MapProjection(" & $ord(v) & ")"
+template `$`*(v: MapProjection): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapStyle  (enum)
 type MapStyle* {.pure, size: 4.} = enum
@@ -30062,29 +19310,14 @@ type MapStyle* {.pure, size: 4.} = enum
   Aerial3D = 5'i32
   Aerial3DWithRoads = 6'i32
   Custom = 7'i32
-proc `$`*(v: MapStyle): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Road"
-  of 2: "Aerial"
-  of 3: "AerialWithRoads"
-  of 4: "Terrain"
-  of 5: "Aerial3D"
-  of 6: "Aerial3DWithRoads"
-  of 7: "Custom"
-  else: "MapStyle(" & $ord(v) & ")"
+template `$`*(v: MapStyle): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapTileAnimationState  (enum)
 type MapTileAnimationState* {.pure, size: 4.} = enum
   Stopped = 0'i32
   Paused = 1'i32
   Playing = 2'i32
-proc `$`*(v: MapTileAnimationState): string =
-  case ord(v)
-  of 0: "Stopped"
-  of 1: "Paused"
-  of 2: "Playing"
-  else: "MapTileAnimationState(" & $ord(v) & ")"
+template `$`*(v: MapTileAnimationState): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapTileLayer  (enum)
 type MapTileLayer* {.pure, size: 4.} = enum
@@ -30093,68 +19326,39 @@ type MapTileLayer* {.pure, size: 4.} = enum
   AreaOverlay = 2'i32
   BackgroundOverlay = 3'i32
   BackgroundReplacement = 4'i32
-proc `$`*(v: MapTileLayer): string =
-  case ord(v)
-  of 0: "LabelOverlay"
-  of 1: "RoadOverlay"
-  of 2: "AreaOverlay"
-  of 3: "BackgroundOverlay"
-  of 4: "BackgroundReplacement"
-  else: "MapTileLayer(" & $ord(v) & ")"
+template `$`*(v: MapTileLayer): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapVisibleRegionKind  (enum)
 type MapVisibleRegionKind* {.pure, size: 4.} = enum
   Near = 0'i32
   Full = 1'i32
-proc `$`*(v: MapVisibleRegionKind): string =
-  case ord(v)
-  of 0: "Near"
-  of 1: "Full"
-  else: "MapVisibleRegionKind(" & $ord(v) & ")"
+template `$`*(v: MapVisibleRegionKind): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Maps.MapWatermarkMode  (enum)
 type MapWatermarkMode* {.pure, size: 4.} = enum
   Automatic = 0'i32
   On = 1'i32
-proc `$`*(v: MapWatermarkMode): string =
-  case ord(v)
-  of 0: "Automatic"
-  of 1: "On"
-  else: "MapWatermarkMode(" & $ord(v) & ")"
+template `$`*(v: MapWatermarkMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.NavigationViewBackButtonVisible  (enum)
 type NavigationViewBackButtonVisible* {.pure, size: 4.} = enum
   Collapsed = 0'i32
   Visible = 1'i32
   Auto = 2'i32
-proc `$`*(v: NavigationViewBackButtonVisible): string =
-  case ord(v)
-  of 0: "Collapsed"
-  of 1: "Visible"
-  of 2: "Auto"
-  else: "NavigationViewBackButtonVisible(" & $ord(v) & ")"
+template `$`*(v: NavigationViewBackButtonVisible): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.NavigationViewDisplayMode  (enum)
 type NavigationViewDisplayMode* {.pure, size: 4.} = enum
   Minimal = 0'i32
   Compact = 1'i32
   Expanded = 2'i32
-proc `$`*(v: NavigationViewDisplayMode): string =
-  case ord(v)
-  of 0: "Minimal"
-  of 1: "Compact"
-  of 2: "Expanded"
-  else: "NavigationViewDisplayMode(" & $ord(v) & ")"
+template `$`*(v: NavigationViewDisplayMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.NavigationViewOverflowLabelMode  (enum)
 type NavigationViewOverflowLabelMode* {.pure, size: 4.} = enum
   MoreLabel = 0'i32
   NoLabel = 1'i32
-proc `$`*(v: NavigationViewOverflowLabelMode): string =
-  case ord(v)
-  of 0: "MoreLabel"
-  of 1: "NoLabel"
-  else: "NavigationViewOverflowLabelMode(" & $ord(v) & ")"
+template `$`*(v: NavigationViewOverflowLabelMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.NavigationViewPaneDisplayMode  (enum)
 type NavigationViewPaneDisplayMode* {.pure, size: 4.} = enum
@@ -30163,90 +19367,52 @@ type NavigationViewPaneDisplayMode* {.pure, size: 4.} = enum
   Top = 2'i32
   LeftCompact = 3'i32
   LeftMinimal = 4'i32
-proc `$`*(v: NavigationViewPaneDisplayMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Left"
-  of 2: "Top"
-  of 3: "LeftCompact"
-  of 4: "LeftMinimal"
-  else: "NavigationViewPaneDisplayMode(" & $ord(v) & ")"
+template `$`*(v: NavigationViewPaneDisplayMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.NavigationViewSelectionFollowsFocus  (enum)
 type NavigationViewSelectionFollowsFocus* {.pure, size: 4.} = enum
   Disabled = 0'i32
   Enabled = 1'i32
-proc `$`*(v: NavigationViewSelectionFollowsFocus): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "Enabled"
-  else: "NavigationViewSelectionFollowsFocus(" & $ord(v) & ")"
+template `$`*(v: NavigationViewSelectionFollowsFocus): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.NavigationViewShoulderNavigationEnabled  (enum)
 type NavigationViewShoulderNavigationEnabled* {.pure, size: 4.} = enum
   WhenSelectionFollowsFocus = 0'i32
   Always = 1'i32
   Never = 2'i32
-proc `$`*(v: NavigationViewShoulderNavigationEnabled): string =
-  case ord(v)
-  of 0: "WhenSelectionFollowsFocus"
-  of 1: "Always"
-  of 2: "Never"
-  else: "NavigationViewShoulderNavigationEnabled(" & $ord(v) & ")"
+template `$`*(v: NavigationViewShoulderNavigationEnabled): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Orientation  (enum)
 type Orientation* {.pure, size: 4.} = enum
   Vertical = 0'i32
   Horizontal = 1'i32
-proc `$`*(v: Orientation): string =
-  case ord(v)
-  of 0: "Vertical"
-  of 1: "Horizontal"
-  else: "Orientation(" & $ord(v) & ")"
+template `$`*(v: Orientation): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.PanelScrollingDirection  (enum)
 type PanelScrollingDirection* {.pure, size: 4.} = enum
   None = 0'i32
   Forward = 1'i32
   Backward = 2'i32
-proc `$`*(v: PanelScrollingDirection): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Forward"
-  of 2: "Backward"
-  else: "PanelScrollingDirection(" & $ord(v) & ")"
+template `$`*(v: PanelScrollingDirection): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ParallaxSourceOffsetKind  (enum)
 type ParallaxSourceOffsetKind* {.pure, size: 4.} = enum
   Absolute = 0'i32
   Relative = 1'i32
-proc `$`*(v: ParallaxSourceOffsetKind): string =
-  case ord(v)
-  of 0: "Absolute"
-  of 1: "Relative"
-  else: "ParallaxSourceOffsetKind(" & $ord(v) & ")"
+template `$`*(v: ParallaxSourceOffsetKind): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.PasswordRevealMode  (enum)
 type PasswordRevealMode* {.pure, size: 4.} = enum
   Peek = 0'i32
   Hidden = 1'i32
   Visible = 2'i32
-proc `$`*(v: PasswordRevealMode): string =
-  case ord(v)
-  of 0: "Peek"
-  of 1: "Hidden"
-  of 2: "Visible"
-  else: "PasswordRevealMode(" & $ord(v) & ")"
+template `$`*(v: PasswordRevealMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.PivotHeaderFocusVisualPlacement  (enum)
 type PivotHeaderFocusVisualPlacement* {.pure, size: 4.} = enum
   ItemHeaders = 0'i32
   SelectedItemHeader = 1'i32
-proc `$`*(v: PivotHeaderFocusVisualPlacement): string =
-  case ord(v)
-  of 0: "ItemHeaders"
-  of 1: "SelectedItemHeader"
-  else: "PivotHeaderFocusVisualPlacement(" & $ord(v) & ")"
+template `$`*(v: PivotHeaderFocusVisualPlacement): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.PivotSlideInAnimationGroup  (enum)
 type PivotSlideInAnimationGroup* {.pure, size: 4.} = enum
@@ -30254,13 +19420,7 @@ type PivotSlideInAnimationGroup* {.pure, size: 4.} = enum
   GroupOne = 1'i32
   GroupTwo = 2'i32
   GroupThree = 3'i32
-proc `$`*(v: PivotSlideInAnimationGroup): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "GroupOne"
-  of 2: "GroupTwo"
-  of 3: "GroupThree"
-  else: "PivotSlideInAnimationGroup(" & $ord(v) & ")"
+template `$`*(v: PivotSlideInAnimationGroup): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.AnimationDirection  (enum)
 type PrimitivesAnimationDirection* {.pure, size: 4.} = enum
@@ -30268,23 +19428,13 @@ type PrimitivesAnimationDirection* {.pure, size: 4.} = enum
   Top = 1'i32
   Right = 2'i32
   Bottom = 3'i32
-proc `$`*(v: PrimitivesAnimationDirection): string =
-  case ord(v)
-  of 0: "Left"
-  of 1: "Top"
-  of 2: "Right"
-  of 3: "Bottom"
-  else: "PrimitivesAnimationDirection(" & $ord(v) & ")"
+template `$`*(v: PrimitivesAnimationDirection): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.ComponentResourceLocation  (enum)
 type ComponentResourceLocation* {.pure, size: 4.} = enum
   Application = 0'i32
   Nested = 1'i32
-proc `$`*(v: ComponentResourceLocation): string =
-  case ord(v)
-  of 0: "Application"
-  of 1: "Nested"
-  else: "ComponentResourceLocation(" & $ord(v) & ")"
+template `$`*(v: ComponentResourceLocation): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.EdgeTransitionLocation  (enum)
 type EdgeTransitionLocation* {.pure, size: 4.} = enum
@@ -30292,13 +19442,7 @@ type EdgeTransitionLocation* {.pure, size: 4.} = enum
   Top = 1'i32
   Right = 2'i32
   Bottom = 3'i32
-proc `$`*(v: EdgeTransitionLocation): string =
-  case ord(v)
-  of 0: "Left"
-  of 1: "Top"
-  of 2: "Right"
-  of 3: "Bottom"
-  else: "EdgeTransitionLocation(" & $ord(v) & ")"
+template `$`*(v: EdgeTransitionLocation): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.FlyoutPlacementMode  (enum)
 type FlyoutPlacementMode* {.pure, size: 4.} = enum
@@ -30316,23 +19460,7 @@ type FlyoutPlacementMode* {.pure, size: 4.} = enum
   RightEdgeAlignedTop = 11'i32
   RightEdgeAlignedBottom = 12'i32
   Auto = 13'i32
-proc `$`*(v: FlyoutPlacementMode): string =
-  case ord(v)
-  of 0: "Top"
-  of 1: "Bottom"
-  of 2: "Left"
-  of 3: "Right"
-  of 4: "Full"
-  of 5: "TopEdgeAlignedLeft"
-  of 6: "TopEdgeAlignedRight"
-  of 7: "BottomEdgeAlignedLeft"
-  of 8: "BottomEdgeAlignedRight"
-  of 9: "LeftEdgeAlignedTop"
-  of 10: "LeftEdgeAlignedBottom"
-  of 11: "RightEdgeAlignedTop"
-  of 12: "RightEdgeAlignedBottom"
-  of 13: "Auto"
-  else: "FlyoutPlacementMode(" & $ord(v) & ")"
+template `$`*(v: FlyoutPlacementMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.FlyoutShowMode  (enum)
 type FlyoutShowMode* {.pure, size: 4.} = enum
@@ -30340,53 +19468,31 @@ type FlyoutShowMode* {.pure, size: 4.} = enum
   Standard = 1'i32
   Transient = 2'i32
   TransientWithDismissOnPointerMoveAway = 3'i32
-proc `$`*(v: FlyoutShowMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Standard"
-  of 2: "Transient"
-  of 3: "TransientWithDismissOnPointerMoveAway"
-  else: "FlyoutShowMode(" & $ord(v) & ")"
+template `$`*(v: FlyoutShowMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.GeneratorDirection  (enum)
 type GeneratorDirection* {.pure, size: 4.} = enum
   Forward = 0'i32
   Backward = 1'i32
-proc `$`*(v: GeneratorDirection): string =
-  case ord(v)
-  of 0: "Forward"
-  of 1: "Backward"
-  else: "GeneratorDirection(" & $ord(v) & ")"
+template `$`*(v: GeneratorDirection): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.GroupHeaderPlacement  (enum)
 type GroupHeaderPlacement* {.pure, size: 4.} = enum
   Top = 0'i32
   Left = 1'i32
-proc `$`*(v: GroupHeaderPlacement): string =
-  case ord(v)
-  of 0: "Top"
-  of 1: "Left"
-  else: "GroupHeaderPlacement(" & $ord(v) & ")"
+template `$`*(v: GroupHeaderPlacement): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.ListViewItemPresenterCheckMode  (enum)
 type ListViewItemPresenterCheckMode* {.pure, size: 4.} = enum
   Inline = 0'i32
   Overlay = 1'i32
-proc `$`*(v: ListViewItemPresenterCheckMode): string =
-  case ord(v)
-  of 0: "Inline"
-  of 1: "Overlay"
-  else: "ListViewItemPresenterCheckMode(" & $ord(v) & ")"
+template `$`*(v: ListViewItemPresenterCheckMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.ListViewItemPresenterSelectionIndicatorMode  (enum)
 type ListViewItemPresenterSelectionIndicatorMode* {.pure, size: 4.} = enum
   Inline = 0'i32
   Overlay = 1'i32
-proc `$`*(v: ListViewItemPresenterSelectionIndicatorMode): string =
-  case ord(v)
-  of 0: "Inline"
-  of 1: "Overlay"
-  else: "ListViewItemPresenterSelectionIndicatorMode(" & $ord(v) & ")"
+template `$`*(v: ListViewItemPresenterSelectionIndicatorMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.PlacementMode  (enum)
 type PlacementMode* {.pure, size: 4.} = enum
@@ -30395,14 +19501,7 @@ type PlacementMode* {.pure, size: 4.} = enum
   Mouse = 7'i32
   Left = 9'i32
   Top = 10'i32
-proc `$`*(v: PlacementMode): string =
-  case ord(v)
-  of 2: "Bottom"
-  of 4: "Right"
-  of 7: "Mouse"
-  of 9: "Left"
-  of 10: "Top"
-  else: "PlacementMode(" & $ord(v) & ")"
+template `$`*(v: PlacementMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.PopupPlacementMode  (enum)
 type PopupPlacementMode* {.pure, size: 4.} = enum
@@ -30419,22 +19518,7 @@ type PopupPlacementMode* {.pure, size: 4.} = enum
   LeftEdgeAlignedBottom = 10'i32
   RightEdgeAlignedTop = 11'i32
   RightEdgeAlignedBottom = 12'i32
-proc `$`*(v: PopupPlacementMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Top"
-  of 2: "Bottom"
-  of 3: "Left"
-  of 4: "Right"
-  of 5: "TopEdgeAlignedLeft"
-  of 6: "TopEdgeAlignedRight"
-  of 7: "BottomEdgeAlignedLeft"
-  of 8: "BottomEdgeAlignedRight"
-  of 9: "LeftEdgeAlignedTop"
-  of 10: "LeftEdgeAlignedBottom"
-  of 11: "RightEdgeAlignedTop"
-  of 12: "RightEdgeAlignedBottom"
-  else: "PopupPlacementMode(" & $ord(v) & ")"
+template `$`*(v: PopupPlacementMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.ScrollEventType  (enum)
 type ScrollEventType* {.pure, size: 4.} = enum
@@ -30447,52 +19531,27 @@ type ScrollEventType* {.pure, size: 4.} = enum
   First = 6'i32
   Last = 7'i32
   EndScroll = 8'i32
-proc `$`*(v: ScrollEventType): string =
-  case ord(v)
-  of 0: "SmallDecrement"
-  of 1: "SmallIncrement"
-  of 2: "LargeDecrement"
-  of 3: "LargeIncrement"
-  of 4: "ThumbPosition"
-  of 5: "ThumbTrack"
-  of 6: "First"
-  of 7: "Last"
-  of 8: "EndScroll"
-  else: "ScrollEventType(" & $ord(v) & ")"
+template `$`*(v: ScrollEventType): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.ScrollingIndicatorMode  (enum)
 type ScrollingIndicatorMode* {.pure, size: 4.} = enum
   None = 0'i32
   TouchIndicator = 1'i32
   MouseIndicator = 2'i32
-proc `$`*(v: ScrollingIndicatorMode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "TouchIndicator"
-  of 2: "MouseIndicator"
-  else: "ScrollingIndicatorMode(" & $ord(v) & ")"
+template `$`*(v: ScrollingIndicatorMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.SliderSnapsTo  (enum)
 type SliderSnapsTo* {.pure, size: 4.} = enum
   StepValues = 0'i32
   Ticks = 1'i32
-proc `$`*(v: SliderSnapsTo): string =
-  case ord(v)
-  of 0: "StepValues"
-  of 1: "Ticks"
-  else: "SliderSnapsTo(" & $ord(v) & ")"
+template `$`*(v: SliderSnapsTo): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.SnapPointsAlignment  (enum)
 type SnapPointsAlignment* {.pure, size: 4.} = enum
   Near = 0'i32
   Center = 1'i32
   Far = 2'i32
-proc `$`*(v: SnapPointsAlignment): string =
-  case ord(v)
-  of 0: "Near"
-  of 1: "Center"
-  of 2: "Far"
-  else: "SnapPointsAlignment(" & $ord(v) & ")"
+template `$`*(v: SnapPointsAlignment): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Primitives.TickPlacement  (enum)
 type TickPlacement* {.pure, size: 4.} = enum
@@ -30501,14 +19560,7 @@ type TickPlacement* {.pure, size: 4.} = enum
   BottomRight = 2'i32
   Outside = 3'i32
   Inline = 4'i32
-proc `$`*(v: TickPlacement): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "TopLeft"
-  of 2: "BottomRight"
-  of 3: "Outside"
-  of 4: "Inline"
-  else: "TickPlacement(" & $ord(v) & ")"
+template `$`*(v: TickPlacement): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.RefreshPullDirection  (enum)
 type RefreshPullDirection* {.pure, size: 4.} = enum
@@ -30516,13 +19568,7 @@ type RefreshPullDirection* {.pure, size: 4.} = enum
   TopToBottom = 1'i32
   RightToLeft = 2'i32
   BottomToTop = 3'i32
-proc `$`*(v: RefreshPullDirection): string =
-  case ord(v)
-  of 0: "LeftToRight"
-  of 1: "TopToBottom"
-  of 2: "RightToLeft"
-  of 3: "BottomToTop"
-  else: "RefreshPullDirection(" & $ord(v) & ")"
+template `$`*(v: RefreshPullDirection): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.RefreshVisualizerOrientation  (enum)
 type RefreshVisualizerOrientation* {.pure, size: 4.} = enum
@@ -30530,13 +19576,7 @@ type RefreshVisualizerOrientation* {.pure, size: 4.} = enum
   Normal = 1'i32
   Rotate90DegreesCounterclockwise = 2'i32
   Rotate270DegreesCounterclockwise = 3'i32
-proc `$`*(v: RefreshVisualizerOrientation): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Normal"
-  of 2: "Rotate90DegreesCounterclockwise"
-  of 3: "Rotate270DegreesCounterclockwise"
-  else: "RefreshVisualizerOrientation(" & $ord(v) & ")"
+template `$`*(v: RefreshVisualizerOrientation): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.RefreshVisualizerState  (enum)
 type RefreshVisualizerState* {.pure, size: 4.} = enum
@@ -30545,36 +19585,20 @@ type RefreshVisualizerState* {.pure, size: 4.} = enum
   Interacting = 2'i32
   Pending = 3'i32
   Refreshing = 4'i32
-proc `$`*(v: RefreshVisualizerState): string =
-  case ord(v)
-  of 0: "Idle"
-  of 1: "Peeking"
-  of 2: "Interacting"
-  of 3: "Pending"
-  of 4: "Refreshing"
-  else: "RefreshVisualizerState(" & $ord(v) & ")"
+template `$`*(v: RefreshVisualizerState): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.RequiresPointer  (enum)
 type RequiresPointer* {.pure, size: 4.} = enum
   Never = 0'i32
   WhenEngaged = 1'i32
   WhenFocused = 2'i32
-proc `$`*(v: RequiresPointer): string =
-  case ord(v)
-  of 0: "Never"
-  of 1: "WhenEngaged"
-  of 2: "WhenFocused"
-  else: "RequiresPointer(" & $ord(v) & ")"
+template `$`*(v: RequiresPointer): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.RichEditClipboardFormat  (enum)
 type RichEditClipboardFormat* {.pure, size: 4.} = enum
   AllFormats = 0'i32
   PlainText = 1'i32
-proc `$`*(v: RichEditClipboardFormat): string =
-  case ord(v)
-  of 0: "AllFormats"
-  of 1: "PlainText"
-  else: "RichEditClipboardFormat(" & $ord(v) & ")"
+template `$`*(v: RichEditClipboardFormat): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ScrollBarVisibility  (enum)
 type ScrollBarVisibility* {.pure, size: 4.} = enum
@@ -30582,47 +19606,27 @@ type ScrollBarVisibility* {.pure, size: 4.} = enum
   Auto = 1'i32
   Hidden = 2'i32
   Visible = 3'i32
-proc `$`*(v: ScrollBarVisibility): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "Auto"
-  of 2: "Hidden"
-  of 3: "Visible"
-  else: "ScrollBarVisibility(" & $ord(v) & ")"
+template `$`*(v: ScrollBarVisibility): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ScrollIntoViewAlignment  (enum)
 type ScrollIntoViewAlignment* {.pure, size: 4.} = enum
   Default = 0'i32
   Leading = 1'i32
-proc `$`*(v: ScrollIntoViewAlignment): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Leading"
-  else: "ScrollIntoViewAlignment(" & $ord(v) & ")"
+template `$`*(v: ScrollIntoViewAlignment): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ScrollMode  (enum)
 type ScrollMode* {.pure, size: 4.} = enum
   Disabled = 0'i32
   Enabled = 1'i32
   Auto = 2'i32
-proc `$`*(v: ScrollMode): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "Enabled"
-  of 2: "Auto"
-  else: "ScrollMode(" & $ord(v) & ")"
+template `$`*(v: ScrollMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.SelectionMode  (enum)
 type SelectionMode* {.pure, size: 4.} = enum
   Single = 0'i32
   Multiple = 1'i32
   Extended = 2'i32
-proc `$`*(v: SelectionMode): string =
-  case ord(v)
-  of 0: "Single"
-  of 1: "Multiple"
-  of 2: "Extended"
-  else: "SelectionMode(" & $ord(v) & ")"
+template `$`*(v: SelectionMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.SnapPointsType  (enum)
 type SnapPointsType* {.pure, size: 4.} = enum
@@ -30631,14 +19635,7 @@ type SnapPointsType* {.pure, size: 4.} = enum
   Mandatory = 2'i32
   OptionalSingle = 3'i32
   MandatorySingle = 4'i32
-proc `$`*(v: SnapPointsType): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Optional"
-  of 2: "Mandatory"
-  of 3: "OptionalSingle"
-  of 4: "MandatorySingle"
-  else: "SnapPointsType(" & $ord(v) & ")"
+template `$`*(v: SnapPointsType): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.SplitViewDisplayMode  (enum)
 type SplitViewDisplayMode* {.pure, size: 4.} = enum
@@ -30646,57 +19643,33 @@ type SplitViewDisplayMode* {.pure, size: 4.} = enum
   Inline = 1'i32
   CompactOverlay = 2'i32
   CompactInline = 3'i32
-proc `$`*(v: SplitViewDisplayMode): string =
-  case ord(v)
-  of 0: "Overlay"
-  of 1: "Inline"
-  of 2: "CompactOverlay"
-  of 3: "CompactInline"
-  else: "SplitViewDisplayMode(" & $ord(v) & ")"
+template `$`*(v: SplitViewDisplayMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.SplitViewPanePlacement  (enum)
 type SplitViewPanePlacement* {.pure, size: 4.} = enum
   Left = 0'i32
   Right = 1'i32
-proc `$`*(v: SplitViewPanePlacement): string =
-  case ord(v)
-  of 0: "Left"
-  of 1: "Right"
-  else: "SplitViewPanePlacement(" & $ord(v) & ")"
+template `$`*(v: SplitViewPanePlacement): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.StretchDirection  (enum)
 type StretchDirection* {.pure, size: 4.} = enum
   UpOnly = 0'i32
   DownOnly = 1'i32
   Both = 2'i32
-proc `$`*(v: StretchDirection): string =
-  case ord(v)
-  of 0: "UpOnly"
-  of 1: "DownOnly"
-  of 2: "Both"
-  else: "StretchDirection(" & $ord(v) & ")"
+template `$`*(v: StretchDirection): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.SwipeBehaviorOnInvoked  (enum)
 type SwipeBehaviorOnInvoked* {.pure, size: 4.} = enum
   Auto = 0'i32
   Close = 1'i32
   RemainOpen = 2'i32
-proc `$`*(v: SwipeBehaviorOnInvoked): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Close"
-  of 2: "RemainOpen"
-  else: "SwipeBehaviorOnInvoked(" & $ord(v) & ")"
+template `$`*(v: SwipeBehaviorOnInvoked): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.SwipeMode  (enum)
 type SwipeMode* {.pure, size: 4.} = enum
   Reveal = 0'i32
   Execute = 1'i32
-proc `$`*(v: SwipeMode): string =
-  case ord(v)
-  of 0: "Reveal"
-  of 1: "Execute"
-  else: "SwipeMode(" & $ord(v) & ")"
+template `$`*(v: SwipeMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.Symbol  (enum)
 type Symbol* {.pure, size: 4.} = enum
@@ -30897,286 +19870,54 @@ type Symbol* {.pure, size: 4.} = enum
   Share = 59181'i32
   Print = 59209'i32
   XboxOneConsole = 59792'i32
-proc `$`*(v: Symbol): string =
-  case ord(v)
-  of 57600: "Previous"
-  of 57601: "Next"
-  of 57602: "Play"
-  of 57603: "Pause"
-  of 57604: "Edit"
-  of 57605: "Save"
-  of 57606: "Clear"
-  of 57607: "Delete"
-  of 57608: "Remove"
-  of 57609: "Add"
-  of 57610: "Cancel"
-  of 57611: "Accept"
-  of 57612: "More"
-  of 57613: "Redo"
-  of 57614: "Undo"
-  of 57615: "Home"
-  of 57616: "Up"
-  of 57617: "Forward"
-  of 57618: "Back"
-  of 57619: "Favorite"
-  of 57620: "Camera"
-  of 57621: "Setting"
-  of 57622: "Video"
-  of 57623: "Sync"
-  of 57624: "Download"
-  of 57625: "Mail"
-  of 57626: "Find"
-  of 57627: "Help"
-  of 57628: "Upload"
-  of 57629: "Emoji"
-  of 57630: "TwoPage"
-  of 57631: "LeaveChat"
-  of 57632: "MailForward"
-  of 57633: "Clock"
-  of 57634: "Send"
-  of 57635: "Crop"
-  of 57636: "RotateCamera"
-  of 57637: "People"
-  of 57638: "OpenPane"
-  of 57639: "ClosePane"
-  of 57640: "World"
-  of 57641: "Flag"
-  of 57642: "PreviewLink"
-  of 57643: "Globe"
-  of 57644: "Trim"
-  of 57645: "AttachCamera"
-  of 57646: "ZoomIn"
-  of 57647: "Bookmarks"
-  of 57648: "Document"
-  of 57649: "ProtectedDocument"
-  of 57650: "Page"
-  of 57651: "Bullets"
-  of 57652: "Comment"
-  of 57653: "MailFilled"
-  of 57654: "ContactInfo"
-  of 57655: "HangUp"
-  of 57656: "ViewAll"
-  of 57657: "MapPin"
-  of 57658: "Phone"
-  of 57659: "VideoChat"
-  of 57660: "Switch"
-  of 57661: "Contact"
-  of 57662: "Rename"
-  of 57665: "Pin"
-  of 57666: "MusicInfo"
-  of 57667: "Go"
-  of 57668: "Keyboard"
-  of 57669: "DockLeft"
-  of 57670: "DockRight"
-  of 57671: "DockBottom"
-  of 57672: "Remote"
-  of 57673: "Refresh"
-  of 57674: "Rotate"
-  of 57675: "Shuffle"
-  of 57676: "List"
-  of 57677: "Shop"
-  of 57678: "SelectAll"
-  of 57679: "Orientation"
-  of 57680: "Import"
-  of 57681: "ImportAll"
-  of 57685: "BrowsePhotos"
-  of 57686: "WebCam"
-  of 57688: "Pictures"
-  of 57689: "SaveLocal"
-  of 57690: "Caption"
-  of 57691: "Stop"
-  of 57692: "ShowResults"
-  of 57693: "Volume"
-  of 57694: "Repair"
-  of 57695: "Message"
-  of 57696: "Page2"
-  of 57697: "CalendarDay"
-  of 57698: "CalendarWeek"
-  of 57699: "Calendar"
-  of 57700: "Character"
-  of 57701: "MailReplyAll"
-  of 57702: "Read"
-  of 57703: "Link"
-  of 57704: "Account"
-  of 57705: "ShowBcc"
-  of 57706: "HideBcc"
-  of 57707: "Cut"
-  of 57708: "Attach"
-  of 57709: "Paste"
-  of 57710: "Filter"
-  of 57711: "Copy"
-  of 57712: "Emoji2"
-  of 57713: "Important"
-  of 57714: "MailReply"
-  of 57715: "SlideShow"
-  of 57716: "Sort"
-  of 57720: "Manage"
-  of 57721: "AllApps"
-  of 57722: "DisconnectDrive"
-  of 57723: "MapDrive"
-  of 57724: "NewWindow"
-  of 57725: "OpenWith"
-  of 57729: "ContactPresence"
-  of 57730: "Priority"
-  of 57732: "GoToToday"
-  of 57733: "Font"
-  of 57734: "FontColor"
-  of 57735: "Contact2"
-  of 57736: "Folder"
-  of 57737: "Audio"
-  of 57738: "Placeholder"
-  of 57739: "View"
-  of 57740: "SetLockScreen"
-  of 57741: "SetTile"
-  of 57744: "ClosedCaption"
-  of 57745: "StopSlideShow"
-  of 57746: "Permissions"
-  of 57747: "Highlight"
-  of 57748: "DisableUpdates"
-  of 57749: "UnFavorite"
-  of 57750: "UnPin"
-  of 57751: "OpenLocal"
-  of 57752: "Mute"
-  of 57753: "Italic"
-  of 57754: "Underline"
-  of 57755: "Bold"
-  of 57756: "MoveToFolder"
-  of 57757: "LikeDislike"
-  of 57758: "Dislike"
-  of 57759: "Like"
-  of 57760: "AlignRight"
-  of 57761: "AlignCenter"
-  of 57762: "AlignLeft"
-  of 57763: "Zoom"
-  of 57764: "ZoomOut"
-  of 57765: "OpenFile"
-  of 57766: "OtherUser"
-  of 57767: "Admin"
-  of 57795: "Street"
-  of 57796: "Map"
-  of 57797: "ClearSelection"
-  of 57798: "FontDecrease"
-  of 57799: "FontIncrease"
-  of 57800: "FontSize"
-  of 57801: "CellPhone"
-  of 57802: "ReShare"
-  of 57803: "Tag"
-  of 57804: "RepeatOne"
-  of 57805: "RepeatAll"
-  of 57806: "OutlineStar"
-  of 57807: "SolidStar"
-  of 57808: "Calculator"
-  of 57809: "Directions"
-  of 57810: "Target"
-  of 57811: "Library"
-  of 57812: "PhoneBook"
-  of 57813: "Memo"
-  of 57814: "Microphone"
-  of 57815: "PostUpdate"
-  of 57816: "BackToWindow"
-  of 57817: "FullScreen"
-  of 57818: "NewFolder"
-  of 57819: "CalendarReply"
-  of 57821: "UnSyncFolder"
-  of 57822: "ReportHacked"
-  of 57823: "SyncFolder"
-  of 57824: "BlockContact"
-  of 57825: "SwitchApps"
-  of 57826: "AddFriend"
-  of 57827: "TouchPointer"
-  of 57828: "GoToStart"
-  of 57829: "ZeroBars"
-  of 57830: "OneBar"
-  of 57831: "TwoBars"
-  of 57832: "ThreeBars"
-  of 57833: "FourBars"
-  of 58004: "Scan"
-  of 58005: "Preview"
-  of 59136: "GlobalNavigationButton"
-  of 59181: "Share"
-  of 59209: "Print"
-  of 59792: "XboxOneConsole"
-  else: "Symbol(" & $ord(v) & ")"
+template `$`*(v: Symbol): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.TreeViewSelectionMode  (enum)
 type TreeViewSelectionMode* {.pure, size: 4.} = enum
   None = 0'i32
   Single = 1'i32
   Multiple = 2'i32
-proc `$`*(v: TreeViewSelectionMode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Single"
-  of 2: "Multiple"
-  else: "TreeViewSelectionMode(" & $ord(v) & ")"
+template `$`*(v: TreeViewSelectionMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.TwoPaneViewMode  (enum)
 type TwoPaneViewMode* {.pure, size: 4.} = enum
   SinglePane = 0'i32
   Wide = 1'i32
   Tall = 2'i32
-proc `$`*(v: TwoPaneViewMode): string =
-  case ord(v)
-  of 0: "SinglePane"
-  of 1: "Wide"
-  of 2: "Tall"
-  else: "TwoPaneViewMode(" & $ord(v) & ")"
+template `$`*(v: TwoPaneViewMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.TwoPaneViewPriority  (enum)
 type TwoPaneViewPriority* {.pure, size: 4.} = enum
   Pane1 = 0'i32
   Pane2 = 1'i32
-proc `$`*(v: TwoPaneViewPriority): string =
-  case ord(v)
-  of 0: "Pane1"
-  of 1: "Pane2"
-  else: "TwoPaneViewPriority(" & $ord(v) & ")"
+template `$`*(v: TwoPaneViewPriority): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.TwoPaneViewTallModeConfiguration  (enum)
 type TwoPaneViewTallModeConfiguration* {.pure, size: 4.} = enum
   SinglePane = 0'i32
   TopBottom = 1'i32
   BottomTop = 2'i32
-proc `$`*(v: TwoPaneViewTallModeConfiguration): string =
-  case ord(v)
-  of 0: "SinglePane"
-  of 1: "TopBottom"
-  of 2: "BottomTop"
-  else: "TwoPaneViewTallModeConfiguration(" & $ord(v) & ")"
+template `$`*(v: TwoPaneViewTallModeConfiguration): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.TwoPaneViewWideModeConfiguration  (enum)
 type TwoPaneViewWideModeConfiguration* {.pure, size: 4.} = enum
   SinglePane = 0'i32
   LeftRight = 1'i32
   RightLeft = 2'i32
-proc `$`*(v: TwoPaneViewWideModeConfiguration): string =
-  case ord(v)
-  of 0: "SinglePane"
-  of 1: "LeftRight"
-  of 2: "RightLeft"
-  else: "TwoPaneViewWideModeConfiguration(" & $ord(v) & ")"
+template `$`*(v: TwoPaneViewWideModeConfiguration): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.VirtualizationMode  (enum)
 type VirtualizationMode* {.pure, size: 4.} = enum
   Standard = 0'i32
   Recycling = 1'i32
-proc `$`*(v: VirtualizationMode): string =
-  case ord(v)
-  of 0: "Standard"
-  of 1: "Recycling"
-  else: "VirtualizationMode(" & $ord(v) & ")"
+template `$`*(v: VirtualizationMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.WebViewExecutionMode  (enum)
 type WebViewExecutionMode* {.pure, size: 4.} = enum
   SameThread = 0'i32
   SeparateThread = 1'i32
   SeparateProcess = 2'i32
-proc `$`*(v: WebViewExecutionMode): string =
-  case ord(v)
-  of 0: "SameThread"
-  of 1: "SeparateThread"
-  of 2: "SeparateProcess"
-  else: "WebViewExecutionMode(" & $ord(v) & ")"
+template `$`*(v: WebViewExecutionMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.WebViewPermissionState  (enum)
 type WebViewPermissionState* {.pure, size: 4.} = enum
@@ -31184,13 +19925,7 @@ type WebViewPermissionState* {.pure, size: 4.} = enum
   `Defer` = 1'i32
   Allow = 2'i32
   Deny = 3'i32
-proc `$`*(v: WebViewPermissionState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Defer"
-  of 2: "Allow"
-  of 3: "Deny"
-  else: "WebViewPermissionState(" & $ord(v) & ")"
+template `$`*(v: WebViewPermissionState): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.WebViewPermissionType  (enum)
 type WebViewPermissionType* {.pure, size: 4.} = enum
@@ -31201,26 +19936,13 @@ type WebViewPermissionType* {.pure, size: 4.} = enum
   WebNotifications = 4'i32
   Screen = 5'i32
   ImmersiveView = 6'i32
-proc `$`*(v: WebViewPermissionType): string =
-  case ord(v)
-  of 0: "Geolocation"
-  of 1: "UnlimitedIndexedDBQuota"
-  of 2: "Media"
-  of 3: "PointerLock"
-  of 4: "WebNotifications"
-  of 5: "Screen"
-  of 6: "ImmersiveView"
-  else: "WebViewPermissionType(" & $ord(v) & ")"
+template `$`*(v: WebViewPermissionType): string = enumName(v)
 
 ## Windows.UI.Xaml.Controls.ZoomMode  (enum)
 type ZoomMode* {.pure, size: 4.} = enum
   Disabled = 0'i32
   Enabled = 1'i32
-proc `$`*(v: ZoomMode): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "Enabled"
-  else: "ZoomMode(" & $ord(v) & ")"
+template `$`*(v: ZoomMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Core.Direct.XamlEventIndex  (enum)
 type XamlEventIndex* {.pure, size: 4.} = enum
@@ -31362,147 +20084,7 @@ type XamlEventIndex* {.pure, size: 4.} = enum
   ScrollViewer_AnchorRequested = 291'i32
   DatePicker_SelectedDateChanged = 322'i32
   TimePicker_SelectedTimeChanged = 323'i32
-proc `$`*(v: XamlEventIndex): string =
-  case ord(v)
-  of 16: "FrameworkElement_DataContextChanged"
-  of 17: "FrameworkElement_SizeChanged"
-  of 18: "FrameworkElement_LayoutUpdated"
-  of 22: "UIElement_KeyUp"
-  of 23: "UIElement_KeyDown"
-  of 24: "UIElement_GotFocus"
-  of 25: "UIElement_LostFocus"
-  of 26: "UIElement_DragStarting"
-  of 27: "UIElement_DropCompleted"
-  of 28: "UIElement_CharacterReceived"
-  of 29: "UIElement_DragEnter"
-  of 30: "UIElement_DragLeave"
-  of 31: "UIElement_DragOver"
-  of 32: "UIElement_Drop"
-  of 38: "UIElement_PointerPressed"
-  of 39: "UIElement_PointerMoved"
-  of 40: "UIElement_PointerReleased"
-  of 41: "UIElement_PointerEntered"
-  of 42: "UIElement_PointerExited"
-  of 43: "UIElement_PointerCaptureLost"
-  of 44: "UIElement_PointerCanceled"
-  of 45: "UIElement_PointerWheelChanged"
-  of 46: "UIElement_Tapped"
-  of 47: "UIElement_DoubleTapped"
-  of 48: "UIElement_Holding"
-  of 49: "UIElement_ContextRequested"
-  of 50: "UIElement_ContextCanceled"
-  of 51: "UIElement_RightTapped"
-  of 52: "UIElement_ManipulationStarting"
-  of 53: "UIElement_ManipulationInertiaStarting"
-  of 54: "UIElement_ManipulationStarted"
-  of 55: "UIElement_ManipulationDelta"
-  of 56: "UIElement_ManipulationCompleted"
-  of 60: "UIElement_ProcessKeyboardAccelerators"
-  of 61: "UIElement_GettingFocus"
-  of 62: "UIElement_LosingFocus"
-  of 63: "UIElement_NoFocusCandidateFound"
-  of 64: "UIElement_PreviewKeyDown"
-  of 65: "UIElement_PreviewKeyUp"
-  of 66: "UIElement_BringIntoViewRequested"
-  of 109: "AppBar_Opening"
-  of 110: "AppBar_Opened"
-  of 111: "AppBar_Closing"
-  of 112: "AppBar_Closed"
-  of 113: "AutoSuggestBox_SuggestionChosen"
-  of 114: "AutoSuggestBox_TextChanged"
-  of 115: "AutoSuggestBox_QuerySubmitted"
-  of 116: "CalendarDatePicker_CalendarViewDayItemChanging"
-  of 117: "CalendarDatePicker_DateChanged"
-  of 118: "CalendarDatePicker_Opened"
-  of 119: "CalendarDatePicker_Closed"
-  of 120: "CalendarView_CalendarViewDayItemChanging"
-  of 121: "CalendarView_SelectedDatesChanged"
-  of 122: "ComboBox_DropDownClosed"
-  of 123: "ComboBox_DropDownOpened"
-  of 124: "CommandBar_DynamicOverflowItemsChanging"
-  of 126: "ContentDialog_Closing"
-  of 127: "ContentDialog_Closed"
-  of 128: "ContentDialog_Opened"
-  of 129: "ContentDialog_PrimaryButtonClick"
-  of 130: "ContentDialog_SecondaryButtonClick"
-  of 131: "ContentDialog_CloseButtonClick"
-  of 132: "Control_FocusEngaged"
-  of 133: "Control_FocusDisengaged"
-  of 135: "DatePicker_DateChanged"
-  of 136: "Frame_Navigated"
-  of 137: "Frame_Navigating"
-  of 138: "Frame_NavigationFailed"
-  of 139: "Frame_NavigationStopped"
-  of 143: "Hub_SectionHeaderClick"
-  of 144: "Hub_SectionsInViewChanged"
-  of 148: "ItemsPresenter_HorizontalSnapPointsChanged"
-  of 149: "ItemsPresenter_VerticalSnapPointsChanged"
-  of 150: "ListViewBase_ItemClick"
-  of 151: "ListViewBase_DragItemsStarting"
-  of 152: "ListViewBase_DragItemsCompleted"
-  of 153: "ListViewBase_ContainerContentChanging"
-  of 154: "ListViewBase_ChoosingItemContainer"
-  of 155: "ListViewBase_ChoosingGroupHeaderContainer"
-  of 167: "MediaTransportControls_ThumbnailRequested"
-  of 168: "MenuFlyoutItem_Click"
-  of 177: "RichEditBox_TextChanging"
-  of 192: "ScrollViewer_ViewChanging"
-  of 193: "ScrollViewer_ViewChanged"
-  of 194: "ScrollViewer_DirectManipulationStarted"
-  of 195: "ScrollViewer_DirectManipulationCompleted"
-  of 196: "SearchBox_QueryChanged"
-  of 197: "SearchBox_SuggestionsRequested"
-  of 198: "SearchBox_QuerySubmitted"
-  of 199: "SearchBox_ResultSuggestionChosen"
-  of 200: "SearchBox_PrepareForFocusOnKeyboardInput"
-  of 201: "SemanticZoom_ViewChangeStarted"
-  of 202: "SemanticZoom_ViewChangeCompleted"
-  of 203: "SettingsFlyout_BackClick"
-  of 208: "StackPanel_HorizontalSnapPointsChanged"
-  of 209: "StackPanel_VerticalSnapPointsChanged"
-  of 227: "TimePicker_TimeChanged"
-  of 228: "ToggleSwitch_Toggled"
-  of 229: "ToolTip_Closed"
-  of 230: "ToolTip_Opened"
-  of 231: "VirtualizingStackPanel_CleanUpVirtualizedItemEvent"
-  of 232: "WebView_SeparateProcessLost"
-  of 233: "WebView_LoadCompleted"
-  of 234: "WebView_ScriptNotify"
-  of 235: "WebView_NavigationFailed"
-  of 236: "WebView_NavigationStarting"
-  of 237: "WebView_ContentLoading"
-  of 238: "WebView_DOMContentLoaded"
-  of 239: "WebView_NavigationCompleted"
-  of 240: "WebView_FrameNavigationStarting"
-  of 241: "WebView_FrameContentLoading"
-  of 242: "WebView_FrameDOMContentLoaded"
-  of 243: "WebView_FrameNavigationCompleted"
-  of 244: "WebView_LongRunningScriptDetected"
-  of 245: "WebView_UnsafeContentWarningDisplaying"
-  of 246: "WebView_UnviewableContentIdentified"
-  of 247: "WebView_ContainsFullScreenElementChanged"
-  of 248: "WebView_UnsupportedUriSchemeIdentified"
-  of 249: "WebView_NewWindowRequested"
-  of 250: "WebView_PermissionRequested"
-  of 256: "ButtonBase_Click"
-  of 257: "CarouselPanel_HorizontalSnapPointsChanged"
-  of 258: "CarouselPanel_VerticalSnapPointsChanged"
-  of 263: "OrientedVirtualizingPanel_HorizontalSnapPointsChanged"
-  of 264: "OrientedVirtualizingPanel_VerticalSnapPointsChanged"
-  of 267: "RangeBase_ValueChanged"
-  of 268: "ScrollBar_Scroll"
-  of 269: "Selector_SelectionChanged"
-  of 270: "Thumb_DragStarted"
-  of 271: "Thumb_DragDelta"
-  of 272: "Thumb_DragCompleted"
-  of 273: "ToggleButton_Checked"
-  of 274: "ToggleButton_Unchecked"
-  of 275: "ToggleButton_Indeterminate"
-  of 283: "WebView_WebResourceRequested"
-  of 291: "ScrollViewer_AnchorRequested"
-  of 322: "DatePicker_SelectedDateChanged"
-  of 323: "TimePicker_SelectedTimeChanged"
-  else: "XamlEventIndex(" & $ord(v) & ")"
+template `$`*(v: XamlEventIndex): string = enumName(v)
 
 ## Windows.UI.Xaml.Core.Direct.XamlPropertyIndex  (enum)
 type XamlPropertyIndex* {.pure, size: 4.} = enum
@@ -33175,1678 +21757,7 @@ type XamlPropertyIndex* {.pure, size: 4.} = enum
   Popup_DesiredPlacement = 2453'i32
   Popup_PlacementTarget = 2454'i32
   AutomationProperties_AutomationControlType = 2455'i32
-proc `$`*(v: XamlPropertyIndex): string =
-  case ord(v)
-  of 5: "AutomationProperties_AcceleratorKey"
-  of 6: "AutomationProperties_AccessibilityView"
-  of 7: "AutomationProperties_AccessKey"
-  of 8: "AutomationProperties_AutomationId"
-  of 9: "AutomationProperties_ControlledPeers"
-  of 10: "AutomationProperties_HelpText"
-  of 11: "AutomationProperties_IsRequiredForForm"
-  of 12: "AutomationProperties_ItemStatus"
-  of 13: "AutomationProperties_ItemType"
-  of 14: "AutomationProperties_LabeledBy"
-  of 15: "AutomationProperties_LiveSetting"
-  of 16: "AutomationProperties_Name"
-  of 24: "ToolTipService_Placement"
-  of 25: "ToolTipService_PlacementTarget"
-  of 26: "ToolTipService_ToolTip"
-  of 28: "Typography_AnnotationAlternates"
-  of 29: "Typography_Capitals"
-  of 30: "Typography_CapitalSpacing"
-  of 31: "Typography_CaseSensitiveForms"
-  of 32: "Typography_ContextualAlternates"
-  of 33: "Typography_ContextualLigatures"
-  of 34: "Typography_ContextualSwashes"
-  of 35: "Typography_DiscretionaryLigatures"
-  of 36: "Typography_EastAsianExpertForms"
-  of 37: "Typography_EastAsianLanguage"
-  of 38: "Typography_EastAsianWidths"
-  of 39: "Typography_Fraction"
-  of 40: "Typography_HistoricalForms"
-  of 41: "Typography_HistoricalLigatures"
-  of 42: "Typography_Kerning"
-  of 43: "Typography_MathematicalGreek"
-  of 44: "Typography_NumeralAlignment"
-  of 45: "Typography_NumeralStyle"
-  of 46: "Typography_SlashedZero"
-  of 47: "Typography_StandardLigatures"
-  of 48: "Typography_StandardSwashes"
-  of 49: "Typography_StylisticAlternates"
-  of 50: "Typography_StylisticSet1"
-  of 51: "Typography_StylisticSet10"
-  of 52: "Typography_StylisticSet11"
-  of 53: "Typography_StylisticSet12"
-  of 54: "Typography_StylisticSet13"
-  of 55: "Typography_StylisticSet14"
-  of 56: "Typography_StylisticSet15"
-  of 57: "Typography_StylisticSet16"
-  of 58: "Typography_StylisticSet17"
-  of 59: "Typography_StylisticSet18"
-  of 60: "Typography_StylisticSet19"
-  of 61: "Typography_StylisticSet2"
-  of 62: "Typography_StylisticSet20"
-  of 63: "Typography_StylisticSet3"
-  of 64: "Typography_StylisticSet4"
-  of 65: "Typography_StylisticSet5"
-  of 66: "Typography_StylisticSet6"
-  of 67: "Typography_StylisticSet7"
-  of 68: "Typography_StylisticSet8"
-  of 69: "Typography_StylisticSet9"
-  of 70: "Typography_Variants"
-  of 75: "AutomationPeer_EventsSource"
-  of 76: "AutoSuggestBoxSuggestionChosenEventArgs_SelectedItem"
-  of 77: "AutoSuggestBoxTextChangedEventArgs_Reason"
-  of 78: "Brush_Opacity"
-  of 79: "Brush_RelativeTransform"
-  of 80: "Brush_Transform"
-  of 81: "CollectionViewSource_IsSourceGrouped"
-  of 82: "CollectionViewSource_ItemsPath"
-  of 83: "CollectionViewSource_Source"
-  of 84: "CollectionViewSource_View"
-  of 90: "ColorKeyFrame_KeyTime"
-  of 91: "ColorKeyFrame_Value"
-  of 92: "ColumnDefinition_ActualWidth"
-  of 93: "ColumnDefinition_MaxWidth"
-  of 94: "ColumnDefinition_MinWidth"
-  of 95: "ColumnDefinition_Width"
-  of 96: "ComboBoxTemplateSettings_DropDownClosedHeight"
-  of 97: "ComboBoxTemplateSettings_DropDownOffset"
-  of 98: "ComboBoxTemplateSettings_DropDownOpenedHeight"
-  of 99: "ComboBoxTemplateSettings_SelectedItemDirection"
-  of 107: "DoubleKeyFrame_KeyTime"
-  of 108: "DoubleKeyFrame_Value"
-  of 111: "EasingFunctionBase_EasingMode"
-  of 114: "FlyoutBase_AttachedFlyout"
-  of 115: "FlyoutBase_Placement"
-  of 118: "Geometry_Bounds"
-  of 119: "Geometry_Transform"
-  of 120: "GradientStop_Color"
-  of 121: "GradientStop_Offset"
-  of 124: "GroupStyle_ContainerStyle"
-  of 125: "GroupStyle_ContainerStyleSelector"
-  of 126: "GroupStyle_HeaderContainerStyle"
-  of 127: "GroupStyle_HeaderTemplate"
-  of 128: "GroupStyle_HeaderTemplateSelector"
-  of 129: "GroupStyle_HidesIfEmpty"
-  of 130: "GroupStyle_Panel"
-  of 144: "InertiaExpansionBehavior_DesiredDeceleration"
-  of 145: "InertiaExpansionBehavior_DesiredExpansion"
-  of 146: "InertiaRotationBehavior_DesiredDeceleration"
-  of 147: "InertiaRotationBehavior_DesiredRotation"
-  of 148: "InertiaTranslationBehavior_DesiredDeceleration"
-  of 149: "InertiaTranslationBehavior_DesiredDisplacement"
-  of 150: "InputScope_Names"
-  of 151: "InputScopeName_NameValue"
-  of 153: "KeySpline_ControlPoint1"
-  of 154: "KeySpline_ControlPoint2"
-  of 159: "ManipulationPivot_Center"
-  of 160: "ManipulationPivot_Radius"
-  of 183: "ObjectKeyFrame_KeyTime"
-  of 184: "ObjectKeyFrame_Value"
-  of 185: "PageStackEntry_SourcePageType"
-  of 192: "PathFigure_IsClosed"
-  of 193: "PathFigure_IsFilled"
-  of 194: "PathFigure_Segments"
-  of 195: "PathFigure_StartPoint"
-  of 199: "Pointer_IsInContact"
-  of 200: "Pointer_IsInRange"
-  of 201: "Pointer_PointerDeviceType"
-  of 202: "Pointer_PointerId"
-  of 205: "PointKeyFrame_KeyTime"
-  of 206: "PointKeyFrame_Value"
-  of 209: "PrintDocument_DocumentSource"
-  of 211: "ProgressBarTemplateSettings_ContainerAnimationEndPosition"
-  of 212: "ProgressBarTemplateSettings_ContainerAnimationStartPosition"
-  of 213: "ProgressBarTemplateSettings_EllipseAnimationEndPosition"
-  of 214: "ProgressBarTemplateSettings_EllipseAnimationWellPosition"
-  of 215: "ProgressBarTemplateSettings_EllipseDiameter"
-  of 216: "ProgressBarTemplateSettings_EllipseOffset"
-  of 217: "ProgressBarTemplateSettings_IndicatorLengthDelta"
-  of 218: "ProgressRingTemplateSettings_EllipseDiameter"
-  of 219: "ProgressRingTemplateSettings_EllipseOffset"
-  of 220: "ProgressRingTemplateSettings_MaxSideLength"
-  of 221: "PropertyPath_Path"
-  of 226: "RowDefinition_ActualHeight"
-  of 227: "RowDefinition_Height"
-  of 228: "RowDefinition_MaxHeight"
-  of 229: "RowDefinition_MinHeight"
-  of 233: "SetterBase_IsSealed"
-  of 234: "SettingsFlyoutTemplateSettings_BorderBrush"
-  of 235: "SettingsFlyoutTemplateSettings_BorderThickness"
-  of 236: "SettingsFlyoutTemplateSettings_ContentTransitions"
-  of 237: "SettingsFlyoutTemplateSettings_HeaderBackground"
-  of 238: "SettingsFlyoutTemplateSettings_HeaderForeground"
-  of 239: "SettingsFlyoutTemplateSettings_IconSource"
-  of 244: "Style_BasedOn"
-  of 245: "Style_IsSealed"
-  of 246: "Style_Setters"
-  of 247: "Style_TargetType"
-  of 249: "TextElement_CharacterSpacing"
-  of 250: "TextElement_FontFamily"
-  of 251: "TextElement_FontSize"
-  of 252: "TextElement_FontStretch"
-  of 253: "TextElement_FontStyle"
-  of 254: "TextElement_FontWeight"
-  of 255: "TextElement_Foreground"
-  of 256: "TextElement_IsTextScaleFactorEnabled"
-  of 257: "TextElement_Language"
-  of 263: "Timeline_AutoReverse"
-  of 264: "Timeline_BeginTime"
-  of 265: "Timeline_Duration"
-  of 266: "Timeline_FillBehavior"
-  of 267: "Timeline_RepeatBehavior"
-  of 268: "Timeline_SpeedRatio"
-  of 269: "TimelineMarker_Text"
-  of 270: "TimelineMarker_Time"
-  of 271: "TimelineMarker_Type"
-  of 273: "ToggleSwitchTemplateSettings_CurtainCurrentToOffOffset"
-  of 274: "ToggleSwitchTemplateSettings_CurtainCurrentToOnOffset"
-  of 275: "ToggleSwitchTemplateSettings_CurtainOffToOnOffset"
-  of 276: "ToggleSwitchTemplateSettings_CurtainOnToOffOffset"
-  of 277: "ToggleSwitchTemplateSettings_KnobCurrentToOffOffset"
-  of 278: "ToggleSwitchTemplateSettings_KnobCurrentToOnOffset"
-  of 279: "ToggleSwitchTemplateSettings_KnobOffToOnOffset"
-  of 280: "ToggleSwitchTemplateSettings_KnobOnToOffOffset"
-  of 281: "ToolTipTemplateSettings_FromHorizontalOffset"
-  of 282: "ToolTipTemplateSettings_FromVerticalOffset"
-  of 292: "UIElement_AllowDrop"
-  of 293: "UIElement_CacheMode"
-  of 295: "UIElement_Clip"
-  of 296: "UIElement_CompositeMode"
-  of 297: "UIElement_IsDoubleTapEnabled"
-  of 298: "UIElement_IsHitTestVisible"
-  of 299: "UIElement_IsHoldingEnabled"
-  of 300: "UIElement_IsRightTapEnabled"
-  of 301: "UIElement_IsTapEnabled"
-  of 302: "UIElement_ManipulationMode"
-  of 303: "UIElement_Opacity"
-  of 304: "UIElement_PointerCaptures"
-  of 305: "UIElement_Projection"
-  of 306: "UIElement_RenderSize"
-  of 307: "UIElement_RenderTransform"
-  of 308: "UIElement_RenderTransformOrigin"
-  of 309: "UIElement_Transitions"
-  of 311: "UIElement_UseLayoutRounding"
-  of 312: "UIElement_Visibility"
-  of 322: "VisualState_Storyboard"
-  of 323: "VisualStateGroup_States"
-  of 324: "VisualStateGroup_Transitions"
-  of 325: "VisualStateManager_CustomVisualStateManager"
-  of 326: "VisualStateManager_VisualStateGroups"
-  of 327: "VisualTransition_From"
-  of 328: "VisualTransition_GeneratedDuration"
-  of 329: "VisualTransition_GeneratedEasingFunction"
-  of 330: "VisualTransition_Storyboard"
-  of 331: "VisualTransition_To"
-  of 332: "ArcSegment_IsLargeArc"
-  of 333: "ArcSegment_Point"
-  of 334: "ArcSegment_RotationAngle"
-  of 335: "ArcSegment_Size"
-  of 336: "ArcSegment_SweepDirection"
-  of 337: "BackEase_Amplitude"
-  of 338: "BeginStoryboard_Storyboard"
-  of 339: "BezierSegment_Point1"
-  of 340: "BezierSegment_Point2"
-  of 341: "BezierSegment_Point3"
-  of 342: "BitmapSource_PixelHeight"
-  of 343: "BitmapSource_PixelWidth"
-  of 344: "Block_LineHeight"
-  of 345: "Block_LineStackingStrategy"
-  of 346: "Block_Margin"
-  of 347: "Block_TextAlignment"
-  of 348: "BounceEase_Bounces"
-  of 349: "BounceEase_Bounciness"
-  of 350: "ColorAnimation_By"
-  of 351: "ColorAnimation_EasingFunction"
-  of 352: "ColorAnimation_EnableDependentAnimation"
-  of 353: "ColorAnimation_From"
-  of 354: "ColorAnimation_To"
-  of 355: "ColorAnimationUsingKeyFrames_EnableDependentAnimation"
-  of 356: "ColorAnimationUsingKeyFrames_KeyFrames"
-  of 357: "ContentThemeTransition_HorizontalOffset"
-  of 358: "ContentThemeTransition_VerticalOffset"
-  of 359: "ControlTemplate_TargetType"
-  of 362: "DispatcherTimer_Interval"
-  of 363: "DoubleAnimation_By"
-  of 364: "DoubleAnimation_EasingFunction"
-  of 365: "DoubleAnimation_EnableDependentAnimation"
-  of 366: "DoubleAnimation_From"
-  of 367: "DoubleAnimation_To"
-  of 368: "DoubleAnimationUsingKeyFrames_EnableDependentAnimation"
-  of 369: "DoubleAnimationUsingKeyFrames_KeyFrames"
-  of 372: "EasingColorKeyFrame_EasingFunction"
-  of 373: "EasingDoubleKeyFrame_EasingFunction"
-  of 374: "EasingPointKeyFrame_EasingFunction"
-  of 375: "EdgeUIThemeTransition_Edge"
-  of 376: "ElasticEase_Oscillations"
-  of 377: "ElasticEase_Springiness"
-  of 378: "EllipseGeometry_Center"
-  of 379: "EllipseGeometry_RadiusX"
-  of 380: "EllipseGeometry_RadiusY"
-  of 381: "EntranceThemeTransition_FromHorizontalOffset"
-  of 382: "EntranceThemeTransition_FromVerticalOffset"
-  of 383: "EntranceThemeTransition_IsStaggeringEnabled"
-  of 384: "EventTrigger_Actions"
-  of 385: "EventTrigger_RoutedEvent"
-  of 386: "ExponentialEase_Exponent"
-  of 387: "Flyout_Content"
-  of 388: "Flyout_FlyoutPresenterStyle"
-  of 389: "FrameworkElement_ActualHeight"
-  of 390: "FrameworkElement_ActualWidth"
-  of 391: "FrameworkElement_DataContext"
-  of 392: "FrameworkElement_FlowDirection"
-  of 393: "FrameworkElement_Height"
-  of 394: "FrameworkElement_HorizontalAlignment"
-  of 396: "FrameworkElement_Language"
-  of 397: "FrameworkElement_Margin"
-  of 398: "FrameworkElement_MaxHeight"
-  of 399: "FrameworkElement_MaxWidth"
-  of 400: "FrameworkElement_MinHeight"
-  of 401: "FrameworkElement_MinWidth"
-  of 402: "FrameworkElement_Parent"
-  of 403: "FrameworkElement_RequestedTheme"
-  of 404: "FrameworkElement_Resources"
-  of 405: "FrameworkElement_Style"
-  of 406: "FrameworkElement_Tag"
-  of 407: "FrameworkElement_Triggers"
-  of 408: "FrameworkElement_VerticalAlignment"
-  of 409: "FrameworkElement_Width"
-  of 410: "FrameworkElementAutomationPeer_Owner"
-  of 411: "GeometryGroup_Children"
-  of 412: "GeometryGroup_FillRule"
-  of 413: "GradientBrush_ColorInterpolationMode"
-  of 414: "GradientBrush_GradientStops"
-  of 415: "GradientBrush_MappingMode"
-  of 416: "GradientBrush_SpreadMethod"
-  of 417: "GridViewItemTemplateSettings_DragItemsCount"
-  of 419: "ItemAutomationPeer_Item"
-  of 420: "ItemAutomationPeer_ItemsControlAutomationPeer"
-  of 422: "LineGeometry_EndPoint"
-  of 423: "LineGeometry_StartPoint"
-  of 424: "LineSegment_Point"
-  of 425: "ListViewItemTemplateSettings_DragItemsCount"
-  of 426: "Matrix3DProjection_ProjectionMatrix"
-  of 427: "MenuFlyout_Items"
-  of 428: "MenuFlyout_MenuFlyoutPresenterStyle"
-  of 429: "ObjectAnimationUsingKeyFrames_EnableDependentAnimation"
-  of 430: "ObjectAnimationUsingKeyFrames_KeyFrames"
-  of 431: "PaneThemeTransition_Edge"
-  of 432: "PathGeometry_Figures"
-  of 433: "PathGeometry_FillRule"
-  of 434: "PlaneProjection_CenterOfRotationX"
-  of 435: "PlaneProjection_CenterOfRotationY"
-  of 436: "PlaneProjection_CenterOfRotationZ"
-  of 437: "PlaneProjection_GlobalOffsetX"
-  of 438: "PlaneProjection_GlobalOffsetY"
-  of 439: "PlaneProjection_GlobalOffsetZ"
-  of 440: "PlaneProjection_LocalOffsetX"
-  of 441: "PlaneProjection_LocalOffsetY"
-  of 442: "PlaneProjection_LocalOffsetZ"
-  of 443: "PlaneProjection_ProjectionMatrix"
-  of 444: "PlaneProjection_RotationX"
-  of 445: "PlaneProjection_RotationY"
-  of 446: "PlaneProjection_RotationZ"
-  of 447: "PointAnimation_By"
-  of 448: "PointAnimation_EasingFunction"
-  of 449: "PointAnimation_EnableDependentAnimation"
-  of 450: "PointAnimation_From"
-  of 451: "PointAnimation_To"
-  of 452: "PointAnimationUsingKeyFrames_EnableDependentAnimation"
-  of 453: "PointAnimationUsingKeyFrames_KeyFrames"
-  of 456: "PolyBezierSegment_Points"
-  of 457: "PolyLineSegment_Points"
-  of 458: "PolyQuadraticBezierSegment_Points"
-  of 459: "PopupThemeTransition_FromHorizontalOffset"
-  of 460: "PopupThemeTransition_FromVerticalOffset"
-  of 461: "PowerEase_Power"
-  of 466: "QuadraticBezierSegment_Point1"
-  of 467: "QuadraticBezierSegment_Point2"
-  of 470: "RectangleGeometry_Rect"
-  of 471: "RelativeSource_Mode"
-  of 472: "RenderTargetBitmap_PixelHeight"
-  of 473: "RenderTargetBitmap_PixelWidth"
-  of 474: "Setter_Property"
-  of 475: "Setter_Value"
-  of 476: "SolidColorBrush_Color"
-  of 477: "SplineColorKeyFrame_KeySpline"
-  of 478: "SplineDoubleKeyFrame_KeySpline"
-  of 479: "SplinePointKeyFrame_KeySpline"
-  of 483: "TileBrush_AlignmentX"
-  of 484: "TileBrush_AlignmentY"
-  of 485: "TileBrush_Stretch"
-  of 487: "Binding_Converter"
-  of 488: "Binding_ConverterLanguage"
-  of 489: "Binding_ConverterParameter"
-  of 490: "Binding_ElementName"
-  of 491: "Binding_FallbackValue"
-  of 492: "Binding_Mode"
-  of 493: "Binding_Path"
-  of 494: "Binding_RelativeSource"
-  of 495: "Binding_Source"
-  of 496: "Binding_TargetNullValue"
-  of 497: "Binding_UpdateSourceTrigger"
-  of 498: "BitmapImage_CreateOptions"
-  of 499: "BitmapImage_DecodePixelHeight"
-  of 500: "BitmapImage_DecodePixelType"
-  of 501: "BitmapImage_DecodePixelWidth"
-  of 502: "BitmapImage_UriSource"
-  of 503: "Border_Background"
-  of 504: "Border_BorderBrush"
-  of 505: "Border_BorderThickness"
-  of 506: "Border_Child"
-  of 507: "Border_ChildTransitions"
-  of 508: "Border_CornerRadius"
-  of 509: "Border_Padding"
-  of 510: "CaptureElement_Source"
-  of 511: "CaptureElement_Stretch"
-  of 514: "CompositeTransform_CenterX"
-  of 515: "CompositeTransform_CenterY"
-  of 516: "CompositeTransform_Rotation"
-  of 517: "CompositeTransform_ScaleX"
-  of 518: "CompositeTransform_ScaleY"
-  of 519: "CompositeTransform_SkewX"
-  of 520: "CompositeTransform_SkewY"
-  of 521: "CompositeTransform_TranslateX"
-  of 522: "CompositeTransform_TranslateY"
-  of 523: "ContentPresenter_CharacterSpacing"
-  of 524: "ContentPresenter_Content"
-  of 525: "ContentPresenter_ContentTemplate"
-  of 526: "ContentPresenter_ContentTemplateSelector"
-  of 527: "ContentPresenter_ContentTransitions"
-  of 528: "ContentPresenter_FontFamily"
-  of 529: "ContentPresenter_FontSize"
-  of 530: "ContentPresenter_FontStretch"
-  of 531: "ContentPresenter_FontStyle"
-  of 532: "ContentPresenter_FontWeight"
-  of 533: "ContentPresenter_Foreground"
-  of 534: "ContentPresenter_IsTextScaleFactorEnabled"
-  of 535: "ContentPresenter_LineStackingStrategy"
-  of 536: "ContentPresenter_MaxLines"
-  of 537: "ContentPresenter_OpticalMarginAlignment"
-  of 539: "ContentPresenter_TextLineBounds"
-  of 540: "ContentPresenter_TextWrapping"
-  of 541: "Control_Background"
-  of 542: "Control_BorderBrush"
-  of 543: "Control_BorderThickness"
-  of 544: "Control_CharacterSpacing"
-  of 546: "Control_FocusState"
-  of 547: "Control_FontFamily"
-  of 548: "Control_FontSize"
-  of 549: "Control_FontStretch"
-  of 550: "Control_FontStyle"
-  of 551: "Control_FontWeight"
-  of 552: "Control_Foreground"
-  of 553: "Control_HorizontalContentAlignment"
-  of 554: "Control_IsEnabled"
-  of 555: "Control_IsTabStop"
-  of 556: "Control_IsTextScaleFactorEnabled"
-  of 557: "Control_Padding"
-  of 558: "Control_TabIndex"
-  of 559: "Control_TabNavigation"
-  of 560: "Control_Template"
-  of 561: "Control_VerticalContentAlignment"
-  of 565: "DragItemThemeAnimation_TargetName"
-  of 566: "DragOverThemeAnimation_Direction"
-  of 567: "DragOverThemeAnimation_TargetName"
-  of 568: "DragOverThemeAnimation_ToOffset"
-  of 569: "DropTargetItemThemeAnimation_TargetName"
-  of 570: "FadeInThemeAnimation_TargetName"
-  of 571: "FadeOutThemeAnimation_TargetName"
-  of 574: "Glyphs_Fill"
-  of 575: "Glyphs_FontRenderingEmSize"
-  of 576: "Glyphs_FontUri"
-  of 577: "Glyphs_Indices"
-  of 578: "Glyphs_OriginX"
-  of 579: "Glyphs_OriginY"
-  of 580: "Glyphs_StyleSimulations"
-  of 581: "Glyphs_UnicodeString"
-  of 584: "IconElement_Foreground"
-  of 586: "Image_NineGrid"
-  of 587: "Image_PlayToSource"
-  of 588: "Image_Source"
-  of 589: "Image_Stretch"
-  of 591: "ImageBrush_ImageSource"
-  of 592: "InlineUIContainer_Child"
-  of 594: "ItemsPresenter_Footer"
-  of 595: "ItemsPresenter_FooterTemplate"
-  of 596: "ItemsPresenter_FooterTransitions"
-  of 597: "ItemsPresenter_Header"
-  of 598: "ItemsPresenter_HeaderTemplate"
-  of 599: "ItemsPresenter_HeaderTransitions"
-  of 601: "ItemsPresenter_Padding"
-  of 602: "LinearGradientBrush_EndPoint"
-  of 603: "LinearGradientBrush_StartPoint"
-  of 604: "MatrixTransform_Matrix"
-  of 605: "MediaElement_ActualStereo3DVideoPackingMode"
-  of 606: "MediaElement_AreTransportControlsEnabled"
-  of 607: "MediaElement_AspectRatioHeight"
-  of 608: "MediaElement_AspectRatioWidth"
-  of 609: "MediaElement_AudioCategory"
-  of 610: "MediaElement_AudioDeviceType"
-  of 611: "MediaElement_AudioStreamCount"
-  of 612: "MediaElement_AudioStreamIndex"
-  of 613: "MediaElement_AutoPlay"
-  of 614: "MediaElement_Balance"
-  of 615: "MediaElement_BufferingProgress"
-  of 616: "MediaElement_CanPause"
-  of 617: "MediaElement_CanSeek"
-  of 618: "MediaElement_CurrentState"
-  of 619: "MediaElement_DefaultPlaybackRate"
-  of 620: "MediaElement_DownloadProgress"
-  of 621: "MediaElement_DownloadProgressOffset"
-  of 623: "MediaElement_IsAudioOnly"
-  of 624: "MediaElement_IsFullWindow"
-  of 625: "MediaElement_IsLooping"
-  of 626: "MediaElement_IsMuted"
-  of 627: "MediaElement_IsStereo3DVideo"
-  of 628: "MediaElement_Markers"
-  of 629: "MediaElement_NaturalDuration"
-  of 630: "MediaElement_NaturalVideoHeight"
-  of 631: "MediaElement_NaturalVideoWidth"
-  of 632: "MediaElement_PlaybackRate"
-  of 633: "MediaElement_PlayToPreferredSourceUri"
-  of 634: "MediaElement_PlayToSource"
-  of 635: "MediaElement_Position"
-  of 636: "MediaElement_PosterSource"
-  of 637: "MediaElement_ProtectionManager"
-  of 638: "MediaElement_RealTimePlayback"
-  of 639: "MediaElement_Source"
-  of 640: "MediaElement_Stereo3DVideoPackingMode"
-  of 641: "MediaElement_Stereo3DVideoRenderMode"
-  of 642: "MediaElement_Stretch"
-  of 643: "MediaElement_TransportControls"
-  of 644: "MediaElement_Volume"
-  of 647: "Panel_Background"
-  of 648: "Panel_Children"
-  of 649: "Panel_ChildrenTransitions"
-  of 651: "Panel_IsItemsHost"
-  of 652: "Paragraph_Inlines"
-  of 653: "Paragraph_TextIndent"
-  of 660: "PointerDownThemeAnimation_TargetName"
-  of 662: "PointerUpThemeAnimation_TargetName"
-  of 664: "PopInThemeAnimation_FromHorizontalOffset"
-  of 665: "PopInThemeAnimation_FromVerticalOffset"
-  of 666: "PopInThemeAnimation_TargetName"
-  of 667: "PopOutThemeAnimation_TargetName"
-  of 668: "Popup_Child"
-  of 669: "Popup_ChildTransitions"
-  of 670: "Popup_HorizontalOffset"
-  of 673: "Popup_IsLightDismissEnabled"
-  of 674: "Popup_IsOpen"
-  of 676: "Popup_VerticalOffset"
-  of 683: "RepositionThemeAnimation_FromHorizontalOffset"
-  of 684: "RepositionThemeAnimation_FromVerticalOffset"
-  of 685: "RepositionThemeAnimation_TargetName"
-  of 687: "ResourceDictionary_MergedDictionaries"
-  of 688: "ResourceDictionary_Source"
-  of 689: "ResourceDictionary_ThemeDictionaries"
-  of 691: "RichTextBlock_Blocks"
-  of 692: "RichTextBlock_CharacterSpacing"
-  of 693: "RichTextBlock_FontFamily"
-  of 694: "RichTextBlock_FontSize"
-  of 695: "RichTextBlock_FontStretch"
-  of 696: "RichTextBlock_FontStyle"
-  of 697: "RichTextBlock_FontWeight"
-  of 698: "RichTextBlock_Foreground"
-  of 699: "RichTextBlock_HasOverflowContent"
-  of 700: "RichTextBlock_IsColorFontEnabled"
-  of 701: "RichTextBlock_IsTextScaleFactorEnabled"
-  of 702: "RichTextBlock_IsTextSelectionEnabled"
-  of 703: "RichTextBlock_LineHeight"
-  of 704: "RichTextBlock_LineStackingStrategy"
-  of 705: "RichTextBlock_MaxLines"
-  of 706: "RichTextBlock_OpticalMarginAlignment"
-  of 707: "RichTextBlock_OverflowContentTarget"
-  of 708: "RichTextBlock_Padding"
-  of 709: "RichTextBlock_SelectedText"
-  of 710: "RichTextBlock_SelectionHighlightColor"
-  of 711: "RichTextBlock_TextAlignment"
-  of 712: "RichTextBlock_TextIndent"
-  of 713: "RichTextBlock_TextLineBounds"
-  of 714: "RichTextBlock_TextReadingOrder"
-  of 715: "RichTextBlock_TextTrimming"
-  of 716: "RichTextBlock_TextWrapping"
-  of 717: "RichTextBlockOverflow_HasOverflowContent"
-  of 718: "RichTextBlockOverflow_MaxLines"
-  of 719: "RichTextBlockOverflow_OverflowContentTarget"
-  of 720: "RichTextBlockOverflow_Padding"
-  of 721: "RotateTransform_Angle"
-  of 722: "RotateTransform_CenterX"
-  of 723: "RotateTransform_CenterY"
-  of 725: "Run_FlowDirection"
-  of 726: "Run_Text"
-  of 727: "ScaleTransform_CenterX"
-  of 728: "ScaleTransform_CenterY"
-  of 729: "ScaleTransform_ScaleX"
-  of 730: "ScaleTransform_ScaleY"
-  of 732: "SetterBaseCollection_IsSealed"
-  of 733: "Shape_Fill"
-  of 734: "Shape_GeometryTransform"
-  of 735: "Shape_Stretch"
-  of 736: "Shape_Stroke"
-  of 737: "Shape_StrokeDashArray"
-  of 738: "Shape_StrokeDashCap"
-  of 739: "Shape_StrokeDashOffset"
-  of 740: "Shape_StrokeEndLineCap"
-  of 741: "Shape_StrokeLineJoin"
-  of 742: "Shape_StrokeMiterLimit"
-  of 743: "Shape_StrokeStartLineCap"
-  of 744: "Shape_StrokeThickness"
-  of 745: "SkewTransform_AngleX"
-  of 746: "SkewTransform_AngleY"
-  of 747: "SkewTransform_CenterX"
-  of 748: "SkewTransform_CenterY"
-  of 749: "Span_Inlines"
-  of 750: "SplitCloseThemeAnimation_ClosedLength"
-  of 751: "SplitCloseThemeAnimation_ClosedTarget"
-  of 752: "SplitCloseThemeAnimation_ClosedTargetName"
-  of 753: "SplitCloseThemeAnimation_ContentTarget"
-  of 754: "SplitCloseThemeAnimation_ContentTargetName"
-  of 755: "SplitCloseThemeAnimation_ContentTranslationDirection"
-  of 756: "SplitCloseThemeAnimation_ContentTranslationOffset"
-  of 757: "SplitCloseThemeAnimation_OffsetFromCenter"
-  of 758: "SplitCloseThemeAnimation_OpenedLength"
-  of 759: "SplitCloseThemeAnimation_OpenedTarget"
-  of 760: "SplitCloseThemeAnimation_OpenedTargetName"
-  of 761: "SplitOpenThemeAnimation_ClosedLength"
-  of 762: "SplitOpenThemeAnimation_ClosedTarget"
-  of 763: "SplitOpenThemeAnimation_ClosedTargetName"
-  of 764: "SplitOpenThemeAnimation_ContentTarget"
-  of 765: "SplitOpenThemeAnimation_ContentTargetName"
-  of 766: "SplitOpenThemeAnimation_ContentTranslationDirection"
-  of 767: "SplitOpenThemeAnimation_ContentTranslationOffset"
-  of 768: "SplitOpenThemeAnimation_OffsetFromCenter"
-  of 769: "SplitOpenThemeAnimation_OpenedLength"
-  of 770: "SplitOpenThemeAnimation_OpenedTarget"
-  of 771: "SplitOpenThemeAnimation_OpenedTargetName"
-  of 772: "Storyboard_Children"
-  of 774: "Storyboard_TargetName"
-  of 775: "Storyboard_TargetProperty"
-  of 776: "SwipeBackThemeAnimation_FromHorizontalOffset"
-  of 777: "SwipeBackThemeAnimation_FromVerticalOffset"
-  of 778: "SwipeBackThemeAnimation_TargetName"
-  of 779: "SwipeHintThemeAnimation_TargetName"
-  of 780: "SwipeHintThemeAnimation_ToHorizontalOffset"
-  of 781: "SwipeHintThemeAnimation_ToVerticalOffset"
-  of 782: "TextBlock_CharacterSpacing"
-  of 783: "TextBlock_FontFamily"
-  of 784: "TextBlock_FontSize"
-  of 785: "TextBlock_FontStretch"
-  of 786: "TextBlock_FontStyle"
-  of 787: "TextBlock_FontWeight"
-  of 788: "TextBlock_Foreground"
-  of 789: "TextBlock_Inlines"
-  of 790: "TextBlock_IsColorFontEnabled"
-  of 791: "TextBlock_IsTextScaleFactorEnabled"
-  of 792: "TextBlock_IsTextSelectionEnabled"
-  of 793: "TextBlock_LineHeight"
-  of 794: "TextBlock_LineStackingStrategy"
-  of 795: "TextBlock_MaxLines"
-  of 796: "TextBlock_OpticalMarginAlignment"
-  of 797: "TextBlock_Padding"
-  of 798: "TextBlock_SelectedText"
-  of 799: "TextBlock_SelectionHighlightColor"
-  of 800: "TextBlock_Text"
-  of 801: "TextBlock_TextAlignment"
-  of 802: "TextBlock_TextDecorations"
-  of 803: "TextBlock_TextLineBounds"
-  of 804: "TextBlock_TextReadingOrder"
-  of 805: "TextBlock_TextTrimming"
-  of 806: "TextBlock_TextWrapping"
-  of 811: "TransformGroup_Children"
-  of 812: "TransformGroup_Value"
-  of 814: "TranslateTransform_X"
-  of 815: "TranslateTransform_Y"
-  of 819: "Viewbox_Child"
-  of 820: "Viewbox_Stretch"
-  of 821: "Viewbox_StretchDirection"
-  of 825: "WebViewBrush_SourceName"
-  of 826: "AppBarSeparator_IsCompact"
-  of 827: "BitmapIcon_UriSource"
-  of 828: "Canvas_Left"
-  of 829: "Canvas_Top"
-  of 830: "Canvas_ZIndex"
-  of 832: "ContentControl_Content"
-  of 833: "ContentControl_ContentTemplate"
-  of 834: "ContentControl_ContentTemplateSelector"
-  of 835: "ContentControl_ContentTransitions"
-  of 837: "DatePicker_CalendarIdentifier"
-  of 838: "DatePicker_Date"
-  of 839: "DatePicker_DayFormat"
-  of 840: "DatePicker_DayVisible"
-  of 841: "DatePicker_Header"
-  of 842: "DatePicker_HeaderTemplate"
-  of 843: "DatePicker_MaxYear"
-  of 844: "DatePicker_MinYear"
-  of 845: "DatePicker_MonthFormat"
-  of 846: "DatePicker_MonthVisible"
-  of 847: "DatePicker_Orientation"
-  of 848: "DatePicker_YearFormat"
-  of 849: "DatePicker_YearVisible"
-  of 851: "FontIcon_FontFamily"
-  of 852: "FontIcon_FontSize"
-  of 853: "FontIcon_FontStyle"
-  of 854: "FontIcon_FontWeight"
-  of 855: "FontIcon_Glyph"
-  of 856: "FontIcon_IsTextScaleFactorEnabled"
-  of 857: "Grid_Column"
-  of 858: "Grid_ColumnDefinitions"
-  of 859: "Grid_ColumnSpan"
-  of 860: "Grid_Row"
-  of 861: "Grid_RowDefinitions"
-  of 862: "Grid_RowSpan"
-  of 863: "Hub_DefaultSectionIndex"
-  of 864: "Hub_Header"
-  of 865: "Hub_HeaderTemplate"
-  of 866: "Hub_IsActiveView"
-  of 867: "Hub_IsZoomedInView"
-  of 868: "Hub_Orientation"
-  of 869: "Hub_SectionHeaders"
-  of 870: "Hub_Sections"
-  of 871: "Hub_SectionsInView"
-  of 872: "Hub_SemanticZoomOwner"
-  of 873: "HubSection_ContentTemplate"
-  of 874: "HubSection_Header"
-  of 875: "HubSection_HeaderTemplate"
-  of 876: "HubSection_IsHeaderInteractive"
-  of 877: "Hyperlink_NavigateUri"
-  of 879: "ItemsControl_DisplayMemberPath"
-  of 880: "ItemsControl_GroupStyle"
-  of 881: "ItemsControl_GroupStyleSelector"
-  of 882: "ItemsControl_IsGrouping"
-  of 884: "ItemsControl_ItemContainerStyle"
-  of 885: "ItemsControl_ItemContainerStyleSelector"
-  of 886: "ItemsControl_ItemContainerTransitions"
-  of 887: "ItemsControl_Items"
-  of 889: "ItemsControl_ItemsPanel"
-  of 890: "ItemsControl_ItemsSource"
-  of 891: "ItemsControl_ItemTemplate"
-  of 892: "ItemsControl_ItemTemplateSelector"
-  of 893: "Line_X1"
-  of 894: "Line_X2"
-  of 895: "Line_Y1"
-  of 896: "Line_Y2"
-  of 898: "MediaTransportControls_IsFastForwardButtonVisible"
-  of 900: "MediaTransportControls_IsFastRewindButtonVisible"
-  of 902: "MediaTransportControls_IsFullWindowButtonVisible"
-  of 904: "MediaTransportControls_IsPlaybackRateButtonVisible"
-  of 905: "MediaTransportControls_IsSeekBarVisible"
-  of 908: "MediaTransportControls_IsStopButtonVisible"
-  of 910: "MediaTransportControls_IsVolumeButtonVisible"
-  of 912: "MediaTransportControls_IsZoomButtonVisible"
-  of 913: "PasswordBox_Header"
-  of 914: "PasswordBox_HeaderTemplate"
-  of 915: "PasswordBox_IsPasswordRevealButtonEnabled"
-  of 916: "PasswordBox_MaxLength"
-  of 917: "PasswordBox_Password"
-  of 918: "PasswordBox_PasswordChar"
-  of 919: "PasswordBox_PlaceholderText"
-  of 920: "PasswordBox_PreventKeyboardDisplayOnProgrammaticFocus"
-  of 921: "PasswordBox_SelectionHighlightColor"
-  of 922: "Path_Data"
-  of 923: "PathIcon_Data"
-  of 924: "Polygon_FillRule"
-  of 925: "Polygon_Points"
-  of 926: "Polyline_FillRule"
-  of 927: "Polyline_Points"
-  of 928: "ProgressRing_IsActive"
-  of 929: "ProgressRing_TemplateSettings"
-  of 930: "RangeBase_LargeChange"
-  of 931: "RangeBase_Maximum"
-  of 932: "RangeBase_Minimum"
-  of 933: "RangeBase_SmallChange"
-  of 934: "RangeBase_Value"
-  of 935: "Rectangle_RadiusX"
-  of 936: "Rectangle_RadiusY"
-  of 937: "RichEditBox_AcceptsReturn"
-  of 938: "RichEditBox_Header"
-  of 939: "RichEditBox_HeaderTemplate"
-  of 940: "RichEditBox_InputScope"
-  of 941: "RichEditBox_IsColorFontEnabled"
-  of 942: "RichEditBox_IsReadOnly"
-  of 943: "RichEditBox_IsSpellCheckEnabled"
-  of 944: "RichEditBox_IsTextPredictionEnabled"
-  of 945: "RichEditBox_PlaceholderText"
-  of 946: "RichEditBox_PreventKeyboardDisplayOnProgrammaticFocus"
-  of 947: "RichEditBox_SelectionHighlightColor"
-  of 948: "RichEditBox_TextAlignment"
-  of 949: "RichEditBox_TextWrapping"
-  of 950: "SearchBox_ChooseSuggestionOnEnter"
-  of 951: "SearchBox_FocusOnKeyboardInput"
-  of 952: "SearchBox_PlaceholderText"
-  of 953: "SearchBox_QueryText"
-  of 954: "SearchBox_SearchHistoryContext"
-  of 955: "SearchBox_SearchHistoryEnabled"
-  of 956: "SemanticZoom_CanChangeViews"
-  of 957: "SemanticZoom_IsZoomedInViewActive"
-  of 958: "SemanticZoom_IsZoomOutButtonEnabled"
-  of 959: "SemanticZoom_ZoomedInView"
-  of 960: "SemanticZoom_ZoomedOutView"
-  of 961: "StackPanel_AreScrollSnapPointsRegular"
-  of 962: "StackPanel_Orientation"
-  of 963: "SymbolIcon_Symbol"
-  of 964: "TextBox_AcceptsReturn"
-  of 965: "TextBox_Header"
-  of 966: "TextBox_HeaderTemplate"
-  of 967: "TextBox_InputScope"
-  of 968: "TextBox_IsColorFontEnabled"
-  of 971: "TextBox_IsReadOnly"
-  of 972: "TextBox_IsSpellCheckEnabled"
-  of 973: "TextBox_IsTextPredictionEnabled"
-  of 974: "TextBox_MaxLength"
-  of 975: "TextBox_PlaceholderText"
-  of 976: "TextBox_PreventKeyboardDisplayOnProgrammaticFocus"
-  of 977: "TextBox_SelectedText"
-  of 978: "TextBox_SelectionHighlightColor"
-  of 979: "TextBox_SelectionLength"
-  of 980: "TextBox_SelectionStart"
-  of 981: "TextBox_Text"
-  of 982: "TextBox_TextAlignment"
-  of 983: "TextBox_TextWrapping"
-  of 984: "Thumb_IsDragging"
-  of 985: "TickBar_Fill"
-  of 986: "TimePicker_ClockIdentifier"
-  of 987: "TimePicker_Header"
-  of 988: "TimePicker_HeaderTemplate"
-  of 989: "TimePicker_MinuteIncrement"
-  of 990: "TimePicker_Time"
-  of 991: "ToggleSwitch_Header"
-  of 992: "ToggleSwitch_HeaderTemplate"
-  of 993: "ToggleSwitch_IsOn"
-  of 994: "ToggleSwitch_OffContent"
-  of 995: "ToggleSwitch_OffContentTemplate"
-  of 996: "ToggleSwitch_OnContent"
-  of 997: "ToggleSwitch_OnContentTemplate"
-  of 998: "ToggleSwitch_TemplateSettings"
-  of 999: "UserControl_Content"
-  of 1000: "VariableSizedWrapGrid_ColumnSpan"
-  of 1001: "VariableSizedWrapGrid_HorizontalChildrenAlignment"
-  of 1002: "VariableSizedWrapGrid_ItemHeight"
-  of 1003: "VariableSizedWrapGrid_ItemWidth"
-  of 1004: "VariableSizedWrapGrid_MaximumRowsOrColumns"
-  of 1005: "VariableSizedWrapGrid_Orientation"
-  of 1006: "VariableSizedWrapGrid_RowSpan"
-  of 1007: "VariableSizedWrapGrid_VerticalChildrenAlignment"
-  of 1008: "WebView_AllowedScriptNotifyUris"
-  of 1009: "WebView_CanGoBack"
-  of 1010: "WebView_CanGoForward"
-  of 1011: "WebView_ContainsFullScreenElement"
-  of 1012: "WebView_DataTransferPackage"
-  of 1013: "WebView_DefaultBackgroundColor"
-  of 1014: "WebView_DocumentTitle"
-  of 1015: "WebView_Source"
-  of 1016: "AppBar_ClosedDisplayMode"
-  of 1017: "AppBar_IsOpen"
-  of 1018: "AppBar_IsSticky"
-  of 1019: "AutoSuggestBox_AutoMaximizeSuggestionArea"
-  of 1020: "AutoSuggestBox_Header"
-  of 1021: "AutoSuggestBox_IsSuggestionListOpen"
-  of 1022: "AutoSuggestBox_MaxSuggestionListHeight"
-  of 1023: "AutoSuggestBox_PlaceholderText"
-  of 1024: "AutoSuggestBox_Text"
-  of 1025: "AutoSuggestBox_TextBoxStyle"
-  of 1026: "AutoSuggestBox_TextMemberPath"
-  of 1027: "AutoSuggestBox_UpdateTextOnSelect"
-  of 1029: "ButtonBase_ClickMode"
-  of 1030: "ButtonBase_Command"
-  of 1031: "ButtonBase_CommandParameter"
-  of 1032: "ButtonBase_IsPointerOver"
-  of 1033: "ButtonBase_IsPressed"
-  of 1034: "ContentDialog_FullSizeDesired"
-  of 1035: "ContentDialog_IsPrimaryButtonEnabled"
-  of 1036: "ContentDialog_IsSecondaryButtonEnabled"
-  of 1037: "ContentDialog_PrimaryButtonCommand"
-  of 1038: "ContentDialog_PrimaryButtonCommandParameter"
-  of 1039: "ContentDialog_PrimaryButtonText"
-  of 1040: "ContentDialog_SecondaryButtonCommand"
-  of 1041: "ContentDialog_SecondaryButtonCommandParameter"
-  of 1042: "ContentDialog_SecondaryButtonText"
-  of 1043: "ContentDialog_Title"
-  of 1044: "ContentDialog_TitleTemplate"
-  of 1045: "Frame_BackStack"
-  of 1046: "Frame_BackStackDepth"
-  of 1047: "Frame_CacheSize"
-  of 1048: "Frame_CanGoBack"
-  of 1049: "Frame_CanGoForward"
-  of 1050: "Frame_CurrentSourcePageType"
-  of 1051: "Frame_ForwardStack"
-  of 1052: "Frame_SourcePageType"
-  of 1053: "GridViewItemPresenter_CheckBrush"
-  of 1054: "GridViewItemPresenter_CheckHintBrush"
-  of 1055: "GridViewItemPresenter_CheckSelectingBrush"
-  of 1056: "GridViewItemPresenter_ContentMargin"
-  of 1057: "GridViewItemPresenter_DisabledOpacity"
-  of 1058: "GridViewItemPresenter_DragBackground"
-  of 1059: "GridViewItemPresenter_DragForeground"
-  of 1060: "GridViewItemPresenter_DragOpacity"
-  of 1061: "GridViewItemPresenter_FocusBorderBrush"
-  of 1062: "GridViewItemPresenter_GridViewItemPresenterHorizontalContentAlignment"
-  of 1063: "GridViewItemPresenter_GridViewItemPresenterPadding"
-  of 1064: "GridViewItemPresenter_PlaceholderBackground"
-  of 1065: "GridViewItemPresenter_PointerOverBackground"
-  of 1066: "GridViewItemPresenter_PointerOverBackgroundMargin"
-  of 1067: "GridViewItemPresenter_ReorderHintOffset"
-  of 1068: "GridViewItemPresenter_SelectedBackground"
-  of 1069: "GridViewItemPresenter_SelectedBorderThickness"
-  of 1070: "GridViewItemPresenter_SelectedForeground"
-  of 1071: "GridViewItemPresenter_SelectedPointerOverBackground"
-  of 1072: "GridViewItemPresenter_SelectedPointerOverBorderBrush"
-  of 1073: "GridViewItemPresenter_SelectionCheckMarkVisualEnabled"
-  of 1074: "GridViewItemPresenter_GridViewItemPresenterVerticalContentAlignment"
-  of 1076: "ItemsStackPanel_CacheLength"
-  of 1077: "ItemsStackPanel_GroupHeaderPlacement"
-  of 1078: "ItemsStackPanel_GroupPadding"
-  of 1079: "ItemsStackPanel_ItemsUpdatingScrollMode"
-  of 1080: "ItemsStackPanel_Orientation"
-  of 1081: "ItemsWrapGrid_CacheLength"
-  of 1082: "ItemsWrapGrid_GroupHeaderPlacement"
-  of 1083: "ItemsWrapGrid_GroupPadding"
-  of 1084: "ItemsWrapGrid_ItemHeight"
-  of 1085: "ItemsWrapGrid_ItemWidth"
-  of 1086: "ItemsWrapGrid_MaximumRowsOrColumns"
-  of 1087: "ItemsWrapGrid_Orientation"
-  of 1088: "ListViewItemPresenter_CheckBrush"
-  of 1089: "ListViewItemPresenter_CheckHintBrush"
-  of 1090: "ListViewItemPresenter_CheckSelectingBrush"
-  of 1091: "ListViewItemPresenter_ContentMargin"
-  of 1092: "ListViewItemPresenter_DisabledOpacity"
-  of 1093: "ListViewItemPresenter_DragBackground"
-  of 1094: "ListViewItemPresenter_DragForeground"
-  of 1095: "ListViewItemPresenter_DragOpacity"
-  of 1096: "ListViewItemPresenter_FocusBorderBrush"
-  of 1097: "ListViewItemPresenter_ListViewItemPresenterHorizontalContentAlignment"
-  of 1098: "ListViewItemPresenter_ListViewItemPresenterPadding"
-  of 1099: "ListViewItemPresenter_PlaceholderBackground"
-  of 1100: "ListViewItemPresenter_PointerOverBackground"
-  of 1101: "ListViewItemPresenter_PointerOverBackgroundMargin"
-  of 1102: "ListViewItemPresenter_ReorderHintOffset"
-  of 1103: "ListViewItemPresenter_SelectedBackground"
-  of 1104: "ListViewItemPresenter_SelectedBorderThickness"
-  of 1105: "ListViewItemPresenter_SelectedForeground"
-  of 1106: "ListViewItemPresenter_SelectedPointerOverBackground"
-  of 1107: "ListViewItemPresenter_SelectedPointerOverBorderBrush"
-  of 1108: "ListViewItemPresenter_SelectionCheckMarkVisualEnabled"
-  of 1109: "ListViewItemPresenter_ListViewItemPresenterVerticalContentAlignment"
-  of 1110: "MenuFlyoutItem_Command"
-  of 1111: "MenuFlyoutItem_CommandParameter"
-  of 1112: "MenuFlyoutItem_Text"
-  of 1114: "Page_BottomAppBar"
-  of 1115: "Page_Frame"
-  of 1116: "Page_NavigationCacheMode"
-  of 1117: "Page_TopAppBar"
-  of 1118: "ProgressBar_IsIndeterminate"
-  of 1119: "ProgressBar_ShowError"
-  of 1120: "ProgressBar_ShowPaused"
-  of 1121: "ProgressBar_TemplateSettings"
-  of 1122: "ScrollBar_IndicatorMode"
-  of 1123: "ScrollBar_Orientation"
-  of 1124: "ScrollBar_ViewportSize"
-  of 1126: "Selector_IsSynchronizedWithCurrentItem"
-  of 1127: "Selector_SelectedIndex"
-  of 1128: "Selector_SelectedItem"
-  of 1129: "Selector_SelectedValue"
-  of 1130: "Selector_SelectedValuePath"
-  of 1131: "SelectorItem_IsSelected"
-  of 1132: "SettingsFlyout_HeaderBackground"
-  of 1133: "SettingsFlyout_HeaderForeground"
-  of 1134: "SettingsFlyout_IconSource"
-  of 1135: "SettingsFlyout_TemplateSettings"
-  of 1136: "SettingsFlyout_Title"
-  of 1137: "Slider_Header"
-  of 1138: "Slider_HeaderTemplate"
-  of 1139: "Slider_IntermediateValue"
-  of 1140: "Slider_IsDirectionReversed"
-  of 1141: "Slider_IsThumbToolTipEnabled"
-  of 1142: "Slider_Orientation"
-  of 1143: "Slider_SnapsTo"
-  of 1144: "Slider_StepFrequency"
-  of 1145: "Slider_ThumbToolTipValueConverter"
-  of 1146: "Slider_TickFrequency"
-  of 1147: "Slider_TickPlacement"
-  of 1148: "SwapChainPanel_CompositionScaleX"
-  of 1149: "SwapChainPanel_CompositionScaleY"
-  of 1150: "ToolTip_HorizontalOffset"
-  of 1151: "ToolTip_IsOpen"
-  of 1152: "ToolTip_Placement"
-  of 1153: "ToolTip_PlacementTarget"
-  of 1154: "ToolTip_TemplateSettings"
-  of 1155: "ToolTip_VerticalOffset"
-  of 1156: "Button_Flyout"
-  of 1157: "ComboBox_Header"
-  of 1158: "ComboBox_HeaderTemplate"
-  of 1159: "ComboBox_IsDropDownOpen"
-  of 1160: "ComboBox_IsEditable"
-  of 1161: "ComboBox_IsSelectionBoxHighlighted"
-  of 1162: "ComboBox_MaxDropDownHeight"
-  of 1163: "ComboBox_PlaceholderText"
-  of 1164: "ComboBox_SelectionBoxItem"
-  of 1165: "ComboBox_SelectionBoxItemTemplate"
-  of 1166: "ComboBox_TemplateSettings"
-  of 1167: "CommandBar_PrimaryCommands"
-  of 1168: "CommandBar_SecondaryCommands"
-  of 1169: "FlipView_UseTouchAnimationsForAllNavigation"
-  of 1170: "HyperlinkButton_NavigateUri"
-  of 1171: "ListBox_SelectedItems"
-  of 1172: "ListBox_SelectionMode"
-  of 1173: "ListViewBase_CanDragItems"
-  of 1174: "ListViewBase_CanReorderItems"
-  of 1175: "ListViewBase_DataFetchSize"
-  of 1176: "ListViewBase_Footer"
-  of 1177: "ListViewBase_FooterTemplate"
-  of 1178: "ListViewBase_FooterTransitions"
-  of 1179: "ListViewBase_Header"
-  of 1180: "ListViewBase_HeaderTemplate"
-  of 1181: "ListViewBase_HeaderTransitions"
-  of 1182: "ListViewBase_IncrementalLoadingThreshold"
-  of 1183: "ListViewBase_IncrementalLoadingTrigger"
-  of 1184: "ListViewBase_IsActiveView"
-  of 1185: "ListViewBase_IsItemClickEnabled"
-  of 1186: "ListViewBase_IsSwipeEnabled"
-  of 1187: "ListViewBase_IsZoomedInView"
-  of 1188: "ListViewBase_ReorderMode"
-  of 1189: "ListViewBase_SelectedItems"
-  of 1190: "ListViewBase_SelectionMode"
-  of 1191: "ListViewBase_SemanticZoomOwner"
-  of 1192: "ListViewBase_ShowsScrollingPlaceholders"
-  of 1193: "RepeatButton_Delay"
-  of 1194: "RepeatButton_Interval"
-  of 1195: "ScrollViewer_BringIntoViewOnFocusChange"
-  of 1196: "ScrollViewer_ComputedHorizontalScrollBarVisibility"
-  of 1197: "ScrollViewer_ComputedVerticalScrollBarVisibility"
-  of 1198: "ScrollViewer_ExtentHeight"
-  of 1199: "ScrollViewer_ExtentWidth"
-  of 1200: "ScrollViewer_HorizontalOffset"
-  of 1201: "ScrollViewer_HorizontalScrollBarVisibility"
-  of 1202: "ScrollViewer_HorizontalScrollMode"
-  of 1203: "ScrollViewer_HorizontalSnapPointsAlignment"
-  of 1204: "ScrollViewer_HorizontalSnapPointsType"
-  of 1205: "ScrollViewer_IsDeferredScrollingEnabled"
-  of 1206: "ScrollViewer_IsHorizontalRailEnabled"
-  of 1207: "ScrollViewer_IsHorizontalScrollChainingEnabled"
-  of 1208: "ScrollViewer_IsScrollInertiaEnabled"
-  of 1209: "ScrollViewer_IsVerticalRailEnabled"
-  of 1210: "ScrollViewer_IsVerticalScrollChainingEnabled"
-  of 1211: "ScrollViewer_IsZoomChainingEnabled"
-  of 1212: "ScrollViewer_IsZoomInertiaEnabled"
-  of 1213: "ScrollViewer_LeftHeader"
-  of 1214: "ScrollViewer_MaxZoomFactor"
-  of 1215: "ScrollViewer_MinZoomFactor"
-  of 1216: "ScrollViewer_ScrollableHeight"
-  of 1217: "ScrollViewer_ScrollableWidth"
-  of 1218: "ScrollViewer_TopHeader"
-  of 1219: "ScrollViewer_TopLeftHeader"
-  of 1220: "ScrollViewer_VerticalOffset"
-  of 1221: "ScrollViewer_VerticalScrollBarVisibility"
-  of 1222: "ScrollViewer_VerticalScrollMode"
-  of 1223: "ScrollViewer_VerticalSnapPointsAlignment"
-  of 1224: "ScrollViewer_VerticalSnapPointsType"
-  of 1225: "ScrollViewer_ViewportHeight"
-  of 1226: "ScrollViewer_ViewportWidth"
-  of 1227: "ScrollViewer_ZoomFactor"
-  of 1228: "ScrollViewer_ZoomMode"
-  of 1229: "ScrollViewer_ZoomSnapPoints"
-  of 1230: "ScrollViewer_ZoomSnapPointsType"
-  of 1231: "ToggleButton_IsChecked"
-  of 1232: "ToggleButton_IsThreeState"
-  of 1233: "ToggleMenuFlyoutItem_IsChecked"
-  of 1234: "VirtualizingStackPanel_AreScrollSnapPointsRegular"
-  of 1236: "VirtualizingStackPanel_IsVirtualizing"
-  of 1237: "VirtualizingStackPanel_Orientation"
-  of 1238: "VirtualizingStackPanel_VirtualizationMode"
-  of 1239: "WrapGrid_HorizontalChildrenAlignment"
-  of 1240: "WrapGrid_ItemHeight"
-  of 1241: "WrapGrid_ItemWidth"
-  of 1242: "WrapGrid_MaximumRowsOrColumns"
-  of 1243: "WrapGrid_Orientation"
-  of 1244: "WrapGrid_VerticalChildrenAlignment"
-  of 1245: "AppBarButton_Icon"
-  of 1246: "AppBarButton_IsCompact"
-  of 1247: "AppBarButton_Label"
-  of 1248: "AppBarToggleButton_Icon"
-  of 1249: "AppBarToggleButton_IsCompact"
-  of 1250: "AppBarToggleButton_Label"
-  of 1251: "GridViewItem_TemplateSettings"
-  of 1252: "ListViewItem_TemplateSettings"
-  of 1253: "RadioButton_GroupName"
-  of 1267: "Glyphs_ColorFontPaletteIndex"
-  of 1268: "Glyphs_IsColorFontEnabled"
-  of 1274: "CalendarViewTemplateSettings_HasMoreContentAfter"
-  of 1275: "CalendarViewTemplateSettings_HasMoreContentBefore"
-  of 1276: "CalendarViewTemplateSettings_HasMoreViews"
-  of 1277: "CalendarViewTemplateSettings_HeaderText"
-  of 1280: "CalendarViewTemplateSettings_WeekDay1"
-  of 1281: "CalendarViewTemplateSettings_WeekDay2"
-  of 1282: "CalendarViewTemplateSettings_WeekDay3"
-  of 1283: "CalendarViewTemplateSettings_WeekDay4"
-  of 1284: "CalendarViewTemplateSettings_WeekDay5"
-  of 1285: "CalendarViewTemplateSettings_WeekDay6"
-  of 1286: "CalendarViewTemplateSettings_WeekDay7"
-  of 1291: "CalendarView_CalendarIdentifier"
-  of 1299: "CalendarView_DayOfWeekFormat"
-  of 1302: "CalendarView_DisplayMode"
-  of 1303: "CalendarView_FirstDayOfWeek"
-  of 1317: "CalendarView_IsOutOfScopeEnabled"
-  of 1318: "CalendarView_IsTodayHighlighted"
-  of 1320: "CalendarView_MaxDate"
-  of 1321: "CalendarView_MinDate"
-  of 1327: "CalendarView_NumberOfWeeksInView"
-  of 1333: "CalendarView_SelectedDates"
-  of 1335: "CalendarView_SelectionMode"
-  of 1336: "CalendarView_TemplateSettings"
-  of 1339: "CalendarViewDayItem_Date"
-  of 1340: "CalendarViewDayItem_IsBlackout"
-  of 1382: "MediaTransportControls_IsFastForwardEnabled"
-  of 1383: "MediaTransportControls_IsFastRewindEnabled"
-  of 1384: "MediaTransportControls_IsFullWindowEnabled"
-  of 1385: "MediaTransportControls_IsPlaybackRateEnabled"
-  of 1386: "MediaTransportControls_IsSeekEnabled"
-  of 1387: "MediaTransportControls_IsStopEnabled"
-  of 1388: "MediaTransportControls_IsVolumeEnabled"
-  of 1389: "MediaTransportControls_IsZoomEnabled"
-  of 1425: "ContentPresenter_LineHeight"
-  of 1435: "CalendarViewTemplateSettings_MinViewWidth"
-  of 1459: "ListViewBase_SelectedRanges"
-  of 1462: "SplitViewTemplateSettings_CompactPaneGridLength"
-  of 1463: "SplitViewTemplateSettings_NegativeOpenPaneLength"
-  of 1464: "SplitViewTemplateSettings_NegativeOpenPaneLengthMinusCompactLength"
-  of 1465: "SplitViewTemplateSettings_OpenPaneGridLength"
-  of 1466: "SplitViewTemplateSettings_OpenPaneLengthMinusCompactLength"
-  of 1467: "SplitView_CompactPaneLength"
-  of 1468: "SplitView_Content"
-  of 1469: "SplitView_DisplayMode"
-  of 1470: "SplitView_IsPaneOpen"
-  of 1471: "SplitView_OpenPaneLength"
-  of 1472: "SplitView_Pane"
-  of 1473: "SplitView_PanePlacement"
-  of 1474: "SplitView_TemplateSettings"
-  of 1475: "UIElement_Transform3D"
-  of 1476: "CompositeTransform3D_CenterX"
-  of 1478: "CompositeTransform3D_CenterY"
-  of 1480: "CompositeTransform3D_CenterZ"
-  of 1482: "CompositeTransform3D_RotationX"
-  of 1484: "CompositeTransform3D_RotationY"
-  of 1486: "CompositeTransform3D_RotationZ"
-  of 1488: "CompositeTransform3D_ScaleX"
-  of 1490: "CompositeTransform3D_ScaleY"
-  of 1492: "CompositeTransform3D_ScaleZ"
-  of 1494: "CompositeTransform3D_TranslateX"
-  of 1496: "CompositeTransform3D_TranslateY"
-  of 1498: "CompositeTransform3D_TranslateZ"
-  of 1500: "PerspectiveTransform3D_Depth"
-  of 1501: "PerspectiveTransform3D_OffsetX"
-  of 1502: "PerspectiveTransform3D_OffsetY"
-  of 1508: "RelativePanel_Above"
-  of 1509: "RelativePanel_AlignBottomWith"
-  of 1510: "RelativePanel_AlignLeftWith"
-  of 1515: "RelativePanel_AlignRightWith"
-  of 1516: "RelativePanel_AlignTopWith"
-  of 1517: "RelativePanel_Below"
-  of 1520: "RelativePanel_LeftOf"
-  of 1521: "RelativePanel_RightOf"
-  of 1524: "SplitViewTemplateSettings_OpenPaneLength"
-  of 1527: "PasswordBox_PasswordRevealMode"
-  of 1528: "SplitView_PaneBackground"
-  of 1529: "ItemsStackPanel_AreStickyGroupHeadersEnabled"
-  of 1530: "ItemsWrapGrid_AreStickyGroupHeadersEnabled"
-  of 1531: "MenuFlyoutSubItem_Items"
-  of 1532: "MenuFlyoutSubItem_Text"
-  of 1534: "UIElement_CanDrag"
-  of 1535: "DataTemplate_ExtensionInstance"
-  of 1552: "RelativePanel_AlignHorizontalCenterWith"
-  of 1553: "RelativePanel_AlignVerticalCenterWith"
-  of 1555: "TargetPropertyPath_Path"
-  of 1556: "TargetPropertyPath_Target"
-  of 1558: "VisualState_Setters"
-  of 1559: "VisualState_StateTriggers"
-  of 1560: "AdaptiveTrigger_MinWindowHeight"
-  of 1561: "AdaptiveTrigger_MinWindowWidth"
-  of 1562: "Setter_Target"
-  of 1565: "CalendarView_BlackoutForeground"
-  of 1566: "CalendarView_CalendarItemBackground"
-  of 1567: "CalendarView_CalendarItemBorderBrush"
-  of 1568: "CalendarView_CalendarItemBorderThickness"
-  of 1569: "CalendarView_CalendarItemForeground"
-  of 1570: "CalendarView_CalendarViewDayItemStyle"
-  of 1571: "CalendarView_DayItemFontFamily"
-  of 1572: "CalendarView_DayItemFontSize"
-  of 1573: "CalendarView_DayItemFontStyle"
-  of 1574: "CalendarView_DayItemFontWeight"
-  of 1575: "CalendarView_FirstOfMonthLabelFontFamily"
-  of 1576: "CalendarView_FirstOfMonthLabelFontSize"
-  of 1577: "CalendarView_FirstOfMonthLabelFontStyle"
-  of 1578: "CalendarView_FirstOfMonthLabelFontWeight"
-  of 1579: "CalendarView_FirstOfYearDecadeLabelFontFamily"
-  of 1580: "CalendarView_FirstOfYearDecadeLabelFontSize"
-  of 1581: "CalendarView_FirstOfYearDecadeLabelFontStyle"
-  of 1582: "CalendarView_FirstOfYearDecadeLabelFontWeight"
-  of 1583: "CalendarView_FocusBorderBrush"
-  of 1584: "CalendarView_HorizontalDayItemAlignment"
-  of 1585: "CalendarView_HorizontalFirstOfMonthLabelAlignment"
-  of 1586: "CalendarView_HoverBorderBrush"
-  of 1588: "CalendarView_MonthYearItemFontFamily"
-  of 1589: "CalendarView_MonthYearItemFontSize"
-  of 1590: "CalendarView_MonthYearItemFontStyle"
-  of 1591: "CalendarView_MonthYearItemFontWeight"
-  of 1592: "CalendarView_OutOfScopeBackground"
-  of 1593: "CalendarView_OutOfScopeForeground"
-  of 1594: "CalendarView_PressedBorderBrush"
-  of 1595: "CalendarView_PressedForeground"
-  of 1596: "CalendarView_SelectedBorderBrush"
-  of 1597: "CalendarView_SelectedForeground"
-  of 1598: "CalendarView_SelectedHoverBorderBrush"
-  of 1599: "CalendarView_SelectedPressedBorderBrush"
-  of 1600: "CalendarView_TodayFontWeight"
-  of 1601: "CalendarView_TodayForeground"
-  of 1602: "CalendarView_VerticalDayItemAlignment"
-  of 1603: "CalendarView_VerticalFirstOfMonthLabelAlignment"
-  of 1605: "MediaTransportControls_IsCompact"
-  of 1606: "RelativePanel_AlignBottomWithPanel"
-  of 1607: "RelativePanel_AlignHorizontalCenterWithPanel"
-  of 1608: "RelativePanel_AlignLeftWithPanel"
-  of 1609: "RelativePanel_AlignRightWithPanel"
-  of 1610: "RelativePanel_AlignTopWithPanel"
-  of 1611: "RelativePanel_AlignVerticalCenterWithPanel"
-  of 1612: "ListViewBase_IsMultiSelectCheckBoxEnabled"
-  of 1614: "AutomationProperties_Level"
-  of 1615: "AutomationProperties_PositionInSet"
-  of 1616: "AutomationProperties_SizeOfSet"
-  of 1617: "ListViewItemPresenter_CheckBoxBrush"
-  of 1618: "ListViewItemPresenter_CheckMode"
-  of 1620: "ListViewItemPresenter_PressedBackground"
-  of 1621: "ListViewItemPresenter_SelectedPressedBackground"
-  of 1623: "Control_IsTemplateFocusTarget"
-  of 1624: "Control_UseSystemFocusVisuals"
-  of 1628: "ListViewItemPresenter_FocusSecondaryBorderBrush"
-  of 1630: "ListViewItemPresenter_PointerOverForeground"
-  of 1631: "FontIcon_MirroredWhenRightToLeft"
-  of 1632: "CalendarViewTemplateSettings_CenterX"
-  of 1633: "CalendarViewTemplateSettings_CenterY"
-  of 1634: "CalendarViewTemplateSettings_ClipRect"
-  of 1650: "PasswordBox_TextReadingOrder"
-  of 1651: "RichEditBox_TextReadingOrder"
-  of 1652: "TextBox_TextReadingOrder"
-  of 1653: "WebView_ExecutionMode"
-  of 1655: "WebView_DeferredPermissionRequests"
-  of 1656: "WebView_Settings"
-  of 1660: "RichEditBox_DesiredCandidateWindowAlignment"
-  of 1662: "TextBox_DesiredCandidateWindowAlignment"
-  of 1663: "CalendarDatePicker_CalendarIdentifier"
-  of 1664: "CalendarDatePicker_CalendarViewStyle"
-  of 1665: "CalendarDatePicker_Date"
-  of 1666: "CalendarDatePicker_DateFormat"
-  of 1667: "CalendarDatePicker_DayOfWeekFormat"
-  of 1668: "CalendarDatePicker_DisplayMode"
-  of 1669: "CalendarDatePicker_FirstDayOfWeek"
-  of 1670: "CalendarDatePicker_Header"
-  of 1671: "CalendarDatePicker_HeaderTemplate"
-  of 1672: "CalendarDatePicker_IsCalendarOpen"
-  of 1673: "CalendarDatePicker_IsGroupLabelVisible"
-  of 1674: "CalendarDatePicker_IsOutOfScopeEnabled"
-  of 1675: "CalendarDatePicker_IsTodayHighlighted"
-  of 1676: "CalendarDatePicker_MaxDate"
-  of 1677: "CalendarDatePicker_MinDate"
-  of 1678: "CalendarDatePicker_PlaceholderText"
-  of 1679: "CalendarView_IsGroupLabelVisible"
-  of 1680: "ContentPresenter_Background"
-  of 1681: "ContentPresenter_BorderBrush"
-  of 1682: "ContentPresenter_BorderThickness"
-  of 1683: "ContentPresenter_CornerRadius"
-  of 1684: "ContentPresenter_Padding"
-  of 1685: "Grid_BorderBrush"
-  of 1686: "Grid_BorderThickness"
-  of 1687: "Grid_CornerRadius"
-  of 1688: "Grid_Padding"
-  of 1689: "RelativePanel_BorderBrush"
-  of 1690: "RelativePanel_BorderThickness"
-  of 1691: "RelativePanel_CornerRadius"
-  of 1692: "RelativePanel_Padding"
-  of 1693: "StackPanel_BorderBrush"
-  of 1694: "StackPanel_BorderThickness"
-  of 1695: "StackPanel_CornerRadius"
-  of 1696: "StackPanel_Padding"
-  of 1697: "PasswordBox_InputScope"
-  of 1698: "MediaTransportControlsHelper_DropoutOrder"
-  of 1699: "AutoSuggestBoxQuerySubmittedEventArgs_ChosenSuggestion"
-  of 1700: "AutoSuggestBoxQuerySubmittedEventArgs_QueryText"
-  of 1701: "AutoSuggestBox_QueryIcon"
-  of 1702: "StateTrigger_IsActive"
-  of 1703: "ContentPresenter_HorizontalContentAlignment"
-  of 1704: "ContentPresenter_VerticalContentAlignment"
-  of 1705: "AppBarTemplateSettings_ClipRect"
-  of 1706: "AppBarTemplateSettings_CompactRootMargin"
-  of 1707: "AppBarTemplateSettings_CompactVerticalDelta"
-  of 1708: "AppBarTemplateSettings_HiddenRootMargin"
-  of 1709: "AppBarTemplateSettings_HiddenVerticalDelta"
-  of 1710: "AppBarTemplateSettings_MinimalRootMargin"
-  of 1711: "AppBarTemplateSettings_MinimalVerticalDelta"
-  of 1712: "CommandBarTemplateSettings_ContentHeight"
-  of 1713: "CommandBarTemplateSettings_NegativeOverflowContentHeight"
-  of 1714: "CommandBarTemplateSettings_OverflowContentClipRect"
-  of 1715: "CommandBarTemplateSettings_OverflowContentHeight"
-  of 1716: "CommandBarTemplateSettings_OverflowContentHorizontalOffset"
-  of 1717: "CommandBarTemplateSettings_OverflowContentMaxHeight"
-  of 1718: "CommandBarTemplateSettings_OverflowContentMinWidth"
-  of 1719: "AppBar_TemplateSettings"
-  of 1720: "CommandBar_CommandBarOverflowPresenterStyle"
-  of 1721: "CommandBar_CommandBarTemplateSettings"
-  of 1722: "DrillInThemeAnimation_EntranceTarget"
-  of 1723: "DrillInThemeAnimation_EntranceTargetName"
-  of 1724: "DrillInThemeAnimation_ExitTarget"
-  of 1725: "DrillInThemeAnimation_ExitTargetName"
-  of 1726: "DrillOutThemeAnimation_EntranceTarget"
-  of 1727: "DrillOutThemeAnimation_EntranceTargetName"
-  of 1728: "DrillOutThemeAnimation_ExitTarget"
-  of 1729: "DrillOutThemeAnimation_ExitTargetName"
-  of 1730: "XamlBindingHelper_DataTemplateComponent"
-  of 1732: "AutomationProperties_Annotations"
-  of 1733: "AutomationAnnotation_Element"
-  of 1734: "AutomationAnnotation_Type"
-  of 1735: "AutomationPeerAnnotation_Peer"
-  of 1736: "AutomationPeerAnnotation_Type"
-  of 1741: "Hyperlink_UnderlineStyle"
-  of 1742: "CalendarView_DisabledForeground"
-  of 1743: "CalendarView_TodayBackground"
-  of 1744: "CalendarView_TodayBlackoutBackground"
-  of 1747: "CalendarView_TodaySelectedInnerBorderBrush"
-  of 1749: "Control_IsFocusEngaged"
-  of 1752: "Control_IsFocusEngagementEnabled"
-  of 1754: "RichEditBox_ClipboardCopyFormat"
-  of 1757: "CommandBarTemplateSettings_OverflowContentMaxWidth"
-  of 1758: "ComboBoxTemplateSettings_DropDownContentMinWidth"
-  of 1762: "MenuFlyoutPresenterTemplateSettings_FlyoutContentMinWidth"
-  of 1763: "MenuFlyoutPresenter_TemplateSettings"
-  of 1766: "AutomationProperties_LandmarkType"
-  of 1767: "AutomationProperties_LocalizedLandmarkType"
-  of 1769: "RepositionThemeTransition_IsStaggeringEnabled"
-  of 1770: "ListBox_SingleSelectionFollowsFocus"
-  of 1771: "ListViewBase_SingleSelectionFollowsFocus"
-  of 1773: "BitmapImage_AutoPlay"
-  of 1774: "BitmapImage_IsAnimatedBitmap"
-  of 1775: "BitmapImage_IsPlaying"
-  of 1776: "AutomationProperties_FullDescription"
-  of 1777: "AutomationProperties_IsDataValidForForm"
-  of 1778: "AutomationProperties_IsPeripheral"
-  of 1779: "AutomationProperties_LocalizedControlType"
-  of 1780: "FlyoutBase_AllowFocusOnInteraction"
-  of 1781: "TextElement_AllowFocusOnInteraction"
-  of 1782: "FrameworkElement_AllowFocusOnInteraction"
-  of 1783: "Control_RequiresPointer"
-  of 1785: "UIElement_ContextFlyout"
-  of 1786: "TextElement_AccessKey"
-  of 1787: "UIElement_AccessKeyScopeOwner"
-  of 1788: "UIElement_IsAccessKeyScope"
-  of 1790: "AutomationProperties_DescribedBy"
-  of 1803: "UIElement_AccessKey"
-  of 1804: "Control_XYFocusDown"
-  of 1805: "Control_XYFocusLeft"
-  of 1806: "Control_XYFocusRight"
-  of 1807: "Control_XYFocusUp"
-  of 1808: "Hyperlink_XYFocusDown"
-  of 1809: "Hyperlink_XYFocusLeft"
-  of 1810: "Hyperlink_XYFocusRight"
-  of 1811: "Hyperlink_XYFocusUp"
-  of 1812: "WebView_XYFocusDown"
-  of 1813: "WebView_XYFocusLeft"
-  of 1814: "WebView_XYFocusRight"
-  of 1815: "WebView_XYFocusUp"
-  of 1816: "CommandBarTemplateSettings_EffectiveOverflowButtonVisibility"
-  of 1817: "AppBarSeparator_IsInOverflow"
-  of 1818: "CommandBar_DefaultLabelPosition"
-  of 1819: "CommandBar_IsDynamicOverflowEnabled"
-  of 1820: "CommandBar_OverflowButtonVisibility"
-  of 1821: "AppBarButton_IsInOverflow"
-  of 1822: "AppBarButton_LabelPosition"
-  of 1823: "AppBarToggleButton_IsInOverflow"
-  of 1824: "AppBarToggleButton_LabelPosition"
-  of 1825: "FlyoutBase_LightDismissOverlayMode"
-  of 1827: "Popup_LightDismissOverlayMode"
-  of 1829: "CalendarDatePicker_LightDismissOverlayMode"
-  of 1830: "DatePicker_LightDismissOverlayMode"
-  of 1831: "SplitView_LightDismissOverlayMode"
-  of 1832: "TimePicker_LightDismissOverlayMode"
-  of 1833: "AppBar_LightDismissOverlayMode"
-  of 1834: "AutoSuggestBox_LightDismissOverlayMode"
-  of 1835: "ComboBox_LightDismissOverlayMode"
-  of 1836: "AppBarSeparator_DynamicOverflowOrder"
-  of 1837: "AppBarButton_DynamicOverflowOrder"
-  of 1838: "AppBarToggleButton_DynamicOverflowOrder"
-  of 1839: "FrameworkElement_FocusVisualMargin"
-  of 1840: "FrameworkElement_FocusVisualPrimaryBrush"
-  of 1841: "FrameworkElement_FocusVisualPrimaryThickness"
-  of 1842: "FrameworkElement_FocusVisualSecondaryBrush"
-  of 1843: "FrameworkElement_FocusVisualSecondaryThickness"
-  of 1846: "FlyoutBase_AllowFocusWhenDisabled"
-  of 1847: "FrameworkElement_AllowFocusWhenDisabled"
-  of 1848: "ComboBox_IsTextSearchEnabled"
-  of 1849: "TextElement_ExitDisplayModeOnAccessKeyInvoked"
-  of 1850: "UIElement_ExitDisplayModeOnAccessKeyInvoked"
-  of 1851: "MediaPlayerPresenter_IsFullWindow"
-  of 1852: "MediaPlayerPresenter_MediaPlayer"
-  of 1853: "MediaPlayerPresenter_Stretch"
-  of 1854: "MediaPlayerElement_AreTransportControlsEnabled"
-  of 1855: "MediaPlayerElement_AutoPlay"
-  of 1856: "MediaPlayerElement_IsFullWindow"
-  of 1857: "MediaPlayerElement_MediaPlayer"
-  of 1858: "MediaPlayerElement_PosterSource"
-  of 1859: "MediaPlayerElement_Source"
-  of 1860: "MediaPlayerElement_Stretch"
-  of 1861: "MediaPlayerElement_TransportControls"
-  of 1862: "MediaTransportControls_FastPlayFallbackBehaviour"
-  of 1863: "MediaTransportControls_IsNextTrackButtonVisible"
-  of 1864: "MediaTransportControls_IsPreviousTrackButtonVisible"
-  of 1865: "MediaTransportControls_IsSkipBackwardButtonVisible"
-  of 1866: "MediaTransportControls_IsSkipBackwardEnabled"
-  of 1867: "MediaTransportControls_IsSkipForwardButtonVisible"
-  of 1868: "MediaTransportControls_IsSkipForwardEnabled"
-  of 1869: "FlyoutBase_ElementSoundMode"
-  of 1870: "Control_ElementSoundMode"
-  of 1871: "Hyperlink_ElementSoundMode"
-  of 1876: "AutomationProperties_FlowsFrom"
-  of 1877: "AutomationProperties_FlowsTo"
-  of 1879: "TextElement_TextDecorations"
-  of 1881: "RichTextBlock_TextDecorations"
-  of 1882: "Control_DefaultStyleResourceUri"
-  of 1884: "ContentDialog_PrimaryButtonStyle"
-  of 1885: "ContentDialog_SecondaryButtonStyle"
-  of 1890: "TextElement_KeyTipHorizontalOffset"
-  of 1891: "TextElement_KeyTipPlacementMode"
-  of 1892: "TextElement_KeyTipVerticalOffset"
-  of 1893: "UIElement_KeyTipHorizontalOffset"
-  of 1894: "UIElement_KeyTipPlacementMode"
-  of 1895: "UIElement_KeyTipVerticalOffset"
-  of 1896: "FlyoutBase_OverlayInputPassThroughElement"
-  of 1897: "UIElement_XYFocusKeyboardNavigation"
-  of 1898: "AutomationProperties_Culture"
-  of 1918: "UIElement_XYFocusDownNavigationStrategy"
-  of 1919: "UIElement_XYFocusLeftNavigationStrategy"
-  of 1920: "UIElement_XYFocusRightNavigationStrategy"
-  of 1921: "UIElement_XYFocusUpNavigationStrategy"
-  of 1922: "Hyperlink_XYFocusDownNavigationStrategy"
-  of 1923: "Hyperlink_XYFocusLeftNavigationStrategy"
-  of 1924: "Hyperlink_XYFocusRightNavigationStrategy"
-  of 1925: "Hyperlink_XYFocusUpNavigationStrategy"
-  of 1926: "TextElement_AccessKeyScopeOwner"
-  of 1927: "TextElement_IsAccessKeyScope"
-  of 1934: "Hyperlink_FocusState"
-  of 1936: "ContentDialog_CloseButtonCommand"
-  of 1937: "ContentDialog_CloseButtonCommandParameter"
-  of 1938: "ContentDialog_CloseButtonStyle"
-  of 1939: "ContentDialog_CloseButtonText"
-  of 1940: "ContentDialog_DefaultButton"
-  of 1941: "RichEditBox_SelectionHighlightColorWhenNotFocused"
-  of 1942: "TextBox_SelectionHighlightColorWhenNotFocused"
-  of 1948: "SvgImageSource_RasterizePixelHeight"
-  of 1949: "SvgImageSource_RasterizePixelWidth"
-  of 1950: "SvgImageSource_UriSource"
-  of 1955: "LoadedImageSurface_DecodedPhysicalSize"
-  of 1956: "LoadedImageSurface_DecodedSize"
-  of 1957: "LoadedImageSurface_NaturalSize"
-  of 1958: "ComboBox_SelectionChangedTrigger"
-  of 1960: "XamlCompositionBrushBase_FallbackColor"
-  of 1962: "UIElement_Lights"
-  of 1963: "MenuFlyoutItem_Icon"
-  of 1964: "MenuFlyoutSubItem_Icon"
-  of 1965: "BitmapIcon_ShowAsMonochrome"
-  of 1967: "UIElement_HighContrastAdjustment"
-  of 1968: "RichEditBox_MaxLength"
-  of 1969: "UIElement_TabFocusNavigation"
-  of 1970: "Control_IsTemplateKeyTipTarget"
-  of 1972: "Hyperlink_IsTabStop"
-  of 1973: "Hyperlink_TabIndex"
-  of 1974: "MediaTransportControls_IsRepeatButtonVisible"
-  of 1975: "MediaTransportControls_IsRepeatEnabled"
-  of 1976: "MediaTransportControls_ShowAndHideAutomatically"
-  of 1977: "RichEditBox_DisabledFormattingAccelerators"
-  of 1978: "RichEditBox_CharacterCasing"
-  of 1979: "TextBox_CharacterCasing"
-  of 1980: "RichTextBlock_IsTextTrimmed"
-  of 1981: "RichTextBlockOverflow_IsTextTrimmed"
-  of 1982: "TextBlock_IsTextTrimmed"
-  of 1985: "TextHighlighter_Background"
-  of 1986: "TextHighlighter_Foreground"
-  of 1987: "TextHighlighter_Ranges"
-  of 1988: "RichTextBlock_TextHighlighters"
-  of 1989: "TextBlock_TextHighlighters"
-  of 1992: "FrameworkElement_ActualTheme"
-  of 1993: "Grid_ColumnSpacing"
-  of 1994: "Grid_RowSpacing"
-  of 1995: "StackPanel_Spacing"
-  of 1996: "Block_HorizontalTextAlignment"
-  of 1997: "RichTextBlock_HorizontalTextAlignment"
-  of 1998: "TextBlock_HorizontalTextAlignment"
-  of 1999: "RichEditBox_HorizontalTextAlignment"
-  of 2000: "TextBox_HorizontalTextAlignment"
-  of 2001: "TextBox_PlaceholderForeground"
-  of 2002: "ComboBox_PlaceholderForeground"
-  of 2003: "KeyboardAccelerator_IsEnabled"
-  of 2004: "KeyboardAccelerator_Key"
-  of 2005: "KeyboardAccelerator_Modifiers"
-  of 2006: "KeyboardAccelerator_ScopeOwner"
-  of 2007: "UIElement_KeyboardAccelerators"
-  of 2009: "ListViewItemPresenter_RevealBackground"
-  of 2010: "ListViewItemPresenter_RevealBackgroundShowsAboveContent"
-  of 2011: "ListViewItemPresenter_RevealBorderBrush"
-  of 2012: "ListViewItemPresenter_RevealBorderThickness"
-  of 2014: "UIElement_KeyTipTarget"
-  of 2015: "AppBarButtonTemplateSettings_KeyboardAcceleratorTextMinWidth"
-  of 2016: "AppBarToggleButtonTemplateSettings_KeyboardAcceleratorTextMinWidth"
-  of 2017: "MenuFlyoutItemTemplateSettings_KeyboardAcceleratorTextMinWidth"
-  of 2019: "MenuFlyoutItem_TemplateSettings"
-  of 2021: "AppBarButton_TemplateSettings"
-  of 2023: "AppBarToggleButton_TemplateSettings"
-  of 2028: "UIElement_KeyboardAcceleratorPlacementMode"
-  of 2032: "MediaTransportControls_IsCompactOverlayButtonVisible"
-  of 2033: "MediaTransportControls_IsCompactOverlayEnabled"
-  of 2061: "UIElement_KeyboardAcceleratorPlacementTarget"
-  of 2062: "UIElement_CenterPoint"
-  of 2063: "UIElement_Rotation"
-  of 2064: "UIElement_RotationAxis"
-  of 2065: "UIElement_Scale"
-  of 2066: "UIElement_TransformMatrix"
-  of 2067: "UIElement_Translation"
-  of 2068: "TextBox_HandwritingView"
-  of 2069: "AutomationProperties_HeadingLevel"
-  of 2076: "TextBox_IsHandwritingViewEnabled"
-  of 2078: "RichEditBox_ContentLinkProviders"
-  of 2079: "RichEditBox_ContentLinkBackgroundColor"
-  of 2080: "RichEditBox_ContentLinkForegroundColor"
-  of 2081: "HandwritingView_AreCandidatesEnabled"
-  of 2082: "HandwritingView_IsOpen"
-  of 2084: "HandwritingView_PlacementTarget"
-  of 2085: "HandwritingView_PlacementAlignment"
-  of 2086: "RichEditBox_HandwritingView"
-  of 2087: "RichEditBox_IsHandwritingViewEnabled"
-  of 2090: "MenuFlyoutItem_KeyboardAcceleratorTextOverride"
-  of 2091: "AppBarButton_KeyboardAcceleratorTextOverride"
-  of 2092: "AppBarToggleButton_KeyboardAcceleratorTextOverride"
-  of 2093: "ContentLink_Background"
-  of 2094: "ContentLink_Cursor"
-  of 2095: "ContentLink_ElementSoundMode"
-  of 2096: "ContentLink_FocusState"
-  of 2097: "ContentLink_IsTabStop"
-  of 2098: "ContentLink_TabIndex"
-  of 2099: "ContentLink_XYFocusDown"
-  of 2100: "ContentLink_XYFocusDownNavigationStrategy"
-  of 2101: "ContentLink_XYFocusLeft"
-  of 2102: "ContentLink_XYFocusLeftNavigationStrategy"
-  of 2103: "ContentLink_XYFocusRight"
-  of 2104: "ContentLink_XYFocusRightNavigationStrategy"
-  of 2105: "ContentLink_XYFocusUp"
-  of 2106: "ContentLink_XYFocusUpNavigationStrategy"
-  of 2112: "IconSource_Foreground"
-  of 2113: "BitmapIconSource_ShowAsMonochrome"
-  of 2114: "BitmapIconSource_UriSource"
-  of 2115: "FontIconSource_FontFamily"
-  of 2116: "FontIconSource_FontSize"
-  of 2117: "FontIconSource_FontStyle"
-  of 2118: "FontIconSource_FontWeight"
-  of 2119: "FontIconSource_Glyph"
-  of 2120: "FontIconSource_IsTextScaleFactorEnabled"
-  of 2121: "FontIconSource_MirroredWhenRightToLeft"
-  of 2122: "PathIconSource_Data"
-  of 2123: "SymbolIconSource_Symbol"
-  of 2130: "UIElement_Shadow"
-  of 2131: "IconSourceElement_IconSource"
-  of 2137: "PasswordBox_CanPasteClipboardContent"
-  of 2138: "TextBox_CanPasteClipboardContent"
-  of 2139: "TextBox_CanRedo"
-  of 2140: "TextBox_CanUndo"
-  of 2141: "FlyoutBase_ShowMode"
-  of 2142: "FlyoutBase_Target"
-  of 2143: "Control_CornerRadius"
-  of 2149: "AutomationProperties_IsDialog"
-  of 2150: "AppBarElementContainer_DynamicOverflowOrder"
-  of 2151: "AppBarElementContainer_IsCompact"
-  of 2152: "AppBarElementContainer_IsInOverflow"
-  of 2157: "ScrollContentPresenter_CanContentRenderOutsideBounds"
-  of 2158: "ScrollViewer_CanContentRenderOutsideBounds"
-  of 2159: "RichEditBox_SelectionFlyout"
-  of 2160: "TextBox_SelectionFlyout"
-  of 2161: "Border_BackgroundSizing"
-  of 2162: "ContentPresenter_BackgroundSizing"
-  of 2163: "Control_BackgroundSizing"
-  of 2164: "Grid_BackgroundSizing"
-  of 2165: "RelativePanel_BackgroundSizing"
-  of 2166: "StackPanel_BackgroundSizing"
-  of 2170: "ScrollViewer_HorizontalAnchorRatio"
-  of 2171: "ScrollViewer_VerticalAnchorRatio"
-  of 2208: "ComboBox_Text"
-  of 2217: "TextBox_Description"
-  of 2218: "ToolTip_PlacementRect"
-  of 2219: "RichTextBlock_SelectionFlyout"
-  of 2220: "TextBlock_SelectionFlyout"
-  of 2221: "PasswordBox_SelectionFlyout"
-  of 2222: "Border_BackgroundTransition"
-  of 2223: "ContentPresenter_BackgroundTransition"
-  of 2224: "Panel_BackgroundTransition"
-  of 2227: "ColorPaletteResources_Accent"
-  of 2228: "ColorPaletteResources_AltHigh"
-  of 2229: "ColorPaletteResources_AltLow"
-  of 2230: "ColorPaletteResources_AltMedium"
-  of 2231: "ColorPaletteResources_AltMediumHigh"
-  of 2232: "ColorPaletteResources_AltMediumLow"
-  of 2233: "ColorPaletteResources_BaseHigh"
-  of 2234: "ColorPaletteResources_BaseLow"
-  of 2235: "ColorPaletteResources_BaseMedium"
-  of 2236: "ColorPaletteResources_BaseMediumHigh"
-  of 2237: "ColorPaletteResources_BaseMediumLow"
-  of 2238: "ColorPaletteResources_ChromeAltLow"
-  of 2239: "ColorPaletteResources_ChromeBlackHigh"
-  of 2240: "ColorPaletteResources_ChromeBlackLow"
-  of 2241: "ColorPaletteResources_ChromeBlackMedium"
-  of 2242: "ColorPaletteResources_ChromeBlackMediumLow"
-  of 2243: "ColorPaletteResources_ChromeDisabledHigh"
-  of 2244: "ColorPaletteResources_ChromeDisabledLow"
-  of 2245: "ColorPaletteResources_ChromeGray"
-  of 2246: "ColorPaletteResources_ChromeHigh"
-  of 2247: "ColorPaletteResources_ChromeLow"
-  of 2248: "ColorPaletteResources_ChromeMedium"
-  of 2249: "ColorPaletteResources_ChromeMediumLow"
-  of 2250: "ColorPaletteResources_ChromeWhite"
-  of 2252: "ColorPaletteResources_ErrorText"
-  of 2253: "ColorPaletteResources_ListLow"
-  of 2254: "ColorPaletteResources_ListMedium"
-  of 2255: "UIElement_TranslationTransition"
-  of 2256: "UIElement_OpacityTransition"
-  of 2257: "UIElement_RotationTransition"
-  of 2258: "UIElement_ScaleTransition"
-  of 2261: "BrushTransition_Duration"
-  of 2262: "ScalarTransition_Duration"
-  of 2263: "Vector3Transition_Duration"
-  of 2266: "Vector3Transition_Components"
-  of 2267: "FlyoutBase_IsOpen"
-  of 2275: "StandardUICommand_Kind"
-  of 2276: "UIElement_CanBeScrollAnchor"
-  of 2279: "ThemeShadow_Receivers"
-  of 2280: "ScrollContentPresenter_SizesContentToTemplatedParent"
-  of 2281: "ComboBox_TextBoxStyle"
-  of 2282: "Frame_IsNavigationStackEnabled"
-  of 2283: "RichEditBox_ProofingMenuFlyout"
-  of 2284: "TextBox_ProofingMenuFlyout"
-  of 2295: "ScrollViewer_ReduceViewportForCoreInputViewOcclusions"
-  of 2296: "FlyoutBase_AreOpenCloseAnimationsEnabled"
-  of 2297: "FlyoutBase_InputDevicePrefersPrimaryCommands"
-  of 2300: "CalendarDatePicker_Description"
-  of 2308: "PasswordBox_Description"
-  of 2316: "RichEditBox_Description"
-  of 2331: "AutoSuggestBox_Description"
-  of 2339: "ComboBox_Description"
-  of 2347: "XamlUICommand_AccessKey"
-  of 2348: "XamlUICommand_Command"
-  of 2349: "XamlUICommand_Description"
-  of 2350: "XamlUICommand_IconSource"
-  of 2351: "XamlUICommand_KeyboardAccelerators"
-  of 2352: "XamlUICommand_Label"
-  of 2355: "DatePicker_SelectedDate"
-  of 2356: "TimePicker_SelectedTime"
-  of 2367: "AppBarTemplateSettings_NegativeCompactVerticalDelta"
-  of 2368: "AppBarTemplateSettings_NegativeHiddenVerticalDelta"
-  of 2369: "AppBarTemplateSettings_NegativeMinimalVerticalDelta"
-  of 2378: "FlyoutBase_ShouldConstrainToRootBounds"
-  of 2379: "Popup_ShouldConstrainToRootBounds"
-  of 2380: "FlyoutPresenter_IsDefaultShadowEnabled"
-  of 2381: "MenuFlyoutPresenter_IsDefaultShadowEnabled"
-  of 2382: "UIElement_ActualOffset"
-  of 2383: "UIElement_ActualSize"
-  of 2384: "CommandBarTemplateSettings_OverflowContentCompactYTranslation"
-  of 2385: "CommandBarTemplateSettings_OverflowContentHiddenYTranslation"
-  of 2386: "CommandBarTemplateSettings_OverflowContentMinimalYTranslation"
-  of 2395: "HandwritingView_IsCommandBarOpen"
-  of 2396: "HandwritingView_IsSwitchToKeyboardEnabled"
-  of 2399: "ListViewItemPresenter_SelectionIndicatorVisualEnabled"
-  of 2400: "ListViewItemPresenter_SelectionIndicatorBrush"
-  of 2401: "ListViewItemPresenter_SelectionIndicatorMode"
-  of 2402: "ListViewItemPresenter_SelectionIndicatorPointerOverBrush"
-  of 2403: "ListViewItemPresenter_SelectionIndicatorPressedBrush"
-  of 2410: "ListViewItemPresenter_SelectedBorderBrush"
-  of 2411: "ListViewItemPresenter_SelectedInnerBorderBrush"
-  of 2412: "ListViewItemPresenter_CheckBoxCornerRadius"
-  of 2413: "ListViewItemPresenter_SelectionIndicatorCornerRadius"
-  of 2414: "ListViewItemPresenter_SelectedDisabledBorderBrush"
-  of 2415: "ListViewItemPresenter_SelectedPressedBorderBrush"
-  of 2416: "ListViewItemPresenter_SelectedDisabledBackground"
-  of 2417: "ListViewItemPresenter_PointerOverBorderBrush"
-  of 2418: "ListViewItemPresenter_CheckBoxPointerOverBrush"
-  of 2419: "ListViewItemPresenter_CheckBoxPressedBrush"
-  of 2420: "ListViewItemPresenter_CheckDisabledBrush"
-  of 2421: "ListViewItemPresenter_CheckPressedBrush"
-  of 2422: "ListViewItemPresenter_CheckBoxBorderBrush"
-  of 2423: "ListViewItemPresenter_CheckBoxDisabledBorderBrush"
-  of 2424: "ListViewItemPresenter_CheckBoxPressedBorderBrush"
-  of 2425: "ListViewItemPresenter_CheckBoxDisabledBrush"
-  of 2426: "ListViewItemPresenter_CheckBoxSelectedBrush"
-  of 2427: "ListViewItemPresenter_CheckBoxSelectedDisabledBrush"
-  of 2428: "ListViewItemPresenter_CheckBoxSelectedPointerOverBrush"
-  of 2429: "ListViewItemPresenter_CheckBoxSelectedPressedBrush"
-  of 2430: "ListViewItemPresenter_CheckBoxPointerOverBorderBrush"
-  of 2431: "ListViewItemPresenter_SelectionIndicatorDisabledBrush"
-  of 2432: "CalendarView_BlackoutBackground"
-  of 2433: "CalendarView_BlackoutStrikethroughBrush"
-  of 2434: "CalendarView_CalendarItemCornerRadius"
-  of 2435: "CalendarView_CalendarItemDisabledBackground"
-  of 2436: "CalendarView_CalendarItemHoverBackground"
-  of 2437: "CalendarView_CalendarItemPressedBackground"
-  of 2438: "CalendarView_DayItemMargin"
-  of 2439: "CalendarView_FirstOfMonthLabelMargin"
-  of 2440: "CalendarView_FirstOfYearDecadeLabelMargin"
-  of 2441: "CalendarView_MonthYearItemMargin"
-  of 2442: "CalendarView_OutOfScopeHoverForeground"
-  of 2443: "CalendarView_OutOfScopePressedForeground"
-  of 2444: "CalendarView_SelectedDisabledBorderBrush"
-  of 2445: "CalendarView_SelectedDisabledForeground"
-  of 2446: "CalendarView_SelectedHoverForeground"
-  of 2447: "CalendarView_SelectedPressedForeground"
-  of 2448: "CalendarView_TodayBlackoutForeground"
-  of 2449: "CalendarView_TodayDisabledBackground"
-  of 2450: "CalendarView_TodayHoverBackground"
-  of 2451: "CalendarView_TodayPressedBackground"
-  of 2452: "Popup_ActualPlacement"
-  of 2453: "Popup_DesiredPlacement"
-  of 2454: "Popup_PlacementTarget"
-  of 2455: "AutomationProperties_AutomationControlType"
-  else: "XamlPropertyIndex(" & $ord(v) & ")"
+template `$`*(v: XamlPropertyIndex): string = enumName(v)
 
 ## Windows.UI.Xaml.Core.Direct.XamlTypeIndex  (enum)
 type XamlTypeIndex* {.pure, size: 4.} = enum
@@ -35100,283 +22011,21 @@ type XamlTypeIndex* {.pure, size: 4.} = enum
   StandardUICommand = 961'i32
   ThemeShadow = 964'i32
   XamlUICommand = 969'i32
-proc `$`*(v: XamlTypeIndex): string =
-  case ord(v)
-  of 34: "AutoSuggestBoxSuggestionChosenEventArgs"
-  of 35: "AutoSuggestBoxTextChangedEventArgs"
-  of 41: "CollectionViewSource"
-  of 44: "ColumnDefinition"
-  of 64: "GradientStop"
-  of 74: "InputScope"
-  of 75: "InputScopeName"
-  of 78: "KeySpline"
-  of 93: "PathFigure"
-  of 100: "PrintDocument"
-  of 106: "RowDefinition"
-  of 114: "Style"
-  of 126: "TimelineMarker"
-  of 137: "VisualState"
-  of 138: "VisualStateGroup"
-  of 139: "VisualStateManager"
-  of 140: "VisualTransition"
-  of 177: "AddDeleteThemeTransition"
-  of 178: "ArcSegment"
-  of 179: "BackEase"
-  of 180: "BeginStoryboard"
-  of 181: "BezierSegment"
-  of 182: "BindingBase"
-  of 183: "BitmapCache"
-  of 186: "BounceEase"
-  of 187: "CircleEase"
-  of 188: "ColorAnimation"
-  of 189: "ColorAnimationUsingKeyFrames"
-  of 190: "ContentThemeTransition"
-  of 191: "ControlTemplate"
-  of 192: "CubicEase"
-  of 194: "DataTemplate"
-  of 195: "DiscreteColorKeyFrame"
-  of 196: "DiscreteDoubleKeyFrame"
-  of 197: "DiscreteObjectKeyFrame"
-  of 198: "DiscretePointKeyFrame"
-  of 200: "DoubleAnimation"
-  of 201: "DoubleAnimationUsingKeyFrames"
-  of 204: "EasingColorKeyFrame"
-  of 205: "EasingDoubleKeyFrame"
-  of 206: "EasingPointKeyFrame"
-  of 207: "EdgeUIThemeTransition"
-  of 208: "ElasticEase"
-  of 209: "EllipseGeometry"
-  of 210: "EntranceThemeTransition"
-  of 211: "EventTrigger"
-  of 212: "ExponentialEase"
-  of 213: "Flyout"
-  of 216: "GeometryGroup"
-  of 227: "ItemsPanelTemplate"
-  of 230: "LinearColorKeyFrame"
-  of 231: "LinearDoubleKeyFrame"
-  of 232: "LinearPointKeyFrame"
-  of 233: "LineGeometry"
-  of 234: "LineSegment"
-  of 236: "Matrix3DProjection"
-  of 238: "MenuFlyout"
-  of 240: "ObjectAnimationUsingKeyFrames"
-  of 241: "PaneThemeTransition"
-  of 243: "PathGeometry"
-  of 244: "PlaneProjection"
-  of 245: "PointAnimation"
-  of 246: "PointAnimationUsingKeyFrames"
-  of 248: "PolyBezierSegment"
-  of 249: "PolyLineSegment"
-  of 250: "PolyQuadraticBezierSegment"
-  of 251: "PopupThemeTransition"
-  of 252: "PowerEase"
-  of 254: "QuadraticBezierSegment"
-  of 255: "QuadraticEase"
-  of 256: "QuarticEase"
-  of 257: "QuinticEase"
-  of 258: "RectangleGeometry"
-  of 259: "RelativeSource"
-  of 260: "RenderTargetBitmap"
-  of 261: "ReorderThemeTransition"
-  of 262: "RepositionThemeTransition"
-  of 263: "Setter"
-  of 264: "SineEase"
-  of 265: "SolidColorBrush"
-  of 266: "SplineColorKeyFrame"
-  of 267: "SplineDoubleKeyFrame"
-  of 268: "SplinePointKeyFrame"
-  of 285: "BitmapImage"
-  of 286: "Border"
-  of 288: "CaptureElement"
-  of 295: "CompositeTransform"
-  of 296: "ContentPresenter"
-  of 302: "DragItemThemeAnimation"
-  of 303: "DragOverThemeAnimation"
-  of 304: "DropTargetItemThemeAnimation"
-  of 306: "FadeInThemeAnimation"
-  of 307: "FadeOutThemeAnimation"
-  of 312: "Glyphs"
-  of 326: "Image"
-  of 328: "ImageBrush"
-  of 329: "InlineUIContainer"
-  of 332: "ItemsPresenter"
-  of 334: "LinearGradientBrush"
-  of 335: "LineBreak"
-  of 340: "MatrixTransform"
-  of 342: "MediaElement"
-  of 349: "Paragraph"
-  of 357: "PointerDownThemeAnimation"
-  of 359: "PointerUpThemeAnimation"
-  of 361: "PopInThemeAnimation"
-  of 362: "PopOutThemeAnimation"
-  of 363: "Popup"
-  of 370: "RepositionThemeAnimation"
-  of 371: "ResourceDictionary"
-  of 374: "RichTextBlock"
-  of 376: "RichTextBlockOverflow"
-  of 378: "RotateTransform"
-  of 380: "Run"
-  of 381: "ScaleTransform"
-  of 389: "SkewTransform"
-  of 390: "Span"
-  of 391: "SplitCloseThemeAnimation"
-  of 392: "SplitOpenThemeAnimation"
-  of 393: "Storyboard"
-  of 394: "SwipeBackThemeAnimation"
-  of 395: "SwipeHintThemeAnimation"
-  of 396: "TextBlock"
-  of 411: "TransformGroup"
-  of 413: "TranslateTransform"
-  of 417: "Viewbox"
-  of 423: "WebViewBrush"
-  of 427: "AppBarSeparator"
-  of 429: "BitmapIcon"
-  of 430: "Bold"
-  of 432: "Canvas"
-  of 435: "ContentControl"
-  of 436: "DatePicker"
-  of 437: "DependencyObjectCollection"
-  of 438: "Ellipse"
-  of 440: "FontIcon"
-  of 442: "Grid"
-  of 445: "Hub"
-  of 446: "HubSection"
-  of 447: "Hyperlink"
-  of 449: "Italic"
-  of 451: "ItemsControl"
-  of 452: "Line"
-  of 458: "MediaTransportControls"
-  of 462: "PasswordBox"
-  of 463: "Path"
-  of 464: "PathIcon"
-  of 465: "Polygon"
-  of 466: "Polyline"
-  of 468: "ProgressRing"
-  of 470: "Rectangle"
-  of 473: "RichEditBox"
-  of 476: "ScrollContentPresenter"
-  of 477: "SearchBox"
-  of 479: "SemanticZoom"
-  of 481: "StackPanel"
-  of 482: "SymbolIcon"
-  of 483: "TextBox"
-  of 485: "Thumb"
-  of 486: "TickBar"
-  of 487: "TimePicker"
-  of 489: "ToggleSwitch"
-  of 490: "Underline"
-  of 491: "UserControl"
-  of 492: "VariableSizedWrapGrid"
-  of 494: "WebView"
-  of 495: "AppBar"
-  of 499: "AutoSuggestBox"
-  of 502: "CarouselPanel"
-  of 506: "ContentDialog"
-  of 508: "FlyoutPresenter"
-  of 509: "Frame"
-  of 511: "GridViewItemPresenter"
-  of 512: "GroupItem"
-  of 514: "ItemsStackPanel"
-  of 515: "ItemsWrapGrid"
-  of 520: "ListViewItemPresenter"
-  of 521: "MenuFlyoutItem"
-  of 522: "MenuFlyoutPresenter"
-  of 523: "MenuFlyoutSeparator"
-  of 525: "Page"
-  of 528: "ProgressBar"
-  of 530: "ScrollBar"
-  of 533: "SettingsFlyout"
-  of 534: "Slider"
-  of 535: "SwapChainBackgroundPanel"
-  of 536: "SwapChainPanel"
-  of 538: "ToolTip"
-  of 540: "Button"
-  of 541: "ComboBoxItem"
-  of 542: "CommandBar"
-  of 543: "FlipViewItem"
-  of 545: "GridViewHeaderItem"
-  of 546: "HyperlinkButton"
-  of 547: "ListBoxItem"
-  of 550: "ListViewHeaderItem"
-  of 551: "RepeatButton"
-  of 552: "ScrollViewer"
-  of 553: "ToggleButton"
-  of 554: "ToggleMenuFlyoutItem"
-  of 555: "VirtualizingStackPanel"
-  of 556: "WrapGrid"
-  of 557: "AppBarButton"
-  of 558: "AppBarToggleButton"
-  of 559: "CheckBox"
-  of 560: "GridViewItem"
-  of 561: "ListViewItem"
-  of 562: "RadioButton"
-  of 564: "Binding"
-  of 566: "ComboBox"
-  of 567: "FlipView"
-  of 568: "ListBox"
-  of 570: "GridView"
-  of 571: "ListView"
-  of 707: "CalendarView"
-  of 709: "CalendarViewDayItem"
-  of 723: "CalendarPanel"
-  of 728: "SplitView"
-  of 732: "CompositeTransform3D"
-  of 733: "PerspectiveTransform3D"
-  of 744: "RelativePanel"
-  of 748: "InkCanvas"
-  of 749: "MenuFlyoutSubItem"
-  of 757: "AdaptiveTrigger"
-  of 761: "SoftwareBitmapSource"
-  of 767: "StateTrigger"
-  of 774: "CalendarDatePicker"
-  of 778: "AutoSuggestBoxQuerySubmittedEventArgs"
-  of 781: "CommandBarOverflowPresenter"
-  of 782: "DrillInThemeAnimation"
-  of 783: "DrillOutThemeAnimation"
-  of 789: "AutomationAnnotation"
-  of 790: "AutomationPeerAnnotation"
-  of 828: "MediaPlayerPresenter"
-  of 829: "MediaPlayerElement"
-  of 855: "XamlLight"
-  of 860: "SvgImageSource"
-  of 897: "KeyboardAccelerator"
-  of 920: "HandwritingView"
-  of 925: "ContentLink"
-  of 929: "BitmapIconSource"
-  of 930: "FontIconSource"
-  of 931: "PathIconSource"
-  of 933: "SymbolIconSource"
-  of 939: "IconSourceElement"
-  of 945: "AppBarElementContainer"
-  of 952: "ColorPaletteResources"
-  of 961: "StandardUICommand"
-  of 964: "ThemeShadow"
-  of 969: "XamlUICommand"
-  else: "XamlTypeIndex(" & $ord(v) & ")"
+template `$`*(v: XamlTypeIndex): string = enumName(v)
 
 ## Windows.UI.Xaml.Data.BindingMode  (enum)
 type BindingMode* {.pure, size: 4.} = enum
   OneWay = 1'i32
   OneTime = 2'i32
   TwoWay = 3'i32
-proc `$`*(v: BindingMode): string =
-  case ord(v)
-  of 1: "OneWay"
-  of 2: "OneTime"
-  of 3: "TwoWay"
-  else: "BindingMode(" & $ord(v) & ")"
+template `$`*(v: BindingMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Data.RelativeSourceMode  (enum)
 type RelativeSourceMode* {.pure, size: 4.} = enum
   None = 0'i32
   TemplatedParent = 1'i32
   Self = 2'i32
-proc `$`*(v: RelativeSourceMode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "TemplatedParent"
-  of 2: "Self"
-  else: "RelativeSourceMode(" & $ord(v) & ")"
+template `$`*(v: RelativeSourceMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Data.UpdateSourceTrigger  (enum)
 type UpdateSourceTrigger* {.pure, size: 4.} = enum
@@ -35384,45 +22033,26 @@ type UpdateSourceTrigger* {.pure, size: 4.} = enum
   PropertyChanged = 1'i32
   Explicit = 2'i32
   LostFocus = 3'i32
-proc `$`*(v: UpdateSourceTrigger): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "PropertyChanged"
-  of 2: "Explicit"
-  of 3: "LostFocus"
-  else: "UpdateSourceTrigger(" & $ord(v) & ")"
+template `$`*(v: UpdateSourceTrigger): string = enumName(v)
 
 ## Windows.UI.Xaml.Documents.LogicalDirection  (enum)
 type LogicalDirection* {.pure, size: 4.} = enum
   Backward = 0'i32
   Forward = 1'i32
-proc `$`*(v: LogicalDirection): string =
-  case ord(v)
-  of 0: "Backward"
-  of 1: "Forward"
-  else: "LogicalDirection(" & $ord(v) & ")"
+template `$`*(v: LogicalDirection): string = enumName(v)
 
 ## Windows.UI.Xaml.Documents.UnderlineStyle  (enum)
 type UnderlineStyle* {.pure, size: 4.} = enum
   None = 0'i32
   Single = 1'i32
-proc `$`*(v: UnderlineStyle): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Single"
-  else: "UnderlineStyle(" & $ord(v) & ")"
+template `$`*(v: UnderlineStyle): string = enumName(v)
 
 ## Windows.UI.Xaml.DurationType  (enum)
 type DurationType* {.pure, size: 4.} = enum
   Automatic = 0'i32
   TimeSpan = 1'i32
   Forever = 2'i32
-proc `$`*(v: DurationType): string =
-  case ord(v)
-  of 0: "Automatic"
-  of 1: "TimeSpan"
-  of 2: "Forever"
-  else: "DurationType(" & $ord(v) & ")"
+template `$`*(v: DurationType): string = enumName(v)
 
 ## Windows.UI.Xaml.ElementHighContrastAdjustment  (enum)
 type ElementHighContrastAdjustment* = distinct uint32
@@ -35461,74 +22091,41 @@ type ElementSoundKind* {.pure, size: 4.} = enum
   MovePrevious = 4'i32
   MoveNext = 5'i32
   GoBack = 6'i32
-proc `$`*(v: ElementSoundKind): string =
-  case ord(v)
-  of 0: "Focus"
-  of 1: "Invoke"
-  of 2: "Show"
-  of 3: "Hide"
-  of 4: "MovePrevious"
-  of 5: "MoveNext"
-  of 6: "GoBack"
-  else: "ElementSoundKind(" & $ord(v) & ")"
+template `$`*(v: ElementSoundKind): string = enumName(v)
 
 ## Windows.UI.Xaml.ElementSoundMode  (enum)
 type ElementSoundMode* {.pure, size: 4.} = enum
   Default = 0'i32
   FocusOnly = 1'i32
   Off = 2'i32
-proc `$`*(v: ElementSoundMode): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "FocusOnly"
-  of 2: "Off"
-  else: "ElementSoundMode(" & $ord(v) & ")"
+template `$`*(v: ElementSoundMode): string = enumName(v)
 
 ## Windows.UI.Xaml.ElementSoundPlayerState  (enum)
 type ElementSoundPlayerState* {.pure, size: 4.} = enum
   Auto = 0'i32
   Off = 1'i32
   On = 2'i32
-proc `$`*(v: ElementSoundPlayerState): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Off"
-  of 2: "On"
-  else: "ElementSoundPlayerState(" & $ord(v) & ")"
+template `$`*(v: ElementSoundPlayerState): string = enumName(v)
 
 ## Windows.UI.Xaml.ElementSpatialAudioMode  (enum)
 type ElementSpatialAudioMode* {.pure, size: 4.} = enum
   Auto = 0'i32
   Off = 1'i32
   On = 2'i32
-proc `$`*(v: ElementSpatialAudioMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Off"
-  of 2: "On"
-  else: "ElementSpatialAudioMode(" & $ord(v) & ")"
+template `$`*(v: ElementSpatialAudioMode): string = enumName(v)
 
 ## Windows.UI.Xaml.ElementTheme  (enum)
 type ElementTheme* {.pure, size: 4.} = enum
   Default = 0'i32
   Light = 1'i32
   Dark = 2'i32
-proc `$`*(v: ElementTheme): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Light"
-  of 2: "Dark"
-  else: "ElementTheme(" & $ord(v) & ")"
+template `$`*(v: ElementTheme): string = enumName(v)
 
 ## Windows.UI.Xaml.FlowDirection  (enum)
 type FlowDirection* {.pure, size: 4.} = enum
   LeftToRight = 0'i32
   RightToLeft = 1'i32
-proc `$`*(v: FlowDirection): string =
-  case ord(v)
-  of 0: "LeftToRight"
-  of 1: "RightToLeft"
-  else: "FlowDirection(" & $ord(v) & ")"
+template `$`*(v: FlowDirection): string = enumName(v)
 
 ## Windows.UI.Xaml.FocusState  (enum)
 type FocusState* {.pure, size: 4.} = enum
@@ -35536,25 +22133,14 @@ type FocusState* {.pure, size: 4.} = enum
   Pointer = 1'i32
   Keyboard = 2'i32
   Programmatic = 3'i32
-proc `$`*(v: FocusState): string =
-  case ord(v)
-  of 0: "Unfocused"
-  of 1: "Pointer"
-  of 2: "Keyboard"
-  of 3: "Programmatic"
-  else: "FocusState(" & $ord(v) & ")"
+template `$`*(v: FocusState): string = enumName(v)
 
 ## Windows.UI.Xaml.FocusVisualKind  (enum)
 type FocusVisualKind* {.pure, size: 4.} = enum
   DottedLine = 0'i32
   HighVisibility = 1'i32
   Reveal = 2'i32
-proc `$`*(v: FocusVisualKind): string =
-  case ord(v)
-  of 0: "DottedLine"
-  of 1: "HighVisibility"
-  of 2: "Reveal"
-  else: "FocusVisualKind(" & $ord(v) & ")"
+template `$`*(v: FocusVisualKind): string = enumName(v)
 
 ## Windows.UI.Xaml.FontCapitals  (enum)
 type FontCapitals* {.pure, size: 4.} = enum
@@ -35565,16 +22151,7 @@ type FontCapitals* {.pure, size: 4.} = enum
   PetiteCaps = 4'i32
   Unicase = 5'i32
   Titling = 6'i32
-proc `$`*(v: FontCapitals): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "AllSmallCaps"
-  of 2: "SmallCaps"
-  of 3: "AllPetiteCaps"
-  of 4: "PetiteCaps"
-  of 5: "Unicase"
-  of 6: "Titling"
-  else: "FontCapitals(" & $ord(v) & ")"
+template `$`*(v: FontCapitals): string = enumName(v)
 
 ## Windows.UI.Xaml.FontEastAsianLanguage  (enum)
 type FontEastAsianLanguage* {.pure, size: 4.} = enum
@@ -35588,19 +22165,7 @@ type FontEastAsianLanguage* {.pure, size: 4.} = enum
   Simplified = 7'i32
   Traditional = 8'i32
   TraditionalNames = 9'i32
-proc `$`*(v: FontEastAsianLanguage): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "HojoKanji"
-  of 2: "Jis04"
-  of 3: "Jis78"
-  of 4: "Jis83"
-  of 5: "Jis90"
-  of 6: "NlcKanji"
-  of 7: "Simplified"
-  of 8: "Traditional"
-  of 9: "TraditionalNames"
-  else: "FontEastAsianLanguage(" & $ord(v) & ")"
+template `$`*(v: FontEastAsianLanguage): string = enumName(v)
 
 ## Windows.UI.Xaml.FontEastAsianWidths  (enum)
 type FontEastAsianWidths* {.pure, size: 4.} = enum
@@ -35610,51 +22175,28 @@ type FontEastAsianWidths* {.pure, size: 4.} = enum
   Proportional = 3'i32
   Quarter = 4'i32
   Third = 5'i32
-proc `$`*(v: FontEastAsianWidths): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Full"
-  of 2: "Half"
-  of 3: "Proportional"
-  of 4: "Quarter"
-  of 5: "Third"
-  else: "FontEastAsianWidths(" & $ord(v) & ")"
+template `$`*(v: FontEastAsianWidths): string = enumName(v)
 
 ## Windows.UI.Xaml.FontFraction  (enum)
 type FontFraction* {.pure, size: 4.} = enum
   Normal = 0'i32
   Stacked = 1'i32
   Slashed = 2'i32
-proc `$`*(v: FontFraction): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Stacked"
-  of 2: "Slashed"
-  else: "FontFraction(" & $ord(v) & ")"
+template `$`*(v: FontFraction): string = enumName(v)
 
 ## Windows.UI.Xaml.FontNumeralAlignment  (enum)
 type FontNumeralAlignment* {.pure, size: 4.} = enum
   Normal = 0'i32
   Proportional = 1'i32
   Tabular = 2'i32
-proc `$`*(v: FontNumeralAlignment): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Proportional"
-  of 2: "Tabular"
-  else: "FontNumeralAlignment(" & $ord(v) & ")"
+template `$`*(v: FontNumeralAlignment): string = enumName(v)
 
 ## Windows.UI.Xaml.FontNumeralStyle  (enum)
 type FontNumeralStyle* {.pure, size: 4.} = enum
   Normal = 0'i32
   Lining = 1'i32
   OldStyle = 2'i32
-proc `$`*(v: FontNumeralStyle): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Lining"
-  of 2: "OldStyle"
-  else: "FontNumeralStyle(" & $ord(v) & ")"
+template `$`*(v: FontNumeralStyle): string = enumName(v)
 
 ## Windows.UI.Xaml.FontVariants  (enum)
 type FontVariants* {.pure, size: 4.} = enum
@@ -35664,27 +22206,14 @@ type FontVariants* {.pure, size: 4.} = enum
   Ordinal = 3'i32
   Inferior = 4'i32
   Ruby = 5'i32
-proc `$`*(v: FontVariants): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "Superscript"
-  of 2: "Subscript"
-  of 3: "Ordinal"
-  of 4: "Inferior"
-  of 5: "Ruby"
-  else: "FontVariants(" & $ord(v) & ")"
+template `$`*(v: FontVariants): string = enumName(v)
 
 ## Windows.UI.Xaml.GridUnitType  (enum)
 type GridUnitType* {.pure, size: 4.} = enum
   Auto = 0'i32
   Pixel = 1'i32
   Star = 2'i32
-proc `$`*(v: GridUnitType): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Pixel"
-  of 2: "Star"
-  else: "GridUnitType(" & $ord(v) & ")"
+template `$`*(v: GridUnitType): string = enumName(v)
 
 ## Windows.UI.Xaml.HorizontalAlignment  (enum)
 type HorizontalAlignment* {.pure, size: 4.} = enum
@@ -35692,23 +22221,13 @@ type HorizontalAlignment* {.pure, size: 4.} = enum
   Center = 1'i32
   Right = 2'i32
   Stretch = 3'i32
-proc `$`*(v: HorizontalAlignment): string =
-  case ord(v)
-  of 0: "Left"
-  of 1: "Center"
-  of 2: "Right"
-  of 3: "Stretch"
-  else: "HorizontalAlignment(" & $ord(v) & ")"
+template `$`*(v: HorizontalAlignment): string = enumName(v)
 
 ## Windows.UI.Xaml.Hosting.DesignerAppViewState  (enum)
 type DesignerAppViewState* {.pure, size: 4.} = enum
   Visible = 0'i32
   Hidden = 1'i32
-proc `$`*(v: DesignerAppViewState): string =
-  case ord(v)
-  of 0: "Visible"
-  of 1: "Hidden"
-  else: "DesignerAppViewState(" & $ord(v) & ")"
+template `$`*(v: DesignerAppViewState): string = enumName(v)
 
 ## Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationReason  (enum)
 type XamlSourceFocusNavigationReason* {.pure, size: 4.} = enum
@@ -35720,17 +22239,7 @@ type XamlSourceFocusNavigationReason* {.pure, size: 4.} = enum
   Up = 8'i32
   Right = 9'i32
   Down = 10'i32
-proc `$`*(v: XamlSourceFocusNavigationReason): string =
-  case ord(v)
-  of 0: "Programmatic"
-  of 1: "Restore"
-  of 3: "First"
-  of 4: "Last"
-  of 7: "Left"
-  of 8: "Up"
-  of 9: "Right"
-  of 10: "Down"
-  else: "XamlSourceFocusNavigationReason(" & $ord(v) & ")"
+template `$`*(v: XamlSourceFocusNavigationReason): string = enumName(v)
 
 ## Windows.UI.Xaml.Input.FocusInputDeviceKind  (enum)
 type FocusInputDeviceKind* {.pure, size: 4.} = enum
@@ -35740,15 +22249,7 @@ type FocusInputDeviceKind* {.pure, size: 4.} = enum
   Pen = 3'i32
   Keyboard = 4'i32
   GameController = 5'i32
-proc `$`*(v: FocusInputDeviceKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Mouse"
-  of 2: "Touch"
-  of 3: "Pen"
-  of 4: "Keyboard"
-  of 5: "GameController"
-  else: "FocusInputDeviceKind(" & $ord(v) & ")"
+template `$`*(v: FocusInputDeviceKind): string = enumName(v)
 
 ## Windows.UI.Xaml.Input.FocusNavigationDirection  (enum)
 type FocusNavigationDirection* {.pure, size: 4.} = enum
@@ -35759,16 +22260,7 @@ type FocusNavigationDirection* {.pure, size: 4.} = enum
   Left = 4'i32
   Right = 5'i32
   None = 6'i32
-proc `$`*(v: FocusNavigationDirection): string =
-  case ord(v)
-  of 0: "Next"
-  of 1: "Previous"
-  of 2: "Up"
-  of 3: "Down"
-  of 4: "Left"
-  of 5: "Right"
-  of 6: "None"
-  else: "FocusNavigationDirection(" & $ord(v) & ")"
+template `$`*(v: FocusNavigationDirection): string = enumName(v)
 
 ## Windows.UI.Xaml.Input.InputScopeNameValue  (enum)
 type InputScopeNameValue* {.pure, size: 4.} = enum
@@ -35816,53 +22308,7 @@ type InputScopeNameValue* {.pure, size: 4.} = enum
   AlphanumericPin = 65'i32
   FormulaNumber = 67'i32
   ChatWithoutEmoji = 68'i32
-proc `$`*(v: InputScopeNameValue): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Url"
-  of 5: "EmailSmtpAddress"
-  of 7: "PersonalFullName"
-  of 20: "CurrencyAmountAndSymbol"
-  of 21: "CurrencyAmount"
-  of 23: "DateMonthNumber"
-  of 24: "DateDayNumber"
-  of 25: "DateYear"
-  of 28: "Digits"
-  of 29: "Number"
-  of 31: "Password"
-  of 32: "TelephoneNumber"
-  of 33: "TelephoneCountryCode"
-  of 34: "TelephoneAreaCode"
-  of 35: "TelephoneLocalNumber"
-  of 37: "TimeHour"
-  of 38: "TimeMinutesOrSeconds"
-  of 39: "NumberFullWidth"
-  of 40: "AlphanumericHalfWidth"
-  of 41: "AlphanumericFullWidth"
-  of 44: "Hiragana"
-  of 45: "KatakanaHalfWidth"
-  of 46: "KatakanaFullWidth"
-  of 47: "Hanja"
-  of 48: "HangulHalfWidth"
-  of 49: "HangulFullWidth"
-  of 50: "Search"
-  of 51: "Formula"
-  of 52: "SearchIncremental"
-  of 53: "ChineseHalfWidth"
-  of 54: "ChineseFullWidth"
-  of 55: "NativeScript"
-  of 57: "Text"
-  of 58: "Chat"
-  of 59: "NameOrPhoneNumber"
-  of 60: "EmailNameOrAddress"
-  of 61: "Private"
-  of 62: "Maps"
-  of 63: "NumericPassword"
-  of 64: "NumericPin"
-  of 65: "AlphanumericPin"
-  of 67: "FormulaNumber"
-  of 68: "ChatWithoutEmoji"
-  else: "InputScopeNameValue(" & $ord(v) & ")"
+template `$`*(v: InputScopeNameValue): string = enumName(v)
 
 ## Windows.UI.Xaml.Input.KeyTipPlacementMode  (enum)
 type KeyTipPlacementMode* {.pure, size: 4.} = enum
@@ -35873,38 +22319,20 @@ type KeyTipPlacementMode* {.pure, size: 4.} = enum
   Right = 4'i32
   Center = 5'i32
   Hidden = 6'i32
-proc `$`*(v: KeyTipPlacementMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Bottom"
-  of 2: "Top"
-  of 3: "Left"
-  of 4: "Right"
-  of 5: "Center"
-  of 6: "Hidden"
-  else: "KeyTipPlacementMode(" & $ord(v) & ")"
+template `$`*(v: KeyTipPlacementMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Input.KeyboardAcceleratorPlacementMode  (enum)
 type KeyboardAcceleratorPlacementMode* {.pure, size: 4.} = enum
   Auto = 0'i32
   Hidden = 1'i32
-proc `$`*(v: KeyboardAcceleratorPlacementMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Hidden"
-  else: "KeyboardAcceleratorPlacementMode(" & $ord(v) & ")"
+template `$`*(v: KeyboardAcceleratorPlacementMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Input.KeyboardNavigationMode  (enum)
 type KeyboardNavigationMode* {.pure, size: 4.} = enum
   Local = 0'i32
   Cycle = 1'i32
   Once = 2'i32
-proc `$`*(v: KeyboardNavigationMode): string =
-  case ord(v)
-  of 0: "Local"
-  of 1: "Cycle"
-  of 2: "Once"
-  else: "KeyboardNavigationMode(" & $ord(v) & ")"
+template `$`*(v: KeyboardNavigationMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Input.ManipulationModes  (enum)
 type ManipulationModes* = distinct uint32
@@ -35998,38 +22426,14 @@ type StandardUICommandKind* {.pure, size: 4.} = enum
   Backward = 14'i32
   Undo = 15'i32
   Redo = 16'i32
-proc `$`*(v: StandardUICommandKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Cut"
-  of 2: "Copy"
-  of 3: "Paste"
-  of 4: "SelectAll"
-  of 5: "Delete"
-  of 6: "Share"
-  of 7: "Save"
-  of 8: "Open"
-  of 9: "Close"
-  of 10: "Pause"
-  of 11: "Play"
-  of 12: "Stop"
-  of 13: "Forward"
-  of 14: "Backward"
-  of 15: "Undo"
-  of 16: "Redo"
-  else: "StandardUICommandKind(" & $ord(v) & ")"
+template `$`*(v: StandardUICommandKind): string = enumName(v)
 
 ## Windows.UI.Xaml.Input.XYFocusKeyboardNavigationMode  (enum)
 type XYFocusKeyboardNavigationMode* {.pure, size: 4.} = enum
   Auto = 0'i32
   Enabled = 1'i32
   Disabled = 2'i32
-proc `$`*(v: XYFocusKeyboardNavigationMode): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Enabled"
-  of 2: "Disabled"
-  else: "XYFocusKeyboardNavigationMode(" & $ord(v) & ")"
+template `$`*(v: XYFocusKeyboardNavigationMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Input.XYFocusNavigationStrategy  (enum)
 type XYFocusNavigationStrategy* {.pure, size: 4.} = enum
@@ -36037,13 +22441,7 @@ type XYFocusNavigationStrategy* {.pure, size: 4.} = enum
   Projection = 1'i32
   NavigationDirectionDistance = 2'i32
   RectilinearDistance = 3'i32
-proc `$`*(v: XYFocusNavigationStrategy): string =
-  case ord(v)
-  of 0: "Auto"
-  of 1: "Projection"
-  of 2: "NavigationDirectionDistance"
-  of 3: "RectilinearDistance"
-  else: "XYFocusNavigationStrategy(" & $ord(v) & ")"
+template `$`*(v: XYFocusNavigationStrategy): string = enumName(v)
 
 ## Windows.UI.Xaml.Input.XYFocusNavigationStrategyOverride  (enum)
 type XYFocusNavigationStrategyOverride* {.pure, size: 4.} = enum
@@ -36052,14 +22450,7 @@ type XYFocusNavigationStrategyOverride* {.pure, size: 4.} = enum
   Projection = 2'i32
   NavigationDirectionDistance = 3'i32
   RectilinearDistance = 4'i32
-proc `$`*(v: XYFocusNavigationStrategyOverride): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Auto"
-  of 2: "Projection"
-  of 3: "NavigationDirectionDistance"
-  of 4: "RectilinearDistance"
-  else: "XYFocusNavigationStrategyOverride(" & $ord(v) & ")"
+template `$`*(v: XYFocusNavigationStrategyOverride): string = enumName(v)
 
 ## Windows.UI.Xaml.Interop.NotifyCollectionChangedAction  (enum)
 type NotifyCollectionChangedAction* {.pure, size: 4.} = enum
@@ -36068,84 +22459,48 @@ type NotifyCollectionChangedAction* {.pure, size: 4.} = enum
   Replace = 2'i32
   Move = 3'i32
   Reset = 4'i32
-proc `$`*(v: NotifyCollectionChangedAction): string =
-  case ord(v)
-  of 0: "Add"
-  of 1: "Remove"
-  of 2: "Replace"
-  of 3: "Move"
-  of 4: "Reset"
-  else: "NotifyCollectionChangedAction(" & $ord(v) & ")"
+template `$`*(v: NotifyCollectionChangedAction): string = enumName(v)
 
 ## Windows.UI.Xaml.Interop.TypeKind  (enum)
 type TypeKind* {.pure, size: 4.} = enum
   Primitive = 0'i32
   Metadata = 1'i32
   Custom = 2'i32
-proc `$`*(v: TypeKind): string =
-  case ord(v)
-  of 0: "Primitive"
-  of 1: "Metadata"
-  of 2: "Custom"
-  else: "TypeKind(" & $ord(v) & ")"
+template `$`*(v: TypeKind): string = enumName(v)
 
 ## Windows.UI.Xaml.LineStackingStrategy  (enum)
 type LineStackingStrategy* {.pure, size: 4.} = enum
   MaxHeight = 0'i32
   BlockLineHeight = 1'i32
   BaselineToBaseline = 2'i32
-proc `$`*(v: LineStackingStrategy): string =
-  case ord(v)
-  of 0: "MaxHeight"
-  of 1: "BlockLineHeight"
-  of 2: "BaselineToBaseline"
-  else: "LineStackingStrategy(" & $ord(v) & ")"
+template `$`*(v: LineStackingStrategy): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.AcrylicBackgroundSource  (enum)
 type AcrylicBackgroundSource* {.pure, size: 4.} = enum
   HostBackdrop = 0'i32
   Backdrop = 1'i32
-proc `$`*(v: AcrylicBackgroundSource): string =
-  case ord(v)
-  of 0: "HostBackdrop"
-  of 1: "Backdrop"
-  else: "AcrylicBackgroundSource(" & $ord(v) & ")"
+template `$`*(v: AcrylicBackgroundSource): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.AlignmentX  (enum)
 type AlignmentX* {.pure, size: 4.} = enum
   Left = 0'i32
   Center = 1'i32
   Right = 2'i32
-proc `$`*(v: AlignmentX): string =
-  case ord(v)
-  of 0: "Left"
-  of 1: "Center"
-  of 2: "Right"
-  else: "AlignmentX(" & $ord(v) & ")"
+template `$`*(v: AlignmentX): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.AlignmentY  (enum)
 type AlignmentY* {.pure, size: 4.} = enum
   Top = 0'i32
   Center = 1'i32
   Bottom = 2'i32
-proc `$`*(v: AlignmentY): string =
-  case ord(v)
-  of 0: "Top"
-  of 1: "Center"
-  of 2: "Bottom"
-  else: "AlignmentY(" & $ord(v) & ")"
+template `$`*(v: AlignmentY): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.Animation.ClockState  (enum)
 type ClockState* {.pure, size: 4.} = enum
   Active = 0'i32
   Filling = 1'i32
   Stopped = 2'i32
-proc `$`*(v: ClockState): string =
-  case ord(v)
-  of 0: "Active"
-  of 1: "Filling"
-  of 2: "Stopped"
-  else: "ClockState(" & $ord(v) & ")"
+template `$`*(v: ClockState): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.Animation.ConnectedAnimationComponent  (enum)
 type ConnectedAnimationComponent* {.pure, size: 4.} = enum
@@ -36153,59 +22508,34 @@ type ConnectedAnimationComponent* {.pure, size: 4.} = enum
   OffsetY = 1'i32
   CrossFade = 2'i32
   Scale = 3'i32
-proc `$`*(v: ConnectedAnimationComponent): string =
-  case ord(v)
-  of 0: "OffsetX"
-  of 1: "OffsetY"
-  of 2: "CrossFade"
-  of 3: "Scale"
-  else: "ConnectedAnimationComponent(" & $ord(v) & ")"
+template `$`*(v: ConnectedAnimationComponent): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.Animation.EasingMode  (enum)
 type EasingMode* {.pure, size: 4.} = enum
   EaseOut = 0'i32
   EaseIn = 1'i32
   EaseInOut = 2'i32
-proc `$`*(v: EasingMode): string =
-  case ord(v)
-  of 0: "EaseOut"
-  of 1: "EaseIn"
-  of 2: "EaseInOut"
-  else: "EasingMode(" & $ord(v) & ")"
+template `$`*(v: EasingMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.Animation.FillBehavior  (enum)
 type FillBehavior* {.pure, size: 4.} = enum
   HoldEnd = 0'i32
   Stop = 1'i32
-proc `$`*(v: FillBehavior): string =
-  case ord(v)
-  of 0: "HoldEnd"
-  of 1: "Stop"
-  else: "FillBehavior(" & $ord(v) & ")"
+template `$`*(v: FillBehavior): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.Animation.RepeatBehaviorType  (enum)
 type RepeatBehaviorType* {.pure, size: 4.} = enum
   Count = 0'i32
   Duration = 1'i32
   Forever = 2'i32
-proc `$`*(v: RepeatBehaviorType): string =
-  case ord(v)
-  of 0: "Count"
-  of 1: "Duration"
-  of 2: "Forever"
-  else: "RepeatBehaviorType(" & $ord(v) & ")"
+template `$`*(v: RepeatBehaviorType): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionEffect  (enum)
 type SlideNavigationTransitionEffect* {.pure, size: 4.} = enum
   FromBottom = 0'i32
   FromLeft = 1'i32
   FromRight = 2'i32
-proc `$`*(v: SlideNavigationTransitionEffect): string =
-  case ord(v)
-  of 0: "FromBottom"
-  of 1: "FromLeft"
-  of 2: "FromRight"
-  else: "SlideNavigationTransitionEffect(" & $ord(v) & ")"
+template `$`*(v: SlideNavigationTransitionEffect): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.AudioCategory  (enum)
 type AudioCategory* {.pure, size: 4.} = enum
@@ -36221,99 +22551,53 @@ type AudioCategory* {.pure, size: 4.} = enum
   Speech = 9'i32
   Movie = 10'i32
   Media = 11'i32
-proc `$`*(v: AudioCategory): string =
-  case ord(v)
-  of 0: "Other"
-  of 1: "ForegroundOnlyMedia"
-  of 2: "BackgroundCapableMedia"
-  of 3: "Communications"
-  of 4: "Alerts"
-  of 5: "SoundEffects"
-  of 6: "GameEffects"
-  of 7: "GameMedia"
-  of 8: "GameChat"
-  of 9: "Speech"
-  of 10: "Movie"
-  of 11: "Media"
-  else: "AudioCategory(" & $ord(v) & ")"
+template `$`*(v: AudioCategory): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.AudioDeviceType  (enum)
 type AudioDeviceType* {.pure, size: 4.} = enum
   Console = 0'i32
   Multimedia = 1'i32
   Communications = 2'i32
-proc `$`*(v: AudioDeviceType): string =
-  case ord(v)
-  of 0: "Console"
-  of 1: "Multimedia"
-  of 2: "Communications"
-  else: "AudioDeviceType(" & $ord(v) & ")"
+template `$`*(v: AudioDeviceType): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.BrushMappingMode  (enum)
 type BrushMappingMode* {.pure, size: 4.} = enum
   Absolute = 0'i32
   RelativeToBoundingBox = 1'i32
-proc `$`*(v: BrushMappingMode): string =
-  case ord(v)
-  of 0: "Absolute"
-  of 1: "RelativeToBoundingBox"
-  else: "BrushMappingMode(" & $ord(v) & ")"
+template `$`*(v: BrushMappingMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.ColorInterpolationMode  (enum)
 type ColorInterpolationMode* {.pure, size: 4.} = enum
   ScRgbLinearInterpolation = 0'i32
   SRgbLinearInterpolation = 1'i32
-proc `$`*(v: ColorInterpolationMode): string =
-  case ord(v)
-  of 0: "ScRgbLinearInterpolation"
-  of 1: "SRgbLinearInterpolation"
-  else: "ColorInterpolationMode(" & $ord(v) & ")"
+template `$`*(v: ColorInterpolationMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.ElementCompositeMode  (enum)
 type ElementCompositeMode* {.pure, size: 4.} = enum
   Inherit = 0'i32
   SourceOver = 1'i32
   MinBlend = 2'i32
-proc `$`*(v: ElementCompositeMode): string =
-  case ord(v)
-  of 0: "Inherit"
-  of 1: "SourceOver"
-  of 2: "MinBlend"
-  else: "ElementCompositeMode(" & $ord(v) & ")"
+template `$`*(v: ElementCompositeMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.FastPlayFallbackBehaviour  (enum)
 type FastPlayFallbackBehaviour* {.pure, size: 4.} = enum
   Skip = 0'i32
   Hide = 1'i32
   Disable = 2'i32
-proc `$`*(v: FastPlayFallbackBehaviour): string =
-  case ord(v)
-  of 0: "Skip"
-  of 1: "Hide"
-  of 2: "Disable"
-  else: "FastPlayFallbackBehaviour(" & $ord(v) & ")"
+template `$`*(v: FastPlayFallbackBehaviour): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.FillRule  (enum)
 type FillRule* {.pure, size: 4.} = enum
   EvenOdd = 0'i32
   Nonzero = 1'i32
-proc `$`*(v: FillRule): string =
-  case ord(v)
-  of 0: "EvenOdd"
-  of 1: "Nonzero"
-  else: "FillRule(" & $ord(v) & ")"
+template `$`*(v: FillRule): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.GradientSpreadMethod  (enum)
 type GradientSpreadMethod* {.pure, size: 4.} = enum
   Pad = 0'i32
   Reflect = 1'i32
   Repeat = 2'i32
-proc `$`*(v: GradientSpreadMethod): string =
-  case ord(v)
-  of 0: "Pad"
-  of 1: "Reflect"
-  of 2: "Repeat"
-  else: "GradientSpreadMethod(" & $ord(v) & ")"
+template `$`*(v: GradientSpreadMethod): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.Imaging.BitmapCreateOptions  (enum)
 type BitmapCreateOptions* = distinct uint32
@@ -36342,11 +22626,7 @@ const BitmapCreateOptions_IgnoreImageCache* = BitmapCreateOptions(8'u32)
 type DecodePixelType* {.pure, size: 4.} = enum
   Physical = 0'i32
   Logical = 1'i32
-proc `$`*(v: DecodePixelType): string =
-  case ord(v)
-  of 0: "Physical"
-  of 1: "Logical"
-  else: "DecodePixelType(" & $ord(v) & ")"
+template `$`*(v: DecodePixelType): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.Imaging.SvgImageSourceLoadStatus  (enum)
 type SvgImageSourceLoadStatus* {.pure, size: 4.} = enum
@@ -36354,13 +22634,7 @@ type SvgImageSourceLoadStatus* {.pure, size: 4.} = enum
   NetworkError = 1'i32
   InvalidFormat = 2'i32
   Other = 3'i32
-proc `$`*(v: SvgImageSourceLoadStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "NetworkError"
-  of 2: "InvalidFormat"
-  of 3: "Other"
-  else: "SvgImageSourceLoadStatus(" & $ord(v) & ")"
+template `$`*(v: SvgImageSourceLoadStatus): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.LoadedImageSourceLoadStatus  (enum)
 type LoadedImageSourceLoadStatus* {.pure, size: 4.} = enum
@@ -36368,25 +22642,14 @@ type LoadedImageSourceLoadStatus* {.pure, size: 4.} = enum
   NetworkError = 1'i32
   InvalidFormat = 2'i32
   Other = 3'i32
-proc `$`*(v: LoadedImageSourceLoadStatus): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "NetworkError"
-  of 2: "InvalidFormat"
-  of 3: "Other"
-  else: "LoadedImageSourceLoadStatus(" & $ord(v) & ")"
+template `$`*(v: LoadedImageSourceLoadStatus): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.MediaCanPlayResponse  (enum)
 type MediaCanPlayResponse* {.pure, size: 4.} = enum
   NotSupported = 0'i32
   Maybe = 1'i32
   Probably = 2'i32
-proc `$`*(v: MediaCanPlayResponse): string =
-  case ord(v)
-  of 0: "NotSupported"
-  of 1: "Maybe"
-  of 2: "Probably"
-  else: "MediaCanPlayResponse(" & $ord(v) & ")"
+template `$`*(v: MediaCanPlayResponse): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.MediaElementState  (enum)
 type MediaElementState* {.pure, size: 4.} = enum
@@ -36396,15 +22659,7 @@ type MediaElementState* {.pure, size: 4.} = enum
   Playing = 3'i32
   Paused = 4'i32
   Stopped = 5'i32
-proc `$`*(v: MediaElementState): string =
-  case ord(v)
-  of 0: "Closed"
-  of 1: "Opening"
-  of 2: "Buffering"
-  of 3: "Playing"
-  of 4: "Paused"
-  of 5: "Stopped"
-  else: "MediaElementState(" & $ord(v) & ")"
+template `$`*(v: MediaElementState): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.PenLineCap  (enum)
 type PenLineCap* {.pure, size: 4.} = enum
@@ -36412,59 +22667,34 @@ type PenLineCap* {.pure, size: 4.} = enum
   Square = 1'i32
   Round = 2'i32
   Triangle = 3'i32
-proc `$`*(v: PenLineCap): string =
-  case ord(v)
-  of 0: "Flat"
-  of 1: "Square"
-  of 2: "Round"
-  of 3: "Triangle"
-  else: "PenLineCap(" & $ord(v) & ")"
+template `$`*(v: PenLineCap): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.PenLineJoin  (enum)
 type PenLineJoin* {.pure, size: 4.} = enum
   Miter = 0'i32
   Bevel = 1'i32
   Round = 2'i32
-proc `$`*(v: PenLineJoin): string =
-  case ord(v)
-  of 0: "Miter"
-  of 1: "Bevel"
-  of 2: "Round"
-  else: "PenLineJoin(" & $ord(v) & ")"
+template `$`*(v: PenLineJoin): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.RevealBrushState  (enum)
 type RevealBrushState* {.pure, size: 4.} = enum
   Normal = 0'i32
   PointerOver = 1'i32
   Pressed = 2'i32
-proc `$`*(v: RevealBrushState): string =
-  case ord(v)
-  of 0: "Normal"
-  of 1: "PointerOver"
-  of 2: "Pressed"
-  else: "RevealBrushState(" & $ord(v) & ")"
+template `$`*(v: RevealBrushState): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.Stereo3DVideoPackingMode  (enum)
 type Stereo3DVideoPackingMode* {.pure, size: 4.} = enum
   None = 0'i32
   SideBySide = 1'i32
   TopBottom = 2'i32
-proc `$`*(v: Stereo3DVideoPackingMode): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "SideBySide"
-  of 2: "TopBottom"
-  else: "Stereo3DVideoPackingMode(" & $ord(v) & ")"
+template `$`*(v: Stereo3DVideoPackingMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.Stereo3DVideoRenderMode  (enum)
 type Stereo3DVideoRenderMode* {.pure, size: 4.} = enum
   Mono = 0'i32
   Stereo = 1'i32
-proc `$`*(v: Stereo3DVideoRenderMode): string =
-  case ord(v)
-  of 0: "Mono"
-  of 1: "Stereo"
-  else: "Stereo3DVideoRenderMode(" & $ord(v) & ")"
+template `$`*(v: Stereo3DVideoRenderMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.Stretch  (enum)
 type Stretch* {.pure, size: 4.} = enum
@@ -36472,13 +22702,7 @@ type Stretch* {.pure, size: 4.} = enum
   Fill = 1'i32
   Uniform = 2'i32
   UniformToFill = 3'i32
-proc `$`*(v: Stretch): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Fill"
-  of 2: "Uniform"
-  of 3: "UniformToFill"
-  else: "Stretch(" & $ord(v) & ")"
+template `$`*(v: Stretch): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.StyleSimulations  (enum)
 type StyleSimulations* {.pure, size: 4.} = enum
@@ -36486,35 +22710,20 @@ type StyleSimulations* {.pure, size: 4.} = enum
   BoldSimulation = 1'i32
   ItalicSimulation = 2'i32
   BoldItalicSimulation = 3'i32
-proc `$`*(v: StyleSimulations): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "BoldSimulation"
-  of 2: "ItalicSimulation"
-  of 3: "BoldItalicSimulation"
-  else: "StyleSimulations(" & $ord(v) & ")"
+template `$`*(v: StyleSimulations): string = enumName(v)
 
 ## Windows.UI.Xaml.Media.SweepDirection  (enum)
 type SweepDirection* {.pure, size: 4.} = enum
   Counterclockwise = 0'i32
   Clockwise = 1'i32
-proc `$`*(v: SweepDirection): string =
-  case ord(v)
-  of 0: "Counterclockwise"
-  of 1: "Clockwise"
-  else: "SweepDirection(" & $ord(v) & ")"
+template `$`*(v: SweepDirection): string = enumName(v)
 
 ## Windows.UI.Xaml.Navigation.NavigationCacheMode  (enum)
 type NavigationCacheMode* {.pure, size: 4.} = enum
   Disabled = 0'i32
   Required = 1'i32
   Enabled = 2'i32
-proc `$`*(v: NavigationCacheMode): string =
-  case ord(v)
-  of 0: "Disabled"
-  of 1: "Required"
-  of 2: "Enabled"
-  else: "NavigationCacheMode(" & $ord(v) & ")"
+template `$`*(v: NavigationCacheMode): string = enumName(v)
 
 ## Windows.UI.Xaml.Navigation.NavigationMode  (enum)
 type NavigationMode* {.pure, size: 4.} = enum
@@ -36522,33 +22731,19 @@ type NavigationMode* {.pure, size: 4.} = enum
   Back = 1'i32
   Forward = 2'i32
   Refresh = 3'i32
-proc `$`*(v: NavigationMode): string =
-  case ord(v)
-  of 0: "New"
-  of 1: "Back"
-  of 2: "Forward"
-  of 3: "Refresh"
-  else: "NavigationMode(" & $ord(v) & ")"
+template `$`*(v: NavigationMode): string = enumName(v)
 
 ## Windows.UI.Xaml.OpticalMarginAlignment  (enum)
 type OpticalMarginAlignment* {.pure, size: 4.} = enum
   None = 0'i32
   TrimSideBearings = 1'i32
-proc `$`*(v: OpticalMarginAlignment): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "TrimSideBearings"
-  else: "OpticalMarginAlignment(" & $ord(v) & ")"
+template `$`*(v: OpticalMarginAlignment): string = enumName(v)
 
 ## Windows.UI.Xaml.Printing.PreviewPageCountType  (enum)
 type PreviewPageCountType* {.pure, size: 4.} = enum
   Final = 0'i32
   Intermediate = 1'i32
-proc `$`*(v: PreviewPageCountType): string =
-  case ord(v)
-  of 0: "Final"
-  of 1: "Intermediate"
-  else: "PreviewPageCountType(" & $ord(v) & ")"
+template `$`*(v: PreviewPageCountType): string = enumName(v)
 
 ## Windows.UI.Xaml.TextAlignment  (enum)
 type TextAlignment* {.pure, size: 4.} = enum
@@ -36559,14 +22754,7 @@ type TextAlignment* {.pure, size: 4.} = enum
   DetectFromContent = 4'i32
 const TextAlignment_Start* = TextAlignment.Left
 const TextAlignment_End* = TextAlignment.Right
-proc `$`*(v: TextAlignment): string =
-  case ord(v)
-  of 0: "Center"
-  of 1: "Left"
-  of 2: "Right"
-  of 3: "Justify"
-  of 4: "DetectFromContent"
-  else: "TextAlignment(" & $ord(v) & ")"
+template `$`*(v: TextAlignment): string = enumName(v)
 
 ## Windows.UI.Xaml.TextLineBounds  (enum)
 type TextLineBounds* {.pure, size: 4.} = enum
@@ -36574,24 +22762,14 @@ type TextLineBounds* {.pure, size: 4.} = enum
   TrimToCapHeight = 1'i32
   TrimToBaseline = 2'i32
   Tight = 3'i32
-proc `$`*(v: TextLineBounds): string =
-  case ord(v)
-  of 0: "Full"
-  of 1: "TrimToCapHeight"
-  of 2: "TrimToBaseline"
-  of 3: "Tight"
-  else: "TextLineBounds(" & $ord(v) & ")"
+template `$`*(v: TextLineBounds): string = enumName(v)
 
 ## Windows.UI.Xaml.TextReadingOrder  (enum)
 type TextReadingOrder* {.pure, size: 4.} = enum
   Default = 0'i32
   DetectFromContent = 1'i32
 const TextReadingOrder_UseFlowDirection* = TextReadingOrder.Default
-proc `$`*(v: TextReadingOrder): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "DetectFromContent"
-  else: "TextReadingOrder(" & $ord(v) & ")"
+template `$`*(v: TextReadingOrder): string = enumName(v)
 
 ## Windows.UI.Xaml.TextTrimming  (enum)
 type TextTrimming* {.pure, size: 4.} = enum
@@ -36599,25 +22777,14 @@ type TextTrimming* {.pure, size: 4.} = enum
   CharacterEllipsis = 1'i32
   WordEllipsis = 2'i32
   Clip = 3'i32
-proc `$`*(v: TextTrimming): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "CharacterEllipsis"
-  of 2: "WordEllipsis"
-  of 3: "Clip"
-  else: "TextTrimming(" & $ord(v) & ")"
+template `$`*(v: TextTrimming): string = enumName(v)
 
 ## Windows.UI.Xaml.TextWrapping  (enum)
 type TextWrapping* {.pure, size: 4.} = enum
   NoWrap = 1'i32
   Wrap = 2'i32
   WrapWholeWords = 3'i32
-proc `$`*(v: TextWrapping): string =
-  case ord(v)
-  of 1: "NoWrap"
-  of 2: "Wrap"
-  of 3: "WrapWholeWords"
-  else: "TextWrapping(" & $ord(v) & ")"
+template `$`*(v: TextWrapping): string = enumName(v)
 
 ## Windows.UI.Xaml.Vector3TransitionComponents  (enum)
 type Vector3TransitionComponents* = distinct uint32
@@ -36657,23 +22824,13 @@ type VerticalAlignment* {.pure, size: 4.} = enum
   Center = 1'i32
   Bottom = 2'i32
   Stretch = 3'i32
-proc `$`*(v: VerticalAlignment): string =
-  case ord(v)
-  of 0: "Top"
-  of 1: "Center"
-  of 2: "Bottom"
-  of 3: "Stretch"
-  else: "VerticalAlignment(" & $ord(v) & ")"
+template `$`*(v: VerticalAlignment): string = enumName(v)
 
 ## Windows.UI.Xaml.Visibility  (enum)
 type Visibility* {.pure, size: 4.} = enum
   Visible = 0'i32
   Collapsed = 1'i32
-proc `$`*(v: Visibility): string =
-  case ord(v)
-  of 0: "Visible"
-  of 1: "Collapsed"
-  else: "Visibility(" & $ord(v) & ")"
+template `$`*(v: Visibility): string = enumName(v)
 
 ## Windows.Web.Http.Diagnostics.HttpDiagnosticRequestInitiator  (enum)
 type HttpDiagnosticRequestInitiator* {.pure, size: 4.} = enum
@@ -36690,22 +22847,7 @@ type HttpDiagnosticRequestInitiator* {.pure, size: 4.} = enum
   CrossOriginPreFlight = 10'i32
   Fetch = 11'i32
   Beacon = 12'i32
-proc `$`*(v: HttpDiagnosticRequestInitiator): string =
-  case ord(v)
-  of 0: "ParsedElement"
-  of 1: "Script"
-  of 2: "Image"
-  of 3: "Link"
-  of 4: "Style"
-  of 5: "XmlHttpRequest"
-  of 6: "Media"
-  of 7: "HtmlDownload"
-  of 8: "Prefetch"
-  of 9: "Other"
-  of 10: "CrossOriginPreFlight"
-  of 11: "Fetch"
-  of 12: "Beacon"
-  else: "HttpDiagnosticRequestInitiator(" & $ord(v) & ")"
+template `$`*(v: HttpDiagnosticRequestInitiator): string = enumName(v)
 
 ## Windows.Web.Http.Filters.HttpCacheReadBehavior  (enum)
 type HttpCacheReadBehavior* {.pure, size: 4.} = enum
@@ -36713,43 +22855,25 @@ type HttpCacheReadBehavior* {.pure, size: 4.} = enum
   MostRecent = 1'i32
   OnlyFromCache = 2'i32
   NoCache = 3'i32
-proc `$`*(v: HttpCacheReadBehavior): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "MostRecent"
-  of 2: "OnlyFromCache"
-  of 3: "NoCache"
-  else: "HttpCacheReadBehavior(" & $ord(v) & ")"
+template `$`*(v: HttpCacheReadBehavior): string = enumName(v)
 
 ## Windows.Web.Http.Filters.HttpCacheWriteBehavior  (enum)
 type HttpCacheWriteBehavior* {.pure, size: 4.} = enum
   Default = 0'i32
   NoCache = 1'i32
-proc `$`*(v: HttpCacheWriteBehavior): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NoCache"
-  else: "HttpCacheWriteBehavior(" & $ord(v) & ")"
+template `$`*(v: HttpCacheWriteBehavior): string = enumName(v)
 
 ## Windows.Web.Http.Filters.HttpCookieUsageBehavior  (enum)
 type HttpCookieUsageBehavior* {.pure, size: 4.} = enum
   Default = 0'i32
   NoCookies = 1'i32
-proc `$`*(v: HttpCookieUsageBehavior): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "NoCookies"
-  else: "HttpCookieUsageBehavior(" & $ord(v) & ")"
+template `$`*(v: HttpCookieUsageBehavior): string = enumName(v)
 
 ## Windows.Web.Http.HttpCompletionOption  (enum)
 type HttpCompletionOption* {.pure, size: 4.} = enum
   ResponseContentRead = 0'i32
   ResponseHeadersRead = 1'i32
-proc `$`*(v: HttpCompletionOption): string =
-  case ord(v)
-  of 0: "ResponseContentRead"
-  of 1: "ResponseHeadersRead"
-  else: "HttpCompletionOption(" & $ord(v) & ")"
+template `$`*(v: HttpCompletionOption): string = enumName(v)
 
 ## Windows.Web.Http.HttpProgressStage  (enum)
 type HttpProgressStage* {.pure, size: 4.} = enum
@@ -36763,31 +22887,14 @@ type HttpProgressStage* {.pure, size: 4.} = enum
   WaitingForResponse = 70'i32
   ReceivingHeaders = 80'i32
   ReceivingContent = 90'i32
-proc `$`*(v: HttpProgressStage): string =
-  case ord(v)
-  of 0: "None"
-  of 10: "DetectingProxy"
-  of 20: "ResolvingName"
-  of 30: "ConnectingToServer"
-  of 40: "NegotiatingSsl"
-  of 50: "SendingHeaders"
-  of 60: "SendingContent"
-  of 70: "WaitingForResponse"
-  of 80: "ReceivingHeaders"
-  of 90: "ReceivingContent"
-  else: "HttpProgressStage(" & $ord(v) & ")"
+template `$`*(v: HttpProgressStage): string = enumName(v)
 
 ## Windows.Web.Http.HttpResponseMessageSource  (enum)
 type HttpResponseMessageSource* {.pure, size: 4.} = enum
   None = 0'i32
   Cache = 1'i32
   Network = 2'i32
-proc `$`*(v: HttpResponseMessageSource): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Cache"
-  of 2: "Network"
-  else: "HttpResponseMessageSource(" & $ord(v) & ")"
+template `$`*(v: HttpResponseMessageSource): string = enumName(v)
 
 ## Windows.Web.Http.HttpStatusCode  (enum)
 type HttpStatusCode* {.pure, size: 4.} = enum
@@ -36849,67 +22956,7 @@ type HttpStatusCode* {.pure, size: 4.} = enum
   LoopDetected = 508'i32
   NotExtended = 510'i32
   NetworkAuthenticationRequired = 511'i32
-proc `$`*(v: HttpStatusCode): string =
-  case ord(v)
-  of 0: "None"
-  of 100: "Continue"
-  of 101: "SwitchingProtocols"
-  of 102: "Processing"
-  of 200: "Ok"
-  of 201: "Created"
-  of 202: "Accepted"
-  of 203: "NonAuthoritativeInformation"
-  of 204: "NoContent"
-  of 205: "ResetContent"
-  of 206: "PartialContent"
-  of 207: "MultiStatus"
-  of 208: "AlreadyReported"
-  of 226: "IMUsed"
-  of 300: "MultipleChoices"
-  of 301: "MovedPermanently"
-  of 302: "Found"
-  of 303: "SeeOther"
-  of 304: "NotModified"
-  of 305: "UseProxy"
-  of 307: "TemporaryRedirect"
-  of 308: "PermanentRedirect"
-  of 400: "BadRequest"
-  of 401: "Unauthorized"
-  of 402: "PaymentRequired"
-  of 403: "Forbidden"
-  of 404: "NotFound"
-  of 405: "MethodNotAllowed"
-  of 406: "NotAcceptable"
-  of 407: "ProxyAuthenticationRequired"
-  of 408: "RequestTimeout"
-  of 409: "Conflict"
-  of 410: "Gone"
-  of 411: "LengthRequired"
-  of 412: "PreconditionFailed"
-  of 413: "RequestEntityTooLarge"
-  of 414: "RequestUriTooLong"
-  of 415: "UnsupportedMediaType"
-  of 416: "RequestedRangeNotSatisfiable"
-  of 417: "ExpectationFailed"
-  of 422: "UnprocessableEntity"
-  of 423: "Locked"
-  of 424: "FailedDependency"
-  of 426: "UpgradeRequired"
-  of 428: "PreconditionRequired"
-  of 429: "TooManyRequests"
-  of 431: "RequestHeaderFieldsTooLarge"
-  of 500: "InternalServerError"
-  of 501: "NotImplemented"
-  of 502: "BadGateway"
-  of 503: "ServiceUnavailable"
-  of 504: "GatewayTimeout"
-  of 505: "HttpVersionNotSupported"
-  of 506: "VariantAlsoNegotiates"
-  of 507: "InsufficientStorage"
-  of 508: "LoopDetected"
-  of 510: "NotExtended"
-  of 511: "NetworkAuthenticationRequired"
-  else: "HttpStatusCode(" & $ord(v) & ")"
+template `$`*(v: HttpStatusCode): string = enumName(v)
 
 ## Windows.Web.Http.HttpVersion  (enum)
 type HttpVersion* {.pure, size: 4.} = enum
@@ -36917,13 +22964,7 @@ type HttpVersion* {.pure, size: 4.} = enum
   Http10 = 1'i32
   Http11 = 2'i32
   Http20 = 3'i32
-proc `$`*(v: HttpVersion): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Http10"
-  of 2: "Http11"
-  of 3: "Http20"
-  else: "HttpVersion(" & $ord(v) & ")"
+template `$`*(v: HttpVersion): string = enumName(v)
 
 ## Windows.Web.Syndication.SyndicationErrorStatus  (enum)
 type SyndicationErrorStatus* {.pure, size: 4.} = enum
@@ -36933,15 +22974,7 @@ type SyndicationErrorStatus* {.pure, size: 4.} = enum
   InvalidXml = 3'i32
   UnexpectedContent = 4'i32
   UnsupportedFormat = 5'i32
-proc `$`*(v: SyndicationErrorStatus): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "MissingRequiredElement"
-  of 2: "MissingRequiredAttribute"
-  of 3: "InvalidXml"
-  of 4: "UnexpectedContent"
-  of 5: "UnsupportedFormat"
-  else: "SyndicationErrorStatus(" & $ord(v) & ")"
+template `$`*(v: SyndicationErrorStatus): string = enumName(v)
 
 ## Windows.Web.Syndication.SyndicationFormat  (enum)
 type SyndicationFormat* {.pure, size: 4.} = enum
@@ -36951,61 +22984,34 @@ type SyndicationFormat* {.pure, size: 4.} = enum
   Rss092 = 3'i32
   Rss091 = 4'i32
   Atom03 = 5'i32
-proc `$`*(v: SyndicationFormat): string =
-  case ord(v)
-  of 0: "Atom10"
-  of 1: "Rss20"
-  of 2: "Rss10"
-  of 3: "Rss092"
-  of 4: "Rss091"
-  of 5: "Atom03"
-  else: "SyndicationFormat(" & $ord(v) & ")"
+template `$`*(v: SyndicationFormat): string = enumName(v)
 
 ## Windows.Web.Syndication.SyndicationTextType  (enum)
 type SyndicationTextType* {.pure, size: 4.} = enum
   Text = 0'i32
   Html = 1'i32
   Xhtml = 2'i32
-proc `$`*(v: SyndicationTextType): string =
-  case ord(v)
-  of 0: "Text"
-  of 1: "Html"
-  of 2: "Xhtml"
-  else: "SyndicationTextType(" & $ord(v) & ")"
+template `$`*(v: SyndicationTextType): string = enumName(v)
 
 ## Windows.Web.UI.Interop.WebViewControlAcceleratorKeyRoutingStage  (enum)
 type WebViewControlAcceleratorKeyRoutingStage* {.pure, size: 4.} = enum
   Tunneling = 0'i32
   Bubbling = 1'i32
-proc `$`*(v: WebViewControlAcceleratorKeyRoutingStage): string =
-  case ord(v)
-  of 0: "Tunneling"
-  of 1: "Bubbling"
-  else: "WebViewControlAcceleratorKeyRoutingStage(" & $ord(v) & ")"
+template `$`*(v: WebViewControlAcceleratorKeyRoutingStage): string = enumName(v)
 
 ## Windows.Web.UI.Interop.WebViewControlMoveFocusReason  (enum)
 type WebViewControlMoveFocusReason* {.pure, size: 4.} = enum
   Programmatic = 0'i32
   Next = 1'i32
   Previous = 2'i32
-proc `$`*(v: WebViewControlMoveFocusReason): string =
-  case ord(v)
-  of 0: "Programmatic"
-  of 1: "Next"
-  of 2: "Previous"
-  else: "WebViewControlMoveFocusReason(" & $ord(v) & ")"
+template `$`*(v: WebViewControlMoveFocusReason): string = enumName(v)
 
 ## Windows.Web.UI.Interop.WebViewControlProcessCapabilityState  (enum)
 type WebViewControlProcessCapabilityState* {.pure, size: 4.} = enum
   Default = 0'i32
   Disabled = 1'i32
   Enabled = 2'i32
-proc `$`*(v: WebViewControlProcessCapabilityState): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Disabled"
-  of 2: "Enabled"
-  else: "WebViewControlProcessCapabilityState(" & $ord(v) & ")"
+template `$`*(v: WebViewControlProcessCapabilityState): string = enumName(v)
 
 ## Windows.Web.UI.WebViewControlPermissionState  (enum)
 type WebViewControlPermissionState* {.pure, size: 4.} = enum
@@ -37013,13 +23019,7 @@ type WebViewControlPermissionState* {.pure, size: 4.} = enum
   `Defer` = 1'i32
   Allow = 2'i32
   Deny = 3'i32
-proc `$`*(v: WebViewControlPermissionState): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "Defer"
-  of 2: "Allow"
-  of 3: "Deny"
-  else: "WebViewControlPermissionState(" & $ord(v) & ")"
+template `$`*(v: WebViewControlPermissionState): string = enumName(v)
 
 ## Windows.Web.UI.WebViewControlPermissionType  (enum)
 type WebViewControlPermissionType* {.pure, size: 4.} = enum
@@ -37030,16 +23030,7 @@ type WebViewControlPermissionType* {.pure, size: 4.} = enum
   WebNotifications = 4'i32
   Screen = 5'i32
   ImmersiveView = 6'i32
-proc `$`*(v: WebViewControlPermissionType): string =
-  case ord(v)
-  of 0: "Geolocation"
-  of 1: "UnlimitedIndexedDBQuota"
-  of 2: "Media"
-  of 3: "PointerLock"
-  of 4: "WebNotifications"
-  of 5: "Screen"
-  of 6: "ImmersiveView"
-  else: "WebViewControlPermissionType(" & $ord(v) & ")"
+template `$`*(v: WebViewControlPermissionType): string = enumName(v)
 
 ## Windows.Web.WebErrorStatus  (enum)
 type WebErrorStatus* {.pure, size: 4.} = enum
@@ -37098,64 +23089,7 @@ type WebErrorStatus* {.pure, size: 4.} = enum
   ServiceUnavailable = 503'i32
   GatewayTimeout = 504'i32
   HttpVersionNotSupported = 505'i32
-proc `$`*(v: WebErrorStatus): string =
-  case ord(v)
-  of 0: "Unknown"
-  of 1: "CertificateCommonNameIsIncorrect"
-  of 2: "CertificateExpired"
-  of 3: "CertificateContainsErrors"
-  of 4: "CertificateRevoked"
-  of 5: "CertificateIsInvalid"
-  of 6: "ServerUnreachable"
-  of 7: "Timeout"
-  of 8: "ErrorHttpInvalidServerResponse"
-  of 9: "ConnectionAborted"
-  of 10: "ConnectionReset"
-  of 11: "Disconnected"
-  of 12: "HttpToHttpsOnRedirection"
-  of 13: "HttpsToHttpOnRedirection"
-  of 14: "CannotConnect"
-  of 15: "HostNameNotResolved"
-  of 16: "OperationCanceled"
-  of 17: "RedirectFailed"
-  of 18: "UnexpectedStatusCode"
-  of 19: "UnexpectedRedirection"
-  of 20: "UnexpectedClientError"
-  of 21: "UnexpectedServerError"
-  of 22: "InsufficientRangeSupport"
-  of 23: "MissingContentLengthSupport"
-  of 300: "MultipleChoices"
-  of 301: "MovedPermanently"
-  of 302: "Found"
-  of 303: "SeeOther"
-  of 304: "NotModified"
-  of 305: "UseProxy"
-  of 307: "TemporaryRedirect"
-  of 400: "BadRequest"
-  of 401: "Unauthorized"
-  of 402: "PaymentRequired"
-  of 403: "Forbidden"
-  of 404: "NotFound"
-  of 405: "MethodNotAllowed"
-  of 406: "NotAcceptable"
-  of 407: "ProxyAuthenticationRequired"
-  of 408: "RequestTimeout"
-  of 409: "Conflict"
-  of 410: "Gone"
-  of 411: "LengthRequired"
-  of 412: "PreconditionFailed"
-  of 413: "RequestEntityTooLarge"
-  of 414: "RequestUriTooLong"
-  of 415: "UnsupportedMediaType"
-  of 416: "RequestedRangeNotSatisfiable"
-  of 417: "ExpectationFailed"
-  of 500: "InternalServerError"
-  of 501: "NotImplemented"
-  of 502: "BadGateway"
-  of 503: "ServiceUnavailable"
-  of 504: "GatewayTimeout"
-  of 505: "HttpVersionNotSupported"
-  else: "WebErrorStatus(" & $ord(v) & ")"
+template `$`*(v: WebErrorStatus): string = enumName(v)
 
 ## Windows.ApplicationModel.PackageInstallProgress  (struct)
 type PackageInstallProgress* {.pure.} = object

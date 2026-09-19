@@ -17,13 +17,13 @@ import winrt/[ai, applicationmodel, data, devices, foundation, gaming,
               perception, security, services, storage, system, ui, web]
 
 suite "bindings":
-  test "an IID, a slot and a signature survived generation":
-    # A slot number is an index into a vtable Windows owns, so the value
-    # matters, not just that the constant exists.
+  test "an IID and a vtable survived generation":
+    # A field's offset is an index into a vtable Windows owns, so the position
+    # matters, not just that the field exists.
     check IID_IUriRuntimeClassFactory.data1 == 0x44A9796F'u32
-    check Slot_IUriRuntimeClassFactory_CreateUri == 6
-    var fn: Fn_IUriRuntimeClassFactory_CreateUri
-    check fn == nil
+    check offsetOf(IUriRuntimeClassFactoryVtbl, CreateUri) == 6 * sizeof(pointer)
+    var vtbl: IUriRuntimeClassFactoryVtbl
+    check vtbl.CreateUri == nil
 
   test "a plain enum is a real Nim enum, sized for the wire":
     check ord(BatteryStatus.Charging) == 3
@@ -47,18 +47,20 @@ suite "bindings":
     check uint32(ContactQuerySearchFields_All) == 0xFFFFFFFF'u32
     check $ContactQuerySearchFields_All != "-1"
 
-  test "a hoisted type lands in foundation, not ui":
-    # `Windows.UI.Color` is pulled forward so that anything visual can name it
-    # without importing the 52,000-line `ui` module; see `hoisted` in
-    # tools/generate.nim.
+  test "a struct from a large namespace is reachable from a small module":
+    # `Windows.UI.Color` lives in `abi/types` with every other struct, so
+    # anything visual can name it without importing `ui`.
     let c = Color(a: 255, r: 1, g: 2, b: 3)
     check c.b == 3
     check sizeof(Color) == 4
 
   test "a struct shared between modules is one type":
     # Both `foundation` and `system` name EventRegistrationToken in their
-    # signatures. If each declared its own, this assignment would not compile.
-    var token = EventRegistrationToken(value: 7)
-    var fn: Fn_IPowerManagerStatics_remove_BatteryStatusChanged
-    check fn == nil
-    check token.value == 7
+    # signatures. If each declared its own, a `foundation` token could not be
+    # handed to a `system` method.
+    var vtbl: IPowerManagerStaticsVtbl
+    vtbl.remove_BatteryStatusChanged =
+      proc(self: pointer, token: EventRegistrationToken): HRESULT
+          {.stdcall, raises: [], gcsafe.} =
+        if token.value == 7: S_OK else: E_FAIL
+    check vtbl.remove_BatteryStatusChanged(nil, EventRegistrationToken(value: 7)) == S_OK

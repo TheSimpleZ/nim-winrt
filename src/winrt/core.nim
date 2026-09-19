@@ -14,7 +14,7 @@
 ## object is held, how a collection or a map is read, how a value crosses in an
 ## `IReference<T>`, how an array comes back.
 
-import std/[hashes, macros, options, os, strformat, strutils, tables, widestrs]
+import std/[hashes, options, os, strformat, strutils, tables, widestrs]
 
 # A method that may not have a value returns `Option[T]` and a map reads as a
 # `Table`, so anyone holding either needs those without a second import.
@@ -195,6 +195,17 @@ template withHString*(s: string, name, body: untyped) =
     finally:
       discard windowsDeleteString(name)
 
+# -------------------------------------------------------------------- enums
+
+proc enumName*[T: enum](v: T): string =
+  ## The member's name, or `T(n)` for a value the metadata did not have.
+  ##
+  ## What every generated enum's `$` is. Windows can hand back a member added
+  ## after this metadata was cut, and the standard `$` renders one of those as
+  ## the empty string — which is the one answer that hides what happened.
+  result = system.`$`(v)
+  if result.len == 0: result = $T & "(" & $ord(v) & ")"
+
 # ---------------------------------------------------------------------- GUIDs
 
 func `==`*(a, b: GUID): bool =
@@ -242,37 +253,49 @@ const
 
 include ./abidef
 
+# A COM interface is a table of function pointers, and an interface pointer
+# points at a pointer to that table. Here a table is a Nim object whose fields
+# are the methods in vtable order: the generated `IUriRuntimeClassVtbl` derives
+# from `IInspectableVtbl` and lists its own methods after the six every WinRT
+# interface begins with, so `it.vtbl.get_Host(it, ...)` is a type-checked field
+# call rather than an index and a cast. Every field carries `abi`, so Nim knows
+# a call through one neither raises nor touches the heap — which is what lets
+# `release` be called from a `=destroy` hook.
+#
+# These are also the head of every vtable this library *implements*: getting
+# the order or the count wrong is the mistake that puts a caller's `GetAt`
+# through `Release`.
+
 type
-  IInspectableVtbl* {.pure.} = object
-    ## The six slots every WinRT interface begins with. Every slot carries
-    ## `abi`, so Nim knows a call through one neither raises nor touches the
-    ## heap — which is what lets `release` be called from a `=destroy` hook.
-    ##
-    ## Also the head of every vtable this library *implements*: getting the
-    ## order or the count of these wrong is the mistake that puts a caller's
-    ## `GetAt` through `Release`.
-    # --- IUnknown ---
+  IUnknownVtbl* {.pure, inheritable.} = object
+    ## COM's three. A delegate's vtable derives from this.
     queryInterface*: proc(self: pointer, riid: ptr GUID,
                           ppv: ptr pointer): HRESULT {.abi.}
     addRef*: proc(self: pointer): uint32 {.abi.}
     release*: proc(self: pointer): uint32 {.abi.}
-    # --- IInspectable ---
+
+  IInspectableVtbl* {.pure, inheritable.} = object of IUnknownVtbl
+    ## WinRT's three more. Every interface's vtable derives from this.
     getIids*: proc(self: pointer, count: ptr uint32,
                    iids: ptr ptr GUID): HRESULT {.abi.}
     getRuntimeClassName*: proc(self: pointer,
                                name: ptr HSTRING): HRESULT {.abi.}
     getTrustLevel*: proc(self: pointer, level: ptr int32): HRESULT {.abi.}
 
-  IInspectable* {.pure.} = object
-    vtbl*: ptr IInspectableVtbl
+  Iface*[V] {.pure.} = object
+    ## What an interface pointer points at: a pointer to the vtable `V`.
+    ## `withIface` hands one out as `ptr Iface[SomethingVtbl]`, and any `ptr`
+    ## converts to the `pointer` a method wants as `self`.
+    vtbl*: ptr V
 
 template vcall*(obj: pointer, slot: int, T: typedesc): untyped =
   ## The method at vtable index `slot`, as a callable of type `T`.
   ##
-  ## This is the whole of how a WinRT call works: an interface pointer points
-  ## at a pointer to an array of function pointers, and which method you called
-  ## is decided by counting. `slot` comes from a generated `Slot_*` constant and
-  ## `T` from the matching `Fn_*` type, so the two always agree.
+  ## For the parameterised interfaces — `IVector<T>`, `IReference<T>`, the
+  ## async operations — which have one vtable layout and thousands of
+  ## instantiations, so no generated vtable type applies and the slot is
+  ## counted instead. Everything with a declared interface goes through its
+  ## `Vtbl` object and `withIface`.
   ##
   ## Slots are numbered *per interface*. Counting into the table of an
   ## interface that does not declare the method finds whatever sits at that
@@ -281,33 +304,34 @@ template vcall*(obj: pointer, slot: int, T: typedesc): untyped =
   ## belongs to, not whichever pointer happens to be at hand.
   cast[T](cast[ptr ptr UncheckedArray[pointer]](obj)[][slot])
 
+template inspectable(obj: pointer): ptr IInspectableVtbl =
+  cast[ptr Iface[IInspectableVtbl]](obj).vtbl
+
 proc addRef*(obj: pointer): uint32 {.discardable, raises: [], gcsafe.} =
   ## Take a reference. Safe to call from a destructor, because `abi` says the
   ## slot cannot raise.
   if obj.isNil: return 0
-  cast[ptr IInspectable](obj).vtbl.addRef(obj)
+  inspectable(obj).addRef(obj)
 
 proc release*(obj: pointer): uint32 {.discardable, raises: [], gcsafe.} =
   ## Drop a reference, and the object with the last one.
   if obj.isNil: return 0
-  cast[ptr IInspectable](obj).vtbl.release(obj)
+  inspectable(obj).release(obj)
 
 proc queryInterface*(obj: pointer, iid: GUID): pointer =
   ## `nil` when the object does not implement `iid`. Callers that care about
   ## *why* should call the vtable slot directly.
   if obj.isNil: return nil
   var id = iid
-  let i = cast[ptr IInspectable](obj)
-  if i.vtbl.queryInterface(obj, id.addr, result.addr).failed:
+  if inspectable(obj).queryInterface(obj, id.addr, result.addr).failed:
     result = nil
 
 proc runtimeClassName*(obj: pointer): string =
   ## What a WinRT object says it is. Note that activation *factories* are
   ## allowed to answer `E_NOTIMPL` here and commonly do — that is not a fault.
   if obj.isNil: return "<nil>"
-  let i = cast[ptr IInspectable](obj)
   var h: HSTRING
-  let hr = i.vtbl.getRuntimeClassName(obj, h.addr)
+  let hr = inspectable(obj).getRuntimeClassName(obj, h.addr)
   if hr.failed:
     return &"<unavailable: {hr.name}>"
   result = $h
@@ -530,27 +554,46 @@ proc borrow*[T](p: pointer): T =
 
 # ------------------------------------------- what the generated API is built on
 
-# An interface is named by its ABI identifier — `IUriRuntimeClass`, not
-# `IID_IUriRuntimeClass` — and the templates build the constant and the
-# error text from that one name. (`IID iface` inside backticks joins the
-# two, and Nim reads `IIDIUriRuntimeClass` and `IID_IUriRuntimeClass` as
-# the same identifier.) The generated code reads
+# An interface is named by its plain name — `IUriRuntimeClass` — and the
+# templates build the IID constant and the vtable type from it: `IID iface`
+# inside backticks is `IID_IUriRuntimeClass` to Nim, which ignores the
+# underscore, and `iface Vtbl` is `IUriRuntimeClassVtbl`. The generated code
+# reads
+#
+#     withIface(self.p, IUriRuntimeClass, it):
+#       result = it.getString(get_Host)
+#
+# or, spelled out,
 #
 #     withIface(self.p, IUriRuntimeClass, it):
 #       var tmp: HSTRING
-#       it.call(IUriRuntimeClass_get_Host, tmp.addr)
+#       check it.vtbl.get_Host(it, tmp.addr), "Uri.get_Host"
+#       result = takeString(tmp)
 #
 # which is the whole of a WinRT method call: narrow to the interface that
-# declares the method, call its slot, check the HRESULT.
+# declares the method, call its method, check the HRESULT.
 
 template withIface*(obj: pointer, iface, name, body: untyped) =
   ## Dispatch through the interface that declares the method, not through
-  ## whichever one the caller happens to hold. Slots are numbered per
-  ## interface, so the difference is a wrong function or a crash, never an
-  ## error code.
-  let name = queryInterface(obj, `IID iface`)
+  ## whichever one the caller happens to hold. `name` is a
+  ## `ptr Iface[<iface>Vtbl]`, so only that interface's methods can be called
+  ## on it. Methods are numbered per interface, so calling through the wrong
+  ## one is a wrong function or a crash, never an error code.
+  let name = cast[ptr Iface[`iface Vtbl`]](queryInterface(obj, `IID iface`))
   if name.isNil:
     raise newException(WinRtError, "winrt: object is not a " & astToStr(iface))
+  try:
+    body
+  finally:
+    release(name)
+
+template narrowing*(obj: pointer, iid: GUID, name, body: untyped) =
+  ## `withIface` for an interface that has no vtable type: an instantiation
+  ## of a parameterised one, whose IID was computed. `name` is a bare
+  ## `pointer`, which is all a caller passing it on needs.
+  let name = queryInterface(obj, iid)
+  if name.isNil:
+    raise newException(WinRtError, "winrt: object is not a " & astToStr(iid))
   try:
     body
   finally:
@@ -560,24 +603,45 @@ template withStatics*(classId: string, iface, name, body: untyped) =
   ## Dispatch to a class with no instances. Everything it can do lives on an
   ## interface reached through its activation factory, which combase caches,
   ## so this costs a lookup and an AddRef.
-  let name = activationFactory(classId, `IID iface`)
+  let name = cast[ptr Iface[`iface Vtbl`]](activationFactory(classId, `IID iface`))
   try:
     body
   finally:
     release(name)
 
-macro call*(obj: pointer, tag: untyped, args: varargs[untyped]): untyped =
-  ## The method `tag` names — `IUriRuntimeClass_get_Host` — called on `obj`
-  ## with `args`, and its HRESULT checked. `Slot_tag` says where it is and
-  ## `Fn_tag` what it takes; both are generated from the same metadata row,
-  ## so they cannot disagree.
-  ##
-  ## A macro rather than a template only because a template's `varargs` does
-  ## not take zero arguments, and `IClosable_Close` has none.
-  let invoke = newCall(newCall(bindSym"vcall", obj, ident("Slot_" & $tag),
-                               ident("Fn_" & $tag)), obj)
-  for a in args: invoke.add a
-  newCall(bindSym"check", invoke, newLit($tag))
+# The three ways a property comes out and the two ways one goes in, so a
+# getter or a setter is one line. Anything else — an argument that is an
+# object, a collection coming back — is spelled out at the call site.
+
+template getString*(it, field: untyped): string =
+  ## A string-valued getter, its HSTRING taken.
+  block:
+    var h: HSTRING
+    check it.vtbl.field(it, h.addr), astToStr(field)
+    takeString(h)
+
+template getValue*(it, field: untyped, T: typedesc): untyped =
+  ## A getter of a number, an enum or a struct, which comes back by value.
+  block:
+    var v: T
+    check it.vtbl.field(it, v.addr), astToStr(field)
+    v
+
+template getObject*(it, field: untyped, T: typedesc): untyped =
+  ## A getter of an object, whose reference is ours and so adopted.
+  block:
+    var p: pointer
+    check it.vtbl.field(it, p.addr), astToStr(field)
+    adopt[T](p)
+
+template putString*(it, field: untyped, value: string) =
+  ## A string-valued setter, its HSTRING held for the call.
+  withHString(value, h):
+    check it.vtbl.field(it, h), astToStr(field)
+
+template putValue*(it, field, value: untyped) =
+  ## A setter of a number, an enum or a struct, passed by value.
+  check it.vtbl.field(it, value), astToStr(field)
 
 type EventHandler*[S, A] = proc(sender: S, args: A) {.closure.}
   ## What an event's `on*` proc takes: the sender and the arguments, each as

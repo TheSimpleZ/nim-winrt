@@ -170,16 +170,13 @@ suite "generated API":
     type
       FnInsert = proc(self: pointer, k, v: HSTRING,
                       replaced: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
-      FnGetMeta = proc(self: pointer, v: ptr pointer): HRESULT
-        {.stdcall, raises: [], gcsafe.}
 
     let model = newPrinting3DModel()
     check model.metadata.len == 0
 
     withIface(model.p, IPrinting3DModel, it):
       var raw: pointer
-      vcall(it, Slot_IPrinting3DModel_get_Metadata, FnGetMeta)(it, raw.addr)
-        .check("get_Metadata")
+      check it.vtbl.get_Metadata(it, raw.addr), "get_Metadata"
       let mp = queryInterface(raw, guid("F6D1F700-49C2-52AE-8154-826F9908773C"))
       check mp != nil
       for (k, v) in {"title": "a cube", "author": "nim"}:

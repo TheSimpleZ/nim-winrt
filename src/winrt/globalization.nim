@@ -28,24 +28,22 @@ proc primaryLanguageOverride*(_: typedesc[ApplicationLanguages]): string =
   ## Windows.Globalization.ApplicationLanguages.get_PrimaryLanguageOverride
   withStatics("Windows.Globalization.ApplicationLanguages",
               IApplicationLanguagesStatics, it):
-    var tmp: HSTRING
-    it.call(IApplicationLanguagesStatics_get_PrimaryLanguageOverride, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PrimaryLanguageOverride)
 
 proc `primaryLanguageOverride=`*(_: typedesc[ApplicationLanguages],
                                  value: string) =
   ## Windows.Globalization.ApplicationLanguages.put_PrimaryLanguageOverride
   withStatics("Windows.Globalization.ApplicationLanguages",
               IApplicationLanguagesStatics, it):
-    withHString(value, h0):
-      it.call(IApplicationLanguagesStatics_put_PrimaryLanguageOverride, h0)
+    it.putString(put_PrimaryLanguageOverride, value)
 
 proc languages*(_: typedesc[ApplicationLanguages]): seq[string] =
   ## Windows.Globalization.ApplicationLanguages.get_Languages
   withStatics("Windows.Globalization.ApplicationLanguages",
               IApplicationLanguagesStatics, it):
     var tmp: pointer
-    it.call(IApplicationLanguagesStatics_get_Languages, tmp.addr)
+    check it.vtbl.get_Languages(it, tmp.addr
+                               ), "ApplicationLanguages.get_Languages"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
@@ -54,7 +52,8 @@ proc manifestLanguages*(_: typedesc[ApplicationLanguages]): seq[string] =
   withStatics("Windows.Globalization.ApplicationLanguages",
               IApplicationLanguagesStatics, it):
     var tmp: pointer
-    it.call(IApplicationLanguagesStatics_get_ManifestLanguages, tmp.addr)
+    check it.vtbl.get_ManifestLanguages(it, tmp.addr
+                                       ), "ApplicationLanguages.get_ManifestLanguages"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
@@ -65,7 +64,8 @@ proc getLanguagesForUser*(_: typedesc[ApplicationLanguages], user: User
               IApplicationLanguagesStatics2, it):
     withIface(user.p, IUser, p0):
       var tmp: pointer
-      it.call(IApplicationLanguagesStatics2_GetLanguagesForUser, p0, tmp.addr)
+      check it.vtbl.GetLanguagesForUser(it, p0, tmp.addr
+                                       ), "ApplicationLanguages.GetLanguagesForUser"
       result = toSeq[string](tmp, IID_IVectorView_1_String)
       release(tmp)
 
@@ -77,561 +77,520 @@ proc clone*(self: Calendar): Calendar =
   ## Windows.Globalization.Calendar.Clone
   withIface(self.p, ICalendar, it):
     var tmp: pointer
-    it.call(ICalendar_Clone, tmp.addr)
+    check it.vtbl.Clone(it, tmp.addr), "Calendar.Clone"
     result = adopt[Calendar](tmp)
 
 proc setToMin*(self: Calendar) =
   ## Windows.Globalization.Calendar.SetToMin
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_SetToMin)
+    check it.vtbl.SetToMin(it), "Calendar.SetToMin"
 
 proc setToMax*(self: Calendar) =
   ## Windows.Globalization.Calendar.SetToMax
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_SetToMax)
+    check it.vtbl.SetToMax(it), "Calendar.SetToMax"
 
 proc languages*(self: Calendar): seq[string] =
   ## Windows.Globalization.Calendar.get_Languages
   withIface(self.p, ICalendar, it):
     var tmp: pointer
-    it.call(ICalendar_get_Languages, tmp.addr)
+    check it.vtbl.get_Languages(it, tmp.addr), "Calendar.get_Languages"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc numeralSystem*(self: Calendar): string =
   ## Windows.Globalization.Calendar.get_NumeralSystem
   withIface(self.p, ICalendar, it):
-    var tmp: HSTRING
-    it.call(ICalendar_get_NumeralSystem, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NumeralSystem)
 
 proc `numeralSystem=`*(self: Calendar, value: string) =
   ## Windows.Globalization.Calendar.put_NumeralSystem
   withIface(self.p, ICalendar, it):
-    withHString(value, h0):
-      it.call(ICalendar_put_NumeralSystem, h0)
+    it.putString(put_NumeralSystem, value)
 
 proc getCalendarSystem*(self: Calendar): string =
   ## Windows.Globalization.Calendar.GetCalendarSystem
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_GetCalendarSystem, tmp.addr)
+    check it.vtbl.GetCalendarSystem(it, tmp.addr), "Calendar.GetCalendarSystem"
     result = takeString(tmp)
 
 proc changeCalendarSystem*(self: Calendar, value: string) =
   ## Windows.Globalization.Calendar.ChangeCalendarSystem
   withIface(self.p, ICalendar, it):
     withHString(value, h0):
-      it.call(ICalendar_ChangeCalendarSystem, h0)
+      check it.vtbl.ChangeCalendarSystem(it, h0
+                                        ), "Calendar.ChangeCalendarSystem"
 
 proc getClock*(self: Calendar): string =
   ## Windows.Globalization.Calendar.GetClock
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_GetClock, tmp.addr)
+    check it.vtbl.GetClock(it, tmp.addr), "Calendar.GetClock"
     result = takeString(tmp)
 
 proc changeClock*(self: Calendar, value: string) =
   ## Windows.Globalization.Calendar.ChangeClock
   withIface(self.p, ICalendar, it):
     withHString(value, h0):
-      it.call(ICalendar_ChangeClock, h0)
+      check it.vtbl.ChangeClock(it, h0), "Calendar.ChangeClock"
 
 proc getDateTime*(self: Calendar): DateTime =
   ## Windows.Globalization.Calendar.GetDateTime
   withIface(self.p, ICalendar, it):
     var tmp: DateTime
-    it.call(ICalendar_GetDateTime, tmp.addr)
+    check it.vtbl.GetDateTime(it, tmp.addr), "Calendar.GetDateTime"
     result = tmp
 
 proc setDateTime*(self: Calendar, value: DateTime) =
   ## Windows.Globalization.Calendar.SetDateTime
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_SetDateTime, value)
+    check it.vtbl.SetDateTime(it, value), "Calendar.SetDateTime"
 
 proc setToNow*(self: Calendar) =
   ## Windows.Globalization.Calendar.SetToNow
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_SetToNow)
+    check it.vtbl.SetToNow(it), "Calendar.SetToNow"
 
 proc firstEra*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_FirstEra
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_FirstEra, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FirstEra, int32)
 
 proc lastEra*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_LastEra
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_LastEra, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LastEra, int32)
 
 proc numberOfEras*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_NumberOfEras
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_NumberOfEras, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NumberOfEras, int32)
 
 proc era*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_Era
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_Era, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Era, int32)
 
 proc `era=`*(self: Calendar, value: int32) =
   ## Windows.Globalization.Calendar.put_Era
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_put_Era, value)
+    it.putValue(put_Era, value)
 
 proc addEras*(self: Calendar, eras: int32) =
   ## Windows.Globalization.Calendar.AddEras
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_AddEras, eras)
+    check it.vtbl.AddEras(it, eras), "Calendar.AddEras"
 
 proc eraAsString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.EraAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_EraAsString, tmp.addr)
+    check it.vtbl.EraAsString(it, tmp.addr), "Calendar.EraAsString"
     result = takeString(tmp)
 
 proc eraAsString*(self: Calendar, idealLength: int32): string =
   ## Windows.Globalization.Calendar.EraAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_EraAsString2, idealLength, tmp.addr)
+    check it.vtbl.EraAsString2(it, idealLength, tmp.addr
+                              ), "Calendar.EraAsString"
     result = takeString(tmp)
 
 proc firstYearInThisEra*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_FirstYearInThisEra
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_FirstYearInThisEra, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FirstYearInThisEra, int32)
 
 proc lastYearInThisEra*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_LastYearInThisEra
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_LastYearInThisEra, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LastYearInThisEra, int32)
 
 proc numberOfYearsInThisEra*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_NumberOfYearsInThisEra
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_NumberOfYearsInThisEra, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NumberOfYearsInThisEra, int32)
 
 proc year*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_Year
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_Year, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Year, int32)
 
 proc `year=`*(self: Calendar, value: int32) =
   ## Windows.Globalization.Calendar.put_Year
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_put_Year, value)
+    it.putValue(put_Year, value)
 
 proc addYears*(self: Calendar, years: int32) =
   ## Windows.Globalization.Calendar.AddYears
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_AddYears, years)
+    check it.vtbl.AddYears(it, years), "Calendar.AddYears"
 
 proc yearAsString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.YearAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_YearAsString, tmp.addr)
+    check it.vtbl.YearAsString(it, tmp.addr), "Calendar.YearAsString"
     result = takeString(tmp)
 
 proc yearAsTruncatedString*(self: Calendar, remainingDigits: int32): string =
   ## Windows.Globalization.Calendar.YearAsTruncatedString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_YearAsTruncatedString, remainingDigits, tmp.addr)
+    check it.vtbl.YearAsTruncatedString(it, remainingDigits, tmp.addr
+                                       ), "Calendar.YearAsTruncatedString"
     result = takeString(tmp)
 
 proc yearAsPaddedString*(self: Calendar, minDigits: int32): string =
   ## Windows.Globalization.Calendar.YearAsPaddedString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_YearAsPaddedString, minDigits, tmp.addr)
+    check it.vtbl.YearAsPaddedString(it, minDigits, tmp.addr
+                                    ), "Calendar.YearAsPaddedString"
     result = takeString(tmp)
 
 proc firstMonthInThisYear*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_FirstMonthInThisYear
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_FirstMonthInThisYear, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FirstMonthInThisYear, int32)
 
 proc lastMonthInThisYear*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_LastMonthInThisYear
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_LastMonthInThisYear, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LastMonthInThisYear, int32)
 
 proc numberOfMonthsInThisYear*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_NumberOfMonthsInThisYear
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_NumberOfMonthsInThisYear, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NumberOfMonthsInThisYear, int32)
 
 proc month*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_Month
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_Month, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Month, int32)
 
 proc `month=`*(self: Calendar, value: int32) =
   ## Windows.Globalization.Calendar.put_Month
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_put_Month, value)
+    it.putValue(put_Month, value)
 
 proc addMonths*(self: Calendar, months: int32) =
   ## Windows.Globalization.Calendar.AddMonths
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_AddMonths, months)
+    check it.vtbl.AddMonths(it, months), "Calendar.AddMonths"
 
 proc monthAsString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.MonthAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_MonthAsString, tmp.addr)
+    check it.vtbl.MonthAsString(it, tmp.addr), "Calendar.MonthAsString"
     result = takeString(tmp)
 
 proc monthAsString*(self: Calendar, idealLength: int32): string =
   ## Windows.Globalization.Calendar.MonthAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_MonthAsString2, idealLength, tmp.addr)
+    check it.vtbl.MonthAsString2(it, idealLength, tmp.addr
+                                ), "Calendar.MonthAsString"
     result = takeString(tmp)
 
 proc monthAsSoloString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.MonthAsSoloString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_MonthAsSoloString, tmp.addr)
+    check it.vtbl.MonthAsSoloString(it, tmp.addr), "Calendar.MonthAsSoloString"
     result = takeString(tmp)
 
 proc monthAsSoloString*(self: Calendar, idealLength: int32): string =
   ## Windows.Globalization.Calendar.MonthAsSoloString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_MonthAsSoloString2, idealLength, tmp.addr)
+    check it.vtbl.MonthAsSoloString2(it, idealLength, tmp.addr
+                                    ), "Calendar.MonthAsSoloString"
     result = takeString(tmp)
 
 proc monthAsNumericString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.MonthAsNumericString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_MonthAsNumericString, tmp.addr)
+    check it.vtbl.MonthAsNumericString(it, tmp.addr
+                                      ), "Calendar.MonthAsNumericString"
     result = takeString(tmp)
 
 proc monthAsPaddedNumericString*(self: Calendar, minDigits: int32): string =
   ## Windows.Globalization.Calendar.MonthAsPaddedNumericString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_MonthAsPaddedNumericString, minDigits, tmp.addr)
+    check it.vtbl.MonthAsPaddedNumericString(it, minDigits, tmp.addr
+                                            ), "Calendar.MonthAsPaddedNumericString"
     result = takeString(tmp)
 
 proc addWeeks*(self: Calendar, weeks: int32) =
   ## Windows.Globalization.Calendar.AddWeeks
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_AddWeeks, weeks)
+    check it.vtbl.AddWeeks(it, weeks), "Calendar.AddWeeks"
 
 proc firstDayInThisMonth*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_FirstDayInThisMonth
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_FirstDayInThisMonth, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FirstDayInThisMonth, int32)
 
 proc lastDayInThisMonth*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_LastDayInThisMonth
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_LastDayInThisMonth, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LastDayInThisMonth, int32)
 
 proc numberOfDaysInThisMonth*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_NumberOfDaysInThisMonth
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_NumberOfDaysInThisMonth, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NumberOfDaysInThisMonth, int32)
 
 proc day*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_Day
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_Day, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Day, int32)
 
 proc `day=`*(self: Calendar, value: int32) =
   ## Windows.Globalization.Calendar.put_Day
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_put_Day, value)
+    it.putValue(put_Day, value)
 
 proc addDays*(self: Calendar, days: int32) =
   ## Windows.Globalization.Calendar.AddDays
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_AddDays, days)
+    check it.vtbl.AddDays(it, days), "Calendar.AddDays"
 
 proc dayAsString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.DayAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_DayAsString, tmp.addr)
+    check it.vtbl.DayAsString(it, tmp.addr), "Calendar.DayAsString"
     result = takeString(tmp)
 
 proc dayAsPaddedString*(self: Calendar, minDigits: int32): string =
   ## Windows.Globalization.Calendar.DayAsPaddedString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_DayAsPaddedString, minDigits, tmp.addr)
+    check it.vtbl.DayAsPaddedString(it, minDigits, tmp.addr
+                                   ), "Calendar.DayAsPaddedString"
     result = takeString(tmp)
 
 proc dayOfWeek*(self: Calendar): DayOfWeek =
   ## Windows.Globalization.Calendar.get_DayOfWeek
   withIface(self.p, ICalendar, it):
-    var tmp: DayOfWeek
-    it.call(ICalendar_get_DayOfWeek, tmp.addr)
-    result = tmp
+    result = it.getValue(get_DayOfWeek, DayOfWeek)
 
 proc dayOfWeekAsString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.DayOfWeekAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_DayOfWeekAsString, tmp.addr)
+    check it.vtbl.DayOfWeekAsString(it, tmp.addr), "Calendar.DayOfWeekAsString"
     result = takeString(tmp)
 
 proc dayOfWeekAsString*(self: Calendar, idealLength: int32): string =
   ## Windows.Globalization.Calendar.DayOfWeekAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_DayOfWeekAsString2, idealLength, tmp.addr)
+    check it.vtbl.DayOfWeekAsString2(it, idealLength, tmp.addr
+                                    ), "Calendar.DayOfWeekAsString"
     result = takeString(tmp)
 
 proc dayOfWeekAsSoloString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.DayOfWeekAsSoloString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_DayOfWeekAsSoloString, tmp.addr)
+    check it.vtbl.DayOfWeekAsSoloString(it, tmp.addr
+                                       ), "Calendar.DayOfWeekAsSoloString"
     result = takeString(tmp)
 
 proc dayOfWeekAsSoloString*(self: Calendar, idealLength: int32): string =
   ## Windows.Globalization.Calendar.DayOfWeekAsSoloString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_DayOfWeekAsSoloString2, idealLength, tmp.addr)
+    check it.vtbl.DayOfWeekAsSoloString2(it, idealLength, tmp.addr
+                                        ), "Calendar.DayOfWeekAsSoloString"
     result = takeString(tmp)
 
 proc firstPeriodInThisDay*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_FirstPeriodInThisDay
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_FirstPeriodInThisDay, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FirstPeriodInThisDay, int32)
 
 proc lastPeriodInThisDay*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_LastPeriodInThisDay
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_LastPeriodInThisDay, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LastPeriodInThisDay, int32)
 
 proc numberOfPeriodsInThisDay*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_NumberOfPeriodsInThisDay
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_NumberOfPeriodsInThisDay, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NumberOfPeriodsInThisDay, int32)
 
 proc period*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_Period
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_Period, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Period, int32)
 
 proc `period=`*(self: Calendar, value: int32) =
   ## Windows.Globalization.Calendar.put_Period
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_put_Period, value)
+    it.putValue(put_Period, value)
 
 proc addPeriods*(self: Calendar, periods: int32) =
   ## Windows.Globalization.Calendar.AddPeriods
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_AddPeriods, periods)
+    check it.vtbl.AddPeriods(it, periods), "Calendar.AddPeriods"
 
 proc periodAsString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.PeriodAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_PeriodAsString, tmp.addr)
+    check it.vtbl.PeriodAsString(it, tmp.addr), "Calendar.PeriodAsString"
     result = takeString(tmp)
 
 proc periodAsString*(self: Calendar, idealLength: int32): string =
   ## Windows.Globalization.Calendar.PeriodAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_PeriodAsString2, idealLength, tmp.addr)
+    check it.vtbl.PeriodAsString2(it, idealLength, tmp.addr
+                                 ), "Calendar.PeriodAsString"
     result = takeString(tmp)
 
 proc firstHourInThisPeriod*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_FirstHourInThisPeriod
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_FirstHourInThisPeriod, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FirstHourInThisPeriod, int32)
 
 proc lastHourInThisPeriod*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_LastHourInThisPeriod
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_LastHourInThisPeriod, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LastHourInThisPeriod, int32)
 
 proc numberOfHoursInThisPeriod*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_NumberOfHoursInThisPeriod
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_NumberOfHoursInThisPeriod, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NumberOfHoursInThisPeriod, int32)
 
 proc hour*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_Hour
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_Hour, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Hour, int32)
 
 proc `hour=`*(self: Calendar, value: int32) =
   ## Windows.Globalization.Calendar.put_Hour
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_put_Hour, value)
+    it.putValue(put_Hour, value)
 
 proc addHours*(self: Calendar, hours: int32) =
   ## Windows.Globalization.Calendar.AddHours
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_AddHours, hours)
+    check it.vtbl.AddHours(it, hours), "Calendar.AddHours"
 
 proc hourAsString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.HourAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_HourAsString, tmp.addr)
+    check it.vtbl.HourAsString(it, tmp.addr), "Calendar.HourAsString"
     result = takeString(tmp)
 
 proc hourAsPaddedString*(self: Calendar, minDigits: int32): string =
   ## Windows.Globalization.Calendar.HourAsPaddedString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_HourAsPaddedString, minDigits, tmp.addr)
+    check it.vtbl.HourAsPaddedString(it, minDigits, tmp.addr
+                                    ), "Calendar.HourAsPaddedString"
     result = takeString(tmp)
 
 proc minute*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_Minute
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_Minute, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Minute, int32)
 
 proc `minute=`*(self: Calendar, value: int32) =
   ## Windows.Globalization.Calendar.put_Minute
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_put_Minute, value)
+    it.putValue(put_Minute, value)
 
 proc addMinutes*(self: Calendar, minutes: int32) =
   ## Windows.Globalization.Calendar.AddMinutes
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_AddMinutes, minutes)
+    check it.vtbl.AddMinutes(it, minutes), "Calendar.AddMinutes"
 
 proc minuteAsString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.MinuteAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_MinuteAsString, tmp.addr)
+    check it.vtbl.MinuteAsString(it, tmp.addr), "Calendar.MinuteAsString"
     result = takeString(tmp)
 
 proc minuteAsPaddedString*(self: Calendar, minDigits: int32): string =
   ## Windows.Globalization.Calendar.MinuteAsPaddedString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_MinuteAsPaddedString, minDigits, tmp.addr)
+    check it.vtbl.MinuteAsPaddedString(it, minDigits, tmp.addr
+                                      ), "Calendar.MinuteAsPaddedString"
     result = takeString(tmp)
 
 proc second*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_Second
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_Second, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Second, int32)
 
 proc `second=`*(self: Calendar, value: int32) =
   ## Windows.Globalization.Calendar.put_Second
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_put_Second, value)
+    it.putValue(put_Second, value)
 
 proc addSeconds*(self: Calendar, seconds: int32) =
   ## Windows.Globalization.Calendar.AddSeconds
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_AddSeconds, seconds)
+    check it.vtbl.AddSeconds(it, seconds), "Calendar.AddSeconds"
 
 proc secondAsString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.SecondAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_SecondAsString, tmp.addr)
+    check it.vtbl.SecondAsString(it, tmp.addr), "Calendar.SecondAsString"
     result = takeString(tmp)
 
 proc secondAsPaddedString*(self: Calendar, minDigits: int32): string =
   ## Windows.Globalization.Calendar.SecondAsPaddedString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_SecondAsPaddedString, minDigits, tmp.addr)
+    check it.vtbl.SecondAsPaddedString(it, minDigits, tmp.addr
+                                      ), "Calendar.SecondAsPaddedString"
     result = takeString(tmp)
 
 proc nanosecond*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_Nanosecond
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_Nanosecond, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Nanosecond, int32)
 
 proc `nanosecond=`*(self: Calendar, value: int32) =
   ## Windows.Globalization.Calendar.put_Nanosecond
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_put_Nanosecond, value)
+    it.putValue(put_Nanosecond, value)
 
 proc addNanoseconds*(self: Calendar, nanoseconds: int32) =
   ## Windows.Globalization.Calendar.AddNanoseconds
   withIface(self.p, ICalendar, it):
-    it.call(ICalendar_AddNanoseconds, nanoseconds)
+    check it.vtbl.AddNanoseconds(it, nanoseconds), "Calendar.AddNanoseconds"
 
 proc nanosecondAsString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.NanosecondAsString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_NanosecondAsString, tmp.addr)
+    check it.vtbl.NanosecondAsString(it, tmp.addr
+                                    ), "Calendar.NanosecondAsString"
     result = takeString(tmp)
 
 proc nanosecondAsPaddedString*(self: Calendar, minDigits: int32): string =
   ## Windows.Globalization.Calendar.NanosecondAsPaddedString
   withIface(self.p, ICalendar, it):
     var tmp: HSTRING
-    it.call(ICalendar_NanosecondAsPaddedString, minDigits, tmp.addr)
+    check it.vtbl.NanosecondAsPaddedString(it, minDigits, tmp.addr
+                                          ), "Calendar.NanosecondAsPaddedString"
     result = takeString(tmp)
 
 proc compare*(self: Calendar, other: Calendar): int32 =
@@ -639,103 +598,89 @@ proc compare*(self: Calendar, other: Calendar): int32 =
   withIface(self.p, ICalendar, it):
     withIface(other.p, ICalendar, p0):
       var tmp: int32
-      it.call(ICalendar_Compare, p0, tmp.addr)
+      check it.vtbl.Compare(it, p0, tmp.addr), "Calendar.Compare"
       result = tmp
 
 proc compareDateTime*(self: Calendar, other: DateTime): int32 =
   ## Windows.Globalization.Calendar.CompareDateTime
   withIface(self.p, ICalendar, it):
     var tmp: int32
-    it.call(ICalendar_CompareDateTime, other, tmp.addr)
+    check it.vtbl.CompareDateTime(it, other, tmp.addr
+                                 ), "Calendar.CompareDateTime"
     result = tmp
 
 proc copyTo*(self: Calendar, other: Calendar) =
   ## Windows.Globalization.Calendar.CopyTo
   withIface(self.p, ICalendar, it):
     withIface(other.p, ICalendar, p0):
-      it.call(ICalendar_CopyTo, p0)
+      check it.vtbl.CopyTo(it, p0), "Calendar.CopyTo"
 
 proc firstMinuteInThisHour*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_FirstMinuteInThisHour
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_FirstMinuteInThisHour, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FirstMinuteInThisHour, int32)
 
 proc lastMinuteInThisHour*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_LastMinuteInThisHour
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_LastMinuteInThisHour, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LastMinuteInThisHour, int32)
 
 proc numberOfMinutesInThisHour*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_NumberOfMinutesInThisHour
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_NumberOfMinutesInThisHour, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NumberOfMinutesInThisHour, int32)
 
 proc firstSecondInThisMinute*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_FirstSecondInThisMinute
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_FirstSecondInThisMinute, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FirstSecondInThisMinute, int32)
 
 proc lastSecondInThisMinute*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_LastSecondInThisMinute
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_LastSecondInThisMinute, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LastSecondInThisMinute, int32)
 
 proc numberOfSecondsInThisMinute*(self: Calendar): int32 =
   ## Windows.Globalization.Calendar.get_NumberOfSecondsInThisMinute
   withIface(self.p, ICalendar, it):
-    var tmp: int32
-    it.call(ICalendar_get_NumberOfSecondsInThisMinute, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NumberOfSecondsInThisMinute, int32)
 
 proc resolvedLanguage*(self: Calendar): string =
   ## Windows.Globalization.Calendar.get_ResolvedLanguage
   withIface(self.p, ICalendar, it):
-    var tmp: HSTRING
-    it.call(ICalendar_get_ResolvedLanguage, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedLanguage)
 
 proc isDaylightSavingTime*(self: Calendar): bool =
   ## Windows.Globalization.Calendar.get_IsDaylightSavingTime
   withIface(self.p, ICalendar, it):
-    var tmp: bool
-    it.call(ICalendar_get_IsDaylightSavingTime, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsDaylightSavingTime, bool)
 
 proc getTimeZone*(self: Calendar): string =
   ## Windows.Globalization.Calendar.GetTimeZone
   withIface(self.p, ITimeZoneOnCalendar, it):
     var tmp: HSTRING
-    it.call(ITimeZoneOnCalendar_GetTimeZone, tmp.addr)
+    check it.vtbl.GetTimeZone(it, tmp.addr), "Calendar.GetTimeZone"
     result = takeString(tmp)
 
 proc changeTimeZone*(self: Calendar, timeZoneId: string) =
   ## Windows.Globalization.Calendar.ChangeTimeZone
   withIface(self.p, ITimeZoneOnCalendar, it):
     withHString(timeZoneId, h0):
-      it.call(ITimeZoneOnCalendar_ChangeTimeZone, h0)
+      check it.vtbl.ChangeTimeZone(it, h0), "Calendar.ChangeTimeZone"
 
 proc timeZoneAsString*(self: Calendar): string =
   ## Windows.Globalization.Calendar.TimeZoneAsString
   withIface(self.p, ITimeZoneOnCalendar, it):
     var tmp: HSTRING
-    it.call(ITimeZoneOnCalendar_TimeZoneAsString, tmp.addr)
+    check it.vtbl.TimeZoneAsString(it, tmp.addr), "Calendar.TimeZoneAsString"
     result = takeString(tmp)
 
 proc timeZoneAsString*(self: Calendar, idealLength: int32): string =
   ## Windows.Globalization.Calendar.TimeZoneAsString
   withIface(self.p, ITimeZoneOnCalendar, it):
     var tmp: HSTRING
-    it.call(ITimeZoneOnCalendar_TimeZoneAsString2, idealLength, tmp.addr)
+    check it.vtbl.TimeZoneAsString2(it, idealLength, tmp.addr
+                                   ), "Calendar.TimeZoneAsString"
     result = takeString(tmp)
 
 proc createCalendarWithTimeZone*(_: typedesc[Calendar], languages: seq[string],
@@ -751,8 +696,8 @@ proc createCalendarWithTimeZone*(_: typedesc[Calendar], languages: seq[string],
       withHString(clock, h2):
         withHString(timeZoneId, h3):
           var tmp: pointer
-          it.call(ICalendarFactory2_CreateCalendarWithTimeZone, p0, h1, h2, h3,
-                  tmp.addr)
+          check it.vtbl.CreateCalendarWithTimeZone(it, p0, h1, h2, h3, tmp.addr
+                                                  ), "Calendar.CreateCalendarWithTimeZone"
           result = adopt[Calendar](tmp)
 
 proc createCalendarDefaultCalendarAndClock*(_: typedesc[Calendar],
@@ -764,8 +709,8 @@ proc createCalendarDefaultCalendarAndClock*(_: typedesc[Calendar],
                                          IID_IIterator_1_String)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ICalendarFactory_CreateCalendarDefaultCalendarAndClock, p0, tmp.addr
-           )
+    check it.vtbl.CreateCalendarDefaultCalendarAndClock(it, p0, tmp.addr
+                                                       ), "Calendar.CreateCalendarDefaultCalendarAndClock"
     result = adopt[Calendar](tmp)
 
 proc createCalendar*(_: typedesc[Calendar], languages: seq[string],
@@ -779,158 +724,121 @@ proc createCalendar*(_: typedesc[Calendar], languages: seq[string],
     withHString(calendar, h1):
       withHString(clock, h2):
         var tmp: pointer
-        it.call(ICalendarFactory_CreateCalendar, p0, h1, h2, tmp.addr)
+        check it.vtbl.CreateCalendar(it, p0, h1, h2, tmp.addr
+                                    ), "Calendar.CreateCalendar"
         result = adopt[Calendar](tmp)
 
 proc gregorian*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_Gregorian
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics_get_Gregorian, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Gregorian)
 
 proc hebrew*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_Hebrew
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics_get_Hebrew, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Hebrew)
 
 proc hijri*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_Hijri
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics_get_Hijri, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Hijri)
 
 proc japanese*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_Japanese
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics_get_Japanese, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Japanese)
 
 proc julian*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_Julian
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics_get_Julian, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Julian)
 
 proc korean*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_Korean
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics_get_Korean, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Korean)
 
 proc taiwan*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_Taiwan
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics_get_Taiwan, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Taiwan)
 
 proc thai*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_Thai
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics_get_Thai, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Thai)
 
 proc umAlQura*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_UmAlQura
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics_get_UmAlQura, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_UmAlQura)
 
 proc persian*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_Persian
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics2_get_Persian, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Persian)
 
 proc chineseLunar*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_ChineseLunar
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics3, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics3_get_ChineseLunar, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ChineseLunar)
 
 proc japaneseLunar*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_JapaneseLunar
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics3, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics3_get_JapaneseLunar, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_JapaneseLunar)
 
 proc koreanLunar*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_KoreanLunar
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics3, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics3_get_KoreanLunar, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_KoreanLunar)
 
 proc taiwanLunar*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_TaiwanLunar
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics3, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics3_get_TaiwanLunar, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TaiwanLunar)
 
 proc vietnameseLunar*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.CalendarIdentifiers.get_VietnameseLunar
   withStatics("Windows.Globalization.CalendarIdentifiers",
               ICalendarIdentifiersStatics3, it):
-    var tmp: HSTRING
-    it.call(ICalendarIdentifiersStatics3_get_VietnameseLunar, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_VietnameseLunar)
 
 proc twelveHour*(_: typedesc[ClockIdentifiers]): string =
   ## Windows.Globalization.ClockIdentifiers.get_TwelveHour
   withStatics("Windows.Globalization.ClockIdentifiers",
               IClockIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(IClockIdentifiersStatics_get_TwelveHour, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TwelveHour)
 
 proc twentyFourHour*(_: typedesc[ClockIdentifiers]): string =
   ## Windows.Globalization.ClockIdentifiers.get_TwentyFourHour
   withStatics("Windows.Globalization.ClockIdentifiers",
               IClockIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(IClockIdentifiersStatics_get_TwentyFourHour, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TwentyFourHour)
 
 proc first*(self: CharacterGrouping): string =
   ## Windows.Globalization.Collation.CharacterGrouping.get_First
   withIface(self.p, ICharacterGrouping, it):
-    var tmp: HSTRING
-    it.call(ICharacterGrouping_get_First, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_First)
 
 proc label*(self: CharacterGrouping): string =
   ## Windows.Globalization.Collation.CharacterGrouping.get_Label
   withIface(self.p, ICharacterGrouping, it):
-    var tmp: HSTRING
-    it.call(ICharacterGrouping_get_Label, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Label)
 
 proc newCharacterGroupings*(): CharacterGroupings =
   ## Activate a `Windows.Globalization.Collation.CharacterGroupings`.
@@ -941,7 +849,7 @@ proc lookup*(self: CharacterGroupings, text: string): string =
   withIface(self.p, ICharacterGroupings, it):
     withHString(text, h0):
       var tmp: HSTRING
-      it.call(ICharacterGroupings_Lookup, h0, tmp.addr)
+      check it.vtbl.Lookup(it, h0, tmp.addr), "CharacterGroupings.Lookup"
       result = takeString(tmp)
 
 proc create*(_: typedesc[CharacterGroupings], language: string
@@ -951,22 +859,18 @@ proc create*(_: typedesc[CharacterGroupings], language: string
               ICharacterGroupingsFactory, it):
     withHString(language, h0):
       var tmp: pointer
-      it.call(ICharacterGroupingsFactory_Create, h0, tmp.addr)
+      check it.vtbl.Create(it, h0, tmp.addr), "CharacterGroupings.Create"
       result = adopt[CharacterGroupings](tmp)
 
 proc amount*(self: CurrencyAmount): string =
   ## Windows.Globalization.CurrencyAmount.get_Amount
   withIface(self.p, ICurrencyAmount, it):
-    var tmp: HSTRING
-    it.call(ICurrencyAmount_get_Amount, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Amount)
 
 proc currency*(self: CurrencyAmount): string =
   ## Windows.Globalization.CurrencyAmount.get_Currency
   withIface(self.p, ICurrencyAmount, it):
-    var tmp: HSTRING
-    it.call(ICurrencyAmount_get_Currency, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Currency)
 
 proc create*(_: typedesc[CurrencyAmount], amount: string, currency: string
             ): CurrencyAmount =
@@ -976,1431 +880,1078 @@ proc create*(_: typedesc[CurrencyAmount], amount: string, currency: string
     withHString(amount, h0):
       withHString(currency, h1):
         var tmp: pointer
-        it.call(ICurrencyAmountFactory_Create, h0, h1, tmp.addr)
+        check it.vtbl.Create(it, h0, h1, tmp.addr), "CurrencyAmount.Create"
         result = adopt[CurrencyAmount](tmp)
 
 proc aED*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_AED
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_AED, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AED)
 
 proc aFN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_AFN
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_AFN, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AFN)
 
 proc aLL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_ALL
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_ALL, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ALL)
 
 proc aMD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_AMD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_AMD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AMD)
 
 proc aNG*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_ANG
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_ANG, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ANG)
 
 proc aOA*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_AOA
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_AOA, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AOA)
 
 proc aRS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_ARS
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_ARS, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ARS)
 
 proc aUD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_AUD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_AUD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AUD)
 
 proc aWG*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_AWG
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_AWG, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AWG)
 
 proc aZN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_AZN
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_AZN, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AZN)
 
 proc bAM*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BAM
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BAM, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BAM)
 
 proc bBD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BBD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BBD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BBD)
 
 proc bDT*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BDT
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BDT, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BDT)
 
 proc bGN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BGN
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BGN, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BGN)
 
 proc bHD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BHD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BHD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BHD)
 
 proc bIF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BIF
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BIF, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BIF)
 
 proc bMD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BMD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BMD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BMD)
 
 proc bND*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BND
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BND, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BND)
 
 proc bOB*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BOB
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BOB, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BOB)
 
 proc bRL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BRL
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BRL, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BRL)
 
 proc bSD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BSD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BSD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BSD)
 
 proc bTN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BTN
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BTN, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BTN)
 
 proc bWP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BWP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BWP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BWP)
 
 proc bYR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BYR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BYR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BYR)
 
 proc bZD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BZD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_BZD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BZD)
 
 proc cAD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_CAD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_CAD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CAD)
 
 proc cDF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_CDF
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_CDF, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CDF)
 
 proc cHF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_CHF
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_CHF, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CHF)
 
 proc cLP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_CLP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_CLP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CLP)
 
 proc cNY*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_CNY
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_CNY, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CNY)
 
 proc cOP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_COP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_COP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_COP)
 
 proc cRC*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_CRC
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_CRC, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CRC)
 
 proc cUP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_CUP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_CUP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CUP)
 
 proc cVE*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_CVE
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_CVE, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CVE)
 
 proc cZK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_CZK
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_CZK, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CZK)
 
 proc dJF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_DJF
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_DJF, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DJF)
 
 proc dKK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_DKK
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_DKK, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DKK)
 
 proc dOP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_DOP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_DOP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DOP)
 
 proc dZD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_DZD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_DZD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DZD)
 
 proc eGP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_EGP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_EGP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_EGP)
 
 proc eRN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_ERN
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_ERN, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ERN)
 
 proc eTB*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_ETB
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_ETB, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ETB)
 
 proc eUR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_EUR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_EUR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_EUR)
 
 proc fJD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_FJD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_FJD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_FJD)
 
 proc fKP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_FKP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_FKP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_FKP)
 
 proc gBP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_GBP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_GBP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_GBP)
 
 proc gEL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_GEL
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_GEL, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_GEL)
 
 proc gHS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_GHS
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_GHS, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_GHS)
 
 proc gIP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_GIP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_GIP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_GIP)
 
 proc gMD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_GMD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_GMD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_GMD)
 
 proc gNF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_GNF
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_GNF, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_GNF)
 
 proc gTQ*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_GTQ
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_GTQ, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_GTQ)
 
 proc gYD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_GYD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_GYD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_GYD)
 
 proc hKD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_HKD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_HKD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_HKD)
 
 proc hNL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_HNL
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_HNL, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_HNL)
 
 proc hRK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_HRK
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_HRK, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_HRK)
 
 proc hTG*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_HTG
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_HTG, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_HTG)
 
 proc hUF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_HUF
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_HUF, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_HUF)
 
 proc iDR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_IDR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_IDR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_IDR)
 
 proc iLS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_ILS
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_ILS, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ILS)
 
 proc iNR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_INR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_INR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_INR)
 
 proc iQD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_IQD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_IQD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_IQD)
 
 proc iRR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_IRR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_IRR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_IRR)
 
 proc iSK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_ISK
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_ISK, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ISK)
 
 proc jMD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_JMD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_JMD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_JMD)
 
 proc jOD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_JOD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_JOD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_JOD)
 
 proc jPY*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_JPY
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_JPY, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_JPY)
 
 proc kES*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_KES
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_KES, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_KES)
 
 proc kGS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_KGS
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_KGS, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_KGS)
 
 proc kHR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_KHR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_KHR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_KHR)
 
 proc kMF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_KMF
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_KMF, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_KMF)
 
 proc kPW*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_KPW
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_KPW, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_KPW)
 
 proc kRW*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_KRW
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_KRW, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_KRW)
 
 proc kWD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_KWD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_KWD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_KWD)
 
 proc kYD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_KYD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_KYD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_KYD)
 
 proc kZT*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_KZT
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_KZT, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_KZT)
 
 proc lAK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_LAK
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_LAK, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_LAK)
 
 proc lBP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_LBP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_LBP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_LBP)
 
 proc lKR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_LKR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_LKR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_LKR)
 
 proc lRD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_LRD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_LRD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_LRD)
 
 proc lSL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_LSL
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_LSL, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_LSL)
 
 proc lTL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_LTL
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_LTL, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_LTL)
 
 proc lVL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_LVL
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_LVL, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_LVL)
 
 proc lYD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_LYD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_LYD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_LYD)
 
 proc mAD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MAD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MAD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MAD)
 
 proc mDL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MDL
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MDL, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MDL)
 
 proc mGA*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MGA
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MGA, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MGA)
 
 proc mKD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MKD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MKD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MKD)
 
 proc mMK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MMK
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MMK, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MMK)
 
 proc mNT*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MNT
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MNT, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MNT)
 
 proc mOP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MOP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MOP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MOP)
 
 proc mRO*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MRO
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MRO, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MRO)
 
 proc mUR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MUR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MUR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MUR)
 
 proc mVR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MVR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MVR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MVR)
 
 proc mWK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MWK
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MWK, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MWK)
 
 proc mXN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MXN
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MXN, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MXN)
 
 proc mYR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MYR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MYR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MYR)
 
 proc mZN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MZN
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_MZN, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MZN)
 
 proc nAD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_NAD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_NAD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NAD)
 
 proc nGN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_NGN
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_NGN, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NGN)
 
 proc nIO*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_NIO
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_NIO, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NIO)
 
 proc nOK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_NOK
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_NOK, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NOK)
 
 proc nPR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_NPR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_NPR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NPR)
 
 proc nZD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_NZD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_NZD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NZD)
 
 proc oMR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_OMR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_OMR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_OMR)
 
 proc pAB*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_PAB
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_PAB, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PAB)
 
 proc pEN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_PEN
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_PEN, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PEN)
 
 proc pGK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_PGK
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_PGK, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PGK)
 
 proc pHP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_PHP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_PHP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PHP)
 
 proc pKR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_PKR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_PKR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PKR)
 
 proc pLN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_PLN
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_PLN, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PLN)
 
 proc pYG*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_PYG
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_PYG, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PYG)
 
 proc qAR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_QAR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_QAR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_QAR)
 
 proc rON*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_RON
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_RON, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_RON)
 
 proc rSD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_RSD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_RSD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_RSD)
 
 proc rUB*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_RUB
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_RUB, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_RUB)
 
 proc rWF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_RWF
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_RWF, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_RWF)
 
 proc sAR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_SAR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_SAR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SAR)
 
 proc sBD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_SBD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_SBD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SBD)
 
 proc sCR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_SCR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_SCR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SCR)
 
 proc sDG*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_SDG
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_SDG, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SDG)
 
 proc sEK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_SEK
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_SEK, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SEK)
 
 proc sGD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_SGD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_SGD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SGD)
 
 proc sHP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_SHP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_SHP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SHP)
 
 proc sLL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_SLL
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_SLL, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SLL)
 
 proc sOS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_SOS
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_SOS, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SOS)
 
 proc sRD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_SRD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_SRD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SRD)
 
 proc sTD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_STD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_STD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_STD)
 
 proc sYP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_SYP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_SYP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SYP)
 
 proc sZL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_SZL
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_SZL, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SZL)
 
 proc tHB*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_THB
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_THB, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_THB)
 
 proc tJS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_TJS
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_TJS, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TJS)
 
 proc tMT*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_TMT
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_TMT, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TMT)
 
 proc tND*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_TND
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_TND, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TND)
 
 proc tOP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_TOP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_TOP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TOP)
 
 proc `tRY`*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_TRY
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_TRY, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TRY)
 
 proc tTD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_TTD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_TTD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TTD)
 
 proc tWD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_TWD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_TWD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TWD)
 
 proc tZS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_TZS
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_TZS, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TZS)
 
 proc uAH*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_UAH
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_UAH, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_UAH)
 
 proc uGX*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_UGX
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_UGX, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_UGX)
 
 proc uSD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_USD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_USD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_USD)
 
 proc uYU*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_UYU
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_UYU, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_UYU)
 
 proc uZS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_UZS
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_UZS, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_UZS)
 
 proc vEF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_VEF
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_VEF, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_VEF)
 
 proc vND*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_VND
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_VND, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_VND)
 
 proc vUV*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_VUV
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_VUV, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_VUV)
 
 proc wST*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_WST
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_WST, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_WST)
 
 proc xAF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_XAF
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_XAF, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_XAF)
 
 proc xCD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_XCD
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_XCD, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_XCD)
 
 proc xOF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_XOF
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_XOF, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_XOF)
 
 proc xPF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_XPF
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_XPF, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_XPF)
 
 proc xXX*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_XXX
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_XXX, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_XXX)
 
 proc yER*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_YER
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_YER, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_YER)
 
 proc zAR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_ZAR
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_ZAR, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ZAR)
 
 proc zMW*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_ZMW
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_ZMW, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ZMW)
 
 proc zWL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_ZWL
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics_get_ZWL, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ZWL)
 
 proc mRU*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_MRU
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics3, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics3_get_MRU, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MRU)
 
 proc sSP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_SSP
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics3, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics3_get_SSP, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SSP)
 
 proc sTN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_STN
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics3, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics3_get_STN, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_STN)
 
 proc vES*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_VES
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics3, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics3_get_VES, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_VES)
 
 proc bYN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.CurrencyIdentifiers.get_BYN
   withStatics("Windows.Globalization.CurrencyIdentifiers",
               ICurrencyIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(ICurrencyIdentifiersStatics2_get_BYN, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_BYN)
 
 proc languages*(self: DateTimeFormatter): seq[string] =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_Languages
   withIface(self.p, IDateTimeFormatter, it):
     var tmp: pointer
-    it.call(IDateTimeFormatter_get_Languages, tmp.addr)
+    check it.vtbl.get_Languages(it, tmp.addr), "DateTimeFormatter.get_Languages"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc geographicRegion*(self: DateTimeFormatter): string =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_GeographicRegion
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: HSTRING
-    it.call(IDateTimeFormatter_get_GeographicRegion, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_GeographicRegion)
 
 proc calendar*(self: DateTimeFormatter): string =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_Calendar
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: HSTRING
-    it.call(IDateTimeFormatter_get_Calendar, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Calendar)
 
 proc clock*(self: DateTimeFormatter): string =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_Clock
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: HSTRING
-    it.call(IDateTimeFormatter_get_Clock, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Clock)
 
 proc numeralSystem*(self: DateTimeFormatter): string =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_NumeralSystem
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: HSTRING
-    it.call(IDateTimeFormatter_get_NumeralSystem, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NumeralSystem)
 
 proc `numeralSystem=`*(self: DateTimeFormatter, value: string) =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.put_NumeralSystem
   withIface(self.p, IDateTimeFormatter, it):
-    withHString(value, h0):
-      it.call(IDateTimeFormatter_put_NumeralSystem, h0)
+    it.putString(put_NumeralSystem, value)
 
 proc patterns*(self: DateTimeFormatter): seq[string] =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_Patterns
   withIface(self.p, IDateTimeFormatter, it):
     var tmp: pointer
-    it.call(IDateTimeFormatter_get_Patterns, tmp.addr)
+    check it.vtbl.get_Patterns(it, tmp.addr), "DateTimeFormatter.get_Patterns"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc `template`*(self: DateTimeFormatter): string =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_Template
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: HSTRING
-    it.call(IDateTimeFormatter_get_Template, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Template)
 
 proc format*(self: DateTimeFormatter, value: DateTime): string =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.Format
   withIface(self.p, IDateTimeFormatter, it):
     var tmp: HSTRING
-    it.call(IDateTimeFormatter_Format, value, tmp.addr)
+    check it.vtbl.Format(it, value, tmp.addr), "DateTimeFormatter.Format"
     result = takeString(tmp)
 
 proc includeYear*(self: DateTimeFormatter): YearFormat =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_IncludeYear
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: YearFormat
-    it.call(IDateTimeFormatter_get_IncludeYear, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IncludeYear, YearFormat)
 
 proc includeMonth*(self: DateTimeFormatter): MonthFormat =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_IncludeMonth
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: MonthFormat
-    it.call(IDateTimeFormatter_get_IncludeMonth, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IncludeMonth, MonthFormat)
 
 proc includeDayOfWeek*(self: DateTimeFormatter): DayOfWeekFormat =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_IncludeDayOfWeek
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: DayOfWeekFormat
-    it.call(IDateTimeFormatter_get_IncludeDayOfWeek, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IncludeDayOfWeek, DayOfWeekFormat)
 
 proc includeDay*(self: DateTimeFormatter): DayFormat =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_IncludeDay
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: DayFormat
-    it.call(IDateTimeFormatter_get_IncludeDay, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IncludeDay, DayFormat)
 
 proc includeHour*(self: DateTimeFormatter): HourFormat =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_IncludeHour
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: HourFormat
-    it.call(IDateTimeFormatter_get_IncludeHour, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IncludeHour, HourFormat)
 
 proc includeMinute*(self: DateTimeFormatter): MinuteFormat =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_IncludeMinute
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: MinuteFormat
-    it.call(IDateTimeFormatter_get_IncludeMinute, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IncludeMinute, MinuteFormat)
 
 proc includeSecond*(self: DateTimeFormatter): SecondFormat =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_IncludeSecond
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: SecondFormat
-    it.call(IDateTimeFormatter_get_IncludeSecond, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IncludeSecond, SecondFormat)
 
 proc resolvedLanguage*(self: DateTimeFormatter): string =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_ResolvedLanguage
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: HSTRING
-    it.call(IDateTimeFormatter_get_ResolvedLanguage, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedLanguage)
 
 proc resolvedGeographicRegion*(self: DateTimeFormatter): string =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_ResolvedGeographicRegion
   withIface(self.p, IDateTimeFormatter, it):
-    var tmp: HSTRING
-    it.call(IDateTimeFormatter_get_ResolvedGeographicRegion, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedGeographicRegion)
 
 proc format*(self: DateTimeFormatter, datetime: DateTime, timeZoneId: string
             ): string =
@@ -2408,40 +1959,33 @@ proc format*(self: DateTimeFormatter, datetime: DateTime, timeZoneId: string
   withIface(self.p, IDateTimeFormatter2, it):
     withHString(timeZoneId, h1):
       var tmp: HSTRING
-      it.call(IDateTimeFormatter2_Format, datetime, h1, tmp.addr)
+      check it.vtbl.Format(it, datetime, h1, tmp.addr
+                          ), "DateTimeFormatter.Format"
       result = takeString(tmp)
 
 proc longDate*(_: typedesc[DateTimeFormatter]): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_LongDate
   withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter",
               IDateTimeFormatterStatics, it):
-    var tmp: pointer
-    it.call(IDateTimeFormatterStatics_get_LongDate, tmp.addr)
-    result = adopt[DateTimeFormatter](tmp)
+    result = it.getObject(get_LongDate, DateTimeFormatter)
 
 proc longTime*(_: typedesc[DateTimeFormatter]): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_LongTime
   withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter",
               IDateTimeFormatterStatics, it):
-    var tmp: pointer
-    it.call(IDateTimeFormatterStatics_get_LongTime, tmp.addr)
-    result = adopt[DateTimeFormatter](tmp)
+    result = it.getObject(get_LongTime, DateTimeFormatter)
 
 proc shortDate*(_: typedesc[DateTimeFormatter]): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_ShortDate
   withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter",
               IDateTimeFormatterStatics, it):
-    var tmp: pointer
-    it.call(IDateTimeFormatterStatics_get_ShortDate, tmp.addr)
-    result = adopt[DateTimeFormatter](tmp)
+    result = it.getObject(get_ShortDate, DateTimeFormatter)
 
 proc shortTime*(_: typedesc[DateTimeFormatter]): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_ShortTime
   withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter",
               IDateTimeFormatterStatics, it):
-    var tmp: pointer
-    it.call(IDateTimeFormatterStatics_get_ShortTime, tmp.addr)
-    result = adopt[DateTimeFormatter](tmp)
+    result = it.getObject(get_ShortTime, DateTimeFormatter)
 
 proc createDateTimeFormatter*(_: typedesc[DateTimeFormatter],
                               formatTemplate: string): DateTimeFormatter =
@@ -2450,7 +1994,8 @@ proc createDateTimeFormatter*(_: typedesc[DateTimeFormatter],
               IDateTimeFormatterFactory, it):
     withHString(formatTemplate, h0):
       var tmp: pointer
-      it.call(IDateTimeFormatterFactory_CreateDateTimeFormatter, h0, tmp.addr)
+      check it.vtbl.CreateDateTimeFormatter(it, h0, tmp.addr
+                                           ), "DateTimeFormatter.CreateDateTimeFormatter"
       result = adopt[DateTimeFormatter](tmp)
 
 proc createDateTimeFormatterLanguages*(_: typedesc[DateTimeFormatter],
@@ -2466,8 +2011,8 @@ proc createDateTimeFormatterLanguages*(_: typedesc[DateTimeFormatter],
                                            IID_IIterator_1_String)
       defer: discard release(p1)
       var tmp: pointer
-      it.call(IDateTimeFormatterFactory_CreateDateTimeFormatterLanguages, h0,
-              p1, tmp.addr)
+      check it.vtbl.CreateDateTimeFormatterLanguages(it, h0, p1, tmp.addr
+                                                    ), "DateTimeFormatter.CreateDateTimeFormatterLanguages"
       result = adopt[DateTimeFormatter](tmp)
 
 proc createDateTimeFormatterContext*(_: typedesc[DateTimeFormatter],
@@ -2487,8 +2032,9 @@ proc createDateTimeFormatterContext*(_: typedesc[DateTimeFormatter],
         withHString(calendar, h3):
           withHString(clock, h4):
             var tmp: pointer
-            it.call(IDateTimeFormatterFactory_CreateDateTimeFormatterContext,
-                    h0, p1, h2, h3, h4, tmp.addr)
+            check it.vtbl.CreateDateTimeFormatterContext(it, h0, p1, h2, h3, h4,
+                                                         tmp.addr
+                                                        ), "DateTimeFormatter.CreateDateTimeFormatterContext"
             result = adopt[DateTimeFormatter](tmp)
 
 proc createDateTimeFormatterDate*(_: typedesc[DateTimeFormatter],
@@ -2501,8 +2047,10 @@ proc createDateTimeFormatterDate*(_: typedesc[DateTimeFormatter],
   withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter",
               IDateTimeFormatterFactory, it):
     var tmp: pointer
-    it.call(IDateTimeFormatterFactory_CreateDateTimeFormatterDate, yearFormat,
-            monthFormat, dayFormat, dayOfWeekFormat, tmp.addr)
+    check it.vtbl.CreateDateTimeFormatterDate(it, yearFormat, monthFormat,
+                                              dayFormat, dayOfWeekFormat,
+                                              tmp.addr
+                                             ), "DateTimeFormatter.CreateDateTimeFormatterDate"
     result = adopt[DateTimeFormatter](tmp)
 
 proc createDateTimeFormatterTime*(_: typedesc[DateTimeFormatter],
@@ -2514,8 +2062,9 @@ proc createDateTimeFormatterTime*(_: typedesc[DateTimeFormatter],
   withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter",
               IDateTimeFormatterFactory, it):
     var tmp: pointer
-    it.call(IDateTimeFormatterFactory_CreateDateTimeFormatterTime, hourFormat,
-            minuteFormat, secondFormat, tmp.addr)
+    check it.vtbl.CreateDateTimeFormatterTime(it, hourFormat, minuteFormat,
+                                              secondFormat, tmp.addr
+                                             ), "DateTimeFormatter.CreateDateTimeFormatterTime"
     result = adopt[DateTimeFormatter](tmp)
 
 proc createDateTimeFormatterDateTimeLanguages*(_: typedesc[DateTimeFormatter],
@@ -2536,9 +2085,15 @@ proc createDateTimeFormatterDateTimeLanguages*(_: typedesc[DateTimeFormatter],
                                          IID_IIterator_1_String)
     defer: discard release(p7)
     var tmp: pointer
-    it.call(IDateTimeFormatterFactory_CreateDateTimeFormatterDateTimeLanguages,
-            yearFormat, monthFormat, dayFormat, dayOfWeekFormat, hourFormat,
-            minuteFormat, secondFormat, p7, tmp.addr)
+    check it.vtbl.CreateDateTimeFormatterDateTimeLanguages(it, yearFormat,
+                                                           monthFormat,
+                                                           dayFormat,
+                                                           dayOfWeekFormat,
+                                                           hourFormat,
+                                                           minuteFormat,
+                                                           secondFormat, p7,
+                                                           tmp.addr
+                                                          ), "DateTimeFormatter.CreateDateTimeFormatterDateTimeLanguages"
     result = adopt[DateTimeFormatter](tmp)
 
 proc createDateTimeFormatterDateTimeContext*(_: typedesc[DateTimeFormatter],
@@ -2564,123 +2119,97 @@ proc createDateTimeFormatterDateTimeContext*(_: typedesc[DateTimeFormatter],
       withHString(calendar, h9):
         withHString(clock, h10):
           var tmp: pointer
-          it.call(IDateTimeFormatterFactory_CreateDateTimeFormatterDateTimeContext,
-                  yearFormat, monthFormat, dayFormat, dayOfWeekFormat,
-                  hourFormat, minuteFormat, secondFormat, p7, h8, h9, h10,
-                  tmp.addr)
+          check it.vtbl.CreateDateTimeFormatterDateTimeContext(it, yearFormat,
+                                                               monthFormat,
+                                                               dayFormat,
+                                                               dayOfWeekFormat,
+                                                               hourFormat,
+                                                               minuteFormat,
+                                                               secondFormat, p7,
+                                                               h8, h9, h10,
+                                                               tmp.addr
+                                                              ), "DateTimeFormatter.CreateDateTimeFormatterDateTimeContext"
           result = adopt[DateTimeFormatter](tmp)
 
 proc fontFamily*(self: LanguageFont): string =
   ## Windows.Globalization.Fonts.LanguageFont.get_FontFamily
   withIface(self.p, ILanguageFont, it):
-    var tmp: HSTRING
-    it.call(ILanguageFont_get_FontFamily, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_FontFamily)
 
 proc fontWeight*(self: LanguageFont): FontWeight =
   ## Windows.Globalization.Fonts.LanguageFont.get_FontWeight
   withIface(self.p, ILanguageFont, it):
-    var tmp: FontWeight
-    it.call(ILanguageFont_get_FontWeight, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FontWeight, FontWeight)
 
 proc fontStretch*(self: LanguageFont): FontStretch =
   ## Windows.Globalization.Fonts.LanguageFont.get_FontStretch
   withIface(self.p, ILanguageFont, it):
-    var tmp: FontStretch
-    it.call(ILanguageFont_get_FontStretch, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FontStretch, FontStretch)
 
 proc fontStyle*(self: LanguageFont): FontStyle =
   ## Windows.Globalization.Fonts.LanguageFont.get_FontStyle
   withIface(self.p, ILanguageFont, it):
-    var tmp: FontStyle
-    it.call(ILanguageFont_get_FontStyle, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FontStyle, FontStyle)
 
 proc scaleFactor*(self: LanguageFont): float64 =
   ## Windows.Globalization.Fonts.LanguageFont.get_ScaleFactor
   withIface(self.p, ILanguageFont, it):
-    var tmp: float64
-    it.call(ILanguageFont_get_ScaleFactor, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ScaleFactor, float64)
 
 proc uITextFont*(self: LanguageFontGroup): LanguageFont =
   ## Windows.Globalization.Fonts.LanguageFontGroup.get_UITextFont
   withIface(self.p, ILanguageFontGroup, it):
-    var tmp: pointer
-    it.call(ILanguageFontGroup_get_UITextFont, tmp.addr)
-    result = adopt[LanguageFont](tmp)
+    result = it.getObject(get_UITextFont, LanguageFont)
 
 proc uIHeadingFont*(self: LanguageFontGroup): LanguageFont =
   ## Windows.Globalization.Fonts.LanguageFontGroup.get_UIHeadingFont
   withIface(self.p, ILanguageFontGroup, it):
-    var tmp: pointer
-    it.call(ILanguageFontGroup_get_UIHeadingFont, tmp.addr)
-    result = adopt[LanguageFont](tmp)
+    result = it.getObject(get_UIHeadingFont, LanguageFont)
 
 proc uITitleFont*(self: LanguageFontGroup): LanguageFont =
   ## Windows.Globalization.Fonts.LanguageFontGroup.get_UITitleFont
   withIface(self.p, ILanguageFontGroup, it):
-    var tmp: pointer
-    it.call(ILanguageFontGroup_get_UITitleFont, tmp.addr)
-    result = adopt[LanguageFont](tmp)
+    result = it.getObject(get_UITitleFont, LanguageFont)
 
 proc uICaptionFont*(self: LanguageFontGroup): LanguageFont =
   ## Windows.Globalization.Fonts.LanguageFontGroup.get_UICaptionFont
   withIface(self.p, ILanguageFontGroup, it):
-    var tmp: pointer
-    it.call(ILanguageFontGroup_get_UICaptionFont, tmp.addr)
-    result = adopt[LanguageFont](tmp)
+    result = it.getObject(get_UICaptionFont, LanguageFont)
 
 proc uINotificationHeadingFont*(self: LanguageFontGroup): LanguageFont =
   ## Windows.Globalization.Fonts.LanguageFontGroup.get_UINotificationHeadingFont
   withIface(self.p, ILanguageFontGroup, it):
-    var tmp: pointer
-    it.call(ILanguageFontGroup_get_UINotificationHeadingFont, tmp.addr)
-    result = adopt[LanguageFont](tmp)
+    result = it.getObject(get_UINotificationHeadingFont, LanguageFont)
 
 proc traditionalDocumentFont*(self: LanguageFontGroup): LanguageFont =
   ## Windows.Globalization.Fonts.LanguageFontGroup.get_TraditionalDocumentFont
   withIface(self.p, ILanguageFontGroup, it):
-    var tmp: pointer
-    it.call(ILanguageFontGroup_get_TraditionalDocumentFont, tmp.addr)
-    result = adopt[LanguageFont](tmp)
+    result = it.getObject(get_TraditionalDocumentFont, LanguageFont)
 
 proc modernDocumentFont*(self: LanguageFontGroup): LanguageFont =
   ## Windows.Globalization.Fonts.LanguageFontGroup.get_ModernDocumentFont
   withIface(self.p, ILanguageFontGroup, it):
-    var tmp: pointer
-    it.call(ILanguageFontGroup_get_ModernDocumentFont, tmp.addr)
-    result = adopt[LanguageFont](tmp)
+    result = it.getObject(get_ModernDocumentFont, LanguageFont)
 
 proc documentHeadingFont*(self: LanguageFontGroup): LanguageFont =
   ## Windows.Globalization.Fonts.LanguageFontGroup.get_DocumentHeadingFont
   withIface(self.p, ILanguageFontGroup, it):
-    var tmp: pointer
-    it.call(ILanguageFontGroup_get_DocumentHeadingFont, tmp.addr)
-    result = adopt[LanguageFont](tmp)
+    result = it.getObject(get_DocumentHeadingFont, LanguageFont)
 
 proc fixedWidthTextFont*(self: LanguageFontGroup): LanguageFont =
   ## Windows.Globalization.Fonts.LanguageFontGroup.get_FixedWidthTextFont
   withIface(self.p, ILanguageFontGroup, it):
-    var tmp: pointer
-    it.call(ILanguageFontGroup_get_FixedWidthTextFont, tmp.addr)
-    result = adopt[LanguageFont](tmp)
+    result = it.getObject(get_FixedWidthTextFont, LanguageFont)
 
 proc documentAlternate1Font*(self: LanguageFontGroup): LanguageFont =
   ## Windows.Globalization.Fonts.LanguageFontGroup.get_DocumentAlternate1Font
   withIface(self.p, ILanguageFontGroup, it):
-    var tmp: pointer
-    it.call(ILanguageFontGroup_get_DocumentAlternate1Font, tmp.addr)
-    result = adopt[LanguageFont](tmp)
+    result = it.getObject(get_DocumentAlternate1Font, LanguageFont)
 
 proc documentAlternate2Font*(self: LanguageFontGroup): LanguageFont =
   ## Windows.Globalization.Fonts.LanguageFontGroup.get_DocumentAlternate2Font
   withIface(self.p, ILanguageFontGroup, it):
-    var tmp: pointer
-    it.call(ILanguageFontGroup_get_DocumentAlternate2Font, tmp.addr)
-    result = adopt[LanguageFont](tmp)
+    result = it.getObject(get_DocumentAlternate2Font, LanguageFont)
 
 proc createLanguageFontGroup*(_: typedesc[LanguageFontGroup],
                               languageTag: string): LanguageFontGroup =
@@ -2689,7 +2218,8 @@ proc createLanguageFontGroup*(_: typedesc[LanguageFontGroup],
               ILanguageFontGroupFactory, it):
     withHString(languageTag, h0):
       var tmp: pointer
-      it.call(ILanguageFontGroupFactory_CreateLanguageFontGroup, h0, tmp.addr)
+      check it.vtbl.CreateLanguageFontGroup(it, h0, tmp.addr
+                                           ), "LanguageFontGroup.CreateLanguageFontGroup"
       result = adopt[LanguageFontGroup](tmp)
 
 proc newGeographicRegion*(): GeographicRegion =
@@ -2699,50 +2229,39 @@ proc newGeographicRegion*(): GeographicRegion =
 proc code*(self: GeographicRegion): string =
   ## Windows.Globalization.GeographicRegion.get_Code
   withIface(self.p, IGeographicRegion, it):
-    var tmp: HSTRING
-    it.call(IGeographicRegion_get_Code, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Code)
 
 proc codeTwoLetter*(self: GeographicRegion): string =
   ## Windows.Globalization.GeographicRegion.get_CodeTwoLetter
   withIface(self.p, IGeographicRegion, it):
-    var tmp: HSTRING
-    it.call(IGeographicRegion_get_CodeTwoLetter, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CodeTwoLetter)
 
 proc codeThreeLetter*(self: GeographicRegion): string =
   ## Windows.Globalization.GeographicRegion.get_CodeThreeLetter
   withIface(self.p, IGeographicRegion, it):
-    var tmp: HSTRING
-    it.call(IGeographicRegion_get_CodeThreeLetter, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CodeThreeLetter)
 
 proc codeThreeDigit*(self: GeographicRegion): string =
   ## Windows.Globalization.GeographicRegion.get_CodeThreeDigit
   withIface(self.p, IGeographicRegion, it):
-    var tmp: HSTRING
-    it.call(IGeographicRegion_get_CodeThreeDigit, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CodeThreeDigit)
 
 proc displayName*(self: GeographicRegion): string =
   ## Windows.Globalization.GeographicRegion.get_DisplayName
   withIface(self.p, IGeographicRegion, it):
-    var tmp: HSTRING
-    it.call(IGeographicRegion_get_DisplayName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayName)
 
 proc nativeName*(self: GeographicRegion): string =
   ## Windows.Globalization.GeographicRegion.get_NativeName
   withIface(self.p, IGeographicRegion, it):
-    var tmp: HSTRING
-    it.call(IGeographicRegion_get_NativeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NativeName)
 
 proc currenciesInUse*(self: GeographicRegion): seq[string] =
   ## Windows.Globalization.GeographicRegion.get_CurrenciesInUse
   withIface(self.p, IGeographicRegion, it):
     var tmp: pointer
-    it.call(IGeographicRegion_get_CurrenciesInUse, tmp.addr)
+    check it.vtbl.get_CurrenciesInUse(it, tmp.addr
+                                     ), "GeographicRegion.get_CurrenciesInUse"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
@@ -2753,7 +2272,8 @@ proc isSupported*(_: typedesc[GeographicRegion], geographicRegionCode: string
               IGeographicRegionStatics, it):
     withHString(geographicRegionCode, h0):
       var tmp: bool
-      it.call(IGeographicRegionStatics_IsSupported, h0, tmp.addr)
+      check it.vtbl.IsSupported(it, h0, tmp.addr
+                               ), "GeographicRegion.IsSupported"
       result = tmp
 
 proc createGeographicRegion*(_: typedesc[GeographicRegion],
@@ -2763,29 +2283,24 @@ proc createGeographicRegion*(_: typedesc[GeographicRegion],
               IGeographicRegionFactory, it):
     withHString(geographicRegionCode, h0):
       var tmp: pointer
-      it.call(IGeographicRegionFactory_CreateGeographicRegion, h0, tmp.addr)
+      check it.vtbl.CreateGeographicRegion(it, h0, tmp.addr
+                                          ), "GeographicRegion.CreateGeographicRegion"
       result = adopt[GeographicRegion](tmp)
 
 proc displayText*(self: JapanesePhoneme): string =
   ## Windows.Globalization.JapanesePhoneme.get_DisplayText
   withIface(self.p, IJapanesePhoneme, it):
-    var tmp: HSTRING
-    it.call(IJapanesePhoneme_get_DisplayText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayText)
 
 proc yomiText*(self: JapanesePhoneme): string =
   ## Windows.Globalization.JapanesePhoneme.get_YomiText
   withIface(self.p, IJapanesePhoneme, it):
-    var tmp: HSTRING
-    it.call(IJapanesePhoneme_get_YomiText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_YomiText)
 
 proc isPhraseStart*(self: JapanesePhoneme): bool =
   ## Windows.Globalization.JapanesePhoneme.get_IsPhraseStart
   withIface(self.p, IJapanesePhoneme, it):
-    var tmp: bool
-    it.call(IJapanesePhoneme_get_IsPhraseStart, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsPhraseStart, bool)
 
 proc getWords*(_: typedesc[JapanesePhoneticAnalyzer], input: string
               ): seq[JapanesePhoneme] =
@@ -2794,7 +2309,8 @@ proc getWords*(_: typedesc[JapanesePhoneticAnalyzer], input: string
               IJapanesePhoneticAnalyzerStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      it.call(IJapanesePhoneticAnalyzerStatics_GetWords, h0, tmp.addr)
+      check it.vtbl.GetWords(it, h0, tmp.addr
+                            ), "JapanesePhoneticAnalyzer.GetWords"
       result = toSeq[JapanesePhoneme](tmp, IID_IVectorView_1_JapanesePhoneme)
       release(tmp)
 
@@ -2805,61 +2321,50 @@ proc getWords*(_: typedesc[JapanesePhoneticAnalyzer], input: string,
               IJapanesePhoneticAnalyzerStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      it.call(IJapanesePhoneticAnalyzerStatics_GetWords2, h0, monoRuby, tmp.addr
-             )
+      check it.vtbl.GetWords2(it, h0, monoRuby, tmp.addr
+                             ), "JapanesePhoneticAnalyzer.GetWords"
       result = toSeq[JapanesePhoneme](tmp, IID_IVectorView_1_JapanesePhoneme)
       release(tmp)
 
 proc languageTag*(self: Language): string =
   ## Windows.Globalization.Language.get_LanguageTag
   withIface(self.p, ILanguage, it):
-    var tmp: HSTRING
-    it.call(ILanguage_get_LanguageTag, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_LanguageTag)
 
 proc displayName*(self: Language): string =
   ## Windows.Globalization.Language.get_DisplayName
   withIface(self.p, ILanguage, it):
-    var tmp: HSTRING
-    it.call(ILanguage_get_DisplayName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayName)
 
 proc nativeName*(self: Language): string =
   ## Windows.Globalization.Language.get_NativeName
   withIface(self.p, ILanguage, it):
-    var tmp: HSTRING
-    it.call(ILanguage_get_NativeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NativeName)
 
 proc script*(self: Language): string =
   ## Windows.Globalization.Language.get_Script
   withIface(self.p, ILanguage, it):
-    var tmp: HSTRING
-    it.call(ILanguage_get_Script, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Script)
 
 proc getExtensionSubtags*(self: Language, singleton: string): seq[string] =
   ## Windows.Globalization.Language.GetExtensionSubtags
   withIface(self.p, ILanguageExtensionSubtags, it):
     withHString(singleton, h0):
       var tmp: pointer
-      it.call(ILanguageExtensionSubtags_GetExtensionSubtags, h0, tmp.addr)
+      check it.vtbl.GetExtensionSubtags(it, h0, tmp.addr
+                                       ), "Language.GetExtensionSubtags"
       result = toSeq[string](tmp, IID_IVectorView_1_String)
       release(tmp)
 
 proc layoutDirection*(self: Language): LanguageLayoutDirection =
   ## Windows.Globalization.Language.get_LayoutDirection
   withIface(self.p, ILanguage2, it):
-    var tmp: LanguageLayoutDirection
-    it.call(ILanguage2_get_LayoutDirection, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LayoutDirection, LanguageLayoutDirection)
 
 proc abbreviatedName*(self: Language): string =
   ## Windows.Globalization.Language.get_AbbreviatedName
   withIface(self.p, ILanguage3, it):
-    var tmp: HSTRING
-    it.call(ILanguage3_get_AbbreviatedName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AbbreviatedName)
 
 proc getMuiCompatibleLanguageListFromLanguageTags*(_: typedesc[Language],
                                                    languageTags: seq[string]
@@ -2871,8 +2376,8 @@ proc getMuiCompatibleLanguageListFromLanguageTags*(_: typedesc[Language],
                                             IID_IIterator_1_String)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ILanguageStatics3_GetMuiCompatibleLanguageListFromLanguageTags, p0,
-            tmp.addr)
+    check it.vtbl.GetMuiCompatibleLanguageListFromLanguageTags(it, p0, tmp.addr
+                                                              ), "Language.GetMuiCompatibleLanguageListFromLanguageTags"
     result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
@@ -2882,7 +2387,8 @@ proc trySetInputMethodLanguageTag*(_: typedesc[Language], languageTag: string
   withStatics("Windows.Globalization.Language", ILanguageStatics2, it):
     withHString(languageTag, h0):
       var tmp: bool
-      it.call(ILanguageStatics2_TrySetInputMethodLanguageTag, h0, tmp.addr)
+      check it.vtbl.TrySetInputMethodLanguageTag(it, h0, tmp.addr
+                                                ), "Language.TrySetInputMethodLanguageTag"
       result = tmp
 
 proc isWellFormed*(_: typedesc[Language], languageTag: string): bool =
@@ -2890,43 +2396,38 @@ proc isWellFormed*(_: typedesc[Language], languageTag: string): bool =
   withStatics("Windows.Globalization.Language", ILanguageStatics, it):
     withHString(languageTag, h0):
       var tmp: bool
-      it.call(ILanguageStatics_IsWellFormed, h0, tmp.addr)
+      check it.vtbl.IsWellFormed(it, h0, tmp.addr), "Language.IsWellFormed"
       result = tmp
 
 proc currentInputMethodLanguageTag*(_: typedesc[Language]): string =
   ## Windows.Globalization.Language.get_CurrentInputMethodLanguageTag
   withStatics("Windows.Globalization.Language", ILanguageStatics, it):
-    var tmp: HSTRING
-    it.call(ILanguageStatics_get_CurrentInputMethodLanguageTag, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CurrentInputMethodLanguageTag)
 
 proc createLanguage*(_: typedesc[Language], languageTag: string): Language =
   ## Windows.Globalization.Language.CreateLanguage
   withStatics("Windows.Globalization.Language", ILanguageFactory, it):
     withHString(languageTag, h0):
       var tmp: pointer
-      it.call(ILanguageFactory_CreateLanguage, h0, tmp.addr)
+      check it.vtbl.CreateLanguage(it, h0, tmp.addr), "Language.CreateLanguage"
       result = adopt[Language](tmp)
 
 proc currency*(self: CurrencyFormatter): string =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_Currency
   withIface(self.p, ICurrencyFormatter, it):
-    var tmp: HSTRING
-    it.call(ICurrencyFormatter_get_Currency, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Currency)
 
 proc `currency=`*(self: CurrencyFormatter, value: string) =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.put_Currency
   withIface(self.p, ICurrencyFormatter, it):
-    withHString(value, h0):
-      it.call(ICurrencyFormatter_put_Currency, h0)
+    it.putString(put_Currency, value)
 
 proc parseInt*(self: CurrencyFormatter, text: string): Option[int64] =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.ParseInt
   withIface(self.p, INumberParser, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(INumberParser_ParseInt, h0, tmp.addr)
+      check it.vtbl.ParseInt(it, h0, tmp.addr), "CurrencyFormatter.ParseInt"
       result = readReference[int64](tmp, IID_IReference_1_I8,
                                     "CurrencyFormatter.ParseInt")
       release(tmp)
@@ -2936,7 +2437,7 @@ proc parseUInt*(self: CurrencyFormatter, text: string): Option[uint64] =
   withIface(self.p, INumberParser, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(INumberParser_ParseUInt, h0, tmp.addr)
+      check it.vtbl.ParseUInt(it, h0, tmp.addr), "CurrencyFormatter.ParseUInt"
       result = readReference[uint64](tmp, IID_IReference_1_U8,
                                      "CurrencyFormatter.ParseUInt")
       release(tmp)
@@ -2946,7 +2447,8 @@ proc parseDouble*(self: CurrencyFormatter, text: string): Option[float64] =
   withIface(self.p, INumberParser, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(INumberParser_ParseDouble, h0, tmp.addr)
+      check it.vtbl.ParseDouble(it, h0, tmp.addr
+                               ), "CurrencyFormatter.ParseDouble"
       result = readReference[float64](tmp, IID_IReference_1_F8,
                                       "CurrencyFormatter.ParseDouble")
       release(tmp)
@@ -2955,188 +2457,167 @@ proc formatInt*(self: CurrencyFormatter, value: int64): string =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.FormatInt
   withIface(self.p, INumberFormatter2, it):
     var tmp: HSTRING
-    it.call(INumberFormatter2_FormatInt, value, tmp.addr)
+    check it.vtbl.FormatInt(it, value, tmp.addr), "CurrencyFormatter.FormatInt"
     result = takeString(tmp)
 
 proc formatUInt*(self: CurrencyFormatter, value: uint64): string =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.FormatUInt
   withIface(self.p, INumberFormatter2, it):
     var tmp: HSTRING
-    it.call(INumberFormatter2_FormatUInt, value, tmp.addr)
+    check it.vtbl.FormatUInt(it, value, tmp.addr
+                            ), "CurrencyFormatter.FormatUInt"
     result = takeString(tmp)
 
 proc formatDouble*(self: CurrencyFormatter, value: float64): string =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.FormatDouble
   withIface(self.p, INumberFormatter2, it):
     var tmp: HSTRING
-    it.call(INumberFormatter2_FormatDouble, value, tmp.addr)
+    check it.vtbl.FormatDouble(it, value, tmp.addr
+                              ), "CurrencyFormatter.FormatDouble"
     result = takeString(tmp)
 
 proc format*(self: CurrencyFormatter, value: int64): string =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.Format
   withIface(self.p, INumberFormatter, it):
     var tmp: HSTRING
-    it.call(INumberFormatter_Format, value, tmp.addr)
+    check it.vtbl.Format(it, value, tmp.addr), "CurrencyFormatter.Format"
     result = takeString(tmp)
 
 proc format*(self: CurrencyFormatter, value: uint64): string =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.Format
   withIface(self.p, INumberFormatter, it):
     var tmp: HSTRING
-    it.call(INumberFormatter_Format2, value, tmp.addr)
+    check it.vtbl.Format2(it, value, tmp.addr), "CurrencyFormatter.Format"
     result = takeString(tmp)
 
 proc format*(self: CurrencyFormatter, value: float64): string =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.Format
   withIface(self.p, INumberFormatter, it):
     var tmp: HSTRING
-    it.call(INumberFormatter_Format3, value, tmp.addr)
+    check it.vtbl.Format3(it, value, tmp.addr), "CurrencyFormatter.Format"
     result = takeString(tmp)
 
 proc languages*(self: CurrencyFormatter): seq[string] =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_Languages
   withIface(self.p, INumberFormatterOptions, it):
     var tmp: pointer
-    it.call(INumberFormatterOptions_get_Languages, tmp.addr)
+    check it.vtbl.get_Languages(it, tmp.addr), "CurrencyFormatter.get_Languages"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc geographicRegion*(self: CurrencyFormatter): string =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_GeographicRegion
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_GeographicRegion, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_GeographicRegion)
 
 proc integerDigits*(self: CurrencyFormatter): int32 =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_IntegerDigits
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: int32
-    it.call(INumberFormatterOptions_get_IntegerDigits, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IntegerDigits, int32)
 
 proc `integerDigits=`*(self: CurrencyFormatter, value: int32) =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.put_IntegerDigits
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_IntegerDigits, value)
+    it.putValue(put_IntegerDigits, value)
 
 proc fractionDigits*(self: CurrencyFormatter): int32 =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_FractionDigits
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: int32
-    it.call(INumberFormatterOptions_get_FractionDigits, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FractionDigits, int32)
 
 proc `fractionDigits=`*(self: CurrencyFormatter, value: int32) =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.put_FractionDigits
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_FractionDigits, value)
+    it.putValue(put_FractionDigits, value)
 
 proc isGrouped*(self: CurrencyFormatter): bool =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_IsGrouped
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: bool
-    it.call(INumberFormatterOptions_get_IsGrouped, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsGrouped, bool)
 
 proc `isGrouped=`*(self: CurrencyFormatter, value: bool) =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.put_IsGrouped
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_IsGrouped, value)
+    it.putValue(put_IsGrouped, value)
 
 proc isDecimalPointAlwaysDisplayed*(self: CurrencyFormatter): bool =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_IsDecimalPointAlwaysDisplayed
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: bool
-    it.call(INumberFormatterOptions_get_IsDecimalPointAlwaysDisplayed, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsDecimalPointAlwaysDisplayed, bool)
 
 proc `isDecimalPointAlwaysDisplayed=`*(self: CurrencyFormatter, value: bool) =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.put_IsDecimalPointAlwaysDisplayed
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_IsDecimalPointAlwaysDisplayed, value)
+    it.putValue(put_IsDecimalPointAlwaysDisplayed, value)
 
 proc numeralSystem*(self: CurrencyFormatter): string =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_NumeralSystem
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_NumeralSystem, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NumeralSystem)
 
 proc `numeralSystem=`*(self: CurrencyFormatter, value: string) =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.put_NumeralSystem
   withIface(self.p, INumberFormatterOptions, it):
-    withHString(value, h0):
-      it.call(INumberFormatterOptions_put_NumeralSystem, h0)
+    it.putString(put_NumeralSystem, value)
 
 proc resolvedLanguage*(self: CurrencyFormatter): string =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_ResolvedLanguage
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_ResolvedLanguage, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedLanguage)
 
 proc resolvedGeographicRegion*(self: CurrencyFormatter): string =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_ResolvedGeographicRegion
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_ResolvedGeographicRegion, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedGeographicRegion)
 
 proc mode*(self: CurrencyFormatter): CurrencyFormatterMode =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_Mode
   withIface(self.p, ICurrencyFormatter2, it):
-    var tmp: CurrencyFormatterMode
-    it.call(ICurrencyFormatter2_get_Mode, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Mode, CurrencyFormatterMode)
 
 proc `mode=`*(self: CurrencyFormatter, value: CurrencyFormatterMode) =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.put_Mode
   withIface(self.p, ICurrencyFormatter2, it):
-    it.call(ICurrencyFormatter2_put_Mode, value)
+    it.putValue(put_Mode, value)
 
 proc applyRoundingForCurrency*(self: CurrencyFormatter,
                                roundingAlgorithm: RoundingAlgorithm) =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.ApplyRoundingForCurrency
   withIface(self.p, ICurrencyFormatter2, it):
-    it.call(ICurrencyFormatter2_ApplyRoundingForCurrency, roundingAlgorithm)
+    check it.vtbl.ApplyRoundingForCurrency(it, roundingAlgorithm
+                                          ), "CurrencyFormatter.ApplyRoundingForCurrency"
 
 proc significantDigits*(self: CurrencyFormatter): int32 =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_SignificantDigits
   withIface(self.p, ISignificantDigitsOption, it):
-    var tmp: int32
-    it.call(ISignificantDigitsOption_get_SignificantDigits, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SignificantDigits, int32)
 
 proc `significantDigits=`*(self: CurrencyFormatter, value: int32) =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.put_SignificantDigits
   withIface(self.p, ISignificantDigitsOption, it):
-    it.call(ISignificantDigitsOption_put_SignificantDigits, value)
+    it.putValue(put_SignificantDigits, value)
 
 proc numberRounder*(self: CurrencyFormatter): WinRtObject =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_NumberRounder
   withIface(self.p, INumberRounderOption, it):
-    var tmp: pointer
-    it.call(INumberRounderOption_get_NumberRounder, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NumberRounder, WinRtObject)
 
 proc `numberRounder=`*(self: CurrencyFormatter, value: WinRtObject) =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.put_NumberRounder
   withIface(self.p, INumberRounderOption, it):
     withIface(value.p, INumberRounder, p0):
-      it.call(INumberRounderOption_put_NumberRounder, p0)
+      check it.vtbl.put_NumberRounder(it, p0
+                                     ), "CurrencyFormatter.put_NumberRounder"
 
 proc isZeroSigned*(self: CurrencyFormatter): bool =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_IsZeroSigned
   withIface(self.p, ISignedZeroOption, it):
-    var tmp: bool
-    it.call(ISignedZeroOption_get_IsZeroSigned, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsZeroSigned, bool)
 
 proc `isZeroSigned=`*(self: CurrencyFormatter, value: bool) =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.put_IsZeroSigned
   withIface(self.p, ISignedZeroOption, it):
-    it.call(ISignedZeroOption_put_IsZeroSigned, value)
+    it.putValue(put_IsZeroSigned, value)
 
 proc createCurrencyFormatterCode*(_: typedesc[CurrencyFormatter],
                                   currencyCode: string): CurrencyFormatter =
@@ -3145,8 +2626,8 @@ proc createCurrencyFormatterCode*(_: typedesc[CurrencyFormatter],
               ICurrencyFormatterFactory, it):
     withHString(currencyCode, h0):
       var tmp: pointer
-      it.call(ICurrencyFormatterFactory_CreateCurrencyFormatterCode, h0,
-              tmp.addr)
+      check it.vtbl.CreateCurrencyFormatterCode(it, h0, tmp.addr
+                                               ), "CurrencyFormatter.CreateCurrencyFormatterCode"
       result = adopt[CurrencyFormatter](tmp)
 
 proc createCurrencyFormatterCodeContext*(_: typedesc[CurrencyFormatter],
@@ -3164,8 +2645,9 @@ proc createCurrencyFormatterCodeContext*(_: typedesc[CurrencyFormatter],
       defer: discard release(p1)
       withHString(geographicRegion, h2):
         var tmp: pointer
-        it.call(ICurrencyFormatterFactory_CreateCurrencyFormatterCodeContext,
-                h0, p1, h2, tmp.addr)
+        check it.vtbl.CreateCurrencyFormatterCodeContext(it, h0, p1, h2,
+                                                         tmp.addr
+                                                        ), "CurrencyFormatter.CreateCurrencyFormatterCodeContext"
         result = adopt[CurrencyFormatter](tmp)
 
 proc newDecimalFormatter*(): DecimalFormatter =
@@ -3176,132 +2658,116 @@ proc languages*(self: DecimalFormatter): seq[string] =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_Languages
   withIface(self.p, INumberFormatterOptions, it):
     var tmp: pointer
-    it.call(INumberFormatterOptions_get_Languages, tmp.addr)
+    check it.vtbl.get_Languages(it, tmp.addr), "DecimalFormatter.get_Languages"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc geographicRegion*(self: DecimalFormatter): string =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_GeographicRegion
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_GeographicRegion, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_GeographicRegion)
 
 proc integerDigits*(self: DecimalFormatter): int32 =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_IntegerDigits
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: int32
-    it.call(INumberFormatterOptions_get_IntegerDigits, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IntegerDigits, int32)
 
 proc `integerDigits=`*(self: DecimalFormatter, value: int32) =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.put_IntegerDigits
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_IntegerDigits, value)
+    it.putValue(put_IntegerDigits, value)
 
 proc fractionDigits*(self: DecimalFormatter): int32 =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_FractionDigits
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: int32
-    it.call(INumberFormatterOptions_get_FractionDigits, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FractionDigits, int32)
 
 proc `fractionDigits=`*(self: DecimalFormatter, value: int32) =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.put_FractionDigits
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_FractionDigits, value)
+    it.putValue(put_FractionDigits, value)
 
 proc isGrouped*(self: DecimalFormatter): bool =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_IsGrouped
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: bool
-    it.call(INumberFormatterOptions_get_IsGrouped, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsGrouped, bool)
 
 proc `isGrouped=`*(self: DecimalFormatter, value: bool) =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.put_IsGrouped
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_IsGrouped, value)
+    it.putValue(put_IsGrouped, value)
 
 proc isDecimalPointAlwaysDisplayed*(self: DecimalFormatter): bool =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_IsDecimalPointAlwaysDisplayed
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: bool
-    it.call(INumberFormatterOptions_get_IsDecimalPointAlwaysDisplayed, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsDecimalPointAlwaysDisplayed, bool)
 
 proc `isDecimalPointAlwaysDisplayed=`*(self: DecimalFormatter, value: bool) =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.put_IsDecimalPointAlwaysDisplayed
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_IsDecimalPointAlwaysDisplayed, value)
+    it.putValue(put_IsDecimalPointAlwaysDisplayed, value)
 
 proc numeralSystem*(self: DecimalFormatter): string =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_NumeralSystem
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_NumeralSystem, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NumeralSystem)
 
 proc `numeralSystem=`*(self: DecimalFormatter, value: string) =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.put_NumeralSystem
   withIface(self.p, INumberFormatterOptions, it):
-    withHString(value, h0):
-      it.call(INumberFormatterOptions_put_NumeralSystem, h0)
+    it.putString(put_NumeralSystem, value)
 
 proc resolvedLanguage*(self: DecimalFormatter): string =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_ResolvedLanguage
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_ResolvedLanguage, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedLanguage)
 
 proc resolvedGeographicRegion*(self: DecimalFormatter): string =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_ResolvedGeographicRegion
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_ResolvedGeographicRegion, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedGeographicRegion)
 
 proc format*(self: DecimalFormatter, value: int64): string =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.Format
   withIface(self.p, INumberFormatter, it):
     var tmp: HSTRING
-    it.call(INumberFormatter_Format, value, tmp.addr)
+    check it.vtbl.Format(it, value, tmp.addr), "DecimalFormatter.Format"
     result = takeString(tmp)
 
 proc format*(self: DecimalFormatter, value: uint64): string =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.Format
   withIface(self.p, INumberFormatter, it):
     var tmp: HSTRING
-    it.call(INumberFormatter_Format2, value, tmp.addr)
+    check it.vtbl.Format2(it, value, tmp.addr), "DecimalFormatter.Format"
     result = takeString(tmp)
 
 proc format*(self: DecimalFormatter, value: float64): string =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.Format
   withIface(self.p, INumberFormatter, it):
     var tmp: HSTRING
-    it.call(INumberFormatter_Format3, value, tmp.addr)
+    check it.vtbl.Format3(it, value, tmp.addr), "DecimalFormatter.Format"
     result = takeString(tmp)
 
 proc formatInt*(self: DecimalFormatter, value: int64): string =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.FormatInt
   withIface(self.p, INumberFormatter2, it):
     var tmp: HSTRING
-    it.call(INumberFormatter2_FormatInt, value, tmp.addr)
+    check it.vtbl.FormatInt(it, value, tmp.addr), "DecimalFormatter.FormatInt"
     result = takeString(tmp)
 
 proc formatUInt*(self: DecimalFormatter, value: uint64): string =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.FormatUInt
   withIface(self.p, INumberFormatter2, it):
     var tmp: HSTRING
-    it.call(INumberFormatter2_FormatUInt, value, tmp.addr)
+    check it.vtbl.FormatUInt(it, value, tmp.addr), "DecimalFormatter.FormatUInt"
     result = takeString(tmp)
 
 proc formatDouble*(self: DecimalFormatter, value: float64): string =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.FormatDouble
   withIface(self.p, INumberFormatter2, it):
     var tmp: HSTRING
-    it.call(INumberFormatter2_FormatDouble, value, tmp.addr)
+    check it.vtbl.FormatDouble(it, value, tmp.addr
+                              ), "DecimalFormatter.FormatDouble"
     result = takeString(tmp)
 
 proc parseInt*(self: DecimalFormatter, text: string): Option[int64] =
@@ -3309,7 +2775,7 @@ proc parseInt*(self: DecimalFormatter, text: string): Option[int64] =
   withIface(self.p, INumberParser, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(INumberParser_ParseInt, h0, tmp.addr)
+      check it.vtbl.ParseInt(it, h0, tmp.addr), "DecimalFormatter.ParseInt"
       result = readReference[int64](tmp, IID_IReference_1_I8,
                                     "DecimalFormatter.ParseInt")
       release(tmp)
@@ -3319,7 +2785,7 @@ proc parseUInt*(self: DecimalFormatter, text: string): Option[uint64] =
   withIface(self.p, INumberParser, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(INumberParser_ParseUInt, h0, tmp.addr)
+      check it.vtbl.ParseUInt(it, h0, tmp.addr), "DecimalFormatter.ParseUInt"
       result = readReference[uint64](tmp, IID_IReference_1_U8,
                                      "DecimalFormatter.ParseUInt")
       release(tmp)
@@ -3329,7 +2795,8 @@ proc parseDouble*(self: DecimalFormatter, text: string): Option[float64] =
   withIface(self.p, INumberParser, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(INumberParser_ParseDouble, h0, tmp.addr)
+      check it.vtbl.ParseDouble(it, h0, tmp.addr
+                               ), "DecimalFormatter.ParseDouble"
       result = readReference[float64](tmp, IID_IReference_1_F8,
                                       "DecimalFormatter.ParseDouble")
       release(tmp)
@@ -3337,39 +2804,34 @@ proc parseDouble*(self: DecimalFormatter, text: string): Option[float64] =
 proc significantDigits*(self: DecimalFormatter): int32 =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_SignificantDigits
   withIface(self.p, ISignificantDigitsOption, it):
-    var tmp: int32
-    it.call(ISignificantDigitsOption_get_SignificantDigits, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SignificantDigits, int32)
 
 proc `significantDigits=`*(self: DecimalFormatter, value: int32) =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.put_SignificantDigits
   withIface(self.p, ISignificantDigitsOption, it):
-    it.call(ISignificantDigitsOption_put_SignificantDigits, value)
+    it.putValue(put_SignificantDigits, value)
 
 proc numberRounder*(self: DecimalFormatter): WinRtObject =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_NumberRounder
   withIface(self.p, INumberRounderOption, it):
-    var tmp: pointer
-    it.call(INumberRounderOption_get_NumberRounder, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NumberRounder, WinRtObject)
 
 proc `numberRounder=`*(self: DecimalFormatter, value: WinRtObject) =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.put_NumberRounder
   withIface(self.p, INumberRounderOption, it):
     withIface(value.p, INumberRounder, p0):
-      it.call(INumberRounderOption_put_NumberRounder, p0)
+      check it.vtbl.put_NumberRounder(it, p0
+                                     ), "DecimalFormatter.put_NumberRounder"
 
 proc isZeroSigned*(self: DecimalFormatter): bool =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_IsZeroSigned
   withIface(self.p, ISignedZeroOption, it):
-    var tmp: bool
-    it.call(ISignedZeroOption_get_IsZeroSigned, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsZeroSigned, bool)
 
 proc `isZeroSigned=`*(self: DecimalFormatter, value: bool) =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.put_IsZeroSigned
   withIface(self.p, ISignedZeroOption, it):
-    it.call(ISignedZeroOption_put_IsZeroSigned, value)
+    it.putValue(put_IsZeroSigned, value)
 
 proc createDecimalFormatter*(_: typedesc[DecimalFormatter],
                              languages: seq[string], geographicRegion: string
@@ -3383,7 +2845,8 @@ proc createDecimalFormatter*(_: typedesc[DecimalFormatter],
     defer: discard release(p0)
     withHString(geographicRegion, h1):
       var tmp: pointer
-      it.call(IDecimalFormatterFactory_CreateDecimalFormatter, p0, h1, tmp.addr)
+      check it.vtbl.CreateDecimalFormatter(it, p0, h1, tmp.addr
+                                          ), "DecimalFormatter.CreateDecimalFormatter"
       result = adopt[DecimalFormatter](tmp)
 
 proc newIncrementNumberRounder*(): IncrementNumberRounder =
@@ -3394,68 +2857,70 @@ proc roundInt32*(self: IncrementNumberRounder, value: int32): int32 =
   ## Windows.Globalization.NumberFormatting.IncrementNumberRounder.RoundInt32
   withIface(self.p, INumberRounder, it):
     var tmp: int32
-    it.call(INumberRounder_RoundInt32, value, tmp.addr)
+    check it.vtbl.RoundInt32(it, value, tmp.addr
+                            ), "IncrementNumberRounder.RoundInt32"
     result = tmp
 
 proc roundUInt32*(self: IncrementNumberRounder, value: uint32): uint32 =
   ## Windows.Globalization.NumberFormatting.IncrementNumberRounder.RoundUInt32
   withIface(self.p, INumberRounder, it):
     var tmp: uint32
-    it.call(INumberRounder_RoundUInt32, value, tmp.addr)
+    check it.vtbl.RoundUInt32(it, value, tmp.addr
+                             ), "IncrementNumberRounder.RoundUInt32"
     result = tmp
 
 proc roundInt64*(self: IncrementNumberRounder, value: int64): int64 =
   ## Windows.Globalization.NumberFormatting.IncrementNumberRounder.RoundInt64
   withIface(self.p, INumberRounder, it):
     var tmp: int64
-    it.call(INumberRounder_RoundInt64, value, tmp.addr)
+    check it.vtbl.RoundInt64(it, value, tmp.addr
+                            ), "IncrementNumberRounder.RoundInt64"
     result = tmp
 
 proc roundUInt64*(self: IncrementNumberRounder, value: uint64): uint64 =
   ## Windows.Globalization.NumberFormatting.IncrementNumberRounder.RoundUInt64
   withIface(self.p, INumberRounder, it):
     var tmp: uint64
-    it.call(INumberRounder_RoundUInt64, value, tmp.addr)
+    check it.vtbl.RoundUInt64(it, value, tmp.addr
+                             ), "IncrementNumberRounder.RoundUInt64"
     result = tmp
 
 proc roundSingle*(self: IncrementNumberRounder, value: float32): float32 =
   ## Windows.Globalization.NumberFormatting.IncrementNumberRounder.RoundSingle
   withIface(self.p, INumberRounder, it):
     var tmp: float32
-    it.call(INumberRounder_RoundSingle, value, tmp.addr)
+    check it.vtbl.RoundSingle(it, value, tmp.addr
+                             ), "IncrementNumberRounder.RoundSingle"
     result = tmp
 
 proc roundDouble*(self: IncrementNumberRounder, value: float64): float64 =
   ## Windows.Globalization.NumberFormatting.IncrementNumberRounder.RoundDouble
   withIface(self.p, INumberRounder, it):
     var tmp: float64
-    it.call(INumberRounder_RoundDouble, value, tmp.addr)
+    check it.vtbl.RoundDouble(it, value, tmp.addr
+                             ), "IncrementNumberRounder.RoundDouble"
     result = tmp
 
 proc roundingAlgorithm*(self: IncrementNumberRounder): RoundingAlgorithm =
   ## Windows.Globalization.NumberFormatting.IncrementNumberRounder.get_RoundingAlgorithm
   withIface(self.p, IIncrementNumberRounder, it):
-    var tmp: RoundingAlgorithm
-    it.call(IIncrementNumberRounder_get_RoundingAlgorithm, tmp.addr)
-    result = tmp
+    result = it.getValue(get_RoundingAlgorithm, RoundingAlgorithm)
 
 proc `roundingAlgorithm=`*(self: IncrementNumberRounder,
                            value: RoundingAlgorithm) =
   ## Windows.Globalization.NumberFormatting.IncrementNumberRounder.put_RoundingAlgorithm
   withIface(self.p, IIncrementNumberRounder, it):
-    it.call(IIncrementNumberRounder_put_RoundingAlgorithm, value)
+    it.putValue(put_RoundingAlgorithm, value)
 
 proc increment*(self: IncrementNumberRounder): float64 =
   ## Windows.Globalization.NumberFormatting.IncrementNumberRounder.get_Increment
   withIface(self.p, IIncrementNumberRounder, it):
-    var tmp: float64
-    it.call(IIncrementNumberRounder_get_Increment, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Increment, float64)
 
 proc `increment=`*(self: IncrementNumberRounder, value: float64) =
   ## Windows.Globalization.NumberFormatting.IncrementNumberRounder.put_Increment
   withIface(self.p, IIncrementNumberRounder, it):
-    it.call(IIncrementNumberRounder_put_Increment, value)
+    it.putValue(put_Increment, value)
 
 proc newNumeralSystemTranslator*(): NumeralSystemTranslator =
   ## Activate a `Windows.Globalization.NumberFormatting.NumeralSystemTranslator`.
@@ -3465,36 +2930,33 @@ proc languages*(self: NumeralSystemTranslator): seq[string] =
   ## Windows.Globalization.NumberFormatting.NumeralSystemTranslator.get_Languages
   withIface(self.p, INumeralSystemTranslator, it):
     var tmp: pointer
-    it.call(INumeralSystemTranslator_get_Languages, tmp.addr)
+    check it.vtbl.get_Languages(it, tmp.addr
+                               ), "NumeralSystemTranslator.get_Languages"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc resolvedLanguage*(self: NumeralSystemTranslator): string =
   ## Windows.Globalization.NumberFormatting.NumeralSystemTranslator.get_ResolvedLanguage
   withIface(self.p, INumeralSystemTranslator, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemTranslator_get_ResolvedLanguage, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedLanguage)
 
 proc numeralSystem*(self: NumeralSystemTranslator): string =
   ## Windows.Globalization.NumberFormatting.NumeralSystemTranslator.get_NumeralSystem
   withIface(self.p, INumeralSystemTranslator, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemTranslator_get_NumeralSystem, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NumeralSystem)
 
 proc `numeralSystem=`*(self: NumeralSystemTranslator, value: string) =
   ## Windows.Globalization.NumberFormatting.NumeralSystemTranslator.put_NumeralSystem
   withIface(self.p, INumeralSystemTranslator, it):
-    withHString(value, h0):
-      it.call(INumeralSystemTranslator_put_NumeralSystem, h0)
+    it.putString(put_NumeralSystem, value)
 
 proc translateNumerals*(self: NumeralSystemTranslator, value: string): string =
   ## Windows.Globalization.NumberFormatting.NumeralSystemTranslator.TranslateNumerals
   withIface(self.p, INumeralSystemTranslator, it):
     withHString(value, h0):
       var tmp: HSTRING
-      it.call(INumeralSystemTranslator_TranslateNumerals, h0, tmp.addr)
+      check it.vtbl.TranslateNumerals(it, h0, tmp.addr
+                                     ), "NumeralSystemTranslator.TranslateNumerals"
       result = takeString(tmp)
 
 proc create*(_: typedesc[NumeralSystemTranslator], languages: seq[string]
@@ -3507,7 +2969,7 @@ proc create*(_: typedesc[NumeralSystemTranslator], languages: seq[string]
                                          IID_IIterator_1_String)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(INumeralSystemTranslatorFactory_Create, p0, tmp.addr)
+    check it.vtbl.Create(it, p0, tmp.addr), "NumeralSystemTranslator.Create"
     result = adopt[NumeralSystemTranslator](tmp)
 
 proc newPercentFormatter*(): PercentFormatter =
@@ -3518,132 +2980,116 @@ proc languages*(self: PercentFormatter): seq[string] =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_Languages
   withIface(self.p, INumberFormatterOptions, it):
     var tmp: pointer
-    it.call(INumberFormatterOptions_get_Languages, tmp.addr)
+    check it.vtbl.get_Languages(it, tmp.addr), "PercentFormatter.get_Languages"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc geographicRegion*(self: PercentFormatter): string =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_GeographicRegion
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_GeographicRegion, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_GeographicRegion)
 
 proc integerDigits*(self: PercentFormatter): int32 =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_IntegerDigits
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: int32
-    it.call(INumberFormatterOptions_get_IntegerDigits, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IntegerDigits, int32)
 
 proc `integerDigits=`*(self: PercentFormatter, value: int32) =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.put_IntegerDigits
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_IntegerDigits, value)
+    it.putValue(put_IntegerDigits, value)
 
 proc fractionDigits*(self: PercentFormatter): int32 =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_FractionDigits
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: int32
-    it.call(INumberFormatterOptions_get_FractionDigits, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FractionDigits, int32)
 
 proc `fractionDigits=`*(self: PercentFormatter, value: int32) =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.put_FractionDigits
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_FractionDigits, value)
+    it.putValue(put_FractionDigits, value)
 
 proc isGrouped*(self: PercentFormatter): bool =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_IsGrouped
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: bool
-    it.call(INumberFormatterOptions_get_IsGrouped, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsGrouped, bool)
 
 proc `isGrouped=`*(self: PercentFormatter, value: bool) =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.put_IsGrouped
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_IsGrouped, value)
+    it.putValue(put_IsGrouped, value)
 
 proc isDecimalPointAlwaysDisplayed*(self: PercentFormatter): bool =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_IsDecimalPointAlwaysDisplayed
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: bool
-    it.call(INumberFormatterOptions_get_IsDecimalPointAlwaysDisplayed, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsDecimalPointAlwaysDisplayed, bool)
 
 proc `isDecimalPointAlwaysDisplayed=`*(self: PercentFormatter, value: bool) =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.put_IsDecimalPointAlwaysDisplayed
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_IsDecimalPointAlwaysDisplayed, value)
+    it.putValue(put_IsDecimalPointAlwaysDisplayed, value)
 
 proc numeralSystem*(self: PercentFormatter): string =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_NumeralSystem
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_NumeralSystem, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NumeralSystem)
 
 proc `numeralSystem=`*(self: PercentFormatter, value: string) =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.put_NumeralSystem
   withIface(self.p, INumberFormatterOptions, it):
-    withHString(value, h0):
-      it.call(INumberFormatterOptions_put_NumeralSystem, h0)
+    it.putString(put_NumeralSystem, value)
 
 proc resolvedLanguage*(self: PercentFormatter): string =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_ResolvedLanguage
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_ResolvedLanguage, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedLanguage)
 
 proc resolvedGeographicRegion*(self: PercentFormatter): string =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_ResolvedGeographicRegion
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_ResolvedGeographicRegion, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedGeographicRegion)
 
 proc format*(self: PercentFormatter, value: int64): string =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.Format
   withIface(self.p, INumberFormatter, it):
     var tmp: HSTRING
-    it.call(INumberFormatter_Format, value, tmp.addr)
+    check it.vtbl.Format(it, value, tmp.addr), "PercentFormatter.Format"
     result = takeString(tmp)
 
 proc format*(self: PercentFormatter, value: uint64): string =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.Format
   withIface(self.p, INumberFormatter, it):
     var tmp: HSTRING
-    it.call(INumberFormatter_Format2, value, tmp.addr)
+    check it.vtbl.Format2(it, value, tmp.addr), "PercentFormatter.Format"
     result = takeString(tmp)
 
 proc format*(self: PercentFormatter, value: float64): string =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.Format
   withIface(self.p, INumberFormatter, it):
     var tmp: HSTRING
-    it.call(INumberFormatter_Format3, value, tmp.addr)
+    check it.vtbl.Format3(it, value, tmp.addr), "PercentFormatter.Format"
     result = takeString(tmp)
 
 proc formatInt*(self: PercentFormatter, value: int64): string =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.FormatInt
   withIface(self.p, INumberFormatter2, it):
     var tmp: HSTRING
-    it.call(INumberFormatter2_FormatInt, value, tmp.addr)
+    check it.vtbl.FormatInt(it, value, tmp.addr), "PercentFormatter.FormatInt"
     result = takeString(tmp)
 
 proc formatUInt*(self: PercentFormatter, value: uint64): string =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.FormatUInt
   withIface(self.p, INumberFormatter2, it):
     var tmp: HSTRING
-    it.call(INumberFormatter2_FormatUInt, value, tmp.addr)
+    check it.vtbl.FormatUInt(it, value, tmp.addr), "PercentFormatter.FormatUInt"
     result = takeString(tmp)
 
 proc formatDouble*(self: PercentFormatter, value: float64): string =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.FormatDouble
   withIface(self.p, INumberFormatter2, it):
     var tmp: HSTRING
-    it.call(INumberFormatter2_FormatDouble, value, tmp.addr)
+    check it.vtbl.FormatDouble(it, value, tmp.addr
+                              ), "PercentFormatter.FormatDouble"
     result = takeString(tmp)
 
 proc parseInt*(self: PercentFormatter, text: string): Option[int64] =
@@ -3651,7 +3097,7 @@ proc parseInt*(self: PercentFormatter, text: string): Option[int64] =
   withIface(self.p, INumberParser, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(INumberParser_ParseInt, h0, tmp.addr)
+      check it.vtbl.ParseInt(it, h0, tmp.addr), "PercentFormatter.ParseInt"
       result = readReference[int64](tmp, IID_IReference_1_I8,
                                     "PercentFormatter.ParseInt")
       release(tmp)
@@ -3661,7 +3107,7 @@ proc parseUInt*(self: PercentFormatter, text: string): Option[uint64] =
   withIface(self.p, INumberParser, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(INumberParser_ParseUInt, h0, tmp.addr)
+      check it.vtbl.ParseUInt(it, h0, tmp.addr), "PercentFormatter.ParseUInt"
       result = readReference[uint64](tmp, IID_IReference_1_U8,
                                      "PercentFormatter.ParseUInt")
       release(tmp)
@@ -3671,7 +3117,8 @@ proc parseDouble*(self: PercentFormatter, text: string): Option[float64] =
   withIface(self.p, INumberParser, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(INumberParser_ParseDouble, h0, tmp.addr)
+      check it.vtbl.ParseDouble(it, h0, tmp.addr
+                               ), "PercentFormatter.ParseDouble"
       result = readReference[float64](tmp, IID_IReference_1_F8,
                                       "PercentFormatter.ParseDouble")
       release(tmp)
@@ -3679,39 +3126,34 @@ proc parseDouble*(self: PercentFormatter, text: string): Option[float64] =
 proc significantDigits*(self: PercentFormatter): int32 =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_SignificantDigits
   withIface(self.p, ISignificantDigitsOption, it):
-    var tmp: int32
-    it.call(ISignificantDigitsOption_get_SignificantDigits, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SignificantDigits, int32)
 
 proc `significantDigits=`*(self: PercentFormatter, value: int32) =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.put_SignificantDigits
   withIface(self.p, ISignificantDigitsOption, it):
-    it.call(ISignificantDigitsOption_put_SignificantDigits, value)
+    it.putValue(put_SignificantDigits, value)
 
 proc numberRounder*(self: PercentFormatter): WinRtObject =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_NumberRounder
   withIface(self.p, INumberRounderOption, it):
-    var tmp: pointer
-    it.call(INumberRounderOption_get_NumberRounder, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NumberRounder, WinRtObject)
 
 proc `numberRounder=`*(self: PercentFormatter, value: WinRtObject) =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.put_NumberRounder
   withIface(self.p, INumberRounderOption, it):
     withIface(value.p, INumberRounder, p0):
-      it.call(INumberRounderOption_put_NumberRounder, p0)
+      check it.vtbl.put_NumberRounder(it, p0
+                                     ), "PercentFormatter.put_NumberRounder"
 
 proc isZeroSigned*(self: PercentFormatter): bool =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_IsZeroSigned
   withIface(self.p, ISignedZeroOption, it):
-    var tmp: bool
-    it.call(ISignedZeroOption_get_IsZeroSigned, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsZeroSigned, bool)
 
 proc `isZeroSigned=`*(self: PercentFormatter, value: bool) =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.put_IsZeroSigned
   withIface(self.p, ISignedZeroOption, it):
-    it.call(ISignedZeroOption_put_IsZeroSigned, value)
+    it.putValue(put_IsZeroSigned, value)
 
 proc createPercentFormatter*(_: typedesc[PercentFormatter],
                              languages: seq[string], geographicRegion: string
@@ -3725,7 +3167,8 @@ proc createPercentFormatter*(_: typedesc[PercentFormatter],
     defer: discard release(p0)
     withHString(geographicRegion, h1):
       var tmp: pointer
-      it.call(IPercentFormatterFactory_CreatePercentFormatter, p0, h1, tmp.addr)
+      check it.vtbl.CreatePercentFormatter(it, p0, h1, tmp.addr
+                                          ), "PercentFormatter.CreatePercentFormatter"
       result = adopt[PercentFormatter](tmp)
 
 proc newPermilleFormatter*(): PermilleFormatter =
@@ -3736,132 +3179,117 @@ proc languages*(self: PermilleFormatter): seq[string] =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_Languages
   withIface(self.p, INumberFormatterOptions, it):
     var tmp: pointer
-    it.call(INumberFormatterOptions_get_Languages, tmp.addr)
+    check it.vtbl.get_Languages(it, tmp.addr), "PermilleFormatter.get_Languages"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc geographicRegion*(self: PermilleFormatter): string =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_GeographicRegion
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_GeographicRegion, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_GeographicRegion)
 
 proc integerDigits*(self: PermilleFormatter): int32 =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_IntegerDigits
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: int32
-    it.call(INumberFormatterOptions_get_IntegerDigits, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IntegerDigits, int32)
 
 proc `integerDigits=`*(self: PermilleFormatter, value: int32) =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.put_IntegerDigits
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_IntegerDigits, value)
+    it.putValue(put_IntegerDigits, value)
 
 proc fractionDigits*(self: PermilleFormatter): int32 =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_FractionDigits
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: int32
-    it.call(INumberFormatterOptions_get_FractionDigits, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FractionDigits, int32)
 
 proc `fractionDigits=`*(self: PermilleFormatter, value: int32) =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.put_FractionDigits
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_FractionDigits, value)
+    it.putValue(put_FractionDigits, value)
 
 proc isGrouped*(self: PermilleFormatter): bool =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_IsGrouped
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: bool
-    it.call(INumberFormatterOptions_get_IsGrouped, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsGrouped, bool)
 
 proc `isGrouped=`*(self: PermilleFormatter, value: bool) =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.put_IsGrouped
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_IsGrouped, value)
+    it.putValue(put_IsGrouped, value)
 
 proc isDecimalPointAlwaysDisplayed*(self: PermilleFormatter): bool =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_IsDecimalPointAlwaysDisplayed
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: bool
-    it.call(INumberFormatterOptions_get_IsDecimalPointAlwaysDisplayed, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsDecimalPointAlwaysDisplayed, bool)
 
 proc `isDecimalPointAlwaysDisplayed=`*(self: PermilleFormatter, value: bool) =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.put_IsDecimalPointAlwaysDisplayed
   withIface(self.p, INumberFormatterOptions, it):
-    it.call(INumberFormatterOptions_put_IsDecimalPointAlwaysDisplayed, value)
+    it.putValue(put_IsDecimalPointAlwaysDisplayed, value)
 
 proc numeralSystem*(self: PermilleFormatter): string =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_NumeralSystem
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_NumeralSystem, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NumeralSystem)
 
 proc `numeralSystem=`*(self: PermilleFormatter, value: string) =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.put_NumeralSystem
   withIface(self.p, INumberFormatterOptions, it):
-    withHString(value, h0):
-      it.call(INumberFormatterOptions_put_NumeralSystem, h0)
+    it.putString(put_NumeralSystem, value)
 
 proc resolvedLanguage*(self: PermilleFormatter): string =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_ResolvedLanguage
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_ResolvedLanguage, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedLanguage)
 
 proc resolvedGeographicRegion*(self: PermilleFormatter): string =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_ResolvedGeographicRegion
   withIface(self.p, INumberFormatterOptions, it):
-    var tmp: HSTRING
-    it.call(INumberFormatterOptions_get_ResolvedGeographicRegion, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedGeographicRegion)
 
 proc format*(self: PermilleFormatter, value: int64): string =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.Format
   withIface(self.p, INumberFormatter, it):
     var tmp: HSTRING
-    it.call(INumberFormatter_Format, value, tmp.addr)
+    check it.vtbl.Format(it, value, tmp.addr), "PermilleFormatter.Format"
     result = takeString(tmp)
 
 proc format*(self: PermilleFormatter, value: uint64): string =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.Format
   withIface(self.p, INumberFormatter, it):
     var tmp: HSTRING
-    it.call(INumberFormatter_Format2, value, tmp.addr)
+    check it.vtbl.Format2(it, value, tmp.addr), "PermilleFormatter.Format"
     result = takeString(tmp)
 
 proc format*(self: PermilleFormatter, value: float64): string =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.Format
   withIface(self.p, INumberFormatter, it):
     var tmp: HSTRING
-    it.call(INumberFormatter_Format3, value, tmp.addr)
+    check it.vtbl.Format3(it, value, tmp.addr), "PermilleFormatter.Format"
     result = takeString(tmp)
 
 proc formatInt*(self: PermilleFormatter, value: int64): string =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.FormatInt
   withIface(self.p, INumberFormatter2, it):
     var tmp: HSTRING
-    it.call(INumberFormatter2_FormatInt, value, tmp.addr)
+    check it.vtbl.FormatInt(it, value, tmp.addr), "PermilleFormatter.FormatInt"
     result = takeString(tmp)
 
 proc formatUInt*(self: PermilleFormatter, value: uint64): string =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.FormatUInt
   withIface(self.p, INumberFormatter2, it):
     var tmp: HSTRING
-    it.call(INumberFormatter2_FormatUInt, value, tmp.addr)
+    check it.vtbl.FormatUInt(it, value, tmp.addr
+                            ), "PermilleFormatter.FormatUInt"
     result = takeString(tmp)
 
 proc formatDouble*(self: PermilleFormatter, value: float64): string =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.FormatDouble
   withIface(self.p, INumberFormatter2, it):
     var tmp: HSTRING
-    it.call(INumberFormatter2_FormatDouble, value, tmp.addr)
+    check it.vtbl.FormatDouble(it, value, tmp.addr
+                              ), "PermilleFormatter.FormatDouble"
     result = takeString(tmp)
 
 proc parseInt*(self: PermilleFormatter, text: string): Option[int64] =
@@ -3869,7 +3297,7 @@ proc parseInt*(self: PermilleFormatter, text: string): Option[int64] =
   withIface(self.p, INumberParser, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(INumberParser_ParseInt, h0, tmp.addr)
+      check it.vtbl.ParseInt(it, h0, tmp.addr), "PermilleFormatter.ParseInt"
       result = readReference[int64](tmp, IID_IReference_1_I8,
                                     "PermilleFormatter.ParseInt")
       release(tmp)
@@ -3879,7 +3307,7 @@ proc parseUInt*(self: PermilleFormatter, text: string): Option[uint64] =
   withIface(self.p, INumberParser, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(INumberParser_ParseUInt, h0, tmp.addr)
+      check it.vtbl.ParseUInt(it, h0, tmp.addr), "PermilleFormatter.ParseUInt"
       result = readReference[uint64](tmp, IID_IReference_1_U8,
                                      "PermilleFormatter.ParseUInt")
       release(tmp)
@@ -3889,7 +3317,8 @@ proc parseDouble*(self: PermilleFormatter, text: string): Option[float64] =
   withIface(self.p, INumberParser, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(INumberParser_ParseDouble, h0, tmp.addr)
+      check it.vtbl.ParseDouble(it, h0, tmp.addr
+                               ), "PermilleFormatter.ParseDouble"
       result = readReference[float64](tmp, IID_IReference_1_F8,
                                       "PermilleFormatter.ParseDouble")
       release(tmp)
@@ -3897,39 +3326,34 @@ proc parseDouble*(self: PermilleFormatter, text: string): Option[float64] =
 proc significantDigits*(self: PermilleFormatter): int32 =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_SignificantDigits
   withIface(self.p, ISignificantDigitsOption, it):
-    var tmp: int32
-    it.call(ISignificantDigitsOption_get_SignificantDigits, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SignificantDigits, int32)
 
 proc `significantDigits=`*(self: PermilleFormatter, value: int32) =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.put_SignificantDigits
   withIface(self.p, ISignificantDigitsOption, it):
-    it.call(ISignificantDigitsOption_put_SignificantDigits, value)
+    it.putValue(put_SignificantDigits, value)
 
 proc numberRounder*(self: PermilleFormatter): WinRtObject =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_NumberRounder
   withIface(self.p, INumberRounderOption, it):
-    var tmp: pointer
-    it.call(INumberRounderOption_get_NumberRounder, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NumberRounder, WinRtObject)
 
 proc `numberRounder=`*(self: PermilleFormatter, value: WinRtObject) =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.put_NumberRounder
   withIface(self.p, INumberRounderOption, it):
     withIface(value.p, INumberRounder, p0):
-      it.call(INumberRounderOption_put_NumberRounder, p0)
+      check it.vtbl.put_NumberRounder(it, p0
+                                     ), "PermilleFormatter.put_NumberRounder"
 
 proc isZeroSigned*(self: PermilleFormatter): bool =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_IsZeroSigned
   withIface(self.p, ISignedZeroOption, it):
-    var tmp: bool
-    it.call(ISignedZeroOption_get_IsZeroSigned, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsZeroSigned, bool)
 
 proc `isZeroSigned=`*(self: PermilleFormatter, value: bool) =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.put_IsZeroSigned
   withIface(self.p, ISignedZeroOption, it):
-    it.call(ISignedZeroOption_put_IsZeroSigned, value)
+    it.putValue(put_IsZeroSigned, value)
 
 proc createPermilleFormatter*(_: typedesc[PermilleFormatter],
                               languages: seq[string], geographicRegion: string
@@ -3943,8 +3367,8 @@ proc createPermilleFormatter*(_: typedesc[PermilleFormatter],
     defer: discard release(p0)
     withHString(geographicRegion, h1):
       var tmp: pointer
-      it.call(IPermilleFormatterFactory_CreatePermilleFormatter, p0, h1,
-              tmp.addr)
+      check it.vtbl.CreatePermilleFormatter(it, p0, h1, tmp.addr
+                                           ), "PermilleFormatter.CreatePermilleFormatter"
       result = adopt[PermilleFormatter](tmp)
 
 proc newSignificantDigitsNumberRounder*(): SignificantDigitsNumberRounder =
@@ -3955,28 +3379,32 @@ proc roundInt32*(self: SignificantDigitsNumberRounder, value: int32): int32 =
   ## Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.RoundInt32
   withIface(self.p, INumberRounder, it):
     var tmp: int32
-    it.call(INumberRounder_RoundInt32, value, tmp.addr)
+    check it.vtbl.RoundInt32(it, value, tmp.addr
+                            ), "SignificantDigitsNumberRounder.RoundInt32"
     result = tmp
 
 proc roundUInt32*(self: SignificantDigitsNumberRounder, value: uint32): uint32 =
   ## Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.RoundUInt32
   withIface(self.p, INumberRounder, it):
     var tmp: uint32
-    it.call(INumberRounder_RoundUInt32, value, tmp.addr)
+    check it.vtbl.RoundUInt32(it, value, tmp.addr
+                             ), "SignificantDigitsNumberRounder.RoundUInt32"
     result = tmp
 
 proc roundInt64*(self: SignificantDigitsNumberRounder, value: int64): int64 =
   ## Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.RoundInt64
   withIface(self.p, INumberRounder, it):
     var tmp: int64
-    it.call(INumberRounder_RoundInt64, value, tmp.addr)
+    check it.vtbl.RoundInt64(it, value, tmp.addr
+                            ), "SignificantDigitsNumberRounder.RoundInt64"
     result = tmp
 
 proc roundUInt64*(self: SignificantDigitsNumberRounder, value: uint64): uint64 =
   ## Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.RoundUInt64
   withIface(self.p, INumberRounder, it):
     var tmp: uint64
-    it.call(INumberRounder_RoundUInt64, value, tmp.addr)
+    check it.vtbl.RoundUInt64(it, value, tmp.addr
+                             ), "SignificantDigitsNumberRounder.RoundUInt64"
     result = tmp
 
 proc roundSingle*(self: SignificantDigitsNumberRounder, value: float32
@@ -3984,7 +3412,8 @@ proc roundSingle*(self: SignificantDigitsNumberRounder, value: float32
   ## Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.RoundSingle
   withIface(self.p, INumberRounder, it):
     var tmp: float32
-    it.call(INumberRounder_RoundSingle, value, tmp.addr)
+    check it.vtbl.RoundSingle(it, value, tmp.addr
+                             ), "SignificantDigitsNumberRounder.RoundSingle"
     result = tmp
 
 proc roundDouble*(self: SignificantDigitsNumberRounder, value: float64
@@ -3992,418 +3421,319 @@ proc roundDouble*(self: SignificantDigitsNumberRounder, value: float64
   ## Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.RoundDouble
   withIface(self.p, INumberRounder, it):
     var tmp: float64
-    it.call(INumberRounder_RoundDouble, value, tmp.addr)
+    check it.vtbl.RoundDouble(it, value, tmp.addr
+                             ), "SignificantDigitsNumberRounder.RoundDouble"
     result = tmp
 
 proc roundingAlgorithm*(self: SignificantDigitsNumberRounder): RoundingAlgorithm =
   ## Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.get_RoundingAlgorithm
   withIface(self.p, ISignificantDigitsNumberRounder, it):
-    var tmp: RoundingAlgorithm
-    it.call(ISignificantDigitsNumberRounder_get_RoundingAlgorithm, tmp.addr)
-    result = tmp
+    result = it.getValue(get_RoundingAlgorithm, RoundingAlgorithm)
 
 proc `roundingAlgorithm=`*(self: SignificantDigitsNumberRounder,
                            value: RoundingAlgorithm) =
   ## Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.put_RoundingAlgorithm
   withIface(self.p, ISignificantDigitsNumberRounder, it):
-    it.call(ISignificantDigitsNumberRounder_put_RoundingAlgorithm, value)
+    it.putValue(put_RoundingAlgorithm, value)
 
 proc significantDigits*(self: SignificantDigitsNumberRounder): uint32 =
   ## Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.get_SignificantDigits
   withIface(self.p, ISignificantDigitsNumberRounder, it):
-    var tmp: uint32
-    it.call(ISignificantDigitsNumberRounder_get_SignificantDigits, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SignificantDigits, uint32)
 
 proc `significantDigits=`*(self: SignificantDigitsNumberRounder, value: uint32
                           ) =
   ## Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.put_SignificantDigits
   withIface(self.p, ISignificantDigitsNumberRounder, it):
-    it.call(ISignificantDigitsNumberRounder_put_SignificantDigits, value)
+    it.putValue(put_SignificantDigits, value)
 
 proc brah*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Brah
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics2_get_Brah, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Brah)
 
 proc osma*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Osma
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics2_get_Osma, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Osma)
 
 proc mathBold*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_MathBold
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics2_get_MathBold, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MathBold)
 
 proc mathDbl*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_MathDbl
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics2_get_MathDbl, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MathDbl)
 
 proc mathSans*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_MathSans
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics2_get_MathSans, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MathSans)
 
 proc mathSanb*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_MathSanb
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics2_get_MathSanb, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MathSanb)
 
 proc mathMono*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_MathMono
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics2_get_MathMono, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MathMono)
 
 proc zmthBold*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_ZmthBold
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics2_get_ZmthBold, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ZmthBold)
 
 proc zmthDbl*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_ZmthDbl
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics2_get_ZmthDbl, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ZmthDbl)
 
 proc zmthSans*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_ZmthSans
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics2_get_ZmthSans, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ZmthSans)
 
 proc zmthSanb*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_ZmthSanb
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics2_get_ZmthSanb, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ZmthSanb)
 
 proc zmthMono*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_ZmthMono
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics2, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics2_get_ZmthMono, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ZmthMono)
 
 proc arab*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Arab
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Arab, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Arab)
 
 proc arabExt*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_ArabExt
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_ArabExt, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ArabExt)
 
 proc bali*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Bali
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Bali, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Bali)
 
 proc beng*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Beng
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Beng, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Beng)
 
 proc cham*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Cham
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Cham, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Cham)
 
 proc deva*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Deva
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Deva, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Deva)
 
 proc fullWide*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_FullWide
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_FullWide, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_FullWide)
 
 proc gujr*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Gujr
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Gujr, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Gujr)
 
 proc guru*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Guru
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Guru, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Guru)
 
 proc haniDec*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_HaniDec
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_HaniDec, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_HaniDec)
 
 proc java*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Java
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Java, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Java)
 
 proc kali*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Kali
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Kali, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Kali)
 
 proc khmr*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Khmr
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Khmr, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Khmr)
 
 proc knda*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Knda
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Knda, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Knda)
 
 proc lana*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Lana
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Lana, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Lana)
 
 proc lanaTham*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_LanaTham
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_LanaTham, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_LanaTham)
 
 proc laoo*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Laoo
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Laoo, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Laoo)
 
 proc latn*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Latn
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Latn, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Latn)
 
 proc lepc*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Lepc
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Lepc, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Lepc)
 
 proc limb*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Limb
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Limb, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Limb)
 
 proc mlym*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Mlym
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Mlym, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Mlym)
 
 proc mong*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Mong
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Mong, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Mong)
 
 proc mtei*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Mtei
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Mtei, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Mtei)
 
 proc mymr*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Mymr
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Mymr, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Mymr)
 
 proc mymrShan*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_MymrShan
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_MymrShan, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_MymrShan)
 
 proc nkoo*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Nkoo
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Nkoo, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Nkoo)
 
 proc olck*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Olck
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Olck, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Olck)
 
 proc orya*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Orya
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Orya, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Orya)
 
 proc saur*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Saur
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Saur, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Saur)
 
 proc sund*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Sund
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Sund, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Sund)
 
 proc talu*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Talu
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Talu, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Talu)
 
 proc tamlDec*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_TamlDec
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_TamlDec, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TamlDec)
 
 proc telu*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Telu
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Telu, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Telu)
 
 proc thai*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Thai
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Thai, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Thai)
 
 proc tibt*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Tibt
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Tibt, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Tibt)
 
 proc vaii*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.NumeralSystemIdentifiers.get_Vaii
   withStatics("Windows.Globalization.NumeralSystemIdentifiers",
               INumeralSystemIdentifiersStatics, it):
-    var tmp: HSTRING
-    it.call(INumeralSystemIdentifiersStatics_get_Vaii, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Vaii)
 
 proc newPhoneNumberFormatter*(): PhoneNumberFormatter =
   ## Activate a `Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter`.
@@ -4414,7 +3744,7 @@ proc format*(self: PhoneNumberFormatter, number: PhoneNumberInfo): string =
   withIface(self.p, IPhoneNumberFormatter, it):
     withIface(number.p, IPhoneNumberInfo, p0):
       var tmp: HSTRING
-      it.call(IPhoneNumberFormatter_Format, p0, tmp.addr)
+      check it.vtbl.Format(it, p0, tmp.addr), "PhoneNumberFormatter.Format"
       result = takeString(tmp)
 
 proc format*(self: PhoneNumberFormatter, number: PhoneNumberInfo,
@@ -4423,7 +3753,8 @@ proc format*(self: PhoneNumberFormatter, number: PhoneNumberInfo,
   withIface(self.p, IPhoneNumberFormatter, it):
     withIface(number.p, IPhoneNumberInfo, p0):
       var tmp: HSTRING
-      it.call(IPhoneNumberFormatter_Format2, p0, numberFormat, tmp.addr)
+      check it.vtbl.Format2(it, p0, numberFormat, tmp.addr
+                           ), "PhoneNumberFormatter.Format"
       result = takeString(tmp)
 
 proc formatPartialString*(self: PhoneNumberFormatter, number: string): string =
@@ -4431,7 +3762,8 @@ proc formatPartialString*(self: PhoneNumberFormatter, number: string): string =
   withIface(self.p, IPhoneNumberFormatter, it):
     withHString(number, h0):
       var tmp: HSTRING
-      it.call(IPhoneNumberFormatter_FormatPartialString, h0, tmp.addr)
+      check it.vtbl.FormatPartialString(it, h0, tmp.addr
+                                       ), "PhoneNumberFormatter.FormatPartialString"
       result = takeString(tmp)
 
 proc formatString*(self: PhoneNumberFormatter, number: string): string =
@@ -4439,7 +3771,8 @@ proc formatString*(self: PhoneNumberFormatter, number: string): string =
   withIface(self.p, IPhoneNumberFormatter, it):
     withHString(number, h0):
       var tmp: HSTRING
-      it.call(IPhoneNumberFormatter_FormatString, h0, tmp.addr)
+      check it.vtbl.FormatString(it, h0, tmp.addr
+                                ), "PhoneNumberFormatter.FormatString"
       result = takeString(tmp)
 
 proc formatStringWithLeftToRightMarkers*(self: PhoneNumberFormatter,
@@ -4448,8 +3781,8 @@ proc formatStringWithLeftToRightMarkers*(self: PhoneNumberFormatter,
   withIface(self.p, IPhoneNumberFormatter, it):
     withHString(number, h0):
       var tmp: HSTRING
-      it.call(IPhoneNumberFormatter_FormatStringWithLeftToRightMarkers, h0,
-              tmp.addr)
+      check it.vtbl.FormatStringWithLeftToRightMarkers(it, h0, tmp.addr
+                                                      ), "PhoneNumberFormatter.FormatStringWithLeftToRightMarkers"
       result = takeString(tmp)
 
 proc tryCreate*(_: typedesc[PhoneNumberFormatter], regionCode: string
@@ -4459,7 +3792,8 @@ proc tryCreate*(_: typedesc[PhoneNumberFormatter], regionCode: string
               IPhoneNumberFormatterStatics, it):
     withHString(regionCode, h0):
       var phoneNumber: pointer
-      it.call(IPhoneNumberFormatterStatics_TryCreate, h0, phoneNumber.addr)
+      check it.vtbl.TryCreate(it, h0, phoneNumber.addr
+                             ), "PhoneNumberFormatter.TryCreate"
       result = (phoneNumber: adopt[PhoneNumberFormatter](phoneNumber))
 
 proc getCountryCodeForRegion*(_: typedesc[PhoneNumberFormatter],
@@ -4469,8 +3803,8 @@ proc getCountryCodeForRegion*(_: typedesc[PhoneNumberFormatter],
               IPhoneNumberFormatterStatics, it):
     withHString(regionCode, h0):
       var tmp: int32
-      it.call(IPhoneNumberFormatterStatics_GetCountryCodeForRegion, h0, tmp.addr
-             )
+      check it.vtbl.GetCountryCodeForRegion(it, h0, tmp.addr
+                                           ), "PhoneNumberFormatter.GetCountryCodeForRegion"
       result = tmp
 
 proc getNationalDirectDialingPrefixForRegion*(_: typedesc[PhoneNumberFormatter],
@@ -4481,8 +3815,10 @@ proc getNationalDirectDialingPrefixForRegion*(_: typedesc[PhoneNumberFormatter],
               IPhoneNumberFormatterStatics, it):
     withHString(regionCode, h0):
       var tmp: HSTRING
-      it.call(IPhoneNumberFormatterStatics_GetNationalDirectDialingPrefixForRegion,
-              h0, stripNonDigit, tmp.addr)
+      check it.vtbl.GetNationalDirectDialingPrefixForRegion(it, h0,
+                                                            stripNonDigit,
+                                                            tmp.addr
+                                                           ), "PhoneNumberFormatter.GetNationalDirectDialingPrefixForRegion"
       result = takeString(tmp)
 
 proc wrapWithLeftToRightMarkers*(_: typedesc[PhoneNumberFormatter],
@@ -4492,57 +3828,58 @@ proc wrapWithLeftToRightMarkers*(_: typedesc[PhoneNumberFormatter],
               IPhoneNumberFormatterStatics, it):
     withHString(number, h0):
       var tmp: HSTRING
-      it.call(IPhoneNumberFormatterStatics_WrapWithLeftToRightMarkers, h0,
-              tmp.addr)
+      check it.vtbl.WrapWithLeftToRightMarkers(it, h0, tmp.addr
+                                              ), "PhoneNumberFormatter.WrapWithLeftToRightMarkers"
       result = takeString(tmp)
 
 proc countryCode*(self: PhoneNumberInfo): int32 =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.get_CountryCode
   withIface(self.p, IPhoneNumberInfo, it):
-    var tmp: int32
-    it.call(IPhoneNumberInfo_get_CountryCode, tmp.addr)
-    result = tmp
+    result = it.getValue(get_CountryCode, int32)
 
 proc phoneNumber*(self: PhoneNumberInfo): string =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.get_PhoneNumber
   withIface(self.p, IPhoneNumberInfo, it):
-    var tmp: HSTRING
-    it.call(IPhoneNumberInfo_get_PhoneNumber, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_PhoneNumber)
 
 proc getLengthOfGeographicalAreaCode*(self: PhoneNumberInfo): int32 =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.GetLengthOfGeographicalAreaCode
   withIface(self.p, IPhoneNumberInfo, it):
     var tmp: int32
-    it.call(IPhoneNumberInfo_GetLengthOfGeographicalAreaCode, tmp.addr)
+    check it.vtbl.GetLengthOfGeographicalAreaCode(it, tmp.addr
+                                                 ), "PhoneNumberInfo.GetLengthOfGeographicalAreaCode"
     result = tmp
 
 proc getNationalSignificantNumber*(self: PhoneNumberInfo): string =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.GetNationalSignificantNumber
   withIface(self.p, IPhoneNumberInfo, it):
     var tmp: HSTRING
-    it.call(IPhoneNumberInfo_GetNationalSignificantNumber, tmp.addr)
+    check it.vtbl.GetNationalSignificantNumber(it, tmp.addr
+                                              ), "PhoneNumberInfo.GetNationalSignificantNumber"
     result = takeString(tmp)
 
 proc getLengthOfNationalDestinationCode*(self: PhoneNumberInfo): int32 =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.GetLengthOfNationalDestinationCode
   withIface(self.p, IPhoneNumberInfo, it):
     var tmp: int32
-    it.call(IPhoneNumberInfo_GetLengthOfNationalDestinationCode, tmp.addr)
+    check it.vtbl.GetLengthOfNationalDestinationCode(it, tmp.addr
+                                                    ), "PhoneNumberInfo.GetLengthOfNationalDestinationCode"
     result = tmp
 
 proc predictNumberKind*(self: PhoneNumberInfo): PredictedPhoneNumberKind =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.PredictNumberKind
   withIface(self.p, IPhoneNumberInfo, it):
     var tmp: PredictedPhoneNumberKind
-    it.call(IPhoneNumberInfo_PredictNumberKind, tmp.addr)
+    check it.vtbl.PredictNumberKind(it, tmp.addr
+                                   ), "PhoneNumberInfo.PredictNumberKind"
     result = tmp
 
 proc getGeographicRegionCode*(self: PhoneNumberInfo): string =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.GetGeographicRegionCode
   withIface(self.p, IPhoneNumberInfo, it):
     var tmp: HSTRING
-    it.call(IPhoneNumberInfo_GetGeographicRegionCode, tmp.addr)
+    check it.vtbl.GetGeographicRegionCode(it, tmp.addr
+                                         ), "PhoneNumberInfo.GetGeographicRegionCode"
     result = takeString(tmp)
 
 proc checkNumberMatch*(self: PhoneNumberInfo, otherNumber: PhoneNumberInfo
@@ -4551,14 +3888,15 @@ proc checkNumberMatch*(self: PhoneNumberInfo, otherNumber: PhoneNumberInfo
   withIface(self.p, IPhoneNumberInfo, it):
     withIface(otherNumber.p, IPhoneNumberInfo, p0):
       var tmp: PhoneNumberMatchResult
-      it.call(IPhoneNumberInfo_CheckNumberMatch, p0, tmp.addr)
+      check it.vtbl.CheckNumberMatch(it, p0, tmp.addr
+                                    ), "PhoneNumberInfo.CheckNumberMatch"
       result = tmp
 
 proc toString*(self: PhoneNumberInfo): string =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.ToString
   withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    it.call(IStringable_ToString, tmp.addr)
+    check it.vtbl.ToString(it, tmp.addr), "PhoneNumberInfo.ToString"
     result = takeString(tmp)
 
 proc tryParse*(_: typedesc[PhoneNumberInfo], input: string
@@ -4570,7 +3908,8 @@ proc tryParse*(_: typedesc[PhoneNumberInfo], input: string
       var phoneNumber: pointer
       var ret: PhoneNumberParseResult
       var tmp: PhoneNumberParseResult
-      it.call(IPhoneNumberInfoStatics_TryParse, h0, phoneNumber.addr, tmp.addr)
+      check it.vtbl.TryParse(it, h0, phoneNumber.addr, tmp.addr
+                            ), "PhoneNumberInfo.TryParse"
       ret = tmp
       result = (value: ret, phoneNumber: adopt[PhoneNumberInfo](phoneNumber))
 
@@ -4584,8 +3923,8 @@ proc tryParse*(_: typedesc[PhoneNumberInfo], input: string, regionCode: string
         var phoneNumber: pointer
         var ret: PhoneNumberParseResult
         var tmp: PhoneNumberParseResult
-        it.call(IPhoneNumberInfoStatics_TryParse2, h0, h1, phoneNumber.addr,
-                tmp.addr)
+        check it.vtbl.TryParse2(it, h0, h1, phoneNumber.addr, tmp.addr
+                               ), "PhoneNumberInfo.TryParse"
         ret = tmp
         result = (value: ret, phoneNumber: adopt[PhoneNumberInfo](phoneNumber))
 
@@ -4595,6 +3934,6 @@ proc create*(_: typedesc[PhoneNumberInfo], number: string): PhoneNumberInfo =
               IPhoneNumberInfoFactory, it):
     withHString(number, h0):
       var tmp: pointer
-      it.call(IPhoneNumberInfoFactory_Create, h0, tmp.addr)
+      check it.vtbl.Create(it, h0, tmp.addr), "PhoneNumberInfo.Create"
       result = adopt[PhoneNumberInfo](tmp)
 

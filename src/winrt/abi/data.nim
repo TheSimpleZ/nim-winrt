@@ -3,12 +3,10 @@
 ## Source:    Windows.winmd
 ## Namespace: Windows.Data
 ##
-## Slot numbers are vtable indices. WinRT interfaces begin with
-## IInspectable's six slots, so the first declared method is slot 6;
-## delegates derive from IUnknown and begin at slot 3.
-##
-## Every method returns HRESULT and its declared return type becomes
-## a trailing out-parameter.
+## Each interface is its vtable: an object whose fields are the
+## methods in declaration order, after IInspectable's six (IUnknown's
+## three for a delegate). Every method returns HRESULT and its
+## declared return type becomes a trailing out-parameter.
 
 import std/hashes
 export hashes
@@ -20,990 +18,660 @@ export types
 
 ## Windows.Data.Html.IHtmlUtilities
 const IID_IHtmlUtilities* = guid"FEC00ADD-2399-4FAC-B5A7-05E9ACD7181D"
-const Slot_IHtmlUtilities_ConvertToText* = 6
-type Fn_IHtmlUtilities_ConvertToText* =
-  proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
+type IHtmlUtilitiesVtbl* = object of IInspectableVtbl
+  ConvertToText*: proc(self: pointer, a1: HSTRING, value: ptr HSTRING
+                      ): HRESULT {.abi.}
 
 ## Windows.Data.Json.IJsonArray
 const IID_IJsonArray* = guid"08C1DDB6-0CBD-4A9A-B5D3-2F852DC37E81"
-const Slot_IJsonArray_GetObjectAt* = 6
-type Fn_IJsonArray_GetObjectAt* =
-  proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
-const Slot_IJsonArray_GetArrayAt* = 7
-type Fn_IJsonArray_GetArrayAt* =
-  proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
-const Slot_IJsonArray_GetStringAt* = 8
-type Fn_IJsonArray_GetStringAt* =
-  proc(self: pointer, a1: uint32, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IJsonArray_GetNumberAt* = 9
-type Fn_IJsonArray_GetNumberAt* =
-  proc(self: pointer, a1: uint32, value: ptr float64): HRESULT {.abi.}
-const Slot_IJsonArray_GetBooleanAt* = 10
-type Fn_IJsonArray_GetBooleanAt* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
+type IJsonArrayVtbl* = object of IInspectableVtbl
+  GetObjectAt*: proc(self: pointer, a1: uint32, value: ptr pointer
+                    ): HRESULT {.abi.}
+  GetArrayAt*: proc(self: pointer, a1: uint32, value: ptr pointer
+                   ): HRESULT {.abi.}
+  GetStringAt*: proc(self: pointer, a1: uint32, value: ptr HSTRING
+                    ): HRESULT {.abi.}
+  GetNumberAt*: proc(self: pointer, a1: uint32, value: ptr float64
+                    ): HRESULT {.abi.}
+  GetBooleanAt*: proc(self: pointer, a1: uint32, value: ptr bool
+                     ): HRESULT {.abi.}
 
 ## Windows.Data.Json.IJsonArrayStatics
 const IID_IJsonArrayStatics* = guid"DB1434A9-E164-499F-93E2-8A8F49BB90BA"
-const Slot_IJsonArrayStatics_Parse* = 6
-type Fn_IJsonArrayStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IJsonArrayStatics_TryParse* = 7
-type Fn_IJsonArrayStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING, a2JsonArray: ptr pointer, value: ptr bool
-      ): HRESULT {.abi.}
+type IJsonArrayStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING, a2JsonArray: ptr pointer,
+                  value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Data.Json.IJsonErrorStatics2
 const IID_IJsonErrorStatics2* = guid"404030DA-87D0-436C-83AB-FC7B12C0CC26"
-const Slot_IJsonErrorStatics2_GetJsonStatus* = 6
-type Fn_IJsonErrorStatics2_GetJsonStatus* =
-  proc(self: pointer, a1: int32, value: ptr JsonErrorStatus): HRESULT {.abi.}
+type IJsonErrorStatics2Vtbl* = object of IInspectableVtbl
+  GetJsonStatus*: proc(self: pointer, a1: int32, value: ptr JsonErrorStatus
+                      ): HRESULT {.abi.}
 
 ## Windows.Data.Json.IJsonObject
 const IID_IJsonObject* = guid"064E24DD-29C2-4F83-9AC1-9EE11578BEB3"
-const Slot_IJsonObject_GetNamedValue* = 6
-type Fn_IJsonObject_GetNamedValue* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IJsonObject_SetNamedValue* = 7
-type Fn_IJsonObject_SetNamedValue* =
-  proc(self: pointer, a1: HSTRING, a2IJsonValue: pointer): HRESULT {.abi.}
-const Slot_IJsonObject_GetNamedObject* = 8
-type Fn_IJsonObject_GetNamedObject* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IJsonObject_GetNamedArray* = 9
-type Fn_IJsonObject_GetNamedArray* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IJsonObject_GetNamedString* = 10
-type Fn_IJsonObject_GetNamedString* =
-  proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IJsonObject_GetNamedNumber* = 11
-type Fn_IJsonObject_GetNamedNumber* =
-  proc(self: pointer, a1: HSTRING, value: ptr float64): HRESULT {.abi.}
-const Slot_IJsonObject_GetNamedBoolean* = 12
-type Fn_IJsonObject_GetNamedBoolean* =
-  proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
+type IJsonObjectVtbl* = object of IInspectableVtbl
+  GetNamedValue*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                      ): HRESULT {.abi.}
+  SetNamedValue*: proc(self: pointer, a1: HSTRING, a2IJsonValue: pointer
+                      ): HRESULT {.abi.}
+  GetNamedObject*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                       ): HRESULT {.abi.}
+  GetNamedArray*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                      ): HRESULT {.abi.}
+  GetNamedString*: proc(self: pointer, a1: HSTRING, value: ptr HSTRING
+                       ): HRESULT {.abi.}
+  GetNamedNumber*: proc(self: pointer, a1: HSTRING, value: ptr float64
+                       ): HRESULT {.abi.}
+  GetNamedBoolean*: proc(self: pointer, a1: HSTRING, value: ptr bool
+                        ): HRESULT {.abi.}
 
 ## Windows.Data.Json.IJsonObjectStatics
 const IID_IJsonObjectStatics* = guid"2289F159-54DE-45D8-ABCC-22603FA066A0"
-const Slot_IJsonObjectStatics_Parse* = 6
-type Fn_IJsonObjectStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IJsonObjectStatics_TryParse* = 7
-type Fn_IJsonObjectStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING, a2JsonObject: ptr pointer, value: ptr bool
-      ): HRESULT {.abi.}
+type IJsonObjectStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING, a2JsonObject: ptr pointer,
+                  value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Data.Json.IJsonObjectWithDefaultValues
 const IID_IJsonObjectWithDefaultValues* = guid"D960D2A2-B7F0-4F00-8E44-D82CF415EA13"
-const Slot_IJsonObjectWithDefaultValues_GetNamedValue* = 6
-type Fn_IJsonObjectWithDefaultValues_GetNamedValue* =
-  proc(self: pointer, a1: HSTRING, a2JsonValue: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IJsonObjectWithDefaultValues_GetNamedObject* = 7
-type Fn_IJsonObjectWithDefaultValues_GetNamedObject* =
-  proc(self: pointer, a1: HSTRING, a2JsonObject: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IJsonObjectWithDefaultValues_GetNamedString* = 8
-type Fn_IJsonObjectWithDefaultValues_GetNamedString* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr HSTRING
-      ): HRESULT {.abi.}
-const Slot_IJsonObjectWithDefaultValues_GetNamedArray* = 9
-type Fn_IJsonObjectWithDefaultValues_GetNamedArray* =
-  proc(self: pointer, a1: HSTRING, a2JsonArray: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IJsonObjectWithDefaultValues_GetNamedNumber* = 10
-type Fn_IJsonObjectWithDefaultValues_GetNamedNumber* =
-  proc(self: pointer, a1: HSTRING, a2: float64, value: ptr float64
-      ): HRESULT {.abi.}
-const Slot_IJsonObjectWithDefaultValues_GetNamedBoolean* = 11
-type Fn_IJsonObjectWithDefaultValues_GetNamedBoolean* =
-  proc(self: pointer, a1: HSTRING, a2: bool, value: ptr bool): HRESULT {.abi.}
+type IJsonObjectWithDefaultValuesVtbl* = object of IInspectableVtbl
+  GetNamedValue*: proc(self: pointer, a1: HSTRING, a2JsonValue: pointer,
+                       value: ptr pointer): HRESULT {.abi.}
+  GetNamedObject*: proc(self: pointer, a1: HSTRING, a2JsonObject: pointer,
+                        value: ptr pointer): HRESULT {.abi.}
+  GetNamedString*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                        value: ptr HSTRING): HRESULT {.abi.}
+  GetNamedArray*: proc(self: pointer, a1: HSTRING, a2JsonArray: pointer,
+                       value: ptr pointer): HRESULT {.abi.}
+  GetNamedNumber*: proc(self: pointer, a1: HSTRING, a2: float64,
+                        value: ptr float64): HRESULT {.abi.}
+  GetNamedBoolean*: proc(self: pointer, a1: HSTRING, a2: bool, value: ptr bool
+                        ): HRESULT {.abi.}
 
 ## Windows.Data.Json.IJsonValue
 const IID_IJsonValue* = guid"A3219ECB-F0B3-4DCD-BEEE-19D48CD3ED1E"
-const Slot_IJsonValue_get_ValueType* = 6
-type Fn_IJsonValue_get_ValueType* =
-  proc(self: pointer, value: ptr JsonValueType): HRESULT {.abi.}
-const Slot_IJsonValue_Stringify* = 7
-type Fn_IJsonValue_Stringify* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IJsonValue_GetString* = 8
-type Fn_IJsonValue_GetString* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IJsonValue_GetNumber* = 9
-type Fn_IJsonValue_GetNumber* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_IJsonValue_GetBoolean* = 10
-type Fn_IJsonValue_GetBoolean* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IJsonValue_GetArray* = 11
-type Fn_IJsonValue_GetArray* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IJsonValue_GetObject* = 12
-type Fn_IJsonValue_GetObject* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IJsonValueVtbl* = object of IInspectableVtbl
+  get_ValueType*: proc(self: pointer, value: ptr JsonValueType
+                      ): HRESULT {.abi.}
+  Stringify*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  GetString*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  GetNumber*: proc(self: pointer, value: ptr float64): HRESULT {.abi.}
+  GetBoolean*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  GetArray*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetObject*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Json.IJsonValueStatics
 const IID_IJsonValueStatics* = guid"5F6B544A-2F53-48E1-91A3-F78B50A6345C"
-const Slot_IJsonValueStatics_Parse* = 6
-type Fn_IJsonValueStatics_Parse* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IJsonValueStatics_TryParse* = 7
-type Fn_IJsonValueStatics_TryParse* =
-  proc(self: pointer, a1: HSTRING, a2JsonValue: ptr pointer, value: ptr bool
-      ): HRESULT {.abi.}
-const Slot_IJsonValueStatics_CreateBooleanValue* = 8
-type Fn_IJsonValueStatics_CreateBooleanValue* =
-  proc(self: pointer, a1: bool, value: ptr pointer): HRESULT {.abi.}
-const Slot_IJsonValueStatics_CreateNumberValue* = 9
-type Fn_IJsonValueStatics_CreateNumberValue* =
-  proc(self: pointer, a1: float64, value: ptr pointer): HRESULT {.abi.}
-const Slot_IJsonValueStatics_CreateStringValue* = 10
-type Fn_IJsonValueStatics_CreateStringValue* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IJsonValueStaticsVtbl* = object of IInspectableVtbl
+  Parse*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+              ): HRESULT {.abi.}
+  TryParse*: proc(self: pointer, a1: HSTRING, a2JsonValue: ptr pointer,
+                  value: ptr bool): HRESULT {.abi.}
+  CreateBooleanValue*: proc(self: pointer, a1: bool, value: ptr pointer
+                           ): HRESULT {.abi.}
+  CreateNumberValue*: proc(self: pointer, a1: float64, value: ptr pointer
+                          ): HRESULT {.abi.}
+  CreateStringValue*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                          ): HRESULT {.abi.}
 
 ## Windows.Data.Json.IJsonValueStatics2
 const IID_IJsonValueStatics2* = guid"1D9ECBE4-3FE8-4335-8392-93D8E36865F0"
-const Slot_IJsonValueStatics2_CreateNullValue* = 6
-type Fn_IJsonValueStatics2_CreateNullValue* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IJsonValueStatics2Vtbl* = object of IInspectableVtbl
+  CreateNullValue*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Pdf.IPdfDocument
 const IID_IPdfDocument* = guid"AC7EBEDD-80FA-4089-846E-81B77FF5A86C"
-const Slot_IPdfDocument_GetPage* = 6
-type Fn_IPdfDocument_GetPage* =
-  proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
-const Slot_IPdfDocument_get_PageCount* = 7
-type Fn_IPdfDocument_get_PageCount* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IPdfDocument_get_IsPasswordProtected* = 8
-type Fn_IPdfDocument_get_IsPasswordProtected* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IPdfDocumentVtbl* = object of IInspectableVtbl
+  GetPage*: proc(self: pointer, a1: uint32, value: ptr pointer
+                ): HRESULT {.abi.}
+  get_PageCount*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_IsPasswordProtected*: proc(self: pointer, value: ptr bool
+                                ): HRESULT {.abi.}
 
 ## Windows.Data.Pdf.IPdfDocumentStatics
 const IID_IPdfDocumentStatics* = guid"433A0B5F-C007-4788-90F2-08143D922599"
-const Slot_IPdfDocumentStatics_LoadFromFileAsync* = 6
-type Fn_IPdfDocumentStatics_LoadFromFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IPdfDocumentStatics_LoadFromFileAsync2* = 7
-type Fn_IPdfDocumentStatics_LoadFromFileAsync2* =
-  proc(self: pointer, a1IStorageFile: pointer, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IPdfDocumentStatics_LoadFromStreamAsync* = 8
-type Fn_IPdfDocumentStatics_LoadFromStreamAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IPdfDocumentStatics_LoadFromStreamAsync2* = 9
-type Fn_IPdfDocumentStatics_LoadFromStreamAsync2* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, a2: HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
+type IPdfDocumentStaticsVtbl* = object of IInspectableVtbl
+  LoadFromFileAsync*: proc(self: pointer, a1IStorageFile: pointer,
+                           value: ptr pointer): HRESULT {.abi.}
+  LoadFromFileAsync2*: proc(self: pointer, a1IStorageFile: pointer,
+                            a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  LoadFromStreamAsync*: proc(self: pointer, a1IRandomAccessStream: pointer,
+                             value: ptr pointer): HRESULT {.abi.}
+  LoadFromStreamAsync2*: proc(self: pointer, a1IRandomAccessStream: pointer,
+                              a2: HSTRING, value: ptr pointer
+                             ): HRESULT {.abi.}
 
 ## Windows.Data.Pdf.IPdfPage
 const IID_IPdfPage* = guid"9DB4B0C8-5320-4CFC-AD76-493FDAD0E594"
-const Slot_IPdfPage_RenderToStreamAsync* = 6
-type Fn_IPdfPage_RenderToStreamAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IPdfPage_RenderToStreamAsync2* = 7
-type Fn_IPdfPage_RenderToStreamAsync2* =
-  proc(self: pointer, a1IRandomAccessStream: pointer,
-       a2PdfPageRenderOptions: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IPdfPage_PreparePageAsync* = 8
-type Fn_IPdfPage_PreparePageAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IPdfPage_get_Index* = 9
-type Fn_IPdfPage_get_Index* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IPdfPage_get_Size* = 10
-type Fn_IPdfPage_get_Size* =
-  proc(self: pointer, value: ptr Size): HRESULT {.abi.}
-const Slot_IPdfPage_get_Dimensions* = 11
-type Fn_IPdfPage_get_Dimensions* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IPdfPage_get_Rotation* = 12
-type Fn_IPdfPage_get_Rotation* =
-  proc(self: pointer, value: ptr PdfPageRotation): HRESULT {.abi.}
-const Slot_IPdfPage_get_PreferredZoom* = 13
-type Fn_IPdfPage_get_PreferredZoom* =
-  proc(self: pointer, value: ptr float32): HRESULT {.abi.}
+type IPdfPageVtbl* = object of IInspectableVtbl
+  RenderToStreamAsync*: proc(self: pointer, a1IRandomAccessStream: pointer,
+                             value: ptr pointer): HRESULT {.abi.}
+  RenderToStreamAsync2*: proc(self: pointer, a1IRandomAccessStream: pointer,
+                              a2PdfPageRenderOptions: pointer,
+                              value: ptr pointer): HRESULT {.abi.}
+  PreparePageAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Index*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_Size*: proc(self: pointer, value: ptr Size): HRESULT {.abi.}
+  get_Dimensions*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Rotation*: proc(self: pointer, value: ptr PdfPageRotation
+                     ): HRESULT {.abi.}
+  get_PreferredZoom*: proc(self: pointer, value: ptr float32): HRESULT {.abi.}
 
 ## Windows.Data.Pdf.IPdfPageDimensions
 const IID_IPdfPageDimensions* = guid"22170471-313E-44E8-835D-63A3E7624A10"
-const Slot_IPdfPageDimensions_get_MediaBox* = 6
-type Fn_IPdfPageDimensions_get_MediaBox* =
-  proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
-const Slot_IPdfPageDimensions_get_CropBox* = 7
-type Fn_IPdfPageDimensions_get_CropBox* =
-  proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
-const Slot_IPdfPageDimensions_get_BleedBox* = 8
-type Fn_IPdfPageDimensions_get_BleedBox* =
-  proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
-const Slot_IPdfPageDimensions_get_TrimBox* = 9
-type Fn_IPdfPageDimensions_get_TrimBox* =
-  proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
-const Slot_IPdfPageDimensions_get_ArtBox* = 10
-type Fn_IPdfPageDimensions_get_ArtBox* =
-  proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
+type IPdfPageDimensionsVtbl* = object of IInspectableVtbl
+  get_MediaBox*: proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
+  get_CropBox*: proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
+  get_BleedBox*: proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
+  get_TrimBox*: proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
+  get_ArtBox*: proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
 
 ## Windows.Data.Pdf.IPdfPageRenderOptions
 const IID_IPdfPageRenderOptions* = guid"3C98056F-B7CF-4C29-9A04-52D90267F425"
-const Slot_IPdfPageRenderOptions_get_SourceRect* = 6
-type Fn_IPdfPageRenderOptions_get_SourceRect* =
-  proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
-const Slot_IPdfPageRenderOptions_put_SourceRect* = 7
-type Fn_IPdfPageRenderOptions_put_SourceRect* =
-  proc(self: pointer, a1: Rect): HRESULT {.abi.}
-const Slot_IPdfPageRenderOptions_get_DestinationWidth* = 8
-type Fn_IPdfPageRenderOptions_get_DestinationWidth* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IPdfPageRenderOptions_put_DestinationWidth* = 9
-type Fn_IPdfPageRenderOptions_put_DestinationWidth* =
-  proc(self: pointer, a1: uint32): HRESULT {.abi.}
-const Slot_IPdfPageRenderOptions_get_DestinationHeight* = 10
-type Fn_IPdfPageRenderOptions_get_DestinationHeight* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IPdfPageRenderOptions_put_DestinationHeight* = 11
-type Fn_IPdfPageRenderOptions_put_DestinationHeight* =
-  proc(self: pointer, a1: uint32): HRESULT {.abi.}
-const Slot_IPdfPageRenderOptions_get_BackgroundColor* = 12
-type Fn_IPdfPageRenderOptions_get_BackgroundColor* =
-  proc(self: pointer, value: ptr Color): HRESULT {.abi.}
-const Slot_IPdfPageRenderOptions_put_BackgroundColor* = 13
-type Fn_IPdfPageRenderOptions_put_BackgroundColor* =
-  proc(self: pointer, a1: Color): HRESULT {.abi.}
-const Slot_IPdfPageRenderOptions_get_IsIgnoringHighContrast* = 14
-type Fn_IPdfPageRenderOptions_get_IsIgnoringHighContrast* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IPdfPageRenderOptions_put_IsIgnoringHighContrast* = 15
-type Fn_IPdfPageRenderOptions_put_IsIgnoringHighContrast* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IPdfPageRenderOptions_get_BitmapEncoderId* = 16
-type Fn_IPdfPageRenderOptions_get_BitmapEncoderId* =
-  proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
-const Slot_IPdfPageRenderOptions_put_BitmapEncoderId* = 17
-type Fn_IPdfPageRenderOptions_put_BitmapEncoderId* =
-  proc(self: pointer, a1: GUID): HRESULT {.abi.}
+type IPdfPageRenderOptionsVtbl* = object of IInspectableVtbl
+  get_SourceRect*: proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
+  put_SourceRect*: proc(self: pointer, a1: Rect): HRESULT {.abi.}
+  get_DestinationWidth*: proc(self: pointer, value: ptr uint32
+                             ): HRESULT {.abi.}
+  put_DestinationWidth*: proc(self: pointer, a1: uint32): HRESULT {.abi.}
+  get_DestinationHeight*: proc(self: pointer, value: ptr uint32
+                              ): HRESULT {.abi.}
+  put_DestinationHeight*: proc(self: pointer, a1: uint32): HRESULT {.abi.}
+  get_BackgroundColor*: proc(self: pointer, value: ptr Color): HRESULT {.abi.}
+  put_BackgroundColor*: proc(self: pointer, a1: Color): HRESULT {.abi.}
+  get_IsIgnoringHighContrast*: proc(self: pointer, value: ptr bool
+                                   ): HRESULT {.abi.}
+  put_IsIgnoringHighContrast*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_BitmapEncoderId*: proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
+  put_BitmapEncoderId*: proc(self: pointer, a1: GUID): HRESULT {.abi.}
 
 ## Windows.Data.Text.IAlternateWordForm
 const IID_IAlternateWordForm* = guid"47396C1E-51B9-4207-9146-248E636A1D1D"
-const Slot_IAlternateWordForm_get_SourceTextSegment* = 6
-type Fn_IAlternateWordForm_get_SourceTextSegment* =
-  proc(self: pointer, value: ptr TextSegment): HRESULT {.abi.}
-const Slot_IAlternateWordForm_get_AlternateText* = 7
-type Fn_IAlternateWordForm_get_AlternateText* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IAlternateWordForm_get_NormalizationFormat* = 8
-type Fn_IAlternateWordForm_get_NormalizationFormat* =
-  proc(self: pointer, value: ptr AlternateNormalizationFormat
-      ): HRESULT {.abi.}
+type IAlternateWordFormVtbl* = object of IInspectableVtbl
+  get_SourceTextSegment*: proc(self: pointer, value: ptr TextSegment
+                              ): HRESULT {.abi.}
+  get_AlternateText*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_NormalizationFormat*: proc(self: pointer,
+                                 value: ptr AlternateNormalizationFormat
+                                ): HRESULT {.abi.}
 
 ## Windows.Data.Text.ISelectableWordSegment
 const IID_ISelectableWordSegment* = guid"916A4CB7-8AA7-4C78-B374-5DEDB752E60B"
-const Slot_ISelectableWordSegment_get_Text* = 6
-type Fn_ISelectableWordSegment_get_Text* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISelectableWordSegment_get_SourceTextSegment* = 7
-type Fn_ISelectableWordSegment_get_SourceTextSegment* =
-  proc(self: pointer, value: ptr TextSegment): HRESULT {.abi.}
+type ISelectableWordSegmentVtbl* = object of IInspectableVtbl
+  get_Text*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_SourceTextSegment*: proc(self: pointer, value: ptr TextSegment
+                              ): HRESULT {.abi.}
 
 ## Windows.Data.Text.ISelectableWordsSegmenter
 const IID_ISelectableWordsSegmenter* = guid"F6DC31E7-4B13-45C5-8897-7D71269E085D"
-const Slot_ISelectableWordsSegmenter_get_ResolvedLanguage* = 6
-type Fn_ISelectableWordsSegmenter_get_ResolvedLanguage* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ISelectableWordsSegmenter_GetTokenAt* = 7
-type Fn_ISelectableWordsSegmenter_GetTokenAt* =
-  proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ISelectableWordsSegmenter_GetTokens* = 8
-type Fn_ISelectableWordsSegmenter_GetTokens* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISelectableWordsSegmenter_Tokenize* = 9
-type Fn_ISelectableWordsSegmenter_Tokenize* =
-  proc(self: pointer, a1: HSTRING, a2: uint32,
-       a3SelectableWordSegmentsTokenizingHandler: pointer): HRESULT {.abi.}
+type ISelectableWordsSegmenterVtbl* = object of IInspectableVtbl
+  get_ResolvedLanguage*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  GetTokenAt*: proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer
+                   ): HRESULT {.abi.}
+  GetTokens*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                  ): HRESULT {.abi.}
+  Tokenize*: proc(self: pointer, a1: HSTRING, a2: uint32,
+                  a3SelectableWordSegmentsTokenizingHandler: pointer
+                 ): HRESULT {.abi.}
 
 ## Windows.Data.Text.ISelectableWordsSegmenterFactory
 const IID_ISelectableWordsSegmenterFactory* = guid"8C7A7648-6057-4339-BC70-F210010A4150"
-const Slot_ISelectableWordsSegmenterFactory_CreateWithLanguage* = 6
-type Fn_ISelectableWordsSegmenterFactory_CreateWithLanguage* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type ISelectableWordsSegmenterFactoryVtbl* = object of IInspectableVtbl
+  CreateWithLanguage*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.Data.Text.ISemanticTextQuery
 const IID_ISemanticTextQuery* = guid"6A1CAB51-1FB2-4909-80B8-35731A2B3E7F"
-const Slot_ISemanticTextQuery_Find* = 6
-type Fn_ISemanticTextQuery_Find* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISemanticTextQuery_FindInProperty* = 7
-type Fn_ISemanticTextQuery_FindInProperty* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type ISemanticTextQueryVtbl* = object of IInspectableVtbl
+  Find*: proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  FindInProperty*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                        value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Text.ISemanticTextQueryFactory
 const IID_ISemanticTextQueryFactory* = guid"238C0503-F995-4587-8777-A2B7D80ACFEF"
-const Slot_ISemanticTextQueryFactory_Create* = 6
-type Fn_ISemanticTextQueryFactory_Create* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ISemanticTextQueryFactory_CreateWithLanguage* = 7
-type Fn_ISemanticTextQueryFactory_CreateWithLanguage* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type ISemanticTextQueryFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+               ): HRESULT {.abi.}
+  CreateWithLanguage*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Text.ITextConversionGenerator
 const IID_ITextConversionGenerator* = guid"03606A5E-2AA9-4AB6-AF8B-A562B63A8992"
-const Slot_ITextConversionGenerator_get_ResolvedLanguage* = 6
-type Fn_ITextConversionGenerator_get_ResolvedLanguage* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITextConversionGenerator_get_LanguageAvailableButNotInstalled* = 7
-type Fn_ITextConversionGenerator_get_LanguageAvailableButNotInstalled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ITextConversionGenerator_GetCandidatesAsync* = 8
-type Fn_ITextConversionGenerator_GetCandidatesAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITextConversionGenerator_GetCandidatesAsync2* = 9
-type Fn_ITextConversionGenerator_GetCandidatesAsync2* =
-  proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITextConversionGeneratorVtbl* = object of IInspectableVtbl
+  get_ResolvedLanguage*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  get_LanguageAvailableButNotInstalled*: proc(self: pointer, value: ptr bool
+                                             ): HRESULT {.abi.}
+  GetCandidatesAsync*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                           ): HRESULT {.abi.}
+  GetCandidatesAsync2*: proc(self: pointer, a1: HSTRING, a2: uint32,
+                             value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Text.ITextConversionGeneratorFactory
 const IID_ITextConversionGeneratorFactory* = guid"FCAA3781-3083-49AB-BE15-56DFBBB74D6F"
-const Slot_ITextConversionGeneratorFactory_Create* = 6
-type Fn_ITextConversionGeneratorFactory_Create* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type ITextConversionGeneratorFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.Data.Text.ITextPhoneme
 const IID_ITextPhoneme* = guid"9362A40A-9B7A-4569-94CF-D84F2F38CF9B"
-const Slot_ITextPhoneme_get_DisplayText* = 6
-type Fn_ITextPhoneme_get_DisplayText* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITextPhoneme_get_ReadingText* = 7
-type Fn_ITextPhoneme_get_ReadingText* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type ITextPhonemeVtbl* = object of IInspectableVtbl
+  get_DisplayText*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ReadingText*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Data.Text.ITextPredictionGenerator
 const IID_ITextPredictionGenerator* = guid"5EACAB07-ABF1-4CB6-9D9E-326F2B468756"
-const Slot_ITextPredictionGenerator_get_ResolvedLanguage* = 6
-type Fn_ITextPredictionGenerator_get_ResolvedLanguage* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITextPredictionGenerator_get_LanguageAvailableButNotInstalled* = 7
-type Fn_ITextPredictionGenerator_get_LanguageAvailableButNotInstalled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ITextPredictionGenerator_GetCandidatesAsync* = 8
-type Fn_ITextPredictionGenerator_GetCandidatesAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITextPredictionGenerator_GetCandidatesAsync2* = 9
-type Fn_ITextPredictionGenerator_GetCandidatesAsync2* =
-  proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer
-      ): HRESULT {.abi.}
+type ITextPredictionGeneratorVtbl* = object of IInspectableVtbl
+  get_ResolvedLanguage*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  get_LanguageAvailableButNotInstalled*: proc(self: pointer, value: ptr bool
+                                             ): HRESULT {.abi.}
+  GetCandidatesAsync*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                           ): HRESULT {.abi.}
+  GetCandidatesAsync2*: proc(self: pointer, a1: HSTRING, a2: uint32,
+                             value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Text.ITextPredictionGenerator2
 const IID_ITextPredictionGenerator2* = guid"B84723B8-2C77-486A-900A-A3453EEDC15D"
-const Slot_ITextPredictionGenerator2_GetCandidatesAsync* = 6
-type Fn_ITextPredictionGenerator2_GetCandidatesAsync* =
-  proc(self: pointer, a1: HSTRING, a2: uint32, a3: TextPredictionOptions,
-       a4: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITextPredictionGenerator2_GetNextWordCandidatesAsync* = 7
-type Fn_ITextPredictionGenerator2_GetNextWordCandidatesAsync* =
-  proc(self: pointer, a1: uint32, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ITextPredictionGenerator2_get_InputScope* = 8
-type Fn_ITextPredictionGenerator2_get_InputScope* =
-  proc(self: pointer, value: ptr CoreTextInputScope): HRESULT {.abi.}
-const Slot_ITextPredictionGenerator2_put_InputScope* = 9
-type Fn_ITextPredictionGenerator2_put_InputScope* =
-  proc(self: pointer, a1: CoreTextInputScope): HRESULT {.abi.}
+type ITextPredictionGenerator2Vtbl* = object of IInspectableVtbl
+  GetCandidatesAsync*: proc(self: pointer, a1: HSTRING, a2: uint32,
+                            a3: TextPredictionOptions, a4: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
+  GetNextWordCandidatesAsync*: proc(self: pointer, a1: uint32, a2: pointer,
+                                    value: ptr pointer): HRESULT {.abi.}
+  get_InputScope*: proc(self: pointer, value: ptr CoreTextInputScope
+                       ): HRESULT {.abi.}
+  put_InputScope*: proc(self: pointer, a1: CoreTextInputScope
+                       ): HRESULT {.abi.}
 
 ## Windows.Data.Text.ITextPredictionGeneratorFactory
 const IID_ITextPredictionGeneratorFactory* = guid"7257B416-8BA2-4751-9D30-9D85435653A2"
-const Slot_ITextPredictionGeneratorFactory_Create* = 6
-type Fn_ITextPredictionGeneratorFactory_Create* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type ITextPredictionGeneratorFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.Data.Text.ITextReverseConversionGenerator
 const IID_ITextReverseConversionGenerator* = guid"51E7F514-9C51-4D86-AE1B-B498FBAD8313"
-const Slot_ITextReverseConversionGenerator_get_ResolvedLanguage* = 6
-type Fn_ITextReverseConversionGenerator_get_ResolvedLanguage* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITextReverseConversionGenerator_get_LanguageAvailableButNotInstalled* = 7
-type Fn_ITextReverseConversionGenerator_get_LanguageAvailableButNotInstalled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ITextReverseConversionGenerator_ConvertBackAsync* = 8
-type Fn_ITextReverseConversionGenerator_ConvertBackAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type ITextReverseConversionGeneratorVtbl* = object of IInspectableVtbl
+  get_ResolvedLanguage*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  get_LanguageAvailableButNotInstalled*: proc(self: pointer, value: ptr bool
+                                             ): HRESULT {.abi.}
+  ConvertBackAsync*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.Data.Text.ITextReverseConversionGenerator2
 const IID_ITextReverseConversionGenerator2* = guid"1AAFD2EC-85D6-46FD-828A-3A4830FA6E18"
-const Slot_ITextReverseConversionGenerator2_GetPhonemesAsync* = 6
-type Fn_ITextReverseConversionGenerator2_GetPhonemesAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type ITextReverseConversionGenerator2Vtbl* = object of IInspectableVtbl
+  GetPhonemesAsync*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                         ): HRESULT {.abi.}
 
 ## Windows.Data.Text.ITextReverseConversionGeneratorFactory
 const IID_ITextReverseConversionGeneratorFactory* = guid"63BED326-1FDA-41F6-89D5-23DDEA3C729A"
-const Slot_ITextReverseConversionGeneratorFactory_Create* = 6
-type Fn_ITextReverseConversionGeneratorFactory_Create* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type ITextReverseConversionGeneratorFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.Data.Text.IUnicodeCharactersStatics
 const IID_IUnicodeCharactersStatics* = guid"97909E87-9291-4F91-B6C8-B6E359D7A7FB"
-const Slot_IUnicodeCharactersStatics_GetCodepointFromSurrogatePair* = 6
-type Fn_IUnicodeCharactersStatics_GetCodepointFromSurrogatePair* =
-  proc(self: pointer, a1: uint32, a2: uint32, value: ptr uint32
-      ): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_GetSurrogatePairFromCodepoint* = 7
-type Fn_IUnicodeCharactersStatics_GetSurrogatePairFromCodepoint* =
-  proc(self: pointer, a1: uint32, a2: ptr uint16, a3: ptr uint16
-      ): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_IsHighSurrogate* = 8
-type Fn_IUnicodeCharactersStatics_IsHighSurrogate* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_IsLowSurrogate* = 9
-type Fn_IUnicodeCharactersStatics_IsLowSurrogate* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_IsSupplementary* = 10
-type Fn_IUnicodeCharactersStatics_IsSupplementary* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_IsNoncharacter* = 11
-type Fn_IUnicodeCharactersStatics_IsNoncharacter* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_IsWhitespace* = 12
-type Fn_IUnicodeCharactersStatics_IsWhitespace* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_IsAlphabetic* = 13
-type Fn_IUnicodeCharactersStatics_IsAlphabetic* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_IsCased* = 14
-type Fn_IUnicodeCharactersStatics_IsCased* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_IsUppercase* = 15
-type Fn_IUnicodeCharactersStatics_IsUppercase* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_IsLowercase* = 16
-type Fn_IUnicodeCharactersStatics_IsLowercase* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_IsIdStart* = 17
-type Fn_IUnicodeCharactersStatics_IsIdStart* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_IsIdContinue* = 18
-type Fn_IUnicodeCharactersStatics_IsIdContinue* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_IsGraphemeBase* = 19
-type Fn_IUnicodeCharactersStatics_IsGraphemeBase* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_IsGraphemeExtend* = 20
-type Fn_IUnicodeCharactersStatics_IsGraphemeExtend* =
-  proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_GetNumericType* = 21
-type Fn_IUnicodeCharactersStatics_GetNumericType* =
-  proc(self: pointer, a1: uint32, value: ptr UnicodeNumericType
-      ): HRESULT {.abi.}
-const Slot_IUnicodeCharactersStatics_GetGeneralCategory* = 22
-type Fn_IUnicodeCharactersStatics_GetGeneralCategory* =
-  proc(self: pointer, a1: uint32, value: ptr UnicodeGeneralCategory
-      ): HRESULT {.abi.}
+type IUnicodeCharactersStaticsVtbl* = object of IInspectableVtbl
+  GetCodepointFromSurrogatePair*: proc(self: pointer, a1: uint32, a2: uint32,
+                                       value: ptr uint32): HRESULT {.abi.}
+  GetSurrogatePairFromCodepoint*: proc(self: pointer, a1: uint32,
+                                       a2: ptr uint16, a3: ptr uint16
+                                      ): HRESULT {.abi.}
+  IsHighSurrogate*: proc(self: pointer, a1: uint32, value: ptr bool
+                        ): HRESULT {.abi.}
+  IsLowSurrogate*: proc(self: pointer, a1: uint32, value: ptr bool
+                       ): HRESULT {.abi.}
+  IsSupplementary*: proc(self: pointer, a1: uint32, value: ptr bool
+                        ): HRESULT {.abi.}
+  IsNoncharacter*: proc(self: pointer, a1: uint32, value: ptr bool
+                       ): HRESULT {.abi.}
+  IsWhitespace*: proc(self: pointer, a1: uint32, value: ptr bool
+                     ): HRESULT {.abi.}
+  IsAlphabetic*: proc(self: pointer, a1: uint32, value: ptr bool
+                     ): HRESULT {.abi.}
+  IsCased*: proc(self: pointer, a1: uint32, value: ptr bool): HRESULT {.abi.}
+  IsUppercase*: proc(self: pointer, a1: uint32, value: ptr bool
+                    ): HRESULT {.abi.}
+  IsLowercase*: proc(self: pointer, a1: uint32, value: ptr bool
+                    ): HRESULT {.abi.}
+  IsIdStart*: proc(self: pointer, a1: uint32, value: ptr bool
+                  ): HRESULT {.abi.}
+  IsIdContinue*: proc(self: pointer, a1: uint32, value: ptr bool
+                     ): HRESULT {.abi.}
+  IsGraphemeBase*: proc(self: pointer, a1: uint32, value: ptr bool
+                       ): HRESULT {.abi.}
+  IsGraphemeExtend*: proc(self: pointer, a1: uint32, value: ptr bool
+                         ): HRESULT {.abi.}
+  GetNumericType*: proc(self: pointer, a1: uint32,
+                        value: ptr UnicodeNumericType): HRESULT {.abi.}
+  GetGeneralCategory*: proc(self: pointer, a1: uint32,
+                            value: ptr UnicodeGeneralCategory
+                           ): HRESULT {.abi.}
 
 ## Windows.Data.Text.IWordSegment
 const IID_IWordSegment* = guid"D2D4BA6D-987C-4CC0-B6BD-D49A11B38F9A"
-const Slot_IWordSegment_get_Text* = 6
-type Fn_IWordSegment_get_Text* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IWordSegment_get_SourceTextSegment* = 7
-type Fn_IWordSegment_get_SourceTextSegment* =
-  proc(self: pointer, value: ptr TextSegment): HRESULT {.abi.}
-const Slot_IWordSegment_get_AlternateForms* = 8
-type Fn_IWordSegment_get_AlternateForms* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IWordSegmentVtbl* = object of IInspectableVtbl
+  get_Text*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_SourceTextSegment*: proc(self: pointer, value: ptr TextSegment
+                              ): HRESULT {.abi.}
+  get_AlternateForms*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.Data.Text.IWordsSegmenter
 const IID_IWordsSegmenter* = guid"86B4D4D1-B2FE-4E34-A81D-66640300454F"
-const Slot_IWordsSegmenter_get_ResolvedLanguage* = 6
-type Fn_IWordsSegmenter_get_ResolvedLanguage* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IWordsSegmenter_GetTokenAt* = 7
-type Fn_IWordsSegmenter_GetTokenAt* =
-  proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IWordsSegmenter_GetTokens* = 8
-type Fn_IWordsSegmenter_GetTokens* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IWordsSegmenter_Tokenize* = 9
-type Fn_IWordsSegmenter_Tokenize* =
-  proc(self: pointer, a1: HSTRING, a2: uint32,
-       a3WordSegmentsTokenizingHandler: pointer): HRESULT {.abi.}
+type IWordsSegmenterVtbl* = object of IInspectableVtbl
+  get_ResolvedLanguage*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  GetTokenAt*: proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer
+                   ): HRESULT {.abi.}
+  GetTokens*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                  ): HRESULT {.abi.}
+  Tokenize*: proc(self: pointer, a1: HSTRING, a2: uint32,
+                  a3WordSegmentsTokenizingHandler: pointer): HRESULT {.abi.}
 
 ## Windows.Data.Text.IWordsSegmenterFactory
 const IID_IWordsSegmenterFactory* = guid"E6977274-FC35-455C-8BFB-6D7F4653CA97"
-const Slot_IWordsSegmenterFactory_CreateWithLanguage* = 6
-type Fn_IWordsSegmenterFactory_CreateWithLanguage* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IWordsSegmenterFactoryVtbl* = object of IInspectableVtbl
+  CreateWithLanguage*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.Data.Text.SelectableWordSegmentsTokenizingHandler  (delegate)
 const IID_SelectableWordSegmentsTokenizingHandler* = guid"3A3DFC9C-AEDE-4DC7-9E6C-41C044BD3592"
-const Slot_SelectableWordSegmentsTokenizingHandler_Invoke* = 3
-type Fn_SelectableWordSegmentsTokenizingHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.abi.}
+type SelectableWordSegmentsTokenizingHandlerVtbl* = object of IUnknownVtbl
+  Invoke*: proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.abi.}
 
 ## Windows.Data.Text.WordSegmentsTokenizingHandler  (delegate)
 const IID_WordSegmentsTokenizingHandler* = guid"A5DD6357-BF2A-4C4F-A31F-29E71C6F8B35"
-const Slot_WordSegmentsTokenizingHandler_Invoke* = 3
-type Fn_WordSegmentsTokenizingHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.abi.}
+type WordSegmentsTokenizingHandlerVtbl* = object of IUnknownVtbl
+  Invoke*: proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IDtdEntity
 const IID_IDtdEntity* = guid"6A0B5FFC-63B4-480F-9E6A-8A92816AADE4"
-const Slot_IDtdEntity_get_PublicId* = 6
-type Fn_IDtdEntity_get_PublicId* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IDtdEntity_get_SystemId* = 7
-type Fn_IDtdEntity_get_SystemId* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IDtdEntity_get_NotationName* = 8
-type Fn_IDtdEntity_get_NotationName* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IDtdEntityVtbl* = object of IInspectableVtbl
+  get_PublicId*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_SystemId*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_NotationName*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IDtdNotation
 const IID_IDtdNotation* = guid"8CB4E04D-6D46-4EDB-AB73-DF83C51AD397"
-const Slot_IDtdNotation_get_PublicId* = 6
-type Fn_IDtdNotation_get_PublicId* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IDtdNotation_get_SystemId* = 7
-type Fn_IDtdNotation_get_SystemId* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IDtdNotationVtbl* = object of IInspectableVtbl
+  get_PublicId*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_SystemId*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlAttribute
 const IID_IXmlAttribute* = guid"AC144AA4-B4F1-4DB6-B206-8A22C308DB0A"
-const Slot_IXmlAttribute_get_Name* = 6
-type Fn_IXmlAttribute_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IXmlAttribute_get_Specified* = 7
-type Fn_IXmlAttribute_get_Specified* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IXmlAttribute_get_Value* = 8
-type Fn_IXmlAttribute_get_Value* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IXmlAttribute_put_Value* = 9
-type Fn_IXmlAttribute_put_Value* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IXmlAttributeVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Specified*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_Value*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Value*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlCDataSection
 const IID_IXmlCDataSection* = guid"4D04B46F-C8BD-45B4-8899-0400D7C2C60F"
+type IXmlCDataSectionVtbl* = object of IInspectableVtbl
 
 ## Windows.Data.Xml.Dom.IXmlCharacterData
 const IID_IXmlCharacterData* = guid"132E42AB-4E36-4DF6-B1C8-0CE62FD88B26"
-const Slot_IXmlCharacterData_get_Data* = 6
-type Fn_IXmlCharacterData_get_Data* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IXmlCharacterData_put_Data* = 7
-type Fn_IXmlCharacterData_put_Data* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IXmlCharacterData_get_Length* = 8
-type Fn_IXmlCharacterData_get_Length* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IXmlCharacterData_SubstringData* = 9
-type Fn_IXmlCharacterData_SubstringData* =
-  proc(self: pointer, a1: uint32, a2: uint32, value: ptr HSTRING
-      ): HRESULT {.abi.}
-const Slot_IXmlCharacterData_AppendData* = 10
-type Fn_IXmlCharacterData_AppendData* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IXmlCharacterData_InsertData* = 11
-type Fn_IXmlCharacterData_InsertData* =
-  proc(self: pointer, a1: uint32, a2: HSTRING): HRESULT {.abi.}
-const Slot_IXmlCharacterData_DeleteData* = 12
-type Fn_IXmlCharacterData_DeleteData* =
-  proc(self: pointer, a1: uint32, a2: uint32): HRESULT {.abi.}
-const Slot_IXmlCharacterData_ReplaceData* = 13
-type Fn_IXmlCharacterData_ReplaceData* =
-  proc(self: pointer, a1: uint32, a2: uint32, a3: HSTRING): HRESULT {.abi.}
+type IXmlCharacterDataVtbl* = object of IInspectableVtbl
+  get_Data*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Data*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Length*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  SubstringData*: proc(self: pointer, a1: uint32, a2: uint32,
+                       value: ptr HSTRING): HRESULT {.abi.}
+  AppendData*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  InsertData*: proc(self: pointer, a1: uint32, a2: HSTRING): HRESULT {.abi.}
+  DeleteData*: proc(self: pointer, a1: uint32, a2: uint32): HRESULT {.abi.}
+  ReplaceData*: proc(self: pointer, a1: uint32, a2: uint32, a3: HSTRING
+                    ): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlComment
 const IID_IXmlComment* = guid"BCA474D5-B61F-4611-9CAC-2E92E3476D47"
+type IXmlCommentVtbl* = object of IInspectableVtbl
 
 ## Windows.Data.Xml.Dom.IXmlDocument
 const IID_IXmlDocument* = guid"F7F3A506-1E87-42D6-BCFB-B8C809FA5494"
-const Slot_IXmlDocument_get_Doctype* = 6
-type Fn_IXmlDocument_get_Doctype* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocument_get_Implementation* = 7
-type Fn_IXmlDocument_get_Implementation* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocument_get_DocumentElement* = 8
-type Fn_IXmlDocument_get_DocumentElement* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocument_CreateElement* = 9
-type Fn_IXmlDocument_CreateElement* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocument_CreateDocumentFragment* = 10
-type Fn_IXmlDocument_CreateDocumentFragment* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocument_CreateTextNode* = 11
-type Fn_IXmlDocument_CreateTextNode* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocument_CreateComment* = 12
-type Fn_IXmlDocument_CreateComment* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocument_CreateProcessingInstruction* = 13
-type Fn_IXmlDocument_CreateProcessingInstruction* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlDocument_CreateAttribute* = 14
-type Fn_IXmlDocument_CreateAttribute* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocument_CreateEntityReference* = 15
-type Fn_IXmlDocument_CreateEntityReference* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocument_GetElementsByTagName* = 16
-type Fn_IXmlDocument_GetElementsByTagName* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocument_CreateCDataSection* = 17
-type Fn_IXmlDocument_CreateCDataSection* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocument_get_DocumentUri* = 18
-type Fn_IXmlDocument_get_DocumentUri* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IXmlDocument_CreateAttributeNS* = 19
-type Fn_IXmlDocument_CreateAttributeNS* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlDocument_CreateElementNS* = 20
-type Fn_IXmlDocument_CreateElementNS* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlDocument_GetElementById* = 21
-type Fn_IXmlDocument_GetElementById* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocument_ImportNode* = 22
-type Fn_IXmlDocument_ImportNode* =
-  proc(self: pointer, a1IXmlNode: pointer, a2: bool, value: ptr pointer
-      ): HRESULT {.abi.}
+type IXmlDocumentVtbl* = object of IInspectableVtbl
+  get_Doctype*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Implementation*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_DocumentElement*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  CreateElement*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                      ): HRESULT {.abi.}
+  CreateDocumentFragment*: proc(self: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
+  CreateTextNode*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                       ): HRESULT {.abi.}
+  CreateComment*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                      ): HRESULT {.abi.}
+  CreateProcessingInstruction*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                     value: ptr pointer): HRESULT {.abi.}
+  CreateAttribute*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                        ): HRESULT {.abi.}
+  CreateEntityReference*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                              ): HRESULT {.abi.}
+  GetElementsByTagName*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                             ): HRESULT {.abi.}
+  CreateCDataSection*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_DocumentUri*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  CreateAttributeNS*: proc(self: pointer, a1: pointer, a2: HSTRING,
+                           value: ptr pointer): HRESULT {.abi.}
+  CreateElementNS*: proc(self: pointer, a1: pointer, a2: HSTRING,
+                         value: ptr pointer): HRESULT {.abi.}
+  GetElementById*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                       ): HRESULT {.abi.}
+  ImportNode*: proc(self: pointer, a1IXmlNode: pointer, a2: bool,
+                    value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlDocumentFragment
 const IID_IXmlDocumentFragment* = guid"E2EA6A96-0C21-44A5-8BC9-9E4A262708EC"
+type IXmlDocumentFragmentVtbl* = object of IInspectableVtbl
 
 ## Windows.Data.Xml.Dom.IXmlDocumentIO
 const IID_IXmlDocumentIO* = guid"6CD0E74E-EE65-4489-9EBF-CA43E87BA637"
-const Slot_IXmlDocumentIO_LoadXml* = 6
-type Fn_IXmlDocumentIO_LoadXml* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IXmlDocumentIO_LoadXml2* = 7
-type Fn_IXmlDocumentIO_LoadXml2* =
-  proc(self: pointer, a1: HSTRING, a2XmlLoadSettings: pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlDocumentIO_SaveToFileAsync* = 8
-type Fn_IXmlDocumentIO_SaveToFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IXmlDocumentIOVtbl* = object of IInspectableVtbl
+  LoadXml*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  LoadXml2*: proc(self: pointer, a1: HSTRING, a2XmlLoadSettings: pointer
+                 ): HRESULT {.abi.}
+  SaveToFileAsync*: proc(self: pointer, a1IStorageFile: pointer,
+                         value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlDocumentIO2
 const IID_IXmlDocumentIO2* = guid"5D034661-7BD8-4AD5-9EBF-81E6347263B1"
-const Slot_IXmlDocumentIO2_LoadXmlFromBuffer* = 6
-type Fn_IXmlDocumentIO2_LoadXmlFromBuffer* =
-  proc(self: pointer, a1IBuffer: pointer): HRESULT {.abi.}
-const Slot_IXmlDocumentIO2_LoadXmlFromBuffer2* = 7
-type Fn_IXmlDocumentIO2_LoadXmlFromBuffer2* =
-  proc(self: pointer, a1IBuffer: pointer, a2XmlLoadSettings: pointer
-      ): HRESULT {.abi.}
+type IXmlDocumentIO2Vtbl* = object of IInspectableVtbl
+  LoadXmlFromBuffer*: proc(self: pointer, a1IBuffer: pointer): HRESULT {.abi.}
+  LoadXmlFromBuffer2*: proc(self: pointer, a1IBuffer: pointer,
+                            a2XmlLoadSettings: pointer): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlDocumentStatics
 const IID_IXmlDocumentStatics* = guid"5543D254-D757-4B79-9539-232B18F50BF1"
-const Slot_IXmlDocumentStatics_LoadFromUriAsync* = 6
-type Fn_IXmlDocumentStatics_LoadFromUriAsync* =
-  proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocumentStatics_LoadFromUriAsync2* = 7
-type Fn_IXmlDocumentStatics_LoadFromUriAsync2* =
-  proc(self: pointer, a1Uri: pointer, a2XmlLoadSettings: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocumentStatics_LoadFromFileAsync* = 8
-type Fn_IXmlDocumentStatics_LoadFromFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlDocumentStatics_LoadFromFileAsync2* = 9
-type Fn_IXmlDocumentStatics_LoadFromFileAsync2* =
-  proc(self: pointer, a1IStorageFile: pointer, a2XmlLoadSettings: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type IXmlDocumentStaticsVtbl* = object of IInspectableVtbl
+  LoadFromUriAsync*: proc(self: pointer, a1Uri: pointer, value: ptr pointer
+                         ): HRESULT {.abi.}
+  LoadFromUriAsync2*: proc(self: pointer, a1Uri: pointer,
+                           a2XmlLoadSettings: pointer, value: ptr pointer
+                          ): HRESULT {.abi.}
+  LoadFromFileAsync*: proc(self: pointer, a1IStorageFile: pointer,
+                           value: ptr pointer): HRESULT {.abi.}
+  LoadFromFileAsync2*: proc(self: pointer, a1IStorageFile: pointer,
+                            a2XmlLoadSettings: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlDocumentType
 const IID_IXmlDocumentType* = guid"F7342425-9781-4964-8E94-9B1C6DFC9BC7"
-const Slot_IXmlDocumentType_get_Name* = 6
-type Fn_IXmlDocumentType_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IXmlDocumentType_get_Entities* = 7
-type Fn_IXmlDocumentType_get_Entities* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlDocumentType_get_Notations* = 8
-type Fn_IXmlDocumentType_get_Notations* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IXmlDocumentTypeVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Entities*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Notations*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlDomImplementation
 const IID_IXmlDomImplementation* = guid"6DE58132-F11D-4FBB-8CC6-583CBA93112F"
-const Slot_IXmlDomImplementation_HasFeature* = 6
-type Fn_IXmlDomImplementation_HasFeature* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr bool
-      ): HRESULT {.abi.}
+type IXmlDomImplementationVtbl* = object of IInspectableVtbl
+  HasFeature*: proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr bool
+                   ): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlElement
 const IID_IXmlElement* = guid"2DFB8A1F-6B10-4EF8-9F83-EFCCE8FAEC37"
-const Slot_IXmlElement_get_TagName* = 6
-type Fn_IXmlElement_get_TagName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IXmlElement_GetAttribute* = 7
-type Fn_IXmlElement_GetAttribute* =
-  proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IXmlElement_SetAttribute* = 8
-type Fn_IXmlElement_SetAttribute* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
-const Slot_IXmlElement_RemoveAttribute* = 9
-type Fn_IXmlElement_RemoveAttribute* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IXmlElement_GetAttributeNode* = 10
-type Fn_IXmlElement_GetAttributeNode* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlElement_SetAttributeNode* = 11
-type Fn_IXmlElement_SetAttributeNode* =
-  proc(self: pointer, a1XmlAttribute: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlElement_RemoveAttributeNode* = 12
-type Fn_IXmlElement_RemoveAttributeNode* =
-  proc(self: pointer, a1XmlAttribute: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlElement_GetElementsByTagName* = 13
-type Fn_IXmlElement_GetElementsByTagName* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlElement_SetAttributeNS* = 14
-type Fn_IXmlElement_SetAttributeNS* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, a3: HSTRING): HRESULT {.abi.}
-const Slot_IXmlElement_GetAttributeNS* = 15
-type Fn_IXmlElement_GetAttributeNS* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr HSTRING
-      ): HRESULT {.abi.}
-const Slot_IXmlElement_RemoveAttributeNS* = 16
-type Fn_IXmlElement_RemoveAttributeNS* =
-  proc(self: pointer, a1: pointer, a2: HSTRING): HRESULT {.abi.}
-const Slot_IXmlElement_SetAttributeNodeNS* = 17
-type Fn_IXmlElement_SetAttributeNodeNS* =
-  proc(self: pointer, a1XmlAttribute: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlElement_GetAttributeNodeNS* = 18
-type Fn_IXmlElement_GetAttributeNodeNS* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type IXmlElementVtbl* = object of IInspectableVtbl
+  get_TagName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  GetAttribute*: proc(self: pointer, a1: HSTRING, value: ptr HSTRING
+                     ): HRESULT {.abi.}
+  SetAttribute*: proc(self: pointer, a1: HSTRING, a2: HSTRING
+                     ): HRESULT {.abi.}
+  RemoveAttribute*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  GetAttributeNode*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                         ): HRESULT {.abi.}
+  SetAttributeNode*: proc(self: pointer, a1XmlAttribute: pointer,
+                          value: ptr pointer): HRESULT {.abi.}
+  RemoveAttributeNode*: proc(self: pointer, a1XmlAttribute: pointer,
+                             value: ptr pointer): HRESULT {.abi.}
+  GetElementsByTagName*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                             ): HRESULT {.abi.}
+  SetAttributeNS*: proc(self: pointer, a1: pointer, a2: HSTRING, a3: HSTRING
+                       ): HRESULT {.abi.}
+  GetAttributeNS*: proc(self: pointer, a1: pointer, a2: HSTRING,
+                        value: ptr HSTRING): HRESULT {.abi.}
+  RemoveAttributeNS*: proc(self: pointer, a1: pointer, a2: HSTRING
+                          ): HRESULT {.abi.}
+  SetAttributeNodeNS*: proc(self: pointer, a1XmlAttribute: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
+  GetAttributeNodeNS*: proc(self: pointer, a1: pointer, a2: HSTRING,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlEntityReference
 const IID_IXmlEntityReference* = guid"2E2F47BC-C3D0-4CCF-BB86-0AB8C36A61CF"
+type IXmlEntityReferenceVtbl* = object of IInspectableVtbl
 
 ## Windows.Data.Xml.Dom.IXmlLoadSettings
 const IID_IXmlLoadSettings* = guid"58AA07A8-FED6-46F7-B4C5-FB1BA72108D6"
-const Slot_IXmlLoadSettings_get_MaxElementDepth* = 6
-type Fn_IXmlLoadSettings_get_MaxElementDepth* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IXmlLoadSettings_put_MaxElementDepth* = 7
-type Fn_IXmlLoadSettings_put_MaxElementDepth* =
-  proc(self: pointer, a1: uint32): HRESULT {.abi.}
-const Slot_IXmlLoadSettings_get_ProhibitDtd* = 8
-type Fn_IXmlLoadSettings_get_ProhibitDtd* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IXmlLoadSettings_put_ProhibitDtd* = 9
-type Fn_IXmlLoadSettings_put_ProhibitDtd* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IXmlLoadSettings_get_ResolveExternals* = 10
-type Fn_IXmlLoadSettings_get_ResolveExternals* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IXmlLoadSettings_put_ResolveExternals* = 11
-type Fn_IXmlLoadSettings_put_ResolveExternals* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IXmlLoadSettings_get_ValidateOnParse* = 12
-type Fn_IXmlLoadSettings_get_ValidateOnParse* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IXmlLoadSettings_put_ValidateOnParse* = 13
-type Fn_IXmlLoadSettings_put_ValidateOnParse* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IXmlLoadSettings_get_ElementContentWhiteSpace* = 14
-type Fn_IXmlLoadSettings_get_ElementContentWhiteSpace* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IXmlLoadSettings_put_ElementContentWhiteSpace* = 15
-type Fn_IXmlLoadSettings_put_ElementContentWhiteSpace* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type IXmlLoadSettingsVtbl* = object of IInspectableVtbl
+  get_MaxElementDepth*: proc(self: pointer, value: ptr uint32
+                            ): HRESULT {.abi.}
+  put_MaxElementDepth*: proc(self: pointer, a1: uint32): HRESULT {.abi.}
+  get_ProhibitDtd*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_ProhibitDtd*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_ResolveExternals*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_ResolveExternals*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_ValidateOnParse*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_ValidateOnParse*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  get_ElementContentWhiteSpace*: proc(self: pointer, value: ptr bool
+                                     ): HRESULT {.abi.}
+  put_ElementContentWhiteSpace*: proc(self: pointer, a1: bool
+                                     ): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlNamedNodeMap
 const IID_IXmlNamedNodeMap* = guid"B3A69EB0-AAB0-4B82-A6FA-B1453F7C021B"
-const Slot_IXmlNamedNodeMap_get_Length* = 6
-type Fn_IXmlNamedNodeMap_get_Length* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IXmlNamedNodeMap_Item* = 7
-type Fn_IXmlNamedNodeMap_Item* =
-  proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNamedNodeMap_GetNamedItem* = 8
-type Fn_IXmlNamedNodeMap_GetNamedItem* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNamedNodeMap_SetNamedItem* = 9
-type Fn_IXmlNamedNodeMap_SetNamedItem* =
-  proc(self: pointer, a1IXmlNode: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlNamedNodeMap_RemoveNamedItem* = 10
-type Fn_IXmlNamedNodeMap_RemoveNamedItem* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNamedNodeMap_GetNamedItemNS* = 11
-type Fn_IXmlNamedNodeMap_GetNamedItemNS* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlNamedNodeMap_RemoveNamedItemNS* = 12
-type Fn_IXmlNamedNodeMap_RemoveNamedItemNS* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlNamedNodeMap_SetNamedItemNS* = 13
-type Fn_IXmlNamedNodeMap_SetNamedItemNS* =
-  proc(self: pointer, a1IXmlNode: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IXmlNamedNodeMapVtbl* = object of IInspectableVtbl
+  get_Length*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  Item*: proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
+  GetNamedItem*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                     ): HRESULT {.abi.}
+  SetNamedItem*: proc(self: pointer, a1IXmlNode: pointer, value: ptr pointer
+                     ): HRESULT {.abi.}
+  RemoveNamedItem*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                        ): HRESULT {.abi.}
+  GetNamedItemNS*: proc(self: pointer, a1: pointer, a2: HSTRING,
+                        value: ptr pointer): HRESULT {.abi.}
+  RemoveNamedItemNS*: proc(self: pointer, a1: pointer, a2: HSTRING,
+                           value: ptr pointer): HRESULT {.abi.}
+  SetNamedItemNS*: proc(self: pointer, a1IXmlNode: pointer, value: ptr pointer
+                       ): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlNode
 const IID_IXmlNode* = guid"1C741D59-2122-47D5-A856-83F3D4214875"
-const Slot_IXmlNode_get_NodeValue* = 6
-type Fn_IXmlNode_get_NodeValue* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_put_NodeValue* = 7
-type Fn_IXmlNode_put_NodeValue* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IXmlNode_get_NodeType* = 8
-type Fn_IXmlNode_get_NodeType* =
-  proc(self: pointer, value: ptr NodeType): HRESULT {.abi.}
-const Slot_IXmlNode_get_NodeName* = 9
-type Fn_IXmlNode_get_NodeName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IXmlNode_get_ParentNode* = 10
-type Fn_IXmlNode_get_ParentNode* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_get_ChildNodes* = 11
-type Fn_IXmlNode_get_ChildNodes* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_get_FirstChild* = 12
-type Fn_IXmlNode_get_FirstChild* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_get_LastChild* = 13
-type Fn_IXmlNode_get_LastChild* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_get_PreviousSibling* = 14
-type Fn_IXmlNode_get_PreviousSibling* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_get_NextSibling* = 15
-type Fn_IXmlNode_get_NextSibling* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_get_Attributes* = 16
-type Fn_IXmlNode_get_Attributes* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_HasChildNodes* = 17
-type Fn_IXmlNode_HasChildNodes* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IXmlNode_get_OwnerDocument* = 18
-type Fn_IXmlNode_get_OwnerDocument* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_InsertBefore* = 19
-type Fn_IXmlNode_InsertBefore* =
-  proc(self: pointer, a1IXmlNode: pointer, a2IXmlNode: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_ReplaceChild* = 20
-type Fn_IXmlNode_ReplaceChild* =
-  proc(self: pointer, a1IXmlNode: pointer, a2IXmlNode: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_RemoveChild* = 21
-type Fn_IXmlNode_RemoveChild* =
-  proc(self: pointer, a1IXmlNode: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlNode_AppendChild* = 22
-type Fn_IXmlNode_AppendChild* =
-  proc(self: pointer, a1IXmlNode: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlNode_CloneNode* = 23
-type Fn_IXmlNode_CloneNode* =
-  proc(self: pointer, a1: bool, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_get_NamespaceUri* = 24
-type Fn_IXmlNode_get_NamespaceUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_get_LocalName* = 25
-type Fn_IXmlNode_get_LocalName* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_get_Prefix* = 26
-type Fn_IXmlNode_get_Prefix* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNode_Normalize* = 27
-type Fn_IXmlNode_Normalize* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IXmlNode_put_Prefix* = 28
-type Fn_IXmlNode_put_Prefix* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
+type IXmlNodeVtbl* = object of IInspectableVtbl
+  get_NodeValue*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_NodeValue*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_NodeType*: proc(self: pointer, value: ptr NodeType): HRESULT {.abi.}
+  get_NodeName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ParentNode*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ChildNodes*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_FirstChild*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_LastChild*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_PreviousSibling*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  get_NextSibling*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Attributes*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  HasChildNodes*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_OwnerDocument*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  InsertBefore*: proc(self: pointer, a1IXmlNode: pointer, a2IXmlNode: pointer,
+                      value: ptr pointer): HRESULT {.abi.}
+  ReplaceChild*: proc(self: pointer, a1IXmlNode: pointer, a2IXmlNode: pointer,
+                      value: ptr pointer): HRESULT {.abi.}
+  RemoveChild*: proc(self: pointer, a1IXmlNode: pointer, value: ptr pointer
+                    ): HRESULT {.abi.}
+  AppendChild*: proc(self: pointer, a1IXmlNode: pointer, value: ptr pointer
+                    ): HRESULT {.abi.}
+  CloneNode*: proc(self: pointer, a1: bool, value: ptr pointer
+                  ): HRESULT {.abi.}
+  get_NamespaceUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_LocalName*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Prefix*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Normalize*: proc(self: pointer): HRESULT {.abi.}
+  put_Prefix*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlNodeList
 const IID_IXmlNodeList* = guid"8C60AD77-83A4-4EC1-9C54-7BA429E13DA6"
-const Slot_IXmlNodeList_get_Length* = 6
-type Fn_IXmlNodeList_get_Length* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IXmlNodeList_Item* = 7
-type Fn_IXmlNodeList_Item* =
-  proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
+type IXmlNodeListVtbl* = object of IInspectableVtbl
+  get_Length*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  Item*: proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlNodeSelector
 const IID_IXmlNodeSelector* = guid"63DBBA8B-D0DB-4FE1-B745-F9433AFDC25B"
-const Slot_IXmlNodeSelector_SelectSingleNode* = 6
-type Fn_IXmlNodeSelector_SelectSingleNode* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNodeSelector_SelectNodes* = 7
-type Fn_IXmlNodeSelector_SelectNodes* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IXmlNodeSelector_SelectSingleNodeNS* = 8
-type Fn_IXmlNodeSelector_SelectSingleNodeNS* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IXmlNodeSelector_SelectNodesNS* = 9
-type Fn_IXmlNodeSelector_SelectNodesNS* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IXmlNodeSelectorVtbl* = object of IInspectableVtbl
+  SelectSingleNode*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                         ): HRESULT {.abi.}
+  SelectNodes*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                    ): HRESULT {.abi.}
+  SelectSingleNodeNS*: proc(self: pointer, a1: HSTRING, a2: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
+  SelectNodesNS*: proc(self: pointer, a1: HSTRING, a2: pointer,
+                       value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlNodeSerializer
 const IID_IXmlNodeSerializer* = guid"5CC5B382-E6DD-4991-ABEF-06D8D2E7BD0C"
-const Slot_IXmlNodeSerializer_GetXml* = 6
-type Fn_IXmlNodeSerializer_GetXml* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IXmlNodeSerializer_get_InnerText* = 7
-type Fn_IXmlNodeSerializer_get_InnerText* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IXmlNodeSerializer_put_InnerText* = 8
-type Fn_IXmlNodeSerializer_put_InnerText* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IXmlNodeSerializerVtbl* = object of IInspectableVtbl
+  GetXml*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_InnerText*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_InnerText*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlProcessingInstruction
 const IID_IXmlProcessingInstruction* = guid"2707FD1E-1E92-4ECE-B6F4-26F069078DDC"
-const Slot_IXmlProcessingInstruction_get_Target* = 6
-type Fn_IXmlProcessingInstruction_get_Target* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IXmlProcessingInstruction_get_Data* = 7
-type Fn_IXmlProcessingInstruction_get_Data* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IXmlProcessingInstruction_put_Data* = 8
-type Fn_IXmlProcessingInstruction_put_Data* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IXmlProcessingInstructionVtbl* = object of IInspectableVtbl
+  get_Target*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Data*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Data*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Dom.IXmlText
 const IID_IXmlText* = guid"F931A4CB-308D-4760-A1D5-43B67450AC7E"
-const Slot_IXmlText_SplitText* = 6
-type Fn_IXmlText_SplitText* =
-  proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
+type IXmlTextVtbl* = object of IInspectableVtbl
+  SplitText*: proc(self: pointer, a1: uint32, value: ptr pointer
+                  ): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Xsl.IXsltProcessor
 const IID_IXsltProcessor* = guid"7B64703F-550C-48C6-A90F-93A5B964518F"
-const Slot_IXsltProcessor_TransformToString* = 6
-type Fn_IXsltProcessor_TransformToString* =
-  proc(self: pointer, a1IXmlNode: pointer, value: ptr HSTRING
-      ): HRESULT {.abi.}
+type IXsltProcessorVtbl* = object of IInspectableVtbl
+  TransformToString*: proc(self: pointer, a1IXmlNode: pointer,
+                           value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Xsl.IXsltProcessor2
 const IID_IXsltProcessor2* = guid"8DA45C56-97A5-44CB-A8BE-27D86280C70A"
-const Slot_IXsltProcessor2_TransformToDocument* = 6
-type Fn_IXsltProcessor2_TransformToDocument* =
-  proc(self: pointer, a1IXmlNode: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IXsltProcessor2Vtbl* = object of IInspectableVtbl
+  TransformToDocument*: proc(self: pointer, a1IXmlNode: pointer,
+                             value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Data.Xml.Xsl.IXsltProcessorFactory
 const IID_IXsltProcessorFactory* = guid"274146C0-9A51-4663-BF30-0EF742146F20"
-const Slot_IXsltProcessorFactory_CreateInstance* = 6
-type Fn_IXsltProcessorFactory_CreateInstance* =
-  proc(self: pointer, a1XmlDocument: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IXsltProcessorFactoryVtbl* = object of IInspectableVtbl
+  CreateInstance*: proc(self: pointer, a1XmlDocument: pointer,
+                        value: ptr pointer): HRESULT {.abi.}
 

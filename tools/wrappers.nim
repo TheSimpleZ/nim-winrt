@@ -102,7 +102,7 @@ func apiName(c: Ctx, full: string): string =
   if n in c.collide: "classes." & n else: n
 
 func ifaceName(c: Ctx, full: string): string =
-  ## An interface as the ABI spelled its `IID_`, `Slot_` and `Fn_` constants.
+  ## An interface as the ABI spelled its `IID_` constant and `Vtbl` type.
   c.renamed.getOrDefault(full, shortName(full))
 
 func abiName(c: Ctx, full: string): string =
@@ -717,10 +717,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
        ((t.flags and tdInterface) != 0 or md.isDelegate(t.index)):
       c.ifaceIid.incl t.fullName
       ifaceGroup[t.fullName] = topGroup(t.namespace)
-      # `IID_X` and `Slot_X_Y` come from the ABI, which a split module imports
-      # whole: a class here may well implement an interface from elsewhere —
-      # a `Windows.Networking` class implementing `IBackgroundTask` — and the
-      # constants for it are in scope either way.
+      # `IID_X` and `XVtbl` come from the ABI, and a split module imports the
+      # ABI groups it calls into: a class here may well implement an interface
+      # from elsewhere — a `Windows.Networking` class implementing
+      # `IBackgroundTask` — and its group is then imported too.
       if t.namespace.startsWith(prefix):
         # The rule the ABI applies to a second interface with a taken short
         # name, so `IID_XamlIFrameworkView` here is `IID_XamlIFrameworkView`
@@ -1092,15 +1092,12 @@ proc emitModule(md: WinMd; iids: Table[int, string];
       for mi in first ..< stop:
         let raw = md.str(md.cell(tMethodDef, mi, "Name"))
         if raw == ".ctor": continue           # a delegate's, never callable
-        # Keyed exactly as `generate.nim` keys it, on the identifier Nim will
-        # see rather than on the metadata's spelling. `ITextRange` declares
-        # both `get_Text` and `GetText`, and prefixed with `Slot_` those are one
-        # identifier to the compiler — so the ABI suffixed the second, and this
-        # has to arrive at the same name or it calls a signature that is not
-        # there.
-        seen.inc nimIdent(&"Slot_{iface}_{sanitize(raw)}")
-        let dup = seen[nimIdent(&"Slot_{iface}_{sanitize(raw)}")]
-        let tag = &"{iface}_{sanitize(raw)}" & (if dup > 1: $dup else: "")
+        # The vtable field, keyed exactly as `generate.nim` keys it — on the
+        # identifier Nim will see — so a second overload gets the same suffix
+        # here that it got there, or this names a field that is not there.
+        seen.inc nimIdent(sanitize(raw))
+        let dup = seen[nimIdent(sanitize(raw))]
+        let field = escapeIdent(sanitize(raw) & (if dup > 1: $dup else: ""))
 
         # An event is a pair: `add_X(handler) -> token` and `remove_X(token)`.
         # The handler's shape comes from the delegate's own `Invoke`, so the
@@ -1150,7 +1147,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               usesDelegate = true
               buf.add fill("    let cb = newDelegate(", @[handlerIid, fn, "event = true"], ")") & "\n"
               buf.add "    try:\n"
-              buf.add &"      it.call({tag}, cb, result.addr)\n"
+              buf.add &"      check it.vtbl.{field}(it, cb, result.addr), \"{cls}.{raw}\"\n"
               buf.add "    finally:\n"
               buf.add "      release(cb)\n\n"
               events.inc
@@ -1173,7 +1170,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               buf.add &"proc remove{evName}*({recv}, " &
                       "token: EventRegistrationToken) =\n"
               buf.add enter & "\n"
-              buf.add &"    it.call({tag}, token)\n\n"
+              buf.add &"    check it.vtbl.{field}(it, token), \"{cls}.{raw}\"\n\n"
               events.inc
               continue
           skipped.inc
@@ -1255,6 +1252,17 @@ proc emitModule(md: WinMd; iids: Table[int, string];
         for k, i in inputs:
           params.add &"{outNames[i]}: {argTypes[k]}"
 
+        # A property whose value is a string, a number, an enum, a struct or
+        # an object is one line through the helpers in `core`; everything else
+        # is spelled out below.
+        const valueKinds = {skBool, skChar, skI1, skU1, skI2, skU2, skI4, skU4,
+                            skI8, skU8, skF4, skF8, skEnum, skStruct}
+        let simpleGetter = isGet and sig.params.len == 0 and outputs.len == 0 and
+          sig.returns.kind in valueKinds + {skString, skInterface, skObject}
+        let simpleSetter = isPut and sig.params.len == 1 and outputs.len == 0 and
+          sig.returns.kind == skVoid and not sig.params[0].byRef and
+          sig.params[0].kind in valueKinds + {skString}
+
         # A class argument needs a QueryInterface of its own, and a string
         # needs an HSTRING; both open a scope, so the body is built up as
         # lines with a running indent.
@@ -1264,7 +1272,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
         var indent = "  "
         lines.add enter
         indent.add "  "
-        for i, p in sig.params:
+        for i, p in (if simpleSetter: newSeq[SigType]() else: sig.params):
           let pn = outNames[i]
           if p.byRef and p.kind == skArray:
             # A receive array: the callee allocates, so the count and the
@@ -1349,25 +1357,22 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             let pc = asClass(p.name)
             if pc.len > 0:
               let want = c.defaultIface.getOrDefault(pc, "")
-              var iidExpr, what = ""
               if want.len > 0:
                 useIface(want)
-                iidExpr = c.ifaceName(want)
-                what = c.ifaceName(want)
+                lines.add &"{indent}withIface({pn}.p, {c.ifaceName(want)}, p{i}):"
               elif pc in paramDefault:
+                # The default interface is an instantiation — `TransitionCollection`
+                # is an `IVector<Transition>` — so there is a computed IID but no
+                # vtable type, and only the narrowed pointer is needed.
                 let ps = paramDefault[pc]
                 let computed = sigCtx.parameterizedIid(ps)
                 if computed.len == 0:
                   ok = false
                   break
-                # A computed constant, so `withIface` gets its name minus the
-                # `IID_` it will put back.
-                iidExpr = genericIidConst(computed, ps)[4 .. ^1]
-                what = shortName(ps.name)
+                lines.add &"{indent}narrowing({pn}.p, {genericIidConst(computed, ps)}, p{i}):"
               else:
                 ok = false
                 break
-              lines.add &"{indent}withIface({pn}.p, {iidExpr}, p{i}):"
               indent.add "  "
               callArgs.add &"p{i}"
             elif p.name in c.ifaceIid:
@@ -1641,7 +1646,8 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             handlerIid = genericIidConst(hc, hs)
             opIid = genericIidConst(computed, sig.returns)
           usesAsync = true
-          lines.add fill(&"{indent}it.call(", tag & callArgs[1 .. ^1] & "op.addr", ")")
+          lines.add fill(&"{indent}check it.vtbl.{field}(", callArgs & "op.addr",
+                         &"), \"{what}\"")
           # Back out to the proc body, past every scope the arguments opened.
           let asyncElem = c.collectionElement(async.res)
           if asyncVoid:
@@ -1712,8 +1718,19 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             lines.add fill("  let obj = await awaitObject(",
                            @["op", opIid, handlerIid, layout, '"' & what & '"'], ")")
             lines.add &"  result = adopt[{retType}](obj)"
+        elif simpleSetter:
+          let helper = if sig.params[0].kind == skString: "putString" else: "putValue"
+          lines.add &"{indent}it.{helper}({field}, {outNames[0]})"
         elif sig.returns.kind == skVoid:
-          lines.add fill(&"{indent}it.call(", tag & callArgs[1 .. ^1], ")")
+          lines.add fill(&"{indent}check it.vtbl.{field}(", callArgs,
+                         &"), \"{what}\"")
+        elif simpleGetter:
+          let helper =
+            case sig.returns.kind
+            of skString: &"getString({field})"
+            of skInterface, skObject: &"getObject({field}, {declared})"
+            else: &"getValue({field}, {declared})"
+          lines.add &"{indent}result = it.{helper}"
         else:
           # The declared return is a trailing out-parameter at the ABI.
           let retElem = c.collectionElement(sig.returns)
@@ -1769,11 +1786,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             lines.add &"{indent}var tmpSize: uint32"
             lines.add &"{indent}var tmp: ptr {raw}"
           else: lines.add &"{indent}var tmp: {declared}"
-          if sig.returns.kind == skArray:
-            lines.add fill(&"{indent}it.call(",
-                           tag & callArgs[1 .. ^1] & @["tmpSize.addr", "tmp.addr"], ")")
-          else:
-            lines.add fill(&"{indent}it.call(", tag & callArgs[1 .. ^1] & "tmp.addr", ")")
+          let outs = if sig.returns.kind == skArray: @["tmpSize.addr", "tmp.addr"]
+                     else: @["tmp.addr"]
+          lines.add fill(&"{indent}check it.vtbl.{field}(", callArgs & outs,
+                         &"), \"{what}\"")
           case sig.returns.kind
           of skString: lines.add &"{indent}{sink} = takeString(tmp)"
           of skEnum: lines.add &"{indent}{sink} = tmp"

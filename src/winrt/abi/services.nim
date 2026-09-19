@@ -3,12 +3,10 @@
 ## Source:    Windows.winmd
 ## Namespace: Windows.Services
 ##
-## Slot numbers are vtable indices. WinRT interfaces begin with
-## IInspectable's six slots, so the first declared method is slot 6;
-## delegates derive from IUnknown and begin at slot 3.
-##
-## Every method returns HRESULT and its declared return type becomes
-## a trailing out-parameter.
+## Each interface is its vtable: an object whose fields are the
+## methods in declaration order, after IInspectable's six (IUnknown's
+## three for a delegate). Every method returns HRESULT and its
+## declared return type becomes a trailing out-parameter.
 
 import std/hashes
 export hashes
@@ -20,2077 +18,1416 @@ export types
 
 ## Windows.Services.Cortana.ICortanaActionableInsights
 const IID_ICortanaActionableInsights* = guid"951EC6B1-FC83-586D-8B84-2452C8981625"
-const Slot_ICortanaActionableInsights_get_User* = 6
-type Fn_ICortanaActionableInsights_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ICortanaActionableInsights_IsAvailableAsync* = 7
-type Fn_ICortanaActionableInsights_IsAvailableAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ICortanaActionableInsights_ShowInsightsForImageAsync* = 8
-type Fn_ICortanaActionableInsights_ShowInsightsForImageAsync* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_ICortanaActionableInsights_ShowInsightsForImageAsync2* = 9
-type Fn_ICortanaActionableInsights_ShowInsightsForImageAsync2* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer,
-       a2CortanaActionableInsightsOptions: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ICortanaActionableInsights_ShowInsightsForTextAsync* = 10
-type Fn_ICortanaActionableInsights_ShowInsightsForTextAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ICortanaActionableInsights_ShowInsightsForTextAsync2* = 11
-type Fn_ICortanaActionableInsights_ShowInsightsForTextAsync2* =
-  proc(self: pointer, a1: HSTRING,
-       a2CortanaActionableInsightsOptions: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ICortanaActionableInsights_ShowInsightsAsync* = 12
-type Fn_ICortanaActionableInsights_ShowInsightsAsync* =
-  proc(self: pointer, a1DataPackage: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_ICortanaActionableInsights_ShowInsightsAsync2* = 13
-type Fn_ICortanaActionableInsights_ShowInsightsAsync2* =
-  proc(self: pointer, a1DataPackage: pointer,
-       a2CortanaActionableInsightsOptions: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type ICortanaActionableInsightsVtbl* = object of IInspectableVtbl
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  IsAvailableAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  ShowInsightsForImageAsync*: proc(self: pointer,
+                                   a1IRandomAccessStreamReference: pointer,
+                                   value: ptr pointer): HRESULT {.abi.}
+  ShowInsightsForImageAsync2*: proc(self: pointer,
+                                    a1IRandomAccessStreamReference: pointer,
+                                    a2CortanaActionableInsightsOptions: pointer,
+                                    value: ptr pointer): HRESULT {.abi.}
+  ShowInsightsForTextAsync*: proc(self: pointer, a1: HSTRING,
+                                  value: ptr pointer): HRESULT {.abi.}
+  ShowInsightsForTextAsync2*: proc(self: pointer, a1: HSTRING,
+                                   a2CortanaActionableInsightsOptions: pointer,
+                                   value: ptr pointer): HRESULT {.abi.}
+  ShowInsightsAsync*: proc(self: pointer, a1DataPackage: pointer,
+                           value: ptr pointer): HRESULT {.abi.}
+  ShowInsightsAsync2*: proc(self: pointer, a1DataPackage: pointer,
+                            a2CortanaActionableInsightsOptions: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Cortana.ICortanaActionableInsightsOptions
 const IID_ICortanaActionableInsightsOptions* = guid"AAC2BBCF-9782-5420-B81E-7AE56AF31815"
-const Slot_ICortanaActionableInsightsOptions_get_ContentSourceWebLink* = 6
-type Fn_ICortanaActionableInsightsOptions_get_ContentSourceWebLink* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ICortanaActionableInsightsOptions_put_ContentSourceWebLink* = 7
-type Fn_ICortanaActionableInsightsOptions_put_ContentSourceWebLink* =
-  proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
-const Slot_ICortanaActionableInsightsOptions_get_SurroundingText* = 8
-type Fn_ICortanaActionableInsightsOptions_get_SurroundingText* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ICortanaActionableInsightsOptions_put_SurroundingText* = 9
-type Fn_ICortanaActionableInsightsOptions_put_SurroundingText* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type ICortanaActionableInsightsOptionsVtbl* = object of IInspectableVtbl
+  get_ContentSourceWebLink*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
+  put_ContentSourceWebLink*: proc(self: pointer, a1Uri: pointer
+                                 ): HRESULT {.abi.}
+  get_SurroundingText*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
+  put_SurroundingText*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Services.Cortana.ICortanaActionableInsightsStatics
 const IID_ICortanaActionableInsightsStatics* = guid"B5DED412-9D2F-5CB5-9B05-356A0B836C10"
-const Slot_ICortanaActionableInsightsStatics_GetDefault* = 6
-type Fn_ICortanaActionableInsightsStatics_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ICortanaActionableInsightsStatics_GetForUser* = 7
-type Fn_ICortanaActionableInsightsStatics_GetForUser* =
-  proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
+type ICortanaActionableInsightsStaticsVtbl* = object of IInspectableVtbl
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetForUser*: proc(self: pointer, a1User: pointer, value: ptr pointer
+                   ): HRESULT {.abi.}
 
 ## Windows.Services.Cortana.ICortanaPermissionsManager
 const IID_ICortanaPermissionsManager* = guid"191330E0-8695-438A-9545-3DA4E822DDB4"
-const Slot_ICortanaPermissionsManager_IsSupported* = 6
-type Fn_ICortanaPermissionsManager_IsSupported* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ICortanaPermissionsManager_ArePermissionsGrantedAsync* = 7
-type Fn_ICortanaPermissionsManager_ArePermissionsGrantedAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ICortanaPermissionsManager_GrantPermissionsAsync* = 8
-type Fn_ICortanaPermissionsManager_GrantPermissionsAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ICortanaPermissionsManager_RevokePermissionsAsync* = 9
-type Fn_ICortanaPermissionsManager_RevokePermissionsAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
+type ICortanaPermissionsManagerVtbl* = object of IInspectableVtbl
+  IsSupported*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  ArePermissionsGrantedAsync*: proc(self: pointer, a1: pointer,
+                                    value: ptr pointer): HRESULT {.abi.}
+  GrantPermissionsAsync*: proc(self: pointer, a1: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  RevokePermissionsAsync*: proc(self: pointer, a1: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
 
 ## Windows.Services.Cortana.ICortanaPermissionsManagerStatics
 const IID_ICortanaPermissionsManagerStatics* = guid"76B1E67A-B045-4414-9D6D-2AD3A5FE3A7E"
-const Slot_ICortanaPermissionsManagerStatics_GetDefault* = 6
-type Fn_ICortanaPermissionsManagerStatics_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ICortanaPermissionsManagerStaticsVtbl* = object of IInspectableVtbl
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Cortana.ICortanaSettings
 const IID_ICortanaSettings* = guid"54D571A7-8062-40F4-ABE7-DEDFD697B019"
-const Slot_ICortanaSettings_get_HasUserConsentToVoiceActivation* = 6
-type Fn_ICortanaSettings_get_HasUserConsentToVoiceActivation* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ICortanaSettings_get_IsVoiceActivationEnabled* = 7
-type Fn_ICortanaSettings_get_IsVoiceActivationEnabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ICortanaSettings_put_IsVoiceActivationEnabled* = 8
-type Fn_ICortanaSettings_put_IsVoiceActivationEnabled* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type ICortanaSettingsVtbl* = object of IInspectableVtbl
+  get_HasUserConsentToVoiceActivation*: proc(self: pointer, value: ptr bool
+                                            ): HRESULT {.abi.}
+  get_IsVoiceActivationEnabled*: proc(self: pointer, value: ptr bool
+                                     ): HRESULT {.abi.}
+  put_IsVoiceActivationEnabled*: proc(self: pointer, a1: bool
+                                     ): HRESULT {.abi.}
 
 ## Windows.Services.Cortana.ICortanaSettingsStatics
 const IID_ICortanaSettingsStatics* = guid"8B2CCD7E-2EC0-446D-9285-33F07CE8AC04"
-const Slot_ICortanaSettingsStatics_IsSupported* = 6
-type Fn_ICortanaSettingsStatics_IsSupported* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ICortanaSettingsStatics_GetDefault* = 7
-type Fn_ICortanaSettingsStatics_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ICortanaSettingsStaticsVtbl* = object of IInspectableVtbl
+  IsSupported*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceAudioNotificationRequestedEventArgs
 const IID_IGuidanceAudioNotificationRequestedEventArgs* = guid"CA2AA24A-C7C2-4D4C-9D7C-499576BCEDDB"
-const Slot_IGuidanceAudioNotificationRequestedEventArgs_get_AudioNotification* = 6
-type Fn_IGuidanceAudioNotificationRequestedEventArgs_get_AudioNotification* =
-  proc(self: pointer, value: ptr GuidanceAudioNotificationKind
-      ): HRESULT {.abi.}
-const Slot_IGuidanceAudioNotificationRequestedEventArgs_get_AudioFilePaths* = 7
-type Fn_IGuidanceAudioNotificationRequestedEventArgs_get_AudioFilePaths* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGuidanceAudioNotificationRequestedEventArgs_get_AudioText* = 8
-type Fn_IGuidanceAudioNotificationRequestedEventArgs_get_AudioText* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IGuidanceAudioNotificationRequestedEventArgsVtbl* = object of IInspectableVtbl
+  get_AudioNotification*: proc(self: pointer,
+                               value: ptr GuidanceAudioNotificationKind
+                              ): HRESULT {.abi.}
+  get_AudioFilePaths*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_AudioText*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceLaneInfo
 const IID_IGuidanceLaneInfo* = guid"8404D114-6581-43B7-AC15-C9079BF90DF1"
-const Slot_IGuidanceLaneInfo_get_LaneMarkers* = 6
-type Fn_IGuidanceLaneInfo_get_LaneMarkers* =
-  proc(self: pointer, value: ptr GuidanceLaneMarkers): HRESULT {.abi.}
-const Slot_IGuidanceLaneInfo_get_IsOnRoute* = 7
-type Fn_IGuidanceLaneInfo_get_IsOnRoute* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IGuidanceLaneInfoVtbl* = object of IInspectableVtbl
+  get_LaneMarkers*: proc(self: pointer, value: ptr GuidanceLaneMarkers
+                        ): HRESULT {.abi.}
+  get_IsOnRoute*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceManeuver
 const IID_IGuidanceManeuver* = guid"FC09326C-ECC9-4928-A2A1-7232B99B94A1"
-const Slot_IGuidanceManeuver_get_StartLocation* = 6
-type Fn_IGuidanceManeuver_get_StartLocation* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGuidanceManeuver_get_DistanceFromRouteStart* = 7
-type Fn_IGuidanceManeuver_get_DistanceFromRouteStart* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_IGuidanceManeuver_get_DistanceFromPreviousManeuver* = 8
-type Fn_IGuidanceManeuver_get_DistanceFromPreviousManeuver* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_IGuidanceManeuver_get_DepartureRoadName* = 9
-type Fn_IGuidanceManeuver_get_DepartureRoadName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IGuidanceManeuver_get_NextRoadName* = 10
-type Fn_IGuidanceManeuver_get_NextRoadName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IGuidanceManeuver_get_DepartureShortRoadName* = 11
-type Fn_IGuidanceManeuver_get_DepartureShortRoadName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IGuidanceManeuver_get_NextShortRoadName* = 12
-type Fn_IGuidanceManeuver_get_NextShortRoadName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IGuidanceManeuver_get_Kind* = 13
-type Fn_IGuidanceManeuver_get_Kind* =
-  proc(self: pointer, value: ptr GuidanceManeuverKind): HRESULT {.abi.}
-const Slot_IGuidanceManeuver_get_StartAngle* = 14
-type Fn_IGuidanceManeuver_get_StartAngle* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_IGuidanceManeuver_get_EndAngle* = 15
-type Fn_IGuidanceManeuver_get_EndAngle* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_IGuidanceManeuver_get_RoadSignpost* = 16
-type Fn_IGuidanceManeuver_get_RoadSignpost* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGuidanceManeuver_get_InstructionText* = 17
-type Fn_IGuidanceManeuver_get_InstructionText* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IGuidanceManeuverVtbl* = object of IInspectableVtbl
+  get_StartLocation*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_DistanceFromRouteStart*: proc(self: pointer, value: ptr int32
+                                   ): HRESULT {.abi.}
+  get_DistanceFromPreviousManeuver*: proc(self: pointer, value: ptr int32
+                                         ): HRESULT {.abi.}
+  get_DepartureRoadName*: proc(self: pointer, value: ptr HSTRING
+                              ): HRESULT {.abi.}
+  get_NextRoadName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DepartureShortRoadName*: proc(self: pointer, value: ptr HSTRING
+                                   ): HRESULT {.abi.}
+  get_NextShortRoadName*: proc(self: pointer, value: ptr HSTRING
+                              ): HRESULT {.abi.}
+  get_Kind*: proc(self: pointer, value: ptr GuidanceManeuverKind
+                 ): HRESULT {.abi.}
+  get_StartAngle*: proc(self: pointer, value: ptr int32): HRESULT {.abi.}
+  get_EndAngle*: proc(self: pointer, value: ptr int32): HRESULT {.abi.}
+  get_RoadSignpost*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_InstructionText*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceMapMatchedCoordinate
 const IID_IGuidanceMapMatchedCoordinate* = guid"B7ACB168-2912-4A99-AFF1-798609B981FE"
-const Slot_IGuidanceMapMatchedCoordinate_get_Location* = 6
-type Fn_IGuidanceMapMatchedCoordinate_get_Location* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGuidanceMapMatchedCoordinate_get_CurrentHeading* = 7
-type Fn_IGuidanceMapMatchedCoordinate_get_CurrentHeading* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_IGuidanceMapMatchedCoordinate_get_CurrentSpeed* = 8
-type Fn_IGuidanceMapMatchedCoordinate_get_CurrentSpeed* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_IGuidanceMapMatchedCoordinate_get_IsOnStreet* = 9
-type Fn_IGuidanceMapMatchedCoordinate_get_IsOnStreet* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IGuidanceMapMatchedCoordinate_get_Road* = 10
-type Fn_IGuidanceMapMatchedCoordinate_get_Road* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IGuidanceMapMatchedCoordinateVtbl* = object of IInspectableVtbl
+  get_Location*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_CurrentHeading*: proc(self: pointer, value: ptr float64
+                           ): HRESULT {.abi.}
+  get_CurrentSpeed*: proc(self: pointer, value: ptr float64): HRESULT {.abi.}
+  get_IsOnStreet*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_Road*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceNavigator
 const IID_IGuidanceNavigator* = guid"08F17EF7-8E3F-4D9A-BE8A-108F9A012C67"
-const Slot_IGuidanceNavigator_StartNavigating* = 6
-type Fn_IGuidanceNavigator_StartNavigating* =
-  proc(self: pointer, a1GuidanceRoute: pointer): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_StartSimulating* = 7
-type Fn_IGuidanceNavigator_StartSimulating* =
-  proc(self: pointer, a1GuidanceRoute: pointer, a2: int32): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_StartTracking* = 8
-type Fn_IGuidanceNavigator_StartTracking* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_Pause* = 9
-type Fn_IGuidanceNavigator_Pause* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_Resume* = 10
-type Fn_IGuidanceNavigator_Resume* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_Stop* = 11
-type Fn_IGuidanceNavigator_Stop* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_RepeatLastAudioNotification* = 12
-type Fn_IGuidanceNavigator_RepeatLastAudioNotification* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_get_AudioMeasurementSystem* = 13
-type Fn_IGuidanceNavigator_get_AudioMeasurementSystem* =
-  proc(self: pointer, value: ptr GuidanceAudioMeasurementSystem
-      ): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_put_AudioMeasurementSystem* = 14
-type Fn_IGuidanceNavigator_put_AudioMeasurementSystem* =
-  proc(self: pointer, a1: GuidanceAudioMeasurementSystem): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_get_AudioNotifications* = 15
-type Fn_IGuidanceNavigator_get_AudioNotifications* =
-  proc(self: pointer, value: ptr GuidanceAudioNotifications): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_put_AudioNotifications* = 16
-type Fn_IGuidanceNavigator_put_AudioNotifications* =
-  proc(self: pointer, a1: GuidanceAudioNotifications): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_add_GuidanceUpdated* = 17
-type Fn_IGuidanceNavigator_add_GuidanceUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_remove_GuidanceUpdated* = 18
-type Fn_IGuidanceNavigator_remove_GuidanceUpdated* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_add_DestinationReached* = 19
-type Fn_IGuidanceNavigator_add_DestinationReached* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_remove_DestinationReached* = 20
-type Fn_IGuidanceNavigator_remove_DestinationReached* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_add_Rerouting* = 21
-type Fn_IGuidanceNavigator_add_Rerouting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_remove_Rerouting* = 22
-type Fn_IGuidanceNavigator_remove_Rerouting* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_add_Rerouted* = 23
-type Fn_IGuidanceNavigator_add_Rerouted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_remove_Rerouted* = 24
-type Fn_IGuidanceNavigator_remove_Rerouted* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_add_RerouteFailed* = 25
-type Fn_IGuidanceNavigator_add_RerouteFailed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_remove_RerouteFailed* = 26
-type Fn_IGuidanceNavigator_remove_RerouteFailed* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_add_UserLocationLost* = 27
-type Fn_IGuidanceNavigator_add_UserLocationLost* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_remove_UserLocationLost* = 28
-type Fn_IGuidanceNavigator_remove_UserLocationLost* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_add_UserLocationRestored* = 29
-type Fn_IGuidanceNavigator_add_UserLocationRestored* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_remove_UserLocationRestored* = 30
-type Fn_IGuidanceNavigator_remove_UserLocationRestored* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_SetGuidanceVoice* = 31
-type Fn_IGuidanceNavigator_SetGuidanceVoice* =
-  proc(self: pointer, a1: int32, a2: HSTRING): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_UpdateUserLocation* = 32
-type Fn_IGuidanceNavigator_UpdateUserLocation* =
-  proc(self: pointer, a1Geocoordinate: pointer): HRESULT {.abi.}
-const Slot_IGuidanceNavigator_UpdateUserLocation2* = 33
-type Fn_IGuidanceNavigator_UpdateUserLocation2* =
-  proc(self: pointer, a1Geocoordinate: pointer, a2: BasicGeoposition
-      ): HRESULT {.abi.}
+type IGuidanceNavigatorVtbl* = object of IInspectableVtbl
+  StartNavigating*: proc(self: pointer, a1GuidanceRoute: pointer
+                        ): HRESULT {.abi.}
+  StartSimulating*: proc(self: pointer, a1GuidanceRoute: pointer, a2: int32
+                        ): HRESULT {.abi.}
+  StartTracking*: proc(self: pointer): HRESULT {.abi.}
+  Pause*: proc(self: pointer): HRESULT {.abi.}
+  Resume*: proc(self: pointer): HRESULT {.abi.}
+  Stop*: proc(self: pointer): HRESULT {.abi.}
+  RepeatLastAudioNotification*: proc(self: pointer): HRESULT {.abi.}
+  get_AudioMeasurementSystem*: proc(self: pointer,
+                                    value: ptr GuidanceAudioMeasurementSystem
+                                   ): HRESULT {.abi.}
+  put_AudioMeasurementSystem*: proc(self: pointer,
+                                    a1: GuidanceAudioMeasurementSystem
+                                   ): HRESULT {.abi.}
+  get_AudioNotifications*: proc(self: pointer,
+                                value: ptr GuidanceAudioNotifications
+                               ): HRESULT {.abi.}
+  put_AudioNotifications*: proc(self: pointer, a1: GuidanceAudioNotifications
+                               ): HRESULT {.abi.}
+  add_GuidanceUpdated*: proc(self: pointer, a1: pointer,
+                             value: ptr EventRegistrationToken
+                            ): HRESULT {.abi.}
+  remove_GuidanceUpdated*: proc(self: pointer, a1: EventRegistrationToken
+                               ): HRESULT {.abi.}
+  add_DestinationReached*: proc(self: pointer, a1: pointer,
+                                value: ptr EventRegistrationToken
+                               ): HRESULT {.abi.}
+  remove_DestinationReached*: proc(self: pointer, a1: EventRegistrationToken
+                                  ): HRESULT {.abi.}
+  add_Rerouting*: proc(self: pointer, a1: pointer,
+                       value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Rerouting*: proc(self: pointer, a1: EventRegistrationToken
+                         ): HRESULT {.abi.}
+  add_Rerouted*: proc(self: pointer, a1: pointer,
+                      value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Rerouted*: proc(self: pointer, a1: EventRegistrationToken
+                        ): HRESULT {.abi.}
+  add_RerouteFailed*: proc(self: pointer, a1: pointer,
+                           value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_RerouteFailed*: proc(self: pointer, a1: EventRegistrationToken
+                             ): HRESULT {.abi.}
+  add_UserLocationLost*: proc(self: pointer, a1: pointer,
+                              value: ptr EventRegistrationToken
+                             ): HRESULT {.abi.}
+  remove_UserLocationLost*: proc(self: pointer, a1: EventRegistrationToken
+                                ): HRESULT {.abi.}
+  add_UserLocationRestored*: proc(self: pointer, a1: pointer,
+                                  value: ptr EventRegistrationToken
+                                 ): HRESULT {.abi.}
+  remove_UserLocationRestored*: proc(self: pointer, a1: EventRegistrationToken
+                                    ): HRESULT {.abi.}
+  SetGuidanceVoice*: proc(self: pointer, a1: int32, a2: HSTRING
+                         ): HRESULT {.abi.}
+  UpdateUserLocation*: proc(self: pointer, a1Geocoordinate: pointer
+                           ): HRESULT {.abi.}
+  UpdateUserLocation2*: proc(self: pointer, a1Geocoordinate: pointer,
+                             a2: BasicGeoposition): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceNavigator2
 const IID_IGuidanceNavigator2* = guid"6CDC50D1-041C-4BF3-B633-A101FC2F6B57"
-const Slot_IGuidanceNavigator2_add_AudioNotificationRequested* = 6
-type Fn_IGuidanceNavigator2_add_AudioNotificationRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IGuidanceNavigator2_remove_AudioNotificationRequested* = 7
-type Fn_IGuidanceNavigator2_remove_AudioNotificationRequested* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IGuidanceNavigator2_get_IsGuidanceAudioMuted* = 8
-type Fn_IGuidanceNavigator2_get_IsGuidanceAudioMuted* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IGuidanceNavigator2_put_IsGuidanceAudioMuted* = 9
-type Fn_IGuidanceNavigator2_put_IsGuidanceAudioMuted* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type IGuidanceNavigator2Vtbl* = object of IInspectableVtbl
+  add_AudioNotificationRequested*: proc(self: pointer, a1: pointer,
+                                        value: ptr EventRegistrationToken
+                                       ): HRESULT {.abi.}
+  remove_AudioNotificationRequested*: proc(self: pointer,
+                                           a1: EventRegistrationToken
+                                          ): HRESULT {.abi.}
+  get_IsGuidanceAudioMuted*: proc(self: pointer, value: ptr bool
+                                 ): HRESULT {.abi.}
+  put_IsGuidanceAudioMuted*: proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceNavigatorStatics
 const IID_IGuidanceNavigatorStatics* = guid"00FD9513-4456-4E66-A143-3ADD6BE08426"
-const Slot_IGuidanceNavigatorStatics_GetCurrent* = 6
-type Fn_IGuidanceNavigatorStatics_GetCurrent* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IGuidanceNavigatorStaticsVtbl* = object of IInspectableVtbl
+  GetCurrent*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceNavigatorStatics2
 const IID_IGuidanceNavigatorStatics2* = guid"54C5C3E2-7784-4C85-8C95-D0C6EFB43965"
-const Slot_IGuidanceNavigatorStatics2_get_UseAppProvidedVoice* = 6
-type Fn_IGuidanceNavigatorStatics2_get_UseAppProvidedVoice* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IGuidanceNavigatorStatics2Vtbl* = object of IInspectableVtbl
+  get_UseAppProvidedVoice*: proc(self: pointer, value: ptr bool
+                                ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceReroutedEventArgs
 const IID_IGuidanceReroutedEventArgs* = guid"115D4008-D528-454E-BB94-A50341D2C9F1"
-const Slot_IGuidanceReroutedEventArgs_get_Route* = 6
-type Fn_IGuidanceReroutedEventArgs_get_Route* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IGuidanceReroutedEventArgsVtbl* = object of IInspectableVtbl
+  get_Route*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceRoadSegment
 const IID_IGuidanceRoadSegment* = guid"B32758A6-BE78-4C63-AFE7-6C2957479B3E"
-const Slot_IGuidanceRoadSegment_get_RoadName* = 6
-type Fn_IGuidanceRoadSegment_get_RoadName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IGuidanceRoadSegment_get_ShortRoadName* = 7
-type Fn_IGuidanceRoadSegment_get_ShortRoadName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IGuidanceRoadSegment_get_SpeedLimit* = 8
-type Fn_IGuidanceRoadSegment_get_SpeedLimit* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_IGuidanceRoadSegment_get_TravelTime* = 9
-type Fn_IGuidanceRoadSegment_get_TravelTime* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IGuidanceRoadSegment_get_Path* = 10
-type Fn_IGuidanceRoadSegment_get_Path* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGuidanceRoadSegment_get_Id* = 11
-type Fn_IGuidanceRoadSegment_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IGuidanceRoadSegment_get_IsHighway* = 12
-type Fn_IGuidanceRoadSegment_get_IsHighway* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IGuidanceRoadSegment_get_IsTunnel* = 13
-type Fn_IGuidanceRoadSegment_get_IsTunnel* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IGuidanceRoadSegment_get_IsTollRoad* = 14
-type Fn_IGuidanceRoadSegment_get_IsTollRoad* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IGuidanceRoadSegmentVtbl* = object of IInspectableVtbl
+  get_RoadName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ShortRoadName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_SpeedLimit*: proc(self: pointer, value: ptr float64): HRESULT {.abi.}
+  get_TravelTime*: proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+  get_Path*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_IsHighway*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_IsTunnel*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_IsTollRoad*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceRoadSegment2
 const IID_IGuidanceRoadSegment2* = guid"2474A61D-1723-49F1-895B-47A2C4AA9C55"
-const Slot_IGuidanceRoadSegment2_get_IsScenic* = 6
-type Fn_IGuidanceRoadSegment2_get_IsScenic* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IGuidanceRoadSegment2Vtbl* = object of IInspectableVtbl
+  get_IsScenic*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceRoadSignpost
 const IID_IGuidanceRoadSignpost* = guid"F1A728B6-F77A-4742-8312-53300F9845F0"
-const Slot_IGuidanceRoadSignpost_get_ExitNumber* = 6
-type Fn_IGuidanceRoadSignpost_get_ExitNumber* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IGuidanceRoadSignpost_get_Exit* = 7
-type Fn_IGuidanceRoadSignpost_get_Exit* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IGuidanceRoadSignpost_get_BackgroundColor* = 8
-type Fn_IGuidanceRoadSignpost_get_BackgroundColor* =
-  proc(self: pointer, value: ptr Color): HRESULT {.abi.}
-const Slot_IGuidanceRoadSignpost_get_ForegroundColor* = 9
-type Fn_IGuidanceRoadSignpost_get_ForegroundColor* =
-  proc(self: pointer, value: ptr Color): HRESULT {.abi.}
-const Slot_IGuidanceRoadSignpost_get_ExitDirections* = 10
-type Fn_IGuidanceRoadSignpost_get_ExitDirections* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IGuidanceRoadSignpostVtbl* = object of IInspectableVtbl
+  get_ExitNumber*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Exit*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_BackgroundColor*: proc(self: pointer, value: ptr Color): HRESULT {.abi.}
+  get_ForegroundColor*: proc(self: pointer, value: ptr Color): HRESULT {.abi.}
+  get_ExitDirections*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceRoute
 const IID_IGuidanceRoute* = guid"3A14545D-801A-40BD-A286-AFB2010CCE6C"
-const Slot_IGuidanceRoute_get_Duration* = 6
-type Fn_IGuidanceRoute_get_Duration* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IGuidanceRoute_get_Distance* = 7
-type Fn_IGuidanceRoute_get_Distance* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_IGuidanceRoute_get_Maneuvers* = 8
-type Fn_IGuidanceRoute_get_Maneuvers* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGuidanceRoute_get_BoundingBox* = 9
-type Fn_IGuidanceRoute_get_BoundingBox* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGuidanceRoute_get_Path* = 10
-type Fn_IGuidanceRoute_get_Path* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGuidanceRoute_get_RoadSegments* = 11
-type Fn_IGuidanceRoute_get_RoadSegments* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGuidanceRoute_ConvertToMapRoute* = 12
-type Fn_IGuidanceRoute_ConvertToMapRoute* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IGuidanceRouteVtbl* = object of IInspectableVtbl
+  get_Duration*: proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+  get_Distance*: proc(self: pointer, value: ptr int32): HRESULT {.abi.}
+  get_Maneuvers*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_BoundingBox*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Path*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_RoadSegments*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  ConvertToMapRoute*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceRouteStatics
 const IID_IGuidanceRouteStatics* = guid"F56D926A-55ED-49C1-B09C-4B8223B50DB3"
-const Slot_IGuidanceRouteStatics_CanCreateFromMapRoute* = 6
-type Fn_IGuidanceRouteStatics_CanCreateFromMapRoute* =
-  proc(self: pointer, a1MapRoute: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IGuidanceRouteStatics_TryCreateFromMapRoute* = 7
-type Fn_IGuidanceRouteStatics_TryCreateFromMapRoute* =
-  proc(self: pointer, a1MapRoute: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IGuidanceRouteStaticsVtbl* = object of IInspectableVtbl
+  CanCreateFromMapRoute*: proc(self: pointer, a1MapRoute: pointer,
+                               value: ptr bool): HRESULT {.abi.}
+  TryCreateFromMapRoute*: proc(self: pointer, a1MapRoute: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceTelemetryCollector
 const IID_IGuidanceTelemetryCollector* = guid"DB1F8DA5-B878-4D92-98DD-347D23D38262"
-const Slot_IGuidanceTelemetryCollector_get_Enabled* = 6
-type Fn_IGuidanceTelemetryCollector_get_Enabled* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IGuidanceTelemetryCollector_put_Enabled* = 7
-type Fn_IGuidanceTelemetryCollector_put_Enabled* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_IGuidanceTelemetryCollector_ClearLocalData* = 8
-type Fn_IGuidanceTelemetryCollector_ClearLocalData* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IGuidanceTelemetryCollector_get_SpeedTrigger* = 9
-type Fn_IGuidanceTelemetryCollector_get_SpeedTrigger* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_IGuidanceTelemetryCollector_put_SpeedTrigger* = 10
-type Fn_IGuidanceTelemetryCollector_put_SpeedTrigger* =
-  proc(self: pointer, a1: float64): HRESULT {.abi.}
-const Slot_IGuidanceTelemetryCollector_get_UploadFrequency* = 11
-type Fn_IGuidanceTelemetryCollector_get_UploadFrequency* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_IGuidanceTelemetryCollector_put_UploadFrequency* = 12
-type Fn_IGuidanceTelemetryCollector_put_UploadFrequency* =
-  proc(self: pointer, a1: int32): HRESULT {.abi.}
+type IGuidanceTelemetryCollectorVtbl* = object of IInspectableVtbl
+  get_Enabled*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  put_Enabled*: proc(self: pointer, a1: bool): HRESULT {.abi.}
+  ClearLocalData*: proc(self: pointer): HRESULT {.abi.}
+  get_SpeedTrigger*: proc(self: pointer, value: ptr float64): HRESULT {.abi.}
+  put_SpeedTrigger*: proc(self: pointer, a1: float64): HRESULT {.abi.}
+  get_UploadFrequency*: proc(self: pointer, value: ptr int32): HRESULT {.abi.}
+  put_UploadFrequency*: proc(self: pointer, a1: int32): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceTelemetryCollectorStatics
 const IID_IGuidanceTelemetryCollectorStatics* = guid"36532047-F160-44FB-B578-94577CA05990"
-const Slot_IGuidanceTelemetryCollectorStatics_GetCurrent* = 6
-type Fn_IGuidanceTelemetryCollectorStatics_GetCurrent* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IGuidanceTelemetryCollectorStaticsVtbl* = object of IInspectableVtbl
+  GetCurrent*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceUpdatedEventArgs
 const IID_IGuidanceUpdatedEventArgs* = guid"FDAC160B-9E8D-4DE3-A9FA-B06321D18DB9"
-const Slot_IGuidanceUpdatedEventArgs_get_Mode* = 6
-type Fn_IGuidanceUpdatedEventArgs_get_Mode* =
-  proc(self: pointer, value: ptr GuidanceMode): HRESULT {.abi.}
-const Slot_IGuidanceUpdatedEventArgs_get_NextManeuver* = 7
-type Fn_IGuidanceUpdatedEventArgs_get_NextManeuver* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGuidanceUpdatedEventArgs_get_NextManeuverDistance* = 8
-type Fn_IGuidanceUpdatedEventArgs_get_NextManeuverDistance* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_IGuidanceUpdatedEventArgs_get_AfterNextManeuver* = 9
-type Fn_IGuidanceUpdatedEventArgs_get_AfterNextManeuver* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGuidanceUpdatedEventArgs_get_AfterNextManeuverDistance* = 10
-type Fn_IGuidanceUpdatedEventArgs_get_AfterNextManeuverDistance* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_IGuidanceUpdatedEventArgs_get_DistanceToDestination* = 11
-type Fn_IGuidanceUpdatedEventArgs_get_DistanceToDestination* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_IGuidanceUpdatedEventArgs_get_ElapsedDistance* = 12
-type Fn_IGuidanceUpdatedEventArgs_get_ElapsedDistance* =
-  proc(self: pointer, value: ptr int32): HRESULT {.abi.}
-const Slot_IGuidanceUpdatedEventArgs_get_ElapsedTime* = 13
-type Fn_IGuidanceUpdatedEventArgs_get_ElapsedTime* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IGuidanceUpdatedEventArgs_get_TimeToDestination* = 14
-type Fn_IGuidanceUpdatedEventArgs_get_TimeToDestination* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IGuidanceUpdatedEventArgs_get_RoadName* = 15
-type Fn_IGuidanceUpdatedEventArgs_get_RoadName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IGuidanceUpdatedEventArgs_get_Route* = 16
-type Fn_IGuidanceUpdatedEventArgs_get_Route* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGuidanceUpdatedEventArgs_get_CurrentLocation* = 17
-type Fn_IGuidanceUpdatedEventArgs_get_CurrentLocation* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IGuidanceUpdatedEventArgs_get_IsNewManeuver* = 18
-type Fn_IGuidanceUpdatedEventArgs_get_IsNewManeuver* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IGuidanceUpdatedEventArgs_get_LaneInfo* = 19
-type Fn_IGuidanceUpdatedEventArgs_get_LaneInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IGuidanceUpdatedEventArgsVtbl* = object of IInspectableVtbl
+  get_Mode*: proc(self: pointer, value: ptr GuidanceMode): HRESULT {.abi.}
+  get_NextManeuver*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_NextManeuverDistance*: proc(self: pointer, value: ptr int32
+                                 ): HRESULT {.abi.}
+  get_AfterNextManeuver*: proc(self: pointer, value: ptr pointer
+                              ): HRESULT {.abi.}
+  get_AfterNextManeuverDistance*: proc(self: pointer, value: ptr int32
+                                      ): HRESULT {.abi.}
+  get_DistanceToDestination*: proc(self: pointer, value: ptr int32
+                                  ): HRESULT {.abi.}
+  get_ElapsedDistance*: proc(self: pointer, value: ptr int32): HRESULT {.abi.}
+  get_ElapsedTime*: proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+  get_TimeToDestination*: proc(self: pointer, value: ptr TimeSpan
+                              ): HRESULT {.abi.}
+  get_RoadName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Route*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_CurrentLocation*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  get_IsNewManeuver*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_LaneInfo*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IEnhancedWaypoint
 const IID_IEnhancedWaypoint* = guid"ED268C74-5913-11E6-8B77-86F30CA893D3"
-const Slot_IEnhancedWaypoint_get_Point* = 6
-type Fn_IEnhancedWaypoint_get_Point* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IEnhancedWaypoint_get_Kind* = 7
-type Fn_IEnhancedWaypoint_get_Kind* =
-  proc(self: pointer, value: ptr WaypointKind): HRESULT {.abi.}
+type IEnhancedWaypointVtbl* = object of IInspectableVtbl
+  get_Point*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Kind*: proc(self: pointer, value: ptr WaypointKind): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IEnhancedWaypointFactory
 const IID_IEnhancedWaypointFactory* = guid"AF868477-A2AA-46DD-B645-23B31B8AA6C7"
-const Slot_IEnhancedWaypointFactory_Create* = 6
-type Fn_IEnhancedWaypointFactory_Create* =
-  proc(self: pointer, a1Geopoint: pointer, a2: WaypointKind,
-       value: ptr pointer): HRESULT {.abi.}
+type IEnhancedWaypointFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1Geopoint: pointer, a2: WaypointKind,
+                value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IManeuverWarning
 const IID_IManeuverWarning* = guid"C1A36D8A-2630-4378-9E4A-6E44253DCEBA"
-const Slot_IManeuverWarning_get_Kind* = 6
-type Fn_IManeuverWarning_get_Kind* =
-  proc(self: pointer, value: ptr ManeuverWarningKind): HRESULT {.abi.}
-const Slot_IManeuverWarning_get_Severity* = 7
-type Fn_IManeuverWarning_get_Severity* =
-  proc(self: pointer, value: ptr ManeuverWarningSeverity): HRESULT {.abi.}
+type IManeuverWarningVtbl* = object of IInspectableVtbl
+  get_Kind*: proc(self: pointer, value: ptr ManeuverWarningKind
+                 ): HRESULT {.abi.}
+  get_Severity*: proc(self: pointer, value: ptr ManeuverWarningSeverity
+                     ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapAddress
 const IID_IMapAddress* = guid"CFA7A973-A3B4-4494-B3FF-CBA94DB69699"
-const Slot_IMapAddress_get_BuildingName* = 6
-type Fn_IMapAddress_get_BuildingName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_BuildingFloor* = 7
-type Fn_IMapAddress_get_BuildingFloor* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_BuildingRoom* = 8
-type Fn_IMapAddress_get_BuildingRoom* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_BuildingWing* = 9
-type Fn_IMapAddress_get_BuildingWing* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_StreetNumber* = 10
-type Fn_IMapAddress_get_StreetNumber* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_Street* = 11
-type Fn_IMapAddress_get_Street* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_Neighborhood* = 12
-type Fn_IMapAddress_get_Neighborhood* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_District* = 13
-type Fn_IMapAddress_get_District* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_Town* = 14
-type Fn_IMapAddress_get_Town* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_Region* = 15
-type Fn_IMapAddress_get_Region* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_RegionCode* = 16
-type Fn_IMapAddress_get_RegionCode* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_Country* = 17
-type Fn_IMapAddress_get_Country* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_CountryCode* = 18
-type Fn_IMapAddress_get_CountryCode* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_PostCode* = 19
-type Fn_IMapAddress_get_PostCode* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapAddress_get_Continent* = 20
-type Fn_IMapAddress_get_Continent* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IMapAddressVtbl* = object of IInspectableVtbl
+  get_BuildingName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_BuildingFloor*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_BuildingRoom*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_BuildingWing*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_StreetNumber*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Street*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Neighborhood*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_District*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Town*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Region*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_RegionCode*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Country*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_CountryCode*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_PostCode*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Continent*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapAddress2
 const IID_IMapAddress2* = guid"75CD6DF1-E5AD-45A9-BF40-6CF256C1DD13"
-const Slot_IMapAddress2_get_FormattedAddress* = 6
-type Fn_IMapAddress2_get_FormattedAddress* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IMapAddress2Vtbl* = object of IInspectableVtbl
+  get_FormattedAddress*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapLocation
 const IID_IMapLocation* = guid"3C073F57-0DA4-42E8-9EE2-A96FCF2371DC"
-const Slot_IMapLocation_get_Point* = 6
-type Fn_IMapLocation_get_Point* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapLocation_get_DisplayName* = 7
-type Fn_IMapLocation_get_DisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapLocation_get_Description* = 8
-type Fn_IMapLocation_get_Description* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapLocation_get_Address* = 9
-type Fn_IMapLocation_get_Address* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IMapLocationVtbl* = object of IInspectableVtbl
+  get_Point*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_DisplayName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Description*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Address*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapLocationFinderResult
 const IID_IMapLocationFinderResult* = guid"43F1F179-E8CC-45F6-BED2-54CCBF965D9A"
-const Slot_IMapLocationFinderResult_get_Locations* = 6
-type Fn_IMapLocationFinderResult_get_Locations* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapLocationFinderResult_get_Status* = 7
-type Fn_IMapLocationFinderResult_get_Status* =
-  proc(self: pointer, value: ptr MapLocationFinderStatus): HRESULT {.abi.}
+type IMapLocationFinderResultVtbl* = object of IInspectableVtbl
+  get_Locations*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Status*: proc(self: pointer, value: ptr MapLocationFinderStatus
+                   ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapLocationFinderStatics
 const IID_IMapLocationFinderStatics* = guid"318ADB5D-1C5D-4F35-A2DF-AACA94959517"
-const Slot_IMapLocationFinderStatics_FindLocationsAtAsync* = 6
-type Fn_IMapLocationFinderStatics_FindLocationsAtAsync* =
-  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IMapLocationFinderStatics_FindLocationsAsync* = 7
-type Fn_IMapLocationFinderStatics_FindLocationsAsync* =
-  proc(self: pointer, a1: HSTRING, a2Geopoint: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IMapLocationFinderStatics_FindLocationsAsync2* = 8
-type Fn_IMapLocationFinderStatics_FindLocationsAsync2* =
-  proc(self: pointer, a1: HSTRING, a2Geopoint: pointer, a3: uint32,
-       value: ptr pointer): HRESULT {.abi.}
+type IMapLocationFinderStaticsVtbl* = object of IInspectableVtbl
+  FindLocationsAtAsync*: proc(self: pointer, a1Geopoint: pointer,
+                              value: ptr pointer): HRESULT {.abi.}
+  FindLocationsAsync*: proc(self: pointer, a1: HSTRING, a2Geopoint: pointer,
+                            value: ptr pointer): HRESULT {.abi.}
+  FindLocationsAsync2*: proc(self: pointer, a1: HSTRING, a2Geopoint: pointer,
+                             a3: uint32, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapLocationFinderStatics2
 const IID_IMapLocationFinderStatics2* = guid"959A8B96-6485-4DFD-851A-33AC317E3AF6"
-const Slot_IMapLocationFinderStatics2_FindLocationsAtAsync* = 6
-type Fn_IMapLocationFinderStatics2_FindLocationsAtAsync* =
-  proc(self: pointer, a1Geopoint: pointer, a2: MapLocationDesiredAccuracy,
-       value: ptr pointer): HRESULT {.abi.}
+type IMapLocationFinderStatics2Vtbl* = object of IInspectableVtbl
+  FindLocationsAtAsync*: proc(self: pointer, a1Geopoint: pointer,
+                              a2: MapLocationDesiredAccuracy,
+                              value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapManagerStatics
 const IID_IMapManagerStatics* = guid"37E3E515-82B4-4D54-8FD9-AF2624B3011C"
-const Slot_IMapManagerStatics_ShowDownloadedMapsUI* = 6
-type Fn_IMapManagerStatics_ShowDownloadedMapsUI* =
-  proc(self: pointer): HRESULT {.abi.}
-const Slot_IMapManagerStatics_ShowMapsUpdateUI* = 7
-type Fn_IMapManagerStatics_ShowMapsUpdateUI* =
-  proc(self: pointer): HRESULT {.abi.}
+type IMapManagerStaticsVtbl* = object of IInspectableVtbl
+  ShowDownloadedMapsUI*: proc(self: pointer): HRESULT {.abi.}
+  ShowMapsUpdateUI*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRoute
 const IID_IMapRoute* = guid"FB07B732-584D-4583-9C60-641FEA274349"
-const Slot_IMapRoute_get_BoundingBox* = 6
-type Fn_IMapRoute_get_BoundingBox* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRoute_get_LengthInMeters* = 7
-type Fn_IMapRoute_get_LengthInMeters* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_IMapRoute_get_EstimatedDuration* = 8
-type Fn_IMapRoute_get_EstimatedDuration* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IMapRoute_get_Path* = 9
-type Fn_IMapRoute_get_Path* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRoute_get_Legs* = 10
-type Fn_IMapRoute_get_Legs* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRoute_get_IsTrafficBased* = 11
-type Fn_IMapRoute_get_IsTrafficBased* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IMapRouteVtbl* = object of IInspectableVtbl
+  get_BoundingBox*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_LengthInMeters*: proc(self: pointer, value: ptr float64
+                           ): HRESULT {.abi.}
+  get_EstimatedDuration*: proc(self: pointer, value: ptr TimeSpan
+                              ): HRESULT {.abi.}
+  get_Path*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Legs*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_IsTrafficBased*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRoute2
 const IID_IMapRoute2* = guid"D1C5D40C-2213-4AB0-A260-46B38169BEAC"
-const Slot_IMapRoute2_get_ViolatedRestrictions* = 6
-type Fn_IMapRoute2_get_ViolatedRestrictions* =
-  proc(self: pointer, value: ptr MapRouteRestrictions): HRESULT {.abi.}
-const Slot_IMapRoute2_get_HasBlockedRoads* = 7
-type Fn_IMapRoute2_get_HasBlockedRoads* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IMapRoute2Vtbl* = object of IInspectableVtbl
+  get_ViolatedRestrictions*: proc(self: pointer,
+                                  value: ptr MapRouteRestrictions
+                                 ): HRESULT {.abi.}
+  get_HasBlockedRoads*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRoute3
 const IID_IMapRoute3* = guid"858D1EAE-F2AD-429F-BB37-CD21094FFC92"
-const Slot_IMapRoute3_get_DurationWithoutTraffic* = 6
-type Fn_IMapRoute3_get_DurationWithoutTraffic* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IMapRoute3_get_TrafficCongestion* = 7
-type Fn_IMapRoute3_get_TrafficCongestion* =
-  proc(self: pointer, value: ptr TrafficCongestion): HRESULT {.abi.}
+type IMapRoute3Vtbl* = object of IInspectableVtbl
+  get_DurationWithoutTraffic*: proc(self: pointer, value: ptr TimeSpan
+                                   ): HRESULT {.abi.}
+  get_TrafficCongestion*: proc(self: pointer, value: ptr TrafficCongestion
+                              ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRoute4
 const IID_IMapRoute4* = guid"366C8CA5-3053-4FA1-80FF-D475F3ED1E6E"
-const Slot_IMapRoute4_get_IsScenic* = 6
-type Fn_IMapRoute4_get_IsScenic* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IMapRoute4Vtbl* = object of IInspectableVtbl
+  get_IsScenic*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRouteDrivingOptions
 const IID_IMapRouteDrivingOptions* = guid"6815364D-C6DC-4697-A452-B18F8F0B67A1"
-const Slot_IMapRouteDrivingOptions_get_MaxAlternateRouteCount* = 6
-type Fn_IMapRouteDrivingOptions_get_MaxAlternateRouteCount* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IMapRouteDrivingOptions_put_MaxAlternateRouteCount* = 7
-type Fn_IMapRouteDrivingOptions_put_MaxAlternateRouteCount* =
-  proc(self: pointer, a1: uint32): HRESULT {.abi.}
-const Slot_IMapRouteDrivingOptions_get_InitialHeading* = 8
-type Fn_IMapRouteDrivingOptions_get_InitialHeading* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteDrivingOptions_put_InitialHeading* = 9
-type Fn_IMapRouteDrivingOptions_put_InitialHeading* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
-const Slot_IMapRouteDrivingOptions_get_RouteOptimization* = 10
-type Fn_IMapRouteDrivingOptions_get_RouteOptimization* =
-  proc(self: pointer, value: ptr MapRouteOptimization): HRESULT {.abi.}
-const Slot_IMapRouteDrivingOptions_put_RouteOptimization* = 11
-type Fn_IMapRouteDrivingOptions_put_RouteOptimization* =
-  proc(self: pointer, a1: MapRouteOptimization): HRESULT {.abi.}
-const Slot_IMapRouteDrivingOptions_get_RouteRestrictions* = 12
-type Fn_IMapRouteDrivingOptions_get_RouteRestrictions* =
-  proc(self: pointer, value: ptr MapRouteRestrictions): HRESULT {.abi.}
-const Slot_IMapRouteDrivingOptions_put_RouteRestrictions* = 13
-type Fn_IMapRouteDrivingOptions_put_RouteRestrictions* =
-  proc(self: pointer, a1: MapRouteRestrictions): HRESULT {.abi.}
+type IMapRouteDrivingOptionsVtbl* = object of IInspectableVtbl
+  get_MaxAlternateRouteCount*: proc(self: pointer, value: ptr uint32
+                                   ): HRESULT {.abi.}
+  put_MaxAlternateRouteCount*: proc(self: pointer, a1: uint32
+                                   ): HRESULT {.abi.}
+  get_InitialHeading*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  put_InitialHeading*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
+  get_RouteOptimization*: proc(self: pointer, value: ptr MapRouteOptimization
+                              ): HRESULT {.abi.}
+  put_RouteOptimization*: proc(self: pointer, a1: MapRouteOptimization
+                              ): HRESULT {.abi.}
+  get_RouteRestrictions*: proc(self: pointer, value: ptr MapRouteRestrictions
+                              ): HRESULT {.abi.}
+  put_RouteRestrictions*: proc(self: pointer, a1: MapRouteRestrictions
+                              ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRouteDrivingOptions2
 const IID_IMapRouteDrivingOptions2* = guid"35DC8670-C298-48D0-B5AD-825460645603"
-const Slot_IMapRouteDrivingOptions2_get_DepartureTime* = 6
-type Fn_IMapRouteDrivingOptions2_get_DepartureTime* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteDrivingOptions2_put_DepartureTime* = 7
-type Fn_IMapRouteDrivingOptions2_put_DepartureTime* =
-  proc(self: pointer, a1: pointer): HRESULT {.abi.}
+type IMapRouteDrivingOptions2Vtbl* = object of IInspectableVtbl
+  get_DepartureTime*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  put_DepartureTime*: proc(self: pointer, a1: pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRouteFinderResult
 const IID_IMapRouteFinderResult* = guid"A868A31A-9422-46AC-8CA1-B1614D4BFBE2"
-const Slot_IMapRouteFinderResult_get_Route* = 6
-type Fn_IMapRouteFinderResult_get_Route* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteFinderResult_get_Status* = 7
-type Fn_IMapRouteFinderResult_get_Status* =
-  proc(self: pointer, value: ptr MapRouteFinderStatus): HRESULT {.abi.}
+type IMapRouteFinderResultVtbl* = object of IInspectableVtbl
+  get_Route*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Status*: proc(self: pointer, value: ptr MapRouteFinderStatus
+                   ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRouteFinderResult2
 const IID_IMapRouteFinderResult2* = guid"20709C6D-D90C-46C8-91C6-7D4BE4EFB215"
-const Slot_IMapRouteFinderResult2_get_AlternateRoutes* = 6
-type Fn_IMapRouteFinderResult2_get_AlternateRoutes* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IMapRouteFinderResult2Vtbl* = object of IInspectableVtbl
+  get_AlternateRoutes*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRouteFinderStatics
 const IID_IMapRouteFinderStatics* = guid"B8A5C50F-1C64-4C3A-81EB-1F7C152AFBBB"
-const Slot_IMapRouteFinderStatics_GetDrivingRouteAsync* = 6
-type Fn_IMapRouteFinderStatics_GetDrivingRouteAsync* =
-  proc(self: pointer, a1Geopoint: pointer, a2Geopoint: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteFinderStatics_GetDrivingRouteAsync2* = 7
-type Fn_IMapRouteFinderStatics_GetDrivingRouteAsync2* =
-  proc(self: pointer, a1Geopoint: pointer, a2Geopoint: pointer,
-       a3: MapRouteOptimization, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteFinderStatics_GetDrivingRouteAsync3* = 8
-type Fn_IMapRouteFinderStatics_GetDrivingRouteAsync3* =
-  proc(self: pointer, a1Geopoint: pointer, a2Geopoint: pointer,
-       a3: MapRouteOptimization, a4: MapRouteRestrictions, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IMapRouteFinderStatics_GetDrivingRouteAsync4* = 9
-type Fn_IMapRouteFinderStatics_GetDrivingRouteAsync4* =
-  proc(self: pointer, a1Geopoint: pointer, a2Geopoint: pointer,
-       a3: MapRouteOptimization, a4: MapRouteRestrictions, a5: float64,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync* = 10
-type Fn_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync2* = 11
-type Fn_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync2* =
-  proc(self: pointer, a1: pointer, a2: MapRouteOptimization,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync3* = 12
-type Fn_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync3* =
-  proc(self: pointer, a1: pointer, a2: MapRouteOptimization,
-       a3: MapRouteRestrictions, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync4* = 13
-type Fn_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync4* =
-  proc(self: pointer, a1: pointer, a2: MapRouteOptimization,
-       a3: MapRouteRestrictions, a4: float64, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IMapRouteFinderStatics_GetWalkingRouteAsync* = 14
-type Fn_IMapRouteFinderStatics_GetWalkingRouteAsync* =
-  proc(self: pointer, a1Geopoint: pointer, a2Geopoint: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteFinderStatics_GetWalkingRouteFromWaypointsAsync* = 15
-type Fn_IMapRouteFinderStatics_GetWalkingRouteFromWaypointsAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
+type IMapRouteFinderStaticsVtbl* = object of IInspectableVtbl
+  GetDrivingRouteAsync*: proc(self: pointer, a1Geopoint: pointer,
+                              a2Geopoint: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  GetDrivingRouteAsync2*: proc(self: pointer, a1Geopoint: pointer,
+                               a2Geopoint: pointer, a3: MapRouteOptimization,
+                               value: ptr pointer): HRESULT {.abi.}
+  GetDrivingRouteAsync3*: proc(self: pointer, a1Geopoint: pointer,
+                               a2Geopoint: pointer, a3: MapRouteOptimization,
+                               a4: MapRouteRestrictions, value: ptr pointer
+                              ): HRESULT {.abi.}
+  GetDrivingRouteAsync4*: proc(self: pointer, a1Geopoint: pointer,
+                               a2Geopoint: pointer, a3: MapRouteOptimization,
+                               a4: MapRouteRestrictions, a5: float64,
+                               value: ptr pointer): HRESULT {.abi.}
+  GetDrivingRouteFromWaypointsAsync*: proc(self: pointer, a1: pointer,
+                                           value: ptr pointer
+                                          ): HRESULT {.abi.}
+  GetDrivingRouteFromWaypointsAsync2*: proc(self: pointer, a1: pointer,
+                                            a2: MapRouteOptimization,
+                                            value: ptr pointer
+                                           ): HRESULT {.abi.}
+  GetDrivingRouteFromWaypointsAsync3*: proc(self: pointer, a1: pointer,
+                                            a2: MapRouteOptimization,
+                                            a3: MapRouteRestrictions,
+                                            value: ptr pointer
+                                           ): HRESULT {.abi.}
+  GetDrivingRouteFromWaypointsAsync4*: proc(self: pointer, a1: pointer,
+                                            a2: MapRouteOptimization,
+                                            a3: MapRouteRestrictions,
+                                            a4: float64, value: ptr pointer
+                                           ): HRESULT {.abi.}
+  GetWalkingRouteAsync*: proc(self: pointer, a1Geopoint: pointer,
+                              a2Geopoint: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  GetWalkingRouteFromWaypointsAsync*: proc(self: pointer, a1: pointer,
+                                           value: ptr pointer
+                                          ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRouteFinderStatics2
 const IID_IMapRouteFinderStatics2* = guid"AFCC2C73-7760-49AF-B3BD-BAF135B703E1"
-const Slot_IMapRouteFinderStatics2_GetDrivingRouteAsync* = 6
-type Fn_IMapRouteFinderStatics2_GetDrivingRouteAsync* =
-  proc(self: pointer, a1Geopoint: pointer, a2Geopoint: pointer,
-       a3MapRouteDrivingOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+type IMapRouteFinderStatics2Vtbl* = object of IInspectableVtbl
+  GetDrivingRouteAsync*: proc(self: pointer, a1Geopoint: pointer,
+                              a2Geopoint: pointer,
+                              a3MapRouteDrivingOptions: pointer,
+                              value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRouteFinderStatics3
 const IID_IMapRouteFinderStatics3* = guid"F6098134-5913-11E6-8B77-86F30CA893D3"
-const Slot_IMapRouteFinderStatics3_GetDrivingRouteFromEnhancedWaypointsAsync* = 6
-type Fn_IMapRouteFinderStatics3_GetDrivingRouteFromEnhancedWaypointsAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteFinderStatics3_GetDrivingRouteFromEnhancedWaypointsAsync2* = 7
-type Fn_IMapRouteFinderStatics3_GetDrivingRouteFromEnhancedWaypointsAsync2* =
-  proc(self: pointer, a1: pointer, a2MapRouteDrivingOptions: pointer,
-       value: ptr pointer): HRESULT {.abi.}
+type IMapRouteFinderStatics3Vtbl* = object of IInspectableVtbl
+  GetDrivingRouteFromEnhancedWaypointsAsync*: proc(self: pointer, a1: pointer,
+                                                   value: ptr pointer
+                                                  ): HRESULT {.abi.}
+  GetDrivingRouteFromEnhancedWaypointsAsync2*: proc(self: pointer,
+                                                    a1: pointer,
+                                                    a2MapRouteDrivingOptions: pointer,
+                                                    value: ptr pointer
+                                                   ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRouteLeg
 const IID_IMapRouteLeg* = guid"96F8B2F6-5BBA-4D17-9DB6-1A263FEC7471"
-const Slot_IMapRouteLeg_get_BoundingBox* = 6
-type Fn_IMapRouteLeg_get_BoundingBox* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteLeg_get_Path* = 7
-type Fn_IMapRouteLeg_get_Path* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteLeg_get_LengthInMeters* = 8
-type Fn_IMapRouteLeg_get_LengthInMeters* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_IMapRouteLeg_get_EstimatedDuration* = 9
-type Fn_IMapRouteLeg_get_EstimatedDuration* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IMapRouteLeg_get_Maneuvers* = 10
-type Fn_IMapRouteLeg_get_Maneuvers* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IMapRouteLegVtbl* = object of IInspectableVtbl
+  get_BoundingBox*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Path*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_LengthInMeters*: proc(self: pointer, value: ptr float64
+                           ): HRESULT {.abi.}
+  get_EstimatedDuration*: proc(self: pointer, value: ptr TimeSpan
+                              ): HRESULT {.abi.}
+  get_Maneuvers*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRouteLeg2
 const IID_IMapRouteLeg2* = guid"02E2062D-C9C6-45B8-8E54-1A10B57A17E8"
-const Slot_IMapRouteLeg2_get_DurationWithoutTraffic* = 6
-type Fn_IMapRouteLeg2_get_DurationWithoutTraffic* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IMapRouteLeg2_get_TrafficCongestion* = 7
-type Fn_IMapRouteLeg2_get_TrafficCongestion* =
-  proc(self: pointer, value: ptr TrafficCongestion): HRESULT {.abi.}
+type IMapRouteLeg2Vtbl* = object of IInspectableVtbl
+  get_DurationWithoutTraffic*: proc(self: pointer, value: ptr TimeSpan
+                                   ): HRESULT {.abi.}
+  get_TrafficCongestion*: proc(self: pointer, value: ptr TrafficCongestion
+                              ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRouteManeuver
 const IID_IMapRouteManeuver* = guid"ED5C17F0-A6AB-4D65-A086-FA8A7E340DF2"
-const Slot_IMapRouteManeuver_get_StartingPoint* = 6
-type Fn_IMapRouteManeuver_get_StartingPoint* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IMapRouteManeuver_get_LengthInMeters* = 7
-type Fn_IMapRouteManeuver_get_LengthInMeters* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_IMapRouteManeuver_get_InstructionText* = 8
-type Fn_IMapRouteManeuver_get_InstructionText* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapRouteManeuver_get_Kind* = 9
-type Fn_IMapRouteManeuver_get_Kind* =
-  proc(self: pointer, value: ptr MapRouteManeuverKind): HRESULT {.abi.}
-const Slot_IMapRouteManeuver_get_ExitNumber* = 10
-type Fn_IMapRouteManeuver_get_ExitNumber* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IMapRouteManeuver_get_ManeuverNotices* = 11
-type Fn_IMapRouteManeuver_get_ManeuverNotices* =
-  proc(self: pointer, value: ptr MapManeuverNotices): HRESULT {.abi.}
+type IMapRouteManeuverVtbl* = object of IInspectableVtbl
+  get_StartingPoint*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_LengthInMeters*: proc(self: pointer, value: ptr float64
+                           ): HRESULT {.abi.}
+  get_InstructionText*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
+  get_Kind*: proc(self: pointer, value: ptr MapRouteManeuverKind
+                 ): HRESULT {.abi.}
+  get_ExitNumber*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ManeuverNotices*: proc(self: pointer, value: ptr MapManeuverNotices
+                            ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRouteManeuver2
 const IID_IMapRouteManeuver2* = guid"5D7BCD9C-7C9B-41DF-838B-EAE21E4B05A9"
-const Slot_IMapRouteManeuver2_get_StartHeading* = 6
-type Fn_IMapRouteManeuver2_get_StartHeading* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_IMapRouteManeuver2_get_EndHeading* = 7
-type Fn_IMapRouteManeuver2_get_EndHeading* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_IMapRouteManeuver2_get_StreetName* = 8
-type Fn_IMapRouteManeuver2_get_StreetName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IMapRouteManeuver2Vtbl* = object of IInspectableVtbl
+  get_StartHeading*: proc(self: pointer, value: ptr float64): HRESULT {.abi.}
+  get_EndHeading*: proc(self: pointer, value: ptr float64): HRESULT {.abi.}
+  get_StreetName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapRouteManeuver3
 const IID_IMapRouteManeuver3* = guid"A6A138DF-0483-4166-85BE-B99336C11875"
-const Slot_IMapRouteManeuver3_get_Warnings* = 6
-type Fn_IMapRouteManeuver3_get_Warnings* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IMapRouteManeuver3Vtbl* = object of IInspectableVtbl
+  get_Warnings*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapServiceStatics
 const IID_IMapServiceStatics* = guid"0144AD85-C04C-4CDD-871A-A0726D097CD4"
-const Slot_IMapServiceStatics_put_ServiceToken* = 6
-type Fn_IMapServiceStatics_put_ServiceToken* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IMapServiceStatics_get_ServiceToken* = 7
-type Fn_IMapServiceStatics_get_ServiceToken* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IMapServiceStaticsVtbl* = object of IInspectableVtbl
+  put_ServiceToken*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_ServiceToken*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapServiceStatics2
 const IID_IMapServiceStatics2* = guid"F8193EED-9C85-40A9-8896-0FC3FD2B7C2A"
-const Slot_IMapServiceStatics2_get_WorldViewRegionCode* = 6
-type Fn_IMapServiceStatics2_get_WorldViewRegionCode* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IMapServiceStatics2Vtbl* = object of IInspectableVtbl
+  get_WorldViewRegionCode*: proc(self: pointer, value: ptr HSTRING
+                                ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapServiceStatics3
 const IID_IMapServiceStatics3* = guid"0A11CE20-63A7-4854-B355-D6DCDA223D1B"
-const Slot_IMapServiceStatics3_get_DataAttributions* = 6
-type Fn_IMapServiceStatics3_get_DataAttributions* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IMapServiceStatics3Vtbl* = object of IInspectableVtbl
+  get_DataAttributions*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IMapServiceStatics4
 const IID_IMapServiceStatics4* = guid"088A2862-6ABC-420E-945F-4CFD89C67356"
-const Slot_IMapServiceStatics4_put_DataUsagePreference* = 6
-type Fn_IMapServiceStatics4_put_DataUsagePreference* =
-  proc(self: pointer, a1: MapServiceDataUsagePreference): HRESULT {.abi.}
-const Slot_IMapServiceStatics4_get_DataUsagePreference* = 7
-type Fn_IMapServiceStatics4_get_DataUsagePreference* =
-  proc(self: pointer, value: ptr MapServiceDataUsagePreference
-      ): HRESULT {.abi.}
+type IMapServiceStatics4Vtbl* = object of IInspectableVtbl
+  put_DataUsagePreference*: proc(self: pointer,
+                                 a1: MapServiceDataUsagePreference
+                                ): HRESULT {.abi.}
+  get_DataUsagePreference*: proc(self: pointer,
+                                 value: ptr MapServiceDataUsagePreference
+                                ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IPlaceInfo
 const IID_IPlaceInfo* = guid"9A0810B6-31C8-4F6A-9F18-950B4C38951A"
-const Slot_IPlaceInfo_Show* = 6
-type Fn_IPlaceInfo_Show* =
-  proc(self: pointer, a1: Rect): HRESULT {.abi.}
-const Slot_IPlaceInfo_Show2* = 7
-type Fn_IPlaceInfo_Show2* =
-  proc(self: pointer, a1: Rect, a2: Placement): HRESULT {.abi.}
-const Slot_IPlaceInfo_get_Identifier* = 8
-type Fn_IPlaceInfo_get_Identifier* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IPlaceInfo_get_DisplayName* = 9
-type Fn_IPlaceInfo_get_DisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IPlaceInfo_get_DisplayAddress* = 10
-type Fn_IPlaceInfo_get_DisplayAddress* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IPlaceInfo_get_Geoshape* = 11
-type Fn_IPlaceInfo_get_Geoshape* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IPlaceInfoVtbl* = object of IInspectableVtbl
+  Show*: proc(self: pointer, a1: Rect): HRESULT {.abi.}
+  Show2*: proc(self: pointer, a1: Rect, a2: Placement): HRESULT {.abi.}
+  get_Identifier*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DisplayName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DisplayAddress*: proc(self: pointer, value: ptr HSTRING
+                           ): HRESULT {.abi.}
+  get_Geoshape*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IPlaceInfoCreateOptions
 const IID_IPlaceInfoCreateOptions* = guid"CD33C125-67F1-4BB3-9907-ECCE939B0399"
-const Slot_IPlaceInfoCreateOptions_put_DisplayName* = 6
-type Fn_IPlaceInfoCreateOptions_put_DisplayName* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IPlaceInfoCreateOptions_get_DisplayName* = 7
-type Fn_IPlaceInfoCreateOptions_get_DisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IPlaceInfoCreateOptions_put_DisplayAddress* = 8
-type Fn_IPlaceInfoCreateOptions_put_DisplayAddress* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IPlaceInfoCreateOptions_get_DisplayAddress* = 9
-type Fn_IPlaceInfoCreateOptions_get_DisplayAddress* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IPlaceInfoCreateOptionsVtbl* = object of IInspectableVtbl
+  put_DisplayName*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_DisplayName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_DisplayAddress*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_DisplayAddress*: proc(self: pointer, value: ptr HSTRING
+                           ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IPlaceInfoStatics
 const IID_IPlaceInfoStatics* = guid"82B9FF71-6CD0-48A4-AFD9-5ED82097936B"
-const Slot_IPlaceInfoStatics_Create* = 6
-type Fn_IPlaceInfoStatics_Create* =
-  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IPlaceInfoStatics_Create2* = 7
-type Fn_IPlaceInfoStatics_Create2* =
-  proc(self: pointer, a1Geopoint: pointer, a2PlaceInfoCreateOptions: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IPlaceInfoStatics_CreateFromIdentifier* = 8
-type Fn_IPlaceInfoStatics_CreateFromIdentifier* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IPlaceInfoStatics_CreateFromIdentifier2* = 9
-type Fn_IPlaceInfoStatics_CreateFromIdentifier2* =
-  proc(self: pointer, a1: HSTRING, a2Geopoint: pointer,
-       a3PlaceInfoCreateOptions: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IPlaceInfoStatics_CreateFromMapLocation* = 10
-type Fn_IPlaceInfoStatics_CreateFromMapLocation* =
-  proc(self: pointer, a1MapLocation: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IPlaceInfoStatics_get_IsShowSupported* = 11
-type Fn_IPlaceInfoStatics_get_IsShowSupported* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IPlaceInfoStaticsVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1Geopoint: pointer, value: ptr pointer
+               ): HRESULT {.abi.}
+  Create2*: proc(self: pointer, a1Geopoint: pointer,
+                 a2PlaceInfoCreateOptions: pointer, value: ptr pointer
+                ): HRESULT {.abi.}
+  CreateFromIdentifier*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                             ): HRESULT {.abi.}
+  CreateFromIdentifier2*: proc(self: pointer, a1: HSTRING,
+                               a2Geopoint: pointer,
+                               a3PlaceInfoCreateOptions: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
+  CreateFromMapLocation*: proc(self: pointer, a1MapLocation: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
+  get_IsShowSupported*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IPlaceInfoStatics2
 const IID_IPlaceInfoStatics2* = guid"730F0249-4047-44A3-8F81-2550A5216370"
-const Slot_IPlaceInfoStatics2_CreateFromAddress* = 6
-type Fn_IPlaceInfoStatics2_CreateFromAddress* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IPlaceInfoStatics2_CreateFromAddress2* = 7
-type Fn_IPlaceInfoStatics2_CreateFromAddress2* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
+type IPlaceInfoStatics2Vtbl* = object of IInspectableVtbl
+  CreateFromAddress*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                          ): HRESULT {.abi.}
+  CreateFromAddress2*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                            value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics
 const IID_ILocalCategoriesStatics* = guid"F49399F5-8261-4321-9974-EF92D49A8DCA"
-const Slot_ILocalCategoriesStatics_get_BankAndCreditUnions* = 6
-type Fn_ILocalCategoriesStatics_get_BankAndCreditUnions* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILocalCategoriesStatics_get_EatDrink* = 7
-type Fn_ILocalCategoriesStatics_get_EatDrink* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILocalCategoriesStatics_get_Hospitals* = 8
-type Fn_ILocalCategoriesStatics_get_Hospitals* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILocalCategoriesStatics_get_HotelsAndMotels* = 9
-type Fn_ILocalCategoriesStatics_get_HotelsAndMotels* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILocalCategoriesStatics_get_All* = 10
-type Fn_ILocalCategoriesStatics_get_All* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILocalCategoriesStatics_get_Parking* = 11
-type Fn_ILocalCategoriesStatics_get_Parking* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILocalCategoriesStatics_get_SeeDo* = 12
-type Fn_ILocalCategoriesStatics_get_SeeDo* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILocalCategoriesStatics_get_Shop* = 13
-type Fn_ILocalCategoriesStatics_get_Shop* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type ILocalCategoriesStaticsVtbl* = object of IInspectableVtbl
+  get_BankAndCreditUnions*: proc(self: pointer, value: ptr HSTRING
+                                ): HRESULT {.abi.}
+  get_EatDrink*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Hospitals*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_HotelsAndMotels*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
+  get_All*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Parking*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_SeeDo*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Shop*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Services.Maps.LocalSearch.ILocalLocation
 const IID_ILocalLocation* = guid"BB0FE9AB-4502-4F2C-94A9-0D60DE0E2163"
-const Slot_ILocalLocation_get_Address* = 6
-type Fn_ILocalLocation_get_Address* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILocalLocation_get_Identifier* = 7
-type Fn_ILocalLocation_get_Identifier* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILocalLocation_get_Description* = 8
-type Fn_ILocalLocation_get_Description* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILocalLocation_get_DisplayName* = 9
-type Fn_ILocalLocation_get_DisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILocalLocation_get_Point* = 10
-type Fn_ILocalLocation_get_Point* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILocalLocation_get_PhoneNumber* = 11
-type Fn_ILocalLocation_get_PhoneNumber* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILocalLocation_get_DataAttribution* = 12
-type Fn_ILocalLocation_get_DataAttribution* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type ILocalLocationVtbl* = object of IInspectableVtbl
+  get_Address*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Identifier*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Description*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DisplayName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Point*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_PhoneNumber*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DataAttribution*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.LocalSearch.ILocalLocation2
 const IID_ILocalLocation2* = guid"6E9E307C-ECB5-4FFC-BB8C-BA50BA8C2DC6"
-const Slot_ILocalLocation2_get_Category* = 6
-type Fn_ILocalLocation2_get_Category* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ILocalLocation2_get_RatingInfo* = 7
-type Fn_ILocalLocation2_get_RatingInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILocalLocation2_get_HoursOfOperation* = 8
-type Fn_ILocalLocation2_get_HoursOfOperation* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ILocalLocation2Vtbl* = object of IInspectableVtbl
+  get_Category*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_RatingInfo*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_HoursOfOperation*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.LocalSearch.ILocalLocationFinderResult
 const IID_ILocalLocationFinderResult* = guid"D09B6CC6-F338-4191-9FD8-5440B9A68F52"
-const Slot_ILocalLocationFinderResult_get_LocalLocations* = 6
-type Fn_ILocalLocationFinderResult_get_LocalLocations* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILocalLocationFinderResult_get_Status* = 7
-type Fn_ILocalLocationFinderResult_get_Status* =
-  proc(self: pointer, value: ptr LocalLocationFinderStatus): HRESULT {.abi.}
+type ILocalLocationFinderResultVtbl* = object of IInspectableVtbl
+  get_LocalLocations*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_Status*: proc(self: pointer, value: ptr LocalLocationFinderStatus
+                   ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.LocalSearch.ILocalLocationFinderStatics
 const IID_ILocalLocationFinderStatics* = guid"D2EF7344-A0DE-48CA-81A8-07C7DCFD37AB"
-const Slot_ILocalLocationFinderStatics_FindLocalLocationsAsync* = 6
-type Fn_ILocalLocationFinderStatics_FindLocalLocationsAsync* =
-  proc(self: pointer, a1: HSTRING, a2Geocircle: pointer, a3: HSTRING,
-       a4: uint32, value: ptr pointer): HRESULT {.abi.}
+type ILocalLocationFinderStaticsVtbl* = object of IInspectableVtbl
+  FindLocalLocationsAsync*: proc(self: pointer, a1: HSTRING,
+                                 a2Geocircle: pointer, a3: HSTRING,
+                                 a4: uint32, value: ptr pointer
+                                ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.LocalSearch.ILocalLocationHoursOfOperationItem
 const IID_ILocalLocationHoursOfOperationItem* = guid"23548C72-A1C7-43F1-A4F0-1091C39EC640"
-const Slot_ILocalLocationHoursOfOperationItem_get_Day* = 6
-type Fn_ILocalLocationHoursOfOperationItem_get_Day* =
-  proc(self: pointer, value: ptr DayOfWeek): HRESULT {.abi.}
-const Slot_ILocalLocationHoursOfOperationItem_get_Start* = 7
-type Fn_ILocalLocationHoursOfOperationItem_get_Start* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_ILocalLocationHoursOfOperationItem_get_Span* = 8
-type Fn_ILocalLocationHoursOfOperationItem_get_Span* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+type ILocalLocationHoursOfOperationItemVtbl* = object of IInspectableVtbl
+  get_Day*: proc(self: pointer, value: ptr DayOfWeek): HRESULT {.abi.}
+  get_Start*: proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
+  get_Span*: proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 
 ## Windows.Services.Maps.LocalSearch.ILocalLocationRatingInfo
 const IID_ILocalLocationRatingInfo* = guid"CB1DAB56-3354-4311-8BC0-A2D4D5EB806E"
-const Slot_ILocalLocationRatingInfo_get_AggregateRating* = 6
-type Fn_ILocalLocationRatingInfo_get_AggregateRating* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILocalLocationRatingInfo_get_RatingCount* = 7
-type Fn_ILocalLocationRatingInfo_get_RatingCount* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ILocalLocationRatingInfo_get_ProviderIdentifier* = 8
-type Fn_ILocalLocationRatingInfo_get_ProviderIdentifier* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type ILocalLocationRatingInfoVtbl* = object of IInspectableVtbl
+  get_AggregateRating*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  get_RatingCount*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ProviderIdentifier*: proc(self: pointer, value: ptr HSTRING
+                               ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.LocalSearch.IPlaceInfoHelperStatics
 const IID_IPlaceInfoHelperStatics* = guid"DD1CA9A7-A9C6-491B-BC09-E80FCEA48EE6"
-const Slot_IPlaceInfoHelperStatics_CreateFromLocalLocation* = 6
-type Fn_IPlaceInfoHelperStatics_CreateFromLocalLocation* =
-  proc(self: pointer, a1LocalLocation: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IPlaceInfoHelperStaticsVtbl* = object of IInspectableVtbl
+  CreateFromLocalLocation*: proc(self: pointer, a1LocalLocation: pointer,
+                                 value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.OfflineMaps.IOfflineMapPackage
 const IID_IOfflineMapPackage* = guid"A797673B-A5B5-4144-B525-E68C8862664B"
-const Slot_IOfflineMapPackage_get_Status* = 6
-type Fn_IOfflineMapPackage_get_Status* =
-  proc(self: pointer, value: ptr OfflineMapPackageStatus): HRESULT {.abi.}
-const Slot_IOfflineMapPackage_get_DisplayName* = 7
-type Fn_IOfflineMapPackage_get_DisplayName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IOfflineMapPackage_get_EnclosingRegionName* = 8
-type Fn_IOfflineMapPackage_get_EnclosingRegionName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IOfflineMapPackage_get_EstimatedSizeInBytes* = 9
-type Fn_IOfflineMapPackage_get_EstimatedSizeInBytes* =
-  proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
-const Slot_IOfflineMapPackage_remove_StatusChanged* = 10
-type Fn_IOfflineMapPackage_remove_StatusChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IOfflineMapPackage_add_StatusChanged* = 11
-type Fn_IOfflineMapPackage_add_StatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IOfflineMapPackage_RequestStartDownloadAsync* = 12
-type Fn_IOfflineMapPackage_RequestStartDownloadAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IOfflineMapPackageVtbl* = object of IInspectableVtbl
+  get_Status*: proc(self: pointer, value: ptr OfflineMapPackageStatus
+                   ): HRESULT {.abi.}
+  get_DisplayName*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_EnclosingRegionName*: proc(self: pointer, value: ptr HSTRING
+                                ): HRESULT {.abi.}
+  get_EstimatedSizeInBytes*: proc(self: pointer, value: ptr uint64
+                                 ): HRESULT {.abi.}
+  remove_StatusChanged*: proc(self: pointer, a1: EventRegistrationToken
+                             ): HRESULT {.abi.}
+  add_StatusChanged*: proc(self: pointer, a1: pointer,
+                           value: ptr EventRegistrationToken): HRESULT {.abi.}
+  RequestStartDownloadAsync*: proc(self: pointer, value: ptr pointer
+                                  ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult
 const IID_IOfflineMapPackageQueryResult* = guid"55585411-39E1-4E41-A4E1-5F4872BEE199"
-const Slot_IOfflineMapPackageQueryResult_get_Status* = 6
-type Fn_IOfflineMapPackageQueryResult_get_Status* =
-  proc(self: pointer, value: ptr OfflineMapPackageQueryStatus
-      ): HRESULT {.abi.}
-const Slot_IOfflineMapPackageQueryResult_get_Packages* = 7
-type Fn_IOfflineMapPackageQueryResult_get_Packages* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IOfflineMapPackageQueryResultVtbl* = object of IInspectableVtbl
+  get_Status*: proc(self: pointer, value: ptr OfflineMapPackageQueryStatus
+                   ): HRESULT {.abi.}
+  get_Packages*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStartDownloadResult
 const IID_IOfflineMapPackageStartDownloadResult* = guid"D965B918-D4D6-4AFE-9378-3EC71EF11C3D"
-const Slot_IOfflineMapPackageStartDownloadResult_get_Status* = 6
-type Fn_IOfflineMapPackageStartDownloadResult_get_Status* =
-  proc(self: pointer, value: ptr OfflineMapPackageStartDownloadStatus
-      ): HRESULT {.abi.}
+type IOfflineMapPackageStartDownloadResultVtbl* = object of IInspectableVtbl
+  get_Status*: proc(self: pointer,
+                    value: ptr OfflineMapPackageStartDownloadStatus
+                   ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStatics
 const IID_IOfflineMapPackageStatics* = guid"185E7922-A831-4AB0-941F-6998FA929285"
-const Slot_IOfflineMapPackageStatics_FindPackagesAsync* = 6
-type Fn_IOfflineMapPackageStatics_FindPackagesAsync* =
-  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IOfflineMapPackageStatics_FindPackagesInBoundingBoxAsync* = 7
-type Fn_IOfflineMapPackageStatics_FindPackagesInBoundingBoxAsync* =
-  proc(self: pointer, a1GeoboundingBox: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IOfflineMapPackageStatics_FindPackagesInGeocircleAsync* = 8
-type Fn_IOfflineMapPackageStatics_FindPackagesInGeocircleAsync* =
-  proc(self: pointer, a1Geocircle: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IOfflineMapPackageStaticsVtbl* = object of IInspectableVtbl
+  FindPackagesAsync*: proc(self: pointer, a1Geopoint: pointer,
+                           value: ptr pointer): HRESULT {.abi.}
+  FindPackagesInBoundingBoxAsync*: proc(self: pointer,
+                                        a1GeoboundingBox: pointer,
+                                        value: ptr pointer): HRESULT {.abi.}
+  FindPackagesInGeocircleAsync*: proc(self: pointer, a1Geocircle: pointer,
+                                      value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreAcquireLicenseResult
 const IID_IStoreAcquireLicenseResult* = guid"FBD7946D-F040-4CB3-9A39-29BCECDBE22D"
-const Slot_IStoreAcquireLicenseResult_get_StorePackageLicense* = 6
-type Fn_IStoreAcquireLicenseResult_get_StorePackageLicense* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreAcquireLicenseResult_get_ExtendedError* = 7
-type Fn_IStoreAcquireLicenseResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+type IStoreAcquireLicenseResultVtbl* = object of IInspectableVtbl
+  get_StorePackageLicense*: proc(self: pointer, value: ptr pointer
+                                ): HRESULT {.abi.}
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreAppLicense
 const IID_IStoreAppLicense* = guid"F389F9DE-73C0-45CE-9BAB-B2FE3E5EAFD3"
-const Slot_IStoreAppLicense_get_SkuStoreId* = 6
-type Fn_IStoreAppLicense_get_SkuStoreId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreAppLicense_get_IsActive* = 7
-type Fn_IStoreAppLicense_get_IsActive* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreAppLicense_get_IsTrial* = 8
-type Fn_IStoreAppLicense_get_IsTrial* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreAppLicense_get_ExpirationDate* = 9
-type Fn_IStoreAppLicense_get_ExpirationDate* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_IStoreAppLicense_get_ExtendedJsonData* = 10
-type Fn_IStoreAppLicense_get_ExtendedJsonData* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreAppLicense_get_AddOnLicenses* = 11
-type Fn_IStoreAppLicense_get_AddOnLicenses* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreAppLicense_get_TrialTimeRemaining* = 12
-type Fn_IStoreAppLicense_get_TrialTimeRemaining* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IStoreAppLicense_get_IsTrialOwnedByThisUser* = 13
-type Fn_IStoreAppLicense_get_IsTrialOwnedByThisUser* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreAppLicense_get_TrialUniqueId* = 14
-type Fn_IStoreAppLicense_get_TrialUniqueId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IStoreAppLicenseVtbl* = object of IInspectableVtbl
+  get_SkuStoreId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_IsActive*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_IsTrial*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_ExpirationDate*: proc(self: pointer, value: ptr DateTime
+                           ): HRESULT {.abi.}
+  get_ExtendedJsonData*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  get_AddOnLicenses*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_TrialTimeRemaining*: proc(self: pointer, value: ptr TimeSpan
+                               ): HRESULT {.abi.}
+  get_IsTrialOwnedByThisUser*: proc(self: pointer, value: ptr bool
+                                   ): HRESULT {.abi.}
+  get_TrialUniqueId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreAppLicense2
 const IID_IStoreAppLicense2* = guid"B4666E91-4443-40B3-993F-28904435BDC6"
-const Slot_IStoreAppLicense2_get_IsDiscLicense* = 6
-type Fn_IStoreAppLicense2_get_IsDiscLicense* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IStoreAppLicense2Vtbl* = object of IInspectableVtbl
+  get_IsDiscLicense*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreAvailability
 const IID_IStoreAvailability* = guid"FA060325-0FFD-4493-AD43-F1F9918F69FA"
-const Slot_IStoreAvailability_get_StoreId* = 6
-type Fn_IStoreAvailability_get_StoreId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreAvailability_get_EndDate* = 7
-type Fn_IStoreAvailability_get_EndDate* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_IStoreAvailability_get_Price* = 8
-type Fn_IStoreAvailability_get_Price* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreAvailability_get_ExtendedJsonData* = 9
-type Fn_IStoreAvailability_get_ExtendedJsonData* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreAvailability_RequestPurchaseAsync* = 10
-type Fn_IStoreAvailability_RequestPurchaseAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreAvailability_RequestPurchaseAsync2* = 11
-type Fn_IStoreAvailability_RequestPurchaseAsync2* =
-  proc(self: pointer, a1StorePurchaseProperties: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IStoreAvailabilityVtbl* = object of IInspectableVtbl
+  get_StoreId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_EndDate*: proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
+  get_Price*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ExtendedJsonData*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  RequestPurchaseAsync*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  RequestPurchaseAsync2*: proc(self: pointer,
+                               a1StorePurchaseProperties: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreCanAcquireLicenseResult
 const IID_IStoreCanAcquireLicenseResult* = guid"3A693DB3-0088-482F-86D5-BD46522663AD"
-const Slot_IStoreCanAcquireLicenseResult_get_ExtendedError* = 6
-type Fn_IStoreCanAcquireLicenseResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
-const Slot_IStoreCanAcquireLicenseResult_get_LicensableSku* = 7
-type Fn_IStoreCanAcquireLicenseResult_get_LicensableSku* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreCanAcquireLicenseResult_get_Status* = 8
-type Fn_IStoreCanAcquireLicenseResult_get_Status* =
-  proc(self: pointer, value: ptr StoreCanLicenseStatus): HRESULT {.abi.}
+type IStoreCanAcquireLicenseResultVtbl* = object of IInspectableVtbl
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+  get_LicensableSku*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Status*: proc(self: pointer, value: ptr StoreCanLicenseStatus
+                   ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreCollectionData
 const IID_IStoreCollectionData* = guid"8AA4C3B3-5BB3-441A-2AB4-4DAB73D5CE67"
-const Slot_IStoreCollectionData_get_IsTrial* = 6
-type Fn_IStoreCollectionData_get_IsTrial* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreCollectionData_get_CampaignId* = 7
-type Fn_IStoreCollectionData_get_CampaignId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreCollectionData_get_DeveloperOfferId* = 8
-type Fn_IStoreCollectionData_get_DeveloperOfferId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreCollectionData_get_AcquiredDate* = 9
-type Fn_IStoreCollectionData_get_AcquiredDate* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_IStoreCollectionData_get_StartDate* = 10
-type Fn_IStoreCollectionData_get_StartDate* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_IStoreCollectionData_get_EndDate* = 11
-type Fn_IStoreCollectionData_get_EndDate* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_IStoreCollectionData_get_TrialTimeRemaining* = 12
-type Fn_IStoreCollectionData_get_TrialTimeRemaining* =
-  proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
-const Slot_IStoreCollectionData_get_ExtendedJsonData* = 13
-type Fn_IStoreCollectionData_get_ExtendedJsonData* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IStoreCollectionDataVtbl* = object of IInspectableVtbl
+  get_IsTrial*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_CampaignId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_DeveloperOfferId*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  get_AcquiredDate*: proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
+  get_StartDate*: proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
+  get_EndDate*: proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
+  get_TrialTimeRemaining*: proc(self: pointer, value: ptr TimeSpan
+                               ): HRESULT {.abi.}
+  get_ExtendedJsonData*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreConsumableResult
 const IID_IStoreConsumableResult* = guid"EA5DAB72-6A00-4052-BE5B-BFDAB4433352"
-const Slot_IStoreConsumableResult_get_Status* = 6
-type Fn_IStoreConsumableResult_get_Status* =
-  proc(self: pointer, value: ptr StoreConsumableStatus): HRESULT {.abi.}
-const Slot_IStoreConsumableResult_get_TrackingId* = 7
-type Fn_IStoreConsumableResult_get_TrackingId* =
-  proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
-const Slot_IStoreConsumableResult_get_BalanceRemaining* = 8
-type Fn_IStoreConsumableResult_get_BalanceRemaining* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IStoreConsumableResult_get_ExtendedError* = 9
-type Fn_IStoreConsumableResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+type IStoreConsumableResultVtbl* = object of IInspectableVtbl
+  get_Status*: proc(self: pointer, value: ptr StoreConsumableStatus
+                   ): HRESULT {.abi.}
+  get_TrackingId*: proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
+  get_BalanceRemaining*: proc(self: pointer, value: ptr uint32
+                             ): HRESULT {.abi.}
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreContext
 const IID_IStoreContext* = guid"AC98B6BE-F4FD-4912-BABD-5035E5E8BCAB"
-const Slot_IStoreContext_get_User* = 6
-type Fn_IStoreContext_get_User* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext_add_OfflineLicensesChanged* = 7
-type Fn_IStoreContext_add_OfflineLicensesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IStoreContext_remove_OfflineLicensesChanged* = 8
-type Fn_IStoreContext_remove_OfflineLicensesChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IStoreContext_GetCustomerPurchaseIdAsync* = 9
-type Fn_IStoreContext_GetCustomerPurchaseIdAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IStoreContext_GetCustomerCollectionsIdAsync* = 10
-type Fn_IStoreContext_GetCustomerCollectionsIdAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IStoreContext_GetAppLicenseAsync* = 11
-type Fn_IStoreContext_GetAppLicenseAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext_GetStoreProductForCurrentAppAsync* = 12
-type Fn_IStoreContext_GetStoreProductForCurrentAppAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext_GetStoreProductsAsync* = 13
-type Fn_IStoreContext_GetStoreProductsAsync* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IStoreContext_GetAssociatedStoreProductsAsync* = 14
-type Fn_IStoreContext_GetAssociatedStoreProductsAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext_GetAssociatedStoreProductsWithPagingAsync* = 15
-type Fn_IStoreContext_GetAssociatedStoreProductsWithPagingAsync* =
-  proc(self: pointer, a1: pointer, a2: uint32, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IStoreContext_GetUserCollectionAsync* = 16
-type Fn_IStoreContext_GetUserCollectionAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext_GetUserCollectionWithPagingAsync* = 17
-type Fn_IStoreContext_GetUserCollectionWithPagingAsync* =
-  proc(self: pointer, a1: pointer, a2: uint32, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IStoreContext_ReportConsumableFulfillmentAsync* = 18
-type Fn_IStoreContext_ReportConsumableFulfillmentAsync* =
-  proc(self: pointer, a1: HSTRING, a2: uint32, a3: GUID, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IStoreContext_GetConsumableBalanceRemainingAsync* = 19
-type Fn_IStoreContext_GetConsumableBalanceRemainingAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext_AcquireStoreLicenseForOptionalPackageAsync* = 20
-type Fn_IStoreContext_AcquireStoreLicenseForOptionalPackageAsync* =
-  proc(self: pointer, a1Package: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext_RequestPurchaseAsync* = 21
-type Fn_IStoreContext_RequestPurchaseAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext_RequestPurchaseAsync2* = 22
-type Fn_IStoreContext_RequestPurchaseAsync2* =
-  proc(self: pointer, a1: HSTRING, a2StorePurchaseProperties: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext_GetAppAndOptionalStorePackageUpdatesAsync* = 23
-type Fn_IStoreContext_GetAppAndOptionalStorePackageUpdatesAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext_RequestDownloadStorePackageUpdatesAsync* = 24
-type Fn_IStoreContext_RequestDownloadStorePackageUpdatesAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext_RequestDownloadAndInstallStorePackageUpdatesAsync* = 25
-type Fn_IStoreContext_RequestDownloadAndInstallStorePackageUpdatesAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext_RequestDownloadAndInstallStorePackagesAsync* = 26
-type Fn_IStoreContext_RequestDownloadAndInstallStorePackagesAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
+type IStoreContextVtbl* = object of IInspectableVtbl
+  get_User*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  add_OfflineLicensesChanged*: proc(self: pointer, a1: pointer,
+                                    value: ptr EventRegistrationToken
+                                   ): HRESULT {.abi.}
+  remove_OfflineLicensesChanged*: proc(self: pointer,
+                                       a1: EventRegistrationToken
+                                      ): HRESULT {.abi.}
+  GetCustomerPurchaseIdAsync*: proc(self: pointer, a1: HSTRING, a2: HSTRING,
+                                    value: ptr pointer): HRESULT {.abi.}
+  GetCustomerCollectionsIdAsync*: proc(self: pointer, a1: HSTRING,
+                                       a2: HSTRING, value: ptr pointer
+                                      ): HRESULT {.abi.}
+  GetAppLicenseAsync*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  GetStoreProductForCurrentAppAsync*: proc(self: pointer, value: ptr pointer
+                                          ): HRESULT {.abi.}
+  GetStoreProductsAsync*: proc(self: pointer, a1: pointer, a2: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
+  GetAssociatedStoreProductsAsync*: proc(self: pointer, a1: pointer,
+                                         value: ptr pointer): HRESULT {.abi.}
+  GetAssociatedStoreProductsWithPagingAsync*: proc(self: pointer, a1: pointer,
+                                                   a2: uint32,
+                                                   value: ptr pointer
+                                                  ): HRESULT {.abi.}
+  GetUserCollectionAsync*: proc(self: pointer, a1: pointer, value: ptr pointer
+                               ): HRESULT {.abi.}
+  GetUserCollectionWithPagingAsync*: proc(self: pointer, a1: pointer,
+                                          a2: uint32, value: ptr pointer
+                                         ): HRESULT {.abi.}
+  ReportConsumableFulfillmentAsync*: proc(self: pointer, a1: HSTRING,
+                                          a2: uint32, a3: GUID,
+                                          value: ptr pointer): HRESULT {.abi.}
+  GetConsumableBalanceRemainingAsync*: proc(self: pointer, a1: HSTRING,
+                                            value: ptr pointer
+                                           ): HRESULT {.abi.}
+  AcquireStoreLicenseForOptionalPackageAsync*: proc(self: pointer,
+                                                    a1Package: pointer,
+                                                    value: ptr pointer
+                                                   ): HRESULT {.abi.}
+  RequestPurchaseAsync*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                             ): HRESULT {.abi.}
+  RequestPurchaseAsync2*: proc(self: pointer, a1: HSTRING,
+                               a2StorePurchaseProperties: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
+  GetAppAndOptionalStorePackageUpdatesAsync*: proc(self: pointer,
+                                                   value: ptr pointer
+                                                  ): HRESULT {.abi.}
+  RequestDownloadStorePackageUpdatesAsync*: proc(self: pointer, a1: pointer,
+                                                 value: ptr pointer
+                                                ): HRESULT {.abi.}
+  RequestDownloadAndInstallStorePackageUpdatesAsync*: proc(self: pointer,
+                                                           a1: pointer,
+                                                           value: ptr pointer
+                                                          ): HRESULT {.abi.}
+  RequestDownloadAndInstallStorePackagesAsync*: proc(self: pointer,
+                                                     a1: pointer,
+                                                     value: ptr pointer
+                                                    ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreContext2
 const IID_IStoreContext2* = guid"18BC54DA-7BD9-452C-9116-3BBD06FFC63A"
-const Slot_IStoreContext2_FindStoreProductForPackageAsync* = 6
-type Fn_IStoreContext2_FindStoreProductForPackageAsync* =
-  proc(self: pointer, a1: pointer, a2Package: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
+type IStoreContext2Vtbl* = object of IInspectableVtbl
+  FindStoreProductForPackageAsync*: proc(self: pointer, a1: pointer,
+                                         a2Package: pointer,
+                                         value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreContext3
 const IID_IStoreContext3* = guid"E26226CA-1A01-4730-85A6-ECC896E4AE38"
-const Slot_IStoreContext3_get_CanSilentlyDownloadStorePackageUpdates* = 6
-type Fn_IStoreContext3_get_CanSilentlyDownloadStorePackageUpdates* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreContext3_TrySilentDownloadStorePackageUpdatesAsync* = 7
-type Fn_IStoreContext3_TrySilentDownloadStorePackageUpdatesAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext3_TrySilentDownloadAndInstallStorePackageUpdatesAsync* = 8
-type Fn_IStoreContext3_TrySilentDownloadAndInstallStorePackageUpdatesAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext3_CanAcquireStoreLicenseForOptionalPackageAsync* = 9
-type Fn_IStoreContext3_CanAcquireStoreLicenseForOptionalPackageAsync* =
-  proc(self: pointer, a1Package: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext3_CanAcquireStoreLicenseAsync* = 10
-type Fn_IStoreContext3_CanAcquireStoreLicenseAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext3_GetStoreProductsAsync* = 11
-type Fn_IStoreContext3_GetStoreProductsAsync* =
-  proc(self: pointer, a1: pointer, a2: pointer,
-       a3StoreProductOptions: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext3_GetAssociatedStoreQueueItemsAsync* = 12
-type Fn_IStoreContext3_GetAssociatedStoreQueueItemsAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext3_GetStoreQueueItemsAsync* = 13
-type Fn_IStoreContext3_GetStoreQueueItemsAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext3_RequestDownloadAndInstallStorePackagesAsync* = 14
-type Fn_IStoreContext3_RequestDownloadAndInstallStorePackagesAsync* =
-  proc(self: pointer, a1: pointer, a2StorePackageInstallOptions: pointer,
-       value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext3_DownloadAndInstallStorePackagesAsync* = 15
-type Fn_IStoreContext3_DownloadAndInstallStorePackagesAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext3_RequestUninstallStorePackageAsync* = 16
-type Fn_IStoreContext3_RequestUninstallStorePackageAsync* =
-  proc(self: pointer, a1Package: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext3_RequestUninstallStorePackageByStoreIdAsync* = 17
-type Fn_IStoreContext3_RequestUninstallStorePackageByStoreIdAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext3_UninstallStorePackageAsync* = 18
-type Fn_IStoreContext3_UninstallStorePackageAsync* =
-  proc(self: pointer, a1Package: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext3_UninstallStorePackageByStoreIdAsync* = 19
-type Fn_IStoreContext3_UninstallStorePackageByStoreIdAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IStoreContext3Vtbl* = object of IInspectableVtbl
+  get_CanSilentlyDownloadStorePackageUpdates*: proc(self: pointer,
+                                                    value: ptr bool
+                                                   ): HRESULT {.abi.}
+  TrySilentDownloadStorePackageUpdatesAsync*: proc(self: pointer, a1: pointer,
+                                                   value: ptr pointer
+                                                  ): HRESULT {.abi.}
+  TrySilentDownloadAndInstallStorePackageUpdatesAsync*: proc(self: pointer,
+                                                             a1: pointer,
+                                                             value: ptr pointer
+                                                            ): HRESULT {.abi.}
+  CanAcquireStoreLicenseForOptionalPackageAsync*: proc(self: pointer,
+                                                       a1Package: pointer,
+                                                       value: ptr pointer
+                                                      ): HRESULT {.abi.}
+  CanAcquireStoreLicenseAsync*: proc(self: pointer, a1: HSTRING,
+                                     value: ptr pointer): HRESULT {.abi.}
+  GetStoreProductsAsync*: proc(self: pointer, a1: pointer, a2: pointer,
+                               a3StoreProductOptions: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
+  GetAssociatedStoreQueueItemsAsync*: proc(self: pointer, value: ptr pointer
+                                          ): HRESULT {.abi.}
+  GetStoreQueueItemsAsync*: proc(self: pointer, a1: pointer,
+                                 value: ptr pointer): HRESULT {.abi.}
+  RequestDownloadAndInstallStorePackagesAsync*: proc(self: pointer,
+                                                     a1: pointer,
+                                                     a2StorePackageInstallOptions: pointer,
+                                                     value: ptr pointer
+                                                    ): HRESULT {.abi.}
+  DownloadAndInstallStorePackagesAsync*: proc(self: pointer, a1: pointer,
+                                              value: ptr pointer
+                                             ): HRESULT {.abi.}
+  RequestUninstallStorePackageAsync*: proc(self: pointer, a1Package: pointer,
+                                           value: ptr pointer
+                                          ): HRESULT {.abi.}
+  RequestUninstallStorePackageByStoreIdAsync*: proc(self: pointer,
+                                                    a1: HSTRING,
+                                                    value: ptr pointer
+                                                   ): HRESULT {.abi.}
+  UninstallStorePackageAsync*: proc(self: pointer, a1Package: pointer,
+                                    value: ptr pointer): HRESULT {.abi.}
+  UninstallStorePackageByStoreIdAsync*: proc(self: pointer, a1: HSTRING,
+                                             value: ptr pointer
+                                            ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreContext4
 const IID_IStoreContext4* = guid"AF9C6F69-BEA1-4BF4-8E74-AE03E206C6B0"
-const Slot_IStoreContext4_RequestRateAndReviewAppAsync* = 6
-type Fn_IStoreContext4_RequestRateAndReviewAppAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext4_SetInstallOrderForAssociatedStoreQueueItemsAsync* = 7
-type Fn_IStoreContext4_SetInstallOrderForAssociatedStoreQueueItemsAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
+type IStoreContext4Vtbl* = object of IInspectableVtbl
+  RequestRateAndReviewAppAsync*: proc(self: pointer, value: ptr pointer
+                                     ): HRESULT {.abi.}
+  SetInstallOrderForAssociatedStoreQueueItemsAsync*: proc(self: pointer,
+                                                          a1: pointer,
+                                                          value: ptr pointer
+                                                         ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreContext5
 const IID_IStoreContext5* = guid"6DE6C52B-C43A-5953-B39A-71643C57D96E"
-const Slot_IStoreContext5_GetUserPurchaseHistoryAsync* = 6
-type Fn_IStoreContext5_GetUserPurchaseHistoryAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext5_GetAssociatedStoreProductsByInAppOfferTokenAsync* = 7
-type Fn_IStoreContext5_GetAssociatedStoreProductsByInAppOfferTokenAsync* =
-  proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContext5_RequestPurchaseByInAppOfferTokenAsync* = 8
-type Fn_IStoreContext5_RequestPurchaseByInAppOfferTokenAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IStoreContext5Vtbl* = object of IInspectableVtbl
+  GetUserPurchaseHistoryAsync*: proc(self: pointer, a1: pointer,
+                                     value: ptr pointer): HRESULT {.abi.}
+  GetAssociatedStoreProductsByInAppOfferTokenAsync*: proc(self: pointer,
+                                                          a1: pointer,
+                                                          value: ptr pointer
+                                                         ): HRESULT {.abi.}
+  RequestPurchaseByInAppOfferTokenAsync*: proc(self: pointer, a1: HSTRING,
+                                               value: ptr pointer
+                                              ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreContextStatics
 const IID_IStoreContextStatics* = guid"9C06EE5F-15C0-4E72-9330-D6191CEBD19C"
-const Slot_IStoreContextStatics_GetDefault* = 6
-type Fn_IStoreContextStatics_GetDefault* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreContextStatics_GetForUser* = 7
-type Fn_IStoreContextStatics_GetForUser* =
-  proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
+type IStoreContextStaticsVtbl* = object of IInspectableVtbl
+  GetDefault*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetForUser*: proc(self: pointer, a1User: pointer, value: ptr pointer
+                   ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreImage
 const IID_IStoreImage* = guid"081FD248-ADB4-4B64-A993-784789926ED5"
-const Slot_IStoreImage_get_Uri* = 6
-type Fn_IStoreImage_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreImage_get_ImagePurposeTag* = 7
-type Fn_IStoreImage_get_ImagePurposeTag* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreImage_get_Width* = 8
-type Fn_IStoreImage_get_Width* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IStoreImage_get_Height* = 9
-type Fn_IStoreImage_get_Height* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IStoreImage_get_Caption* = 10
-type Fn_IStoreImage_get_Caption* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IStoreImageVtbl* = object of IInspectableVtbl
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ImagePurposeTag*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
+  get_Width*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_Height*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_Caption*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreLicense
 const IID_IStoreLicense* = guid"26DC9579-4C4F-4F30-BC89-649F60E36055"
-const Slot_IStoreLicense_get_SkuStoreId* = 6
-type Fn_IStoreLicense_get_SkuStoreId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreLicense_get_IsActive* = 7
-type Fn_IStoreLicense_get_IsActive* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreLicense_get_ExpirationDate* = 8
-type Fn_IStoreLicense_get_ExpirationDate* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_IStoreLicense_get_ExtendedJsonData* = 9
-type Fn_IStoreLicense_get_ExtendedJsonData* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreLicense_get_InAppOfferToken* = 10
-type Fn_IStoreLicense_get_InAppOfferToken* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IStoreLicenseVtbl* = object of IInspectableVtbl
+  get_SkuStoreId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_IsActive*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_ExpirationDate*: proc(self: pointer, value: ptr DateTime
+                           ): HRESULT {.abi.}
+  get_ExtendedJsonData*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  get_InAppOfferToken*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStorePackageInstallOptions
 const IID_IStorePackageInstallOptions* = guid"1D3D630C-0CCD-44DD-8C59-80810A729973"
-const Slot_IStorePackageInstallOptions_get_AllowForcedAppRestart* = 6
-type Fn_IStorePackageInstallOptions_get_AllowForcedAppRestart* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStorePackageInstallOptions_put_AllowForcedAppRestart* = 7
-type Fn_IStorePackageInstallOptions_put_AllowForcedAppRestart* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
+type IStorePackageInstallOptionsVtbl* = object of IInspectableVtbl
+  get_AllowForcedAppRestart*: proc(self: pointer, value: ptr bool
+                                  ): HRESULT {.abi.}
+  put_AllowForcedAppRestart*: proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStorePackageLicense
 const IID_IStorePackageLicense* = guid"0C465714-14E1-4973-BD14-F77724271E99"
-const Slot_IStorePackageLicense_add_LicenseLost* = 6
-type Fn_IStorePackageLicense_add_LicenseLost* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IStorePackageLicense_remove_LicenseLost* = 7
-type Fn_IStorePackageLicense_remove_LicenseLost* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IStorePackageLicense_get_Package* = 8
-type Fn_IStorePackageLicense_get_Package* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStorePackageLicense_get_IsValid* = 9
-type Fn_IStorePackageLicense_get_IsValid* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStorePackageLicense_ReleaseLicense* = 10
-type Fn_IStorePackageLicense_ReleaseLicense* =
-  proc(self: pointer): HRESULT {.abi.}
+type IStorePackageLicenseVtbl* = object of IInspectableVtbl
+  add_LicenseLost*: proc(self: pointer, a1: pointer,
+                         value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_LicenseLost*: proc(self: pointer, a1: EventRegistrationToken
+                           ): HRESULT {.abi.}
+  get_Package*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_IsValid*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  ReleaseLicense*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStorePackageUpdate
 const IID_IStorePackageUpdate* = guid"140FA150-3CBF-4A35-B91F-48271C31B072"
-const Slot_IStorePackageUpdate_get_Package* = 6
-type Fn_IStorePackageUpdate_get_Package* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStorePackageUpdate_get_Mandatory* = 7
-type Fn_IStorePackageUpdate_get_Mandatory* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type IStorePackageUpdateVtbl* = object of IInspectableVtbl
+  get_Package*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Mandatory*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStorePackageUpdateResult
 const IID_IStorePackageUpdateResult* = guid"E79142ED-61F9-4893-B4FE-CF191603AF7B"
-const Slot_IStorePackageUpdateResult_get_OverallState* = 6
-type Fn_IStorePackageUpdateResult_get_OverallState* =
-  proc(self: pointer, value: ptr StorePackageUpdateState): HRESULT {.abi.}
-const Slot_IStorePackageUpdateResult_get_StorePackageUpdateStatuses* = 7
-type Fn_IStorePackageUpdateResult_get_StorePackageUpdateStatuses* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IStorePackageUpdateResultVtbl* = object of IInspectableVtbl
+  get_OverallState*: proc(self: pointer, value: ptr StorePackageUpdateState
+                         ): HRESULT {.abi.}
+  get_StorePackageUpdateStatuses*: proc(self: pointer, value: ptr pointer
+                                       ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStorePackageUpdateResult2
 const IID_IStorePackageUpdateResult2* = guid"071D012E-BC62-4F2E-87EA-99D801AEAF98"
-const Slot_IStorePackageUpdateResult2_get_StoreQueueItems* = 6
-type Fn_IStorePackageUpdateResult2_get_StoreQueueItems* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IStorePackageUpdateResult2Vtbl* = object of IInspectableVtbl
+  get_StoreQueueItems*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStorePrice
 const IID_IStorePrice* = guid"55BA94C4-15F1-407C-8F06-006380F4DF0B"
-const Slot_IStorePrice_get_FormattedBasePrice* = 6
-type Fn_IStorePrice_get_FormattedBasePrice* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStorePrice_get_FormattedPrice* = 7
-type Fn_IStorePrice_get_FormattedPrice* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStorePrice_get_IsOnSale* = 8
-type Fn_IStorePrice_get_IsOnSale* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStorePrice_get_SaleEndDate* = 9
-type Fn_IStorePrice_get_SaleEndDate* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_IStorePrice_get_CurrencyCode* = 10
-type Fn_IStorePrice_get_CurrencyCode* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStorePrice_get_FormattedRecurrencePrice* = 11
-type Fn_IStorePrice_get_FormattedRecurrencePrice* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IStorePriceVtbl* = object of IInspectableVtbl
+  get_FormattedBasePrice*: proc(self: pointer, value: ptr HSTRING
+                               ): HRESULT {.abi.}
+  get_FormattedPrice*: proc(self: pointer, value: ptr HSTRING
+                           ): HRESULT {.abi.}
+  get_IsOnSale*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_SaleEndDate*: proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
+  get_CurrencyCode*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_FormattedRecurrencePrice*: proc(self: pointer, value: ptr HSTRING
+                                     ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStorePrice2
 const IID_IStorePrice2* = guid"F711573C-40E6-5641-B063-F1DF42B2B12A"
-const Slot_IStorePrice2_get_UnformattedBasePrice* = 6
-type Fn_IStorePrice2_get_UnformattedBasePrice* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStorePrice2_get_UnformattedPrice* = 7
-type Fn_IStorePrice2_get_UnformattedPrice* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStorePrice2_get_UnformattedRecurrencePrice* = 8
-type Fn_IStorePrice2_get_UnformattedRecurrencePrice* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IStorePrice2Vtbl* = object of IInspectableVtbl
+  get_UnformattedBasePrice*: proc(self: pointer, value: ptr HSTRING
+                                 ): HRESULT {.abi.}
+  get_UnformattedPrice*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  get_UnformattedRecurrencePrice*: proc(self: pointer, value: ptr HSTRING
+                                       ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreProduct
 const IID_IStoreProduct* = guid"320E2C52-D760-450A-A42B-67D1E901AC90"
-const Slot_IStoreProduct_get_StoreId* = 6
-type Fn_IStoreProduct_get_StoreId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreProduct_get_Language* = 7
-type Fn_IStoreProduct_get_Language* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreProduct_get_Title* = 8
-type Fn_IStoreProduct_get_Title* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreProduct_get_Description* = 9
-type Fn_IStoreProduct_get_Description* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreProduct_get_ProductKind* = 10
-type Fn_IStoreProduct_get_ProductKind* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreProduct_get_HasDigitalDownload* = 11
-type Fn_IStoreProduct_get_HasDigitalDownload* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreProduct_get_Keywords* = 12
-type Fn_IStoreProduct_get_Keywords* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreProduct_get_Images* = 13
-type Fn_IStoreProduct_get_Images* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreProduct_get_Videos* = 14
-type Fn_IStoreProduct_get_Videos* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreProduct_get_Skus* = 15
-type Fn_IStoreProduct_get_Skus* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreProduct_get_IsInUserCollection* = 16
-type Fn_IStoreProduct_get_IsInUserCollection* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreProduct_get_Price* = 17
-type Fn_IStoreProduct_get_Price* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreProduct_get_ExtendedJsonData* = 18
-type Fn_IStoreProduct_get_ExtendedJsonData* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreProduct_get_LinkUri* = 19
-type Fn_IStoreProduct_get_LinkUri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreProduct_GetIsAnySkuInstalledAsync* = 20
-type Fn_IStoreProduct_GetIsAnySkuInstalledAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreProduct_RequestPurchaseAsync* = 21
-type Fn_IStoreProduct_RequestPurchaseAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreProduct_RequestPurchaseAsync2* = 22
-type Fn_IStoreProduct_RequestPurchaseAsync2* =
-  proc(self: pointer, a1StorePurchaseProperties: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IStoreProduct_get_InAppOfferToken* = 23
-type Fn_IStoreProduct_get_InAppOfferToken* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+type IStoreProductVtbl* = object of IInspectableVtbl
+  get_StoreId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Language*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Title*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Description*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ProductKind*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_HasDigitalDownload*: proc(self: pointer, value: ptr bool
+                               ): HRESULT {.abi.}
+  get_Keywords*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Images*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Videos*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Skus*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_IsInUserCollection*: proc(self: pointer, value: ptr bool
+                               ): HRESULT {.abi.}
+  get_Price*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ExtendedJsonData*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  get_LinkUri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  GetIsAnySkuInstalledAsync*: proc(self: pointer, value: ptr pointer
+                                  ): HRESULT {.abi.}
+  RequestPurchaseAsync*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  RequestPurchaseAsync2*: proc(self: pointer,
+                               a1StorePurchaseProperties: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
+  get_InAppOfferToken*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreProductOptions
 const IID_IStoreProductOptions* = guid"5B34A0F9-A113-4811-8326-16199C927F31"
-const Slot_IStoreProductOptions_get_ActionFilters* = 6
-type Fn_IStoreProductOptions_get_ActionFilters* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IStoreProductOptionsVtbl* = object of IInspectableVtbl
+  get_ActionFilters*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreProductPagedQueryResult
 const IID_IStoreProductPagedQueryResult* = guid"C92718C5-4DD5-4869-A462-ECC6872E43C5"
-const Slot_IStoreProductPagedQueryResult_get_Products* = 6
-type Fn_IStoreProductPagedQueryResult_get_Products* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreProductPagedQueryResult_get_HasMoreResults* = 7
-type Fn_IStoreProductPagedQueryResult_get_HasMoreResults* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreProductPagedQueryResult_get_ExtendedError* = 8
-type Fn_IStoreProductPagedQueryResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
-const Slot_IStoreProductPagedQueryResult_GetNextAsync* = 9
-type Fn_IStoreProductPagedQueryResult_GetNextAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IStoreProductPagedQueryResultVtbl* = object of IInspectableVtbl
+  get_Products*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_HasMoreResults*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+  GetNextAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreProductQueryResult
 const IID_IStoreProductQueryResult* = guid"D805E6C5-D456-4FF6-8049-9076D5165F73"
-const Slot_IStoreProductQueryResult_get_Products* = 6
-type Fn_IStoreProductQueryResult_get_Products* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreProductQueryResult_get_ExtendedError* = 7
-type Fn_IStoreProductQueryResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+type IStoreProductQueryResultVtbl* = object of IInspectableVtbl
+  get_Products*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreProductResult
 const IID_IStoreProductResult* = guid"B7674F73-3C87-4EE1-8201-F428359BD3AF"
-const Slot_IStoreProductResult_get_Product* = 6
-type Fn_IStoreProductResult_get_Product* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreProductResult_get_ExtendedError* = 7
-type Fn_IStoreProductResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+type IStoreProductResultVtbl* = object of IInspectableVtbl
+  get_Product*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStorePurchaseProperties
 const IID_IStorePurchaseProperties* = guid"836278F3-FF87-4364-A5B4-FD2153EBE43B"
-const Slot_IStorePurchaseProperties_get_Name* = 6
-type Fn_IStorePurchaseProperties_get_Name* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStorePurchaseProperties_put_Name* = 7
-type Fn_IStorePurchaseProperties_put_Name* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_IStorePurchaseProperties_get_ExtendedJsonData* = 8
-type Fn_IStorePurchaseProperties_get_ExtendedJsonData* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStorePurchaseProperties_put_ExtendedJsonData* = 9
-type Fn_IStorePurchaseProperties_put_ExtendedJsonData* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+type IStorePurchasePropertiesVtbl* = object of IInspectableVtbl
+  get_Name*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  put_Name*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_ExtendedJsonData*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  put_ExtendedJsonData*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStorePurchasePropertiesFactory
 const IID_IStorePurchasePropertiesFactory* = guid"A768F59E-FEFD-489F-9A17-22A593E68B9D"
-const Slot_IStorePurchasePropertiesFactory_Create* = 6
-type Fn_IStorePurchasePropertiesFactory_Create* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type IStorePurchasePropertiesFactoryVtbl* = object of IInspectableVtbl
+  Create*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+               ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStorePurchaseResult
 const IID_IStorePurchaseResult* = guid"ADD28552-F96A-463D-A7BB-C20B4FCA6952"
-const Slot_IStorePurchaseResult_get_Status* = 6
-type Fn_IStorePurchaseResult_get_Status* =
-  proc(self: pointer, value: ptr StorePurchaseStatus): HRESULT {.abi.}
-const Slot_IStorePurchaseResult_get_ExtendedError* = 7
-type Fn_IStorePurchaseResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+type IStorePurchaseResultVtbl* = object of IInspectableVtbl
+  get_Status*: proc(self: pointer, value: ptr StorePurchaseStatus
+                   ): HRESULT {.abi.}
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreQueueItem
 const IID_IStoreQueueItem* = guid"56D5C32B-F830-4293-9188-CAD2DCDE7357"
-const Slot_IStoreQueueItem_get_ProductId* = 6
-type Fn_IStoreQueueItem_get_ProductId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreQueueItem_get_PackageFamilyName* = 7
-type Fn_IStoreQueueItem_get_PackageFamilyName* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreQueueItem_get_InstallKind* = 8
-type Fn_IStoreQueueItem_get_InstallKind* =
-  proc(self: pointer, value: ptr StoreQueueItemKind): HRESULT {.abi.}
-const Slot_IStoreQueueItem_GetCurrentStatus* = 9
-type Fn_IStoreQueueItem_GetCurrentStatus* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreQueueItem_add_Completed* = 10
-type Fn_IStoreQueueItem_add_Completed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IStoreQueueItem_remove_Completed* = 11
-type Fn_IStoreQueueItem_remove_Completed* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_IStoreQueueItem_add_StatusChanged* = 12
-type Fn_IStoreQueueItem_add_StatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_IStoreQueueItem_remove_StatusChanged* = 13
-type Fn_IStoreQueueItem_remove_StatusChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type IStoreQueueItemVtbl* = object of IInspectableVtbl
+  get_ProductId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_PackageFamilyName*: proc(self: pointer, value: ptr HSTRING
+                              ): HRESULT {.abi.}
+  get_InstallKind*: proc(self: pointer, value: ptr StoreQueueItemKind
+                        ): HRESULT {.abi.}
+  GetCurrentStatus*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  add_Completed*: proc(self: pointer, a1: pointer,
+                       value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_Completed*: proc(self: pointer, a1: EventRegistrationToken
+                         ): HRESULT {.abi.}
+  add_StatusChanged*: proc(self: pointer, a1: pointer,
+                           value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_StatusChanged*: proc(self: pointer, a1: EventRegistrationToken
+                             ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreQueueItem2
 const IID_IStoreQueueItem2* = guid"69491CA8-1AD4-447C-AD8C-A95035F64D82"
-const Slot_IStoreQueueItem2_CancelInstallAsync* = 6
-type Fn_IStoreQueueItem2_CancelInstallAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreQueueItem2_PauseInstallAsync* = 7
-type Fn_IStoreQueueItem2_PauseInstallAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreQueueItem2_ResumeInstallAsync* = 8
-type Fn_IStoreQueueItem2_ResumeInstallAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IStoreQueueItem2Vtbl* = object of IInspectableVtbl
+  CancelInstallAsync*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  PauseInstallAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  ResumeInstallAsync*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreQueueItemCompletedEventArgs
 const IID_IStoreQueueItemCompletedEventArgs* = guid"1247DF6C-B44A-439B-BB07-1D3003D005C2"
-const Slot_IStoreQueueItemCompletedEventArgs_get_Status* = 6
-type Fn_IStoreQueueItemCompletedEventArgs_get_Status* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IStoreQueueItemCompletedEventArgsVtbl* = object of IInspectableVtbl
+  get_Status*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreQueueItemStatus
 const IID_IStoreQueueItemStatus* = guid"9BD6796F-9CC3-4EC3-B2EF-7BE433B30174"
-const Slot_IStoreQueueItemStatus_get_PackageInstallState* = 6
-type Fn_IStoreQueueItemStatus_get_PackageInstallState* =
-  proc(self: pointer, value: ptr StoreQueueItemState): HRESULT {.abi.}
-const Slot_IStoreQueueItemStatus_get_PackageInstallExtendedState* = 7
-type Fn_IStoreQueueItemStatus_get_PackageInstallExtendedState* =
-  proc(self: pointer, value: ptr StoreQueueItemExtendedState): HRESULT {.abi.}
-const Slot_IStoreQueueItemStatus_get_UpdateStatus* = 8
-type Fn_IStoreQueueItemStatus_get_UpdateStatus* =
-  proc(self: pointer, value: ptr StorePackageUpdateStatus): HRESULT {.abi.}
-const Slot_IStoreQueueItemStatus_get_ExtendedError* = 9
-type Fn_IStoreQueueItemStatus_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+type IStoreQueueItemStatusVtbl* = object of IInspectableVtbl
+  get_PackageInstallState*: proc(self: pointer, value: ptr StoreQueueItemState
+                                ): HRESULT {.abi.}
+  get_PackageInstallExtendedState*: proc(self: pointer,
+                                         value: ptr StoreQueueItemExtendedState
+                                        ): HRESULT {.abi.}
+  get_UpdateStatus*: proc(self: pointer, value: ptr StorePackageUpdateStatus
+                         ): HRESULT {.abi.}
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreRateAndReviewResult
 const IID_IStoreRateAndReviewResult* = guid"9D209D56-A6B5-4121-9B61-EE6D0FBDBDBB"
-const Slot_IStoreRateAndReviewResult_get_ExtendedError* = 6
-type Fn_IStoreRateAndReviewResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
-const Slot_IStoreRateAndReviewResult_get_ExtendedJsonData* = 7
-type Fn_IStoreRateAndReviewResult_get_ExtendedJsonData* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreRateAndReviewResult_get_WasUpdated* = 8
-type Fn_IStoreRateAndReviewResult_get_WasUpdated* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreRateAndReviewResult_get_Status* = 9
-type Fn_IStoreRateAndReviewResult_get_Status* =
-  proc(self: pointer, value: ptr StoreRateAndReviewStatus): HRESULT {.abi.}
+type IStoreRateAndReviewResultVtbl* = object of IInspectableVtbl
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+  get_ExtendedJsonData*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  get_WasUpdated*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_Status*: proc(self: pointer, value: ptr StoreRateAndReviewStatus
+                   ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreRequestHelperStatics
 const IID_IStoreRequestHelperStatics* = guid"6CE5E5F9-A0C9-4B2C-96A6-A171C630038D"
-const Slot_IStoreRequestHelperStatics_SendRequestAsync* = 6
-type Fn_IStoreRequestHelperStatics_SendRequestAsync* =
-  proc(self: pointer, a1StoreContext: pointer, a2: uint32, a3: HSTRING,
-       value: ptr pointer): HRESULT {.abi.}
+type IStoreRequestHelperStaticsVtbl* = object of IInspectableVtbl
+  SendRequestAsync*: proc(self: pointer, a1StoreContext: pointer, a2: uint32,
+                          a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreSendRequestResult
 const IID_IStoreSendRequestResult* = guid"C73ABE60-8272-4502-8A69-6E75153A4299"
-const Slot_IStoreSendRequestResult_get_Response* = 6
-type Fn_IStoreSendRequestResult_get_Response* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreSendRequestResult_get_ExtendedError* = 7
-type Fn_IStoreSendRequestResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+type IStoreSendRequestResultVtbl* = object of IInspectableVtbl
+  get_Response*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreSendRequestResult2
 const IID_IStoreSendRequestResult2* = guid"2901296F-C0B0-49D0-8E8D-AA940AF9C10B"
-const Slot_IStoreSendRequestResult2_get_HttpStatusCode* = 6
-type Fn_IStoreSendRequestResult2_get_HttpStatusCode* =
-  proc(self: pointer, value: ptr HttpStatusCode): HRESULT {.abi.}
+type IStoreSendRequestResult2Vtbl* = object of IInspectableVtbl
+  get_HttpStatusCode*: proc(self: pointer, value: ptr HttpStatusCode
+                           ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreSku
 const IID_IStoreSku* = guid"397E6F55-4440-4F03-863C-91F3FEC83D79"
-const Slot_IStoreSku_get_StoreId* = 6
-type Fn_IStoreSku_get_StoreId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreSku_get_Language* = 7
-type Fn_IStoreSku_get_Language* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreSku_get_Title* = 8
-type Fn_IStoreSku_get_Title* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreSku_get_Description* = 9
-type Fn_IStoreSku_get_Description* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreSku_get_IsTrial* = 10
-type Fn_IStoreSku_get_IsTrial* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreSku_get_CustomDeveloperData* = 11
-type Fn_IStoreSku_get_CustomDeveloperData* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreSku_get_Images* = 12
-type Fn_IStoreSku_get_Images* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreSku_get_Videos* = 13
-type Fn_IStoreSku_get_Videos* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreSku_get_Availabilities* = 14
-type Fn_IStoreSku_get_Availabilities* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreSku_get_Price* = 15
-type Fn_IStoreSku_get_Price* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreSku_get_ExtendedJsonData* = 16
-type Fn_IStoreSku_get_ExtendedJsonData* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreSku_get_IsInUserCollection* = 17
-type Fn_IStoreSku_get_IsInUserCollection* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreSku_get_BundledSkus* = 18
-type Fn_IStoreSku_get_BundledSkus* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreSku_get_CollectionData* = 19
-type Fn_IStoreSku_get_CollectionData* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreSku_GetIsInstalledAsync* = 20
-type Fn_IStoreSku_GetIsInstalledAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreSku_RequestPurchaseAsync* = 21
-type Fn_IStoreSku_RequestPurchaseAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreSku_RequestPurchaseAsync2* = 22
-type Fn_IStoreSku_RequestPurchaseAsync2* =
-  proc(self: pointer, a1StorePurchaseProperties: pointer, value: ptr pointer
-      ): HRESULT {.abi.}
-const Slot_IStoreSku_get_IsSubscription* = 23
-type Fn_IStoreSku_get_IsSubscription* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreSku_get_SubscriptionInfo* = 24
-type Fn_IStoreSku_get_SubscriptionInfo* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IStoreSkuVtbl* = object of IInspectableVtbl
+  get_StoreId*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Language*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Title*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Description*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_IsTrial*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_CustomDeveloperData*: proc(self: pointer, value: ptr HSTRING
+                                ): HRESULT {.abi.}
+  get_Images*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Videos*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Availabilities*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  get_Price*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ExtendedJsonData*: proc(self: pointer, value: ptr HSTRING
+                             ): HRESULT {.abi.}
+  get_IsInUserCollection*: proc(self: pointer, value: ptr bool
+                               ): HRESULT {.abi.}
+  get_BundledSkus*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_CollectionData*: proc(self: pointer, value: ptr pointer
+                           ): HRESULT {.abi.}
+  GetIsInstalledAsync*: proc(self: pointer, value: ptr pointer
+                            ): HRESULT {.abi.}
+  RequestPurchaseAsync*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
+  RequestPurchaseAsync2*: proc(self: pointer,
+                               a1StorePurchaseProperties: pointer,
+                               value: ptr pointer): HRESULT {.abi.}
+  get_IsSubscription*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_SubscriptionInfo*: proc(self: pointer, value: ptr pointer
+                             ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreSubscriptionInfo
 const IID_IStoreSubscriptionInfo* = guid"4189776A-0559-43AC-A9C6-3AB0011FB8EB"
-const Slot_IStoreSubscriptionInfo_get_BillingPeriod* = 6
-type Fn_IStoreSubscriptionInfo_get_BillingPeriod* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IStoreSubscriptionInfo_get_BillingPeriodUnit* = 7
-type Fn_IStoreSubscriptionInfo_get_BillingPeriodUnit* =
-  proc(self: pointer, value: ptr StoreDurationUnit): HRESULT {.abi.}
-const Slot_IStoreSubscriptionInfo_get_HasTrialPeriod* = 8
-type Fn_IStoreSubscriptionInfo_get_HasTrialPeriod* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_IStoreSubscriptionInfo_get_TrialPeriod* = 9
-type Fn_IStoreSubscriptionInfo_get_TrialPeriod* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IStoreSubscriptionInfo_get_TrialPeriodUnit* = 10
-type Fn_IStoreSubscriptionInfo_get_TrialPeriodUnit* =
-  proc(self: pointer, value: ptr StoreDurationUnit): HRESULT {.abi.}
+type IStoreSubscriptionInfoVtbl* = object of IInspectableVtbl
+  get_BillingPeriod*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_BillingPeriodUnit*: proc(self: pointer, value: ptr StoreDurationUnit
+                              ): HRESULT {.abi.}
+  get_HasTrialPeriod*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_TrialPeriod*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_TrialPeriodUnit*: proc(self: pointer, value: ptr StoreDurationUnit
+                            ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreUninstallStorePackageResult
 const IID_IStoreUninstallStorePackageResult* = guid"9FCA39FD-126F-4CDA-B801-1346B8D0A260"
-const Slot_IStoreUninstallStorePackageResult_get_ExtendedError* = 6
-type Fn_IStoreUninstallStorePackageResult_get_ExtendedError* =
-  proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
-const Slot_IStoreUninstallStorePackageResult_get_Status* = 7
-type Fn_IStoreUninstallStorePackageResult_get_Status* =
-  proc(self: pointer, value: ptr StoreUninstallStorePackageStatus
-      ): HRESULT {.abi.}
+type IStoreUninstallStorePackageResultVtbl* = object of IInspectableVtbl
+  get_ExtendedError*: proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
+  get_Status*: proc(self: pointer, value: ptr StoreUninstallStorePackageStatus
+                   ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreVideo
 const IID_IStoreVideo* = guid"F26CB184-6F5E-4DC2-886C-3C63083C2F94"
-const Slot_IStoreVideo_get_Uri* = 6
-type Fn_IStoreVideo_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_IStoreVideo_get_VideoPurposeTag* = 7
-type Fn_IStoreVideo_get_VideoPurposeTag* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreVideo_get_Width* = 8
-type Fn_IStoreVideo_get_Width* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IStoreVideo_get_Height* = 9
-type Fn_IStoreVideo_get_Height* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_IStoreVideo_get_Caption* = 10
-type Fn_IStoreVideo_get_Caption* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_IStoreVideo_get_PreviewImage* = 11
-type Fn_IStoreVideo_get_PreviewImage* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type IStoreVideoVtbl* = object of IInspectableVtbl
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_VideoPurposeTag*: proc(self: pointer, value: ptr HSTRING
+                            ): HRESULT {.abi.}
+  get_Width*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_Height*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_Caption*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_PreviewImage*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentAction
 const IID_ITargetedContentAction* = guid"D75B691E-6CD6-4CA0-9D8F-4728B0B7E6B6"
-const Slot_ITargetedContentAction_InvokeAsync* = 6
-type Fn_ITargetedContentAction_InvokeAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITargetedContentActionVtbl* = object of IInspectableVtbl
+  InvokeAsync*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentAvailabilityChangedEventArgs
 const IID_ITargetedContentAvailabilityChangedEventArgs* = guid"E0F59D26-5927-4450-965C-1CEB7BECDE65"
-const Slot_ITargetedContentAvailabilityChangedEventArgs_GetDeferral* = 6
-type Fn_ITargetedContentAvailabilityChangedEventArgs_GetDeferral* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITargetedContentAvailabilityChangedEventArgsVtbl* = object of IInspectableVtbl
+  GetDeferral*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentChangedEventArgs
 const IID_ITargetedContentChangedEventArgs* = guid"99D488C9-587E-4586-8EF7-B54CA9453A16"
-const Slot_ITargetedContentChangedEventArgs_GetDeferral* = 6
-type Fn_ITargetedContentChangedEventArgs_GetDeferral* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentChangedEventArgs_get_HasPreviousContentExpired* = 7
-type Fn_ITargetedContentChangedEventArgs_get_HasPreviousContentExpired* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+type ITargetedContentChangedEventArgsVtbl* = object of IInspectableVtbl
+  GetDeferral*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_HasPreviousContentExpired*: proc(self: pointer, value: ptr bool
+                                      ): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentCollection
 const IID_ITargetedContentCollection* = guid"2D4B66C5-F163-44BA-9F6E-E1A4C2BB559D"
-const Slot_ITargetedContentCollection_get_Id* = 6
-type Fn_ITargetedContentCollection_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITargetedContentCollection_ReportInteraction* = 7
-type Fn_ITargetedContentCollection_ReportInteraction* =
-  proc(self: pointer, a1: TargetedContentInteraction): HRESULT {.abi.}
-const Slot_ITargetedContentCollection_ReportCustomInteraction* = 8
-type Fn_ITargetedContentCollection_ReportCustomInteraction* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ITargetedContentCollection_get_Path* = 9
-type Fn_ITargetedContentCollection_get_Path* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITargetedContentCollection_get_Properties* = 10
-type Fn_ITargetedContentCollection_get_Properties* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentCollection_get_Collections* = 11
-type Fn_ITargetedContentCollection_get_Collections* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentCollection_get_Items* = 12
-type Fn_ITargetedContentCollection_get_Items* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITargetedContentCollectionVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  ReportInteraction*: proc(self: pointer, a1: TargetedContentInteraction
+                          ): HRESULT {.abi.}
+  ReportCustomInteraction*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_Path*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Properties*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Collections*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Items*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentContainer
 const IID_ITargetedContentContainer* = guid"BC2494C9-8837-47C2-850F-D79D64595926"
-const Slot_ITargetedContentContainer_get_Id* = 6
-type Fn_ITargetedContentContainer_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITargetedContentContainer_get_Timestamp* = 7
-type Fn_ITargetedContentContainer_get_Timestamp* =
-  proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
-const Slot_ITargetedContentContainer_get_Availability* = 8
-type Fn_ITargetedContentContainer_get_Availability* =
-  proc(self: pointer, value: ptr TargetedContentAvailability): HRESULT {.abi.}
-const Slot_ITargetedContentContainer_get_Content* = 9
-type Fn_ITargetedContentContainer_get_Content* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentContainer_SelectSingleObject* = 10
-type Fn_ITargetedContentContainer_SelectSingleObject* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type ITargetedContentContainerVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Timestamp*: proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
+  get_Availability*: proc(self: pointer,
+                          value: ptr TargetedContentAvailability
+                         ): HRESULT {.abi.}
+  get_Content*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  SelectSingleObject*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                           ): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentContainerStatics
 const IID_ITargetedContentContainerStatics* = guid"5B47E7FB-2140-4C1F-A736-C59583F227D8"
-const Slot_ITargetedContentContainerStatics_GetAsync* = 6
-type Fn_ITargetedContentContainerStatics_GetAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type ITargetedContentContainerStaticsVtbl* = object of IInspectableVtbl
+  GetAsync*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                 ): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentImage
 const IID_ITargetedContentImage* = guid"A7A585D9-779F-4B1E-BBB1-8EAF53FBEAB2"
-const Slot_ITargetedContentImage_get_Height* = 6
-type Fn_ITargetedContentImage_get_Height* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
-const Slot_ITargetedContentImage_get_Width* = 7
-type Fn_ITargetedContentImage_get_Width* =
-  proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+type ITargetedContentImageVtbl* = object of IInspectableVtbl
+  get_Height*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
+  get_Width*: proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentItem
 const IID_ITargetedContentItem* = guid"38168DC4-276C-4C32-96BA-565C6E406E74"
-const Slot_ITargetedContentItem_get_Path* = 6
-type Fn_ITargetedContentItem_get_Path* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITargetedContentItem_ReportInteraction* = 7
-type Fn_ITargetedContentItem_ReportInteraction* =
-  proc(self: pointer, a1: TargetedContentInteraction): HRESULT {.abi.}
-const Slot_ITargetedContentItem_ReportCustomInteraction* = 8
-type Fn_ITargetedContentItem_ReportCustomInteraction* =
-  proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
-const Slot_ITargetedContentItem_get_State* = 9
-type Fn_ITargetedContentItem_get_State* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentItem_get_Properties* = 10
-type Fn_ITargetedContentItem_get_Properties* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentItem_get_Collections* = 11
-type Fn_ITargetedContentItem_get_Collections* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITargetedContentItemVtbl* = object of IInspectableVtbl
+  get_Path*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  ReportInteraction*: proc(self: pointer, a1: TargetedContentInteraction
+                          ): HRESULT {.abi.}
+  ReportCustomInteraction*: proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
+  get_State*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Properties*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Collections*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentItemState
 const IID_ITargetedContentItemState* = guid"73935454-4C65-4B47-A441-472DE53C79B6"
-const Slot_ITargetedContentItemState_get_ShouldDisplay* = 6
-type Fn_ITargetedContentItemState_get_ShouldDisplay* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ITargetedContentItemState_get_AppInstallationState* = 7
-type Fn_ITargetedContentItemState_get_AppInstallationState* =
-  proc(self: pointer, value: ptr TargetedContentAppInstallationState
-      ): HRESULT {.abi.}
+type ITargetedContentItemStateVtbl* = object of IInspectableVtbl
+  get_ShouldDisplay*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_AppInstallationState*: proc(self: pointer,
+                                  value: ptr TargetedContentAppInstallationState
+                                 ): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentObject
 const IID_ITargetedContentObject* = guid"041D7969-2212-42D1-9DFA-88A8E3033AA3"
-const Slot_ITargetedContentObject_get_ObjectKind* = 6
-type Fn_ITargetedContentObject_get_ObjectKind* =
-  proc(self: pointer, value: ptr TargetedContentObjectKind): HRESULT {.abi.}
-const Slot_ITargetedContentObject_get_Collection* = 7
-type Fn_ITargetedContentObject_get_Collection* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentObject_get_Item* = 8
-type Fn_ITargetedContentObject_get_Item* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentObject_get_Value* = 9
-type Fn_ITargetedContentObject_get_Value* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITargetedContentObjectVtbl* = object of IInspectableVtbl
+  get_ObjectKind*: proc(self: pointer, value: ptr TargetedContentObjectKind
+                       ): HRESULT {.abi.}
+  get_Collection*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Item*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Value*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentStateChangedEventArgs
 const IID_ITargetedContentStateChangedEventArgs* = guid"9A1CEF3D-8073-4416-8DF2-546835A6414F"
-const Slot_ITargetedContentStateChangedEventArgs_GetDeferral* = 6
-type Fn_ITargetedContentStateChangedEventArgs_GetDeferral* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITargetedContentStateChangedEventArgsVtbl* = object of IInspectableVtbl
+  GetDeferral*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentSubscription
 const IID_ITargetedContentSubscription* = guid"882C2C49-C652-4C7A-ACAD-1F7FA2986C73"
-const Slot_ITargetedContentSubscription_get_Id* = 6
-type Fn_ITargetedContentSubscription_get_Id* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITargetedContentSubscription_GetContentContainerAsync* = 7
-type Fn_ITargetedContentSubscription_GetContentContainerAsync* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentSubscription_add_ContentChanged* = 8
-type Fn_ITargetedContentSubscription_add_ContentChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ITargetedContentSubscription_remove_ContentChanged* = 9
-type Fn_ITargetedContentSubscription_remove_ContentChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_ITargetedContentSubscription_add_AvailabilityChanged* = 10
-type Fn_ITargetedContentSubscription_add_AvailabilityChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ITargetedContentSubscription_remove_AvailabilityChanged* = 11
-type Fn_ITargetedContentSubscription_remove_AvailabilityChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
-const Slot_ITargetedContentSubscription_add_StateChanged* = 12
-type Fn_ITargetedContentSubscription_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
-      ): HRESULT {.abi.}
-const Slot_ITargetedContentSubscription_remove_StateChanged* = 13
-type Fn_ITargetedContentSubscription_remove_StateChanged* =
-  proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
+type ITargetedContentSubscriptionVtbl* = object of IInspectableVtbl
+  get_Id*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  GetContentContainerAsync*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
+  add_ContentChanged*: proc(self: pointer, a1: pointer,
+                            value: ptr EventRegistrationToken
+                           ): HRESULT {.abi.}
+  remove_ContentChanged*: proc(self: pointer, a1: EventRegistrationToken
+                              ): HRESULT {.abi.}
+  add_AvailabilityChanged*: proc(self: pointer, a1: pointer,
+                                 value: ptr EventRegistrationToken
+                                ): HRESULT {.abi.}
+  remove_AvailabilityChanged*: proc(self: pointer, a1: EventRegistrationToken
+                                   ): HRESULT {.abi.}
+  add_StateChanged*: proc(self: pointer, a1: pointer,
+                          value: ptr EventRegistrationToken): HRESULT {.abi.}
+  remove_StateChanged*: proc(self: pointer, a1: EventRegistrationToken
+                            ): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentSubscriptionOptions
 const IID_ITargetedContentSubscriptionOptions* = guid"61EE6AD0-2C83-421B-8467-413EAF1AEB97"
-const Slot_ITargetedContentSubscriptionOptions_get_SubscriptionId* = 6
-type Fn_ITargetedContentSubscriptionOptions_get_SubscriptionId* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITargetedContentSubscriptionOptions_get_AllowPartialContentAvailability* = 7
-type Fn_ITargetedContentSubscriptionOptions_get_AllowPartialContentAvailability* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ITargetedContentSubscriptionOptions_put_AllowPartialContentAvailability* = 8
-type Fn_ITargetedContentSubscriptionOptions_put_AllowPartialContentAvailability* =
-  proc(self: pointer, a1: bool): HRESULT {.abi.}
-const Slot_ITargetedContentSubscriptionOptions_get_CloudQueryParameters* = 9
-type Fn_ITargetedContentSubscriptionOptions_get_CloudQueryParameters* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentSubscriptionOptions_get_LocalFilters* = 10
-type Fn_ITargetedContentSubscriptionOptions_get_LocalFilters* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentSubscriptionOptions_Update* = 11
-type Fn_ITargetedContentSubscriptionOptions_Update* =
-  proc(self: pointer): HRESULT {.abi.}
+type ITargetedContentSubscriptionOptionsVtbl* = object of IInspectableVtbl
+  get_SubscriptionId*: proc(self: pointer, value: ptr HSTRING
+                           ): HRESULT {.abi.}
+  get_AllowPartialContentAvailability*: proc(self: pointer, value: ptr bool
+                                            ): HRESULT {.abi.}
+  put_AllowPartialContentAvailability*: proc(self: pointer, a1: bool
+                                            ): HRESULT {.abi.}
+  get_CloudQueryParameters*: proc(self: pointer, value: ptr pointer
+                                 ): HRESULT {.abi.}
+  get_LocalFilters*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  Update*: proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentSubscriptionStatics
 const IID_ITargetedContentSubscriptionStatics* = guid"FADDFE80-360D-4916-B53C-7EA27090D02A"
-const Slot_ITargetedContentSubscriptionStatics_GetAsync* = 6
-type Fn_ITargetedContentSubscriptionStatics_GetAsync* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentSubscriptionStatics_GetOptions* = 7
-type Fn_ITargetedContentSubscriptionStatics_GetOptions* =
-  proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
+type ITargetedContentSubscriptionStaticsVtbl* = object of IInspectableVtbl
+  GetAsync*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                 ): HRESULT {.abi.}
+  GetOptions*: proc(self: pointer, a1: HSTRING, value: ptr pointer
+                   ): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentValue
 const IID_ITargetedContentValue* = guid"AAFDE4B3-4215-4BF8-867F-43F04865F9BF"
-const Slot_ITargetedContentValue_get_ValueKind* = 6
-type Fn_ITargetedContentValue_get_ValueKind* =
-  proc(self: pointer, value: ptr TargetedContentValueKind): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_Path* = 7
-type Fn_ITargetedContentValue_get_Path* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_String* = 8
-type Fn_ITargetedContentValue_get_String* =
-  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_Uri* = 9
-type Fn_ITargetedContentValue_get_Uri* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_Number* = 10
-type Fn_ITargetedContentValue_get_Number* =
-  proc(self: pointer, value: ptr float64): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_Boolean* = 11
-type Fn_ITargetedContentValue_get_Boolean* =
-  proc(self: pointer, value: ptr bool): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_File* = 12
-type Fn_ITargetedContentValue_get_File* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_ImageFile* = 13
-type Fn_ITargetedContentValue_get_ImageFile* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_Action* = 14
-type Fn_ITargetedContentValue_get_Action* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_Strings* = 15
-type Fn_ITargetedContentValue_get_Strings* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_Uris* = 16
-type Fn_ITargetedContentValue_get_Uris* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_Numbers* = 17
-type Fn_ITargetedContentValue_get_Numbers* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_Booleans* = 18
-type Fn_ITargetedContentValue_get_Booleans* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_Files* = 19
-type Fn_ITargetedContentValue_get_Files* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_ImageFiles* = 20
-type Fn_ITargetedContentValue_get_ImageFiles* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
-const Slot_ITargetedContentValue_get_Actions* = 21
-type Fn_ITargetedContentValue_get_Actions* =
-  proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+type ITargetedContentValueVtbl* = object of IInspectableVtbl
+  get_ValueKind*: proc(self: pointer, value: ptr TargetedContentValueKind
+                      ): HRESULT {.abi.}
+  get_Path*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_String*: proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  get_Uri*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Number*: proc(self: pointer, value: ptr float64): HRESULT {.abi.}
+  get_Boolean*: proc(self: pointer, value: ptr bool): HRESULT {.abi.}
+  get_File*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ImageFile*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Action*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Strings*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Uris*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Numbers*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Booleans*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Files*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_ImageFiles*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
+  get_Actions*: proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 

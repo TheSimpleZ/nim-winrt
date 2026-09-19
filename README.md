@@ -51,7 +51,7 @@ nimble install https://github.com/TheSimpleZ/nim-winrt
 or in your `.nimble` file:
 
 ```nim
-requires "https://github.com/TheSimpleZ/nim-winrt >= 0.4.0"
+requires "https://github.com/TheSimpleZ/nim-winrt >= 0.5.0"
 ```
 
 ## A first program
@@ -193,24 +193,24 @@ the type declarations every module shares. A module costs what it contains:
 
 | module | namespace | interfaces | compile cost |
 | --- | --- | ---: | ---: |
-| `winrt/foundation` | `Windows.Foundation.*` | 72 | +1.3s |
-| `winrt/ai` | `Windows.AI.*` | 139 | +2.0s |
-| `winrt/applicationmodel` | `Windows.ApplicationModel.*` | 1,010 | +6.5s |
-| `winrt/data` | `Windows.Data.*` | 62 | +1.4s |
-| `winrt/devices` | `Windows.Devices.*` | 1,006 | +4.1s |
-| `winrt/gaming` | `Windows.Gaming.*` | 71 | +1.8s |
-| `winrt/globalization` | `Windows.Globalization.*` | 63 | +1.3s |
-| `winrt/graphics` | `Windows.Graphics.*` | 287 | +2.6s |
-| `winrt/management` | `Windows.Management.*` | 125 | +1.8s |
-| `winrt/media` | `Windows.Media.*` | 842 | +5.4s |
-| `winrt/networking` | `Windows.Networking.*` | 362 | +3.0s |
-| `winrt/perception` | `Windows.Perception.*` | 52 | +1.5s |
-| `winrt/security` | `Windows.Security.*` | 254 | +2.1s |
-| `winrt/services` | `Windows.Services.*` | 127 | +2.2s |
-| `winrt/storage` | `Windows.Storage.*` | 195 | +2.3s |
-| `winrt/system` | `Windows.System.*` | 280 | +2.4s |
-| `winrt/ui` | `Windows.UI.*` | 3,074 | +6.1s |
-| `winrt/web` | `Windows.Web.*` | 165 | +2.2s |
+| `winrt/foundation` | `Windows.Foundation.*` | 72 | +0.7s |
+| `winrt/ai` | `Windows.AI.*` | 139 | +1.3s |
+| `winrt/applicationmodel` | `Windows.ApplicationModel.*` | 1,010 | +7.1s |
+| `winrt/data` | `Windows.Data.*` | 62 | +0.9s |
+| `winrt/devices` | `Windows.Devices.*` | 1,006 | +4.0s |
+| `winrt/gaming` | `Windows.Gaming.*` | 71 | +1.2s |
+| `winrt/globalization` | `Windows.Globalization.*` | 63 | +0.7s |
+| `winrt/graphics` | `Windows.Graphics.*` | 287 | +2.0s |
+| `winrt/management` | `Windows.Management.*` | 125 | +1.2s |
+| `winrt/media` | `Windows.Media.*` | 842 | +5.0s |
+| `winrt/networking` | `Windows.Networking.*` | 362 | +2.3s |
+| `winrt/perception` | `Windows.Perception.*` | 52 | +0.9s |
+| `winrt/security` | `Windows.Security.*` | 254 | +1.5s |
+| `winrt/services` | `Windows.Services.*` | 127 | +1.6s |
+| `winrt/storage` | `Windows.Storage.*` | 195 | +1.7s |
+| `winrt/system` | `Windows.System.*` | 280 | +1.7s |
+| `winrt/ui` | `Windows.UI.*` | 3,074 | +6.7s |
+| `winrt/web` | `Windows.Web.*` | 165 | +1.5s |
 
 Compile cost is measured against a program that imports `winrt` alone, which
 takes 0.6s; the figures are for one import on a 2026 laptop and are what the
@@ -237,15 +237,15 @@ import winrt/abi/foundation
 proc main() =
   discard initApartment()
 
-  # 1. An interface pointer, from the activation factory.
+  # 1. An interface pointer, from the activation factory. `factory` is typed
+  #    by its interface, so only that interface's methods can be called on it.
   withStatics("Windows.Foundation.Uri", IUriRuntimeClassFactory, factory):
 
-    # 2. The method, by name. `call` finds its slot and its signature from
-    #    that name and checks the HRESULT. The declared return is a trailing
-    #    out-parameter.
+    # 2. The method, as a field of the interface's vtable. Every method
+    #    returns an HRESULT; the declared return is a trailing out-parameter.
     var uri: pointer
     withHString("https://nim-lang.org", s):
-      factory.call(IUriRuntimeClassFactory_CreateUri, s, uri.addr)
+      check factory.vtbl.CreateUri(factory, s, uri.addr), "Uri.CreateUri"
     defer: release(uri)
 
     # 3. Narrow to the interface that declares the method you want.
@@ -253,24 +253,24 @@ proc main() =
 
       # 4. An out HSTRING is yours to free; `takeString` converts and frees it.
       var h: HSTRING
-      it.call(IUriRuntimeClass_get_Host, h.addr)
+      check it.vtbl.get_Host(it, h.addr), "Uri.get_Host"
       echo takeString(h)
 
 main()
 ```
 
-`winrt/abi/<module>` has the raw vtable: `IID_X`, `Slot_X_Method` and
-`Fn_X_Method` for every interface, and `vcall(obj, slot, Fn)` calls one
-directly.
+`winrt/abi/<module>` has every interface as `IID_X` and `XVtbl`, an object
+whose fields are the methods in vtable order — the same shape the C headers
+and C++/WinRT use, and the same shape winim uses for COM.
 
 ### The one thing that will bite you
 
-Slots are numbered **per interface**, not per object. Counting into the table
-of an interface the object did not hand you finds whatever sits at that index
-in a different table — a wrong call rather than an error. Always call through
-the pointer `withIface` or `queryInterface` gave you for the interface that
-declares the method. The API layer does this for you; here it is yours to get
-right.
+Methods are numbered **per interface**, not per object. Calling a method
+through a pointer for an interface the object did not hand you reaches
+whatever sits at that position in a different table — a wrong call rather than
+an error. The vtable types make that a compile error where they can, and
+`withIface` gives you a pointer typed by the interface that declares the
+method; use that one and not whichever pointer happens to be at hand.
 
 ## What is and is not covered
 

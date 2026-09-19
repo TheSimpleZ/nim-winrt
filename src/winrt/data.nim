@@ -43,7 +43,8 @@ proc convertToText*(_: typedesc[HtmlUtilities], html: string): string =
   withStatics("Windows.Data.Html.HtmlUtilities", IHtmlUtilities, it):
     withHString(html, h0):
       var tmp: HSTRING
-      it.call(IHtmlUtilities_ConvertToText, h0, tmp.addr)
+      check it.vtbl.ConvertToText(it, h0, tmp.addr
+                                 ), "HtmlUtilities.ConvertToText"
       result = takeString(tmp)
 
 proc newJsonArray*(): JsonArray =
@@ -54,91 +55,89 @@ proc getObjectAt*(self: JsonArray, index: uint32): JsonObject =
   ## Windows.Data.Json.JsonArray.GetObjectAt
   withIface(self.p, IJsonArray, it):
     var tmp: pointer
-    it.call(IJsonArray_GetObjectAt, index, tmp.addr)
+    check it.vtbl.GetObjectAt(it, index, tmp.addr), "JsonArray.GetObjectAt"
     result = adopt[JsonObject](tmp)
 
 proc getArrayAt*(self: JsonArray, index: uint32): JsonArray =
   ## Windows.Data.Json.JsonArray.GetArrayAt
   withIface(self.p, IJsonArray, it):
     var tmp: pointer
-    it.call(IJsonArray_GetArrayAt, index, tmp.addr)
+    check it.vtbl.GetArrayAt(it, index, tmp.addr), "JsonArray.GetArrayAt"
     result = adopt[JsonArray](tmp)
 
 proc getStringAt*(self: JsonArray, index: uint32): string =
   ## Windows.Data.Json.JsonArray.GetStringAt
   withIface(self.p, IJsonArray, it):
     var tmp: HSTRING
-    it.call(IJsonArray_GetStringAt, index, tmp.addr)
+    check it.vtbl.GetStringAt(it, index, tmp.addr), "JsonArray.GetStringAt"
     result = takeString(tmp)
 
 proc getNumberAt*(self: JsonArray, index: uint32): float64 =
   ## Windows.Data.Json.JsonArray.GetNumberAt
   withIface(self.p, IJsonArray, it):
     var tmp: float64
-    it.call(IJsonArray_GetNumberAt, index, tmp.addr)
+    check it.vtbl.GetNumberAt(it, index, tmp.addr), "JsonArray.GetNumberAt"
     result = tmp
 
 proc getBooleanAt*(self: JsonArray, index: uint32): bool =
   ## Windows.Data.Json.JsonArray.GetBooleanAt
   withIface(self.p, IJsonArray, it):
     var tmp: bool
-    it.call(IJsonArray_GetBooleanAt, index, tmp.addr)
+    check it.vtbl.GetBooleanAt(it, index, tmp.addr), "JsonArray.GetBooleanAt"
     result = tmp
 
 proc valueType*(self: JsonArray): JsonValueType =
   ## Windows.Data.Json.JsonArray.get_ValueType
   withIface(self.p, IJsonValue, it):
-    var tmp: JsonValueType
-    it.call(IJsonValue_get_ValueType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ValueType, JsonValueType)
 
 proc stringify*(self: JsonArray): string =
   ## Windows.Data.Json.JsonArray.Stringify
   withIface(self.p, IJsonValue, it):
     var tmp: HSTRING
-    it.call(IJsonValue_Stringify, tmp.addr)
+    check it.vtbl.Stringify(it, tmp.addr), "JsonArray.Stringify"
     result = takeString(tmp)
 
 proc getString*(self: JsonArray): string =
   ## Windows.Data.Json.JsonArray.GetString
   withIface(self.p, IJsonValue, it):
     var tmp: HSTRING
-    it.call(IJsonValue_GetString, tmp.addr)
+    check it.vtbl.GetString(it, tmp.addr), "JsonArray.GetString"
     result = takeString(tmp)
 
 proc getNumber*(self: JsonArray): float64 =
   ## Windows.Data.Json.JsonArray.GetNumber
   withIface(self.p, IJsonValue, it):
     var tmp: float64
-    it.call(IJsonValue_GetNumber, tmp.addr)
+    check it.vtbl.GetNumber(it, tmp.addr), "JsonArray.GetNumber"
     result = tmp
 
 proc getBoolean*(self: JsonArray): bool =
   ## Windows.Data.Json.JsonArray.GetBoolean
   withIface(self.p, IJsonValue, it):
     var tmp: bool
-    it.call(IJsonValue_GetBoolean, tmp.addr)
+    check it.vtbl.GetBoolean(it, tmp.addr), "JsonArray.GetBoolean"
     result = tmp
 
 proc getArray*(self: JsonArray): JsonArray =
   ## Windows.Data.Json.JsonArray.GetArray
   withIface(self.p, IJsonValue, it):
     var tmp: pointer
-    it.call(IJsonValue_GetArray, tmp.addr)
+    check it.vtbl.GetArray(it, tmp.addr), "JsonArray.GetArray"
     result = adopt[JsonArray](tmp)
 
 proc getObject*(self: JsonArray): JsonObject =
   ## Windows.Data.Json.JsonArray.GetObject
   withIface(self.p, IJsonValue, it):
     var tmp: pointer
-    it.call(IJsonValue_GetObject, tmp.addr)
+    check it.vtbl.GetObject(it, tmp.addr), "JsonArray.GetObject"
     result = adopt[JsonObject](tmp)
 
 proc toString*(self: JsonArray): string =
   ## Windows.Data.Json.JsonArray.ToString
   withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    it.call(IStringable_ToString, tmp.addr)
+    check it.vtbl.ToString(it, tmp.addr), "JsonArray.ToString"
     result = takeString(tmp)
 
 proc parse*(_: typedesc[JsonArray], input: string): JsonArray =
@@ -146,7 +145,7 @@ proc parse*(_: typedesc[JsonArray], input: string): JsonArray =
   withStatics("Windows.Data.Json.JsonArray", IJsonArrayStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      it.call(IJsonArrayStatics_Parse, h0, tmp.addr)
+      check it.vtbl.Parse(it, h0, tmp.addr), "JsonArray.Parse"
       result = adopt[JsonArray](tmp)
 
 proc tryParse*(_: typedesc[JsonArray], input: string
@@ -157,7 +156,7 @@ proc tryParse*(_: typedesc[JsonArray], input: string
       var a2: pointer
       var ret: bool
       var tmp: bool
-      it.call(IJsonArrayStatics_TryParse, h0, a2.addr, tmp.addr)
+      check it.vtbl.TryParse(it, h0, a2.addr, tmp.addr), "JsonArray.TryParse"
       ret = tmp
       result = (value: ret, a2: adopt[JsonArray](a2))
 
@@ -165,7 +164,8 @@ proc getJsonStatus*(_: typedesc[JsonError], hresult: int32): JsonErrorStatus =
   ## Windows.Data.Json.JsonError.GetJsonStatus
   withStatics("Windows.Data.Json.JsonError", IJsonErrorStatics2, it):
     var tmp: JsonErrorStatus
-    it.call(IJsonErrorStatics2_GetJsonStatus, hresult, tmp.addr)
+    check it.vtbl.GetJsonStatus(it, hresult, tmp.addr
+                               ), "JsonError.GetJsonStatus"
     result = tmp
 
 proc newJsonObject*(): JsonObject =
@@ -177,7 +177,7 @@ proc getNamedValue*(self: JsonObject, name: string): JsonValue =
   withIface(self.p, IJsonObject, it):
     withHString(name, h0):
       var tmp: pointer
-      it.call(IJsonObject_GetNamedValue, h0, tmp.addr)
+      check it.vtbl.GetNamedValue(it, h0, tmp.addr), "JsonObject.GetNamedValue"
       result = adopt[JsonValue](tmp)
 
 proc setNamedValue*(self: JsonObject, name: string, value: JsonValue) =
@@ -185,14 +185,15 @@ proc setNamedValue*(self: JsonObject, name: string, value: JsonValue) =
   withIface(self.p, IJsonObject, it):
     withHString(name, h0):
       withIface(value.p, IJsonValue, p1):
-        it.call(IJsonObject_SetNamedValue, h0, p1)
+        check it.vtbl.SetNamedValue(it, h0, p1), "JsonObject.SetNamedValue"
 
 proc getNamedObject*(self: JsonObject, name: string): JsonObject =
   ## Windows.Data.Json.JsonObject.GetNamedObject
   withIface(self.p, IJsonObject, it):
     withHString(name, h0):
       var tmp: pointer
-      it.call(IJsonObject_GetNamedObject, h0, tmp.addr)
+      check it.vtbl.GetNamedObject(it, h0, tmp.addr
+                                  ), "JsonObject.GetNamedObject"
       result = adopt[JsonObject](tmp)
 
 proc getNamedArray*(self: JsonObject, name: string): JsonArray =
@@ -200,7 +201,7 @@ proc getNamedArray*(self: JsonObject, name: string): JsonArray =
   withIface(self.p, IJsonObject, it):
     withHString(name, h0):
       var tmp: pointer
-      it.call(IJsonObject_GetNamedArray, h0, tmp.addr)
+      check it.vtbl.GetNamedArray(it, h0, tmp.addr), "JsonObject.GetNamedArray"
       result = adopt[JsonArray](tmp)
 
 proc getNamedString*(self: JsonObject, name: string): string =
@@ -208,7 +209,8 @@ proc getNamedString*(self: JsonObject, name: string): string =
   withIface(self.p, IJsonObject, it):
     withHString(name, h0):
       var tmp: HSTRING
-      it.call(IJsonObject_GetNamedString, h0, tmp.addr)
+      check it.vtbl.GetNamedString(it, h0, tmp.addr
+                                  ), "JsonObject.GetNamedString"
       result = takeString(tmp)
 
 proc getNamedNumber*(self: JsonObject, name: string): float64 =
@@ -216,7 +218,8 @@ proc getNamedNumber*(self: JsonObject, name: string): float64 =
   withIface(self.p, IJsonObject, it):
     withHString(name, h0):
       var tmp: float64
-      it.call(IJsonObject_GetNamedNumber, h0, tmp.addr)
+      check it.vtbl.GetNamedNumber(it, h0, tmp.addr
+                                  ), "JsonObject.GetNamedNumber"
       result = tmp
 
 proc getNamedBoolean*(self: JsonObject, name: string): bool =
@@ -224,56 +227,55 @@ proc getNamedBoolean*(self: JsonObject, name: string): bool =
   withIface(self.p, IJsonObject, it):
     withHString(name, h0):
       var tmp: bool
-      it.call(IJsonObject_GetNamedBoolean, h0, tmp.addr)
+      check it.vtbl.GetNamedBoolean(it, h0, tmp.addr
+                                   ), "JsonObject.GetNamedBoolean"
       result = tmp
 
 proc valueType*(self: JsonObject): JsonValueType =
   ## Windows.Data.Json.JsonObject.get_ValueType
   withIface(self.p, IJsonValue, it):
-    var tmp: JsonValueType
-    it.call(IJsonValue_get_ValueType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ValueType, JsonValueType)
 
 proc stringify*(self: JsonObject): string =
   ## Windows.Data.Json.JsonObject.Stringify
   withIface(self.p, IJsonValue, it):
     var tmp: HSTRING
-    it.call(IJsonValue_Stringify, tmp.addr)
+    check it.vtbl.Stringify(it, tmp.addr), "JsonObject.Stringify"
     result = takeString(tmp)
 
 proc getString*(self: JsonObject): string =
   ## Windows.Data.Json.JsonObject.GetString
   withIface(self.p, IJsonValue, it):
     var tmp: HSTRING
-    it.call(IJsonValue_GetString, tmp.addr)
+    check it.vtbl.GetString(it, tmp.addr), "JsonObject.GetString"
     result = takeString(tmp)
 
 proc getNumber*(self: JsonObject): float64 =
   ## Windows.Data.Json.JsonObject.GetNumber
   withIface(self.p, IJsonValue, it):
     var tmp: float64
-    it.call(IJsonValue_GetNumber, tmp.addr)
+    check it.vtbl.GetNumber(it, tmp.addr), "JsonObject.GetNumber"
     result = tmp
 
 proc getBoolean*(self: JsonObject): bool =
   ## Windows.Data.Json.JsonObject.GetBoolean
   withIface(self.p, IJsonValue, it):
     var tmp: bool
-    it.call(IJsonValue_GetBoolean, tmp.addr)
+    check it.vtbl.GetBoolean(it, tmp.addr), "JsonObject.GetBoolean"
     result = tmp
 
 proc getArray*(self: JsonObject): JsonArray =
   ## Windows.Data.Json.JsonObject.GetArray
   withIface(self.p, IJsonValue, it):
     var tmp: pointer
-    it.call(IJsonValue_GetArray, tmp.addr)
+    check it.vtbl.GetArray(it, tmp.addr), "JsonObject.GetArray"
     result = adopt[JsonArray](tmp)
 
 proc getObject*(self: JsonObject): JsonObject =
   ## Windows.Data.Json.JsonObject.GetObject
   withIface(self.p, IJsonValue, it):
     var tmp: pointer
-    it.call(IJsonValue_GetObject, tmp.addr)
+    check it.vtbl.GetObject(it, tmp.addr), "JsonObject.GetObject"
     result = adopt[JsonObject](tmp)
 
 proc getNamedValue*(self: JsonObject, name: string, defaultValue: JsonValue
@@ -283,7 +285,8 @@ proc getNamedValue*(self: JsonObject, name: string, defaultValue: JsonValue
     withHString(name, h0):
       withIface(defaultValue.p, IJsonValue, p1):
         var tmp: pointer
-        it.call(IJsonObjectWithDefaultValues_GetNamedValue, h0, p1, tmp.addr)
+        check it.vtbl.GetNamedValue(it, h0, p1, tmp.addr
+                                   ), "JsonObject.GetNamedValue"
         result = adopt[JsonValue](tmp)
 
 proc getNamedObject*(self: JsonObject, name: string, defaultValue: JsonObject
@@ -293,7 +296,8 @@ proc getNamedObject*(self: JsonObject, name: string, defaultValue: JsonObject
     withHString(name, h0):
       withIface(defaultValue.p, IJsonObject, p1):
         var tmp: pointer
-        it.call(IJsonObjectWithDefaultValues_GetNamedObject, h0, p1, tmp.addr)
+        check it.vtbl.GetNamedObject(it, h0, p1, tmp.addr
+                                    ), "JsonObject.GetNamedObject"
         result = adopt[JsonObject](tmp)
 
 proc getNamedString*(self: JsonObject, name: string, defaultValue: string
@@ -303,7 +307,8 @@ proc getNamedString*(self: JsonObject, name: string, defaultValue: string
     withHString(name, h0):
       withHString(defaultValue, h1):
         var tmp: HSTRING
-        it.call(IJsonObjectWithDefaultValues_GetNamedString, h0, h1, tmp.addr)
+        check it.vtbl.GetNamedString(it, h0, h1, tmp.addr
+                                    ), "JsonObject.GetNamedString"
         result = takeString(tmp)
 
 proc getNamedArray*(self: JsonObject, name: string, defaultValue: JsonArray
@@ -313,7 +318,8 @@ proc getNamedArray*(self: JsonObject, name: string, defaultValue: JsonArray
     withHString(name, h0):
       withIface(defaultValue.p, IJsonArray, p1):
         var tmp: pointer
-        it.call(IJsonObjectWithDefaultValues_GetNamedArray, h0, p1, tmp.addr)
+        check it.vtbl.GetNamedArray(it, h0, p1, tmp.addr
+                                   ), "JsonObject.GetNamedArray"
         result = adopt[JsonArray](tmp)
 
 proc getNamedNumber*(self: JsonObject, name: string, defaultValue: float64
@@ -322,8 +328,8 @@ proc getNamedNumber*(self: JsonObject, name: string, defaultValue: float64
   withIface(self.p, IJsonObjectWithDefaultValues, it):
     withHString(name, h0):
       var tmp: float64
-      it.call(IJsonObjectWithDefaultValues_GetNamedNumber, h0, defaultValue,
-              tmp.addr)
+      check it.vtbl.GetNamedNumber(it, h0, defaultValue, tmp.addr
+                                  ), "JsonObject.GetNamedNumber"
       result = tmp
 
 proc getNamedBoolean*(self: JsonObject, name: string, defaultValue: bool
@@ -332,15 +338,15 @@ proc getNamedBoolean*(self: JsonObject, name: string, defaultValue: bool
   withIface(self.p, IJsonObjectWithDefaultValues, it):
     withHString(name, h0):
       var tmp: bool
-      it.call(IJsonObjectWithDefaultValues_GetNamedBoolean, h0, defaultValue,
-              tmp.addr)
+      check it.vtbl.GetNamedBoolean(it, h0, defaultValue, tmp.addr
+                                   ), "JsonObject.GetNamedBoolean"
       result = tmp
 
 proc toString*(self: JsonObject): string =
   ## Windows.Data.Json.JsonObject.ToString
   withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    it.call(IStringable_ToString, tmp.addr)
+    check it.vtbl.ToString(it, tmp.addr), "JsonObject.ToString"
     result = takeString(tmp)
 
 proc parse*(_: typedesc[JsonObject], input: string): JsonObject =
@@ -348,7 +354,7 @@ proc parse*(_: typedesc[JsonObject], input: string): JsonObject =
   withStatics("Windows.Data.Json.JsonObject", IJsonObjectStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      it.call(IJsonObjectStatics_Parse, h0, tmp.addr)
+      check it.vtbl.Parse(it, h0, tmp.addr), "JsonObject.Parse"
       result = adopt[JsonObject](tmp)
 
 proc tryParse*(_: typedesc[JsonObject], input: string
@@ -359,71 +365,69 @@ proc tryParse*(_: typedesc[JsonObject], input: string
       var a2: pointer
       var ret: bool
       var tmp: bool
-      it.call(IJsonObjectStatics_TryParse, h0, a2.addr, tmp.addr)
+      check it.vtbl.TryParse(it, h0, a2.addr, tmp.addr), "JsonObject.TryParse"
       ret = tmp
       result = (value: ret, a2: adopt[JsonObject](a2))
 
 proc valueType*(self: JsonValue): JsonValueType =
   ## Windows.Data.Json.JsonValue.get_ValueType
   withIface(self.p, IJsonValue, it):
-    var tmp: JsonValueType
-    it.call(IJsonValue_get_ValueType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ValueType, JsonValueType)
 
 proc stringify*(self: JsonValue): string =
   ## Windows.Data.Json.JsonValue.Stringify
   withIface(self.p, IJsonValue, it):
     var tmp: HSTRING
-    it.call(IJsonValue_Stringify, tmp.addr)
+    check it.vtbl.Stringify(it, tmp.addr), "JsonValue.Stringify"
     result = takeString(tmp)
 
 proc getString*(self: JsonValue): string =
   ## Windows.Data.Json.JsonValue.GetString
   withIface(self.p, IJsonValue, it):
     var tmp: HSTRING
-    it.call(IJsonValue_GetString, tmp.addr)
+    check it.vtbl.GetString(it, tmp.addr), "JsonValue.GetString"
     result = takeString(tmp)
 
 proc getNumber*(self: JsonValue): float64 =
   ## Windows.Data.Json.JsonValue.GetNumber
   withIface(self.p, IJsonValue, it):
     var tmp: float64
-    it.call(IJsonValue_GetNumber, tmp.addr)
+    check it.vtbl.GetNumber(it, tmp.addr), "JsonValue.GetNumber"
     result = tmp
 
 proc getBoolean*(self: JsonValue): bool =
   ## Windows.Data.Json.JsonValue.GetBoolean
   withIface(self.p, IJsonValue, it):
     var tmp: bool
-    it.call(IJsonValue_GetBoolean, tmp.addr)
+    check it.vtbl.GetBoolean(it, tmp.addr), "JsonValue.GetBoolean"
     result = tmp
 
 proc getArray*(self: JsonValue): JsonArray =
   ## Windows.Data.Json.JsonValue.GetArray
   withIface(self.p, IJsonValue, it):
     var tmp: pointer
-    it.call(IJsonValue_GetArray, tmp.addr)
+    check it.vtbl.GetArray(it, tmp.addr), "JsonValue.GetArray"
     result = adopt[JsonArray](tmp)
 
 proc getObject*(self: JsonValue): JsonObject =
   ## Windows.Data.Json.JsonValue.GetObject
   withIface(self.p, IJsonValue, it):
     var tmp: pointer
-    it.call(IJsonValue_GetObject, tmp.addr)
+    check it.vtbl.GetObject(it, tmp.addr), "JsonValue.GetObject"
     result = adopt[JsonObject](tmp)
 
 proc toString*(self: JsonValue): string =
   ## Windows.Data.Json.JsonValue.ToString
   withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    it.call(IStringable_ToString, tmp.addr)
+    check it.vtbl.ToString(it, tmp.addr), "JsonValue.ToString"
     result = takeString(tmp)
 
 proc createNullValue*(_: typedesc[JsonValue]): JsonValue =
   ## Windows.Data.Json.JsonValue.CreateNullValue
   withStatics("Windows.Data.Json.JsonValue", IJsonValueStatics2, it):
     var tmp: pointer
-    it.call(IJsonValueStatics2_CreateNullValue, tmp.addr)
+    check it.vtbl.CreateNullValue(it, tmp.addr), "JsonValue.CreateNullValue"
     result = adopt[JsonValue](tmp)
 
 proc parse*(_: typedesc[JsonValue], input: string): JsonValue =
@@ -431,7 +435,7 @@ proc parse*(_: typedesc[JsonValue], input: string): JsonValue =
   withStatics("Windows.Data.Json.JsonValue", IJsonValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      it.call(IJsonValueStatics_Parse, h0, tmp.addr)
+      check it.vtbl.Parse(it, h0, tmp.addr), "JsonValue.Parse"
       result = adopt[JsonValue](tmp)
 
 proc tryParse*(_: typedesc[JsonValue], input: string
@@ -442,7 +446,7 @@ proc tryParse*(_: typedesc[JsonValue], input: string
       var a2: pointer
       var ret: bool
       var tmp: bool
-      it.call(IJsonValueStatics_TryParse, h0, a2.addr, tmp.addr)
+      check it.vtbl.TryParse(it, h0, a2.addr, tmp.addr), "JsonValue.TryParse"
       ret = tmp
       result = (value: ret, a2: adopt[JsonValue](a2))
 
@@ -450,14 +454,16 @@ proc createBooleanValue*(_: typedesc[JsonValue], input: bool): JsonValue =
   ## Windows.Data.Json.JsonValue.CreateBooleanValue
   withStatics("Windows.Data.Json.JsonValue", IJsonValueStatics, it):
     var tmp: pointer
-    it.call(IJsonValueStatics_CreateBooleanValue, input, tmp.addr)
+    check it.vtbl.CreateBooleanValue(it, input, tmp.addr
+                                    ), "JsonValue.CreateBooleanValue"
     result = adopt[JsonValue](tmp)
 
 proc createNumberValue*(_: typedesc[JsonValue], input: float64): JsonValue =
   ## Windows.Data.Json.JsonValue.CreateNumberValue
   withStatics("Windows.Data.Json.JsonValue", IJsonValueStatics, it):
     var tmp: pointer
-    it.call(IJsonValueStatics_CreateNumberValue, input, tmp.addr)
+    check it.vtbl.CreateNumberValue(it, input, tmp.addr
+                                   ), "JsonValue.CreateNumberValue"
     result = adopt[JsonValue](tmp)
 
 proc createStringValue*(_: typedesc[JsonValue], input: string): JsonValue =
@@ -465,29 +471,26 @@ proc createStringValue*(_: typedesc[JsonValue], input: string): JsonValue =
   withStatics("Windows.Data.Json.JsonValue", IJsonValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      it.call(IJsonValueStatics_CreateStringValue, h0, tmp.addr)
+      check it.vtbl.CreateStringValue(it, h0, tmp.addr
+                                     ), "JsonValue.CreateStringValue"
       result = adopt[JsonValue](tmp)
 
 proc getPage*(self: PdfDocument, pageIndex: uint32): PdfPage =
   ## Windows.Data.Pdf.PdfDocument.GetPage
   withIface(self.p, IPdfDocument, it):
     var tmp: pointer
-    it.call(IPdfDocument_GetPage, pageIndex, tmp.addr)
+    check it.vtbl.GetPage(it, pageIndex, tmp.addr), "PdfDocument.GetPage"
     result = adopt[PdfPage](tmp)
 
 proc pageCount*(self: PdfDocument): uint32 =
   ## Windows.Data.Pdf.PdfDocument.get_PageCount
   withIface(self.p, IPdfDocument, it):
-    var tmp: uint32
-    it.call(IPdfDocument_get_PageCount, tmp.addr)
-    result = tmp
+    result = it.getValue(get_PageCount, uint32)
 
 proc isPasswordProtected*(self: PdfDocument): bool =
   ## Windows.Data.Pdf.PdfDocument.get_IsPasswordProtected
   withIface(self.p, IPdfDocument, it):
-    var tmp: bool
-    it.call(IPdfDocument_get_IsPasswordProtected, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsPasswordProtected, bool)
 
 proc loadFromFileAsync*(_: typedesc[PdfDocument], file: StorageFile
                        ): Future[PdfDocument] {.async.} =
@@ -495,7 +498,8 @@ proc loadFromFileAsync*(_: typedesc[PdfDocument], file: StorageFile
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IPdfDocumentStatics, it):
     withIface(file.p, IStorageFile, p0):
-      it.call(IPdfDocumentStatics_LoadFromFileAsync, p0, op.addr)
+      check it.vtbl.LoadFromFileAsync(it, p0, op.addr
+                                     ), "PdfDocument.LoadFromFileAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_PdfDocument,
                               IID_AsyncOperationCompletedHandler_1_PdfDocument,
                               alPlain, "PdfDocument.LoadFromFileAsync")
@@ -508,7 +512,8 @@ proc loadFromFileAsync*(_: typedesc[PdfDocument], file: StorageFile,
   withStatics("Windows.Data.Pdf.PdfDocument", IPdfDocumentStatics, it):
     withIface(file.p, IStorageFile, p0):
       withHString(password, h1):
-        it.call(IPdfDocumentStatics_LoadFromFileAsync2, p0, h1, op.addr)
+        check it.vtbl.LoadFromFileAsync2(it, p0, h1, op.addr
+                                        ), "PdfDocument.LoadFromFileAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_PdfDocument,
                               IID_AsyncOperationCompletedHandler_1_PdfDocument,
                               alPlain, "PdfDocument.LoadFromFileAsync")
@@ -520,7 +525,8 @@ proc loadFromStreamAsync*(_: typedesc[PdfDocument], inputStream: WinRtObject
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IPdfDocumentStatics, it):
     withIface(inputStream.p, IRandomAccessStream, p0):
-      it.call(IPdfDocumentStatics_LoadFromStreamAsync, p0, op.addr)
+      check it.vtbl.LoadFromStreamAsync(it, p0, op.addr
+                                       ), "PdfDocument.LoadFromStreamAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_PdfDocument,
                               IID_AsyncOperationCompletedHandler_1_PdfDocument,
                               alPlain, "PdfDocument.LoadFromStreamAsync")
@@ -533,7 +539,8 @@ proc loadFromStreamAsync*(_: typedesc[PdfDocument], inputStream: WinRtObject,
   withStatics("Windows.Data.Pdf.PdfDocument", IPdfDocumentStatics, it):
     withIface(inputStream.p, IRandomAccessStream, p0):
       withHString(password, h1):
-        it.call(IPdfDocumentStatics_LoadFromStreamAsync2, p0, h1, op.addr)
+        check it.vtbl.LoadFromStreamAsync2(it, p0, h1, op.addr
+                                          ), "PdfDocument.LoadFromStreamAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_PdfDocument,
                               IID_AsyncOperationCompletedHandler_1_PdfDocument,
                               alPlain, "PdfDocument.LoadFromStreamAsync")
@@ -544,7 +551,8 @@ proc renderToStreamAsync*(self: PdfPage, outputStream: WinRtObject) {.async.} =
   var op: pointer
   withIface(self.p, IPdfPage, it):
     withIface(outputStream.p, IRandomAccessStream, p0):
-      it.call(IPdfPage_RenderToStreamAsync, p0, op.addr)
+      check it.vtbl.RenderToStreamAsync(it, p0, op.addr
+                                       ), "PdfPage.RenderToStreamAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "PdfPage.RenderToStreamAsync")
 
@@ -555,7 +563,8 @@ proc renderToStreamAsync*(self: PdfPage, outputStream: WinRtObject,
   withIface(self.p, IPdfPage, it):
     withIface(outputStream.p, IRandomAccessStream, p0):
       withIface(options.p, IPdfPageRenderOptions, p1):
-        it.call(IPdfPage_RenderToStreamAsync2, p0, p1, op.addr)
+        check it.vtbl.RenderToStreamAsync2(it, p0, p1, op.addr
+                                          ), "PdfPage.RenderToStreamAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "PdfPage.RenderToStreamAsync")
 
@@ -563,84 +572,64 @@ proc preparePageAsync*(self: PdfPage) {.async.} =
   ## Windows.Data.Pdf.PdfPage.PreparePageAsync
   var op: pointer
   withIface(self.p, IPdfPage, it):
-    it.call(IPdfPage_PreparePageAsync, op.addr)
+    check it.vtbl.PreparePageAsync(it, op.addr), "PdfPage.PreparePageAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "PdfPage.PreparePageAsync")
 
 proc index*(self: PdfPage): uint32 =
   ## Windows.Data.Pdf.PdfPage.get_Index
   withIface(self.p, IPdfPage, it):
-    var tmp: uint32
-    it.call(IPdfPage_get_Index, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Index, uint32)
 
 proc size*(self: PdfPage): Size =
   ## Windows.Data.Pdf.PdfPage.get_Size
   withIface(self.p, IPdfPage, it):
-    var tmp: Size
-    it.call(IPdfPage_get_Size, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Size, Size)
 
 proc dimensions*(self: PdfPage): PdfPageDimensions =
   ## Windows.Data.Pdf.PdfPage.get_Dimensions
   withIface(self.p, IPdfPage, it):
-    var tmp: pointer
-    it.call(IPdfPage_get_Dimensions, tmp.addr)
-    result = adopt[PdfPageDimensions](tmp)
+    result = it.getObject(get_Dimensions, PdfPageDimensions)
 
 proc rotation*(self: PdfPage): PdfPageRotation =
   ## Windows.Data.Pdf.PdfPage.get_Rotation
   withIface(self.p, IPdfPage, it):
-    var tmp: PdfPageRotation
-    it.call(IPdfPage_get_Rotation, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Rotation, PdfPageRotation)
 
 proc preferredZoom*(self: PdfPage): float32 =
   ## Windows.Data.Pdf.PdfPage.get_PreferredZoom
   withIface(self.p, IPdfPage, it):
-    var tmp: float32
-    it.call(IPdfPage_get_PreferredZoom, tmp.addr)
-    result = tmp
+    result = it.getValue(get_PreferredZoom, float32)
 
 proc close*(self: PdfPage) =
   ## Windows.Data.Pdf.PdfPage.Close
   withIface(self.p, IClosable, it):
-    it.call(IClosable_Close)
+    check it.vtbl.Close(it), "PdfPage.Close"
 
 proc mediaBox*(self: PdfPageDimensions): Rect =
   ## Windows.Data.Pdf.PdfPageDimensions.get_MediaBox
   withIface(self.p, IPdfPageDimensions, it):
-    var tmp: Rect
-    it.call(IPdfPageDimensions_get_MediaBox, tmp.addr)
-    result = tmp
+    result = it.getValue(get_MediaBox, Rect)
 
 proc cropBox*(self: PdfPageDimensions): Rect =
   ## Windows.Data.Pdf.PdfPageDimensions.get_CropBox
   withIface(self.p, IPdfPageDimensions, it):
-    var tmp: Rect
-    it.call(IPdfPageDimensions_get_CropBox, tmp.addr)
-    result = tmp
+    result = it.getValue(get_CropBox, Rect)
 
 proc bleedBox*(self: PdfPageDimensions): Rect =
   ## Windows.Data.Pdf.PdfPageDimensions.get_BleedBox
   withIface(self.p, IPdfPageDimensions, it):
-    var tmp: Rect
-    it.call(IPdfPageDimensions_get_BleedBox, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BleedBox, Rect)
 
 proc trimBox*(self: PdfPageDimensions): Rect =
   ## Windows.Data.Pdf.PdfPageDimensions.get_TrimBox
   withIface(self.p, IPdfPageDimensions, it):
-    var tmp: Rect
-    it.call(IPdfPageDimensions_get_TrimBox, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TrimBox, Rect)
 
 proc artBox*(self: PdfPageDimensions): Rect =
   ## Windows.Data.Pdf.PdfPageDimensions.get_ArtBox
   withIface(self.p, IPdfPageDimensions, it):
-    var tmp: Rect
-    it.call(IPdfPageDimensions_get_ArtBox, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ArtBox, Rect)
 
 proc newPdfPageRenderOptions*(): PdfPageRenderOptions =
   ## Activate a `Windows.Data.Pdf.PdfPageRenderOptions`.
@@ -649,109 +638,87 @@ proc newPdfPageRenderOptions*(): PdfPageRenderOptions =
 proc sourceRect*(self: PdfPageRenderOptions): Rect =
   ## Windows.Data.Pdf.PdfPageRenderOptions.get_SourceRect
   withIface(self.p, IPdfPageRenderOptions, it):
-    var tmp: Rect
-    it.call(IPdfPageRenderOptions_get_SourceRect, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SourceRect, Rect)
 
 proc `sourceRect=`*(self: PdfPageRenderOptions, value: Rect) =
   ## Windows.Data.Pdf.PdfPageRenderOptions.put_SourceRect
   withIface(self.p, IPdfPageRenderOptions, it):
-    it.call(IPdfPageRenderOptions_put_SourceRect, value)
+    it.putValue(put_SourceRect, value)
 
 proc destinationWidth*(self: PdfPageRenderOptions): uint32 =
   ## Windows.Data.Pdf.PdfPageRenderOptions.get_DestinationWidth
   withIface(self.p, IPdfPageRenderOptions, it):
-    var tmp: uint32
-    it.call(IPdfPageRenderOptions_get_DestinationWidth, tmp.addr)
-    result = tmp
+    result = it.getValue(get_DestinationWidth, uint32)
 
 proc `destinationWidth=`*(self: PdfPageRenderOptions, value: uint32) =
   ## Windows.Data.Pdf.PdfPageRenderOptions.put_DestinationWidth
   withIface(self.p, IPdfPageRenderOptions, it):
-    it.call(IPdfPageRenderOptions_put_DestinationWidth, value)
+    it.putValue(put_DestinationWidth, value)
 
 proc destinationHeight*(self: PdfPageRenderOptions): uint32 =
   ## Windows.Data.Pdf.PdfPageRenderOptions.get_DestinationHeight
   withIface(self.p, IPdfPageRenderOptions, it):
-    var tmp: uint32
-    it.call(IPdfPageRenderOptions_get_DestinationHeight, tmp.addr)
-    result = tmp
+    result = it.getValue(get_DestinationHeight, uint32)
 
 proc `destinationHeight=`*(self: PdfPageRenderOptions, value: uint32) =
   ## Windows.Data.Pdf.PdfPageRenderOptions.put_DestinationHeight
   withIface(self.p, IPdfPageRenderOptions, it):
-    it.call(IPdfPageRenderOptions_put_DestinationHeight, value)
+    it.putValue(put_DestinationHeight, value)
 
 proc backgroundColor*(self: PdfPageRenderOptions): Color =
   ## Windows.Data.Pdf.PdfPageRenderOptions.get_BackgroundColor
   withIface(self.p, IPdfPageRenderOptions, it):
-    var tmp: Color
-    it.call(IPdfPageRenderOptions_get_BackgroundColor, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BackgroundColor, Color)
 
 proc `backgroundColor=`*(self: PdfPageRenderOptions, value: Color) =
   ## Windows.Data.Pdf.PdfPageRenderOptions.put_BackgroundColor
   withIface(self.p, IPdfPageRenderOptions, it):
-    it.call(IPdfPageRenderOptions_put_BackgroundColor, value)
+    it.putValue(put_BackgroundColor, value)
 
 proc isIgnoringHighContrast*(self: PdfPageRenderOptions): bool =
   ## Windows.Data.Pdf.PdfPageRenderOptions.get_IsIgnoringHighContrast
   withIface(self.p, IPdfPageRenderOptions, it):
-    var tmp: bool
-    it.call(IPdfPageRenderOptions_get_IsIgnoringHighContrast, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsIgnoringHighContrast, bool)
 
 proc `isIgnoringHighContrast=`*(self: PdfPageRenderOptions, value: bool) =
   ## Windows.Data.Pdf.PdfPageRenderOptions.put_IsIgnoringHighContrast
   withIface(self.p, IPdfPageRenderOptions, it):
-    it.call(IPdfPageRenderOptions_put_IsIgnoringHighContrast, value)
+    it.putValue(put_IsIgnoringHighContrast, value)
 
 proc bitmapEncoderId*(self: PdfPageRenderOptions): GUID =
   ## Windows.Data.Pdf.PdfPageRenderOptions.get_BitmapEncoderId
   withIface(self.p, IPdfPageRenderOptions, it):
-    var tmp: GUID
-    it.call(IPdfPageRenderOptions_get_BitmapEncoderId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BitmapEncoderId, GUID)
 
 proc `bitmapEncoderId=`*(self: PdfPageRenderOptions, value: GUID) =
   ## Windows.Data.Pdf.PdfPageRenderOptions.put_BitmapEncoderId
   withIface(self.p, IPdfPageRenderOptions, it):
-    it.call(IPdfPageRenderOptions_put_BitmapEncoderId, value)
+    it.putValue(put_BitmapEncoderId, value)
 
 proc sourceTextSegment*(self: AlternateWordForm): TextSegment =
   ## Windows.Data.Text.AlternateWordForm.get_SourceTextSegment
   withIface(self.p, IAlternateWordForm, it):
-    var tmp: TextSegment
-    it.call(IAlternateWordForm_get_SourceTextSegment, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SourceTextSegment, TextSegment)
 
 proc alternateText*(self: AlternateWordForm): string =
   ## Windows.Data.Text.AlternateWordForm.get_AlternateText
   withIface(self.p, IAlternateWordForm, it):
-    var tmp: HSTRING
-    it.call(IAlternateWordForm_get_AlternateText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AlternateText)
 
 proc normalizationFormat*(self: AlternateWordForm): AlternateNormalizationFormat =
   ## Windows.Data.Text.AlternateWordForm.get_NormalizationFormat
   withIface(self.p, IAlternateWordForm, it):
-    var tmp: AlternateNormalizationFormat
-    it.call(IAlternateWordForm_get_NormalizationFormat, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NormalizationFormat, AlternateNormalizationFormat)
 
 proc text*(self: SelectableWordSegment): string =
   ## Windows.Data.Text.SelectableWordSegment.get_Text
   withIface(self.p, ISelectableWordSegment, it):
-    var tmp: HSTRING
-    it.call(ISelectableWordSegment_get_Text, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Text)
 
 proc sourceTextSegment*(self: SelectableWordSegment): TextSegment =
   ## Windows.Data.Text.SelectableWordSegment.get_SourceTextSegment
   withIface(self.p, ISelectableWordSegment, it):
-    var tmp: TextSegment
-    it.call(ISelectableWordSegment_get_SourceTextSegment, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SourceTextSegment, TextSegment)
 
 proc invoke*(self: SelectableWordSegmentsTokenizingHandler,
              precedingWords: seq[SelectableWordSegment],
@@ -768,14 +735,13 @@ proc invoke*(self: SelectableWordSegmentsTokenizingHandler,
                                                       IID_IIterator_1_SelectableWordSegment
                                                      )
     defer: discard release(p1)
-    it.call(SelectableWordSegmentsTokenizingHandler_Invoke, p0, p1)
+    check it.vtbl.Invoke(it, p0, p1
+                        ), "SelectableWordSegmentsTokenizingHandler.Invoke"
 
 proc resolvedLanguage*(self: SelectableWordsSegmenter): string =
   ## Windows.Data.Text.SelectableWordsSegmenter.get_ResolvedLanguage
   withIface(self.p, ISelectableWordsSegmenter, it):
-    var tmp: HSTRING
-    it.call(ISelectableWordsSegmenter_get_ResolvedLanguage, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedLanguage)
 
 proc getTokenAt*(self: SelectableWordsSegmenter, text: string,
                  startIndex: uint32): SelectableWordSegment =
@@ -783,7 +749,8 @@ proc getTokenAt*(self: SelectableWordsSegmenter, text: string,
   withIface(self.p, ISelectableWordsSegmenter, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(ISelectableWordsSegmenter_GetTokenAt, h0, startIndex, tmp.addr)
+      check it.vtbl.GetTokenAt(it, h0, startIndex, tmp.addr
+                              ), "SelectableWordsSegmenter.GetTokenAt"
       result = adopt[SelectableWordSegment](tmp)
 
 proc getTokens*(self: SelectableWordsSegmenter, text: string
@@ -792,7 +759,8 @@ proc getTokens*(self: SelectableWordsSegmenter, text: string
   withIface(self.p, ISelectableWordsSegmenter, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(ISelectableWordsSegmenter_GetTokens, h0, tmp.addr)
+      check it.vtbl.GetTokens(it, h0, tmp.addr
+                             ), "SelectableWordsSegmenter.GetTokens"
       result = toSeq[SelectableWordSegment](tmp,
                                             IID_IVectorView_1_SelectableWordSegment
                                            )
@@ -808,7 +776,8 @@ proc tokenize*(self: SelectableWordsSegmenter, text: string, startIndex: uint32,
                            proc(a0: seq[SelectableWordSegment], a1: seq[SelectableWordSegment]) = handler(a0, a1)
                           )
       defer: discard release(d2)
-      it.call(ISelectableWordsSegmenter_Tokenize, h0, startIndex, d2)
+      check it.vtbl.Tokenize(it, h0, startIndex, d2
+                            ), "SelectableWordsSegmenter.Tokenize"
 
 proc createWithLanguage*(_: typedesc[SelectableWordsSegmenter], language: string
                         ): SelectableWordsSegmenter =
@@ -817,7 +786,8 @@ proc createWithLanguage*(_: typedesc[SelectableWordsSegmenter], language: string
               ISelectableWordsSegmenterFactory, it):
     withHString(language, h0):
       var tmp: pointer
-      it.call(ISelectableWordsSegmenterFactory_CreateWithLanguage, h0, tmp.addr)
+      check it.vtbl.CreateWithLanguage(it, h0, tmp.addr
+                                      ), "SelectableWordsSegmenter.CreateWithLanguage"
       result = adopt[SelectableWordsSegmenter](tmp)
 
 proc find*(self: SemanticTextQuery, content: string): seq[TextSegment] =
@@ -825,7 +795,7 @@ proc find*(self: SemanticTextQuery, content: string): seq[TextSegment] =
   withIface(self.p, ISemanticTextQuery, it):
     withHString(content, h0):
       var tmp: pointer
-      it.call(ISemanticTextQuery_Find, h0, tmp.addr)
+      check it.vtbl.Find(it, h0, tmp.addr), "SemanticTextQuery.Find"
       result = toSeq[TextSegment](tmp, IID_IVectorView_1_TextSegment)
       release(tmp)
 
@@ -836,7 +806,8 @@ proc findInProperty*(self: SemanticTextQuery, propertyContent: string,
     withHString(propertyContent, h0):
       withHString(propertyName, h1):
         var tmp: pointer
-        it.call(ISemanticTextQuery_FindInProperty, h0, h1, tmp.addr)
+        check it.vtbl.FindInProperty(it, h0, h1, tmp.addr
+                                    ), "SemanticTextQuery.FindInProperty"
         result = toSeq[TextSegment](tmp, IID_IVectorView_1_TextSegment)
         release(tmp)
 
@@ -847,7 +818,7 @@ proc create*(_: typedesc[SemanticTextQuery], aqsFilter: string
               it):
     withHString(aqsFilter, h0):
       var tmp: pointer
-      it.call(ISemanticTextQueryFactory_Create, h0, tmp.addr)
+      check it.vtbl.Create(it, h0, tmp.addr), "SemanticTextQuery.Create"
       result = adopt[SemanticTextQuery](tmp)
 
 proc createWithLanguage*(_: typedesc[SemanticTextQuery], aqsFilter: string,
@@ -858,23 +829,19 @@ proc createWithLanguage*(_: typedesc[SemanticTextQuery], aqsFilter: string,
     withHString(aqsFilter, h0):
       withHString(filterLanguage, h1):
         var tmp: pointer
-        it.call(ISemanticTextQueryFactory_CreateWithLanguage, h0, h1, tmp.addr)
+        check it.vtbl.CreateWithLanguage(it, h0, h1, tmp.addr
+                                        ), "SemanticTextQuery.CreateWithLanguage"
         result = adopt[SemanticTextQuery](tmp)
 
 proc resolvedLanguage*(self: TextConversionGenerator): string =
   ## Windows.Data.Text.TextConversionGenerator.get_ResolvedLanguage
   withIface(self.p, ITextConversionGenerator, it):
-    var tmp: HSTRING
-    it.call(ITextConversionGenerator_get_ResolvedLanguage, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedLanguage)
 
 proc languageAvailableButNotInstalled*(self: TextConversionGenerator): bool =
   ## Windows.Data.Text.TextConversionGenerator.get_LanguageAvailableButNotInstalled
   withIface(self.p, ITextConversionGenerator, it):
-    var tmp: bool
-    it.call(ITextConversionGenerator_get_LanguageAvailableButNotInstalled,
-            tmp.addr)
-    result = tmp
+    result = it.getValue(get_LanguageAvailableButNotInstalled, bool)
 
 proc getCandidatesAsync*(self: TextConversionGenerator, input: string
                         ): Future[seq[string]] {.async.} =
@@ -882,7 +849,8 @@ proc getCandidatesAsync*(self: TextConversionGenerator, input: string
   var op: pointer
   withIface(self.p, ITextConversionGenerator, it):
     withHString(input, h0):
-      it.call(ITextConversionGenerator_GetCandidatesAsync, h0, op.addr)
+      check it.vtbl.GetCandidatesAsync(it, h0, op.addr
+                                      ), "TextConversionGenerator.GetCandidatesAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_1,
                                alPlain,
@@ -896,8 +864,8 @@ proc getCandidatesAsync*(self: TextConversionGenerator, input: string,
   var op: pointer
   withIface(self.p, ITextConversionGenerator, it):
     withHString(input, h0):
-      it.call(ITextConversionGenerator_GetCandidatesAsync2, h0, maxCandidates,
-              op.addr)
+      check it.vtbl.GetCandidatesAsync2(it, h0, maxCandidates, op.addr
+                                       ), "TextConversionGenerator.GetCandidatesAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_1,
                                alPlain,
@@ -912,37 +880,28 @@ proc create*(_: typedesc[TextConversionGenerator], languageTag: string
               ITextConversionGeneratorFactory, it):
     withHString(languageTag, h0):
       var tmp: pointer
-      it.call(ITextConversionGeneratorFactory_Create, h0, tmp.addr)
+      check it.vtbl.Create(it, h0, tmp.addr), "TextConversionGenerator.Create"
       result = adopt[TextConversionGenerator](tmp)
 
 proc displayText*(self: TextPhoneme): string =
   ## Windows.Data.Text.TextPhoneme.get_DisplayText
   withIface(self.p, ITextPhoneme, it):
-    var tmp: HSTRING
-    it.call(ITextPhoneme_get_DisplayText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayText)
 
 proc readingText*(self: TextPhoneme): string =
   ## Windows.Data.Text.TextPhoneme.get_ReadingText
   withIface(self.p, ITextPhoneme, it):
-    var tmp: HSTRING
-    it.call(ITextPhoneme_get_ReadingText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ReadingText)
 
 proc resolvedLanguage*(self: TextPredictionGenerator): string =
   ## Windows.Data.Text.TextPredictionGenerator.get_ResolvedLanguage
   withIface(self.p, ITextPredictionGenerator, it):
-    var tmp: HSTRING
-    it.call(ITextPredictionGenerator_get_ResolvedLanguage, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedLanguage)
 
 proc languageAvailableButNotInstalled*(self: TextPredictionGenerator): bool =
   ## Windows.Data.Text.TextPredictionGenerator.get_LanguageAvailableButNotInstalled
   withIface(self.p, ITextPredictionGenerator, it):
-    var tmp: bool
-    it.call(ITextPredictionGenerator_get_LanguageAvailableButNotInstalled,
-            tmp.addr)
-    result = tmp
+    result = it.getValue(get_LanguageAvailableButNotInstalled, bool)
 
 proc getCandidatesAsync*(self: TextPredictionGenerator, input: string
                         ): Future[seq[string]] {.async.} =
@@ -950,7 +909,8 @@ proc getCandidatesAsync*(self: TextPredictionGenerator, input: string
   var op: pointer
   withIface(self.p, ITextPredictionGenerator, it):
     withHString(input, h0):
-      it.call(ITextPredictionGenerator_GetCandidatesAsync, h0, op.addr)
+      check it.vtbl.GetCandidatesAsync(it, h0, op.addr
+                                      ), "TextPredictionGenerator.GetCandidatesAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_1,
                                alPlain,
@@ -964,8 +924,8 @@ proc getCandidatesAsync*(self: TextPredictionGenerator, input: string,
   var op: pointer
   withIface(self.p, ITextPredictionGenerator, it):
     withHString(input, h0):
-      it.call(ITextPredictionGenerator_GetCandidatesAsync2, h0, maxCandidates,
-              op.addr)
+      check it.vtbl.GetCandidatesAsync2(it, h0, maxCandidates, op.addr
+                                       ), "TextPredictionGenerator.GetCandidatesAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_1,
                                alPlain,
@@ -986,8 +946,9 @@ proc getCandidatesAsync*(self: TextPredictionGenerator, input: string,
                                                  IID_IVectorView_1_String,
                                                  IID_IIterator_1_String)
       defer: discard release(p3)
-      it.call(ITextPredictionGenerator2_GetCandidatesAsync, h0, maxCandidates,
-              predictionOptions, p3, op.addr)
+      check it.vtbl.GetCandidatesAsync(it, h0, maxCandidates, predictionOptions,
+                                       p3, op.addr
+                                      ), "TextPredictionGenerator.GetCandidatesAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_1,
                                alPlain,
@@ -1006,8 +967,8 @@ proc getNextWordCandidatesAsync*(self: TextPredictionGenerator,
                                                IID_IVectorView_1_String,
                                                IID_IIterator_1_String)
     defer: discard release(p1)
-    it.call(ITextPredictionGenerator2_GetNextWordCandidatesAsync, maxCandidates,
-            p1, op.addr)
+    check it.vtbl.GetNextWordCandidatesAsync(it, maxCandidates, p1, op.addr
+                                            ), "TextPredictionGenerator.GetNextWordCandidatesAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_1,
                                alPlain,
@@ -1019,14 +980,12 @@ proc getNextWordCandidatesAsync*(self: TextPredictionGenerator,
 proc inputScope*(self: TextPredictionGenerator): CoreTextInputScope =
   ## Windows.Data.Text.TextPredictionGenerator.get_InputScope
   withIface(self.p, ITextPredictionGenerator2, it):
-    var tmp: CoreTextInputScope
-    it.call(ITextPredictionGenerator2_get_InputScope, tmp.addr)
-    result = tmp
+    result = it.getValue(get_InputScope, CoreTextInputScope)
 
 proc `inputScope=`*(self: TextPredictionGenerator, value: CoreTextInputScope) =
   ## Windows.Data.Text.TextPredictionGenerator.put_InputScope
   withIface(self.p, ITextPredictionGenerator2, it):
-    it.call(ITextPredictionGenerator2_put_InputScope, value)
+    it.putValue(put_InputScope, value)
 
 proc create*(_: typedesc[TextPredictionGenerator], languageTag: string
             ): TextPredictionGenerator =
@@ -1035,23 +994,18 @@ proc create*(_: typedesc[TextPredictionGenerator], languageTag: string
               ITextPredictionGeneratorFactory, it):
     withHString(languageTag, h0):
       var tmp: pointer
-      it.call(ITextPredictionGeneratorFactory_Create, h0, tmp.addr)
+      check it.vtbl.Create(it, h0, tmp.addr), "TextPredictionGenerator.Create"
       result = adopt[TextPredictionGenerator](tmp)
 
 proc resolvedLanguage*(self: TextReverseConversionGenerator): string =
   ## Windows.Data.Text.TextReverseConversionGenerator.get_ResolvedLanguage
   withIface(self.p, ITextReverseConversionGenerator, it):
-    var tmp: HSTRING
-    it.call(ITextReverseConversionGenerator_get_ResolvedLanguage, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedLanguage)
 
 proc languageAvailableButNotInstalled*(self: TextReverseConversionGenerator): bool =
   ## Windows.Data.Text.TextReverseConversionGenerator.get_LanguageAvailableButNotInstalled
   withIface(self.p, ITextReverseConversionGenerator, it):
-    var tmp: bool
-    it.call(ITextReverseConversionGenerator_get_LanguageAvailableButNotInstalled,
-            tmp.addr)
-    result = tmp
+    result = it.getValue(get_LanguageAvailableButNotInstalled, bool)
 
 proc convertBackAsync*(self: TextReverseConversionGenerator, input: string
                       ): Future[string] {.async.} =
@@ -1059,7 +1013,8 @@ proc convertBackAsync*(self: TextReverseConversionGenerator, input: string
   var op: pointer
   withIface(self.p, ITextReverseConversionGenerator, it):
     withHString(input, h0):
-      it.call(ITextReverseConversionGenerator_ConvertBackAsync, h0, op.addr)
+      check it.vtbl.ConvertBackAsync(it, h0, op.addr
+                                    ), "TextReverseConversionGenerator.ConvertBackAsync"
   result = await awaitString(op, IID_IAsyncOperation_1_String,
                              IID_AsyncOperationCompletedHandler_1_String,
                              alPlain,
@@ -1071,7 +1026,8 @@ proc getPhonemesAsync*(self: TextReverseConversionGenerator, input: string
   var op: pointer
   withIface(self.p, ITextReverseConversionGenerator2, it):
     withHString(input, h0):
-      it.call(ITextReverseConversionGenerator2_GetPhonemesAsync, h0, op.addr)
+      check it.vtbl.GetPhonemesAsync(it, h0, op.addr
+                                    ), "TextReverseConversionGenerator.GetPhonemesAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_12,
                                alPlain,
@@ -1087,7 +1043,8 @@ proc create*(_: typedesc[TextReverseConversionGenerator], languageTag: string
               ITextReverseConversionGeneratorFactory, it):
     withHString(languageTag, h0):
       var tmp: pointer
-      it.call(ITextReverseConversionGeneratorFactory_Create, h0, tmp.addr)
+      check it.vtbl.Create(it, h0, tmp.addr
+                          ), "TextReverseConversionGenerator.Create"
       result = adopt[TextReverseConversionGenerator](tmp)
 
 proc getCodepointFromSurrogatePair*(_: typedesc[UnicodeCharacters],
@@ -1097,8 +1054,9 @@ proc getCodepointFromSurrogatePair*(_: typedesc[UnicodeCharacters],
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: uint32
-    it.call(IUnicodeCharactersStatics_GetCodepointFromSurrogatePair,
-            highSurrogate, lowSurrogate, tmp.addr)
+    check it.vtbl.GetCodepointFromSurrogatePair(it, highSurrogate, lowSurrogate,
+                                                tmp.addr
+                                               ), "UnicodeCharacters.GetCodepointFromSurrogatePair"
     result = tmp
 
 proc getSurrogatePairFromCodepoint*(_: typedesc[UnicodeCharacters],
@@ -1109,8 +1067,10 @@ proc getSurrogatePairFromCodepoint*(_: typedesc[UnicodeCharacters],
               it):
     var highSurrogate: uint16
     var lowSurrogate: uint16
-    it.call(IUnicodeCharactersStatics_GetSurrogatePairFromCodepoint, codepoint,
-            highSurrogate.addr, lowSurrogate.addr)
+    check it.vtbl.GetSurrogatePairFromCodepoint(it, codepoint,
+                                                highSurrogate.addr,
+                                                lowSurrogate.addr
+                                               ), "UnicodeCharacters.GetSurrogatePairFromCodepoint"
     result = (highSurrogate: highSurrogate, lowSurrogate: lowSurrogate)
 
 proc isHighSurrogate*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
@@ -1118,7 +1078,8 @@ proc isHighSurrogate*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: bool
-    it.call(IUnicodeCharactersStatics_IsHighSurrogate, codepoint, tmp.addr)
+    check it.vtbl.IsHighSurrogate(it, codepoint, tmp.addr
+                                 ), "UnicodeCharacters.IsHighSurrogate"
     result = tmp
 
 proc isLowSurrogate*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
@@ -1126,7 +1087,8 @@ proc isLowSurrogate*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: bool
-    it.call(IUnicodeCharactersStatics_IsLowSurrogate, codepoint, tmp.addr)
+    check it.vtbl.IsLowSurrogate(it, codepoint, tmp.addr
+                                ), "UnicodeCharacters.IsLowSurrogate"
     result = tmp
 
 proc isSupplementary*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
@@ -1134,7 +1096,8 @@ proc isSupplementary*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: bool
-    it.call(IUnicodeCharactersStatics_IsSupplementary, codepoint, tmp.addr)
+    check it.vtbl.IsSupplementary(it, codepoint, tmp.addr
+                                 ), "UnicodeCharacters.IsSupplementary"
     result = tmp
 
 proc isNoncharacter*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
@@ -1142,7 +1105,8 @@ proc isNoncharacter*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: bool
-    it.call(IUnicodeCharactersStatics_IsNoncharacter, codepoint, tmp.addr)
+    check it.vtbl.IsNoncharacter(it, codepoint, tmp.addr
+                                ), "UnicodeCharacters.IsNoncharacter"
     result = tmp
 
 proc isWhitespace*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
@@ -1150,7 +1114,8 @@ proc isWhitespace*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: bool
-    it.call(IUnicodeCharactersStatics_IsWhitespace, codepoint, tmp.addr)
+    check it.vtbl.IsWhitespace(it, codepoint, tmp.addr
+                              ), "UnicodeCharacters.IsWhitespace"
     result = tmp
 
 proc isAlphabetic*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
@@ -1158,7 +1123,8 @@ proc isAlphabetic*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: bool
-    it.call(IUnicodeCharactersStatics_IsAlphabetic, codepoint, tmp.addr)
+    check it.vtbl.IsAlphabetic(it, codepoint, tmp.addr
+                              ), "UnicodeCharacters.IsAlphabetic"
     result = tmp
 
 proc isCased*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
@@ -1166,7 +1132,7 @@ proc isCased*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: bool
-    it.call(IUnicodeCharactersStatics_IsCased, codepoint, tmp.addr)
+    check it.vtbl.IsCased(it, codepoint, tmp.addr), "UnicodeCharacters.IsCased"
     result = tmp
 
 proc isUppercase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
@@ -1174,7 +1140,8 @@ proc isUppercase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: bool
-    it.call(IUnicodeCharactersStatics_IsUppercase, codepoint, tmp.addr)
+    check it.vtbl.IsUppercase(it, codepoint, tmp.addr
+                             ), "UnicodeCharacters.IsUppercase"
     result = tmp
 
 proc isLowercase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
@@ -1182,7 +1149,8 @@ proc isLowercase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: bool
-    it.call(IUnicodeCharactersStatics_IsLowercase, codepoint, tmp.addr)
+    check it.vtbl.IsLowercase(it, codepoint, tmp.addr
+                             ), "UnicodeCharacters.IsLowercase"
     result = tmp
 
 proc isIdStart*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
@@ -1190,7 +1158,8 @@ proc isIdStart*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: bool
-    it.call(IUnicodeCharactersStatics_IsIdStart, codepoint, tmp.addr)
+    check it.vtbl.IsIdStart(it, codepoint, tmp.addr
+                           ), "UnicodeCharacters.IsIdStart"
     result = tmp
 
 proc isIdContinue*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
@@ -1198,7 +1167,8 @@ proc isIdContinue*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: bool
-    it.call(IUnicodeCharactersStatics_IsIdContinue, codepoint, tmp.addr)
+    check it.vtbl.IsIdContinue(it, codepoint, tmp.addr
+                              ), "UnicodeCharacters.IsIdContinue"
     result = tmp
 
 proc isGraphemeBase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
@@ -1206,7 +1176,8 @@ proc isGraphemeBase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: bool
-    it.call(IUnicodeCharactersStatics_IsGraphemeBase, codepoint, tmp.addr)
+    check it.vtbl.IsGraphemeBase(it, codepoint, tmp.addr
+                                ), "UnicodeCharacters.IsGraphemeBase"
     result = tmp
 
 proc isGraphemeExtend*(_: typedesc[UnicodeCharacters], codepoint: uint32
@@ -1215,7 +1186,8 @@ proc isGraphemeExtend*(_: typedesc[UnicodeCharacters], codepoint: uint32
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: bool
-    it.call(IUnicodeCharactersStatics_IsGraphemeExtend, codepoint, tmp.addr)
+    check it.vtbl.IsGraphemeExtend(it, codepoint, tmp.addr
+                                  ), "UnicodeCharacters.IsGraphemeExtend"
     result = tmp
 
 proc getNumericType*(_: typedesc[UnicodeCharacters], codepoint: uint32
@@ -1224,7 +1196,8 @@ proc getNumericType*(_: typedesc[UnicodeCharacters], codepoint: uint32
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: UnicodeNumericType
-    it.call(IUnicodeCharactersStatics_GetNumericType, codepoint, tmp.addr)
+    check it.vtbl.GetNumericType(it, codepoint, tmp.addr
+                                ), "UnicodeCharacters.GetNumericType"
     result = tmp
 
 proc getGeneralCategory*(_: typedesc[UnicodeCharacters], codepoint: uint32
@@ -1233,28 +1206,26 @@ proc getGeneralCategory*(_: typedesc[UnicodeCharacters], codepoint: uint32
   withStatics("Windows.Data.Text.UnicodeCharacters", IUnicodeCharactersStatics,
               it):
     var tmp: UnicodeGeneralCategory
-    it.call(IUnicodeCharactersStatics_GetGeneralCategory, codepoint, tmp.addr)
+    check it.vtbl.GetGeneralCategory(it, codepoint, tmp.addr
+                                    ), "UnicodeCharacters.GetGeneralCategory"
     result = tmp
 
 proc text*(self: WordSegment): string =
   ## Windows.Data.Text.WordSegment.get_Text
   withIface(self.p, IWordSegment, it):
-    var tmp: HSTRING
-    it.call(IWordSegment_get_Text, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Text)
 
 proc sourceTextSegment*(self: WordSegment): TextSegment =
   ## Windows.Data.Text.WordSegment.get_SourceTextSegment
   withIface(self.p, IWordSegment, it):
-    var tmp: TextSegment
-    it.call(IWordSegment_get_SourceTextSegment, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SourceTextSegment, TextSegment)
 
 proc alternateForms*(self: WordSegment): seq[AlternateWordForm] =
   ## Windows.Data.Text.WordSegment.get_AlternateForms
   withIface(self.p, IWordSegment, it):
     var tmp: pointer
-    it.call(IWordSegment_get_AlternateForms, tmp.addr)
+    check it.vtbl.get_AlternateForms(it, tmp.addr
+                                    ), "WordSegment.get_AlternateForms"
     result = toSeq[AlternateWordForm](tmp, IID_IVectorView_1_AlternateWordForm)
     release(tmp)
 
@@ -1271,14 +1242,12 @@ proc invoke*(self: WordSegmentsTokenizingHandler,
                                             IID_IVectorView_1_WordSegment,
                                             IID_IIterator_1_WordSegment)
     defer: discard release(p1)
-    it.call(WordSegmentsTokenizingHandler_Invoke, p0, p1)
+    check it.vtbl.Invoke(it, p0, p1), "WordSegmentsTokenizingHandler.Invoke"
 
 proc resolvedLanguage*(self: WordsSegmenter): string =
   ## Windows.Data.Text.WordsSegmenter.get_ResolvedLanguage
   withIface(self.p, IWordsSegmenter, it):
-    var tmp: HSTRING
-    it.call(IWordsSegmenter_get_ResolvedLanguage, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_ResolvedLanguage)
 
 proc getTokenAt*(self: WordsSegmenter, text: string, startIndex: uint32
                 ): WordSegment =
@@ -1286,7 +1255,8 @@ proc getTokenAt*(self: WordsSegmenter, text: string, startIndex: uint32
   withIface(self.p, IWordsSegmenter, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(IWordsSegmenter_GetTokenAt, h0, startIndex, tmp.addr)
+      check it.vtbl.GetTokenAt(it, h0, startIndex, tmp.addr
+                              ), "WordsSegmenter.GetTokenAt"
       result = adopt[WordSegment](tmp)
 
 proc getTokens*(self: WordsSegmenter, text: string): seq[WordSegment] =
@@ -1294,7 +1264,7 @@ proc getTokens*(self: WordsSegmenter, text: string): seq[WordSegment] =
   withIface(self.p, IWordsSegmenter, it):
     withHString(text, h0):
       var tmp: pointer
-      it.call(IWordsSegmenter_GetTokens, h0, tmp.addr)
+      check it.vtbl.GetTokens(it, h0, tmp.addr), "WordsSegmenter.GetTokens"
       result = toSeq[WordSegment](tmp, IID_IVectorView_1_WordSegment)
       release(tmp)
 
@@ -1307,7 +1277,7 @@ proc tokenize*(self: WordsSegmenter, text: string, startIndex: uint32,
                            proc(a0: seq[WordSegment], a1: seq[WordSegment]) = handler(a0, a1)
                           )
       defer: discard release(d2)
-      it.call(IWordsSegmenter_Tokenize, h0, startIndex, d2)
+      check it.vtbl.Tokenize(it, h0, startIndex, d2), "WordsSegmenter.Tokenize"
 
 proc createWithLanguage*(_: typedesc[WordsSegmenter], language: string
                         ): WordsSegmenter =
@@ -1315,118 +1285,91 @@ proc createWithLanguage*(_: typedesc[WordsSegmenter], language: string
   withStatics("Windows.Data.Text.WordsSegmenter", IWordsSegmenterFactory, it):
     withHString(language, h0):
       var tmp: pointer
-      it.call(IWordsSegmenterFactory_CreateWithLanguage, h0, tmp.addr)
+      check it.vtbl.CreateWithLanguage(it, h0, tmp.addr
+                                      ), "WordsSegmenter.CreateWithLanguage"
       result = adopt[WordsSegmenter](tmp)
 
 proc publicId*(self: DtdEntity): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.get_PublicId
   withIface(self.p, IDtdEntity, it):
-    var tmp: pointer
-    it.call(IDtdEntity_get_PublicId, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PublicId, WinRtObject)
 
 proc systemId*(self: DtdEntity): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.get_SystemId
   withIface(self.p, IDtdEntity, it):
-    var tmp: pointer
-    it.call(IDtdEntity_get_SystemId, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_SystemId, WinRtObject)
 
 proc notationName*(self: DtdEntity): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.get_NotationName
   withIface(self.p, IDtdEntity, it):
-    var tmp: pointer
-    it.call(IDtdEntity_get_NotationName, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NotationName, WinRtObject)
 
 proc nodeValue*(self: DtdEntity): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.get_NodeValue
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NodeValue, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NodeValue, WinRtObject)
 
 proc `nodeValue=`*(self: DtdEntity, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.DtdEntity.put_NodeValue
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_NodeValue, value.p)
+    check it.vtbl.put_NodeValue(it, value.p), "DtdEntity.put_NodeValue"
 
 proc nodeType*(self: DtdEntity): NodeType =
   ## Windows.Data.Xml.Dom.DtdEntity.get_NodeType
   withIface(self.p, IXmlNode, it):
-    var tmp: NodeType
-    it.call(IXmlNode_get_NodeType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NodeType, NodeType)
 
 proc nodeName*(self: DtdEntity): string =
   ## Windows.Data.Xml.Dom.DtdEntity.get_NodeName
   withIface(self.p, IXmlNode, it):
-    var tmp: HSTRING
-    it.call(IXmlNode_get_NodeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NodeName)
 
 proc parentNode*(self: DtdEntity): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.get_ParentNode
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ParentNode, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ParentNode, WinRtObject)
 
 proc childNodes*(self: DtdEntity): XmlNodeList =
   ## Windows.Data.Xml.Dom.DtdEntity.get_ChildNodes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ChildNodes, tmp.addr)
-    result = adopt[XmlNodeList](tmp)
+    result = it.getObject(get_ChildNodes, XmlNodeList)
 
 proc firstChild*(self: DtdEntity): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.get_FirstChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_FirstChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_FirstChild, WinRtObject)
 
 proc lastChild*(self: DtdEntity): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.get_LastChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LastChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LastChild, WinRtObject)
 
 proc previousSibling*(self: DtdEntity): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.get_PreviousSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_PreviousSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PreviousSibling, WinRtObject)
 
 proc nextSibling*(self: DtdEntity): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.get_NextSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NextSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NextSibling, WinRtObject)
 
 proc attributes*(self: DtdEntity): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.DtdEntity.get_Attributes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Attributes, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Attributes, XmlNamedNodeMap)
 
 proc hasChildNodes*(self: DtdEntity): bool =
   ## Windows.Data.Xml.Dom.DtdEntity.HasChildNodes
   withIface(self.p, IXmlNode, it):
     var tmp: bool
-    it.call(IXmlNode_HasChildNodes, tmp.addr)
+    check it.vtbl.HasChildNodes(it, tmp.addr), "DtdEntity.HasChildNodes"
     result = tmp
 
 proc ownerDocument*(self: DtdEntity): XmlDocument =
   ## Windows.Data.Xml.Dom.DtdEntity.get_OwnerDocument
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_OwnerDocument, tmp.addr)
-    result = adopt[XmlDocument](tmp)
+    result = it.getObject(get_OwnerDocument, XmlDocument)
 
 proc insertBefore*(self: DtdEntity, newChild: WinRtObject,
                    referenceChild: WinRtObject): WinRtObject =
@@ -1435,7 +1378,8 @@ proc insertBefore*(self: DtdEntity, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_InsertBefore, p0, p1, tmp.addr)
+        check it.vtbl.InsertBefore(it, p0, p1, tmp.addr
+                                  ), "DtdEntity.InsertBefore"
         result = adopt[WinRtObject](tmp)
 
 proc replaceChild*(self: DtdEntity, newChild: WinRtObject,
@@ -1445,7 +1389,8 @@ proc replaceChild*(self: DtdEntity, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_ReplaceChild, p0, p1, tmp.addr)
+        check it.vtbl.ReplaceChild(it, p0, p1, tmp.addr
+                                  ), "DtdEntity.ReplaceChild"
         result = adopt[WinRtObject](tmp)
 
 proc removeChild*(self: DtdEntity, childNode: WinRtObject): WinRtObject =
@@ -1453,7 +1398,7 @@ proc removeChild*(self: DtdEntity, childNode: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(childNode.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_RemoveChild, p0, tmp.addr)
+      check it.vtbl.RemoveChild(it, p0, tmp.addr), "DtdEntity.RemoveChild"
       result = adopt[WinRtObject](tmp)
 
 proc appendChild*(self: DtdEntity, newChild: WinRtObject): WinRtObject =
@@ -1461,73 +1406,65 @@ proc appendChild*(self: DtdEntity, newChild: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(newChild.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_AppendChild, p0, tmp.addr)
+      check it.vtbl.AppendChild(it, p0, tmp.addr), "DtdEntity.AppendChild"
       result = adopt[WinRtObject](tmp)
 
 proc cloneNode*(self: DtdEntity, deep: bool): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.CloneNode
   withIface(self.p, IXmlNode, it):
     var tmp: pointer
-    it.call(IXmlNode_CloneNode, deep, tmp.addr)
+    check it.vtbl.CloneNode(it, deep, tmp.addr), "DtdEntity.CloneNode"
     result = adopt[WinRtObject](tmp)
 
 proc namespaceUri*(self: DtdEntity): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.get_NamespaceUri
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NamespaceUri, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NamespaceUri, WinRtObject)
 
 proc localName*(self: DtdEntity): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.get_LocalName
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LocalName, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LocalName, WinRtObject)
 
 proc prefix*(self: DtdEntity): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.get_Prefix
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Prefix, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Prefix, WinRtObject)
 
 proc normalize*(self: DtdEntity) =
   ## Windows.Data.Xml.Dom.DtdEntity.Normalize
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_Normalize)
+    check it.vtbl.Normalize(it), "DtdEntity.Normalize"
 
 proc `prefix=`*(self: DtdEntity, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.DtdEntity.put_Prefix
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_Prefix, value.p)
+    check it.vtbl.put_Prefix(it, value.p), "DtdEntity.put_Prefix"
 
 proc getXml*(self: DtdEntity): string =
   ## Windows.Data.Xml.Dom.DtdEntity.GetXml
   withIface(self.p, IXmlNodeSerializer, it):
     var tmp: HSTRING
-    it.call(IXmlNodeSerializer_GetXml, tmp.addr)
+    check it.vtbl.GetXml(it, tmp.addr), "DtdEntity.GetXml"
     result = takeString(tmp)
 
 proc innerText*(self: DtdEntity): string =
   ## Windows.Data.Xml.Dom.DtdEntity.get_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    var tmp: HSTRING
-    it.call(IXmlNodeSerializer_get_InnerText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InnerText)
 
 proc `innerText=`*(self: DtdEntity, value: string) =
   ## Windows.Data.Xml.Dom.DtdEntity.put_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    withHString(value, h0):
-      it.call(IXmlNodeSerializer_put_InnerText, h0)
+    it.putString(put_InnerText, value)
 
 proc selectSingleNode*(self: DtdEntity, xpath: string): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdEntity.SelectSingleNode
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNode, h0, tmp.addr)
+      check it.vtbl.SelectSingleNode(it, h0, tmp.addr
+                                    ), "DtdEntity.SelectSingleNode"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodes*(self: DtdEntity, xpath: string): XmlNodeList =
@@ -1535,7 +1472,7 @@ proc selectNodes*(self: DtdEntity, xpath: string): XmlNodeList =
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodes, h0, tmp.addr)
+      check it.vtbl.SelectNodes(it, h0, tmp.addr), "DtdEntity.SelectNodes"
       result = adopt[XmlNodeList](tmp)
 
 proc selectSingleNodeNS*(self: DtdEntity, xpath: string, namespaces: WinRtObject
@@ -1544,7 +1481,8 @@ proc selectSingleNodeNS*(self: DtdEntity, xpath: string, namespaces: WinRtObject
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNodeNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectSingleNodeNS(it, h0, namespaces.p, tmp.addr
+                                      ), "DtdEntity.SelectSingleNodeNS"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodesNS*(self: DtdEntity, xpath: string, namespaces: WinRtObject
@@ -1553,111 +1491,86 @@ proc selectNodesNS*(self: DtdEntity, xpath: string, namespaces: WinRtObject
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodesNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectNodesNS(it, h0, namespaces.p, tmp.addr
+                                 ), "DtdEntity.SelectNodesNS"
       result = adopt[XmlNodeList](tmp)
 
 proc publicId*(self: DtdNotation): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdNotation.get_PublicId
   withIface(self.p, IDtdNotation, it):
-    var tmp: pointer
-    it.call(IDtdNotation_get_PublicId, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PublicId, WinRtObject)
 
 proc systemId*(self: DtdNotation): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdNotation.get_SystemId
   withIface(self.p, IDtdNotation, it):
-    var tmp: pointer
-    it.call(IDtdNotation_get_SystemId, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_SystemId, WinRtObject)
 
 proc nodeValue*(self: DtdNotation): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdNotation.get_NodeValue
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NodeValue, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NodeValue, WinRtObject)
 
 proc `nodeValue=`*(self: DtdNotation, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.DtdNotation.put_NodeValue
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_NodeValue, value.p)
+    check it.vtbl.put_NodeValue(it, value.p), "DtdNotation.put_NodeValue"
 
 proc nodeType*(self: DtdNotation): NodeType =
   ## Windows.Data.Xml.Dom.DtdNotation.get_NodeType
   withIface(self.p, IXmlNode, it):
-    var tmp: NodeType
-    it.call(IXmlNode_get_NodeType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NodeType, NodeType)
 
 proc nodeName*(self: DtdNotation): string =
   ## Windows.Data.Xml.Dom.DtdNotation.get_NodeName
   withIface(self.p, IXmlNode, it):
-    var tmp: HSTRING
-    it.call(IXmlNode_get_NodeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NodeName)
 
 proc parentNode*(self: DtdNotation): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdNotation.get_ParentNode
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ParentNode, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ParentNode, WinRtObject)
 
 proc childNodes*(self: DtdNotation): XmlNodeList =
   ## Windows.Data.Xml.Dom.DtdNotation.get_ChildNodes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ChildNodes, tmp.addr)
-    result = adopt[XmlNodeList](tmp)
+    result = it.getObject(get_ChildNodes, XmlNodeList)
 
 proc firstChild*(self: DtdNotation): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdNotation.get_FirstChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_FirstChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_FirstChild, WinRtObject)
 
 proc lastChild*(self: DtdNotation): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdNotation.get_LastChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LastChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LastChild, WinRtObject)
 
 proc previousSibling*(self: DtdNotation): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdNotation.get_PreviousSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_PreviousSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PreviousSibling, WinRtObject)
 
 proc nextSibling*(self: DtdNotation): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdNotation.get_NextSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NextSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NextSibling, WinRtObject)
 
 proc attributes*(self: DtdNotation): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.DtdNotation.get_Attributes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Attributes, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Attributes, XmlNamedNodeMap)
 
 proc hasChildNodes*(self: DtdNotation): bool =
   ## Windows.Data.Xml.Dom.DtdNotation.HasChildNodes
   withIface(self.p, IXmlNode, it):
     var tmp: bool
-    it.call(IXmlNode_HasChildNodes, tmp.addr)
+    check it.vtbl.HasChildNodes(it, tmp.addr), "DtdNotation.HasChildNodes"
     result = tmp
 
 proc ownerDocument*(self: DtdNotation): XmlDocument =
   ## Windows.Data.Xml.Dom.DtdNotation.get_OwnerDocument
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_OwnerDocument, tmp.addr)
-    result = adopt[XmlDocument](tmp)
+    result = it.getObject(get_OwnerDocument, XmlDocument)
 
 proc insertBefore*(self: DtdNotation, newChild: WinRtObject,
                    referenceChild: WinRtObject): WinRtObject =
@@ -1666,7 +1579,8 @@ proc insertBefore*(self: DtdNotation, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_InsertBefore, p0, p1, tmp.addr)
+        check it.vtbl.InsertBefore(it, p0, p1, tmp.addr
+                                  ), "DtdNotation.InsertBefore"
         result = adopt[WinRtObject](tmp)
 
 proc replaceChild*(self: DtdNotation, newChild: WinRtObject,
@@ -1676,7 +1590,8 @@ proc replaceChild*(self: DtdNotation, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_ReplaceChild, p0, p1, tmp.addr)
+        check it.vtbl.ReplaceChild(it, p0, p1, tmp.addr
+                                  ), "DtdNotation.ReplaceChild"
         result = adopt[WinRtObject](tmp)
 
 proc removeChild*(self: DtdNotation, childNode: WinRtObject): WinRtObject =
@@ -1684,7 +1599,7 @@ proc removeChild*(self: DtdNotation, childNode: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(childNode.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_RemoveChild, p0, tmp.addr)
+      check it.vtbl.RemoveChild(it, p0, tmp.addr), "DtdNotation.RemoveChild"
       result = adopt[WinRtObject](tmp)
 
 proc appendChild*(self: DtdNotation, newChild: WinRtObject): WinRtObject =
@@ -1692,73 +1607,65 @@ proc appendChild*(self: DtdNotation, newChild: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(newChild.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_AppendChild, p0, tmp.addr)
+      check it.vtbl.AppendChild(it, p0, tmp.addr), "DtdNotation.AppendChild"
       result = adopt[WinRtObject](tmp)
 
 proc cloneNode*(self: DtdNotation, deep: bool): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdNotation.CloneNode
   withIface(self.p, IXmlNode, it):
     var tmp: pointer
-    it.call(IXmlNode_CloneNode, deep, tmp.addr)
+    check it.vtbl.CloneNode(it, deep, tmp.addr), "DtdNotation.CloneNode"
     result = adopt[WinRtObject](tmp)
 
 proc namespaceUri*(self: DtdNotation): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdNotation.get_NamespaceUri
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NamespaceUri, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NamespaceUri, WinRtObject)
 
 proc localName*(self: DtdNotation): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdNotation.get_LocalName
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LocalName, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LocalName, WinRtObject)
 
 proc prefix*(self: DtdNotation): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdNotation.get_Prefix
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Prefix, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Prefix, WinRtObject)
 
 proc normalize*(self: DtdNotation) =
   ## Windows.Data.Xml.Dom.DtdNotation.Normalize
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_Normalize)
+    check it.vtbl.Normalize(it), "DtdNotation.Normalize"
 
 proc `prefix=`*(self: DtdNotation, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.DtdNotation.put_Prefix
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_Prefix, value.p)
+    check it.vtbl.put_Prefix(it, value.p), "DtdNotation.put_Prefix"
 
 proc getXml*(self: DtdNotation): string =
   ## Windows.Data.Xml.Dom.DtdNotation.GetXml
   withIface(self.p, IXmlNodeSerializer, it):
     var tmp: HSTRING
-    it.call(IXmlNodeSerializer_GetXml, tmp.addr)
+    check it.vtbl.GetXml(it, tmp.addr), "DtdNotation.GetXml"
     result = takeString(tmp)
 
 proc innerText*(self: DtdNotation): string =
   ## Windows.Data.Xml.Dom.DtdNotation.get_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    var tmp: HSTRING
-    it.call(IXmlNodeSerializer_get_InnerText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InnerText)
 
 proc `innerText=`*(self: DtdNotation, value: string) =
   ## Windows.Data.Xml.Dom.DtdNotation.put_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    withHString(value, h0):
-      it.call(IXmlNodeSerializer_put_InnerText, h0)
+    it.putString(put_InnerText, value)
 
 proc selectSingleNode*(self: DtdNotation, xpath: string): WinRtObject =
   ## Windows.Data.Xml.Dom.DtdNotation.SelectSingleNode
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNode, h0, tmp.addr)
+      check it.vtbl.SelectSingleNode(it, h0, tmp.addr
+                                    ), "DtdNotation.SelectSingleNode"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodes*(self: DtdNotation, xpath: string): XmlNodeList =
@@ -1766,7 +1673,7 @@ proc selectNodes*(self: DtdNotation, xpath: string): XmlNodeList =
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodes, h0, tmp.addr)
+      check it.vtbl.SelectNodes(it, h0, tmp.addr), "DtdNotation.SelectNodes"
       result = adopt[XmlNodeList](tmp)
 
 proc selectSingleNodeNS*(self: DtdNotation, xpath: string,
@@ -1775,7 +1682,8 @@ proc selectSingleNodeNS*(self: DtdNotation, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNodeNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectSingleNodeNS(it, h0, namespaces.p, tmp.addr
+                                      ), "DtdNotation.SelectSingleNodeNS"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodesNS*(self: DtdNotation, xpath: string, namespaces: WinRtObject
@@ -1784,124 +1692,96 @@ proc selectNodesNS*(self: DtdNotation, xpath: string, namespaces: WinRtObject
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodesNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectNodesNS(it, h0, namespaces.p, tmp.addr
+                                 ), "DtdNotation.SelectNodesNS"
       result = adopt[XmlNodeList](tmp)
 
 proc name*(self: XmlAttribute): string =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_Name
   withIface(self.p, IXmlAttribute, it):
-    var tmp: HSTRING
-    it.call(IXmlAttribute_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc specified*(self: XmlAttribute): bool =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_Specified
   withIface(self.p, IXmlAttribute, it):
-    var tmp: bool
-    it.call(IXmlAttribute_get_Specified, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Specified, bool)
 
 proc value*(self: XmlAttribute): string =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_Value
   withIface(self.p, IXmlAttribute, it):
-    var tmp: HSTRING
-    it.call(IXmlAttribute_get_Value, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Value)
 
 proc `value=`*(self: XmlAttribute, value: string) =
   ## Windows.Data.Xml.Dom.XmlAttribute.put_Value
   withIface(self.p, IXmlAttribute, it):
-    withHString(value, h0):
-      it.call(IXmlAttribute_put_Value, h0)
+    it.putString(put_Value, value)
 
 proc nodeValue*(self: XmlAttribute): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_NodeValue
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NodeValue, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NodeValue, WinRtObject)
 
 proc `nodeValue=`*(self: XmlAttribute, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlAttribute.put_NodeValue
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_NodeValue, value.p)
+    check it.vtbl.put_NodeValue(it, value.p), "XmlAttribute.put_NodeValue"
 
 proc nodeType*(self: XmlAttribute): NodeType =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_NodeType
   withIface(self.p, IXmlNode, it):
-    var tmp: NodeType
-    it.call(IXmlNode_get_NodeType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NodeType, NodeType)
 
 proc nodeName*(self: XmlAttribute): string =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_NodeName
   withIface(self.p, IXmlNode, it):
-    var tmp: HSTRING
-    it.call(IXmlNode_get_NodeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NodeName)
 
 proc parentNode*(self: XmlAttribute): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_ParentNode
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ParentNode, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ParentNode, WinRtObject)
 
 proc childNodes*(self: XmlAttribute): XmlNodeList =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_ChildNodes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ChildNodes, tmp.addr)
-    result = adopt[XmlNodeList](tmp)
+    result = it.getObject(get_ChildNodes, XmlNodeList)
 
 proc firstChild*(self: XmlAttribute): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_FirstChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_FirstChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_FirstChild, WinRtObject)
 
 proc lastChild*(self: XmlAttribute): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_LastChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LastChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LastChild, WinRtObject)
 
 proc previousSibling*(self: XmlAttribute): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_PreviousSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_PreviousSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PreviousSibling, WinRtObject)
 
 proc nextSibling*(self: XmlAttribute): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_NextSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NextSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NextSibling, WinRtObject)
 
 proc attributes*(self: XmlAttribute): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_Attributes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Attributes, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Attributes, XmlNamedNodeMap)
 
 proc hasChildNodes*(self: XmlAttribute): bool =
   ## Windows.Data.Xml.Dom.XmlAttribute.HasChildNodes
   withIface(self.p, IXmlNode, it):
     var tmp: bool
-    it.call(IXmlNode_HasChildNodes, tmp.addr)
+    check it.vtbl.HasChildNodes(it, tmp.addr), "XmlAttribute.HasChildNodes"
     result = tmp
 
 proc ownerDocument*(self: XmlAttribute): XmlDocument =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_OwnerDocument
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_OwnerDocument, tmp.addr)
-    result = adopt[XmlDocument](tmp)
+    result = it.getObject(get_OwnerDocument, XmlDocument)
 
 proc insertBefore*(self: XmlAttribute, newChild: WinRtObject,
                    referenceChild: WinRtObject): WinRtObject =
@@ -1910,7 +1790,8 @@ proc insertBefore*(self: XmlAttribute, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_InsertBefore, p0, p1, tmp.addr)
+        check it.vtbl.InsertBefore(it, p0, p1, tmp.addr
+                                  ), "XmlAttribute.InsertBefore"
         result = adopt[WinRtObject](tmp)
 
 proc replaceChild*(self: XmlAttribute, newChild: WinRtObject,
@@ -1920,7 +1801,8 @@ proc replaceChild*(self: XmlAttribute, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_ReplaceChild, p0, p1, tmp.addr)
+        check it.vtbl.ReplaceChild(it, p0, p1, tmp.addr
+                                  ), "XmlAttribute.ReplaceChild"
         result = adopt[WinRtObject](tmp)
 
 proc removeChild*(self: XmlAttribute, childNode: WinRtObject): WinRtObject =
@@ -1928,7 +1810,7 @@ proc removeChild*(self: XmlAttribute, childNode: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(childNode.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_RemoveChild, p0, tmp.addr)
+      check it.vtbl.RemoveChild(it, p0, tmp.addr), "XmlAttribute.RemoveChild"
       result = adopt[WinRtObject](tmp)
 
 proc appendChild*(self: XmlAttribute, newChild: WinRtObject): WinRtObject =
@@ -1936,73 +1818,65 @@ proc appendChild*(self: XmlAttribute, newChild: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(newChild.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_AppendChild, p0, tmp.addr)
+      check it.vtbl.AppendChild(it, p0, tmp.addr), "XmlAttribute.AppendChild"
       result = adopt[WinRtObject](tmp)
 
 proc cloneNode*(self: XmlAttribute, deep: bool): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlAttribute.CloneNode
   withIface(self.p, IXmlNode, it):
     var tmp: pointer
-    it.call(IXmlNode_CloneNode, deep, tmp.addr)
+    check it.vtbl.CloneNode(it, deep, tmp.addr), "XmlAttribute.CloneNode"
     result = adopt[WinRtObject](tmp)
 
 proc namespaceUri*(self: XmlAttribute): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_NamespaceUri
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NamespaceUri, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NamespaceUri, WinRtObject)
 
 proc localName*(self: XmlAttribute): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_LocalName
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LocalName, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LocalName, WinRtObject)
 
 proc prefix*(self: XmlAttribute): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_Prefix
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Prefix, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Prefix, WinRtObject)
 
 proc normalize*(self: XmlAttribute) =
   ## Windows.Data.Xml.Dom.XmlAttribute.Normalize
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_Normalize)
+    check it.vtbl.Normalize(it), "XmlAttribute.Normalize"
 
 proc `prefix=`*(self: XmlAttribute, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlAttribute.put_Prefix
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_Prefix, value.p)
+    check it.vtbl.put_Prefix(it, value.p), "XmlAttribute.put_Prefix"
 
 proc getXml*(self: XmlAttribute): string =
   ## Windows.Data.Xml.Dom.XmlAttribute.GetXml
   withIface(self.p, IXmlNodeSerializer, it):
     var tmp: HSTRING
-    it.call(IXmlNodeSerializer_GetXml, tmp.addr)
+    check it.vtbl.GetXml(it, tmp.addr), "XmlAttribute.GetXml"
     result = takeString(tmp)
 
 proc innerText*(self: XmlAttribute): string =
   ## Windows.Data.Xml.Dom.XmlAttribute.get_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    var tmp: HSTRING
-    it.call(IXmlNodeSerializer_get_InnerText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InnerText)
 
 proc `innerText=`*(self: XmlAttribute, value: string) =
   ## Windows.Data.Xml.Dom.XmlAttribute.put_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    withHString(value, h0):
-      it.call(IXmlNodeSerializer_put_InnerText, h0)
+    it.putString(put_InnerText, value)
 
 proc selectSingleNode*(self: XmlAttribute, xpath: string): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlAttribute.SelectSingleNode
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNode, h0, tmp.addr)
+      check it.vtbl.SelectSingleNode(it, h0, tmp.addr
+                                    ), "XmlAttribute.SelectSingleNode"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodes*(self: XmlAttribute, xpath: string): XmlNodeList =
@@ -2010,7 +1884,7 @@ proc selectNodes*(self: XmlAttribute, xpath: string): XmlNodeList =
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodes, h0, tmp.addr)
+      check it.vtbl.SelectNodes(it, h0, tmp.addr), "XmlAttribute.SelectNodes"
       result = adopt[XmlNodeList](tmp)
 
 proc selectSingleNodeNS*(self: XmlAttribute, xpath: string,
@@ -2019,7 +1893,8 @@ proc selectSingleNodeNS*(self: XmlAttribute, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNodeNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectSingleNodeNS(it, h0, namespaces.p, tmp.addr
+                                      ), "XmlAttribute.SelectSingleNodeNS"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodesNS*(self: XmlAttribute, xpath: string, namespaces: WinRtObject
@@ -2028,156 +1903,132 @@ proc selectNodesNS*(self: XmlAttribute, xpath: string, namespaces: WinRtObject
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodesNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectNodesNS(it, h0, namespaces.p, tmp.addr
+                                 ), "XmlAttribute.SelectNodesNS"
       result = adopt[XmlNodeList](tmp)
 
 proc splitText*(self: XmlCDataSection, offset: uint32): XmlText =
   ## Windows.Data.Xml.Dom.XmlCDataSection.SplitText
   withIface(self.p, IXmlText, it):
     var tmp: pointer
-    it.call(IXmlText_SplitText, offset, tmp.addr)
+    check it.vtbl.SplitText(it, offset, tmp.addr), "XmlCDataSection.SplitText"
     result = adopt[XmlText](tmp)
 
 proc data*(self: XmlCDataSection): string =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_Data
   withIface(self.p, IXmlCharacterData, it):
-    var tmp: HSTRING
-    it.call(IXmlCharacterData_get_Data, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Data)
 
 proc `data=`*(self: XmlCDataSection, value: string) =
   ## Windows.Data.Xml.Dom.XmlCDataSection.put_Data
   withIface(self.p, IXmlCharacterData, it):
-    withHString(value, h0):
-      it.call(IXmlCharacterData_put_Data, h0)
+    it.putString(put_Data, value)
 
 proc length*(self: XmlCDataSection): uint32 =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_Length
   withIface(self.p, IXmlCharacterData, it):
-    var tmp: uint32
-    it.call(IXmlCharacterData_get_Length, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Length, uint32)
 
 proc substringData*(self: XmlCDataSection, offset: uint32, count: uint32
                    ): string =
   ## Windows.Data.Xml.Dom.XmlCDataSection.SubstringData
   withIface(self.p, IXmlCharacterData, it):
     var tmp: HSTRING
-    it.call(IXmlCharacterData_SubstringData, offset, count, tmp.addr)
+    check it.vtbl.SubstringData(it, offset, count, tmp.addr
+                               ), "XmlCDataSection.SubstringData"
     result = takeString(tmp)
 
 proc appendData*(self: XmlCDataSection, data: string) =
   ## Windows.Data.Xml.Dom.XmlCDataSection.AppendData
   withIface(self.p, IXmlCharacterData, it):
     withHString(data, h0):
-      it.call(IXmlCharacterData_AppendData, h0)
+      check it.vtbl.AppendData(it, h0), "XmlCDataSection.AppendData"
 
 proc insertData*(self: XmlCDataSection, offset: uint32, data: string) =
   ## Windows.Data.Xml.Dom.XmlCDataSection.InsertData
   withIface(self.p, IXmlCharacterData, it):
     withHString(data, h1):
-      it.call(IXmlCharacterData_InsertData, offset, h1)
+      check it.vtbl.InsertData(it, offset, h1), "XmlCDataSection.InsertData"
 
 proc deleteData*(self: XmlCDataSection, offset: uint32, count: uint32) =
   ## Windows.Data.Xml.Dom.XmlCDataSection.DeleteData
   withIface(self.p, IXmlCharacterData, it):
-    it.call(IXmlCharacterData_DeleteData, offset, count)
+    check it.vtbl.DeleteData(it, offset, count), "XmlCDataSection.DeleteData"
 
 proc replaceData*(self: XmlCDataSection, offset: uint32, count: uint32,
                   data: string) =
   ## Windows.Data.Xml.Dom.XmlCDataSection.ReplaceData
   withIface(self.p, IXmlCharacterData, it):
     withHString(data, h2):
-      it.call(IXmlCharacterData_ReplaceData, offset, count, h2)
+      check it.vtbl.ReplaceData(it, offset, count, h2
+                               ), "XmlCDataSection.ReplaceData"
 
 proc nodeValue*(self: XmlCDataSection): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_NodeValue
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NodeValue, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NodeValue, WinRtObject)
 
 proc `nodeValue=`*(self: XmlCDataSection, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlCDataSection.put_NodeValue
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_NodeValue, value.p)
+    check it.vtbl.put_NodeValue(it, value.p), "XmlCDataSection.put_NodeValue"
 
 proc nodeType*(self: XmlCDataSection): NodeType =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_NodeType
   withIface(self.p, IXmlNode, it):
-    var tmp: NodeType
-    it.call(IXmlNode_get_NodeType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NodeType, NodeType)
 
 proc nodeName*(self: XmlCDataSection): string =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_NodeName
   withIface(self.p, IXmlNode, it):
-    var tmp: HSTRING
-    it.call(IXmlNode_get_NodeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NodeName)
 
 proc parentNode*(self: XmlCDataSection): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_ParentNode
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ParentNode, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ParentNode, WinRtObject)
 
 proc childNodes*(self: XmlCDataSection): XmlNodeList =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_ChildNodes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ChildNodes, tmp.addr)
-    result = adopt[XmlNodeList](tmp)
+    result = it.getObject(get_ChildNodes, XmlNodeList)
 
 proc firstChild*(self: XmlCDataSection): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_FirstChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_FirstChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_FirstChild, WinRtObject)
 
 proc lastChild*(self: XmlCDataSection): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_LastChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LastChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LastChild, WinRtObject)
 
 proc previousSibling*(self: XmlCDataSection): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_PreviousSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_PreviousSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PreviousSibling, WinRtObject)
 
 proc nextSibling*(self: XmlCDataSection): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_NextSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NextSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NextSibling, WinRtObject)
 
 proc attributes*(self: XmlCDataSection): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_Attributes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Attributes, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Attributes, XmlNamedNodeMap)
 
 proc hasChildNodes*(self: XmlCDataSection): bool =
   ## Windows.Data.Xml.Dom.XmlCDataSection.HasChildNodes
   withIface(self.p, IXmlNode, it):
     var tmp: bool
-    it.call(IXmlNode_HasChildNodes, tmp.addr)
+    check it.vtbl.HasChildNodes(it, tmp.addr), "XmlCDataSection.HasChildNodes"
     result = tmp
 
 proc ownerDocument*(self: XmlCDataSection): XmlDocument =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_OwnerDocument
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_OwnerDocument, tmp.addr)
-    result = adopt[XmlDocument](tmp)
+    result = it.getObject(get_OwnerDocument, XmlDocument)
 
 proc insertBefore*(self: XmlCDataSection, newChild: WinRtObject,
                    referenceChild: WinRtObject): WinRtObject =
@@ -2186,7 +2037,8 @@ proc insertBefore*(self: XmlCDataSection, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_InsertBefore, p0, p1, tmp.addr)
+        check it.vtbl.InsertBefore(it, p0, p1, tmp.addr
+                                  ), "XmlCDataSection.InsertBefore"
         result = adopt[WinRtObject](tmp)
 
 proc replaceChild*(self: XmlCDataSection, newChild: WinRtObject,
@@ -2196,7 +2048,8 @@ proc replaceChild*(self: XmlCDataSection, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_ReplaceChild, p0, p1, tmp.addr)
+        check it.vtbl.ReplaceChild(it, p0, p1, tmp.addr
+                                  ), "XmlCDataSection.ReplaceChild"
         result = adopt[WinRtObject](tmp)
 
 proc removeChild*(self: XmlCDataSection, childNode: WinRtObject): WinRtObject =
@@ -2204,7 +2057,7 @@ proc removeChild*(self: XmlCDataSection, childNode: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(childNode.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_RemoveChild, p0, tmp.addr)
+      check it.vtbl.RemoveChild(it, p0, tmp.addr), "XmlCDataSection.RemoveChild"
       result = adopt[WinRtObject](tmp)
 
 proc appendChild*(self: XmlCDataSection, newChild: WinRtObject): WinRtObject =
@@ -2212,73 +2065,65 @@ proc appendChild*(self: XmlCDataSection, newChild: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(newChild.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_AppendChild, p0, tmp.addr)
+      check it.vtbl.AppendChild(it, p0, tmp.addr), "XmlCDataSection.AppendChild"
       result = adopt[WinRtObject](tmp)
 
 proc cloneNode*(self: XmlCDataSection, deep: bool): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlCDataSection.CloneNode
   withIface(self.p, IXmlNode, it):
     var tmp: pointer
-    it.call(IXmlNode_CloneNode, deep, tmp.addr)
+    check it.vtbl.CloneNode(it, deep, tmp.addr), "XmlCDataSection.CloneNode"
     result = adopt[WinRtObject](tmp)
 
 proc namespaceUri*(self: XmlCDataSection): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_NamespaceUri
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NamespaceUri, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NamespaceUri, WinRtObject)
 
 proc localName*(self: XmlCDataSection): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_LocalName
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LocalName, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LocalName, WinRtObject)
 
 proc prefix*(self: XmlCDataSection): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_Prefix
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Prefix, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Prefix, WinRtObject)
 
 proc normalize*(self: XmlCDataSection) =
   ## Windows.Data.Xml.Dom.XmlCDataSection.Normalize
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_Normalize)
+    check it.vtbl.Normalize(it), "XmlCDataSection.Normalize"
 
 proc `prefix=`*(self: XmlCDataSection, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlCDataSection.put_Prefix
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_Prefix, value.p)
+    check it.vtbl.put_Prefix(it, value.p), "XmlCDataSection.put_Prefix"
 
 proc getXml*(self: XmlCDataSection): string =
   ## Windows.Data.Xml.Dom.XmlCDataSection.GetXml
   withIface(self.p, IXmlNodeSerializer, it):
     var tmp: HSTRING
-    it.call(IXmlNodeSerializer_GetXml, tmp.addr)
+    check it.vtbl.GetXml(it, tmp.addr), "XmlCDataSection.GetXml"
     result = takeString(tmp)
 
 proc innerText*(self: XmlCDataSection): string =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    var tmp: HSTRING
-    it.call(IXmlNodeSerializer_get_InnerText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InnerText)
 
 proc `innerText=`*(self: XmlCDataSection, value: string) =
   ## Windows.Data.Xml.Dom.XmlCDataSection.put_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    withHString(value, h0):
-      it.call(IXmlNodeSerializer_put_InnerText, h0)
+    it.putString(put_InnerText, value)
 
 proc selectSingleNode*(self: XmlCDataSection, xpath: string): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlCDataSection.SelectSingleNode
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNode, h0, tmp.addr)
+      check it.vtbl.SelectSingleNode(it, h0, tmp.addr
+                                    ), "XmlCDataSection.SelectSingleNode"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodes*(self: XmlCDataSection, xpath: string): XmlNodeList =
@@ -2286,7 +2131,7 @@ proc selectNodes*(self: XmlCDataSection, xpath: string): XmlNodeList =
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodes, h0, tmp.addr)
+      check it.vtbl.SelectNodes(it, h0, tmp.addr), "XmlCDataSection.SelectNodes"
       result = adopt[XmlNodeList](tmp)
 
 proc selectSingleNodeNS*(self: XmlCDataSection, xpath: string,
@@ -2295,7 +2140,8 @@ proc selectSingleNodeNS*(self: XmlCDataSection, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNodeNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectSingleNodeNS(it, h0, namespaces.p, tmp.addr
+                                      ), "XmlCDataSection.SelectSingleNodeNS"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodesNS*(self: XmlCDataSection, xpath: string,
@@ -2304,148 +2150,123 @@ proc selectNodesNS*(self: XmlCDataSection, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodesNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectNodesNS(it, h0, namespaces.p, tmp.addr
+                                 ), "XmlCDataSection.SelectNodesNS"
       result = adopt[XmlNodeList](tmp)
 
 proc data*(self: XmlComment): string =
   ## Windows.Data.Xml.Dom.XmlComment.get_Data
   withIface(self.p, IXmlCharacterData, it):
-    var tmp: HSTRING
-    it.call(IXmlCharacterData_get_Data, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Data)
 
 proc `data=`*(self: XmlComment, value: string) =
   ## Windows.Data.Xml.Dom.XmlComment.put_Data
   withIface(self.p, IXmlCharacterData, it):
-    withHString(value, h0):
-      it.call(IXmlCharacterData_put_Data, h0)
+    it.putString(put_Data, value)
 
 proc length*(self: XmlComment): uint32 =
   ## Windows.Data.Xml.Dom.XmlComment.get_Length
   withIface(self.p, IXmlCharacterData, it):
-    var tmp: uint32
-    it.call(IXmlCharacterData_get_Length, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Length, uint32)
 
 proc substringData*(self: XmlComment, offset: uint32, count: uint32): string =
   ## Windows.Data.Xml.Dom.XmlComment.SubstringData
   withIface(self.p, IXmlCharacterData, it):
     var tmp: HSTRING
-    it.call(IXmlCharacterData_SubstringData, offset, count, tmp.addr)
+    check it.vtbl.SubstringData(it, offset, count, tmp.addr
+                               ), "XmlComment.SubstringData"
     result = takeString(tmp)
 
 proc appendData*(self: XmlComment, data: string) =
   ## Windows.Data.Xml.Dom.XmlComment.AppendData
   withIface(self.p, IXmlCharacterData, it):
     withHString(data, h0):
-      it.call(IXmlCharacterData_AppendData, h0)
+      check it.vtbl.AppendData(it, h0), "XmlComment.AppendData"
 
 proc insertData*(self: XmlComment, offset: uint32, data: string) =
   ## Windows.Data.Xml.Dom.XmlComment.InsertData
   withIface(self.p, IXmlCharacterData, it):
     withHString(data, h1):
-      it.call(IXmlCharacterData_InsertData, offset, h1)
+      check it.vtbl.InsertData(it, offset, h1), "XmlComment.InsertData"
 
 proc deleteData*(self: XmlComment, offset: uint32, count: uint32) =
   ## Windows.Data.Xml.Dom.XmlComment.DeleteData
   withIface(self.p, IXmlCharacterData, it):
-    it.call(IXmlCharacterData_DeleteData, offset, count)
+    check it.vtbl.DeleteData(it, offset, count), "XmlComment.DeleteData"
 
 proc replaceData*(self: XmlComment, offset: uint32, count: uint32, data: string
                  ) =
   ## Windows.Data.Xml.Dom.XmlComment.ReplaceData
   withIface(self.p, IXmlCharacterData, it):
     withHString(data, h2):
-      it.call(IXmlCharacterData_ReplaceData, offset, count, h2)
+      check it.vtbl.ReplaceData(it, offset, count, h2), "XmlComment.ReplaceData"
 
 proc nodeValue*(self: XmlComment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlComment.get_NodeValue
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NodeValue, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NodeValue, WinRtObject)
 
 proc `nodeValue=`*(self: XmlComment, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlComment.put_NodeValue
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_NodeValue, value.p)
+    check it.vtbl.put_NodeValue(it, value.p), "XmlComment.put_NodeValue"
 
 proc nodeType*(self: XmlComment): NodeType =
   ## Windows.Data.Xml.Dom.XmlComment.get_NodeType
   withIface(self.p, IXmlNode, it):
-    var tmp: NodeType
-    it.call(IXmlNode_get_NodeType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NodeType, NodeType)
 
 proc nodeName*(self: XmlComment): string =
   ## Windows.Data.Xml.Dom.XmlComment.get_NodeName
   withIface(self.p, IXmlNode, it):
-    var tmp: HSTRING
-    it.call(IXmlNode_get_NodeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NodeName)
 
 proc parentNode*(self: XmlComment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlComment.get_ParentNode
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ParentNode, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ParentNode, WinRtObject)
 
 proc childNodes*(self: XmlComment): XmlNodeList =
   ## Windows.Data.Xml.Dom.XmlComment.get_ChildNodes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ChildNodes, tmp.addr)
-    result = adopt[XmlNodeList](tmp)
+    result = it.getObject(get_ChildNodes, XmlNodeList)
 
 proc firstChild*(self: XmlComment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlComment.get_FirstChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_FirstChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_FirstChild, WinRtObject)
 
 proc lastChild*(self: XmlComment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlComment.get_LastChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LastChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LastChild, WinRtObject)
 
 proc previousSibling*(self: XmlComment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlComment.get_PreviousSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_PreviousSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PreviousSibling, WinRtObject)
 
 proc nextSibling*(self: XmlComment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlComment.get_NextSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NextSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NextSibling, WinRtObject)
 
 proc attributes*(self: XmlComment): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.XmlComment.get_Attributes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Attributes, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Attributes, XmlNamedNodeMap)
 
 proc hasChildNodes*(self: XmlComment): bool =
   ## Windows.Data.Xml.Dom.XmlComment.HasChildNodes
   withIface(self.p, IXmlNode, it):
     var tmp: bool
-    it.call(IXmlNode_HasChildNodes, tmp.addr)
+    check it.vtbl.HasChildNodes(it, tmp.addr), "XmlComment.HasChildNodes"
     result = tmp
 
 proc ownerDocument*(self: XmlComment): XmlDocument =
   ## Windows.Data.Xml.Dom.XmlComment.get_OwnerDocument
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_OwnerDocument, tmp.addr)
-    result = adopt[XmlDocument](tmp)
+    result = it.getObject(get_OwnerDocument, XmlDocument)
 
 proc insertBefore*(self: XmlComment, newChild: WinRtObject,
                    referenceChild: WinRtObject): WinRtObject =
@@ -2454,7 +2275,8 @@ proc insertBefore*(self: XmlComment, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_InsertBefore, p0, p1, tmp.addr)
+        check it.vtbl.InsertBefore(it, p0, p1, tmp.addr
+                                  ), "XmlComment.InsertBefore"
         result = adopt[WinRtObject](tmp)
 
 proc replaceChild*(self: XmlComment, newChild: WinRtObject,
@@ -2464,7 +2286,8 @@ proc replaceChild*(self: XmlComment, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_ReplaceChild, p0, p1, tmp.addr)
+        check it.vtbl.ReplaceChild(it, p0, p1, tmp.addr
+                                  ), "XmlComment.ReplaceChild"
         result = adopt[WinRtObject](tmp)
 
 proc removeChild*(self: XmlComment, childNode: WinRtObject): WinRtObject =
@@ -2472,7 +2295,7 @@ proc removeChild*(self: XmlComment, childNode: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(childNode.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_RemoveChild, p0, tmp.addr)
+      check it.vtbl.RemoveChild(it, p0, tmp.addr), "XmlComment.RemoveChild"
       result = adopt[WinRtObject](tmp)
 
 proc appendChild*(self: XmlComment, newChild: WinRtObject): WinRtObject =
@@ -2480,73 +2303,65 @@ proc appendChild*(self: XmlComment, newChild: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(newChild.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_AppendChild, p0, tmp.addr)
+      check it.vtbl.AppendChild(it, p0, tmp.addr), "XmlComment.AppendChild"
       result = adopt[WinRtObject](tmp)
 
 proc cloneNode*(self: XmlComment, deep: bool): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlComment.CloneNode
   withIface(self.p, IXmlNode, it):
     var tmp: pointer
-    it.call(IXmlNode_CloneNode, deep, tmp.addr)
+    check it.vtbl.CloneNode(it, deep, tmp.addr), "XmlComment.CloneNode"
     result = adopt[WinRtObject](tmp)
 
 proc namespaceUri*(self: XmlComment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlComment.get_NamespaceUri
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NamespaceUri, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NamespaceUri, WinRtObject)
 
 proc localName*(self: XmlComment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlComment.get_LocalName
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LocalName, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LocalName, WinRtObject)
 
 proc prefix*(self: XmlComment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlComment.get_Prefix
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Prefix, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Prefix, WinRtObject)
 
 proc normalize*(self: XmlComment) =
   ## Windows.Data.Xml.Dom.XmlComment.Normalize
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_Normalize)
+    check it.vtbl.Normalize(it), "XmlComment.Normalize"
 
 proc `prefix=`*(self: XmlComment, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlComment.put_Prefix
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_Prefix, value.p)
+    check it.vtbl.put_Prefix(it, value.p), "XmlComment.put_Prefix"
 
 proc getXml*(self: XmlComment): string =
   ## Windows.Data.Xml.Dom.XmlComment.GetXml
   withIface(self.p, IXmlNodeSerializer, it):
     var tmp: HSTRING
-    it.call(IXmlNodeSerializer_GetXml, tmp.addr)
+    check it.vtbl.GetXml(it, tmp.addr), "XmlComment.GetXml"
     result = takeString(tmp)
 
 proc innerText*(self: XmlComment): string =
   ## Windows.Data.Xml.Dom.XmlComment.get_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    var tmp: HSTRING
-    it.call(IXmlNodeSerializer_get_InnerText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InnerText)
 
 proc `innerText=`*(self: XmlComment, value: string) =
   ## Windows.Data.Xml.Dom.XmlComment.put_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    withHString(value, h0):
-      it.call(IXmlNodeSerializer_put_InnerText, h0)
+    it.putString(put_InnerText, value)
 
 proc selectSingleNode*(self: XmlComment, xpath: string): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlComment.SelectSingleNode
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNode, h0, tmp.addr)
+      check it.vtbl.SelectSingleNode(it, h0, tmp.addr
+                                    ), "XmlComment.SelectSingleNode"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodes*(self: XmlComment, xpath: string): XmlNodeList =
@@ -2554,7 +2369,7 @@ proc selectNodes*(self: XmlComment, xpath: string): XmlNodeList =
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodes, h0, tmp.addr)
+      check it.vtbl.SelectNodes(it, h0, tmp.addr), "XmlComment.SelectNodes"
       result = adopt[XmlNodeList](tmp)
 
 proc selectSingleNodeNS*(self: XmlComment, xpath: string,
@@ -2563,7 +2378,8 @@ proc selectSingleNodeNS*(self: XmlComment, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNodeNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectSingleNodeNS(it, h0, namespaces.p, tmp.addr
+                                      ), "XmlComment.SelectSingleNodeNS"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodesNS*(self: XmlComment, xpath: string, namespaces: WinRtObject
@@ -2572,7 +2388,8 @@ proc selectNodesNS*(self: XmlComment, xpath: string, namespaces: WinRtObject
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodesNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectNodesNS(it, h0, namespaces.p, tmp.addr
+                                 ), "XmlComment.SelectNodesNS"
       result = adopt[XmlNodeList](tmp)
 
 proc newXmlDocument*(): XmlDocument =
@@ -2582,37 +2399,32 @@ proc newXmlDocument*(): XmlDocument =
 proc doctype*(self: XmlDocument): XmlDocumentType =
   ## Windows.Data.Xml.Dom.XmlDocument.get_Doctype
   withIface(self.p, IXmlDocument, it):
-    var tmp: pointer
-    it.call(IXmlDocument_get_Doctype, tmp.addr)
-    result = adopt[XmlDocumentType](tmp)
+    result = it.getObject(get_Doctype, XmlDocumentType)
 
 proc implementation*(self: XmlDocument): XmlDomImplementation =
   ## Windows.Data.Xml.Dom.XmlDocument.get_Implementation
   withIface(self.p, IXmlDocument, it):
-    var tmp: pointer
-    it.call(IXmlDocument_get_Implementation, tmp.addr)
-    result = adopt[XmlDomImplementation](tmp)
+    result = it.getObject(get_Implementation, XmlDomImplementation)
 
 proc documentElement*(self: XmlDocument): XmlElement =
   ## Windows.Data.Xml.Dom.XmlDocument.get_DocumentElement
   withIface(self.p, IXmlDocument, it):
-    var tmp: pointer
-    it.call(IXmlDocument_get_DocumentElement, tmp.addr)
-    result = adopt[XmlElement](tmp)
+    result = it.getObject(get_DocumentElement, XmlElement)
 
 proc createElement*(self: XmlDocument, tagName: string): XmlElement =
   ## Windows.Data.Xml.Dom.XmlDocument.CreateElement
   withIface(self.p, IXmlDocument, it):
     withHString(tagName, h0):
       var tmp: pointer
-      it.call(IXmlDocument_CreateElement, h0, tmp.addr)
+      check it.vtbl.CreateElement(it, h0, tmp.addr), "XmlDocument.CreateElement"
       result = adopt[XmlElement](tmp)
 
 proc createDocumentFragment*(self: XmlDocument): XmlDocumentFragment =
   ## Windows.Data.Xml.Dom.XmlDocument.CreateDocumentFragment
   withIface(self.p, IXmlDocument, it):
     var tmp: pointer
-    it.call(IXmlDocument_CreateDocumentFragment, tmp.addr)
+    check it.vtbl.CreateDocumentFragment(it, tmp.addr
+                                        ), "XmlDocument.CreateDocumentFragment"
     result = adopt[XmlDocumentFragment](tmp)
 
 proc createTextNode*(self: XmlDocument, data: string): XmlText =
@@ -2620,7 +2432,8 @@ proc createTextNode*(self: XmlDocument, data: string): XmlText =
   withIface(self.p, IXmlDocument, it):
     withHString(data, h0):
       var tmp: pointer
-      it.call(IXmlDocument_CreateTextNode, h0, tmp.addr)
+      check it.vtbl.CreateTextNode(it, h0, tmp.addr
+                                  ), "XmlDocument.CreateTextNode"
       result = adopt[XmlText](tmp)
 
 proc createComment*(self: XmlDocument, data: string): XmlComment =
@@ -2628,7 +2441,7 @@ proc createComment*(self: XmlDocument, data: string): XmlComment =
   withIface(self.p, IXmlDocument, it):
     withHString(data, h0):
       var tmp: pointer
-      it.call(IXmlDocument_CreateComment, h0, tmp.addr)
+      check it.vtbl.CreateComment(it, h0, tmp.addr), "XmlDocument.CreateComment"
       result = adopt[XmlComment](tmp)
 
 proc createProcessingInstruction*(self: XmlDocument, target: string,
@@ -2638,7 +2451,8 @@ proc createProcessingInstruction*(self: XmlDocument, target: string,
     withHString(target, h0):
       withHString(data, h1):
         var tmp: pointer
-        it.call(IXmlDocument_CreateProcessingInstruction, h0, h1, tmp.addr)
+        check it.vtbl.CreateProcessingInstruction(it, h0, h1, tmp.addr
+                                                 ), "XmlDocument.CreateProcessingInstruction"
         result = adopt[XmlProcessingInstruction](tmp)
 
 proc createAttribute*(self: XmlDocument, name: string): XmlAttribute =
@@ -2646,7 +2460,8 @@ proc createAttribute*(self: XmlDocument, name: string): XmlAttribute =
   withIface(self.p, IXmlDocument, it):
     withHString(name, h0):
       var tmp: pointer
-      it.call(IXmlDocument_CreateAttribute, h0, tmp.addr)
+      check it.vtbl.CreateAttribute(it, h0, tmp.addr
+                                   ), "XmlDocument.CreateAttribute"
       result = adopt[XmlAttribute](tmp)
 
 proc createEntityReference*(self: XmlDocument, name: string
@@ -2655,7 +2470,8 @@ proc createEntityReference*(self: XmlDocument, name: string
   withIface(self.p, IXmlDocument, it):
     withHString(name, h0):
       var tmp: pointer
-      it.call(IXmlDocument_CreateEntityReference, h0, tmp.addr)
+      check it.vtbl.CreateEntityReference(it, h0, tmp.addr
+                                         ), "XmlDocument.CreateEntityReference"
       result = adopt[XmlEntityReference](tmp)
 
 proc getElementsByTagName*(self: XmlDocument, tagName: string): XmlNodeList =
@@ -2663,7 +2479,8 @@ proc getElementsByTagName*(self: XmlDocument, tagName: string): XmlNodeList =
   withIface(self.p, IXmlDocument, it):
     withHString(tagName, h0):
       var tmp: pointer
-      it.call(IXmlDocument_GetElementsByTagName, h0, tmp.addr)
+      check it.vtbl.GetElementsByTagName(it, h0, tmp.addr
+                                        ), "XmlDocument.GetElementsByTagName"
       result = adopt[XmlNodeList](tmp)
 
 proc createCDataSection*(self: XmlDocument, data: string): XmlCDataSection =
@@ -2671,15 +2488,14 @@ proc createCDataSection*(self: XmlDocument, data: string): XmlCDataSection =
   withIface(self.p, IXmlDocument, it):
     withHString(data, h0):
       var tmp: pointer
-      it.call(IXmlDocument_CreateCDataSection, h0, tmp.addr)
+      check it.vtbl.CreateCDataSection(it, h0, tmp.addr
+                                      ), "XmlDocument.CreateCDataSection"
       result = adopt[XmlCDataSection](tmp)
 
 proc documentUri*(self: XmlDocument): string =
   ## Windows.Data.Xml.Dom.XmlDocument.get_DocumentUri
   withIface(self.p, IXmlDocument, it):
-    var tmp: HSTRING
-    it.call(IXmlDocument_get_DocumentUri, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DocumentUri)
 
 proc createAttributeNS*(self: XmlDocument, namespaceUri: WinRtObject,
                         qualifiedName: string): XmlAttribute =
@@ -2687,7 +2503,8 @@ proc createAttributeNS*(self: XmlDocument, namespaceUri: WinRtObject,
   withIface(self.p, IXmlDocument, it):
     withHString(qualifiedName, h1):
       var tmp: pointer
-      it.call(IXmlDocument_CreateAttributeNS, namespaceUri.p, h1, tmp.addr)
+      check it.vtbl.CreateAttributeNS(it, namespaceUri.p, h1, tmp.addr
+                                     ), "XmlDocument.CreateAttributeNS"
       result = adopt[XmlAttribute](tmp)
 
 proc createElementNS*(self: XmlDocument, namespaceUri: WinRtObject,
@@ -2696,7 +2513,8 @@ proc createElementNS*(self: XmlDocument, namespaceUri: WinRtObject,
   withIface(self.p, IXmlDocument, it):
     withHString(qualifiedName, h1):
       var tmp: pointer
-      it.call(IXmlDocument_CreateElementNS, namespaceUri.p, h1, tmp.addr)
+      check it.vtbl.CreateElementNS(it, namespaceUri.p, h1, tmp.addr
+                                   ), "XmlDocument.CreateElementNS"
       result = adopt[XmlElement](tmp)
 
 proc getElementById*(self: XmlDocument, elementId: string): XmlElement =
@@ -2704,7 +2522,8 @@ proc getElementById*(self: XmlDocument, elementId: string): XmlElement =
   withIface(self.p, IXmlDocument, it):
     withHString(elementId, h0):
       var tmp: pointer
-      it.call(IXmlDocument_GetElementById, h0, tmp.addr)
+      check it.vtbl.GetElementById(it, h0, tmp.addr
+                                  ), "XmlDocument.GetElementById"
       result = adopt[XmlElement](tmp)
 
 proc importNode*(self: XmlDocument, node: WinRtObject, deep: bool
@@ -2713,97 +2532,75 @@ proc importNode*(self: XmlDocument, node: WinRtObject, deep: bool
   withIface(self.p, IXmlDocument, it):
     withIface(node.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlDocument_ImportNode, p0, deep, tmp.addr)
+      check it.vtbl.ImportNode(it, p0, deep, tmp.addr), "XmlDocument.ImportNode"
       result = adopt[WinRtObject](tmp)
 
 proc nodeValue*(self: XmlDocument): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocument.get_NodeValue
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NodeValue, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NodeValue, WinRtObject)
 
 proc `nodeValue=`*(self: XmlDocument, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlDocument.put_NodeValue
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_NodeValue, value.p)
+    check it.vtbl.put_NodeValue(it, value.p), "XmlDocument.put_NodeValue"
 
 proc nodeType*(self: XmlDocument): NodeType =
   ## Windows.Data.Xml.Dom.XmlDocument.get_NodeType
   withIface(self.p, IXmlNode, it):
-    var tmp: NodeType
-    it.call(IXmlNode_get_NodeType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NodeType, NodeType)
 
 proc nodeName*(self: XmlDocument): string =
   ## Windows.Data.Xml.Dom.XmlDocument.get_NodeName
   withIface(self.p, IXmlNode, it):
-    var tmp: HSTRING
-    it.call(IXmlNode_get_NodeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NodeName)
 
 proc parentNode*(self: XmlDocument): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocument.get_ParentNode
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ParentNode, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ParentNode, WinRtObject)
 
 proc childNodes*(self: XmlDocument): XmlNodeList =
   ## Windows.Data.Xml.Dom.XmlDocument.get_ChildNodes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ChildNodes, tmp.addr)
-    result = adopt[XmlNodeList](tmp)
+    result = it.getObject(get_ChildNodes, XmlNodeList)
 
 proc firstChild*(self: XmlDocument): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocument.get_FirstChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_FirstChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_FirstChild, WinRtObject)
 
 proc lastChild*(self: XmlDocument): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocument.get_LastChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LastChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LastChild, WinRtObject)
 
 proc previousSibling*(self: XmlDocument): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocument.get_PreviousSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_PreviousSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PreviousSibling, WinRtObject)
 
 proc nextSibling*(self: XmlDocument): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocument.get_NextSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NextSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NextSibling, WinRtObject)
 
 proc attributes*(self: XmlDocument): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.XmlDocument.get_Attributes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Attributes, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Attributes, XmlNamedNodeMap)
 
 proc hasChildNodes*(self: XmlDocument): bool =
   ## Windows.Data.Xml.Dom.XmlDocument.HasChildNodes
   withIface(self.p, IXmlNode, it):
     var tmp: bool
-    it.call(IXmlNode_HasChildNodes, tmp.addr)
+    check it.vtbl.HasChildNodes(it, tmp.addr), "XmlDocument.HasChildNodes"
     result = tmp
 
 proc ownerDocument*(self: XmlDocument): XmlDocument =
   ## Windows.Data.Xml.Dom.XmlDocument.get_OwnerDocument
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_OwnerDocument, tmp.addr)
-    result = adopt[XmlDocument](tmp)
+    result = it.getObject(get_OwnerDocument, XmlDocument)
 
 proc insertBefore*(self: XmlDocument, newChild: WinRtObject,
                    referenceChild: WinRtObject): WinRtObject =
@@ -2812,7 +2609,8 @@ proc insertBefore*(self: XmlDocument, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_InsertBefore, p0, p1, tmp.addr)
+        check it.vtbl.InsertBefore(it, p0, p1, tmp.addr
+                                  ), "XmlDocument.InsertBefore"
         result = adopt[WinRtObject](tmp)
 
 proc replaceChild*(self: XmlDocument, newChild: WinRtObject,
@@ -2822,7 +2620,8 @@ proc replaceChild*(self: XmlDocument, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_ReplaceChild, p0, p1, tmp.addr)
+        check it.vtbl.ReplaceChild(it, p0, p1, tmp.addr
+                                  ), "XmlDocument.ReplaceChild"
         result = adopt[WinRtObject](tmp)
 
 proc removeChild*(self: XmlDocument, childNode: WinRtObject): WinRtObject =
@@ -2830,7 +2629,7 @@ proc removeChild*(self: XmlDocument, childNode: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(childNode.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_RemoveChild, p0, tmp.addr)
+      check it.vtbl.RemoveChild(it, p0, tmp.addr), "XmlDocument.RemoveChild"
       result = adopt[WinRtObject](tmp)
 
 proc appendChild*(self: XmlDocument, newChild: WinRtObject): WinRtObject =
@@ -2838,73 +2637,65 @@ proc appendChild*(self: XmlDocument, newChild: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(newChild.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_AppendChild, p0, tmp.addr)
+      check it.vtbl.AppendChild(it, p0, tmp.addr), "XmlDocument.AppendChild"
       result = adopt[WinRtObject](tmp)
 
 proc cloneNode*(self: XmlDocument, deep: bool): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocument.CloneNode
   withIface(self.p, IXmlNode, it):
     var tmp: pointer
-    it.call(IXmlNode_CloneNode, deep, tmp.addr)
+    check it.vtbl.CloneNode(it, deep, tmp.addr), "XmlDocument.CloneNode"
     result = adopt[WinRtObject](tmp)
 
 proc namespaceUri*(self: XmlDocument): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocument.get_NamespaceUri
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NamespaceUri, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NamespaceUri, WinRtObject)
 
 proc localName*(self: XmlDocument): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocument.get_LocalName
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LocalName, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LocalName, WinRtObject)
 
 proc prefix*(self: XmlDocument): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocument.get_Prefix
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Prefix, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Prefix, WinRtObject)
 
 proc normalize*(self: XmlDocument) =
   ## Windows.Data.Xml.Dom.XmlDocument.Normalize
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_Normalize)
+    check it.vtbl.Normalize(it), "XmlDocument.Normalize"
 
 proc `prefix=`*(self: XmlDocument, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlDocument.put_Prefix
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_Prefix, value.p)
+    check it.vtbl.put_Prefix(it, value.p), "XmlDocument.put_Prefix"
 
 proc getXml*(self: XmlDocument): string =
   ## Windows.Data.Xml.Dom.XmlDocument.GetXml
   withIface(self.p, IXmlNodeSerializer, it):
     var tmp: HSTRING
-    it.call(IXmlNodeSerializer_GetXml, tmp.addr)
+    check it.vtbl.GetXml(it, tmp.addr), "XmlDocument.GetXml"
     result = takeString(tmp)
 
 proc innerText*(self: XmlDocument): string =
   ## Windows.Data.Xml.Dom.XmlDocument.get_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    var tmp: HSTRING
-    it.call(IXmlNodeSerializer_get_InnerText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InnerText)
 
 proc `innerText=`*(self: XmlDocument, value: string) =
   ## Windows.Data.Xml.Dom.XmlDocument.put_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    withHString(value, h0):
-      it.call(IXmlNodeSerializer_put_InnerText, h0)
+    it.putString(put_InnerText, value)
 
 proc selectSingleNode*(self: XmlDocument, xpath: string): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocument.SelectSingleNode
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNode, h0, tmp.addr)
+      check it.vtbl.SelectSingleNode(it, h0, tmp.addr
+                                    ), "XmlDocument.SelectSingleNode"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodes*(self: XmlDocument, xpath: string): XmlNodeList =
@@ -2912,7 +2703,7 @@ proc selectNodes*(self: XmlDocument, xpath: string): XmlNodeList =
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodes, h0, tmp.addr)
+      check it.vtbl.SelectNodes(it, h0, tmp.addr), "XmlDocument.SelectNodes"
       result = adopt[XmlNodeList](tmp)
 
 proc selectSingleNodeNS*(self: XmlDocument, xpath: string,
@@ -2921,7 +2712,8 @@ proc selectSingleNodeNS*(self: XmlDocument, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNodeNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectSingleNodeNS(it, h0, namespaces.p, tmp.addr
+                                      ), "XmlDocument.SelectSingleNodeNS"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodesNS*(self: XmlDocument, xpath: string, namespaces: WinRtObject
@@ -2930,28 +2722,30 @@ proc selectNodesNS*(self: XmlDocument, xpath: string, namespaces: WinRtObject
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodesNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectNodesNS(it, h0, namespaces.p, tmp.addr
+                                 ), "XmlDocument.SelectNodesNS"
       result = adopt[XmlNodeList](tmp)
 
 proc loadXml*(self: XmlDocument, xml: string) =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadXml
   withIface(self.p, IXmlDocumentIO, it):
     withHString(xml, h0):
-      it.call(IXmlDocumentIO_LoadXml, h0)
+      check it.vtbl.LoadXml(it, h0), "XmlDocument.LoadXml"
 
 proc loadXml*(self: XmlDocument, xml: string, loadSettings: XmlLoadSettings) =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadXml
   withIface(self.p, IXmlDocumentIO, it):
     withHString(xml, h0):
       withIface(loadSettings.p, IXmlLoadSettings, p1):
-        it.call(IXmlDocumentIO_LoadXml2, h0, p1)
+        check it.vtbl.LoadXml2(it, h0, p1), "XmlDocument.LoadXml"
 
 proc saveToFileAsync*(self: XmlDocument, file: StorageFile) {.async.} =
   ## Windows.Data.Xml.Dom.XmlDocument.SaveToFileAsync
   var op: pointer
   withIface(self.p, IXmlDocumentIO, it):
     withIface(file.p, IStorageFile, p0):
-      it.call(IXmlDocumentIO_SaveToFileAsync, p0, op.addr)
+      check it.vtbl.SaveToFileAsync(it, p0, op.addr
+                                   ), "XmlDocument.SaveToFileAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "XmlDocument.SaveToFileAsync")
 
@@ -2959,7 +2753,7 @@ proc loadXmlFromBuffer*(self: XmlDocument, buffer: Buffer) =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadXmlFromBuffer
   withIface(self.p, IXmlDocumentIO2, it):
     withIface(buffer.p, IBuffer, p0):
-      it.call(IXmlDocumentIO2_LoadXmlFromBuffer, p0)
+      check it.vtbl.LoadXmlFromBuffer(it, p0), "XmlDocument.LoadXmlFromBuffer"
 
 proc loadXmlFromBuffer*(self: XmlDocument, buffer: Buffer,
                         loadSettings: XmlLoadSettings) =
@@ -2967,7 +2761,8 @@ proc loadXmlFromBuffer*(self: XmlDocument, buffer: Buffer,
   withIface(self.p, IXmlDocumentIO2, it):
     withIface(buffer.p, IBuffer, p0):
       withIface(loadSettings.p, IXmlLoadSettings, p1):
-        it.call(IXmlDocumentIO2_LoadXmlFromBuffer2, p0, p1)
+        check it.vtbl.LoadXmlFromBuffer2(it, p0, p1
+                                        ), "XmlDocument.LoadXmlFromBuffer"
 
 proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri
                       ): Future[XmlDocument] {.async.} =
@@ -2975,7 +2770,8 @@ proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri
   var op: pointer
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IXmlDocumentStatics, it):
     withIface(uri.p, IUriRuntimeClass, p0):
-      it.call(IXmlDocumentStatics_LoadFromUriAsync, p0, op.addr)
+      check it.vtbl.LoadFromUriAsync(it, p0, op.addr
+                                    ), "XmlDocument.LoadFromUriAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_XmlDocument,
                               IID_AsyncOperationCompletedHandler_1_XmlDocument,
                               alPlain, "XmlDocument.LoadFromUriAsync")
@@ -2989,7 +2785,8 @@ proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri,
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IXmlDocumentStatics, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       withIface(loadSettings.p, IXmlLoadSettings, p1):
-        it.call(IXmlDocumentStatics_LoadFromUriAsync2, p0, p1, op.addr)
+        check it.vtbl.LoadFromUriAsync2(it, p0, p1, op.addr
+                                       ), "XmlDocument.LoadFromUriAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_XmlDocument,
                               IID_AsyncOperationCompletedHandler_1_XmlDocument,
                               alPlain, "XmlDocument.LoadFromUriAsync")
@@ -3001,7 +2798,8 @@ proc loadFromFileAsync*(_: typedesc[XmlDocument], file: StorageFile
   var op: pointer
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IXmlDocumentStatics, it):
     withIface(file.p, IStorageFile, p0):
-      it.call(IXmlDocumentStatics_LoadFromFileAsync, p0, op.addr)
+      check it.vtbl.LoadFromFileAsync(it, p0, op.addr
+                                     ), "XmlDocument.LoadFromFileAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_XmlDocument,
                               IID_AsyncOperationCompletedHandler_1_XmlDocument,
                               alPlain, "XmlDocument.LoadFromFileAsync")
@@ -3015,7 +2813,8 @@ proc loadFromFileAsync*(_: typedesc[XmlDocument], file: StorageFile,
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IXmlDocumentStatics, it):
     withIface(file.p, IStorageFile, p0):
       withIface(loadSettings.p, IXmlLoadSettings, p1):
-        it.call(IXmlDocumentStatics_LoadFromFileAsync2, p0, p1, op.addr)
+        check it.vtbl.LoadFromFileAsync2(it, p0, p1, op.addr
+                                        ), "XmlDocument.LoadFromFileAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_XmlDocument,
                               IID_AsyncOperationCompletedHandler_1_XmlDocument,
                               alPlain, "XmlDocument.LoadFromFileAsync")
@@ -3024,91 +2823,71 @@ proc loadFromFileAsync*(_: typedesc[XmlDocument], file: StorageFile,
 proc nodeValue*(self: XmlDocumentFragment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_NodeValue
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NodeValue, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NodeValue, WinRtObject)
 
 proc `nodeValue=`*(self: XmlDocumentFragment, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.put_NodeValue
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_NodeValue, value.p)
+    check it.vtbl.put_NodeValue(it, value.p
+                               ), "XmlDocumentFragment.put_NodeValue"
 
 proc nodeType*(self: XmlDocumentFragment): NodeType =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_NodeType
   withIface(self.p, IXmlNode, it):
-    var tmp: NodeType
-    it.call(IXmlNode_get_NodeType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NodeType, NodeType)
 
 proc nodeName*(self: XmlDocumentFragment): string =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_NodeName
   withIface(self.p, IXmlNode, it):
-    var tmp: HSTRING
-    it.call(IXmlNode_get_NodeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NodeName)
 
 proc parentNode*(self: XmlDocumentFragment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_ParentNode
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ParentNode, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ParentNode, WinRtObject)
 
 proc childNodes*(self: XmlDocumentFragment): XmlNodeList =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_ChildNodes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ChildNodes, tmp.addr)
-    result = adopt[XmlNodeList](tmp)
+    result = it.getObject(get_ChildNodes, XmlNodeList)
 
 proc firstChild*(self: XmlDocumentFragment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_FirstChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_FirstChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_FirstChild, WinRtObject)
 
 proc lastChild*(self: XmlDocumentFragment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_LastChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LastChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LastChild, WinRtObject)
 
 proc previousSibling*(self: XmlDocumentFragment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_PreviousSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_PreviousSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PreviousSibling, WinRtObject)
 
 proc nextSibling*(self: XmlDocumentFragment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_NextSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NextSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NextSibling, WinRtObject)
 
 proc attributes*(self: XmlDocumentFragment): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_Attributes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Attributes, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Attributes, XmlNamedNodeMap)
 
 proc hasChildNodes*(self: XmlDocumentFragment): bool =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.HasChildNodes
   withIface(self.p, IXmlNode, it):
     var tmp: bool
-    it.call(IXmlNode_HasChildNodes, tmp.addr)
+    check it.vtbl.HasChildNodes(it, tmp.addr
+                               ), "XmlDocumentFragment.HasChildNodes"
     result = tmp
 
 proc ownerDocument*(self: XmlDocumentFragment): XmlDocument =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_OwnerDocument
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_OwnerDocument, tmp.addr)
-    result = adopt[XmlDocument](tmp)
+    result = it.getObject(get_OwnerDocument, XmlDocument)
 
 proc insertBefore*(self: XmlDocumentFragment, newChild: WinRtObject,
                    referenceChild: WinRtObject): WinRtObject =
@@ -3117,7 +2896,8 @@ proc insertBefore*(self: XmlDocumentFragment, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_InsertBefore, p0, p1, tmp.addr)
+        check it.vtbl.InsertBefore(it, p0, p1, tmp.addr
+                                  ), "XmlDocumentFragment.InsertBefore"
         result = adopt[WinRtObject](tmp)
 
 proc replaceChild*(self: XmlDocumentFragment, newChild: WinRtObject,
@@ -3127,7 +2907,8 @@ proc replaceChild*(self: XmlDocumentFragment, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_ReplaceChild, p0, p1, tmp.addr)
+        check it.vtbl.ReplaceChild(it, p0, p1, tmp.addr
+                                  ), "XmlDocumentFragment.ReplaceChild"
         result = adopt[WinRtObject](tmp)
 
 proc removeChild*(self: XmlDocumentFragment, childNode: WinRtObject
@@ -3136,7 +2917,8 @@ proc removeChild*(self: XmlDocumentFragment, childNode: WinRtObject
   withIface(self.p, IXmlNode, it):
     withIface(childNode.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_RemoveChild, p0, tmp.addr)
+      check it.vtbl.RemoveChild(it, p0, tmp.addr
+                               ), "XmlDocumentFragment.RemoveChild"
       result = adopt[WinRtObject](tmp)
 
 proc appendChild*(self: XmlDocumentFragment, newChild: WinRtObject
@@ -3145,73 +2927,66 @@ proc appendChild*(self: XmlDocumentFragment, newChild: WinRtObject
   withIface(self.p, IXmlNode, it):
     withIface(newChild.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_AppendChild, p0, tmp.addr)
+      check it.vtbl.AppendChild(it, p0, tmp.addr
+                               ), "XmlDocumentFragment.AppendChild"
       result = adopt[WinRtObject](tmp)
 
 proc cloneNode*(self: XmlDocumentFragment, deep: bool): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.CloneNode
   withIface(self.p, IXmlNode, it):
     var tmp: pointer
-    it.call(IXmlNode_CloneNode, deep, tmp.addr)
+    check it.vtbl.CloneNode(it, deep, tmp.addr), "XmlDocumentFragment.CloneNode"
     result = adopt[WinRtObject](tmp)
 
 proc namespaceUri*(self: XmlDocumentFragment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_NamespaceUri
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NamespaceUri, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NamespaceUri, WinRtObject)
 
 proc localName*(self: XmlDocumentFragment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_LocalName
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LocalName, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LocalName, WinRtObject)
 
 proc prefix*(self: XmlDocumentFragment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_Prefix
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Prefix, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Prefix, WinRtObject)
 
 proc normalize*(self: XmlDocumentFragment) =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.Normalize
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_Normalize)
+    check it.vtbl.Normalize(it), "XmlDocumentFragment.Normalize"
 
 proc `prefix=`*(self: XmlDocumentFragment, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.put_Prefix
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_Prefix, value.p)
+    check it.vtbl.put_Prefix(it, value.p), "XmlDocumentFragment.put_Prefix"
 
 proc getXml*(self: XmlDocumentFragment): string =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.GetXml
   withIface(self.p, IXmlNodeSerializer, it):
     var tmp: HSTRING
-    it.call(IXmlNodeSerializer_GetXml, tmp.addr)
+    check it.vtbl.GetXml(it, tmp.addr), "XmlDocumentFragment.GetXml"
     result = takeString(tmp)
 
 proc innerText*(self: XmlDocumentFragment): string =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    var tmp: HSTRING
-    it.call(IXmlNodeSerializer_get_InnerText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InnerText)
 
 proc `innerText=`*(self: XmlDocumentFragment, value: string) =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.put_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    withHString(value, h0):
-      it.call(IXmlNodeSerializer_put_InnerText, h0)
+    it.putString(put_InnerText, value)
 
 proc selectSingleNode*(self: XmlDocumentFragment, xpath: string): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.SelectSingleNode
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNode, h0, tmp.addr)
+      check it.vtbl.SelectSingleNode(it, h0, tmp.addr
+                                    ), "XmlDocumentFragment.SelectSingleNode"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodes*(self: XmlDocumentFragment, xpath: string): XmlNodeList =
@@ -3219,7 +2994,8 @@ proc selectNodes*(self: XmlDocumentFragment, xpath: string): XmlNodeList =
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodes, h0, tmp.addr)
+      check it.vtbl.SelectNodes(it, h0, tmp.addr
+                               ), "XmlDocumentFragment.SelectNodes"
       result = adopt[XmlNodeList](tmp)
 
 proc selectSingleNodeNS*(self: XmlDocumentFragment, xpath: string,
@@ -3228,7 +3004,8 @@ proc selectSingleNodeNS*(self: XmlDocumentFragment, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNodeNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectSingleNodeNS(it, h0, namespaces.p, tmp.addr
+                                      ), "XmlDocumentFragment.SelectSingleNodeNS"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodesNS*(self: XmlDocumentFragment, xpath: string,
@@ -3237,118 +3014,91 @@ proc selectNodesNS*(self: XmlDocumentFragment, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodesNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectNodesNS(it, h0, namespaces.p, tmp.addr
+                                 ), "XmlDocumentFragment.SelectNodesNS"
       result = adopt[XmlNodeList](tmp)
 
 proc name*(self: XmlDocumentType): string =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_Name
   withIface(self.p, IXmlDocumentType, it):
-    var tmp: HSTRING
-    it.call(IXmlDocumentType_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc entities*(self: XmlDocumentType): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_Entities
   withIface(self.p, IXmlDocumentType, it):
-    var tmp: pointer
-    it.call(IXmlDocumentType_get_Entities, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Entities, XmlNamedNodeMap)
 
 proc notations*(self: XmlDocumentType): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_Notations
   withIface(self.p, IXmlDocumentType, it):
-    var tmp: pointer
-    it.call(IXmlDocumentType_get_Notations, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Notations, XmlNamedNodeMap)
 
 proc nodeValue*(self: XmlDocumentType): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_NodeValue
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NodeValue, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NodeValue, WinRtObject)
 
 proc `nodeValue=`*(self: XmlDocumentType, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlDocumentType.put_NodeValue
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_NodeValue, value.p)
+    check it.vtbl.put_NodeValue(it, value.p), "XmlDocumentType.put_NodeValue"
 
 proc nodeType*(self: XmlDocumentType): NodeType =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_NodeType
   withIface(self.p, IXmlNode, it):
-    var tmp: NodeType
-    it.call(IXmlNode_get_NodeType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NodeType, NodeType)
 
 proc nodeName*(self: XmlDocumentType): string =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_NodeName
   withIface(self.p, IXmlNode, it):
-    var tmp: HSTRING
-    it.call(IXmlNode_get_NodeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NodeName)
 
 proc parentNode*(self: XmlDocumentType): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_ParentNode
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ParentNode, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ParentNode, WinRtObject)
 
 proc childNodes*(self: XmlDocumentType): XmlNodeList =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_ChildNodes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ChildNodes, tmp.addr)
-    result = adopt[XmlNodeList](tmp)
+    result = it.getObject(get_ChildNodes, XmlNodeList)
 
 proc firstChild*(self: XmlDocumentType): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_FirstChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_FirstChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_FirstChild, WinRtObject)
 
 proc lastChild*(self: XmlDocumentType): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_LastChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LastChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LastChild, WinRtObject)
 
 proc previousSibling*(self: XmlDocumentType): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_PreviousSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_PreviousSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PreviousSibling, WinRtObject)
 
 proc nextSibling*(self: XmlDocumentType): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_NextSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NextSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NextSibling, WinRtObject)
 
 proc attributes*(self: XmlDocumentType): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_Attributes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Attributes, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Attributes, XmlNamedNodeMap)
 
 proc hasChildNodes*(self: XmlDocumentType): bool =
   ## Windows.Data.Xml.Dom.XmlDocumentType.HasChildNodes
   withIface(self.p, IXmlNode, it):
     var tmp: bool
-    it.call(IXmlNode_HasChildNodes, tmp.addr)
+    check it.vtbl.HasChildNodes(it, tmp.addr), "XmlDocumentType.HasChildNodes"
     result = tmp
 
 proc ownerDocument*(self: XmlDocumentType): XmlDocument =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_OwnerDocument
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_OwnerDocument, tmp.addr)
-    result = adopt[XmlDocument](tmp)
+    result = it.getObject(get_OwnerDocument, XmlDocument)
 
 proc insertBefore*(self: XmlDocumentType, newChild: WinRtObject,
                    referenceChild: WinRtObject): WinRtObject =
@@ -3357,7 +3107,8 @@ proc insertBefore*(self: XmlDocumentType, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_InsertBefore, p0, p1, tmp.addr)
+        check it.vtbl.InsertBefore(it, p0, p1, tmp.addr
+                                  ), "XmlDocumentType.InsertBefore"
         result = adopt[WinRtObject](tmp)
 
 proc replaceChild*(self: XmlDocumentType, newChild: WinRtObject,
@@ -3367,7 +3118,8 @@ proc replaceChild*(self: XmlDocumentType, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_ReplaceChild, p0, p1, tmp.addr)
+        check it.vtbl.ReplaceChild(it, p0, p1, tmp.addr
+                                  ), "XmlDocumentType.ReplaceChild"
         result = adopt[WinRtObject](tmp)
 
 proc removeChild*(self: XmlDocumentType, childNode: WinRtObject): WinRtObject =
@@ -3375,7 +3127,7 @@ proc removeChild*(self: XmlDocumentType, childNode: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(childNode.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_RemoveChild, p0, tmp.addr)
+      check it.vtbl.RemoveChild(it, p0, tmp.addr), "XmlDocumentType.RemoveChild"
       result = adopt[WinRtObject](tmp)
 
 proc appendChild*(self: XmlDocumentType, newChild: WinRtObject): WinRtObject =
@@ -3383,73 +3135,65 @@ proc appendChild*(self: XmlDocumentType, newChild: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(newChild.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_AppendChild, p0, tmp.addr)
+      check it.vtbl.AppendChild(it, p0, tmp.addr), "XmlDocumentType.AppendChild"
       result = adopt[WinRtObject](tmp)
 
 proc cloneNode*(self: XmlDocumentType, deep: bool): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentType.CloneNode
   withIface(self.p, IXmlNode, it):
     var tmp: pointer
-    it.call(IXmlNode_CloneNode, deep, tmp.addr)
+    check it.vtbl.CloneNode(it, deep, tmp.addr), "XmlDocumentType.CloneNode"
     result = adopt[WinRtObject](tmp)
 
 proc namespaceUri*(self: XmlDocumentType): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_NamespaceUri
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NamespaceUri, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NamespaceUri, WinRtObject)
 
 proc localName*(self: XmlDocumentType): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_LocalName
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LocalName, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LocalName, WinRtObject)
 
 proc prefix*(self: XmlDocumentType): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_Prefix
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Prefix, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Prefix, WinRtObject)
 
 proc normalize*(self: XmlDocumentType) =
   ## Windows.Data.Xml.Dom.XmlDocumentType.Normalize
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_Normalize)
+    check it.vtbl.Normalize(it), "XmlDocumentType.Normalize"
 
 proc `prefix=`*(self: XmlDocumentType, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlDocumentType.put_Prefix
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_Prefix, value.p)
+    check it.vtbl.put_Prefix(it, value.p), "XmlDocumentType.put_Prefix"
 
 proc getXml*(self: XmlDocumentType): string =
   ## Windows.Data.Xml.Dom.XmlDocumentType.GetXml
   withIface(self.p, IXmlNodeSerializer, it):
     var tmp: HSTRING
-    it.call(IXmlNodeSerializer_GetXml, tmp.addr)
+    check it.vtbl.GetXml(it, tmp.addr), "XmlDocumentType.GetXml"
     result = takeString(tmp)
 
 proc innerText*(self: XmlDocumentType): string =
   ## Windows.Data.Xml.Dom.XmlDocumentType.get_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    var tmp: HSTRING
-    it.call(IXmlNodeSerializer_get_InnerText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InnerText)
 
 proc `innerText=`*(self: XmlDocumentType, value: string) =
   ## Windows.Data.Xml.Dom.XmlDocumentType.put_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    withHString(value, h0):
-      it.call(IXmlNodeSerializer_put_InnerText, h0)
+    it.putString(put_InnerText, value)
 
 proc selectSingleNode*(self: XmlDocumentType, xpath: string): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentType.SelectSingleNode
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNode, h0, tmp.addr)
+      check it.vtbl.SelectSingleNode(it, h0, tmp.addr
+                                    ), "XmlDocumentType.SelectSingleNode"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodes*(self: XmlDocumentType, xpath: string): XmlNodeList =
@@ -3457,7 +3201,7 @@ proc selectNodes*(self: XmlDocumentType, xpath: string): XmlNodeList =
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodes, h0, tmp.addr)
+      check it.vtbl.SelectNodes(it, h0, tmp.addr), "XmlDocumentType.SelectNodes"
       result = adopt[XmlNodeList](tmp)
 
 proc selectSingleNodeNS*(self: XmlDocumentType, xpath: string,
@@ -3466,7 +3210,8 @@ proc selectSingleNodeNS*(self: XmlDocumentType, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNodeNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectSingleNodeNS(it, h0, namespaces.p, tmp.addr
+                                      ), "XmlDocumentType.SelectSingleNodeNS"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodesNS*(self: XmlDocumentType, xpath: string,
@@ -3475,7 +3220,8 @@ proc selectNodesNS*(self: XmlDocumentType, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodesNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectNodesNS(it, h0, namespaces.p, tmp.addr
+                                 ), "XmlDocumentType.SelectNodesNS"
       result = adopt[XmlNodeList](tmp)
 
 proc hasFeature*(self: XmlDomImplementation, feature: string,
@@ -3484,22 +3230,21 @@ proc hasFeature*(self: XmlDomImplementation, feature: string,
   withIface(self.p, IXmlDomImplementation, it):
     withHString(feature, h0):
       var tmp: bool
-      it.call(IXmlDomImplementation_HasFeature, h0, version.p, tmp.addr)
+      check it.vtbl.HasFeature(it, h0, version.p, tmp.addr
+                              ), "XmlDomImplementation.HasFeature"
       result = tmp
 
 proc tagName*(self: XmlElement): string =
   ## Windows.Data.Xml.Dom.XmlElement.get_TagName
   withIface(self.p, IXmlElement, it):
-    var tmp: HSTRING
-    it.call(IXmlElement_get_TagName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TagName)
 
 proc getAttribute*(self: XmlElement, attributeName: string): string =
   ## Windows.Data.Xml.Dom.XmlElement.GetAttribute
   withIface(self.p, IXmlElement, it):
     withHString(attributeName, h0):
       var tmp: HSTRING
-      it.call(IXmlElement_GetAttribute, h0, tmp.addr)
+      check it.vtbl.GetAttribute(it, h0, tmp.addr), "XmlElement.GetAttribute"
       result = takeString(tmp)
 
 proc setAttribute*(self: XmlElement, attributeName: string,
@@ -3508,20 +3253,21 @@ proc setAttribute*(self: XmlElement, attributeName: string,
   withIface(self.p, IXmlElement, it):
     withHString(attributeName, h0):
       withHString(attributeValue, h1):
-        it.call(IXmlElement_SetAttribute, h0, h1)
+        check it.vtbl.SetAttribute(it, h0, h1), "XmlElement.SetAttribute"
 
 proc removeAttribute*(self: XmlElement, attributeName: string) =
   ## Windows.Data.Xml.Dom.XmlElement.RemoveAttribute
   withIface(self.p, IXmlElement, it):
     withHString(attributeName, h0):
-      it.call(IXmlElement_RemoveAttribute, h0)
+      check it.vtbl.RemoveAttribute(it, h0), "XmlElement.RemoveAttribute"
 
 proc getAttributeNode*(self: XmlElement, attributeName: string): XmlAttribute =
   ## Windows.Data.Xml.Dom.XmlElement.GetAttributeNode
   withIface(self.p, IXmlElement, it):
     withHString(attributeName, h0):
       var tmp: pointer
-      it.call(IXmlElement_GetAttributeNode, h0, tmp.addr)
+      check it.vtbl.GetAttributeNode(it, h0, tmp.addr
+                                    ), "XmlElement.GetAttributeNode"
       result = adopt[XmlAttribute](tmp)
 
 proc setAttributeNode*(self: XmlElement, newAttribute: XmlAttribute
@@ -3530,7 +3276,8 @@ proc setAttributeNode*(self: XmlElement, newAttribute: XmlAttribute
   withIface(self.p, IXmlElement, it):
     withIface(newAttribute.p, IXmlAttribute, p0):
       var tmp: pointer
-      it.call(IXmlElement_SetAttributeNode, p0, tmp.addr)
+      check it.vtbl.SetAttributeNode(it, p0, tmp.addr
+                                    ), "XmlElement.SetAttributeNode"
       result = adopt[XmlAttribute](tmp)
 
 proc removeAttributeNode*(self: XmlElement, attributeNode: XmlAttribute
@@ -3539,7 +3286,8 @@ proc removeAttributeNode*(self: XmlElement, attributeNode: XmlAttribute
   withIface(self.p, IXmlElement, it):
     withIface(attributeNode.p, IXmlAttribute, p0):
       var tmp: pointer
-      it.call(IXmlElement_RemoveAttributeNode, p0, tmp.addr)
+      check it.vtbl.RemoveAttributeNode(it, p0, tmp.addr
+                                       ), "XmlElement.RemoveAttributeNode"
       result = adopt[XmlAttribute](tmp)
 
 proc getElementsByTagName*(self: XmlElement, tagName: string): XmlNodeList =
@@ -3547,7 +3295,8 @@ proc getElementsByTagName*(self: XmlElement, tagName: string): XmlNodeList =
   withIface(self.p, IXmlElement, it):
     withHString(tagName, h0):
       var tmp: pointer
-      it.call(IXmlElement_GetElementsByTagName, h0, tmp.addr)
+      check it.vtbl.GetElementsByTagName(it, h0, tmp.addr
+                                        ), "XmlElement.GetElementsByTagName"
       result = adopt[XmlNodeList](tmp)
 
 proc setAttributeNS*(self: XmlElement, namespaceUri: WinRtObject,
@@ -3556,7 +3305,8 @@ proc setAttributeNS*(self: XmlElement, namespaceUri: WinRtObject,
   withIface(self.p, IXmlElement, it):
     withHString(qualifiedName, h1):
       withHString(value, h2):
-        it.call(IXmlElement_SetAttributeNS, namespaceUri.p, h1, h2)
+        check it.vtbl.SetAttributeNS(it, namespaceUri.p, h1, h2
+                                    ), "XmlElement.SetAttributeNS"
 
 proc getAttributeNS*(self: XmlElement, namespaceUri: WinRtObject,
                      localName: string): string =
@@ -3564,7 +3314,8 @@ proc getAttributeNS*(self: XmlElement, namespaceUri: WinRtObject,
   withIface(self.p, IXmlElement, it):
     withHString(localName, h1):
       var tmp: HSTRING
-      it.call(IXmlElement_GetAttributeNS, namespaceUri.p, h1, tmp.addr)
+      check it.vtbl.GetAttributeNS(it, namespaceUri.p, h1, tmp.addr
+                                  ), "XmlElement.GetAttributeNS"
       result = takeString(tmp)
 
 proc removeAttributeNS*(self: XmlElement, namespaceUri: WinRtObject,
@@ -3572,7 +3323,8 @@ proc removeAttributeNS*(self: XmlElement, namespaceUri: WinRtObject,
   ## Windows.Data.Xml.Dom.XmlElement.RemoveAttributeNS
   withIface(self.p, IXmlElement, it):
     withHString(localName, h1):
-      it.call(IXmlElement_RemoveAttributeNS, namespaceUri.p, h1)
+      check it.vtbl.RemoveAttributeNS(it, namespaceUri.p, h1
+                                     ), "XmlElement.RemoveAttributeNS"
 
 proc setAttributeNodeNS*(self: XmlElement, newAttribute: XmlAttribute
                         ): XmlAttribute =
@@ -3580,7 +3332,8 @@ proc setAttributeNodeNS*(self: XmlElement, newAttribute: XmlAttribute
   withIface(self.p, IXmlElement, it):
     withIface(newAttribute.p, IXmlAttribute, p0):
       var tmp: pointer
-      it.call(IXmlElement_SetAttributeNodeNS, p0, tmp.addr)
+      check it.vtbl.SetAttributeNodeNS(it, p0, tmp.addr
+                                      ), "XmlElement.SetAttributeNodeNS"
       result = adopt[XmlAttribute](tmp)
 
 proc getAttributeNodeNS*(self: XmlElement, namespaceUri: WinRtObject,
@@ -3589,97 +3342,76 @@ proc getAttributeNodeNS*(self: XmlElement, namespaceUri: WinRtObject,
   withIface(self.p, IXmlElement, it):
     withHString(localName, h1):
       var tmp: pointer
-      it.call(IXmlElement_GetAttributeNodeNS, namespaceUri.p, h1, tmp.addr)
+      check it.vtbl.GetAttributeNodeNS(it, namespaceUri.p, h1, tmp.addr
+                                      ), "XmlElement.GetAttributeNodeNS"
       result = adopt[XmlAttribute](tmp)
 
 proc nodeValue*(self: XmlElement): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlElement.get_NodeValue
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NodeValue, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NodeValue, WinRtObject)
 
 proc `nodeValue=`*(self: XmlElement, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlElement.put_NodeValue
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_NodeValue, value.p)
+    check it.vtbl.put_NodeValue(it, value.p), "XmlElement.put_NodeValue"
 
 proc nodeType*(self: XmlElement): NodeType =
   ## Windows.Data.Xml.Dom.XmlElement.get_NodeType
   withIface(self.p, IXmlNode, it):
-    var tmp: NodeType
-    it.call(IXmlNode_get_NodeType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NodeType, NodeType)
 
 proc nodeName*(self: XmlElement): string =
   ## Windows.Data.Xml.Dom.XmlElement.get_NodeName
   withIface(self.p, IXmlNode, it):
-    var tmp: HSTRING
-    it.call(IXmlNode_get_NodeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NodeName)
 
 proc parentNode*(self: XmlElement): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlElement.get_ParentNode
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ParentNode, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ParentNode, WinRtObject)
 
 proc childNodes*(self: XmlElement): XmlNodeList =
   ## Windows.Data.Xml.Dom.XmlElement.get_ChildNodes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ChildNodes, tmp.addr)
-    result = adopt[XmlNodeList](tmp)
+    result = it.getObject(get_ChildNodes, XmlNodeList)
 
 proc firstChild*(self: XmlElement): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlElement.get_FirstChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_FirstChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_FirstChild, WinRtObject)
 
 proc lastChild*(self: XmlElement): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlElement.get_LastChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LastChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LastChild, WinRtObject)
 
 proc previousSibling*(self: XmlElement): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlElement.get_PreviousSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_PreviousSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PreviousSibling, WinRtObject)
 
 proc nextSibling*(self: XmlElement): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlElement.get_NextSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NextSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NextSibling, WinRtObject)
 
 proc attributes*(self: XmlElement): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.XmlElement.get_Attributes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Attributes, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Attributes, XmlNamedNodeMap)
 
 proc hasChildNodes*(self: XmlElement): bool =
   ## Windows.Data.Xml.Dom.XmlElement.HasChildNodes
   withIface(self.p, IXmlNode, it):
     var tmp: bool
-    it.call(IXmlNode_HasChildNodes, tmp.addr)
+    check it.vtbl.HasChildNodes(it, tmp.addr), "XmlElement.HasChildNodes"
     result = tmp
 
 proc ownerDocument*(self: XmlElement): XmlDocument =
   ## Windows.Data.Xml.Dom.XmlElement.get_OwnerDocument
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_OwnerDocument, tmp.addr)
-    result = adopt[XmlDocument](tmp)
+    result = it.getObject(get_OwnerDocument, XmlDocument)
 
 proc insertBefore*(self: XmlElement, newChild: WinRtObject,
                    referenceChild: WinRtObject): WinRtObject =
@@ -3688,7 +3420,8 @@ proc insertBefore*(self: XmlElement, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_InsertBefore, p0, p1, tmp.addr)
+        check it.vtbl.InsertBefore(it, p0, p1, tmp.addr
+                                  ), "XmlElement.InsertBefore"
         result = adopt[WinRtObject](tmp)
 
 proc replaceChild*(self: XmlElement, newChild: WinRtObject,
@@ -3698,7 +3431,8 @@ proc replaceChild*(self: XmlElement, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_ReplaceChild, p0, p1, tmp.addr)
+        check it.vtbl.ReplaceChild(it, p0, p1, tmp.addr
+                                  ), "XmlElement.ReplaceChild"
         result = adopt[WinRtObject](tmp)
 
 proc removeChild*(self: XmlElement, childNode: WinRtObject): WinRtObject =
@@ -3706,7 +3440,7 @@ proc removeChild*(self: XmlElement, childNode: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(childNode.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_RemoveChild, p0, tmp.addr)
+      check it.vtbl.RemoveChild(it, p0, tmp.addr), "XmlElement.RemoveChild"
       result = adopt[WinRtObject](tmp)
 
 proc appendChild*(self: XmlElement, newChild: WinRtObject): WinRtObject =
@@ -3714,73 +3448,65 @@ proc appendChild*(self: XmlElement, newChild: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(newChild.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_AppendChild, p0, tmp.addr)
+      check it.vtbl.AppendChild(it, p0, tmp.addr), "XmlElement.AppendChild"
       result = adopt[WinRtObject](tmp)
 
 proc cloneNode*(self: XmlElement, deep: bool): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlElement.CloneNode
   withIface(self.p, IXmlNode, it):
     var tmp: pointer
-    it.call(IXmlNode_CloneNode, deep, tmp.addr)
+    check it.vtbl.CloneNode(it, deep, tmp.addr), "XmlElement.CloneNode"
     result = adopt[WinRtObject](tmp)
 
 proc namespaceUri*(self: XmlElement): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlElement.get_NamespaceUri
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NamespaceUri, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NamespaceUri, WinRtObject)
 
 proc localName*(self: XmlElement): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlElement.get_LocalName
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LocalName, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LocalName, WinRtObject)
 
 proc prefix*(self: XmlElement): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlElement.get_Prefix
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Prefix, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Prefix, WinRtObject)
 
 proc normalize*(self: XmlElement) =
   ## Windows.Data.Xml.Dom.XmlElement.Normalize
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_Normalize)
+    check it.vtbl.Normalize(it), "XmlElement.Normalize"
 
 proc `prefix=`*(self: XmlElement, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlElement.put_Prefix
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_Prefix, value.p)
+    check it.vtbl.put_Prefix(it, value.p), "XmlElement.put_Prefix"
 
 proc getXml*(self: XmlElement): string =
   ## Windows.Data.Xml.Dom.XmlElement.GetXml
   withIface(self.p, IXmlNodeSerializer, it):
     var tmp: HSTRING
-    it.call(IXmlNodeSerializer_GetXml, tmp.addr)
+    check it.vtbl.GetXml(it, tmp.addr), "XmlElement.GetXml"
     result = takeString(tmp)
 
 proc innerText*(self: XmlElement): string =
   ## Windows.Data.Xml.Dom.XmlElement.get_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    var tmp: HSTRING
-    it.call(IXmlNodeSerializer_get_InnerText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InnerText)
 
 proc `innerText=`*(self: XmlElement, value: string) =
   ## Windows.Data.Xml.Dom.XmlElement.put_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    withHString(value, h0):
-      it.call(IXmlNodeSerializer_put_InnerText, h0)
+    it.putString(put_InnerText, value)
 
 proc selectSingleNode*(self: XmlElement, xpath: string): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlElement.SelectSingleNode
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNode, h0, tmp.addr)
+      check it.vtbl.SelectSingleNode(it, h0, tmp.addr
+                                    ), "XmlElement.SelectSingleNode"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodes*(self: XmlElement, xpath: string): XmlNodeList =
@@ -3788,7 +3514,7 @@ proc selectNodes*(self: XmlElement, xpath: string): XmlNodeList =
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodes, h0, tmp.addr)
+      check it.vtbl.SelectNodes(it, h0, tmp.addr), "XmlElement.SelectNodes"
       result = adopt[XmlNodeList](tmp)
 
 proc selectSingleNodeNS*(self: XmlElement, xpath: string,
@@ -3797,7 +3523,8 @@ proc selectSingleNodeNS*(self: XmlElement, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNodeNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectSingleNodeNS(it, h0, namespaces.p, tmp.addr
+                                      ), "XmlElement.SelectSingleNodeNS"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodesNS*(self: XmlElement, xpath: string, namespaces: WinRtObject
@@ -3806,97 +3533,77 @@ proc selectNodesNS*(self: XmlElement, xpath: string, namespaces: WinRtObject
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodesNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectNodesNS(it, h0, namespaces.p, tmp.addr
+                                 ), "XmlElement.SelectNodesNS"
       result = adopt[XmlNodeList](tmp)
 
 proc nodeValue*(self: XmlEntityReference): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_NodeValue
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NodeValue, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NodeValue, WinRtObject)
 
 proc `nodeValue=`*(self: XmlEntityReference, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlEntityReference.put_NodeValue
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_NodeValue, value.p)
+    check it.vtbl.put_NodeValue(it, value.p), "XmlEntityReference.put_NodeValue"
 
 proc nodeType*(self: XmlEntityReference): NodeType =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_NodeType
   withIface(self.p, IXmlNode, it):
-    var tmp: NodeType
-    it.call(IXmlNode_get_NodeType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NodeType, NodeType)
 
 proc nodeName*(self: XmlEntityReference): string =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_NodeName
   withIface(self.p, IXmlNode, it):
-    var tmp: HSTRING
-    it.call(IXmlNode_get_NodeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NodeName)
 
 proc parentNode*(self: XmlEntityReference): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_ParentNode
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ParentNode, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ParentNode, WinRtObject)
 
 proc childNodes*(self: XmlEntityReference): XmlNodeList =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_ChildNodes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ChildNodes, tmp.addr)
-    result = adopt[XmlNodeList](tmp)
+    result = it.getObject(get_ChildNodes, XmlNodeList)
 
 proc firstChild*(self: XmlEntityReference): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_FirstChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_FirstChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_FirstChild, WinRtObject)
 
 proc lastChild*(self: XmlEntityReference): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_LastChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LastChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LastChild, WinRtObject)
 
 proc previousSibling*(self: XmlEntityReference): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_PreviousSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_PreviousSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PreviousSibling, WinRtObject)
 
 proc nextSibling*(self: XmlEntityReference): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_NextSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NextSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NextSibling, WinRtObject)
 
 proc attributes*(self: XmlEntityReference): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_Attributes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Attributes, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Attributes, XmlNamedNodeMap)
 
 proc hasChildNodes*(self: XmlEntityReference): bool =
   ## Windows.Data.Xml.Dom.XmlEntityReference.HasChildNodes
   withIface(self.p, IXmlNode, it):
     var tmp: bool
-    it.call(IXmlNode_HasChildNodes, tmp.addr)
+    check it.vtbl.HasChildNodes(it, tmp.addr
+                               ), "XmlEntityReference.HasChildNodes"
     result = tmp
 
 proc ownerDocument*(self: XmlEntityReference): XmlDocument =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_OwnerDocument
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_OwnerDocument, tmp.addr)
-    result = adopt[XmlDocument](tmp)
+    result = it.getObject(get_OwnerDocument, XmlDocument)
 
 proc insertBefore*(self: XmlEntityReference, newChild: WinRtObject,
                    referenceChild: WinRtObject): WinRtObject =
@@ -3905,7 +3612,8 @@ proc insertBefore*(self: XmlEntityReference, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_InsertBefore, p0, p1, tmp.addr)
+        check it.vtbl.InsertBefore(it, p0, p1, tmp.addr
+                                  ), "XmlEntityReference.InsertBefore"
         result = adopt[WinRtObject](tmp)
 
 proc replaceChild*(self: XmlEntityReference, newChild: WinRtObject,
@@ -3915,7 +3623,8 @@ proc replaceChild*(self: XmlEntityReference, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_ReplaceChild, p0, p1, tmp.addr)
+        check it.vtbl.ReplaceChild(it, p0, p1, tmp.addr
+                                  ), "XmlEntityReference.ReplaceChild"
         result = adopt[WinRtObject](tmp)
 
 proc removeChild*(self: XmlEntityReference, childNode: WinRtObject
@@ -3924,7 +3633,8 @@ proc removeChild*(self: XmlEntityReference, childNode: WinRtObject
   withIface(self.p, IXmlNode, it):
     withIface(childNode.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_RemoveChild, p0, tmp.addr)
+      check it.vtbl.RemoveChild(it, p0, tmp.addr
+                               ), "XmlEntityReference.RemoveChild"
       result = adopt[WinRtObject](tmp)
 
 proc appendChild*(self: XmlEntityReference, newChild: WinRtObject
@@ -3933,73 +3643,66 @@ proc appendChild*(self: XmlEntityReference, newChild: WinRtObject
   withIface(self.p, IXmlNode, it):
     withIface(newChild.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_AppendChild, p0, tmp.addr)
+      check it.vtbl.AppendChild(it, p0, tmp.addr
+                               ), "XmlEntityReference.AppendChild"
       result = adopt[WinRtObject](tmp)
 
 proc cloneNode*(self: XmlEntityReference, deep: bool): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlEntityReference.CloneNode
   withIface(self.p, IXmlNode, it):
     var tmp: pointer
-    it.call(IXmlNode_CloneNode, deep, tmp.addr)
+    check it.vtbl.CloneNode(it, deep, tmp.addr), "XmlEntityReference.CloneNode"
     result = adopt[WinRtObject](tmp)
 
 proc namespaceUri*(self: XmlEntityReference): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_NamespaceUri
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NamespaceUri, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NamespaceUri, WinRtObject)
 
 proc localName*(self: XmlEntityReference): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_LocalName
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LocalName, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LocalName, WinRtObject)
 
 proc prefix*(self: XmlEntityReference): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_Prefix
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Prefix, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Prefix, WinRtObject)
 
 proc normalize*(self: XmlEntityReference) =
   ## Windows.Data.Xml.Dom.XmlEntityReference.Normalize
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_Normalize)
+    check it.vtbl.Normalize(it), "XmlEntityReference.Normalize"
 
 proc `prefix=`*(self: XmlEntityReference, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlEntityReference.put_Prefix
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_Prefix, value.p)
+    check it.vtbl.put_Prefix(it, value.p), "XmlEntityReference.put_Prefix"
 
 proc getXml*(self: XmlEntityReference): string =
   ## Windows.Data.Xml.Dom.XmlEntityReference.GetXml
   withIface(self.p, IXmlNodeSerializer, it):
     var tmp: HSTRING
-    it.call(IXmlNodeSerializer_GetXml, tmp.addr)
+    check it.vtbl.GetXml(it, tmp.addr), "XmlEntityReference.GetXml"
     result = takeString(tmp)
 
 proc innerText*(self: XmlEntityReference): string =
   ## Windows.Data.Xml.Dom.XmlEntityReference.get_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    var tmp: HSTRING
-    it.call(IXmlNodeSerializer_get_InnerText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InnerText)
 
 proc `innerText=`*(self: XmlEntityReference, value: string) =
   ## Windows.Data.Xml.Dom.XmlEntityReference.put_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    withHString(value, h0):
-      it.call(IXmlNodeSerializer_put_InnerText, h0)
+    it.putString(put_InnerText, value)
 
 proc selectSingleNode*(self: XmlEntityReference, xpath: string): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlEntityReference.SelectSingleNode
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNode, h0, tmp.addr)
+      check it.vtbl.SelectSingleNode(it, h0, tmp.addr
+                                    ), "XmlEntityReference.SelectSingleNode"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodes*(self: XmlEntityReference, xpath: string): XmlNodeList =
@@ -4007,7 +3710,8 @@ proc selectNodes*(self: XmlEntityReference, xpath: string): XmlNodeList =
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodes, h0, tmp.addr)
+      check it.vtbl.SelectNodes(it, h0, tmp.addr
+                               ), "XmlEntityReference.SelectNodes"
       result = adopt[XmlNodeList](tmp)
 
 proc selectSingleNodeNS*(self: XmlEntityReference, xpath: string,
@@ -4016,7 +3720,8 @@ proc selectSingleNodeNS*(self: XmlEntityReference, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNodeNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectSingleNodeNS(it, h0, namespaces.p, tmp.addr
+                                      ), "XmlEntityReference.SelectSingleNodeNS"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodesNS*(self: XmlEntityReference, xpath: string,
@@ -4025,7 +3730,8 @@ proc selectNodesNS*(self: XmlEntityReference, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodesNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectNodesNS(it, h0, namespaces.p, tmp.addr
+                                 ), "XmlEntityReference.SelectNodesNS"
       result = adopt[XmlNodeList](tmp)
 
 proc newXmlLoadSettings*(): XmlLoadSettings =
@@ -4035,75 +3741,63 @@ proc newXmlLoadSettings*(): XmlLoadSettings =
 proc maxElementDepth*(self: XmlLoadSettings): uint32 =
   ## Windows.Data.Xml.Dom.XmlLoadSettings.get_MaxElementDepth
   withIface(self.p, IXmlLoadSettings, it):
-    var tmp: uint32
-    it.call(IXmlLoadSettings_get_MaxElementDepth, tmp.addr)
-    result = tmp
+    result = it.getValue(get_MaxElementDepth, uint32)
 
 proc `maxElementDepth=`*(self: XmlLoadSettings, value: uint32) =
   ## Windows.Data.Xml.Dom.XmlLoadSettings.put_MaxElementDepth
   withIface(self.p, IXmlLoadSettings, it):
-    it.call(IXmlLoadSettings_put_MaxElementDepth, value)
+    it.putValue(put_MaxElementDepth, value)
 
 proc prohibitDtd*(self: XmlLoadSettings): bool =
   ## Windows.Data.Xml.Dom.XmlLoadSettings.get_ProhibitDtd
   withIface(self.p, IXmlLoadSettings, it):
-    var tmp: bool
-    it.call(IXmlLoadSettings_get_ProhibitDtd, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ProhibitDtd, bool)
 
 proc `prohibitDtd=`*(self: XmlLoadSettings, value: bool) =
   ## Windows.Data.Xml.Dom.XmlLoadSettings.put_ProhibitDtd
   withIface(self.p, IXmlLoadSettings, it):
-    it.call(IXmlLoadSettings_put_ProhibitDtd, value)
+    it.putValue(put_ProhibitDtd, value)
 
 proc resolveExternals*(self: XmlLoadSettings): bool =
   ## Windows.Data.Xml.Dom.XmlLoadSettings.get_ResolveExternals
   withIface(self.p, IXmlLoadSettings, it):
-    var tmp: bool
-    it.call(IXmlLoadSettings_get_ResolveExternals, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ResolveExternals, bool)
 
 proc `resolveExternals=`*(self: XmlLoadSettings, value: bool) =
   ## Windows.Data.Xml.Dom.XmlLoadSettings.put_ResolveExternals
   withIface(self.p, IXmlLoadSettings, it):
-    it.call(IXmlLoadSettings_put_ResolveExternals, value)
+    it.putValue(put_ResolveExternals, value)
 
 proc validateOnParse*(self: XmlLoadSettings): bool =
   ## Windows.Data.Xml.Dom.XmlLoadSettings.get_ValidateOnParse
   withIface(self.p, IXmlLoadSettings, it):
-    var tmp: bool
-    it.call(IXmlLoadSettings_get_ValidateOnParse, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ValidateOnParse, bool)
 
 proc `validateOnParse=`*(self: XmlLoadSettings, value: bool) =
   ## Windows.Data.Xml.Dom.XmlLoadSettings.put_ValidateOnParse
   withIface(self.p, IXmlLoadSettings, it):
-    it.call(IXmlLoadSettings_put_ValidateOnParse, value)
+    it.putValue(put_ValidateOnParse, value)
 
 proc elementContentWhiteSpace*(self: XmlLoadSettings): bool =
   ## Windows.Data.Xml.Dom.XmlLoadSettings.get_ElementContentWhiteSpace
   withIface(self.p, IXmlLoadSettings, it):
-    var tmp: bool
-    it.call(IXmlLoadSettings_get_ElementContentWhiteSpace, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ElementContentWhiteSpace, bool)
 
 proc `elementContentWhiteSpace=`*(self: XmlLoadSettings, value: bool) =
   ## Windows.Data.Xml.Dom.XmlLoadSettings.put_ElementContentWhiteSpace
   withIface(self.p, IXmlLoadSettings, it):
-    it.call(IXmlLoadSettings_put_ElementContentWhiteSpace, value)
+    it.putValue(put_ElementContentWhiteSpace, value)
 
 proc length*(self: XmlNamedNodeMap): uint32 =
   ## Windows.Data.Xml.Dom.XmlNamedNodeMap.get_Length
   withIface(self.p, IXmlNamedNodeMap, it):
-    var tmp: uint32
-    it.call(IXmlNamedNodeMap_get_Length, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Length, uint32)
 
 proc item*(self: XmlNamedNodeMap, index: uint32): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlNamedNodeMap.Item
   withIface(self.p, IXmlNamedNodeMap, it):
     var tmp: pointer
-    it.call(IXmlNamedNodeMap_Item, index, tmp.addr)
+    check it.vtbl.Item(it, index, tmp.addr), "XmlNamedNodeMap.Item"
     result = adopt[WinRtObject](tmp)
 
 proc getNamedItem*(self: XmlNamedNodeMap, name: string): WinRtObject =
@@ -4111,7 +3805,8 @@ proc getNamedItem*(self: XmlNamedNodeMap, name: string): WinRtObject =
   withIface(self.p, IXmlNamedNodeMap, it):
     withHString(name, h0):
       var tmp: pointer
-      it.call(IXmlNamedNodeMap_GetNamedItem, h0, tmp.addr)
+      check it.vtbl.GetNamedItem(it, h0, tmp.addr
+                                ), "XmlNamedNodeMap.GetNamedItem"
       result = adopt[WinRtObject](tmp)
 
 proc setNamedItem*(self: XmlNamedNodeMap, node: WinRtObject): WinRtObject =
@@ -4119,7 +3814,8 @@ proc setNamedItem*(self: XmlNamedNodeMap, node: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNamedNodeMap, it):
     withIface(node.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNamedNodeMap_SetNamedItem, p0, tmp.addr)
+      check it.vtbl.SetNamedItem(it, p0, tmp.addr
+                                ), "XmlNamedNodeMap.SetNamedItem"
       result = adopt[WinRtObject](tmp)
 
 proc removeNamedItem*(self: XmlNamedNodeMap, name: string): WinRtObject =
@@ -4127,7 +3823,8 @@ proc removeNamedItem*(self: XmlNamedNodeMap, name: string): WinRtObject =
   withIface(self.p, IXmlNamedNodeMap, it):
     withHString(name, h0):
       var tmp: pointer
-      it.call(IXmlNamedNodeMap_RemoveNamedItem, h0, tmp.addr)
+      check it.vtbl.RemoveNamedItem(it, h0, tmp.addr
+                                   ), "XmlNamedNodeMap.RemoveNamedItem"
       result = adopt[WinRtObject](tmp)
 
 proc getNamedItemNS*(self: XmlNamedNodeMap, namespaceUri: WinRtObject,
@@ -4136,7 +3833,8 @@ proc getNamedItemNS*(self: XmlNamedNodeMap, namespaceUri: WinRtObject,
   withIface(self.p, IXmlNamedNodeMap, it):
     withHString(name, h1):
       var tmp: pointer
-      it.call(IXmlNamedNodeMap_GetNamedItemNS, namespaceUri.p, h1, tmp.addr)
+      check it.vtbl.GetNamedItemNS(it, namespaceUri.p, h1, tmp.addr
+                                  ), "XmlNamedNodeMap.GetNamedItemNS"
       result = adopt[WinRtObject](tmp)
 
 proc removeNamedItemNS*(self: XmlNamedNodeMap, namespaceUri: WinRtObject,
@@ -4145,7 +3843,8 @@ proc removeNamedItemNS*(self: XmlNamedNodeMap, namespaceUri: WinRtObject,
   withIface(self.p, IXmlNamedNodeMap, it):
     withHString(name, h1):
       var tmp: pointer
-      it.call(IXmlNamedNodeMap_RemoveNamedItemNS, namespaceUri.p, h1, tmp.addr)
+      check it.vtbl.RemoveNamedItemNS(it, namespaceUri.p, h1, tmp.addr
+                                     ), "XmlNamedNodeMap.RemoveNamedItemNS"
       result = adopt[WinRtObject](tmp)
 
 proc setNamedItemNS*(self: XmlNamedNodeMap, node: WinRtObject): WinRtObject =
@@ -4153,131 +3852,105 @@ proc setNamedItemNS*(self: XmlNamedNodeMap, node: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNamedNodeMap, it):
     withIface(node.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNamedNodeMap_SetNamedItemNS, p0, tmp.addr)
+      check it.vtbl.SetNamedItemNS(it, p0, tmp.addr
+                                  ), "XmlNamedNodeMap.SetNamedItemNS"
       result = adopt[WinRtObject](tmp)
 
 proc length*(self: XmlNodeList): uint32 =
   ## Windows.Data.Xml.Dom.XmlNodeList.get_Length
   withIface(self.p, IXmlNodeList, it):
-    var tmp: uint32
-    it.call(IXmlNodeList_get_Length, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Length, uint32)
 
 proc item*(self: XmlNodeList, index: uint32): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlNodeList.Item
   withIface(self.p, IXmlNodeList, it):
     var tmp: pointer
-    it.call(IXmlNodeList_Item, index, tmp.addr)
+    check it.vtbl.Item(it, index, tmp.addr), "XmlNodeList.Item"
     result = adopt[WinRtObject](tmp)
 
 proc target*(self: XmlProcessingInstruction): string =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_Target
   withIface(self.p, IXmlProcessingInstruction, it):
-    var tmp: HSTRING
-    it.call(IXmlProcessingInstruction_get_Target, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Target)
 
 proc data*(self: XmlProcessingInstruction): string =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_Data
   withIface(self.p, IXmlProcessingInstruction, it):
-    var tmp: HSTRING
-    it.call(IXmlProcessingInstruction_get_Data, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Data)
 
 proc `data=`*(self: XmlProcessingInstruction, value: string) =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.put_Data
   withIface(self.p, IXmlProcessingInstruction, it):
-    withHString(value, h0):
-      it.call(IXmlProcessingInstruction_put_Data, h0)
+    it.putString(put_Data, value)
 
 proc nodeValue*(self: XmlProcessingInstruction): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_NodeValue
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NodeValue, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NodeValue, WinRtObject)
 
 proc `nodeValue=`*(self: XmlProcessingInstruction, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.put_NodeValue
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_NodeValue, value.p)
+    check it.vtbl.put_NodeValue(it, value.p
+                               ), "XmlProcessingInstruction.put_NodeValue"
 
 proc nodeType*(self: XmlProcessingInstruction): NodeType =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_NodeType
   withIface(self.p, IXmlNode, it):
-    var tmp: NodeType
-    it.call(IXmlNode_get_NodeType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NodeType, NodeType)
 
 proc nodeName*(self: XmlProcessingInstruction): string =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_NodeName
   withIface(self.p, IXmlNode, it):
-    var tmp: HSTRING
-    it.call(IXmlNode_get_NodeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NodeName)
 
 proc parentNode*(self: XmlProcessingInstruction): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_ParentNode
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ParentNode, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ParentNode, WinRtObject)
 
 proc childNodes*(self: XmlProcessingInstruction): XmlNodeList =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_ChildNodes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ChildNodes, tmp.addr)
-    result = adopt[XmlNodeList](tmp)
+    result = it.getObject(get_ChildNodes, XmlNodeList)
 
 proc firstChild*(self: XmlProcessingInstruction): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_FirstChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_FirstChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_FirstChild, WinRtObject)
 
 proc lastChild*(self: XmlProcessingInstruction): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_LastChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LastChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LastChild, WinRtObject)
 
 proc previousSibling*(self: XmlProcessingInstruction): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_PreviousSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_PreviousSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PreviousSibling, WinRtObject)
 
 proc nextSibling*(self: XmlProcessingInstruction): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_NextSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NextSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NextSibling, WinRtObject)
 
 proc attributes*(self: XmlProcessingInstruction): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_Attributes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Attributes, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Attributes, XmlNamedNodeMap)
 
 proc hasChildNodes*(self: XmlProcessingInstruction): bool =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.HasChildNodes
   withIface(self.p, IXmlNode, it):
     var tmp: bool
-    it.call(IXmlNode_HasChildNodes, tmp.addr)
+    check it.vtbl.HasChildNodes(it, tmp.addr
+                               ), "XmlProcessingInstruction.HasChildNodes"
     result = tmp
 
 proc ownerDocument*(self: XmlProcessingInstruction): XmlDocument =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_OwnerDocument
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_OwnerDocument, tmp.addr)
-    result = adopt[XmlDocument](tmp)
+    result = it.getObject(get_OwnerDocument, XmlDocument)
 
 proc insertBefore*(self: XmlProcessingInstruction, newChild: WinRtObject,
                    referenceChild: WinRtObject): WinRtObject =
@@ -4286,7 +3959,8 @@ proc insertBefore*(self: XmlProcessingInstruction, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_InsertBefore, p0, p1, tmp.addr)
+        check it.vtbl.InsertBefore(it, p0, p1, tmp.addr
+                                  ), "XmlProcessingInstruction.InsertBefore"
         result = adopt[WinRtObject](tmp)
 
 proc replaceChild*(self: XmlProcessingInstruction, newChild: WinRtObject,
@@ -4296,7 +3970,8 @@ proc replaceChild*(self: XmlProcessingInstruction, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_ReplaceChild, p0, p1, tmp.addr)
+        check it.vtbl.ReplaceChild(it, p0, p1, tmp.addr
+                                  ), "XmlProcessingInstruction.ReplaceChild"
         result = adopt[WinRtObject](tmp)
 
 proc removeChild*(self: XmlProcessingInstruction, childNode: WinRtObject
@@ -4305,7 +3980,8 @@ proc removeChild*(self: XmlProcessingInstruction, childNode: WinRtObject
   withIface(self.p, IXmlNode, it):
     withIface(childNode.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_RemoveChild, p0, tmp.addr)
+      check it.vtbl.RemoveChild(it, p0, tmp.addr
+                               ), "XmlProcessingInstruction.RemoveChild"
       result = adopt[WinRtObject](tmp)
 
 proc appendChild*(self: XmlProcessingInstruction, newChild: WinRtObject
@@ -4314,66 +3990,59 @@ proc appendChild*(self: XmlProcessingInstruction, newChild: WinRtObject
   withIface(self.p, IXmlNode, it):
     withIface(newChild.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_AppendChild, p0, tmp.addr)
+      check it.vtbl.AppendChild(it, p0, tmp.addr
+                               ), "XmlProcessingInstruction.AppendChild"
       result = adopt[WinRtObject](tmp)
 
 proc cloneNode*(self: XmlProcessingInstruction, deep: bool): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.CloneNode
   withIface(self.p, IXmlNode, it):
     var tmp: pointer
-    it.call(IXmlNode_CloneNode, deep, tmp.addr)
+    check it.vtbl.CloneNode(it, deep, tmp.addr
+                           ), "XmlProcessingInstruction.CloneNode"
     result = adopt[WinRtObject](tmp)
 
 proc namespaceUri*(self: XmlProcessingInstruction): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_NamespaceUri
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NamespaceUri, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NamespaceUri, WinRtObject)
 
 proc localName*(self: XmlProcessingInstruction): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_LocalName
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LocalName, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LocalName, WinRtObject)
 
 proc prefix*(self: XmlProcessingInstruction): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_Prefix
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Prefix, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Prefix, WinRtObject)
 
 proc normalize*(self: XmlProcessingInstruction) =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.Normalize
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_Normalize)
+    check it.vtbl.Normalize(it), "XmlProcessingInstruction.Normalize"
 
 proc `prefix=`*(self: XmlProcessingInstruction, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.put_Prefix
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_Prefix, value.p)
+    check it.vtbl.put_Prefix(it, value.p), "XmlProcessingInstruction.put_Prefix"
 
 proc getXml*(self: XmlProcessingInstruction): string =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.GetXml
   withIface(self.p, IXmlNodeSerializer, it):
     var tmp: HSTRING
-    it.call(IXmlNodeSerializer_GetXml, tmp.addr)
+    check it.vtbl.GetXml(it, tmp.addr), "XmlProcessingInstruction.GetXml"
     result = takeString(tmp)
 
 proc innerText*(self: XmlProcessingInstruction): string =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.get_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    var tmp: HSTRING
-    it.call(IXmlNodeSerializer_get_InnerText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InnerText)
 
 proc `innerText=`*(self: XmlProcessingInstruction, value: string) =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.put_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    withHString(value, h0):
-      it.call(IXmlNodeSerializer_put_InnerText, h0)
+    it.putString(put_InnerText, value)
 
 proc selectSingleNode*(self: XmlProcessingInstruction, xpath: string
                       ): WinRtObject =
@@ -4381,7 +4050,8 @@ proc selectSingleNode*(self: XmlProcessingInstruction, xpath: string
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNode, h0, tmp.addr)
+      check it.vtbl.SelectSingleNode(it, h0, tmp.addr
+                                    ), "XmlProcessingInstruction.SelectSingleNode"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodes*(self: XmlProcessingInstruction, xpath: string): XmlNodeList =
@@ -4389,7 +4059,8 @@ proc selectNodes*(self: XmlProcessingInstruction, xpath: string): XmlNodeList =
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodes, h0, tmp.addr)
+      check it.vtbl.SelectNodes(it, h0, tmp.addr
+                               ), "XmlProcessingInstruction.SelectNodes"
       result = adopt[XmlNodeList](tmp)
 
 proc selectSingleNodeNS*(self: XmlProcessingInstruction, xpath: string,
@@ -4398,7 +4069,8 @@ proc selectSingleNodeNS*(self: XmlProcessingInstruction, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNodeNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectSingleNodeNS(it, h0, namespaces.p, tmp.addr
+                                      ), "XmlProcessingInstruction.SelectSingleNodeNS"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodesNS*(self: XmlProcessingInstruction, xpath: string,
@@ -4407,154 +4079,129 @@ proc selectNodesNS*(self: XmlProcessingInstruction, xpath: string,
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodesNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectNodesNS(it, h0, namespaces.p, tmp.addr
+                                 ), "XmlProcessingInstruction.SelectNodesNS"
       result = adopt[XmlNodeList](tmp)
 
 proc splitText*(self: XmlText, offset: uint32): XmlText =
   ## Windows.Data.Xml.Dom.XmlText.SplitText
   withIface(self.p, IXmlText, it):
     var tmp: pointer
-    it.call(IXmlText_SplitText, offset, tmp.addr)
+    check it.vtbl.SplitText(it, offset, tmp.addr), "XmlText.SplitText"
     result = adopt[XmlText](tmp)
 
 proc data*(self: XmlText): string =
   ## Windows.Data.Xml.Dom.XmlText.get_Data
   withIface(self.p, IXmlCharacterData, it):
-    var tmp: HSTRING
-    it.call(IXmlCharacterData_get_Data, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Data)
 
 proc `data=`*(self: XmlText, value: string) =
   ## Windows.Data.Xml.Dom.XmlText.put_Data
   withIface(self.p, IXmlCharacterData, it):
-    withHString(value, h0):
-      it.call(IXmlCharacterData_put_Data, h0)
+    it.putString(put_Data, value)
 
 proc length*(self: XmlText): uint32 =
   ## Windows.Data.Xml.Dom.XmlText.get_Length
   withIface(self.p, IXmlCharacterData, it):
-    var tmp: uint32
-    it.call(IXmlCharacterData_get_Length, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Length, uint32)
 
 proc substringData*(self: XmlText, offset: uint32, count: uint32): string =
   ## Windows.Data.Xml.Dom.XmlText.SubstringData
   withIface(self.p, IXmlCharacterData, it):
     var tmp: HSTRING
-    it.call(IXmlCharacterData_SubstringData, offset, count, tmp.addr)
+    check it.vtbl.SubstringData(it, offset, count, tmp.addr
+                               ), "XmlText.SubstringData"
     result = takeString(tmp)
 
 proc appendData*(self: XmlText, data: string) =
   ## Windows.Data.Xml.Dom.XmlText.AppendData
   withIface(self.p, IXmlCharacterData, it):
     withHString(data, h0):
-      it.call(IXmlCharacterData_AppendData, h0)
+      check it.vtbl.AppendData(it, h0), "XmlText.AppendData"
 
 proc insertData*(self: XmlText, offset: uint32, data: string) =
   ## Windows.Data.Xml.Dom.XmlText.InsertData
   withIface(self.p, IXmlCharacterData, it):
     withHString(data, h1):
-      it.call(IXmlCharacterData_InsertData, offset, h1)
+      check it.vtbl.InsertData(it, offset, h1), "XmlText.InsertData"
 
 proc deleteData*(self: XmlText, offset: uint32, count: uint32) =
   ## Windows.Data.Xml.Dom.XmlText.DeleteData
   withIface(self.p, IXmlCharacterData, it):
-    it.call(IXmlCharacterData_DeleteData, offset, count)
+    check it.vtbl.DeleteData(it, offset, count), "XmlText.DeleteData"
 
 proc replaceData*(self: XmlText, offset: uint32, count: uint32, data: string) =
   ## Windows.Data.Xml.Dom.XmlText.ReplaceData
   withIface(self.p, IXmlCharacterData, it):
     withHString(data, h2):
-      it.call(IXmlCharacterData_ReplaceData, offset, count, h2)
+      check it.vtbl.ReplaceData(it, offset, count, h2), "XmlText.ReplaceData"
 
 proc nodeValue*(self: XmlText): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlText.get_NodeValue
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NodeValue, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NodeValue, WinRtObject)
 
 proc `nodeValue=`*(self: XmlText, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlText.put_NodeValue
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_NodeValue, value.p)
+    check it.vtbl.put_NodeValue(it, value.p), "XmlText.put_NodeValue"
 
 proc nodeType*(self: XmlText): NodeType =
   ## Windows.Data.Xml.Dom.XmlText.get_NodeType
   withIface(self.p, IXmlNode, it):
-    var tmp: NodeType
-    it.call(IXmlNode_get_NodeType, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NodeType, NodeType)
 
 proc nodeName*(self: XmlText): string =
   ## Windows.Data.Xml.Dom.XmlText.get_NodeName
   withIface(self.p, IXmlNode, it):
-    var tmp: HSTRING
-    it.call(IXmlNode_get_NodeName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NodeName)
 
 proc parentNode*(self: XmlText): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlText.get_ParentNode
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ParentNode, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_ParentNode, WinRtObject)
 
 proc childNodes*(self: XmlText): XmlNodeList =
   ## Windows.Data.Xml.Dom.XmlText.get_ChildNodes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_ChildNodes, tmp.addr)
-    result = adopt[XmlNodeList](tmp)
+    result = it.getObject(get_ChildNodes, XmlNodeList)
 
 proc firstChild*(self: XmlText): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlText.get_FirstChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_FirstChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_FirstChild, WinRtObject)
 
 proc lastChild*(self: XmlText): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlText.get_LastChild
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LastChild, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LastChild, WinRtObject)
 
 proc previousSibling*(self: XmlText): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlText.get_PreviousSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_PreviousSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_PreviousSibling, WinRtObject)
 
 proc nextSibling*(self: XmlText): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlText.get_NextSibling
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NextSibling, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NextSibling, WinRtObject)
 
 proc attributes*(self: XmlText): XmlNamedNodeMap =
   ## Windows.Data.Xml.Dom.XmlText.get_Attributes
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Attributes, tmp.addr)
-    result = adopt[XmlNamedNodeMap](tmp)
+    result = it.getObject(get_Attributes, XmlNamedNodeMap)
 
 proc hasChildNodes*(self: XmlText): bool =
   ## Windows.Data.Xml.Dom.XmlText.HasChildNodes
   withIface(self.p, IXmlNode, it):
     var tmp: bool
-    it.call(IXmlNode_HasChildNodes, tmp.addr)
+    check it.vtbl.HasChildNodes(it, tmp.addr), "XmlText.HasChildNodes"
     result = tmp
 
 proc ownerDocument*(self: XmlText): XmlDocument =
   ## Windows.Data.Xml.Dom.XmlText.get_OwnerDocument
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_OwnerDocument, tmp.addr)
-    result = adopt[XmlDocument](tmp)
+    result = it.getObject(get_OwnerDocument, XmlDocument)
 
 proc insertBefore*(self: XmlText, newChild: WinRtObject,
                    referenceChild: WinRtObject): WinRtObject =
@@ -4563,7 +4210,7 @@ proc insertBefore*(self: XmlText, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_InsertBefore, p0, p1, tmp.addr)
+        check it.vtbl.InsertBefore(it, p0, p1, tmp.addr), "XmlText.InsertBefore"
         result = adopt[WinRtObject](tmp)
 
 proc replaceChild*(self: XmlText, newChild: WinRtObject,
@@ -4573,7 +4220,7 @@ proc replaceChild*(self: XmlText, newChild: WinRtObject,
     withIface(newChild.p, IXmlNode, p0):
       withIface(referenceChild.p, IXmlNode, p1):
         var tmp: pointer
-        it.call(IXmlNode_ReplaceChild, p0, p1, tmp.addr)
+        check it.vtbl.ReplaceChild(it, p0, p1, tmp.addr), "XmlText.ReplaceChild"
         result = adopt[WinRtObject](tmp)
 
 proc removeChild*(self: XmlText, childNode: WinRtObject): WinRtObject =
@@ -4581,7 +4228,7 @@ proc removeChild*(self: XmlText, childNode: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(childNode.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_RemoveChild, p0, tmp.addr)
+      check it.vtbl.RemoveChild(it, p0, tmp.addr), "XmlText.RemoveChild"
       result = adopt[WinRtObject](tmp)
 
 proc appendChild*(self: XmlText, newChild: WinRtObject): WinRtObject =
@@ -4589,73 +4236,65 @@ proc appendChild*(self: XmlText, newChild: WinRtObject): WinRtObject =
   withIface(self.p, IXmlNode, it):
     withIface(newChild.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXmlNode_AppendChild, p0, tmp.addr)
+      check it.vtbl.AppendChild(it, p0, tmp.addr), "XmlText.AppendChild"
       result = adopt[WinRtObject](tmp)
 
 proc cloneNode*(self: XmlText, deep: bool): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlText.CloneNode
   withIface(self.p, IXmlNode, it):
     var tmp: pointer
-    it.call(IXmlNode_CloneNode, deep, tmp.addr)
+    check it.vtbl.CloneNode(it, deep, tmp.addr), "XmlText.CloneNode"
     result = adopt[WinRtObject](tmp)
 
 proc namespaceUri*(self: XmlText): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlText.get_NamespaceUri
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_NamespaceUri, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_NamespaceUri, WinRtObject)
 
 proc localName*(self: XmlText): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlText.get_LocalName
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_LocalName, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_LocalName, WinRtObject)
 
 proc prefix*(self: XmlText): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlText.get_Prefix
   withIface(self.p, IXmlNode, it):
-    var tmp: pointer
-    it.call(IXmlNode_get_Prefix, tmp.addr)
-    result = adopt[WinRtObject](tmp)
+    result = it.getObject(get_Prefix, WinRtObject)
 
 proc normalize*(self: XmlText) =
   ## Windows.Data.Xml.Dom.XmlText.Normalize
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_Normalize)
+    check it.vtbl.Normalize(it), "XmlText.Normalize"
 
 proc `prefix=`*(self: XmlText, value: WinRtObject) =
   ## Windows.Data.Xml.Dom.XmlText.put_Prefix
   withIface(self.p, IXmlNode, it):
-    it.call(IXmlNode_put_Prefix, value.p)
+    check it.vtbl.put_Prefix(it, value.p), "XmlText.put_Prefix"
 
 proc getXml*(self: XmlText): string =
   ## Windows.Data.Xml.Dom.XmlText.GetXml
   withIface(self.p, IXmlNodeSerializer, it):
     var tmp: HSTRING
-    it.call(IXmlNodeSerializer_GetXml, tmp.addr)
+    check it.vtbl.GetXml(it, tmp.addr), "XmlText.GetXml"
     result = takeString(tmp)
 
 proc innerText*(self: XmlText): string =
   ## Windows.Data.Xml.Dom.XmlText.get_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    var tmp: HSTRING
-    it.call(IXmlNodeSerializer_get_InnerText, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_InnerText)
 
 proc `innerText=`*(self: XmlText, value: string) =
   ## Windows.Data.Xml.Dom.XmlText.put_InnerText
   withIface(self.p, IXmlNodeSerializer, it):
-    withHString(value, h0):
-      it.call(IXmlNodeSerializer_put_InnerText, h0)
+    it.putString(put_InnerText, value)
 
 proc selectSingleNode*(self: XmlText, xpath: string): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlText.SelectSingleNode
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNode, h0, tmp.addr)
+      check it.vtbl.SelectSingleNode(it, h0, tmp.addr
+                                    ), "XmlText.SelectSingleNode"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodes*(self: XmlText, xpath: string): XmlNodeList =
@@ -4663,7 +4302,7 @@ proc selectNodes*(self: XmlText, xpath: string): XmlNodeList =
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodes, h0, tmp.addr)
+      check it.vtbl.SelectNodes(it, h0, tmp.addr), "XmlText.SelectNodes"
       result = adopt[XmlNodeList](tmp)
 
 proc selectSingleNodeNS*(self: XmlText, xpath: string, namespaces: WinRtObject
@@ -4672,7 +4311,8 @@ proc selectSingleNodeNS*(self: XmlText, xpath: string, namespaces: WinRtObject
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectSingleNodeNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectSingleNodeNS(it, h0, namespaces.p, tmp.addr
+                                      ), "XmlText.SelectSingleNodeNS"
       result = adopt[WinRtObject](tmp)
 
 proc selectNodesNS*(self: XmlText, xpath: string, namespaces: WinRtObject
@@ -4681,7 +4321,8 @@ proc selectNodesNS*(self: XmlText, xpath: string, namespaces: WinRtObject
   withIface(self.p, IXmlNodeSelector, it):
     withHString(xpath, h0):
       var tmp: pointer
-      it.call(IXmlNodeSelector_SelectNodesNS, h0, namespaces.p, tmp.addr)
+      check it.vtbl.SelectNodesNS(it, h0, namespaces.p, tmp.addr
+                                 ), "XmlText.SelectNodesNS"
       result = adopt[XmlNodeList](tmp)
 
 proc transformToString*(self: XsltProcessor, inputNode: WinRtObject): string =
@@ -4689,7 +4330,8 @@ proc transformToString*(self: XsltProcessor, inputNode: WinRtObject): string =
   withIface(self.p, IXsltProcessor, it):
     withIface(inputNode.p, IXmlNode, p0):
       var tmp: HSTRING
-      it.call(IXsltProcessor_TransformToString, p0, tmp.addr)
+      check it.vtbl.TransformToString(it, p0, tmp.addr
+                                     ), "XsltProcessor.TransformToString"
       result = takeString(tmp)
 
 proc transformToDocument*(self: XsltProcessor, inputNode: WinRtObject
@@ -4698,7 +4340,8 @@ proc transformToDocument*(self: XsltProcessor, inputNode: WinRtObject
   withIface(self.p, IXsltProcessor2, it):
     withIface(inputNode.p, IXmlNode, p0):
       var tmp: pointer
-      it.call(IXsltProcessor2_TransformToDocument, p0, tmp.addr)
+      check it.vtbl.TransformToDocument(it, p0, tmp.addr
+                                       ), "XsltProcessor.TransformToDocument"
       result = adopt[XmlDocument](tmp)
 
 proc createInstance*(_: typedesc[XsltProcessor], document: XmlDocument
@@ -4707,6 +4350,7 @@ proc createInstance*(_: typedesc[XsltProcessor], document: XmlDocument
   withStatics("Windows.Data.Xml.Xsl.XsltProcessor", IXsltProcessorFactory, it):
     withIface(document.p, IXmlDocument, p0):
       var tmp: pointer
-      it.call(IXsltProcessorFactory_CreateInstance, p0, tmp.addr)
+      check it.vtbl.CreateInstance(it, p0, tmp.addr
+                                  ), "XsltProcessor.CreateInstance"
       result = adopt[XsltProcessor](tmp)
 

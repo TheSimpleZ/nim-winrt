@@ -84,14 +84,16 @@ proc getButtonLabel*(self: ArcadeStick, button: ArcadeStickButtons
   ## Windows.Gaming.Input.ArcadeStick.GetButtonLabel
   withIface(self.p, IArcadeStick, it):
     var tmp: GameControllerButtonLabel
-    it.call(IArcadeStick_GetButtonLabel, button, tmp.addr)
+    check it.vtbl.GetButtonLabel(it, button, tmp.addr
+                                ), "ArcadeStick.GetButtonLabel"
     result = tmp
 
 proc getCurrentReading*(self: ArcadeStick): ArcadeStickReading =
   ## Windows.Gaming.Input.ArcadeStick.GetCurrentReading
   withIface(self.p, IArcadeStick, it):
     var tmp: ArcadeStickReading
-    it.call(IArcadeStick_GetCurrentReading, tmp.addr)
+    check it.vtbl.GetCurrentReading(it, tmp.addr
+                                   ), "ArcadeStick.GetCurrentReading"
     result = tmp
 
 proc onHeadsetConnected*(self: ArcadeStick,
@@ -105,13 +107,13 @@ proc onHeadsetConnected*(self: ArcadeStick,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, shim,
                          event = true)
     try:
-      it.call(IGameController_add_HeadsetConnected, cb, result.addr)
+      check it.vtbl.add_HeadsetConnected(it, cb, result.addr), "ArcadeStick.add_HeadsetConnected"
     finally:
       release(cb)
 
 proc removeHeadsetConnected*(self: ArcadeStick, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_HeadsetConnected, token)
+    check it.vtbl.remove_HeadsetConnected(it, token), "ArcadeStick.remove_HeadsetConnected"
 
 proc onHeadsetDisconnected*(self: ArcadeStick,
                             handler: EventHandler[WinRtObject, Headset]
@@ -124,13 +126,13 @@ proc onHeadsetDisconnected*(self: ArcadeStick,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, shim,
                          event = true)
     try:
-      it.call(IGameController_add_HeadsetDisconnected, cb, result.addr)
+      check it.vtbl.add_HeadsetDisconnected(it, cb, result.addr), "ArcadeStick.add_HeadsetDisconnected"
     finally:
       release(cb)
 
 proc removeHeadsetDisconnected*(self: ArcadeStick, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_HeadsetDisconnected, token)
+    check it.vtbl.remove_HeadsetDisconnected(it, token), "ArcadeStick.remove_HeadsetDisconnected"
 
 proc onUserChanged*(self: ArcadeStick,
                     handler: EventHandler[WinRtObject, UserChangedEventArgs]
@@ -143,40 +145,35 @@ proc onUserChanged*(self: ArcadeStick,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
                          shim, event = true)
     try:
-      it.call(IGameController_add_UserChanged, cb, result.addr)
+      check it.vtbl.add_UserChanged(it, cb, result.addr), "ArcadeStick.add_UserChanged"
     finally:
       release(cb)
 
 proc removeUserChanged*(self: ArcadeStick, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_UserChanged, token)
+    check it.vtbl.remove_UserChanged(it, token), "ArcadeStick.remove_UserChanged"
 
 proc headset*(self: ArcadeStick): Headset =
   ## Windows.Gaming.Input.ArcadeStick.get_Headset
   withIface(self.p, IGameController, it):
-    var tmp: pointer
-    it.call(IGameController_get_Headset, tmp.addr)
-    result = adopt[Headset](tmp)
+    result = it.getObject(get_Headset, Headset)
 
 proc isWireless*(self: ArcadeStick): bool =
   ## Windows.Gaming.Input.ArcadeStick.get_IsWireless
   withIface(self.p, IGameController, it):
-    var tmp: bool
-    it.call(IGameController_get_IsWireless, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsWireless, bool)
 
 proc user*(self: ArcadeStick): User =
   ## Windows.Gaming.Input.ArcadeStick.get_User
   withIface(self.p, IGameController, it):
-    var tmp: pointer
-    it.call(IGameController_get_User, tmp.addr)
-    result = adopt[User](tmp)
+    result = it.getObject(get_User, User)
 
 proc tryGetBatteryReport*(self: ArcadeStick): BatteryReport =
   ## Windows.Gaming.Input.ArcadeStick.TryGetBatteryReport
   withIface(self.p, IGameControllerBatteryInfo, it):
     var tmp: pointer
-    it.call(IGameControllerBatteryInfo_TryGetBatteryReport, tmp.addr)
+    check it.vtbl.TryGetBatteryReport(it, tmp.addr
+                                     ), "ArcadeStick.TryGetBatteryReport"
     result = adopt[BatteryReport](tmp)
 
 proc fromGameController*(_: typedesc[ArcadeStick], gameController: WinRtObject
@@ -185,7 +182,8 @@ proc fromGameController*(_: typedesc[ArcadeStick], gameController: WinRtObject
   withStatics("Windows.Gaming.Input.ArcadeStick", IArcadeStickStatics2, it):
     withIface(gameController.p, IGameController, p0):
       var tmp: pointer
-      it.call(IArcadeStickStatics2_FromGameController, p0, tmp.addr)
+      check it.vtbl.FromGameController(it, p0, tmp.addr
+                                      ), "ArcadeStick.FromGameController"
       result = adopt[ArcadeStick](tmp)
 
 proc onArcadeStickAdded*(_: typedesc[ArcadeStick],
@@ -198,13 +196,13 @@ proc onArcadeStickAdded*(_: typedesc[ArcadeStick],
       handler(borrow[WinRtObject](a0), borrow[ArcadeStick](a1))
     let cb = newDelegate(IID_EventHandler_1_ArcadeStick, shim, event = true)
     try:
-      it.call(IArcadeStickStatics_add_ArcadeStickAdded, cb, result.addr)
+      check it.vtbl.add_ArcadeStickAdded(it, cb, result.addr), "ArcadeStick.add_ArcadeStickAdded"
     finally:
       release(cb)
 
 proc removeArcadeStickAdded*(_: typedesc[ArcadeStick], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Input.ArcadeStick", IArcadeStickStatics, it):
-    it.call(IArcadeStickStatics_remove_ArcadeStickAdded, token)
+    check it.vtbl.remove_ArcadeStickAdded(it, token), "ArcadeStick.remove_ArcadeStickAdded"
 
 proc onArcadeStickRemoved*(_: typedesc[ArcadeStick],
                            handler: EventHandler[WinRtObject, ArcadeStick]
@@ -216,19 +214,19 @@ proc onArcadeStickRemoved*(_: typedesc[ArcadeStick],
       handler(borrow[WinRtObject](a0), borrow[ArcadeStick](a1))
     let cb = newDelegate(IID_EventHandler_1_ArcadeStick, shim, event = true)
     try:
-      it.call(IArcadeStickStatics_add_ArcadeStickRemoved, cb, result.addr)
+      check it.vtbl.add_ArcadeStickRemoved(it, cb, result.addr), "ArcadeStick.add_ArcadeStickRemoved"
     finally:
       release(cb)
 
 proc removeArcadeStickRemoved*(_: typedesc[ArcadeStick], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Input.ArcadeStick", IArcadeStickStatics, it):
-    it.call(IArcadeStickStatics_remove_ArcadeStickRemoved, token)
+    check it.vtbl.remove_ArcadeStickRemoved(it, token), "ArcadeStick.remove_ArcadeStickRemoved"
 
 proc arcadeSticks*(_: typedesc[ArcadeStick]): seq[ArcadeStick] =
   ## Windows.Gaming.Input.ArcadeStick.get_ArcadeSticks
   withStatics("Windows.Gaming.Input.ArcadeStick", IArcadeStickStatics, it):
     var tmp: pointer
-    it.call(IArcadeStickStatics_get_ArcadeSticks, tmp.addr)
+    check it.vtbl.get_ArcadeSticks(it, tmp.addr), "ArcadeStick.get_ArcadeSticks"
     result = toSeq[ArcadeStick](tmp, IID_IVectorView_1_ArcadeStick)
     release(tmp)
 
@@ -242,8 +240,9 @@ proc tryGetFactoryControllerFromGameController*(_: typedesc[GameControllerFactor
     withIface(factory.p, ICustomGameControllerFactory, p0):
       withIface(gameController.p, IGameController, p1):
         var tmp: pointer
-        it.call(IGameControllerFactoryManagerStatics2_TryGetFactoryControllerFromGameController,
-                p0, p1, tmp.addr)
+        check it.vtbl.TryGetFactoryControllerFromGameController(it, p0, p1,
+                                                                tmp.addr
+                                                               ), "GameControllerFactoryManager.TryGetFactoryControllerFromGameController"
         result = adopt[WinRtObject](tmp)
 
 proc registerCustomFactoryForGipInterface*(_: typedesc[GameControllerFactoryManager],
@@ -253,8 +252,8 @@ proc registerCustomFactoryForGipInterface*(_: typedesc[GameControllerFactoryMana
   withStatics("Windows.Gaming.Input.Custom.GameControllerFactoryManager",
               IGameControllerFactoryManagerStatics, it):
     withIface(factory.p, ICustomGameControllerFactory, p0):
-      it.call(IGameControllerFactoryManagerStatics_RegisterCustomFactoryForGipInterface,
-              p0, interfaceId)
+      check it.vtbl.RegisterCustomFactoryForGipInterface(it, p0, interfaceId
+                                                        ), "GameControllerFactoryManager.RegisterCustomFactoryForGipInterface"
 
 proc registerCustomFactoryForHardwareId*(_: typedesc[GameControllerFactoryManager],
                                          factory: WinRtObject,
@@ -264,8 +263,9 @@ proc registerCustomFactoryForHardwareId*(_: typedesc[GameControllerFactoryManage
   withStatics("Windows.Gaming.Input.Custom.GameControllerFactoryManager",
               IGameControllerFactoryManagerStatics, it):
     withIface(factory.p, ICustomGameControllerFactory, p0):
-      it.call(IGameControllerFactoryManagerStatics_RegisterCustomFactoryForHardwareId,
-              p0, hardwareVendorId, hardwareProductId)
+      check it.vtbl.RegisterCustomFactoryForHardwareId(it, p0, hardwareVendorId,
+                                                       hardwareProductId
+                                                      ), "GameControllerFactoryManager.RegisterCustomFactoryForHardwareId"
 
 proc registerCustomFactoryForXusbType*(_: typedesc[GameControllerFactoryManager],
                                        factory: WinRtObject,
@@ -275,29 +275,24 @@ proc registerCustomFactoryForXusbType*(_: typedesc[GameControllerFactoryManager]
   withStatics("Windows.Gaming.Input.Custom.GameControllerFactoryManager",
               IGameControllerFactoryManagerStatics, it):
     withIface(factory.p, ICustomGameControllerFactory, p0):
-      it.call(IGameControllerFactoryManagerStatics_RegisterCustomFactoryForXusbType,
-              p0, xusbType, xusbSubtype)
+      check it.vtbl.RegisterCustomFactoryForXusbType(it, p0, xusbType,
+                                                     xusbSubtype
+                                                    ), "GameControllerFactoryManager.RegisterCustomFactoryForXusbType"
 
 proc extendedErrorCode*(self: GipFirmwareUpdateResult): uint32 =
   ## Windows.Gaming.Input.Custom.GipFirmwareUpdateResult.get_ExtendedErrorCode
   withIface(self.p, IGipFirmwareUpdateResult, it):
-    var tmp: uint32
-    it.call(IGipFirmwareUpdateResult_get_ExtendedErrorCode, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ExtendedErrorCode, uint32)
 
 proc finalComponentId*(self: GipFirmwareUpdateResult): uint32 =
   ## Windows.Gaming.Input.Custom.GipFirmwareUpdateResult.get_FinalComponentId
   withIface(self.p, IGipFirmwareUpdateResult, it):
-    var tmp: uint32
-    it.call(IGipFirmwareUpdateResult_get_FinalComponentId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FinalComponentId, uint32)
 
 proc status*(self: GipFirmwareUpdateResult): GipFirmwareUpdateStatus =
   ## Windows.Gaming.Input.Custom.GipFirmwareUpdateResult.get_Status
   withIface(self.p, IGipFirmwareUpdateResult, it):
-    var tmp: GipFirmwareUpdateStatus
-    it.call(IGipFirmwareUpdateResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, GipFirmwareUpdateStatus)
 
 proc sendMessage*(self: GipGameControllerProvider,
                   messageClass: GipMessageClass, messageId: uint8,
@@ -306,8 +301,8 @@ proc sendMessage*(self: GipGameControllerProvider,
   withIface(self.p, IGipGameControllerProvider, it):
     let n2 = uint32(messageBuffer.len)
     let d2 = if messageBuffer.len > 0: messageBuffer[0].unsafeAddr else: nil
-    it.call(IGipGameControllerProvider_SendMessage, messageClass, messageId, n2,
-            d2)
+    check it.vtbl.SendMessage(it, messageClass, messageId, n2, d2
+                             ), "GipGameControllerProvider.SendMessage"
 
 proc sendReceiveMessage*(self: GipGameControllerProvider,
                          messageClass: GipMessageClass, messageId: uint8,
@@ -319,8 +314,8 @@ proc sendReceiveMessage*(self: GipGameControllerProvider,
     let d2 = if requestMessageBuffer.len > 0: requestMessageBuffer[0].unsafeAddr else: nil
     let n3 = uint32(responseMessageBuffer.len)
     let d3 = if responseMessageBuffer.len > 0: responseMessageBuffer[0].unsafeAddr else: nil
-    it.call(IGipGameControllerProvider_SendReceiveMessage, messageClass,
-            messageId, n2, d2, n3, d3)
+    check it.vtbl.SendReceiveMessage(it, messageClass, messageId, n2, d2, n3, d3
+                                    ), "GipGameControllerProvider.SendReceiveMessage"
 
 proc updateFirmwareAsync*(self: GipGameControllerProvider,
                           firmwareImage: WinRtObject
@@ -329,7 +324,8 @@ proc updateFirmwareAsync*(self: GipGameControllerProvider,
   var op: pointer
   withIface(self.p, IGipGameControllerProvider, it):
     withIface(firmwareImage.p, IInputStream, p0):
-      it.call(IGipGameControllerProvider_UpdateFirmwareAsync, p0, op.addr)
+      check it.vtbl.UpdateFirmwareAsync(it, p0, op.addr
+                                       ), "GipGameControllerProvider.UpdateFirmwareAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperationWithProgress_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress,
                               IID_AsyncOperationWithProgressCompletedHandler_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress,
@@ -340,51 +336,37 @@ proc updateFirmwareAsync*(self: GipGameControllerProvider,
 proc firmwareVersionInfo*(self: GipGameControllerProvider): GameControllerVersionInfo =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.get_FirmwareVersionInfo
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: GameControllerVersionInfo
-    it.call(IGameControllerProvider_get_FirmwareVersionInfo, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FirmwareVersionInfo, GameControllerVersionInfo)
 
 proc hardwareProductId*(self: GipGameControllerProvider): uint16 =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.get_HardwareProductId
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: uint16
-    it.call(IGameControllerProvider_get_HardwareProductId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HardwareProductId, uint16)
 
 proc hardwareVendorId*(self: GipGameControllerProvider): uint16 =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.get_HardwareVendorId
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: uint16
-    it.call(IGameControllerProvider_get_HardwareVendorId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HardwareVendorId, uint16)
 
 proc hardwareVersionInfo*(self: GipGameControllerProvider): GameControllerVersionInfo =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.get_HardwareVersionInfo
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: GameControllerVersionInfo
-    it.call(IGameControllerProvider_get_HardwareVersionInfo, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HardwareVersionInfo, GameControllerVersionInfo)
 
 proc isConnected*(self: GipGameControllerProvider): bool =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.get_IsConnected
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: bool
-    it.call(IGameControllerProvider_get_IsConnected, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsConnected, bool)
 
 proc usageId*(self: HidGameControllerProvider): uint16 =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_UsageId
   withIface(self.p, IHidGameControllerProvider, it):
-    var tmp: uint16
-    it.call(IHidGameControllerProvider_get_UsageId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_UsageId, uint16)
 
 proc usagePage*(self: HidGameControllerProvider): uint16 =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_UsagePage
   withIface(self.p, IHidGameControllerProvider, it):
-    var tmp: uint16
-    it.call(IHidGameControllerProvider_get_UsagePage, tmp.addr)
-    result = tmp
+    result = it.getValue(get_UsagePage, uint16)
 
 proc getFeatureReport*(self: HidGameControllerProvider, reportId: uint8,
                        reportBuffer: openArray[uint8]) =
@@ -392,7 +374,8 @@ proc getFeatureReport*(self: HidGameControllerProvider, reportId: uint8,
   withIface(self.p, IHidGameControllerProvider, it):
     let n1 = uint32(reportBuffer.len)
     let d1 = if reportBuffer.len > 0: reportBuffer[0].unsafeAddr else: nil
-    it.call(IHidGameControllerProvider_GetFeatureReport, reportId, n1, d1)
+    check it.vtbl.GetFeatureReport(it, reportId, n1, d1
+                                  ), "HidGameControllerProvider.GetFeatureReport"
 
 proc sendFeatureReport*(self: HidGameControllerProvider, reportId: uint8,
                         reportBuffer: openArray[uint8]) =
@@ -400,7 +383,8 @@ proc sendFeatureReport*(self: HidGameControllerProvider, reportId: uint8,
   withIface(self.p, IHidGameControllerProvider, it):
     let n1 = uint32(reportBuffer.len)
     let d1 = if reportBuffer.len > 0: reportBuffer[0].unsafeAddr else: nil
-    it.call(IHidGameControllerProvider_SendFeatureReport, reportId, n1, d1)
+    check it.vtbl.SendFeatureReport(it, reportId, n1, d1
+                                   ), "HidGameControllerProvider.SendFeatureReport"
 
 proc sendOutputReport*(self: HidGameControllerProvider, reportId: uint8,
                        reportBuffer: openArray[uint8]) =
@@ -408,106 +392,88 @@ proc sendOutputReport*(self: HidGameControllerProvider, reportId: uint8,
   withIface(self.p, IHidGameControllerProvider, it):
     let n1 = uint32(reportBuffer.len)
     let d1 = if reportBuffer.len > 0: reportBuffer[0].unsafeAddr else: nil
-    it.call(IHidGameControllerProvider_SendOutputReport, reportId, n1, d1)
+    check it.vtbl.SendOutputReport(it, reportId, n1, d1
+                                  ), "HidGameControllerProvider.SendOutputReport"
 
 proc firmwareVersionInfo*(self: HidGameControllerProvider): GameControllerVersionInfo =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_FirmwareVersionInfo
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: GameControllerVersionInfo
-    it.call(IGameControllerProvider_get_FirmwareVersionInfo, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FirmwareVersionInfo, GameControllerVersionInfo)
 
 proc hardwareProductId*(self: HidGameControllerProvider): uint16 =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_HardwareProductId
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: uint16
-    it.call(IGameControllerProvider_get_HardwareProductId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HardwareProductId, uint16)
 
 proc hardwareVendorId*(self: HidGameControllerProvider): uint16 =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_HardwareVendorId
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: uint16
-    it.call(IGameControllerProvider_get_HardwareVendorId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HardwareVendorId, uint16)
 
 proc hardwareVersionInfo*(self: HidGameControllerProvider): GameControllerVersionInfo =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_HardwareVersionInfo
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: GameControllerVersionInfo
-    it.call(IGameControllerProvider_get_HardwareVersionInfo, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HardwareVersionInfo, GameControllerVersionInfo)
 
 proc isConnected*(self: HidGameControllerProvider): bool =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_IsConnected
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: bool
-    it.call(IGameControllerProvider_get_IsConnected, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsConnected, bool)
 
 proc setVibration*(self: XusbGameControllerProvider,
                    lowFrequencyMotorSpeed: float64,
                    highFrequencyMotorSpeed: float64) =
   ## Windows.Gaming.Input.Custom.XusbGameControllerProvider.SetVibration
   withIface(self.p, IXusbGameControllerProvider, it):
-    it.call(IXusbGameControllerProvider_SetVibration, lowFrequencyMotorSpeed,
-            highFrequencyMotorSpeed)
+    check it.vtbl.SetVibration(it, lowFrequencyMotorSpeed,
+                               highFrequencyMotorSpeed
+                              ), "XusbGameControllerProvider.SetVibration"
 
 proc firmwareVersionInfo*(self: XusbGameControllerProvider): GameControllerVersionInfo =
   ## Windows.Gaming.Input.Custom.XusbGameControllerProvider.get_FirmwareVersionInfo
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: GameControllerVersionInfo
-    it.call(IGameControllerProvider_get_FirmwareVersionInfo, tmp.addr)
-    result = tmp
+    result = it.getValue(get_FirmwareVersionInfo, GameControllerVersionInfo)
 
 proc hardwareProductId*(self: XusbGameControllerProvider): uint16 =
   ## Windows.Gaming.Input.Custom.XusbGameControllerProvider.get_HardwareProductId
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: uint16
-    it.call(IGameControllerProvider_get_HardwareProductId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HardwareProductId, uint16)
 
 proc hardwareVendorId*(self: XusbGameControllerProvider): uint16 =
   ## Windows.Gaming.Input.Custom.XusbGameControllerProvider.get_HardwareVendorId
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: uint16
-    it.call(IGameControllerProvider_get_HardwareVendorId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HardwareVendorId, uint16)
 
 proc hardwareVersionInfo*(self: XusbGameControllerProvider): GameControllerVersionInfo =
   ## Windows.Gaming.Input.Custom.XusbGameControllerProvider.get_HardwareVersionInfo
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: GameControllerVersionInfo
-    it.call(IGameControllerProvider_get_HardwareVersionInfo, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HardwareVersionInfo, GameControllerVersionInfo)
 
 proc isConnected*(self: XusbGameControllerProvider): bool =
   ## Windows.Gaming.Input.Custom.XusbGameControllerProvider.get_IsConnected
   withIface(self.p, IGameControllerProvider, it):
-    var tmp: bool
-    it.call(IGameControllerProvider_get_IsConnected, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsConnected, bool)
 
 proc hatSwitchKind*(self: FlightStick): GameControllerSwitchKind =
   ## Windows.Gaming.Input.FlightStick.get_HatSwitchKind
   withIface(self.p, IFlightStick, it):
-    var tmp: GameControllerSwitchKind
-    it.call(IFlightStick_get_HatSwitchKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HatSwitchKind, GameControllerSwitchKind)
 
 proc getButtonLabel*(self: FlightStick, button: FlightStickButtons
                     ): GameControllerButtonLabel =
   ## Windows.Gaming.Input.FlightStick.GetButtonLabel
   withIface(self.p, IFlightStick, it):
     var tmp: GameControllerButtonLabel
-    it.call(IFlightStick_GetButtonLabel, button, tmp.addr)
+    check it.vtbl.GetButtonLabel(it, button, tmp.addr
+                                ), "FlightStick.GetButtonLabel"
     result = tmp
 
 proc getCurrentReading*(self: FlightStick): FlightStickReading =
   ## Windows.Gaming.Input.FlightStick.GetCurrentReading
   withIface(self.p, IFlightStick, it):
     var tmp: FlightStickReading
-    it.call(IFlightStick_GetCurrentReading, tmp.addr)
+    check it.vtbl.GetCurrentReading(it, tmp.addr
+                                   ), "FlightStick.GetCurrentReading"
     result = tmp
 
 proc onHeadsetConnected*(self: FlightStick,
@@ -521,13 +487,13 @@ proc onHeadsetConnected*(self: FlightStick,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, shim,
                          event = true)
     try:
-      it.call(IGameController_add_HeadsetConnected, cb, result.addr)
+      check it.vtbl.add_HeadsetConnected(it, cb, result.addr), "FlightStick.add_HeadsetConnected"
     finally:
       release(cb)
 
 proc removeHeadsetConnected*(self: FlightStick, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_HeadsetConnected, token)
+    check it.vtbl.remove_HeadsetConnected(it, token), "FlightStick.remove_HeadsetConnected"
 
 proc onHeadsetDisconnected*(self: FlightStick,
                             handler: EventHandler[WinRtObject, Headset]
@@ -540,13 +506,13 @@ proc onHeadsetDisconnected*(self: FlightStick,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, shim,
                          event = true)
     try:
-      it.call(IGameController_add_HeadsetDisconnected, cb, result.addr)
+      check it.vtbl.add_HeadsetDisconnected(it, cb, result.addr), "FlightStick.add_HeadsetDisconnected"
     finally:
       release(cb)
 
 proc removeHeadsetDisconnected*(self: FlightStick, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_HeadsetDisconnected, token)
+    check it.vtbl.remove_HeadsetDisconnected(it, token), "FlightStick.remove_HeadsetDisconnected"
 
 proc onUserChanged*(self: FlightStick,
                     handler: EventHandler[WinRtObject, UserChangedEventArgs]
@@ -559,40 +525,35 @@ proc onUserChanged*(self: FlightStick,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
                          shim, event = true)
     try:
-      it.call(IGameController_add_UserChanged, cb, result.addr)
+      check it.vtbl.add_UserChanged(it, cb, result.addr), "FlightStick.add_UserChanged"
     finally:
       release(cb)
 
 proc removeUserChanged*(self: FlightStick, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_UserChanged, token)
+    check it.vtbl.remove_UserChanged(it, token), "FlightStick.remove_UserChanged"
 
 proc headset*(self: FlightStick): Headset =
   ## Windows.Gaming.Input.FlightStick.get_Headset
   withIface(self.p, IGameController, it):
-    var tmp: pointer
-    it.call(IGameController_get_Headset, tmp.addr)
-    result = adopt[Headset](tmp)
+    result = it.getObject(get_Headset, Headset)
 
 proc isWireless*(self: FlightStick): bool =
   ## Windows.Gaming.Input.FlightStick.get_IsWireless
   withIface(self.p, IGameController, it):
-    var tmp: bool
-    it.call(IGameController_get_IsWireless, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsWireless, bool)
 
 proc user*(self: FlightStick): User =
   ## Windows.Gaming.Input.FlightStick.get_User
   withIface(self.p, IGameController, it):
-    var tmp: pointer
-    it.call(IGameController_get_User, tmp.addr)
-    result = adopt[User](tmp)
+    result = it.getObject(get_User, User)
 
 proc tryGetBatteryReport*(self: FlightStick): BatteryReport =
   ## Windows.Gaming.Input.FlightStick.TryGetBatteryReport
   withIface(self.p, IGameControllerBatteryInfo, it):
     var tmp: pointer
-    it.call(IGameControllerBatteryInfo_TryGetBatteryReport, tmp.addr)
+    check it.vtbl.TryGetBatteryReport(it, tmp.addr
+                                     ), "FlightStick.TryGetBatteryReport"
     result = adopt[BatteryReport](tmp)
 
 proc onFlightStickAdded*(_: typedesc[FlightStick],
@@ -605,13 +566,13 @@ proc onFlightStickAdded*(_: typedesc[FlightStick],
       handler(borrow[WinRtObject](a0), borrow[FlightStick](a1))
     let cb = newDelegate(IID_EventHandler_1_FlightStick, shim, event = true)
     try:
-      it.call(IFlightStickStatics_add_FlightStickAdded, cb, result.addr)
+      check it.vtbl.add_FlightStickAdded(it, cb, result.addr), "FlightStick.add_FlightStickAdded"
     finally:
       release(cb)
 
 proc removeFlightStickAdded*(_: typedesc[FlightStick], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Input.FlightStick", IFlightStickStatics, it):
-    it.call(IFlightStickStatics_remove_FlightStickAdded, token)
+    check it.vtbl.remove_FlightStickAdded(it, token), "FlightStick.remove_FlightStickAdded"
 
 proc onFlightStickRemoved*(_: typedesc[FlightStick],
                            handler: EventHandler[WinRtObject, FlightStick]
@@ -623,19 +584,19 @@ proc onFlightStickRemoved*(_: typedesc[FlightStick],
       handler(borrow[WinRtObject](a0), borrow[FlightStick](a1))
     let cb = newDelegate(IID_EventHandler_1_FlightStick, shim, event = true)
     try:
-      it.call(IFlightStickStatics_add_FlightStickRemoved, cb, result.addr)
+      check it.vtbl.add_FlightStickRemoved(it, cb, result.addr), "FlightStick.add_FlightStickRemoved"
     finally:
       release(cb)
 
 proc removeFlightStickRemoved*(_: typedesc[FlightStick], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Input.FlightStick", IFlightStickStatics, it):
-    it.call(IFlightStickStatics_remove_FlightStickRemoved, token)
+    check it.vtbl.remove_FlightStickRemoved(it, token), "FlightStick.remove_FlightStickRemoved"
 
 proc flightSticks*(_: typedesc[FlightStick]): seq[FlightStick] =
   ## Windows.Gaming.Input.FlightStick.get_FlightSticks
   withStatics("Windows.Gaming.Input.FlightStick", IFlightStickStatics, it):
     var tmp: pointer
-    it.call(IFlightStickStatics_get_FlightSticks, tmp.addr)
+    check it.vtbl.get_FlightSticks(it, tmp.addr), "FlightStick.get_FlightSticks"
     result = toSeq[FlightStick](tmp, IID_IVectorView_1_FlightStick)
     release(tmp)
 
@@ -645,44 +606,39 @@ proc fromGameController*(_: typedesc[FlightStick], gameController: WinRtObject
   withStatics("Windows.Gaming.Input.FlightStick", IFlightStickStatics, it):
     withIface(gameController.p, IGameController, p0):
       var tmp: pointer
-      it.call(IFlightStickStatics_FromGameController, p0, tmp.addr)
+      check it.vtbl.FromGameController(it, p0, tmp.addr
+                                      ), "FlightStick.FromGameController"
       result = adopt[FlightStick](tmp)
 
 proc gain*(self: ConditionForceEffect): float64 =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.get_Gain
   withIface(self.p, IForceFeedbackEffect, it):
-    var tmp: float64
-    it.call(IForceFeedbackEffect_get_Gain, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Gain, float64)
 
 proc `gain=`*(self: ConditionForceEffect, value: float64) =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.put_Gain
   withIface(self.p, IForceFeedbackEffect, it):
-    it.call(IForceFeedbackEffect_put_Gain, value)
+    it.putValue(put_Gain, value)
 
 proc state*(self: ConditionForceEffect): ForceFeedbackEffectState =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.get_State
   withIface(self.p, IForceFeedbackEffect, it):
-    var tmp: ForceFeedbackEffectState
-    it.call(IForceFeedbackEffect_get_State, tmp.addr)
-    result = tmp
+    result = it.getValue(get_State, ForceFeedbackEffectState)
 
 proc start*(self: ConditionForceEffect) =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.Start
   withIface(self.p, IForceFeedbackEffect, it):
-    it.call(IForceFeedbackEffect_Start)
+    check it.vtbl.Start(it), "ConditionForceEffect.Start"
 
 proc stop*(self: ConditionForceEffect) =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.Stop
   withIface(self.p, IForceFeedbackEffect, it):
-    it.call(IForceFeedbackEffect_Stop)
+    check it.vtbl.Stop(it), "ConditionForceEffect.Stop"
 
 proc kind*(self: ConditionForceEffect): ConditionForceEffectKind =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.get_Kind
   withIface(self.p, IConditionForceEffect, it):
-    var tmp: ConditionForceEffectKind
-    it.call(IConditionForceEffect_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, ConditionForceEffectKind)
 
 proc setParameters*(self: ConditionForceEffect, direction: Vector3,
                     positiveCoefficient: float32, negativeCoefficient: float32,
@@ -691,9 +647,10 @@ proc setParameters*(self: ConditionForceEffect, direction: Vector3,
                     bias: float32) =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.SetParameters
   withIface(self.p, IConditionForceEffect, it):
-    it.call(IConditionForceEffect_SetParameters, direction, positiveCoefficient,
-            negativeCoefficient, maxPositiveMagnitude, maxNegativeMagnitude,
-            deadZone, bias)
+    check it.vtbl.SetParameters(it, direction, positiveCoefficient,
+                                negativeCoefficient, maxPositiveMagnitude,
+                                maxNegativeMagnitude, deadZone, bias
+                               ), "ConditionForceEffect.SetParameters"
 
 proc createInstance*(_: typedesc[ConditionForceEffect],
                      effectKind: ConditionForceEffectKind
@@ -702,7 +659,8 @@ proc createInstance*(_: typedesc[ConditionForceEffect],
   withStatics("Windows.Gaming.Input.ForceFeedback.ConditionForceEffect",
               IConditionForceEffectFactory, it):
     var tmp: pointer
-    it.call(IConditionForceEffectFactory_CreateInstance, effectKind, tmp.addr)
+    check it.vtbl.CreateInstance(it, effectKind, tmp.addr
+                                ), "ConditionForceEffect.CreateInstance"
     result = adopt[ConditionForceEffect](tmp)
 
 proc newConstantForceEffect*(): ConstantForceEffect =
@@ -712,37 +670,34 @@ proc newConstantForceEffect*(): ConstantForceEffect =
 proc gain*(self: ConstantForceEffect): float64 =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.get_Gain
   withIface(self.p, IForceFeedbackEffect, it):
-    var tmp: float64
-    it.call(IForceFeedbackEffect_get_Gain, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Gain, float64)
 
 proc `gain=`*(self: ConstantForceEffect, value: float64) =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.put_Gain
   withIface(self.p, IForceFeedbackEffect, it):
-    it.call(IForceFeedbackEffect_put_Gain, value)
+    it.putValue(put_Gain, value)
 
 proc state*(self: ConstantForceEffect): ForceFeedbackEffectState =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.get_State
   withIface(self.p, IForceFeedbackEffect, it):
-    var tmp: ForceFeedbackEffectState
-    it.call(IForceFeedbackEffect_get_State, tmp.addr)
-    result = tmp
+    result = it.getValue(get_State, ForceFeedbackEffectState)
 
 proc start*(self: ConstantForceEffect) =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.Start
   withIface(self.p, IForceFeedbackEffect, it):
-    it.call(IForceFeedbackEffect_Start)
+    check it.vtbl.Start(it), "ConstantForceEffect.Start"
 
 proc stop*(self: ConstantForceEffect) =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.Stop
   withIface(self.p, IForceFeedbackEffect, it):
-    it.call(IForceFeedbackEffect_Stop)
+    check it.vtbl.Stop(it), "ConstantForceEffect.Stop"
 
 proc setParameters*(self: ConstantForceEffect, vector: Vector3,
                     duration: TimeSpan) =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.SetParameters
   withIface(self.p, IConstantForceEffect, it):
-    it.call(IConstantForceEffect_SetParameters, vector, duration)
+    check it.vtbl.SetParameters(it, vector, duration
+                               ), "ConstantForceEffect.SetParameters"
 
 proc setParametersWithEnvelope*(self: ConstantForceEffect, vector: Vector3,
                                 attackGain: float32, sustainGain: float32,
@@ -753,42 +708,36 @@ proc setParametersWithEnvelope*(self: ConstantForceEffect, vector: Vector3,
                                ) =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.SetParametersWithEnvelope
   withIface(self.p, IConstantForceEffect, it):
-    it.call(IConstantForceEffect_SetParametersWithEnvelope, vector, attackGain,
-            sustainGain, releaseGain, startDelay, attackDuration,
-            sustainDuration, releaseDuration, repeatCount)
+    check it.vtbl.SetParametersWithEnvelope(it, vector, attackGain, sustainGain,
+                                            releaseGain, startDelay,
+                                            attackDuration, sustainDuration,
+                                            releaseDuration, repeatCount
+                                           ), "ConstantForceEffect.SetParametersWithEnvelope"
 
 proc areEffectsPaused*(self: ForceFeedbackMotor): bool =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.get_AreEffectsPaused
   withIface(self.p, IForceFeedbackMotor, it):
-    var tmp: bool
-    it.call(IForceFeedbackMotor_get_AreEffectsPaused, tmp.addr)
-    result = tmp
+    result = it.getValue(get_AreEffectsPaused, bool)
 
 proc masterGain*(self: ForceFeedbackMotor): float64 =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.get_MasterGain
   withIface(self.p, IForceFeedbackMotor, it):
-    var tmp: float64
-    it.call(IForceFeedbackMotor_get_MasterGain, tmp.addr)
-    result = tmp
+    result = it.getValue(get_MasterGain, float64)
 
 proc `masterGain=`*(self: ForceFeedbackMotor, value: float64) =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.put_MasterGain
   withIface(self.p, IForceFeedbackMotor, it):
-    it.call(IForceFeedbackMotor_put_MasterGain, value)
+    it.putValue(put_MasterGain, value)
 
 proc isEnabled*(self: ForceFeedbackMotor): bool =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.get_IsEnabled
   withIface(self.p, IForceFeedbackMotor, it):
-    var tmp: bool
-    it.call(IForceFeedbackMotor_get_IsEnabled, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsEnabled, bool)
 
 proc supportedAxes*(self: ForceFeedbackMotor): ForceFeedbackEffectAxes =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.get_SupportedAxes
   withIface(self.p, IForceFeedbackMotor, it):
-    var tmp: ForceFeedbackEffectAxes
-    it.call(IForceFeedbackMotor_get_SupportedAxes, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SupportedAxes, ForceFeedbackEffectAxes)
 
 proc loadEffectAsync*(self: ForceFeedbackMotor, effect: WinRtObject
                      ): Future[ForceFeedbackLoadEffectResult] {.async.} =
@@ -796,7 +745,8 @@ proc loadEffectAsync*(self: ForceFeedbackMotor, effect: WinRtObject
   var op: pointer
   withIface(self.p, IForceFeedbackMotor, it):
     withIface(effect.p, IForceFeedbackEffect, p0):
-      it.call(IForceFeedbackMotor_LoadEffectAsync, p0, op.addr)
+      check it.vtbl.LoadEffectAsync(it, p0, op.addr
+                                   ), "ForceFeedbackMotor.LoadEffectAsync"
   result = await awaitValue[ForceFeedbackLoadEffectResult](op,
                                                            IID_IAsyncOperation_1_ForceFeedbackLoadEffectResult,
                                                            IID_AsyncOperationCompletedHandler_1_ForceFeedbackLoadEffectResult,
@@ -807,23 +757,24 @@ proc loadEffectAsync*(self: ForceFeedbackMotor, effect: WinRtObject
 proc pauseAllEffects*(self: ForceFeedbackMotor) =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.PauseAllEffects
   withIface(self.p, IForceFeedbackMotor, it):
-    it.call(IForceFeedbackMotor_PauseAllEffects)
+    check it.vtbl.PauseAllEffects(it), "ForceFeedbackMotor.PauseAllEffects"
 
 proc resumeAllEffects*(self: ForceFeedbackMotor) =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.ResumeAllEffects
   withIface(self.p, IForceFeedbackMotor, it):
-    it.call(IForceFeedbackMotor_ResumeAllEffects)
+    check it.vtbl.ResumeAllEffects(it), "ForceFeedbackMotor.ResumeAllEffects"
 
 proc stopAllEffects*(self: ForceFeedbackMotor) =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.StopAllEffects
   withIface(self.p, IForceFeedbackMotor, it):
-    it.call(IForceFeedbackMotor_StopAllEffects)
+    check it.vtbl.StopAllEffects(it), "ForceFeedbackMotor.StopAllEffects"
 
 proc tryDisableAsync*(self: ForceFeedbackMotor): Future[bool] {.async.} =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.TryDisableAsync
   var op: pointer
   withIface(self.p, IForceFeedbackMotor, it):
-    it.call(IForceFeedbackMotor_TryDisableAsync, op.addr)
+    check it.vtbl.TryDisableAsync(it, op.addr
+                                 ), "ForceFeedbackMotor.TryDisableAsync"
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain, "ForceFeedbackMotor.TryDisableAsync")
@@ -832,7 +783,8 @@ proc tryEnableAsync*(self: ForceFeedbackMotor): Future[bool] {.async.} =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.TryEnableAsync
   var op: pointer
   withIface(self.p, IForceFeedbackMotor, it):
-    it.call(IForceFeedbackMotor_TryEnableAsync, op.addr)
+    check it.vtbl.TryEnableAsync(it, op.addr
+                                ), "ForceFeedbackMotor.TryEnableAsync"
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain, "ForceFeedbackMotor.TryEnableAsync")
@@ -841,7 +793,7 @@ proc tryResetAsync*(self: ForceFeedbackMotor): Future[bool] {.async.} =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.TryResetAsync
   var op: pointer
   withIface(self.p, IForceFeedbackMotor, it):
-    it.call(IForceFeedbackMotor_TryResetAsync, op.addr)
+    check it.vtbl.TryResetAsync(it, op.addr), "ForceFeedbackMotor.TryResetAsync"
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain, "ForceFeedbackMotor.TryResetAsync")
@@ -852,7 +804,8 @@ proc tryUnloadEffectAsync*(self: ForceFeedbackMotor, effect: WinRtObject
   var op: pointer
   withIface(self.p, IForceFeedbackMotor, it):
     withIface(effect.p, IForceFeedbackEffect, p0):
-      it.call(IForceFeedbackMotor_TryUnloadEffectAsync, p0, op.addr)
+      check it.vtbl.TryUnloadEffectAsync(it, p0, op.addr
+                                        ), "ForceFeedbackMotor.TryUnloadEffectAsync"
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
@@ -861,46 +814,40 @@ proc tryUnloadEffectAsync*(self: ForceFeedbackMotor, effect: WinRtObject
 proc gain*(self: PeriodicForceEffect): float64 =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.get_Gain
   withIface(self.p, IForceFeedbackEffect, it):
-    var tmp: float64
-    it.call(IForceFeedbackEffect_get_Gain, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Gain, float64)
 
 proc `gain=`*(self: PeriodicForceEffect, value: float64) =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.put_Gain
   withIface(self.p, IForceFeedbackEffect, it):
-    it.call(IForceFeedbackEffect_put_Gain, value)
+    it.putValue(put_Gain, value)
 
 proc state*(self: PeriodicForceEffect): ForceFeedbackEffectState =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.get_State
   withIface(self.p, IForceFeedbackEffect, it):
-    var tmp: ForceFeedbackEffectState
-    it.call(IForceFeedbackEffect_get_State, tmp.addr)
-    result = tmp
+    result = it.getValue(get_State, ForceFeedbackEffectState)
 
 proc start*(self: PeriodicForceEffect) =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.Start
   withIface(self.p, IForceFeedbackEffect, it):
-    it.call(IForceFeedbackEffect_Start)
+    check it.vtbl.Start(it), "PeriodicForceEffect.Start"
 
 proc stop*(self: PeriodicForceEffect) =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.Stop
   withIface(self.p, IForceFeedbackEffect, it):
-    it.call(IForceFeedbackEffect_Stop)
+    check it.vtbl.Stop(it), "PeriodicForceEffect.Stop"
 
 proc kind*(self: PeriodicForceEffect): PeriodicForceEffectKind =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.get_Kind
   withIface(self.p, IPeriodicForceEffect, it):
-    var tmp: PeriodicForceEffectKind
-    it.call(IPeriodicForceEffect_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, PeriodicForceEffectKind)
 
 proc setParameters*(self: PeriodicForceEffect, vector: Vector3,
                     frequency: float32, phase: float32, bias: float32,
                     duration: TimeSpan) =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.SetParameters
   withIface(self.p, IPeriodicForceEffect, it):
-    it.call(IPeriodicForceEffect_SetParameters, vector, frequency, phase, bias,
-            duration)
+    check it.vtbl.SetParameters(it, vector, frequency, phase, bias, duration
+                               ), "PeriodicForceEffect.SetParameters"
 
 proc setParametersWithEnvelope*(self: PeriodicForceEffect, vector: Vector3,
                                 frequency: float32, phase: float32,
@@ -912,9 +859,12 @@ proc setParametersWithEnvelope*(self: PeriodicForceEffect, vector: Vector3,
                                ) =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.SetParametersWithEnvelope
   withIface(self.p, IPeriodicForceEffect, it):
-    it.call(IPeriodicForceEffect_SetParametersWithEnvelope, vector, frequency,
-            phase, bias, attackGain, sustainGain, releaseGain, startDelay,
-            attackDuration, sustainDuration, releaseDuration, repeatCount)
+    check it.vtbl.SetParametersWithEnvelope(it, vector, frequency, phase, bias,
+                                            attackGain, sustainGain,
+                                            releaseGain, startDelay,
+                                            attackDuration, sustainDuration,
+                                            releaseDuration, repeatCount
+                                           ), "PeriodicForceEffect.SetParametersWithEnvelope"
 
 proc createInstance*(_: typedesc[PeriodicForceEffect],
                      effectKind: PeriodicForceEffectKind): PeriodicForceEffect =
@@ -922,7 +872,8 @@ proc createInstance*(_: typedesc[PeriodicForceEffect],
   withStatics("Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect",
               IPeriodicForceEffectFactory, it):
     var tmp: pointer
-    it.call(IPeriodicForceEffectFactory_CreateInstance, effectKind, tmp.addr)
+    check it.vtbl.CreateInstance(it, effectKind, tmp.addr
+                                ), "PeriodicForceEffect.CreateInstance"
     result = adopt[PeriodicForceEffect](tmp)
 
 proc newRampForceEffect*(): RampForceEffect =
@@ -932,37 +883,34 @@ proc newRampForceEffect*(): RampForceEffect =
 proc gain*(self: RampForceEffect): float64 =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.get_Gain
   withIface(self.p, IForceFeedbackEffect, it):
-    var tmp: float64
-    it.call(IForceFeedbackEffect_get_Gain, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Gain, float64)
 
 proc `gain=`*(self: RampForceEffect, value: float64) =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.put_Gain
   withIface(self.p, IForceFeedbackEffect, it):
-    it.call(IForceFeedbackEffect_put_Gain, value)
+    it.putValue(put_Gain, value)
 
 proc state*(self: RampForceEffect): ForceFeedbackEffectState =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.get_State
   withIface(self.p, IForceFeedbackEffect, it):
-    var tmp: ForceFeedbackEffectState
-    it.call(IForceFeedbackEffect_get_State, tmp.addr)
-    result = tmp
+    result = it.getValue(get_State, ForceFeedbackEffectState)
 
 proc start*(self: RampForceEffect) =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.Start
   withIface(self.p, IForceFeedbackEffect, it):
-    it.call(IForceFeedbackEffect_Start)
+    check it.vtbl.Start(it), "RampForceEffect.Start"
 
 proc stop*(self: RampForceEffect) =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.Stop
   withIface(self.p, IForceFeedbackEffect, it):
-    it.call(IForceFeedbackEffect_Stop)
+    check it.vtbl.Stop(it), "RampForceEffect.Stop"
 
 proc setParameters*(self: RampForceEffect, startVector: Vector3,
                     endVector: Vector3, duration: TimeSpan) =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.SetParameters
   withIface(self.p, IRampForceEffect, it):
-    it.call(IRampForceEffect_SetParameters, startVector, endVector, duration)
+    check it.vtbl.SetParameters(it, startVector, endVector, duration
+                               ), "RampForceEffect.SetParameters"
 
 proc setParametersWithEnvelope*(self: RampForceEffect, startVector: Vector3,
                                 endVector: Vector3, attackGain: float32,
@@ -973,27 +921,28 @@ proc setParametersWithEnvelope*(self: RampForceEffect, startVector: Vector3,
                                ) =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.SetParametersWithEnvelope
   withIface(self.p, IRampForceEffect, it):
-    it.call(IRampForceEffect_SetParametersWithEnvelope, startVector, endVector,
-            attackGain, sustainGain, releaseGain, startDelay, attackDuration,
-            sustainDuration, releaseDuration, repeatCount)
+    check it.vtbl.SetParametersWithEnvelope(it, startVector, endVector,
+                                            attackGain, sustainGain,
+                                            releaseGain, startDelay,
+                                            attackDuration, sustainDuration,
+                                            releaseDuration, repeatCount
+                                           ), "RampForceEffect.SetParametersWithEnvelope"
 
 proc vibration*(self: Gamepad): GamepadVibration =
   ## Windows.Gaming.Input.Gamepad.get_Vibration
   withIface(self.p, IGamepad, it):
-    var tmp: GamepadVibration
-    it.call(IGamepad_get_Vibration, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Vibration, GamepadVibration)
 
 proc `vibration=`*(self: Gamepad, value: GamepadVibration) =
   ## Windows.Gaming.Input.Gamepad.put_Vibration
   withIface(self.p, IGamepad, it):
-    it.call(IGamepad_put_Vibration, value)
+    it.putValue(put_Vibration, value)
 
 proc getCurrentReading*(self: Gamepad): GamepadReading =
   ## Windows.Gaming.Input.Gamepad.GetCurrentReading
   withIface(self.p, IGamepad, it):
     var tmp: GamepadReading
-    it.call(IGamepad_GetCurrentReading, tmp.addr)
+    check it.vtbl.GetCurrentReading(it, tmp.addr), "Gamepad.GetCurrentReading"
     result = tmp
 
 proc onHeadsetConnected*(self: Gamepad,
@@ -1007,13 +956,13 @@ proc onHeadsetConnected*(self: Gamepad,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, shim,
                          event = true)
     try:
-      it.call(IGameController_add_HeadsetConnected, cb, result.addr)
+      check it.vtbl.add_HeadsetConnected(it, cb, result.addr), "Gamepad.add_HeadsetConnected"
     finally:
       release(cb)
 
 proc removeHeadsetConnected*(self: Gamepad, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_HeadsetConnected, token)
+    check it.vtbl.remove_HeadsetConnected(it, token), "Gamepad.remove_HeadsetConnected"
 
 proc onHeadsetDisconnected*(self: Gamepad,
                             handler: EventHandler[WinRtObject, Headset]
@@ -1026,13 +975,13 @@ proc onHeadsetDisconnected*(self: Gamepad,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, shim,
                          event = true)
     try:
-      it.call(IGameController_add_HeadsetDisconnected, cb, result.addr)
+      check it.vtbl.add_HeadsetDisconnected(it, cb, result.addr), "Gamepad.add_HeadsetDisconnected"
     finally:
       release(cb)
 
 proc removeHeadsetDisconnected*(self: Gamepad, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_HeadsetDisconnected, token)
+    check it.vtbl.remove_HeadsetDisconnected(it, token), "Gamepad.remove_HeadsetDisconnected"
 
 proc onUserChanged*(self: Gamepad,
                     handler: EventHandler[WinRtObject, UserChangedEventArgs]
@@ -1045,48 +994,43 @@ proc onUserChanged*(self: Gamepad,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
                          shim, event = true)
     try:
-      it.call(IGameController_add_UserChanged, cb, result.addr)
+      check it.vtbl.add_UserChanged(it, cb, result.addr), "Gamepad.add_UserChanged"
     finally:
       release(cb)
 
 proc removeUserChanged*(self: Gamepad, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_UserChanged, token)
+    check it.vtbl.remove_UserChanged(it, token), "Gamepad.remove_UserChanged"
 
 proc headset*(self: Gamepad): Headset =
   ## Windows.Gaming.Input.Gamepad.get_Headset
   withIface(self.p, IGameController, it):
-    var tmp: pointer
-    it.call(IGameController_get_Headset, tmp.addr)
-    result = adopt[Headset](tmp)
+    result = it.getObject(get_Headset, Headset)
 
 proc isWireless*(self: Gamepad): bool =
   ## Windows.Gaming.Input.Gamepad.get_IsWireless
   withIface(self.p, IGameController, it):
-    var tmp: bool
-    it.call(IGameController_get_IsWireless, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsWireless, bool)
 
 proc user*(self: Gamepad): User =
   ## Windows.Gaming.Input.Gamepad.get_User
   withIface(self.p, IGameController, it):
-    var tmp: pointer
-    it.call(IGameController_get_User, tmp.addr)
-    result = adopt[User](tmp)
+    result = it.getObject(get_User, User)
 
 proc getButtonLabel*(self: Gamepad, button: GamepadButtons
                     ): GameControllerButtonLabel =
   ## Windows.Gaming.Input.Gamepad.GetButtonLabel
   withIface(self.p, IGamepad2, it):
     var tmp: GameControllerButtonLabel
-    it.call(IGamepad2_GetButtonLabel, button, tmp.addr)
+    check it.vtbl.GetButtonLabel(it, button, tmp.addr), "Gamepad.GetButtonLabel"
     result = tmp
 
 proc tryGetBatteryReport*(self: Gamepad): BatteryReport =
   ## Windows.Gaming.Input.Gamepad.TryGetBatteryReport
   withIface(self.p, IGameControllerBatteryInfo, it):
     var tmp: pointer
-    it.call(IGameControllerBatteryInfo_TryGetBatteryReport, tmp.addr)
+    check it.vtbl.TryGetBatteryReport(it, tmp.addr
+                                     ), "Gamepad.TryGetBatteryReport"
     result = adopt[BatteryReport](tmp)
 
 proc onGamepadAdded*(_: typedesc[Gamepad],
@@ -1099,13 +1043,13 @@ proc onGamepadAdded*(_: typedesc[Gamepad],
       handler(borrow[WinRtObject](a0), borrow[Gamepad](a1))
     let cb = newDelegate(IID_EventHandler_1_Gamepad, shim, event = true)
     try:
-      it.call(IGamepadStatics_add_GamepadAdded, cb, result.addr)
+      check it.vtbl.add_GamepadAdded(it, cb, result.addr), "Gamepad.add_GamepadAdded"
     finally:
       release(cb)
 
 proc removeGamepadAdded*(_: typedesc[Gamepad], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Input.Gamepad", IGamepadStatics, it):
-    it.call(IGamepadStatics_remove_GamepadAdded, token)
+    check it.vtbl.remove_GamepadAdded(it, token), "Gamepad.remove_GamepadAdded"
 
 proc onGamepadRemoved*(_: typedesc[Gamepad],
                        handler: EventHandler[WinRtObject, Gamepad]
@@ -1117,19 +1061,19 @@ proc onGamepadRemoved*(_: typedesc[Gamepad],
       handler(borrow[WinRtObject](a0), borrow[Gamepad](a1))
     let cb = newDelegate(IID_EventHandler_1_Gamepad, shim, event = true)
     try:
-      it.call(IGamepadStatics_add_GamepadRemoved, cb, result.addr)
+      check it.vtbl.add_GamepadRemoved(it, cb, result.addr), "Gamepad.add_GamepadRemoved"
     finally:
       release(cb)
 
 proc removeGamepadRemoved*(_: typedesc[Gamepad], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Input.Gamepad", IGamepadStatics, it):
-    it.call(IGamepadStatics_remove_GamepadRemoved, token)
+    check it.vtbl.remove_GamepadRemoved(it, token), "Gamepad.remove_GamepadRemoved"
 
 proc gamepads*(_: typedesc[Gamepad]): seq[Gamepad] =
   ## Windows.Gaming.Input.Gamepad.get_Gamepads
   withStatics("Windows.Gaming.Input.Gamepad", IGamepadStatics, it):
     var tmp: pointer
-    it.call(IGamepadStatics_get_Gamepads, tmp.addr)
+    check it.vtbl.get_Gamepads(it, tmp.addr), "Gamepad.get_Gamepads"
     result = toSeq[Gamepad](tmp, IID_IVectorView_1_Gamepad)
     release(tmp)
 
@@ -1139,28 +1083,26 @@ proc fromGameController*(_: typedesc[Gamepad], gameController: WinRtObject
   withStatics("Windows.Gaming.Input.Gamepad", IGamepadStatics2, it):
     withIface(gameController.p, IGameController, p0):
       var tmp: pointer
-      it.call(IGamepadStatics2_FromGameController, p0, tmp.addr)
+      check it.vtbl.FromGameController(it, p0, tmp.addr
+                                      ), "Gamepad.FromGameController"
       result = adopt[Gamepad](tmp)
 
 proc captureDeviceId*(self: Headset): string =
   ## Windows.Gaming.Input.Headset.get_CaptureDeviceId
   withIface(self.p, IHeadset, it):
-    var tmp: HSTRING
-    it.call(IHeadset_get_CaptureDeviceId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_CaptureDeviceId)
 
 proc renderDeviceId*(self: Headset): string =
   ## Windows.Gaming.Input.Headset.get_RenderDeviceId
   withIface(self.p, IHeadset, it):
-    var tmp: HSTRING
-    it.call(IHeadset_get_RenderDeviceId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_RenderDeviceId)
 
 proc tryGetBatteryReport*(self: Headset): BatteryReport =
   ## Windows.Gaming.Input.Headset.TryGetBatteryReport
   withIface(self.p, IGameControllerBatteryInfo, it):
     var tmp: pointer
-    it.call(IGameControllerBatteryInfo_TryGetBatteryReport, tmp.addr)
+    check it.vtbl.TryGetBatteryReport(it, tmp.addr
+                                     ), "Headset.TryGetBatteryReport"
     result = adopt[BatteryReport](tmp)
 
 proc getParentProviderId*(_: typedesc[GameControllerProviderInfo],
@@ -1170,8 +1112,8 @@ proc getParentProviderId*(_: typedesc[GameControllerProviderInfo],
               IGameControllerProviderInfoStatics, it):
     withIface(provider.p, IGameControllerProvider, p0):
       var tmp: HSTRING
-      it.call(IGameControllerProviderInfoStatics_GetParentProviderId, p0,
-              tmp.addr)
+      check it.vtbl.GetParentProviderId(it, p0, tmp.addr
+                                       ), "GameControllerProviderInfo.GetParentProviderId"
       result = takeString(tmp)
 
 proc getProviderId*(_: typedesc[GameControllerProviderInfo],
@@ -1181,66 +1123,58 @@ proc getProviderId*(_: typedesc[GameControllerProviderInfo],
               IGameControllerProviderInfoStatics, it):
     withIface(provider.p, IGameControllerProvider, p0):
       var tmp: HSTRING
-      it.call(IGameControllerProviderInfoStatics_GetProviderId, p0, tmp.addr)
+      check it.vtbl.GetProviderId(it, p0, tmp.addr
+                                 ), "GameControllerProviderInfo.GetProviderId"
       result = takeString(tmp)
 
 proc batteryChargingState*(self: LegacyGipGameControllerProvider): GameControllerBatteryChargingState =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_BatteryChargingState
   withIface(self.p, ILegacyGipGameControllerProvider, it):
-    var tmp: GameControllerBatteryChargingState
-    it.call(ILegacyGipGameControllerProvider_get_BatteryChargingState, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BatteryChargingState, GameControllerBatteryChargingState)
 
 proc batteryKind*(self: LegacyGipGameControllerProvider): GameControllerBatteryKind =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_BatteryKind
   withIface(self.p, ILegacyGipGameControllerProvider, it):
-    var tmp: GameControllerBatteryKind
-    it.call(ILegacyGipGameControllerProvider_get_BatteryKind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BatteryKind, GameControllerBatteryKind)
 
 proc batteryLevel*(self: LegacyGipGameControllerProvider): GameControllerBatteryLevel =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_BatteryLevel
   withIface(self.p, ILegacyGipGameControllerProvider, it):
-    var tmp: GameControllerBatteryLevel
-    it.call(ILegacyGipGameControllerProvider_get_BatteryLevel, tmp.addr)
-    result = tmp
+    result = it.getValue(get_BatteryLevel, GameControllerBatteryLevel)
 
 proc getDeviceFirmwareCorruptionState*(self: LegacyGipGameControllerProvider): GameControllerFirmwareCorruptReason =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.GetDeviceFirmwareCorruptionState
   withIface(self.p, ILegacyGipGameControllerProvider, it):
     var tmp: GameControllerFirmwareCorruptReason
-    it.call(ILegacyGipGameControllerProvider_GetDeviceFirmwareCorruptionState,
-            tmp.addr)
+    check it.vtbl.GetDeviceFirmwareCorruptionState(it, tmp.addr
+                                                  ), "LegacyGipGameControllerProvider.GetDeviceFirmwareCorruptionState"
     result = tmp
 
 proc isFirmwareCorrupted*(self: LegacyGipGameControllerProvider): bool =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_IsFirmwareCorrupted
   withIface(self.p, ILegacyGipGameControllerProvider, it):
-    var tmp: bool
-    it.call(ILegacyGipGameControllerProvider_get_IsFirmwareCorrupted, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsFirmwareCorrupted, bool)
 
 proc isInterfaceSupported*(self: LegacyGipGameControllerProvider,
                            interfaceId: GUID): bool =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.IsInterfaceSupported
   withIface(self.p, ILegacyGipGameControllerProvider, it):
     var tmp: bool
-    it.call(ILegacyGipGameControllerProvider_IsInterfaceSupported, interfaceId,
-            tmp.addr)
+    check it.vtbl.IsInterfaceSupported(it, interfaceId, tmp.addr
+                                      ), "LegacyGipGameControllerProvider.IsInterfaceSupported"
     result = tmp
 
 proc isSyntheticDevice*(self: LegacyGipGameControllerProvider): bool =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_IsSyntheticDevice
   withIface(self.p, ILegacyGipGameControllerProvider, it):
-    var tmp: bool
-    it.call(ILegacyGipGameControllerProvider_get_IsSyntheticDevice, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsSyntheticDevice, bool)
 
 proc preferredTypes*(self: LegacyGipGameControllerProvider): seq[string] =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_PreferredTypes
   withIface(self.p, ILegacyGipGameControllerProvider, it):
     var tmp: pointer
-    it.call(ILegacyGipGameControllerProvider_get_PreferredTypes, tmp.addr)
+    check it.vtbl.get_PreferredTypes(it, tmp.addr
+                                    ), "LegacyGipGameControllerProvider.get_PreferredTypes"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
@@ -1248,21 +1182,23 @@ proc executeCommand*(self: LegacyGipGameControllerProvider,
                      command: DeviceCommand) =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.ExecuteCommand
   withIface(self.p, ILegacyGipGameControllerProvider, it):
-    it.call(ILegacyGipGameControllerProvider_ExecuteCommand, command)
+    check it.vtbl.ExecuteCommand(it, command
+                                ), "LegacyGipGameControllerProvider.ExecuteCommand"
 
 proc setHomeLedIntensity*(self: LegacyGipGameControllerProvider,
                           intensity: uint8) =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.SetHomeLedIntensity
   withIface(self.p, ILegacyGipGameControllerProvider, it):
-    it.call(ILegacyGipGameControllerProvider_SetHomeLedIntensity, intensity)
+    check it.vtbl.SetHomeLedIntensity(it, intensity
+                                     ), "LegacyGipGameControllerProvider.SetHomeLedIntensity"
 
 proc getExtendedDeviceInfo*(self: LegacyGipGameControllerProvider): seq[uint8] =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.GetExtendedDeviceInfo
   withIface(self.p, ILegacyGipGameControllerProvider, it):
     var tmpSize: uint32
     var tmp: ptr uint8
-    it.call(ILegacyGipGameControllerProvider_GetExtendedDeviceInfo,
-            tmpSize.addr, tmp.addr)
+    check it.vtbl.GetExtendedDeviceInfo(it, tmpSize.addr, tmp.addr
+                                       ), "LegacyGipGameControllerProvider.GetExtendedDeviceInfo"
     result = takeArray(tmpSize, tmp)
 
 proc setHeadsetOperation*(self: LegacyGipGameControllerProvider,
@@ -1272,8 +1208,8 @@ proc setHeadsetOperation*(self: LegacyGipGameControllerProvider,
   withIface(self.p, ILegacyGipGameControllerProvider, it):
     let n1 = uint32(buffer.len)
     let d1 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
-    it.call(ILegacyGipGameControllerProvider_SetHeadsetOperation, operation, n1,
-            d1)
+    check it.vtbl.SetHeadsetOperation(it, operation, n1, d1
+                                     ), "LegacyGipGameControllerProvider.SetHeadsetOperation"
 
 proc getHeadsetOperation*(self: LegacyGipGameControllerProvider,
                           operation: HeadsetOperation): seq[uint8] =
@@ -1281,16 +1217,14 @@ proc getHeadsetOperation*(self: LegacyGipGameControllerProvider,
   withIface(self.p, ILegacyGipGameControllerProvider, it):
     var tmpSize: uint32
     var tmp: ptr uint8
-    it.call(ILegacyGipGameControllerProvider_GetHeadsetOperation, operation,
-            tmpSize.addr, tmp.addr)
+    check it.vtbl.GetHeadsetOperation(it, operation, tmpSize.addr, tmp.addr
+                                     ), "LegacyGipGameControllerProvider.GetHeadsetOperation"
     result = takeArray(tmpSize, tmp)
 
 proc appCompatVersion*(self: LegacyGipGameControllerProvider): uint32 =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_AppCompatVersion
   withIface(self.p, ILegacyGipGameControllerProvider, it):
-    var tmp: uint32
-    it.call(ILegacyGipGameControllerProvider_get_AppCompatVersion, tmp.addr)
-    result = tmp
+    result = it.getValue(get_AppCompatVersion, uint32)
 
 proc setStandardControllerButtonRemapping*(self: LegacyGipGameControllerProvider,
                                            user: User, previous: bool,
@@ -1306,8 +1240,8 @@ proc setStandardControllerButtonRemapping*(self: LegacyGipGameControllerProvider
                                         map: IID_IMap_2_RemappingButtonCategory_Object
                                        ))
       defer: discard release(p2)
-      it.call(ILegacyGipGameControllerProvider_SetStandardControllerButtonRemapping,
-              p0, previous, p2)
+      check it.vtbl.SetStandardControllerButtonRemapping(it, p0, previous, p2
+                                                        ), "LegacyGipGameControllerProvider.SetStandardControllerButtonRemapping"
 
 proc getStandardControllerButtonRemapping*(self: LegacyGipGameControllerProvider,
                                            user: User, previous: bool
@@ -1316,8 +1250,9 @@ proc getStandardControllerButtonRemapping*(self: LegacyGipGameControllerProvider
   withIface(self.p, ILegacyGipGameControllerProvider, it):
     withIface(user.p, IUser, p0):
       var tmp: pointer
-      it.call(ILegacyGipGameControllerProvider_GetStandardControllerButtonRemapping,
-              p0, previous, tmp.addr)
+      check it.vtbl.GetStandardControllerButtonRemapping(it, p0, previous,
+                                                         tmp.addr
+                                                        ), "LegacyGipGameControllerProvider.GetStandardControllerButtonRemapping"
       result = toTable[RemappingButtonCategory, WinRtObject](tmp,
                                                              IID_IIterable_1_IKeyValuePair_2,
                                                              IID_IKeyValuePair_2_RemappingButtonCategory_Object
@@ -1332,8 +1267,8 @@ proc fromGameController*(_: typedesc[LegacyGipGameControllerProvider],
               ILegacyGipGameControllerProviderStatics, it):
     withIface(controller.p, IGameController, p0):
       var tmp: pointer
-      it.call(ILegacyGipGameControllerProviderStatics_FromGameController, p0,
-              tmp.addr)
+      check it.vtbl.FromGameController(it, p0, tmp.addr
+                                      ), "LegacyGipGameControllerProvider.FromGameController"
       result = adopt[LegacyGipGameControllerProvider](tmp)
 
 proc fromGameControllerProvider*(_: typedesc[LegacyGipGameControllerProvider],
@@ -1344,8 +1279,8 @@ proc fromGameControllerProvider*(_: typedesc[LegacyGipGameControllerProvider],
               ILegacyGipGameControllerProviderStatics, it):
     withIface(provider.p, IGameControllerProvider, p0):
       var tmp: pointer
-      it.call(ILegacyGipGameControllerProviderStatics_FromGameControllerProvider,
-              p0, tmp.addr)
+      check it.vtbl.FromGameControllerProvider(it, p0, tmp.addr
+                                              ), "LegacyGipGameControllerProvider.FromGameControllerProvider"
       result = adopt[LegacyGipGameControllerProvider](tmp)
 
 proc pairPilotToCopilot*(_: typedesc[LegacyGipGameControllerProvider],
@@ -1357,8 +1292,8 @@ proc pairPilotToCopilot*(_: typedesc[LegacyGipGameControllerProvider],
     withIface(user.p, IUser, p0):
       withHString(pilotControllerProviderId, h1):
         withHString(copilotControllerProviderId, h2):
-          it.call(ILegacyGipGameControllerProviderStatics_PairPilotToCopilot,
-                  p0, h1, h2)
+          check it.vtbl.PairPilotToCopilot(it, p0, h1, h2
+                                          ), "LegacyGipGameControllerProvider.PairPilotToCopilot"
 
 proc clearPairing*(_: typedesc[LegacyGipGameControllerProvider], user: User,
                    controllerProviderId: string) =
@@ -1367,7 +1302,8 @@ proc clearPairing*(_: typedesc[LegacyGipGameControllerProvider], user: User,
               ILegacyGipGameControllerProviderStatics, it):
     withIface(user.p, IUser, p0):
       withHString(controllerProviderId, h1):
-        it.call(ILegacyGipGameControllerProviderStatics_ClearPairing, p0, h1)
+        check it.vtbl.ClearPairing(it, p0, h1
+                                  ), "LegacyGipGameControllerProvider.ClearPairing"
 
 proc isPilot*(_: typedesc[LegacyGipGameControllerProvider], user: User,
               controllerProviderId: string): string =
@@ -1377,8 +1313,8 @@ proc isPilot*(_: typedesc[LegacyGipGameControllerProvider], user: User,
     withIface(user.p, IUser, p0):
       withHString(controllerProviderId, h1):
         var tmp: HSTRING
-        it.call(ILegacyGipGameControllerProviderStatics_IsPilot, p0, h1,
-                tmp.addr)
+        check it.vtbl.IsPilot(it, p0, h1, tmp.addr
+                             ), "LegacyGipGameControllerProvider.IsPilot"
         result = takeString(tmp)
 
 proc isCopilot*(_: typedesc[LegacyGipGameControllerProvider], user: User,
@@ -1389,65 +1325,55 @@ proc isCopilot*(_: typedesc[LegacyGipGameControllerProvider], user: User,
     withIface(user.p, IUser, p0):
       withHString(controllerProviderId, h1):
         var tmp: HSTRING
-        it.call(ILegacyGipGameControllerProviderStatics_IsCopilot, p0, h1,
-                tmp.addr)
+        check it.vtbl.IsCopilot(it, p0, h1, tmp.addr
+                               ), "LegacyGipGameControllerProvider.IsCopilot"
         result = takeString(tmp)
 
 proc hasClutch*(self: RacingWheel): bool =
   ## Windows.Gaming.Input.RacingWheel.get_HasClutch
   withIface(self.p, IRacingWheel, it):
-    var tmp: bool
-    it.call(IRacingWheel_get_HasClutch, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HasClutch, bool)
 
 proc hasHandbrake*(self: RacingWheel): bool =
   ## Windows.Gaming.Input.RacingWheel.get_HasHandbrake
   withIface(self.p, IRacingWheel, it):
-    var tmp: bool
-    it.call(IRacingWheel_get_HasHandbrake, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HasHandbrake, bool)
 
 proc hasPatternShifter*(self: RacingWheel): bool =
   ## Windows.Gaming.Input.RacingWheel.get_HasPatternShifter
   withIface(self.p, IRacingWheel, it):
-    var tmp: bool
-    it.call(IRacingWheel_get_HasPatternShifter, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HasPatternShifter, bool)
 
 proc maxPatternShifterGear*(self: RacingWheel): int32 =
   ## Windows.Gaming.Input.RacingWheel.get_MaxPatternShifterGear
   withIface(self.p, IRacingWheel, it):
-    var tmp: int32
-    it.call(IRacingWheel_get_MaxPatternShifterGear, tmp.addr)
-    result = tmp
+    result = it.getValue(get_MaxPatternShifterGear, int32)
 
 proc maxWheelAngle*(self: RacingWheel): float64 =
   ## Windows.Gaming.Input.RacingWheel.get_MaxWheelAngle
   withIface(self.p, IRacingWheel, it):
-    var tmp: float64
-    it.call(IRacingWheel_get_MaxWheelAngle, tmp.addr)
-    result = tmp
+    result = it.getValue(get_MaxWheelAngle, float64)
 
 proc wheelMotor*(self: RacingWheel): ForceFeedbackMotor =
   ## Windows.Gaming.Input.RacingWheel.get_WheelMotor
   withIface(self.p, IRacingWheel, it):
-    var tmp: pointer
-    it.call(IRacingWheel_get_WheelMotor, tmp.addr)
-    result = adopt[ForceFeedbackMotor](tmp)
+    result = it.getObject(get_WheelMotor, ForceFeedbackMotor)
 
 proc getButtonLabel*(self: RacingWheel, button: RacingWheelButtons
                     ): GameControllerButtonLabel =
   ## Windows.Gaming.Input.RacingWheel.GetButtonLabel
   withIface(self.p, IRacingWheel, it):
     var tmp: GameControllerButtonLabel
-    it.call(IRacingWheel_GetButtonLabel, button, tmp.addr)
+    check it.vtbl.GetButtonLabel(it, button, tmp.addr
+                                ), "RacingWheel.GetButtonLabel"
     result = tmp
 
 proc getCurrentReading*(self: RacingWheel): RacingWheelReading =
   ## Windows.Gaming.Input.RacingWheel.GetCurrentReading
   withIface(self.p, IRacingWheel, it):
     var tmp: RacingWheelReading
-    it.call(IRacingWheel_GetCurrentReading, tmp.addr)
+    check it.vtbl.GetCurrentReading(it, tmp.addr
+                                   ), "RacingWheel.GetCurrentReading"
     result = tmp
 
 proc onHeadsetConnected*(self: RacingWheel,
@@ -1461,13 +1387,13 @@ proc onHeadsetConnected*(self: RacingWheel,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, shim,
                          event = true)
     try:
-      it.call(IGameController_add_HeadsetConnected, cb, result.addr)
+      check it.vtbl.add_HeadsetConnected(it, cb, result.addr), "RacingWheel.add_HeadsetConnected"
     finally:
       release(cb)
 
 proc removeHeadsetConnected*(self: RacingWheel, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_HeadsetConnected, token)
+    check it.vtbl.remove_HeadsetConnected(it, token), "RacingWheel.remove_HeadsetConnected"
 
 proc onHeadsetDisconnected*(self: RacingWheel,
                             handler: EventHandler[WinRtObject, Headset]
@@ -1480,13 +1406,13 @@ proc onHeadsetDisconnected*(self: RacingWheel,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, shim,
                          event = true)
     try:
-      it.call(IGameController_add_HeadsetDisconnected, cb, result.addr)
+      check it.vtbl.add_HeadsetDisconnected(it, cb, result.addr), "RacingWheel.add_HeadsetDisconnected"
     finally:
       release(cb)
 
 proc removeHeadsetDisconnected*(self: RacingWheel, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_HeadsetDisconnected, token)
+    check it.vtbl.remove_HeadsetDisconnected(it, token), "RacingWheel.remove_HeadsetDisconnected"
 
 proc onUserChanged*(self: RacingWheel,
                     handler: EventHandler[WinRtObject, UserChangedEventArgs]
@@ -1499,40 +1425,35 @@ proc onUserChanged*(self: RacingWheel,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
                          shim, event = true)
     try:
-      it.call(IGameController_add_UserChanged, cb, result.addr)
+      check it.vtbl.add_UserChanged(it, cb, result.addr), "RacingWheel.add_UserChanged"
     finally:
       release(cb)
 
 proc removeUserChanged*(self: RacingWheel, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_UserChanged, token)
+    check it.vtbl.remove_UserChanged(it, token), "RacingWheel.remove_UserChanged"
 
 proc headset*(self: RacingWheel): Headset =
   ## Windows.Gaming.Input.RacingWheel.get_Headset
   withIface(self.p, IGameController, it):
-    var tmp: pointer
-    it.call(IGameController_get_Headset, tmp.addr)
-    result = adopt[Headset](tmp)
+    result = it.getObject(get_Headset, Headset)
 
 proc isWireless*(self: RacingWheel): bool =
   ## Windows.Gaming.Input.RacingWheel.get_IsWireless
   withIface(self.p, IGameController, it):
-    var tmp: bool
-    it.call(IGameController_get_IsWireless, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsWireless, bool)
 
 proc user*(self: RacingWheel): User =
   ## Windows.Gaming.Input.RacingWheel.get_User
   withIface(self.p, IGameController, it):
-    var tmp: pointer
-    it.call(IGameController_get_User, tmp.addr)
-    result = adopt[User](tmp)
+    result = it.getObject(get_User, User)
 
 proc tryGetBatteryReport*(self: RacingWheel): BatteryReport =
   ## Windows.Gaming.Input.RacingWheel.TryGetBatteryReport
   withIface(self.p, IGameControllerBatteryInfo, it):
     var tmp: pointer
-    it.call(IGameControllerBatteryInfo_TryGetBatteryReport, tmp.addr)
+    check it.vtbl.TryGetBatteryReport(it, tmp.addr
+                                     ), "RacingWheel.TryGetBatteryReport"
     result = adopt[BatteryReport](tmp)
 
 proc onRacingWheelAdded*(_: typedesc[RacingWheel],
@@ -1545,13 +1466,13 @@ proc onRacingWheelAdded*(_: typedesc[RacingWheel],
       handler(borrow[WinRtObject](a0), borrow[RacingWheel](a1))
     let cb = newDelegate(IID_EventHandler_1_RacingWheel, shim, event = true)
     try:
-      it.call(IRacingWheelStatics_add_RacingWheelAdded, cb, result.addr)
+      check it.vtbl.add_RacingWheelAdded(it, cb, result.addr), "RacingWheel.add_RacingWheelAdded"
     finally:
       release(cb)
 
 proc removeRacingWheelAdded*(_: typedesc[RacingWheel], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Input.RacingWheel", IRacingWheelStatics, it):
-    it.call(IRacingWheelStatics_remove_RacingWheelAdded, token)
+    check it.vtbl.remove_RacingWheelAdded(it, token), "RacingWheel.remove_RacingWheelAdded"
 
 proc onRacingWheelRemoved*(_: typedesc[RacingWheel],
                            handler: EventHandler[WinRtObject, RacingWheel]
@@ -1563,19 +1484,19 @@ proc onRacingWheelRemoved*(_: typedesc[RacingWheel],
       handler(borrow[WinRtObject](a0), borrow[RacingWheel](a1))
     let cb = newDelegate(IID_EventHandler_1_RacingWheel, shim, event = true)
     try:
-      it.call(IRacingWheelStatics_add_RacingWheelRemoved, cb, result.addr)
+      check it.vtbl.add_RacingWheelRemoved(it, cb, result.addr), "RacingWheel.add_RacingWheelRemoved"
     finally:
       release(cb)
 
 proc removeRacingWheelRemoved*(_: typedesc[RacingWheel], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Input.RacingWheel", IRacingWheelStatics, it):
-    it.call(IRacingWheelStatics_remove_RacingWheelRemoved, token)
+    check it.vtbl.remove_RacingWheelRemoved(it, token), "RacingWheel.remove_RacingWheelRemoved"
 
 proc racingWheels*(_: typedesc[RacingWheel]): seq[RacingWheel] =
   ## Windows.Gaming.Input.RacingWheel.get_RacingWheels
   withStatics("Windows.Gaming.Input.RacingWheel", IRacingWheelStatics, it):
     var tmp: pointer
-    it.call(IRacingWheelStatics_get_RacingWheels, tmp.addr)
+    check it.vtbl.get_RacingWheels(it, tmp.addr), "RacingWheel.get_RacingWheels"
     result = toSeq[RacingWheel](tmp, IID_IVectorView_1_RacingWheel)
     release(tmp)
 
@@ -1585,28 +1506,26 @@ proc fromGameController*(_: typedesc[RacingWheel], gameController: WinRtObject
   withStatics("Windows.Gaming.Input.RacingWheel", IRacingWheelStatics2, it):
     withIface(gameController.p, IGameController, p0):
       var tmp: pointer
-      it.call(IRacingWheelStatics2_FromGameController, p0, tmp.addr)
+      check it.vtbl.FromGameController(it, p0, tmp.addr
+                                      ), "RacingWheel.FromGameController"
       result = adopt[RacingWheel](tmp)
 
 proc axisCount*(self: RawGameController): int32 =
   ## Windows.Gaming.Input.RawGameController.get_AxisCount
   withIface(self.p, IRawGameController, it):
-    var tmp: int32
-    it.call(IRawGameController_get_AxisCount, tmp.addr)
-    result = tmp
+    result = it.getValue(get_AxisCount, int32)
 
 proc buttonCount*(self: RawGameController): int32 =
   ## Windows.Gaming.Input.RawGameController.get_ButtonCount
   withIface(self.p, IRawGameController, it):
-    var tmp: int32
-    it.call(IRawGameController_get_ButtonCount, tmp.addr)
-    result = tmp
+    result = it.getValue(get_ButtonCount, int32)
 
 proc forceFeedbackMotors*(self: RawGameController): seq[ForceFeedbackMotor] =
   ## Windows.Gaming.Input.RawGameController.get_ForceFeedbackMotors
   withIface(self.p, IRawGameController, it):
     var tmp: pointer
-    it.call(IRawGameController_get_ForceFeedbackMotors, tmp.addr)
+    check it.vtbl.get_ForceFeedbackMotors(it, tmp.addr
+                                         ), "RawGameController.get_ForceFeedbackMotors"
     result = toSeq[ForceFeedbackMotor](tmp, IID_IVectorView_1_ForceFeedbackMotor
                                       )
     release(tmp)
@@ -1614,30 +1533,25 @@ proc forceFeedbackMotors*(self: RawGameController): seq[ForceFeedbackMotor] =
 proc hardwareProductId*(self: RawGameController): uint16 =
   ## Windows.Gaming.Input.RawGameController.get_HardwareProductId
   withIface(self.p, IRawGameController, it):
-    var tmp: uint16
-    it.call(IRawGameController_get_HardwareProductId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HardwareProductId, uint16)
 
 proc hardwareVendorId*(self: RawGameController): uint16 =
   ## Windows.Gaming.Input.RawGameController.get_HardwareVendorId
   withIface(self.p, IRawGameController, it):
-    var tmp: uint16
-    it.call(IRawGameController_get_HardwareVendorId, tmp.addr)
-    result = tmp
+    result = it.getValue(get_HardwareVendorId, uint16)
 
 proc switchCount*(self: RawGameController): int32 =
   ## Windows.Gaming.Input.RawGameController.get_SwitchCount
   withIface(self.p, IRawGameController, it):
-    var tmp: int32
-    it.call(IRawGameController_get_SwitchCount, tmp.addr)
-    result = tmp
+    result = it.getValue(get_SwitchCount, int32)
 
 proc getButtonLabel*(self: RawGameController, buttonIndex: int32
                     ): GameControllerButtonLabel =
   ## Windows.Gaming.Input.RawGameController.GetButtonLabel
   withIface(self.p, IRawGameController, it):
     var tmp: GameControllerButtonLabel
-    it.call(IRawGameController_GetButtonLabel, buttonIndex, tmp.addr)
+    check it.vtbl.GetButtonLabel(it, buttonIndex, tmp.addr
+                                ), "RawGameController.GetButtonLabel"
     result = tmp
 
 proc getCurrentReading*(self: RawGameController, buttonArray: openArray[bool],
@@ -1652,8 +1566,8 @@ proc getCurrentReading*(self: RawGameController, buttonArray: openArray[bool],
     let n2 = uint32(axisArray.len)
     let d2 = if axisArray.len > 0: axisArray[0].unsafeAddr else: nil
     var tmp: uint64
-    it.call(IRawGameController_GetCurrentReading, n0, d0, n1, d1, n2, d2,
-            tmp.addr)
+    check it.vtbl.GetCurrentReading(it, n0, d0, n1, d1, n2, d2, tmp.addr
+                                   ), "RawGameController.GetCurrentReading"
     result = tmp
 
 proc getSwitchKind*(self: RawGameController, switchIndex: int32
@@ -1661,7 +1575,8 @@ proc getSwitchKind*(self: RawGameController, switchIndex: int32
   ## Windows.Gaming.Input.RawGameController.GetSwitchKind
   withIface(self.p, IRawGameController, it):
     var tmp: GameControllerSwitchKind
-    it.call(IRawGameController_GetSwitchKind, switchIndex, tmp.addr)
+    check it.vtbl.GetSwitchKind(it, switchIndex, tmp.addr
+                               ), "RawGameController.GetSwitchKind"
     result = tmp
 
 proc onHeadsetConnected*(self: RawGameController,
@@ -1675,13 +1590,13 @@ proc onHeadsetConnected*(self: RawGameController,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, shim,
                          event = true)
     try:
-      it.call(IGameController_add_HeadsetConnected, cb, result.addr)
+      check it.vtbl.add_HeadsetConnected(it, cb, result.addr), "RawGameController.add_HeadsetConnected"
     finally:
       release(cb)
 
 proc removeHeadsetConnected*(self: RawGameController, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_HeadsetConnected, token)
+    check it.vtbl.remove_HeadsetConnected(it, token), "RawGameController.remove_HeadsetConnected"
 
 proc onHeadsetDisconnected*(self: RawGameController,
                             handler: EventHandler[WinRtObject, Headset]
@@ -1694,13 +1609,13 @@ proc onHeadsetDisconnected*(self: RawGameController,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, shim,
                          event = true)
     try:
-      it.call(IGameController_add_HeadsetDisconnected, cb, result.addr)
+      check it.vtbl.add_HeadsetDisconnected(it, cb, result.addr), "RawGameController.add_HeadsetDisconnected"
     finally:
       release(cb)
 
 proc removeHeadsetDisconnected*(self: RawGameController, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_HeadsetDisconnected, token)
+    check it.vtbl.remove_HeadsetDisconnected(it, token), "RawGameController.remove_HeadsetDisconnected"
 
 proc onUserChanged*(self: RawGameController,
                     handler: EventHandler[WinRtObject, UserChangedEventArgs]
@@ -1713,47 +1628,43 @@ proc onUserChanged*(self: RawGameController,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
                          shim, event = true)
     try:
-      it.call(IGameController_add_UserChanged, cb, result.addr)
+      check it.vtbl.add_UserChanged(it, cb, result.addr), "RawGameController.add_UserChanged"
     finally:
       release(cb)
 
 proc removeUserChanged*(self: RawGameController, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_UserChanged, token)
+    check it.vtbl.remove_UserChanged(it, token), "RawGameController.remove_UserChanged"
 
 proc headset*(self: RawGameController): Headset =
   ## Windows.Gaming.Input.RawGameController.get_Headset
   withIface(self.p, IGameController, it):
-    var tmp: pointer
-    it.call(IGameController_get_Headset, tmp.addr)
-    result = adopt[Headset](tmp)
+    result = it.getObject(get_Headset, Headset)
 
 proc isWireless*(self: RawGameController): bool =
   ## Windows.Gaming.Input.RawGameController.get_IsWireless
   withIface(self.p, IGameController, it):
-    var tmp: bool
-    it.call(IGameController_get_IsWireless, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsWireless, bool)
 
 proc user*(self: RawGameController): User =
   ## Windows.Gaming.Input.RawGameController.get_User
   withIface(self.p, IGameController, it):
-    var tmp: pointer
-    it.call(IGameController_get_User, tmp.addr)
-    result = adopt[User](tmp)
+    result = it.getObject(get_User, User)
 
 proc tryGetBatteryReport*(self: RawGameController): BatteryReport =
   ## Windows.Gaming.Input.RawGameController.TryGetBatteryReport
   withIface(self.p, IGameControllerBatteryInfo, it):
     var tmp: pointer
-    it.call(IGameControllerBatteryInfo_TryGetBatteryReport, tmp.addr)
+    check it.vtbl.TryGetBatteryReport(it, tmp.addr
+                                     ), "RawGameController.TryGetBatteryReport"
     result = adopt[BatteryReport](tmp)
 
 proc simpleHapticsControllers*(self: RawGameController): seq[SimpleHapticsController] =
   ## Windows.Gaming.Input.RawGameController.get_SimpleHapticsControllers
   withIface(self.p, IRawGameController2, it):
     var tmp: pointer
-    it.call(IRawGameController2_get_SimpleHapticsControllers, tmp.addr)
+    check it.vtbl.get_SimpleHapticsControllers(it, tmp.addr
+                                              ), "RawGameController.get_SimpleHapticsControllers"
     result = toSeq[SimpleHapticsController](tmp,
                                             IID_IVectorView_1_SimpleHapticsController
                                            )
@@ -1762,16 +1673,12 @@ proc simpleHapticsControllers*(self: RawGameController): seq[SimpleHapticsContro
 proc nonRoamableId*(self: RawGameController): string =
   ## Windows.Gaming.Input.RawGameController.get_NonRoamableId
   withIface(self.p, IRawGameController2, it):
-    var tmp: HSTRING
-    it.call(IRawGameController2_get_NonRoamableId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_NonRoamableId)
 
 proc displayName*(self: RawGameController): string =
   ## Windows.Gaming.Input.RawGameController.get_DisplayName
   withIface(self.p, IRawGameController2, it):
-    var tmp: HSTRING
-    it.call(IRawGameController2_get_DisplayName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayName)
 
 proc onRawGameControllerAdded*(_: typedesc[RawGameController],
                                handler: EventHandler[WinRtObject, RawGameController]
@@ -1785,14 +1692,14 @@ proc onRawGameControllerAdded*(_: typedesc[RawGameController],
     let cb = newDelegate(IID_EventHandler_1_RawGameController, shim,
                          event = true)
     try:
-      it.call(IRawGameControllerStatics_add_RawGameControllerAdded, cb, result.addr)
+      check it.vtbl.add_RawGameControllerAdded(it, cb, result.addr), "RawGameController.add_RawGameControllerAdded"
     finally:
       release(cb)
 
 proc removeRawGameControllerAdded*(_: typedesc[RawGameController], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Input.RawGameController",
               IRawGameControllerStatics, it):
-    it.call(IRawGameControllerStatics_remove_RawGameControllerAdded, token)
+    check it.vtbl.remove_RawGameControllerAdded(it, token), "RawGameController.remove_RawGameControllerAdded"
 
 proc onRawGameControllerRemoved*(_: typedesc[RawGameController],
                                  handler: EventHandler[WinRtObject, RawGameController]
@@ -1806,21 +1713,22 @@ proc onRawGameControllerRemoved*(_: typedesc[RawGameController],
     let cb = newDelegate(IID_EventHandler_1_RawGameController, shim,
                          event = true)
     try:
-      it.call(IRawGameControllerStatics_add_RawGameControllerRemoved, cb, result.addr)
+      check it.vtbl.add_RawGameControllerRemoved(it, cb, result.addr), "RawGameController.add_RawGameControllerRemoved"
     finally:
       release(cb)
 
 proc removeRawGameControllerRemoved*(_: typedesc[RawGameController], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Input.RawGameController",
               IRawGameControllerStatics, it):
-    it.call(IRawGameControllerStatics_remove_RawGameControllerRemoved, token)
+    check it.vtbl.remove_RawGameControllerRemoved(it, token), "RawGameController.remove_RawGameControllerRemoved"
 
 proc rawGameControllers*(_: typedesc[RawGameController]): seq[RawGameController] =
   ## Windows.Gaming.Input.RawGameController.get_RawGameControllers
   withStatics("Windows.Gaming.Input.RawGameController",
               IRawGameControllerStatics, it):
     var tmp: pointer
-    it.call(IRawGameControllerStatics_get_RawGameControllers, tmp.addr)
+    check it.vtbl.get_RawGameControllers(it, tmp.addr
+                                        ), "RawGameController.get_RawGameControllers"
     result = toSeq[RawGameController](tmp, IID_IVectorView_1_RawGameController)
     release(tmp)
 
@@ -1831,14 +1739,16 @@ proc fromGameController*(_: typedesc[RawGameController],
               IRawGameControllerStatics, it):
     withIface(gameController.p, IGameController, p0):
       var tmp: pointer
-      it.call(IRawGameControllerStatics_FromGameController, p0, tmp.addr)
+      check it.vtbl.FromGameController(it, p0, tmp.addr
+                                      ), "RawGameController.FromGameController"
       result = adopt[RawGameController](tmp)
 
 proc getCurrentReading*(self: UINavigationController): UINavigationReading =
   ## Windows.Gaming.Input.UINavigationController.GetCurrentReading
   withIface(self.p, IUINavigationController, it):
     var tmp: UINavigationReading
-    it.call(IUINavigationController_GetCurrentReading, tmp.addr)
+    check it.vtbl.GetCurrentReading(it, tmp.addr
+                                   ), "UINavigationController.GetCurrentReading"
     result = tmp
 
 proc getOptionalButtonLabel*(self: UINavigationController,
@@ -1847,7 +1757,8 @@ proc getOptionalButtonLabel*(self: UINavigationController,
   ## Windows.Gaming.Input.UINavigationController.GetOptionalButtonLabel
   withIface(self.p, IUINavigationController, it):
     var tmp: GameControllerButtonLabel
-    it.call(IUINavigationController_GetOptionalButtonLabel, button, tmp.addr)
+    check it.vtbl.GetOptionalButtonLabel(it, button, tmp.addr
+                                        ), "UINavigationController.GetOptionalButtonLabel"
     result = tmp
 
 proc getRequiredButtonLabel*(self: UINavigationController,
@@ -1856,7 +1767,8 @@ proc getRequiredButtonLabel*(self: UINavigationController,
   ## Windows.Gaming.Input.UINavigationController.GetRequiredButtonLabel
   withIface(self.p, IUINavigationController, it):
     var tmp: GameControllerButtonLabel
-    it.call(IUINavigationController_GetRequiredButtonLabel, button, tmp.addr)
+    check it.vtbl.GetRequiredButtonLabel(it, button, tmp.addr
+                                        ), "UINavigationController.GetRequiredButtonLabel"
     result = tmp
 
 proc onHeadsetConnected*(self: UINavigationController,
@@ -1870,13 +1782,13 @@ proc onHeadsetConnected*(self: UINavigationController,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, shim,
                          event = true)
     try:
-      it.call(IGameController_add_HeadsetConnected, cb, result.addr)
+      check it.vtbl.add_HeadsetConnected(it, cb, result.addr), "UINavigationController.add_HeadsetConnected"
     finally:
       release(cb)
 
 proc removeHeadsetConnected*(self: UINavigationController, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_HeadsetConnected, token)
+    check it.vtbl.remove_HeadsetConnected(it, token), "UINavigationController.remove_HeadsetConnected"
 
 proc onHeadsetDisconnected*(self: UINavigationController,
                             handler: EventHandler[WinRtObject, Headset]
@@ -1889,13 +1801,13 @@ proc onHeadsetDisconnected*(self: UINavigationController,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, shim,
                          event = true)
     try:
-      it.call(IGameController_add_HeadsetDisconnected, cb, result.addr)
+      check it.vtbl.add_HeadsetDisconnected(it, cb, result.addr), "UINavigationController.add_HeadsetDisconnected"
     finally:
       release(cb)
 
 proc removeHeadsetDisconnected*(self: UINavigationController, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_HeadsetDisconnected, token)
+    check it.vtbl.remove_HeadsetDisconnected(it, token), "UINavigationController.remove_HeadsetDisconnected"
 
 proc onUserChanged*(self: UINavigationController,
                     handler: EventHandler[WinRtObject, UserChangedEventArgs]
@@ -1908,40 +1820,35 @@ proc onUserChanged*(self: UINavigationController,
     let cb = newDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
                          shim, event = true)
     try:
-      it.call(IGameController_add_UserChanged, cb, result.addr)
+      check it.vtbl.add_UserChanged(it, cb, result.addr), "UINavigationController.add_UserChanged"
     finally:
       release(cb)
 
 proc removeUserChanged*(self: UINavigationController, token: EventRegistrationToken) =
   withIface(self.p, IGameController, it):
-    it.call(IGameController_remove_UserChanged, token)
+    check it.vtbl.remove_UserChanged(it, token), "UINavigationController.remove_UserChanged"
 
 proc headset*(self: UINavigationController): Headset =
   ## Windows.Gaming.Input.UINavigationController.get_Headset
   withIface(self.p, IGameController, it):
-    var tmp: pointer
-    it.call(IGameController_get_Headset, tmp.addr)
-    result = adopt[Headset](tmp)
+    result = it.getObject(get_Headset, Headset)
 
 proc isWireless*(self: UINavigationController): bool =
   ## Windows.Gaming.Input.UINavigationController.get_IsWireless
   withIface(self.p, IGameController, it):
-    var tmp: bool
-    it.call(IGameController_get_IsWireless, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsWireless, bool)
 
 proc user*(self: UINavigationController): User =
   ## Windows.Gaming.Input.UINavigationController.get_User
   withIface(self.p, IGameController, it):
-    var tmp: pointer
-    it.call(IGameController_get_User, tmp.addr)
-    result = adopt[User](tmp)
+    result = it.getObject(get_User, User)
 
 proc tryGetBatteryReport*(self: UINavigationController): BatteryReport =
   ## Windows.Gaming.Input.UINavigationController.TryGetBatteryReport
   withIface(self.p, IGameControllerBatteryInfo, it):
     var tmp: pointer
-    it.call(IGameControllerBatteryInfo_TryGetBatteryReport, tmp.addr)
+    check it.vtbl.TryGetBatteryReport(it, tmp.addr
+                                     ), "UINavigationController.TryGetBatteryReport"
     result = adopt[BatteryReport](tmp)
 
 proc fromGameController*(_: typedesc[UINavigationController],
@@ -1951,7 +1858,8 @@ proc fromGameController*(_: typedesc[UINavigationController],
               IUINavigationControllerStatics2, it):
     withIface(gameController.p, IGameController, p0):
       var tmp: pointer
-      it.call(IUINavigationControllerStatics2_FromGameController, p0, tmp.addr)
+      check it.vtbl.FromGameController(it, p0, tmp.addr
+                                      ), "UINavigationController.FromGameController"
       result = adopt[UINavigationController](tmp)
 
 proc onUINavigationControllerAdded*(_: typedesc[UINavigationController],
@@ -1966,14 +1874,14 @@ proc onUINavigationControllerAdded*(_: typedesc[UINavigationController],
     let cb = newDelegate(IID_EventHandler_1_UINavigationController, shim,
                          event = true)
     try:
-      it.call(IUINavigationControllerStatics_add_UINavigationControllerAdded, cb, result.addr)
+      check it.vtbl.add_UINavigationControllerAdded(it, cb, result.addr), "UINavigationController.add_UINavigationControllerAdded"
     finally:
       release(cb)
 
 proc removeUINavigationControllerAdded*(_: typedesc[UINavigationController], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Input.UINavigationController",
               IUINavigationControllerStatics, it):
-    it.call(IUINavigationControllerStatics_remove_UINavigationControllerAdded, token)
+    check it.vtbl.remove_UINavigationControllerAdded(it, token), "UINavigationController.remove_UINavigationControllerAdded"
 
 proc onUINavigationControllerRemoved*(_: typedesc[UINavigationController],
                                       handler: EventHandler[WinRtObject, UINavigationController]
@@ -1987,22 +1895,22 @@ proc onUINavigationControllerRemoved*(_: typedesc[UINavigationController],
     let cb = newDelegate(IID_EventHandler_1_UINavigationController, shim,
                          event = true)
     try:
-      it.call(IUINavigationControllerStatics_add_UINavigationControllerRemoved, cb, result.addr)
+      check it.vtbl.add_UINavigationControllerRemoved(it, cb, result.addr), "UINavigationController.add_UINavigationControllerRemoved"
     finally:
       release(cb)
 
 proc removeUINavigationControllerRemoved*(_: typedesc[UINavigationController], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Input.UINavigationController",
               IUINavigationControllerStatics, it):
-    it.call(IUINavigationControllerStatics_remove_UINavigationControllerRemoved, token)
+    check it.vtbl.remove_UINavigationControllerRemoved(it, token), "UINavigationController.remove_UINavigationControllerRemoved"
 
 proc uINavigationControllers*(_: typedesc[UINavigationController]): seq[UINavigationController] =
   ## Windows.Gaming.Input.UINavigationController.get_UINavigationControllers
   withStatics("Windows.Gaming.Input.UINavigationController",
               IUINavigationControllerStatics, it):
     var tmp: pointer
-    it.call(IUINavigationControllerStatics_get_UINavigationControllers, tmp.addr
-           )
+    check it.vtbl.get_UINavigationControllers(it, tmp.addr
+                                             ), "UINavigationController.get_UINavigationControllers"
     result = toSeq[UINavigationController](tmp,
                                            IID_IVectorView_1_UINavigationController
                                           )
@@ -2016,7 +1924,8 @@ proc mergeEntriesAsync*(_: typedesc[GameList], left: GameListEntry,
               IGameListStatics2, it):
     withIface(left.p, IGameListEntry, p0):
       withIface(right.p, IGameListEntry, p1):
-        it.call(IGameListStatics2_MergeEntriesAsync, p0, p1, op.addr)
+        check it.vtbl.MergeEntriesAsync(it, p0, p1, op.addr
+                                       ), "GameList.MergeEntriesAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_GameListEntry,
                               IID_AsyncOperationCompletedHandler_1_GameListEntry,
                               alPlain, "GameList.MergeEntriesAsync")
@@ -2029,7 +1938,8 @@ proc unmergeEntryAsync*(_: typedesc[GameList], mergedEntry: GameListEntry
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList",
               IGameListStatics2, it):
     withIface(mergedEntry.p, IGameListEntry, p0):
-      it.call(IGameListStatics2_UnmergeEntryAsync, p0, op.addr)
+      check it.vtbl.UnmergeEntryAsync(it, p0, op.addr
+                                     ), "GameList.UnmergeEntryAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_1,
                                alPlain, "GameList.UnmergeEntryAsync")
@@ -2041,7 +1951,7 @@ proc findAllAsync*(_: typedesc[GameList]): Future[seq[GameListEntry]] {.async.} 
   var op: pointer
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList",
               IGameListStatics, it):
-    it.call(IGameListStatics_FindAllAsync, op.addr)
+    check it.vtbl.FindAllAsync(it, op.addr), "GameList.FindAllAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_1,
                                alPlain, "GameList.FindAllAsync")
@@ -2055,7 +1965,7 @@ proc findAllAsync*(_: typedesc[GameList], packageFamilyName: string
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList",
               IGameListStatics, it):
     withHString(packageFamilyName, h0):
-      it.call(IGameListStatics_FindAllAsync2, h0, op.addr)
+      check it.vtbl.FindAllAsync2(it, h0, op.addr), "GameList.FindAllAsync"
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_1,
                                alPlain, "GameList.FindAllAsync")
@@ -2072,14 +1982,14 @@ proc onGameAdded*(_: typedesc[GameList], handler: proc(sender: GameListEntry)
       handler(borrow[GameListEntry](a0))
     let cb = newDelegate(IID_GameListChangedEventHandler, shim, event = true)
     try:
-      it.call(IGameListStatics_add_GameAdded, cb, result.addr)
+      check it.vtbl.add_GameAdded(it, cb, result.addr), "GameList.add_GameAdded"
     finally:
       release(cb)
 
 proc removeGameAdded*(_: typedesc[GameList], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList",
               IGameListStatics, it):
-    it.call(IGameListStatics_remove_GameAdded, token)
+    check it.vtbl.remove_GameAdded(it, token), "GameList.remove_GameAdded"
 
 proc onGameRemoved*(_: typedesc[GameList], handler: proc(sender: string)
                    ): EventRegistrationToken {.discardable.} =
@@ -2091,14 +2001,14 @@ proc onGameRemoved*(_: typedesc[GameList], handler: proc(sender: string)
       handler($a0)
     let cb = newDelegate(IID_GameListRemovedEventHandler, shim, event = true)
     try:
-      it.call(IGameListStatics_add_GameRemoved, cb, result.addr)
+      check it.vtbl.add_GameRemoved(it, cb, result.addr), "GameList.add_GameRemoved"
     finally:
       release(cb)
 
 proc removeGameRemoved*(_: typedesc[GameList], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList",
               IGameListStatics, it):
-    it.call(IGameListStatics_remove_GameRemoved, token)
+    check it.vtbl.remove_GameRemoved(it, token), "GameList.remove_GameRemoved"
 
 proc onGameUpdated*(_: typedesc[GameList], handler: proc(sender: GameListEntry)
                    ): EventRegistrationToken {.discardable.} =
@@ -2110,33 +2020,31 @@ proc onGameUpdated*(_: typedesc[GameList], handler: proc(sender: GameListEntry)
       handler(borrow[GameListEntry](a0))
     let cb = newDelegate(IID_GameListChangedEventHandler, shim, event = true)
     try:
-      it.call(IGameListStatics_add_GameUpdated, cb, result.addr)
+      check it.vtbl.add_GameUpdated(it, cb, result.addr), "GameList.add_GameUpdated"
     finally:
       release(cb)
 
 proc removeGameUpdated*(_: typedesc[GameList], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList",
               IGameListStatics, it):
-    it.call(IGameListStatics_remove_GameUpdated, token)
+    check it.vtbl.remove_GameUpdated(it, token), "GameList.remove_GameUpdated"
 
 proc invoke*(self: GameListChangedEventHandler, game: GameListEntry) =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListChangedEventHandler.Invoke
   withIface(self.p, GameListChangedEventHandler, it):
     withIface(game.p, IGameListEntry, p0):
-      it.call(GameListChangedEventHandler_Invoke, p0)
+      check it.vtbl.Invoke(it, p0), "GameListChangedEventHandler.Invoke"
 
 proc displayInfo*(self: GameListEntry): AppDisplayInfo =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_DisplayInfo
   withIface(self.p, IGameListEntry, it):
-    var tmp: pointer
-    it.call(IGameListEntry_get_DisplayInfo, tmp.addr)
-    result = adopt[AppDisplayInfo](tmp)
+    result = it.getObject(get_DisplayInfo, AppDisplayInfo)
 
 proc launchAsync*(self: GameListEntry): Future[bool] {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.LaunchAsync
   var op: pointer
   withIface(self.p, IGameListEntry, it):
-    it.call(IGameListEntry_LaunchAsync, op.addr)
+    check it.vtbl.LaunchAsync(it, op.addr), "GameListEntry.LaunchAsync"
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain, "GameListEntry.LaunchAsync")
@@ -2144,15 +2052,13 @@ proc launchAsync*(self: GameListEntry): Future[bool] {.async.} =
 proc category*(self: GameListEntry): GameListCategory =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_Category
   withIface(self.p, IGameListEntry, it):
-    var tmp: GameListCategory
-    it.call(IGameListEntry_get_Category, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Category, GameListCategory)
 
 proc properties*(self: GameListEntry): Table[string, WinRtObject] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_Properties
   withIface(self.p, IGameListEntry, it):
     var tmp: pointer
-    it.call(IGameListEntry_get_Properties, tmp.addr)
+    check it.vtbl.get_Properties(it, tmp.addr), "GameListEntry.get_Properties"
     result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22,
                                           IID_IKeyValuePair_2_String_Object)
     release(tmp)
@@ -2161,30 +2067,25 @@ proc setCategoryAsync*(self: GameListEntry, value: GameListCategory) {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetCategoryAsync
   var op: pointer
   withIface(self.p, IGameListEntry, it):
-    it.call(IGameListEntry_SetCategoryAsync, value, op.addr)
+    check it.vtbl.SetCategoryAsync(it, value, op.addr
+                                  ), "GameListEntry.SetCategoryAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "GameListEntry.SetCategoryAsync")
 
 proc launchableState*(self: GameListEntry): GameListEntryLaunchableState =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_LaunchableState
   withIface(self.p, IGameListEntry2, it):
-    var tmp: GameListEntryLaunchableState
-    it.call(IGameListEntry2_get_LaunchableState, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LaunchableState, GameListEntryLaunchableState)
 
 proc launcherExecutable*(self: GameListEntry): StorageFile =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_LauncherExecutable
   withIface(self.p, IGameListEntry2, it):
-    var tmp: pointer
-    it.call(IGameListEntry2_get_LauncherExecutable, tmp.addr)
-    result = adopt[StorageFile](tmp)
+    result = it.getObject(get_LauncherExecutable, StorageFile)
 
 proc launchParameters*(self: GameListEntry): string =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_LaunchParameters
   withIface(self.p, IGameListEntry2, it):
-    var tmp: HSTRING
-    it.call(IGameListEntry2_get_LaunchParameters, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_LaunchParameters)
 
 proc setLauncherExecutableFileAsync*(self: GameListEntry,
                                      executableFile: StorageFile) {.async.} =
@@ -2192,7 +2093,8 @@ proc setLauncherExecutableFileAsync*(self: GameListEntry,
   var op: pointer
   withIface(self.p, IGameListEntry2, it):
     withIface(executableFile.p, IStorageFile, p0):
-      it.call(IGameListEntry2_SetLauncherExecutableFileAsync, p0, op.addr)
+      check it.vtbl.SetLauncherExecutableFileAsync(it, p0, op.addr
+                                                  ), "GameListEntry.SetLauncherExecutableFileAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "GameListEntry.SetLauncherExecutableFileAsync")
 
@@ -2204,57 +2106,53 @@ proc setLauncherExecutableFileAsync*(self: GameListEntry,
   withIface(self.p, IGameListEntry2, it):
     withIface(executableFile.p, IStorageFile, p0):
       withHString(launchParams, h1):
-        it.call(IGameListEntry2_SetLauncherExecutableFileAsync2, p0, h1, op.addr
-               )
+        check it.vtbl.SetLauncherExecutableFileAsync2(it, p0, h1, op.addr
+                                                     ), "GameListEntry.SetLauncherExecutableFileAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "GameListEntry.SetLauncherExecutableFileAsync")
 
 proc titleId*(self: GameListEntry): string =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_TitleId
   withIface(self.p, IGameListEntry2, it):
-    var tmp: HSTRING
-    it.call(IGameListEntry2_get_TitleId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_TitleId)
 
 proc setTitleIdAsync*(self: GameListEntry, id: string) {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetTitleIdAsync
   var op: pointer
   withIface(self.p, IGameListEntry2, it):
     withHString(id, h0):
-      it.call(IGameListEntry2_SetTitleIdAsync, h0, op.addr)
+      check it.vtbl.SetTitleIdAsync(it, h0, op.addr
+                                   ), "GameListEntry.SetTitleIdAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "GameListEntry.SetTitleIdAsync")
 
 proc gameModeConfiguration*(self: GameListEntry): GameModeConfiguration =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_GameModeConfiguration
   withIface(self.p, IGameListEntry2, it):
-    var tmp: pointer
-    it.call(IGameListEntry2_get_GameModeConfiguration, tmp.addr)
-    result = adopt[GameModeConfiguration](tmp)
+    result = it.getObject(get_GameModeConfiguration, GameModeConfiguration)
 
 proc invoke*(self: GameListRemovedEventHandler, identifier: string) =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListRemovedEventHandler.Invoke
   withIface(self.p, GameListRemovedEventHandler, it):
     withHString(identifier, h0):
-      it.call(GameListRemovedEventHandler_Invoke, h0)
+      check it.vtbl.Invoke(it, h0), "GameListRemovedEventHandler.Invoke"
 
 proc isEnabled*(self: GameModeConfiguration): bool =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_IsEnabled
   withIface(self.p, IGameModeConfiguration, it):
-    var tmp: bool
-    it.call(IGameModeConfiguration_get_IsEnabled, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsEnabled, bool)
 
 proc `isEnabled=`*(self: GameModeConfiguration, value: bool) =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.put_IsEnabled
   withIface(self.p, IGameModeConfiguration, it):
-    it.call(IGameModeConfiguration_put_IsEnabled, value)
+    it.putValue(put_IsEnabled, value)
 
 proc relatedProcessNames*(self: GameModeConfiguration): seq[string] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_RelatedProcessNames
   withIface(self.p, IGameModeConfiguration, it):
     var tmp: pointer
-    it.call(IGameModeConfiguration_get_RelatedProcessNames, tmp.addr)
+    check it.vtbl.get_RelatedProcessNames(it, tmp.addr
+                                         ), "GameModeConfiguration.get_RelatedProcessNames"
     result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
@@ -2262,7 +2160,8 @@ proc percentGpuTimeAllocatedToGame*(self: GameModeConfiguration): Option[int32] 
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_PercentGpuTimeAllocatedToGame
   withIface(self.p, IGameModeConfiguration, it):
     var tmp: pointer
-    it.call(IGameModeConfiguration_get_PercentGpuTimeAllocatedToGame, tmp.addr)
+    check it.vtbl.get_PercentGpuTimeAllocatedToGame(it, tmp.addr
+                                                   ), "GameModeConfiguration.get_PercentGpuTimeAllocatedToGame"
     result = readReference[int32](tmp, IID_IReference_1_I4,
                                   "GameModeConfiguration.get_PercentGpuTimeAllocatedToGame"
                                  )
@@ -2274,14 +2173,15 @@ proc `percentGpuTimeAllocatedToGame=`*(self: GameModeConfiguration,
   withIface(self.p, IGameModeConfiguration, it):
     let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
     defer: discard release(p0)
-    it.call(IGameModeConfiguration_put_PercentGpuTimeAllocatedToGame, p0)
+    check it.vtbl.put_PercentGpuTimeAllocatedToGame(it, p0
+                                                   ), "GameModeConfiguration.put_PercentGpuTimeAllocatedToGame"
 
 proc percentGpuMemoryAllocatedToGame*(self: GameModeConfiguration): Option[int32] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_PercentGpuMemoryAllocatedToGame
   withIface(self.p, IGameModeConfiguration, it):
     var tmp: pointer
-    it.call(IGameModeConfiguration_get_PercentGpuMemoryAllocatedToGame, tmp.addr
-           )
+    check it.vtbl.get_PercentGpuMemoryAllocatedToGame(it, tmp.addr
+                                                     ), "GameModeConfiguration.get_PercentGpuMemoryAllocatedToGame"
     result = readReference[int32](tmp, IID_IReference_1_I4,
                                   "GameModeConfiguration.get_PercentGpuMemoryAllocatedToGame"
                                  )
@@ -2293,14 +2193,15 @@ proc `percentGpuMemoryAllocatedToGame=`*(self: GameModeConfiguration,
   withIface(self.p, IGameModeConfiguration, it):
     let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
     defer: discard release(p0)
-    it.call(IGameModeConfiguration_put_PercentGpuMemoryAllocatedToGame, p0)
+    check it.vtbl.put_PercentGpuMemoryAllocatedToGame(it, p0
+                                                     ), "GameModeConfiguration.put_PercentGpuMemoryAllocatedToGame"
 
 proc percentGpuMemoryAllocatedToSystemCompositor*(self: GameModeConfiguration): Option[int32] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_PercentGpuMemoryAllocatedToSystemCompositor
   withIface(self.p, IGameModeConfiguration, it):
     var tmp: pointer
-    it.call(IGameModeConfiguration_get_PercentGpuMemoryAllocatedToSystemCompositor,
-            tmp.addr)
+    check it.vtbl.get_PercentGpuMemoryAllocatedToSystemCompositor(it, tmp.addr
+                                                                 ), "GameModeConfiguration.get_PercentGpuMemoryAllocatedToSystemCompositor"
     result = readReference[int32](tmp, IID_IReference_1_I4,
                                   "GameModeConfiguration.get_PercentGpuMemoryAllocatedToSystemCompositor"
                                  )
@@ -2312,14 +2213,15 @@ proc `percentGpuMemoryAllocatedToSystemCompositor=`*(self: GameModeConfiguration
   withIface(self.p, IGameModeConfiguration, it):
     let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
     defer: discard release(p0)
-    it.call(IGameModeConfiguration_put_PercentGpuMemoryAllocatedToSystemCompositor,
-            p0)
+    check it.vtbl.put_PercentGpuMemoryAllocatedToSystemCompositor(it, p0
+                                                                 ), "GameModeConfiguration.put_PercentGpuMemoryAllocatedToSystemCompositor"
 
 proc maxCpuCount*(self: GameModeConfiguration): Option[int32] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_MaxCpuCount
   withIface(self.p, IGameModeConfiguration, it):
     var tmp: pointer
-    it.call(IGameModeConfiguration_get_MaxCpuCount, tmp.addr)
+    check it.vtbl.get_MaxCpuCount(it, tmp.addr
+                                 ), "GameModeConfiguration.get_MaxCpuCount"
     result = readReference[int32](tmp, IID_IReference_1_I4,
                                   "GameModeConfiguration.get_MaxCpuCount")
     release(tmp)
@@ -2329,13 +2231,15 @@ proc `maxCpuCount=`*(self: GameModeConfiguration, value: Option[int32]) =
   withIface(self.p, IGameModeConfiguration, it):
     let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
     defer: discard release(p0)
-    it.call(IGameModeConfiguration_put_MaxCpuCount, p0)
+    check it.vtbl.put_MaxCpuCount(it, p0
+                                 ), "GameModeConfiguration.put_MaxCpuCount"
 
 proc cpuExclusivityMaskLow*(self: GameModeConfiguration): Option[int32] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_CpuExclusivityMaskLow
   withIface(self.p, IGameModeConfiguration, it):
     var tmp: pointer
-    it.call(IGameModeConfiguration_get_CpuExclusivityMaskLow, tmp.addr)
+    check it.vtbl.get_CpuExclusivityMaskLow(it, tmp.addr
+                                           ), "GameModeConfiguration.get_CpuExclusivityMaskLow"
     result = readReference[int32](tmp, IID_IReference_1_I4,
                                   "GameModeConfiguration.get_CpuExclusivityMaskLow"
                                  )
@@ -2347,13 +2251,15 @@ proc `cpuExclusivityMaskLow=`*(self: GameModeConfiguration, value: Option[int32]
   withIface(self.p, IGameModeConfiguration, it):
     let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
     defer: discard release(p0)
-    it.call(IGameModeConfiguration_put_CpuExclusivityMaskLow, p0)
+    check it.vtbl.put_CpuExclusivityMaskLow(it, p0
+                                           ), "GameModeConfiguration.put_CpuExclusivityMaskLow"
 
 proc cpuExclusivityMaskHigh*(self: GameModeConfiguration): Option[int32] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_CpuExclusivityMaskHigh
   withIface(self.p, IGameModeConfiguration, it):
     var tmp: pointer
-    it.call(IGameModeConfiguration_get_CpuExclusivityMaskHigh, tmp.addr)
+    check it.vtbl.get_CpuExclusivityMaskHigh(it, tmp.addr
+                                            ), "GameModeConfiguration.get_CpuExclusivityMaskHigh"
     result = readReference[int32](tmp, IID_IReference_1_I4,
                                   "GameModeConfiguration.get_CpuExclusivityMaskHigh"
                                  )
@@ -2365,25 +2271,24 @@ proc `cpuExclusivityMaskHigh=`*(self: GameModeConfiguration,
   withIface(self.p, IGameModeConfiguration, it):
     let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
     defer: discard release(p0)
-    it.call(IGameModeConfiguration_put_CpuExclusivityMaskHigh, p0)
+    check it.vtbl.put_CpuExclusivityMaskHigh(it, p0
+                                            ), "GameModeConfiguration.put_CpuExclusivityMaskHigh"
 
 proc affinitizeToExclusiveCpus*(self: GameModeConfiguration): bool =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_AffinitizeToExclusiveCpus
   withIface(self.p, IGameModeConfiguration, it):
-    var tmp: bool
-    it.call(IGameModeConfiguration_get_AffinitizeToExclusiveCpus, tmp.addr)
-    result = tmp
+    result = it.getValue(get_AffinitizeToExclusiveCpus, bool)
 
 proc `affinitizeToExclusiveCpus=`*(self: GameModeConfiguration, value: bool) =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.put_AffinitizeToExclusiveCpus
   withIface(self.p, IGameModeConfiguration, it):
-    it.call(IGameModeConfiguration_put_AffinitizeToExclusiveCpus, value)
+    it.putValue(put_AffinitizeToExclusiveCpus, value)
 
 proc saveAsync*(self: GameModeConfiguration) {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.SaveAsync
   var op: pointer
   withIface(self.p, IGameModeConfiguration, it):
-    it.call(IGameModeConfiguration_SaveAsync, op.addr)
+    check it.vtbl.SaveAsync(it, op.addr), "GameModeConfiguration.SaveAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "GameModeConfiguration.SaveAsync")
 
@@ -2391,7 +2296,8 @@ proc gamingRelatedProcessNames*(self: GameModeUserConfiguration): seq[string] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration.get_GamingRelatedProcessNames
   withIface(self.p, IGameModeUserConfiguration, it):
     var tmp: pointer
-    it.call(IGameModeUserConfiguration_get_GamingRelatedProcessNames, tmp.addr)
+    check it.vtbl.get_GamingRelatedProcessNames(it, tmp.addr
+                                               ), "GameModeUserConfiguration.get_GamingRelatedProcessNames"
     result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
@@ -2399,7 +2305,7 @@ proc saveAsync*(self: GameModeUserConfiguration) {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration.SaveAsync
   var op: pointer
   withIface(self.p, IGameModeUserConfiguration, it):
-    it.call(IGameModeUserConfiguration_SaveAsync, op.addr)
+    check it.vtbl.SaveAsync(it, op.addr), "GameModeUserConfiguration.SaveAsync"
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "GameModeUserConfiguration.SaveAsync")
 
@@ -2408,7 +2314,8 @@ proc getDefault*(_: typedesc[GameModeUserConfiguration]): GameModeUserConfigurat
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration",
               IGameModeUserConfigurationStatics, it):
     var tmp: pointer
-    it.call(IGameModeUserConfigurationStatics_GetDefault, tmp.addr)
+    check it.vtbl.GetDefault(it, tmp.addr
+                            ), "GameModeUserConfiguration.GetDefault"
     result = adopt[GameModeUserConfiguration](tmp)
 
 proc onVisibilityChanged*(_: typedesc[GameBar],
@@ -2421,13 +2328,13 @@ proc onVisibilityChanged*(_: typedesc[GameBar],
       handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
     let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      it.call(IGameBarStatics_add_VisibilityChanged, cb, result.addr)
+      check it.vtbl.add_VisibilityChanged(it, cb, result.addr), "GameBar.add_VisibilityChanged"
     finally:
       release(cb)
 
 proc removeVisibilityChanged*(_: typedesc[GameBar], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.UI.GameBar", IGameBarStatics, it):
-    it.call(IGameBarStatics_remove_VisibilityChanged, token)
+    check it.vtbl.remove_VisibilityChanged(it, token), "GameBar.remove_VisibilityChanged"
 
 proc onIsInputRedirectedChanged*(_: typedesc[GameBar],
                                  handler: EventHandler[WinRtObject, WinRtObject]
@@ -2439,75 +2346,59 @@ proc onIsInputRedirectedChanged*(_: typedesc[GameBar],
       handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
     let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      it.call(IGameBarStatics_add_IsInputRedirectedChanged, cb, result.addr)
+      check it.vtbl.add_IsInputRedirectedChanged(it, cb, result.addr), "GameBar.add_IsInputRedirectedChanged"
     finally:
       release(cb)
 
 proc removeIsInputRedirectedChanged*(_: typedesc[GameBar], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.UI.GameBar", IGameBarStatics, it):
-    it.call(IGameBarStatics_remove_IsInputRedirectedChanged, token)
+    check it.vtbl.remove_IsInputRedirectedChanged(it, token), "GameBar.remove_IsInputRedirectedChanged"
 
 proc visible*(_: typedesc[GameBar]): bool =
   ## Windows.Gaming.UI.GameBar.get_Visible
   withStatics("Windows.Gaming.UI.GameBar", IGameBarStatics, it):
-    var tmp: bool
-    it.call(IGameBarStatics_get_Visible, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Visible, bool)
 
 proc isInputRedirected*(_: typedesc[GameBar]): bool =
   ## Windows.Gaming.UI.GameBar.get_IsInputRedirected
   withStatics("Windows.Gaming.UI.GameBar", IGameBarStatics, it):
-    var tmp: bool
-    it.call(IGameBarStatics_get_IsInputRedirected, tmp.addr)
-    result = tmp
+    result = it.getValue(get_IsInputRedirected, bool)
 
 proc appId*(self: GameChatMessageReceivedEventArgs): string =
   ## Windows.Gaming.UI.GameChatMessageReceivedEventArgs.get_AppId
   withIface(self.p, IGameChatMessageReceivedEventArgs, it):
-    var tmp: HSTRING
-    it.call(IGameChatMessageReceivedEventArgs_get_AppId, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AppId)
 
 proc appDisplayName*(self: GameChatMessageReceivedEventArgs): string =
   ## Windows.Gaming.UI.GameChatMessageReceivedEventArgs.get_AppDisplayName
   withIface(self.p, IGameChatMessageReceivedEventArgs, it):
-    var tmp: HSTRING
-    it.call(IGameChatMessageReceivedEventArgs_get_AppDisplayName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_AppDisplayName)
 
 proc senderName*(self: GameChatMessageReceivedEventArgs): string =
   ## Windows.Gaming.UI.GameChatMessageReceivedEventArgs.get_SenderName
   withIface(self.p, IGameChatMessageReceivedEventArgs, it):
-    var tmp: HSTRING
-    it.call(IGameChatMessageReceivedEventArgs_get_SenderName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_SenderName)
 
 proc message*(self: GameChatMessageReceivedEventArgs): string =
   ## Windows.Gaming.UI.GameChatMessageReceivedEventArgs.get_Message
   withIface(self.p, IGameChatMessageReceivedEventArgs, it):
-    var tmp: HSTRING
-    it.call(IGameChatMessageReceivedEventArgs_get_Message, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Message)
 
 proc origin*(self: GameChatMessageReceivedEventArgs): GameChatMessageOrigin =
   ## Windows.Gaming.UI.GameChatMessageReceivedEventArgs.get_Origin
   withIface(self.p, IGameChatMessageReceivedEventArgs, it):
-    var tmp: GameChatMessageOrigin
-    it.call(IGameChatMessageReceivedEventArgs_get_Origin, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Origin, GameChatMessageOrigin)
 
 proc desiredPosition*(self: GameChatOverlay): GameChatOverlayPosition =
   ## Windows.Gaming.UI.GameChatOverlay.get_DesiredPosition
   withIface(self.p, IGameChatOverlay, it):
-    var tmp: GameChatOverlayPosition
-    it.call(IGameChatOverlay_get_DesiredPosition, tmp.addr)
-    result = tmp
+    result = it.getValue(get_DesiredPosition, GameChatOverlayPosition)
 
 proc `desiredPosition=`*(self: GameChatOverlay, value: GameChatOverlayPosition
                         ) =
   ## Windows.Gaming.UI.GameChatOverlay.put_DesiredPosition
   withIface(self.p, IGameChatOverlay, it):
-    it.call(IGameChatOverlay_put_DesiredPosition, value)
+    it.putValue(put_DesiredPosition, value)
 
 proc addMessage*(self: GameChatOverlay, sender: string, message: string,
                  origin: GameChatMessageOrigin) =
@@ -2515,13 +2406,14 @@ proc addMessage*(self: GameChatOverlay, sender: string, message: string,
   withIface(self.p, IGameChatOverlay, it):
     withHString(sender, h0):
       withHString(message, h1):
-        it.call(IGameChatOverlay_AddMessage, h0, h1, origin)
+        check it.vtbl.AddMessage(it, h0, h1, origin
+                                ), "GameChatOverlay.AddMessage"
 
 proc getDefault*(_: typedesc[GameChatOverlay]): GameChatOverlay =
   ## Windows.Gaming.UI.GameChatOverlay.GetDefault
   withStatics("Windows.Gaming.UI.GameChatOverlay", IGameChatOverlayStatics, it):
     var tmp: pointer
-    it.call(IGameChatOverlayStatics_GetDefault, tmp.addr)
+    check it.vtbl.GetDefault(it, tmp.addr), "GameChatOverlay.GetDefault"
     result = adopt[GameChatOverlay](tmp)
 
 proc newGameChatOverlayMessageSource*(): GameChatOverlayMessageSource =
@@ -2540,68 +2432,59 @@ proc onMessageReceived*(self: GameChatOverlayMessageSource,
     let cb = newDelegate(IID_TypedEventHandler_2_GameChatOverlayMessageSource_GameChatMessageReceivedEventArgs,
                          shim, event = true)
     try:
-      it.call(IGameChatOverlayMessageSource_add_MessageReceived, cb, result.addr)
+      check it.vtbl.add_MessageReceived(it, cb, result.addr), "GameChatOverlayMessageSource.add_MessageReceived"
     finally:
       release(cb)
 
 proc removeMessageReceived*(self: GameChatOverlayMessageSource, token: EventRegistrationToken) =
   withIface(self.p, IGameChatOverlayMessageSource, it):
-    it.call(IGameChatOverlayMessageSource_remove_MessageReceived, token)
+    check it.vtbl.remove_MessageReceived(it, token), "GameChatOverlayMessageSource.remove_MessageReceived"
 
 proc setDelayBeforeClosingAfterMessageReceived*(self: GameChatOverlayMessageSource,
                                                 value: TimeSpan) =
   ## Windows.Gaming.UI.GameChatOverlayMessageSource.SetDelayBeforeClosingAfterMessageReceived
   withIface(self.p, IGameChatOverlayMessageSource, it):
-    it.call(IGameChatOverlayMessageSource_SetDelayBeforeClosingAfterMessageReceived,
-            value)
+    check it.vtbl.SetDelayBeforeClosingAfterMessageReceived(it, value
+                                                           ), "GameChatOverlayMessageSource.SetDelayBeforeClosingAfterMessageReceived"
 
 proc gameUIArgs*(self: GameUIProviderActivatedEventArgs): ValueSet =
   ## Windows.Gaming.UI.GameUIProviderActivatedEventArgs.get_GameUIArgs
   withIface(self.p, IGameUIProviderActivatedEventArgs, it):
-    var tmp: pointer
-    it.call(IGameUIProviderActivatedEventArgs_get_GameUIArgs, tmp.addr)
-    result = adopt[ValueSet](tmp)
+    result = it.getObject(get_GameUIArgs, ValueSet)
 
 proc reportCompleted*(self: GameUIProviderActivatedEventArgs, results: ValueSet
                      ) =
   ## Windows.Gaming.UI.GameUIProviderActivatedEventArgs.ReportCompleted
   withIface(self.p, IGameUIProviderActivatedEventArgs, it):
     withIface(results.p, IPropertySet, p0):
-      it.call(IGameUIProviderActivatedEventArgs_ReportCompleted, p0)
+      check it.vtbl.ReportCompleted(it, p0
+                                   ), "GameUIProviderActivatedEventArgs.ReportCompleted"
 
 proc kind*(self: GameUIProviderActivatedEventArgs): ActivationKind =
   ## Windows.Gaming.UI.GameUIProviderActivatedEventArgs.get_Kind
   withIface(self.p, IActivatedEventArgs, it):
-    var tmp: ActivationKind
-    it.call(IActivatedEventArgs_get_Kind, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Kind, ActivationKind)
 
 proc previousExecutionState*(self: GameUIProviderActivatedEventArgs): ApplicationExecutionState =
   ## Windows.Gaming.UI.GameUIProviderActivatedEventArgs.get_PreviousExecutionState
   withIface(self.p, IActivatedEventArgs, it):
-    var tmp: ApplicationExecutionState
-    it.call(IActivatedEventArgs_get_PreviousExecutionState, tmp.addr)
-    result = tmp
+    result = it.getValue(get_PreviousExecutionState, ApplicationExecutionState)
 
 proc splashScreen*(self: GameUIProviderActivatedEventArgs): SplashScreen =
   ## Windows.Gaming.UI.GameUIProviderActivatedEventArgs.get_SplashScreen
   withIface(self.p, IActivatedEventArgs, it):
-    var tmp: pointer
-    it.call(IActivatedEventArgs_get_SplashScreen, tmp.addr)
-    result = adopt[SplashScreen](tmp)
+    result = it.getObject(get_SplashScreen, SplashScreen)
 
 proc status*(self: GameSaveBlobGetResult): GameSaveErrorStatus =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobGetResult.get_Status
   withIface(self.p, IGameSaveBlobGetResult, it):
-    var tmp: GameSaveErrorStatus
-    it.call(IGameSaveBlobGetResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, GameSaveErrorStatus)
 
 proc value*(self: GameSaveBlobGetResult): Table[string, Buffer] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobGetResult.get_Value
   withIface(self.p, IGameSaveBlobGetResult, it):
     var tmp: pointer
-    it.call(IGameSaveBlobGetResult_get_Value, tmp.addr)
+    check it.vtbl.get_Value(it, tmp.addr), "GameSaveBlobGetResult.get_Value"
     result = toTable[string, Buffer](tmp, IID_IIterable_1_IKeyValuePair_23,
                                      IID_IKeyValuePair_2_String_IBuffer)
     release(tmp)
@@ -2609,29 +2492,23 @@ proc value*(self: GameSaveBlobGetResult): Table[string, Buffer] =
 proc name*(self: GameSaveBlobInfo): string =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfo.get_Name
   withIface(self.p, IGameSaveBlobInfo, it):
-    var tmp: HSTRING
-    it.call(IGameSaveBlobInfo_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc size*(self: GameSaveBlobInfo): uint32 =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfo.get_Size
   withIface(self.p, IGameSaveBlobInfo, it):
-    var tmp: uint32
-    it.call(IGameSaveBlobInfo_get_Size, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Size, uint32)
 
 proc status*(self: GameSaveBlobInfoGetResult): GameSaveErrorStatus =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoGetResult.get_Status
   withIface(self.p, IGameSaveBlobInfoGetResult, it):
-    var tmp: GameSaveErrorStatus
-    it.call(IGameSaveBlobInfoGetResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, GameSaveErrorStatus)
 
 proc value*(self: GameSaveBlobInfoGetResult): seq[GameSaveBlobInfo] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoGetResult.get_Value
   withIface(self.p, IGameSaveBlobInfoGetResult, it):
     var tmp: pointer
-    it.call(IGameSaveBlobInfoGetResult_get_Value, tmp.addr)
+    check it.vtbl.get_Value(it, tmp.addr), "GameSaveBlobInfoGetResult.get_Value"
     result = toSeq[GameSaveBlobInfo](tmp, IID_IVectorView_1_GameSaveBlobInfo)
     release(tmp)
 
@@ -2639,7 +2516,8 @@ proc getBlobInfoAsync*(self: GameSaveBlobInfoQuery): Future[GameSaveBlobInfoGetR
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoQuery.GetBlobInfoAsync
   var op: pointer
   withIface(self.p, IGameSaveBlobInfoQuery, it):
-    it.call(IGameSaveBlobInfoQuery_GetBlobInfoAsync, op.addr)
+    check it.vtbl.GetBlobInfoAsync(it, op.addr
+                                  ), "GameSaveBlobInfoQuery.GetBlobInfoAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_GameSaveBlobInfoGetResult,
                               IID_AsyncOperationCompletedHandler_1_GameSaveBlobInfoGetResult,
@@ -2652,8 +2530,8 @@ proc getBlobInfoAsync*(self: GameSaveBlobInfoQuery, startIndex: uint32,
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoQuery.GetBlobInfoAsync
   var op: pointer
   withIface(self.p, IGameSaveBlobInfoQuery, it):
-    it.call(IGameSaveBlobInfoQuery_GetBlobInfoAsync2, startIndex,
-            maxNumberOfItems, op.addr)
+    check it.vtbl.GetBlobInfoAsync2(it, startIndex, maxNumberOfItems, op.addr
+                                   ), "GameSaveBlobInfoQuery.GetBlobInfoAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_GameSaveBlobInfoGetResult,
                               IID_AsyncOperationCompletedHandler_1_GameSaveBlobInfoGetResult,
@@ -2664,7 +2542,8 @@ proc getItemCountAsync*(self: GameSaveBlobInfoQuery): Future[uint32] {.async.} =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoQuery.GetItemCountAsync
   var op: pointer
   withIface(self.p, IGameSaveBlobInfoQuery, it):
-    it.call(IGameSaveBlobInfoQuery_GetItemCountAsync, op.addr)
+    check it.vtbl.GetItemCountAsync(it, op.addr
+                                   ), "GameSaveBlobInfoQuery.GetItemCountAsync"
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
                                     IID_AsyncOperationCompletedHandler_1_U4,
                                     alPlain,
@@ -2673,16 +2552,12 @@ proc getItemCountAsync*(self: GameSaveBlobInfoQuery): Future[uint32] {.async.} =
 proc name*(self: GameSaveContainer): string =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.get_Name
   withIface(self.p, IGameSaveContainer, it):
-    var tmp: HSTRING
-    it.call(IGameSaveContainer_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc provider*(self: GameSaveContainer): GameSaveProvider =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.get_Provider
   withIface(self.p, IGameSaveContainer, it):
-    var tmp: pointer
-    it.call(IGameSaveContainer_get_Provider, tmp.addr)
-    result = adopt[GameSaveProvider](tmp)
+    result = it.getObject(get_Provider, GameSaveProvider)
 
 proc submitUpdatesAsync*(self: GameSaveContainer,
                          blobsToWrite: Table[string, Buffer],
@@ -2702,7 +2577,8 @@ proc submitUpdatesAsync*(self: GameSaveContainer,
                                              IID_IIterator_1_String)
     defer: discard release(p1)
     withHString(displayName, h2):
-      it.call(IGameSaveContainer_SubmitUpdatesAsync, p0, p1, h2, op.addr)
+      check it.vtbl.SubmitUpdatesAsync(it, p0, p1, h2, op.addr
+                                      ), "GameSaveContainer.SubmitUpdatesAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_GameSaveOperationResult,
                               IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult,
                               alPlain, "GameSaveContainer.SubmitUpdatesAsync")
@@ -2719,7 +2595,7 @@ proc readAsync*(self: GameSaveContainer, blobsToRead: Table[string, Buffer]
                                         view: IID_IMapView_2_String_IBuffer,
                                         map: IID_IMap_2_String_IBuffer))
     defer: discard release(p0)
-    it.call(IGameSaveContainer_ReadAsync, p0, op.addr)
+    check it.vtbl.ReadAsync(it, p0, op.addr), "GameSaveContainer.ReadAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_GameSaveOperationResult,
                               IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult,
                               alPlain, "GameSaveContainer.ReadAsync")
@@ -2734,7 +2610,7 @@ proc getAsync*(self: GameSaveContainer, blobsToRead: seq[string]
                                            IID_IVectorView_1_String,
                                            IID_IIterator_1_String)
     defer: discard release(p0)
-    it.call(IGameSaveContainer_GetAsync, p0, op.addr)
+    check it.vtbl.GetAsync(it, p0, op.addr), "GameSaveContainer.GetAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_GameSaveBlobGetResult,
                               IID_AsyncOperationCompletedHandler_1_GameSaveBlobGetResult,
                               alPlain, "GameSaveContainer.GetAsync")
@@ -2754,8 +2630,8 @@ proc submitPropertySetUpdatesAsync*(self: GameSaveContainer,
                                                IID_IIterator_1_String)
       defer: discard release(p1)
       withHString(displayName, h2):
-        it.call(IGameSaveContainer_SubmitPropertySetUpdatesAsync, p0, p1, h2,
-                op.addr)
+        check it.vtbl.SubmitPropertySetUpdatesAsync(it, p0, p1, h2, op.addr
+                                                   ), "GameSaveContainer.SubmitPropertySetUpdatesAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_GameSaveOperationResult,
                               IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult,
                               alPlain,
@@ -2768,56 +2644,46 @@ proc createBlobInfoQuery*(self: GameSaveContainer, blobNamePrefix: string
   withIface(self.p, IGameSaveContainer, it):
     withHString(blobNamePrefix, h0):
       var tmp: pointer
-      it.call(IGameSaveContainer_CreateBlobInfoQuery, h0, tmp.addr)
+      check it.vtbl.CreateBlobInfoQuery(it, h0, tmp.addr
+                                       ), "GameSaveContainer.CreateBlobInfoQuery"
       result = adopt[GameSaveBlobInfoQuery](tmp)
 
 proc name*(self: GameSaveContainerInfo): string =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfo.get_Name
   withIface(self.p, IGameSaveContainerInfo, it):
-    var tmp: HSTRING
-    it.call(IGameSaveContainerInfo_get_Name, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_Name)
 
 proc totalSize*(self: GameSaveContainerInfo): uint64 =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfo.get_TotalSize
   withIface(self.p, IGameSaveContainerInfo, it):
-    var tmp: uint64
-    it.call(IGameSaveContainerInfo_get_TotalSize, tmp.addr)
-    result = tmp
+    result = it.getValue(get_TotalSize, uint64)
 
 proc displayName*(self: GameSaveContainerInfo): string =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfo.get_DisplayName
   withIface(self.p, IGameSaveContainerInfo, it):
-    var tmp: HSTRING
-    it.call(IGameSaveContainerInfo_get_DisplayName, tmp.addr)
-    result = takeString(tmp)
+    result = it.getString(get_DisplayName)
 
 proc lastModifiedTime*(self: GameSaveContainerInfo): DateTime =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfo.get_LastModifiedTime
   withIface(self.p, IGameSaveContainerInfo, it):
-    var tmp: DateTime
-    it.call(IGameSaveContainerInfo_get_LastModifiedTime, tmp.addr)
-    result = tmp
+    result = it.getValue(get_LastModifiedTime, DateTime)
 
 proc needsSync*(self: GameSaveContainerInfo): bool =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfo.get_NeedsSync
   withIface(self.p, IGameSaveContainerInfo, it):
-    var tmp: bool
-    it.call(IGameSaveContainerInfo_get_NeedsSync, tmp.addr)
-    result = tmp
+    result = it.getValue(get_NeedsSync, bool)
 
 proc status*(self: GameSaveContainerInfoGetResult): GameSaveErrorStatus =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoGetResult.get_Status
   withIface(self.p, IGameSaveContainerInfoGetResult, it):
-    var tmp: GameSaveErrorStatus
-    it.call(IGameSaveContainerInfoGetResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, GameSaveErrorStatus)
 
 proc value*(self: GameSaveContainerInfoGetResult): seq[GameSaveContainerInfo] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoGetResult.get_Value
   withIface(self.p, IGameSaveContainerInfoGetResult, it):
     var tmp: pointer
-    it.call(IGameSaveContainerInfoGetResult_get_Value, tmp.addr)
+    check it.vtbl.get_Value(it, tmp.addr
+                           ), "GameSaveContainerInfoGetResult.get_Value"
     result = toSeq[GameSaveContainerInfo](tmp,
                                           IID_IVectorView_1_GameSaveContainerInfo
                                          )
@@ -2827,7 +2693,8 @@ proc getContainerInfoAsync*(self: GameSaveContainerInfoQuery): Future[GameSaveCo
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoQuery.GetContainerInfoAsync
   var op: pointer
   withIface(self.p, IGameSaveContainerInfoQuery, it):
-    it.call(IGameSaveContainerInfoQuery_GetContainerInfoAsync, op.addr)
+    check it.vtbl.GetContainerInfoAsync(it, op.addr
+                                       ), "GameSaveContainerInfoQuery.GetContainerInfoAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_GameSaveContainerInfoGetResult,
                               IID_AsyncOperationCompletedHandler_1_GameSaveContainerInfoGetResult,
@@ -2842,8 +2709,9 @@ proc getContainerInfoAsync*(self: GameSaveContainerInfoQuery,
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoQuery.GetContainerInfoAsync
   var op: pointer
   withIface(self.p, IGameSaveContainerInfoQuery, it):
-    it.call(IGameSaveContainerInfoQuery_GetContainerInfoAsync2, startIndex,
-            maxNumberOfItems, op.addr)
+    check it.vtbl.GetContainerInfoAsync2(it, startIndex, maxNumberOfItems,
+                                         op.addr
+                                        ), "GameSaveContainerInfoQuery.GetContainerInfoAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_GameSaveContainerInfoGetResult,
                               IID_AsyncOperationCompletedHandler_1_GameSaveContainerInfoGetResult,
@@ -2856,7 +2724,8 @@ proc getItemCountAsync*(self: GameSaveContainerInfoQuery): Future[uint32] {.asyn
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoQuery.GetItemCountAsync
   var op: pointer
   withIface(self.p, IGameSaveContainerInfoQuery, it):
-    it.call(IGameSaveContainerInfoQuery_GetItemCountAsync, op.addr)
+    check it.vtbl.GetItemCountAsync(it, op.addr
+                                   ), "GameSaveContainerInfoQuery.GetItemCountAsync"
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
                                     IID_AsyncOperationCompletedHandler_1_U4,
                                     alPlain,
@@ -2866,23 +2735,20 @@ proc getItemCountAsync*(self: GameSaveContainerInfoQuery): Future[uint32] {.asyn
 proc status*(self: GameSaveOperationResult): GameSaveErrorStatus =
   ## Windows.Gaming.XboxLive.Storage.GameSaveOperationResult.get_Status
   withIface(self.p, IGameSaveOperationResult, it):
-    var tmp: GameSaveErrorStatus
-    it.call(IGameSaveOperationResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, GameSaveErrorStatus)
 
 proc user*(self: GameSaveProvider): User =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.get_User
   withIface(self.p, IGameSaveProvider, it):
-    var tmp: pointer
-    it.call(IGameSaveProvider_get_User, tmp.addr)
-    result = adopt[User](tmp)
+    result = it.getObject(get_User, User)
 
 proc createContainer*(self: GameSaveProvider, name: string): GameSaveContainer =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.CreateContainer
   withIface(self.p, IGameSaveProvider, it):
     withHString(name, h0):
       var tmp: pointer
-      it.call(IGameSaveProvider_CreateContainer, h0, tmp.addr)
+      check it.vtbl.CreateContainer(it, h0, tmp.addr
+                                   ), "GameSaveProvider.CreateContainer"
       result = adopt[GameSaveContainer](tmp)
 
 proc deleteContainerAsync*(self: GameSaveProvider, name: string
@@ -2891,7 +2757,8 @@ proc deleteContainerAsync*(self: GameSaveProvider, name: string
   var op: pointer
   withIface(self.p, IGameSaveProvider, it):
     withHString(name, h0):
-      it.call(IGameSaveProvider_DeleteContainerAsync, h0, op.addr)
+      check it.vtbl.DeleteContainerAsync(it, h0, op.addr
+                                        ), "GameSaveProvider.DeleteContainerAsync"
   let obj = await awaitObject(op, IID_IAsyncOperation_1_GameSaveOperationResult,
                               IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult,
                               alPlain, "GameSaveProvider.DeleteContainerAsync")
@@ -2901,7 +2768,8 @@ proc createContainerInfoQuery*(self: GameSaveProvider): GameSaveContainerInfoQue
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.CreateContainerInfoQuery
   withIface(self.p, IGameSaveProvider, it):
     var tmp: pointer
-    it.call(IGameSaveProvider_CreateContainerInfoQuery, tmp.addr)
+    check it.vtbl.CreateContainerInfoQuery(it, tmp.addr
+                                          ), "GameSaveProvider.CreateContainerInfoQuery"
     result = adopt[GameSaveContainerInfoQuery](tmp)
 
 proc createContainerInfoQuery*(self: GameSaveProvider,
@@ -2911,14 +2779,16 @@ proc createContainerInfoQuery*(self: GameSaveProvider,
   withIface(self.p, IGameSaveProvider, it):
     withHString(containerNamePrefix, h0):
       var tmp: pointer
-      it.call(IGameSaveProvider_CreateContainerInfoQuery2, h0, tmp.addr)
+      check it.vtbl.CreateContainerInfoQuery2(it, h0, tmp.addr
+                                             ), "GameSaveProvider.CreateContainerInfoQuery"
       result = adopt[GameSaveContainerInfoQuery](tmp)
 
 proc getRemainingBytesInQuotaAsync*(self: GameSaveProvider): Future[int64] {.async.} =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.GetRemainingBytesInQuotaAsync
   var op: pointer
   withIface(self.p, IGameSaveProvider, it):
-    it.call(IGameSaveProvider_GetRemainingBytesInQuotaAsync, op.addr)
+    check it.vtbl.GetRemainingBytesInQuotaAsync(it, op.addr
+                                               ), "GameSaveProvider.GetRemainingBytesInQuotaAsync"
   result = await awaitValue[int64](op, IID_IAsyncOperation_1_I8,
                                    IID_AsyncOperationCompletedHandler_1_I8,
                                    alPlain,
@@ -2929,7 +2799,8 @@ proc containersChangedSinceLastSync*(self: GameSaveProvider): seq[string] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.get_ContainersChangedSinceLastSync
   withIface(self.p, IGameSaveProvider, it):
     var tmp: pointer
-    it.call(IGameSaveProvider_get_ContainersChangedSinceLastSync, tmp.addr)
+    check it.vtbl.get_ContainersChangedSinceLastSync(it, tmp.addr
+                                                    ), "GameSaveProvider.get_ContainersChangedSinceLastSync"
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
@@ -2942,7 +2813,8 @@ proc getForUserAsync*(_: typedesc[GameSaveProvider], user: User,
               IGameSaveProviderStatics, it):
     withIface(user.p, IUser, p0):
       withHString(serviceConfigId, h1):
-        it.call(IGameSaveProviderStatics_GetForUserAsync, p0, h1, op.addr)
+        check it.vtbl.GetForUserAsync(it, p0, h1, op.addr
+                                     ), "GameSaveProvider.GetForUserAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_GameSaveProviderGetResult,
                               IID_AsyncOperationCompletedHandler_1_GameSaveProviderGetResult,
@@ -2958,8 +2830,8 @@ proc getSyncOnDemandForUserAsync*(_: typedesc[GameSaveProvider], user: User,
               IGameSaveProviderStatics, it):
     withIface(user.p, IUser, p0):
       withHString(serviceConfigId, h1):
-        it.call(IGameSaveProviderStatics_GetSyncOnDemandForUserAsync, p0, h1,
-                op.addr)
+        check it.vtbl.GetSyncOnDemandForUserAsync(it, p0, h1, op.addr
+                                                 ), "GameSaveProvider.GetSyncOnDemandForUserAsync"
   let obj = await awaitObject(op,
                               IID_IAsyncOperation_1_GameSaveProviderGetResult,
                               IID_AsyncOperationCompletedHandler_1_GameSaveProviderGetResult,
@@ -2970,14 +2842,10 @@ proc getSyncOnDemandForUserAsync*(_: typedesc[GameSaveProvider], user: User,
 proc status*(self: GameSaveProviderGetResult): GameSaveErrorStatus =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProviderGetResult.get_Status
   withIface(self.p, IGameSaveProviderGetResult, it):
-    var tmp: GameSaveErrorStatus
-    it.call(IGameSaveProviderGetResult_get_Status, tmp.addr)
-    result = tmp
+    result = it.getValue(get_Status, GameSaveErrorStatus)
 
 proc value*(self: GameSaveProviderGetResult): GameSaveProvider =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProviderGetResult.get_Value
   withIface(self.p, IGameSaveProviderGetResult, it):
-    var tmp: pointer
-    it.call(IGameSaveProviderGetResult_get_Value, tmp.addr)
-    result = adopt[GameSaveProvider](tmp)
+    result = it.getObject(get_Value, GameSaveProvider)
 
