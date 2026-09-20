@@ -14,11 +14,6 @@ import ./abi/[types, generic]
 import ./abi/foundation as abiFoundation
 import ./abi/storage as abiStorage
 export winrt, classes, types, generic, abiFoundation, abiStorage
-# `future` names its operation type through a template in its own
-# signature, and expanding that here introduces a second symbol of
-# that name. Nim notes that it will use the one captured where
-# `future` was declared, which is the one meant.
-{.push warning[IgnoredSymbolInjection]: off.}
 
 # ---- Windows.Foundation.Metadata.ApiInformation
 

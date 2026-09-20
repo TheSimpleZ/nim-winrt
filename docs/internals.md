@@ -340,7 +340,8 @@ symbol wherever it is instantiated; and a method taking a `Some...` type class
 is itself generic, so it is instantiated in the *calling program*, which is
 where that note would appear. Writing both types keeps every signature
 template-free, and `Api(M)` and `Abi(T)` are still used freely inside the
-bodies, where nothing is reported.
+bodies, where nothing is reported. Nim also gives no way to mix the two:
+name one type argument explicitly and every one of them has to be named.
 
 ### Parameterised IIDs
 

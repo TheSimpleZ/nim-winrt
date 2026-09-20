@@ -1153,14 +1153,7 @@ proc emitGroup(m: Model, winmdPath, prefix, outPath: string): Emission =
   buf.add "##<abi-imports>##\n"
   if prefix != "Windows.Foundation":
     buf.add "import ./foundation\nexport foundation\n"
-  # A note each generated module turns off for itself, with the reason in the
-  # file: `future` names its operation type through a template in its own
-  # signature, and expanding that here introduces a second symbol of that name.
-  buf.add "# `future` names its operation type through a template in its own\n"
-  buf.add "# signature, and expanding that here introduces a second symbol of\n"
-  buf.add "# that name. Nim notes that it will use the one captured where\n"
-  buf.add "# `future` was declared, which is the one meant.\n"
-  buf.add "{.push warning[IgnoredSymbolInjection]: off.}\n\n"
+  buf.add "\n"
   var skips = initCountTable[string]()
   var usedAbi: HashSet[string]
   proc use(iface: Iface) = usedAbi.incl moduleName(topGroup(iface.namespace))

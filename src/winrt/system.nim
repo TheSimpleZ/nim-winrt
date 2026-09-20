@@ -23,11 +23,6 @@ export winrt, classes, types, generic, abiApplicationmodel, abiData,
        abiFoundation, abiNetworking, abiSecurity, abiStorage, abiSystem, abiWeb
 import ./foundation
 export foundation
-# `future` names its operation type through a template in its own
-# signature, and expanding that here introduces a second symbol of
-# that name. Nim notes that it will use the one captured where
-# `future` was declared, which is the one meant.
-{.push warning[IgnoredSymbolInjection]: off.}
 
 # ---- Windows.System.UserProfile.AdvertisingManager
 
