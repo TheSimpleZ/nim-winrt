@@ -212,6 +212,42 @@ proc sameString*(a, b: HSTRING): bool =
   var order: int32
   windowsCompareStringOrdinal(a, b, order.addr) == S_OK and order == 0
 
+type WinRtString* = object
+  ## A string as a struct holds one — `SortEntry.propertyName`,
+  ## `AccessListEntry.token` — owning its handle: a copy duplicates it and
+  ## destruction deletes it, so a struct read out of Windows can be kept and
+  ## one built here handed over, with nothing to free by hand. `$` reads it and
+  ## `toWinRtString` makes one. Everywhere else a string is simply a `string`;
+  ## only inside a struct, which crosses by value with its exact layout, does
+  ## the handle have to stay a handle.
+  h: HSTRING
+
+proc `=destroy`*(x: var WinRtString) =
+  if not pointer(x.h).isNil: discard windowsDeleteString(x.h)
+
+proc `=copy`*(dst: var WinRtString, src: WinRtString) =
+  if pointer(dst.h) == pointer(src.h): return
+  `=destroy`(dst)
+  wasMoved(dst)
+  if not pointer(src.h).isNil:
+    discard windowsDuplicateString(src.h, dst.h.addr)
+
+proc `=sink`*(dst: var WinRtString, src: WinRtString) =
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.h = src.h
+
+proc `$`*(s: WinRtString): string = $s.h
+
+proc toWinRtString*(s: string): WinRtString =
+  WinRtString(h: toHString(s))
+
+proc handle*(s: WinRtString): HSTRING {.inline.} =
+  ## The handle itself, still owned by `s`, for a call at the ABI.
+  s.h
+
+proc hash*(s: WinRtString): Hash = hash($s)
+
 template withHString*(s: string, name, body: untyped) =
   ## Run `body` with `name` bound to a temporary HSTRING, deleted after.
   ## Every activation call needs one of these and forgetting the delete is
@@ -1041,6 +1077,78 @@ proc boxStringAs*(value: string, iid: GUID): pointer =
   result = queryInterface(inspectable, iid)
   release(inspectable)
 
+# A struct may hold an `IReference<T>` too — `HttpProgress.totalBytesToReceive`
+# — and there the box is kept rather than read: `Reference[T]` is the field's
+# type, a `WinRtObject` like any other, so a struct owns a reference to its
+# box for as long as it is kept and a stored progress report still reads.
+
+type Reference*[T] = object of WinRtObject
+  ## An `IReference<T>` inside a struct: nothing, or a boxed value. `value`
+  ## reads it, `reference` makes one, and a zero-initialised field is `none`.
+
+template referenceIid*(T: typedesc): GUID =
+  ## The IID of `IReference<T>` for each value type a struct field can hold.
+  ## Computed from the signature string like every parameterised IID (see
+  ## tools/piid.nim) and fixed by the type system, so written down here.
+  when T is bool: guid"3C00FD60-2950-5939-A21A-2D12C5A01B8A"
+  elif T is uint8: guid"E5198CC8-2873-55F5-B0A1-84FF9E4AAD62"
+  elif T is int16: guid"6EC9E41B-6709-5647-9918-A1270110FC4E"
+  elif T is uint16: guid"5AB7D2C3-6B62-5E71-A4B6-2D49C4F238FD"
+  elif T is int32: guid"548CEFBD-BC8A-5FA0-8DF2-957440FC8BF4"
+  elif T is uint32: guid"513EF3AF-E784-5325-A91E-97C2B8111CF3"
+  elif T is int64: guid"4DDA9E24-E69F-5C6A-A0A6-93427365AF2A"
+  elif T is uint64: guid"6755E376-53BB-568B-A11D-17239868309E"
+  elif T is float32: guid"719CC2BA-3E76-5DEF-9F1A-38D85A145EA8"
+  elif T is float64: guid"2F2D6C29-5473-5F3E-92E7-96572BB990E2"
+  elif T is GUID: guid"7D50F649-632C-51F9-849A-EE49428933EA"
+  else: {.error: "winrt: no IReference<T> IID is known for this type".}
+
+template propertySlot(T: typedesc): int =
+  ## The `PropertyValue.CreateX` slot that boxes a `T`, for the same types.
+  when T is bool: 17
+  elif T is uint8: 7
+  elif T is int16: 8
+  elif T is uint16: 9
+  elif T is int32: 10
+  elif T is uint32: 11
+  elif T is int64: 12
+  elif T is uint64: 13
+  elif T is float32: 14
+  elif T is float64: 15
+  elif T is GUID: 20
+  else: SlotBoxNone
+
+proc value*[T](r: Reference[T]): Option[T] =
+  ## The value inside, or `none`.
+  readReference[T](r.p, referenceIid(T), "IReference")
+
+proc reference*[T](value: T): Reference[T] =
+  ## `value`, boxed, for a struct handed to Windows.
+  Reference[T](p: boxAs(value, propertySlot(T), referenceIid(T)))
+
+# A collection handed to Windows keeps values in a flat buffer, and copying or
+# destroying one of those has to run the type's hooks — a struct holding a
+# `WinRtString` owns a handle. `seqview` and `mapview` keep these two per
+# column, instantiated for the element type at hand.
+
+type
+  ValueCopy* = proc(dst, src: pointer) {.nimcall, raises: [], gcsafe.}
+    ## `dst[] = src[]` for one value type, hooks included.
+  ValueDestroy* = proc(p: pointer) {.nimcall, raises: [], gcsafe.}
+    ## `=destroy(p[])` for one value type.
+
+# The hooks of a WinRT value type are nothing at all or a COM call: they raise
+# nothing and touch no GC memory. The compiler cannot see either fact through
+# a generic hook, hence the casts.
+
+proc copyValue*[T](dst, src: pointer) {.nimcall, raises: [], gcsafe.} =
+  {.cast(raises: []), cast(gcsafe).}:
+    cast[ptr T](dst)[] = cast[ptr T](src)[]
+
+proc destroyValue*[T](p: pointer) {.nimcall, raises: [], gcsafe.} =
+  {.cast(raises: []), cast(gcsafe).}:
+    `=destroy`(cast[ptr T](p)[])
+
 # ----------------------------------------------------------------- arrays
 
 # WinRT passes an array as two arguments — a count and a pointer — and who
@@ -1050,11 +1158,13 @@ proc boxStringAs*(value: string, iid: GUID): pointer =
 # is ours as well.
 
 proc takeArray*[T](size: uint32, data: ptr T): seq[T] =
-  ## A returned array of values, copied out and the buffer released.
+  ## A returned array of values, moved out and the buffer released. Moved,
+  ## because an element may own something — a struct with a `WinRtString`
+  ## field — and the callee's copy is ours to keep, not to duplicate.
   if data.isNil: return
   let items = cast[ptr UncheckedArray[T]](data)
   result = newSeq[T](int(size))
-  for i in 0 ..< int(size): result[i] = items[i]
+  for i in 0 ..< int(size): result[i] = move(items[i])
   coTaskMemFree(data)
 
 proc takeArrayString*(size: uint32, data: ptr HSTRING): seq[string] =

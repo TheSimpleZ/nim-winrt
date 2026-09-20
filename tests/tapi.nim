@@ -341,6 +341,31 @@ suite "generated API":
     check ranOn == main
     check reports[^1].stage == HttpProgressStage.ReceivingContent
     check reports[^1].bytesReceived == 1_000_000
+    # The `IReference<UInt64>` inside the struct is a `Reference[uint64]`, kept
+    # alive by the copy in `reports` and read here, well after the callback.
+    check reports[^1].totalBytesToReceive.value == some(1_000_000'u64)
+
+  test "a string inside a struct is a WinRtString, owned and readable":
+    # Out of Windows: the sort order a common query starts with. Each entry's
+    # HSTRING became ours when `GetAt` handed the struct over, and the seq
+    # frees it when it goes.
+    let options = QueryOptions.createCommonFileQuery(
+      CommonFileQuery.OrderByName, @["*"])
+    let order = options.sortOrder
+    check order.len > 0
+    check $order[0].propertyName == "System.ItemNameDisplay"
+    check order[0].ascendingOrder
+    # A copy duplicates the handle: both read, and both are freed.
+    let again = order[0]
+    check $again.propertyName == $order[0].propertyName
+    # Into Windows: a struct built here, with a string of ours inside it.
+    let mine = SortEntry(propertyName: toWinRtString("System.Size"),
+                         ascendingOrder: false)
+    check $mine.propertyName == "System.Size"
+    check hash(mine) == hash(SortEntry(propertyName: toWinRtString("System.Size")))
+    # And a reference built here reads back through the runtime's box.
+    check reference(42'u64).value == some(42'u64)
+    check Reference[uint64]().value.isNone
 
   test "an out-parameter comes back in the tuple":
     let (outcome, info) = PhoneNumberInfo.tryParse("+46 8 123 456", "SE")

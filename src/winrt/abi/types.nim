@@ -23737,28 +23737,41 @@ proc hash*(x: IsolatedWindowsEnvironmentCreateProgress): Hash =
 
 ## Windows.Services.Store.StorePackageUpdateStatus  (struct)
 type StorePackageUpdateStatus* {.pure.} = object
-  packageFamilyName*: HSTRING
+  packageFamilyName*: WinRtString
   packageDownloadSizeInBytes*: uint64
   packageBytesDownloaded*: uint64
   packageDownloadProgress*: float64
   totalDownloadProgress*: float64
   packageUpdateState*: StorePackageUpdateState
 proc hash*(x: StorePackageUpdateStatus): Hash =
-  hashData(x.unsafeAddr, sizeof(x))
+  var h: Hash = 0
+  h = h !& hash(x.packageFamilyName)
+  h = h !& hash(x.packageDownloadSizeInBytes)
+  h = h !& hash(x.packageBytesDownloaded)
+  h = h !& hash(x.packageDownloadProgress)
+  h = h !& hash(x.totalDownloadProgress)
+  h = h !& hash(x.packageUpdateState)
+  !$h
 
 ## Windows.Storage.AccessCache.AccessListEntry  (struct)
 type AccessListEntry* {.pure.} = object
-  token*: HSTRING
-  metadata*: HSTRING
+  token*: WinRtString
+  metadata*: WinRtString
 proc hash*(x: AccessListEntry): Hash =
-  hashData(x.unsafeAddr, sizeof(x))
+  var h: Hash = 0
+  h = h !& hash(x.token)
+  h = h !& hash(x.metadata)
+  !$h
 
 ## Windows.Storage.Search.SortEntry  (struct)
 type SortEntry* {.pure.} = object
-  propertyName*: HSTRING
+  propertyName*: WinRtString
   ascendingOrder*: bool
 proc hash*(x: SortEntry): Hash =
-  hashData(x.unsafeAddr, sizeof(x))
+  var h: Hash = 0
+  h = h !& hash(x.propertyName)
+  h = h !& hash(x.ascendingOrder)
+  !$h
 
 ## Windows.System.Power.Thermal.PowerThermalChannelId  (struct)
 type PowerThermalChannelId* {.pure.} = object
@@ -23966,10 +23979,13 @@ proc hash*(x: GridLength): Hash =
 
 ## Windows.UI.Xaml.Interop.TypeName  (struct)
 type TypeName* {.pure.} = object
-  name*: HSTRING
+  name*: WinRtString
   kind*: TypeKind
 proc hash*(x: TypeName): Hash =
-  hashData(x.unsafeAddr, sizeof(x))
+  var h: Hash = 0
+  h = h !& hash(x.name)
+  h = h !& hash(x.kind)
+  !$h
 
 ## Windows.UI.Xaml.Markup.XamlBinaryWriterErrorInformation  (struct)
 type XamlBinaryWriterErrorInformation* {.pure.} = object
@@ -23981,10 +23997,13 @@ proc hash*(x: XamlBinaryWriterErrorInformation): Hash =
 
 ## Windows.UI.Xaml.Markup.XmlnsDefinition  (struct)
 type XmlnsDefinition* {.pure.} = object
-  xmlNamespace*: HSTRING
-  namespace*: HSTRING
+  xmlNamespace*: WinRtString
+  namespace*: WinRtString
 proc hash*(x: XmlnsDefinition): Hash =
-  hashData(x.unsafeAddr, sizeof(x))
+  var h: Hash = 0
+  h = h !& hash(x.xmlNamespace)
+  h = h !& hash(x.namespace)
+  !$h
 
 ## Windows.UI.Xaml.Media.Animation.KeyTime  (struct)
 type KeyTime* {.pure.} = object
@@ -24045,12 +24064,19 @@ proc hash*(x: Thickness): Hash =
 type HttpProgress* {.pure.} = object
   stage*: HttpProgressStage
   bytesSent*: uint64
-  totalBytesToSend*: pointer
+  totalBytesToSend*: Reference[uint64]
   bytesReceived*: uint64
-  totalBytesToReceive*: pointer
+  totalBytesToReceive*: Reference[uint64]
   retries*: uint32
 proc hash*(x: HttpProgress): Hash =
-  hashData(x.unsafeAddr, sizeof(x))
+  var h: Hash = 0
+  h = h !& hash(x.stage)
+  h = h !& hash(x.bytesSent)
+  h = h !& hash(x.totalBytesToSend)
+  h = h !& hash(x.bytesReceived)
+  h = h !& hash(x.totalBytesToReceive)
+  h = h !& hash(x.retries)
+  !$h
 
 ## Windows.Web.Syndication.RetrievalProgress  (struct)
 type RetrievalProgress* {.pure.} = object

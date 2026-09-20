@@ -26,11 +26,13 @@
 ##
 ## ## What crosses
 ##
-## Elements are objects or strings — the two shapes a generated wrapper can
-## produce. Both are *owned* by the view: an object is retained on the way in
-## and released when the view dies, and a string is copied. `GetAt` follows
-## WinRT's rule that the caller owns what it receives, so it retains again for
-## an object and duplicates again for a string.
+## Elements are objects, strings or values. All are *owned* by the view: an
+## object is retained on the way in and released when the view dies, a string
+## is copied, and a value is copied through its type's own hooks — a plain
+## copy for a number, a duplicated handle for a struct holding a
+## `WinRtString`. `GetAt` follows WinRT's rule that the caller owns what it
+## receives, so it retains again for an object, duplicates again for a string,
+## and copies a value the same way.
 ##
 ## The IIDs are the caller's business. Every instantiation of a parameterised
 ## interface has a different one, computed by hashing a signature string, so
@@ -43,7 +45,7 @@ type
   ElementKind* = enum
     ekObject   ## an interface pointer, retained
     ekString   ## an HSTRING, copied
-    ekValue    ## a number, enum or struct, copied by size
+    ekValue    ## a number, enum or struct, copied through its hooks
 
   IterableVtbl {.pure.} = object
     base: IInspectableVtbl
@@ -98,11 +100,15 @@ type
     version: int32                    ## bumped by every mutation
     items: ptr UncheckedArray[pointer]
     # For `ekValue` the elements are not pointers at all: `items` is a flat
-    # buffer of `count * stride` bytes and `GetAt` copies `stride` of them into
+    # buffer of `count * stride` bytes and `GetAt` copies one of them into
     # whatever the caller pointed at. That keeps one implementation for every
     # value type instead of a generic one per instantiation — the ABI shape is
     # the same either way, since the vtable slot only ever sees a `pointer`.
+    # Copying and destroying an element are the one thing that is per type,
+    # so those come in as procs.
     stride: int32
+    copyValue: ValueCopy
+    destroyValue: ValueDestroy
 
   SeqIterator {.pure.} = object
     vtbl: ptr IteratorVtbl
@@ -134,7 +140,7 @@ proc valueAt(v: ptr SeqView, slot: int32): pointer {.inline.} =
 proc retain(v: ptr SeqView, slot: int32, item: ptr pointer): HRESULT =
   ## One element, owned by whoever receives it.
   if v.kind == ekValue:
-    copyMem(item, valueAt(v, slot), v.stride)
+    v.copyValue(item, valueAt(v, slot))
     return S_OK
   let raw = v.items[slot]
   case v.kind
@@ -169,14 +175,11 @@ proc drop(v: ptr SeqView, item: pointer) =
   of ekValue: discard
 
 proc destroy(v: ptr SeqView) =
-  if v.kind != ekValue:                 # values own nothing
-    for i in 0 ..< v.count:
-      let raw = v.items[i]
-      if raw.isNil: continue
-      case v.kind
-      of ekObject: discard release(raw)
-      of ekString: discard windowsDeleteString(cast[HSTRING](raw))
-      of ekValue: discard
+  for i in 0 ..< v.count:
+    case v.kind
+    of ekValue: v.destroyValue(valueAt(v, i))
+    of ekObject: discard release(v.items[i])
+    of ekString: discard windowsDeleteString(cast[HSTRING](v.items[i]))
   if v.capacity > 0: comFree(v.items)
   comFree(v)
 
@@ -294,8 +297,9 @@ proc indexOf(v: ptr SeqView, item: pointer, index: ptr uint32,
         found[] = true
         break
   elif v.kind == ekValue and not item.isNil:
-    # A value compares by its bytes, which is what equality means for the
-    # numbers, enums and layout-only structs this carries.
+    # A value compares by its bytes: equality for numbers, enums and plain
+    # structs, identity of the handle for a struct holding a string. "Not
+    # found" is an allowed answer either way.
     for i in 0 ..< v.count:
       if equalMem(valueAt(v, i), item, v.stride):
         index[] = uint32(i)
@@ -557,10 +561,12 @@ proc asIterable*[T](items: seq[T], iterableIid, viewIid, iteratorIid: GUID,
 proc asIterableValue*[T](items: seq[T],
                          iterableIid, viewIid, iteratorIid: GUID): pointer =
   ## The same for a seq of values — numbers, enums, structs — copied into a
-  ## flat buffer the view owns. `T` has to be a plain type with no destructor;
-  ## every WinRT value type is.
+  ## flat buffer the view owns, each through `T`'s own hooks, so a struct
+  ## holding a `WinRtString` holds its own copy of it.
   let v = newSeqView(ekValue, items.len, iterableIid, viewIid, iteratorIid,
                      GUID(), sizeof(T))
+  v.copyValue = copyValue[T]
+  v.destroyValue = destroyValue[T]
   for i, x in items:
     cast[ptr T](valueAt(v, int32(i)))[] = x
   cast[pointer](v)

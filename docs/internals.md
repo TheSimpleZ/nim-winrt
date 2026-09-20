@@ -155,6 +155,8 @@ methods after it still line up.
 | interface, `Object`, delegate | `pointer` | see below |
 | enum | a `{.pure, size: 4.}` enum | flags enums are `distinct uint32` |
 | struct | a generated `object` | crosses by value, so layout must be exact |
+| `String` in a struct | `WinRtString` | one handle wide; owns and duplicates it |
+| `IReference<T>` in a struct | `Reference[T]` | one pointer wide; a `WinRtObject` holding the box |
 | `Generic<A, B>` | `pointer` | an interface pointer like any other |
 | `T[]` in | `size: uint32, data: ptr T` | a pass or fill array |
 | `T[]` out | `size: ptr uint32, data: ptr ptr T` | a receive array: the callee allocates |
@@ -170,7 +172,16 @@ says what it wants.
 **Structs cross by value.** Nim emits them as plain C structs, so the C
 compiler applies the same x64 calling convention that Windows' own C++ was
 built with: small ones in registers, larger ones behind a hidden pointer, none
-of it spelled out here.
+of it spelled out here. A struct is the one type both layers share, so a
+field that is a handle at the ABI cannot be a `string` or an `Option` in the
+API; it is a `WinRtString` or a `Reference[T]` instead, the same width as the
+handle with `=copy` and `=destroy` hooks that duplicate and delete it. The
+hooks are what make a struct read out of Windows safe to keep, a struct built
+in Nim safe to hand over, and a `seq` of them safe to pass as a collection:
+`seqview` and `mapview` copy and destroy values through `copyValue[T]` and
+`destroyValue[T]` rather than by bytes. Both hooks are COM calls and touch no
+GC memory, so they may run on any thread. The struct's `hash` is then over its
+fields rather than its bytes, since a string's identity is its content.
 
 **Every method returns HRESULT.** The *declared* return type becomes a
 trailing out-parameter. `get_Host() -> HSTRING` is

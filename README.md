@@ -107,7 +107,7 @@ Each WinRT shape has one Nim spelling, and it is the one you would expect:
 | a class | an object, one pointer wide, reference-counted for you |
 | `String` | `string` |
 | an enum | an enum; a `[Flags]` enum is a `distinct uint32` with `or` and `and` |
-| a struct | an object with the same fields |
+| a struct | an object with the same fields; a string inside it is a `WinRtString`, an `IReference<T>` inside it a `Reference[T]` |
 | `IVectorView<T>`, `IVector<T>`, `IIterable<T>` | `seq[T]`, in either direction |
 | `IMapView<K, V>`, `IMap<K, V>` | `Table[K, V]`, in either direction |
 | `IReference<T>` | `Option[T]` |

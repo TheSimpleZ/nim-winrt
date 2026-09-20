@@ -115,6 +115,8 @@ type
     kind: ElementKind
     stride: int32
     data: pointer        ## `count * stride` bytes, `capacity` slots
+    copyValue: ValueCopy       ## for `ekValue`: a copy through the type's hooks
+    destroyValue: ValueDestroy
 
   MapObj {.pure.} = object
     iterableVtbl: ptr IterableVtbl   ## must stay first
@@ -171,7 +173,7 @@ proc take(c: var Column, i: int32, arg: pointer) =
     if not arg.isNil: discard addRef(arg)
     cast[ptr pointer](c.slot(i))[] = arg
   of ekValue:
-    copyMem(c.slot(i), arg, c.stride)
+    c.copyValue(c.slot(i), arg)
 
 proc give(c: Column, i: int32, dst: pointer): HRESULT =
   ## Hand slot `i` to a caller at `dst`, who then owns what they receive.
@@ -184,7 +186,7 @@ proc give(c: Column, i: int32, dst: pointer): HRESULT =
     cast[ptr pointer](dst)[] = p
     S_OK
   of ekValue:
-    copyMem(dst, c.slot(i), c.stride)
+    c.copyValue(dst, c.slot(i))
     S_OK
 
 proc drop(c: Column, i: int32) =
@@ -193,19 +195,23 @@ proc drop(c: Column, i: int32) =
   of ekObject:
     let p = cast[ptr pointer](c.slot(i))[]
     if not p.isNil: discard release(p)
-  of ekValue: discard
+  of ekValue: c.destroyValue(c.slot(i))
 
 proc same(c: Column, i: int32, arg: pointer): bool =
   ## Whether slot `i` holds `arg`, by the equality each shape has: strings by
-  ## content, objects by identity, values by their bytes.
+  ## content, objects by identity, values by their bytes — which for a struct
+  ## holding a string is the handle's identity, and "not found" is allowed.
   case c.kind
   of ekString: sameString(cast[ptr HSTRING](c.slot(i))[], cast[HSTRING](arg))
   of ekObject: cast[ptr pointer](c.slot(i))[] == arg
   of ekValue: equalMem(c.slot(i), arg, c.stride)
 
-proc newColumn(kind: ElementKind, stride: int, capacity: int32): Column =
+proc newColumn(kind: ElementKind, stride: int, capacity: int32,
+               copy: ValueCopy, destroy: ValueDestroy): Column =
   result.kind = kind
   result.stride = int32(stride)
+  result.copyValue = copy
+  result.destroyValue = destroy
   if capacity > 0: result.data = comAlloc(int(capacity) * stride)
 
 proc grow(m: ptr MapObj) =
@@ -444,8 +450,10 @@ proc newPair(m: ptr MapObj, i: int32): pointer =
   p.vtbl = pairVtbl.addr
   p.refs = 1
   p.iid = m.iids.pair
-  p.keys = newColumn(m.keys.kind, m.keys.stride, 1)
-  p.vals = newColumn(m.vals.kind, m.vals.stride, 1)
+  p.keys = newColumn(m.keys.kind, m.keys.stride, 1,
+                     m.keys.copyValue, m.keys.destroyValue)
+  p.vals = newColumn(m.vals.kind, m.vals.stride, 1,
+                     m.vals.copyValue, m.vals.destroyValue)
   p.keys.take(0, m.keys.argOf(i))
   p.vals.take(0, m.vals.argOf(i))
   cast[pointer](p)
@@ -592,8 +600,8 @@ proc asMap*[K, V](entries: Table[K, V], iids: MapIids): pointer =
   m.refs = 1
   m.iids = iids
   m.capacity = int32(entries.len)
-  m.keys = newColumn(kk, ks, m.capacity)
-  m.vals = newColumn(vk, vs, m.capacity)
+  m.keys = newColumn(kk, ks, m.capacity, copyValue[K], destroyValue[K])
+  m.vals = newColumn(vk, vs, m.capacity, copyValue[V], destroyValue[V])
   for k, v in entries:
     let i = m.count
     m.count.inc

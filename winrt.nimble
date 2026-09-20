@@ -1,4 +1,4 @@
-version       = "0.7.0"
+version       = "0.8.0"
 author        = "Zrean Tofiq"
 description   = "The Windows Runtime (WinRT) projected into Nim"
 license       = "MIT"

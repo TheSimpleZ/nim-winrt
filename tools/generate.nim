@@ -136,6 +136,22 @@ proc nimType(t: SigType): string =
   if base.len == 0: return ""
   if t.byRef: "ptr " & base else: base
 
+proc fieldType(t: SigType): string =
+  ## A struct field's spelling: as `nimType`, except that a string or an
+  ## `IReference<T>` inside a struct *owns* what it holds — `WinRtString`,
+  ## `Reference[T]` from `core` — so that a struct read out of Windows can be
+  ## kept and one built here handed over. A struct crosses by value with its
+  ## exact layout, and both are one pointer wide like the handle they wrap.
+  ## `Reference[T]` is offered for the value types whose `IReference<T>` IID
+  ## `core` knows; nothing else is boxed inside a struct in this metadata.
+  const boxable = {skBool, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4, skF8}
+  if t.kind == skString: "WinRtString"
+  elif t.kind == skUnsupported and t.name == "Windows.Foundation.IReference`1" and
+       t.args.len == 1 and (t.args[0].kind in boxable or
+                            (t.args[0].kind == skStruct and t.args[0].name == "System.Guid")):
+    "Reference[" & nimType(t.args[0]) & "]"
+  else: nimType(t)
+
 proc paramName(i: int, t: SigType): string =
   ## Name a parameter after the interface it expects.
   ##
@@ -449,7 +465,7 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
             if ft.kind == skEnum and ft.name in enumFullNames:
               renamed.getOrDefault(ft.name, shortName(ft.name))
             elif ft.kind == skEnum: "int32"
-            else: nimType(ft)
+            else: fieldType(ft)
           if n.len == 0 or n == "void":
             ok = false
             break
@@ -464,9 +480,20 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
       for f in fields: buf.add f & "\n"
       # A WinRT struct is plain data, so its bytes are its identity. Without
       # this a map keyed by one — `IMapView<PowerThermalChannelId, ...>` — has
-      # no Nim `Table` to become.
+      # no Nim `Table` to become. A struct holding a string or a reference is
+      # the exception: its identity is what the handle points at, so that one
+      # is hashed field by field.
+      var owning = false
+      for f in fields:
+        if ": WinRtString" in f or ": Reference[" in f: owning = true
       buf.add &"proc hash*(x: {shortName(p.full)}): Hash =\n"
-      buf.add  "  hashData(x.unsafeAddr, sizeof(x))\n"
+      if owning:
+        buf.add "  var h: Hash = 0\n"
+        for f in fields:
+          buf.add "  h = h !& hash(x." & f.strip().split('*')[0] & ")\n"
+        buf.add "  !$h\n"
+      else:
+        buf.add  "  hashData(x.unsafeAddr, sizeof(x))\n"
       buf.add "\n"
       structNames.incl p.full
       emittedStructs.incl shortName(p.full)
