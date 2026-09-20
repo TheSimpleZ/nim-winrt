@@ -4,29 +4,29 @@
 ## other case: an object *you* make that Windows calls back — an
 ## `INotifyPropertyChanged` for data binding, an `ICommand`, a background
 ## task, an `IBuffer` over your own bytes. `implement` takes each interface's
-## vtable type with your methods filled in and hands back a COM object that
-## Windows can hold, query and call:
+## vtable type, from the ABI module, with your methods filled in and hands
+## back a COM object that Windows can hold, query and call:
 ##
 ## ```nim
-## include winrt/abidef            # the `abi` calling convention
-##
 ## var answer = 42'i32
-## let box = implement(IID_IReference_1_Int32, IReferenceInt32Vtbl(
-##   get_Value: proc(self: pointer, value: ptr int32): HRESULT {.abi.} =
+## let box = implement(IReferenceVtbl[int32](
+##   get_Value: proc(self: pointer, value: ptr int32): HRESULT {.stdcall.} =
 ##     value[] = cast[ptr int32](stateOf(self))[]
 ##     S_OK),
 ##   state = answer.addr)
 ## ```
 ##
-## An object may implement several interfaces — `(IID, vtable)` pairs, two or
-## three as arguments and any number as one tuple — and `QueryInterface`
-## answers for each of them, for `IUnknown`, `IInspectable` and
-## `IAgileObject`. The methods are written at the ABI: they receive `self` and
-## the raw arguments the vtable declares, and return an HRESULT. `stateOf(self)`
-## gives back whatever pointer you attached, from a method of any of the
-## interfaces; `takeString`, `toHString`, `adopt` and `borrow` convert what
-## crosses. The three methods every interface begins with, and the three more
-## of `IInspectable`, are filled in here.
+## An object may implement several interfaces — two or three as arguments,
+## any number as one tuple — and `QueryInterface` answers for each of them,
+## for `IUnknown`, `IInspectable` and `IAgileObject`. The methods are written
+## at the ABI: `{.stdcall.}` procs that receive `self` and the raw arguments
+## the vtable declares and return an HRESULT. `stateOf(self)` gives back
+## whatever pointer you attached, from a method of any of the interfaces;
+## `takeString`, `toHString`, `adopt` and `borrow` convert what crosses. The
+## three methods every interface begins with, and the three more of
+## `IInspectable`, are filled in here, and each interface's IID comes from its
+## vtable type — `iid(V)`, which the ABI declares for everything in the
+## metadata and which you declare for an interface of your own.
 ##
 ## Windows may hold the object past the call that received it and release it
 ## from any thread, so it lives on the COM heap and its count is atomic. The
@@ -40,7 +40,7 @@
 ## it is on, and `runOnDispatcher` is how it hands work to the right one.
 
 import std/[atomics, typetraits]
-import ./[core, delegate]
+import ./[com, delegate]
 include ./abidef
 
 type
@@ -64,8 +64,8 @@ type
     dispose: Dispose
 
   Impl[T: tuple] {.pure.} = object
-    ## `T` is the tuple of `(GUID, XVtbl)` pairs `implement` was given: one
-    ## slot per pair, and this object's own copy of every table, because two
+    ## `T` is the tuple of vtables `implement` was given: one slot per
+    ## interface, and this object's own copy of every table, because two
     ## objects of one interface may carry different methods.
     header: Header
     slots: array[tupleLen(T), Slot]
@@ -134,14 +134,14 @@ proc implTrust(self: pointer, level: ptr int32): HRESULT {.abi.} =
   level[] = 0               # BaseTrust
   S_OK
 
-proc implement*[T: tuple](interfaces: T, state: pointer = nil,
+proc implement*[T: tuple](vtables: T, state: pointer = nil,
                           dispose: Dispose = nil): pointer =
-  ## A COM object implementing every interface in `interfaces`, a tuple of
-  ## `(IID, vtable)` pairs, each vtable carrying your methods. Returned with a
-  ## reference count of 1, as a pointer to the first interface; hand it to
-  ## Windows, which takes its own, and release yours. `state` is what
-  ## `stateOf(self)` returns inside your methods, and `dispose` is called
-  ## with it once the last reference is gone.
+  ## A COM object implementing every interface in `vtables`, a tuple of
+  ## vtable objects each carrying your methods. Returned with a reference
+  ## count of 1, as a pointer to the first interface; hand it to Windows,
+  ## which takes its own, and release yours. `state` is what `stateOf(self)`
+  ## returns inside your methods, and `dispose` is called with it once the
+  ## last reference is gone.
   ensureDispatcher()
   let obj = cast[ptr Impl[T]](comAlloc(sizeof(Impl[T])))
   obj.header.refs.store(1)
@@ -149,33 +149,34 @@ proc implement*[T: tuple](interfaces: T, state: pointer = nil,
   obj.header.slots = cast[ptr UncheckedArray[Slot]](obj.slots[0].addr)
   obj.header.state = state
   obj.header.dispose = dispose
-  obj.tables = interfaces
+  obj.tables = vtables
   var i = 0
-  for pair in fields(obj.tables):
-    pair[1].queryInterface = implQuery
-    pair[1].addRef = implAddRef
-    pair[1].release = implRelease
-    when pair[1] is IInspectableVtbl:
-      pair[1].getIids = implIids
-      pair[1].getRuntimeClassName = implClassName
-      pair[1].getTrustLevel = implTrust
-    obj.slots[i] = Slot(vtbl: pair[1].addr, owner: obj.header.addr,
-                        iid: pair[0], inspectable: pair[1] is IInspectableVtbl)
+  for table in fields(obj.tables):
+    table.queryInterface = implQuery
+    table.addRef = implAddRef
+    table.release = implRelease
+    when table is IInspectableVtbl:
+      table.getIids = implIids
+      table.getRuntimeClassName = implClassName
+      table.getTrustLevel = implTrust
+    obj.slots[i] = Slot(vtbl: table.addr, owner: obj.header.addr,
+                        iid: iid(typeof(table)),
+                        inspectable: table is IInspectableVtbl)
     inc i
   obj.slots[0].addr
 
-proc implement*[V](iid: GUID, methods: V, state: pointer = nil,
+proc implement*[V](vtable: V, state: pointer = nil,
                    dispose: Dispose = nil): pointer =
-  ## One interface, whose IID is `iid` and whose vtable is `methods`.
-  implement(((iid, methods),), state, dispose)
+  ## One interface.
+  implement((vtable,), state, dispose)
 
-proc implement*[A, B](a: (GUID, A), b: (GUID, B), state: pointer = nil,
+proc implement*[A, B](a: A, b: B, state: pointer = nil,
                       dispose: Dispose = nil): pointer =
   ## Two interfaces on one object.
   implement((a, b), state, dispose)
 
-proc implement*[A, B, C](a: (GUID, A), b: (GUID, B), c: (GUID, C),
-                         state: pointer = nil, dispose: Dispose = nil): pointer =
+proc implement*[A, B, C](a: A, b: B, c: C, state: pointer = nil,
+                         dispose: Dispose = nil): pointer =
   ## Three interfaces on one object; for more, pass them as one tuple.
   implement((a, b, c), state, dispose)
 

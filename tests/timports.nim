@@ -6,15 +6,14 @@
 ## declaration in them and, because they share one namespace at the import
 ## site, also catches two modules defining the same name — which is exactly
 ## what a new SDK type or a changed namespace split would cause.
-##
-## It is cheap: about 2.5 seconds over an empty program on this metadata.
 
 import std/unittest
-# No `import winrt`: every generated module re-exports `winrt/core`, so the
-# runtime comes along with the bindings and importing it again is redundant.
+# No `import winrt`: every generated module re-exports the runtime, so it
+# comes along with the bindings and importing it again is redundant.
 import winrt/[ai, applicationmodel, data, devices, foundation, gaming,
-              globalization, graphics, management, media, networking,
-              perception, security, services, storage, system, ui, web]
+               globalization, graphics, management, media, networking,
+               perception, security, services, storage, system, ui, web]
+import winrt/abi/[foundation, system]
 
 suite "bindings":
   test "an IID and a vtable survived generation":
@@ -24,6 +23,16 @@ suite "bindings":
     check offsetOf(IUriRuntimeClassFactoryVtbl, CreateUri) == 6 * sizeof(pointer)
     var vtbl: IUriRuntimeClassFactoryVtbl
     check vtbl.CreateUri == nil
+
+  test "a type and its vtable answer to the same IID":
+    # `iid` reads the constant beside the vtable, and the API's object for a
+    # shared interface is named after the same interface, so both reach it.
+    check iid(IClosableVtbl) == iid(IClosable)
+    check iid(IClosableVtbl) == guid"30D5A829-7FA4-4026-83BB-D75BAE4EA99E"
+
+  test "a class knows its metadata name and its default interface":
+    check className(Uri) == "Windows.Foundation.Uri"
+    check defaultIid(Uri) == iid(IUriRuntimeClassVtbl)
 
   test "a plain enum is a real Nim enum, sized for the wire":
     check ord(BatteryStatus.Charging) == 3
@@ -53,6 +62,16 @@ suite "bindings":
     let c = Color(a: 255, r: 1, g: 2, b: 3)
     check c.b == 3
     check sizeof(Color) == 4
+
+  test "a struct holding a string is plain Nim on this side of the ABI":
+    # `SortEntry` crosses with an HSTRING inside it and is read with a
+    # `string`: the twin does the owning, and nobody using it sees one.
+    let entry = SortEntry(propertyName: "System.ItemNameDisplay",
+                          ascendingOrder: true)
+    check entry.propertyName == "System.ItemNameDisplay"
+    check entry == SortEntry(propertyName: "System.ItemNameDisplay",
+                             ascendingOrder: true)
+    check sizeof(SortEntryAbi) == sizeof(pointer) + sizeof(bool) + 7
 
   test "a struct shared between modules is one type":
     # Both `foundation` and `system` name EventRegistrationToken in their

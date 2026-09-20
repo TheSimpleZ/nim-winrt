@@ -3,16 +3,12 @@
 ##     nim c -r --path:src examples/calendar.nim
 ##
 ## `Calendar` is an ordinary class: constructed with no arguments, and read
-## through properties. Nothing here is released by hand — the object is one
-## pointer wide and the compiler's `=destroy` drops the reference.
+## through properties.
 
 import std/strformat
-import winrt
 import winrt/globalization
 
 proc main() =
-  discard initApartment()
-
   let cal = newCalendar()
   cal.setToNow()
 

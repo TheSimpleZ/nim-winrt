@@ -43,7 +43,7 @@
 ## none is declared anywhere, so the generated code computes them and passes
 ## them in as one `MapIids`.
 
-import ./core
+import ./[com, objects]
 import ./seqview
 include ./abidef
 
@@ -613,7 +613,7 @@ proc asMap*[K, V](entries: Table[K, V], iids: MapIids): pointer =
       m.keys.take(i, cast[pointer](hk))
       discard windowsDeleteString(hk)
     elif K is WinRtObject:
-      m.keys.take(i, k.p)
+      m.keys.take(i, k.raw)
     else:
       m.keys.take(i, k.unsafeAddr)
     when V is string:
@@ -621,7 +621,7 @@ proc asMap*[K, V](entries: Table[K, V], iids: MapIids): pointer =
       m.vals.take(i, cast[pointer](hv))
       discard windowsDeleteString(hv)
     elif V is WinRtObject:
-      m.vals.take(i, v.p)
+      m.vals.take(i, v.raw)
     else:
       m.vals.take(i, v.unsafeAddr)
   cast[pointer](m)

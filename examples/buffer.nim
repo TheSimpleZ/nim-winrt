@@ -9,26 +9,29 @@
 ## Build and run:
 ##   nim c -r --path:../src buffer.nim
 
-import winrt, winrt/[storage, security]
+import winrt/[storage, security]
 include winrt/abidef          # the `abi` calling convention for the methods
+
+# `IBufferByteAccess` is in no metadata, so it is declared here the way the
+# generated ABI declares an interface: the IID beside the vtable, which is
+# where `implement` reads it from.
+const IID_IBufferByteAccess = guid"905A0FEF-BC53-11DF-8C49-001E4FC686DA"
 
 type
   Bytes = ref object
     data: seq[byte]
   IBufferByteAccessVtbl = object of IUnknownVtbl
-    buffer: proc(self: pointer, value: ptr ptr byte): HRESULT {.abi.}
-
-const IID_IBufferByteAccess = guid"905A0FEF-BC53-11DF-8C49-001E4FC686DA"
+    Buffer: proc(self: pointer, value: ptr ptr byte): HRESULT {.abi.}
 
 proc bytesOf(self: pointer): Bytes =
   ## The state behind `self`, from a method of either interface.
   cast[Bytes](stateOf(self))
 
-proc newBuffer(bytes: Bytes): Buffer =
+proc newBuffer(bytes: Bytes): IBuffer =
   ## Hand `bytes` to Windows as a buffer, for as long as Windows keeps it.
   GC_ref(bytes)
-  adopt[Buffer](implement(
-    (IID_IBuffer, IBufferVtbl(
+  adopt[IBuffer](implement(
+    IBufferVtbl(
       get_Capacity: proc(self: pointer, value: ptr uint32): HRESULT {.abi.} =
         value[] = uint32(bytesOf(self).data.len)
         S_OK,
@@ -37,23 +40,25 @@ proc newBuffer(bytes: Bytes): Buffer =
         S_OK,
       put_Length: proc(self: pointer, length: uint32): HRESULT {.abi.} =
         bytesOf(self).data.setLen(length)
-        S_OK)),
-    (IID_IBufferByteAccess, IBufferByteAccessVtbl(
-      buffer: proc(self: pointer, value: ptr ptr byte): HRESULT {.abi.} =
+        S_OK),
+    IBufferByteAccessVtbl(
+      Buffer: proc(self: pointer, value: ptr ptr byte): HRESULT {.abi.} =
         value[] = bytesOf(self).data[0].addr
-        S_OK)),
+        S_OK),
     state = cast[pointer](bytes),
     dispose = proc(state: pointer) {.nimcall, raises: [].} =
       GC_unref(cast[Bytes](state))))
 
-discard initApartment()
+proc main() =
+  let bytes = Bytes(data: @[byte 'h'.ord, 'i'.ord, '!'.ord])
+  let buffer = newBuffer(bytes)
 
-let bytes = Bytes(data: @[byte 'h'.ord, 'i'.ord, '!'.ord])
-let buffer = newBuffer(bytes)
+  # Windows queries the second interface off the first and reads through both.
+  echo "as base64: ", CryptographicBuffer.encodeToBase64String(buffer)
+  echo "length as Windows sees it: ", buffer.length
+  echo "and back: ", CryptographicBuffer.convertBinaryToString(
+    BinaryStringEncoding.Utf8, CryptographicBuffer.decodeFromBase64String(
+      CryptographicBuffer.encodeToBase64String(buffer)))
 
-# Windows queries the second interface off the first and reads through both.
-echo "as base64: ", CryptographicBuffer.encodeToBase64String(buffer)
-echo "length as Windows sees it: ", buffer.length
-echo "and back: ", CryptographicBuffer.convertBinaryToString(
-  BinaryStringEncoding.Utf8, CryptographicBuffer.decodeFromBase64String(
-    CryptographicBuffer.encodeToBase64String(buffer)))
+when isMainModule:
+  main()

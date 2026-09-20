@@ -2,25 +2,21 @@
 ##
 ##     nim c -r --path:src examples/shapes.nim
 ##
-## A collection is a `seq`, a map is a `Table`, an `[out]` parameter is a
-## field of the returned tuple, and an asynchronous operation is a `Future`.
-## Each crosses in both directions where WinRT allows it.
+## A collection is a `seq`, a map is a `Table`, an `[out]` parameter comes
+## back beside the result, and an asynchronous operation is a `Future`.
 
-import std/strformat
-import winrt
+import std/[strformat, tables]
 import winrt/[devices, globalization, web]
 
 proc main() =
-  discard initApartment()
-
   # A seq of structs in, and back out.
-  let path = Geopath.create(@[
+  let path = newGeopath(@[
     BasicGeoposition(latitude: 59.33, longitude: 18.07),
     BasicGeoposition(latitude: 57.71, longitude: 11.97)])
   echo &"{path.positions.len} positions, the second at {path.positions[1].latitude}"
 
-  # A Table in, and a WithProgress operation awaited.
-  let form = HttpFormUrlEncodedContent.create({"q": "nim"}.toTable)
+  # A Table in, and an operation that reports progress awaited.
+  let form = newHttpFormUrlEncodedContent({"q": "nim"}.toTable)
   echo "encoded: ", waitFor form.readAsStringAsync()
 
   # An out-parameter beside the declared return.

@@ -2,18 +2,15 @@
 ##
 ##     nim c -r --path:src examples/uri.nim
 ##
-## `Windows.Foundation.Uri` has no parameterless constructor — the metadata
-## points at a factory interface instead — so it is built through the factory
-## method the class declares.
+## Nothing is started first and nothing is released: the runtime comes up when
+## the first call reaches it, and the `Uri` drops its reference when `main`
+## returns.
 
 import std/strformat
-import winrt
 import winrt/foundation
 
 proc main() =
-  discard initApartment()
-
-  let uri = Uri.createUri("https://nim-lang.org:443/docs/manual.html?q=1#toc")
+  let uri = newUri("https://nim-lang.org:443/docs/manual.html?q=1#toc")
 
   echo &"scheme    {uri.schemeName}"
   echo &"host      {uri.host}"

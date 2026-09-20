@@ -28,7 +28,8 @@
 ## C signature, and calling through the wrong one reads an argument out of a
 ## register that never held it. So the trampoline is generic over the argument
 ## types and instantiated per delegate signature, and its vtable with it —
-## `{.global.}` inside a generic proc is one table per instantiation.
+## `{.global.}` inside a generic proc is one table per instantiation. The
+## delegate's vtable type `D` names the IID it answers for, through `iid(D)`.
 ##
 ## ## Handlers run on the dispatcher thread
 ##
@@ -66,12 +67,13 @@
 ## the dispatcher thread to let go of the closure the next time it is touched.
 
 import std/[asyncdispatch, atomics]
-import ./core
+import ./[com, objects]
 include ./abidef
 
 export asyncdispatch
 
 type
+
   HandlerObj = object of RootObj
     ## A handler as the table keeps it. Each argument shape derives from this
     ## and the trampoline for that shape knows which one it holds.
@@ -111,7 +113,7 @@ type
     ## which delegate, and the event that says it has been.
     run: proc(job: ptr Job): HRESULT {.nimcall, raises: [].}
     delegate: pointer
-    done: pointer            ## a Win32 event the poster waits on
+    done: pointer            ## a Win32 event the poster waits on; nil: free after
     hr: HRESULT
     next: ptr Job
 
@@ -406,7 +408,7 @@ proc invoke3[A, B, C](self: pointer, a: A, b: B, c: C): HRESULT {.callback.} =
 
 # ----------------------------------------------------------- constructors
 
-proc make(iid: GUID, handler: Handler, vtbl: ptr Vtbl, raw: bool): pointer =
+proc make(iid: GUID, handler: Handler, vtbl: ptr Vtbl, raw: bool): WinRtDelegate =
   ensureDispatcher()
   let d = cast[ptr DelegateImpl](comAlloc(sizeof(DelegateImpl)))
   d.vtbl = vtbl
@@ -415,7 +417,7 @@ proc make(iid: GUID, handler: Handler, vtbl: ptr Vtbl, raw: bool): pointer =
   d.iid = iid
   d.handler = cast[pointer](handler)
   d.slot = takeSlot(handler)
-  cast[pointer](d)
+  WinRtDelegate(raw: cast[pointer](d))
 
 template vtable(entry: untyped): ptr Vtbl =
   ## One table per instantiation, which is what `{.global.}` inside a generic
@@ -424,48 +426,45 @@ template vtable(entry: untyped): ptr Vtbl =
                              release: release, invoke: cast[pointer](entry))
   vtbl.addr
 
-# Each constructor returns a delegate with a refcount of 1. Hand it to the
-# method or `add_Xxx` that wanted it, which takes its own reference, and
-# release yours; the object frees itself when the runtime lets go, which may
-# be after the call returns.
-#
-# `A`, `B` and `C` are the types `Invoke` is declared with *at the ABI* — a
-# `pointer` for an object, an `HSTRING` for a string, a `bool`, an enum, a
-# struct by value. The generated wrappers build a closure of that shape around
-# the one the caller wrote.
+# Each constructor is generic over `D`, the delegate's vtable type from the
+# ABI — `WorkItemHandlerVtbl`, `TypedEventHandlerVtbl[S, A]` — which names
+# the IID the object answers for. The handler's parameters are the types
+# `Invoke` is declared with *at the ABI*: a `pointer` for an object, an
+# `HSTRING` for a string, a `bool`, an enum, a struct by value. The generated
+# wrappers write a closure of that shape around the one the caller wrote.
 #
 # `event` is the difference between a callback and an event handler: a
 # handler that raises is reported either way, but only a callback's failure is
 # reported *to the runtime* — see `guarded`. `raw` runs the handler on
 # whatever thread the runtime invokes it from, instead of the dispatcher's.
 
-proc newDelegate*(iid: GUID, handler: proc() {.closure.},
-                  event = false, raw = false): pointer =
-  ## A delegate whose `Invoke` takes no arguments.
+proc newDelegate*[D](_: typedesc[D], handler: proc() {.closure.},
+                     event = false, raw = false): WinRtDelegate =
+  ## A delegate of type `D` whose `Invoke` takes no arguments.
   doAssert not handler.isNil, "winrt: delegate handler must not be nil"
-  make(iid, Handler((ref Handler0Obj)(fn: handler, swallow: event)),
+  make(iid(D), Handler((ref Handler0Obj)(fn: handler, swallow: event)),
        vtable(invoke0), raw)
 
-proc newDelegate*[A](iid: GUID, handler: proc(a: A) {.closure.},
-                     event = false, raw = false): pointer =
-  ## A delegate whose `Invoke` takes one argument.
+proc newDelegate*[D, A](_: typedesc[D], handler: proc(a: A) {.closure.},
+                        event = false, raw = false): WinRtDelegate =
+  ## A delegate of type `D` whose `Invoke` takes one argument.
   doAssert not handler.isNil, "winrt: delegate handler must not be nil"
-  make(iid, Handler((ref Handler1Obj[A])(fn: handler, swallow: event)),
+  make(iid(D), Handler((ref Handler1Obj[A])(fn: handler, swallow: event)),
        vtable(invoke1[A]), raw)
 
-proc newDelegate*[A, B](iid: GUID, handler: proc(a: A, b: B) {.closure.},
-                        event = false, raw = false): pointer =
-  ## A delegate whose `Invoke` takes two arguments — every event handler.
+proc newDelegate*[D, A, B](_: typedesc[D], handler: proc(a: A, b: B) {.closure.},
+                           event = false, raw = false): WinRtDelegate =
+  ## A delegate of type `D` whose `Invoke` takes two arguments — every event
+  ## handler.
   doAssert not handler.isNil, "winrt: delegate handler must not be nil"
-  make(iid, Handler((ref Handler2Obj[A, B])(fn: handler, swallow: event)),
+  make(iid(D), Handler((ref Handler2Obj[A, B])(fn: handler, swallow: event)),
        vtable(invoke2[A, B]), raw)
 
-proc newDelegate*[A, B, C](iid: GUID,
-                           handler: proc(a: A, b: B, c: C) {.closure.},
-                           event = false, raw = false): pointer =
-  ## A delegate whose `Invoke` takes three arguments.
+proc newDelegate*[D, A, B, C](_: typedesc[D], handler: proc(a: A, b: B, c: C) {.closure.},
+                              event = false, raw = false): WinRtDelegate =
+  ## A delegate of type `D` whose `Invoke` takes three arguments.
   doAssert not handler.isNil, "winrt: delegate handler must not be nil"
-  make(iid, Handler((ref Handler3Obj[A, B, C])(fn: handler, swallow: event)),
+  make(iid(D), Handler((ref Handler3Obj[A, B, C])(fn: handler, swallow: event)),
        vtable(invoke3[A, B, C]), raw)
 
 proc delegateTableSizes*(): tuple[slots, free: int] =

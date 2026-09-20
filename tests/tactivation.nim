@@ -11,21 +11,19 @@ import winrt
 import winrt/abi/foundation
 
 suite "activation":
-  setup:
-    discard initApartment()
-
   test "a class activates and a vtable field calls the right method":
-    withStatics("Windows.Foundation.Uri", IUriRuntimeClassFactory, factory):
-      var uri: pointer
-      withHString("https://nim-lang.org/docs/manual.html", s):
-        check factory.vtbl.CreateUri(factory, s, uri.addr).succeeded
-      check uri != nil
-      defer: release(uri)
+    # Nothing was started first: the runtime starts itself here.
+    let factory = statics[IUriRuntimeClassFactoryVtbl]("Windows.Foundation.Uri")
+    let text = toWinRtString("https://nim-lang.org/docs/manual.html")
+    var uri: pointer
+    check factory.vtbl.CreateUri(factory.raw, text.handle, uri.addr).succeeded
+    check uri != nil
+    defer: release(uri)
 
-      withIface(uri, IUriRuntimeClass, it):
-        var host: HSTRING
-        check it.vtbl.get_Host(it, host.addr).succeeded
-        check takeString(host) == "nim-lang.org"
+    let it = queryInterface[IUriRuntimeClassVtbl](uri)
+    var host: HSTRING
+    check it.vtbl.get_Host(it.raw, host.addr).succeeded
+    check takeString(host) == "nim-lang.org"
 
   test "the vtable objects have the C layout":
     # Six inherited fields, then the interface's own, one pointer each. A
@@ -37,12 +35,12 @@ suite "activation":
       7 * sizeof(pointer)
 
   test "the runtime class name matches what was asked for":
-    withStatics("Windows.Foundation.Uri", IUriRuntimeClassFactory, factory):
-      var uri: pointer
-      withHString("https://example.com", s):
-        discard factory.vtbl.CreateUri(factory, s, uri.addr)
-      defer: release(uri)
-      check uri.runtimeClassName == "Windows.Foundation.Uri"
+    let factory = statics[IUriRuntimeClassFactoryVtbl]("Windows.Foundation.Uri")
+    let text = toWinRtString("https://example.com")
+    var uri: pointer
+    discard factory.vtbl.CreateUri(factory.raw, text.handle, uri.addr)
+    defer: release(uri)
+    check uri.runtimeClassName == "Windows.Foundation.Uri"
 
   test "an unknown class fails with REGDB_E_CLASSNOTREG, not a crash":
     let (factory, hr) = tryActivationFactory("Windows.Foundation.NotAThing")
@@ -53,4 +51,11 @@ suite "activation":
     let factory = activationFactory("Windows.Foundation.Uri",
                                     IID_IUriRuntimeClassFactory)
     defer: release(factory)
-    check factory.queryInterface(guid("00000000-0000-0000-C000-000000000047")) == nil
+    check factory.queryInterface(guid"00000000-0000-0000-C000-000000000047") == nil
+
+  test "the typed narrowing says which interface was missing":
+    let factory = activationFactory("Windows.Foundation.Uri")
+    defer: release(factory)
+    expect WinRtError:
+      # An activation factory is not the object it makes.
+      discard queryInterface[IUriRuntimeClassVtbl](factory)

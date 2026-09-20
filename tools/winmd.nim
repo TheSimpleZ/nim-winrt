@@ -378,6 +378,7 @@ type
   SigKind* = enum
     skVoid, skBool, skChar, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8,
     skF4, skF8, skString, skObject, skInterface, skEnum, skStruct, skArray,
+    skTypeVar,      ## a generic definition's own parameter; `name` is its index
     skUnsupported
 
   SigType* = object
@@ -549,7 +550,11 @@ proc parseType(m: WinMd, s: string, p: var int): SigType =
       SigType(kind: skUnsupported, name: name, args: args)
     else:
       SigType(kind: skUnsupported)
-  of etVar, etMVar, etArray, etPtr, etFnPtr, etTypedByRef, etI, etU:
+  of etVar:
+    # `!0`, `!1`: the declaring type's own generic parameters, in a generic
+    # interface's method signatures. Which one, by position.
+    SigType(kind: skTypeVar, name: $compressed(s, p))
+  of etMVar, etArray, etPtr, etFnPtr, etTypedByRef, etI, etU:
     SigType(kind: skUnsupported)
   else:
     SigType(kind: skUnsupported)
@@ -587,6 +592,19 @@ proc methodSignature*(m: WinMd, methodIndex: int): MethodSig =
   result.returns = m.parseType(s, p)
   for _ in 0 ..< nParams:
     result.params.add m.parseType(s, p)
+
+const tGenericParam* = 0x2A
+
+proc genericParams*(m: WinMd, typeIndex: int): seq[string] =
+  ## The names of a generic type's parameters, in order — `T`, or `TSender`
+  ## and `TResult` — from the GenericParam table, whose `Owner` is a
+  ## TypeOrMethodDef coded index: tag bit 0 for a TypeDef.
+  for i in 1 .. m.rows.getOrDefault(tGenericParam, 0):
+    let owner = m.cell(tGenericParam, i, "Owner")
+    if (owner and 1) == 0 and (owner shr 1) == typeIndex:
+      let n = m.cell(tGenericParam, i, "Number")
+      while result.len <= n: result.add ""
+      result[n] = m.str(m.cell(tGenericParam, i, "Name"))
 
 proc methodRange*(m: WinMd, typeIndex: int): (int, int) =
   ## The half-open MethodDef row range belonging to a type.

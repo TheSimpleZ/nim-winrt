@@ -47,69 +47,27 @@
 ## ordinary delegate, because it carries a value to a closure of yours.
 
 import std/asyncdispatch
-import ./[core, delegate]
+import ./[com, objects, values, collections, delegate]
+import ./abi/[types, generic, foundation]
 include ./abidef
 
 export asyncdispatch
 
-const
-  # Not exported, and not named `IID_IAsyncInfo`: the metadata declares that
-  # interface too, so `winrt/abi/foundation` has a constant of that name and
-  # two in scope is an ambiguity wherever both are imported.
-  IidAsyncInfo = guid"00000036-0000-0000-C000-000000000046"
-
-  SlotAsyncInfoStatus = 7
-  SlotAsyncInfoErrorCode = 8
-  SlotAsyncInfoCancel = 9
-  SlotPutProgress = 6        ## on the `WithProgress` pair only
-
 type
-  AsyncLayout* = enum
-    ## Where `put_Completed` and `GetResults` sit, which depends on whether
-    ## the operation reports progress.
-    ##
-    ## `IAsyncAction` and `IAsyncOperation<T>` declare Completed first, so it
-    ## is slot 6 and GetResults is 8. The `WithProgress` pair declare
-    ## `put_Progress` and `get_Progress` first, pushing both two slots down.
-    ## Calling a progress operation through the plain layout hands the
-    ## completion handler to `put_Progress` — which fails, quietly, because
-    ## the handler does not answer for the progress delegate's IID.
-    alPlain      ## Completed at 6, GetResults at 8
-    alProgress   ## Completed at 8, GetResults at 10
-
   CancelledError* = object of WinRtError
     ## What a Future fails with when the operation behind it was cancelled,
     ## by `cancel` or by Windows. Its `hr` is `E_ABORT`.
-
-  ProgressHandler*[P] = proc(progress: P) {.closure.}
-    ## What a `WithProgress` method takes as its last argument: a closure
-    ## called with each progress value, on the dispatcher thread.
 
   AsyncState = enum
     ## Not `AsyncStatus`: `Windows.Foundation.AsyncStatus` is a real enum in the
     ## generated bindings, and two of that name in scope is an ambiguity.
     asStarted = 0, asCompleted = 1, asCanceled = 2, asError = 3
 
-  FnAsyncStatus = proc(self: pointer,
-                       status: ptr int32): HRESULT {.abi.}
-  FnAsyncError = proc(self: pointer,
-                      hr: ptr HRESULT): HRESULT {.abi.}
-  FnPutHandler = proc(self: pointer,
-                      handler: pointer): HRESULT {.abi.}
-  FnNoArgs = proc(self: pointer): HRESULT {.abi.}
-  FnResultsPtr = proc(self: pointer,
-                      value: ptr pointer): HRESULT {.abi.}
-  FnResultsString = proc(self: pointer,
-                         value: ptr HSTRING): HRESULT {.abi.}
-  FnResultsValue[T] = proc(self: pointer, value: ptr T): HRESULT {.abi.}
+# ------------------------------------------------------- the completion
 
-  CompletionVtbl {.pure.} = object
-    queryInterface: proc(self: pointer, riid: ptr GUID,
-                         ppv: ptr pointer): HRESULT {.abi.}
-    addRef: proc(self: pointer): uint32 {.abi.}
-    release: proc(self: pointer): uint32 {.abi.}
-    invoke: proc(self: pointer,
-                 info, status: pointer): HRESULT {.abi.}
+type
+  CompletionVtbl {.pure.} = object of IUnknownVtbl
+    invoke: proc(self: pointer, info: pointer, status: AsyncStatus): HRESULT {.abi.}
 
   Completion {.pure.} = object
     ## On the COM heap on purpose: written by one thread and read by another,
@@ -143,8 +101,8 @@ proc completionQuery(self: pointer, riid: ptr GUID,
   ppv[] = nil
   E_NOINTERFACE
 
-proc completionInvoke(self: pointer,
-                      info, status: pointer): HRESULT {.abi.} =
+proc completionInvoke(self: pointer, info: pointer,
+                      status: AsyncStatus): HRESULT {.abi.} =
   ## Runs on whichever thread finished the work. It signals and returns; every
   ## decision is made on the dispatcher's thread.
   let c = cast[ptr Completion](self)
@@ -165,25 +123,13 @@ proc newCompletion(iid: GUID, ev: AsyncEvent): ptr Completion =
   result.iid = iid
   result.ev = ev
 
-func completedSlot(layout: AsyncLayout): int =
-  if layout == alPlain: 6 else: 8
-
-func resultsSlot(layout: AsyncLayout): int =
-  if layout == alPlain: 8 else: 10
-
 # ---------------------------------------------------------- what happened
 
 proc statusOf(op: pointer, what: string): AsyncState =
-  let info = queryInterface(op, IidAsyncInfo)
-  if info.isNil:
-    raise newException(WinRtError, "winrt: " & what & " is not an IAsyncInfo")
-  try:
-    var status: int32
-    vcall(info, SlotAsyncInfoStatus, FnAsyncStatus)(info, status.addr)
-      .check(what & ".get_Status")
-    result = AsyncState(status)
-  finally:
-    release(info)
+  let info = queryInterface[IAsyncInfoVtbl](op)
+  var status: AsyncStatus
+  info.vtbl.get_Status(info.raw, status.addr).check(what & ".get_Status")
+  AsyncState(ord(status))
 
 proc failureOf(op: pointer, what: string): ref WinRtError =
   ## How the operation ended, as an exception to fail the Future with, or nil.
@@ -193,20 +139,56 @@ proc failureOf(op: pointer, what: string): ref WinRtError =
     e.hr = E_ABORT
     e
   of asError:
-    let info = queryInterface(op, IidAsyncInfo)
+    # The failure is on the operation. The call that started it returned
+    # S_OK, so this is the only place the real code lives.
+    let info = queryInterface[IAsyncInfoVtbl](op)
     var hr: HRESULT = E_FAIL
-    if not info.isNil:
-      try:
-        # The failure is on the operation. The call that started it returned
-        # S_OK, so this is the only place the real code lives.
-        discard vcall(info, SlotAsyncInfoErrorCode, FnAsyncError)(info, hr.addr)
-      finally:
-        release(info)
+    discard info.vtbl.get_ErrorCode(info.raw, hr.addr)
     var e = newException(WinRtError, "winrt: " & what & " failed: " & hr.name)
     e.hr = hr
     e
   else:
     nil
+
+# ----------------------------------------------------------- the shapes
+
+# The four operation interfaces share one story and differ in two ways: whether
+# there is a result, and whether there is progress. Each `when` below is one of
+# those two questions.
+
+template ResultOf(Operation: typedesc): typedesc =
+  ## What an operation produces: nothing for an action.
+  when Operation is IAsyncOperationVtbl or
+       Operation is IAsyncOperationWithProgressVtbl:
+    Api(Operation.TResult)
+  else:
+    void
+
+template ProgressOf(Operation: typedesc): typedesc =
+  ## What a `WithProgress` operation reports along the way.
+  when Operation is IAsyncOperationWithProgressVtbl or
+       Operation is IAsyncActionWithProgressVtbl:
+    Api(Operation.TProgress)
+  else:
+    void
+
+template CompletedHandler(Operation: typedesc): typedesc =
+  ## The delegate an operation's `put_Completed` takes.
+  when Operation is IAsyncActionVtbl: AsyncActionCompletedHandlerVtbl
+  elif Operation is IAsyncOperationVtbl:
+    AsyncOperationCompletedHandlerVtbl[Operation.TResult]
+  elif Operation is IAsyncActionWithProgressVtbl:
+    AsyncActionWithProgressCompletedHandlerVtbl[Operation.TProgress]
+  else:
+    AsyncOperationWithProgressCompletedHandlerVtbl[Operation.TResult,
+                                                   Operation.TProgress]
+
+template ProgressHandler(Operation: typedesc): typedesc =
+  ## The delegate a `WithProgress` operation's `put_Progress` takes.
+  when Operation is IAsyncActionWithProgressVtbl:
+    AsyncActionProgressHandlerVtbl[Operation.TProgress]
+  else:
+    AsyncOperationProgressHandlerVtbl[Operation.TResult, Operation.TProgress]
 
 # ------------------------------------------------------------- the Future
 
@@ -220,18 +202,26 @@ proc forget(fut: FutureBase) =
       running.del i
       return
 
-proc operation[T](op: pointer, handlerIid: GUID, layout: AsyncLayout,
-                  what: string, results: proc(op: pointer): T): Future[T] =
-  ## The Future for `op`, completed with what `results` reads from it once
-  ## the operation is done — or failed with how it ended. Takes ownership of
-  ## `op`: the caller started the operation and has nothing further to do
-  ## with it, and releasing in one place means a failed operation is not also
-  ## a leaked one.
+proc results[AsyncOp, R](it: Interface[AsyncOp], what: string): R =
+  ## `GetResults`, read as the Nim type `R` it produces.
+  when R is void:
+    (it.vtbl.GetResults)(it.raw).check(what & ".GetResults")
+  else:
+    var v: Abi(AsyncOp.TResult)
+    (it.vtbl.GetResults)(it.raw, v.addr).check(what & ".GetResults")
+    readValue[AsyncOp.TResult, R, Abi(AsyncOp.TResult)](v)
+
+proc future*[AsyncOp, R](op: pointer, what: string): Future[R] =
+  ## The Future for the operation `op`, an `AsyncOp` — `IAsyncOperationVtbl[T]`
+  ## and the other three — completed with the `R` it produces once it is
+  ## done, or failed with how it ended. Takes ownership of `op`: the caller
+  ## started the operation and has nothing further to do with it, and
+  ## releasing in one place means a failed operation is not also a leaked one.
   ##
   ## `put_Completed` invokes the handler immediately if the work has already
   ## finished, so there is no window between asking and being told.
   doAssert not op.isNil, "winrt: " & what & " returned no operation"
-  let fut = newFuture[T](what)
+  let fut = newFuture[R](what)
   running.add (FutureBase(fut), op)
   let ev = newAsyncEvent()
   addEvent(ev, proc (fd: AsyncFD): bool {.gcsafe.} =
@@ -245,21 +235,22 @@ proc operation[T](op: pointer, handlerIid: GUID, layout: AsyncLayout,
           if not err.isNil:
             fut.fail(err)
           else:
-            when T is void:
-              results(op)
+            let it = queryInterface[AsyncOp](op)
+            when R is void:
+              results[AsyncOp, R](it, what)
               fut.complete()
             else:
-              fut.complete(results(op))
+              fut.complete(results[AsyncOp, R](it, what))
         except CatchableError as e:
           fut.fail(e)
       discard release(op)
     ev.close()
     true)                     # true: finished with this event, unregister it
 
-  let handler = newCompletion(handlerIid, ev)
+  let handler = newCompletion(iid(CompletedHandler(AsyncOp)), ev)
   try:
-    vcall(op, completedSlot(layout), FnPutHandler)(op, handler)
-      .check(what & ".put_Completed")
+    let it = queryInterface[AsyncOp](op)
+    (it.vtbl.put_Completed)(it.raw, handler).check(what & ".put_Completed")
   except CatchableError as e:
     # The handler will never be invoked, so the Future is failed here and the
     # event raised by hand for the cleanup above.
@@ -271,6 +262,20 @@ proc operation[T](op: pointer, handlerIid: GUID, layout: AsyncLayout,
     discard completionRelease(handler)
   fut
 
+proc future*[AsyncOp, R, P](op: pointer, what: string,
+                            progress: proc(value: P)): Future[R] =
+  ## The same, for a `WithProgress` operation, with `progress` told each `P`
+  ## the operation reports along the way — on the dispatcher thread, like any
+  ## handler. A nil `progress` asks for nothing.
+  result = future[AsyncOp, R](op, what)
+  if progress.isNil: return
+  let cb = newDelegate(ProgressHandler(AsyncOp),
+    proc(info: pointer, value: Abi(AsyncOp.TProgress)) =
+      progress(borrowValue[AsyncOp.TProgress, P,
+                           Abi(AsyncOp.TProgress)](value)))
+  let it = queryInterface[AsyncOp](op)
+  (it.vtbl.put_Progress)(it.raw, cb.raw).check(what & ".put_Progress")
+
 proc cancel*(fut: FutureBase): bool {.discardable.} =
   ## Ask the operation behind `fut` to stop. When it does, `fut` fails with a
   ## `CancelledError`; an operation may also finish first, or ignore the
@@ -278,130 +283,7 @@ proc cancel*(fut: FutureBase): bool {.discardable.} =
   ## not a WinRT operation still in flight.
   for entry in running:
     if entry.future == fut:
-      let info = queryInterface(entry.op, IidAsyncInfo)
-      if info.isNil: return false
-      try:
-        vcall(info, SlotAsyncInfoCancel, FnNoArgs)(info)
-          .check("IAsyncInfo.Cancel")
-      finally:
-        release(info)
+      let info = queryInterface[IAsyncInfoVtbl](entry.op)
+      info.vtbl.Cancel(info.raw).check("IAsyncInfo.Cancel")
       return true
   false
-
-proc reportProgress*[P](op: pointer, handlerIid: GUID,
-                        handler: ProgressHandler[P], what: string) =
-  ## Have a `WithProgress` operation report to `handler` as it goes. The
-  ## delegate is an ordinary one, so `handler` runs on the dispatcher thread.
-  ## A nil handler asks for nothing, which is the common case.
-  if handler.isNil: return
-  let cb =
-    when P is WinRtObject:
-      newDelegate[pointer, pointer](handlerIid,
-        proc(info, value: pointer) = handler(borrow[P](value)))
-    elif P is string:
-      newDelegate[pointer, HSTRING](handlerIid,
-        proc(info: pointer, value: HSTRING) = handler($value))
-    else:
-      newDelegate[pointer, P](handlerIid,
-        proc(info: pointer, value: P) = handler(value))
-  try:
-    vcall(op, SlotPutProgress, FnPutHandler)(op, cb)
-      .check(what & ".put_Progress")
-  finally:
-    release(cb)
-
-# ------------------------------------------------------------ the results
-
-# One per shape a result comes in. Each is `operation` with a reader for that
-# shape, and is what a generated wrapper returns.
-
-template withResults(op: pointer, iid: GUID, what: string,
-                     name, body: untyped) =
-  ## `GetResults` is numbered per interface, so it has to be called through
-  ## the instantiation the signature declares rather than through whatever
-  ## pointer happens to be at hand.
-  let name = queryInterface(op, iid)
-  if name.isNil:
-    raise newException(WinRtError, "winrt: " & what &
-      " is not the operation type its signature declares")
-  try:
-    body
-  finally:
-    release(name)
-
-proc readObject(op: pointer, opIid: GUID, layout: AsyncLayout,
-                what: string): pointer =
-  ## A result that is an interface pointer, ours to release.
-  withResults(op, opIid, what, iface):
-    vcall(iface, resultsSlot(layout), FnResultsPtr)(iface, result.addr)
-      .check(what & ".GetResults")
-
-proc futureVoid*(op: pointer, handlerIid: GUID, layout: AsyncLayout,
-                 what: string): Future[void] =
-  ## An `IAsyncAction`, which produces nothing.
-  operation[void](op, handlerIid, layout, what, proc(op: pointer) =
-    vcall(op, resultsSlot(layout), FnNoArgs)(op)
-      .check(what & ".GetResults"))
-
-proc futureObject*[T](op: pointer, opIid, handlerIid: GUID,
-                      layout: AsyncLayout, what: string): Future[T] =
-  ## An `IAsyncOperation<T>` whose result is an object.
-  operation[T](op, handlerIid, layout, what, proc(op: pointer): T =
-    adopt[T](readObject(op, opIid, layout, what)))
-
-proc futureString*(op: pointer, opIid, handlerIid: GUID,
-                   layout: AsyncLayout, what: string): Future[string] =
-  ## The same, for an operation whose result is a string.
-  operation[string](op, handlerIid, layout, what, proc(op: pointer): string =
-    withResults(op, opIid, what, iface):
-      var h: HSTRING
-      vcall(iface, resultsSlot(layout), FnResultsString)(iface, h.addr)
-        .check(what & ".GetResults")
-      result = takeString(h))
-
-proc futureValue*[T](op: pointer, opIid, handlerIid: GUID,
-                     layout: AsyncLayout, what: string): Future[T] =
-  ## An `IAsyncOperation<T>` whose result is a value rather than an object —
-  ## a number, a boolean, an enum or a struct. It comes back by value through
-  ## the same `GetResults` slot, so only the signature differs.
-  operation[T](op, handlerIid, layout, what, proc(op: pointer): T =
-    withResults(op, opIid, what, iface):
-      vcall(iface, resultsSlot(layout), FnResultsValue[T])(iface, result.addr)
-        .check(what & ".GetResults"))
-
-proc futureSeq*[E](op: pointer, opIid, handlerIid: GUID, layout: AsyncLayout,
-                   what: string, collectionIid: GUID, innerIid = GUID(),
-                   innerPairIid = GUID()): Future[seq[E]] =
-  ## An operation producing a collection, walked once there is one: `toSeq`
-  ## with the same IIDs.
-  operation[seq[E]](op, handlerIid, layout, what, proc(op: pointer): seq[E] =
-    let coll = readObject(op, opIid, layout, what)
-    try:
-      toSeq[E](coll, collectionIid, innerIid, innerPairIid)
-    finally:
-      release(coll))
-
-proc futureTable*[K, V](op: pointer, opIid, handlerIid: GUID,
-                        layout: AsyncLayout, what: string,
-                        iterableIid, pairIid: GUID,
-                        innerIid = GUID()): Future[Table[K, V]] =
-  ## An operation producing a map: `toTable` with the same IIDs.
-  operation[Table[K, V]](op, handlerIid, layout, what,
-                         proc(op: pointer): Table[K, V] =
-    let map = readObject(op, opIid, layout, what)
-    try:
-      toTable[K, V](map, iterableIid, pairIid, innerIid)
-    finally:
-      release(map))
-
-proc futureReference*[T](op: pointer, opIid, handlerIid: GUID,
-                         layout: AsyncLayout, what: string,
-                         referenceIid: GUID): Future[Option[T]] =
-  ## An operation producing an `IReference<T>`: a value, or nothing.
-  operation[Option[T]](op, handlerIid, layout, what,
-                       proc(op: pointer): Option[T] =
-    let box = readObject(op, opIid, layout, what)
-    try:
-      readReference[T](box, referenceIid, what)
-    finally:
-      release(box))

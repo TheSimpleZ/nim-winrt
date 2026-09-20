@@ -38,7 +38,7 @@
 ## interface has a different one, computed by hashing a signature string, so
 ## the generated code works them out and passes all three in.
 
-import ./core
+import ./[com, objects]
 include ./abidef
 
 type
@@ -542,9 +542,10 @@ proc newSeqView(kind: ElementKind, n: int,
   if n > 0:
     result.items = cast[ptr UncheckedArray[pointer]](comAlloc(n * stride))
 
-proc asIterable*[T](items: seq[T], iterableIid, viewIid, iteratorIid: GUID,
-                    vectorIid = GUID()): pointer =
-  ## A seq of objects, as something WinRT can iterate.
+proc asIterable*(items: seq[pointer], iterableIid, viewIid, iteratorIid: GUID,
+                 vectorIid = GUID()): pointer =
+  ## A seq of interface pointers, each a reference the view takes over, as
+  ## something WinRT can iterate.
   ##
   ## Returned with a reference count of 1. Pass it to the method and release
   ## it; the object frees itself once the callee lets go, which may be after
@@ -552,9 +553,7 @@ proc asIterable*[T](items: seq[T], iterableIid, viewIid, iteratorIid: GUID,
   ## its own copy of the elements.
   let v = newSeqView(ekObject, items.len, iterableIid, viewIid, iteratorIid,
                      vectorIid)
-  for i, x in items:
-    let p = x.p
-    if not p.isNil: discard addRef(p)
+  for i, p in items:
     v.items[i] = p
   cast[pointer](v)
 

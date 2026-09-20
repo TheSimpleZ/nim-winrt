@@ -34,33 +34,28 @@ The task refuses to run rather than half-generating if the file is not there.
 It prints what it did, which is the first thing to read afterwards:
 
 ```text
-  types             1725 enums  124 structs
+  types             1725 enums  124 structs (6 with an ABI twin)
+  generic             24 interfaces     64 methods
   ai                 139 interfaces    355 methods (100% typed)
   ...
-  19 modules  1725 enums  124 structs
-  8186 interfaces  33724 methods  99% typed  35 unmapped
+  20 modules  1725 enums  124 structs
+  8186 interfaces  33724 methods  100% typed  0 unmapped
 
-src\winrt\ai.nim
-  classes    65
-  procs      446  (constructors 1)
-  events     6
-  skipped    0
+  classes            4495 classes   559 interfaces  327 type classes
+  ai                  343 procs    7 constructors     3 events  0 skipped
   ...
-  19 modules  4670 classes  33056 procs  (923 constructors)  2908 events
-  0 skipped
+  19 modules  4495 classes  30003 procs  (1465 constructors)  1401 events  0 skipped
 ```
 
-The 35 unmapped ABI slots are the methods of the open generics themselves —
-`IVector<T>.GetAt(T)` — whose parameters are type variables; they are the same
-35 for every SDK. Every concrete method is typed, and nothing in the API layer
-is skipped. A new SDK that adds a shape the generator does not know will show
-up as a non-zero `skipped` with a reason beside it, and
+Every slot in the ABI is typed and nothing in the API layer is skipped. A new
+SDK that adds a shape the generator does not know shows up as a non-zero
+`unmapped` or `skipped`, and the count is followed by a line naming what
+stopped it, per module:
 
 ```text
-WINRT_DUMP_SKIPS=1 nimble bindings
+  media              3103 procs   96 constructors   102 events  2 skipped
+        2  a parameter with no spelling
 ```
-
-names each method and the parameter or result that stopped it.
 
 ## Checking the result
 
@@ -153,6 +148,12 @@ you can check by eye against the Windows Runtime ABI documentation, and a live
 `QueryInterface` is the only real proof. The tests are that proof for the
 shapes they read.
 
+`tools/piid.nim` is the same computation the generator itself uses for the one
+case it has to settle at generation time: a class whose default interface is
+an instantiation. Everywhere else the hash is taken in the compiler by
+`src/winrt/signatures.nim`, so the two implementations are checked against
+each other by any test that reads a collection.
+
 ## Adding a struct layout
 
 A struct the generator cannot lay out leaves every signature mentioning it
@@ -175,20 +176,18 @@ therefore reported as structs, and `foreignFlagEnums` for which of those are
 unsigned — a signature says `enum(Name;i4)` or `enum(Name;u4)` and getting it
 wrong yields an IID that matches nothing.
 
-## Generating for another winmd
+## Generating for another runtime
 
-Both generators also run in single-file mode, which is what a package
-projecting another runtime — Windows App SDK, say — would use over its own
-metadata:
+Both generators take the same two arguments — the metadata and an output
+directory — and `generate.nim` takes an optional third, the import path its
+modules use to find the hand-written plumbing:
 
 ```text
-nim c -r tools/generate.nim <winmd> <prefix> <out.nim> [core-import] [provider]
-nim c -r tools/wrappers.nim <winmd> <prefix> <out.nim> [core-import] [abi-import]
+nim c -r tools/generate.nim <winmd> --split <out-dir> [package-path]
+nim c -r tools/wrappers.nim <winmd> --split <out-dir>
 ```
 
-`core-import` is where the generated module finds `HSTRING` and `GUID`
-(`./core` inside this package, `winrt/core` from a package depending on it).
-`provider` names a module that already projects the `Windows.*` types the
-winmd merely references, so they are imported rather than declared a second
-time — without it an app importing both packages would have two incompatible
-`Point` types.
+`package-path` is `..` inside this package, which is the default, and
+`winrt` for a package that depends on this one — the Windows App SDK's own
+metadata, say, projected by a separate package whose generated modules import
+`winrt/com` rather than `../com`.

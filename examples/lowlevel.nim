@@ -11,28 +11,26 @@ import winrt
 import winrt/abi/foundation
 
 proc main() =
-  discard initApartment()
+  # 1. An interface pointer, from the activation factory. `it` is an
+  #    `Interface[IUriRuntimeClassFactoryVtbl]`, so only that interface's
+  #    methods can be called through it, and it is released with the scope.
+  let factory = statics[IUriRuntimeClassFactoryVtbl]("Windows.Foundation.Uri")
 
-  # 1. An interface pointer, from the activation factory. `factory` is a
-  #    `ptr Iface[IUriRuntimeClassFactoryVtbl]`, so only that interface's
-  #    methods can be called on it.
-  withStatics("Windows.Foundation.Uri", IUriRuntimeClassFactory, factory):
+  # 2. The method, as a field of the vtable. Every method returns an
+  #    HRESULT, and its declared return is a trailing out-parameter.
+  let text = toWinRtString("https://nim-lang.org/docs/manual.html")
+  var uri: pointer
+  check factory.vtbl.CreateUri(factory.raw, text.handle, uri.addr), "Uri.CreateUri"
+  defer: release(uri)
 
-    # 2. The method, as a field of the vtable. Every method returns an
-    #    HRESULT, and its declared return is a trailing out-parameter.
-    var uri: pointer
-    withHString("https://nim-lang.org/docs/manual.html", s):
-      check factory.vtbl.CreateUri(factory, s, uri.addr), "Uri.CreateUri"
-    defer: release(uri)
+  # 3. Narrow to the interface that declares the method you want. Methods
+  #    are numbered per interface, so this is not optional.
+  let it = queryInterface[IUriRuntimeClassVtbl](uri)
 
-    # 3. Narrow to the interface that declares the method you want. Methods
-    #    are numbered per interface, so this is not optional.
-    withIface(uri, IUriRuntimeClass, it):
-
-      # 4. An out HSTRING is yours to free; `takeString` converts and frees it.
-      var h: HSTRING
-      check it.vtbl.get_Host(it, h.addr), "Uri.get_Host"
-      echo "host: ", takeString(h)
+  # 4. An out HSTRING is yours to free; `takeString` converts and frees it.
+  var host: HSTRING
+  check it.vtbl.get_Host(it.raw, host.addr), "Uri.get_Host"
+  echo "host: ", takeString(host)
 
 when isMainModule:
   main()

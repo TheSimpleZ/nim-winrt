@@ -7,23 +7,33 @@
 
 import std/[algorithm, asynchttpserver, sequtils, strutils, times, unittest]
 import winrt
-import winrt/foundation
-import winrt/globalization
-import winrt/security
-import winrt/graphics
 import winrt/applicationmodel
-import winrt/system
-import winrt/gaming
 import winrt/devices
+import winrt/foundation
+import winrt/gaming
+import winrt/globalization
+import winrt/graphics
 import winrt/networking
+import winrt/security
 import winrt/storage
+import winrt/system
 import winrt/web
+import winrt/abi/[devices, generic]
 include winrt/abidef        # `{.abi.}`, for the methods of objects made here
 
-suite "generated API":
-  setup:
-    discard initApartment()
+# An `IBuffer` over bytes of ours needs the COM-side interface Windows reads
+# them through, which is in no metadata. Declared the way the generated ABI
+# declares one — the IID beside the vtable — and at module scope, which is
+# where `implement` looks the IID up.
+const IID_IBufferByteAccess = guid"905A0FEF-BC53-11DF-8C49-001E4FC686DA"
 
+type
+  Bytes = object
+    data: seq[byte]
+  IBufferByteAccessVtbl = object of IUnknownVtbl
+    Buffer: proc(self: pointer, value: ptr ptr byte): HRESULT {.abi.}
+
+suite "generated API":
   test "a static class exposes its members on the type":
     # `PowerManager` has no instances: everything it can do lives on an
     # interface reached through its activation factory.
@@ -36,7 +46,7 @@ suite "generated API":
   test "a class with no parameterless constructor is built by its factory":
     # `RoActivateInstance` on Uri returns E_NOTIMPL — the metadata points at a
     # factory interface instead, and that is what this goes through.
-    let uri = Uri.createUri("https://nim-lang.org/docs/manual.html?q=1")
+    let uri = newUri("https://nim-lang.org/docs/manual.html?q=1")
     check uri.host == "nim-lang.org"
     check uri.path == "/docs/manual.html"
     check uri.query == "?q=1"
@@ -49,7 +59,7 @@ suite "generated API":
     check cal.getCalendarSystem.len > 0
 
   test "strings cross as Nim strings in both directions":
-    let uri = Uri.createUri("https://example.com/a b")
+    let uri = newUri("https://example.com/a b")
     # WinRT escaped the space on the way in and gives it back escaped.
     check uri.path == "/a%20b"
 
@@ -57,14 +67,14 @@ suite "generated API":
     # 20,000 constructions, each dropped by `=destroy` at the end of the
     # iteration. A leak here is a reference per loop and the process grows.
     for i in 1 .. 20_000:
-      let uri = Uri.createUri("https://example.com/")
+      let uri = newUri("https://example.com/")
       doAssert uri.host == "example.com"
     check true
 
   test "an event on a static class subscribes and unsubscribes":
     var fired = 0
     let token = PowerManager.onEnergySaverStatusChanged(
-      proc(sender, args: WinRtObject) = fired.inc)
+      proc(sender: WinRtObject, args: WinRtObject) = fired.inc)
     check token.value != 0
     PowerManager.removeEnergySaverStatusChanged(token)
 
@@ -110,30 +120,24 @@ suite "generated API":
     expect WinRtError:
       discard waitFor Print3DDevice.fromIdAsync("not-a-real-device-id")
 
-  test "a completion handler reaches a single-threaded apartment":
-    # initApartment() puts this thread in an STA, and waitFor blocks it inside
-    # a poll that does not pump COM messages. A handler that was not agile
-    # would be marshalled back here and never arrive, so this hanging is the
-    # failure mode it guards against.
-    # `setup` put this thread in one; the default for initApartment is STA.
+  test "a completion handler reaches a thread blocked in waitFor":
+    # `waitFor` blocks this thread inside a poll that does not pump COM
+    # messages. A handler that was not agile would be marshalled back here and
+    # never arrive, so this hanging is the failure mode it guards against.
     discard waitFor AdcController.getDefaultAsync()
     check true
 
   test "IReference<T> comes back as an Option":
     # A BLE advertisement carries flags only if the advertiser sent them, and
     # WinRT says so with an interface that is null rather than a sentinel.
-    let ad = newBluetoothLEAdvertisement()
-    let flags = ad.flags
-    check not flags.isSome          # a fresh advertisement has none
-    # Setting one is not generated: handing a value *in* means boxing it
-    # through PropertyValue, which is the other half of IReference and is not
-    # done yet.
+    let advertisement = newBluetoothLEAdvertisement()
+    check advertisement.flags.isNone
 
   test "a by-reference input is not an out-parameter":
     # `GuidHelper.Equals(GUID, GUID)` passes both by reference because they are
     # structs, not because they are outputs. The Param table says `[in]`, and
     # only that says otherwise.
-    let a = guid("00000000-0000-0000-C000-000000000046")
+    let a = guid"00000000-0000-0000-C000-000000000046"
     check GuidHelper.equals(a, a)
     check not GuidHelper.equals(a, GuidHelper.empty)
 
@@ -141,52 +145,53 @@ suite "generated API":
     # Calendar's constructor takes an IIterable<String>, so Windows iterates
     # an object built around the seq — First, MoveNext, get_Current — and this
     # passing means the vtables, the IIDs and the refcounts are all right.
-    let cal = Calendar.createCalendar(@["en-GB", "sv-SE"],
-                                      "GregorianCalendar", "24HourClock")
+    let cal = newCalendar(@["en-GB", "sv-SE"], "GregorianCalendar", "24HourClock")
     check cal.languages == @["en-GB", "sv-SE"]
     check cal.getCalendarSystem == "GregorianCalendar"
 
   test "handing over a collection repeatedly does not leak it":
     # The view is released after the call; the elements it copied go with it.
     for i in 1 .. 2_000:
-      let c = Calendar.createCalendar(@["en-GB"], "GregorianCalendar",
-                                      "24HourClock")
-      doAssert c.languages.len == 1
+      let cal = newCalendar(@["en-GB"], "GregorianCalendar", "24HourClock")
+      doAssert cal.languages.len == 1
     check true
 
   test "an openArray crosses as a count and a pointer":
     # If either half were wrong the hex would not match the bytes.
-    let buf = CryptographicBuffer.createFromByteArray([0xDE'u8, 0xAD, 0xBE, 0xEF])
-    check CryptographicBuffer.encodeToHexString(buf) == "deadbeef"
+    let buffer = CryptographicBuffer.createFromByteArray([0xDE'u8, 0xAD, 0xBE, 0xEF])
+    check CryptographicBuffer.encodeToHexString(buffer) == "deadbeef"
 
   test "an empty openArray has no element to point at":
     let empty = CryptographicBuffer.createFromByteArray([])
     check CryptographicBuffer.encodeToHexString(empty) == ""
 
+  test "an array of bytes crosses in, and a received array comes back out":
+    let buffer = CryptographicBuffer.createFromByteArray([1'u8, 2, 3])
+    check buffer.length == 3
+    check CryptographicBuffer.encodeToBase64String(buffer) == "AQID"
+    # `[out] UInt8[]` — the callee allocates, and the only out-parameter is
+    # the result.
+    check CryptographicBuffer.copyToByteArray(buffer) == @[1'u8, 2, 3]
+
   test "a string-keyed map reads as a Table":
     # Filled through the ABI, because `IMap<K, V>`'s own methods live on a
     # parameterised interface and no class wraps them. That is the point: the
-    # generated read path has to walk real pairs, not an empty map, or a failed
-    # QueryInterface would look the same as no entries.
-    type
-      FnInsert = proc(self: pointer, k, v: HSTRING,
-                      replaced: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
-
+    # generated read path has to walk real pairs, not an empty map, or a
+    # failed QueryInterface would look the same as no entries.
     let model = newPrinting3DModel()
     check model.metadata.len == 0
 
-    withIface(model.p, IPrinting3DModel, it):
-      var raw: pointer
-      check it.vtbl.get_Metadata(it, raw.addr), "get_Metadata"
-      let mp = queryInterface(raw, guid("F6D1F700-49C2-52AE-8154-826F9908773C"))
-      check mp != nil
-      for (k, v) in {"title": "a cube", "author": "nim"}:
-        withHString(k, hk):
-          withHString(v, hv):
-            var replaced: bool
-            vcall(mp, 10, FnInsert)(mp, hk, hv, replaced.addr).check("Insert")
-      release(mp)
-      release(raw)
+    let it = queryInterface[IPrinting3DModelVtbl](model)
+    var raw: pointer
+    it.vtbl.get_Metadata(it.raw, raw.addr).check("get_Metadata")
+    let entries = queryInterface[IMapVtbl[string, string]](raw)
+    release(raw)
+    for (key, value) in {"title": "a cube", "author": "nim"}:
+      let k = toWinRtString(key)
+      let v = toWinRtString(value)
+      var replaced: bool
+      entries.vtbl.Insert(entries.raw, k.handle, v.handle, replaced.addr)
+        .check("IMap.Insert")
 
     let read = model.metadata
     check read.len == 2
@@ -198,23 +203,27 @@ suite "generated API":
     # IInspectable, and a method declaring `IReference<TimeSpan>` wants that
     # interface — both are bare pointers at the ABI, so handing over the wrong
     # one is silent and the value reads back as zero.
-    let appt = newAppointment()
-    check not appt.reminder.isSome
-    appt.reminder = some(TimeSpan(duration: 9_000_000_000'i64))
-    check appt.reminder.isSome
-    check appt.reminder.get.duration == 9_000_000_000'i64
-    appt.reminder = none(TimeSpan)
-    check not appt.reminder.isSome
+    let appointment = newAppointment()
+    check appointment.reminder.isNone
+    appointment.reminder = some(TimeSpan(duration: 9_000_000_000'i64))
+    check appointment.reminder.isSome
+    check appointment.reminder.get.duration == 9_000_000_000'i64
+    appointment.reminder = none(TimeSpan)
+    check appointment.reminder.isNone
 
-  test "an array of bytes crosses in, and a received array comes back out":
-    let buffer = CryptographicBuffer.createFromByteArray([1'u8, 2, 3])
-    check buffer.length == 3
-    check CryptographicBuffer.encodeToBase64String(buffer) == "AQID"
-    # `[out] UInt8[]` — the callee allocates, and both halves come back.
-    check CryptographicBuffer.copyToByteArray(buffer).value == @[1'u8, 2, 3]
+  test "an Option of a value the runtime cannot box still crosses":
+    # `IReference<BluetoothLEAdvertisementFlags>`: no `PropertyValue.CreateX`
+    # exists for an enum, so this goes through an object of the library's own,
+    # and the runtime reads it back through `get_Value`.
+    let advertisement = newBluetoothLEAdvertisement()
+    advertisement.flags = some(BluetoothLEAdvertisementFlags(2'u32))
+    check advertisement.flags.isSome
+    check uint32(advertisement.flags.get) == 2
+    advertisement.flags = none(BluetoothLEAdvertisementFlags)
+    check advertisement.flags.isNone
 
   test "a seq of structs crosses as a collection and reads back":
-    let path = Geopath.create(@[
+    let path = newGeopath(@[
       BasicGeoposition(latitude: 59.33, longitude: 18.07, altitude: 0),
       BasicGeoposition(latitude: 57.71, longitude: 11.97, altitude: 0)])
     let back = path.positions
@@ -226,13 +235,13 @@ suite "generated API":
     # String>>`, and `ReadAsStringAsync` is an
     # `IAsyncOperationWithProgress<String, UInt64>` — the layout whose
     # Completed and GetResults sit two slots further down.
-    let content = HttpFormUrlEncodedContent.create({"a": "1", "b": "2"}.toTable)
+    let content = newHttpFormUrlEncodedContent({"a": "1", "b": "2"}.toTable)
     let encoded = waitFor content.readAsStringAsync()
     check encoded.split('&').sorted == @["a=1", "b=2"]
 
   test "a seq crosses as a mutable vector":
-    let dns = @[HostName.createHostName("1.1.1.1"), HostName.createHostName("8.8.8.8")]
-    let info = VpnNamespaceInfo.createVpnNamespaceInfo("example", dns, @[])
+    let dns = @[newHostName("1.1.1.1"), newHostName("8.8.8.8")]
+    let info = newVpnNamespaceInfo("example", dns, @[])
     check info.dnsServers.mapIt(it.canonicalName) == @["1.1.1.1", "8.8.8.8"]
 
   test "a delegate argument is a Nim closure, run on the dispatcher thread":
@@ -240,55 +249,46 @@ suite "generated API":
     # allocate — which this one does, freely.
     let main = getThreadId()
     var seen = ""
-    waitFor ThreadPool.runAsync(proc(action: WinRtObject) =
-      seen = "thread " & $getThreadId() & " " & action.p.runtimeClassName)
+    waitFor ThreadPool.runAsync(proc(operation: IAsyncAction) =
+      seen = "thread " & $getThreadId() & " " & operation.runtimeClassName)
     check seen == "thread " & $main & " Windows.Foundation.IAsyncAction"
 
   test "a failed call carries the runtime's own message":
     try:
-      discard Uri.createUri("not a uri at all")
+      discard newUri("not a uri at all")
       check false
     except WinRtError as e:
       check e.hr == E_INVALIDARG
-      check e.msg == "Uri.CreateUri failed: E_INVALIDARG: " &
+      check e.msg == "Uri.new failed: E_INVALIDARG: " &
                      "not a uri at all is not a valid absolute URI."
 
   test "an interface implemented in Nim is one Windows can hold and call":
     # An `IReference<BluetoothLEAdvertisementFlags>` implemented by hand rather
     # than boxed, handed to Windows through the ABI, read back through the
-    # generated getter: Windows keeps the object, and `readReference` reaches
-    # our `get_Value` through it.
-    type IReferenceFlagsVtbl = object of IInspectableVtbl
-      get_Value: proc(self: pointer, value: ptr BluetoothLEAdvertisementFlags):
-        HRESULT {.abi.}
+    # generated getter: Windows keeps the object, and the generated reader
+    # reaches our `get_Value` through it.
     var flag = BluetoothLEAdvertisementFlags(2'u32)
-    let box = implement(IID_IReference_1_BluetoothLEAdvertisementFlags,
-      IReferenceFlagsVtbl(get_Value:
+    let box = implement(
+      IReferenceVtbl[BluetoothLEAdvertisementFlags](get_Value:
         proc(self: pointer, value: ptr BluetoothLEAdvertisementFlags): HRESULT
             {.abi.} =
           value[] = cast[ptr BluetoothLEAdvertisementFlags](stateOf(self))[]
           S_OK),
       state = flag.addr)
-    let adv = newBluetoothLEAdvertisement()
-    withIface(adv.p, IBluetoothLEAdvertisement, it):
-      check it.vtbl.put_Flags(it, box), "put_Flags"
+    let advertisement = newBluetoothLEAdvertisement()
+    let it = queryInterface[IBluetoothLEAdvertisementVtbl](advertisement)
+    it.vtbl.put_Flags(it.raw, box).check("put_Flags")
     release(box)                    # Windows holds its own reference now
-    check adv.flags.isSome
-    check uint32(adv.flags.get) == 2
+    check advertisement.flags.isSome
+    check uint32(advertisement.flags.get) == 2
 
   test "an object implementing two interfaces is queried for both":
     # An `IBuffer` over bytes of ours, with the COM-side `IBufferByteAccess`
     # Windows uses to reach them. `EncodeToBase64String` queries the second
     # interface off the first and reads through both.
-    type
-      Bytes = object
-        data: seq[byte]
-      IBufferByteAccessVtbl = object of IUnknownVtbl
-        buffer: proc(self: pointer, value: ptr ptr byte): HRESULT {.abi.}
-    const IID_IBufferByteAccess = guid"905A0FEF-BC53-11DF-8C49-001E4FC686DA"
     var bytes = Bytes(data: @[byte 'h'.ord, 'i'.ord, '!'.ord])
-    let buffer = adopt[Buffer](implement(
-      (IID_IBuffer, IBufferVtbl(
+    let buffer = adopt[IBuffer](implement(
+      IBufferVtbl(
         get_Capacity: proc(self: pointer, value: ptr uint32): HRESULT {.abi.} =
           value[] = uint32(cast[ptr Bytes](stateOf(self)).data.len)
           S_OK,
@@ -297,11 +297,11 @@ suite "generated API":
           S_OK,
         put_Length: proc(self: pointer, length: uint32): HRESULT {.abi.} =
           cast[ptr Bytes](stateOf(self)).data.setLen(length)
-          S_OK)),
-      (IID_IBufferByteAccess, IBufferByteAccessVtbl(
-        buffer: proc(self: pointer, value: ptr ptr byte): HRESULT {.abi.} =
+          S_OK),
+      IBufferByteAccessVtbl(
+        Buffer: proc(self: pointer, value: ptr ptr byte): HRESULT {.abi.} =
           value[] = cast[ptr Bytes](stateOf(self)).data[0].addr
-          S_OK)),
+          S_OK),
       state = bytes.addr))
     check CryptographicBuffer.encodeToBase64String(buffer) == "aGkh"
     check buffer.length == 3
@@ -310,7 +310,7 @@ suite "generated API":
     # The work item's handler is marshalled to this thread, so the item is
     # still running when this thread asks; the runtime finishes it as
     # Canceled either way.
-    let fut = ThreadPool.runAsync(proc(action: WinRtObject) = discard)
+    let fut = ThreadPool.runAsync(proc(operation: IAsyncAction) = discard)
     check cancel(fut)
     expect CancelledError:
       waitFor fut
@@ -332,54 +332,36 @@ suite "generated API":
     var reports: seq[HttpProgress]
     var ranOn = 0
     let body = waitFor newHttpClient().getStringAsync(
-      Uri.createUri("http://127.0.0.1:18081/"),
-      progress = proc(p: HttpProgress) =
+      newUri("http://127.0.0.1:18081/"),
+      progress = proc(value: HttpProgress) =
         ranOn = getThreadId()
-        reports.add p)
+        reports.add value)
     check body.len == 1_000_000
     check reports.len > 0
     check ranOn == main
     check reports[^1].stage == HttpProgressStage.ReceivingContent
     check reports[^1].bytesReceived == 1_000_000
-    # The `IReference<UInt64>` inside the struct is a `Reference[uint64]`, kept
-    # alive by the copy in `reports` and read here, well after the callback.
-    check reports[^1].totalBytesToReceive.value == some(1_000_000'u64)
+    # The `IReference<UInt64>` inside the struct is an `Option[uint64]` here,
+    # read well after the callback that carried it.
+    check reports[^1].totalBytesToReceive == some(1_000_000'u64)
 
-  test "a string inside a struct is a WinRtString, owned and readable":
+  test "a string inside a struct is a Nim string on this side":
     # Out of Windows: the sort order a common query starts with. Each entry's
-    # HSTRING became ours when `GetAt` handed the struct over, and the seq
-    # frees it when it goes.
-    let options = QueryOptions.createCommonFileQuery(
-      CommonFileQuery.OrderByName, @["*"])
+    # HSTRING was read into a `string` when `GetAt` handed the struct over.
+    let options = newQueryOptions(CommonFileQuery.OrderByName, @["*"])
     let order = options.sortOrder
     check order.len > 0
-    check $order[0].propertyName == "System.ItemNameDisplay"
+    check order[0].propertyName == "System.ItemNameDisplay"
     check order[0].ascendingOrder
-    # A copy duplicates the handle: both read, and both are freed.
-    let again = order[0]
-    check $again.propertyName == $order[0].propertyName
     # Into Windows: a struct built here, with a string of ours inside it.
-    let mine = SortEntry(propertyName: toWinRtString("System.Size"),
-                         ascendingOrder: false)
-    check $mine.propertyName == "System.Size"
-    check hash(mine) == hash(SortEntry(propertyName: toWinRtString("System.Size")))
+    let mine = SortEntry(propertyName: "System.Size", ascendingOrder: false)
+    check mine.propertyName == "System.Size"
+    check hash(mine) == hash(SortEntry(propertyName: "System.Size"))
     # And a reference built here reads back through the runtime's box.
-    check reference(42'u64).value == some(42'u64)
+    check asReference(42'u64).value == some(42'u64)
     check Reference[uint64]().value.isNone
 
   test "an out-parameter comes back in the tuple":
     let (outcome, info) = PhoneNumberInfo.tryParse("+46 8 123 456", "SE")
     check outcome == PhoneNumberParseResult.Valid
     check info.countryCode == 46
-
-  test "an Option of a value the runtime cannot box still crosses":
-    # `IReference<BluetoothLEAdvertisementFlags>`: no `PropertyValue.CreateX`
-    # exists for an enum, so this goes through `reference.nim`'s own object,
-    # and the runtime reads it back through `get_Value`.
-    let adv = newBluetoothLEAdvertisement()
-    check adv.flags.isNone
-    adv.flags = some(BluetoothLEAdvertisementFlags(2'u32))
-    check adv.flags.isSome
-    check uint32(adv.flags.get) == 2
-    adv.flags = none(BluetoothLEAdvertisementFlags)
-    check adv.flags.isNone
