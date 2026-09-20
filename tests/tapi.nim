@@ -5,7 +5,7 @@
 ## works where `RoActivateInstance` would fail, that strings cross as Nim
 ## strings, and that nothing has to be released by hand.
 
-import std/[algorithm, sequtils, strutils, times, unittest]
+import std/[algorithm, asynchttpserver, sequtils, strutils, times, unittest]
 import winrt
 import winrt/foundation
 import winrt/globalization
@@ -18,6 +18,7 @@ import winrt/devices
 import winrt/networking
 import winrt/storage
 import winrt/web
+include winrt/abidef        # `{.abi.}`, for the methods of objects made here
 
 suite "generated API":
   setup:
@@ -259,12 +260,12 @@ suite "generated API":
     # our `get_Value` through it.
     type IReferenceFlagsVtbl = object of IInspectableVtbl
       get_Value: proc(self: pointer, value: ptr BluetoothLEAdvertisementFlags):
-        HRESULT {.stdcall, raises: [], gcsafe.}
+        HRESULT {.abi.}
     var flag = BluetoothLEAdvertisementFlags(2'u32)
     let box = implement(IID_IReference_1_BluetoothLEAdvertisementFlags,
       IReferenceFlagsVtbl(get_Value:
         proc(self: pointer, value: ptr BluetoothLEAdvertisementFlags): HRESULT
-            {.stdcall, raises: [], gcsafe.} =
+            {.abi.} =
           value[] = cast[ptr BluetoothLEAdvertisementFlags](stateOf(self))[]
           S_OK),
       state = flag.addr)
@@ -274,6 +275,72 @@ suite "generated API":
     release(box)                    # Windows holds its own reference now
     check adv.flags.isSome
     check uint32(adv.flags.get) == 2
+
+  test "an object implementing two interfaces is queried for both":
+    # An `IBuffer` over bytes of ours, with the COM-side `IBufferByteAccess`
+    # Windows uses to reach them. `EncodeToBase64String` queries the second
+    # interface off the first and reads through both.
+    type
+      Bytes = object
+        data: seq[byte]
+      IBufferByteAccessVtbl = object of IUnknownVtbl
+        buffer: proc(self: pointer, value: ptr ptr byte): HRESULT {.abi.}
+    const IID_IBufferByteAccess = guid"905A0FEF-BC53-11DF-8C49-001E4FC686DA"
+    var bytes = Bytes(data: @[byte 'h'.ord, 'i'.ord, '!'.ord])
+    let buffer = adopt[Buffer](implement(
+      (IID_IBuffer, IBufferVtbl(
+        get_Capacity: proc(self: pointer, value: ptr uint32): HRESULT {.abi.} =
+          value[] = uint32(cast[ptr Bytes](stateOf(self)).data.len)
+          S_OK,
+        get_Length: proc(self: pointer, value: ptr uint32): HRESULT {.abi.} =
+          value[] = uint32(cast[ptr Bytes](stateOf(self)).data.len)
+          S_OK,
+        put_Length: proc(self: pointer, length: uint32): HRESULT {.abi.} =
+          cast[ptr Bytes](stateOf(self)).data.setLen(length)
+          S_OK)),
+      (IID_IBufferByteAccess, IBufferByteAccessVtbl(
+        buffer: proc(self: pointer, value: ptr ptr byte): HRESULT {.abi.} =
+          value[] = cast[ptr Bytes](stateOf(self)).data[0].addr
+          S_OK)),
+      state = bytes.addr))
+    check CryptographicBuffer.encodeToBase64String(buffer) == "aGkh"
+    check buffer.length == 3
+
+  test "cancel stops an operation, and its Future fails with CancelledError":
+    # The work item's handler is marshalled to this thread, so the item is
+    # still running when this thread asks; the runtime finishes it as
+    # Canceled either way.
+    let fut = ThreadPool.runAsync(proc(action: WinRtObject) = discard)
+    check cancel(fut)
+    expect CancelledError:
+      waitFor fut
+    check not cancel(fut)                       # finished: nothing to stop
+    check not cancel(newFuture[int]("mine"))    # not a WinRT operation
+
+  test "a WithProgress operation reports to the progress closure":
+    # Windows' HttpClient fetching from a server on this very dispatcher,
+    # which serves while `waitFor` polls. `HttpProgress` is a struct the
+    # runtime hands to the delegate by value, from its own thread: the ABI
+    # case worth proving, and the closure still runs here.
+    let server = newAsyncHttpServer()
+    proc serveBody(req: Request) {.async.} =
+      await req.respond(Http200, "x".repeat(1_000_000))
+    asyncCheck server.serve(Port(18081), serveBody, address = "127.0.0.1")
+    defer: server.close()
+
+    let main = getThreadId()
+    var reports: seq[HttpProgress]
+    var ranOn = 0
+    let body = waitFor newHttpClient().getStringAsync(
+      Uri.createUri("http://127.0.0.1:18081/"),
+      progress = proc(p: HttpProgress) =
+        ranOn = getThreadId()
+        reports.add p)
+    check body.len == 1_000_000
+    check reports.len > 0
+    check ranOn == main
+    check reports[^1].stage == HttpProgressStage.ReceivingContent
+    check reports[^1].bytesReceived == 1_000_000
 
   test "an out-parameter comes back in the tuple":
     let (outcome, info) = PhoneNumberInfo.tryParse("+46 8 123 456", "SE")

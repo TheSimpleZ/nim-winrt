@@ -493,20 +493,19 @@ proc isPasswordProtected*(self: PdfDocument): bool =
     result = it.getValue(get_IsPasswordProtected, bool)
 
 proc loadFromFileAsync*(_: typedesc[PdfDocument], file: StorageFile
-                       ): Future[PdfDocument] {.async.} =
+                       ): Future[PdfDocument] =
   ## Windows.Data.Pdf.PdfDocument.LoadFromFileAsync
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IPdfDocumentStatics, it):
     withIface(file.p, IStorageFile, p0):
       check it.vtbl.LoadFromFileAsync(it, p0, op.addr
                                      ), "PdfDocument.LoadFromFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PdfDocument,
-                              IID_AsyncOperationCompletedHandler_1_PdfDocument,
-                              alPlain, "PdfDocument.LoadFromFileAsync")
-  result = adopt[PdfDocument](obj)
+  result = futureObject[PdfDocument](op, IID_IAsyncOperation_1_PdfDocument,
+                                     IID_AsyncOperationCompletedHandler_1_PdfDocument,
+                                     alPlain, "PdfDocument.LoadFromFileAsync")
 
 proc loadFromFileAsync*(_: typedesc[PdfDocument], file: StorageFile,
-                        password: string): Future[PdfDocument] {.async.} =
+                        password: string): Future[PdfDocument] =
   ## Windows.Data.Pdf.PdfDocument.LoadFromFileAsync
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IPdfDocumentStatics, it):
@@ -514,26 +513,24 @@ proc loadFromFileAsync*(_: typedesc[PdfDocument], file: StorageFile,
       withHString(password, h1):
         check it.vtbl.LoadFromFileAsync2(it, p0, h1, op.addr
                                         ), "PdfDocument.LoadFromFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PdfDocument,
-                              IID_AsyncOperationCompletedHandler_1_PdfDocument,
-                              alPlain, "PdfDocument.LoadFromFileAsync")
-  result = adopt[PdfDocument](obj)
+  result = futureObject[PdfDocument](op, IID_IAsyncOperation_1_PdfDocument,
+                                     IID_AsyncOperationCompletedHandler_1_PdfDocument,
+                                     alPlain, "PdfDocument.LoadFromFileAsync")
 
 proc loadFromStreamAsync*(_: typedesc[PdfDocument], inputStream: WinRtObject
-                         ): Future[PdfDocument] {.async.} =
+                         ): Future[PdfDocument] =
   ## Windows.Data.Pdf.PdfDocument.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IPdfDocumentStatics, it):
     withIface(inputStream.p, IRandomAccessStream, p0):
       check it.vtbl.LoadFromStreamAsync(it, p0, op.addr
                                        ), "PdfDocument.LoadFromStreamAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PdfDocument,
-                              IID_AsyncOperationCompletedHandler_1_PdfDocument,
-                              alPlain, "PdfDocument.LoadFromStreamAsync")
-  result = adopt[PdfDocument](obj)
+  result = futureObject[PdfDocument](op, IID_IAsyncOperation_1_PdfDocument,
+                                     IID_AsyncOperationCompletedHandler_1_PdfDocument,
+                                     alPlain, "PdfDocument.LoadFromStreamAsync")
 
 proc loadFromStreamAsync*(_: typedesc[PdfDocument], inputStream: WinRtObject,
-                          password: string): Future[PdfDocument] {.async.} =
+                          password: string): Future[PdfDocument] =
   ## Windows.Data.Pdf.PdfDocument.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IPdfDocumentStatics, it):
@@ -541,23 +538,23 @@ proc loadFromStreamAsync*(_: typedesc[PdfDocument], inputStream: WinRtObject,
       withHString(password, h1):
         check it.vtbl.LoadFromStreamAsync2(it, p0, h1, op.addr
                                           ), "PdfDocument.LoadFromStreamAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PdfDocument,
-                              IID_AsyncOperationCompletedHandler_1_PdfDocument,
-                              alPlain, "PdfDocument.LoadFromStreamAsync")
-  result = adopt[PdfDocument](obj)
+  result = futureObject[PdfDocument](op, IID_IAsyncOperation_1_PdfDocument,
+                                     IID_AsyncOperationCompletedHandler_1_PdfDocument,
+                                     alPlain, "PdfDocument.LoadFromStreamAsync")
 
-proc renderToStreamAsync*(self: PdfPage, outputStream: WinRtObject) {.async.} =
+proc renderToStreamAsync*(self: PdfPage, outputStream: WinRtObject
+                         ): Future[void] =
   ## Windows.Data.Pdf.PdfPage.RenderToStreamAsync
   var op: pointer
   withIface(self.p, IPdfPage, it):
     withIface(outputStream.p, IRandomAccessStream, p0):
       check it.vtbl.RenderToStreamAsync(it, p0, op.addr
                                        ), "PdfPage.RenderToStreamAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PdfPage.RenderToStreamAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PdfPage.RenderToStreamAsync")
 
 proc renderToStreamAsync*(self: PdfPage, outputStream: WinRtObject,
-                          options: PdfPageRenderOptions) {.async.} =
+                          options: PdfPageRenderOptions): Future[void] =
   ## Windows.Data.Pdf.PdfPage.RenderToStreamAsync
   var op: pointer
   withIface(self.p, IPdfPage, it):
@@ -565,16 +562,16 @@ proc renderToStreamAsync*(self: PdfPage, outputStream: WinRtObject,
       withIface(options.p, IPdfPageRenderOptions, p1):
         check it.vtbl.RenderToStreamAsync2(it, p0, p1, op.addr
                                           ), "PdfPage.RenderToStreamAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PdfPage.RenderToStreamAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PdfPage.RenderToStreamAsync")
 
-proc preparePageAsync*(self: PdfPage) {.async.} =
+proc preparePageAsync*(self: PdfPage): Future[void] =
   ## Windows.Data.Pdf.PdfPage.PreparePageAsync
   var op: pointer
   withIface(self.p, IPdfPage, it):
     check it.vtbl.PreparePageAsync(it, op.addr), "PdfPage.PreparePageAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PdfPage.PreparePageAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PdfPage.PreparePageAsync")
 
 proc index*(self: PdfPage): uint32 =
   ## Windows.Data.Pdf.PdfPage.get_Index
@@ -844,34 +841,32 @@ proc languageAvailableButNotInstalled*(self: TextConversionGenerator): bool =
     result = it.getValue(get_LanguageAvailableButNotInstalled, bool)
 
 proc getCandidatesAsync*(self: TextConversionGenerator, input: string
-                        ): Future[seq[string]] {.async.} =
+                        ): Future[seq[string]] =
   ## Windows.Data.Text.TextConversionGenerator.GetCandidatesAsync
   var op: pointer
   withIface(self.p, ITextConversionGenerator, it):
     withHString(input, h0):
       check it.vtbl.GetCandidatesAsync(it, h0, op.addr
                                       ), "TextConversionGenerator.GetCandidatesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain,
-                               "TextConversionGenerator.GetCandidatesAsync")
-  result = toSeq[string](coll, IID_IVectorView_1_String)
-  discard release(coll)
+  result = futureSeq[string](op, IID_IAsyncOperation_1_IVectorView_1,
+                             IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                             alPlain,
+                             "TextConversionGenerator.GetCandidatesAsync",
+                             IID_IVectorView_1_String)
 
 proc getCandidatesAsync*(self: TextConversionGenerator, input: string,
-                         maxCandidates: uint32): Future[seq[string]] {.async.} =
+                         maxCandidates: uint32): Future[seq[string]] =
   ## Windows.Data.Text.TextConversionGenerator.GetCandidatesAsync
   var op: pointer
   withIface(self.p, ITextConversionGenerator, it):
     withHString(input, h0):
       check it.vtbl.GetCandidatesAsync2(it, h0, maxCandidates, op.addr
                                        ), "TextConversionGenerator.GetCandidatesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain,
-                               "TextConversionGenerator.GetCandidatesAsync")
-  result = toSeq[string](coll, IID_IVectorView_1_String)
-  discard release(coll)
+  result = futureSeq[string](op, IID_IAsyncOperation_1_IVectorView_1,
+                             IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                             alPlain,
+                             "TextConversionGenerator.GetCandidatesAsync",
+                             IID_IVectorView_1_String)
 
 proc create*(_: typedesc[TextConversionGenerator], languageTag: string
             ): TextConversionGenerator =
@@ -904,40 +899,37 @@ proc languageAvailableButNotInstalled*(self: TextPredictionGenerator): bool =
     result = it.getValue(get_LanguageAvailableButNotInstalled, bool)
 
 proc getCandidatesAsync*(self: TextPredictionGenerator, input: string
-                        ): Future[seq[string]] {.async.} =
+                        ): Future[seq[string]] =
   ## Windows.Data.Text.TextPredictionGenerator.GetCandidatesAsync
   var op: pointer
   withIface(self.p, ITextPredictionGenerator, it):
     withHString(input, h0):
       check it.vtbl.GetCandidatesAsync(it, h0, op.addr
                                       ), "TextPredictionGenerator.GetCandidatesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain,
-                               "TextPredictionGenerator.GetCandidatesAsync")
-  result = toSeq[string](coll, IID_IVectorView_1_String)
-  discard release(coll)
+  result = futureSeq[string](op, IID_IAsyncOperation_1_IVectorView_1,
+                             IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                             alPlain,
+                             "TextPredictionGenerator.GetCandidatesAsync",
+                             IID_IVectorView_1_String)
 
 proc getCandidatesAsync*(self: TextPredictionGenerator, input: string,
-                         maxCandidates: uint32): Future[seq[string]] {.async.} =
+                         maxCandidates: uint32): Future[seq[string]] =
   ## Windows.Data.Text.TextPredictionGenerator.GetCandidatesAsync
   var op: pointer
   withIface(self.p, ITextPredictionGenerator, it):
     withHString(input, h0):
       check it.vtbl.GetCandidatesAsync2(it, h0, maxCandidates, op.addr
                                        ), "TextPredictionGenerator.GetCandidatesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain,
-                               "TextPredictionGenerator.GetCandidatesAsync")
-  result = toSeq[string](coll, IID_IVectorView_1_String)
-  discard release(coll)
+  result = futureSeq[string](op, IID_IAsyncOperation_1_IVectorView_1,
+                             IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                             alPlain,
+                             "TextPredictionGenerator.GetCandidatesAsync",
+                             IID_IVectorView_1_String)
 
 proc getCandidatesAsync*(self: TextPredictionGenerator, input: string,
                          maxCandidates: uint32,
                          predictionOptions: TextPredictionOptions,
-                         previousStrings: seq[string]
-                        ): Future[seq[string]] {.async.} =
+                         previousStrings: seq[string]): Future[seq[string]] =
   ## Windows.Data.Text.TextPredictionGenerator.GetCandidatesAsync
   var op: pointer
   withIface(self.p, ITextPredictionGenerator2, it):
@@ -949,17 +941,16 @@ proc getCandidatesAsync*(self: TextPredictionGenerator, input: string,
       check it.vtbl.GetCandidatesAsync(it, h0, maxCandidates, predictionOptions,
                                        p3, op.addr
                                       ), "TextPredictionGenerator.GetCandidatesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain,
-                               "TextPredictionGenerator.GetCandidatesAsync")
-  result = toSeq[string](coll, IID_IVectorView_1_String)
-  discard release(coll)
+  result = futureSeq[string](op, IID_IAsyncOperation_1_IVectorView_1,
+                             IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                             alPlain,
+                             "TextPredictionGenerator.GetCandidatesAsync",
+                             IID_IVectorView_1_String)
 
 proc getNextWordCandidatesAsync*(self: TextPredictionGenerator,
                                  maxCandidates: uint32,
                                  previousStrings: seq[string]
-                                ): Future[seq[string]] {.async.} =
+                                ): Future[seq[string]] =
   ## Windows.Data.Text.TextPredictionGenerator.GetNextWordCandidatesAsync
   var op: pointer
   withIface(self.p, ITextPredictionGenerator2, it):
@@ -969,13 +960,11 @@ proc getNextWordCandidatesAsync*(self: TextPredictionGenerator,
     defer: discard release(p1)
     check it.vtbl.GetNextWordCandidatesAsync(it, maxCandidates, p1, op.addr
                                             ), "TextPredictionGenerator.GetNextWordCandidatesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain,
-                               "TextPredictionGenerator.GetNextWordCandidatesAsync"
-                              )
-  result = toSeq[string](coll, IID_IVectorView_1_String)
-  discard release(coll)
+  result = futureSeq[string](op, IID_IAsyncOperation_1_IVectorView_1,
+                             IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                             alPlain,
+                             "TextPredictionGenerator.GetNextWordCandidatesAsync",
+                             IID_IVectorView_1_String)
 
 proc inputScope*(self: TextPredictionGenerator): CoreTextInputScope =
   ## Windows.Data.Text.TextPredictionGenerator.get_InputScope
@@ -1008,33 +997,30 @@ proc languageAvailableButNotInstalled*(self: TextReverseConversionGenerator): bo
     result = it.getValue(get_LanguageAvailableButNotInstalled, bool)
 
 proc convertBackAsync*(self: TextReverseConversionGenerator, input: string
-                      ): Future[string] {.async.} =
+                      ): Future[string] =
   ## Windows.Data.Text.TextReverseConversionGenerator.ConvertBackAsync
   var op: pointer
   withIface(self.p, ITextReverseConversionGenerator, it):
     withHString(input, h0):
       check it.vtbl.ConvertBackAsync(it, h0, op.addr
                                     ), "TextReverseConversionGenerator.ConvertBackAsync"
-  result = await awaitString(op, IID_IAsyncOperation_1_String,
-                             IID_AsyncOperationCompletedHandler_1_String,
-                             alPlain,
-                             "TextReverseConversionGenerator.ConvertBackAsync")
+  result = futureString(op, IID_IAsyncOperation_1_String,
+                        IID_AsyncOperationCompletedHandler_1_String, alPlain,
+                        "TextReverseConversionGenerator.ConvertBackAsync")
 
 proc getPhonemesAsync*(self: TextReverseConversionGenerator, input: string
-                      ): Future[seq[TextPhoneme]] {.async.} =
+                      ): Future[seq[TextPhoneme]] =
   ## Windows.Data.Text.TextReverseConversionGenerator.GetPhonemesAsync
   var op: pointer
   withIface(self.p, ITextReverseConversionGenerator2, it):
     withHString(input, h0):
       check it.vtbl.GetPhonemesAsync(it, h0, op.addr
                                     ), "TextReverseConversionGenerator.GetPhonemesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
-                               alPlain,
-                               "TextReverseConversionGenerator.GetPhonemesAsync"
-                              )
-  result = toSeq[TextPhoneme](coll, IID_IVectorView_1_TextPhoneme)
-  discard release(coll)
+  result = futureSeq[TextPhoneme](op, IID_IAsyncOperation_1_IVectorView_12,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                                  alPlain,
+                                  "TextReverseConversionGenerator.GetPhonemesAsync",
+                                  IID_IVectorView_1_TextPhoneme)
 
 proc create*(_: typedesc[TextReverseConversionGenerator], languageTag: string
             ): TextReverseConversionGenerator =
@@ -2739,15 +2725,15 @@ proc loadXml*(self: XmlDocument, xml: string, loadSettings: XmlLoadSettings) =
       withIface(loadSettings.p, IXmlLoadSettings, p1):
         check it.vtbl.LoadXml2(it, h0, p1), "XmlDocument.LoadXml"
 
-proc saveToFileAsync*(self: XmlDocument, file: StorageFile) {.async.} =
+proc saveToFileAsync*(self: XmlDocument, file: StorageFile): Future[void] =
   ## Windows.Data.Xml.Dom.XmlDocument.SaveToFileAsync
   var op: pointer
   withIface(self.p, IXmlDocumentIO, it):
     withIface(file.p, IStorageFile, p0):
       check it.vtbl.SaveToFileAsync(it, p0, op.addr
                                    ), "XmlDocument.SaveToFileAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "XmlDocument.SaveToFileAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "XmlDocument.SaveToFileAsync")
 
 proc loadXmlFromBuffer*(self: XmlDocument, buffer: Buffer) =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadXmlFromBuffer
@@ -2765,21 +2751,19 @@ proc loadXmlFromBuffer*(self: XmlDocument, buffer: Buffer,
                                         ), "XmlDocument.LoadXmlFromBuffer"
 
 proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri
-                      ): Future[XmlDocument] {.async.} =
+                      ): Future[XmlDocument] =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadFromUriAsync
   var op: pointer
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IXmlDocumentStatics, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.LoadFromUriAsync(it, p0, op.addr
                                     ), "XmlDocument.LoadFromUriAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_XmlDocument,
-                              IID_AsyncOperationCompletedHandler_1_XmlDocument,
-                              alPlain, "XmlDocument.LoadFromUriAsync")
-  result = adopt[XmlDocument](obj)
+  result = futureObject[XmlDocument](op, IID_IAsyncOperation_1_XmlDocument,
+                                     IID_AsyncOperationCompletedHandler_1_XmlDocument,
+                                     alPlain, "XmlDocument.LoadFromUriAsync")
 
 proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri,
-                       loadSettings: XmlLoadSettings
-                      ): Future[XmlDocument] {.async.} =
+                       loadSettings: XmlLoadSettings): Future[XmlDocument] =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadFromUriAsync
   var op: pointer
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IXmlDocumentStatics, it):
@@ -2787,27 +2771,24 @@ proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri,
       withIface(loadSettings.p, IXmlLoadSettings, p1):
         check it.vtbl.LoadFromUriAsync2(it, p0, p1, op.addr
                                        ), "XmlDocument.LoadFromUriAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_XmlDocument,
-                              IID_AsyncOperationCompletedHandler_1_XmlDocument,
-                              alPlain, "XmlDocument.LoadFromUriAsync")
-  result = adopt[XmlDocument](obj)
+  result = futureObject[XmlDocument](op, IID_IAsyncOperation_1_XmlDocument,
+                                     IID_AsyncOperationCompletedHandler_1_XmlDocument,
+                                     alPlain, "XmlDocument.LoadFromUriAsync")
 
 proc loadFromFileAsync*(_: typedesc[XmlDocument], file: StorageFile
-                       ): Future[XmlDocument] {.async.} =
+                       ): Future[XmlDocument] =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadFromFileAsync
   var op: pointer
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IXmlDocumentStatics, it):
     withIface(file.p, IStorageFile, p0):
       check it.vtbl.LoadFromFileAsync(it, p0, op.addr
                                      ), "XmlDocument.LoadFromFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_XmlDocument,
-                              IID_AsyncOperationCompletedHandler_1_XmlDocument,
-                              alPlain, "XmlDocument.LoadFromFileAsync")
-  result = adopt[XmlDocument](obj)
+  result = futureObject[XmlDocument](op, IID_IAsyncOperation_1_XmlDocument,
+                                     IID_AsyncOperationCompletedHandler_1_XmlDocument,
+                                     alPlain, "XmlDocument.LoadFromFileAsync")
 
 proc loadFromFileAsync*(_: typedesc[XmlDocument], file: StorageFile,
-                        loadSettings: XmlLoadSettings
-                       ): Future[XmlDocument] {.async.} =
+                        loadSettings: XmlLoadSettings): Future[XmlDocument] =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadFromFileAsync
   var op: pointer
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IXmlDocumentStatics, it):
@@ -2815,10 +2796,9 @@ proc loadFromFileAsync*(_: typedesc[XmlDocument], file: StorageFile,
       withIface(loadSettings.p, IXmlLoadSettings, p1):
         check it.vtbl.LoadFromFileAsync2(it, p0, p1, op.addr
                                         ), "XmlDocument.LoadFromFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_XmlDocument,
-                              IID_AsyncOperationCompletedHandler_1_XmlDocument,
-                              alPlain, "XmlDocument.LoadFromFileAsync")
-  result = adopt[XmlDocument](obj)
+  result = futureObject[XmlDocument](op, IID_IAsyncOperation_1_XmlDocument,
+                                     IID_AsyncOperationCompletedHandler_1_XmlDocument,
+                                     alPlain, "XmlDocument.LoadFromFileAsync")
 
 proc nodeValue*(self: XmlDocumentFragment): WinRtObject =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_NodeValue

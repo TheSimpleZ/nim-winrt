@@ -45,6 +45,7 @@ const IID_TypedEventHandler_2_DevicePortalConnection_DevicePortalConnectionReque
 const IID_IVectorView_1_String* = guid"2F13C006-A03A-5F69-B090-75A43E33423E"
 const IID_AsyncOperationWithProgressCompletedHandler_2_DiagnosticActionResult_DiagnosticActionState* = guid"390B0091-CAF7-5B64-839D-4990AE7F753C"
 const IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState* = guid"BB5D493E-74E9-57A1-8C4C-923E0DC4565B"
+const IID_AsyncOperationProgressHandler_2_DiagnosticActionResult_DiagnosticActionState* = guid"A0422898-B50A-52E3-B461-53989308BE12"
 const IID_IVectorView_1_ProcessDiagnosticInfo* = guid"74AB2473-9624-5A06-9025-6D91E622BF8E"
 const IID_IIterable_1_IKeyValuePair_2* = guid"E9BDAAF0-CBF6-5C72-BE90-29CBF3A1319B"
 const IID_IIterator_1_IKeyValuePair_2* = guid"05EB86F1-7140-5517-B88D-CBAEBE57E6B1"
@@ -195,28 +196,29 @@ proc createResourceGroupWatcher*(self: AppDiagnosticInfo): AppResourceGroupInfoW
                                             ), "AppDiagnosticInfo.CreateResourceGroupWatcher"
     result = adopt[AppResourceGroupInfoWatcher](tmp)
 
-proc launchAsync*(self: AppDiagnosticInfo): Future[AppActivationResult] {.async.} =
+proc launchAsync*(self: AppDiagnosticInfo): Future[AppActivationResult] =
   ## Windows.System.AppDiagnosticInfo.LaunchAsync
   var op: pointer
   withIface(self.p, IAppDiagnosticInfo3, it):
     check it.vtbl.LaunchAsync(it, op.addr), "AppDiagnosticInfo.LaunchAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_AppActivationResult,
-                              IID_AsyncOperationCompletedHandler_1_AppActivationResult,
-                              alPlain, "AppDiagnosticInfo.LaunchAsync")
-  result = adopt[AppActivationResult](obj)
+  result = futureObject[AppActivationResult](op,
+                                             IID_IAsyncOperation_1_AppActivationResult,
+                                             IID_AsyncOperationCompletedHandler_1_AppActivationResult,
+                                             alPlain,
+                                             "AppDiagnosticInfo.LaunchAsync")
 
-proc requestInfoAsync*(_: typedesc[AppDiagnosticInfo]): Future[seq[AppDiagnosticInfo]] {.async.} =
+proc requestInfoAsync*(_: typedesc[AppDiagnosticInfo]): Future[seq[AppDiagnosticInfo]] =
   ## Windows.System.AppDiagnosticInfo.RequestInfoAsync
   var op: pointer
   withStatics("Windows.System.AppDiagnosticInfo", IAppDiagnosticInfoStatics, it
              ):
     check it.vtbl.RequestInfoAsync(it, op.addr
                                   ), "AppDiagnosticInfo.RequestInfoAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1,
-                               IID_AsyncOperationCompletedHandler_1_IVector_1,
-                               alPlain, "AppDiagnosticInfo.RequestInfoAsync")
-  result = toSeq[AppDiagnosticInfo](coll, IID_IVector_1_AppDiagnosticInfo)
-  discard release(coll)
+  result = futureSeq[AppDiagnosticInfo](op, IID_IAsyncOperation_1_IVector_1,
+                                        IID_AsyncOperationCompletedHandler_1_IVector_1,
+                                        alPlain,
+                                        "AppDiagnosticInfo.RequestInfoAsync",
+                                        IID_IVector_1_AppDiagnosticInfo)
 
 proc createWatcher*(_: typedesc[AppDiagnosticInfo]): AppDiagnosticInfoWatcher =
   ## Windows.System.AppDiagnosticInfo.CreateWatcher
@@ -226,23 +228,23 @@ proc createWatcher*(_: typedesc[AppDiagnosticInfo]): AppDiagnosticInfoWatcher =
     check it.vtbl.CreateWatcher(it, tmp.addr), "AppDiagnosticInfo.CreateWatcher"
     result = adopt[AppDiagnosticInfoWatcher](tmp)
 
-proc requestAccessAsync*(_: typedesc[AppDiagnosticInfo]): Future[DiagnosticAccessStatus] {.async.} =
+proc requestAccessAsync*(_: typedesc[AppDiagnosticInfo]): Future[DiagnosticAccessStatus] =
   ## Windows.System.AppDiagnosticInfo.RequestAccessAsync
   var op: pointer
   withStatics("Windows.System.AppDiagnosticInfo", IAppDiagnosticInfoStatics2, it
              ):
     check it.vtbl.RequestAccessAsync(it, op.addr
                                     ), "AppDiagnosticInfo.RequestAccessAsync"
-  result = await awaitValue[DiagnosticAccessStatus](op,
-                                                    IID_IAsyncOperation_1_DiagnosticAccessStatus,
-                                                    IID_AsyncOperationCompletedHandler_1_DiagnosticAccessStatus,
-                                                    alPlain,
-                                                    "AppDiagnosticInfo.RequestAccessAsync"
-                                                   )
+  result = futureValue[DiagnosticAccessStatus](op,
+                                               IID_IAsyncOperation_1_DiagnosticAccessStatus,
+                                               IID_AsyncOperationCompletedHandler_1_DiagnosticAccessStatus,
+                                               alPlain,
+                                               "AppDiagnosticInfo.RequestAccessAsync"
+                                              )
 
 proc requestInfoForPackageAsync*(_: typedesc[AppDiagnosticInfo],
                                  packageFamilyName: string
-                                ): Future[seq[AppDiagnosticInfo]] {.async.} =
+                                ): Future[seq[AppDiagnosticInfo]] =
   ## Windows.System.AppDiagnosticInfo.RequestInfoForPackageAsync
   var op: pointer
   withStatics("Windows.System.AppDiagnosticInfo", IAppDiagnosticInfoStatics2, it
@@ -250,30 +252,28 @@ proc requestInfoForPackageAsync*(_: typedesc[AppDiagnosticInfo],
     withHString(packageFamilyName, h0):
       check it.vtbl.RequestInfoForPackageAsync(it, h0, op.addr
                                               ), "AppDiagnosticInfo.RequestInfoForPackageAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1,
-                               IID_AsyncOperationCompletedHandler_1_IVector_1,
-                               alPlain,
-                               "AppDiagnosticInfo.RequestInfoForPackageAsync")
-  result = toSeq[AppDiagnosticInfo](coll, IID_IVector_1_AppDiagnosticInfo)
-  discard release(coll)
+  result = futureSeq[AppDiagnosticInfo](op, IID_IAsyncOperation_1_IVector_1,
+                                        IID_AsyncOperationCompletedHandler_1_IVector_1,
+                                        alPlain,
+                                        "AppDiagnosticInfo.RequestInfoForPackageAsync",
+                                        IID_IVector_1_AppDiagnosticInfo)
 
-proc requestInfoForAppAsync*(_: typedesc[AppDiagnosticInfo]): Future[seq[AppDiagnosticInfo]] {.async.} =
+proc requestInfoForAppAsync*(_: typedesc[AppDiagnosticInfo]): Future[seq[AppDiagnosticInfo]] =
   ## Windows.System.AppDiagnosticInfo.RequestInfoForAppAsync
   var op: pointer
   withStatics("Windows.System.AppDiagnosticInfo", IAppDiagnosticInfoStatics2, it
              ):
     check it.vtbl.RequestInfoForAppAsync(it, op.addr
                                         ), "AppDiagnosticInfo.RequestInfoForAppAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1,
-                               IID_AsyncOperationCompletedHandler_1_IVector_1,
-                               alPlain,
-                               "AppDiagnosticInfo.RequestInfoForAppAsync")
-  result = toSeq[AppDiagnosticInfo](coll, IID_IVector_1_AppDiagnosticInfo)
-  discard release(coll)
+  result = futureSeq[AppDiagnosticInfo](op, IID_IAsyncOperation_1_IVector_1,
+                                        IID_AsyncOperationCompletedHandler_1_IVector_1,
+                                        alPlain,
+                                        "AppDiagnosticInfo.RequestInfoForAppAsync",
+                                        IID_IVector_1_AppDiagnosticInfo)
 
 proc requestInfoForAppAsync*(_: typedesc[AppDiagnosticInfo],
                              appUserModelId: string
-                            ): Future[seq[AppDiagnosticInfo]] {.async.} =
+                            ): Future[seq[AppDiagnosticInfo]] =
   ## Windows.System.AppDiagnosticInfo.RequestInfoForAppAsync
   var op: pointer
   withStatics("Windows.System.AppDiagnosticInfo", IAppDiagnosticInfoStatics2, it
@@ -281,12 +281,11 @@ proc requestInfoForAppAsync*(_: typedesc[AppDiagnosticInfo],
     withHString(appUserModelId, h0):
       check it.vtbl.RequestInfoForAppAsync2(it, h0, op.addr
                                            ), "AppDiagnosticInfo.RequestInfoForAppAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1,
-                               IID_AsyncOperationCompletedHandler_1_IVector_1,
-                               alPlain,
-                               "AppDiagnosticInfo.RequestInfoForAppAsync")
-  result = toSeq[AppDiagnosticInfo](coll, IID_IVector_1_AppDiagnosticInfo)
-  discard release(coll)
+  result = futureSeq[AppDiagnosticInfo](op, IID_IAsyncOperation_1_IVector_1,
+                                        IID_AsyncOperationCompletedHandler_1_IVector_1,
+                                        alPlain,
+                                        "AppDiagnosticInfo.RequestInfoForAppAsync",
+                                        IID_IVector_1_AppDiagnosticInfo)
 
 proc onAdded*(self: AppDiagnosticInfoWatcher,
               handler: EventHandler[AppDiagnosticInfoWatcher, AppDiagnosticInfoWatcherEventArgs]
@@ -493,42 +492,44 @@ proc getStateReport*(self: AppResourceGroupInfo): AppResourceGroupStateReport =
                                 ), "AppResourceGroupInfo.GetStateReport"
     result = adopt[AppResourceGroupStateReport](tmp)
 
-proc startSuspendAsync*(self: AppResourceGroupInfo): Future[AppExecutionStateChangeResult] {.async.} =
+proc startSuspendAsync*(self: AppResourceGroupInfo): Future[AppExecutionStateChangeResult] =
   ## Windows.System.AppResourceGroupInfo.StartSuspendAsync
   var op: pointer
   withIface(self.p, IAppResourceGroupInfo2, it):
     check it.vtbl.StartSuspendAsync(it, op.addr
                                    ), "AppResourceGroupInfo.StartSuspendAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_AppExecutionStateChangeResult,
-                              IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult,
-                              alPlain, "AppResourceGroupInfo.StartSuspendAsync")
-  result = adopt[AppExecutionStateChangeResult](obj)
+  result = futureObject[AppExecutionStateChangeResult](op,
+                                                       IID_IAsyncOperation_1_AppExecutionStateChangeResult,
+                                                       IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult,
+                                                       alPlain,
+                                                       "AppResourceGroupInfo.StartSuspendAsync"
+                                                      )
 
-proc startResumeAsync*(self: AppResourceGroupInfo): Future[AppExecutionStateChangeResult] {.async.} =
+proc startResumeAsync*(self: AppResourceGroupInfo): Future[AppExecutionStateChangeResult] =
   ## Windows.System.AppResourceGroupInfo.StartResumeAsync
   var op: pointer
   withIface(self.p, IAppResourceGroupInfo2, it):
     check it.vtbl.StartResumeAsync(it, op.addr
                                   ), "AppResourceGroupInfo.StartResumeAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_AppExecutionStateChangeResult,
-                              IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult,
-                              alPlain, "AppResourceGroupInfo.StartResumeAsync")
-  result = adopt[AppExecutionStateChangeResult](obj)
+  result = futureObject[AppExecutionStateChangeResult](op,
+                                                       IID_IAsyncOperation_1_AppExecutionStateChangeResult,
+                                                       IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult,
+                                                       alPlain,
+                                                       "AppResourceGroupInfo.StartResumeAsync"
+                                                      )
 
-proc startTerminateAsync*(self: AppResourceGroupInfo): Future[AppExecutionStateChangeResult] {.async.} =
+proc startTerminateAsync*(self: AppResourceGroupInfo): Future[AppExecutionStateChangeResult] =
   ## Windows.System.AppResourceGroupInfo.StartTerminateAsync
   var op: pointer
   withIface(self.p, IAppResourceGroupInfo2, it):
     check it.vtbl.StartTerminateAsync(it, op.addr
                                      ), "AppResourceGroupInfo.StartTerminateAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_AppExecutionStateChangeResult,
-                              IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult,
-                              alPlain,
-                              "AppResourceGroupInfo.StartTerminateAsync")
-  result = adopt[AppExecutionStateChangeResult](obj)
+  result = futureObject[AppExecutionStateChangeResult](op,
+                                                       IID_IAsyncOperation_1_AppExecutionStateChangeResult,
+                                                       IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult,
+                                                       alPlain,
+                                                       "AppResourceGroupInfo.StartTerminateAsync"
+                                                      )
 
 proc onAdded*(self: AppResourceGroupInfoWatcher,
               handler: EventHandler[AppResourceGroupInfoWatcher, AppResourceGroupInfoWatcherEventArgs]
@@ -747,22 +748,20 @@ proc user*(self: AppUriHandlerRegistration): User =
   withIface(self.p, IAppUriHandlerRegistration, it):
     result = it.getObject(get_User, User)
 
-proc getAppAddedHostsAsync*(self: AppUriHandlerRegistration): Future[seq[AppUriHandlerHost]] {.async.} =
+proc getAppAddedHostsAsync*(self: AppUriHandlerRegistration): Future[seq[AppUriHandlerHost]] =
   ## Windows.System.AppUriHandlerRegistration.GetAppAddedHostsAsync
   var op: pointer
   withIface(self.p, IAppUriHandlerRegistration, it):
     check it.vtbl.GetAppAddedHostsAsync(it, op.addr
                                        ), "AppUriHandlerRegistration.GetAppAddedHostsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_12,
-                               IID_AsyncOperationCompletedHandler_1_IVector_12,
-                               alPlain,
-                               "AppUriHandlerRegistration.GetAppAddedHostsAsync"
-                              )
-  result = toSeq[AppUriHandlerHost](coll, IID_IVector_1_AppUriHandlerHost)
-  discard release(coll)
+  result = futureSeq[AppUriHandlerHost](op, IID_IAsyncOperation_1_IVector_12,
+                                        IID_AsyncOperationCompletedHandler_1_IVector_12,
+                                        alPlain,
+                                        "AppUriHandlerRegistration.GetAppAddedHostsAsync",
+                                        IID_IVector_1_AppUriHandlerHost)
 
 proc setAppAddedHostsAsync*(self: AppUriHandlerRegistration,
-                            hosts: seq[AppUriHandlerHost]) {.async.} =
+                            hosts: seq[AppUriHandlerHost]): Future[void] =
   ## Windows.System.AppUriHandlerRegistration.SetAppAddedHostsAsync
   var op: pointer
   withIface(self.p, IAppUriHandlerRegistration, it):
@@ -773,8 +772,8 @@ proc setAppAddedHostsAsync*(self: AppUriHandlerRegistration,
     defer: discard release(p0)
     check it.vtbl.SetAppAddedHostsAsync(it, p0, op.addr
                                        ), "AppUriHandlerRegistration.SetAppAddedHostsAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "AppUriHandlerRegistration.SetAppAddedHostsAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "AppUriHandlerRegistration.SetAppAddedHostsAsync")
 
 proc getAllHosts*(self: AppUriHandlerRegistration): seq[AppUriHandlerHost] =
   ## Windows.System.AppUriHandlerRegistration.GetAllHosts
@@ -1045,37 +1044,45 @@ proc results*(self: DiagnosticActionResult): ValueSet =
   withIface(self.p, IDiagnosticActionResult, it):
     result = it.getObject(get_Results, ValueSet)
 
-proc runDiagnosticActionAsync*(self: DiagnosticInvoker, context: JsonObject
-                              ): Future[DiagnosticActionResult] {.async.} =
+proc runDiagnosticActionAsync*(self: DiagnosticInvoker, context: JsonObject,
+                               progress: ProgressHandler[DiagnosticActionState] = nil
+                              ): Future[DiagnosticActionResult] =
   ## Windows.System.Diagnostics.DiagnosticInvoker.RunDiagnosticActionAsync
   var op: pointer
   withIface(self.p, IDiagnosticInvoker, it):
     withIface(context.p, IJsonObject, p0):
       check it.vtbl.RunDiagnosticActionAsync(it, p0, op.addr
                                             ), "DiagnosticInvoker.RunDiagnosticActionAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_DiagnosticActionResult_DiagnosticActionState,
-                              alProgress,
-                              "DiagnosticInvoker.RunDiagnosticActionAsync")
-  result = adopt[DiagnosticActionResult](obj)
+  result = futureObject[DiagnosticActionResult](op,
+                                                IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState,
+                                                IID_AsyncOperationWithProgressCompletedHandler_2_DiagnosticActionResult_DiagnosticActionState,
+                                                alProgress,
+                                                "DiagnosticInvoker.RunDiagnosticActionAsync"
+                                               )
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_DiagnosticActionResult_DiagnosticActionState,
+                 progress, "DiagnosticInvoker.RunDiagnosticActionAsync")
 
 proc runDiagnosticActionFromStringAsync*(self: DiagnosticInvoker,
-                                         context: string
-                                        ): Future[DiagnosticActionResult] {.async.} =
+                                         context: string,
+                                         progress: ProgressHandler[DiagnosticActionState] = nil
+                                        ): Future[DiagnosticActionResult] =
   ## Windows.System.Diagnostics.DiagnosticInvoker.RunDiagnosticActionFromStringAsync
   var op: pointer
   withIface(self.p, IDiagnosticInvoker2, it):
     withHString(context, h0):
       check it.vtbl.RunDiagnosticActionFromStringAsync(it, h0, op.addr
                                                       ), "DiagnosticInvoker.RunDiagnosticActionFromStringAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_DiagnosticActionResult_DiagnosticActionState,
-                              alProgress,
-                              "DiagnosticInvoker.RunDiagnosticActionFromStringAsync"
-                             )
-  result = adopt[DiagnosticActionResult](obj)
+  result = futureObject[DiagnosticActionResult](op,
+                                                IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState,
+                                                IID_AsyncOperationWithProgressCompletedHandler_2_DiagnosticActionResult_DiagnosticActionState,
+                                                alProgress,
+                                                "DiagnosticInvoker.RunDiagnosticActionFromStringAsync"
+                                               )
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_DiagnosticActionResult_DiagnosticActionState,
+                 progress,
+                 "DiagnosticInvoker.RunDiagnosticActionFromStringAsync")
 
 proc getDefault*(_: typedesc[DiagnosticInvoker]): DiagnosticInvoker =
   ## Windows.System.Diagnostics.DiagnosticInvoker.GetDefault
@@ -1675,14 +1682,14 @@ proc dispatcherQueue*(self: DispatcherQueueController): DispatcherQueue =
   withIface(self.p, IDispatcherQueueController, it):
     result = it.getObject(get_DispatcherQueue, DispatcherQueue)
 
-proc shutdownQueueAsync*(self: DispatcherQueueController) {.async.} =
+proc shutdownQueueAsync*(self: DispatcherQueueController): Future[void] =
   ## Windows.System.DispatcherQueueController.ShutdownQueueAsync
   var op: pointer
   withIface(self.p, IDispatcherQueueController, it):
     check it.vtbl.ShutdownQueueAsync(it, op.addr
                                     ), "DispatcherQueueController.ShutdownQueueAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "DispatcherQueueController.ShutdownQueueAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "DispatcherQueueController.ShutdownQueueAsync")
 
 proc createOnDedicatedThread*(_: typedesc[DispatcherQueueController]): DispatcherQueueController =
   ## Windows.System.DispatcherQueueController.CreateOnDedicatedThread
@@ -1841,19 +1848,19 @@ proc toString*(self: InstalledDesktopApp): string =
     check it.vtbl.ToString(it, tmp.addr), "InstalledDesktopApp.ToString"
     result = takeString(tmp)
 
-proc getInventoryAsync*(_: typedesc[InstalledDesktopApp]): Future[seq[InstalledDesktopApp]] {.async.} =
+proc getInventoryAsync*(_: typedesc[InstalledDesktopApp]): Future[seq[InstalledDesktopApp]] =
   ## Windows.System.Inventory.InstalledDesktopApp.GetInventoryAsync
   var op: pointer
   withStatics("Windows.System.Inventory.InstalledDesktopApp",
               IInstalledDesktopAppStatics, it):
     check it.vtbl.GetInventoryAsync(it, op.addr
                                    ), "InstalledDesktopApp.GetInventoryAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain, "InstalledDesktopApp.GetInventoryAsync")
-  result = toSeq[InstalledDesktopApp](coll,
-                                      IID_IVectorView_1_InstalledDesktopApp)
-  discard release(coll)
+  result = futureSeq[InstalledDesktopApp](op,
+                                          IID_IAsyncOperation_1_IVectorView_1,
+                                          IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                                          alPlain,
+                                          "InstalledDesktopApp.GetInventoryAsync",
+                                          IID_IVectorView_1_InstalledDesktopApp)
 
 proc displayName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.KnownUserProperties.get_DisplayName
@@ -1925,19 +1932,18 @@ proc `result`*(self: LaunchUriResult): ValueSet =
   withIface(self.p, ILaunchUriResult, it):
     result = it.getObject(get_Result, ValueSet)
 
-proc launchFileAsync*(_: typedesc[Launcher], file: StorageFile
-                     ): Future[bool] {.async.} =
+proc launchFileAsync*(_: typedesc[Launcher], file: StorageFile): Future[bool] =
   ## Windows.System.Launcher.LaunchFileAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics, it):
     withIface(file.p, IStorageFile, p0):
       check it.vtbl.LaunchFileAsync(it, p0, op.addr), "Launcher.LaunchFileAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "Launcher.LaunchFileAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Launcher.LaunchFileAsync")
 
 proc launchFileAsync*(_: typedesc[Launcher], file: StorageFile,
-                      options: LauncherOptions): Future[bool] {.async.} =
+                      options: LauncherOptions): Future[bool] =
   ## Windows.System.Launcher.LaunchFileAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics, it):
@@ -1945,22 +1951,22 @@ proc launchFileAsync*(_: typedesc[Launcher], file: StorageFile,
       withIface(options.p, ILauncherOptions2, p1):
         check it.vtbl.LaunchFileAsync2(it, p0, p1, op.addr
                                       ), "Launcher.LaunchFileAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "Launcher.LaunchFileAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Launcher.LaunchFileAsync")
 
-proc launchUriAsync*(_: typedesc[Launcher], uri: Uri): Future[bool] {.async.} =
+proc launchUriAsync*(_: typedesc[Launcher], uri: Uri): Future[bool] =
   ## Windows.System.Launcher.LaunchUriAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.LaunchUriAsync(it, p0, op.addr), "Launcher.LaunchUriAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "Launcher.LaunchUriAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Launcher.LaunchUriAsync")
 
 proc launchUriAsync*(_: typedesc[Launcher], uri: Uri, options: LauncherOptions
-                    ): Future[bool] {.async.} =
+                    ): Future[bool] =
   ## Windows.System.Launcher.LaunchUriAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics, it):
@@ -1968,25 +1974,24 @@ proc launchUriAsync*(_: typedesc[Launcher], uri: Uri, options: LauncherOptions
       withIface(options.p, ILauncherOptions2, p1):
         check it.vtbl.LaunchUriAsync2(it, p0, p1, op.addr
                                      ), "Launcher.LaunchUriAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "Launcher.LaunchUriAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Launcher.LaunchUriAsync")
 
 proc launchFolderAsync*(_: typedesc[Launcher], folder: StorageFolder
-                       ): Future[bool] {.async.} =
+                       ): Future[bool] =
   ## Windows.System.Launcher.LaunchFolderAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics3, it):
     withIface(folder.p, IStorageFolder, p0):
       check it.vtbl.LaunchFolderAsync(it, p0, op.addr
                                      ), "Launcher.LaunchFolderAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "Launcher.LaunchFolderAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Launcher.LaunchFolderAsync")
 
 proc launchFolderAsync*(_: typedesc[Launcher], folder: StorageFolder,
-                        options: FolderLauncherOptions
-                       ): Future[bool] {.async.} =
+                        options: FolderLauncherOptions): Future[bool] =
   ## Windows.System.Launcher.LaunchFolderAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics3, it):
@@ -1994,28 +1999,28 @@ proc launchFolderAsync*(_: typedesc[Launcher], folder: StorageFolder,
       withIface(options.p, IFolderLauncherOptions, p1):
         check it.vtbl.LaunchFolderAsync2(it, p0, p1, op.addr
                                         ), "Launcher.LaunchFolderAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "Launcher.LaunchFolderAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Launcher.LaunchFolderAsync")
 
 proc queryAppUriSupportAsync*(_: typedesc[Launcher], uri: Uri
-                             ): Future[LaunchQuerySupportStatus] {.async.} =
+                             ): Future[LaunchQuerySupportStatus] =
   ## Windows.System.Launcher.QueryAppUriSupportAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics4, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.QueryAppUriSupportAsync(it, p0, op.addr
                                            ), "Launcher.QueryAppUriSupportAsync"
-  result = await awaitValue[LaunchQuerySupportStatus](op,
-                                                      IID_IAsyncOperation_1_LaunchQuerySupportStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
-                                                      alPlain,
-                                                      "Launcher.QueryAppUriSupportAsync"
-                                                     )
+  result = futureValue[LaunchQuerySupportStatus](op,
+                                                 IID_IAsyncOperation_1_LaunchQuerySupportStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
+                                                 alPlain,
+                                                 "Launcher.QueryAppUriSupportAsync"
+                                                )
 
 proc queryAppUriSupportAsync*(_: typedesc[Launcher], uri: Uri,
                               packageFamilyName: string
-                             ): Future[LaunchQuerySupportStatus] {.async.} =
+                             ): Future[LaunchQuerySupportStatus] =
   ## Windows.System.Launcher.QueryAppUriSupportAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics4, it):
@@ -2023,29 +2028,28 @@ proc queryAppUriSupportAsync*(_: typedesc[Launcher], uri: Uri,
       withHString(packageFamilyName, h1):
         check it.vtbl.QueryAppUriSupportAsync2(it, p0, h1, op.addr
                                               ), "Launcher.QueryAppUriSupportAsync"
-  result = await awaitValue[LaunchQuerySupportStatus](op,
-                                                      IID_IAsyncOperation_1_LaunchQuerySupportStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
-                                                      alPlain,
-                                                      "Launcher.QueryAppUriSupportAsync"
-                                                     )
+  result = futureValue[LaunchQuerySupportStatus](op,
+                                                 IID_IAsyncOperation_1_LaunchQuerySupportStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
+                                                 alPlain,
+                                                 "Launcher.QueryAppUriSupportAsync"
+                                                )
 
 proc findAppUriHandlersAsync*(_: typedesc[Launcher], uri: Uri
-                             ): Future[seq[AppInfo]] {.async.} =
+                             ): Future[seq[AppInfo]] =
   ## Windows.System.Launcher.FindAppUriHandlersAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics4, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.FindAppUriHandlersAsync(it, p0, op.addr
                                            ), "Launcher.FindAppUriHandlersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
-                               alPlain, "Launcher.FindAppUriHandlersAsync")
-  result = toSeq[AppInfo](coll, IID_IVectorView_1_AppInfo)
-  discard release(coll)
+  result = futureSeq[AppInfo](op, IID_IAsyncOperation_1_IVectorView_12,
+                              IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                              alPlain, "Launcher.FindAppUriHandlersAsync",
+                              IID_IVectorView_1_AppInfo)
 
 proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri
-                           ): Future[LaunchUriStatus] {.async.} =
+                           ): Future[LaunchUriStatus] =
   ## Windows.System.Launcher.LaunchUriForUserAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics4, it):
@@ -2053,15 +2057,14 @@ proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri
       withIface(uri.p, IUriRuntimeClass, p1):
         check it.vtbl.LaunchUriForUserAsync(it, p0, p1, op.addr
                                            ), "Launcher.LaunchUriForUserAsync"
-  result = await awaitValue[LaunchUriStatus](op,
-                                             IID_IAsyncOperation_1_LaunchUriStatus,
-                                             IID_AsyncOperationCompletedHandler_1_LaunchUriStatus,
-                                             alPlain,
-                                             "Launcher.LaunchUriForUserAsync")
+  result = futureValue[LaunchUriStatus](op,
+                                        IID_IAsyncOperation_1_LaunchUriStatus,
+                                        IID_AsyncOperationCompletedHandler_1_LaunchUriStatus,
+                                        alPlain,
+                                        "Launcher.LaunchUriForUserAsync")
 
 proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri,
-                            options: LauncherOptions
-                           ): Future[LaunchUriStatus] {.async.} =
+                            options: LauncherOptions): Future[LaunchUriStatus] =
   ## Windows.System.Launcher.LaunchUriForUserAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics4, it):
@@ -2070,15 +2073,15 @@ proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri,
         withIface(options.p, ILauncherOptions2, p2):
           check it.vtbl.LaunchUriForUserAsync2(it, p0, p1, p2, op.addr
                                               ), "Launcher.LaunchUriForUserAsync"
-  result = await awaitValue[LaunchUriStatus](op,
-                                             IID_IAsyncOperation_1_LaunchUriStatus,
-                                             IID_AsyncOperationCompletedHandler_1_LaunchUriStatus,
-                                             alPlain,
-                                             "Launcher.LaunchUriForUserAsync")
+  result = futureValue[LaunchUriStatus](op,
+                                        IID_IAsyncOperation_1_LaunchUriStatus,
+                                        IID_AsyncOperationCompletedHandler_1_LaunchUriStatus,
+                                        alPlain,
+                                        "Launcher.LaunchUriForUserAsync")
 
 proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri,
                             options: LauncherOptions, inputData: ValueSet
-                           ): Future[LaunchUriStatus] {.async.} =
+                           ): Future[LaunchUriStatus] =
   ## Windows.System.Launcher.LaunchUriForUserAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics4, it):
@@ -2088,15 +2091,15 @@ proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri,
           withIface(inputData.p, IPropertySet, p3):
             check it.vtbl.LaunchUriForUserAsync3(it, p0, p1, p2, p3, op.addr
                                                 ), "Launcher.LaunchUriForUserAsync"
-  result = await awaitValue[LaunchUriStatus](op,
-                                             IID_IAsyncOperation_1_LaunchUriStatus,
-                                             IID_AsyncOperationCompletedHandler_1_LaunchUriStatus,
-                                             alPlain,
-                                             "Launcher.LaunchUriForUserAsync")
+  result = futureValue[LaunchUriStatus](op,
+                                        IID_IAsyncOperation_1_LaunchUriStatus,
+                                        IID_AsyncOperationCompletedHandler_1_LaunchUriStatus,
+                                        alPlain,
+                                        "Launcher.LaunchUriForUserAsync")
 
 proc launchUriForResultsForUserAsync*(_: typedesc[Launcher], user: User,
                                       uri: Uri, options: LauncherOptions
-                                     ): Future[LaunchUriResult] {.async.} =
+                                     ): Future[LaunchUriResult] =
   ## Windows.System.Launcher.LaunchUriForResultsForUserAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics4, it):
@@ -2105,16 +2108,17 @@ proc launchUriForResultsForUserAsync*(_: typedesc[Launcher], user: User,
         withIface(options.p, ILauncherOptions2, p2):
           check it.vtbl.LaunchUriForResultsForUserAsync(it, p0, p1, p2, op.addr
                                                        ), "Launcher.LaunchUriForResultsForUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_LaunchUriResult,
-                              IID_AsyncOperationCompletedHandler_1_LaunchUriResult,
-                              alPlain,
-                              "Launcher.LaunchUriForResultsForUserAsync")
-  result = adopt[LaunchUriResult](obj)
+  result = futureObject[LaunchUriResult](op,
+                                         IID_IAsyncOperation_1_LaunchUriResult,
+                                         IID_AsyncOperationCompletedHandler_1_LaunchUriResult,
+                                         alPlain,
+                                         "Launcher.LaunchUriForResultsForUserAsync"
+                                        )
 
 proc launchUriForResultsForUserAsync*(_: typedesc[Launcher], user: User,
                                       uri: Uri, options: LauncherOptions,
                                       inputData: ValueSet
-                                     ): Future[LaunchUriResult] {.async.} =
+                                     ): Future[LaunchUriResult] =
   ## Windows.System.Launcher.LaunchUriForResultsForUserAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics4, it):
@@ -2125,27 +2129,26 @@ proc launchUriForResultsForUserAsync*(_: typedesc[Launcher], user: User,
             check it.vtbl.LaunchUriForResultsForUserAsync2(it, p0, p1, p2, p3,
                                                            op.addr
                                                           ), "Launcher.LaunchUriForResultsForUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_LaunchUriResult,
-                              IID_AsyncOperationCompletedHandler_1_LaunchUriResult,
-                              alPlain,
-                              "Launcher.LaunchUriForResultsForUserAsync")
-  result = adopt[LaunchUriResult](obj)
+  result = futureObject[LaunchUriResult](op,
+                                         IID_IAsyncOperation_1_LaunchUriResult,
+                                         IID_AsyncOperationCompletedHandler_1_LaunchUriResult,
+                                         alPlain,
+                                         "Launcher.LaunchUriForResultsForUserAsync"
+                                        )
 
-proc launchFolderPathAsync*(_: typedesc[Launcher], path: string
-                           ): Future[bool] {.async.} =
+proc launchFolderPathAsync*(_: typedesc[Launcher], path: string): Future[bool] =
   ## Windows.System.Launcher.LaunchFolderPathAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics5, it):
     withHString(path, h0):
       check it.vtbl.LaunchFolderPathAsync(it, h0, op.addr
                                          ), "Launcher.LaunchFolderPathAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "Launcher.LaunchFolderPathAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Launcher.LaunchFolderPathAsync")
 
 proc launchFolderPathAsync*(_: typedesc[Launcher], path: string,
-                            options: FolderLauncherOptions
-                           ): Future[bool] {.async.} =
+                            options: FolderLauncherOptions): Future[bool] =
   ## Windows.System.Launcher.LaunchFolderPathAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics5, it):
@@ -2153,12 +2156,12 @@ proc launchFolderPathAsync*(_: typedesc[Launcher], path: string,
       withIface(options.p, IFolderLauncherOptions, p1):
         check it.vtbl.LaunchFolderPathAsync2(it, h0, p1, op.addr
                                             ), "Launcher.LaunchFolderPathAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "Launcher.LaunchFolderPathAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Launcher.LaunchFolderPathAsync")
 
 proc launchFolderPathForUserAsync*(_: typedesc[Launcher], user: User,
-                                   path: string): Future[bool] {.async.} =
+                                   path: string): Future[bool] =
   ## Windows.System.Launcher.LaunchFolderPathForUserAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics5, it):
@@ -2166,14 +2169,13 @@ proc launchFolderPathForUserAsync*(_: typedesc[Launcher], user: User,
       withHString(path, h1):
         check it.vtbl.LaunchFolderPathForUserAsync(it, p0, h1, op.addr
                                                   ), "Launcher.LaunchFolderPathForUserAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "Launcher.LaunchFolderPathForUserAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Launcher.LaunchFolderPathForUserAsync")
 
 proc launchFolderPathForUserAsync*(_: typedesc[Launcher], user: User,
                                    path: string, options: FolderLauncherOptions
-                                  ): Future[bool] {.async.} =
+                                  ): Future[bool] =
   ## Windows.System.Launcher.LaunchFolderPathForUserAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics5, it):
@@ -2182,14 +2184,13 @@ proc launchFolderPathForUserAsync*(_: typedesc[Launcher], user: User,
         withIface(options.p, IFolderLauncherOptions, p2):
           check it.vtbl.LaunchFolderPathForUserAsync2(it, p0, h1, p2, op.addr
                                                      ), "Launcher.LaunchFolderPathForUserAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "Launcher.LaunchFolderPathForUserAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Launcher.LaunchFolderPathForUserAsync")
 
 proc launchUriForResultsAsync*(_: typedesc[Launcher], uri: Uri,
                                options: LauncherOptions
-                              ): Future[LaunchUriResult] {.async.} =
+                              ): Future[LaunchUriResult] =
   ## Windows.System.Launcher.LaunchUriForResultsAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics2, it):
@@ -2197,14 +2198,15 @@ proc launchUriForResultsAsync*(_: typedesc[Launcher], uri: Uri,
       withIface(options.p, ILauncherOptions2, p1):
         check it.vtbl.LaunchUriForResultsAsync(it, p0, p1, op.addr
                                               ), "Launcher.LaunchUriForResultsAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_LaunchUriResult,
-                              IID_AsyncOperationCompletedHandler_1_LaunchUriResult,
-                              alPlain, "Launcher.LaunchUriForResultsAsync")
-  result = adopt[LaunchUriResult](obj)
+  result = futureObject[LaunchUriResult](op,
+                                         IID_IAsyncOperation_1_LaunchUriResult,
+                                         IID_AsyncOperationCompletedHandler_1_LaunchUriResult,
+                                         alPlain,
+                                         "Launcher.LaunchUriForResultsAsync")
 
 proc launchUriForResultsAsync*(_: typedesc[Launcher], uri: Uri,
                                options: LauncherOptions, inputData: ValueSet
-                              ): Future[LaunchUriResult] {.async.} =
+                              ): Future[LaunchUriResult] =
   ## Windows.System.Launcher.LaunchUriForResultsAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics2, it):
@@ -2213,13 +2215,14 @@ proc launchUriForResultsAsync*(_: typedesc[Launcher], uri: Uri,
         withIface(inputData.p, IPropertySet, p2):
           check it.vtbl.LaunchUriForResultsAsync2(it, p0, p1, p2, op.addr
                                                  ), "Launcher.LaunchUriForResultsAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_LaunchUriResult,
-                              IID_AsyncOperationCompletedHandler_1_LaunchUriResult,
-                              alPlain, "Launcher.LaunchUriForResultsAsync")
-  result = adopt[LaunchUriResult](obj)
+  result = futureObject[LaunchUriResult](op,
+                                         IID_IAsyncOperation_1_LaunchUriResult,
+                                         IID_AsyncOperationCompletedHandler_1_LaunchUriResult,
+                                         alPlain,
+                                         "Launcher.LaunchUriForResultsAsync")
 
 proc launchUriAsync*(_: typedesc[Launcher], uri: Uri, options: LauncherOptions,
-                     inputData: ValueSet): Future[bool] {.async.} =
+                     inputData: ValueSet): Future[bool] =
   ## Windows.System.Launcher.LaunchUriAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics2, it):
@@ -2228,30 +2231,30 @@ proc launchUriAsync*(_: typedesc[Launcher], uri: Uri, options: LauncherOptions,
         withIface(inputData.p, IPropertySet, p2):
           check it.vtbl.LaunchUriAsync(it, p0, p1, p2, op.addr
                                       ), "Launcher.LaunchUriAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "Launcher.LaunchUriAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Launcher.LaunchUriAsync")
 
 proc queryUriSupportAsync*(_: typedesc[Launcher], uri: Uri,
                            launchQuerySupportType: LaunchQuerySupportType
-                          ): Future[LaunchQuerySupportStatus] {.async.} =
+                          ): Future[LaunchQuerySupportStatus] =
   ## Windows.System.Launcher.QueryUriSupportAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics2, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.QueryUriSupportAsync(it, p0, launchQuerySupportType, op.addr
                                         ), "Launcher.QueryUriSupportAsync"
-  result = await awaitValue[LaunchQuerySupportStatus](op,
-                                                      IID_IAsyncOperation_1_LaunchQuerySupportStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
-                                                      alPlain,
-                                                      "Launcher.QueryUriSupportAsync"
-                                                     )
+  result = futureValue[LaunchQuerySupportStatus](op,
+                                                 IID_IAsyncOperation_1_LaunchQuerySupportStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
+                                                 alPlain,
+                                                 "Launcher.QueryUriSupportAsync"
+                                                )
 
 proc queryUriSupportAsync*(_: typedesc[Launcher], uri: Uri,
                            launchQuerySupportType: LaunchQuerySupportType,
                            packageFamilyName: string
-                          ): Future[LaunchQuerySupportStatus] {.async.} =
+                          ): Future[LaunchQuerySupportStatus] =
   ## Windows.System.Launcher.QueryUriSupportAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics2, it):
@@ -2260,31 +2263,31 @@ proc queryUriSupportAsync*(_: typedesc[Launcher], uri: Uri,
         check it.vtbl.QueryUriSupportAsync2(it, p0, launchQuerySupportType, h2,
                                             op.addr
                                            ), "Launcher.QueryUriSupportAsync"
-  result = await awaitValue[LaunchQuerySupportStatus](op,
-                                                      IID_IAsyncOperation_1_LaunchQuerySupportStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
-                                                      alPlain,
-                                                      "Launcher.QueryUriSupportAsync"
-                                                     )
+  result = futureValue[LaunchQuerySupportStatus](op,
+                                                 IID_IAsyncOperation_1_LaunchQuerySupportStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
+                                                 alPlain,
+                                                 "Launcher.QueryUriSupportAsync"
+                                                )
 
 proc queryFileSupportAsync*(_: typedesc[Launcher], file: StorageFile
-                           ): Future[LaunchQuerySupportStatus] {.async.} =
+                           ): Future[LaunchQuerySupportStatus] =
   ## Windows.System.Launcher.QueryFileSupportAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics2, it):
     withIface(file.p, IStorageFile, p0):
       check it.vtbl.QueryFileSupportAsync(it, p0, op.addr
                                          ), "Launcher.QueryFileSupportAsync"
-  result = await awaitValue[LaunchQuerySupportStatus](op,
-                                                      IID_IAsyncOperation_1_LaunchQuerySupportStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
-                                                      alPlain,
-                                                      "Launcher.QueryFileSupportAsync"
-                                                     )
+  result = futureValue[LaunchQuerySupportStatus](op,
+                                                 IID_IAsyncOperation_1_LaunchQuerySupportStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
+                                                 alPlain,
+                                                 "Launcher.QueryFileSupportAsync"
+                                                )
 
 proc queryFileSupportAsync*(_: typedesc[Launcher], file: StorageFile,
                             packageFamilyName: string
-                           ): Future[LaunchQuerySupportStatus] {.async.} =
+                           ): Future[LaunchQuerySupportStatus] =
   ## Windows.System.Launcher.QueryFileSupportAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics2, it):
@@ -2292,30 +2295,29 @@ proc queryFileSupportAsync*(_: typedesc[Launcher], file: StorageFile,
       withHString(packageFamilyName, h1):
         check it.vtbl.QueryFileSupportAsync2(it, p0, h1, op.addr
                                             ), "Launcher.QueryFileSupportAsync"
-  result = await awaitValue[LaunchQuerySupportStatus](op,
-                                                      IID_IAsyncOperation_1_LaunchQuerySupportStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
-                                                      alPlain,
-                                                      "Launcher.QueryFileSupportAsync"
-                                                     )
+  result = futureValue[LaunchQuerySupportStatus](op,
+                                                 IID_IAsyncOperation_1_LaunchQuerySupportStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
+                                                 alPlain,
+                                                 "Launcher.QueryFileSupportAsync"
+                                                )
 
 proc findUriSchemeHandlersAsync*(_: typedesc[Launcher], scheme: string
-                                ): Future[seq[AppInfo]] {.async.} =
+                                ): Future[seq[AppInfo]] =
   ## Windows.System.Launcher.FindUriSchemeHandlersAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics2, it):
     withHString(scheme, h0):
       check it.vtbl.FindUriSchemeHandlersAsync(it, h0, op.addr
                                               ), "Launcher.FindUriSchemeHandlersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
-                               alPlain, "Launcher.FindUriSchemeHandlersAsync")
-  result = toSeq[AppInfo](coll, IID_IVectorView_1_AppInfo)
-  discard release(coll)
+  result = futureSeq[AppInfo](op, IID_IAsyncOperation_1_IVectorView_12,
+                              IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                              alPlain, "Launcher.FindUriSchemeHandlersAsync",
+                              IID_IVectorView_1_AppInfo)
 
 proc findUriSchemeHandlersAsync*(_: typedesc[Launcher], scheme: string,
                                  launchQuerySupportType: LaunchQuerySupportType
-                                ): Future[seq[AppInfo]] {.async.} =
+                                ): Future[seq[AppInfo]] =
   ## Windows.System.Launcher.FindUriSchemeHandlersAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics2, it):
@@ -2323,25 +2325,23 @@ proc findUriSchemeHandlersAsync*(_: typedesc[Launcher], scheme: string,
       check it.vtbl.FindUriSchemeHandlersAsync2(it, h0, launchQuerySupportType,
                                                 op.addr
                                                ), "Launcher.FindUriSchemeHandlersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
-                               alPlain, "Launcher.FindUriSchemeHandlersAsync")
-  result = toSeq[AppInfo](coll, IID_IVectorView_1_AppInfo)
-  discard release(coll)
+  result = futureSeq[AppInfo](op, IID_IAsyncOperation_1_IVectorView_12,
+                              IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                              alPlain, "Launcher.FindUriSchemeHandlersAsync",
+                              IID_IVectorView_1_AppInfo)
 
 proc findFileHandlersAsync*(_: typedesc[Launcher], extension: string
-                           ): Future[seq[AppInfo]] {.async.} =
+                           ): Future[seq[AppInfo]] =
   ## Windows.System.Launcher.FindFileHandlersAsync
   var op: pointer
   withStatics("Windows.System.Launcher", ILauncherStatics2, it):
     withHString(extension, h0):
       check it.vtbl.FindFileHandlersAsync(it, h0, op.addr
                                          ), "Launcher.FindFileHandlersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
-                               alPlain, "Launcher.FindFileHandlersAsync")
-  result = toSeq[AppInfo](coll, IID_IVectorView_1_AppInfo)
-  discard release(coll)
+  result = futureSeq[AppInfo](op, IID_IAsyncOperation_1_IVectorView_12,
+                              IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                              alPlain, "Launcher.FindFileHandlersAsync",
+                              IID_IVectorView_1_AppInfo)
 
 proc newLauncherOptions*(): LauncherOptions =
   ## Activate a `Windows.System.LauncherOptions`.
@@ -3181,19 +3181,18 @@ proc findChannels*(_: typedesc[PowerThermalChannelFinder],
                               ), "PowerThermalChannelFinder.FindChannels"
     result = takeArray(tmpSize, tmp)
 
-proc getCurrentPostureAsync*(self: TwoPanelHingedDevicePosturePreview): Future[TwoPanelHingedDevicePosturePreviewReading] {.async.} =
+proc getCurrentPostureAsync*(self: TwoPanelHingedDevicePosturePreview): Future[TwoPanelHingedDevicePosturePreviewReading] =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreview.GetCurrentPostureAsync
   var op: pointer
   withIface(self.p, ITwoPanelHingedDevicePosturePreview, it):
     check it.vtbl.GetCurrentPostureAsync(it, op.addr
                                         ), "TwoPanelHingedDevicePosturePreview.GetCurrentPostureAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreviewReading,
-                              IID_AsyncOperationCompletedHandler_1_TwoPanelHingedDevicePosturePreviewReading,
-                              alPlain,
-                              "TwoPanelHingedDevicePosturePreview.GetCurrentPostureAsync"
-                             )
-  result = adopt[TwoPanelHingedDevicePosturePreviewReading](obj)
+  result = futureObject[TwoPanelHingedDevicePosturePreviewReading](op,
+                                                                   IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreviewReading,
+                                                                   IID_AsyncOperationCompletedHandler_1_TwoPanelHingedDevicePosturePreviewReading,
+                                                                   alPlain,
+                                                                   "TwoPanelHingedDevicePosturePreview.GetCurrentPostureAsync"
+                                                                  )
 
 proc onPostureChanged*(self: TwoPanelHingedDevicePosturePreview,
                        handler: EventHandler[TwoPanelHingedDevicePosturePreview, TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs]
@@ -3216,20 +3215,19 @@ proc removePostureChanged*(self: TwoPanelHingedDevicePosturePreview, token: Even
   withIface(self.p, ITwoPanelHingedDevicePosturePreview, it):
     check it.vtbl.remove_PostureChanged(it, token), "TwoPanelHingedDevicePosturePreview.remove_PostureChanged"
 
-proc getDefaultAsync*(_: typedesc[TwoPanelHingedDevicePosturePreview]): Future[TwoPanelHingedDevicePosturePreview] {.async.} =
+proc getDefaultAsync*(_: typedesc[TwoPanelHingedDevicePosturePreview]): Future[TwoPanelHingedDevicePosturePreview] =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreview.GetDefaultAsync
   var op: pointer
   withStatics("Windows.System.Preview.TwoPanelHingedDevicePosturePreview",
               ITwoPanelHingedDevicePosturePreviewStatics, it):
     check it.vtbl.GetDefaultAsync(it, op.addr
                                  ), "TwoPanelHingedDevicePosturePreview.GetDefaultAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreview,
-                              IID_AsyncOperationCompletedHandler_1_TwoPanelHingedDevicePosturePreview,
-                              alPlain,
-                              "TwoPanelHingedDevicePosturePreview.GetDefaultAsync"
-                             )
-  result = adopt[TwoPanelHingedDevicePosturePreview](obj)
+  result = futureObject[TwoPanelHingedDevicePosturePreview](op,
+                                                            IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreview,
+                                                            IID_AsyncOperationCompletedHandler_1_TwoPanelHingedDevicePosturePreview,
+                                                            alPlain,
+                                                            "TwoPanelHingedDevicePosturePreview.GetDefaultAsync"
+                                                           )
 
 proc timestamp*(self: TwoPanelHingedDevicePosturePreviewReading): DateTime =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading.get_Timestamp
@@ -3267,8 +3265,7 @@ proc reading*(self: TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs): 
     result = it.getObject(get_Reading, TwoPanelHingedDevicePosturePreviewReading)
 
 proc runToCompletionAsync*(_: typedesc[ProcessLauncher], fileName: string,
-                           args: string
-                          ): Future[ProcessLauncherResult] {.async.} =
+                           args: string): Future[ProcessLauncherResult] =
   ## Windows.System.ProcessLauncher.RunToCompletionAsync
   var op: pointer
   withStatics("Windows.System.ProcessLauncher", IProcessLauncherStatics, it):
@@ -3276,14 +3273,16 @@ proc runToCompletionAsync*(_: typedesc[ProcessLauncher], fileName: string,
       withHString(args, h1):
         check it.vtbl.RunToCompletionAsync(it, h0, h1, op.addr
                                           ), "ProcessLauncher.RunToCompletionAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ProcessLauncherResult,
-                              IID_AsyncOperationCompletedHandler_1_ProcessLauncherResult,
-                              alPlain, "ProcessLauncher.RunToCompletionAsync")
-  result = adopt[ProcessLauncherResult](obj)
+  result = futureObject[ProcessLauncherResult](op,
+                                               IID_IAsyncOperation_1_ProcessLauncherResult,
+                                               IID_AsyncOperationCompletedHandler_1_ProcessLauncherResult,
+                                               alPlain,
+                                               "ProcessLauncher.RunToCompletionAsync"
+                                              )
 
 proc runToCompletionAsync*(_: typedesc[ProcessLauncher], fileName: string,
                            args: string, options: ProcessLauncherOptions
-                          ): Future[ProcessLauncherResult] {.async.} =
+                          ): Future[ProcessLauncherResult] =
   ## Windows.System.ProcessLauncher.RunToCompletionAsync
   var op: pointer
   withStatics("Windows.System.ProcessLauncher", IProcessLauncherStatics, it):
@@ -3292,10 +3291,12 @@ proc runToCompletionAsync*(_: typedesc[ProcessLauncher], fileName: string,
         withIface(options.p, IProcessLauncherOptions, p2):
           check it.vtbl.RunToCompletionAsync2(it, h0, h1, p2, op.addr
                                              ), "ProcessLauncher.RunToCompletionAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ProcessLauncherResult,
-                              IID_AsyncOperationCompletedHandler_1_ProcessLauncherResult,
-                              alPlain, "ProcessLauncher.RunToCompletionAsync")
-  result = adopt[ProcessLauncherResult](obj)
+  result = futureObject[ProcessLauncherResult](op,
+                                               IID_IAsyncOperation_1_ProcessLauncherResult,
+                                               IID_AsyncOperationCompletedHandler_1_ProcessLauncherResult,
+                                               alPlain,
+                                               "ProcessLauncher.RunToCompletionAsync"
+                                              )
 
 proc newProcessLauncherOptions*(): ProcessLauncherOptions =
   ## Activate a `Windows.System.ProcessLauncherOptions`.
@@ -3376,7 +3377,7 @@ proc deviceForm*(_: typedesc[AnalyticsInfo]): string =
 
 proc getSystemPropertiesAsync*(_: typedesc[AnalyticsInfo],
                                attributeNames: seq[string]
-                              ): Future[Table[string, string]] {.async.} =
+                              ): Future[Table[string, string]] =
   ## Windows.System.Profile.AnalyticsInfo.GetSystemPropertiesAsync
   var op: pointer
   withStatics("Windows.System.Profile.AnalyticsInfo", IAnalyticsInfoStatics2, it
@@ -3387,13 +3388,12 @@ proc getSystemPropertiesAsync*(_: typedesc[AnalyticsInfo],
     defer: discard release(p0)
     check it.vtbl.GetSystemPropertiesAsync(it, p0, op.addr
                                           ), "AnalyticsInfo.GetSystemPropertiesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2,
-                               IID_AsyncOperationCompletedHandler_1_IMapView_2,
-                               alPlain, "AnalyticsInfo.GetSystemPropertiesAsync"
-                              )
-  result = toTable[string, string](coll, IID_IIterable_1_IKeyValuePair_2,
-                                   IID_IKeyValuePair_2_String_String)
-  discard release(coll)
+  result = futureTable[string, string](op, IID_IAsyncOperation_1_IMapView_2,
+                                       IID_AsyncOperationCompletedHandler_1_IMapView_2,
+                                       alPlain,
+                                       "AnalyticsInfo.GetSystemPropertiesAsync",
+                                       IID_IIterable_1_IKeyValuePair_2,
+                                       IID_IKeyValuePair_2_String_String)
 
 proc deviceFamily*(self: AnalyticsVersionInfo): string =
   ## Windows.System.Profile.AnalyticsVersionInfo.get_DeviceFamily
@@ -4114,7 +4114,7 @@ proc isSwitchToLocalSessionEnabled*(_: typedesc[RemoteDesktopRegistrar]): bool =
 
 proc launchUriAsync*(_: typedesc[RemoteLauncher],
                      remoteSystemConnectionRequest: RemoteSystemConnectionRequest,
-                     uri: Uri): Future[RemoteLaunchUriStatus] {.async.} =
+                     uri: Uri): Future[RemoteLaunchUriStatus] =
   ## Windows.System.RemoteLauncher.LaunchUriAsync
   var op: pointer
   withStatics("Windows.System.RemoteLauncher", IRemoteLauncherStatics, it):
@@ -4122,17 +4122,16 @@ proc launchUriAsync*(_: typedesc[RemoteLauncher],
       withIface(uri.p, IUriRuntimeClass, p1):
         check it.vtbl.LaunchUriAsync(it, p0, p1, op.addr
                                     ), "RemoteLauncher.LaunchUriAsync"
-  result = await awaitValue[RemoteLaunchUriStatus](op,
-                                                   IID_IAsyncOperation_1_RemoteLaunchUriStatus,
-                                                   IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus,
-                                                   alPlain,
-                                                   "RemoteLauncher.LaunchUriAsync"
-                                                  )
+  result = futureValue[RemoteLaunchUriStatus](op,
+                                              IID_IAsyncOperation_1_RemoteLaunchUriStatus,
+                                              IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus,
+                                              alPlain,
+                                              "RemoteLauncher.LaunchUriAsync")
 
 proc launchUriAsync*(_: typedesc[RemoteLauncher],
                      remoteSystemConnectionRequest: RemoteSystemConnectionRequest,
                      uri: Uri, options: RemoteLauncherOptions
-                    ): Future[RemoteLaunchUriStatus] {.async.} =
+                    ): Future[RemoteLaunchUriStatus] =
   ## Windows.System.RemoteLauncher.LaunchUriAsync
   var op: pointer
   withStatics("Windows.System.RemoteLauncher", IRemoteLauncherStatics, it):
@@ -4141,18 +4140,16 @@ proc launchUriAsync*(_: typedesc[RemoteLauncher],
         withIface(options.p, IRemoteLauncherOptions, p2):
           check it.vtbl.LaunchUriAsync2(it, p0, p1, p2, op.addr
                                        ), "RemoteLauncher.LaunchUriAsync"
-  result = await awaitValue[RemoteLaunchUriStatus](op,
-                                                   IID_IAsyncOperation_1_RemoteLaunchUriStatus,
-                                                   IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus,
-                                                   alPlain,
-                                                   "RemoteLauncher.LaunchUriAsync"
-                                                  )
+  result = futureValue[RemoteLaunchUriStatus](op,
+                                              IID_IAsyncOperation_1_RemoteLaunchUriStatus,
+                                              IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus,
+                                              alPlain,
+                                              "RemoteLauncher.LaunchUriAsync")
 
 proc launchUriAsync*(_: typedesc[RemoteLauncher],
                      remoteSystemConnectionRequest: RemoteSystemConnectionRequest,
                      uri: Uri, options: RemoteLauncherOptions,
-                     inputData: ValueSet
-                    ): Future[RemoteLaunchUriStatus] {.async.} =
+                     inputData: ValueSet): Future[RemoteLaunchUriStatus] =
   ## Windows.System.RemoteLauncher.LaunchUriAsync
   var op: pointer
   withStatics("Windows.System.RemoteLauncher", IRemoteLauncherStatics, it):
@@ -4162,12 +4159,11 @@ proc launchUriAsync*(_: typedesc[RemoteLauncher],
           withIface(inputData.p, IPropertySet, p3):
             check it.vtbl.LaunchUriAsync3(it, p0, p1, p2, p3, op.addr
                                          ), "RemoteLauncher.LaunchUriAsync"
-  result = await awaitValue[RemoteLaunchUriStatus](op,
-                                                   IID_IAsyncOperation_1_RemoteLaunchUriStatus,
-                                                   IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus,
-                                                   alPlain,
-                                                   "RemoteLauncher.LaunchUriAsync"
-                                                  )
+  result = futureValue[RemoteLaunchUriStatus](op,
+                                              IID_IAsyncOperation_1_RemoteLaunchUriStatus,
+                                              IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus,
+                                              alPlain,
+                                              "RemoteLauncher.LaunchUriAsync")
 
 proc newRemoteLauncherOptions*(): RemoteLauncherOptions =
   ## Activate a `Windows.System.RemoteLauncherOptions`.
@@ -4249,17 +4245,16 @@ proc isAvailableBySpatialProximity*(self: RemoteSystem): bool =
     result = it.getValue(get_IsAvailableBySpatialProximity, bool)
 
 proc getCapabilitySupportedAsync*(self: RemoteSystem, capabilityName: string
-                                 ): Future[bool] {.async.} =
+                                 ): Future[bool] =
   ## Windows.System.RemoteSystems.RemoteSystem.GetCapabilitySupportedAsync
   var op: pointer
   withIface(self.p, IRemoteSystem2, it):
     withHString(capabilityName, h0):
       check it.vtbl.GetCapabilitySupportedAsync(it, h0, op.addr
                                                ), "RemoteSystem.GetCapabilitySupportedAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "RemoteSystem.GetCapabilitySupportedAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "RemoteSystem.GetCapabilitySupportedAsync")
 
 proc manufacturerDisplayName*(self: RemoteSystem): string =
   ## Windows.System.RemoteSystems.RemoteSystem.get_ManufacturerDisplayName
@@ -4290,7 +4285,7 @@ proc user*(self: RemoteSystem): User =
     result = it.getObject(get_User, User)
 
 proc findByHostNameAsync*(_: typedesc[RemoteSystem], hostName: HostName
-                         ): Future[RemoteSystem] {.async.} =
+                         ): Future[RemoteSystem] =
   ## Windows.System.RemoteSystems.RemoteSystem.FindByHostNameAsync
   var op: pointer
   withStatics("Windows.System.RemoteSystems.RemoteSystem", IRemoteSystemStatics,
@@ -4298,10 +4293,10 @@ proc findByHostNameAsync*(_: typedesc[RemoteSystem], hostName: HostName
     withIface(hostName.p, IHostName, p0):
       check it.vtbl.FindByHostNameAsync(it, p0, op.addr
                                        ), "RemoteSystem.FindByHostNameAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_RemoteSystem,
-                              IID_AsyncOperationCompletedHandler_1_RemoteSystem,
-                              alPlain, "RemoteSystem.FindByHostNameAsync")
-  result = adopt[RemoteSystem](obj)
+  result = futureObject[RemoteSystem](op, IID_IAsyncOperation_1_RemoteSystem,
+                                      IID_AsyncOperationCompletedHandler_1_RemoteSystem,
+                                      alPlain,
+                                      "RemoteSystem.FindByHostNameAsync")
 
 proc createWatcher*(_: typedesc[RemoteSystem]): RemoteSystemWatcher =
   ## Windows.System.RemoteSystems.RemoteSystem.CreateWatcher
@@ -4325,19 +4320,19 @@ proc createWatcher*(_: typedesc[RemoteSystem], filters: seq[WinRtObject]
     check it.vtbl.CreateWatcher2(it, p0, tmp.addr), "RemoteSystem.CreateWatcher"
     result = adopt[RemoteSystemWatcher](tmp)
 
-proc requestAccessAsync*(_: typedesc[RemoteSystem]): Future[RemoteSystemAccessStatus] {.async.} =
+proc requestAccessAsync*(_: typedesc[RemoteSystem]): Future[RemoteSystemAccessStatus] =
   ## Windows.System.RemoteSystems.RemoteSystem.RequestAccessAsync
   var op: pointer
   withStatics("Windows.System.RemoteSystems.RemoteSystem", IRemoteSystemStatics,
               it):
     check it.vtbl.RequestAccessAsync(it, op.addr
                                     ), "RemoteSystem.RequestAccessAsync"
-  result = await awaitValue[RemoteSystemAccessStatus](op,
-                                                      IID_IAsyncOperation_1_RemoteSystemAccessStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_RemoteSystemAccessStatus,
-                                                      alPlain,
-                                                      "RemoteSystem.RequestAccessAsync"
-                                                     )
+  result = futureValue[RemoteSystemAccessStatus](op,
+                                                 IID_IAsyncOperation_1_RemoteSystemAccessStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_RemoteSystemAccessStatus,
+                                                 alPlain,
+                                                 "RemoteSystem.RequestAccessAsync"
+                                                )
 
 proc createWatcherForUser*(_: typedesc[RemoteSystem], user: User
                           ): RemoteSystemWatcher =
@@ -4435,16 +4430,15 @@ proc attributes*(self: RemoteSystemAppRegistration): Table[string, string] =
                                      IID_IKeyValuePair_2_String_String)
     release(tmp)
 
-proc saveAsync*(self: RemoteSystemAppRegistration): Future[bool] {.async.} =
+proc saveAsync*(self: RemoteSystemAppRegistration): Future[bool] =
   ## Windows.System.RemoteSystems.RemoteSystemAppRegistration.SaveAsync
   var op: pointer
   withIface(self.p, IRemoteSystemAppRegistration, it):
     check it.vtbl.SaveAsync(it, op.addr
                            ), "RemoteSystemAppRegistration.SaveAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "RemoteSystemAppRegistration.SaveAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "RemoteSystemAppRegistration.SaveAsync")
 
 proc getDefault*(_: typedesc[RemoteSystemAppRegistration]): RemoteSystemAppRegistration =
   ## Windows.System.RemoteSystems.RemoteSystemAppRegistration.GetDefault
@@ -4697,17 +4691,16 @@ proc createParticipantWatcher*(self: RemoteSystemSession): RemoteSystemSessionPa
     result = adopt[RemoteSystemSessionParticipantWatcher](tmp)
 
 proc sendInvitationAsync*(self: RemoteSystemSession, invitee: RemoteSystem
-                         ): Future[bool] {.async.} =
+                         ): Future[bool] =
   ## Windows.System.RemoteSystems.RemoteSystemSession.SendInvitationAsync
   var op: pointer
   withIface(self.p, IRemoteSystemSession, it):
     withIface(invitee.p, IRemoteSystem, p0):
       check it.vtbl.SendInvitationAsync(it, p0, op.addr
                                        ), "RemoteSystemSession.SendInvitationAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "RemoteSystemSession.SendInvitationAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "RemoteSystemSession.SendInvitationAsync")
 
 proc close*(self: RemoteSystemSession) =
   ## Windows.System.RemoteSystems.RemoteSystemSession.Close
@@ -4750,32 +4743,30 @@ proc removeJoinRequested*(self: RemoteSystemSessionController, token: EventRegis
 
 proc removeParticipantAsync*(self: RemoteSystemSessionController,
                              pParticipant: RemoteSystemSessionParticipant
-                            ): Future[bool] {.async.} =
+                            ): Future[bool] =
   ## Windows.System.RemoteSystems.RemoteSystemSessionController.RemoveParticipantAsync
   var op: pointer
   withIface(self.p, IRemoteSystemSessionController, it):
     withIface(pParticipant.p, IRemoteSystemSessionParticipant, p0):
       check it.vtbl.RemoveParticipantAsync(it, p0, op.addr
                                           ), "RemoteSystemSessionController.RemoveParticipantAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "RemoteSystemSessionController.RemoveParticipantAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "RemoteSystemSessionController.RemoveParticipantAsync"
+                            )
 
-proc createSessionAsync*(self: RemoteSystemSessionController): Future[RemoteSystemSessionCreationResult] {.async.} =
+proc createSessionAsync*(self: RemoteSystemSessionController): Future[RemoteSystemSessionCreationResult] =
   ## Windows.System.RemoteSystems.RemoteSystemSessionController.CreateSessionAsync
   var op: pointer
   withIface(self.p, IRemoteSystemSessionController, it):
     check it.vtbl.CreateSessionAsync(it, op.addr
                                     ), "RemoteSystemSessionController.CreateSessionAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_RemoteSystemSessionCreationResult,
-                              IID_AsyncOperationCompletedHandler_1_RemoteSystemSessionCreationResult,
-                              alPlain,
-                              "RemoteSystemSessionController.CreateSessionAsync"
-                             )
-  result = adopt[RemoteSystemSessionCreationResult](obj)
+  result = futureObject[RemoteSystemSessionCreationResult](op,
+                                                           IID_IAsyncOperation_1_RemoteSystemSessionCreationResult,
+                                                           IID_AsyncOperationCompletedHandler_1_RemoteSystemSessionCreationResult,
+                                                           alPlain,
+                                                           "RemoteSystemSessionController.CreateSessionAsync"
+                                                          )
 
 proc createController*(_: typedesc[RemoteSystemSessionController],
                        displayName: string): RemoteSystemSessionController =
@@ -4826,16 +4817,17 @@ proc controllerDisplayName*(self: RemoteSystemSessionInfo): string =
   withIface(self.p, IRemoteSystemSessionInfo, it):
     result = it.getString(get_ControllerDisplayName)
 
-proc joinAsync*(self: RemoteSystemSessionInfo): Future[RemoteSystemSessionJoinResult] {.async.} =
+proc joinAsync*(self: RemoteSystemSessionInfo): Future[RemoteSystemSessionJoinResult] =
   ## Windows.System.RemoteSystems.RemoteSystemSessionInfo.JoinAsync
   var op: pointer
   withIface(self.p, IRemoteSystemSessionInfo, it):
     check it.vtbl.JoinAsync(it, op.addr), "RemoteSystemSessionInfo.JoinAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_RemoteSystemSessionJoinResult,
-                              IID_AsyncOperationCompletedHandler_1_RemoteSystemSessionJoinResult,
-                              alPlain, "RemoteSystemSessionInfo.JoinAsync")
-  result = adopt[RemoteSystemSessionJoinResult](obj)
+  result = futureObject[RemoteSystemSessionJoinResult](op,
+                                                       IID_IAsyncOperation_1_RemoteSystemSessionJoinResult,
+                                                       IID_AsyncOperationCompletedHandler_1_RemoteSystemSessionJoinResult,
+                                                       alPlain,
+                                                       "RemoteSystemSessionInfo.JoinAsync"
+                                                      )
 
 proc sender*(self: RemoteSystemSessionInvitation): RemoteSystem =
   ## Windows.System.RemoteSystems.RemoteSystemSessionInvitation.get_Sender
@@ -4915,23 +4907,22 @@ proc session*(self: RemoteSystemSessionMessageChannel): RemoteSystemSession =
     result = it.getObject(get_Session, RemoteSystemSession)
 
 proc broadcastValueSetAsync*(self: RemoteSystemSessionMessageChannel,
-                             messageData: ValueSet): Future[bool] {.async.} =
+                             messageData: ValueSet): Future[bool] =
   ## Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.BroadcastValueSetAsync
   var op: pointer
   withIface(self.p, IRemoteSystemSessionMessageChannel, it):
     withIface(messageData.p, IPropertySet, p0):
       check it.vtbl.BroadcastValueSetAsync(it, p0, op.addr
                                           ), "RemoteSystemSessionMessageChannel.BroadcastValueSetAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "RemoteSystemSessionMessageChannel.BroadcastValueSetAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "RemoteSystemSessionMessageChannel.BroadcastValueSetAsync"
+                            )
 
 proc sendValueSetAsync*(self: RemoteSystemSessionMessageChannel,
                         messageData: ValueSet,
                         participant: RemoteSystemSessionParticipant
-                       ): Future[bool] {.async.} =
+                       ): Future[bool] =
   ## Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.SendValueSetAsync
   var op: pointer
   withIface(self.p, IRemoteSystemSessionMessageChannel, it):
@@ -4939,16 +4930,15 @@ proc sendValueSetAsync*(self: RemoteSystemSessionMessageChannel,
       withIface(participant.p, IRemoteSystemSessionParticipant, p1):
         check it.vtbl.SendValueSetAsync(it, p0, p1, op.addr
                                        ), "RemoteSystemSessionMessageChannel.SendValueSetAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "RemoteSystemSessionMessageChannel.SendValueSetAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "RemoteSystemSessionMessageChannel.SendValueSetAsync"
+                            )
 
 proc sendValueSetToParticipantsAsync*(self: RemoteSystemSessionMessageChannel,
                                       messageData: ValueSet,
                                       participants: seq[RemoteSystemSessionParticipant]
-                                     ): Future[bool] {.async.} =
+                                     ): Future[bool] =
   ## Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.SendValueSetToParticipantsAsync
   var op: pointer
   withIface(self.p, IRemoteSystemSessionMessageChannel, it):
@@ -4960,11 +4950,10 @@ proc sendValueSetToParticipantsAsync*(self: RemoteSystemSessionMessageChannel,
       defer: discard release(p1)
       check it.vtbl.SendValueSetToParticipantsAsync(it, p0, p1, op.addr
                                                    ), "RemoteSystemSessionMessageChannel.SendValueSetToParticipantsAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "RemoteSystemSessionMessageChannel.SendValueSetToParticipantsAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "RemoteSystemSessionMessageChannel.SendValueSetToParticipantsAsync"
+                            )
 
 proc onValueSetReceived*(self: RemoteSystemSessionMessageChannel,
                          handler: EventHandler[RemoteSystemSessionMessageChannel, RemoteSystemSessionValueSetReceivedEventArgs]
@@ -5412,13 +5401,13 @@ proc cancelShutdown*(_: typedesc[ShutdownManager]) =
   withStatics("Windows.System.ShutdownManager", IShutdownManagerStatics, it):
     check it.vtbl.CancelShutdown(it), "ShutdownManager.CancelShutdown"
 
-proc runAsync*(self: PreallocatedWorkItem) {.async.} =
+proc runAsync*(self: PreallocatedWorkItem): Future[void] =
   ## Windows.System.Threading.Core.PreallocatedWorkItem.RunAsync
   var op: pointer
   withIface(self.p, IPreallocatedWorkItem, it):
     check it.vtbl.RunAsync(it, op.addr), "PreallocatedWorkItem.RunAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PreallocatedWorkItem.RunAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PreallocatedWorkItem.RunAsync")
 
 proc createWorkItem*(_: typedesc[PreallocatedWorkItem],
                      handler: proc(a0: WinRtObject)): PreallocatedWorkItem =
@@ -5547,7 +5536,7 @@ proc attachToSemaphore*(_: typedesc[SignalNotifier], name: string,
       result = adopt[SignalNotifier](tmp)
 
 proc runAsync*(_: typedesc[ThreadPool], handler: proc(a0: WinRtObject)
-              ) {.async.} =
+              ): Future[void] =
   ## Windows.System.Threading.ThreadPool.RunAsync
   var op: pointer
   withStatics("Windows.System.Threading.ThreadPool", IThreadPoolStatics, it):
@@ -5555,11 +5544,11 @@ proc runAsync*(_: typedesc[ThreadPool], handler: proc(a0: WinRtObject)
                          proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
     defer: discard release(d0)
     check it.vtbl.RunAsync(it, d0, op.addr), "ThreadPool.RunAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ThreadPool.RunAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ThreadPool.RunAsync")
 
 proc runAsync*(_: typedesc[ThreadPool], handler: proc(a0: WinRtObject),
-               priority: WorkItemPriority) {.async.} =
+               priority: WorkItemPriority): Future[void] =
   ## Windows.System.Threading.ThreadPool.RunAsync
   var op: pointer
   withStatics("Windows.System.Threading.ThreadPool", IThreadPoolStatics, it):
@@ -5567,11 +5556,12 @@ proc runAsync*(_: typedesc[ThreadPool], handler: proc(a0: WinRtObject),
                          proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
     defer: discard release(d0)
     check it.vtbl.RunAsync2(it, d0, priority, op.addr), "ThreadPool.RunAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ThreadPool.RunAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ThreadPool.RunAsync")
 
 proc runAsync*(_: typedesc[ThreadPool], handler: proc(a0: WinRtObject),
-               priority: WorkItemPriority, options: WorkItemOptions) {.async.} =
+               priority: WorkItemPriority, options: WorkItemOptions
+              ): Future[void] =
   ## Windows.System.Threading.ThreadPool.RunAsync
   var op: pointer
   withStatics("Windows.System.Threading.ThreadPool", IThreadPoolStatics, it):
@@ -5580,8 +5570,8 @@ proc runAsync*(_: typedesc[ThreadPool], handler: proc(a0: WinRtObject),
     defer: discard release(d0)
     check it.vtbl.RunAsync3(it, d0, priority, options, op.addr
                            ), "ThreadPool.RunAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ThreadPool.RunAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ThreadPool.RunAsync")
 
 proc period*(self: ThreadPoolTimer): TimeSpan =
   ## Windows.System.Threading.ThreadPoolTimer.get_Period
@@ -5713,18 +5703,18 @@ proc changeTimeZoneByDisplayName*(_: typedesc[TimeZoneSettings],
                                                ), "TimeZoneSettings.ChangeTimeZoneByDisplayName"
 
 proc autoUpdateTimeZoneAsync*(_: typedesc[TimeZoneSettings], timeout: TimeSpan
-                             ): Future[AutoUpdateTimeZoneStatus] {.async.} =
+                             ): Future[AutoUpdateTimeZoneStatus] =
   ## Windows.System.TimeZoneSettings.AutoUpdateTimeZoneAsync
   var op: pointer
   withStatics("Windows.System.TimeZoneSettings", ITimeZoneSettingsStatics2, it):
     check it.vtbl.AutoUpdateTimeZoneAsync(it, timeout, op.addr
                                          ), "TimeZoneSettings.AutoUpdateTimeZoneAsync"
-  result = await awaitValue[AutoUpdateTimeZoneStatus](op,
-                                                      IID_IAsyncOperation_1_AutoUpdateTimeZoneStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_AutoUpdateTimeZoneStatus,
-                                                      alPlain,
-                                                      "TimeZoneSettings.AutoUpdateTimeZoneAsync"
-                                                     )
+  result = futureValue[AutoUpdateTimeZoneStatus](op,
+                                                 IID_IAsyncOperation_1_AutoUpdateTimeZoneStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_AutoUpdateTimeZoneStatus,
+                                                 alPlain,
+                                                 "TimeZoneSettings.AutoUpdateTimeZoneAsync"
+                                                )
 
 proc state*(self: SystemUpdateItem): SystemUpdateItemState =
   ## Windows.System.Update.SystemUpdateItem.get_State
@@ -5884,7 +5874,7 @@ proc getAutomaticRebootBlockIds*(_: typedesc[SystemUpdateManager]): seq[string] 
     release(tmp)
 
 proc blockAutomaticRebootAsync*(_: typedesc[SystemUpdateManager], lockId: string
-                               ): Future[bool] {.async.} =
+                               ): Future[bool] =
   ## Windows.System.Update.SystemUpdateManager.BlockAutomaticRebootAsync
   var op: pointer
   withStatics("Windows.System.Update.SystemUpdateManager",
@@ -5892,14 +5882,12 @@ proc blockAutomaticRebootAsync*(_: typedesc[SystemUpdateManager], lockId: string
     withHString(lockId, h0):
       check it.vtbl.BlockAutomaticRebootAsync(it, h0, op.addr
                                              ), "SystemUpdateManager.BlockAutomaticRebootAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "SystemUpdateManager.BlockAutomaticRebootAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "SystemUpdateManager.BlockAutomaticRebootAsync")
 
 proc unblockAutomaticRebootAsync*(_: typedesc[SystemUpdateManager],
-                                  lockId: string): Future[bool] {.async.} =
+                                  lockId: string): Future[bool] =
   ## Windows.System.Update.SystemUpdateManager.UnblockAutomaticRebootAsync
   var op: pointer
   withStatics("Windows.System.Update.SystemUpdateManager",
@@ -5907,11 +5895,9 @@ proc unblockAutomaticRebootAsync*(_: typedesc[SystemUpdateManager],
     withHString(lockId, h0):
       check it.vtbl.UnblockAutomaticRebootAsync(it, h0, op.addr
                                                ), "SystemUpdateManager.UnblockAutomaticRebootAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "SystemUpdateManager.UnblockAutomaticRebootAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "SystemUpdateManager.UnblockAutomaticRebootAsync")
 
 proc extendedError*(_: typedesc[SystemUpdateManager]): HRESULT =
   ## Windows.System.Update.SystemUpdateManager.get_ExtendedError
@@ -5989,20 +5975,17 @@ proc `type`*(self: User): UserType =
   withIface(self.p, IUser, it):
     result = it.getValue(get_Type, UserType)
 
-proc getPropertyAsync*(self: User, value: string
-                      ): Future[WinRtObject] {.async.} =
+proc getPropertyAsync*(self: User, value: string): Future[WinRtObject] =
   ## Windows.System.User.GetPropertyAsync
   var op: pointer
   withIface(self.p, IUser, it):
     withHString(value, h0):
       check it.vtbl.GetPropertyAsync(it, h0, op.addr), "User.GetPropertyAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_Object,
-                              IID_AsyncOperationCompletedHandler_1_Object,
-                              alPlain, "User.GetPropertyAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_Object,
+                                     IID_AsyncOperationCompletedHandler_1_Object,
+                                     alPlain, "User.GetPropertyAsync")
 
-proc getPropertiesAsync*(self: User, values: seq[string]
-                        ): Future[WinRtObject] {.async.} =
+proc getPropertiesAsync*(self: User, values: seq[string]): Future[WinRtObject] =
   ## Windows.System.User.GetPropertiesAsync
   var op: pointer
   withIface(self.p, IUser, it):
@@ -6011,38 +5994,36 @@ proc getPropertiesAsync*(self: User, values: seq[string]
                                       IID_IIterator_1_String)
     defer: discard release(p0)
     check it.vtbl.GetPropertiesAsync(it, p0, op.addr), "User.GetPropertiesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IPropertySet,
-                              IID_AsyncOperationCompletedHandler_1_IPropertySet,
-                              alPlain, "User.GetPropertiesAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IPropertySet,
+                                     IID_AsyncOperationCompletedHandler_1_IPropertySet,
+                                     alPlain, "User.GetPropertiesAsync")
 
 proc getPictureAsync*(self: User, desiredSize: UserPictureSize
-                     ): Future[WinRtObject] {.async.} =
+                     ): Future[WinRtObject] =
   ## Windows.System.User.GetPictureAsync
   var op: pointer
   withIface(self.p, IUser, it):
     check it.vtbl.GetPictureAsync(it, desiredSize, op.addr
                                  ), "User.GetPictureAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_IRandomAccessStreamReference,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamReference,
-                              alPlain, "User.GetPictureAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStreamReference,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamReference,
+                                     alPlain, "User.GetPictureAsync")
 
 proc checkUserAgeConsentGroupAsync*(self: User,
                                     consentGroup: UserAgeConsentGroup
-                                   ): Future[UserAgeConsentResult] {.async.} =
+                                   ): Future[UserAgeConsentResult] =
   ## Windows.System.User.CheckUserAgeConsentGroupAsync
   var op: pointer
   withIface(self.p, IUser2, it):
     check it.vtbl.CheckUserAgeConsentGroupAsync(it, consentGroup, op.addr
                                                ), "User.CheckUserAgeConsentGroupAsync"
-  result = await awaitValue[UserAgeConsentResult](op,
-                                                  IID_IAsyncOperation_1_UserAgeConsentResult,
-                                                  IID_AsyncOperationCompletedHandler_1_UserAgeConsentResult,
-                                                  alPlain,
-                                                  "User.CheckUserAgeConsentGroupAsync"
-                                                 )
+  result = futureValue[UserAgeConsentResult](op,
+                                             IID_IAsyncOperation_1_UserAgeConsentResult,
+                                             IID_AsyncOperationCompletedHandler_1_UserAgeConsentResult,
+                                             alPlain,
+                                             "User.CheckUserAgeConsentGroupAsync"
+                                            )
 
 proc getDefault*(_: typedesc[User]): User =
   ## Windows.System.User.GetDefault
@@ -6058,42 +6039,34 @@ proc createWatcher*(_: typedesc[User]): UserWatcher =
     check it.vtbl.CreateWatcher(it, tmp.addr), "User.CreateWatcher"
     result = adopt[UserWatcher](tmp)
 
-proc findAllAsync*(_: typedesc[User]): Future[seq[User]] {.async.} =
+proc findAllAsync*(_: typedesc[User]): Future[seq[User]] =
   ## Windows.System.User.FindAllAsync
   var op: pointer
   withStatics("Windows.System.User", IUserStatics, it):
     check it.vtbl.FindAllAsync(it, op.addr), "User.FindAllAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_13,
-                               alPlain, "User.FindAllAsync")
-  result = toSeq[User](coll, IID_IVectorView_1_User)
-  discard release(coll)
+  result = futureSeq[User](op, IID_IAsyncOperation_1_IVectorView_13,
+                           IID_AsyncOperationCompletedHandler_1_IVectorView_13,
+                           alPlain, "User.FindAllAsync", IID_IVectorView_1_User)
 
-proc findAllAsync*(_: typedesc[User], `type`: UserType
-                  ): Future[seq[User]] {.async.} =
+proc findAllAsync*(_: typedesc[User], `type`: UserType): Future[seq[User]] =
   ## Windows.System.User.FindAllAsync
   var op: pointer
   withStatics("Windows.System.User", IUserStatics, it):
     check it.vtbl.FindAllAsync2(it, `type`, op.addr), "User.FindAllAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_13,
-                               alPlain, "User.FindAllAsync")
-  result = toSeq[User](coll, IID_IVectorView_1_User)
-  discard release(coll)
+  result = futureSeq[User](op, IID_IAsyncOperation_1_IVectorView_13,
+                           IID_AsyncOperationCompletedHandler_1_IVectorView_13,
+                           alPlain, "User.FindAllAsync", IID_IVectorView_1_User)
 
 proc findAllAsync*(_: typedesc[User], `type`: UserType,
-                   status: UserAuthenticationStatus
-                  ): Future[seq[User]] {.async.} =
+                   status: UserAuthenticationStatus): Future[seq[User]] =
   ## Windows.System.User.FindAllAsync
   var op: pointer
   withStatics("Windows.System.User", IUserStatics, it):
     check it.vtbl.FindAllAsync3(it, `type`, status, op.addr
                                ), "User.FindAllAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_13,
-                               alPlain, "User.FindAllAsync")
-  result = toSeq[User](coll, IID_IVectorView_1_User)
-  discard release(coll)
+  result = futureSeq[User](op, IID_IAsyncOperation_1_IVectorView_13,
+                           IID_AsyncOperationCompletedHandler_1_IVectorView_13,
+                           alPlain, "User.FindAllAsync", IID_IVectorView_1_User)
 
 proc getFromId*(_: typedesc[User], nonRoamableId: string): User =
   ## Windows.System.User.GetFromId
@@ -6221,16 +6194,15 @@ proc `suggestedSelectedUser=`*(self: UserPicker, value: User) =
       check it.vtbl.put_SuggestedSelectedUser(it, p0
                                              ), "UserPicker.put_SuggestedSelectedUser"
 
-proc pickSingleUserAsync*(self: UserPicker): Future[User] {.async.} =
+proc pickSingleUserAsync*(self: UserPicker): Future[User] =
   ## Windows.System.UserPicker.PickSingleUserAsync
   var op: pointer
   withIface(self.p, IUserPicker, it):
     check it.vtbl.PickSingleUserAsync(it, op.addr
                                      ), "UserPicker.PickSingleUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_User,
+  result = futureObject[User](op, IID_IAsyncOperation_1_User,
                               IID_AsyncOperationCompletedHandler_1_User,
                               alPlain, "UserPicker.PickSingleUserAsync")
-  result = adopt[User](obj)
 
 proc isSupported*(_: typedesc[UserPicker]): bool =
   ## Windows.System.UserPicker.IsSupported
@@ -6488,29 +6460,30 @@ proc getImageStream*(_: typedesc[LockScreen]): WinRtObject =
     check it.vtbl.GetImageStream(it, tmp.addr), "LockScreen.GetImageStream"
     result = adopt[WinRtObject](tmp)
 
-proc setImageFileAsync*(_: typedesc[LockScreen], value: StorageFile) {.async.} =
+proc setImageFileAsync*(_: typedesc[LockScreen], value: StorageFile
+                       ): Future[void] =
   ## Windows.System.UserProfile.LockScreen.SetImageFileAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.LockScreen", ILockScreenStatics, it):
     withIface(value.p, IStorageFile, p0):
       check it.vtbl.SetImageFileAsync(it, p0, op.addr
                                      ), "LockScreen.SetImageFileAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "LockScreen.SetImageFileAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "LockScreen.SetImageFileAsync")
 
 proc setImageStreamAsync*(_: typedesc[LockScreen], value: WinRtObject
-                         ) {.async.} =
+                         ): Future[void] =
   ## Windows.System.UserProfile.LockScreen.SetImageStreamAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.LockScreen", ILockScreenStatics, it):
     withIface(value.p, IRandomAccessStream, p0):
       check it.vtbl.SetImageStreamAsync(it, p0, op.addr
                                        ), "LockScreen.SetImageStreamAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "LockScreen.SetImageStreamAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "LockScreen.SetImageStreamAsync")
 
 proc requestSetImageFeedAsync*(_: typedesc[LockScreen], syndicationFeedUri: Uri
-                              ): Future[SetImageFeedResult] {.async.} =
+                              ): Future[SetImageFeedResult] =
   ## Windows.System.UserProfile.LockScreen.RequestSetImageFeedAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.LockScreen",
@@ -6518,12 +6491,12 @@ proc requestSetImageFeedAsync*(_: typedesc[LockScreen], syndicationFeedUri: Uri
     withIface(syndicationFeedUri.p, IUriRuntimeClass, p0):
       check it.vtbl.RequestSetImageFeedAsync(it, p0, op.addr
                                             ), "LockScreen.RequestSetImageFeedAsync"
-  result = await awaitValue[SetImageFeedResult](op,
-                                                IID_IAsyncOperation_1_SetImageFeedResult,
-                                                IID_AsyncOperationCompletedHandler_1_SetImageFeedResult,
-                                                alPlain,
-                                                "LockScreen.RequestSetImageFeedAsync"
-                                               )
+  result = futureValue[SetImageFeedResult](op,
+                                           IID_IAsyncOperation_1_SetImageFeedResult,
+                                           IID_AsyncOperationCompletedHandler_1_SetImageFeedResult,
+                                           alPlain,
+                                           "LockScreen.RequestSetImageFeedAsync"
+                                          )
 
 proc tryRemoveImageFeed*(_: typedesc[LockScreen]): bool =
   ## Windows.System.UserProfile.LockScreen.TryRemoveImageFeed
@@ -6557,7 +6530,7 @@ proc getAccountPicture*(_: typedesc[UserInformation], kind: AccountPictureKind
     result = adopt[StorageFile](tmp)
 
 proc setAccountPictureAsync*(_: typedesc[UserInformation], image: StorageFile
-                            ): Future[SetAccountPictureResult] {.async.} =
+                            ): Future[SetAccountPictureResult] =
   ## Windows.System.UserProfile.UserInformation.SetAccountPictureAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation",
@@ -6565,17 +6538,17 @@ proc setAccountPictureAsync*(_: typedesc[UserInformation], image: StorageFile
     withIface(image.p, IStorageFile, p0):
       check it.vtbl.SetAccountPictureAsync(it, p0, op.addr
                                           ), "UserInformation.SetAccountPictureAsync"
-  result = await awaitValue[SetAccountPictureResult](op,
-                                                     IID_IAsyncOperation_1_SetAccountPictureResult,
-                                                     IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult,
-                                                     alPlain,
-                                                     "UserInformation.SetAccountPictureAsync"
-                                                    )
+  result = futureValue[SetAccountPictureResult](op,
+                                                IID_IAsyncOperation_1_SetAccountPictureResult,
+                                                IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult,
+                                                alPlain,
+                                                "UserInformation.SetAccountPictureAsync"
+                                               )
 
 proc setAccountPicturesAsync*(_: typedesc[UserInformation],
                               smallImage: StorageFile, largeImage: StorageFile,
                               video: StorageFile
-                             ): Future[SetAccountPictureResult] {.async.} =
+                             ): Future[SetAccountPictureResult] =
   ## Windows.System.UserProfile.UserInformation.SetAccountPicturesAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation",
@@ -6585,16 +6558,16 @@ proc setAccountPicturesAsync*(_: typedesc[UserInformation],
         withIface(video.p, IStorageFile, p2):
           check it.vtbl.SetAccountPicturesAsync(it, p0, p1, p2, op.addr
                                                ), "UserInformation.SetAccountPicturesAsync"
-  result = await awaitValue[SetAccountPictureResult](op,
-                                                     IID_IAsyncOperation_1_SetAccountPictureResult,
-                                                     IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult,
-                                                     alPlain,
-                                                     "UserInformation.SetAccountPicturesAsync"
-                                                    )
+  result = futureValue[SetAccountPictureResult](op,
+                                                IID_IAsyncOperation_1_SetAccountPictureResult,
+                                                IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult,
+                                                alPlain,
+                                                "UserInformation.SetAccountPicturesAsync"
+                                               )
 
 proc setAccountPictureFromStreamAsync*(_: typedesc[UserInformation],
                                        image: WinRtObject
-                                      ): Future[SetAccountPictureResult] {.async.} =
+                                      ): Future[SetAccountPictureResult] =
   ## Windows.System.UserProfile.UserInformation.SetAccountPictureFromStreamAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation",
@@ -6602,18 +6575,18 @@ proc setAccountPictureFromStreamAsync*(_: typedesc[UserInformation],
     withIface(image.p, IRandomAccessStream, p0):
       check it.vtbl.SetAccountPictureFromStreamAsync(it, p0, op.addr
                                                     ), "UserInformation.SetAccountPictureFromStreamAsync"
-  result = await awaitValue[SetAccountPictureResult](op,
-                                                     IID_IAsyncOperation_1_SetAccountPictureResult,
-                                                     IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult,
-                                                     alPlain,
-                                                     "UserInformation.SetAccountPictureFromStreamAsync"
-                                                    )
+  result = futureValue[SetAccountPictureResult](op,
+                                                IID_IAsyncOperation_1_SetAccountPictureResult,
+                                                IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult,
+                                                alPlain,
+                                                "UserInformation.SetAccountPictureFromStreamAsync"
+                                               )
 
 proc setAccountPicturesFromStreamsAsync*(_: typedesc[UserInformation],
                                          smallImage: WinRtObject,
                                          largeImage: WinRtObject,
                                          video: WinRtObject
-                                        ): Future[SetAccountPictureResult] {.async.} =
+                                        ): Future[SetAccountPictureResult] =
   ## Windows.System.UserProfile.UserInformation.SetAccountPicturesFromStreamsAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation",
@@ -6624,12 +6597,12 @@ proc setAccountPicturesFromStreamsAsync*(_: typedesc[UserInformation],
           check it.vtbl.SetAccountPicturesFromStreamsAsync(it, p0, p1, p2,
                                                            op.addr
                                                           ), "UserInformation.SetAccountPicturesFromStreamsAsync"
-  result = await awaitValue[SetAccountPictureResult](op,
-                                                     IID_IAsyncOperation_1_SetAccountPictureResult,
-                                                     IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult,
-                                                     alPlain,
-                                                     "UserInformation.SetAccountPicturesFromStreamsAsync"
-                                                    )
+  result = futureValue[SetAccountPictureResult](op,
+                                                IID_IAsyncOperation_1_SetAccountPictureResult,
+                                                IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult,
+                                                alPlain,
+                                                "UserInformation.SetAccountPicturesFromStreamsAsync"
+                                               )
 
 proc onAccountPictureChanged*(_: typedesc[UserInformation],
                               handler: EventHandler[WinRtObject, WinRtObject]
@@ -6651,103 +6624,98 @@ proc removeAccountPictureChanged*(_: typedesc[UserInformation], token: EventRegi
               IUserInformationStatics, it):
     check it.vtbl.remove_AccountPictureChanged(it, token), "UserInformation.remove_AccountPictureChanged"
 
-proc getDisplayNameAsync*(_: typedesc[UserInformation]): Future[string] {.async.} =
+proc getDisplayNameAsync*(_: typedesc[UserInformation]): Future[string] =
   ## Windows.System.UserProfile.UserInformation.GetDisplayNameAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation",
               IUserInformationStatics, it):
     check it.vtbl.GetDisplayNameAsync(it, op.addr
                                      ), "UserInformation.GetDisplayNameAsync"
-  result = await awaitString(op, IID_IAsyncOperation_1_String,
-                             IID_AsyncOperationCompletedHandler_1_String,
-                             alPlain, "UserInformation.GetDisplayNameAsync")
+  result = futureString(op, IID_IAsyncOperation_1_String,
+                        IID_AsyncOperationCompletedHandler_1_String, alPlain,
+                        "UserInformation.GetDisplayNameAsync")
 
-proc getFirstNameAsync*(_: typedesc[UserInformation]): Future[string] {.async.} =
+proc getFirstNameAsync*(_: typedesc[UserInformation]): Future[string] =
   ## Windows.System.UserProfile.UserInformation.GetFirstNameAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation",
               IUserInformationStatics, it):
     check it.vtbl.GetFirstNameAsync(it, op.addr
                                    ), "UserInformation.GetFirstNameAsync"
-  result = await awaitString(op, IID_IAsyncOperation_1_String,
-                             IID_AsyncOperationCompletedHandler_1_String,
-                             alPlain, "UserInformation.GetFirstNameAsync")
+  result = futureString(op, IID_IAsyncOperation_1_String,
+                        IID_AsyncOperationCompletedHandler_1_String, alPlain,
+                        "UserInformation.GetFirstNameAsync")
 
-proc getLastNameAsync*(_: typedesc[UserInformation]): Future[string] {.async.} =
+proc getLastNameAsync*(_: typedesc[UserInformation]): Future[string] =
   ## Windows.System.UserProfile.UserInformation.GetLastNameAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation",
               IUserInformationStatics, it):
     check it.vtbl.GetLastNameAsync(it, op.addr
                                   ), "UserInformation.GetLastNameAsync"
-  result = await awaitString(op, IID_IAsyncOperation_1_String,
-                             IID_AsyncOperationCompletedHandler_1_String,
-                             alPlain, "UserInformation.GetLastNameAsync")
+  result = futureString(op, IID_IAsyncOperation_1_String,
+                        IID_AsyncOperationCompletedHandler_1_String, alPlain,
+                        "UserInformation.GetLastNameAsync")
 
-proc getPrincipalNameAsync*(_: typedesc[UserInformation]): Future[string] {.async.} =
+proc getPrincipalNameAsync*(_: typedesc[UserInformation]): Future[string] =
   ## Windows.System.UserProfile.UserInformation.GetPrincipalNameAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation",
               IUserInformationStatics, it):
     check it.vtbl.GetPrincipalNameAsync(it, op.addr
                                        ), "UserInformation.GetPrincipalNameAsync"
-  result = await awaitString(op, IID_IAsyncOperation_1_String,
-                             IID_AsyncOperationCompletedHandler_1_String,
-                             alPlain, "UserInformation.GetPrincipalNameAsync")
+  result = futureString(op, IID_IAsyncOperation_1_String,
+                        IID_AsyncOperationCompletedHandler_1_String, alPlain,
+                        "UserInformation.GetPrincipalNameAsync")
 
-proc getSessionInitiationProtocolUriAsync*(_: typedesc[UserInformation]): Future[Uri] {.async.} =
+proc getSessionInitiationProtocolUriAsync*(_: typedesc[UserInformation]): Future[Uri] =
   ## Windows.System.UserProfile.UserInformation.GetSessionInitiationProtocolUriAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation",
               IUserInformationStatics, it):
     check it.vtbl.GetSessionInitiationProtocolUriAsync(it, op.addr
                                                       ), "UserInformation.GetSessionInitiationProtocolUriAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_Uri,
-                              IID_AsyncOperationCompletedHandler_1_Uri, alPlain,
-                              "UserInformation.GetSessionInitiationProtocolUriAsync"
-                             )
-  result = adopt[Uri](obj)
+  result = futureObject[Uri](op, IID_IAsyncOperation_1_Uri,
+                             IID_AsyncOperationCompletedHandler_1_Uri, alPlain,
+                             "UserInformation.GetSessionInitiationProtocolUriAsync"
+                            )
 
-proc getDomainNameAsync*(_: typedesc[UserInformation]): Future[string] {.async.} =
+proc getDomainNameAsync*(_: typedesc[UserInformation]): Future[string] =
   ## Windows.System.UserProfile.UserInformation.GetDomainNameAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation",
               IUserInformationStatics, it):
     check it.vtbl.GetDomainNameAsync(it, op.addr
                                     ), "UserInformation.GetDomainNameAsync"
-  result = await awaitString(op, IID_IAsyncOperation_1_String,
-                             IID_AsyncOperationCompletedHandler_1_String,
-                             alPlain, "UserInformation.GetDomainNameAsync")
+  result = futureString(op, IID_IAsyncOperation_1_String,
+                        IID_AsyncOperationCompletedHandler_1_String, alPlain,
+                        "UserInformation.GetDomainNameAsync")
 
 proc trySetLockScreenImageAsync*(self: UserProfilePersonalizationSettings,
-                                 imageFile: StorageFile
-                                ): Future[bool] {.async.} =
+                                 imageFile: StorageFile): Future[bool] =
   ## Windows.System.UserProfile.UserProfilePersonalizationSettings.TrySetLockScreenImageAsync
   var op: pointer
   withIface(self.p, IUserProfilePersonalizationSettings, it):
     withIface(imageFile.p, IStorageFile, p0):
       check it.vtbl.TrySetLockScreenImageAsync(it, p0, op.addr
                                               ), "UserProfilePersonalizationSettings.TrySetLockScreenImageAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "UserProfilePersonalizationSettings.TrySetLockScreenImageAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "UserProfilePersonalizationSettings.TrySetLockScreenImageAsync"
+                            )
 
 proc trySetWallpaperImageAsync*(self: UserProfilePersonalizationSettings,
-                                imageFile: StorageFile
-                               ): Future[bool] {.async.} =
+                                imageFile: StorageFile): Future[bool] =
   ## Windows.System.UserProfile.UserProfilePersonalizationSettings.TrySetWallpaperImageAsync
   var op: pointer
   withIface(self.p, IUserProfilePersonalizationSettings, it):
     withIface(imageFile.p, IStorageFile, p0):
       check it.vtbl.TrySetWallpaperImageAsync(it, p0, op.addr
                                              ), "UserProfilePersonalizationSettings.TrySetWallpaperImageAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "UserProfilePersonalizationSettings.TrySetWallpaperImageAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "UserProfilePersonalizationSettings.TrySetWallpaperImageAsync"
+                            )
 
 proc current*(_: typedesc[UserProfilePersonalizationSettings]): UserProfilePersonalizationSettings =
   ## Windows.System.UserProfile.UserProfilePersonalizationSettings.get_Current

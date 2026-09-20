@@ -1,4 +1,4 @@
-version       = "0.6.0"
+version       = "0.7.0"
 author        = "Zrean Tofiq"
 description   = "The Windows Runtime (WinRT) projected into Nim"
 license       = "MIT"
@@ -7,7 +7,7 @@ srcDir        = "src"
 requires "nim >= 2.0.0"
 
 task test, "Run the test suite":
-  for t in ["tactivation", "tdelegate", "timports", "tapi"]:
+  for t in ["tactivation", "tdelegate", "timplement", "timports", "tapi"]:
     exec "nim c -r --hints:off --path:src tests/" & t & ".nim"
 
 task examples, "Build and run every example":

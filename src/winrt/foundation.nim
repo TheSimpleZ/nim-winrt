@@ -158,17 +158,17 @@ proc helpUri*(self: ErrorDetails): Uri =
     result = it.getObject(get_HelpUri, Uri)
 
 proc createFromHResultAsync*(_: typedesc[ErrorDetails], errorCode: int32
-                            ): Future[ErrorDetails] {.async.} =
+                            ): Future[ErrorDetails] =
   ## Windows.Foundation.Diagnostics.ErrorDetails.CreateFromHResultAsync
   var op: pointer
   withStatics("Windows.Foundation.Diagnostics.ErrorDetails",
               IErrorDetailsStatics, it):
     check it.vtbl.CreateFromHResultAsync(it, errorCode, op.addr
                                         ), "ErrorDetails.CreateFromHResultAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ErrorDetails,
-                              IID_AsyncOperationCompletedHandler_1_ErrorDetails,
-                              alPlain, "ErrorDetails.CreateFromHResultAsync")
-  result = adopt[ErrorDetails](obj)
+  result = futureObject[ErrorDetails](op, IID_IAsyncOperation_1_ErrorDetails,
+                                      IID_AsyncOperationCompletedHandler_1_ErrorDetails,
+                                      alPlain,
+                                      "ErrorDetails.CreateFromHResultAsync")
 
 proc name*(self: FileLoggingSession): string =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.get_Name
@@ -200,17 +200,17 @@ proc removeLoggingChannel*(self: FileLoggingSession,
       check it.vtbl.RemoveLoggingChannel(it, p0
                                         ), "FileLoggingSession.RemoveLoggingChannel"
 
-proc closeAndSaveToFileAsync*(self: FileLoggingSession): Future[StorageFile] {.async.} =
+proc closeAndSaveToFileAsync*(self: FileLoggingSession): Future[StorageFile] =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.CloseAndSaveToFileAsync
   var op: pointer
   withIface(self.p, IFileLoggingSession, it):
     check it.vtbl.CloseAndSaveToFileAsync(it, op.addr
                                          ), "FileLoggingSession.CloseAndSaveToFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain,
-                              "FileLoggingSession.CloseAndSaveToFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "FileLoggingSession.CloseAndSaveToFileAsync"
+                                    )
 
 proc onLogFileGenerated*(self: FileLoggingSession,
                          handler: EventHandler[FileLoggingSession, LogFileGeneratedEventArgs]
@@ -1695,7 +1695,7 @@ proc name*(self: LoggingSession): string =
     result = it.getString(get_Name)
 
 proc saveToFileAsync*(self: LoggingSession, folder: StorageFolder,
-                      fileName: string): Future[StorageFile] {.async.} =
+                      fileName: string): Future[StorageFile] =
   ## Windows.Foundation.Diagnostics.LoggingSession.SaveToFileAsync
   var op: pointer
   withIface(self.p, ILoggingSession, it):
@@ -1703,10 +1703,9 @@ proc saveToFileAsync*(self: LoggingSession, folder: StorageFolder,
       withHString(fileName, h1):
         check it.vtbl.SaveToFileAsync(it, p0, h1, op.addr
                                      ), "LoggingSession.SaveToFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "LoggingSession.SaveToFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "LoggingSession.SaveToFileAsync")
 
 proc addLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel) =
   ## Windows.Foundation.Diagnostics.LoggingSession.AddLoggingChannel

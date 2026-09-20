@@ -893,13 +893,13 @@ proc context*(self: ActionInstance): ActionInvocationContext =
   withIface(self.p, IActionInstance, it):
     result = it.getObject(get_Context, ActionInvocationContext)
 
-proc invokeAsync*(self: ActionInstance) {.async.} =
+proc invokeAsync*(self: ActionInstance): Future[void] =
   ## Windows.AI.Actions.Hosting.ActionInstance.InvokeAsync
   var op: pointer
   withIface(self.p, IActionInstance, it):
     check it.vtbl.InvokeAsync(it, op.addr), "ActionInstance.InvokeAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ActionInstance.InvokeAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ActionInstance.InvokeAsync")
 
 proc description*(self: ActionInstanceDisplayInfo): string =
   ## Windows.AI.Actions.Hosting.ActionInstanceDisplayInfo.get_Description
@@ -921,18 +921,18 @@ proc getInputs*(self: ActionOverload): seq[ActionEntityRegistrationInfo] =
     result = takeArrayObject[ActionEntityRegistrationInfo](tmpSize, tmp)
 
 proc invokeAsync*(self: ActionOverload, context: ActionInvocationContext
-                 ) {.async.} =
+                 ): Future[void] =
   ## Windows.AI.Actions.Hosting.ActionOverload.InvokeAsync
   var op: pointer
   withIface(self.p, IActionOverload, it):
     withIface(context.p, IActionInvocationContext, p0):
       check it.vtbl.InvokeAsync(it, p0, op.addr), "ActionOverload.InvokeAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ActionOverload.InvokeAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ActionOverload.InvokeAsync")
 
 proc invokeFeedbackAsync*(self: ActionOverload,
                           context: ActionInvocationContext,
-                          feedback: ActionFeedback) {.async.} =
+                          feedback: ActionFeedback): Future[void] =
   ## Windows.AI.Actions.Hosting.ActionOverload.InvokeFeedbackAsync
   var op: pointer
   withIface(self.p, IActionOverload2, it):
@@ -940,8 +940,8 @@ proc invokeFeedbackAsync*(self: ActionOverload,
       withIface(feedback.p, IActionFeedback, p1):
         check it.vtbl.InvokeFeedbackAsync(it, p0, p1, op.addr
                                          ), "ActionOverload.InvokeFeedbackAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ActionOverload.InvokeFeedbackAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ActionOverload.InvokeFeedbackAsync")
 
 proc getSupportsFeedback*(self: ActionOverload): bool =
   ## Windows.AI.Actions.Hosting.ActionOverload.GetSupportsFeedback
@@ -1315,8 +1315,7 @@ proc close*(self: LearningModel) =
     check it.vtbl.Close(it), "LearningModel.Close"
 
 proc loadFromStorageFileAsync*(_: typedesc[LearningModel],
-                               modelFile: StorageFile
-                              ): Future[LearningModel] {.async.} =
+                               modelFile: StorageFile): Future[LearningModel] =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStorageFileAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", ILearningModelStatics,
@@ -1324,13 +1323,13 @@ proc loadFromStorageFileAsync*(_: typedesc[LearningModel],
     withIface(modelFile.p, IStorageFile, p0):
       check it.vtbl.LoadFromStorageFileAsync(it, p0, op.addr
                                             ), "LearningModel.LoadFromStorageFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModel,
-                              IID_AsyncOperationCompletedHandler_1_LearningModel,
-                              alPlain, "LearningModel.LoadFromStorageFileAsync")
-  result = adopt[LearningModel](obj)
+  result = futureObject[LearningModel](op, IID_IAsyncOperation_1_LearningModel,
+                                       IID_AsyncOperationCompletedHandler_1_LearningModel,
+                                       alPlain,
+                                       "LearningModel.LoadFromStorageFileAsync")
 
 proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: WinRtObject
-                         ): Future[LearningModel] {.async.} =
+                         ): Future[LearningModel] =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", ILearningModelStatics,
@@ -1338,10 +1337,10 @@ proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: WinRtObject
     withIface(modelStream.p, IRandomAccessStreamReference, p0):
       check it.vtbl.LoadFromStreamAsync(it, p0, op.addr
                                        ), "LearningModel.LoadFromStreamAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModel,
-                              IID_AsyncOperationCompletedHandler_1_LearningModel,
-                              alPlain, "LearningModel.LoadFromStreamAsync")
-  result = adopt[LearningModel](obj)
+  result = futureObject[LearningModel](op, IID_IAsyncOperation_1_LearningModel,
+                                       IID_AsyncOperationCompletedHandler_1_LearningModel,
+                                       alPlain,
+                                       "LearningModel.LoadFromStreamAsync")
 
 proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string
                       ): LearningModel =
@@ -1368,7 +1367,7 @@ proc loadFromStream*(_: typedesc[LearningModel], modelStream: WinRtObject
 proc loadFromStorageFileAsync*(_: typedesc[LearningModel],
                                modelFile: StorageFile,
                                operatorProvider: WinRtObject
-                              ): Future[LearningModel] {.async.} =
+                              ): Future[LearningModel] =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStorageFileAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", ILearningModelStatics,
@@ -1377,14 +1376,14 @@ proc loadFromStorageFileAsync*(_: typedesc[LearningModel],
       withIface(operatorProvider.p, ILearningModelOperatorProvider, p1):
         check it.vtbl.LoadFromStorageFileAsync2(it, p0, p1, op.addr
                                                ), "LearningModel.LoadFromStorageFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModel,
-                              IID_AsyncOperationCompletedHandler_1_LearningModel,
-                              alPlain, "LearningModel.LoadFromStorageFileAsync")
-  result = adopt[LearningModel](obj)
+  result = futureObject[LearningModel](op, IID_IAsyncOperation_1_LearningModel,
+                                       IID_AsyncOperationCompletedHandler_1_LearningModel,
+                                       alPlain,
+                                       "LearningModel.LoadFromStorageFileAsync")
 
 proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: WinRtObject,
                           operatorProvider: WinRtObject
-                         ): Future[LearningModel] {.async.} =
+                         ): Future[LearningModel] =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", ILearningModelStatics,
@@ -1393,10 +1392,10 @@ proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: WinRtObject,
       withIface(operatorProvider.p, ILearningModelOperatorProvider, p1):
         check it.vtbl.LoadFromStreamAsync2(it, p0, p1, op.addr
                                           ), "LearningModel.LoadFromStreamAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModel,
-                              IID_AsyncOperationCompletedHandler_1_LearningModel,
-                              alPlain, "LearningModel.LoadFromStreamAsync")
-  result = adopt[LearningModel](obj)
+  result = futureObject[LearningModel](op, IID_IAsyncOperation_1_LearningModel,
+                                       IID_AsyncOperationCompletedHandler_1_LearningModel,
+                                       alPlain,
+                                       "LearningModel.LoadFromStreamAsync")
 
 proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string,
                        operatorProvider: WinRtObject): LearningModel =
@@ -1524,7 +1523,7 @@ proc evaluationProperties*(self: LearningModelSession): WinRtObject =
 
 proc evaluateAsync*(self: LearningModelSession, bindings: LearningModelBinding,
                     correlationId: string
-                   ): Future[LearningModelEvaluationResult] {.async.} =
+                   ): Future[LearningModelEvaluationResult] =
   ## Windows.AI.MachineLearning.LearningModelSession.EvaluateAsync
   var op: pointer
   withIface(self.p, ILearningModelSession, it):
@@ -1532,16 +1531,17 @@ proc evaluateAsync*(self: LearningModelSession, bindings: LearningModelBinding,
       withHString(correlationId, h1):
         check it.vtbl.EvaluateAsync(it, p0, h1, op.addr
                                    ), "LearningModelSession.EvaluateAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_LearningModelEvaluationResult,
-                              IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResult,
-                              alPlain, "LearningModelSession.EvaluateAsync")
-  result = adopt[LearningModelEvaluationResult](obj)
+  result = futureObject[LearningModelEvaluationResult](op,
+                                                       IID_IAsyncOperation_1_LearningModelEvaluationResult,
+                                                       IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResult,
+                                                       alPlain,
+                                                       "LearningModelSession.EvaluateAsync"
+                                                      )
 
 proc evaluateFeaturesAsync*(self: LearningModelSession,
                             features: Table[string, WinRtObject],
                             correlationId: string
-                           ): Future[LearningModelEvaluationResult] {.async.} =
+                           ): Future[LearningModelEvaluationResult] =
   ## Windows.AI.MachineLearning.LearningModelSession.EvaluateFeaturesAsync
   var op: pointer
   withIface(self.p, ILearningModelSession, it):
@@ -1554,12 +1554,12 @@ proc evaluateFeaturesAsync*(self: LearningModelSession,
     withHString(correlationId, h1):
       check it.vtbl.EvaluateFeaturesAsync(it, p0, h1, op.addr
                                          ), "LearningModelSession.EvaluateFeaturesAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_LearningModelEvaluationResult,
-                              IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResult,
-                              alPlain,
-                              "LearningModelSession.EvaluateFeaturesAsync")
-  result = adopt[LearningModelEvaluationResult](obj)
+  result = futureObject[LearningModelEvaluationResult](op,
+                                                       IID_IAsyncOperation_1_LearningModelEvaluationResult,
+                                                       IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResult,
+                                                       alPlain,
+                                                       "LearningModelSession.EvaluateFeaturesAsync"
+                                                      )
 
 proc evaluate*(self: LearningModelSession, bindings: LearningModelBinding,
                correlationId: string): LearningModelEvaluationResult =
@@ -1894,7 +1894,7 @@ proc outputs*(self: LearningModelEvaluationResultPreview): Table[string, WinRtOb
 
 proc evaluateAsync*(self: LearningModelPreview,
                     binding: LearningModelBindingPreview, correlationId: string
-                   ): Future[LearningModelEvaluationResultPreview] {.async.} =
+                   ): Future[LearningModelEvaluationResultPreview] =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.EvaluateAsync
   var op: pointer
   withIface(self.p, ILearningModelPreview, it):
@@ -1902,16 +1902,17 @@ proc evaluateAsync*(self: LearningModelPreview,
       withHString(correlationId, h1):
         check it.vtbl.EvaluateAsync(it, p0, h1, op.addr
                                    ), "LearningModelPreview.EvaluateAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_LearningModelEvaluationResultPreview,
-                              IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResultPreview,
-                              alPlain, "LearningModelPreview.EvaluateAsync")
-  result = adopt[LearningModelEvaluationResultPreview](obj)
+  result = futureObject[LearningModelEvaluationResultPreview](op,
+                                                              IID_IAsyncOperation_1_LearningModelEvaluationResultPreview,
+                                                              IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResultPreview,
+                                                              alPlain,
+                                                              "LearningModelPreview.EvaluateAsync"
+                                                             )
 
 proc evaluateFeaturesAsync*(self: LearningModelPreview,
                             features: Table[string, WinRtObject],
                             correlationId: string
-                           ): Future[LearningModelEvaluationResultPreview] {.async.} =
+                           ): Future[LearningModelEvaluationResultPreview] =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.EvaluateFeaturesAsync
   var op: pointer
   withIface(self.p, ILearningModelPreview, it):
@@ -1924,12 +1925,12 @@ proc evaluateFeaturesAsync*(self: LearningModelPreview,
     withHString(correlationId, h1):
       check it.vtbl.EvaluateFeaturesAsync(it, p0, h1, op.addr
                                          ), "LearningModelPreview.EvaluateFeaturesAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_LearningModelEvaluationResultPreview,
-                              IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResultPreview,
-                              alPlain,
-                              "LearningModelPreview.EvaluateFeaturesAsync")
-  result = adopt[LearningModelEvaluationResultPreview](obj)
+  result = futureObject[LearningModelEvaluationResultPreview](op,
+                                                              IID_IAsyncOperation_1_LearningModelEvaluationResultPreview,
+                                                              IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResultPreview,
+                                                              alPlain,
+                                                              "LearningModelPreview.EvaluateFeaturesAsync"
+                                                             )
 
 proc description*(self: LearningModelPreview): LearningModelDescriptionPreview =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.get_Description
@@ -1951,7 +1952,7 @@ proc `inferencingOptions=`*(self: LearningModelPreview,
 
 proc loadModelFromStorageFileAsync*(_: typedesc[LearningModelPreview],
                                     modelFile: StorageFile
-                                   ): Future[LearningModelPreview] {.async.} =
+                                   ): Future[LearningModelPreview] =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.LoadModelFromStorageFileAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.Preview.LearningModelPreview",
@@ -1959,16 +1960,16 @@ proc loadModelFromStorageFileAsync*(_: typedesc[LearningModelPreview],
     withIface(modelFile.p, IStorageFile, p0):
       check it.vtbl.LoadModelFromStorageFileAsync(it, p0, op.addr
                                                  ), "LearningModelPreview.LoadModelFromStorageFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModelPreview,
-                              IID_AsyncOperationCompletedHandler_1_LearningModelPreview,
-                              alPlain,
-                              "LearningModelPreview.LoadModelFromStorageFileAsync"
-                             )
-  result = adopt[LearningModelPreview](obj)
+  result = futureObject[LearningModelPreview](op,
+                                              IID_IAsyncOperation_1_LearningModelPreview,
+                                              IID_AsyncOperationCompletedHandler_1_LearningModelPreview,
+                                              alPlain,
+                                              "LearningModelPreview.LoadModelFromStorageFileAsync"
+                                             )
 
 proc loadModelFromStreamAsync*(_: typedesc[LearningModelPreview],
                                modelStream: WinRtObject
-                              ): Future[LearningModelPreview] {.async.} =
+                              ): Future[LearningModelPreview] =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.LoadModelFromStreamAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.Preview.LearningModelPreview",
@@ -1976,11 +1977,12 @@ proc loadModelFromStreamAsync*(_: typedesc[LearningModelPreview],
     withIface(modelStream.p, IRandomAccessStreamReference, p0):
       check it.vtbl.LoadModelFromStreamAsync(it, p0, op.addr
                                             ), "LearningModelPreview.LoadModelFromStreamAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModelPreview,
-                              IID_AsyncOperationCompletedHandler_1_LearningModelPreview,
-                              alPlain,
-                              "LearningModelPreview.LoadModelFromStreamAsync")
-  result = adopt[LearningModelPreview](obj)
+  result = futureObject[LearningModelPreview](op,
+                                              IID_IAsyncOperation_1_LearningModelPreview,
+                                              IID_AsyncOperationCompletedHandler_1_LearningModelPreview,
+                                              alPlain,
+                                              "LearningModelPreview.LoadModelFromStreamAsync"
+                                             )
 
 proc name*(self: LearningModelVariableDescriptorPreview): string =
   ## Windows.AI.MachineLearning.Preview.LearningModelVariableDescriptorPreview.get_Name

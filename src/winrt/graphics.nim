@@ -73,8 +73,10 @@ const IID_AsyncOperationCompletedHandler_1_BitmapPropertySet* = guid"A8325BD7-A3
 const IID_IAsyncOperation_1_BitmapPropertySet* = guid"464AC000-B1F1-5246-8268-912A2593D889"
 const IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4* = guid"1E466DC5-840F-54F9-B877-5E3A9F4B6C74"
 const IID_IAsyncOperationWithProgress_2_U4_U4* = guid"ECCB574A-C684-5572-A679-6B0842CFB57F"
+const IID_AsyncOperationProgressHandler_2_U4_U4* = guid"EA0FE405-D432-5AC7-9EF8-5A65E1F97D7E"
 const IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4* = guid"06386A7A-E009-5B0B-AB68-A8E48B516647"
 const IID_IAsyncOperationWithProgress_2_IBuffer_U4* = guid"D26B2819-897F-5C7D-84D6-56D796561431"
+const IID_AsyncOperationProgressHandler_2_IBuffer_U4* = guid"BF666554-7605-5D9A-B14E-18D8C8472AFE"
 const IID_IVectorView_1_Object* = guid"A6487363-B074-5C60-AB16-866DCE4EE54D"
 const IID_IKeyValuePair_2_String_IPrintOptionDetails* = guid"F5D9C723-A4B1-5FC8-9F78-0B95B716720B"
 const IID_IIterable_1_IKeyValuePair_22* = guid"6770CF39-094F-59C5-8A5D-E3B5DC64DB0F"
@@ -150,6 +152,7 @@ const IID_IKeyValuePair_2_String_String* = guid"60310303-49C5-52E6-ABC6-A9B36ECC
 const IID_IIterable_1_IKeyValuePair_24* = guid"E9BDAAF0-CBF6-5C72-BE90-29CBF3A1319B"
 const IID_AsyncOperationWithProgressCompletedHandler_2_Bool_F8* = guid"0EC5345B-B37A-5CD5-83D7-9590CDF445B5"
 const IID_IAsyncOperationWithProgress_2_Bool_F8* = guid"AF873C66-2DF0-5A95-AB54-25634DA3FFA9"
+const IID_AsyncOperationProgressHandler_2_Bool_F8* = guid"CADF3784-1200-5633-8280-163849914AB3"
 const IID_IVector_1_Printing3DMultiplePropertyMaterial* = guid"E2196DA6-6A29-59A2-9DD6-93062F44BAAD"
 const IID_IVector_1_Printing3DTexture2CoordMaterial* = guid"F16FBF2C-C783-5EDF-AD7B-7FB7EACF1501"
 
@@ -272,19 +275,19 @@ proc create*(_: typedesc[Direct3D11CaptureFramePool], device: WinRtObject,
 
 proc requestAccessAsync*(_: typedesc[GraphicsCaptureAccess],
                          request: GraphicsCaptureAccessKind
-                        ): Future[AppCapabilityAccessStatus] {.async.} =
+                        ): Future[AppCapabilityAccessStatus] =
   ## Windows.Graphics.Capture.GraphicsCaptureAccess.RequestAccessAsync
   var op: pointer
   withStatics("Windows.Graphics.Capture.GraphicsCaptureAccess",
               IGraphicsCaptureAccessStatics, it):
     check it.vtbl.RequestAccessAsync(it, request, op.addr
                                     ), "GraphicsCaptureAccess.RequestAccessAsync"
-  result = await awaitValue[AppCapabilityAccessStatus](op,
-                                                       IID_IAsyncOperation_1_AppCapabilityAccessStatus,
-                                                       IID_AsyncOperationCompletedHandler_1_AppCapabilityAccessStatus,
-                                                       alPlain,
-                                                       "GraphicsCaptureAccess.RequestAccessAsync"
-                                                      )
+  result = futureValue[AppCapabilityAccessStatus](op,
+                                                  IID_IAsyncOperation_1_AppCapabilityAccessStatus,
+                                                  IID_AsyncOperationCompletedHandler_1_AppCapabilityAccessStatus,
+                                                  alPlain,
+                                                  "GraphicsCaptureAccess.RequestAccessAsync"
+                                                 )
 
 proc displayName*(self: GraphicsCaptureItem): string =
   ## Windows.Graphics.Capture.GraphicsCaptureItem.get_DisplayName
@@ -350,17 +353,18 @@ proc newGraphicsCapturePicker*(): GraphicsCapturePicker =
   ## Activate a `Windows.Graphics.Capture.GraphicsCapturePicker`.
   adopt[GraphicsCapturePicker](activateAs("Windows.Graphics.Capture.GraphicsCapturePicker", IID_IGraphicsCapturePicker))
 
-proc pickSingleItemAsync*(self: GraphicsCapturePicker): Future[GraphicsCaptureItem] {.async.} =
+proc pickSingleItemAsync*(self: GraphicsCapturePicker): Future[GraphicsCaptureItem] =
   ## Windows.Graphics.Capture.GraphicsCapturePicker.PickSingleItemAsync
   var op: pointer
   withIface(self.p, IGraphicsCapturePicker, it):
     check it.vtbl.PickSingleItemAsync(it, op.addr
                                      ), "GraphicsCapturePicker.PickSingleItemAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_GraphicsCaptureItem,
-                              IID_AsyncOperationCompletedHandler_1_GraphicsCaptureItem,
-                              alPlain,
-                              "GraphicsCapturePicker.PickSingleItemAsync")
-  result = adopt[GraphicsCaptureItem](obj)
+  result = futureObject[GraphicsCaptureItem](op,
+                                             IID_IAsyncOperation_1_GraphicsCaptureItem,
+                                             IID_AsyncOperationCompletedHandler_1_GraphicsCaptureItem,
+                                             alPlain,
+                                             "GraphicsCapturePicker.PickSingleItemAsync"
+                                            )
 
 proc startCapture*(self: GraphicsCaptureSession) =
   ## Windows.Graphics.Capture.GraphicsCaptureSession.StartCapture
@@ -620,7 +624,7 @@ proc getForCurrentView*(_: typedesc[BrightnessOverride]): BrightnessOverride =
     result = adopt[BrightnessOverride](tmp)
 
 proc saveForSystemAsync*(_: typedesc[BrightnessOverride],
-                         value: BrightnessOverride): Future[bool] {.async.} =
+                         value: BrightnessOverride): Future[bool] =
   ## Windows.Graphics.Display.BrightnessOverride.SaveForSystemAsync
   var op: pointer
   withStatics("Windows.Graphics.Display.BrightnessOverride",
@@ -628,10 +632,9 @@ proc saveForSystemAsync*(_: typedesc[BrightnessOverride],
     withIface(value.p, IBrightnessOverride, p0):
       check it.vtbl.SaveForSystemAsync(it, p0, op.addr
                                       ), "BrightnessOverride.SaveForSystemAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "BrightnessOverride.SaveForSystemAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "BrightnessOverride.SaveForSystemAsync")
 
 proc desiredLevel*(self: BrightnessOverrideSettings): float64 =
   ## Windows.Graphics.Display.BrightnessOverrideSettings.get_DesiredLevel
@@ -710,34 +713,32 @@ proc getCurrentDisplayMode*(self: HdmiDisplayInformation): HdmiDisplayMode =
                                        ), "HdmiDisplayInformation.GetCurrentDisplayMode"
     result = adopt[HdmiDisplayMode](tmp)
 
-proc setDefaultDisplayModeAsync*(self: HdmiDisplayInformation) {.async.} =
+proc setDefaultDisplayModeAsync*(self: HdmiDisplayInformation): Future[void] =
   ## Windows.Graphics.Display.Core.HdmiDisplayInformation.SetDefaultDisplayModeAsync
   var op: pointer
   withIface(self.p, IHdmiDisplayInformation, it):
     check it.vtbl.SetDefaultDisplayModeAsync(it, op.addr
                                             ), "HdmiDisplayInformation.SetDefaultDisplayModeAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "HdmiDisplayInformation.SetDefaultDisplayModeAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "HdmiDisplayInformation.SetDefaultDisplayModeAsync")
 
 proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation,
-                                        mode: HdmiDisplayMode
-                                       ): Future[bool] {.async.} =
+                                        mode: HdmiDisplayMode): Future[bool] =
   ## Windows.Graphics.Display.Core.HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync
   var op: pointer
   withIface(self.p, IHdmiDisplayInformation, it):
     withIface(mode.p, IHdmiDisplayMode, p0):
       check it.vtbl.RequestSetCurrentDisplayModeAsync(it, p0, op.addr
                                                      ), "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync"
+                            )
 
 proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation,
                                         mode: HdmiDisplayMode,
                                         hdrOption: HdmiDisplayHdrOption
-                                       ): Future[bool] {.async.} =
+                                       ): Future[bool] =
   ## Windows.Graphics.Display.Core.HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync
   var op: pointer
   withIface(self.p, IHdmiDisplayInformation, it):
@@ -745,17 +746,16 @@ proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation,
       check it.vtbl.RequestSetCurrentDisplayModeAsync2(it, p0, hdrOption,
                                                        op.addr
                                                       ), "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync"
+                            )
 
 proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation,
                                         mode: HdmiDisplayMode,
                                         hdrOption: HdmiDisplayHdrOption,
                                         hdrMetadata: HdmiDisplayHdr2086Metadata
-                                       ): Future[bool] {.async.} =
+                                       ): Future[bool] =
   ## Windows.Graphics.Display.Core.HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync
   var op: pointer
   withIface(self.p, IHdmiDisplayInformation, it):
@@ -763,11 +763,10 @@ proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation,
       check it.vtbl.RequestSetCurrentDisplayModeAsync3(it, p0, hdrOption,
                                                        hdrMetadata, op.addr
                                                       ), "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync"
+                            )
 
 proc onDisplayModesChanged*(self: HdmiDisplayInformation,
                             handler: EventHandler[HdmiDisplayInformation, WinRtObject]
@@ -1098,17 +1097,17 @@ proc removeStereoEnabledChanged*(self: DisplayInformation, token: EventRegistrat
   withIface(self.p, IDisplayInformation, it):
     check it.vtbl.remove_StereoEnabledChanged(it, token), "DisplayInformation.remove_StereoEnabledChanged"
 
-proc getColorProfileAsync*(self: DisplayInformation): Future[WinRtObject] {.async.} =
+proc getColorProfileAsync*(self: DisplayInformation): Future[WinRtObject] =
   ## Windows.Graphics.Display.DisplayInformation.GetColorProfileAsync
   var op: pointer
   withIface(self.p, IDisplayInformation, it):
     check it.vtbl.GetColorProfileAsync(it, op.addr
                                       ), "DisplayInformation.GetColorProfileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                              alPlain, "DisplayInformation.GetColorProfileAsync"
-                             )
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStream,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                                     alPlain,
+                                     "DisplayInformation.GetColorProfileAsync")
 
 proc onColorProfileChanged*(self: DisplayInformation,
                             handler: EventHandler[DisplayInformation, WinRtObject]
@@ -1328,17 +1327,18 @@ proc removeStereoEnabledChanged*(_: typedesc[DisplayProperties], token: EventReg
               IDisplayPropertiesStatics, it):
     check it.vtbl.remove_StereoEnabledChanged(it, token), "DisplayProperties.remove_StereoEnabledChanged"
 
-proc getColorProfileAsync*(_: typedesc[DisplayProperties]): Future[WinRtObject] {.async.} =
+proc getColorProfileAsync*(_: typedesc[DisplayProperties]): Future[WinRtObject] =
   ## Windows.Graphics.Display.DisplayProperties.GetColorProfileAsync
   var op: pointer
   withStatics("Windows.Graphics.Display.DisplayProperties",
               IDisplayPropertiesStatics, it):
     check it.vtbl.GetColorProfileAsync(it, op.addr
                                       ), "DisplayProperties.GetColorProfileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                              alPlain, "DisplayProperties.GetColorProfileAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStream,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                                     alPlain,
+                                     "DisplayProperties.GetColorProfileAsync")
 
 proc onColorProfileChanged*(_: typedesc[DisplayProperties],
                             handler: proc(sender: WinRtObject)
@@ -2381,38 +2381,35 @@ proc frameCount*(self: BitmapDecoder): uint32 =
   withIface(self.p, IBitmapDecoder, it):
     result = it.getValue(get_FrameCount, uint32)
 
-proc getPreviewAsync*(self: BitmapDecoder): Future[ImageStream] {.async.} =
+proc getPreviewAsync*(self: BitmapDecoder): Future[ImageStream] =
   ## Windows.Graphics.Imaging.BitmapDecoder.GetPreviewAsync
   var op: pointer
   withIface(self.p, IBitmapDecoder, it):
     check it.vtbl.GetPreviewAsync(it, op.addr), "BitmapDecoder.GetPreviewAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ImageStream,
-                              IID_AsyncOperationCompletedHandler_1_ImageStream,
-                              alPlain, "BitmapDecoder.GetPreviewAsync")
-  result = adopt[ImageStream](obj)
+  result = futureObject[ImageStream](op, IID_IAsyncOperation_1_ImageStream,
+                                     IID_AsyncOperationCompletedHandler_1_ImageStream,
+                                     alPlain, "BitmapDecoder.GetPreviewAsync")
 
 proc getFrameAsync*(self: BitmapDecoder, frameIndex: uint32
-                   ): Future[BitmapFrame] {.async.} =
+                   ): Future[BitmapFrame] =
   ## Windows.Graphics.Imaging.BitmapDecoder.GetFrameAsync
   var op: pointer
   withIface(self.p, IBitmapDecoder, it):
     check it.vtbl.GetFrameAsync(it, frameIndex, op.addr
                                ), "BitmapDecoder.GetFrameAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_BitmapFrame,
-                              IID_AsyncOperationCompletedHandler_1_BitmapFrame,
-                              alPlain, "BitmapDecoder.GetFrameAsync")
-  result = adopt[BitmapFrame](obj)
+  result = futureObject[BitmapFrame](op, IID_IAsyncOperation_1_BitmapFrame,
+                                     IID_AsyncOperationCompletedHandler_1_BitmapFrame,
+                                     alPlain, "BitmapDecoder.GetFrameAsync")
 
-proc getThumbnailAsync*(self: BitmapDecoder): Future[ImageStream] {.async.} =
+proc getThumbnailAsync*(self: BitmapDecoder): Future[ImageStream] =
   ## Windows.Graphics.Imaging.BitmapDecoder.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IBitmapFrame, it):
     check it.vtbl.GetThumbnailAsync(it, op.addr
                                    ), "BitmapDecoder.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ImageStream,
-                              IID_AsyncOperationCompletedHandler_1_ImageStream,
-                              alPlain, "BitmapDecoder.GetThumbnailAsync")
-  result = adopt[ImageStream](obj)
+  result = futureObject[ImageStream](op, IID_IAsyncOperation_1_ImageStream,
+                                     IID_AsyncOperationCompletedHandler_1_ImageStream,
+                                     alPlain, "BitmapDecoder.GetThumbnailAsync")
 
 proc bitmapProperties*(self: BitmapDecoder): BitmapPropertiesView =
   ## Windows.Graphics.Imaging.BitmapDecoder.get_BitmapProperties
@@ -2459,22 +2456,23 @@ proc orientedPixelHeight*(self: BitmapDecoder): uint32 =
   withIface(self.p, IBitmapFrame, it):
     result = it.getValue(get_OrientedPixelHeight, uint32)
 
-proc getPixelDataAsync*(self: BitmapDecoder): Future[PixelDataProvider] {.async.} =
+proc getPixelDataAsync*(self: BitmapDecoder): Future[PixelDataProvider] =
   ## Windows.Graphics.Imaging.BitmapDecoder.GetPixelDataAsync
   var op: pointer
   withIface(self.p, IBitmapFrame, it):
     check it.vtbl.GetPixelDataAsync(it, op.addr
                                    ), "BitmapDecoder.GetPixelDataAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PixelDataProvider,
-                              IID_AsyncOperationCompletedHandler_1_PixelDataProvider,
-                              alPlain, "BitmapDecoder.GetPixelDataAsync")
-  result = adopt[PixelDataProvider](obj)
+  result = futureObject[PixelDataProvider](op,
+                                           IID_IAsyncOperation_1_PixelDataProvider,
+                                           IID_AsyncOperationCompletedHandler_1_PixelDataProvider,
+                                           alPlain,
+                                           "BitmapDecoder.GetPixelDataAsync")
 
 proc getPixelDataAsync*(self: BitmapDecoder, pixelFormat: BitmapPixelFormat,
                         alphaMode: BitmapAlphaMode, transform: BitmapTransform,
                         exifOrientationMode: ExifOrientationMode,
                         colorManagementMode: ColorManagementMode
-                       ): Future[PixelDataProvider] {.async.} =
+                       ): Future[PixelDataProvider] =
   ## Windows.Graphics.Imaging.BitmapDecoder.GetPixelDataAsync
   var op: pointer
   withIface(self.p, IBitmapFrame, it):
@@ -2483,35 +2481,38 @@ proc getPixelDataAsync*(self: BitmapDecoder, pixelFormat: BitmapPixelFormat,
                                        exifOrientationMode, colorManagementMode,
                                        op.addr
                                       ), "BitmapDecoder.GetPixelDataAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PixelDataProvider,
-                              IID_AsyncOperationCompletedHandler_1_PixelDataProvider,
-                              alPlain, "BitmapDecoder.GetPixelDataAsync")
-  result = adopt[PixelDataProvider](obj)
+  result = futureObject[PixelDataProvider](op,
+                                           IID_IAsyncOperation_1_PixelDataProvider,
+                                           IID_AsyncOperationCompletedHandler_1_PixelDataProvider,
+                                           alPlain,
+                                           "BitmapDecoder.GetPixelDataAsync")
 
-proc getSoftwareBitmapAsync*(self: BitmapDecoder): Future[SoftwareBitmap] {.async.} =
+proc getSoftwareBitmapAsync*(self: BitmapDecoder): Future[SoftwareBitmap] =
   ## Windows.Graphics.Imaging.BitmapDecoder.GetSoftwareBitmapAsync
   var op: pointer
   withIface(self.p, IBitmapFrameWithSoftwareBitmap, it):
     check it.vtbl.GetSoftwareBitmapAsync(it, op.addr
                                         ), "BitmapDecoder.GetSoftwareBitmapAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap,
-                              IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
-                              alPlain, "BitmapDecoder.GetSoftwareBitmapAsync")
-  result = adopt[SoftwareBitmap](obj)
+  result = futureObject[SoftwareBitmap](op,
+                                        IID_IAsyncOperation_1_SoftwareBitmap,
+                                        IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
+                                        alPlain,
+                                        "BitmapDecoder.GetSoftwareBitmapAsync")
 
 proc getSoftwareBitmapAsync*(self: BitmapDecoder,
                              pixelFormat: BitmapPixelFormat,
                              alphaMode: BitmapAlphaMode
-                            ): Future[SoftwareBitmap] {.async.} =
+                            ): Future[SoftwareBitmap] =
   ## Windows.Graphics.Imaging.BitmapDecoder.GetSoftwareBitmapAsync
   var op: pointer
   withIface(self.p, IBitmapFrameWithSoftwareBitmap, it):
     check it.vtbl.GetSoftwareBitmapAsync2(it, pixelFormat, alphaMode, op.addr
                                          ), "BitmapDecoder.GetSoftwareBitmapAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap,
-                              IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
-                              alPlain, "BitmapDecoder.GetSoftwareBitmapAsync")
-  result = adopt[SoftwareBitmap](obj)
+  result = futureObject[SoftwareBitmap](op,
+                                        IID_IAsyncOperation_1_SoftwareBitmap,
+                                        IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
+                                        alPlain,
+                                        "BitmapDecoder.GetSoftwareBitmapAsync")
 
 proc getSoftwareBitmapAsync*(self: BitmapDecoder,
                              pixelFormat: BitmapPixelFormat,
@@ -2519,7 +2520,7 @@ proc getSoftwareBitmapAsync*(self: BitmapDecoder,
                              transform: BitmapTransform,
                              exifOrientationMode: ExifOrientationMode,
                              colorManagementMode: ColorManagementMode
-                            ): Future[SoftwareBitmap] {.async.} =
+                            ): Future[SoftwareBitmap] =
   ## Windows.Graphics.Imaging.BitmapDecoder.GetSoftwareBitmapAsync
   var op: pointer
   withIface(self.p, IBitmapFrameWithSoftwareBitmap, it):
@@ -2528,10 +2529,11 @@ proc getSoftwareBitmapAsync*(self: BitmapDecoder,
                                             exifOrientationMode,
                                             colorManagementMode, op.addr
                                            ), "BitmapDecoder.GetSoftwareBitmapAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap,
-                              IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
-                              alPlain, "BitmapDecoder.GetSoftwareBitmapAsync")
-  result = adopt[SoftwareBitmap](obj)
+  result = futureObject[SoftwareBitmap](op,
+                                        IID_IAsyncOperation_1_SoftwareBitmap,
+                                        IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
+                                        alPlain,
+                                        "BitmapDecoder.GetSoftwareBitmapAsync")
 
 proc heifDecoderId*(_: typedesc[BitmapDecoder]): GUID =
   ## Windows.Graphics.Imaging.BitmapDecoder.get_HeifDecoderId
@@ -2600,20 +2602,19 @@ proc getDecoderInformationEnumerator*(_: typedesc[BitmapDecoder]): seq[BitmapCod
     release(tmp)
 
 proc createAsync*(_: typedesc[BitmapDecoder], stream: WinRtObject
-                 ): Future[BitmapDecoder] {.async.} =
+                 ): Future[BitmapDecoder] =
   ## Windows.Graphics.Imaging.BitmapDecoder.CreateAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapDecoder", IBitmapDecoderStatics,
               it):
     withIface(stream.p, IRandomAccessStream, p0):
       check it.vtbl.CreateAsync(it, p0, op.addr), "BitmapDecoder.CreateAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_BitmapDecoder,
-                              IID_AsyncOperationCompletedHandler_1_BitmapDecoder,
-                              alPlain, "BitmapDecoder.CreateAsync")
-  result = adopt[BitmapDecoder](obj)
+  result = futureObject[BitmapDecoder](op, IID_IAsyncOperation_1_BitmapDecoder,
+                                       IID_AsyncOperationCompletedHandler_1_BitmapDecoder,
+                                       alPlain, "BitmapDecoder.CreateAsync")
 
 proc createAsync*(_: typedesc[BitmapDecoder], decoderId: GUID,
-                  stream: WinRtObject): Future[BitmapDecoder] {.async.} =
+                  stream: WinRtObject): Future[BitmapDecoder] =
   ## Windows.Graphics.Imaging.BitmapDecoder.CreateAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapDecoder", IBitmapDecoderStatics,
@@ -2621,10 +2622,9 @@ proc createAsync*(_: typedesc[BitmapDecoder], decoderId: GUID,
     withIface(stream.p, IRandomAccessStream, p1):
       check it.vtbl.CreateAsync2(it, decoderId, p1, op.addr
                                 ), "BitmapDecoder.CreateAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_BitmapDecoder,
-                              IID_AsyncOperationCompletedHandler_1_BitmapDecoder,
-                              alPlain, "BitmapDecoder.CreateAsync")
-  result = adopt[BitmapDecoder](obj)
+  result = futureObject[BitmapDecoder](op, IID_IAsyncOperation_1_BitmapDecoder,
+                                       IID_AsyncOperationCompletedHandler_1_BitmapDecoder,
+                                       alPlain, "BitmapDecoder.CreateAsync")
 
 proc encoderInformation*(self: BitmapEncoder): BitmapCodecInformation =
   ## Windows.Graphics.Imaging.BitmapEncoder.get_EncoderInformation
@@ -2686,18 +2686,18 @@ proc setPixelData*(self: BitmapEncoder, pixelFormat: BitmapPixelFormat,
     check it.vtbl.SetPixelData(it, pixelFormat, alphaMode, width, height, dpiX,
                                dpiY, n6, d6), "BitmapEncoder.SetPixelData"
 
-proc goToNextFrameAsync*(self: BitmapEncoder) {.async.} =
+proc goToNextFrameAsync*(self: BitmapEncoder): Future[void] =
   ## Windows.Graphics.Imaging.BitmapEncoder.GoToNextFrameAsync
   var op: pointer
   withIface(self.p, IBitmapEncoder, it):
     check it.vtbl.GoToNextFrameAsync(it, op.addr
                                     ), "BitmapEncoder.GoToNextFrameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BitmapEncoder.GoToNextFrameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "BitmapEncoder.GoToNextFrameAsync")
 
 proc goToNextFrameAsync*(self: BitmapEncoder,
                          encodingOptions: Table[string, BitmapTypedValue]
-                        ) {.async.} =
+                        ): Future[void] =
   ## Windows.Graphics.Imaging.BitmapEncoder.GoToNextFrameAsync
   var op: pointer
   withIface(self.p, IBitmapEncoder, it):
@@ -2710,16 +2710,16 @@ proc goToNextFrameAsync*(self: BitmapEncoder,
     defer: discard release(p0)
     check it.vtbl.GoToNextFrameAsync2(it, p0, op.addr
                                      ), "BitmapEncoder.GoToNextFrameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BitmapEncoder.GoToNextFrameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "BitmapEncoder.GoToNextFrameAsync")
 
-proc flushAsync*(self: BitmapEncoder) {.async.} =
+proc flushAsync*(self: BitmapEncoder): Future[void] =
   ## Windows.Graphics.Imaging.BitmapEncoder.FlushAsync
   var op: pointer
   withIface(self.p, IBitmapEncoder, it):
     check it.vtbl.FlushAsync(it, op.addr), "BitmapEncoder.FlushAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BitmapEncoder.FlushAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "BitmapEncoder.FlushAsync")
 
 proc setSoftwareBitmap*(self: BitmapEncoder, bitmap: SoftwareBitmap) =
   ## Windows.Graphics.Imaging.BitmapEncoder.SetSoftwareBitmap
@@ -2782,7 +2782,7 @@ proc getEncoderInformationEnumerator*(_: typedesc[BitmapEncoder]): seq[BitmapCod
     release(tmp)
 
 proc createAsync*(_: typedesc[BitmapEncoder], encoderId: GUID,
-                  stream: WinRtObject): Future[BitmapEncoder] {.async.} =
+                  stream: WinRtObject): Future[BitmapEncoder] =
   ## Windows.Graphics.Imaging.BitmapEncoder.CreateAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapEncoder", IBitmapEncoderStatics,
@@ -2790,15 +2790,14 @@ proc createAsync*(_: typedesc[BitmapEncoder], encoderId: GUID,
     withIface(stream.p, IRandomAccessStream, p1):
       check it.vtbl.CreateAsync(it, encoderId, p1, op.addr
                                ), "BitmapEncoder.CreateAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_BitmapEncoder,
-                              IID_AsyncOperationCompletedHandler_1_BitmapEncoder,
-                              alPlain, "BitmapEncoder.CreateAsync")
-  result = adopt[BitmapEncoder](obj)
+  result = futureObject[BitmapEncoder](op, IID_IAsyncOperation_1_BitmapEncoder,
+                                       IID_AsyncOperationCompletedHandler_1_BitmapEncoder,
+                                       alPlain, "BitmapEncoder.CreateAsync")
 
 proc createAsync*(_: typedesc[BitmapEncoder], encoderId: GUID,
                   stream: WinRtObject,
                   encodingOptions: Table[string, BitmapTypedValue]
-                 ): Future[BitmapEncoder] {.async.} =
+                 ): Future[BitmapEncoder] =
   ## Windows.Graphics.Imaging.BitmapEncoder.CreateAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapEncoder", IBitmapEncoderStatics,
@@ -2813,14 +2812,13 @@ proc createAsync*(_: typedesc[BitmapEncoder], encoderId: GUID,
       defer: discard release(p2)
       check it.vtbl.CreateAsync2(it, encoderId, p1, p2, op.addr
                                 ), "BitmapEncoder.CreateAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_BitmapEncoder,
-                              IID_AsyncOperationCompletedHandler_1_BitmapEncoder,
-                              alPlain, "BitmapEncoder.CreateAsync")
-  result = adopt[BitmapEncoder](obj)
+  result = futureObject[BitmapEncoder](op, IID_IAsyncOperation_1_BitmapEncoder,
+                                       IID_AsyncOperationCompletedHandler_1_BitmapEncoder,
+                                       alPlain, "BitmapEncoder.CreateAsync")
 
 proc createForTranscodingAsync*(_: typedesc[BitmapEncoder], stream: WinRtObject,
                                 bitmapDecoder: BitmapDecoder
-                               ): Future[BitmapEncoder] {.async.} =
+                               ): Future[BitmapEncoder] =
   ## Windows.Graphics.Imaging.BitmapEncoder.CreateForTranscodingAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapEncoder", IBitmapEncoderStatics,
@@ -2829,15 +2827,15 @@ proc createForTranscodingAsync*(_: typedesc[BitmapEncoder], stream: WinRtObject,
       withIface(bitmapDecoder.p, IBitmapDecoder, p1):
         check it.vtbl.CreateForTranscodingAsync(it, p0, p1, op.addr
                                                ), "BitmapEncoder.CreateForTranscodingAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_BitmapEncoder,
-                              IID_AsyncOperationCompletedHandler_1_BitmapEncoder,
-                              alPlain, "BitmapEncoder.CreateForTranscodingAsync"
-                             )
-  result = adopt[BitmapEncoder](obj)
+  result = futureObject[BitmapEncoder](op, IID_IAsyncOperation_1_BitmapEncoder,
+                                       IID_AsyncOperationCompletedHandler_1_BitmapEncoder,
+                                       alPlain,
+                                       "BitmapEncoder.CreateForTranscodingAsync"
+                                      )
 
 proc createForInPlacePropertyEncodingAsync*(_: typedesc[BitmapEncoder],
                                             bitmapDecoder: BitmapDecoder
-                                           ): Future[BitmapEncoder] {.async.} =
+                                           ): Future[BitmapEncoder] =
   ## Windows.Graphics.Imaging.BitmapEncoder.CreateForInPlacePropertyEncodingAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapEncoder", IBitmapEncoderStatics,
@@ -2845,23 +2843,21 @@ proc createForInPlacePropertyEncodingAsync*(_: typedesc[BitmapEncoder],
     withIface(bitmapDecoder.p, IBitmapDecoder, p0):
       check it.vtbl.CreateForInPlacePropertyEncodingAsync(it, p0, op.addr
                                                          ), "BitmapEncoder.CreateForInPlacePropertyEncodingAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_BitmapEncoder,
-                              IID_AsyncOperationCompletedHandler_1_BitmapEncoder,
-                              alPlain,
-                              "BitmapEncoder.CreateForInPlacePropertyEncodingAsync"
-                             )
-  result = adopt[BitmapEncoder](obj)
+  result = futureObject[BitmapEncoder](op, IID_IAsyncOperation_1_BitmapEncoder,
+                                       IID_AsyncOperationCompletedHandler_1_BitmapEncoder,
+                                       alPlain,
+                                       "BitmapEncoder.CreateForInPlacePropertyEncodingAsync"
+                                      )
 
-proc getThumbnailAsync*(self: BitmapFrame): Future[ImageStream] {.async.} =
+proc getThumbnailAsync*(self: BitmapFrame): Future[ImageStream] =
   ## Windows.Graphics.Imaging.BitmapFrame.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IBitmapFrame, it):
     check it.vtbl.GetThumbnailAsync(it, op.addr
                                    ), "BitmapFrame.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ImageStream,
-                              IID_AsyncOperationCompletedHandler_1_ImageStream,
-                              alPlain, "BitmapFrame.GetThumbnailAsync")
-  result = adopt[ImageStream](obj)
+  result = futureObject[ImageStream](op, IID_IAsyncOperation_1_ImageStream,
+                                     IID_AsyncOperationCompletedHandler_1_ImageStream,
+                                     alPlain, "BitmapFrame.GetThumbnailAsync")
 
 proc bitmapProperties*(self: BitmapFrame): BitmapPropertiesView =
   ## Windows.Graphics.Imaging.BitmapFrame.get_BitmapProperties
@@ -2908,22 +2904,23 @@ proc orientedPixelHeight*(self: BitmapFrame): uint32 =
   withIface(self.p, IBitmapFrame, it):
     result = it.getValue(get_OrientedPixelHeight, uint32)
 
-proc getPixelDataAsync*(self: BitmapFrame): Future[PixelDataProvider] {.async.} =
+proc getPixelDataAsync*(self: BitmapFrame): Future[PixelDataProvider] =
   ## Windows.Graphics.Imaging.BitmapFrame.GetPixelDataAsync
   var op: pointer
   withIface(self.p, IBitmapFrame, it):
     check it.vtbl.GetPixelDataAsync(it, op.addr
                                    ), "BitmapFrame.GetPixelDataAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PixelDataProvider,
-                              IID_AsyncOperationCompletedHandler_1_PixelDataProvider,
-                              alPlain, "BitmapFrame.GetPixelDataAsync")
-  result = adopt[PixelDataProvider](obj)
+  result = futureObject[PixelDataProvider](op,
+                                           IID_IAsyncOperation_1_PixelDataProvider,
+                                           IID_AsyncOperationCompletedHandler_1_PixelDataProvider,
+                                           alPlain,
+                                           "BitmapFrame.GetPixelDataAsync")
 
 proc getPixelDataAsync*(self: BitmapFrame, pixelFormat: BitmapPixelFormat,
                         alphaMode: BitmapAlphaMode, transform: BitmapTransform,
                         exifOrientationMode: ExifOrientationMode,
                         colorManagementMode: ColorManagementMode
-                       ): Future[PixelDataProvider] {.async.} =
+                       ): Future[PixelDataProvider] =
   ## Windows.Graphics.Imaging.BitmapFrame.GetPixelDataAsync
   var op: pointer
   withIface(self.p, IBitmapFrame, it):
@@ -2931,41 +2928,44 @@ proc getPixelDataAsync*(self: BitmapFrame, pixelFormat: BitmapPixelFormat,
       check it.vtbl.GetPixelDataAsync2(it, pixelFormat, alphaMode, p2,
                                        exifOrientationMode, colorManagementMode,
                                        op.addr), "BitmapFrame.GetPixelDataAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PixelDataProvider,
-                              IID_AsyncOperationCompletedHandler_1_PixelDataProvider,
-                              alPlain, "BitmapFrame.GetPixelDataAsync")
-  result = adopt[PixelDataProvider](obj)
+  result = futureObject[PixelDataProvider](op,
+                                           IID_IAsyncOperation_1_PixelDataProvider,
+                                           IID_AsyncOperationCompletedHandler_1_PixelDataProvider,
+                                           alPlain,
+                                           "BitmapFrame.GetPixelDataAsync")
 
-proc getSoftwareBitmapAsync*(self: BitmapFrame): Future[SoftwareBitmap] {.async.} =
+proc getSoftwareBitmapAsync*(self: BitmapFrame): Future[SoftwareBitmap] =
   ## Windows.Graphics.Imaging.BitmapFrame.GetSoftwareBitmapAsync
   var op: pointer
   withIface(self.p, IBitmapFrameWithSoftwareBitmap, it):
     check it.vtbl.GetSoftwareBitmapAsync(it, op.addr
                                         ), "BitmapFrame.GetSoftwareBitmapAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap,
-                              IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
-                              alPlain, "BitmapFrame.GetSoftwareBitmapAsync")
-  result = adopt[SoftwareBitmap](obj)
+  result = futureObject[SoftwareBitmap](op,
+                                        IID_IAsyncOperation_1_SoftwareBitmap,
+                                        IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
+                                        alPlain,
+                                        "BitmapFrame.GetSoftwareBitmapAsync")
 
 proc getSoftwareBitmapAsync*(self: BitmapFrame, pixelFormat: BitmapPixelFormat,
                              alphaMode: BitmapAlphaMode
-                            ): Future[SoftwareBitmap] {.async.} =
+                            ): Future[SoftwareBitmap] =
   ## Windows.Graphics.Imaging.BitmapFrame.GetSoftwareBitmapAsync
   var op: pointer
   withIface(self.p, IBitmapFrameWithSoftwareBitmap, it):
     check it.vtbl.GetSoftwareBitmapAsync2(it, pixelFormat, alphaMode, op.addr
                                          ), "BitmapFrame.GetSoftwareBitmapAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap,
-                              IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
-                              alPlain, "BitmapFrame.GetSoftwareBitmapAsync")
-  result = adopt[SoftwareBitmap](obj)
+  result = futureObject[SoftwareBitmap](op,
+                                        IID_IAsyncOperation_1_SoftwareBitmap,
+                                        IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
+                                        alPlain,
+                                        "BitmapFrame.GetSoftwareBitmapAsync")
 
 proc getSoftwareBitmapAsync*(self: BitmapFrame, pixelFormat: BitmapPixelFormat,
                              alphaMode: BitmapAlphaMode,
                              transform: BitmapTransform,
                              exifOrientationMode: ExifOrientationMode,
                              colorManagementMode: ColorManagementMode
-                            ): Future[SoftwareBitmap] {.async.} =
+                            ): Future[SoftwareBitmap] =
   ## Windows.Graphics.Imaging.BitmapFrame.GetSoftwareBitmapAsync
   var op: pointer
   withIface(self.p, IBitmapFrameWithSoftwareBitmap, it):
@@ -2974,14 +2974,15 @@ proc getSoftwareBitmapAsync*(self: BitmapFrame, pixelFormat: BitmapPixelFormat,
                                             exifOrientationMode,
                                             colorManagementMode, op.addr
                                            ), "BitmapFrame.GetSoftwareBitmapAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap,
-                              IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
-                              alPlain, "BitmapFrame.GetSoftwareBitmapAsync")
-  result = adopt[SoftwareBitmap](obj)
+  result = futureObject[SoftwareBitmap](op,
+                                        IID_IAsyncOperation_1_SoftwareBitmap,
+                                        IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
+                                        alPlain,
+                                        "BitmapFrame.GetSoftwareBitmapAsync")
 
 proc setPropertiesAsync*(self: BitmapProperties,
                          propertiesToSet: Table[string, BitmapTypedValue]
-                        ) {.async.} =
+                        ): Future[void] =
   ## Windows.Graphics.Imaging.BitmapProperties.SetPropertiesAsync
   var op: pointer
   withIface(self.p, IBitmapProperties, it):
@@ -2994,12 +2995,12 @@ proc setPropertiesAsync*(self: BitmapProperties,
     defer: discard release(p0)
     check it.vtbl.SetPropertiesAsync(it, p0, op.addr
                                     ), "BitmapProperties.SetPropertiesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BitmapProperties.SetPropertiesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "BitmapProperties.SetPropertiesAsync")
 
 proc getPropertiesAsync*(self: BitmapProperties,
                          propertiesToRetrieve: seq[string]
-                        ): Future[BitmapPropertySet] {.async.} =
+                        ): Future[BitmapPropertySet] =
   ## Windows.Graphics.Imaging.BitmapProperties.GetPropertiesAsync
   var op: pointer
   withIface(self.p, IBitmapPropertiesView, it):
@@ -3009,14 +3010,16 @@ proc getPropertiesAsync*(self: BitmapProperties,
     defer: discard release(p0)
     check it.vtbl.GetPropertiesAsync(it, p0, op.addr
                                     ), "BitmapProperties.GetPropertiesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_BitmapPropertySet,
-                              IID_AsyncOperationCompletedHandler_1_BitmapPropertySet,
-                              alPlain, "BitmapProperties.GetPropertiesAsync")
-  result = adopt[BitmapPropertySet](obj)
+  result = futureObject[BitmapPropertySet](op,
+                                           IID_IAsyncOperation_1_BitmapPropertySet,
+                                           IID_AsyncOperationCompletedHandler_1_BitmapPropertySet,
+                                           alPlain,
+                                           "BitmapProperties.GetPropertiesAsync"
+                                          )
 
 proc getPropertiesAsync*(self: BitmapPropertiesView,
                          propertiesToRetrieve: seq[string]
-                        ): Future[BitmapPropertySet] {.async.} =
+                        ): Future[BitmapPropertySet] =
   ## Windows.Graphics.Imaging.BitmapPropertiesView.GetPropertiesAsync
   var op: pointer
   withIface(self.p, IBitmapPropertiesView, it):
@@ -3026,11 +3029,12 @@ proc getPropertiesAsync*(self: BitmapPropertiesView,
     defer: discard release(p0)
     check it.vtbl.GetPropertiesAsync(it, p0, op.addr
                                     ), "BitmapPropertiesView.GetPropertiesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_BitmapPropertySet,
-                              IID_AsyncOperationCompletedHandler_1_BitmapPropertySet,
-                              alPlain, "BitmapPropertiesView.GetPropertiesAsync"
-                             )
-  result = adopt[BitmapPropertySet](obj)
+  result = futureObject[BitmapPropertySet](op,
+                                           IID_IAsyncOperation_1_BitmapPropertySet,
+                                           IID_AsyncOperationCompletedHandler_1_BitmapPropertySet,
+                                           alPlain,
+                                           "BitmapPropertiesView.GetPropertiesAsync"
+                                          )
 
 proc newBitmapTransform*(): BitmapTransform =
   ## Activate a `Windows.Graphics.Imaging.BitmapTransform`.
@@ -3175,24 +3179,27 @@ proc canWrite*(self: ImageStream): bool =
   withIface(self.p, IRandomAccessStream, it):
     result = it.getValue(get_CanWrite, bool)
 
-proc writeAsync*(self: ImageStream, buffer: Buffer): Future[uint32] {.async.} =
+proc writeAsync*(self: ImageStream, buffer: Buffer,
+                 progress: ProgressHandler[uint32] = nil): Future[uint32] =
   ## Windows.Graphics.Imaging.ImageStream.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.WriteAsync(it, p0, op.addr), "ImageStream.WriteAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress, "ImageStream.WriteAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress, "ImageStream.WriteAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "ImageStream.WriteAsync")
 
-proc flushAsync*(self: ImageStream): Future[bool] {.async.} =
+proc flushAsync*(self: ImageStream): Future[bool] =
   ## Windows.Graphics.Imaging.ImageStream.FlushAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     check it.vtbl.FlushAsync(it, op.addr), "ImageStream.FlushAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "ImageStream.FlushAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ImageStream.FlushAsync")
 
 proc close*(self: ImageStream) =
   ## Windows.Graphics.Imaging.ImageStream.Close
@@ -3200,17 +3207,20 @@ proc close*(self: ImageStream) =
     check it.vtbl.Close(it), "ImageStream.Close"
 
 proc readAsync*(self: ImageStream, buffer: Buffer, count: uint32,
-                options: InputStreamOptions): Future[Buffer] {.async.} =
+                options: InputStreamOptions,
+                progress: ProgressHandler[uint32] = nil): Future[Buffer] =
   ## Windows.Graphics.Imaging.ImageStream.ReadAsync
   var op: pointer
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.ReadAsync(it, p0, count, options, op.addr
                              ), "ImageStream.ReadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                              alProgress, "ImageStream.ReadAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                                alProgress, "ImageStream.ReadAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U4, progress,
+                 "ImageStream.ReadAsync")
 
 proc detachPixelData*(self: PixelDataProvider): seq[uint8] =
   ## Windows.Graphics.Imaging.PixelDataProvider.DetachPixelData
@@ -3364,8 +3374,7 @@ proc createCopyFromBuffer*(_: typedesc[SoftwareBitmap], source: Buffer,
       result = adopt[SoftwareBitmap](tmp)
 
 proc createCopyFromSurfaceAsync*(_: typedesc[SoftwareBitmap],
-                                 surface: WinRtObject
-                                ): Future[SoftwareBitmap] {.async.} =
+                                 surface: WinRtObject): Future[SoftwareBitmap] =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CreateCopyFromSurfaceAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.SoftwareBitmap", ISoftwareBitmapStatics,
@@ -3373,15 +3382,16 @@ proc createCopyFromSurfaceAsync*(_: typedesc[SoftwareBitmap],
     withIface(surface.p, IDirect3DSurface, p0):
       check it.vtbl.CreateCopyFromSurfaceAsync(it, p0, op.addr
                                               ), "SoftwareBitmap.CreateCopyFromSurfaceAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap,
-                              IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
-                              alPlain,
-                              "SoftwareBitmap.CreateCopyFromSurfaceAsync")
-  result = adopt[SoftwareBitmap](obj)
+  result = futureObject[SoftwareBitmap](op,
+                                        IID_IAsyncOperation_1_SoftwareBitmap,
+                                        IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
+                                        alPlain,
+                                        "SoftwareBitmap.CreateCopyFromSurfaceAsync"
+                                       )
 
 proc createCopyFromSurfaceAsync*(_: typedesc[SoftwareBitmap],
                                  surface: WinRtObject, alpha: BitmapAlphaMode
-                                ): Future[SoftwareBitmap] {.async.} =
+                                ): Future[SoftwareBitmap] =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CreateCopyFromSurfaceAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.SoftwareBitmap", ISoftwareBitmapStatics,
@@ -3389,11 +3399,12 @@ proc createCopyFromSurfaceAsync*(_: typedesc[SoftwareBitmap],
     withIface(surface.p, IDirect3DSurface, p0):
       check it.vtbl.CreateCopyFromSurfaceAsync2(it, p0, alpha, op.addr
                                                ), "SoftwareBitmap.CreateCopyFromSurfaceAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap,
-                              IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
-                              alPlain,
-                              "SoftwareBitmap.CreateCopyFromSurfaceAsync")
-  result = adopt[SoftwareBitmap](obj)
+  result = futureObject[SoftwareBitmap](op,
+                                        IID_IAsyncOperation_1_SoftwareBitmap,
+                                        IID_AsyncOperationCompletedHandler_1_SoftwareBitmap,
+                                        alPlain,
+                                        "SoftwareBitmap.CreateCopyFromSurfaceAsync"
+                                       )
 
 proc create*(_: typedesc[SoftwareBitmap], format: BitmapPixelFormat,
              width: int32, height: int32): SoftwareBitmap =
@@ -4773,15 +4784,15 @@ proc getForCurrentView*(_: typedesc[PrintManager]): PrintManager =
                                    ), "PrintManager.GetForCurrentView"
     result = adopt[PrintManager](tmp)
 
-proc showPrintUIAsync*(_: typedesc[PrintManager]): Future[bool] {.async.} =
+proc showPrintUIAsync*(_: typedesc[PrintManager]): Future[bool] =
   ## Windows.Graphics.Printing.PrintManager.ShowPrintUIAsync
   var op: pointer
   withStatics("Windows.Graphics.Printing.PrintManager", IPrintManagerStatic, it
              ):
     check it.vtbl.ShowPrintUIAsync(it, op.addr), "PrintManager.ShowPrintUIAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "PrintManager.ShowPrintUIAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "PrintManager.ShowPrintUIAsync")
 
 proc newPrintPageInfo*(): PrintPageInfo =
   ## Activate a `Windows.Graphics.Printing.PrintPageInfo`.
@@ -6273,26 +6284,27 @@ proc getFeature*(self: WorkflowPrintTicket, name: string, xmlNamespace: string
                                 ), "WorkflowPrintTicket.GetFeature"
         result = adopt[PrintTicketFeature](tmp)
 
-proc notifyXmlChangedAsync*(self: WorkflowPrintTicket) {.async.} =
+proc notifyXmlChangedAsync*(self: WorkflowPrintTicket): Future[void] =
   ## Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket.NotifyXmlChangedAsync
   var op: pointer
   withIface(self.p, IWorkflowPrintTicket, it):
     check it.vtbl.NotifyXmlChangedAsync(it, op.addr
                                        ), "WorkflowPrintTicket.NotifyXmlChangedAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "WorkflowPrintTicket.NotifyXmlChangedAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "WorkflowPrintTicket.NotifyXmlChangedAsync")
 
-proc validateAsync*(self: WorkflowPrintTicket): Future[WorkflowPrintTicketValidationResult] {.async.} =
+proc validateAsync*(self: WorkflowPrintTicket): Future[WorkflowPrintTicketValidationResult] =
   ## Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket.ValidateAsync
   var op: pointer
   withIface(self.p, IWorkflowPrintTicket, it):
     check it.vtbl.ValidateAsync(it, op.addr
                                ), "WorkflowPrintTicket.ValidateAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_WorkflowPrintTicketValidationResult,
-                              IID_AsyncOperationCompletedHandler_1_WorkflowPrintTicketValidationResult,
-                              alPlain, "WorkflowPrintTicket.ValidateAsync")
-  result = adopt[WorkflowPrintTicketValidationResult](obj)
+  result = futureObject[WorkflowPrintTicketValidationResult](op,
+                                                             IID_IAsyncOperation_1_WorkflowPrintTicketValidationResult,
+                                                             IID_AsyncOperationCompletedHandler_1_WorkflowPrintTicketValidationResult,
+                                                             alPlain,
+                                                             "WorkflowPrintTicket.ValidateAsync"
+                                                            )
 
 proc getParameterInitializer*(self: WorkflowPrintTicket, name: string,
                               xmlNamespace: string
@@ -6511,18 +6523,18 @@ proc start*(self: PrintWorkflowBackgroundSession) =
   withIface(self.p, IPrintWorkflowBackgroundSession, it):
     check it.vtbl.Start(it), "PrintWorkflowBackgroundSession.Start"
 
-proc getUserPrintTicketAsync*(self: PrintWorkflowBackgroundSetupRequestedEventArgs): Future[WorkflowPrintTicket] {.async.} =
+proc getUserPrintTicketAsync*(self: PrintWorkflowBackgroundSetupRequestedEventArgs): Future[WorkflowPrintTicket] =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowBackgroundSetupRequestedEventArgs.GetUserPrintTicketAsync
   var op: pointer
   withIface(self.p, IPrintWorkflowBackgroundSetupRequestedEventArgs, it):
     check it.vtbl.GetUserPrintTicketAsync(it, op.addr
                                          ), "PrintWorkflowBackgroundSetupRequestedEventArgs.GetUserPrintTicketAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_WorkflowPrintTicket,
-                              IID_AsyncOperationCompletedHandler_1_WorkflowPrintTicket,
-                              alPlain,
-                              "PrintWorkflowBackgroundSetupRequestedEventArgs.GetUserPrintTicketAsync"
-                             )
-  result = adopt[WorkflowPrintTicket](obj)
+  result = futureObject[WorkflowPrintTicket](op,
+                                             IID_IAsyncOperation_1_WorkflowPrintTicket,
+                                             IID_AsyncOperationCompletedHandler_1_WorkflowPrintTicket,
+                                             alPlain,
+                                             "PrintWorkflowBackgroundSetupRequestedEventArgs.GetUserPrintTicketAsync"
+                                            )
 
 proc configuration*(self: PrintWorkflowBackgroundSetupRequestedEventArgs): PrintWorkflowConfiguration =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowBackgroundSetupRequestedEventArgs.get_Configuration
@@ -6614,18 +6626,18 @@ proc start*(self: PrintWorkflowForegroundSession) =
   withIface(self.p, IPrintWorkflowForegroundSession, it):
     check it.vtbl.Start(it), "PrintWorkflowForegroundSession.Start"
 
-proc getUserPrintTicketAsync*(self: PrintWorkflowForegroundSetupRequestedEventArgs): Future[WorkflowPrintTicket] {.async.} =
+proc getUserPrintTicketAsync*(self: PrintWorkflowForegroundSetupRequestedEventArgs): Future[WorkflowPrintTicket] =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowForegroundSetupRequestedEventArgs.GetUserPrintTicketAsync
   var op: pointer
   withIface(self.p, IPrintWorkflowForegroundSetupRequestedEventArgs, it):
     check it.vtbl.GetUserPrintTicketAsync(it, op.addr
                                          ), "PrintWorkflowForegroundSetupRequestedEventArgs.GetUserPrintTicketAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_WorkflowPrintTicket,
-                              IID_AsyncOperationCompletedHandler_1_WorkflowPrintTicket,
-                              alPlain,
-                              "PrintWorkflowForegroundSetupRequestedEventArgs.GetUserPrintTicketAsync"
-                             )
-  result = adopt[WorkflowPrintTicket](obj)
+  result = futureObject[WorkflowPrintTicket](op,
+                                             IID_IAsyncOperation_1_WorkflowPrintTicket,
+                                             IID_AsyncOperationCompletedHandler_1_WorkflowPrintTicket,
+                                             alPlain,
+                                             "PrintWorkflowForegroundSetupRequestedEventArgs.GetUserPrintTicketAsync"
+                                            )
 
 proc configuration*(self: PrintWorkflowForegroundSetupRequestedEventArgs): PrintWorkflowConfiguration =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowForegroundSetupRequestedEventArgs.get_Configuration
@@ -6950,7 +6962,7 @@ proc createInstance*(_: typedesc[PrintWorkflowObjectModelSourceFileContent],
 proc convertPdlAsync*(self: PrintWorkflowPdlConverter,
                       printTicket: WorkflowPrintTicket,
                       inputStream: WinRtObject, outputStream: WinRtObject
-                     ) {.async.} =
+                     ): Future[void] =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter.ConvertPdlAsync
   var op: pointer
   withIface(self.p, IPrintWorkflowPdlConverter, it):
@@ -6959,14 +6971,14 @@ proc convertPdlAsync*(self: PrintWorkflowPdlConverter,
         withIface(outputStream.p, IOutputStream, p2):
           check it.vtbl.ConvertPdlAsync(it, p0, p1, p2, op.addr
                                        ), "PrintWorkflowPdlConverter.ConvertPdlAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PrintWorkflowPdlConverter.ConvertPdlAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PrintWorkflowPdlConverter.ConvertPdlAsync")
 
 proc convertPdlAsync*(self: PrintWorkflowPdlConverter,
                       printTicket: WorkflowPrintTicket,
                       inputStream: WinRtObject, outputStream: WinRtObject,
                       hostBasedProcessingOperations: PdlConversionHostBasedProcessingOperations
-                     ) {.async.} =
+                     ): Future[void] =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter.ConvertPdlAsync
   var op: pointer
   withIface(self.p, IPrintWorkflowPdlConverter2, it):
@@ -6976,15 +6988,15 @@ proc convertPdlAsync*(self: PrintWorkflowPdlConverter,
           check it.vtbl.ConvertPdlAsync(it, p0, p1, p2,
                                         hostBasedProcessingOperations, op.addr
                                        ), "PrintWorkflowPdlConverter.ConvertPdlAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PrintWorkflowPdlConverter.ConvertPdlAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PrintWorkflowPdlConverter.ConvertPdlAsync")
 
 proc convertPdlFromObjectModelAsync*(self: PrintWorkflowPdlConverter,
                                      printTicket: WorkflowPrintTicket,
                                      objectModelProvider: WinRtObject,
                                      outputStream: WinRtObject,
                                      hostBasedProcessingOperations: PdlConversionHostBasedProcessingOperations
-                                    ) {.async.} =
+                                    ): Future[void] =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync
   var op: pointer
   withIface(self.p, IPrintWorkflowPdlConverter3, it):
@@ -6995,8 +7007,9 @@ proc convertPdlFromObjectModelAsync*(self: PrintWorkflowPdlConverter,
                                                        hostBasedProcessingOperations,
                                                        op.addr
                                                       ), "PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync"
+                     )
 
 proc configuration*(self: PrintWorkflowPdlDataAvailableEventArgs): PrintWorkflowConfiguration =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlDataAvailableEventArgs.get_Configuration
@@ -7173,18 +7186,17 @@ proc getInputStream*(self: PrintWorkflowPdlSourceContent): WinRtObject =
                                 ), "PrintWorkflowPdlSourceContent.GetInputStream"
     result = adopt[WinRtObject](tmp)
 
-proc getContentFileAsync*(self: PrintWorkflowPdlSourceContent): Future[StorageFile] {.async.} =
+proc getContentFileAsync*(self: PrintWorkflowPdlSourceContent): Future[StorageFile] =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlSourceContent.GetContentFileAsync
   var op: pointer
   withIface(self.p, IPrintWorkflowPdlSourceContent, it):
     check it.vtbl.GetContentFileAsync(it, op.addr
                                      ), "PrintWorkflowPdlSourceContent.GetContentFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain,
-                              "PrintWorkflowPdlSourceContent.GetContentFileAsync"
-                             )
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "PrintWorkflowPdlSourceContent.GetContentFileAsync"
+                                    )
 
 proc getOutputStream*(self: PrintWorkflowPdlTargetStream): WinRtObject =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlTargetStream.GetOutputStream
@@ -7321,18 +7333,18 @@ proc getDeferral*(self: PrintWorkflowPrinterJobStatusChangedEventArgs): Deferral
                              ), "PrintWorkflowPrinterJobStatusChangedEventArgs.GetDeferral"
     result = adopt[Deferral](tmp)
 
-proc getJobPrintTicketAsync*(self: PrintWorkflowSourceContent): Future[WorkflowPrintTicket] {.async.} =
+proc getJobPrintTicketAsync*(self: PrintWorkflowSourceContent): Future[WorkflowPrintTicket] =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowSourceContent.GetJobPrintTicketAsync
   var op: pointer
   withIface(self.p, IPrintWorkflowSourceContent, it):
     check it.vtbl.GetJobPrintTicketAsync(it, op.addr
                                         ), "PrintWorkflowSourceContent.GetJobPrintTicketAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_WorkflowPrintTicket,
-                              IID_AsyncOperationCompletedHandler_1_WorkflowPrintTicket,
-                              alPlain,
-                              "PrintWorkflowSourceContent.GetJobPrintTicketAsync"
-                             )
-  result = adopt[WorkflowPrintTicket](obj)
+  result = futureObject[WorkflowPrintTicket](op,
+                                             IID_IAsyncOperation_1_WorkflowPrintTicket,
+                                             IID_AsyncOperationCompletedHandler_1_WorkflowPrintTicket,
+                                             alPlain,
+                                             "PrintWorkflowSourceContent.GetJobPrintTicketAsync"
+                                            )
 
 proc getSourceSpoolDataAsStreamContent*(self: PrintWorkflowSourceContent): PrintWorkflowSpoolStreamContent =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowSourceContent.GetSourceSpoolDataAsStreamContent
@@ -7454,18 +7466,18 @@ proc isUILaunchEnabled*(self: PrintWorkflowUILauncher): bool =
                                    ), "PrintWorkflowUILauncher.IsUILaunchEnabled"
     result = tmp
 
-proc launchAndCompleteUIAsync*(self: PrintWorkflowUILauncher): Future[PrintWorkflowUICompletionStatus] {.async.} =
+proc launchAndCompleteUIAsync*(self: PrintWorkflowUILauncher): Future[PrintWorkflowUICompletionStatus] =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowUILauncher.LaunchAndCompleteUIAsync
   var op: pointer
   withIface(self.p, IPrintWorkflowUILauncher, it):
     check it.vtbl.LaunchAndCompleteUIAsync(it, op.addr
                                           ), "PrintWorkflowUILauncher.LaunchAndCompleteUIAsync"
-  result = await awaitValue[PrintWorkflowUICompletionStatus](op,
-                                                             IID_IAsyncOperation_1_PrintWorkflowUICompletionStatus,
-                                                             IID_AsyncOperationCompletedHandler_1_PrintWorkflowUICompletionStatus,
-                                                             alPlain,
-                                                             "PrintWorkflowUILauncher.LaunchAndCompleteUIAsync"
-                                                            )
+  result = futureValue[PrintWorkflowUICompletionStatus](op,
+                                                        IID_IAsyncOperation_1_PrintWorkflowUICompletionStatus,
+                                                        IID_AsyncOperationCompletedHandler_1_PrintWorkflowUICompletionStatus,
+                                                        alPlain,
+                                                        "PrintWorkflowUILauncher.LaunchAndCompleteUIAsync"
+                                                       )
 
 proc configuration*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs): PrintWorkflowConfiguration =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowVirtualPrinterDataAvailableEventArgs.get_Configuration
@@ -7500,18 +7512,17 @@ proc getPdlConverter*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs,
                                  ), "PrintWorkflowVirtualPrinterDataAvailableEventArgs.GetPdlConverter"
     result = adopt[PrintWorkflowPdlConverter](tmp)
 
-proc getTargetFileAsync*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs): Future[StorageFile] {.async.} =
+proc getTargetFileAsync*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs): Future[StorageFile] =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowVirtualPrinterDataAvailableEventArgs.GetTargetFileAsync
   var op: pointer
   withIface(self.p, IPrintWorkflowVirtualPrinterDataAvailableEventArgs, it):
     check it.vtbl.GetTargetFileAsync(it, op.addr
                                     ), "PrintWorkflowVirtualPrinterDataAvailableEventArgs.GetTargetFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain,
-                              "PrintWorkflowVirtualPrinterDataAvailableEventArgs.GetTargetFileAsync"
-                             )
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "PrintWorkflowVirtualPrinterDataAvailableEventArgs.GetTargetFileAsync"
+                                    )
 
 proc completeJob*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs,
                   status: PrintWorkflowSubmittedStatus) =
@@ -7637,16 +7648,16 @@ proc getForCurrentView*(_: typedesc[Print3DManager]): Print3DManager =
                                    ), "Print3DManager.GetForCurrentView"
     result = adopt[Print3DManager](tmp)
 
-proc showPrintUIAsync*(_: typedesc[Print3DManager]): Future[bool] {.async.} =
+proc showPrintUIAsync*(_: typedesc[Print3DManager]): Future[bool] =
   ## Windows.Graphics.Printing3D.Print3DManager.ShowPrintUIAsync
   var op: pointer
   withStatics("Windows.Graphics.Printing3D.Print3DManager",
               IPrint3DManagerStatics, it):
     check it.vtbl.ShowPrintUIAsync(it, op.addr
                                   ), "Print3DManager.ShowPrintUIAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "Print3DManager.ShowPrintUIAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Print3DManager.ShowPrintUIAsync")
 
 proc source*(self: Print3DTask): Printing3D3MFPackage =
   ## Windows.Graphics.Printing3D.Print3DTask.get_Source
@@ -7767,15 +7778,15 @@ proc newPrinting3D3MFPackage*(): Printing3D3MFPackage =
   ## Activate a `Windows.Graphics.Printing3D.Printing3D3MFPackage`.
   adopt[Printing3D3MFPackage](activateAs("Windows.Graphics.Printing3D.Printing3D3MFPackage", IID_IPrinting3D3MFPackage))
 
-proc saveAsync*(self: Printing3D3MFPackage): Future[WinRtObject] {.async.} =
+proc saveAsync*(self: Printing3D3MFPackage): Future[WinRtObject] =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.SaveAsync
   var op: pointer
   withIface(self.p, IPrinting3D3MFPackage, it):
     check it.vtbl.SaveAsync(it, op.addr), "Printing3D3MFPackage.SaveAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                              alPlain, "Printing3D3MFPackage.SaveAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStream,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                                     alPlain, "Printing3D3MFPackage.SaveAsync")
 
 proc printTicket*(self: Printing3D3MFPackage): WinRtObject =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.get_PrintTicket
@@ -7824,29 +7835,30 @@ proc textures*(self: Printing3D3MFPackage): seq[Printing3DTextureResource] =
     release(tmp)
 
 proc loadModelFromPackageAsync*(self: Printing3D3MFPackage, value: WinRtObject
-                               ): Future[Printing3DModel] {.async.} =
+                               ): Future[Printing3DModel] =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.LoadModelFromPackageAsync
   var op: pointer
   withIface(self.p, IPrinting3D3MFPackage, it):
     withIface(value.p, IRandomAccessStream, p0):
       check it.vtbl.LoadModelFromPackageAsync(it, p0, op.addr
                                              ), "Printing3D3MFPackage.LoadModelFromPackageAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_Printing3DModel,
-                              IID_AsyncOperationCompletedHandler_1_Printing3DModel,
-                              alPlain,
-                              "Printing3D3MFPackage.LoadModelFromPackageAsync")
-  result = adopt[Printing3DModel](obj)
+  result = futureObject[Printing3DModel](op,
+                                         IID_IAsyncOperation_1_Printing3DModel,
+                                         IID_AsyncOperationCompletedHandler_1_Printing3DModel,
+                                         alPlain,
+                                         "Printing3D3MFPackage.LoadModelFromPackageAsync"
+                                        )
 
 proc saveModelToPackageAsync*(self: Printing3D3MFPackage, value: Printing3DModel
-                             ) {.async.} =
+                             ): Future[void] =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.SaveModelToPackageAsync
   var op: pointer
   withIface(self.p, IPrinting3D3MFPackage, it):
     withIface(value.p, IPrinting3DModel, p0):
       check it.vtbl.SaveModelToPackageAsync(it, p0, op.addr
                                            ), "Printing3D3MFPackage.SaveModelToPackageAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "Printing3D3MFPackage.SaveModelToPackageAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "Printing3D3MFPackage.SaveModelToPackageAsync")
 
 proc compression*(self: Printing3D3MFPackage): Printing3DPackageCompression =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.get_Compression
@@ -7860,17 +7872,18 @@ proc `compression=`*(self: Printing3D3MFPackage,
     it.putValue(put_Compression, value)
 
 proc loadAsync*(_: typedesc[Printing3D3MFPackage], value: WinRtObject
-               ): Future[Printing3D3MFPackage] {.async.} =
+               ): Future[Printing3D3MFPackage] =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.LoadAsync
   var op: pointer
   withStatics("Windows.Graphics.Printing3D.Printing3D3MFPackage",
               IPrinting3D3MFPackageStatics, it):
     withIface(value.p, IRandomAccessStream, p0):
       check it.vtbl.LoadAsync(it, p0, op.addr), "Printing3D3MFPackage.LoadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_Printing3D3MFPackage,
-                              IID_AsyncOperationCompletedHandler_1_Printing3D3MFPackage,
-                              alPlain, "Printing3D3MFPackage.LoadAsync")
-  result = adopt[Printing3D3MFPackage](obj)
+  result = futureObject[Printing3D3MFPackage](op,
+                                              IID_IAsyncOperation_1_Printing3D3MFPackage,
+                                              IID_AsyncOperationCompletedHandler_1_Printing3D3MFPackage,
+                                              alPlain,
+                                              "Printing3D3MFPackage.LoadAsync")
 
 proc newPrinting3DBaseMaterial*(): Printing3DBaseMaterial =
   ## Activate a `Windows.Graphics.Printing3D.Printing3DBaseMaterial`.
@@ -8371,16 +8384,17 @@ proc bufferSet*(self: Printing3DMesh): WinRtObject =
     result = it.getObject(get_BufferSet, WinRtObject)
 
 proc verifyAsync*(self: Printing3DMesh, value: Printing3DMeshVerificationMode
-                 ): Future[Printing3DMeshVerificationResult] {.async.} =
+                 ): Future[Printing3DMeshVerificationResult] =
   ## Windows.Graphics.Printing3D.Printing3DMesh.VerifyAsync
   var op: pointer
   withIface(self.p, IPrinting3DMesh, it):
     check it.vtbl.VerifyAsync(it, value, op.addr), "Printing3DMesh.VerifyAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_Printing3DMeshVerificationResult,
-                              IID_AsyncOperationCompletedHandler_1_Printing3DMeshVerificationResult,
-                              alPlain, "Printing3DMesh.VerifyAsync")
-  result = adopt[Printing3DMeshVerificationResult](obj)
+  result = futureObject[Printing3DMeshVerificationResult](op,
+                                                          IID_IAsyncOperation_1_Printing3DMeshVerificationResult,
+                                                          IID_AsyncOperationCompletedHandler_1_Printing3DMeshVerificationResult,
+                                                          alPlain,
+                                                          "Printing3DMesh.VerifyAsync"
+                                                         )
 
 proc isValid*(self: Printing3DMeshVerificationResult): bool =
   ## Windows.Graphics.Printing3D.Printing3DMeshVerificationResult.get_IsValid
@@ -8494,13 +8508,13 @@ proc metadata*(self: Printing3DModel): Table[string, string] =
                                      IID_IKeyValuePair_2_String_String)
     release(tmp)
 
-proc repairAsync*(self: Printing3DModel) {.async.} =
+proc repairAsync*(self: Printing3DModel): Future[void] =
   ## Windows.Graphics.Printing3D.Printing3DModel.RepairAsync
   var op: pointer
   withIface(self.p, IPrinting3DModel, it):
     check it.vtbl.RepairAsync(it, op.addr), "Printing3DModel.RepairAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "Printing3DModel.RepairAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "Printing3DModel.RepairAsync")
 
 proc clone*(self: Printing3DModel): Printing3DModel =
   ## Windows.Graphics.Printing3D.Printing3DModel.Clone
@@ -8509,78 +8523,88 @@ proc clone*(self: Printing3DModel): Printing3DModel =
     check it.vtbl.Clone(it, tmp.addr), "Printing3DModel.Clone"
     result = adopt[Printing3DModel](tmp)
 
-proc tryPartialRepairAsync*(self: Printing3DModel): Future[bool] {.async.} =
+proc tryPartialRepairAsync*(self: Printing3DModel): Future[bool] =
   ## Windows.Graphics.Printing3D.Printing3DModel.TryPartialRepairAsync
   var op: pointer
   withIface(self.p, IPrinting3DModel2, it):
     check it.vtbl.TryPartialRepairAsync(it, op.addr
                                        ), "Printing3DModel.TryPartialRepairAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "Printing3DModel.TryPartialRepairAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Printing3DModel.TryPartialRepairAsync")
 
 proc tryPartialRepairAsync*(self: Printing3DModel, maxWaitTime: TimeSpan
-                           ): Future[bool] {.async.} =
+                           ): Future[bool] =
   ## Windows.Graphics.Printing3D.Printing3DModel.TryPartialRepairAsync
   var op: pointer
   withIface(self.p, IPrinting3DModel2, it):
     check it.vtbl.TryPartialRepairAsync2(it, maxWaitTime, op.addr
                                         ), "Printing3DModel.TryPartialRepairAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "Printing3DModel.TryPartialRepairAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Printing3DModel.TryPartialRepairAsync")
 
-proc tryReduceFacesAsync*(self: Printing3DModel): Future[bool] {.async.} =
+proc tryReduceFacesAsync*(self: Printing3DModel,
+                          progress: ProgressHandler[float64] = nil
+                         ): Future[bool] =
   ## Windows.Graphics.Printing3D.Printing3DModel.TryReduceFacesAsync
   var op: pointer
   withIface(self.p, IPrinting3DModel2, it):
     check it.vtbl.TryReduceFacesAsync(it, op.addr
                                      ), "Printing3DModel.TryReduceFacesAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8,
-                                  IID_AsyncOperationWithProgressCompletedHandler_2_Bool_F8,
-                                  alProgress,
-                                  "Printing3DModel.TryReduceFacesAsync")
+  result = futureValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8,
+                             IID_AsyncOperationWithProgressCompletedHandler_2_Bool_F8,
+                             alProgress, "Printing3DModel.TryReduceFacesAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_Bool_F8, progress,
+                 "Printing3DModel.TryReduceFacesAsync")
 
 proc tryReduceFacesAsync*(self: Printing3DModel,
-                          printing3DFaceReductionOptions: Printing3DFaceReductionOptions
-                         ): Future[bool] {.async.} =
+                          printing3DFaceReductionOptions: Printing3DFaceReductionOptions,
+                          progress: ProgressHandler[float64] = nil
+                         ): Future[bool] =
   ## Windows.Graphics.Printing3D.Printing3DModel.TryReduceFacesAsync
   var op: pointer
   withIface(self.p, IPrinting3DModel2, it):
     withIface(printing3DFaceReductionOptions.p, IPrinting3DFaceReductionOptions, p0):
       check it.vtbl.TryReduceFacesAsync2(it, p0, op.addr
                                         ), "Printing3DModel.TryReduceFacesAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8,
-                                  IID_AsyncOperationWithProgressCompletedHandler_2_Bool_F8,
-                                  alProgress,
-                                  "Printing3DModel.TryReduceFacesAsync")
+  result = futureValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8,
+                             IID_AsyncOperationWithProgressCompletedHandler_2_Bool_F8,
+                             alProgress, "Printing3DModel.TryReduceFacesAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_Bool_F8, progress,
+                 "Printing3DModel.TryReduceFacesAsync")
 
 proc tryReduceFacesAsync*(self: Printing3DModel,
                           printing3DFaceReductionOptions: Printing3DFaceReductionOptions,
-                          maxWait: TimeSpan): Future[bool] {.async.} =
+                          maxWait: TimeSpan,
+                          progress: ProgressHandler[float64] = nil
+                         ): Future[bool] =
   ## Windows.Graphics.Printing3D.Printing3DModel.TryReduceFacesAsync
   var op: pointer
   withIface(self.p, IPrinting3DModel2, it):
     withIface(printing3DFaceReductionOptions.p, IPrinting3DFaceReductionOptions, p0):
       check it.vtbl.TryReduceFacesAsync3(it, p0, maxWait, op.addr
                                         ), "Printing3DModel.TryReduceFacesAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8,
-                                  IID_AsyncOperationWithProgressCompletedHandler_2_Bool_F8,
-                                  alProgress,
-                                  "Printing3DModel.TryReduceFacesAsync")
+  result = futureValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8,
+                             IID_AsyncOperationWithProgressCompletedHandler_2_Bool_F8,
+                             alProgress, "Printing3DModel.TryReduceFacesAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_Bool_F8, progress,
+                 "Printing3DModel.TryReduceFacesAsync")
 
-proc repairWithProgressAsync*(self: Printing3DModel): Future[bool] {.async.} =
+proc repairWithProgressAsync*(self: Printing3DModel,
+                              progress: ProgressHandler[float64] = nil
+                             ): Future[bool] =
   ## Windows.Graphics.Printing3D.Printing3DModel.RepairWithProgressAsync
   var op: pointer
   withIface(self.p, IPrinting3DModel2, it):
     check it.vtbl.RepairWithProgressAsync(it, op.addr
                                          ), "Printing3DModel.RepairWithProgressAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8,
-                                  IID_AsyncOperationWithProgressCompletedHandler_2_Bool_F8,
-                                  alProgress,
-                                  "Printing3DModel.RepairWithProgressAsync")
+  result = futureValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8,
+                             IID_AsyncOperationWithProgressCompletedHandler_2_Bool_F8,
+                             alProgress,
+                             "Printing3DModel.RepairWithProgressAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_Bool_F8, progress,
+                 "Printing3DModel.RepairWithProgressAsync")
 
 proc newPrinting3DModelTexture*(): Printing3DModelTexture =
   ## Activate a `Windows.Graphics.Printing3D.Printing3DModelTexture`.

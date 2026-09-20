@@ -18,16 +18,22 @@ export core, types, data, foundation, networking, security, storage, system,
 # string rather than read from metadata - see tools/piid.nim.
 const IID_AsyncOperationWithProgressCompletedHandler_2_ServiceDocument_RetrievalProgress* = guid"5F03B1D3-470D-5BE7-8176-1C9A46010900"
 const IID_IAsyncOperationWithProgress_2_ServiceDocument_RetrievalProgress* = guid"DA07ABF4-91FA-5C96-84CB-459EA97B934D"
+const IID_AsyncOperationProgressHandler_2_ServiceDocument_RetrievalProgress* = guid"DD2A6D54-55AA-5D09-B790-9520D4EB4F19"
 const IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_RetrievalProgress* = guid"76772EC1-C26F-5F6E-8D3B-8314107CEFEB"
 const IID_IAsyncOperationWithProgress_2_IInputStream_RetrievalProgress* = guid"F71CFF65-E737-5345-B38F-FD445D2DC7E2"
+const IID_AsyncOperationProgressHandler_2_IInputStream_RetrievalProgress* = guid"6136B327-4152-54E3-AA34-38A0C121DC4D"
 const IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_RetrievalProgress* = guid"9DE7422B-4BC3-5546-87B8-2EEBFD60BE48"
 const IID_IAsyncOperationWithProgress_2_SyndicationItem_RetrievalProgress* = guid"44FA5A15-1204-521C-85E5-01259301D527"
+const IID_AsyncOperationProgressHandler_2_SyndicationItem_RetrievalProgress* = guid"B670D335-E83B-58B1-AD7B-840396085C65"
 const IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress* = guid"8A796EA9-FF95-50EF-93EA-711BF7946473"
 const IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress* = guid"E57D0717-27C0-561E-B4B3-72AA2B1E3FC9"
+const IID_AsyncOperationProgressHandler_2_SyndicationItem_TransferProgress* = guid"1FFB57B2-D2DE-5559-8DE2-50109C63539B"
 const IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress* = guid"F1C031C8-90BF-5CAE-ADF6-155B4AEDFB60"
 const IID_IAsyncActionWithProgress_1_TransferProgress* = guid"B7EB83F5-A746-50F2-B91F-31803161CCC7"
+const IID_AsyncActionProgressHandler_1_TransferProgress* = guid"C1610085-94D0-5706-9AC6-10179D7DEB92"
 const IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress* = guid"0E3D7F70-4E8C-5260-A7E5-786E05BDED99"
 const IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress* = guid"92EAF151-415E-5F87-8095-781623C88998"
+const IID_AsyncOperationProgressHandler_2_SyndicationFeed_RetrievalProgress* = guid"1017BBE0-9D10-543E-8F03-885122A082F3"
 const IID_IVectorView_1_SyndicationCategory* = guid"A1AC007C-9D94-552E-840E-139F109A9B88"
 const IID_IVectorView_1_String* = guid"2F13C006-A03A-5F69-B090-75A43E33423E"
 const IID_IVector_1_SyndicationAttribute* = guid"2FE84E7B-2350-5941-94B5-A64677B585D1"
@@ -43,6 +49,7 @@ const IID_IVector_1_ChainValidationResult* = guid"D7828CF7-4301-58D3-AAB5-06E5EE
 const IID_TypedEventHandler_2_HttpBaseProtocolFilter_HttpServerCustomValidationRequestedEventArgs* = guid"ED0260C6-41F2-5A04-9A8B-2930D7FF8A9E"
 const IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress* = guid"BEADB572-F9A3-5E93-B6CA-E311B65933FC"
 const IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress* = guid"5D144364-77D7-5ECA-8B09-936A69446652"
+const IID_AsyncOperationProgressHandler_2_HttpResponseMessage_HttpProgress* = guid"68E4606A-76EC-5816-B2FE-A04ECDE4126A"
 const IID_IVectorView_1_ChainValidationResult* = guid"CB383486-C2BC-5756-912D-6A708A07E5BD"
 const IID_IVectorView_1_Certificate* = guid"963F7013-77C2-51C5-8038-B5BCEF633EDB"
 const IID_IReference_1_TimeSpan* = guid"604D0C4C-91DE-5C2A-935F-362F13EAF800"
@@ -52,26 +59,37 @@ const IID_IReference_1_U8* = guid"6755E376-53BB-568B-A11D-17239868309E"
 const IID_IReference_1_U4* = guid"513EF3AF-E784-5325-A91E-97C2B8111CF3"
 const IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8* = guid"D2024E41-5500-5B5A-BA46-CB7009596A2F"
 const IID_IAsyncOperationWithProgress_2_U8_U8* = guid"8F1DB6E3-6556-5516-825C-1021EE27CD0C"
+const IID_AsyncOperationProgressHandler_2_U8_U8* = guid"FFB2B65D-4120-5D13-826D-107851E6BB1C"
 const IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8* = guid"ABC81235-39C7-59BF-9948-2D14A93D40FD"
 const IID_IAsyncOperationWithProgress_2_IBuffer_U8* = guid"AD960E7F-D73B-56E4-A58C-6EC7678CFD88"
+const IID_AsyncOperationProgressHandler_2_IBuffer_U8* = guid"D17F5EB6-B422-5E26-A817-7E0FD08F75D5"
 const IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8* = guid"8DB69706-3DD1-5A28-986A-93BE0776D9C3"
 const IID_IAsyncOperationWithProgress_2_IInputStream_U8* = guid"455AA601-F13E-5DEE-B9CB-16B531996327"
+const IID_AsyncOperationProgressHandler_2_IInputStream_U8* = guid"F9B2E7F6-762F-50DB-95DD-7F6C6EC47090"
 const IID_AsyncOperationWithProgressCompletedHandler_2_String_U8* = guid"BD75EEBE-E7B5-5AF6-8415-A4B9C9045202"
 const IID_IAsyncOperationWithProgress_2_String_U8* = guid"C8BBCB29-6B64-5CE2-A831-038F6E02199E"
+const IID_AsyncOperationProgressHandler_2_String_U8* = guid"14DA7DE7-40DF-5D4C-823F-CF310625AD39"
 const IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_HttpProgress* = guid"B0CF2F85-6992-52BE-8F0B-93964B14D963"
 const IID_IAsyncOperationWithProgress_2_IBuffer_HttpProgress* = guid"88D9BB75-AFB4-5F32-9D7E-D3BF3785354C"
+const IID_AsyncOperationProgressHandler_2_IBuffer_HttpProgress* = guid"9EB2B852-E019-5440-8F88-0DD7D56FEA47"
 const IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_HttpProgress* = guid"504A34EC-5499-5A16-BFFC-3CCB64A3547A"
 const IID_IAsyncOperationWithProgress_2_IInputStream_HttpProgress* = guid"0B97C784-DF17-571F-8337-447DFF068A9C"
+const IID_AsyncOperationProgressHandler_2_IInputStream_HttpProgress* = guid"04682E89-6E8B-54B1-A466-432E130CF9A6"
 const IID_AsyncOperationWithProgressCompletedHandler_2_String_HttpProgress* = guid"98AB9ACB-38DB-588F-A5F9-9F484B2200CD"
 const IID_IAsyncOperationWithProgress_2_String_HttpProgress* = guid"91ECBE45-E889-5518-BD8D-C5BDE163109B"
+const IID_AsyncOperationProgressHandler_2_String_HttpProgress* = guid"CF0A03F6-A80A-5B46-9C80-F4AD9ED6E2D6"
 const IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress* = guid"FDFC3D8F-08BB-5D82-BFDE-AE092E7E3FE1"
 const IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress* = guid"97388336-2EAC-5D76-B228-D32EF9A38175"
+const IID_AsyncOperationProgressHandler_2_HttpRequestResult_HttpProgress* = guid"167F8EDA-2A7A-56A2-BBA3-76D78E24F13D"
 const IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetBufferResult_HttpProgress* = guid"6BEC534A-1901-5FA2-9686-9A510F6B1217"
 const IID_IAsyncOperationWithProgress_2_HttpGetBufferResult_HttpProgress* = guid"B128FBC4-19C0-5FE1-AEC6-D2E64BD22862"
+const IID_AsyncOperationProgressHandler_2_HttpGetBufferResult_HttpProgress* = guid"43624279-9A68-5052-A9DE-19569B54818A"
 const IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetInputStreamResult_HttpProgress* = guid"789B1519-4AE1-5475-BB01-6734CAD478FF"
 const IID_IAsyncOperationWithProgress_2_HttpGetInputStreamResult_HttpProgress* = guid"6E1CE5AC-C10B-5D09-AD43-F4DDEADA857A"
+const IID_AsyncOperationProgressHandler_2_HttpGetInputStreamResult_HttpProgress* = guid"5D399E45-63AA-52F7-BBB6-C718CA64BD2A"
 const IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetStringResult_HttpProgress* = guid"625DF3B5-BFF7-517A-9359-1DC28FB0F586"
 const IID_IAsyncOperationWithProgress_2_HttpGetStringResult_HttpProgress* = guid"7382F299-BBBD-5BD3-B143-8887C627929B"
+const IID_AsyncOperationProgressHandler_2_HttpGetStringResult_HttpProgress* = guid"43516920-BBFC-5BA6-9D59-8AF34FC97B4E"
 const IID_IIterable_1_IKeyValuePair_2* = guid"E9BDAAF0-CBF6-5C72-BE90-29CBF3A1319B"
 const IID_IIterator_1_IKeyValuePair_2* = guid"05EB86F1-7140-5517-B88D-CBAEBE57E6B1"
 const IID_IKeyValuePair_2_String_String* = guid"60310303-49C5-52E6-ABC6-A9B36ECCC716"
@@ -115,53 +133,65 @@ proc newAtomPubClient*(): AtomPubClient =
   ## Activate a `Windows.Web.AtomPub.AtomPubClient`.
   adopt[AtomPubClient](activateAs("Windows.Web.AtomPub.AtomPubClient", IID_IAtomPubClient))
 
-proc retrieveServiceDocumentAsync*(self: AtomPubClient, uri: Uri
-                                  ): Future[ServiceDocument] {.async.} =
+proc retrieveServiceDocumentAsync*(self: AtomPubClient, uri: Uri,
+                                   progress: ProgressHandler[RetrievalProgress] = nil
+                                  ): Future[ServiceDocument] =
   ## Windows.Web.AtomPub.AtomPubClient.RetrieveServiceDocumentAsync
   var op: pointer
   withIface(self.p, IAtomPubClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.RetrieveServiceDocumentAsync(it, p0, op.addr
                                                 ), "AtomPubClient.RetrieveServiceDocumentAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_ServiceDocument_RetrievalProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_ServiceDocument_RetrievalProgress,
-                              alProgress,
-                              "AtomPubClient.RetrieveServiceDocumentAsync")
-  result = adopt[ServiceDocument](obj)
+  result = futureObject[ServiceDocument](op,
+                                         IID_IAsyncOperationWithProgress_2_ServiceDocument_RetrievalProgress,
+                                         IID_AsyncOperationWithProgressCompletedHandler_2_ServiceDocument_RetrievalProgress,
+                                         alProgress,
+                                         "AtomPubClient.RetrieveServiceDocumentAsync"
+                                        )
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_ServiceDocument_RetrievalProgress,
+                 progress, "AtomPubClient.RetrieveServiceDocumentAsync")
 
-proc retrieveMediaResourceAsync*(self: AtomPubClient, uri: Uri
-                                ): Future[WinRtObject] {.async.} =
+proc retrieveMediaResourceAsync*(self: AtomPubClient, uri: Uri,
+                                 progress: ProgressHandler[RetrievalProgress] = nil
+                                ): Future[WinRtObject] =
   ## Windows.Web.AtomPub.AtomPubClient.RetrieveMediaResourceAsync
   var op: pointer
   withIface(self.p, IAtomPubClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.RetrieveMediaResourceAsync(it, p0, op.addr
                                               ), "AtomPubClient.RetrieveMediaResourceAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_IInputStream_RetrievalProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_RetrievalProgress,
-                              alProgress,
-                              "AtomPubClient.RetrieveMediaResourceAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperationWithProgress_2_IInputStream_RetrievalProgress,
+                                     IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_RetrievalProgress,
+                                     alProgress,
+                                     "AtomPubClient.RetrieveMediaResourceAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_IInputStream_RetrievalProgress,
+                 progress, "AtomPubClient.RetrieveMediaResourceAsync")
 
-proc retrieveResourceAsync*(self: AtomPubClient, uri: Uri
-                           ): Future[SyndicationItem] {.async.} =
+proc retrieveResourceAsync*(self: AtomPubClient, uri: Uri,
+                            progress: ProgressHandler[RetrievalProgress] = nil
+                           ): Future[SyndicationItem] =
   ## Windows.Web.AtomPub.AtomPubClient.RetrieveResourceAsync
   var op: pointer
   withIface(self.p, IAtomPubClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.RetrieveResourceAsync(it, p0, op.addr
                                          ), "AtomPubClient.RetrieveResourceAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_SyndicationItem_RetrievalProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_RetrievalProgress,
-                              alProgress, "AtomPubClient.RetrieveResourceAsync")
-  result = adopt[SyndicationItem](obj)
+  result = futureObject[SyndicationItem](op,
+                                         IID_IAsyncOperationWithProgress_2_SyndicationItem_RetrievalProgress,
+                                         IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_RetrievalProgress,
+                                         alProgress,
+                                         "AtomPubClient.RetrieveResourceAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_SyndicationItem_RetrievalProgress,
+                 progress, "AtomPubClient.RetrieveResourceAsync")
 
 proc createResourceAsync*(self: AtomPubClient, uri: Uri, description: string,
-                          item: SyndicationItem
-                         ): Future[SyndicationItem] {.async.} =
+                          item: SyndicationItem,
+                          progress: ProgressHandler[TransferProgress] = nil
+                         ): Future[SyndicationItem] =
   ## Windows.Web.AtomPub.AtomPubClient.CreateResourceAsync
   var op: pointer
   withIface(self.p, IAtomPubClient, it):
@@ -170,15 +200,19 @@ proc createResourceAsync*(self: AtomPubClient, uri: Uri, description: string,
         withIface(item.p, ISyndicationItem, p2):
           check it.vtbl.CreateResourceAsync(it, p0, h1, p2, op.addr
                                            ), "AtomPubClient.CreateResourceAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress,
-                              alProgress, "AtomPubClient.CreateResourceAsync")
-  result = adopt[SyndicationItem](obj)
+  result = futureObject[SyndicationItem](op,
+                                         IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress,
+                                         IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress,
+                                         alProgress,
+                                         "AtomPubClient.CreateResourceAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_SyndicationItem_TransferProgress,
+                 progress, "AtomPubClient.CreateResourceAsync")
 
 proc createMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string,
-                               description: string, mediaStream: WinRtObject
-                              ): Future[SyndicationItem] {.async.} =
+                               description: string, mediaStream: WinRtObject,
+                               progress: ProgressHandler[TransferProgress] = nil
+                              ): Future[SyndicationItem] =
   ## Windows.Web.AtomPub.AtomPubClient.CreateMediaResourceAsync
   var op: pointer
   withIface(self.p, IAtomPubClient, it):
@@ -188,15 +222,20 @@ proc createMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string,
           withIface(mediaStream.p, IInputStream, p3):
             check it.vtbl.CreateMediaResourceAsync(it, p0, h1, h2, p3, op.addr
                                                   ), "AtomPubClient.CreateMediaResourceAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress,
-                              alProgress,
-                              "AtomPubClient.CreateMediaResourceAsync")
-  result = adopt[SyndicationItem](obj)
+  result = futureObject[SyndicationItem](op,
+                                         IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress,
+                                         IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress,
+                                         alProgress,
+                                         "AtomPubClient.CreateMediaResourceAsync"
+                                        )
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_SyndicationItem_TransferProgress,
+                 progress, "AtomPubClient.CreateMediaResourceAsync")
 
 proc updateMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string,
-                               mediaStream: WinRtObject) {.async.} =
+                               mediaStream: WinRtObject,
+                               progress: ProgressHandler[TransferProgress] = nil
+                              ): Future[void] =
   ## Windows.Web.AtomPub.AtomPubClient.UpdateMediaResourceAsync
   var op: pointer
   withIface(self.p, IAtomPubClient, it):
@@ -205,12 +244,15 @@ proc updateMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string,
         withIface(mediaStream.p, IInputStream, p2):
           check it.vtbl.UpdateMediaResourceAsync(it, p0, h1, p2, op.addr
                                                 ), "AtomPubClient.UpdateMediaResourceAsync"
-  await awaitVoid(op,
-                  IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
-                  alProgress, "AtomPubClient.UpdateMediaResourceAsync")
+  result = futureVoid(op,
+                      IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
+                      alProgress, "AtomPubClient.UpdateMediaResourceAsync")
+  reportProgress(op, IID_AsyncActionProgressHandler_1_TransferProgress,
+                 progress, "AtomPubClient.UpdateMediaResourceAsync")
 
-proc updateResourceAsync*(self: AtomPubClient, uri: Uri, item: SyndicationItem
-                         ) {.async.} =
+proc updateResourceAsync*(self: AtomPubClient, uri: Uri, item: SyndicationItem,
+                          progress: ProgressHandler[TransferProgress] = nil
+                         ): Future[void] =
   ## Windows.Web.AtomPub.AtomPubClient.UpdateResourceAsync
   var op: pointer
   withIface(self.p, IAtomPubClient, it):
@@ -218,44 +260,56 @@ proc updateResourceAsync*(self: AtomPubClient, uri: Uri, item: SyndicationItem
       withIface(item.p, ISyndicationItem, p1):
         check it.vtbl.UpdateResourceAsync(it, p0, p1, op.addr
                                          ), "AtomPubClient.UpdateResourceAsync"
-  await awaitVoid(op,
-                  IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
-                  alProgress, "AtomPubClient.UpdateResourceAsync")
+  result = futureVoid(op,
+                      IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
+                      alProgress, "AtomPubClient.UpdateResourceAsync")
+  reportProgress(op, IID_AsyncActionProgressHandler_1_TransferProgress,
+                 progress, "AtomPubClient.UpdateResourceAsync")
 
-proc updateResourceItemAsync*(self: AtomPubClient, item: SyndicationItem
-                             ) {.async.} =
+proc updateResourceItemAsync*(self: AtomPubClient, item: SyndicationItem,
+                              progress: ProgressHandler[TransferProgress] = nil
+                             ): Future[void] =
   ## Windows.Web.AtomPub.AtomPubClient.UpdateResourceItemAsync
   var op: pointer
   withIface(self.p, IAtomPubClient, it):
     withIface(item.p, ISyndicationItem, p0):
       check it.vtbl.UpdateResourceItemAsync(it, p0, op.addr
                                            ), "AtomPubClient.UpdateResourceItemAsync"
-  await awaitVoid(op,
-                  IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
-                  alProgress, "AtomPubClient.UpdateResourceItemAsync")
+  result = futureVoid(op,
+                      IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
+                      alProgress, "AtomPubClient.UpdateResourceItemAsync")
+  reportProgress(op, IID_AsyncActionProgressHandler_1_TransferProgress,
+                 progress, "AtomPubClient.UpdateResourceItemAsync")
 
-proc deleteResourceAsync*(self: AtomPubClient, uri: Uri) {.async.} =
+proc deleteResourceAsync*(self: AtomPubClient, uri: Uri,
+                          progress: ProgressHandler[TransferProgress] = nil
+                         ): Future[void] =
   ## Windows.Web.AtomPub.AtomPubClient.DeleteResourceAsync
   var op: pointer
   withIface(self.p, IAtomPubClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.DeleteResourceAsync(it, p0, op.addr
                                        ), "AtomPubClient.DeleteResourceAsync"
-  await awaitVoid(op,
-                  IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
-                  alProgress, "AtomPubClient.DeleteResourceAsync")
+  result = futureVoid(op,
+                      IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
+                      alProgress, "AtomPubClient.DeleteResourceAsync")
+  reportProgress(op, IID_AsyncActionProgressHandler_1_TransferProgress,
+                 progress, "AtomPubClient.DeleteResourceAsync")
 
-proc deleteResourceItemAsync*(self: AtomPubClient, item: SyndicationItem
-                             ) {.async.} =
+proc deleteResourceItemAsync*(self: AtomPubClient, item: SyndicationItem,
+                              progress: ProgressHandler[TransferProgress] = nil
+                             ): Future[void] =
   ## Windows.Web.AtomPub.AtomPubClient.DeleteResourceItemAsync
   var op: pointer
   withIface(self.p, IAtomPubClient, it):
     withIface(item.p, ISyndicationItem, p0):
       check it.vtbl.DeleteResourceItemAsync(it, p0, op.addr
                                            ), "AtomPubClient.DeleteResourceItemAsync"
-  await awaitVoid(op,
-                  IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
-                  alProgress, "AtomPubClient.DeleteResourceItemAsync")
+  result = futureVoid(op,
+                      IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
+                      alProgress, "AtomPubClient.DeleteResourceItemAsync")
+  reportProgress(op, IID_AsyncActionProgressHandler_1_TransferProgress,
+                 progress, "AtomPubClient.DeleteResourceItemAsync")
 
 proc cancelAsyncOperations*(self: AtomPubClient) =
   ## Windows.Web.AtomPub.AtomPubClient.CancelAsyncOperations
@@ -324,19 +378,23 @@ proc setRequestHeader*(self: AtomPubClient, name: string, value: string) =
         check it.vtbl.SetRequestHeader(it, h0, h1
                                       ), "AtomPubClient.SetRequestHeader"
 
-proc retrieveFeedAsync*(self: AtomPubClient, uri: Uri
-                       ): Future[SyndicationFeed] {.async.} =
+proc retrieveFeedAsync*(self: AtomPubClient, uri: Uri,
+                        progress: ProgressHandler[RetrievalProgress] = nil
+                       ): Future[SyndicationFeed] =
   ## Windows.Web.AtomPub.AtomPubClient.RetrieveFeedAsync
   var op: pointer
   withIface(self.p, ISyndicationClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.RetrieveFeedAsync(it, p0, op.addr
                                      ), "AtomPubClient.RetrieveFeedAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress,
-                              alProgress, "AtomPubClient.RetrieveFeedAsync")
-  result = adopt[SyndicationFeed](obj)
+  result = futureObject[SyndicationFeed](op,
+                                         IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress,
+                                         IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress,
+                                         alProgress,
+                                         "AtomPubClient.RetrieveFeedAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_SyndicationFeed_RetrievalProgress,
+                 progress, "AtomPubClient.RetrieveFeedAsync")
 
 proc createAtomPubClientWithCredentials*(_: typedesc[AtomPubClient],
                                          serverCredential: PasswordCredential
@@ -1092,20 +1150,25 @@ proc user*(self: HttpBaseProtocolFilter): User =
   withIface(self.p, IHttpBaseProtocolFilter5, it):
     result = it.getObject(get_User, User)
 
-proc sendRequestAsync*(self: HttpBaseProtocolFilter, request: HttpRequestMessage
-                      ): Future[HttpResponseMessage] {.async.} =
+proc sendRequestAsync*(self: HttpBaseProtocolFilter,
+                       request: HttpRequestMessage,
+                       progress: ProgressHandler[HttpProgress] = nil
+                      ): Future[HttpResponseMessage] =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.SendRequestAsync
   var op: pointer
   withIface(self.p, IHttpFilter, it):
     withIface(request.p, IHttpRequestMessage, p0):
       check it.vtbl.SendRequestAsync(it, p0, op.addr
                                     ), "HttpBaseProtocolFilter.SendRequestAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
-                              alProgress,
-                              "HttpBaseProtocolFilter.SendRequestAsync")
-  result = adopt[HttpResponseMessage](obj)
+  result = futureObject[HttpResponseMessage](op,
+                                             IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                             IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                             alProgress,
+                                             "HttpBaseProtocolFilter.SendRequestAsync"
+                                            )
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpResponseMessage_HttpProgress,
+                 progress, "HttpBaseProtocolFilter.SendRequestAsync")
 
 proc close*(self: HttpBaseProtocolFilter) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.Close
@@ -3339,50 +3402,64 @@ proc headers*(self: HttpBufferContent): HttpContentHeaderCollection =
   withIface(self.p, IHttpContent, it):
     result = it.getObject(get_Headers, HttpContentHeaderCollection)
 
-proc bufferAllAsync*(self: HttpBufferContent): Future[uint64] {.async.} =
+proc bufferAllAsync*(self: HttpBufferContent,
+                     progress: ProgressHandler[uint64] = nil): Future[uint64] =
   ## Windows.Web.Http.HttpBufferContent.BufferAllAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.BufferAllAsync(it, op.addr
                                 ), "HttpBufferContent.BufferAllAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress,
-                                    "HttpBufferContent.BufferAllAsync")
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress, "HttpBufferContent.BufferAllAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "HttpBufferContent.BufferAllAsync")
 
-proc readAsBufferAsync*(self: HttpBufferContent): Future[Buffer] {.async.} =
+proc readAsBufferAsync*(self: HttpBufferContent,
+                        progress: ProgressHandler[uint64] = nil
+                       ): Future[Buffer] =
   ## Windows.Web.Http.HttpBufferContent.ReadAsBufferAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsBufferAsync(it, op.addr
                                    ), "HttpBufferContent.ReadAsBufferAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
-                              alProgress, "HttpBufferContent.ReadAsBufferAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U8,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
+                                alProgress,
+                                "HttpBufferContent.ReadAsBufferAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U8, progress,
+                 "HttpBufferContent.ReadAsBufferAsync")
 
-proc readAsInputStreamAsync*(self: HttpBufferContent): Future[WinRtObject] {.async.} =
+proc readAsInputStreamAsync*(self: HttpBufferContent,
+                             progress: ProgressHandler[uint64] = nil
+                            ): Future[WinRtObject] =
   ## Windows.Web.Http.HttpBufferContent.ReadAsInputStreamAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsInputStreamAsync(it, op.addr
                                         ), "HttpBufferContent.ReadAsInputStreamAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_IInputStream_U8,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
-                              alProgress,
-                              "HttpBufferContent.ReadAsInputStreamAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperationWithProgress_2_IInputStream_U8,
+                                     IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
+                                     alProgress,
+                                     "HttpBufferContent.ReadAsInputStreamAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IInputStream_U8,
+                 progress, "HttpBufferContent.ReadAsInputStreamAsync")
 
-proc readAsStringAsync*(self: HttpBufferContent): Future[string] {.async.} =
+proc readAsStringAsync*(self: HttpBufferContent,
+                        progress: ProgressHandler[uint64] = nil
+                       ): Future[string] =
   ## Windows.Web.Http.HttpBufferContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsStringAsync(it, op.addr
                                    ), "HttpBufferContent.ReadAsStringAsync"
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8,
-                             IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
-                             alProgress, "HttpBufferContent.ReadAsStringAsync")
+  result = futureString(op, IID_IAsyncOperationWithProgress_2_String_U8,
+                        IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
+                        alProgress, "HttpBufferContent.ReadAsStringAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_String_U8, progress,
+                 "HttpBufferContent.ReadAsStringAsync")
 
 proc tryComputeLength*(self: HttpBufferContent): tuple[value: bool, length: uint64] =
   ## Windows.Web.Http.HttpBufferContent.TryComputeLength
@@ -3395,18 +3472,21 @@ proc tryComputeLength*(self: HttpBufferContent): tuple[value: bool, length: uint
     ret = tmp
     result = (value: ret, length: length)
 
-proc writeToStreamAsync*(self: HttpBufferContent, outputStream: WinRtObject
-                        ): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpBufferContent, outputStream: WinRtObject,
+                         progress: ProgressHandler[uint64] = nil
+                        ): Future[uint64] =
   ## Windows.Web.Http.HttpBufferContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     withIface(outputStream.p, IOutputStream, p0):
       check it.vtbl.WriteToStreamAsync(it, p0, op.addr
                                       ), "HttpBufferContent.WriteToStreamAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress,
-                                    "HttpBufferContent.WriteToStreamAsync")
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress,
+                               "HttpBufferContent.WriteToStreamAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "HttpBufferContent.WriteToStreamAsync")
 
 proc close*(self: HttpBufferContent) =
   ## Windows.Web.Http.HttpBufferContent.Close
@@ -3447,231 +3527,290 @@ proc newHttpClient*(): HttpClient =
   ## Activate a `Windows.Web.Http.HttpClient`.
   adopt[HttpClient](activateAs("Windows.Web.Http.HttpClient", IID_IHttpClient))
 
-proc deleteAsync*(self: HttpClient, uri: Uri
-                 ): Future[HttpResponseMessage] {.async.} =
+proc deleteAsync*(self: HttpClient, uri: Uri,
+                  progress: ProgressHandler[HttpProgress] = nil
+                 ): Future[HttpResponseMessage] =
   ## Windows.Web.Http.HttpClient.DeleteAsync
   var op: pointer
   withIface(self.p, IHttpClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.DeleteAsync(it, p0, op.addr), "HttpClient.DeleteAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
-                              alProgress, "HttpClient.DeleteAsync")
-  result = adopt[HttpResponseMessage](obj)
+  result = futureObject[HttpResponseMessage](op,
+                                             IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                             IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                             alProgress,
+                                             "HttpClient.DeleteAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpResponseMessage_HttpProgress,
+                 progress, "HttpClient.DeleteAsync")
 
-proc getAsync*(self: HttpClient, uri: Uri
-              ): Future[HttpResponseMessage] {.async.} =
+proc getAsync*(self: HttpClient, uri: Uri,
+               progress: ProgressHandler[HttpProgress] = nil
+              ): Future[HttpResponseMessage] =
   ## Windows.Web.Http.HttpClient.GetAsync
   var op: pointer
   withIface(self.p, IHttpClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.GetAsync(it, p0, op.addr), "HttpClient.GetAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
-                              alProgress, "HttpClient.GetAsync")
-  result = adopt[HttpResponseMessage](obj)
+  result = futureObject[HttpResponseMessage](op,
+                                             IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                             IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                             alProgress, "HttpClient.GetAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpResponseMessage_HttpProgress,
+                 progress, "HttpClient.GetAsync")
 
 proc getAsync*(self: HttpClient, uri: Uri,
-               completionOption: HttpCompletionOption
-              ): Future[HttpResponseMessage] {.async.} =
+               completionOption: HttpCompletionOption,
+               progress: ProgressHandler[HttpProgress] = nil
+              ): Future[HttpResponseMessage] =
   ## Windows.Web.Http.HttpClient.GetAsync
   var op: pointer
   withIface(self.p, IHttpClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.GetAsync2(it, p0, completionOption, op.addr
                              ), "HttpClient.GetAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
-                              alProgress, "HttpClient.GetAsync")
-  result = adopt[HttpResponseMessage](obj)
+  result = futureObject[HttpResponseMessage](op,
+                                             IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                             IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                             alProgress, "HttpClient.GetAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpResponseMessage_HttpProgress,
+                 progress, "HttpClient.GetAsync")
 
-proc getBufferAsync*(self: HttpClient, uri: Uri): Future[Buffer] {.async.} =
+proc getBufferAsync*(self: HttpClient, uri: Uri,
+                     progress: ProgressHandler[HttpProgress] = nil
+                    ): Future[Buffer] =
   ## Windows.Web.Http.HttpClient.GetBufferAsync
   var op: pointer
   withIface(self.p, IHttpClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.GetBufferAsync(it, p0, op.addr), "HttpClient.GetBufferAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_IBuffer_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_HttpProgress,
-                              alProgress, "HttpClient.GetBufferAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_HttpProgress,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_HttpProgress,
+                                alProgress, "HttpClient.GetBufferAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_HttpProgress,
+                 progress, "HttpClient.GetBufferAsync")
 
-proc getInputStreamAsync*(self: HttpClient, uri: Uri
-                         ): Future[WinRtObject] {.async.} =
+proc getInputStreamAsync*(self: HttpClient, uri: Uri,
+                          progress: ProgressHandler[HttpProgress] = nil
+                         ): Future[WinRtObject] =
   ## Windows.Web.Http.HttpClient.GetInputStreamAsync
   var op: pointer
   withIface(self.p, IHttpClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.GetInputStreamAsync(it, p0, op.addr
                                        ), "HttpClient.GetInputStreamAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_IInputStream_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_HttpProgress,
-                              alProgress, "HttpClient.GetInputStreamAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperationWithProgress_2_IInputStream_HttpProgress,
+                                     IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_HttpProgress,
+                                     alProgress,
+                                     "HttpClient.GetInputStreamAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_IInputStream_HttpProgress,
+                 progress, "HttpClient.GetInputStreamAsync")
 
-proc getStringAsync*(self: HttpClient, uri: Uri): Future[string] {.async.} =
+proc getStringAsync*(self: HttpClient, uri: Uri,
+                     progress: ProgressHandler[HttpProgress] = nil
+                    ): Future[string] =
   ## Windows.Web.Http.HttpClient.GetStringAsync
   var op: pointer
   withIface(self.p, IHttpClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.GetStringAsync(it, p0, op.addr), "HttpClient.GetStringAsync"
-  result = await awaitString(op,
-                             IID_IAsyncOperationWithProgress_2_String_HttpProgress,
-                             IID_AsyncOperationWithProgressCompletedHandler_2_String_HttpProgress,
-                             alProgress, "HttpClient.GetStringAsync")
+  result = futureString(op,
+                        IID_IAsyncOperationWithProgress_2_String_HttpProgress,
+                        IID_AsyncOperationWithProgressCompletedHandler_2_String_HttpProgress,
+                        alProgress, "HttpClient.GetStringAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_String_HttpProgress,
+                 progress, "HttpClient.GetStringAsync")
 
-proc postAsync*(self: HttpClient, uri: Uri, content: WinRtObject
-               ): Future[HttpResponseMessage] {.async.} =
+proc postAsync*(self: HttpClient, uri: Uri, content: WinRtObject,
+                progress: ProgressHandler[HttpProgress] = nil
+               ): Future[HttpResponseMessage] =
   ## Windows.Web.Http.HttpClient.PostAsync
   var op: pointer
   withIface(self.p, IHttpClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       withIface(content.p, IHttpContent, p1):
         check it.vtbl.PostAsync(it, p0, p1, op.addr), "HttpClient.PostAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
-                              alProgress, "HttpClient.PostAsync")
-  result = adopt[HttpResponseMessage](obj)
+  result = futureObject[HttpResponseMessage](op,
+                                             IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                             IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                             alProgress, "HttpClient.PostAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpResponseMessage_HttpProgress,
+                 progress, "HttpClient.PostAsync")
 
-proc putAsync*(self: HttpClient, uri: Uri, content: WinRtObject
-              ): Future[HttpResponseMessage] {.async.} =
+proc putAsync*(self: HttpClient, uri: Uri, content: WinRtObject,
+               progress: ProgressHandler[HttpProgress] = nil
+              ): Future[HttpResponseMessage] =
   ## Windows.Web.Http.HttpClient.PutAsync
   var op: pointer
   withIface(self.p, IHttpClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       withIface(content.p, IHttpContent, p1):
         check it.vtbl.PutAsync(it, p0, p1, op.addr), "HttpClient.PutAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
-                              alProgress, "HttpClient.PutAsync")
-  result = adopt[HttpResponseMessage](obj)
+  result = futureObject[HttpResponseMessage](op,
+                                             IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                             IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                             alProgress, "HttpClient.PutAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpResponseMessage_HttpProgress,
+                 progress, "HttpClient.PutAsync")
 
-proc sendRequestAsync*(self: HttpClient, request: HttpRequestMessage
-                      ): Future[HttpResponseMessage] {.async.} =
+proc sendRequestAsync*(self: HttpClient, request: HttpRequestMessage,
+                       progress: ProgressHandler[HttpProgress] = nil
+                      ): Future[HttpResponseMessage] =
   ## Windows.Web.Http.HttpClient.SendRequestAsync
   var op: pointer
   withIface(self.p, IHttpClient, it):
     withIface(request.p, IHttpRequestMessage, p0):
       check it.vtbl.SendRequestAsync(it, p0, op.addr
                                     ), "HttpClient.SendRequestAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
-                              alProgress, "HttpClient.SendRequestAsync")
-  result = adopt[HttpResponseMessage](obj)
+  result = futureObject[HttpResponseMessage](op,
+                                             IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                             IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                             alProgress,
+                                             "HttpClient.SendRequestAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpResponseMessage_HttpProgress,
+                 progress, "HttpClient.SendRequestAsync")
 
 proc sendRequestAsync*(self: HttpClient, request: HttpRequestMessage,
-                       completionOption: HttpCompletionOption
-                      ): Future[HttpResponseMessage] {.async.} =
+                       completionOption: HttpCompletionOption,
+                       progress: ProgressHandler[HttpProgress] = nil
+                      ): Future[HttpResponseMessage] =
   ## Windows.Web.Http.HttpClient.SendRequestAsync
   var op: pointer
   withIface(self.p, IHttpClient, it):
     withIface(request.p, IHttpRequestMessage, p0):
       check it.vtbl.SendRequestAsync2(it, p0, completionOption, op.addr
                                      ), "HttpClient.SendRequestAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
-                              alProgress, "HttpClient.SendRequestAsync")
-  result = adopt[HttpResponseMessage](obj)
+  result = futureObject[HttpResponseMessage](op,
+                                             IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                             IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                             alProgress,
+                                             "HttpClient.SendRequestAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpResponseMessage_HttpProgress,
+                 progress, "HttpClient.SendRequestAsync")
 
 proc defaultRequestHeaders*(self: HttpClient): HttpRequestHeaderCollection =
   ## Windows.Web.Http.HttpClient.get_DefaultRequestHeaders
   withIface(self.p, IHttpClient, it):
     result = it.getObject(get_DefaultRequestHeaders, HttpRequestHeaderCollection)
 
-proc tryDeleteAsync*(self: HttpClient, uri: Uri
-                    ): Future[HttpRequestResult] {.async.} =
+proc tryDeleteAsync*(self: HttpClient, uri: Uri,
+                     progress: ProgressHandler[HttpProgress] = nil
+                    ): Future[HttpRequestResult] =
   ## Windows.Web.Http.HttpClient.TryDeleteAsync
   var op: pointer
   withIface(self.p, IHttpClient2, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.TryDeleteAsync(it, p0, op.addr), "HttpClient.TryDeleteAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
-                              alProgress, "HttpClient.TryDeleteAsync")
-  result = adopt[HttpRequestResult](obj)
+  result = futureObject[HttpRequestResult](op,
+                                           IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                           alProgress,
+                                           "HttpClient.TryDeleteAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpRequestResult_HttpProgress,
+                 progress, "HttpClient.TryDeleteAsync")
 
-proc tryGetAsync*(self: HttpClient, uri: Uri
-                 ): Future[HttpRequestResult] {.async.} =
+proc tryGetAsync*(self: HttpClient, uri: Uri,
+                  progress: ProgressHandler[HttpProgress] = nil
+                 ): Future[HttpRequestResult] =
   ## Windows.Web.Http.HttpClient.TryGetAsync
   var op: pointer
   withIface(self.p, IHttpClient2, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.TryGetAsync(it, p0, op.addr), "HttpClient.TryGetAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
-                              alProgress, "HttpClient.TryGetAsync")
-  result = adopt[HttpRequestResult](obj)
+  result = futureObject[HttpRequestResult](op,
+                                           IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                           alProgress, "HttpClient.TryGetAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpRequestResult_HttpProgress,
+                 progress, "HttpClient.TryGetAsync")
 
 proc tryGetAsync*(self: HttpClient, uri: Uri,
-                  completionOption: HttpCompletionOption
-                 ): Future[HttpRequestResult] {.async.} =
+                  completionOption: HttpCompletionOption,
+                  progress: ProgressHandler[HttpProgress] = nil
+                 ): Future[HttpRequestResult] =
   ## Windows.Web.Http.HttpClient.TryGetAsync
   var op: pointer
   withIface(self.p, IHttpClient2, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.TryGetAsync2(it, p0, completionOption, op.addr
                                 ), "HttpClient.TryGetAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
-                              alProgress, "HttpClient.TryGetAsync")
-  result = adopt[HttpRequestResult](obj)
+  result = futureObject[HttpRequestResult](op,
+                                           IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                           alProgress, "HttpClient.TryGetAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpRequestResult_HttpProgress,
+                 progress, "HttpClient.TryGetAsync")
 
-proc tryGetBufferAsync*(self: HttpClient, uri: Uri
-                       ): Future[HttpGetBufferResult] {.async.} =
+proc tryGetBufferAsync*(self: HttpClient, uri: Uri,
+                        progress: ProgressHandler[HttpProgress] = nil
+                       ): Future[HttpGetBufferResult] =
   ## Windows.Web.Http.HttpClient.TryGetBufferAsync
   var op: pointer
   withIface(self.p, IHttpClient2, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.TryGetBufferAsync(it, p0, op.addr
                                      ), "HttpClient.TryGetBufferAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpGetBufferResult_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetBufferResult_HttpProgress,
-                              alProgress, "HttpClient.TryGetBufferAsync")
-  result = adopt[HttpGetBufferResult](obj)
+  result = futureObject[HttpGetBufferResult](op,
+                                             IID_IAsyncOperationWithProgress_2_HttpGetBufferResult_HttpProgress,
+                                             IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetBufferResult_HttpProgress,
+                                             alProgress,
+                                             "HttpClient.TryGetBufferAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpGetBufferResult_HttpProgress,
+                 progress, "HttpClient.TryGetBufferAsync")
 
-proc tryGetInputStreamAsync*(self: HttpClient, uri: Uri
-                            ): Future[HttpGetInputStreamResult] {.async.} =
+proc tryGetInputStreamAsync*(self: HttpClient, uri: Uri,
+                             progress: ProgressHandler[HttpProgress] = nil
+                            ): Future[HttpGetInputStreamResult] =
   ## Windows.Web.Http.HttpClient.TryGetInputStreamAsync
   var op: pointer
   withIface(self.p, IHttpClient2, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.TryGetInputStreamAsync(it, p0, op.addr
                                           ), "HttpClient.TryGetInputStreamAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpGetInputStreamResult_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetInputStreamResult_HttpProgress,
-                              alProgress, "HttpClient.TryGetInputStreamAsync")
-  result = adopt[HttpGetInputStreamResult](obj)
+  result = futureObject[HttpGetInputStreamResult](op,
+                                                  IID_IAsyncOperationWithProgress_2_HttpGetInputStreamResult_HttpProgress,
+                                                  IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetInputStreamResult_HttpProgress,
+                                                  alProgress,
+                                                  "HttpClient.TryGetInputStreamAsync"
+                                                 )
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpGetInputStreamResult_HttpProgress,
+                 progress, "HttpClient.TryGetInputStreamAsync")
 
-proc tryGetStringAsync*(self: HttpClient, uri: Uri
-                       ): Future[HttpGetStringResult] {.async.} =
+proc tryGetStringAsync*(self: HttpClient, uri: Uri,
+                        progress: ProgressHandler[HttpProgress] = nil
+                       ): Future[HttpGetStringResult] =
   ## Windows.Web.Http.HttpClient.TryGetStringAsync
   var op: pointer
   withIface(self.p, IHttpClient2, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.TryGetStringAsync(it, p0, op.addr
                                      ), "HttpClient.TryGetStringAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpGetStringResult_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetStringResult_HttpProgress,
-                              alProgress, "HttpClient.TryGetStringAsync")
-  result = adopt[HttpGetStringResult](obj)
+  result = futureObject[HttpGetStringResult](op,
+                                             IID_IAsyncOperationWithProgress_2_HttpGetStringResult_HttpProgress,
+                                             IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetStringResult_HttpProgress,
+                                             alProgress,
+                                             "HttpClient.TryGetStringAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpGetStringResult_HttpProgress,
+                 progress, "HttpClient.TryGetStringAsync")
 
-proc tryPostAsync*(self: HttpClient, uri: Uri, content: WinRtObject
-                  ): Future[HttpRequestResult] {.async.} =
+proc tryPostAsync*(self: HttpClient, uri: Uri, content: WinRtObject,
+                   progress: ProgressHandler[HttpProgress] = nil
+                  ): Future[HttpRequestResult] =
   ## Windows.Web.Http.HttpClient.TryPostAsync
   var op: pointer
   withIface(self.p, IHttpClient2, it):
@@ -3679,54 +3818,68 @@ proc tryPostAsync*(self: HttpClient, uri: Uri, content: WinRtObject
       withIface(content.p, IHttpContent, p1):
         check it.vtbl.TryPostAsync(it, p0, p1, op.addr
                                   ), "HttpClient.TryPostAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
-                              alProgress, "HttpClient.TryPostAsync")
-  result = adopt[HttpRequestResult](obj)
+  result = futureObject[HttpRequestResult](op,
+                                           IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                           alProgress, "HttpClient.TryPostAsync"
+                                          )
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpRequestResult_HttpProgress,
+                 progress, "HttpClient.TryPostAsync")
 
-proc tryPutAsync*(self: HttpClient, uri: Uri, content: WinRtObject
-                 ): Future[HttpRequestResult] {.async.} =
+proc tryPutAsync*(self: HttpClient, uri: Uri, content: WinRtObject,
+                  progress: ProgressHandler[HttpProgress] = nil
+                 ): Future[HttpRequestResult] =
   ## Windows.Web.Http.HttpClient.TryPutAsync
   var op: pointer
   withIface(self.p, IHttpClient2, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       withIface(content.p, IHttpContent, p1):
         check it.vtbl.TryPutAsync(it, p0, p1, op.addr), "HttpClient.TryPutAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
-                              alProgress, "HttpClient.TryPutAsync")
-  result = adopt[HttpRequestResult](obj)
+  result = futureObject[HttpRequestResult](op,
+                                           IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                           alProgress, "HttpClient.TryPutAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpRequestResult_HttpProgress,
+                 progress, "HttpClient.TryPutAsync")
 
-proc trySendRequestAsync*(self: HttpClient, request: HttpRequestMessage
-                         ): Future[HttpRequestResult] {.async.} =
+proc trySendRequestAsync*(self: HttpClient, request: HttpRequestMessage,
+                          progress: ProgressHandler[HttpProgress] = nil
+                         ): Future[HttpRequestResult] =
   ## Windows.Web.Http.HttpClient.TrySendRequestAsync
   var op: pointer
   withIface(self.p, IHttpClient2, it):
     withIface(request.p, IHttpRequestMessage, p0):
       check it.vtbl.TrySendRequestAsync(it, p0, op.addr
                                        ), "HttpClient.TrySendRequestAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
-                              alProgress, "HttpClient.TrySendRequestAsync")
-  result = adopt[HttpRequestResult](obj)
+  result = futureObject[HttpRequestResult](op,
+                                           IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                           alProgress,
+                                           "HttpClient.TrySendRequestAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpRequestResult_HttpProgress,
+                 progress, "HttpClient.TrySendRequestAsync")
 
 proc trySendRequestAsync*(self: HttpClient, request: HttpRequestMessage,
-                          completionOption: HttpCompletionOption
-                         ): Future[HttpRequestResult] {.async.} =
+                          completionOption: HttpCompletionOption,
+                          progress: ProgressHandler[HttpProgress] = nil
+                         ): Future[HttpRequestResult] =
   ## Windows.Web.Http.HttpClient.TrySendRequestAsync
   var op: pointer
   withIface(self.p, IHttpClient2, it):
     withIface(request.p, IHttpRequestMessage, p0):
       check it.vtbl.TrySendRequestAsync2(it, p0, completionOption, op.addr
                                         ), "HttpClient.TrySendRequestAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
-                              alProgress, "HttpClient.TrySendRequestAsync")
-  result = adopt[HttpRequestResult](obj)
+  result = futureObject[HttpRequestResult](op,
+                                           IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                           alProgress,
+                                           "HttpClient.TrySendRequestAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_HttpRequestResult_HttpProgress,
+                 progress, "HttpClient.TrySendRequestAsync")
 
 proc defaultPrivacyAnnotation*(self: HttpClient): string =
   ## Windows.Web.Http.HttpClient.get_DefaultPrivacyAnnotation
@@ -3874,53 +4027,67 @@ proc headers*(self: HttpFormUrlEncodedContent): HttpContentHeaderCollection =
   withIface(self.p, IHttpContent, it):
     result = it.getObject(get_Headers, HttpContentHeaderCollection)
 
-proc bufferAllAsync*(self: HttpFormUrlEncodedContent): Future[uint64] {.async.} =
+proc bufferAllAsync*(self: HttpFormUrlEncodedContent,
+                     progress: ProgressHandler[uint64] = nil): Future[uint64] =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.BufferAllAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.BufferAllAsync(it, op.addr
                                 ), "HttpFormUrlEncodedContent.BufferAllAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress,
-                                    "HttpFormUrlEncodedContent.BufferAllAsync")
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress,
+                               "HttpFormUrlEncodedContent.BufferAllAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "HttpFormUrlEncodedContent.BufferAllAsync")
 
-proc readAsBufferAsync*(self: HttpFormUrlEncodedContent): Future[Buffer] {.async.} =
+proc readAsBufferAsync*(self: HttpFormUrlEncodedContent,
+                        progress: ProgressHandler[uint64] = nil
+                       ): Future[Buffer] =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsBufferAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsBufferAsync(it, op.addr
                                    ), "HttpFormUrlEncodedContent.ReadAsBufferAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
-                              alProgress,
-                              "HttpFormUrlEncodedContent.ReadAsBufferAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U8,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
+                                alProgress,
+                                "HttpFormUrlEncodedContent.ReadAsBufferAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U8, progress,
+                 "HttpFormUrlEncodedContent.ReadAsBufferAsync")
 
-proc readAsInputStreamAsync*(self: HttpFormUrlEncodedContent): Future[WinRtObject] {.async.} =
+proc readAsInputStreamAsync*(self: HttpFormUrlEncodedContent,
+                             progress: ProgressHandler[uint64] = nil
+                            ): Future[WinRtObject] =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsInputStreamAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsInputStreamAsync(it, op.addr
                                         ), "HttpFormUrlEncodedContent.ReadAsInputStreamAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_IInputStream_U8,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
-                              alProgress,
-                              "HttpFormUrlEncodedContent.ReadAsInputStreamAsync"
-                             )
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperationWithProgress_2_IInputStream_U8,
+                                     IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
+                                     alProgress,
+                                     "HttpFormUrlEncodedContent.ReadAsInputStreamAsync"
+                                    )
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IInputStream_U8,
+                 progress, "HttpFormUrlEncodedContent.ReadAsInputStreamAsync")
 
-proc readAsStringAsync*(self: HttpFormUrlEncodedContent): Future[string] {.async.} =
+proc readAsStringAsync*(self: HttpFormUrlEncodedContent,
+                        progress: ProgressHandler[uint64] = nil
+                       ): Future[string] =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsStringAsync(it, op.addr
                                    ), "HttpFormUrlEncodedContent.ReadAsStringAsync"
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8,
-                             IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
-                             alProgress,
-                             "HttpFormUrlEncodedContent.ReadAsStringAsync")
+  result = futureString(op, IID_IAsyncOperationWithProgress_2_String_U8,
+                        IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
+                        alProgress,
+                        "HttpFormUrlEncodedContent.ReadAsStringAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_String_U8, progress,
+                 "HttpFormUrlEncodedContent.ReadAsStringAsync")
 
 proc tryComputeLength*(self: HttpFormUrlEncodedContent): tuple[value: bool, length: uint64] =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.TryComputeLength
@@ -3934,18 +4101,21 @@ proc tryComputeLength*(self: HttpFormUrlEncodedContent): tuple[value: bool, leng
     result = (value: ret, length: length)
 
 proc writeToStreamAsync*(self: HttpFormUrlEncodedContent,
-                         outputStream: WinRtObject): Future[uint64] {.async.} =
+                         outputStream: WinRtObject,
+                         progress: ProgressHandler[uint64] = nil
+                        ): Future[uint64] =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     withIface(outputStream.p, IOutputStream, p0):
       check it.vtbl.WriteToStreamAsync(it, p0, op.addr
                                       ), "HttpFormUrlEncodedContent.WriteToStreamAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress,
-                                    "HttpFormUrlEncodedContent.WriteToStreamAsync"
-                                   )
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress,
+                               "HttpFormUrlEncodedContent.WriteToStreamAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "HttpFormUrlEncodedContent.WriteToStreamAsync")
 
 proc close*(self: HttpFormUrlEncodedContent) =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.Close
@@ -4155,52 +4325,66 @@ proc headers*(self: HttpMultipartContent): HttpContentHeaderCollection =
   withIface(self.p, IHttpContent, it):
     result = it.getObject(get_Headers, HttpContentHeaderCollection)
 
-proc bufferAllAsync*(self: HttpMultipartContent): Future[uint64] {.async.} =
+proc bufferAllAsync*(self: HttpMultipartContent,
+                     progress: ProgressHandler[uint64] = nil): Future[uint64] =
   ## Windows.Web.Http.HttpMultipartContent.BufferAllAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.BufferAllAsync(it, op.addr
                                 ), "HttpMultipartContent.BufferAllAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress,
-                                    "HttpMultipartContent.BufferAllAsync")
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress, "HttpMultipartContent.BufferAllAsync"
+                              )
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "HttpMultipartContent.BufferAllAsync")
 
-proc readAsBufferAsync*(self: HttpMultipartContent): Future[Buffer] {.async.} =
+proc readAsBufferAsync*(self: HttpMultipartContent,
+                        progress: ProgressHandler[uint64] = nil
+                       ): Future[Buffer] =
   ## Windows.Web.Http.HttpMultipartContent.ReadAsBufferAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsBufferAsync(it, op.addr
                                    ), "HttpMultipartContent.ReadAsBufferAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
-                              alProgress,
-                              "HttpMultipartContent.ReadAsBufferAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U8,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
+                                alProgress,
+                                "HttpMultipartContent.ReadAsBufferAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U8, progress,
+                 "HttpMultipartContent.ReadAsBufferAsync")
 
-proc readAsInputStreamAsync*(self: HttpMultipartContent): Future[WinRtObject] {.async.} =
+proc readAsInputStreamAsync*(self: HttpMultipartContent,
+                             progress: ProgressHandler[uint64] = nil
+                            ): Future[WinRtObject] =
   ## Windows.Web.Http.HttpMultipartContent.ReadAsInputStreamAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsInputStreamAsync(it, op.addr
                                         ), "HttpMultipartContent.ReadAsInputStreamAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_IInputStream_U8,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
-                              alProgress,
-                              "HttpMultipartContent.ReadAsInputStreamAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperationWithProgress_2_IInputStream_U8,
+                                     IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
+                                     alProgress,
+                                     "HttpMultipartContent.ReadAsInputStreamAsync"
+                                    )
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IInputStream_U8,
+                 progress, "HttpMultipartContent.ReadAsInputStreamAsync")
 
-proc readAsStringAsync*(self: HttpMultipartContent): Future[string] {.async.} =
+proc readAsStringAsync*(self: HttpMultipartContent,
+                        progress: ProgressHandler[uint64] = nil
+                       ): Future[string] =
   ## Windows.Web.Http.HttpMultipartContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsStringAsync(it, op.addr
                                    ), "HttpMultipartContent.ReadAsStringAsync"
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8,
-                             IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
-                             alProgress,
-                             "HttpMultipartContent.ReadAsStringAsync")
+  result = futureString(op, IID_IAsyncOperationWithProgress_2_String_U8,
+                        IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
+                        alProgress, "HttpMultipartContent.ReadAsStringAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_String_U8, progress,
+                 "HttpMultipartContent.ReadAsStringAsync")
 
 proc tryComputeLength*(self: HttpMultipartContent): tuple[value: bool, length: uint64] =
   ## Windows.Web.Http.HttpMultipartContent.TryComputeLength
@@ -4213,18 +4397,21 @@ proc tryComputeLength*(self: HttpMultipartContent): tuple[value: bool, length: u
     ret = tmp
     result = (value: ret, length: length)
 
-proc writeToStreamAsync*(self: HttpMultipartContent, outputStream: WinRtObject
-                        ): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpMultipartContent, outputStream: WinRtObject,
+                         progress: ProgressHandler[uint64] = nil
+                        ): Future[uint64] =
   ## Windows.Web.Http.HttpMultipartContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     withIface(outputStream.p, IOutputStream, p0):
       check it.vtbl.WriteToStreamAsync(it, p0, op.addr
                                       ), "HttpMultipartContent.WriteToStreamAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress,
-                                    "HttpMultipartContent.WriteToStreamAsync")
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress,
+                               "HttpMultipartContent.WriteToStreamAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "HttpMultipartContent.WriteToStreamAsync")
 
 proc close*(self: HttpMultipartContent) =
   ## Windows.Web.Http.HttpMultipartContent.Close
@@ -4294,54 +4481,69 @@ proc headers*(self: HttpMultipartFormDataContent): HttpContentHeaderCollection =
   withIface(self.p, IHttpContent, it):
     result = it.getObject(get_Headers, HttpContentHeaderCollection)
 
-proc bufferAllAsync*(self: HttpMultipartFormDataContent): Future[uint64] {.async.} =
+proc bufferAllAsync*(self: HttpMultipartFormDataContent,
+                     progress: ProgressHandler[uint64] = nil): Future[uint64] =
   ## Windows.Web.Http.HttpMultipartFormDataContent.BufferAllAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.BufferAllAsync(it, op.addr
                                 ), "HttpMultipartFormDataContent.BufferAllAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress,
-                                    "HttpMultipartFormDataContent.BufferAllAsync"
-                                   )
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress,
+                               "HttpMultipartFormDataContent.BufferAllAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "HttpMultipartFormDataContent.BufferAllAsync")
 
-proc readAsBufferAsync*(self: HttpMultipartFormDataContent): Future[Buffer] {.async.} =
+proc readAsBufferAsync*(self: HttpMultipartFormDataContent,
+                        progress: ProgressHandler[uint64] = nil
+                       ): Future[Buffer] =
   ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsBufferAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsBufferAsync(it, op.addr
                                    ), "HttpMultipartFormDataContent.ReadAsBufferAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
-                              alProgress,
-                              "HttpMultipartFormDataContent.ReadAsBufferAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U8,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
+                                alProgress,
+                                "HttpMultipartFormDataContent.ReadAsBufferAsync"
+                               )
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U8, progress,
+                 "HttpMultipartFormDataContent.ReadAsBufferAsync")
 
-proc readAsInputStreamAsync*(self: HttpMultipartFormDataContent): Future[WinRtObject] {.async.} =
+proc readAsInputStreamAsync*(self: HttpMultipartFormDataContent,
+                             progress: ProgressHandler[uint64] = nil
+                            ): Future[WinRtObject] =
   ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsInputStreamAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsInputStreamAsync(it, op.addr
                                         ), "HttpMultipartFormDataContent.ReadAsInputStreamAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_IInputStream_U8,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
-                              alProgress,
-                              "HttpMultipartFormDataContent.ReadAsInputStreamAsync"
-                             )
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperationWithProgress_2_IInputStream_U8,
+                                     IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
+                                     alProgress,
+                                     "HttpMultipartFormDataContent.ReadAsInputStreamAsync"
+                                    )
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IInputStream_U8,
+                 progress, "HttpMultipartFormDataContent.ReadAsInputStreamAsync"
+                )
 
-proc readAsStringAsync*(self: HttpMultipartFormDataContent): Future[string] {.async.} =
+proc readAsStringAsync*(self: HttpMultipartFormDataContent,
+                        progress: ProgressHandler[uint64] = nil
+                       ): Future[string] =
   ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsStringAsync(it, op.addr
                                    ), "HttpMultipartFormDataContent.ReadAsStringAsync"
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8,
-                             IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
-                             alProgress,
-                             "HttpMultipartFormDataContent.ReadAsStringAsync")
+  result = futureString(op, IID_IAsyncOperationWithProgress_2_String_U8,
+                        IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
+                        alProgress,
+                        "HttpMultipartFormDataContent.ReadAsStringAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_String_U8, progress,
+                 "HttpMultipartFormDataContent.ReadAsStringAsync")
 
 proc tryComputeLength*(self: HttpMultipartFormDataContent): tuple[value: bool, length: uint64] =
   ## Windows.Web.Http.HttpMultipartFormDataContent.TryComputeLength
@@ -4355,18 +4557,22 @@ proc tryComputeLength*(self: HttpMultipartFormDataContent): tuple[value: bool, l
     result = (value: ret, length: length)
 
 proc writeToStreamAsync*(self: HttpMultipartFormDataContent,
-                         outputStream: WinRtObject): Future[uint64] {.async.} =
+                         outputStream: WinRtObject,
+                         progress: ProgressHandler[uint64] = nil
+                        ): Future[uint64] =
   ## Windows.Web.Http.HttpMultipartFormDataContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     withIface(outputStream.p, IOutputStream, p0):
       check it.vtbl.WriteToStreamAsync(it, p0, op.addr
                                       ), "HttpMultipartFormDataContent.WriteToStreamAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress,
-                                    "HttpMultipartFormDataContent.WriteToStreamAsync"
-                                   )
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress,
+                               "HttpMultipartFormDataContent.WriteToStreamAsync"
+                              )
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "HttpMultipartFormDataContent.WriteToStreamAsync")
 
 proc close*(self: HttpMultipartFormDataContent) =
   ## Windows.Web.Http.HttpMultipartFormDataContent.Close
@@ -4625,50 +4831,64 @@ proc headers*(self: HttpStreamContent): HttpContentHeaderCollection =
   withIface(self.p, IHttpContent, it):
     result = it.getObject(get_Headers, HttpContentHeaderCollection)
 
-proc bufferAllAsync*(self: HttpStreamContent): Future[uint64] {.async.} =
+proc bufferAllAsync*(self: HttpStreamContent,
+                     progress: ProgressHandler[uint64] = nil): Future[uint64] =
   ## Windows.Web.Http.HttpStreamContent.BufferAllAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.BufferAllAsync(it, op.addr
                                 ), "HttpStreamContent.BufferAllAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress,
-                                    "HttpStreamContent.BufferAllAsync")
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress, "HttpStreamContent.BufferAllAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "HttpStreamContent.BufferAllAsync")
 
-proc readAsBufferAsync*(self: HttpStreamContent): Future[Buffer] {.async.} =
+proc readAsBufferAsync*(self: HttpStreamContent,
+                        progress: ProgressHandler[uint64] = nil
+                       ): Future[Buffer] =
   ## Windows.Web.Http.HttpStreamContent.ReadAsBufferAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsBufferAsync(it, op.addr
                                    ), "HttpStreamContent.ReadAsBufferAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
-                              alProgress, "HttpStreamContent.ReadAsBufferAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U8,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
+                                alProgress,
+                                "HttpStreamContent.ReadAsBufferAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U8, progress,
+                 "HttpStreamContent.ReadAsBufferAsync")
 
-proc readAsInputStreamAsync*(self: HttpStreamContent): Future[WinRtObject] {.async.} =
+proc readAsInputStreamAsync*(self: HttpStreamContent,
+                             progress: ProgressHandler[uint64] = nil
+                            ): Future[WinRtObject] =
   ## Windows.Web.Http.HttpStreamContent.ReadAsInputStreamAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsInputStreamAsync(it, op.addr
                                         ), "HttpStreamContent.ReadAsInputStreamAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_IInputStream_U8,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
-                              alProgress,
-                              "HttpStreamContent.ReadAsInputStreamAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperationWithProgress_2_IInputStream_U8,
+                                     IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
+                                     alProgress,
+                                     "HttpStreamContent.ReadAsInputStreamAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IInputStream_U8,
+                 progress, "HttpStreamContent.ReadAsInputStreamAsync")
 
-proc readAsStringAsync*(self: HttpStreamContent): Future[string] {.async.} =
+proc readAsStringAsync*(self: HttpStreamContent,
+                        progress: ProgressHandler[uint64] = nil
+                       ): Future[string] =
   ## Windows.Web.Http.HttpStreamContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsStringAsync(it, op.addr
                                    ), "HttpStreamContent.ReadAsStringAsync"
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8,
-                             IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
-                             alProgress, "HttpStreamContent.ReadAsStringAsync")
+  result = futureString(op, IID_IAsyncOperationWithProgress_2_String_U8,
+                        IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
+                        alProgress, "HttpStreamContent.ReadAsStringAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_String_U8, progress,
+                 "HttpStreamContent.ReadAsStringAsync")
 
 proc tryComputeLength*(self: HttpStreamContent): tuple[value: bool, length: uint64] =
   ## Windows.Web.Http.HttpStreamContent.TryComputeLength
@@ -4681,18 +4901,21 @@ proc tryComputeLength*(self: HttpStreamContent): tuple[value: bool, length: uint
     ret = tmp
     result = (value: ret, length: length)
 
-proc writeToStreamAsync*(self: HttpStreamContent, outputStream: WinRtObject
-                        ): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpStreamContent, outputStream: WinRtObject,
+                         progress: ProgressHandler[uint64] = nil
+                        ): Future[uint64] =
   ## Windows.Web.Http.HttpStreamContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     withIface(outputStream.p, IOutputStream, p0):
       check it.vtbl.WriteToStreamAsync(it, p0, op.addr
                                       ), "HttpStreamContent.WriteToStreamAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress,
-                                    "HttpStreamContent.WriteToStreamAsync")
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress,
+                               "HttpStreamContent.WriteToStreamAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "HttpStreamContent.WriteToStreamAsync")
 
 proc close*(self: HttpStreamContent) =
   ## Windows.Web.Http.HttpStreamContent.Close
@@ -4722,50 +4945,64 @@ proc headers*(self: HttpStringContent): HttpContentHeaderCollection =
   withIface(self.p, IHttpContent, it):
     result = it.getObject(get_Headers, HttpContentHeaderCollection)
 
-proc bufferAllAsync*(self: HttpStringContent): Future[uint64] {.async.} =
+proc bufferAllAsync*(self: HttpStringContent,
+                     progress: ProgressHandler[uint64] = nil): Future[uint64] =
   ## Windows.Web.Http.HttpStringContent.BufferAllAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.BufferAllAsync(it, op.addr
                                 ), "HttpStringContent.BufferAllAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress,
-                                    "HttpStringContent.BufferAllAsync")
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress, "HttpStringContent.BufferAllAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "HttpStringContent.BufferAllAsync")
 
-proc readAsBufferAsync*(self: HttpStringContent): Future[Buffer] {.async.} =
+proc readAsBufferAsync*(self: HttpStringContent,
+                        progress: ProgressHandler[uint64] = nil
+                       ): Future[Buffer] =
   ## Windows.Web.Http.HttpStringContent.ReadAsBufferAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsBufferAsync(it, op.addr
                                    ), "HttpStringContent.ReadAsBufferAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
-                              alProgress, "HttpStringContent.ReadAsBufferAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U8,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
+                                alProgress,
+                                "HttpStringContent.ReadAsBufferAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U8, progress,
+                 "HttpStringContent.ReadAsBufferAsync")
 
-proc readAsInputStreamAsync*(self: HttpStringContent): Future[WinRtObject] {.async.} =
+proc readAsInputStreamAsync*(self: HttpStringContent,
+                             progress: ProgressHandler[uint64] = nil
+                            ): Future[WinRtObject] =
   ## Windows.Web.Http.HttpStringContent.ReadAsInputStreamAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsInputStreamAsync(it, op.addr
                                         ), "HttpStringContent.ReadAsInputStreamAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_IInputStream_U8,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
-                              alProgress,
-                              "HttpStringContent.ReadAsInputStreamAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperationWithProgress_2_IInputStream_U8,
+                                     IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
+                                     alProgress,
+                                     "HttpStringContent.ReadAsInputStreamAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IInputStream_U8,
+                 progress, "HttpStringContent.ReadAsInputStreamAsync")
 
-proc readAsStringAsync*(self: HttpStringContent): Future[string] {.async.} =
+proc readAsStringAsync*(self: HttpStringContent,
+                        progress: ProgressHandler[uint64] = nil
+                       ): Future[string] =
   ## Windows.Web.Http.HttpStringContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     check it.vtbl.ReadAsStringAsync(it, op.addr
                                    ), "HttpStringContent.ReadAsStringAsync"
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8,
-                             IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
-                             alProgress, "HttpStringContent.ReadAsStringAsync")
+  result = futureString(op, IID_IAsyncOperationWithProgress_2_String_U8,
+                        IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
+                        alProgress, "HttpStringContent.ReadAsStringAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_String_U8, progress,
+                 "HttpStringContent.ReadAsStringAsync")
 
 proc tryComputeLength*(self: HttpStringContent): tuple[value: bool, length: uint64] =
   ## Windows.Web.Http.HttpStringContent.TryComputeLength
@@ -4778,18 +5015,21 @@ proc tryComputeLength*(self: HttpStringContent): tuple[value: bool, length: uint
     ret = tmp
     result = (value: ret, length: length)
 
-proc writeToStreamAsync*(self: HttpStringContent, outputStream: WinRtObject
-                        ): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpStringContent, outputStream: WinRtObject,
+                         progress: ProgressHandler[uint64] = nil
+                        ): Future[uint64] =
   ## Windows.Web.Http.HttpStringContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IHttpContent, it):
     withIface(outputStream.p, IOutputStream, p0):
       check it.vtbl.WriteToStreamAsync(it, p0, op.addr
                                       ), "HttpStringContent.WriteToStreamAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress,
-                                    "HttpStringContent.WriteToStreamAsync")
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress,
+                               "HttpStringContent.WriteToStreamAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "HttpStringContent.WriteToStreamAsync")
 
 proc close*(self: HttpStringContent) =
   ## Windows.Web.Http.HttpStringContent.Close
@@ -5132,19 +5372,23 @@ proc setRequestHeader*(self: SyndicationClient, name: string, value: string) =
         check it.vtbl.SetRequestHeader(it, h0, h1
                                       ), "SyndicationClient.SetRequestHeader"
 
-proc retrieveFeedAsync*(self: SyndicationClient, uri: Uri
-                       ): Future[SyndicationFeed] {.async.} =
+proc retrieveFeedAsync*(self: SyndicationClient, uri: Uri,
+                        progress: ProgressHandler[RetrievalProgress] = nil
+                       ): Future[SyndicationFeed] =
   ## Windows.Web.Syndication.SyndicationClient.RetrieveFeedAsync
   var op: pointer
   withIface(self.p, ISyndicationClient, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.RetrieveFeedAsync(it, p0, op.addr
                                      ), "SyndicationClient.RetrieveFeedAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress,
-                              alProgress, "SyndicationClient.RetrieveFeedAsync")
-  result = adopt[SyndicationFeed](obj)
+  result = futureObject[SyndicationFeed](op,
+                                         IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress,
+                                         IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress,
+                                         alProgress,
+                                         "SyndicationClient.RetrieveFeedAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_SyndicationFeed_RetrievalProgress,
+                 progress, "SyndicationClient.RetrieveFeedAsync")
 
 proc createSyndicationClient*(_: typedesc[SyndicationClient],
                               serverCredential: PasswordCredential
@@ -6609,7 +6853,7 @@ proc navigateWithHttpRequestMessage*(self: WebViewControl,
                                                   ), "WebViewControl.NavigateWithHttpRequestMessage"
 
 proc invokeScriptAsync*(self: WebViewControl, scriptName: string,
-                        arguments: seq[string]): Future[string] {.async.} =
+                        arguments: seq[string]): Future[string] =
   ## Windows.Web.UI.Interop.WebViewControl.InvokeScriptAsync
   var op: pointer
   withIface(self.p, IWebViewControl, it):
@@ -6620,33 +6864,32 @@ proc invokeScriptAsync*(self: WebViewControl, scriptName: string,
       defer: discard release(p1)
       check it.vtbl.InvokeScriptAsync(it, h0, p1, op.addr
                                      ), "WebViewControl.InvokeScriptAsync"
-  result = await awaitString(op, IID_IAsyncOperation_1_String,
-                             IID_AsyncOperationCompletedHandler_1_String,
-                             alPlain, "WebViewControl.InvokeScriptAsync")
+  result = futureString(op, IID_IAsyncOperation_1_String,
+                        IID_AsyncOperationCompletedHandler_1_String, alPlain,
+                        "WebViewControl.InvokeScriptAsync")
 
 proc capturePreviewToStreamAsync*(self: WebViewControl, stream: WinRtObject
-                                 ) {.async.} =
+                                 ): Future[void] =
   ## Windows.Web.UI.Interop.WebViewControl.CapturePreviewToStreamAsync
   var op: pointer
   withIface(self.p, IWebViewControl, it):
     withIface(stream.p, IRandomAccessStream, p0):
       check it.vtbl.CapturePreviewToStreamAsync(it, p0, op.addr
                                                ), "WebViewControl.CapturePreviewToStreamAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "WebViewControl.CapturePreviewToStreamAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "WebViewControl.CapturePreviewToStreamAsync")
 
-proc captureSelectedContentToDataPackageAsync*(self: WebViewControl): Future[DataPackage] {.async.} =
+proc captureSelectedContentToDataPackageAsync*(self: WebViewControl): Future[DataPackage] =
   ## Windows.Web.UI.Interop.WebViewControl.CaptureSelectedContentToDataPackageAsync
   var op: pointer
   withIface(self.p, IWebViewControl, it):
     check it.vtbl.CaptureSelectedContentToDataPackageAsync(it, op.addr
                                                           ), "WebViewControl.CaptureSelectedContentToDataPackageAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_DataPackage,
-                              IID_AsyncOperationCompletedHandler_1_DataPackage,
-                              alPlain,
-                              "WebViewControl.CaptureSelectedContentToDataPackageAsync"
-                             )
-  result = adopt[DataPackage](obj)
+  result = futureObject[DataPackage](op, IID_IAsyncOperation_1_DataPackage,
+                                     IID_AsyncOperationCompletedHandler_1_DataPackage,
+                                     alPlain,
+                                     "WebViewControl.CaptureSelectedContentToDataPackageAsync"
+                                    )
 
 proc buildLocalStreamUri*(self: WebViewControl, contentIdentifier: string,
                           relativePath: string): Uri =
@@ -7193,18 +7436,19 @@ proc isPrivateNetworkClientServerCapabilityEnabled*(self: WebViewControlProcess)
 
 proc createWebViewControlAsync*(self: WebViewControlProcess,
                                 hostWindowHandle: int64, bounds: Rect
-                               ): Future[WebViewControl] {.async.} =
+                               ): Future[WebViewControl] =
   ## Windows.Web.UI.Interop.WebViewControlProcess.CreateWebViewControlAsync
   var op: pointer
   withIface(self.p, IWebViewControlProcess, it):
     check it.vtbl.CreateWebViewControlAsync(it, hostWindowHandle, bounds,
                                             op.addr
                                            ), "WebViewControlProcess.CreateWebViewControlAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_WebViewControl,
-                              IID_AsyncOperationCompletedHandler_1_WebViewControl,
-                              alPlain,
-                              "WebViewControlProcess.CreateWebViewControlAsync")
-  result = adopt[WebViewControl](obj)
+  result = futureObject[WebViewControl](op,
+                                        IID_IAsyncOperation_1_WebViewControl,
+                                        IID_AsyncOperationCompletedHandler_1_WebViewControl,
+                                        alPlain,
+                                        "WebViewControlProcess.CreateWebViewControlAsync"
+                                       )
 
 proc getWebViewControls*(self: WebViewControlProcess): seq[WebViewControl] =
   ## Windows.Web.UI.Interop.WebViewControlProcess.GetWebViewControls

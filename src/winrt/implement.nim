@@ -1,9 +1,9 @@
-## Implementing a WinRT interface from Nim.
+## Implementing WinRT interfaces from Nim.
 ##
 ## Everything else in this library calls objects Windows made. This is for the
 ## other case: an object *you* make that Windows calls back — an
 ## `INotifyPropertyChanged` for data binding, an `ICommand`, a background
-## task, an `IReference<T>` of your own. `implement` takes an interface's
+## task, an `IBuffer` over your own bytes. `implement` takes each interface's
 ## vtable type with your methods filled in and hands back a COM object that
 ## Windows can hold, query and call:
 ##
@@ -18,69 +18,112 @@
 ##   state = answer.addr)
 ## ```
 ##
-## The methods are written at the ABI: they receive `self` and the raw
-## arguments the vtable declares, and return an HRESULT. `stateOf(self)` gives
-## back whatever pointer you attached; `takeString`, `toHString`, `adopt` and
-## `borrow` convert what crosses. The six methods every interface begins with
-## are filled in here — `QueryInterface` answers for `IUnknown`,
-## `IInspectable`, `IAgileObject` and the interface itself.
-##
-## One interface per object. An object answering for two unrelated interfaces
-## needs a vtable pointer per interface and a recovery offset in every method,
-## which is what `seqview` and `mapview` do by hand for the collections.
+## An object may implement several interfaces — `(IID, vtable)` pairs, two or
+## three as arguments and any number as one tuple — and `QueryInterface`
+## answers for each of them, for `IUnknown`, `IInspectable` and
+## `IAgileObject`. The methods are written at the ABI: they receive `self` and
+## the raw arguments the vtable declares, and return an HRESULT. `stateOf(self)`
+## gives back whatever pointer you attached, from a method of any of the
+## interfaces; `takeString`, `toHString`, `adopt` and `borrow` convert what
+## crosses. The three methods every interface begins with, and the three more
+## of `IInspectable`, are filled in here.
 ##
 ## Windows may hold the object past the call that received it and release it
-## from any thread, so it lives on the COM heap and its count is atomic. Your
-## methods may be called on any thread too, and there is no dispatcher in
-## between as there is for a delegate: a method that touches GC memory must
-## know which thread it is on.
+## from any thread, so it lives on the COM heap and its count is atomic. The
+## `dispose` proc, if you give one, runs once Windows has let go — on the
+## dispatcher thread, whichever thread released last — so it may free GC
+## memory: `GC_unref` the object you `GC_ref`ed when you attached it.
+##
+## Your methods may be called on any thread too, and there is no dispatcher
+## in between as there is for a delegate, because a method has to answer
+## before it returns: a method that touches GC memory must know which thread
+## it is on, and `runOnDispatcher` is how it hands work to the right one.
 
-import std/atomics
-import ./core
+import std/[atomics, typetraits]
+import ./[core, delegate]
 include ./abidef
 
 type
-  ImplHeader {.pure.} = object
-    ## The part every implementation shares, at a fixed offset so `stateOf`
-    ## needs no type.
-    vtbl: pointer            ## must stay first
-    refs: Atomic[int32]
-    iid: GUID
-    state: pointer
+  Dispose* = proc(state: pointer) {.nimcall, raises: [].}
+    ## What to do with `state` once Windows has let go of the object.
 
-  Impl[V] {.pure.} = object
-    header: ImplHeader
-    table: V                 ## this object's own copy: two objects of one
-                             ## type may carry different methods
+  Slot {.pure.} = object
+    ## What an interface pointer points at: the vtable, which is what COM
+    ## reads, and the way back to the object, which is what this module reads.
+    vtbl: pointer            ## must stay first
+    owner: ptr Header
+    iid: GUID
+    inspectable: bool        ## derives from IInspectable, not just IUnknown
+
+  Header {.pure.} = object
+    ## The part every implementation shares, whatever its interfaces.
+    refs: Atomic[int32]
+    count: int32
+    slots: ptr UncheckedArray[Slot]
+    state: pointer
+    dispose: Dispose
+
+  Impl[T: tuple] {.pure.} = object
+    ## `T` is the tuple of `(GUID, XVtbl)` pairs `implement` was given: one
+    ## slot per pair, and this object's own copy of every table, because two
+    ## objects of one interface may carry different methods.
+    header: Header
+    slots: array[tupleLen(T), Slot]
+    tables: T
+
+proc owner(self: pointer): ptr Header {.inline.} =
+  cast[ptr Slot](self).owner
 
 proc implAddRef(self: pointer): uint32 {.abi.} =
-  uint32(cast[ptr ImplHeader](self).refs.fetchAdd(1) + 1)
+  uint32(owner(self).refs.fetchAdd(1) + 1)
 
 proc implRelease(self: pointer): uint32 {.abi.} =
-  let left = cast[ptr ImplHeader](self).refs.fetchSub(1) - 1
+  let h = owner(self)
+  let left = h.refs.fetchSub(1) - 1
   if left <= 0:
-    comFree(self)
+    # Whichever thread this is, the memory is COM's to free. The state is
+    # Nim's, and is let go of on the dispatcher thread.
+    let dispose = h.dispose
+    let state = h.state
+    comFree(h)
+    if not dispose.isNil:
+      runOnDispatcher(dispose, state)
     return 0
   uint32(left)
 
+proc answer(h: ptr Header, i: int, ppv: ptr pointer): HRESULT =
+  ppv[] = h.slots[i].addr
+  discard implAddRef(ppv[])
+  S_OK
+
 proc implQuery(self: pointer, riid: ptr GUID, ppv: ptr pointer): HRESULT {.abi.} =
   if ppv.isNil: return E_POINTER
-  let h = cast[ptr ImplHeader](self)
-  if riid[] == IID_IUnknown or riid[] == IID_IInspectable or
-     riid[] == IID_IAgileObject or riid[] == h.iid:
-    ppv[] = self
-    discard implAddRef(self)
-    return S_OK
+  let h = owner(self)
+  if riid[] == IID_IUnknown or riid[] == IID_IAgileObject:
+    return answer(h, 0, ppv)
+  for i in 0 ..< h.count:
+    if riid[] == h.slots[i].iid or
+       (riid[] == IID_IInspectable and h.slots[i].inspectable):
+      return answer(h, i, ppv)
   ppv[] = nil
   E_NOINTERFACE
 
 proc implIids(self: pointer, count: ptr uint32,
               iids: ptr ptr GUID): HRESULT {.abi.} =
-  ## The one interface, in an array the caller frees with `CoTaskMemFree`.
-  let one = cast[ptr GUID](comAlloc(sizeof(GUID)))
-  one[] = cast[ptr ImplHeader](self).iid
-  count[] = 1
-  iids[] = one
+  ## The WinRT interfaces — those deriving from IInspectable — in an array the
+  ## caller frees with `CoTaskMemFree`.
+  let h = owner(self)
+  var n = 0
+  for i in 0 ..< h.count:
+    if h.slots[i].inspectable: n.inc
+  let found = cast[ptr UncheckedArray[GUID]](comAlloc(max(n, 1) * sizeof(GUID)))
+  var k = 0
+  for i in 0 ..< h.count:
+    if h.slots[i].inspectable:
+      found[k] = h.slots[i].iid
+      k.inc
+  count[] = uint32(n)
+  iids[] = cast[ptr GUID](found)
   S_OK
 
 proc implClassName(self: pointer, name: ptr HSTRING): HRESULT {.abi.} =
@@ -91,25 +134,52 @@ proc implTrust(self: pointer, level: ptr int32): HRESULT {.abi.} =
   level[] = 0               # BaseTrust
   S_OK
 
-proc implement*[V](iid: GUID, methods: V, state: pointer = nil): pointer =
-  ## A COM object implementing the interface whose IID is `iid` and whose
-  ## vtable type is `V`, with the methods `methods` carries. Returned with a
-  ## reference count of 1; hand it to Windows, which takes its own, and
-  ## release yours.
-  let obj = cast[ptr Impl[V]](comAlloc(sizeof(Impl[V])))
-  obj.table = methods
-  obj.table.queryInterface = implQuery
-  obj.table.addRef = implAddRef
-  obj.table.release = implRelease
-  obj.table.getIids = implIids
-  obj.table.getRuntimeClassName = implClassName
-  obj.table.getTrustLevel = implTrust
-  obj.header.vtbl = obj.table.addr
+proc implement*[T: tuple](interfaces: T, state: pointer = nil,
+                          dispose: Dispose = nil): pointer =
+  ## A COM object implementing every interface in `interfaces`, a tuple of
+  ## `(IID, vtable)` pairs, each vtable carrying your methods. Returned with a
+  ## reference count of 1, as a pointer to the first interface; hand it to
+  ## Windows, which takes its own, and release yours. `state` is what
+  ## `stateOf(self)` returns inside your methods, and `dispose` is called
+  ## with it once the last reference is gone.
+  ensureDispatcher()
+  let obj = cast[ptr Impl[T]](comAlloc(sizeof(Impl[T])))
   obj.header.refs.store(1)
-  obj.header.iid = iid
+  obj.header.count = int32(tupleLen(T))
+  obj.header.slots = cast[ptr UncheckedArray[Slot]](obj.slots[0].addr)
   obj.header.state = state
-  cast[pointer](obj)
+  obj.header.dispose = dispose
+  obj.tables = interfaces
+  var i = 0
+  for pair in fields(obj.tables):
+    pair[1].queryInterface = implQuery
+    pair[1].addRef = implAddRef
+    pair[1].release = implRelease
+    when pair[1] is IInspectableVtbl:
+      pair[1].getIids = implIids
+      pair[1].getRuntimeClassName = implClassName
+      pair[1].getTrustLevel = implTrust
+    obj.slots[i] = Slot(vtbl: pair[1].addr, owner: obj.header.addr,
+                        iid: pair[0], inspectable: pair[1] is IInspectableVtbl)
+    inc i
+  obj.slots[0].addr
+
+proc implement*[V](iid: GUID, methods: V, state: pointer = nil,
+                   dispose: Dispose = nil): pointer =
+  ## One interface, whose IID is `iid` and whose vtable is `methods`.
+  implement(((iid, methods),), state, dispose)
+
+proc implement*[A, B](a: (GUID, A), b: (GUID, B), state: pointer = nil,
+                      dispose: Dispose = nil): pointer =
+  ## Two interfaces on one object.
+  implement((a, b), state, dispose)
+
+proc implement*[A, B, C](a: (GUID, A), b: (GUID, B), c: (GUID, C),
+                         state: pointer = nil, dispose: Dispose = nil): pointer =
+  ## Three interfaces on one object; for more, pass them as one tuple.
+  implement((a, b, c), state, dispose)
 
 proc stateOf*(self: pointer): pointer {.inline.} =
-  ## The pointer `implement` was given, from inside one of the methods.
-  cast[ptr ImplHeader](self).state
+  ## The pointer `implement` was given, from inside a method of any of the
+  ## object's interfaces.
+  owner(self).state

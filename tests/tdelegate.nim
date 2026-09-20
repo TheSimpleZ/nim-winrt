@@ -138,6 +138,22 @@ suite "delegate":
     check ranOn == main
     check text == "carried 5"
 
+  test "work posted from another thread runs on the dispatcher's, unwaited":
+    ensureDispatcher()
+    var ranOn = 0
+    proc job(arg: pointer) {.nimcall, raises: [].} =
+      cast[ptr int](arg)[] = getThreadId()
+    proc postElsewhere(arg: pointer): uint32 {.stdcall.} =
+      runOnDispatcher(job, arg)
+      0
+    let t = createThread(nil, 0, cast[pointer](postElsewhere), ranOn.addr, 0, nil)
+    # Returns at once: the posting thread does not wait for the job.
+    discard waitForSingleObject(t, 5000)
+    discard closeHandle(t)
+    check ranOn == 0
+    poll(10)
+    check ranOn == getThreadId()
+
   test "a raw delegate runs where it is invoked":
     var ranOn = 0
     let d = newDelegate(testIid, proc(args: pointer) = ranOn = getThreadId(),

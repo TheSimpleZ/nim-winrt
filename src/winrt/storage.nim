@@ -65,8 +65,10 @@ const IID_AsyncOperationCompletedHandler_1_Bool* = guid"C1D3D1A2-AE17-5A5F-B5A2-
 const IID_IAsyncOperation_1_Bool* = guid"CDB5EFB3-5788-509D-9BE1-71CCB8A3362A"
 const IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4* = guid"1E466DC5-840F-54F9-B877-5E3A9F4B6C74"
 const IID_IAsyncOperationWithProgress_2_U4_U4* = guid"ECCB574A-C684-5572-A679-6B0842CFB57F"
+const IID_AsyncOperationProgressHandler_2_U4_U4* = guid"EA0FE405-D432-5AC7-9EF8-5A65E1F97D7E"
 const IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4* = guid"06386A7A-E009-5B0B-AB68-A8E48B516647"
 const IID_IAsyncOperationWithProgress_2_IBuffer_U4* = guid"D26B2819-897F-5C7D-84D6-56D796561431"
+const IID_AsyncOperationProgressHandler_2_IBuffer_U4* = guid"BF666554-7605-5D9A-B14E-18D8C8472AFE"
 const IID_AsyncOperationCompletedHandler_1_String* = guid"B79A741F-7FB5-50AE-9E99-911201EC3D41"
 const IID_IAsyncOperation_1_String* = guid"3E1FE603-F897-5263-B328-0806426B8A79"
 const IID_AsyncOperationCompletedHandler_1_IVector_1* = guid"FAE4B396-97C8-5CC3-BF88-EA3098EDF6B2"
@@ -145,6 +147,7 @@ const IID_IAsyncOperation_1_IVectorView_19* = guid"66E11B8A-9003-52C9-84A8-AE5CC
 const IID_IVectorView_1_StorageLibraryChange* = guid"0D3879E2-5C7E-5B6C-954D-10C6DA95FBFF"
 const IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8* = guid"D2024E41-5500-5B5A-BA46-CB7009596A2F"
 const IID_IAsyncOperationWithProgress_2_U8_U8* = guid"8F1DB6E3-6556-5516-825C-1021EE27CD0C"
+const IID_AsyncOperationProgressHandler_2_U8_U8* = guid"FFB2B65D-4120-5D13-826D-107851E6BB1C"
 
 
 proc removedEntry*(self: ItemRemovedEventArgs): AccessListEntry =
@@ -225,83 +228,82 @@ proc addOrReplace*(self: StorageItemAccessList, token: string,
                                      ), "StorageItemAccessList.AddOrReplace"
 
 proc getItemAsync*(self: StorageItemAccessList, token: string
-                  ): Future[WinRtObject] {.async.} =
+                  ): Future[WinRtObject] =
   ## Windows.Storage.AccessCache.StorageItemAccessList.GetItemAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       check it.vtbl.GetItemAsync(it, h0, op.addr
                                 ), "StorageItemAccessList.GetItemAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
-                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                              alPlain, "StorageItemAccessList.GetItemAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IStorageItem,
+                                     IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                                     alPlain,
+                                     "StorageItemAccessList.GetItemAsync")
 
 proc getFileAsync*(self: StorageItemAccessList, token: string
-                  ): Future[StorageFile] {.async.} =
+                  ): Future[StorageFile] =
   ## Windows.Storage.AccessCache.StorageItemAccessList.GetFileAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       check it.vtbl.GetFileAsync(it, h0, op.addr
                                 ), "StorageItemAccessList.GetFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "StorageItemAccessList.GetFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "StorageItemAccessList.GetFileAsync")
 
 proc getFolderAsync*(self: StorageItemAccessList, token: string
-                    ): Future[StorageFolder] {.async.} =
+                    ): Future[StorageFolder] =
   ## Windows.Storage.AccessCache.StorageItemAccessList.GetFolderAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       check it.vtbl.GetFolderAsync(it, h0, op.addr
                                   ), "StorageItemAccessList.GetFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "StorageItemAccessList.GetFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "StorageItemAccessList.GetFolderAsync")
 
 proc getItemAsync*(self: StorageItemAccessList, token: string,
-                   options: AccessCacheOptions): Future[WinRtObject] {.async.} =
+                   options: AccessCacheOptions): Future[WinRtObject] =
   ## Windows.Storage.AccessCache.StorageItemAccessList.GetItemAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       check it.vtbl.GetItemAsync2(it, h0, options, op.addr
                                  ), "StorageItemAccessList.GetItemAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
-                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                              alPlain, "StorageItemAccessList.GetItemAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IStorageItem,
+                                     IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                                     alPlain,
+                                     "StorageItemAccessList.GetItemAsync")
 
 proc getFileAsync*(self: StorageItemAccessList, token: string,
-                   options: AccessCacheOptions): Future[StorageFile] {.async.} =
+                   options: AccessCacheOptions): Future[StorageFile] =
   ## Windows.Storage.AccessCache.StorageItemAccessList.GetFileAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       check it.vtbl.GetFileAsync2(it, h0, options, op.addr
                                  ), "StorageItemAccessList.GetFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "StorageItemAccessList.GetFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "StorageItemAccessList.GetFileAsync")
 
 proc getFolderAsync*(self: StorageItemAccessList, token: string,
-                     options: AccessCacheOptions
-                    ): Future[StorageFolder] {.async.} =
+                     options: AccessCacheOptions): Future[StorageFolder] =
   ## Windows.Storage.AccessCache.StorageItemAccessList.GetFolderAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       check it.vtbl.GetFolderAsync2(it, h0, options, op.addr
                                    ), "StorageItemAccessList.GetFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "StorageItemAccessList.GetFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "StorageItemAccessList.GetFolderAsync")
 
 proc remove*(self: StorageItemAccessList, token: string) =
   ## Windows.Storage.AccessCache.StorageItemAccessList.Remove
@@ -401,89 +403,88 @@ proc addOrReplace*(self: StorageItemMostRecentlyUsedList, token: string,
                                      ), "StorageItemMostRecentlyUsedList.AddOrReplace"
 
 proc getItemAsync*(self: StorageItemMostRecentlyUsedList, token: string
-                  ): Future[WinRtObject] {.async.} =
+                  ): Future[WinRtObject] =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetItemAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       check it.vtbl.GetItemAsync(it, h0, op.addr
                                 ), "StorageItemMostRecentlyUsedList.GetItemAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
-                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                              alPlain,
-                              "StorageItemMostRecentlyUsedList.GetItemAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IStorageItem,
+                                     IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                                     alPlain,
+                                     "StorageItemMostRecentlyUsedList.GetItemAsync"
+                                    )
 
 proc getFileAsync*(self: StorageItemMostRecentlyUsedList, token: string
-                  ): Future[StorageFile] {.async.} =
+                  ): Future[StorageFile] =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetFileAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       check it.vtbl.GetFileAsync(it, h0, op.addr
                                 ), "StorageItemMostRecentlyUsedList.GetFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain,
-                              "StorageItemMostRecentlyUsedList.GetFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "StorageItemMostRecentlyUsedList.GetFileAsync"
+                                    )
 
 proc getFolderAsync*(self: StorageItemMostRecentlyUsedList, token: string
-                    ): Future[StorageFolder] {.async.} =
+                    ): Future[StorageFolder] =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetFolderAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       check it.vtbl.GetFolderAsync(it, h0, op.addr
                                   ), "StorageItemMostRecentlyUsedList.GetFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain,
-                              "StorageItemMostRecentlyUsedList.GetFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "StorageItemMostRecentlyUsedList.GetFolderAsync"
+                                      )
 
 proc getItemAsync*(self: StorageItemMostRecentlyUsedList, token: string,
-                   options: AccessCacheOptions): Future[WinRtObject] {.async.} =
+                   options: AccessCacheOptions): Future[WinRtObject] =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetItemAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       check it.vtbl.GetItemAsync2(it, h0, options, op.addr
                                  ), "StorageItemMostRecentlyUsedList.GetItemAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
-                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                              alPlain,
-                              "StorageItemMostRecentlyUsedList.GetItemAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IStorageItem,
+                                     IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                                     alPlain,
+                                     "StorageItemMostRecentlyUsedList.GetItemAsync"
+                                    )
 
 proc getFileAsync*(self: StorageItemMostRecentlyUsedList, token: string,
-                   options: AccessCacheOptions): Future[StorageFile] {.async.} =
+                   options: AccessCacheOptions): Future[StorageFile] =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetFileAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       check it.vtbl.GetFileAsync2(it, h0, options, op.addr
                                  ), "StorageItemMostRecentlyUsedList.GetFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain,
-                              "StorageItemMostRecentlyUsedList.GetFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "StorageItemMostRecentlyUsedList.GetFileAsync"
+                                    )
 
 proc getFolderAsync*(self: StorageItemMostRecentlyUsedList, token: string,
-                     options: AccessCacheOptions
-                    ): Future[StorageFolder] {.async.} =
+                     options: AccessCacheOptions): Future[StorageFolder] =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetFolderAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       check it.vtbl.GetFolderAsync2(it, h0, options, op.addr
                                    ), "StorageItemMostRecentlyUsedList.GetFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain,
-                              "StorageItemMostRecentlyUsedList.GetFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "StorageItemMostRecentlyUsedList.GetFolderAsync"
+                                      )
 
 proc remove*(self: StorageItemMostRecentlyUsedList, token: string) =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.Remove
@@ -613,7 +614,7 @@ proc version*(self: ApplicationData): uint32 =
     result = it.getValue(get_Version, uint32)
 
 proc setVersionAsync*(self: ApplicationData, desiredVersion: uint32,
-                      handler: proc(a0: SetVersionRequest)) {.async.} =
+                      handler: proc(a0: SetVersionRequest)): Future[void] =
   ## Windows.Storage.ApplicationData.SetVersionAsync
   var op: pointer
   withIface(self.p, IApplicationData, it):
@@ -623,26 +624,26 @@ proc setVersionAsync*(self: ApplicationData, desiredVersion: uint32,
     defer: discard release(d1)
     check it.vtbl.SetVersionAsync(it, desiredVersion, d1, op.addr
                                  ), "ApplicationData.SetVersionAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ApplicationData.SetVersionAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ApplicationData.SetVersionAsync")
 
-proc clearAsync*(self: ApplicationData) {.async.} =
+proc clearAsync*(self: ApplicationData): Future[void] =
   ## Windows.Storage.ApplicationData.ClearAsync
   var op: pointer
   withIface(self.p, IApplicationData, it):
     check it.vtbl.ClearAsync(it, op.addr), "ApplicationData.ClearAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ApplicationData.ClearAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ApplicationData.ClearAsync")
 
 proc clearAsync*(self: ApplicationData, locality: ApplicationDataLocality
-                ) {.async.} =
+                ): Future[void] =
   ## Windows.Storage.ApplicationData.ClearAsync
   var op: pointer
   withIface(self.p, IApplicationData, it):
     check it.vtbl.ClearAsync2(it, locality, op.addr
                              ), "ApplicationData.ClearAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ApplicationData.ClearAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ApplicationData.ClearAsync")
 
 proc localSettings*(self: ApplicationData): ApplicationDataContainer =
   ## Windows.Storage.ApplicationData.get_LocalSettings
@@ -714,15 +715,15 @@ proc getPublisherCacheFolder*(self: ApplicationData, folderName: string
       result = adopt[StorageFolder](tmp)
 
 proc clearPublisherCacheFolderAsync*(self: ApplicationData, folderName: string
-                                    ) {.async.} =
+                                    ): Future[void] =
   ## Windows.Storage.ApplicationData.ClearPublisherCacheFolderAsync
   var op: pointer
   withIface(self.p, IApplicationData3, it):
     withHString(folderName, h0):
       check it.vtbl.ClearPublisherCacheFolderAsync(it, h0, op.addr
                                                   ), "ApplicationData.ClearPublisherCacheFolderAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ApplicationData.ClearPublisherCacheFolderAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ApplicationData.ClearPublisherCacheFolderAsync")
 
 proc sharedLocalFolder*(self: ApplicationData): StorageFolder =
   ## Windows.Storage.ApplicationData.get_SharedLocalFolder
@@ -740,17 +741,18 @@ proc current*(_: typedesc[ApplicationData]): ApplicationData =
     result = it.getObject(get_Current, ApplicationData)
 
 proc getForUserAsync*(_: typedesc[ApplicationData], user: User
-                     ): Future[ApplicationData] {.async.} =
+                     ): Future[ApplicationData] =
   ## Windows.Storage.ApplicationData.GetForUserAsync
   var op: pointer
   withStatics("Windows.Storage.ApplicationData", IApplicationDataStatics2, it):
     withIface(user.p, IUser, p0):
       check it.vtbl.GetForUserAsync(it, p0, op.addr
                                    ), "ApplicationData.GetForUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ApplicationData,
-                              IID_AsyncOperationCompletedHandler_1_ApplicationData,
-                              alPlain, "ApplicationData.GetForUserAsync")
-  result = adopt[ApplicationData](obj)
+  result = futureObject[ApplicationData](op,
+                                         IID_IAsyncOperation_1_ApplicationData,
+                                         IID_AsyncOperationCompletedHandler_1_ApplicationData,
+                                         alPlain,
+                                         "ApplicationData.GetForUserAsync")
 
 proc newApplicationDataCompositeValue*(): ApplicationDataCompositeValue =
   ## Activate a `Windows.Storage.ApplicationDataCompositeValue`.
@@ -892,44 +894,43 @@ proc contentType*(self: FileInformation): string =
     result = it.getString(get_ContentType)
 
 proc openAsync*(self: FileInformation, accessMode: FileAccessMode
-               ): Future[WinRtObject] {.async.} =
+               ): Future[WinRtObject] =
   ## Windows.Storage.BulkAccess.FileInformation.OpenAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     check it.vtbl.OpenAsync(it, accessMode, op.addr
                            ), "FileInformation.OpenAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                              alPlain, "FileInformation.OpenAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStream,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                                     alPlain, "FileInformation.OpenAsync")
 
-proc openTransactedWriteAsync*(self: FileInformation): Future[StorageStreamTransaction] {.async.} =
+proc openTransactedWriteAsync*(self: FileInformation): Future[StorageStreamTransaction] =
   ## Windows.Storage.BulkAccess.FileInformation.OpenTransactedWriteAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     check it.vtbl.OpenTransactedWriteAsync(it, op.addr
                                           ), "FileInformation.OpenTransactedWriteAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_StorageStreamTransaction,
-                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                              alPlain,
-                              "FileInformation.OpenTransactedWriteAsync")
-  result = adopt[StorageStreamTransaction](obj)
+  result = futureObject[StorageStreamTransaction](op,
+                                                  IID_IAsyncOperation_1_StorageStreamTransaction,
+                                                  IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                                                  alPlain,
+                                                  "FileInformation.OpenTransactedWriteAsync"
+                                                 )
 
 proc copyAsync*(self: FileInformation, destinationFolder: StorageFolder
-               ): Future[StorageFile] {.async.} =
+               ): Future[StorageFile] =
   ## Windows.Storage.BulkAccess.FileInformation.CopyAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(destinationFolder.p, IStorageFolder, p0):
       check it.vtbl.CopyAsync(it, p0, op.addr), "FileInformation.CopyAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "FileInformation.CopyAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "FileInformation.CopyAsync")
 
 proc copyAsync*(self: FileInformation, destinationFolder: StorageFolder,
-                desiredNewName: string): Future[StorageFile] {.async.} =
+                desiredNewName: string): Future[StorageFile] =
   ## Windows.Storage.BulkAccess.FileInformation.CopyAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
@@ -937,14 +938,13 @@ proc copyAsync*(self: FileInformation, destinationFolder: StorageFolder,
       withHString(desiredNewName, h1):
         check it.vtbl.CopyAsync2(it, p0, h1, op.addr
                                 ), "FileInformation.CopyAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "FileInformation.CopyAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "FileInformation.CopyAsync")
 
 proc copyAsync*(self: FileInformation, destinationFolder: StorageFolder,
                 desiredNewName: string, option: NameCollisionOption
-               ): Future[StorageFile] {.async.} =
+               ): Future[StorageFile] =
   ## Windows.Storage.BulkAccess.FileInformation.CopyAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
@@ -952,34 +952,33 @@ proc copyAsync*(self: FileInformation, destinationFolder: StorageFolder,
       withHString(desiredNewName, h1):
         check it.vtbl.CopyAsync3(it, p0, h1, option, op.addr
                                 ), "FileInformation.CopyAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "FileInformation.CopyAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "FileInformation.CopyAsync")
 
 proc copyAndReplaceAsync*(self: FileInformation, fileToReplace: StorageFile
-                         ) {.async.} =
+                         ): Future[void] =
   ## Windows.Storage.BulkAccess.FileInformation.CopyAndReplaceAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(fileToReplace.p, IStorageFile, p0):
       check it.vtbl.CopyAndReplaceAsync(it, p0, op.addr
                                        ), "FileInformation.CopyAndReplaceAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileInformation.CopyAndReplaceAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileInformation.CopyAndReplaceAsync")
 
 proc moveAsync*(self: FileInformation, destinationFolder: StorageFolder
-               ) {.async.} =
+               ): Future[void] =
   ## Windows.Storage.BulkAccess.FileInformation.MoveAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(destinationFolder.p, IStorageFolder, p0):
       check it.vtbl.MoveAsync(it, p0, op.addr), "FileInformation.MoveAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileInformation.MoveAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileInformation.MoveAsync")
 
 proc moveAsync*(self: FileInformation, destinationFolder: StorageFolder,
-                desiredNewName: string) {.async.} =
+                desiredNewName: string): Future[void] =
   ## Windows.Storage.BulkAccess.FileInformation.MoveAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
@@ -987,11 +986,12 @@ proc moveAsync*(self: FileInformation, destinationFolder: StorageFolder,
       withHString(desiredNewName, h1):
         check it.vtbl.MoveAsync2(it, p0, h1, op.addr
                                 ), "FileInformation.MoveAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileInformation.MoveAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileInformation.MoveAsync")
 
 proc moveAsync*(self: FileInformation, destinationFolder: StorageFolder,
-                desiredNewName: string, option: NameCollisionOption) {.async.} =
+                desiredNewName: string, option: NameCollisionOption
+               ): Future[void] =
   ## Windows.Storage.BulkAccess.FileInformation.MoveAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
@@ -999,92 +999,91 @@ proc moveAsync*(self: FileInformation, destinationFolder: StorageFolder,
       withHString(desiredNewName, h1):
         check it.vtbl.MoveAsync3(it, p0, h1, option, op.addr
                                 ), "FileInformation.MoveAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileInformation.MoveAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileInformation.MoveAsync")
 
 proc moveAndReplaceAsync*(self: FileInformation, fileToReplace: StorageFile
-                         ) {.async.} =
+                         ): Future[void] =
   ## Windows.Storage.BulkAccess.FileInformation.MoveAndReplaceAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(fileToReplace.p, IStorageFile, p0):
       check it.vtbl.MoveAndReplaceAsync(it, p0, op.addr
                                        ), "FileInformation.MoveAndReplaceAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileInformation.MoveAndReplaceAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileInformation.MoveAndReplaceAsync")
 
-proc openSequentialReadAsync*(self: FileInformation): Future[WinRtObject] {.async.} =
+proc openSequentialReadAsync*(self: FileInformation): Future[WinRtObject] =
   ## Windows.Storage.BulkAccess.FileInformation.OpenSequentialReadAsync
   var op: pointer
   withIface(self.p, IInputStreamReference, it):
     check it.vtbl.OpenSequentialReadAsync(it, op.addr
                                          ), "FileInformation.OpenSequentialReadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IInputStream,
-                              IID_AsyncOperationCompletedHandler_1_IInputStream,
-                              alPlain, "FileInformation.OpenSequentialReadAsync"
-                             )
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IInputStream,
+                                     IID_AsyncOperationCompletedHandler_1_IInputStream,
+                                     alPlain,
+                                     "FileInformation.OpenSequentialReadAsync")
 
-proc openReadAsync*(self: FileInformation): Future[WinRtObject] {.async.} =
+proc openReadAsync*(self: FileInformation): Future[WinRtObject] =
   ## Windows.Storage.BulkAccess.FileInformation.OpenReadAsync
   var op: pointer
   withIface(self.p, IRandomAccessStreamReference, it):
     check it.vtbl.OpenReadAsync(it, op.addr), "FileInformation.OpenReadAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
-                              alPlain, "FileInformation.OpenReadAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
+                                     alPlain, "FileInformation.OpenReadAsync")
 
-proc renameAsync*(self: FileInformation, desiredName: string) {.async.} =
+proc renameAsync*(self: FileInformation, desiredName: string): Future[void] =
   ## Windows.Storage.BulkAccess.FileInformation.RenameAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     withHString(desiredName, h0):
       check it.vtbl.RenameAsync(it, h0, op.addr), "FileInformation.RenameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileInformation.RenameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileInformation.RenameAsync")
 
 proc renameAsync*(self: FileInformation, desiredName: string,
-                  option: NameCollisionOption) {.async.} =
+                  option: NameCollisionOption): Future[void] =
   ## Windows.Storage.BulkAccess.FileInformation.RenameAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     withHString(desiredName, h0):
       check it.vtbl.RenameAsync2(it, h0, option, op.addr
                                 ), "FileInformation.RenameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileInformation.RenameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileInformation.RenameAsync")
 
-proc deleteAsync*(self: FileInformation) {.async.} =
+proc deleteAsync*(self: FileInformation): Future[void] =
   ## Windows.Storage.BulkAccess.FileInformation.DeleteAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     check it.vtbl.DeleteAsync(it, op.addr), "FileInformation.DeleteAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileInformation.DeleteAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileInformation.DeleteAsync")
 
 proc deleteAsync*(self: FileInformation, option: StorageDeleteOption
-                 ) {.async.} =
+                 ): Future[void] =
   ## Windows.Storage.BulkAccess.FileInformation.DeleteAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     check it.vtbl.DeleteAsync2(it, option, op.addr
                               ), "FileInformation.DeleteAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileInformation.DeleteAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileInformation.DeleteAsync")
 
-proc getBasicPropertiesAsync*(self: FileInformation): Future[BasicProperties] {.async.} =
+proc getBasicPropertiesAsync*(self: FileInformation): Future[BasicProperties] =
   ## Windows.Storage.BulkAccess.FileInformation.GetBasicPropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     check it.vtbl.GetBasicPropertiesAsync(it, op.addr
                                          ), "FileInformation.GetBasicPropertiesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_BasicProperties,
-                              IID_AsyncOperationCompletedHandler_1_BasicProperties,
-                              alPlain, "FileInformation.GetBasicPropertiesAsync"
-                             )
-  result = adopt[BasicProperties](obj)
+  result = futureObject[BasicProperties](op,
+                                         IID_IAsyncOperation_1_BasicProperties,
+                                         IID_AsyncOperationCompletedHandler_1_BasicProperties,
+                                         alPlain,
+                                         "FileInformation.GetBasicPropertiesAsync"
+                                        )
 
 proc name*(self: FileInformation): string =
   ## Windows.Storage.BulkAccess.FileInformation.get_Name
@@ -1114,42 +1113,47 @@ proc isOfType*(self: FileInformation, `type`: StorageItemTypes): bool =
     result = tmp
 
 proc getThumbnailAsync*(self: FileInformation, mode: ThumbnailMode
-                       ): Future[StorageItemThumbnail] {.async.} =
+                       ): Future[StorageItemThumbnail] =
   ## Windows.Storage.BulkAccess.FileInformation.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     check it.vtbl.GetThumbnailAsync(it, mode, op.addr
                                    ), "FileInformation.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain, "FileInformation.GetThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "FileInformation.GetThumbnailAsync"
+                                             )
 
 proc getThumbnailAsync*(self: FileInformation, mode: ThumbnailMode,
-                        requestedSize: uint32
-                       ): Future[StorageItemThumbnail] {.async.} =
+                        requestedSize: uint32): Future[StorageItemThumbnail] =
   ## Windows.Storage.BulkAccess.FileInformation.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     check it.vtbl.GetThumbnailAsync2(it, mode, requestedSize, op.addr
                                     ), "FileInformation.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain, "FileInformation.GetThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "FileInformation.GetThumbnailAsync"
+                                             )
 
 proc getThumbnailAsync*(self: FileInformation, mode: ThumbnailMode,
                         requestedSize: uint32, options: ThumbnailOptions
-                       ): Future[StorageItemThumbnail] {.async.} =
+                       ): Future[StorageItemThumbnail] =
   ## Windows.Storage.BulkAccess.FileInformation.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     check it.vtbl.GetThumbnailAsync3(it, mode, requestedSize, options, op.addr
                                     ), "FileInformation.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain, "FileInformation.GetThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "FileInformation.GetThumbnailAsync"
+                                             )
 
 proc displayName*(self: FileInformation): string =
   ## Windows.Storage.BulkAccess.FileInformation.get_DisplayName
@@ -1171,15 +1175,15 @@ proc properties*(self: FileInformation): StorageItemContentProperties =
   withIface(self.p, IStorageItemProperties, it):
     result = it.getObject(get_Properties, StorageItemContentProperties)
 
-proc getParentAsync*(self: FileInformation): Future[StorageFolder] {.async.} =
+proc getParentAsync*(self: FileInformation): Future[StorageFolder] =
   ## Windows.Storage.BulkAccess.FileInformation.GetParentAsync
   var op: pointer
   withIface(self.p, IStorageItem2, it):
     check it.vtbl.GetParentAsync(it, op.addr), "FileInformation.GetParentAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "FileInformation.GetParentAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain, "FileInformation.GetParentAsync"
+                                      )
 
 proc isEqual*(self: FileInformation, item: WinRtObject): bool =
   ## Windows.Storage.BulkAccess.FileInformation.IsEqual
@@ -1200,111 +1204,109 @@ proc isAvailable*(self: FileInformation): bool =
     result = it.getValue(get_IsAvailable, bool)
 
 proc openAsync*(self: FileInformation, accessMode: FileAccessMode,
-                options: StorageOpenOptions): Future[WinRtObject] {.async.} =
+                options: StorageOpenOptions): Future[WinRtObject] =
   ## Windows.Storage.BulkAccess.FileInformation.OpenAsync
   var op: pointer
   withIface(self.p, IStorageFile2, it):
     check it.vtbl.OpenAsync(it, accessMode, options, op.addr
                            ), "FileInformation.OpenAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                              alPlain, "FileInformation.OpenAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStream,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                                     alPlain, "FileInformation.OpenAsync")
 
 proc openTransactedWriteAsync*(self: FileInformation,
                                options: StorageOpenOptions
-                              ): Future[StorageStreamTransaction] {.async.} =
+                              ): Future[StorageStreamTransaction] =
   ## Windows.Storage.BulkAccess.FileInformation.OpenTransactedWriteAsync
   var op: pointer
   withIface(self.p, IStorageFile2, it):
     check it.vtbl.OpenTransactedWriteAsync(it, options, op.addr
                                           ), "FileInformation.OpenTransactedWriteAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_StorageStreamTransaction,
-                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                              alPlain,
-                              "FileInformation.OpenTransactedWriteAsync")
-  result = adopt[StorageStreamTransaction](obj)
+  result = futureObject[StorageStreamTransaction](op,
+                                                  IID_IAsyncOperation_1_StorageStreamTransaction,
+                                                  IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                                                  alPlain,
+                                                  "FileInformation.OpenTransactedWriteAsync"
+                                                 )
 
 proc getItemsAsync*(self: FileInformationFactory, startIndex: uint32,
-                    maxItemsToRetrieve: uint32
-                   ): Future[seq[WinRtObject]] {.async.} =
+                    maxItemsToRetrieve: uint32): Future[seq[WinRtObject]] =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetItemsAsync
   var op: pointer
   withIface(self.p, IFileInformationFactory, it):
     check it.vtbl.GetItemsAsync(it, startIndex, maxItemsToRetrieve, op.addr
                                ), "FileInformationFactory.GetItemsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain, "FileInformationFactory.GetItemsAsync")
-  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItemInformation)
-  discard release(coll)
+  result = futureSeq[WinRtObject](op, IID_IAsyncOperation_1_IVectorView_1,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                                  alPlain,
+                                  "FileInformationFactory.GetItemsAsync",
+                                  IID_IVectorView_1_IStorageItemInformation)
 
-proc getItemsAsync*(self: FileInformationFactory): Future[seq[WinRtObject]] {.async.} =
+proc getItemsAsync*(self: FileInformationFactory): Future[seq[WinRtObject]] =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetItemsAsync
   var op: pointer
   withIface(self.p, IFileInformationFactory, it):
     check it.vtbl.GetItemsAsync2(it, op.addr
                                 ), "FileInformationFactory.GetItemsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain, "FileInformationFactory.GetItemsAsync")
-  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItemInformation)
-  discard release(coll)
+  result = futureSeq[WinRtObject](op, IID_IAsyncOperation_1_IVectorView_1,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                                  alPlain,
+                                  "FileInformationFactory.GetItemsAsync",
+                                  IID_IVectorView_1_IStorageItemInformation)
 
 proc getFilesAsync*(self: FileInformationFactory, startIndex: uint32,
-                    maxItemsToRetrieve: uint32
-                   ): Future[seq[FileInformation]] {.async.} =
+                    maxItemsToRetrieve: uint32): Future[seq[FileInformation]] =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetFilesAsync
   var op: pointer
   withIface(self.p, IFileInformationFactory, it):
     check it.vtbl.GetFilesAsync(it, startIndex, maxItemsToRetrieve, op.addr
                                ), "FileInformationFactory.GetFilesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
-                               alPlain, "FileInformationFactory.GetFilesAsync")
-  result = toSeq[FileInformation](coll, IID_IVectorView_1_FileInformation)
-  discard release(coll)
+  result = futureSeq[FileInformation](op, IID_IAsyncOperation_1_IVectorView_12,
+                                      IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                                      alPlain,
+                                      "FileInformationFactory.GetFilesAsync",
+                                      IID_IVectorView_1_FileInformation)
 
-proc getFilesAsync*(self: FileInformationFactory): Future[seq[FileInformation]] {.async.} =
+proc getFilesAsync*(self: FileInformationFactory): Future[seq[FileInformation]] =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetFilesAsync
   var op: pointer
   withIface(self.p, IFileInformationFactory, it):
     check it.vtbl.GetFilesAsync2(it, op.addr
                                 ), "FileInformationFactory.GetFilesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
-                               alPlain, "FileInformationFactory.GetFilesAsync")
-  result = toSeq[FileInformation](coll, IID_IVectorView_1_FileInformation)
-  discard release(coll)
+  result = futureSeq[FileInformation](op, IID_IAsyncOperation_1_IVectorView_12,
+                                      IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                                      alPlain,
+                                      "FileInformationFactory.GetFilesAsync",
+                                      IID_IVectorView_1_FileInformation)
 
 proc getFoldersAsync*(self: FileInformationFactory, startIndex: uint32,
                       maxItemsToRetrieve: uint32
-                     ): Future[seq[FolderInformation]] {.async.} =
+                     ): Future[seq[FolderInformation]] =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetFoldersAsync
   var op: pointer
   withIface(self.p, IFileInformationFactory, it):
     check it.vtbl.GetFoldersAsync(it, startIndex, maxItemsToRetrieve, op.addr
                                  ), "FileInformationFactory.GetFoldersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_13,
-                               alPlain, "FileInformationFactory.GetFoldersAsync"
-                              )
-  result = toSeq[FolderInformation](coll, IID_IVectorView_1_FolderInformation)
-  discard release(coll)
+  result = futureSeq[FolderInformation](op,
+                                        IID_IAsyncOperation_1_IVectorView_13,
+                                        IID_AsyncOperationCompletedHandler_1_IVectorView_13,
+                                        alPlain,
+                                        "FileInformationFactory.GetFoldersAsync",
+                                        IID_IVectorView_1_FolderInformation)
 
-proc getFoldersAsync*(self: FileInformationFactory): Future[seq[FolderInformation]] {.async.} =
+proc getFoldersAsync*(self: FileInformationFactory): Future[seq[FolderInformation]] =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetFoldersAsync
   var op: pointer
   withIface(self.p, IFileInformationFactory, it):
     check it.vtbl.GetFoldersAsync2(it, op.addr
                                   ), "FileInformationFactory.GetFoldersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_13,
-                               alPlain, "FileInformationFactory.GetFoldersAsync"
-                              )
-  result = toSeq[FolderInformation](coll, IID_IVectorView_1_FolderInformation)
-  discard release(coll)
+  result = futureSeq[FolderInformation](op,
+                                        IID_IAsyncOperation_1_IVectorView_13,
+                                        IID_AsyncOperationCompletedHandler_1_IVectorView_13,
+                                        alPlain,
+                                        "FileInformationFactory.GetFoldersAsync",
+                                        IID_IVectorView_1_FolderInformation)
 
 proc getVirtualizedItemsVector*(self: FileInformationFactory): WinRtObject =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetVirtualizedItemsVector
@@ -1461,182 +1463,176 @@ proc removePropertiesUpdated*(self: FolderInformation, token: EventRegistrationT
     check it.vtbl.remove_PropertiesUpdated(it, token), "FolderInformation.remove_PropertiesUpdated"
 
 proc createFileAsync*(self: FolderInformation, desiredName: string
-                     ): Future[StorageFile] {.async.} =
+                     ): Future[StorageFile] =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFileAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       check it.vtbl.CreateFileAsync(it, h0, op.addr
                                    ), "FolderInformation.CreateFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "FolderInformation.CreateFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "FolderInformation.CreateFileAsync")
 
 proc createFileAsync*(self: FolderInformation, desiredName: string,
-                      options: CreationCollisionOption
-                     ): Future[StorageFile] {.async.} =
+                      options: CreationCollisionOption): Future[StorageFile] =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFileAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       check it.vtbl.CreateFileAsync2(it, h0, options, op.addr
                                     ), "FolderInformation.CreateFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "FolderInformation.CreateFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "FolderInformation.CreateFileAsync")
 
 proc createFolderAsync*(self: FolderInformation, desiredName: string
-                       ): Future[StorageFolder] {.async.} =
+                       ): Future[StorageFolder] =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFolderAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       check it.vtbl.CreateFolderAsync(it, h0, op.addr
                                      ), "FolderInformation.CreateFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "FolderInformation.CreateFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "FolderInformation.CreateFolderAsync")
 
 proc createFolderAsync*(self: FolderInformation, desiredName: string,
                         options: CreationCollisionOption
-                       ): Future[StorageFolder] {.async.} =
+                       ): Future[StorageFolder] =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFolderAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       check it.vtbl.CreateFolderAsync2(it, h0, options, op.addr
                                       ), "FolderInformation.CreateFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "FolderInformation.CreateFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "FolderInformation.CreateFolderAsync")
 
-proc getFileAsync*(self: FolderInformation, name: string
-                  ): Future[StorageFile] {.async.} =
+proc getFileAsync*(self: FolderInformation, name: string): Future[StorageFile] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFileAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(name, h0):
       check it.vtbl.GetFileAsync(it, h0, op.addr
                                 ), "FolderInformation.GetFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "FolderInformation.GetFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "FolderInformation.GetFileAsync")
 
 proc getFolderAsync*(self: FolderInformation, name: string
-                    ): Future[StorageFolder] {.async.} =
+                    ): Future[StorageFolder] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFolderAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(name, h0):
       check it.vtbl.GetFolderAsync(it, h0, op.addr
                                   ), "FolderInformation.GetFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "FolderInformation.GetFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "FolderInformation.GetFolderAsync")
 
-proc getItemAsync*(self: FolderInformation, name: string
-                  ): Future[WinRtObject] {.async.} =
+proc getItemAsync*(self: FolderInformation, name: string): Future[WinRtObject] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetItemAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(name, h0):
       check it.vtbl.GetItemAsync(it, h0, op.addr
                                 ), "FolderInformation.GetItemAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
-                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                              alPlain, "FolderInformation.GetItemAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IStorageItem,
+                                     IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                                     alPlain, "FolderInformation.GetItemAsync")
 
-proc getFilesAsync*(self: FolderInformation): Future[seq[StorageFile]] {.async.} =
+proc getFilesAsync*(self: FolderInformation): Future[seq[StorageFile]] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFilesAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     check it.vtbl.GetFilesAsync(it, op.addr), "FolderInformation.GetFilesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_14,
-                               alPlain, "FolderInformation.GetFilesAsync")
-  result = toSeq[StorageFile](coll, IID_IVectorView_1_StorageFile)
-  discard release(coll)
+  result = futureSeq[StorageFile](op, IID_IAsyncOperation_1_IVectorView_14,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_14,
+                                  alPlain, "FolderInformation.GetFilesAsync",
+                                  IID_IVectorView_1_StorageFile)
 
-proc getFoldersAsync*(self: FolderInformation): Future[seq[StorageFolder]] {.async.} =
+proc getFoldersAsync*(self: FolderInformation): Future[seq[StorageFolder]] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFoldersAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     check it.vtbl.GetFoldersAsync(it, op.addr
                                  ), "FolderInformation.GetFoldersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_15,
-                               alPlain, "FolderInformation.GetFoldersAsync")
-  result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
-  discard release(coll)
+  result = futureSeq[StorageFolder](op, IID_IAsyncOperation_1_IVectorView_15,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_15,
+                                    alPlain,
+                                    "FolderInformation.GetFoldersAsync",
+                                    IID_IVectorView_1_StorageFolder)
 
-proc getItemsAsync*(self: FolderInformation): Future[seq[WinRtObject]] {.async.} =
+proc getItemsAsync*(self: FolderInformation): Future[seq[WinRtObject]] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetItemsAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     check it.vtbl.GetItemsAsync(it, op.addr), "FolderInformation.GetItemsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_16,
-                               alPlain, "FolderInformation.GetItemsAsync")
-  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
-  discard release(coll)
+  result = futureSeq[WinRtObject](op, IID_IAsyncOperation_1_IVectorView_16,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_16,
+                                  alPlain, "FolderInformation.GetItemsAsync",
+                                  IID_IVectorView_1_IStorageItem)
 
-proc renameAsync*(self: FolderInformation, desiredName: string) {.async.} =
+proc renameAsync*(self: FolderInformation, desiredName: string): Future[void] =
   ## Windows.Storage.BulkAccess.FolderInformation.RenameAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     withHString(desiredName, h0):
       check it.vtbl.RenameAsync(it, h0, op.addr
                                ), "FolderInformation.RenameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FolderInformation.RenameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FolderInformation.RenameAsync")
 
 proc renameAsync*(self: FolderInformation, desiredName: string,
-                  option: NameCollisionOption) {.async.} =
+                  option: NameCollisionOption): Future[void] =
   ## Windows.Storage.BulkAccess.FolderInformation.RenameAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     withHString(desiredName, h0):
       check it.vtbl.RenameAsync2(it, h0, option, op.addr
                                 ), "FolderInformation.RenameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FolderInformation.RenameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FolderInformation.RenameAsync")
 
-proc deleteAsync*(self: FolderInformation) {.async.} =
+proc deleteAsync*(self: FolderInformation): Future[void] =
   ## Windows.Storage.BulkAccess.FolderInformation.DeleteAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     check it.vtbl.DeleteAsync(it, op.addr), "FolderInformation.DeleteAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FolderInformation.DeleteAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FolderInformation.DeleteAsync")
 
 proc deleteAsync*(self: FolderInformation, option: StorageDeleteOption
-                 ) {.async.} =
+                 ): Future[void] =
   ## Windows.Storage.BulkAccess.FolderInformation.DeleteAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     check it.vtbl.DeleteAsync2(it, option, op.addr
                               ), "FolderInformation.DeleteAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FolderInformation.DeleteAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FolderInformation.DeleteAsync")
 
-proc getBasicPropertiesAsync*(self: FolderInformation): Future[BasicProperties] {.async.} =
+proc getBasicPropertiesAsync*(self: FolderInformation): Future[BasicProperties] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetBasicPropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     check it.vtbl.GetBasicPropertiesAsync(it, op.addr
                                          ), "FolderInformation.GetBasicPropertiesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_BasicProperties,
-                              IID_AsyncOperationCompletedHandler_1_BasicProperties,
-                              alPlain,
-                              "FolderInformation.GetBasicPropertiesAsync")
-  result = adopt[BasicProperties](obj)
+  result = futureObject[BasicProperties](op,
+                                         IID_IAsyncOperation_1_BasicProperties,
+                                         IID_AsyncOperationCompletedHandler_1_BasicProperties,
+                                         alPlain,
+                                         "FolderInformation.GetBasicPropertiesAsync"
+                                        )
 
 proc name*(self: FolderInformation): string =
   ## Windows.Storage.BulkAccess.FolderInformation.get_Name
@@ -1666,42 +1662,47 @@ proc isOfType*(self: FolderInformation, `type`: StorageItemTypes): bool =
     result = tmp
 
 proc getThumbnailAsync*(self: FolderInformation, mode: ThumbnailMode
-                       ): Future[StorageItemThumbnail] {.async.} =
+                       ): Future[StorageItemThumbnail] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     check it.vtbl.GetThumbnailAsync(it, mode, op.addr
                                    ), "FolderInformation.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain, "FolderInformation.GetThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "FolderInformation.GetThumbnailAsync"
+                                             )
 
 proc getThumbnailAsync*(self: FolderInformation, mode: ThumbnailMode,
-                        requestedSize: uint32
-                       ): Future[StorageItemThumbnail] {.async.} =
+                        requestedSize: uint32): Future[StorageItemThumbnail] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     check it.vtbl.GetThumbnailAsync2(it, mode, requestedSize, op.addr
                                     ), "FolderInformation.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain, "FolderInformation.GetThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "FolderInformation.GetThumbnailAsync"
+                                             )
 
 proc getThumbnailAsync*(self: FolderInformation, mode: ThumbnailMode,
                         requestedSize: uint32, options: ThumbnailOptions
-                       ): Future[StorageItemThumbnail] {.async.} =
+                       ): Future[StorageItemThumbnail] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     check it.vtbl.GetThumbnailAsync3(it, mode, requestedSize, options, op.addr
                                     ), "FolderInformation.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain, "FolderInformation.GetThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "FolderInformation.GetThumbnailAsync"
+                                             )
 
 proc displayName*(self: FolderInformation): string =
   ## Windows.Storage.BulkAccess.FolderInformation.get_DisplayName
@@ -1723,18 +1724,16 @@ proc properties*(self: FolderInformation): StorageItemContentProperties =
   withIface(self.p, IStorageItemProperties, it):
     result = it.getObject(get_Properties, StorageItemContentProperties)
 
-proc getIndexedStateAsync*(self: FolderInformation): Future[IndexedState] {.async.} =
+proc getIndexedStateAsync*(self: FolderInformation): Future[IndexedState] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetIndexedStateAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
     check it.vtbl.GetIndexedStateAsync(it, op.addr
                                       ), "FolderInformation.GetIndexedStateAsync"
-  result = await awaitValue[IndexedState](op,
-                                          IID_IAsyncOperation_1_IndexedState,
-                                          IID_AsyncOperationCompletedHandler_1_IndexedState,
-                                          alPlain,
-                                          "FolderInformation.GetIndexedStateAsync"
-                                         )
+  result = futureValue[IndexedState](op, IID_IAsyncOperation_1_IndexedState,
+                                     IID_AsyncOperationCompletedHandler_1_IndexedState,
+                                     alPlain,
+                                     "FolderInformation.GetIndexedStateAsync")
 
 proc createFileQuery*(self: FolderInformation): StorageFileQueryResult =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFileQuery
@@ -1813,71 +1812,67 @@ proc createItemQueryWithOptions*(self: FolderInformation,
 
 proc getFilesAsync*(self: FolderInformation, query: CommonFileQuery,
                     startIndex: uint32, maxItemsToRetrieve: uint32
-                   ): Future[seq[StorageFile]] {.async.} =
+                   ): Future[seq[StorageFile]] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFilesAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
     check it.vtbl.GetFilesAsync(it, query, startIndex, maxItemsToRetrieve,
                                 op.addr), "FolderInformation.GetFilesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_14,
-                               alPlain, "FolderInformation.GetFilesAsync")
-  result = toSeq[StorageFile](coll, IID_IVectorView_1_StorageFile)
-  discard release(coll)
+  result = futureSeq[StorageFile](op, IID_IAsyncOperation_1_IVectorView_14,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_14,
+                                  alPlain, "FolderInformation.GetFilesAsync",
+                                  IID_IVectorView_1_StorageFile)
 
 proc getFilesAsync*(self: FolderInformation, query: CommonFileQuery
-                   ): Future[seq[StorageFile]] {.async.} =
+                   ): Future[seq[StorageFile]] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFilesAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
     check it.vtbl.GetFilesAsync2(it, query, op.addr
                                 ), "FolderInformation.GetFilesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_14,
-                               alPlain, "FolderInformation.GetFilesAsync")
-  result = toSeq[StorageFile](coll, IID_IVectorView_1_StorageFile)
-  discard release(coll)
+  result = futureSeq[StorageFile](op, IID_IAsyncOperation_1_IVectorView_14,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_14,
+                                  alPlain, "FolderInformation.GetFilesAsync",
+                                  IID_IVectorView_1_StorageFile)
 
 proc getFoldersAsync*(self: FolderInformation, query: CommonFolderQuery,
                       startIndex: uint32, maxItemsToRetrieve: uint32
-                     ): Future[seq[StorageFolder]] {.async.} =
+                     ): Future[seq[StorageFolder]] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFoldersAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
     check it.vtbl.GetFoldersAsync(it, query, startIndex, maxItemsToRetrieve,
                                   op.addr), "FolderInformation.GetFoldersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_15,
-                               alPlain, "FolderInformation.GetFoldersAsync")
-  result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
-  discard release(coll)
+  result = futureSeq[StorageFolder](op, IID_IAsyncOperation_1_IVectorView_15,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_15,
+                                    alPlain,
+                                    "FolderInformation.GetFoldersAsync",
+                                    IID_IVectorView_1_StorageFolder)
 
 proc getFoldersAsync*(self: FolderInformation, query: CommonFolderQuery
-                     ): Future[seq[StorageFolder]] {.async.} =
+                     ): Future[seq[StorageFolder]] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFoldersAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
     check it.vtbl.GetFoldersAsync2(it, query, op.addr
                                   ), "FolderInformation.GetFoldersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_15,
-                               alPlain, "FolderInformation.GetFoldersAsync")
-  result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
-  discard release(coll)
+  result = futureSeq[StorageFolder](op, IID_IAsyncOperation_1_IVectorView_15,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_15,
+                                    alPlain,
+                                    "FolderInformation.GetFoldersAsync",
+                                    IID_IVectorView_1_StorageFolder)
 
 proc getItemsAsync*(self: FolderInformation, startIndex: uint32,
-                    maxItemsToRetrieve: uint32
-                   ): Future[seq[WinRtObject]] {.async.} =
+                    maxItemsToRetrieve: uint32): Future[seq[WinRtObject]] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetItemsAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
     check it.vtbl.GetItemsAsync(it, startIndex, maxItemsToRetrieve, op.addr
                                ), "FolderInformation.GetItemsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_16,
-                               alPlain, "FolderInformation.GetItemsAsync")
-  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
-  discard release(coll)
+  result = futureSeq[WinRtObject](op, IID_IAsyncOperation_1_IVectorView_16,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_16,
+                                  alPlain, "FolderInformation.GetItemsAsync",
+                                  IID_IVectorView_1_IStorageItem)
 
 proc areQueryOptionsSupported*(self: FolderInformation,
                                queryOptions: QueryOptions): bool =
@@ -1907,16 +1902,16 @@ proc isCommonFileQuerySupported*(self: FolderInformation, query: CommonFileQuery
                                             ), "FolderInformation.IsCommonFileQuerySupported"
     result = tmp
 
-proc getParentAsync*(self: FolderInformation): Future[StorageFolder] {.async.} =
+proc getParentAsync*(self: FolderInformation): Future[StorageFolder] =
   ## Windows.Storage.BulkAccess.FolderInformation.GetParentAsync
   var op: pointer
   withIface(self.p, IStorageItem2, it):
     check it.vtbl.GetParentAsync(it, op.addr
                                 ), "FolderInformation.GetParentAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "FolderInformation.GetParentAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "FolderInformation.GetParentAsync")
 
 proc isEqual*(self: FolderInformation, item: WinRtObject): bool =
   ## Windows.Storage.BulkAccess.FolderInformation.IsEqual
@@ -1927,17 +1922,17 @@ proc isEqual*(self: FolderInformation, item: WinRtObject): bool =
       result = tmp
 
 proc tryGetItemAsync*(self: FolderInformation, name: string
-                     ): Future[WinRtObject] {.async.} =
+                     ): Future[WinRtObject] =
   ## Windows.Storage.BulkAccess.FolderInformation.TryGetItemAsync
   var op: pointer
   withIface(self.p, IStorageFolder2, it):
     withHString(name, h0):
       check it.vtbl.TryGetItemAsync(it, h0, op.addr
                                    ), "FolderInformation.TryGetItemAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
-                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                              alPlain, "FolderInformation.TryGetItemAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IStorageItem,
+                                     IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                                     alPlain,
+                                     "FolderInformation.TryGetItemAsync")
 
 proc provider*(self: FolderInformation): StorageProvider =
   ## Windows.Storage.BulkAccess.FolderInformation.get_Provider
@@ -1952,7 +1947,7 @@ proc deferUpdates*(_: typedesc[CachedFileManager], file: StorageFile) =
       check it.vtbl.DeferUpdates(it, p0), "CachedFileManager.DeferUpdates"
 
 proc completeUpdatesAsync*(_: typedesc[CachedFileManager], file: StorageFile
-                          ): Future[FileUpdateStatus] {.async.} =
+                          ): Future[FileUpdateStatus] =
   ## Windows.Storage.CachedFileManager.CompleteUpdatesAsync
   var op: pointer
   withStatics("Windows.Storage.CachedFileManager", ICachedFileManagerStatics, it
@@ -1960,21 +1955,21 @@ proc completeUpdatesAsync*(_: typedesc[CachedFileManager], file: StorageFile
     withIface(file.p, IStorageFile, p0):
       check it.vtbl.CompleteUpdatesAsync(it, p0, op.addr
                                         ), "CachedFileManager.CompleteUpdatesAsync"
-  result = await awaitValue[FileUpdateStatus](op,
-                                              IID_IAsyncOperation_1_FileUpdateStatus,
-                                              IID_AsyncOperationCompletedHandler_1_FileUpdateStatus,
-                                              alPlain,
-                                              "CachedFileManager.CompleteUpdatesAsync"
-                                             )
+  result = futureValue[FileUpdateStatus](op,
+                                         IID_IAsyncOperation_1_FileUpdateStatus,
+                                         IID_AsyncOperationCompletedHandler_1_FileUpdateStatus,
+                                         alPlain,
+                                         "CachedFileManager.CompleteUpdatesAsync"
+                                        )
 
-proc finishAsync*(self: Compressor): Future[bool] {.async.} =
+proc finishAsync*(self: Compressor): Future[bool] =
   ## Windows.Storage.Compression.Compressor.FinishAsync
   var op: pointer
   withIface(self.p, ICompressor, it):
     check it.vtbl.FinishAsync(it, op.addr), "Compressor.FinishAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "Compressor.FinishAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Compressor.FinishAsync")
 
 proc detachStream*(self: Compressor): WinRtObject =
   ## Windows.Storage.Compression.Compressor.DetachStream
@@ -1983,24 +1978,27 @@ proc detachStream*(self: Compressor): WinRtObject =
     check it.vtbl.DetachStream(it, tmp.addr), "Compressor.DetachStream"
     result = adopt[WinRtObject](tmp)
 
-proc writeAsync*(self: Compressor, buffer: Buffer): Future[uint32] {.async.} =
+proc writeAsync*(self: Compressor, buffer: Buffer,
+                 progress: ProgressHandler[uint32] = nil): Future[uint32] =
   ## Windows.Storage.Compression.Compressor.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.WriteAsync(it, p0, op.addr), "Compressor.WriteAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress, "Compressor.WriteAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress, "Compressor.WriteAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "Compressor.WriteAsync")
 
-proc flushAsync*(self: Compressor): Future[bool] {.async.} =
+proc flushAsync*(self: Compressor): Future[bool] =
   ## Windows.Storage.Compression.Compressor.FlushAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     check it.vtbl.FlushAsync(it, op.addr), "Compressor.FlushAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "Compressor.FlushAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "Compressor.FlushAsync")
 
 proc close*(self: Compressor) =
   ## Windows.Storage.Compression.Compressor.Close
@@ -2036,17 +2034,20 @@ proc detachStream*(self: Decompressor): WinRtObject =
     result = adopt[WinRtObject](tmp)
 
 proc readAsync*(self: Decompressor, buffer: Buffer, count: uint32,
-                options: InputStreamOptions): Future[Buffer] {.async.} =
+                options: InputStreamOptions,
+                progress: ProgressHandler[uint32] = nil): Future[Buffer] =
   ## Windows.Storage.Compression.Decompressor.ReadAsync
   var op: pointer
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.ReadAsync(it, p0, count, options, op.addr
                              ), "Decompressor.ReadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                              alProgress, "Decompressor.ReadAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                                alProgress, "Decompressor.ReadAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U4, progress,
+                 "Decompressor.ReadAsync")
 
 proc close*(self: Decompressor) =
   ## Windows.Storage.Compression.Decompressor.Close
@@ -2065,62 +2066,58 @@ proc createDecompressor*(_: typedesc[Decompressor],
       result = adopt[Decompressor](tmp)
 
 proc createFileAsync*(_: typedesc[DownloadsFolder], desiredName: string
-                     ): Future[StorageFile] {.async.} =
+                     ): Future[StorageFile] =
   ## Windows.Storage.DownloadsFolder.CreateFileAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics, it):
     withHString(desiredName, h0):
       check it.vtbl.CreateFileAsync(it, h0, op.addr
                                    ), "DownloadsFolder.CreateFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "DownloadsFolder.CreateFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "DownloadsFolder.CreateFileAsync")
 
 proc createFolderAsync*(_: typedesc[DownloadsFolder], desiredName: string
-                       ): Future[StorageFolder] {.async.} =
+                       ): Future[StorageFolder] =
   ## Windows.Storage.DownloadsFolder.CreateFolderAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics, it):
     withHString(desiredName, h0):
       check it.vtbl.CreateFolderAsync(it, h0, op.addr
                                      ), "DownloadsFolder.CreateFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "DownloadsFolder.CreateFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "DownloadsFolder.CreateFolderAsync")
 
 proc createFileAsync*(_: typedesc[DownloadsFolder], desiredName: string,
-                      option: CreationCollisionOption
-                     ): Future[StorageFile] {.async.} =
+                      option: CreationCollisionOption): Future[StorageFile] =
   ## Windows.Storage.DownloadsFolder.CreateFileAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics, it):
     withHString(desiredName, h0):
       check it.vtbl.CreateFileAsync2(it, h0, option, op.addr
                                     ), "DownloadsFolder.CreateFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "DownloadsFolder.CreateFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "DownloadsFolder.CreateFileAsync")
 
 proc createFolderAsync*(_: typedesc[DownloadsFolder], desiredName: string,
                         option: CreationCollisionOption
-                       ): Future[StorageFolder] {.async.} =
+                       ): Future[StorageFolder] =
   ## Windows.Storage.DownloadsFolder.CreateFolderAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics, it):
     withHString(desiredName, h0):
       check it.vtbl.CreateFolderAsync2(it, h0, option, op.addr
                                       ), "DownloadsFolder.CreateFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "DownloadsFolder.CreateFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "DownloadsFolder.CreateFolderAsync")
 
 proc createFileForUserAsync*(_: typedesc[DownloadsFolder], user: User,
-                             desiredName: string
-                            ): Future[StorageFile] {.async.} =
+                             desiredName: string): Future[StorageFile] =
   ## Windows.Storage.DownloadsFolder.CreateFileForUserAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics2, it):
@@ -2128,14 +2125,13 @@ proc createFileForUserAsync*(_: typedesc[DownloadsFolder], user: User,
       withHString(desiredName, h1):
         check it.vtbl.CreateFileForUserAsync(it, p0, h1, op.addr
                                             ), "DownloadsFolder.CreateFileForUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "DownloadsFolder.CreateFileForUserAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "DownloadsFolder.CreateFileForUserAsync")
 
 proc createFolderForUserAsync*(_: typedesc[DownloadsFolder], user: User,
-                               desiredName: string
-                              ): Future[StorageFolder] {.async.} =
+                               desiredName: string): Future[StorageFolder] =
   ## Windows.Storage.DownloadsFolder.CreateFolderForUserAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics2, it):
@@ -2143,16 +2139,16 @@ proc createFolderForUserAsync*(_: typedesc[DownloadsFolder], user: User,
       withHString(desiredName, h1):
         check it.vtbl.CreateFolderForUserAsync(it, p0, h1, op.addr
                                               ), "DownloadsFolder.CreateFolderForUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain,
-                              "DownloadsFolder.CreateFolderForUserAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "DownloadsFolder.CreateFolderForUserAsync"
+                                      )
 
 proc createFileForUserAsync*(_: typedesc[DownloadsFolder], user: User,
                              desiredName: string,
                              option: CreationCollisionOption
-                            ): Future[StorageFile] {.async.} =
+                            ): Future[StorageFile] =
   ## Windows.Storage.DownloadsFolder.CreateFileForUserAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics2, it):
@@ -2160,15 +2156,15 @@ proc createFileForUserAsync*(_: typedesc[DownloadsFolder], user: User,
       withHString(desiredName, h1):
         check it.vtbl.CreateFileForUserAsync2(it, p0, h1, option, op.addr
                                              ), "DownloadsFolder.CreateFileForUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "DownloadsFolder.CreateFileForUserAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "DownloadsFolder.CreateFileForUserAsync")
 
 proc createFolderForUserAsync*(_: typedesc[DownloadsFolder], user: User,
                                desiredName: string,
                                option: CreationCollisionOption
-                              ): Future[StorageFolder] {.async.} =
+                              ): Future[StorageFolder] =
   ## Windows.Storage.DownloadsFolder.CreateFolderForUserAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics2, it):
@@ -2176,37 +2172,36 @@ proc createFolderForUserAsync*(_: typedesc[DownloadsFolder], user: User,
       withHString(desiredName, h1):
         check it.vtbl.CreateFolderForUserAsync2(it, p0, h1, option, op.addr
                                                ), "DownloadsFolder.CreateFolderForUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain,
-                              "DownloadsFolder.CreateFolderForUserAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "DownloadsFolder.CreateFolderForUserAsync"
+                                      )
 
-proc readTextAsync*(_: typedesc[FileIO], file: StorageFile
-                   ): Future[string] {.async.} =
+proc readTextAsync*(_: typedesc[FileIO], file: StorageFile): Future[string] =
   ## Windows.Storage.FileIO.ReadTextAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
     withIface(file.p, IStorageFile, p0):
       check it.vtbl.ReadTextAsync(it, p0, op.addr), "FileIO.ReadTextAsync"
-  result = await awaitString(op, IID_IAsyncOperation_1_String,
-                             IID_AsyncOperationCompletedHandler_1_String,
-                             alPlain, "FileIO.ReadTextAsync")
+  result = futureString(op, IID_IAsyncOperation_1_String,
+                        IID_AsyncOperationCompletedHandler_1_String, alPlain,
+                        "FileIO.ReadTextAsync")
 
 proc readTextAsync*(_: typedesc[FileIO], file: StorageFile,
-                    encoding: UnicodeEncoding): Future[string] {.async.} =
+                    encoding: UnicodeEncoding): Future[string] =
   ## Windows.Storage.FileIO.ReadTextAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
     withIface(file.p, IStorageFile, p0):
       check it.vtbl.ReadTextAsync2(it, p0, encoding, op.addr
                                   ), "FileIO.ReadTextAsync"
-  result = await awaitString(op, IID_IAsyncOperation_1_String,
-                             IID_AsyncOperationCompletedHandler_1_String,
-                             alPlain, "FileIO.ReadTextAsync")
+  result = futureString(op, IID_IAsyncOperation_1_String,
+                        IID_AsyncOperationCompletedHandler_1_String, alPlain,
+                        "FileIO.ReadTextAsync")
 
 proc writeTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string
-                    ) {.async.} =
+                    ): Future[void] =
   ## Windows.Storage.FileIO.WriteTextAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2214,11 +2209,11 @@ proc writeTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string
       withHString(contents, h1):
         check it.vtbl.WriteTextAsync(it, p0, h1, op.addr
                                     ), "FileIO.WriteTextAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileIO.WriteTextAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileIO.WriteTextAsync")
 
 proc writeTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string,
-                     encoding: UnicodeEncoding) {.async.} =
+                     encoding: UnicodeEncoding): Future[void] =
   ## Windows.Storage.FileIO.WriteTextAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2226,11 +2221,11 @@ proc writeTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string,
       withHString(contents, h1):
         check it.vtbl.WriteTextAsync2(it, p0, h1, encoding, op.addr
                                      ), "FileIO.WriteTextAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileIO.WriteTextAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileIO.WriteTextAsync")
 
 proc appendTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string
-                     ) {.async.} =
+                     ): Future[void] =
   ## Windows.Storage.FileIO.AppendTextAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2238,11 +2233,11 @@ proc appendTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string
       withHString(contents, h1):
         check it.vtbl.AppendTextAsync(it, p0, h1, op.addr
                                      ), "FileIO.AppendTextAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileIO.AppendTextAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileIO.AppendTextAsync")
 
 proc appendTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string,
-                      encoding: UnicodeEncoding) {.async.} =
+                      encoding: UnicodeEncoding): Future[void] =
   ## Windows.Storage.FileIO.AppendTextAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2250,38 +2245,36 @@ proc appendTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string,
       withHString(contents, h1):
         check it.vtbl.AppendTextAsync2(it, p0, h1, encoding, op.addr
                                       ), "FileIO.AppendTextAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileIO.AppendTextAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileIO.AppendTextAsync")
 
 proc readLinesAsync*(_: typedesc[FileIO], file: StorageFile
-                    ): Future[seq[string]] {.async.} =
+                    ): Future[seq[string]] =
   ## Windows.Storage.FileIO.ReadLinesAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
     withIface(file.p, IStorageFile, p0):
       check it.vtbl.ReadLinesAsync(it, p0, op.addr), "FileIO.ReadLinesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1,
-                               IID_AsyncOperationCompletedHandler_1_IVector_1,
-                               alPlain, "FileIO.ReadLinesAsync")
-  result = toSeq[string](coll, IID_IVector_1_String)
-  discard release(coll)
+  result = futureSeq[string](op, IID_IAsyncOperation_1_IVector_1,
+                             IID_AsyncOperationCompletedHandler_1_IVector_1,
+                             alPlain, "FileIO.ReadLinesAsync",
+                             IID_IVector_1_String)
 
 proc readLinesAsync*(_: typedesc[FileIO], file: StorageFile,
-                     encoding: UnicodeEncoding): Future[seq[string]] {.async.} =
+                     encoding: UnicodeEncoding): Future[seq[string]] =
   ## Windows.Storage.FileIO.ReadLinesAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
     withIface(file.p, IStorageFile, p0):
       check it.vtbl.ReadLinesAsync2(it, p0, encoding, op.addr
                                    ), "FileIO.ReadLinesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1,
-                               IID_AsyncOperationCompletedHandler_1_IVector_1,
-                               alPlain, "FileIO.ReadLinesAsync")
-  result = toSeq[string](coll, IID_IVector_1_String)
-  discard release(coll)
+  result = futureSeq[string](op, IID_IAsyncOperation_1_IVector_1,
+                             IID_AsyncOperationCompletedHandler_1_IVector_1,
+                             alPlain, "FileIO.ReadLinesAsync",
+                             IID_IVector_1_String)
 
 proc writeLinesAsync*(_: typedesc[FileIO], file: StorageFile, lines: seq[string]
-                     ) {.async.} =
+                     ): Future[void] =
   ## Windows.Storage.FileIO.WriteLinesAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2292,11 +2285,12 @@ proc writeLinesAsync*(_: typedesc[FileIO], file: StorageFile, lines: seq[string]
       defer: discard release(p1)
       check it.vtbl.WriteLinesAsync(it, p0, p1, op.addr
                                    ), "FileIO.WriteLinesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileIO.WriteLinesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileIO.WriteLinesAsync")
 
 proc writeLinesAsync*(_: typedesc[FileIO], file: StorageFile,
-                      lines: seq[string], encoding: UnicodeEncoding) {.async.} =
+                      lines: seq[string], encoding: UnicodeEncoding
+                     ): Future[void] =
   ## Windows.Storage.FileIO.WriteLinesAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2307,11 +2301,11 @@ proc writeLinesAsync*(_: typedesc[FileIO], file: StorageFile,
       defer: discard release(p1)
       check it.vtbl.WriteLinesAsync2(it, p0, p1, encoding, op.addr
                                     ), "FileIO.WriteLinesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileIO.WriteLinesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileIO.WriteLinesAsync")
 
 proc appendLinesAsync*(_: typedesc[FileIO], file: StorageFile,
-                       lines: seq[string]) {.async.} =
+                       lines: seq[string]): Future[void] =
   ## Windows.Storage.FileIO.AppendLinesAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2322,12 +2316,12 @@ proc appendLinesAsync*(_: typedesc[FileIO], file: StorageFile,
       defer: discard release(p1)
       check it.vtbl.AppendLinesAsync(it, p0, p1, op.addr
                                     ), "FileIO.AppendLinesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileIO.AppendLinesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileIO.AppendLinesAsync")
 
 proc appendLinesAsync*(_: typedesc[FileIO], file: StorageFile,
                        lines: seq[string], encoding: UnicodeEncoding
-                      ) {.async.} =
+                      ): Future[void] =
   ## Windows.Storage.FileIO.AppendLinesAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2338,23 +2332,21 @@ proc appendLinesAsync*(_: typedesc[FileIO], file: StorageFile,
       defer: discard release(p1)
       check it.vtbl.AppendLinesAsync2(it, p0, p1, encoding, op.addr
                                      ), "FileIO.AppendLinesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileIO.AppendLinesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileIO.AppendLinesAsync")
 
-proc readBufferAsync*(_: typedesc[FileIO], file: StorageFile
-                     ): Future[Buffer] {.async.} =
+proc readBufferAsync*(_: typedesc[FileIO], file: StorageFile): Future[Buffer] =
   ## Windows.Storage.FileIO.ReadBufferAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
     withIface(file.p, IStorageFile, p0):
       check it.vtbl.ReadBufferAsync(it, p0, op.addr), "FileIO.ReadBufferAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
-                              IID_AsyncOperationCompletedHandler_1_IBuffer,
-                              alPlain, "FileIO.ReadBufferAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op, IID_IAsyncOperation_1_IBuffer,
+                                IID_AsyncOperationCompletedHandler_1_IBuffer,
+                                alPlain, "FileIO.ReadBufferAsync")
 
 proc writeBufferAsync*(_: typedesc[FileIO], file: StorageFile, buffer: Buffer
-                      ) {.async.} =
+                      ): Future[void] =
   ## Windows.Storage.FileIO.WriteBufferAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2362,11 +2354,11 @@ proc writeBufferAsync*(_: typedesc[FileIO], file: StorageFile, buffer: Buffer
       withIface(buffer.p, IBuffer, p1):
         check it.vtbl.WriteBufferAsync(it, p0, p1, op.addr
                                       ), "FileIO.WriteBufferAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileIO.WriteBufferAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileIO.WriteBufferAsync")
 
 proc writeBytesAsync*(_: typedesc[FileIO], file: StorageFile,
-                      buffer: openArray[uint8]) {.async.} =
+                      buffer: openArray[uint8]): Future[void] =
   ## Windows.Storage.FileIO.WriteBytesAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2375,8 +2367,8 @@ proc writeBytesAsync*(_: typedesc[FileIO], file: StorageFile,
       let d1 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
       check it.vtbl.WriteBytesAsync(it, p0, n1, d1, op.addr
                                    ), "FileIO.WriteBytesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "FileIO.WriteBytesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "FileIO.WriteBytesAsync")
 
 proc size*(self: BasicProperties): uint64 =
   ## Windows.Storage.FileProperties.BasicProperties.get_Size
@@ -2395,7 +2387,7 @@ proc itemDate*(self: BasicProperties): DateTime =
 
 proc retrievePropertiesAsync*(self: BasicProperties,
                               propertiesToRetrieve: seq[string]
-                             ): Future[Table[string, WinRtObject]] {.async.} =
+                             ): Future[Table[string, WinRtObject]] =
   ## Windows.Storage.FileProperties.BasicProperties.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2405,17 +2397,16 @@ proc retrievePropertiesAsync*(self: BasicProperties,
     defer: discard release(p0)
     check it.vtbl.RetrievePropertiesAsync(it, p0, op.addr
                                          ), "BasicProperties.RetrievePropertiesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2,
-                               IID_AsyncOperationCompletedHandler_1_IMap_2,
-                               alPlain,
-                               "BasicProperties.RetrievePropertiesAsync")
-  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22,
-                                        IID_IKeyValuePair_2_String_Object)
-  discard release(coll)
+  result = futureTable[string, WinRtObject](op, IID_IAsyncOperation_1_IMap_2,
+                                            IID_AsyncOperationCompletedHandler_1_IMap_2,
+                                            alPlain,
+                                            "BasicProperties.RetrievePropertiesAsync",
+                                            IID_IIterable_1_IKeyValuePair_22,
+                                            IID_IKeyValuePair_2_String_Object)
 
 proc savePropertiesAsync*(self: BasicProperties,
                           propertiesToSave: Table[string, WinRtObject]
-                         ) {.async.} =
+                         ): Future[void] =
   ## Windows.Storage.FileProperties.BasicProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2427,17 +2418,17 @@ proc savePropertiesAsync*(self: BasicProperties,
     defer: discard release(p0)
     check it.vtbl.SavePropertiesAsync(it, p0, op.addr
                                      ), "BasicProperties.SavePropertiesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BasicProperties.SavePropertiesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "BasicProperties.SavePropertiesAsync")
 
-proc savePropertiesAsync*(self: BasicProperties) {.async.} =
+proc savePropertiesAsync*(self: BasicProperties): Future[void] =
   ## Windows.Storage.FileProperties.BasicProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
     check it.vtbl.SavePropertiesAsync2(it, op.addr
                                       ), "BasicProperties.SavePropertiesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BasicProperties.SavePropertiesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "BasicProperties.SavePropertiesAsync")
 
 proc author*(self: DocumentProperties): seq[string] =
   ## Windows.Storage.FileProperties.DocumentProperties.get_Author
@@ -2477,7 +2468,7 @@ proc `comment=`*(self: DocumentProperties, value: string) =
 
 proc retrievePropertiesAsync*(self: DocumentProperties,
                               propertiesToRetrieve: seq[string]
-                             ): Future[Table[string, WinRtObject]] {.async.} =
+                             ): Future[Table[string, WinRtObject]] =
   ## Windows.Storage.FileProperties.DocumentProperties.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2487,17 +2478,16 @@ proc retrievePropertiesAsync*(self: DocumentProperties,
     defer: discard release(p0)
     check it.vtbl.RetrievePropertiesAsync(it, p0, op.addr
                                          ), "DocumentProperties.RetrievePropertiesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2,
-                               IID_AsyncOperationCompletedHandler_1_IMap_2,
-                               alPlain,
-                               "DocumentProperties.RetrievePropertiesAsync")
-  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22,
-                                        IID_IKeyValuePair_2_String_Object)
-  discard release(coll)
+  result = futureTable[string, WinRtObject](op, IID_IAsyncOperation_1_IMap_2,
+                                            IID_AsyncOperationCompletedHandler_1_IMap_2,
+                                            alPlain,
+                                            "DocumentProperties.RetrievePropertiesAsync",
+                                            IID_IIterable_1_IKeyValuePair_22,
+                                            IID_IKeyValuePair_2_String_Object)
 
 proc savePropertiesAsync*(self: DocumentProperties,
                           propertiesToSave: Table[string, WinRtObject]
-                         ) {.async.} =
+                         ): Future[void] =
   ## Windows.Storage.FileProperties.DocumentProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2509,20 +2499,20 @@ proc savePropertiesAsync*(self: DocumentProperties,
     defer: discard release(p0)
     check it.vtbl.SavePropertiesAsync(it, p0, op.addr
                                      ), "DocumentProperties.SavePropertiesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "DocumentProperties.SavePropertiesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "DocumentProperties.SavePropertiesAsync")
 
-proc savePropertiesAsync*(self: DocumentProperties) {.async.} =
+proc savePropertiesAsync*(self: DocumentProperties): Future[void] =
   ## Windows.Storage.FileProperties.DocumentProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
     check it.vtbl.SavePropertiesAsync2(it, op.addr
                                       ), "DocumentProperties.SavePropertiesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "DocumentProperties.SavePropertiesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "DocumentProperties.SavePropertiesAsync")
 
 proc getGeotagAsync*(_: typedesc[GeotagHelper], file: StorageFile
-                    ): Future[Geopoint] {.async.} =
+                    ): Future[Geopoint] =
   ## Windows.Storage.FileProperties.GeotagHelper.GetGeotagAsync
   var op: pointer
   withStatics("Windows.Storage.FileProperties.GeotagHelper",
@@ -2530,13 +2520,12 @@ proc getGeotagAsync*(_: typedesc[GeotagHelper], file: StorageFile
     withIface(file.p, IStorageFile, p0):
       check it.vtbl.GetGeotagAsync(it, p0, op.addr
                                   ), "GeotagHelper.GetGeotagAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_Geopoint,
-                              IID_AsyncOperationCompletedHandler_1_Geopoint,
-                              alPlain, "GeotagHelper.GetGeotagAsync")
-  result = adopt[Geopoint](obj)
+  result = futureObject[Geopoint](op, IID_IAsyncOperation_1_Geopoint,
+                                  IID_AsyncOperationCompletedHandler_1_Geopoint,
+                                  alPlain, "GeotagHelper.GetGeotagAsync")
 
 proc setGeotagFromGeolocatorAsync*(_: typedesc[GeotagHelper], file: StorageFile,
-                                   geolocator: Geolocator) {.async.} =
+                                   geolocator: Geolocator): Future[void] =
   ## Windows.Storage.FileProperties.GeotagHelper.SetGeotagFromGeolocatorAsync
   var op: pointer
   withStatics("Windows.Storage.FileProperties.GeotagHelper",
@@ -2545,11 +2534,11 @@ proc setGeotagFromGeolocatorAsync*(_: typedesc[GeotagHelper], file: StorageFile,
       withIface(geolocator.p, IGeolocator, p1):
         check it.vtbl.SetGeotagFromGeolocatorAsync(it, p0, p1, op.addr
                                                   ), "GeotagHelper.SetGeotagFromGeolocatorAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "GeotagHelper.SetGeotagFromGeolocatorAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "GeotagHelper.SetGeotagFromGeolocatorAsync")
 
 proc setGeotagAsync*(_: typedesc[GeotagHelper], file: StorageFile,
-                     geopoint: Geopoint) {.async.} =
+                     geopoint: Geopoint): Future[void] =
   ## Windows.Storage.FileProperties.GeotagHelper.SetGeotagAsync
   var op: pointer
   withStatics("Windows.Storage.FileProperties.GeotagHelper",
@@ -2558,8 +2547,8 @@ proc setGeotagAsync*(_: typedesc[GeotagHelper], file: StorageFile,
       withIface(geopoint.p, IGeopoint, p1):
         check it.vtbl.SetGeotagAsync(it, p0, p1, op.addr
                                     ), "GeotagHelper.SetGeotagAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "GeotagHelper.SetGeotagAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "GeotagHelper.SetGeotagAsync")
 
 proc rating*(self: ImageProperties): uint32 =
   ## Windows.Storage.FileProperties.ImageProperties.get_Rating
@@ -2663,7 +2652,7 @@ proc peopleNames*(self: ImageProperties): seq[string] =
 
 proc retrievePropertiesAsync*(self: ImageProperties,
                               propertiesToRetrieve: seq[string]
-                             ): Future[Table[string, WinRtObject]] {.async.} =
+                             ): Future[Table[string, WinRtObject]] =
   ## Windows.Storage.FileProperties.ImageProperties.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2673,17 +2662,16 @@ proc retrievePropertiesAsync*(self: ImageProperties,
     defer: discard release(p0)
     check it.vtbl.RetrievePropertiesAsync(it, p0, op.addr
                                          ), "ImageProperties.RetrievePropertiesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2,
-                               IID_AsyncOperationCompletedHandler_1_IMap_2,
-                               alPlain,
-                               "ImageProperties.RetrievePropertiesAsync")
-  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22,
-                                        IID_IKeyValuePair_2_String_Object)
-  discard release(coll)
+  result = futureTable[string, WinRtObject](op, IID_IAsyncOperation_1_IMap_2,
+                                            IID_AsyncOperationCompletedHandler_1_IMap_2,
+                                            alPlain,
+                                            "ImageProperties.RetrievePropertiesAsync",
+                                            IID_IIterable_1_IKeyValuePair_22,
+                                            IID_IKeyValuePair_2_String_Object)
 
 proc savePropertiesAsync*(self: ImageProperties,
                           propertiesToSave: Table[string, WinRtObject]
-                         ) {.async.} =
+                         ): Future[void] =
   ## Windows.Storage.FileProperties.ImageProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2695,17 +2683,17 @@ proc savePropertiesAsync*(self: ImageProperties,
     defer: discard release(p0)
     check it.vtbl.SavePropertiesAsync(it, p0, op.addr
                                      ), "ImageProperties.SavePropertiesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ImageProperties.SavePropertiesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ImageProperties.SavePropertiesAsync")
 
-proc savePropertiesAsync*(self: ImageProperties) {.async.} =
+proc savePropertiesAsync*(self: ImageProperties): Future[void] =
   ## Windows.Storage.FileProperties.ImageProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
     check it.vtbl.SavePropertiesAsync2(it, op.addr
                                       ), "ImageProperties.SavePropertiesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ImageProperties.SavePropertiesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ImageProperties.SavePropertiesAsync")
 
 proc album*(self: MusicProperties): string =
   ## Windows.Storage.FileProperties.MusicProperties.get_Album
@@ -2849,7 +2837,7 @@ proc `year=`*(self: MusicProperties, value: uint32) =
 
 proc retrievePropertiesAsync*(self: MusicProperties,
                               propertiesToRetrieve: seq[string]
-                             ): Future[Table[string, WinRtObject]] {.async.} =
+                             ): Future[Table[string, WinRtObject]] =
   ## Windows.Storage.FileProperties.MusicProperties.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2859,17 +2847,16 @@ proc retrievePropertiesAsync*(self: MusicProperties,
     defer: discard release(p0)
     check it.vtbl.RetrievePropertiesAsync(it, p0, op.addr
                                          ), "MusicProperties.RetrievePropertiesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2,
-                               IID_AsyncOperationCompletedHandler_1_IMap_2,
-                               alPlain,
-                               "MusicProperties.RetrievePropertiesAsync")
-  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22,
-                                        IID_IKeyValuePair_2_String_Object)
-  discard release(coll)
+  result = futureTable[string, WinRtObject](op, IID_IAsyncOperation_1_IMap_2,
+                                            IID_AsyncOperationCompletedHandler_1_IMap_2,
+                                            alPlain,
+                                            "MusicProperties.RetrievePropertiesAsync",
+                                            IID_IIterable_1_IKeyValuePair_22,
+                                            IID_IKeyValuePair_2_String_Object)
 
 proc savePropertiesAsync*(self: MusicProperties,
                           propertiesToSave: Table[string, WinRtObject]
-                         ) {.async.} =
+                         ): Future[void] =
   ## Windows.Storage.FileProperties.MusicProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2881,73 +2868,73 @@ proc savePropertiesAsync*(self: MusicProperties,
     defer: discard release(p0)
     check it.vtbl.SavePropertiesAsync(it, p0, op.addr
                                      ), "MusicProperties.SavePropertiesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "MusicProperties.SavePropertiesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "MusicProperties.SavePropertiesAsync")
 
-proc savePropertiesAsync*(self: MusicProperties) {.async.} =
+proc savePropertiesAsync*(self: MusicProperties): Future[void] =
   ## Windows.Storage.FileProperties.MusicProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
     check it.vtbl.SavePropertiesAsync2(it, op.addr
                                       ), "MusicProperties.SavePropertiesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "MusicProperties.SavePropertiesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "MusicProperties.SavePropertiesAsync")
 
-proc getMusicPropertiesAsync*(self: StorageItemContentProperties): Future[MusicProperties] {.async.} =
+proc getMusicPropertiesAsync*(self: StorageItemContentProperties): Future[MusicProperties] =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.GetMusicPropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemContentProperties, it):
     check it.vtbl.GetMusicPropertiesAsync(it, op.addr
                                          ), "StorageItemContentProperties.GetMusicPropertiesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_MusicProperties,
-                              IID_AsyncOperationCompletedHandler_1_MusicProperties,
-                              alPlain,
-                              "StorageItemContentProperties.GetMusicPropertiesAsync"
-                             )
-  result = adopt[MusicProperties](obj)
+  result = futureObject[MusicProperties](op,
+                                         IID_IAsyncOperation_1_MusicProperties,
+                                         IID_AsyncOperationCompletedHandler_1_MusicProperties,
+                                         alPlain,
+                                         "StorageItemContentProperties.GetMusicPropertiesAsync"
+                                        )
 
-proc getVideoPropertiesAsync*(self: StorageItemContentProperties): Future[VideoProperties] {.async.} =
+proc getVideoPropertiesAsync*(self: StorageItemContentProperties): Future[VideoProperties] =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.GetVideoPropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemContentProperties, it):
     check it.vtbl.GetVideoPropertiesAsync(it, op.addr
                                          ), "StorageItemContentProperties.GetVideoPropertiesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_VideoProperties,
-                              IID_AsyncOperationCompletedHandler_1_VideoProperties,
-                              alPlain,
-                              "StorageItemContentProperties.GetVideoPropertiesAsync"
-                             )
-  result = adopt[VideoProperties](obj)
+  result = futureObject[VideoProperties](op,
+                                         IID_IAsyncOperation_1_VideoProperties,
+                                         IID_AsyncOperationCompletedHandler_1_VideoProperties,
+                                         alPlain,
+                                         "StorageItemContentProperties.GetVideoPropertiesAsync"
+                                        )
 
-proc getImagePropertiesAsync*(self: StorageItemContentProperties): Future[ImageProperties] {.async.} =
+proc getImagePropertiesAsync*(self: StorageItemContentProperties): Future[ImageProperties] =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.GetImagePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemContentProperties, it):
     check it.vtbl.GetImagePropertiesAsync(it, op.addr
                                          ), "StorageItemContentProperties.GetImagePropertiesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ImageProperties,
-                              IID_AsyncOperationCompletedHandler_1_ImageProperties,
-                              alPlain,
-                              "StorageItemContentProperties.GetImagePropertiesAsync"
-                             )
-  result = adopt[ImageProperties](obj)
+  result = futureObject[ImageProperties](op,
+                                         IID_IAsyncOperation_1_ImageProperties,
+                                         IID_AsyncOperationCompletedHandler_1_ImageProperties,
+                                         alPlain,
+                                         "StorageItemContentProperties.GetImagePropertiesAsync"
+                                        )
 
-proc getDocumentPropertiesAsync*(self: StorageItemContentProperties): Future[DocumentProperties] {.async.} =
+proc getDocumentPropertiesAsync*(self: StorageItemContentProperties): Future[DocumentProperties] =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.GetDocumentPropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemContentProperties, it):
     check it.vtbl.GetDocumentPropertiesAsync(it, op.addr
                                             ), "StorageItemContentProperties.GetDocumentPropertiesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_DocumentProperties,
-                              IID_AsyncOperationCompletedHandler_1_DocumentProperties,
-                              alPlain,
-                              "StorageItemContentProperties.GetDocumentPropertiesAsync"
-                             )
-  result = adopt[DocumentProperties](obj)
+  result = futureObject[DocumentProperties](op,
+                                            IID_IAsyncOperation_1_DocumentProperties,
+                                            IID_AsyncOperationCompletedHandler_1_DocumentProperties,
+                                            alPlain,
+                                            "StorageItemContentProperties.GetDocumentPropertiesAsync"
+                                           )
 
 proc retrievePropertiesAsync*(self: StorageItemContentProperties,
                               propertiesToRetrieve: seq[string]
-                             ): Future[Table[string, WinRtObject]] {.async.} =
+                             ): Future[Table[string, WinRtObject]] =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2957,18 +2944,16 @@ proc retrievePropertiesAsync*(self: StorageItemContentProperties,
     defer: discard release(p0)
     check it.vtbl.RetrievePropertiesAsync(it, p0, op.addr
                                          ), "StorageItemContentProperties.RetrievePropertiesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2,
-                               IID_AsyncOperationCompletedHandler_1_IMap_2,
-                               alPlain,
-                               "StorageItemContentProperties.RetrievePropertiesAsync"
-                              )
-  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22,
-                                        IID_IKeyValuePair_2_String_Object)
-  discard release(coll)
+  result = futureTable[string, WinRtObject](op, IID_IAsyncOperation_1_IMap_2,
+                                            IID_AsyncOperationCompletedHandler_1_IMap_2,
+                                            alPlain,
+                                            "StorageItemContentProperties.RetrievePropertiesAsync",
+                                            IID_IIterable_1_IKeyValuePair_22,
+                                            IID_IKeyValuePair_2_String_Object)
 
 proc savePropertiesAsync*(self: StorageItemContentProperties,
                           propertiesToSave: Table[string, WinRtObject]
-                         ) {.async.} =
+                         ): Future[void] =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2980,17 +2965,17 @@ proc savePropertiesAsync*(self: StorageItemContentProperties,
     defer: discard release(p0)
     check it.vtbl.SavePropertiesAsync(it, p0, op.addr
                                      ), "StorageItemContentProperties.SavePropertiesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageItemContentProperties.SavePropertiesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageItemContentProperties.SavePropertiesAsync")
 
-proc savePropertiesAsync*(self: StorageItemContentProperties) {.async.} =
+proc savePropertiesAsync*(self: StorageItemContentProperties): Future[void] =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
     check it.vtbl.SavePropertiesAsync2(it, op.addr
                                       ), "StorageItemContentProperties.SavePropertiesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageItemContentProperties.SavePropertiesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageItemContentProperties.SavePropertiesAsync")
 
 proc contentType*(self: StorageItemThumbnail): string =
   ## Windows.Storage.FileProperties.StorageItemThumbnail.get_ContentType
@@ -3052,27 +3037,28 @@ proc canWrite*(self: StorageItemThumbnail): bool =
   withIface(self.p, IRandomAccessStream, it):
     result = it.getValue(get_CanWrite, bool)
 
-proc writeAsync*(self: StorageItemThumbnail, buffer: Buffer
-                ): Future[uint32] {.async.} =
+proc writeAsync*(self: StorageItemThumbnail, buffer: Buffer,
+                 progress: ProgressHandler[uint32] = nil): Future[uint32] =
   ## Windows.Storage.FileProperties.StorageItemThumbnail.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.WriteAsync(it, p0, op.addr
                               ), "StorageItemThumbnail.WriteAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress,
-                                    "StorageItemThumbnail.WriteAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress, "StorageItemThumbnail.WriteAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "StorageItemThumbnail.WriteAsync")
 
-proc flushAsync*(self: StorageItemThumbnail): Future[bool] {.async.} =
+proc flushAsync*(self: StorageItemThumbnail): Future[bool] =
   ## Windows.Storage.FileProperties.StorageItemThumbnail.FlushAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     check it.vtbl.FlushAsync(it, op.addr), "StorageItemThumbnail.FlushAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "StorageItemThumbnail.FlushAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "StorageItemThumbnail.FlushAsync")
 
 proc close*(self: StorageItemThumbnail) =
   ## Windows.Storage.FileProperties.StorageItemThumbnail.Close
@@ -3080,17 +3066,20 @@ proc close*(self: StorageItemThumbnail) =
     check it.vtbl.Close(it), "StorageItemThumbnail.Close"
 
 proc readAsync*(self: StorageItemThumbnail, buffer: Buffer, count: uint32,
-                options: InputStreamOptions): Future[Buffer] {.async.} =
+                options: InputStreamOptions,
+                progress: ProgressHandler[uint32] = nil): Future[Buffer] =
   ## Windows.Storage.FileProperties.StorageItemThumbnail.ReadAsync
   var op: pointer
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.ReadAsync(it, p0, count, options, op.addr
                              ), "StorageItemThumbnail.ReadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                              alProgress, "StorageItemThumbnail.ReadAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                                alProgress, "StorageItemThumbnail.ReadAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U4, progress,
+                 "StorageItemThumbnail.ReadAsync")
 
 proc originalWidth*(self: StorageItemThumbnail): uint32 =
   ## Windows.Storage.FileProperties.StorageItemThumbnail.get_OriginalWidth
@@ -3239,7 +3228,7 @@ proc orientation*(self: VideoProperties): VideoOrientation =
 
 proc retrievePropertiesAsync*(self: VideoProperties,
                               propertiesToRetrieve: seq[string]
-                             ): Future[Table[string, WinRtObject]] {.async.} =
+                             ): Future[Table[string, WinRtObject]] =
   ## Windows.Storage.FileProperties.VideoProperties.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -3249,17 +3238,16 @@ proc retrievePropertiesAsync*(self: VideoProperties,
     defer: discard release(p0)
     check it.vtbl.RetrievePropertiesAsync(it, p0, op.addr
                                          ), "VideoProperties.RetrievePropertiesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2,
-                               IID_AsyncOperationCompletedHandler_1_IMap_2,
-                               alPlain,
-                               "VideoProperties.RetrievePropertiesAsync")
-  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22,
-                                        IID_IKeyValuePair_2_String_Object)
-  discard release(coll)
+  result = futureTable[string, WinRtObject](op, IID_IAsyncOperation_1_IMap_2,
+                                            IID_AsyncOperationCompletedHandler_1_IMap_2,
+                                            alPlain,
+                                            "VideoProperties.RetrievePropertiesAsync",
+                                            IID_IIterable_1_IKeyValuePair_22,
+                                            IID_IKeyValuePair_2_String_Object)
 
 proc savePropertiesAsync*(self: VideoProperties,
                           propertiesToSave: Table[string, WinRtObject]
-                         ) {.async.} =
+                         ): Future[void] =
   ## Windows.Storage.FileProperties.VideoProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -3271,17 +3259,17 @@ proc savePropertiesAsync*(self: VideoProperties,
     defer: discard release(p0)
     check it.vtbl.SavePropertiesAsync(it, p0, op.addr
                                      ), "VideoProperties.SavePropertiesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "VideoProperties.SavePropertiesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "VideoProperties.SavePropertiesAsync")
 
-proc savePropertiesAsync*(self: VideoProperties) {.async.} =
+proc savePropertiesAsync*(self: VideoProperties): Future[void] =
   ## Windows.Storage.FileProperties.VideoProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
     check it.vtbl.SavePropertiesAsync2(it, op.addr
                                       ), "VideoProperties.SavePropertiesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "VideoProperties.SavePropertiesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "VideoProperties.SavePropertiesAsync")
 
 proc musicLibrary*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.KnownFolders.get_MusicLibrary
@@ -3319,18 +3307,17 @@ proc mediaServerDevices*(_: typedesc[KnownFolders]): StorageFolder =
     result = it.getObject(get_MediaServerDevices, StorageFolder)
 
 proc getFolderForUserAsync*(_: typedesc[KnownFolders], user: User,
-                            folderId: KnownFolderId
-                           ): Future[StorageFolder] {.async.} =
+                            folderId: KnownFolderId): Future[StorageFolder] =
   ## Windows.Storage.KnownFolders.GetFolderForUserAsync
   var op: pointer
   withStatics("Windows.Storage.KnownFolders", IKnownFoldersStatics3, it):
     withIface(user.p, IUser, p0):
       check it.vtbl.GetFolderForUserAsync(it, p0, folderId, op.addr
                                          ), "KnownFolders.GetFolderForUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "KnownFolders.GetFolderForUserAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "KnownFolders.GetFolderForUserAsync")
 
 proc cameraRoll*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.KnownFolders.get_CameraRoll
@@ -3339,46 +3326,45 @@ proc cameraRoll*(_: typedesc[KnownFolders]): StorageFolder =
     result = it.getObject(get_CameraRoll, StorageFolder)
 
 proc requestAccessAsync*(_: typedesc[KnownFolders], folderId: KnownFolderId
-                        ): Future[KnownFoldersAccessStatus] {.async.} =
+                        ): Future[KnownFoldersAccessStatus] =
   ## Windows.Storage.KnownFolders.RequestAccessAsync
   var op: pointer
   withStatics("Windows.Storage.KnownFolders", IKnownFoldersStatics4, it):
     check it.vtbl.RequestAccessAsync(it, folderId, op.addr
                                     ), "KnownFolders.RequestAccessAsync"
-  result = await awaitValue[KnownFoldersAccessStatus](op,
-                                                      IID_IAsyncOperation_1_KnownFoldersAccessStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_KnownFoldersAccessStatus,
-                                                      alPlain,
-                                                      "KnownFolders.RequestAccessAsync"
-                                                     )
+  result = futureValue[KnownFoldersAccessStatus](op,
+                                                 IID_IAsyncOperation_1_KnownFoldersAccessStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_KnownFoldersAccessStatus,
+                                                 alPlain,
+                                                 "KnownFolders.RequestAccessAsync"
+                                                )
 
 proc requestAccessForUserAsync*(_: typedesc[KnownFolders], user: User,
                                 folderId: KnownFolderId
-                               ): Future[KnownFoldersAccessStatus] {.async.} =
+                               ): Future[KnownFoldersAccessStatus] =
   ## Windows.Storage.KnownFolders.RequestAccessForUserAsync
   var op: pointer
   withStatics("Windows.Storage.KnownFolders", IKnownFoldersStatics4, it):
     withIface(user.p, IUser, p0):
       check it.vtbl.RequestAccessForUserAsync(it, p0, folderId, op.addr
                                              ), "KnownFolders.RequestAccessForUserAsync"
-  result = await awaitValue[KnownFoldersAccessStatus](op,
-                                                      IID_IAsyncOperation_1_KnownFoldersAccessStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_KnownFoldersAccessStatus,
-                                                      alPlain,
-                                                      "KnownFolders.RequestAccessForUserAsync"
-                                                     )
+  result = futureValue[KnownFoldersAccessStatus](op,
+                                                 IID_IAsyncOperation_1_KnownFoldersAccessStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_KnownFoldersAccessStatus,
+                                                 alPlain,
+                                                 "KnownFolders.RequestAccessForUserAsync"
+                                                )
 
 proc getFolderAsync*(_: typedesc[KnownFolders], folderId: KnownFolderId
-                    ): Future[StorageFolder] {.async.} =
+                    ): Future[StorageFolder] =
   ## Windows.Storage.KnownFolders.GetFolderAsync
   var op: pointer
   withStatics("Windows.Storage.KnownFolders", IKnownFoldersStatics4, it):
     check it.vtbl.GetFolderAsync(it, folderId, op.addr
                                 ), "KnownFolders.GetFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "KnownFolders.GetFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain, "KnownFolders.GetFolderAsync")
 
 proc savedPictures*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.KnownFolders.get_SavedPictures
@@ -3407,31 +3393,30 @@ proc playlists*(_: typedesc[KnownFolders]): StorageFolder =
              ):
     result = it.getObject(get_Playlists, StorageFolder)
 
-proc readTextAsync*(_: typedesc[PathIO], absolutePath: string
-                   ): Future[string] {.async.} =
+proc readTextAsync*(_: typedesc[PathIO], absolutePath: string): Future[string] =
   ## Windows.Storage.PathIO.ReadTextAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
     withHString(absolutePath, h0):
       check it.vtbl.ReadTextAsync(it, h0, op.addr), "PathIO.ReadTextAsync"
-  result = await awaitString(op, IID_IAsyncOperation_1_String,
-                             IID_AsyncOperationCompletedHandler_1_String,
-                             alPlain, "PathIO.ReadTextAsync")
+  result = futureString(op, IID_IAsyncOperation_1_String,
+                        IID_AsyncOperationCompletedHandler_1_String, alPlain,
+                        "PathIO.ReadTextAsync")
 
 proc readTextAsync*(_: typedesc[PathIO], absolutePath: string,
-                    encoding: UnicodeEncoding): Future[string] {.async.} =
+                    encoding: UnicodeEncoding): Future[string] =
   ## Windows.Storage.PathIO.ReadTextAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
     withHString(absolutePath, h0):
       check it.vtbl.ReadTextAsync2(it, h0, encoding, op.addr
                                   ), "PathIO.ReadTextAsync"
-  result = await awaitString(op, IID_IAsyncOperation_1_String,
-                             IID_AsyncOperationCompletedHandler_1_String,
-                             alPlain, "PathIO.ReadTextAsync")
+  result = futureString(op, IID_IAsyncOperation_1_String,
+                        IID_AsyncOperationCompletedHandler_1_String, alPlain,
+                        "PathIO.ReadTextAsync")
 
 proc writeTextAsync*(_: typedesc[PathIO], absolutePath: string, contents: string
-                    ) {.async.} =
+                    ): Future[void] =
   ## Windows.Storage.PathIO.WriteTextAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3439,11 +3424,12 @@ proc writeTextAsync*(_: typedesc[PathIO], absolutePath: string, contents: string
       withHString(contents, h1):
         check it.vtbl.WriteTextAsync(it, h0, h1, op.addr
                                     ), "PathIO.WriteTextAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PathIO.WriteTextAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PathIO.WriteTextAsync")
 
 proc writeTextAsync*(_: typedesc[PathIO], absolutePath: string,
-                     contents: string, encoding: UnicodeEncoding) {.async.} =
+                     contents: string, encoding: UnicodeEncoding
+                    ): Future[void] =
   ## Windows.Storage.PathIO.WriteTextAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3451,11 +3437,11 @@ proc writeTextAsync*(_: typedesc[PathIO], absolutePath: string,
       withHString(contents, h1):
         check it.vtbl.WriteTextAsync2(it, h0, h1, encoding, op.addr
                                      ), "PathIO.WriteTextAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PathIO.WriteTextAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PathIO.WriteTextAsync")
 
 proc appendTextAsync*(_: typedesc[PathIO], absolutePath: string,
-                      contents: string) {.async.} =
+                      contents: string): Future[void] =
   ## Windows.Storage.PathIO.AppendTextAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3463,11 +3449,12 @@ proc appendTextAsync*(_: typedesc[PathIO], absolutePath: string,
       withHString(contents, h1):
         check it.vtbl.AppendTextAsync(it, h0, h1, op.addr
                                      ), "PathIO.AppendTextAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PathIO.AppendTextAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PathIO.AppendTextAsync")
 
 proc appendTextAsync*(_: typedesc[PathIO], absolutePath: string,
-                      contents: string, encoding: UnicodeEncoding) {.async.} =
+                      contents: string, encoding: UnicodeEncoding
+                     ): Future[void] =
   ## Windows.Storage.PathIO.AppendTextAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3475,38 +3462,36 @@ proc appendTextAsync*(_: typedesc[PathIO], absolutePath: string,
       withHString(contents, h1):
         check it.vtbl.AppendTextAsync2(it, h0, h1, encoding, op.addr
                                       ), "PathIO.AppendTextAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PathIO.AppendTextAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PathIO.AppendTextAsync")
 
 proc readLinesAsync*(_: typedesc[PathIO], absolutePath: string
-                    ): Future[seq[string]] {.async.} =
+                    ): Future[seq[string]] =
   ## Windows.Storage.PathIO.ReadLinesAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
     withHString(absolutePath, h0):
       check it.vtbl.ReadLinesAsync(it, h0, op.addr), "PathIO.ReadLinesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1,
-                               IID_AsyncOperationCompletedHandler_1_IVector_1,
-                               alPlain, "PathIO.ReadLinesAsync")
-  result = toSeq[string](coll, IID_IVector_1_String)
-  discard release(coll)
+  result = futureSeq[string](op, IID_IAsyncOperation_1_IVector_1,
+                             IID_AsyncOperationCompletedHandler_1_IVector_1,
+                             alPlain, "PathIO.ReadLinesAsync",
+                             IID_IVector_1_String)
 
 proc readLinesAsync*(_: typedesc[PathIO], absolutePath: string,
-                     encoding: UnicodeEncoding): Future[seq[string]] {.async.} =
+                     encoding: UnicodeEncoding): Future[seq[string]] =
   ## Windows.Storage.PathIO.ReadLinesAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
     withHString(absolutePath, h0):
       check it.vtbl.ReadLinesAsync2(it, h0, encoding, op.addr
                                    ), "PathIO.ReadLinesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1,
-                               IID_AsyncOperationCompletedHandler_1_IVector_1,
-                               alPlain, "PathIO.ReadLinesAsync")
-  result = toSeq[string](coll, IID_IVector_1_String)
-  discard release(coll)
+  result = futureSeq[string](op, IID_IAsyncOperation_1_IVector_1,
+                             IID_AsyncOperationCompletedHandler_1_IVector_1,
+                             alPlain, "PathIO.ReadLinesAsync",
+                             IID_IVector_1_String)
 
 proc writeLinesAsync*(_: typedesc[PathIO], absolutePath: string,
-                      lines: seq[string]) {.async.} =
+                      lines: seq[string]): Future[void] =
   ## Windows.Storage.PathIO.WriteLinesAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3517,11 +3502,12 @@ proc writeLinesAsync*(_: typedesc[PathIO], absolutePath: string,
       defer: discard release(p1)
       check it.vtbl.WriteLinesAsync(it, h0, p1, op.addr
                                    ), "PathIO.WriteLinesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PathIO.WriteLinesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PathIO.WriteLinesAsync")
 
 proc writeLinesAsync*(_: typedesc[PathIO], absolutePath: string,
-                      lines: seq[string], encoding: UnicodeEncoding) {.async.} =
+                      lines: seq[string], encoding: UnicodeEncoding
+                     ): Future[void] =
   ## Windows.Storage.PathIO.WriteLinesAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3532,11 +3518,11 @@ proc writeLinesAsync*(_: typedesc[PathIO], absolutePath: string,
       defer: discard release(p1)
       check it.vtbl.WriteLinesAsync2(it, h0, p1, encoding, op.addr
                                     ), "PathIO.WriteLinesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PathIO.WriteLinesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PathIO.WriteLinesAsync")
 
 proc appendLinesAsync*(_: typedesc[PathIO], absolutePath: string,
-                       lines: seq[string]) {.async.} =
+                       lines: seq[string]): Future[void] =
   ## Windows.Storage.PathIO.AppendLinesAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3547,12 +3533,12 @@ proc appendLinesAsync*(_: typedesc[PathIO], absolutePath: string,
       defer: discard release(p1)
       check it.vtbl.AppendLinesAsync(it, h0, p1, op.addr
                                     ), "PathIO.AppendLinesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PathIO.AppendLinesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PathIO.AppendLinesAsync")
 
 proc appendLinesAsync*(_: typedesc[PathIO], absolutePath: string,
                        lines: seq[string], encoding: UnicodeEncoding
-                      ) {.async.} =
+                      ): Future[void] =
   ## Windows.Storage.PathIO.AppendLinesAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3563,23 +3549,22 @@ proc appendLinesAsync*(_: typedesc[PathIO], absolutePath: string,
       defer: discard release(p1)
       check it.vtbl.AppendLinesAsync2(it, h0, p1, encoding, op.addr
                                      ), "PathIO.AppendLinesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PathIO.AppendLinesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PathIO.AppendLinesAsync")
 
 proc readBufferAsync*(_: typedesc[PathIO], absolutePath: string
-                     ): Future[Buffer] {.async.} =
+                     ): Future[Buffer] =
   ## Windows.Storage.PathIO.ReadBufferAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
     withHString(absolutePath, h0):
       check it.vtbl.ReadBufferAsync(it, h0, op.addr), "PathIO.ReadBufferAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
-                              IID_AsyncOperationCompletedHandler_1_IBuffer,
-                              alPlain, "PathIO.ReadBufferAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op, IID_IAsyncOperation_1_IBuffer,
+                                IID_AsyncOperationCompletedHandler_1_IBuffer,
+                                alPlain, "PathIO.ReadBufferAsync")
 
 proc writeBufferAsync*(_: typedesc[PathIO], absolutePath: string, buffer: Buffer
-                      ) {.async.} =
+                      ): Future[void] =
   ## Windows.Storage.PathIO.WriteBufferAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3587,11 +3572,11 @@ proc writeBufferAsync*(_: typedesc[PathIO], absolutePath: string, buffer: Buffer
       withIface(buffer.p, IBuffer, p1):
         check it.vtbl.WriteBufferAsync(it, h0, p1, op.addr
                                       ), "PathIO.WriteBufferAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PathIO.WriteBufferAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PathIO.WriteBufferAsync")
 
 proc writeBytesAsync*(_: typedesc[PathIO], absolutePath: string,
-                      buffer: openArray[uint8]) {.async.} =
+                      buffer: openArray[uint8]): Future[void] =
   ## Windows.Storage.PathIO.WriteBytesAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3600,8 +3585,8 @@ proc writeBytesAsync*(_: typedesc[PathIO], absolutePath: string,
       let d1 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
       check it.vtbl.WriteBytesAsync(it, h0, n1, d1, op.addr
                                    ), "PathIO.WriteBytesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PathIO.WriteBytesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "PathIO.WriteBytesAsync")
 
 proc newFileOpenPicker*(): FileOpenPicker =
   ## Activate a `Windows.Storage.Pickers.FileOpenPicker`.
@@ -3623,17 +3608,17 @@ proc pickMultipleFilesAndContinue*(self: FileOpenPicker) =
     check it.vtbl.PickMultipleFilesAndContinue(it), "FileOpenPicker.PickMultipleFilesAndContinue"
 
 proc pickSingleFileAsync*(self: FileOpenPicker, pickerOperationId: string
-                         ): Future[StorageFile] {.async.} =
+                         ): Future[StorageFile] =
   ## Windows.Storage.Pickers.FileOpenPicker.PickSingleFileAsync
   var op: pointer
   withIface(self.p, IFileOpenPickerWithOperationId, it):
     withHString(pickerOperationId, h0):
       check it.vtbl.PickSingleFileAsync(it, h0, op.addr
                                        ), "FileOpenPicker.PickSingleFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "FileOpenPicker.PickSingleFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "FileOpenPicker.PickSingleFileAsync")
 
 proc viewMode*(self: FileOpenPicker): PickerViewMode =
   ## Windows.Storage.Pickers.FileOpenPicker.get_ViewMode
@@ -3684,46 +3669,45 @@ proc fileTypeFilter*(self: FileOpenPicker): seq[string] =
     result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
-proc pickSingleFileAsync*(self: FileOpenPicker): Future[StorageFile] {.async.} =
+proc pickSingleFileAsync*(self: FileOpenPicker): Future[StorageFile] =
   ## Windows.Storage.Pickers.FileOpenPicker.PickSingleFileAsync
   var op: pointer
   withIface(self.p, IFileOpenPicker, it):
     check it.vtbl.PickSingleFileAsync(it, op.addr
                                      ), "FileOpenPicker.PickSingleFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "FileOpenPicker.PickSingleFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "FileOpenPicker.PickSingleFileAsync")
 
-proc pickMultipleFilesAsync*(self: FileOpenPicker): Future[seq[StorageFile]] {.async.} =
+proc pickMultipleFilesAsync*(self: FileOpenPicker): Future[seq[StorageFile]] =
   ## Windows.Storage.Pickers.FileOpenPicker.PickMultipleFilesAsync
   var op: pointer
   withIface(self.p, IFileOpenPicker, it):
     check it.vtbl.PickMultipleFilesAsync(it, op.addr
                                         ), "FileOpenPicker.PickMultipleFilesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_14,
-                               alPlain, "FileOpenPicker.PickMultipleFilesAsync")
-  result = toSeq[StorageFile](coll, IID_IVectorView_1_StorageFile)
-  discard release(coll)
+  result = futureSeq[StorageFile](op, IID_IAsyncOperation_1_IVectorView_14,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_14,
+                                  alPlain,
+                                  "FileOpenPicker.PickMultipleFilesAsync",
+                                  IID_IVectorView_1_StorageFile)
 
 proc user*(self: FileOpenPicker): User =
   ## Windows.Storage.Pickers.FileOpenPicker.get_User
   withIface(self.p, IFileOpenPicker3, it):
     result = it.getObject(get_User, User)
 
-proc resumePickSingleFileAsync*(_: typedesc[FileOpenPicker]): Future[StorageFile] {.async.} =
+proc resumePickSingleFileAsync*(_: typedesc[FileOpenPicker]): Future[StorageFile] =
   ## Windows.Storage.Pickers.FileOpenPicker.ResumePickSingleFileAsync
   var op: pointer
   withStatics("Windows.Storage.Pickers.FileOpenPicker", IFileOpenPickerStatics,
               it):
     check it.vtbl.ResumePickSingleFileAsync(it, op.addr
                                            ), "FileOpenPicker.ResumePickSingleFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain,
-                              "FileOpenPicker.ResumePickSingleFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "FileOpenPicker.ResumePickSingleFileAsync")
 
 proc createForUser*(_: typedesc[FileOpenPicker], user: User): FileOpenPicker =
   ## Windows.Storage.Pickers.FileOpenPicker.CreateForUser
@@ -3832,16 +3816,16 @@ proc `suggestedFileName=`*(self: FileSavePicker, value: string) =
   withIface(self.p, IFileSavePicker, it):
     it.putString(put_SuggestedFileName, value)
 
-proc pickSaveFileAsync*(self: FileSavePicker): Future[StorageFile] {.async.} =
+proc pickSaveFileAsync*(self: FileSavePicker): Future[StorageFile] =
   ## Windows.Storage.Pickers.FileSavePicker.PickSaveFileAsync
   var op: pointer
   withIface(self.p, IFileSavePicker, it):
     check it.vtbl.PickSaveFileAsync(it, op.addr
                                    ), "FileSavePicker.PickSaveFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "FileSavePicker.PickSaveFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "FileSavePicker.PickSaveFileAsync"
+                                    )
 
 proc user*(self: FileSavePicker): User =
   ## Windows.Storage.Pickers.FileSavePicker.get_User
@@ -3921,16 +3905,16 @@ proc fileTypeFilter*(self: FolderPicker): seq[string] =
     result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
-proc pickSingleFolderAsync*(self: FolderPicker): Future[StorageFolder] {.async.} =
+proc pickSingleFolderAsync*(self: FolderPicker): Future[StorageFolder] =
   ## Windows.Storage.Pickers.FolderPicker.PickSingleFolderAsync
   var op: pointer
   withIface(self.p, IFolderPicker, it):
     check it.vtbl.PickSingleFolderAsync(it, op.addr
                                        ), "FolderPicker.PickSingleFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "FolderPicker.PickSingleFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "FolderPicker.PickSingleFolderAsync")
 
 proc user*(self: FolderPicker): User =
   ## Windows.Storage.Pickers.FolderPicker.get_User
@@ -4407,7 +4391,7 @@ proc `path=`*(self: StorageProviderGetPathForContentUriResult, value: string) =
     it.putString(put_Path, value)
 
 proc setAsync*(_: typedesc[StorageProviderItemProperties], item: WinRtObject,
-               itemProperties: seq[StorageProviderItemProperty]) {.async.} =
+               itemProperties: seq[StorageProviderItemProperty]): Future[void] =
   ## Windows.Storage.Provider.StorageProviderItemProperties.SetAsync
   var op: pointer
   withStatics("Windows.Storage.Provider.StorageProviderItemProperties",
@@ -4420,8 +4404,8 @@ proc setAsync*(_: typedesc[StorageProviderItemProperties], item: WinRtObject,
       defer: discard release(p1)
       check it.vtbl.SetAsync(it, p0, p1, op.addr
                             ), "StorageProviderItemProperties.SetAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageProviderItemProperties.SetAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageProviderItemProperties.SetAsync")
 
 proc newStorageProviderItemProperty*(): StorageProviderItemProperty =
   ## Activate a `Windows.Storage.Provider.StorageProviderItemProperty`.
@@ -5266,36 +5250,36 @@ proc isSupported*(_: typedesc[StorageProviderSyncRootManager]): bool =
     result = tmp
 
 proc addAsync*(self: ContentIndexer, indexableContent: IndexableContent
-              ) {.async.} =
+              ): Future[void] =
   ## Windows.Storage.Search.ContentIndexer.AddAsync
   var op: pointer
   withIface(self.p, IContentIndexer, it):
     withIface(indexableContent.p, IIndexableContent, p0):
       check it.vtbl.AddAsync(it, p0, op.addr), "ContentIndexer.AddAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ContentIndexer.AddAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ContentIndexer.AddAsync")
 
 proc updateAsync*(self: ContentIndexer, indexableContent: IndexableContent
-                 ) {.async.} =
+                 ): Future[void] =
   ## Windows.Storage.Search.ContentIndexer.UpdateAsync
   var op: pointer
   withIface(self.p, IContentIndexer, it):
     withIface(indexableContent.p, IIndexableContent, p0):
       check it.vtbl.UpdateAsync(it, p0, op.addr), "ContentIndexer.UpdateAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ContentIndexer.UpdateAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ContentIndexer.UpdateAsync")
 
-proc deleteAsync*(self: ContentIndexer, contentId: string) {.async.} =
+proc deleteAsync*(self: ContentIndexer, contentId: string): Future[void] =
   ## Windows.Storage.Search.ContentIndexer.DeleteAsync
   var op: pointer
   withIface(self.p, IContentIndexer, it):
     withHString(contentId, h0):
       check it.vtbl.DeleteAsync(it, h0, op.addr), "ContentIndexer.DeleteAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ContentIndexer.DeleteAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ContentIndexer.DeleteAsync")
 
 proc deleteMultipleAsync*(self: ContentIndexer, contentIds: seq[string]
-                         ) {.async.} =
+                         ): Future[void] =
   ## Windows.Storage.Search.ContentIndexer.DeleteMultipleAsync
   var op: pointer
   withIface(self.p, IContentIndexer, it):
@@ -5305,20 +5289,20 @@ proc deleteMultipleAsync*(self: ContentIndexer, contentIds: seq[string]
     defer: discard release(p0)
     check it.vtbl.DeleteMultipleAsync(it, p0, op.addr
                                      ), "ContentIndexer.DeleteMultipleAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ContentIndexer.DeleteMultipleAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ContentIndexer.DeleteMultipleAsync")
 
-proc deleteAllAsync*(self: ContentIndexer) {.async.} =
+proc deleteAllAsync*(self: ContentIndexer): Future[void] =
   ## Windows.Storage.Search.ContentIndexer.DeleteAllAsync
   var op: pointer
   withIface(self.p, IContentIndexer, it):
     check it.vtbl.DeleteAllAsync(it, op.addr), "ContentIndexer.DeleteAllAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ContentIndexer.DeleteAllAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ContentIndexer.DeleteAllAsync")
 
 proc retrievePropertiesAsync*(self: ContentIndexer, contentId: string,
                               propertiesToRetrieve: seq[string]
-                             ): Future[Table[string, WinRtObject]] {.async.} =
+                             ): Future[Table[string, WinRtObject]] =
   ## Windows.Storage.Search.ContentIndexer.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IContentIndexer, it):
@@ -5329,13 +5313,13 @@ proc retrievePropertiesAsync*(self: ContentIndexer, contentId: string,
       defer: discard release(p1)
       check it.vtbl.RetrievePropertiesAsync(it, h0, p1, op.addr
                                            ), "ContentIndexer.RetrievePropertiesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2,
-                               IID_AsyncOperationCompletedHandler_1_IMapView_2,
-                               alPlain, "ContentIndexer.RetrievePropertiesAsync"
-                              )
-  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22,
-                                        IID_IKeyValuePair_2_String_Object)
-  discard release(coll)
+  result = futureTable[string, WinRtObject](op,
+                                            IID_IAsyncOperation_1_IMapView_2,
+                                            IID_AsyncOperationCompletedHandler_1_IMapView_2,
+                                            alPlain,
+                                            "ContentIndexer.RetrievePropertiesAsync",
+                                            IID_IIterable_1_IKeyValuePair_22,
+                                            IID_IKeyValuePair_2_String_Object)
 
 proc revision*(self: ContentIndexer): uint64 =
   ## Windows.Storage.Search.ContentIndexer.get_Revision
@@ -5413,72 +5397,71 @@ proc getIndexer*(_: typedesc[ContentIndexer]): ContentIndexer =
     check it.vtbl.GetIndexer2(it, tmp.addr), "ContentIndexer.GetIndexer"
     result = adopt[ContentIndexer](tmp)
 
-proc getCountAsync*(self: ContentIndexerQuery): Future[uint32] {.async.} =
+proc getCountAsync*(self: ContentIndexerQuery): Future[uint32] =
   ## Windows.Storage.Search.ContentIndexerQuery.GetCountAsync
   var op: pointer
   withIface(self.p, IContentIndexerQuery, it):
     check it.vtbl.GetCountAsync(it, op.addr
                                ), "ContentIndexerQuery.GetCountAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
-                                    IID_AsyncOperationCompletedHandler_1_U4,
-                                    alPlain, "ContentIndexerQuery.GetCountAsync"
-                                   )
+  result = futureValue[uint32](op, IID_IAsyncOperation_1_U4,
+                               IID_AsyncOperationCompletedHandler_1_U4, alPlain,
+                               "ContentIndexerQuery.GetCountAsync")
 
-proc getPropertiesAsync*(self: ContentIndexerQuery): Future[seq[Table[string, WinRtObject]]] {.async.} =
+proc getPropertiesAsync*(self: ContentIndexerQuery): Future[seq[Table[string, WinRtObject]]] =
   ## Windows.Storage.Search.ContentIndexerQuery.GetPropertiesAsync
   var op: pointer
   withIface(self.p, IContentIndexerQuery, it):
     check it.vtbl.GetPropertiesAsync(it, op.addr
                                     ), "ContentIndexerQuery.GetPropertiesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_17,
-                               alPlain, "ContentIndexerQuery.GetPropertiesAsync"
-                              )
-  result = toSeq[Table[string, WinRtObject]](coll, IID_IVectorView_1_IMapView_2,
-                                             IID_IIterable_1_IKeyValuePair_22,
-                                             IID_IKeyValuePair_2_String_Object)
-  discard release(coll)
+  result = futureSeq[Table[string, WinRtObject]](op,
+                                                 IID_IAsyncOperation_1_IVectorView_17,
+                                                 IID_AsyncOperationCompletedHandler_1_IVectorView_17,
+                                                 alPlain,
+                                                 "ContentIndexerQuery.GetPropertiesAsync",
+                                                 IID_IVectorView_1_IMapView_2,
+                                                 IID_IIterable_1_IKeyValuePair_22,
+                                                 IID_IKeyValuePair_2_String_Object
+                                                )
 
 proc getPropertiesAsync*(self: ContentIndexerQuery, startIndex: uint32,
                          maxItems: uint32
-                        ): Future[seq[Table[string, WinRtObject]]] {.async.} =
+                        ): Future[seq[Table[string, WinRtObject]]] =
   ## Windows.Storage.Search.ContentIndexerQuery.GetPropertiesAsync
   var op: pointer
   withIface(self.p, IContentIndexerQuery, it):
     check it.vtbl.GetPropertiesAsync2(it, startIndex, maxItems, op.addr
                                      ), "ContentIndexerQuery.GetPropertiesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_17,
-                               alPlain, "ContentIndexerQuery.GetPropertiesAsync"
-                              )
-  result = toSeq[Table[string, WinRtObject]](coll, IID_IVectorView_1_IMapView_2,
-                                             IID_IIterable_1_IKeyValuePair_22,
-                                             IID_IKeyValuePair_2_String_Object)
-  discard release(coll)
+  result = futureSeq[Table[string, WinRtObject]](op,
+                                                 IID_IAsyncOperation_1_IVectorView_17,
+                                                 IID_AsyncOperationCompletedHandler_1_IVectorView_17,
+                                                 alPlain,
+                                                 "ContentIndexerQuery.GetPropertiesAsync",
+                                                 IID_IVectorView_1_IMapView_2,
+                                                 IID_IIterable_1_IKeyValuePair_22,
+                                                 IID_IKeyValuePair_2_String_Object
+                                                )
 
-proc getAsync*(self: ContentIndexerQuery): Future[seq[IndexableContent]] {.async.} =
+proc getAsync*(self: ContentIndexerQuery): Future[seq[IndexableContent]] =
   ## Windows.Storage.Search.ContentIndexerQuery.GetAsync
   var op: pointer
   withIface(self.p, IContentIndexerQuery, it):
     check it.vtbl.GetAsync(it, op.addr), "ContentIndexerQuery.GetAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_18,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_18,
-                               alPlain, "ContentIndexerQuery.GetAsync")
-  result = toSeq[IndexableContent](coll, IID_IVectorView_1_IIndexableContent)
-  discard release(coll)
+  result = futureSeq[IndexableContent](op, IID_IAsyncOperation_1_IVectorView_18,
+                                       IID_AsyncOperationCompletedHandler_1_IVectorView_18,
+                                       alPlain, "ContentIndexerQuery.GetAsync",
+                                       IID_IVectorView_1_IIndexableContent)
 
 proc getAsync*(self: ContentIndexerQuery, startIndex: uint32, maxItems: uint32
-              ): Future[seq[IndexableContent]] {.async.} =
+              ): Future[seq[IndexableContent]] =
   ## Windows.Storage.Search.ContentIndexerQuery.GetAsync
   var op: pointer
   withIface(self.p, IContentIndexerQuery, it):
     check it.vtbl.GetAsync2(it, startIndex, maxItems, op.addr
                            ), "ContentIndexerQuery.GetAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_18,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_18,
-                               alPlain, "ContentIndexerQuery.GetAsync")
-  result = toSeq[IndexableContent](coll, IID_IVectorView_1_IIndexableContent)
-  discard release(coll)
+  result = futureSeq[IndexableContent](op, IID_IAsyncOperation_1_IVectorView_18,
+                                       IID_AsyncOperationCompletedHandler_1_IVectorView_18,
+                                       alPlain, "ContentIndexerQuery.GetAsync",
+                                       IID_IVectorView_1_IIndexableContent)
 
 proc queryFolder*(self: ContentIndexerQuery): StorageFolder =
   ## Windows.Storage.Search.ContentIndexerQuery.get_QueryFolder
@@ -5674,41 +5657,39 @@ proc createCommonFolderQuery*(_: typedesc[QueryOptions],
     result = adopt[QueryOptions](tmp)
 
 proc getFilesAsync*(self: StorageFileQueryResult, startIndex: uint32,
-                    maxNumberOfItems: uint32
-                   ): Future[seq[StorageFile]] {.async.} =
+                    maxNumberOfItems: uint32): Future[seq[StorageFile]] =
   ## Windows.Storage.Search.StorageFileQueryResult.GetFilesAsync
   var op: pointer
   withIface(self.p, IStorageFileQueryResult, it):
     check it.vtbl.GetFilesAsync(it, startIndex, maxNumberOfItems, op.addr
                                ), "StorageFileQueryResult.GetFilesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_14,
-                               alPlain, "StorageFileQueryResult.GetFilesAsync")
-  result = toSeq[StorageFile](coll, IID_IVectorView_1_StorageFile)
-  discard release(coll)
+  result = futureSeq[StorageFile](op, IID_IAsyncOperation_1_IVectorView_14,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_14,
+                                  alPlain,
+                                  "StorageFileQueryResult.GetFilesAsync",
+                                  IID_IVectorView_1_StorageFile)
 
-proc getFilesAsync*(self: StorageFileQueryResult): Future[seq[StorageFile]] {.async.} =
+proc getFilesAsync*(self: StorageFileQueryResult): Future[seq[StorageFile]] =
   ## Windows.Storage.Search.StorageFileQueryResult.GetFilesAsync
   var op: pointer
   withIface(self.p, IStorageFileQueryResult, it):
     check it.vtbl.GetFilesAsync2(it, op.addr
                                 ), "StorageFileQueryResult.GetFilesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_14,
-                               alPlain, "StorageFileQueryResult.GetFilesAsync")
-  result = toSeq[StorageFile](coll, IID_IVectorView_1_StorageFile)
-  discard release(coll)
+  result = futureSeq[StorageFile](op, IID_IAsyncOperation_1_IVectorView_14,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_14,
+                                  alPlain,
+                                  "StorageFileQueryResult.GetFilesAsync",
+                                  IID_IVectorView_1_StorageFile)
 
-proc getItemCountAsync*(self: StorageFileQueryResult): Future[uint32] {.async.} =
+proc getItemCountAsync*(self: StorageFileQueryResult): Future[uint32] =
   ## Windows.Storage.Search.StorageFileQueryResult.GetItemCountAsync
   var op: pointer
   withIface(self.p, IStorageQueryResultBase, it):
     check it.vtbl.GetItemCountAsync(it, op.addr
                                    ), "StorageFileQueryResult.GetItemCountAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
-                                    IID_AsyncOperationCompletedHandler_1_U4,
-                                    alPlain,
-                                    "StorageFileQueryResult.GetItemCountAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperation_1_U4,
+                               IID_AsyncOperationCompletedHandler_1_U4, alPlain,
+                               "StorageFileQueryResult.GetItemCountAsync")
 
 proc folder*(self: StorageFileQueryResult): StorageFolder =
   ## Windows.Storage.Search.StorageFileQueryResult.get_Folder
@@ -5754,17 +5735,15 @@ proc removeOptionsChanged*(self: StorageFileQueryResult, token: EventRegistratio
     check it.vtbl.remove_OptionsChanged(it, token), "StorageFileQueryResult.remove_OptionsChanged"
 
 proc findStartIndexAsync*(self: StorageFileQueryResult, value: WinRtObject
-                         ): Future[uint32] {.async.} =
+                         ): Future[uint32] =
   ## Windows.Storage.Search.StorageFileQueryResult.FindStartIndexAsync
   var op: pointer
   withIface(self.p, IStorageQueryResultBase, it):
     check it.vtbl.FindStartIndexAsync(it, value.p, op.addr
                                      ), "StorageFileQueryResult.FindStartIndexAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
-                                    IID_AsyncOperationCompletedHandler_1_U4,
-                                    alPlain,
-                                    "StorageFileQueryResult.FindStartIndexAsync"
-                                   )
+  result = futureValue[uint32](op, IID_IAsyncOperation_1_U4,
+                               IID_AsyncOperationCompletedHandler_1_U4, alPlain,
+                               "StorageFileQueryResult.FindStartIndexAsync")
 
 proc getCurrentQueryOptions*(self: StorageFileQueryResult): QueryOptions =
   ## Windows.Storage.Search.StorageFileQueryResult.GetCurrentQueryOptions
@@ -5798,44 +5777,39 @@ proc getMatchingPropertiesWithRanges*(self: StorageFileQueryResult,
       release(tmp)
 
 proc getFoldersAsync*(self: StorageFolderQueryResult, startIndex: uint32,
-                      maxNumberOfItems: uint32
-                     ): Future[seq[StorageFolder]] {.async.} =
+                      maxNumberOfItems: uint32): Future[seq[StorageFolder]] =
   ## Windows.Storage.Search.StorageFolderQueryResult.GetFoldersAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryResult, it):
     check it.vtbl.GetFoldersAsync(it, startIndex, maxNumberOfItems, op.addr
                                  ), "StorageFolderQueryResult.GetFoldersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_15,
-                               alPlain,
-                               "StorageFolderQueryResult.GetFoldersAsync")
-  result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
-  discard release(coll)
+  result = futureSeq[StorageFolder](op, IID_IAsyncOperation_1_IVectorView_15,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_15,
+                                    alPlain,
+                                    "StorageFolderQueryResult.GetFoldersAsync",
+                                    IID_IVectorView_1_StorageFolder)
 
-proc getFoldersAsync*(self: StorageFolderQueryResult): Future[seq[StorageFolder]] {.async.} =
+proc getFoldersAsync*(self: StorageFolderQueryResult): Future[seq[StorageFolder]] =
   ## Windows.Storage.Search.StorageFolderQueryResult.GetFoldersAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryResult, it):
     check it.vtbl.GetFoldersAsync2(it, op.addr
                                   ), "StorageFolderQueryResult.GetFoldersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_15,
-                               alPlain,
-                               "StorageFolderQueryResult.GetFoldersAsync")
-  result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
-  discard release(coll)
+  result = futureSeq[StorageFolder](op, IID_IAsyncOperation_1_IVectorView_15,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_15,
+                                    alPlain,
+                                    "StorageFolderQueryResult.GetFoldersAsync",
+                                    IID_IVectorView_1_StorageFolder)
 
-proc getItemCountAsync*(self: StorageFolderQueryResult): Future[uint32] {.async.} =
+proc getItemCountAsync*(self: StorageFolderQueryResult): Future[uint32] =
   ## Windows.Storage.Search.StorageFolderQueryResult.GetItemCountAsync
   var op: pointer
   withIface(self.p, IStorageQueryResultBase, it):
     check it.vtbl.GetItemCountAsync(it, op.addr
                                    ), "StorageFolderQueryResult.GetItemCountAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
-                                    IID_AsyncOperationCompletedHandler_1_U4,
-                                    alPlain,
-                                    "StorageFolderQueryResult.GetItemCountAsync"
-                                   )
+  result = futureValue[uint32](op, IID_IAsyncOperation_1_U4,
+                               IID_AsyncOperationCompletedHandler_1_U4, alPlain,
+                               "StorageFolderQueryResult.GetItemCountAsync")
 
 proc folder*(self: StorageFolderQueryResult): StorageFolder =
   ## Windows.Storage.Search.StorageFolderQueryResult.get_Folder
@@ -5881,17 +5855,15 @@ proc removeOptionsChanged*(self: StorageFolderQueryResult, token: EventRegistrat
     check it.vtbl.remove_OptionsChanged(it, token), "StorageFolderQueryResult.remove_OptionsChanged"
 
 proc findStartIndexAsync*(self: StorageFolderQueryResult, value: WinRtObject
-                         ): Future[uint32] {.async.} =
+                         ): Future[uint32] =
   ## Windows.Storage.Search.StorageFolderQueryResult.FindStartIndexAsync
   var op: pointer
   withIface(self.p, IStorageQueryResultBase, it):
     check it.vtbl.FindStartIndexAsync(it, value.p, op.addr
                                      ), "StorageFolderQueryResult.FindStartIndexAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
-                                    IID_AsyncOperationCompletedHandler_1_U4,
-                                    alPlain,
-                                    "StorageFolderQueryResult.FindStartIndexAsync"
-                                   )
+  result = futureValue[uint32](op, IID_IAsyncOperation_1_U4,
+                               IID_AsyncOperationCompletedHandler_1_U4, alPlain,
+                               "StorageFolderQueryResult.FindStartIndexAsync")
 
 proc getCurrentQueryOptions*(self: StorageFolderQueryResult): QueryOptions =
   ## Windows.Storage.Search.StorageFolderQueryResult.GetCurrentQueryOptions
@@ -5910,41 +5882,39 @@ proc applyNewQueryOptions*(self: StorageFolderQueryResult,
                                         ), "StorageFolderQueryResult.ApplyNewQueryOptions"
 
 proc getItemsAsync*(self: StorageItemQueryResult, startIndex: uint32,
-                    maxNumberOfItems: uint32
-                   ): Future[seq[WinRtObject]] {.async.} =
+                    maxNumberOfItems: uint32): Future[seq[WinRtObject]] =
   ## Windows.Storage.Search.StorageItemQueryResult.GetItemsAsync
   var op: pointer
   withIface(self.p, IStorageItemQueryResult, it):
     check it.vtbl.GetItemsAsync(it, startIndex, maxNumberOfItems, op.addr
                                ), "StorageItemQueryResult.GetItemsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_16,
-                               alPlain, "StorageItemQueryResult.GetItemsAsync")
-  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
-  discard release(coll)
+  result = futureSeq[WinRtObject](op, IID_IAsyncOperation_1_IVectorView_16,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_16,
+                                  alPlain,
+                                  "StorageItemQueryResult.GetItemsAsync",
+                                  IID_IVectorView_1_IStorageItem)
 
-proc getItemsAsync*(self: StorageItemQueryResult): Future[seq[WinRtObject]] {.async.} =
+proc getItemsAsync*(self: StorageItemQueryResult): Future[seq[WinRtObject]] =
   ## Windows.Storage.Search.StorageItemQueryResult.GetItemsAsync
   var op: pointer
   withIface(self.p, IStorageItemQueryResult, it):
     check it.vtbl.GetItemsAsync2(it, op.addr
                                 ), "StorageItemQueryResult.GetItemsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_16,
-                               alPlain, "StorageItemQueryResult.GetItemsAsync")
-  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
-  discard release(coll)
+  result = futureSeq[WinRtObject](op, IID_IAsyncOperation_1_IVectorView_16,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_16,
+                                  alPlain,
+                                  "StorageItemQueryResult.GetItemsAsync",
+                                  IID_IVectorView_1_IStorageItem)
 
-proc getItemCountAsync*(self: StorageItemQueryResult): Future[uint32] {.async.} =
+proc getItemCountAsync*(self: StorageItemQueryResult): Future[uint32] =
   ## Windows.Storage.Search.StorageItemQueryResult.GetItemCountAsync
   var op: pointer
   withIface(self.p, IStorageQueryResultBase, it):
     check it.vtbl.GetItemCountAsync(it, op.addr
                                    ), "StorageItemQueryResult.GetItemCountAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
-                                    IID_AsyncOperationCompletedHandler_1_U4,
-                                    alPlain,
-                                    "StorageItemQueryResult.GetItemCountAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperation_1_U4,
+                               IID_AsyncOperationCompletedHandler_1_U4, alPlain,
+                               "StorageItemQueryResult.GetItemCountAsync")
 
 proc folder*(self: StorageItemQueryResult): StorageFolder =
   ## Windows.Storage.Search.StorageItemQueryResult.get_Folder
@@ -5990,17 +5960,15 @@ proc removeOptionsChanged*(self: StorageItemQueryResult, token: EventRegistratio
     check it.vtbl.remove_OptionsChanged(it, token), "StorageItemQueryResult.remove_OptionsChanged"
 
 proc findStartIndexAsync*(self: StorageItemQueryResult, value: WinRtObject
-                         ): Future[uint32] {.async.} =
+                         ): Future[uint32] =
   ## Windows.Storage.Search.StorageItemQueryResult.FindStartIndexAsync
   var op: pointer
   withIface(self.p, IStorageQueryResultBase, it):
     check it.vtbl.FindStartIndexAsync(it, value.p, op.addr
                                      ), "StorageItemQueryResult.FindStartIndexAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
-                                    IID_AsyncOperationCompletedHandler_1_U4,
-                                    alPlain,
-                                    "StorageItemQueryResult.FindStartIndexAsync"
-                                   )
+  result = futureValue[uint32](op, IID_IAsyncOperation_1_U4,
+                               IID_AsyncOperationCompletedHandler_1_U4, alPlain,
+                               "StorageItemQueryResult.FindStartIndexAsync")
 
 proc getCurrentQueryOptions*(self: StorageItemQueryResult): QueryOptions =
   ## Windows.Storage.Search.StorageItemQueryResult.GetCurrentQueryOptions
@@ -6100,56 +6068,55 @@ proc contentType*(self: StorageFile): string =
     result = it.getString(get_ContentType)
 
 proc openAsync*(self: StorageFile, accessMode: FileAccessMode
-               ): Future[WinRtObject] {.async.} =
+               ): Future[WinRtObject] =
   ## Windows.Storage.StorageFile.OpenAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     check it.vtbl.OpenAsync(it, accessMode, op.addr), "StorageFile.OpenAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                              alPlain, "StorageFile.OpenAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStream,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                                     alPlain, "StorageFile.OpenAsync")
 
-proc openTransactedWriteAsync*(self: StorageFile): Future[StorageStreamTransaction] {.async.} =
+proc openTransactedWriteAsync*(self: StorageFile): Future[StorageStreamTransaction] =
   ## Windows.Storage.StorageFile.OpenTransactedWriteAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     check it.vtbl.OpenTransactedWriteAsync(it, op.addr
                                           ), "StorageFile.OpenTransactedWriteAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_StorageStreamTransaction,
-                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                              alPlain, "StorageFile.OpenTransactedWriteAsync")
-  result = adopt[StorageStreamTransaction](obj)
+  result = futureObject[StorageStreamTransaction](op,
+                                                  IID_IAsyncOperation_1_StorageStreamTransaction,
+                                                  IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                                                  alPlain,
+                                                  "StorageFile.OpenTransactedWriteAsync"
+                                                 )
 
 proc copyAsync*(self: StorageFile, destinationFolder: StorageFolder
-               ): Future[StorageFile] {.async.} =
+               ): Future[StorageFile] =
   ## Windows.Storage.StorageFile.CopyAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(destinationFolder.p, IStorageFolder, p0):
       check it.vtbl.CopyAsync(it, p0, op.addr), "StorageFile.CopyAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "StorageFile.CopyAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "StorageFile.CopyAsync")
 
 proc copyAsync*(self: StorageFile, destinationFolder: StorageFolder,
-                desiredNewName: string): Future[StorageFile] {.async.} =
+                desiredNewName: string): Future[StorageFile] =
   ## Windows.Storage.StorageFile.CopyAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(destinationFolder.p, IStorageFolder, p0):
       withHString(desiredNewName, h1):
         check it.vtbl.CopyAsync2(it, p0, h1, op.addr), "StorageFile.CopyAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "StorageFile.CopyAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "StorageFile.CopyAsync")
 
 proc copyAsync*(self: StorageFile, destinationFolder: StorageFolder,
                 desiredNewName: string, option: NameCollisionOption
-               ): Future[StorageFile] {.async.} =
+               ): Future[StorageFile] =
   ## Windows.Storage.StorageFile.CopyAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
@@ -6157,44 +6124,45 @@ proc copyAsync*(self: StorageFile, destinationFolder: StorageFolder,
       withHString(desiredNewName, h1):
         check it.vtbl.CopyAsync3(it, p0, h1, option, op.addr
                                 ), "StorageFile.CopyAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "StorageFile.CopyAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "StorageFile.CopyAsync")
 
 proc copyAndReplaceAsync*(self: StorageFile, fileToReplace: StorageFile
-                         ) {.async.} =
+                         ): Future[void] =
   ## Windows.Storage.StorageFile.CopyAndReplaceAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(fileToReplace.p, IStorageFile, p0):
       check it.vtbl.CopyAndReplaceAsync(it, p0, op.addr
                                        ), "StorageFile.CopyAndReplaceAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageFile.CopyAndReplaceAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageFile.CopyAndReplaceAsync")
 
-proc moveAsync*(self: StorageFile, destinationFolder: StorageFolder) {.async.} =
+proc moveAsync*(self: StorageFile, destinationFolder: StorageFolder
+               ): Future[void] =
   ## Windows.Storage.StorageFile.MoveAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(destinationFolder.p, IStorageFolder, p0):
       check it.vtbl.MoveAsync(it, p0, op.addr), "StorageFile.MoveAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageFile.MoveAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageFile.MoveAsync")
 
 proc moveAsync*(self: StorageFile, destinationFolder: StorageFolder,
-                desiredNewName: string) {.async.} =
+                desiredNewName: string): Future[void] =
   ## Windows.Storage.StorageFile.MoveAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(destinationFolder.p, IStorageFolder, p0):
       withHString(desiredNewName, h1):
         check it.vtbl.MoveAsync2(it, p0, h1, op.addr), "StorageFile.MoveAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageFile.MoveAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageFile.MoveAsync")
 
 proc moveAsync*(self: StorageFile, destinationFolder: StorageFolder,
-                desiredNewName: string, option: NameCollisionOption) {.async.} =
+                desiredNewName: string, option: NameCollisionOption
+               ): Future[void] =
   ## Windows.Storage.StorageFile.MoveAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
@@ -6202,88 +6170,89 @@ proc moveAsync*(self: StorageFile, destinationFolder: StorageFolder,
       withHString(desiredNewName, h1):
         check it.vtbl.MoveAsync3(it, p0, h1, option, op.addr
                                 ), "StorageFile.MoveAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageFile.MoveAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageFile.MoveAsync")
 
 proc moveAndReplaceAsync*(self: StorageFile, fileToReplace: StorageFile
-                         ) {.async.} =
+                         ): Future[void] =
   ## Windows.Storage.StorageFile.MoveAndReplaceAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(fileToReplace.p, IStorageFile, p0):
       check it.vtbl.MoveAndReplaceAsync(it, p0, op.addr
                                        ), "StorageFile.MoveAndReplaceAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageFile.MoveAndReplaceAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageFile.MoveAndReplaceAsync")
 
-proc openSequentialReadAsync*(self: StorageFile): Future[WinRtObject] {.async.} =
+proc openSequentialReadAsync*(self: StorageFile): Future[WinRtObject] =
   ## Windows.Storage.StorageFile.OpenSequentialReadAsync
   var op: pointer
   withIface(self.p, IInputStreamReference, it):
     check it.vtbl.OpenSequentialReadAsync(it, op.addr
                                          ), "StorageFile.OpenSequentialReadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IInputStream,
-                              IID_AsyncOperationCompletedHandler_1_IInputStream,
-                              alPlain, "StorageFile.OpenSequentialReadAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IInputStream,
+                                     IID_AsyncOperationCompletedHandler_1_IInputStream,
+                                     alPlain,
+                                     "StorageFile.OpenSequentialReadAsync")
 
-proc openReadAsync*(self: StorageFile): Future[WinRtObject] {.async.} =
+proc openReadAsync*(self: StorageFile): Future[WinRtObject] =
   ## Windows.Storage.StorageFile.OpenReadAsync
   var op: pointer
   withIface(self.p, IRandomAccessStreamReference, it):
     check it.vtbl.OpenReadAsync(it, op.addr), "StorageFile.OpenReadAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
-                              alPlain, "StorageFile.OpenReadAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
+                                     alPlain, "StorageFile.OpenReadAsync")
 
-proc renameAsync*(self: StorageFile, desiredName: string) {.async.} =
+proc renameAsync*(self: StorageFile, desiredName: string): Future[void] =
   ## Windows.Storage.StorageFile.RenameAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     withHString(desiredName, h0):
       check it.vtbl.RenameAsync(it, h0, op.addr), "StorageFile.RenameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageFile.RenameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageFile.RenameAsync")
 
 proc renameAsync*(self: StorageFile, desiredName: string,
-                  option: NameCollisionOption) {.async.} =
+                  option: NameCollisionOption): Future[void] =
   ## Windows.Storage.StorageFile.RenameAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     withHString(desiredName, h0):
       check it.vtbl.RenameAsync2(it, h0, option, op.addr
                                 ), "StorageFile.RenameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageFile.RenameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageFile.RenameAsync")
 
-proc deleteAsync*(self: StorageFile) {.async.} =
+proc deleteAsync*(self: StorageFile): Future[void] =
   ## Windows.Storage.StorageFile.DeleteAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     check it.vtbl.DeleteAsync(it, op.addr), "StorageFile.DeleteAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageFile.DeleteAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageFile.DeleteAsync")
 
-proc deleteAsync*(self: StorageFile, option: StorageDeleteOption) {.async.} =
+proc deleteAsync*(self: StorageFile, option: StorageDeleteOption
+                 ): Future[void] =
   ## Windows.Storage.StorageFile.DeleteAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     check it.vtbl.DeleteAsync2(it, option, op.addr), "StorageFile.DeleteAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageFile.DeleteAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageFile.DeleteAsync")
 
-proc getBasicPropertiesAsync*(self: StorageFile): Future[BasicProperties] {.async.} =
+proc getBasicPropertiesAsync*(self: StorageFile): Future[BasicProperties] =
   ## Windows.Storage.StorageFile.GetBasicPropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     check it.vtbl.GetBasicPropertiesAsync(it, op.addr
                                          ), "StorageFile.GetBasicPropertiesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_BasicProperties,
-                              IID_AsyncOperationCompletedHandler_1_BasicProperties,
-                              alPlain, "StorageFile.GetBasicPropertiesAsync")
-  result = adopt[BasicProperties](obj)
+  result = futureObject[BasicProperties](op,
+                                         IID_IAsyncOperation_1_BasicProperties,
+                                         IID_AsyncOperationCompletedHandler_1_BasicProperties,
+                                         alPlain,
+                                         "StorageFile.GetBasicPropertiesAsync")
 
 proc name*(self: StorageFile): string =
   ## Windows.Storage.StorageFile.get_Name
@@ -6313,42 +6282,44 @@ proc isOfType*(self: StorageFile, `type`: StorageItemTypes): bool =
     result = tmp
 
 proc getThumbnailAsync*(self: StorageFile, mode: ThumbnailMode
-                       ): Future[StorageItemThumbnail] {.async.} =
+                       ): Future[StorageItemThumbnail] =
   ## Windows.Storage.StorageFile.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     check it.vtbl.GetThumbnailAsync(it, mode, op.addr
                                    ), "StorageFile.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain, "StorageFile.GetThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "StorageFile.GetThumbnailAsync")
 
 proc getThumbnailAsync*(self: StorageFile, mode: ThumbnailMode,
-                        requestedSize: uint32
-                       ): Future[StorageItemThumbnail] {.async.} =
+                        requestedSize: uint32): Future[StorageItemThumbnail] =
   ## Windows.Storage.StorageFile.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     check it.vtbl.GetThumbnailAsync2(it, mode, requestedSize, op.addr
                                     ), "StorageFile.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain, "StorageFile.GetThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "StorageFile.GetThumbnailAsync")
 
 proc getThumbnailAsync*(self: StorageFile, mode: ThumbnailMode,
                         requestedSize: uint32, options: ThumbnailOptions
-                       ): Future[StorageItemThumbnail] {.async.} =
+                       ): Future[StorageItemThumbnail] =
   ## Windows.Storage.StorageFile.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     check it.vtbl.GetThumbnailAsync3(it, mode, requestedSize, options, op.addr
                                     ), "StorageFile.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain, "StorageFile.GetThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "StorageFile.GetThumbnailAsync")
 
 proc displayName*(self: StorageFile): string =
   ## Windows.Storage.StorageFile.get_DisplayName
@@ -6371,58 +6342,60 @@ proc properties*(self: StorageFile): StorageItemContentProperties =
     result = it.getObject(get_Properties, StorageItemContentProperties)
 
 proc getScaledImageAsThumbnailAsync*(self: StorageFile, mode: ThumbnailMode
-                                    ): Future[StorageItemThumbnail] {.async.} =
+                                    ): Future[StorageItemThumbnail] =
   ## Windows.Storage.StorageFile.GetScaledImageAsThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties2, it):
     check it.vtbl.GetScaledImageAsThumbnailAsync(it, mode, op.addr
                                                 ), "StorageFile.GetScaledImageAsThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain,
-                              "StorageFile.GetScaledImageAsThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "StorageFile.GetScaledImageAsThumbnailAsync"
+                                             )
 
 proc getScaledImageAsThumbnailAsync*(self: StorageFile, mode: ThumbnailMode,
                                      requestedSize: uint32
-                                    ): Future[StorageItemThumbnail] {.async.} =
+                                    ): Future[StorageItemThumbnail] =
   ## Windows.Storage.StorageFile.GetScaledImageAsThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties2, it):
     check it.vtbl.GetScaledImageAsThumbnailAsync2(it, mode, requestedSize,
                                                   op.addr
                                                  ), "StorageFile.GetScaledImageAsThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain,
-                              "StorageFile.GetScaledImageAsThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "StorageFile.GetScaledImageAsThumbnailAsync"
+                                             )
 
 proc getScaledImageAsThumbnailAsync*(self: StorageFile, mode: ThumbnailMode,
                                      requestedSize: uint32,
                                      options: ThumbnailOptions
-                                    ): Future[StorageItemThumbnail] {.async.} =
+                                    ): Future[StorageItemThumbnail] =
   ## Windows.Storage.StorageFile.GetScaledImageAsThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties2, it):
     check it.vtbl.GetScaledImageAsThumbnailAsync3(it, mode, requestedSize,
                                                   options, op.addr
                                                  ), "StorageFile.GetScaledImageAsThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain,
-                              "StorageFile.GetScaledImageAsThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "StorageFile.GetScaledImageAsThumbnailAsync"
+                                             )
 
-proc getParentAsync*(self: StorageFile): Future[StorageFolder] {.async.} =
+proc getParentAsync*(self: StorageFile): Future[StorageFolder] =
   ## Windows.Storage.StorageFile.GetParentAsync
   var op: pointer
   withIface(self.p, IStorageItem2, it):
     check it.vtbl.GetParentAsync(it, op.addr), "StorageFile.GetParentAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "StorageFile.GetParentAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain, "StorageFile.GetParentAsync")
 
 proc isEqual*(self: StorageFile, item: WinRtObject): bool =
   ## Windows.Storage.StorageFile.IsEqual
@@ -6443,32 +6416,33 @@ proc isAvailable*(self: StorageFile): bool =
     result = it.getValue(get_IsAvailable, bool)
 
 proc openAsync*(self: StorageFile, accessMode: FileAccessMode,
-                options: StorageOpenOptions): Future[WinRtObject] {.async.} =
+                options: StorageOpenOptions): Future[WinRtObject] =
   ## Windows.Storage.StorageFile.OpenAsync
   var op: pointer
   withIface(self.p, IStorageFile2, it):
     check it.vtbl.OpenAsync(it, accessMode, options, op.addr
                            ), "StorageFile.OpenAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                              alPlain, "StorageFile.OpenAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStream,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                                     alPlain, "StorageFile.OpenAsync")
 
 proc openTransactedWriteAsync*(self: StorageFile, options: StorageOpenOptions
-                              ): Future[StorageStreamTransaction] {.async.} =
+                              ): Future[StorageStreamTransaction] =
   ## Windows.Storage.StorageFile.OpenTransactedWriteAsync
   var op: pointer
   withIface(self.p, IStorageFile2, it):
     check it.vtbl.OpenTransactedWriteAsync(it, options, op.addr
                                           ), "StorageFile.OpenTransactedWriteAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_StorageStreamTransaction,
-                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                              alPlain, "StorageFile.OpenTransactedWriteAsync")
-  result = adopt[StorageStreamTransaction](obj)
+  result = futureObject[StorageStreamTransaction](op,
+                                                  IID_IAsyncOperation_1_StorageStreamTransaction,
+                                                  IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                                                  alPlain,
+                                                  "StorageFile.OpenTransactedWriteAsync"
+                                                 )
 
 proc getFileFromPathForUserAsync*(_: typedesc[StorageFile], user: User,
-                                  path: string): Future[StorageFile] {.async.} =
+                                  path: string): Future[StorageFile] =
   ## Windows.Storage.StorageFile.GetFileFromPathForUserAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFile", IStorageFileStatics2, it):
@@ -6476,44 +6450,42 @@ proc getFileFromPathForUserAsync*(_: typedesc[StorageFile], user: User,
       withHString(path, h1):
         check it.vtbl.GetFileFromPathForUserAsync(it, p0, h1, op.addr
                                                  ), "StorageFile.GetFileFromPathForUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "StorageFile.GetFileFromPathForUserAsync"
-                             )
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "StorageFile.GetFileFromPathForUserAsync")
 
 proc getFileFromPathAsync*(_: typedesc[StorageFile], path: string
-                          ): Future[StorageFile] {.async.} =
+                          ): Future[StorageFile] =
   ## Windows.Storage.StorageFile.GetFileFromPathAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFile", IStorageFileStatics, it):
     withHString(path, h0):
       check it.vtbl.GetFileFromPathAsync(it, h0, op.addr
                                         ), "StorageFile.GetFileFromPathAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "StorageFile.GetFileFromPathAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "StorageFile.GetFileFromPathAsync"
+                                    )
 
 proc getFileFromApplicationUriAsync*(_: typedesc[StorageFile], uri: Uri
-                                    ): Future[StorageFile] {.async.} =
+                                    ): Future[StorageFile] =
   ## Windows.Storage.StorageFile.GetFileFromApplicationUriAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFile", IStorageFileStatics, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.GetFileFromApplicationUriAsync(it, p0, op.addr
                                                   ), "StorageFile.GetFileFromApplicationUriAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain,
-                              "StorageFile.GetFileFromApplicationUriAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "StorageFile.GetFileFromApplicationUriAsync"
+                                    )
 
 proc createStreamedFileAsync*(_: typedesc[StorageFile],
                               displayNameWithExtension: string,
                               dataRequested: proc(a0: StreamedFileDataRequest),
-                              thumbnail: WinRtObject
-                             ): Future[StorageFile] {.async.} =
+                              thumbnail: WinRtObject): Future[StorageFile] =
   ## Windows.Storage.StorageFile.CreateStreamedFileAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFile", IStorageFileStatics, it):
@@ -6525,16 +6497,16 @@ proc createStreamedFileAsync*(_: typedesc[StorageFile],
       withIface(thumbnail.p, IRandomAccessStreamReference, p2):
         check it.vtbl.CreateStreamedFileAsync(it, h0, d1, p2, op.addr
                                              ), "StorageFile.CreateStreamedFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "StorageFile.CreateStreamedFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "StorageFile.CreateStreamedFileAsync")
 
 proc replaceWithStreamedFileAsync*(_: typedesc[StorageFile],
                                    fileToReplace: StorageFile,
                                    dataRequested: proc(a0: StreamedFileDataRequest),
                                    thumbnail: WinRtObject
-                                  ): Future[StorageFile] {.async.} =
+                                  ): Future[StorageFile] =
   ## Windows.Storage.StorageFile.ReplaceWithStreamedFileAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFile", IStorageFileStatics, it):
@@ -6546,16 +6518,15 @@ proc replaceWithStreamedFileAsync*(_: typedesc[StorageFile],
       withIface(thumbnail.p, IRandomAccessStreamReference, p2):
         check it.vtbl.ReplaceWithStreamedFileAsync(it, p0, d1, p2, op.addr
                                                   ), "StorageFile.ReplaceWithStreamedFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain,
-                              "StorageFile.ReplaceWithStreamedFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "StorageFile.ReplaceWithStreamedFileAsync")
 
 proc createStreamedFileFromUriAsync*(_: typedesc[StorageFile],
                                      displayNameWithExtension: string, uri: Uri,
                                      thumbnail: WinRtObject
-                                    ): Future[StorageFile] {.async.} =
+                                    ): Future[StorageFile] =
   ## Windows.Storage.StorageFile.CreateStreamedFileFromUriAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFile", IStorageFileStatics, it):
@@ -6564,16 +6535,16 @@ proc createStreamedFileFromUriAsync*(_: typedesc[StorageFile],
         withIface(thumbnail.p, IRandomAccessStreamReference, p2):
           check it.vtbl.CreateStreamedFileFromUriAsync(it, h0, p1, p2, op.addr
                                                       ), "StorageFile.CreateStreamedFileFromUriAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain,
-                              "StorageFile.CreateStreamedFileFromUriAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "StorageFile.CreateStreamedFileFromUriAsync"
+                                    )
 
 proc replaceWithStreamedFileFromUriAsync*(_: typedesc[StorageFile],
                                           fileToReplace: StorageFile, uri: Uri,
                                           thumbnail: WinRtObject
-                                         ): Future[StorageFile] {.async.} =
+                                         ): Future[StorageFile] =
   ## Windows.Storage.StorageFile.ReplaceWithStreamedFileFromUriAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFile", IStorageFileStatics, it):
@@ -6583,182 +6554,173 @@ proc replaceWithStreamedFileFromUriAsync*(_: typedesc[StorageFile],
           check it.vtbl.ReplaceWithStreamedFileFromUriAsync(it, p0, p1, p2,
                                                             op.addr
                                                            ), "StorageFile.ReplaceWithStreamedFileFromUriAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain,
-                              "StorageFile.ReplaceWithStreamedFileFromUriAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain,
+                                     "StorageFile.ReplaceWithStreamedFileFromUriAsync"
+                                    )
 
 proc createFileAsync*(self: StorageFolder, desiredName: string
-                     ): Future[StorageFile] {.async.} =
+                     ): Future[StorageFile] =
   ## Windows.Storage.StorageFolder.CreateFileAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       check it.vtbl.CreateFileAsync(it, h0, op.addr
                                    ), "StorageFolder.CreateFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "StorageFolder.CreateFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "StorageFolder.CreateFileAsync")
 
 proc createFileAsync*(self: StorageFolder, desiredName: string,
-                      options: CreationCollisionOption
-                     ): Future[StorageFile] {.async.} =
+                      options: CreationCollisionOption): Future[StorageFile] =
   ## Windows.Storage.StorageFolder.CreateFileAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       check it.vtbl.CreateFileAsync2(it, h0, options, op.addr
                                     ), "StorageFolder.CreateFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "StorageFolder.CreateFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "StorageFolder.CreateFileAsync")
 
 proc createFolderAsync*(self: StorageFolder, desiredName: string
-                       ): Future[StorageFolder] {.async.} =
+                       ): Future[StorageFolder] =
   ## Windows.Storage.StorageFolder.CreateFolderAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       check it.vtbl.CreateFolderAsync(it, h0, op.addr
                                      ), "StorageFolder.CreateFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "StorageFolder.CreateFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "StorageFolder.CreateFolderAsync")
 
 proc createFolderAsync*(self: StorageFolder, desiredName: string,
                         options: CreationCollisionOption
-                       ): Future[StorageFolder] {.async.} =
+                       ): Future[StorageFolder] =
   ## Windows.Storage.StorageFolder.CreateFolderAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       check it.vtbl.CreateFolderAsync2(it, h0, options, op.addr
                                       ), "StorageFolder.CreateFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "StorageFolder.CreateFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "StorageFolder.CreateFolderAsync")
 
-proc getFileAsync*(self: StorageFolder, name: string
-                  ): Future[StorageFile] {.async.} =
+proc getFileAsync*(self: StorageFolder, name: string): Future[StorageFile] =
   ## Windows.Storage.StorageFolder.GetFileAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(name, h0):
       check it.vtbl.GetFileAsync(it, h0, op.addr), "StorageFolder.GetFileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
-                              IID_AsyncOperationCompletedHandler_1_StorageFile,
-                              alPlain, "StorageFolder.GetFileAsync")
-  result = adopt[StorageFile](obj)
+  result = futureObject[StorageFile](op, IID_IAsyncOperation_1_StorageFile,
+                                     IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                     alPlain, "StorageFolder.GetFileAsync")
 
-proc getFolderAsync*(self: StorageFolder, name: string
-                    ): Future[StorageFolder] {.async.} =
+proc getFolderAsync*(self: StorageFolder, name: string): Future[StorageFolder] =
   ## Windows.Storage.StorageFolder.GetFolderAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(name, h0):
       check it.vtbl.GetFolderAsync(it, h0, op.addr
                                   ), "StorageFolder.GetFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "StorageFolder.GetFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain, "StorageFolder.GetFolderAsync")
 
-proc getItemAsync*(self: StorageFolder, name: string
-                  ): Future[WinRtObject] {.async.} =
+proc getItemAsync*(self: StorageFolder, name: string): Future[WinRtObject] =
   ## Windows.Storage.StorageFolder.GetItemAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(name, h0):
       check it.vtbl.GetItemAsync(it, h0, op.addr), "StorageFolder.GetItemAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
-                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                              alPlain, "StorageFolder.GetItemAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IStorageItem,
+                                     IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                                     alPlain, "StorageFolder.GetItemAsync")
 
-proc getFilesAsync*(self: StorageFolder): Future[seq[StorageFile]] {.async.} =
+proc getFilesAsync*(self: StorageFolder): Future[seq[StorageFile]] =
   ## Windows.Storage.StorageFolder.GetFilesAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     check it.vtbl.GetFilesAsync(it, op.addr), "StorageFolder.GetFilesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_14,
-                               alPlain, "StorageFolder.GetFilesAsync")
-  result = toSeq[StorageFile](coll, IID_IVectorView_1_StorageFile)
-  discard release(coll)
+  result = futureSeq[StorageFile](op, IID_IAsyncOperation_1_IVectorView_14,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_14,
+                                  alPlain, "StorageFolder.GetFilesAsync",
+                                  IID_IVectorView_1_StorageFile)
 
-proc getFoldersAsync*(self: StorageFolder): Future[seq[StorageFolder]] {.async.} =
+proc getFoldersAsync*(self: StorageFolder): Future[seq[StorageFolder]] =
   ## Windows.Storage.StorageFolder.GetFoldersAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     check it.vtbl.GetFoldersAsync(it, op.addr), "StorageFolder.GetFoldersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_15,
-                               alPlain, "StorageFolder.GetFoldersAsync")
-  result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
-  discard release(coll)
+  result = futureSeq[StorageFolder](op, IID_IAsyncOperation_1_IVectorView_15,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_15,
+                                    alPlain, "StorageFolder.GetFoldersAsync",
+                                    IID_IVectorView_1_StorageFolder)
 
-proc getItemsAsync*(self: StorageFolder): Future[seq[WinRtObject]] {.async.} =
+proc getItemsAsync*(self: StorageFolder): Future[seq[WinRtObject]] =
   ## Windows.Storage.StorageFolder.GetItemsAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     check it.vtbl.GetItemsAsync(it, op.addr), "StorageFolder.GetItemsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_16,
-                               alPlain, "StorageFolder.GetItemsAsync")
-  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
-  discard release(coll)
+  result = futureSeq[WinRtObject](op, IID_IAsyncOperation_1_IVectorView_16,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_16,
+                                  alPlain, "StorageFolder.GetItemsAsync",
+                                  IID_IVectorView_1_IStorageItem)
 
-proc renameAsync*(self: StorageFolder, desiredName: string) {.async.} =
+proc renameAsync*(self: StorageFolder, desiredName: string): Future[void] =
   ## Windows.Storage.StorageFolder.RenameAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     withHString(desiredName, h0):
       check it.vtbl.RenameAsync(it, h0, op.addr), "StorageFolder.RenameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageFolder.RenameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageFolder.RenameAsync")
 
 proc renameAsync*(self: StorageFolder, desiredName: string,
-                  option: NameCollisionOption) {.async.} =
+                  option: NameCollisionOption): Future[void] =
   ## Windows.Storage.StorageFolder.RenameAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     withHString(desiredName, h0):
       check it.vtbl.RenameAsync2(it, h0, option, op.addr
                                 ), "StorageFolder.RenameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageFolder.RenameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageFolder.RenameAsync")
 
-proc deleteAsync*(self: StorageFolder) {.async.} =
+proc deleteAsync*(self: StorageFolder): Future[void] =
   ## Windows.Storage.StorageFolder.DeleteAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     check it.vtbl.DeleteAsync(it, op.addr), "StorageFolder.DeleteAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageFolder.DeleteAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageFolder.DeleteAsync")
 
-proc deleteAsync*(self: StorageFolder, option: StorageDeleteOption) {.async.} =
+proc deleteAsync*(self: StorageFolder, option: StorageDeleteOption
+                 ): Future[void] =
   ## Windows.Storage.StorageFolder.DeleteAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     check it.vtbl.DeleteAsync2(it, option, op.addr), "StorageFolder.DeleteAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageFolder.DeleteAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageFolder.DeleteAsync")
 
-proc getBasicPropertiesAsync*(self: StorageFolder): Future[BasicProperties] {.async.} =
+proc getBasicPropertiesAsync*(self: StorageFolder): Future[BasicProperties] =
   ## Windows.Storage.StorageFolder.GetBasicPropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
     check it.vtbl.GetBasicPropertiesAsync(it, op.addr
                                          ), "StorageFolder.GetBasicPropertiesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_BasicProperties,
-                              IID_AsyncOperationCompletedHandler_1_BasicProperties,
-                              alPlain, "StorageFolder.GetBasicPropertiesAsync")
-  result = adopt[BasicProperties](obj)
+  result = futureObject[BasicProperties](op,
+                                         IID_IAsyncOperation_1_BasicProperties,
+                                         IID_AsyncOperationCompletedHandler_1_BasicProperties,
+                                         alPlain,
+                                         "StorageFolder.GetBasicPropertiesAsync"
+                                        )
 
 proc name*(self: StorageFolder): string =
   ## Windows.Storage.StorageFolder.get_Name
@@ -6787,17 +6749,16 @@ proc isOfType*(self: StorageFolder, `type`: StorageItemTypes): bool =
     check it.vtbl.IsOfType(it, `type`, tmp.addr), "StorageFolder.IsOfType"
     result = tmp
 
-proc getIndexedStateAsync*(self: StorageFolder): Future[IndexedState] {.async.} =
+proc getIndexedStateAsync*(self: StorageFolder): Future[IndexedState] =
   ## Windows.Storage.StorageFolder.GetIndexedStateAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
     check it.vtbl.GetIndexedStateAsync(it, op.addr
                                       ), "StorageFolder.GetIndexedStateAsync"
-  result = await awaitValue[IndexedState](op,
-                                          IID_IAsyncOperation_1_IndexedState,
-                                          IID_AsyncOperationCompletedHandler_1_IndexedState,
-                                          alPlain,
-                                          "StorageFolder.GetIndexedStateAsync")
+  result = futureValue[IndexedState](op, IID_IAsyncOperation_1_IndexedState,
+                                     IID_AsyncOperationCompletedHandler_1_IndexedState,
+                                     alPlain,
+                                     "StorageFolder.GetIndexedStateAsync")
 
 proc createFileQuery*(self: StorageFolder): StorageFileQueryResult =
   ## Windows.Storage.StorageFolder.CreateFileQuery
@@ -6872,71 +6833,65 @@ proc createItemQueryWithOptions*(self: StorageFolder, queryOptions: QueryOptions
 
 proc getFilesAsync*(self: StorageFolder, query: CommonFileQuery,
                     startIndex: uint32, maxItemsToRetrieve: uint32
-                   ): Future[seq[StorageFile]] {.async.} =
+                   ): Future[seq[StorageFile]] =
   ## Windows.Storage.StorageFolder.GetFilesAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
     check it.vtbl.GetFilesAsync(it, query, startIndex, maxItemsToRetrieve,
                                 op.addr), "StorageFolder.GetFilesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_14,
-                               alPlain, "StorageFolder.GetFilesAsync")
-  result = toSeq[StorageFile](coll, IID_IVectorView_1_StorageFile)
-  discard release(coll)
+  result = futureSeq[StorageFile](op, IID_IAsyncOperation_1_IVectorView_14,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_14,
+                                  alPlain, "StorageFolder.GetFilesAsync",
+                                  IID_IVectorView_1_StorageFile)
 
 proc getFilesAsync*(self: StorageFolder, query: CommonFileQuery
-                   ): Future[seq[StorageFile]] {.async.} =
+                   ): Future[seq[StorageFile]] =
   ## Windows.Storage.StorageFolder.GetFilesAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
     check it.vtbl.GetFilesAsync2(it, query, op.addr
                                 ), "StorageFolder.GetFilesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_14,
-                               alPlain, "StorageFolder.GetFilesAsync")
-  result = toSeq[StorageFile](coll, IID_IVectorView_1_StorageFile)
-  discard release(coll)
+  result = futureSeq[StorageFile](op, IID_IAsyncOperation_1_IVectorView_14,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_14,
+                                  alPlain, "StorageFolder.GetFilesAsync",
+                                  IID_IVectorView_1_StorageFile)
 
 proc getFoldersAsync*(self: StorageFolder, query: CommonFolderQuery,
                       startIndex: uint32, maxItemsToRetrieve: uint32
-                     ): Future[seq[StorageFolder]] {.async.} =
+                     ): Future[seq[StorageFolder]] =
   ## Windows.Storage.StorageFolder.GetFoldersAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
     check it.vtbl.GetFoldersAsync(it, query, startIndex, maxItemsToRetrieve,
                                   op.addr), "StorageFolder.GetFoldersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_15,
-                               alPlain, "StorageFolder.GetFoldersAsync")
-  result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
-  discard release(coll)
+  result = futureSeq[StorageFolder](op, IID_IAsyncOperation_1_IVectorView_15,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_15,
+                                    alPlain, "StorageFolder.GetFoldersAsync",
+                                    IID_IVectorView_1_StorageFolder)
 
 proc getFoldersAsync*(self: StorageFolder, query: CommonFolderQuery
-                     ): Future[seq[StorageFolder]] {.async.} =
+                     ): Future[seq[StorageFolder]] =
   ## Windows.Storage.StorageFolder.GetFoldersAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
     check it.vtbl.GetFoldersAsync2(it, query, op.addr
                                   ), "StorageFolder.GetFoldersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_15,
-                               alPlain, "StorageFolder.GetFoldersAsync")
-  result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
-  discard release(coll)
+  result = futureSeq[StorageFolder](op, IID_IAsyncOperation_1_IVectorView_15,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_15,
+                                    alPlain, "StorageFolder.GetFoldersAsync",
+                                    IID_IVectorView_1_StorageFolder)
 
 proc getItemsAsync*(self: StorageFolder, startIndex: uint32,
-                    maxItemsToRetrieve: uint32
-                   ): Future[seq[WinRtObject]] {.async.} =
+                    maxItemsToRetrieve: uint32): Future[seq[WinRtObject]] =
   ## Windows.Storage.StorageFolder.GetItemsAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
     check it.vtbl.GetItemsAsync(it, startIndex, maxItemsToRetrieve, op.addr
                                ), "StorageFolder.GetItemsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_16,
-                               alPlain, "StorageFolder.GetItemsAsync")
-  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
-  discard release(coll)
+  result = futureSeq[WinRtObject](op, IID_IAsyncOperation_1_IVectorView_16,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_16,
+                                  alPlain, "StorageFolder.GetItemsAsync",
+                                  IID_IVectorView_1_IStorageItem)
 
 proc areQueryOptionsSupported*(self: StorageFolder, queryOptions: QueryOptions
                               ): bool =
@@ -6967,42 +6922,44 @@ proc isCommonFileQuerySupported*(self: StorageFolder, query: CommonFileQuery
     result = tmp
 
 proc getThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode
-                       ): Future[StorageItemThumbnail] {.async.} =
+                       ): Future[StorageItemThumbnail] =
   ## Windows.Storage.StorageFolder.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     check it.vtbl.GetThumbnailAsync(it, mode, op.addr
                                    ), "StorageFolder.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain, "StorageFolder.GetThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "StorageFolder.GetThumbnailAsync")
 
 proc getThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode,
-                        requestedSize: uint32
-                       ): Future[StorageItemThumbnail] {.async.} =
+                        requestedSize: uint32): Future[StorageItemThumbnail] =
   ## Windows.Storage.StorageFolder.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     check it.vtbl.GetThumbnailAsync2(it, mode, requestedSize, op.addr
                                     ), "StorageFolder.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain, "StorageFolder.GetThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "StorageFolder.GetThumbnailAsync")
 
 proc getThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode,
                         requestedSize: uint32, options: ThumbnailOptions
-                       ): Future[StorageItemThumbnail] {.async.} =
+                       ): Future[StorageItemThumbnail] =
   ## Windows.Storage.StorageFolder.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     check it.vtbl.GetThumbnailAsync3(it, mode, requestedSize, options, op.addr
                                     ), "StorageFolder.GetThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain, "StorageFolder.GetThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "StorageFolder.GetThumbnailAsync")
 
 proc displayName*(self: StorageFolder): string =
   ## Windows.Storage.StorageFolder.get_DisplayName
@@ -7025,58 +6982,60 @@ proc properties*(self: StorageFolder): StorageItemContentProperties =
     result = it.getObject(get_Properties, StorageItemContentProperties)
 
 proc getScaledImageAsThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode
-                                    ): Future[StorageItemThumbnail] {.async.} =
+                                    ): Future[StorageItemThumbnail] =
   ## Windows.Storage.StorageFolder.GetScaledImageAsThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties2, it):
     check it.vtbl.GetScaledImageAsThumbnailAsync(it, mode, op.addr
                                                 ), "StorageFolder.GetScaledImageAsThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain,
-                              "StorageFolder.GetScaledImageAsThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "StorageFolder.GetScaledImageAsThumbnailAsync"
+                                             )
 
 proc getScaledImageAsThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode,
                                      requestedSize: uint32
-                                    ): Future[StorageItemThumbnail] {.async.} =
+                                    ): Future[StorageItemThumbnail] =
   ## Windows.Storage.StorageFolder.GetScaledImageAsThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties2, it):
     check it.vtbl.GetScaledImageAsThumbnailAsync2(it, mode, requestedSize,
                                                   op.addr
                                                  ), "StorageFolder.GetScaledImageAsThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain,
-                              "StorageFolder.GetScaledImageAsThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "StorageFolder.GetScaledImageAsThumbnailAsync"
+                                             )
 
 proc getScaledImageAsThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode,
                                      requestedSize: uint32,
                                      options: ThumbnailOptions
-                                    ): Future[StorageItemThumbnail] {.async.} =
+                                    ): Future[StorageItemThumbnail] =
   ## Windows.Storage.StorageFolder.GetScaledImageAsThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties2, it):
     check it.vtbl.GetScaledImageAsThumbnailAsync3(it, mode, requestedSize,
                                                   options, op.addr
                                                  ), "StorageFolder.GetScaledImageAsThumbnailAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
-                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                              alPlain,
-                              "StorageFolder.GetScaledImageAsThumbnailAsync")
-  result = adopt[StorageItemThumbnail](obj)
+  result = futureObject[StorageItemThumbnail](op,
+                                              IID_IAsyncOperation_1_StorageItemThumbnail,
+                                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                                              alPlain,
+                                              "StorageFolder.GetScaledImageAsThumbnailAsync"
+                                             )
 
-proc getParentAsync*(self: StorageFolder): Future[StorageFolder] {.async.} =
+proc getParentAsync*(self: StorageFolder): Future[StorageFolder] =
   ## Windows.Storage.StorageFolder.GetParentAsync
   var op: pointer
   withIface(self.p, IStorageItem2, it):
     check it.vtbl.GetParentAsync(it, op.addr), "StorageFolder.GetParentAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "StorageFolder.GetParentAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain, "StorageFolder.GetParentAsync")
 
 proc isEqual*(self: StorageFolder, item: WinRtObject): bool =
   ## Windows.Storage.StorageFolder.IsEqual
@@ -7086,18 +7045,16 @@ proc isEqual*(self: StorageFolder, item: WinRtObject): bool =
       check it.vtbl.IsEqual(it, p0, tmp.addr), "StorageFolder.IsEqual"
       result = tmp
 
-proc tryGetItemAsync*(self: StorageFolder, name: string
-                     ): Future[WinRtObject] {.async.} =
+proc tryGetItemAsync*(self: StorageFolder, name: string): Future[WinRtObject] =
   ## Windows.Storage.StorageFolder.TryGetItemAsync
   var op: pointer
   withIface(self.p, IStorageFolder2, it):
     withHString(name, h0):
       check it.vtbl.TryGetItemAsync(it, h0, op.addr
                                    ), "StorageFolder.TryGetItemAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
-                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                              alPlain, "StorageFolder.TryGetItemAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IStorageItem,
+                                     IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                                     alPlain, "StorageFolder.TryGetItemAsync")
 
 proc provider*(self: StorageFolder): StorageProvider =
   ## Windows.Storage.StorageFolder.get_Provider
@@ -7113,8 +7070,7 @@ proc tryGetChangeTracker*(self: StorageFolder): StorageLibraryChangeTracker =
     result = adopt[StorageLibraryChangeTracker](tmp)
 
 proc getFolderFromPathForUserAsync*(_: typedesc[StorageFolder], user: User,
-                                    path: string
-                                   ): Future[StorageFolder] {.async.} =
+                                    path: string): Future[StorageFolder] =
   ## Windows.Storage.StorageFolder.GetFolderFromPathForUserAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFolder", IStorageFolderStatics2, it):
@@ -7122,48 +7078,47 @@ proc getFolderFromPathForUserAsync*(_: typedesc[StorageFolder], user: User,
       withHString(path, h1):
         check it.vtbl.GetFolderFromPathForUserAsync(it, p0, h1, op.addr
                                                    ), "StorageFolder.GetFolderFromPathForUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain,
-                              "StorageFolder.GetFolderFromPathForUserAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "StorageFolder.GetFolderFromPathForUserAsync"
+                                      )
 
 proc getFolderFromPathAsync*(_: typedesc[StorageFolder], path: string
-                            ): Future[StorageFolder] {.async.} =
+                            ): Future[StorageFolder] =
   ## Windows.Storage.StorageFolder.GetFolderFromPathAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFolder", IStorageFolderStatics, it):
     withHString(path, h0):
       check it.vtbl.GetFolderFromPathAsync(it, h0, op.addr
                                           ), "StorageFolder.GetFolderFromPathAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "StorageFolder.GetFolderFromPathAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "StorageFolder.GetFolderFromPathAsync")
 
-proc requestAddFolderAsync*(self: StorageLibrary): Future[StorageFolder] {.async.} =
+proc requestAddFolderAsync*(self: StorageLibrary): Future[StorageFolder] =
   ## Windows.Storage.StorageLibrary.RequestAddFolderAsync
   var op: pointer
   withIface(self.p, IStorageLibrary, it):
     check it.vtbl.RequestAddFolderAsync(it, op.addr
                                        ), "StorageLibrary.RequestAddFolderAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
-                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                              alPlain, "StorageLibrary.RequestAddFolderAsync")
-  result = adopt[StorageFolder](obj)
+  result = futureObject[StorageFolder](op, IID_IAsyncOperation_1_StorageFolder,
+                                       IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                                       alPlain,
+                                       "StorageLibrary.RequestAddFolderAsync")
 
 proc requestRemoveFolderAsync*(self: StorageLibrary, folder: StorageFolder
-                              ): Future[bool] {.async.} =
+                              ): Future[bool] =
   ## Windows.Storage.StorageLibrary.RequestRemoveFolderAsync
   var op: pointer
   withIface(self.p, IStorageLibrary, it):
     withIface(folder.p, IStorageFolder, p0):
       check it.vtbl.RequestRemoveFolderAsync(it, p0, op.addr
                                             ), "StorageLibrary.RequestRemoveFolderAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "StorageLibrary.RequestRemoveFolderAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "StorageLibrary.RequestRemoveFolderAsync")
 
 proc folders*(self: StorageLibrary): seq[StorageFolder] =
   ## Windows.Storage.StorageLibrary.get_Folders
@@ -7202,43 +7157,44 @@ proc changeTracker*(self: StorageLibrary): StorageLibraryChangeTracker =
   withIface(self.p, IStorageLibrary2, it):
     result = it.getObject(get_ChangeTracker, StorageLibraryChangeTracker)
 
-proc areFolderSuggestionsAvailableAsync*(self: StorageLibrary): Future[bool] {.async.} =
+proc areFolderSuggestionsAvailableAsync*(self: StorageLibrary): Future[bool] =
   ## Windows.Storage.StorageLibrary.AreFolderSuggestionsAvailableAsync
   var op: pointer
   withIface(self.p, IStorageLibrary3, it):
     check it.vtbl.AreFolderSuggestionsAvailableAsync(it, op.addr
                                                     ), "StorageLibrary.AreFolderSuggestionsAvailableAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "StorageLibrary.AreFolderSuggestionsAvailableAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "StorageLibrary.AreFolderSuggestionsAvailableAsync"
+                            )
 
 proc getLibraryForUserAsync*(_: typedesc[StorageLibrary], user: User,
                              libraryId: KnownLibraryId
-                            ): Future[StorageLibrary] {.async.} =
+                            ): Future[StorageLibrary] =
   ## Windows.Storage.StorageLibrary.GetLibraryForUserAsync
   var op: pointer
   withStatics("Windows.Storage.StorageLibrary", IStorageLibraryStatics2, it):
     withIface(user.p, IUser, p0):
       check it.vtbl.GetLibraryForUserAsync(it, p0, libraryId, op.addr
                                           ), "StorageLibrary.GetLibraryForUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageLibrary,
-                              IID_AsyncOperationCompletedHandler_1_StorageLibrary,
-                              alPlain, "StorageLibrary.GetLibraryForUserAsync")
-  result = adopt[StorageLibrary](obj)
+  result = futureObject[StorageLibrary](op,
+                                        IID_IAsyncOperation_1_StorageLibrary,
+                                        IID_AsyncOperationCompletedHandler_1_StorageLibrary,
+                                        alPlain,
+                                        "StorageLibrary.GetLibraryForUserAsync")
 
 proc getLibraryAsync*(_: typedesc[StorageLibrary], libraryId: KnownLibraryId
-                     ): Future[StorageLibrary] {.async.} =
+                     ): Future[StorageLibrary] =
   ## Windows.Storage.StorageLibrary.GetLibraryAsync
   var op: pointer
   withStatics("Windows.Storage.StorageLibrary", IStorageLibraryStatics, it):
     check it.vtbl.GetLibraryAsync(it, libraryId, op.addr
                                  ), "StorageLibrary.GetLibraryAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageLibrary,
-                              IID_AsyncOperationCompletedHandler_1_StorageLibrary,
-                              alPlain, "StorageLibrary.GetLibraryAsync")
-  result = adopt[StorageLibrary](obj)
+  result = futureObject[StorageLibrary](op,
+                                        IID_IAsyncOperation_1_StorageLibrary,
+                                        IID_AsyncOperationCompletedHandler_1_StorageLibrary,
+                                        alPlain,
+                                        "StorageLibrary.GetLibraryAsync")
 
 proc changeType*(self: StorageLibraryChange): StorageLibraryChangeType =
   ## Windows.Storage.StorageLibraryChange.get_ChangeType
@@ -7263,40 +7219,39 @@ proc isOfType*(self: StorageLibraryChange, `type`: StorageItemTypes): bool =
                           ), "StorageLibraryChange.IsOfType"
     result = tmp
 
-proc getStorageItemAsync*(self: StorageLibraryChange): Future[WinRtObject] {.async.} =
+proc getStorageItemAsync*(self: StorageLibraryChange): Future[WinRtObject] =
   ## Windows.Storage.StorageLibraryChange.GetStorageItemAsync
   var op: pointer
   withIface(self.p, IStorageLibraryChange, it):
     check it.vtbl.GetStorageItemAsync(it, op.addr
                                      ), "StorageLibraryChange.GetStorageItemAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
-                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                              alPlain,
-                              "StorageLibraryChange.GetStorageItemAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IStorageItem,
+                                     IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                                     alPlain,
+                                     "StorageLibraryChange.GetStorageItemAsync")
 
-proc readBatchAsync*(self: StorageLibraryChangeReader): Future[seq[StorageLibraryChange]] {.async.} =
+proc readBatchAsync*(self: StorageLibraryChangeReader): Future[seq[StorageLibraryChange]] =
   ## Windows.Storage.StorageLibraryChangeReader.ReadBatchAsync
   var op: pointer
   withIface(self.p, IStorageLibraryChangeReader, it):
     check it.vtbl.ReadBatchAsync(it, op.addr
                                 ), "StorageLibraryChangeReader.ReadBatchAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_19,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_19,
-                               alPlain,
-                               "StorageLibraryChangeReader.ReadBatchAsync")
-  result = toSeq[StorageLibraryChange](coll,
-                                       IID_IVectorView_1_StorageLibraryChange)
-  discard release(coll)
+  result = futureSeq[StorageLibraryChange](op,
+                                           IID_IAsyncOperation_1_IVectorView_19,
+                                           IID_AsyncOperationCompletedHandler_1_IVectorView_19,
+                                           alPlain,
+                                           "StorageLibraryChangeReader.ReadBatchAsync",
+                                           IID_IVectorView_1_StorageLibraryChange
+                                          )
 
-proc acceptChangesAsync*(self: StorageLibraryChangeReader) {.async.} =
+proc acceptChangesAsync*(self: StorageLibraryChangeReader): Future[void] =
   ## Windows.Storage.StorageLibraryChangeReader.AcceptChangesAsync
   var op: pointer
   withIface(self.p, IStorageLibraryChangeReader, it):
     check it.vtbl.AcceptChangesAsync(it, op.addr
                                     ), "StorageLibraryChangeReader.AcceptChangesAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageLibraryChangeReader.AcceptChangesAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageLibraryChangeReader.AcceptChangesAsync")
 
 proc getLastChangeId*(self: StorageLibraryChangeReader): uint64 =
   ## Windows.Storage.StorageLibraryChangeReader.GetLastChangeId
@@ -7369,59 +7324,59 @@ proc displayName*(self: StorageProvider): string =
 
 proc isPropertySupportedForPartialFileAsync*(self: StorageProvider,
                                              propertyCanonicalName: string
-                                            ): Future[bool] {.async.} =
+                                            ): Future[bool] =
   ## Windows.Storage.StorageProvider.IsPropertySupportedForPartialFileAsync
   var op: pointer
   withIface(self.p, IStorageProvider2, it):
     withHString(propertyCanonicalName, h0):
       check it.vtbl.IsPropertySupportedForPartialFileAsync(it, h0, op.addr
                                                           ), "StorageProvider.IsPropertySupportedForPartialFileAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "StorageProvider.IsPropertySupportedForPartialFileAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "StorageProvider.IsPropertySupportedForPartialFileAsync"
+                            )
 
 proc stream*(self: StorageStreamTransaction): WinRtObject =
   ## Windows.Storage.StorageStreamTransaction.get_Stream
   withIface(self.p, IStorageStreamTransaction, it):
     result = it.getObject(get_Stream, WinRtObject)
 
-proc commitAsync*(self: StorageStreamTransaction) {.async.} =
+proc commitAsync*(self: StorageStreamTransaction): Future[void] =
   ## Windows.Storage.StorageStreamTransaction.CommitAsync
   var op: pointer
   withIface(self.p, IStorageStreamTransaction, it):
     check it.vtbl.CommitAsync(it, op.addr
                              ), "StorageStreamTransaction.CommitAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StorageStreamTransaction.CommitAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StorageStreamTransaction.CommitAsync")
 
 proc close*(self: StorageStreamTransaction) =
   ## Windows.Storage.StorageStreamTransaction.Close
   withIface(self.p, IClosable, it):
     check it.vtbl.Close(it), "StorageStreamTransaction.Close"
 
-proc writeAsync*(self: StreamedFileDataRequest, buffer: Buffer
-                ): Future[uint32] {.async.} =
+proc writeAsync*(self: StreamedFileDataRequest, buffer: Buffer,
+                 progress: ProgressHandler[uint32] = nil): Future[uint32] =
   ## Windows.Storage.StreamedFileDataRequest.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.WriteAsync(it, p0, op.addr
                               ), "StreamedFileDataRequest.WriteAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress,
-                                    "StreamedFileDataRequest.WriteAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress, "StreamedFileDataRequest.WriteAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "StreamedFileDataRequest.WriteAsync")
 
-proc flushAsync*(self: StreamedFileDataRequest): Future[bool] {.async.} =
+proc flushAsync*(self: StreamedFileDataRequest): Future[bool] =
   ## Windows.Storage.StreamedFileDataRequest.FlushAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     check it.vtbl.FlushAsync(it, op.addr), "StreamedFileDataRequest.FlushAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "StreamedFileDataRequest.FlushAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "StreamedFileDataRequest.FlushAsync")
 
 proc close*(self: StreamedFileDataRequest) =
   ## Windows.Storage.StreamedFileDataRequest.Close
@@ -7838,14 +7793,14 @@ proc storeAsync*(self: DataWriter): DataWriterStoreOperation =
     check it.vtbl.StoreAsync(it, tmp.addr), "DataWriter.StoreAsync"
     result = adopt[DataWriterStoreOperation](tmp)
 
-proc flushAsync*(self: DataWriter): Future[bool] {.async.} =
+proc flushAsync*(self: DataWriter): Future[bool] =
   ## Windows.Storage.Streams.DataWriter.FlushAsync
   var op: pointer
   withIface(self.p, IDataWriter, it):
     check it.vtbl.FlushAsync(it, op.addr), "DataWriter.FlushAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "DataWriter.FlushAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "DataWriter.FlushAsync")
 
 proc detachBuffer*(self: DataWriter): Buffer =
   ## Windows.Storage.Streams.DataWriter.DetachBuffer
@@ -7902,42 +7857,47 @@ proc close*(self: DataWriterStoreOperation) =
     check it.vtbl.Close(it), "DataWriterStoreOperation.Close"
 
 proc readAsync*(self: FileInputStream, buffer: Buffer, count: uint32,
-                options: InputStreamOptions): Future[Buffer] {.async.} =
+                options: InputStreamOptions,
+                progress: ProgressHandler[uint32] = nil): Future[Buffer] =
   ## Windows.Storage.Streams.FileInputStream.ReadAsync
   var op: pointer
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.ReadAsync(it, p0, count, options, op.addr
                              ), "FileInputStream.ReadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                              alProgress, "FileInputStream.ReadAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                                alProgress, "FileInputStream.ReadAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U4, progress,
+                 "FileInputStream.ReadAsync")
 
 proc close*(self: FileInputStream) =
   ## Windows.Storage.Streams.FileInputStream.Close
   withIface(self.p, IClosable, it):
     check it.vtbl.Close(it), "FileInputStream.Close"
 
-proc writeAsync*(self: FileOutputStream, buffer: Buffer
-                ): Future[uint32] {.async.} =
+proc writeAsync*(self: FileOutputStream, buffer: Buffer,
+                 progress: ProgressHandler[uint32] = nil): Future[uint32] =
   ## Windows.Storage.Streams.FileOutputStream.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.WriteAsync(it, p0, op.addr), "FileOutputStream.WriteAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress, "FileOutputStream.WriteAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress, "FileOutputStream.WriteAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "FileOutputStream.WriteAsync")
 
-proc flushAsync*(self: FileOutputStream): Future[bool] {.async.} =
+proc flushAsync*(self: FileOutputStream): Future[bool] =
   ## Windows.Storage.Streams.FileOutputStream.FlushAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     check it.vtbl.FlushAsync(it, op.addr), "FileOutputStream.FlushAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "FileOutputStream.FlushAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "FileOutputStream.FlushAsync")
 
 proc close*(self: FileOutputStream) =
   ## Windows.Storage.Streams.FileOutputStream.Close
@@ -8000,27 +7960,28 @@ proc canWrite*(self: FileRandomAccessStream): bool =
   withIface(self.p, IRandomAccessStream, it):
     result = it.getValue(get_CanWrite, bool)
 
-proc writeAsync*(self: FileRandomAccessStream, buffer: Buffer
-                ): Future[uint32] {.async.} =
+proc writeAsync*(self: FileRandomAccessStream, buffer: Buffer,
+                 progress: ProgressHandler[uint32] = nil): Future[uint32] =
   ## Windows.Storage.Streams.FileRandomAccessStream.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.WriteAsync(it, p0, op.addr
                               ), "FileRandomAccessStream.WriteAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress,
-                                    "FileRandomAccessStream.WriteAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress, "FileRandomAccessStream.WriteAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "FileRandomAccessStream.WriteAsync")
 
-proc flushAsync*(self: FileRandomAccessStream): Future[bool] {.async.} =
+proc flushAsync*(self: FileRandomAccessStream): Future[bool] =
   ## Windows.Storage.Streams.FileRandomAccessStream.FlushAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     check it.vtbl.FlushAsync(it, op.addr), "FileRandomAccessStream.FlushAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "FileRandomAccessStream.FlushAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "FileRandomAccessStream.FlushAsync")
 
 proc close*(self: FileRandomAccessStream) =
   ## Windows.Storage.Streams.FileRandomAccessStream.Close
@@ -8028,20 +7989,23 @@ proc close*(self: FileRandomAccessStream) =
     check it.vtbl.Close(it), "FileRandomAccessStream.Close"
 
 proc readAsync*(self: FileRandomAccessStream, buffer: Buffer, count: uint32,
-                options: InputStreamOptions): Future[Buffer] {.async.} =
+                options: InputStreamOptions,
+                progress: ProgressHandler[uint32] = nil): Future[Buffer] =
   ## Windows.Storage.Streams.FileRandomAccessStream.ReadAsync
   var op: pointer
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.ReadAsync(it, p0, count, options, op.addr
                              ), "FileRandomAccessStream.ReadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                              alProgress, "FileRandomAccessStream.ReadAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                                alProgress, "FileRandomAccessStream.ReadAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U4, progress,
+                 "FileRandomAccessStream.ReadAsync")
 
 proc openAsync*(_: typedesc[FileRandomAccessStream], filePath: string,
-                accessMode: FileAccessMode): Future[WinRtObject] {.async.} =
+                accessMode: FileAccessMode): Future[WinRtObject] =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8049,15 +8013,15 @@ proc openAsync*(_: typedesc[FileRandomAccessStream], filePath: string,
     withHString(filePath, h0):
       check it.vtbl.OpenAsync(it, h0, accessMode, op.addr
                              ), "FileRandomAccessStream.OpenAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                              alPlain, "FileRandomAccessStream.OpenAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStream,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                                     alPlain, "FileRandomAccessStream.OpenAsync"
+                                    )
 
 proc openAsync*(_: typedesc[FileRandomAccessStream], filePath: string,
                 accessMode: FileAccessMode, sharingOptions: StorageOpenOptions,
-                openDisposition: FileOpenDisposition
-               ): Future[WinRtObject] {.async.} =
+                openDisposition: FileOpenDisposition): Future[WinRtObject] =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8066,14 +8030,15 @@ proc openAsync*(_: typedesc[FileRandomAccessStream], filePath: string,
       check it.vtbl.OpenAsync2(it, h0, accessMode, sharingOptions,
                                openDisposition, op.addr
                               ), "FileRandomAccessStream.OpenAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                              alPlain, "FileRandomAccessStream.OpenAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStream,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                                     alPlain, "FileRandomAccessStream.OpenAsync"
+                                    )
 
 proc openTransactedWriteAsync*(_: typedesc[FileRandomAccessStream],
                                filePath: string
-                              ): Future[StorageStreamTransaction] {.async.} =
+                              ): Future[StorageStreamTransaction] =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenTransactedWriteAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8081,18 +8046,18 @@ proc openTransactedWriteAsync*(_: typedesc[FileRandomAccessStream],
     withHString(filePath, h0):
       check it.vtbl.OpenTransactedWriteAsync(it, h0, op.addr
                                             ), "FileRandomAccessStream.OpenTransactedWriteAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_StorageStreamTransaction,
-                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                              alPlain,
-                              "FileRandomAccessStream.OpenTransactedWriteAsync")
-  result = adopt[StorageStreamTransaction](obj)
+  result = futureObject[StorageStreamTransaction](op,
+                                                  IID_IAsyncOperation_1_StorageStreamTransaction,
+                                                  IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                                                  alPlain,
+                                                  "FileRandomAccessStream.OpenTransactedWriteAsync"
+                                                 )
 
 proc openTransactedWriteAsync*(_: typedesc[FileRandomAccessStream],
                                filePath: string,
                                openOptions: StorageOpenOptions,
                                openDisposition: FileOpenDisposition
-                              ): Future[StorageStreamTransaction] {.async.} =
+                              ): Future[StorageStreamTransaction] =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenTransactedWriteAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8101,16 +8066,16 @@ proc openTransactedWriteAsync*(_: typedesc[FileRandomAccessStream],
       check it.vtbl.OpenTransactedWriteAsync2(it, h0, openOptions,
                                               openDisposition, op.addr
                                              ), "FileRandomAccessStream.OpenTransactedWriteAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_StorageStreamTransaction,
-                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                              alPlain,
-                              "FileRandomAccessStream.OpenTransactedWriteAsync")
-  result = adopt[StorageStreamTransaction](obj)
+  result = futureObject[StorageStreamTransaction](op,
+                                                  IID_IAsyncOperation_1_StorageStreamTransaction,
+                                                  IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                                                  alPlain,
+                                                  "FileRandomAccessStream.OpenTransactedWriteAsync"
+                                                 )
 
 proc openForUserAsync*(_: typedesc[FileRandomAccessStream], user: User,
                        filePath: string, accessMode: FileAccessMode
-                      ): Future[WinRtObject] {.async.} =
+                      ): Future[WinRtObject] =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenForUserAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8119,17 +8084,17 @@ proc openForUserAsync*(_: typedesc[FileRandomAccessStream], user: User,
       withHString(filePath, h1):
         check it.vtbl.OpenForUserAsync(it, p0, h1, accessMode, op.addr
                                       ), "FileRandomAccessStream.OpenForUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                              alPlain, "FileRandomAccessStream.OpenForUserAsync"
-                             )
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStream,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                                     alPlain,
+                                     "FileRandomAccessStream.OpenForUserAsync")
 
 proc openForUserAsync*(_: typedesc[FileRandomAccessStream], user: User,
                        filePath: string, accessMode: FileAccessMode,
                        sharingOptions: StorageOpenOptions,
                        openDisposition: FileOpenDisposition
-                      ): Future[WinRtObject] {.async.} =
+                      ): Future[WinRtObject] =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenForUserAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8139,15 +8104,15 @@ proc openForUserAsync*(_: typedesc[FileRandomAccessStream], user: User,
         check it.vtbl.OpenForUserAsync2(it, p0, h1, accessMode, sharingOptions,
                                         openDisposition, op.addr
                                        ), "FileRandomAccessStream.OpenForUserAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                              alPlain, "FileRandomAccessStream.OpenForUserAsync"
-                             )
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStream,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                                     alPlain,
+                                     "FileRandomAccessStream.OpenForUserAsync")
 
 proc openTransactedWriteForUserAsync*(_: typedesc[FileRandomAccessStream],
                                       user: User, filePath: string
-                                     ): Future[StorageStreamTransaction] {.async.} =
+                                     ): Future[StorageStreamTransaction] =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenTransactedWriteForUserAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8156,19 +8121,18 @@ proc openTransactedWriteForUserAsync*(_: typedesc[FileRandomAccessStream],
       withHString(filePath, h1):
         check it.vtbl.OpenTransactedWriteForUserAsync(it, p0, h1, op.addr
                                                      ), "FileRandomAccessStream.OpenTransactedWriteForUserAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_StorageStreamTransaction,
-                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                              alPlain,
-                              "FileRandomAccessStream.OpenTransactedWriteForUserAsync"
-                             )
-  result = adopt[StorageStreamTransaction](obj)
+  result = futureObject[StorageStreamTransaction](op,
+                                                  IID_IAsyncOperation_1_StorageStreamTransaction,
+                                                  IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                                                  alPlain,
+                                                  "FileRandomAccessStream.OpenTransactedWriteForUserAsync"
+                                                 )
 
 proc openTransactedWriteForUserAsync*(_: typedesc[FileRandomAccessStream],
                                       user: User, filePath: string,
                                       openOptions: StorageOpenOptions,
                                       openDisposition: FileOpenDisposition
-                                     ): Future[StorageStreamTransaction] {.async.} =
+                                     ): Future[StorageStreamTransaction] =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenTransactedWriteForUserAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8178,13 +8142,12 @@ proc openTransactedWriteForUserAsync*(_: typedesc[FileRandomAccessStream],
         check it.vtbl.OpenTransactedWriteForUserAsync2(it, p0, h1, openOptions,
                                                        openDisposition, op.addr
                                                       ), "FileRandomAccessStream.OpenTransactedWriteForUserAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_StorageStreamTransaction,
-                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                              alPlain,
-                              "FileRandomAccessStream.OpenTransactedWriteForUserAsync"
-                             )
-  result = adopt[StorageStreamTransaction](obj)
+  result = futureObject[StorageStreamTransaction](op,
+                                                  IID_IAsyncOperation_1_StorageStreamTransaction,
+                                                  IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                                                  alPlain,
+                                                  "FileRandomAccessStream.OpenTransactedWriteForUserAsync"
+                                                 )
 
 proc newInMemoryRandomAccessStream*(): InMemoryRandomAccessStream =
   ## Activate a `Windows.Storage.Streams.InMemoryRandomAccessStream`.
@@ -8246,29 +8209,30 @@ proc canWrite*(self: InMemoryRandomAccessStream): bool =
   withIface(self.p, IRandomAccessStream, it):
     result = it.getValue(get_CanWrite, bool)
 
-proc writeAsync*(self: InMemoryRandomAccessStream, buffer: Buffer
-                ): Future[uint32] {.async.} =
+proc writeAsync*(self: InMemoryRandomAccessStream, buffer: Buffer,
+                 progress: ProgressHandler[uint32] = nil): Future[uint32] =
   ## Windows.Storage.Streams.InMemoryRandomAccessStream.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.WriteAsync(it, p0, op.addr
                               ), "InMemoryRandomAccessStream.WriteAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress,
-                                    "InMemoryRandomAccessStream.WriteAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress,
+                               "InMemoryRandomAccessStream.WriteAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "InMemoryRandomAccessStream.WriteAsync")
 
-proc flushAsync*(self: InMemoryRandomAccessStream): Future[bool] {.async.} =
+proc flushAsync*(self: InMemoryRandomAccessStream): Future[bool] =
   ## Windows.Storage.Streams.InMemoryRandomAccessStream.FlushAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     check it.vtbl.FlushAsync(it, op.addr
                             ), "InMemoryRandomAccessStream.FlushAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "InMemoryRandomAccessStream.FlushAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "InMemoryRandomAccessStream.FlushAsync")
 
 proc close*(self: InMemoryRandomAccessStream) =
   ## Windows.Storage.Streams.InMemoryRandomAccessStream.Close
@@ -8276,58 +8240,65 @@ proc close*(self: InMemoryRandomAccessStream) =
     check it.vtbl.Close(it), "InMemoryRandomAccessStream.Close"
 
 proc readAsync*(self: InMemoryRandomAccessStream, buffer: Buffer, count: uint32,
-                options: InputStreamOptions): Future[Buffer] {.async.} =
+                options: InputStreamOptions,
+                progress: ProgressHandler[uint32] = nil): Future[Buffer] =
   ## Windows.Storage.Streams.InMemoryRandomAccessStream.ReadAsync
   var op: pointer
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.ReadAsync(it, p0, count, options, op.addr
                              ), "InMemoryRandomAccessStream.ReadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                              alProgress, "InMemoryRandomAccessStream.ReadAsync"
-                             )
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                                alProgress,
+                                "InMemoryRandomAccessStream.ReadAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U4, progress,
+                 "InMemoryRandomAccessStream.ReadAsync")
 
 proc readAsync*(self: InputStreamOverStream, buffer: Buffer, count: uint32,
-                options: InputStreamOptions): Future[Buffer] {.async.} =
+                options: InputStreamOptions,
+                progress: ProgressHandler[uint32] = nil): Future[Buffer] =
   ## Windows.Storage.Streams.InputStreamOverStream.ReadAsync
   var op: pointer
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.ReadAsync(it, p0, count, options, op.addr
                              ), "InputStreamOverStream.ReadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                              alProgress, "InputStreamOverStream.ReadAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                                alProgress, "InputStreamOverStream.ReadAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U4, progress,
+                 "InputStreamOverStream.ReadAsync")
 
 proc close*(self: InputStreamOverStream) =
   ## Windows.Storage.Streams.InputStreamOverStream.Close
   withIface(self.p, IClosable, it):
     check it.vtbl.Close(it), "InputStreamOverStream.Close"
 
-proc writeAsync*(self: OutputStreamOverStream, buffer: Buffer
-                ): Future[uint32] {.async.} =
+proc writeAsync*(self: OutputStreamOverStream, buffer: Buffer,
+                 progress: ProgressHandler[uint32] = nil): Future[uint32] =
   ## Windows.Storage.Streams.OutputStreamOverStream.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.WriteAsync(it, p0, op.addr
                               ), "OutputStreamOverStream.WriteAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress,
-                                    "OutputStreamOverStream.WriteAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress, "OutputStreamOverStream.WriteAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "OutputStreamOverStream.WriteAsync")
 
-proc flushAsync*(self: OutputStreamOverStream): Future[bool] {.async.} =
+proc flushAsync*(self: OutputStreamOverStream): Future[bool] =
   ## Windows.Storage.Streams.OutputStreamOverStream.FlushAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     check it.vtbl.FlushAsync(it, op.addr), "OutputStreamOverStream.FlushAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "OutputStreamOverStream.FlushAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "OutputStreamOverStream.FlushAsync")
 
 proc close*(self: OutputStreamOverStream) =
   ## Windows.Storage.Streams.OutputStreamOverStream.Close
@@ -8335,7 +8306,8 @@ proc close*(self: OutputStreamOverStream) =
     check it.vtbl.Close(it), "OutputStreamOverStream.Close"
 
 proc copyAsync*(_: typedesc[RandomAccessStream], source: WinRtObject,
-                destination: WinRtObject): Future[uint64] {.async.} =
+                destination: WinRtObject,
+                progress: ProgressHandler[uint64] = nil): Future[uint64] =
   ## Windows.Storage.Streams.RandomAccessStream.CopyAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.RandomAccessStream",
@@ -8344,13 +8316,15 @@ proc copyAsync*(_: typedesc[RandomAccessStream], source: WinRtObject,
       withIface(destination.p, IOutputStream, p1):
         check it.vtbl.CopyAsync(it, p0, p1, op.addr
                                ), "RandomAccessStream.CopyAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress, "RandomAccessStream.CopyAsync")
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress, "RandomAccessStream.CopyAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "RandomAccessStream.CopyAsync")
 
 proc copyAsync*(_: typedesc[RandomAccessStream], source: WinRtObject,
-                destination: WinRtObject, bytesToCopy: uint64
-               ): Future[uint64] {.async.} =
+                destination: WinRtObject, bytesToCopy: uint64,
+                progress: ProgressHandler[uint64] = nil): Future[uint64] =
   ## Windows.Storage.Streams.RandomAccessStream.CopyAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.RandomAccessStream",
@@ -8359,12 +8333,16 @@ proc copyAsync*(_: typedesc[RandomAccessStream], source: WinRtObject,
       withIface(destination.p, IOutputStream, p1):
         check it.vtbl.CopyAsync2(it, p0, p1, bytesToCopy, op.addr
                                 ), "RandomAccessStream.CopyAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress, "RandomAccessStream.CopyAsync")
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress, "RandomAccessStream.CopyAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "RandomAccessStream.CopyAsync")
 
 proc copyAndCloseAsync*(_: typedesc[RandomAccessStream], source: WinRtObject,
-                        destination: WinRtObject): Future[uint64] {.async.} =
+                        destination: WinRtObject,
+                        progress: ProgressHandler[uint64] = nil
+                       ): Future[uint64] =
   ## Windows.Storage.Streams.RandomAccessStream.CopyAndCloseAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.RandomAccessStream",
@@ -8373,10 +8351,12 @@ proc copyAndCloseAsync*(_: typedesc[RandomAccessStream], source: WinRtObject,
       withIface(destination.p, IOutputStream, p1):
         check it.vtbl.CopyAndCloseAsync(it, p0, p1, op.addr
                                        ), "RandomAccessStream.CopyAndCloseAsync"
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
-                                    alProgress,
-                                    "RandomAccessStream.CopyAndCloseAsync")
+  result = futureValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                               alProgress,
+                               "RandomAccessStream.CopyAndCloseAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U8_U8, progress,
+                 "RandomAccessStream.CopyAndCloseAsync")
 
 proc size*(self: RandomAccessStreamOverStream): uint64 =
   ## Windows.Storage.Streams.RandomAccessStreamOverStream.get_Size
@@ -8434,29 +8414,30 @@ proc canWrite*(self: RandomAccessStreamOverStream): bool =
   withIface(self.p, IRandomAccessStream, it):
     result = it.getValue(get_CanWrite, bool)
 
-proc writeAsync*(self: RandomAccessStreamOverStream, buffer: Buffer
-                ): Future[uint32] {.async.} =
+proc writeAsync*(self: RandomAccessStreamOverStream, buffer: Buffer,
+                 progress: ProgressHandler[uint32] = nil): Future[uint32] =
   ## Windows.Storage.Streams.RandomAccessStreamOverStream.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.WriteAsync(it, p0, op.addr
                               ), "RandomAccessStreamOverStream.WriteAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress,
-                                    "RandomAccessStreamOverStream.WriteAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress,
+                               "RandomAccessStreamOverStream.WriteAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "RandomAccessStreamOverStream.WriteAsync")
 
-proc flushAsync*(self: RandomAccessStreamOverStream): Future[bool] {.async.} =
+proc flushAsync*(self: RandomAccessStreamOverStream): Future[bool] =
   ## Windows.Storage.Streams.RandomAccessStreamOverStream.FlushAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
     check it.vtbl.FlushAsync(it, op.addr
                             ), "RandomAccessStreamOverStream.FlushAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "RandomAccessStreamOverStream.FlushAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "RandomAccessStreamOverStream.FlushAsync")
 
 proc close*(self: RandomAccessStreamOverStream) =
   ## Windows.Storage.Streams.RandomAccessStreamOverStream.Close
@@ -8464,32 +8445,34 @@ proc close*(self: RandomAccessStreamOverStream) =
     check it.vtbl.Close(it), "RandomAccessStreamOverStream.Close"
 
 proc readAsync*(self: RandomAccessStreamOverStream, buffer: Buffer,
-                count: uint32, options: InputStreamOptions
-               ): Future[Buffer] {.async.} =
+                count: uint32, options: InputStreamOptions,
+                progress: ProgressHandler[uint32] = nil): Future[Buffer] =
   ## Windows.Storage.Streams.RandomAccessStreamOverStream.ReadAsync
   var op: pointer
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       check it.vtbl.ReadAsync(it, p0, count, options, op.addr
                              ), "RandomAccessStreamOverStream.ReadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                              alProgress,
-                              "RandomAccessStreamOverStream.ReadAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op,
+                                IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                                IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                                alProgress,
+                                "RandomAccessStreamOverStream.ReadAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_IBuffer_U4, progress,
+                 "RandomAccessStreamOverStream.ReadAsync")
 
-proc openReadAsync*(self: RandomAccessStreamReference): Future[WinRtObject] {.async.} =
+proc openReadAsync*(self: RandomAccessStreamReference): Future[WinRtObject] =
   ## Windows.Storage.Streams.RandomAccessStreamReference.OpenReadAsync
   var op: pointer
   withIface(self.p, IRandomAccessStreamReference, it):
     check it.vtbl.OpenReadAsync(it, op.addr
                                ), "RandomAccessStreamReference.OpenReadAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
-                              alPlain,
-                              "RandomAccessStreamReference.OpenReadAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
+                                     alPlain,
+                                     "RandomAccessStreamReference.OpenReadAsync"
+                                    )
 
 proc createFromFile*(_: typedesc[RandomAccessStreamReference], file: StorageFile
                     ): RandomAccessStreamReference =

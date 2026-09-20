@@ -95,6 +95,7 @@ scope drops its reference; `uri.host` is a Nim `string`.
 | `examples/calendar.nim` | an ordinary class, constructed and read |
 | `examples/events.nim` | subscribing and unsubscribing |
 | `examples/shapes.nim` | collections, maps, out-parameters and a `Future` |
+| `examples/buffer.nim` | an object of yours that Windows calls, through two interfaces |
 | `examples/lowlevel.nim` | the same call through the ABI module by hand |
 
 ## What things look like from Nim
@@ -111,11 +112,12 @@ Each WinRT shape has one Nim spelling, and it is the one you would expect:
 | `IMapView<K, V>`, `IMap<K, V>` | `Table[K, V]`, in either direction |
 | `IReference<T>` | `Option[T]` |
 | `T[]` | `openArray[T]` in, `seq[T]` out |
-| `IAsyncOperation<T>` | `Future[T]` |
+| `IAsyncOperation<T>` | `Future[T]`, which `cancel` can stop |
+| `IAsyncOperationWithProgress<T, P>` | `Future[T]`, and a `progress: proc(p: P)` argument |
 | an `[out]` parameter | a field of the returned tuple |
 | a delegate | a closure, run on your thread |
 | an event | `onName(handler)`, which returns a token for `removeName` |
-| an interface Windows should call | `implement(IID_X, XVtbl(...))` |
+| an interface Windows should call | `implement(IID_X, XVtbl(...))`, one interface or several |
 | a failure | `WinRtError`, with the `HRESULT` and the runtime's message |
 
 Collections nest — a `FileSavePicker`'s file type choices are a
@@ -176,6 +178,17 @@ thread would be a data race. Handlers ride on the same dispatcher, so a module
 with async methods or events imports `std/asyncdispatch` and one with neither
 does not.
 
+An operation can be asked to stop. `cancel(fut)` calls its `Cancel`, and when
+the operation honours that the Future fails with a `CancelledError`; one that
+was about to finish anyway completes as it would have. An operation that
+reports progress — an `IAsyncOperationWithProgress<T, P>` — takes a closure
+for it as its last argument, called on your thread with each value:
+
+```nim
+let page = waitFor newHttpClient().getStringAsync(uri,
+  progress = proc(p: HttpProgress) = echo p.stage, " ", p.bytesReceived)
+```
+
 ### Handlers run on your thread
 
 A closure you hand to `ThreadPool.runAsync`, or to a device watcher's event,
@@ -187,35 +200,61 @@ dispatcher for a handler from elsewhere to be delivered — `waitFor`,
 `runForever` or `poll`, not `sleep`. A handler that genuinely wants the
 runtime's thread, such as a work item meant to run in parallel, is made with
 `newDelegate(..., raw = true)` and must not touch garbage-collected memory
-there.
+there; `runOnDispatcher(fn, arg)` is how code on such a thread hands work
+back to yours, without waiting for it.
 
 ### Implementing an interface
 
 Sometimes Windows wants an object of *yours*: an `INotifyPropertyChanged`
-for data binding, an `ICommand`, a background task, an `IReference<T>` you
-did not want boxed. `implement` takes the interface's vtable type from the
+for data binding, an `ICommand`, a background task, an `IBuffer` over bytes
+you already have. `implement` takes each interface's vtable type from the
 ABI module with your methods filled in, and returns a COM object Windows can
-hold, query and call:
+hold, query and call. A buffer is two interfaces — `IBuffer` for the length,
+and the COM-side `IBufferByteAccess` for the bytes — so the object implements
+both, and `QueryInterface` leads Windows from one to the other:
 
 ```nim
-import winrt, winrt/abi/devices
+import winrt, winrt/[storage, security]
 include winrt/abidef          # the `abi` calling convention for your methods
 
-type FlagsRefVtbl = object of IInspectableVtbl
-  get_Value: proc(self: pointer, value: ptr BluetoothLEAdvertisementFlags): HRESULT {.abi.}
+type
+  Bytes = ref object
+    data: seq[byte]
+  IBufferByteAccessVtbl = object of IUnknownVtbl
+    buffer: proc(self: pointer, value: ptr ptr byte): HRESULT {.abi.}
+const IID_IBufferByteAccess = guid"905A0FEF-BC53-11DF-8C49-001E4FC686DA"
 
-var flags = BluetoothLEAdvertisementFlags(2)
-let box = implement(IID_IReference_1_BluetoothLEAdvertisementFlags,
-  FlagsRefVtbl(get_Value: proc(self: pointer, value: ptr BluetoothLEAdvertisementFlags): HRESULT {.abi.} =
-    value[] = cast[ptr BluetoothLEAdvertisementFlags](stateOf(self))[]
-    S_OK),
-  state = flags.addr)
+let bytes = Bytes(data: @[byte 'h'.ord, 'i'.ord, '!'.ord])
+GC_ref(bytes)                  # Windows holds it now; `dispose` lets go
+let buffer = adopt[Buffer](implement(
+  (IID_IBuffer, IBufferVtbl(
+    get_Capacity: proc(self: pointer, value: ptr uint32): HRESULT {.abi.} =
+      value[] = uint32(cast[Bytes](stateOf(self)).data.len)
+      S_OK,
+    get_Length: proc(self: pointer, value: ptr uint32): HRESULT {.abi.} =
+      value[] = uint32(cast[Bytes](stateOf(self)).data.len)
+      S_OK,
+    put_Length: proc(self: pointer, length: uint32): HRESULT {.abi.} =
+      cast[Bytes](stateOf(self)).data.setLen(length)
+      S_OK)),
+  (IID_IBufferByteAccess, IBufferByteAccessVtbl(
+    buffer: proc(self: pointer, value: ptr ptr byte): HRESULT {.abi.} =
+      value[] = cast[Bytes](stateOf(self)).data[0].addr
+      S_OK)),
+  state = cast[pointer](bytes),
+  dispose = proc(state: pointer) {.nimcall, raises: [].} = GC_unref(cast[Bytes](state))))
+
+echo CryptographicBuffer.encodeToBase64String(buffer)   # aGkh
 ```
 
 The methods are written at the ABI — raw arguments, an `HRESULT` back —
 with `stateOf(self)` for whatever you attached and `takeString`, `toHString`,
-`adopt` and `borrow` to convert. One interface per object; `QueryInterface`,
-reference counting and the rest of `IInspectable` are filled in for you.
+`adopt` and `borrow` to convert. `QueryInterface`, reference counting and the
+rest of `IInspectable` are filled in for you; two or three interfaces go as
+arguments, more as one tuple. Windows may call your methods, and release the
+object, from any of its threads: `dispose` runs on yours regardless, and a
+method that needs your thread for something hands it over with
+`runOnDispatcher`.
 
 ### When a call fails
 

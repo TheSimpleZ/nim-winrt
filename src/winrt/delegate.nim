@@ -51,7 +51,8 @@
 ##
 ## A handler that genuinely wants the runtime's thread — a work item meant to
 ## run in parallel — asks for `raw = true` and takes on the rule above: no GC
-## memory there.
+## memory there. `runOnDispatcher` is the same road for anything else that has
+## to get from such a thread to the dispatcher's, without waiting for it.
 ##
 ## ## What the object holds
 ##
@@ -213,20 +214,24 @@ proc runPending(fd: AsyncFD): bool {.gcsafe.} =
     # cannot see through a proc pointer to know it.
     {.cast(gcsafe).}:
       ordered.hr = ordered.run(ordered)
-    discard setEvent(ordered.done)
+    if ordered.done.isNil:
+      comFree(ordered)        # posted by `runOnDispatcher`: nobody is waiting
+    else:
+      discard setEvent(ordered.done)
     ordered = next
   false   # stay registered
 
-proc ensureDispatcher() =
-  ## The first delegate decides which thread handlers run on.
+proc ensureDispatcher*() =
+  ## The first delegate — or the first object made with `implement` — decides
+  ## which thread handlers run on.
   if wakeup.isNil:
     wakeup = newAsyncEvent()
     addEvent(wakeup, runPending)
     dispatcherThread = getThreadId()
 
-proc carry(job: ptr Job): HRESULT =
-  ## From a thread that is not the dispatcher's: hand the job over and wait.
-  job.done = createEventW(nil, 1, 0, nil)
+proc post(job: ptr Job) =
+  ## Onto the pending list, then wake the dispatcher. Safe from any thread: a
+  ## compare-and-swap and a `SetEvent`.
   job.next = pending.load(moAcquire)
   while not pending.compareExchange(job.next, job, moAcquireRelease, moAcquire):
     discard
@@ -234,9 +239,46 @@ proc carry(job: ptr Job): HRESULT =
     trigger(wakeup)
   except CatchableError:
     discard
+
+proc carry(job: ptr Job): HRESULT =
+  ## From a thread that is not the dispatcher's: hand the job over and wait.
+  job.done = createEventW(nil, 1, 0, nil)
+  post(job)
   discard waitForSingleObject(job.done, 0xFFFFFFFF'u32)
   discard closeHandle(job.done)
   job.hr
+
+type Deferred {.pure.} = object
+  ## A job nobody waits for, which therefore cannot live on the poster's
+  ## stack: on the COM heap, freed by `runPending` once it has run.
+  base: Job
+  fn: proc(arg: pointer) {.nimcall, raises: [].}
+  arg: pointer
+
+proc runDeferred(job: ptr Job): HRESULT {.nimcall, raises: [].} =
+  let d = cast[ptr Deferred](job)
+  d.fn(d.arg)
+  S_OK
+
+proc runOnDispatcher*(fn: proc(arg: pointer) {.nimcall, raises: [].},
+                      arg: pointer) {.gcsafe.} =
+  ## Run `fn(arg)` on the dispatcher thread: right away if this is it, and
+  ## otherwise the next time it polls — without waiting for that, so a
+  ## runtime thread may call this while the dispatcher is blocked on *it*.
+  ## `fn` is a plain proc rather than a closure, because a closure is GC
+  ## memory and this may be called from a thread that must not touch any;
+  ## `arg` is how `fn` finds its data.
+  if wakeup.isNil or getThreadId() == dispatcherThread:
+    # A plain proc pointer is opaque to the effect system; what it may touch
+    # is safe on this thread, which is the point of being here.
+    {.cast(gcsafe).}:
+      fn(arg)
+    return
+  let d = cast[ptr Deferred](comAlloc(sizeof(Deferred)))
+  d.base.run = runDeferred
+  d.fn = fn
+  d.arg = arg
+  post(d.base.addr)
 
 proc runsHere(self: pointer): bool {.inline.} =
   cast[ptr DelegateImpl](self).raw or getThreadId() == dispatcherThread

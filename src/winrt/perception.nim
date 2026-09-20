@@ -91,17 +91,16 @@ proc isSupported*(_: typedesc[EyesPose]): bool =
     check it.vtbl.IsSupported(it, tmp.addr), "EyesPose.IsSupported"
     result = tmp
 
-proc requestAccessAsync*(_: typedesc[EyesPose]): Future[GazeInputAccessStatus] {.async.} =
+proc requestAccessAsync*(_: typedesc[EyesPose]): Future[GazeInputAccessStatus] =
   ## Windows.Perception.People.EyesPose.RequestAccessAsync
   var op: pointer
   withStatics("Windows.Perception.People.EyesPose", IEyesPoseStatics, it):
     check it.vtbl.RequestAccessAsync(it, op.addr), "EyesPose.RequestAccessAsync"
-  result = await awaitValue[GazeInputAccessStatus](op,
-                                                   IID_IAsyncOperation_1_GazeInputAccessStatus,
-                                                   IID_AsyncOperationCompletedHandler_1_GazeInputAccessStatus,
-                                                   alPlain,
-                                                   "EyesPose.RequestAccessAsync"
-                                                  )
+  result = futureValue[GazeInputAccessStatus](op,
+                                              IID_IAsyncOperation_1_GazeInputAccessStatus,
+                                              IID_AsyncOperationCompletedHandler_1_GazeInputAccessStatus,
+                                              alPlain,
+                                              "EyesPose.RequestAccessAsync")
 
 proc source*(self: HandMeshObserver): SpatialInteractionSource =
   ## Windows.Perception.People.HandMeshObserver.get_Source
@@ -462,24 +461,23 @@ proc recommendedSufficiencyLevel*(self: SpatialAnchorExportSufficiency): float64
 proc getAnchorExportSufficiencyAsync*(self: SpatialAnchorExporter,
                                       anchor: SpatialAnchor,
                                       purpose: SpatialAnchorExportPurpose
-                                     ): Future[SpatialAnchorExportSufficiency] {.async.} =
+                                     ): Future[SpatialAnchorExportSufficiency] =
   ## Windows.Perception.Spatial.SpatialAnchorExporter.GetAnchorExportSufficiencyAsync
   var op: pointer
   withIface(self.p, ISpatialAnchorExporter, it):
     withIface(anchor.p, ISpatialAnchor, p0):
       check it.vtbl.GetAnchorExportSufficiencyAsync(it, p0, purpose, op.addr
                                                    ), "SpatialAnchorExporter.GetAnchorExportSufficiencyAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_SpatialAnchorExportSufficiency,
-                              IID_AsyncOperationCompletedHandler_1_SpatialAnchorExportSufficiency,
-                              alPlain,
-                              "SpatialAnchorExporter.GetAnchorExportSufficiencyAsync"
-                             )
-  result = adopt[SpatialAnchorExportSufficiency](obj)
+  result = futureObject[SpatialAnchorExportSufficiency](op,
+                                                        IID_IAsyncOperation_1_SpatialAnchorExportSufficiency,
+                                                        IID_AsyncOperationCompletedHandler_1_SpatialAnchorExportSufficiency,
+                                                        alPlain,
+                                                        "SpatialAnchorExporter.GetAnchorExportSufficiencyAsync"
+                                                       )
 
 proc tryExportAnchorAsync*(self: SpatialAnchorExporter, anchor: SpatialAnchor,
                            purpose: SpatialAnchorExportPurpose,
-                           stream: WinRtObject): Future[bool] {.async.} =
+                           stream: WinRtObject): Future[bool] =
   ## Windows.Perception.Spatial.SpatialAnchorExporter.TryExportAnchorAsync
   var op: pointer
   withIface(self.p, ISpatialAnchorExporter, it):
@@ -487,10 +485,9 @@ proc tryExportAnchorAsync*(self: SpatialAnchorExporter, anchor: SpatialAnchor,
       withIface(stream.p, IOutputStream, p2):
         check it.vtbl.TryExportAnchorAsync(it, p0, purpose, p2, op.addr
                                           ), "SpatialAnchorExporter.TryExportAnchorAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "SpatialAnchorExporter.TryExportAnchorAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "SpatialAnchorExporter.TryExportAnchorAsync")
 
 proc getDefault*(_: typedesc[SpatialAnchorExporter]): SpatialAnchorExporter =
   ## Windows.Perception.Spatial.SpatialAnchorExporter.GetDefault
@@ -500,31 +497,33 @@ proc getDefault*(_: typedesc[SpatialAnchorExporter]): SpatialAnchorExporter =
     check it.vtbl.GetDefault(it, tmp.addr), "SpatialAnchorExporter.GetDefault"
     result = adopt[SpatialAnchorExporter](tmp)
 
-proc requestAccessAsync*(_: typedesc[SpatialAnchorExporter]): Future[SpatialPerceptionAccessStatus] {.async.} =
+proc requestAccessAsync*(_: typedesc[SpatialAnchorExporter]): Future[SpatialPerceptionAccessStatus] =
   ## Windows.Perception.Spatial.SpatialAnchorExporter.RequestAccessAsync
   var op: pointer
   withStatics("Windows.Perception.Spatial.SpatialAnchorExporter",
               ISpatialAnchorExporterStatics, it):
     check it.vtbl.RequestAccessAsync(it, op.addr
                                     ), "SpatialAnchorExporter.RequestAccessAsync"
-  result = await awaitValue[SpatialPerceptionAccessStatus](op,
-                                                           IID_IAsyncOperation_1_SpatialPerceptionAccessStatus,
-                                                           IID_AsyncOperationCompletedHandler_1_SpatialPerceptionAccessStatus,
-                                                           alPlain,
-                                                           "SpatialAnchorExporter.RequestAccessAsync"
-                                                          )
+  result = futureValue[SpatialPerceptionAccessStatus](op,
+                                                      IID_IAsyncOperation_1_SpatialPerceptionAccessStatus,
+                                                      IID_AsyncOperationCompletedHandler_1_SpatialPerceptionAccessStatus,
+                                                      alPlain,
+                                                      "SpatialAnchorExporter.RequestAccessAsync"
+                                                     )
 
-proc requestStoreAsync*(_: typedesc[SpatialAnchorManager]): Future[SpatialAnchorStore] {.async.} =
+proc requestStoreAsync*(_: typedesc[SpatialAnchorManager]): Future[SpatialAnchorStore] =
   ## Windows.Perception.Spatial.SpatialAnchorManager.RequestStoreAsync
   var op: pointer
   withStatics("Windows.Perception.Spatial.SpatialAnchorManager",
               ISpatialAnchorManagerStatics, it):
     check it.vtbl.RequestStoreAsync(it, op.addr
                                    ), "SpatialAnchorManager.RequestStoreAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_SpatialAnchorStore,
-                              IID_AsyncOperationCompletedHandler_1_SpatialAnchorStore,
-                              alPlain, "SpatialAnchorManager.RequestStoreAsync")
-  result = adopt[SpatialAnchorStore](obj)
+  result = futureObject[SpatialAnchorStore](op,
+                                            IID_IAsyncOperation_1_SpatialAnchorStore,
+                                            IID_AsyncOperationCompletedHandler_1_SpatialAnchorStore,
+                                            alPlain,
+                                            "SpatialAnchorManager.RequestStoreAsync"
+                                           )
 
 proc oldRawCoordinateSystemToNewRawCoordinateSystemTransform*(self: SpatialAnchorRawCoordinateSystemAdjustedEventArgs): Matrix4x4 =
   ## Windows.Perception.Spatial.SpatialAnchorRawCoordinateSystemAdjustedEventArgs.get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform
@@ -567,7 +566,7 @@ proc clear*(self: SpatialAnchorStore) =
 
 proc tryImportAnchorsAsync*(_: typedesc[SpatialAnchorTransferManager],
                             stream: WinRtObject
-                           ): Future[Table[string, SpatialAnchor]] {.async.} =
+                           ): Future[Table[string, SpatialAnchor]] =
   ## Windows.Perception.Spatial.SpatialAnchorTransferManager.TryImportAnchorsAsync
   var op: pointer
   withStatics("Windows.Perception.Spatial.SpatialAnchorTransferManager",
@@ -575,19 +574,18 @@ proc tryImportAnchorsAsync*(_: typedesc[SpatialAnchorTransferManager],
     withIface(stream.p, IInputStream, p0):
       check it.vtbl.TryImportAnchorsAsync(it, p0, op.addr
                                          ), "SpatialAnchorTransferManager.TryImportAnchorsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2,
-                               IID_AsyncOperationCompletedHandler_1_IMapView_2,
-                               alPlain,
-                               "SpatialAnchorTransferManager.TryImportAnchorsAsync"
-                              )
-  result = toTable[string, SpatialAnchor](coll, IID_IIterable_1_IKeyValuePair_2,
-                                          IID_IKeyValuePair_2_String_SpatialAnchor
-                                         )
-  discard release(coll)
+  result = futureTable[string, SpatialAnchor](op,
+                                              IID_IAsyncOperation_1_IMapView_2,
+                                              IID_AsyncOperationCompletedHandler_1_IMapView_2,
+                                              alPlain,
+                                              "SpatialAnchorTransferManager.TryImportAnchorsAsync",
+                                              IID_IIterable_1_IKeyValuePair_2,
+                                              IID_IKeyValuePair_2_String_SpatialAnchor
+                                             )
 
 proc tryExportAnchorsAsync*(_: typedesc[SpatialAnchorTransferManager],
                             anchors: Table[string, SpatialAnchor],
-                            stream: WinRtObject): Future[bool] {.async.} =
+                            stream: WinRtObject): Future[bool] =
   ## Windows.Perception.Spatial.SpatialAnchorTransferManager.TryExportAnchorsAsync
   var op: pointer
   withStatics("Windows.Perception.Spatial.SpatialAnchorTransferManager",
@@ -601,25 +599,24 @@ proc tryExportAnchorsAsync*(_: typedesc[SpatialAnchorTransferManager],
     withIface(stream.p, IOutputStream, p1):
       check it.vtbl.TryExportAnchorsAsync(it, p0, p1, op.addr
                                          ), "SpatialAnchorTransferManager.TryExportAnchorsAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "SpatialAnchorTransferManager.TryExportAnchorsAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "SpatialAnchorTransferManager.TryExportAnchorsAsync"
+                            )
 
-proc requestAccessAsync*(_: typedesc[SpatialAnchorTransferManager]): Future[SpatialPerceptionAccessStatus] {.async.} =
+proc requestAccessAsync*(_: typedesc[SpatialAnchorTransferManager]): Future[SpatialPerceptionAccessStatus] =
   ## Windows.Perception.Spatial.SpatialAnchorTransferManager.RequestAccessAsync
   var op: pointer
   withStatics("Windows.Perception.Spatial.SpatialAnchorTransferManager",
               ISpatialAnchorTransferManagerStatics, it):
     check it.vtbl.RequestAccessAsync(it, op.addr
                                     ), "SpatialAnchorTransferManager.RequestAccessAsync"
-  result = await awaitValue[SpatialPerceptionAccessStatus](op,
-                                                           IID_IAsyncOperation_1_SpatialPerceptionAccessStatus,
-                                                           IID_AsyncOperationCompletedHandler_1_SpatialPerceptionAccessStatus,
-                                                           alPlain,
-                                                           "SpatialAnchorTransferManager.RequestAccessAsync"
-                                                          )
+  result = futureValue[SpatialPerceptionAccessStatus](op,
+                                                      IID_IAsyncOperation_1_SpatialPerceptionAccessStatus,
+                                                      IID_AsyncOperationCompletedHandler_1_SpatialPerceptionAccessStatus,
+                                                      alPlain,
+                                                      "SpatialAnchorTransferManager.RequestAccessAsync"
+                                                     )
 
 proc fromBox*(_: typedesc[SpatialBoundingVolume],
               coordinateSystem: SpatialCoordinateSystem, box: SpatialBoundingBox
@@ -732,24 +729,25 @@ proc entity*(self: SpatialEntityRemovedEventArgs): SpatialEntity =
   withIface(self.p, ISpatialEntityRemovedEventArgs, it):
     result = it.getObject(get_Entity, SpatialEntity)
 
-proc saveAsync*(self: SpatialEntityStore, entity: SpatialEntity) {.async.} =
+proc saveAsync*(self: SpatialEntityStore, entity: SpatialEntity): Future[void] =
   ## Windows.Perception.Spatial.SpatialEntityStore.SaveAsync
   var op: pointer
   withIface(self.p, ISpatialEntityStore, it):
     withIface(entity.p, ISpatialEntity, p0):
       check it.vtbl.SaveAsync(it, p0, op.addr), "SpatialEntityStore.SaveAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "SpatialEntityStore.SaveAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "SpatialEntityStore.SaveAsync")
 
-proc removeAsync*(self: SpatialEntityStore, entity: SpatialEntity) {.async.} =
+proc removeAsync*(self: SpatialEntityStore, entity: SpatialEntity
+                 ): Future[void] =
   ## Windows.Perception.Spatial.SpatialEntityStore.RemoveAsync
   var op: pointer
   withIface(self.p, ISpatialEntityStore, it):
     withIface(entity.p, ISpatialEntity, p0):
       check it.vtbl.RemoveAsync(it, p0, op.addr
                                ), "SpatialEntityStore.RemoveAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "SpatialEntityStore.RemoveAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "SpatialEntityStore.RemoveAsync")
 
 proc createEntityWatcher*(self: SpatialEntityStore): SpatialEntityWatcher =
   ## Windows.Perception.Spatial.SpatialEntityStore.CreateEntityWatcher
@@ -1207,20 +1205,19 @@ proc removeCurrentChanged*(_: typedesc[SpatialStageFrameOfReference], token: Eve
               ISpatialStageFrameOfReferenceStatics, it):
     check it.vtbl.remove_CurrentChanged(it, token), "SpatialStageFrameOfReference.remove_CurrentChanged"
 
-proc requestNewStageAsync*(_: typedesc[SpatialStageFrameOfReference]): Future[SpatialStageFrameOfReference] {.async.} =
+proc requestNewStageAsync*(_: typedesc[SpatialStageFrameOfReference]): Future[SpatialStageFrameOfReference] =
   ## Windows.Perception.Spatial.SpatialStageFrameOfReference.RequestNewStageAsync
   var op: pointer
   withStatics("Windows.Perception.Spatial.SpatialStageFrameOfReference",
               ISpatialStageFrameOfReferenceStatics, it):
     check it.vtbl.RequestNewStageAsync(it, op.addr
                                       ), "SpatialStageFrameOfReference.RequestNewStageAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_SpatialStageFrameOfReference,
-                              IID_AsyncOperationCompletedHandler_1_SpatialStageFrameOfReference,
-                              alPlain,
-                              "SpatialStageFrameOfReference.RequestNewStageAsync"
-                             )
-  result = adopt[SpatialStageFrameOfReference](obj)
+  result = futureObject[SpatialStageFrameOfReference](op,
+                                                      IID_IAsyncOperation_1_SpatialStageFrameOfReference,
+                                                      IID_AsyncOperationCompletedHandler_1_SpatialStageFrameOfReference,
+                                                      alPlain,
+                                                      "SpatialStageFrameOfReference.RequestNewStageAsync"
+                                                     )
 
 proc coordinateSystem*(self: SpatialStationaryFrameOfReference): SpatialCoordinateSystem =
   ## Windows.Perception.Spatial.SpatialStationaryFrameOfReference.get_CoordinateSystem
@@ -1254,23 +1251,24 @@ proc tryGetBounds*(self: SpatialSurfaceInfo,
 
 proc tryComputeLatestMeshAsync*(self: SpatialSurfaceInfo,
                                 maxTrianglesPerCubicMeter: float64
-                               ): Future[SpatialSurfaceMesh] {.async.} =
+                               ): Future[SpatialSurfaceMesh] =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceInfo.TryComputeLatestMeshAsync
   var op: pointer
   withIface(self.p, ISpatialSurfaceInfo, it):
     check it.vtbl.TryComputeLatestMeshAsync(it, maxTrianglesPerCubicMeter,
                                             op.addr
                                            ), "SpatialSurfaceInfo.TryComputeLatestMeshAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_SpatialSurfaceMesh,
-                              IID_AsyncOperationCompletedHandler_1_SpatialSurfaceMesh,
-                              alPlain,
-                              "SpatialSurfaceInfo.TryComputeLatestMeshAsync")
-  result = adopt[SpatialSurfaceMesh](obj)
+  result = futureObject[SpatialSurfaceMesh](op,
+                                            IID_IAsyncOperation_1_SpatialSurfaceMesh,
+                                            IID_AsyncOperationCompletedHandler_1_SpatialSurfaceMesh,
+                                            alPlain,
+                                            "SpatialSurfaceInfo.TryComputeLatestMeshAsync"
+                                           )
 
 proc tryComputeLatestMeshAsync*(self: SpatialSurfaceInfo,
                                 maxTrianglesPerCubicMeter: float64,
                                 options: SpatialSurfaceMeshOptions
-                               ): Future[SpatialSurfaceMesh] {.async.} =
+                               ): Future[SpatialSurfaceMesh] =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceInfo.TryComputeLatestMeshAsync
   var op: pointer
   withIface(self.p, ISpatialSurfaceInfo, it):
@@ -1278,11 +1276,12 @@ proc tryComputeLatestMeshAsync*(self: SpatialSurfaceInfo,
       check it.vtbl.TryComputeLatestMeshAsync2(it, maxTrianglesPerCubicMeter,
                                                p1, op.addr
                                               ), "SpatialSurfaceInfo.TryComputeLatestMeshAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_SpatialSurfaceMesh,
-                              IID_AsyncOperationCompletedHandler_1_SpatialSurfaceMesh,
-                              alPlain,
-                              "SpatialSurfaceInfo.TryComputeLatestMeshAsync")
-  result = adopt[SpatialSurfaceMesh](obj)
+  result = futureObject[SpatialSurfaceMesh](op,
+                                            IID_IAsyncOperation_1_SpatialSurfaceMesh,
+                                            IID_AsyncOperationCompletedHandler_1_SpatialSurfaceMesh,
+                                            alPlain,
+                                            "SpatialSurfaceInfo.TryComputeLatestMeshAsync"
+                                           )
 
 proc surfaceInfo*(self: SpatialSurfaceMesh): SpatialSurfaceInfo =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMesh.get_SurfaceInfo
@@ -1469,19 +1468,19 @@ proc removeObservedSurfacesChanged*(self: SpatialSurfaceObserver, token: EventRe
   withIface(self.p, ISpatialSurfaceObserver, it):
     check it.vtbl.remove_ObservedSurfacesChanged(it, token), "SpatialSurfaceObserver.remove_ObservedSurfacesChanged"
 
-proc requestAccessAsync*(_: typedesc[SpatialSurfaceObserver]): Future[SpatialPerceptionAccessStatus] {.async.} =
+proc requestAccessAsync*(_: typedesc[SpatialSurfaceObserver]): Future[SpatialPerceptionAccessStatus] =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver.RequestAccessAsync
   var op: pointer
   withStatics("Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver",
               ISpatialSurfaceObserverStatics, it):
     check it.vtbl.RequestAccessAsync(it, op.addr
                                     ), "SpatialSurfaceObserver.RequestAccessAsync"
-  result = await awaitValue[SpatialPerceptionAccessStatus](op,
-                                                           IID_IAsyncOperation_1_SpatialPerceptionAccessStatus,
-                                                           IID_AsyncOperationCompletedHandler_1_SpatialPerceptionAccessStatus,
-                                                           alPlain,
-                                                           "SpatialSurfaceObserver.RequestAccessAsync"
-                                                          )
+  result = futureValue[SpatialPerceptionAccessStatus](op,
+                                                      IID_IAsyncOperation_1_SpatialPerceptionAccessStatus,
+                                                      IID_AsyncOperationCompletedHandler_1_SpatialPerceptionAccessStatus,
+                                                      alPlain,
+                                                      "SpatialSurfaceObserver.RequestAccessAsync"
+                                                     )
 
 proc isSupported*(_: typedesc[SpatialSurfaceObserver]): bool =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver.IsSupported

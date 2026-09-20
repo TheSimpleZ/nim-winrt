@@ -40,6 +40,7 @@ const IID_IReference_1_DateTime* = guid"5541D8A7-497C-5AA4-86FC-7713ADBF2A2C"
 const IID_IVector_1_Uri* = guid"0D82BD8D-FE62-5D67-A7B9-7886DD75BC4E"
 const IID_AsyncOperationWithProgressCompletedHandler_2_DownloadOperation_DownloadOperation* = guid"781B479C-0207-5D15-A4E5-7837D13BF93D"
 const IID_IAsyncOperationWithProgress_2_DownloadOperation_DownloadOperation* = guid"E86A4F5D-743A-5F18-9D4C-BC8ED5942659"
+const IID_AsyncOperationProgressHandler_2_DownloadOperation_DownloadOperation* = guid"B2FF13F1-C743-54F4-BCCC-F08E16A87890"
 const IID_TypedEventHandler_2_DownloadOperation_BackgroundTransferRangesDownloadedEventArgs* = guid"93A20D85-BDFC-5195-90D9-8CB56CBCB3D8"
 const IID_IVector_1_WebErrorStatus* = guid"61BC06E3-B752-5B56-8374-3B45A214693F"
 const IID_IReference_1_WebErrorStatus* = guid"F2B26336-6A9D-54DE-8ECA-00D6C871E469"
@@ -47,6 +48,7 @@ const IID_IKeyValuePair_2_String_String* = guid"60310303-49C5-52E6-ABC6-A9B36ECC
 const IID_IIterable_1_IKeyValuePair_2* = guid"E9BDAAF0-CBF6-5C72-BE90-29CBF3A1319B"
 const IID_AsyncOperationWithProgressCompletedHandler_2_UploadOperation_UploadOperation* = guid"79FCAE93-53EC-5F66-AB34-826AF78EC11A"
 const IID_IAsyncOperationWithProgress_2_UploadOperation_UploadOperation* = guid"35DDAEFA-DB6A-5D0D-BA54-A0728401171E"
+const IID_AsyncOperationProgressHandler_2_UploadOperation_UploadOperation* = guid"CCD13730-FED3-54E8-8471-096E4B64CADD"
 const IID_IVectorView_1_String* = guid"2F13C006-A03A-5F69-B090-75A43E33423E"
 const IID_IReference_1_Guid* = guid"7D50F649-632C-51F9-849A-EE49428933EA"
 const IID_IReference_1_U1* = guid"E5198CC8-2873-55F5-B0A1-84FF9E4AAD62"
@@ -97,6 +99,7 @@ const IID_IVectorView_1_ESimDiscoverEvent* = guid"21277446-C556-5FCF-8D2D-F2CD06
 const IID_EventHandler_1_Object* = guid"C50898F6-C536-5F47-8583-8B2C2438A13B"
 const IID_AsyncOperationWithProgressCompletedHandler_2_ESimOperationResult_ESimProfileInstallProgress* = guid"7B5EAC5D-DC91-5071-A99F-256B4FB56362"
 const IID_IAsyncOperationWithProgress_2_ESimOperationResult_ESimProfileInstallProgress* = guid"F1130DDF-680C-5594-A2EC-ABCB0C521143"
+const IID_AsyncOperationProgressHandler_2_ESimOperationResult_ESimProfileInstallProgress* = guid"67A4B8EB-792E-5683-B625-4928884D39CA"
 const IID_TypedEventHandler_2_ESimProfileMetadata_Object* = guid"F4586725-EA85-5AC6-846E-A847E0E45A0B"
 const IID_TypedEventHandler_2_ESimWatcher_ESimAddedEventArgs* = guid"F99B94BA-D4D0-5C43-B174-FFD7E6E5131C"
 const IID_TypedEventHandler_2_ESimWatcher_Object* = guid"B52D4068-1DDA-5BAA-B76B-A7BC478DB5F2"
@@ -189,6 +192,7 @@ const IID_TypedEventHandler_2_IWebSocket_WebSocketClosedEventArgs* = guid"03CF8F
 const IID_TypedEventHandler_2_MessageWebSocket_WebSocketServerCustomValidationRequestedEventArgs* = guid"2C34C585-9CF6-56C7-8DD1-5DA26E322078"
 const IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4* = guid"1E466DC5-840F-54F9-B877-5E3A9F4B6C74"
 const IID_IAsyncOperationWithProgress_2_U4_U4* = guid"ECCB574A-C684-5572-A679-6B0842CFB57F"
+const IID_AsyncOperationProgressHandler_2_U4_U4* = guid"EA0FE405-D432-5AC7-9EF8-5A65E1F97D7E"
 const IID_IVector_1_String* = guid"98B9ACC1-4B56-532E-AC73-03D5291CCA90"
 const IID_IVector_1_ChainValidationResult* = guid"D7828CF7-4301-58D3-AAB5-06E5EEFCF79F"
 const IID_IVectorView_1_ChainValidationResult* = guid"CB383486-C2BC-5756-912D-6A708A07E5BD"
@@ -278,7 +282,7 @@ proc createDownload*(self: BackgroundDownloader, uri: Uri,
 proc createDownloadAsync*(self: BackgroundDownloader, uri: Uri,
                           resultFile: StorageFile,
                           requestBodyStream: WinRtObject
-                         ): Future[DownloadOperation] {.async.} =
+                         ): Future[DownloadOperation] =
   ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.CreateDownloadAsync
   var op: pointer
   withIface(self.p, IBackgroundDownloader, it):
@@ -287,11 +291,12 @@ proc createDownloadAsync*(self: BackgroundDownloader, uri: Uri,
         withIface(requestBodyStream.p, IInputStream, p2):
           check it.vtbl.CreateDownloadAsync(it, p0, p1, p2, op.addr
                                            ), "BackgroundDownloader.CreateDownloadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_DownloadOperation,
-                              IID_AsyncOperationCompletedHandler_1_DownloadOperation,
-                              alPlain,
-                              "BackgroundDownloader.CreateDownloadAsync")
-  result = adopt[DownloadOperation](obj)
+  result = futureObject[DownloadOperation](op,
+                                           IID_IAsyncOperation_1_DownloadOperation,
+                                           IID_AsyncOperationCompletedHandler_1_DownloadOperation,
+                                           alPlain,
+                                           "BackgroundDownloader.CreateDownloadAsync"
+                                          )
 
 proc setRequestHeader*(self: BackgroundDownloader, headerName: string,
                        headerValue: string) =
@@ -431,7 +436,7 @@ proc completionGroup*(self: BackgroundDownloader): BackgroundTransferCompletionG
 
 proc requestUnconstrainedDownloadsAsync*(_: typedesc[BackgroundDownloader],
                                          operations: seq[DownloadOperation]
-                                        ): Future[UnconstrainedTransferRequestResult] {.async.} =
+                                        ): Future[UnconstrainedTransferRequestResult] =
   ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.RequestUnconstrainedDownloadsAsync
   var op: pointer
   withStatics("Windows.Networking.BackgroundTransfer.BackgroundDownloader",
@@ -443,17 +448,16 @@ proc requestUnconstrainedDownloadsAsync*(_: typedesc[BackgroundDownloader],
     defer: discard release(p0)
     check it.vtbl.RequestUnconstrainedDownloadsAsync(it, p0, op.addr
                                                     ), "BackgroundDownloader.RequestUnconstrainedDownloadsAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_UnconstrainedTransferRequestResult,
-                              IID_AsyncOperationCompletedHandler_1_UnconstrainedTransferRequestResult,
-                              alPlain,
-                              "BackgroundDownloader.RequestUnconstrainedDownloadsAsync"
-                             )
-  result = adopt[UnconstrainedTransferRequestResult](obj)
+  result = futureObject[UnconstrainedTransferRequestResult](op,
+                                                            IID_IAsyncOperation_1_UnconstrainedTransferRequestResult,
+                                                            IID_AsyncOperationCompletedHandler_1_UnconstrainedTransferRequestResult,
+                                                            alPlain,
+                                                            "BackgroundDownloader.RequestUnconstrainedDownloadsAsync"
+                                                           )
 
 proc getCurrentDownloadsForTransferGroupAsync*(_: typedesc[BackgroundDownloader],
                                                group: BackgroundTransferGroup
-                                              ): Future[seq[DownloadOperation]] {.async.} =
+                                              ): Future[seq[DownloadOperation]] =
   ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.GetCurrentDownloadsForTransferGroupAsync
   var op: pointer
   withStatics("Windows.Networking.BackgroundTransfer.BackgroundDownloader",
@@ -461,30 +465,27 @@ proc getCurrentDownloadsForTransferGroupAsync*(_: typedesc[BackgroundDownloader]
     withIface(group.p, IBackgroundTransferGroup, p0):
       check it.vtbl.GetCurrentDownloadsForTransferGroupAsync(it, p0, op.addr
                                                             ), "BackgroundDownloader.GetCurrentDownloadsForTransferGroupAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain,
-                               "BackgroundDownloader.GetCurrentDownloadsForTransferGroupAsync"
-                              )
-  result = toSeq[DownloadOperation](coll, IID_IVectorView_1_DownloadOperation)
-  discard release(coll)
+  result = futureSeq[DownloadOperation](op, IID_IAsyncOperation_1_IVectorView_1,
+                                        IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                                        alPlain,
+                                        "BackgroundDownloader.GetCurrentDownloadsForTransferGroupAsync",
+                                        IID_IVectorView_1_DownloadOperation)
 
-proc getCurrentDownloadsAsync*(_: typedesc[BackgroundDownloader]): Future[seq[DownloadOperation]] {.async.} =
+proc getCurrentDownloadsAsync*(_: typedesc[BackgroundDownloader]): Future[seq[DownloadOperation]] =
   ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.GetCurrentDownloadsAsync
   var op: pointer
   withStatics("Windows.Networking.BackgroundTransfer.BackgroundDownloader",
               IBackgroundDownloaderStaticMethods, it):
     check it.vtbl.GetCurrentDownloadsAsync(it, op.addr
                                           ), "BackgroundDownloader.GetCurrentDownloadsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain,
-                               "BackgroundDownloader.GetCurrentDownloadsAsync")
-  result = toSeq[DownloadOperation](coll, IID_IVectorView_1_DownloadOperation)
-  discard release(coll)
+  result = futureSeq[DownloadOperation](op, IID_IAsyncOperation_1_IVectorView_1,
+                                        IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                                        alPlain,
+                                        "BackgroundDownloader.GetCurrentDownloadsAsync",
+                                        IID_IVectorView_1_DownloadOperation)
 
 proc getCurrentDownloadsAsync*(_: typedesc[BackgroundDownloader], group: string
-                              ): Future[seq[DownloadOperation]] {.async.} =
+                              ): Future[seq[DownloadOperation]] =
   ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.GetCurrentDownloadsAsync
   var op: pointer
   withStatics("Windows.Networking.BackgroundTransfer.BackgroundDownloader",
@@ -492,12 +493,11 @@ proc getCurrentDownloadsAsync*(_: typedesc[BackgroundDownloader], group: string
     withHString(group, h0):
       check it.vtbl.GetCurrentDownloadsAsync2(it, h0, op.addr
                                              ), "BackgroundDownloader.GetCurrentDownloadsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain,
-                               "BackgroundDownloader.GetCurrentDownloadsAsync")
-  result = toSeq[DownloadOperation](coll, IID_IVectorView_1_DownloadOperation)
-  discard release(coll)
+  result = futureSeq[DownloadOperation](op, IID_IAsyncOperation_1_IVectorView_1,
+                                        IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                                        alPlain,
+                                        "BackgroundDownloader.GetCurrentDownloadsAsync",
+                                        IID_IVectorView_1_DownloadOperation)
 
 proc createWithCompletionGroup*(_: typedesc[BackgroundDownloader],
                                 completionGroup: BackgroundTransferCompletionGroup
@@ -675,7 +675,7 @@ proc createUpload*(self: BackgroundUploader, uri: Uri, sourceFile: StorageFile
 
 proc createUploadFromStreamAsync*(self: BackgroundUploader, uri: Uri,
                                   sourceStream: WinRtObject
-                                 ): Future[UploadOperation] {.async.} =
+                                 ): Future[UploadOperation] =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateUploadFromStreamAsync
   var op: pointer
   withIface(self.p, IBackgroundUploader, it):
@@ -683,15 +683,16 @@ proc createUploadFromStreamAsync*(self: BackgroundUploader, uri: Uri,
       withIface(sourceStream.p, IInputStream, p1):
         check it.vtbl.CreateUploadFromStreamAsync(it, p0, p1, op.addr
                                                  ), "BackgroundUploader.CreateUploadFromStreamAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_UploadOperation,
-                              IID_AsyncOperationCompletedHandler_1_UploadOperation,
-                              alPlain,
-                              "BackgroundUploader.CreateUploadFromStreamAsync")
-  result = adopt[UploadOperation](obj)
+  result = futureObject[UploadOperation](op,
+                                         IID_IAsyncOperation_1_UploadOperation,
+                                         IID_AsyncOperationCompletedHandler_1_UploadOperation,
+                                         alPlain,
+                                         "BackgroundUploader.CreateUploadFromStreamAsync"
+                                        )
 
 proc createUploadAsync*(self: BackgroundUploader, uri: Uri,
                         parts: seq[BackgroundTransferContentPart]
-                       ): Future[UploadOperation] {.async.} =
+                       ): Future[UploadOperation] =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateUploadAsync
   var op: pointer
   withIface(self.p, IBackgroundUploader, it):
@@ -703,14 +704,15 @@ proc createUploadAsync*(self: BackgroundUploader, uri: Uri,
       defer: discard release(p1)
       check it.vtbl.CreateUploadAsync(it, p0, p1, op.addr
                                      ), "BackgroundUploader.CreateUploadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_UploadOperation,
-                              IID_AsyncOperationCompletedHandler_1_UploadOperation,
-                              alPlain, "BackgroundUploader.CreateUploadAsync")
-  result = adopt[UploadOperation](obj)
+  result = futureObject[UploadOperation](op,
+                                         IID_IAsyncOperation_1_UploadOperation,
+                                         IID_AsyncOperationCompletedHandler_1_UploadOperation,
+                                         alPlain,
+                                         "BackgroundUploader.CreateUploadAsync")
 
 proc createUploadAsync*(self: BackgroundUploader, uri: Uri,
                         parts: seq[BackgroundTransferContentPart],
-                        subType: string): Future[UploadOperation] {.async.} =
+                        subType: string): Future[UploadOperation] =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateUploadAsync
   var op: pointer
   withIface(self.p, IBackgroundUploader, it):
@@ -723,15 +725,16 @@ proc createUploadAsync*(self: BackgroundUploader, uri: Uri,
       withHString(subType, h2):
         check it.vtbl.CreateUploadAsync2(it, p0, p1, h2, op.addr
                                         ), "BackgroundUploader.CreateUploadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_UploadOperation,
-                              IID_AsyncOperationCompletedHandler_1_UploadOperation,
-                              alPlain, "BackgroundUploader.CreateUploadAsync")
-  result = adopt[UploadOperation](obj)
+  result = futureObject[UploadOperation](op,
+                                         IID_IAsyncOperation_1_UploadOperation,
+                                         IID_AsyncOperationCompletedHandler_1_UploadOperation,
+                                         alPlain,
+                                         "BackgroundUploader.CreateUploadAsync")
 
 proc createUploadAsync*(self: BackgroundUploader, uri: Uri,
                         parts: seq[BackgroundTransferContentPart],
                         subType: string, boundary: string
-                       ): Future[UploadOperation] {.async.} =
+                       ): Future[UploadOperation] =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateUploadAsync
   var op: pointer
   withIface(self.p, IBackgroundUploader, it):
@@ -745,10 +748,11 @@ proc createUploadAsync*(self: BackgroundUploader, uri: Uri,
         withHString(boundary, h3):
           check it.vtbl.CreateUploadAsync3(it, p0, p1, h2, h3, op.addr
                                           ), "BackgroundUploader.CreateUploadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_UploadOperation,
-                              IID_AsyncOperationCompletedHandler_1_UploadOperation,
-                              alPlain, "BackgroundUploader.CreateUploadAsync")
-  result = adopt[UploadOperation](obj)
+  result = futureObject[UploadOperation](op,
+                                         IID_IAsyncOperation_1_UploadOperation,
+                                         IID_AsyncOperationCompletedHandler_1_UploadOperation,
+                                         alPlain,
+                                         "BackgroundUploader.CreateUploadAsync")
 
 proc setRequestHeader*(self: BackgroundUploader, headerName: string,
                        headerValue: string) =
@@ -886,7 +890,7 @@ proc completionGroup*(self: BackgroundUploader): BackgroundTransferCompletionGro
 
 proc requestUnconstrainedUploadsAsync*(_: typedesc[BackgroundUploader],
                                        operations: seq[UploadOperation]
-                                      ): Future[UnconstrainedTransferRequestResult] {.async.} =
+                                      ): Future[UnconstrainedTransferRequestResult] =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.RequestUnconstrainedUploadsAsync
   var op: pointer
   withStatics("Windows.Networking.BackgroundTransfer.BackgroundUploader",
@@ -898,17 +902,16 @@ proc requestUnconstrainedUploadsAsync*(_: typedesc[BackgroundUploader],
     defer: discard release(p0)
     check it.vtbl.RequestUnconstrainedUploadsAsync(it, p0, op.addr
                                                   ), "BackgroundUploader.RequestUnconstrainedUploadsAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_UnconstrainedTransferRequestResult,
-                              IID_AsyncOperationCompletedHandler_1_UnconstrainedTransferRequestResult,
-                              alPlain,
-                              "BackgroundUploader.RequestUnconstrainedUploadsAsync"
-                             )
-  result = adopt[UnconstrainedTransferRequestResult](obj)
+  result = futureObject[UnconstrainedTransferRequestResult](op,
+                                                            IID_IAsyncOperation_1_UnconstrainedTransferRequestResult,
+                                                            IID_AsyncOperationCompletedHandler_1_UnconstrainedTransferRequestResult,
+                                                            alPlain,
+                                                            "BackgroundUploader.RequestUnconstrainedUploadsAsync"
+                                                           )
 
 proc getCurrentUploadsForTransferGroupAsync*(_: typedesc[BackgroundUploader],
                                              group: BackgroundTransferGroup
-                                            ): Future[seq[UploadOperation]] {.async.} =
+                                            ): Future[seq[UploadOperation]] =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.GetCurrentUploadsForTransferGroupAsync
   var op: pointer
   withStatics("Windows.Networking.BackgroundTransfer.BackgroundUploader",
@@ -916,30 +919,27 @@ proc getCurrentUploadsForTransferGroupAsync*(_: typedesc[BackgroundUploader],
     withIface(group.p, IBackgroundTransferGroup, p0):
       check it.vtbl.GetCurrentUploadsForTransferGroupAsync(it, p0, op.addr
                                                           ), "BackgroundUploader.GetCurrentUploadsForTransferGroupAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
-                               alPlain,
-                               "BackgroundUploader.GetCurrentUploadsForTransferGroupAsync"
-                              )
-  result = toSeq[UploadOperation](coll, IID_IVectorView_1_UploadOperation)
-  discard release(coll)
+  result = futureSeq[UploadOperation](op, IID_IAsyncOperation_1_IVectorView_12,
+                                      IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                                      alPlain,
+                                      "BackgroundUploader.GetCurrentUploadsForTransferGroupAsync",
+                                      IID_IVectorView_1_UploadOperation)
 
-proc getCurrentUploadsAsync*(_: typedesc[BackgroundUploader]): Future[seq[UploadOperation]] {.async.} =
+proc getCurrentUploadsAsync*(_: typedesc[BackgroundUploader]): Future[seq[UploadOperation]] =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.GetCurrentUploadsAsync
   var op: pointer
   withStatics("Windows.Networking.BackgroundTransfer.BackgroundUploader",
               IBackgroundUploaderStaticMethods, it):
     check it.vtbl.GetCurrentUploadsAsync(it, op.addr
                                         ), "BackgroundUploader.GetCurrentUploadsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
-                               alPlain,
-                               "BackgroundUploader.GetCurrentUploadsAsync")
-  result = toSeq[UploadOperation](coll, IID_IVectorView_1_UploadOperation)
-  discard release(coll)
+  result = futureSeq[UploadOperation](op, IID_IAsyncOperation_1_IVectorView_12,
+                                      IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                                      alPlain,
+                                      "BackgroundUploader.GetCurrentUploadsAsync",
+                                      IID_IVectorView_1_UploadOperation)
 
 proc getCurrentUploadsAsync*(_: typedesc[BackgroundUploader], group: string
-                            ): Future[seq[UploadOperation]] {.async.} =
+                            ): Future[seq[UploadOperation]] =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.GetCurrentUploadsAsync
   var op: pointer
   withStatics("Windows.Networking.BackgroundTransfer.BackgroundUploader",
@@ -947,12 +947,11 @@ proc getCurrentUploadsAsync*(_: typedesc[BackgroundUploader], group: string
     withHString(group, h0):
       check it.vtbl.GetCurrentUploadsAsync2(it, h0, op.addr
                                            ), "BackgroundUploader.GetCurrentUploadsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
-                               alPlain,
-                               "BackgroundUploader.GetCurrentUploadsAsync")
-  result = toSeq[UploadOperation](coll, IID_IVectorView_1_UploadOperation)
-  discard release(coll)
+  result = futureSeq[UploadOperation](op, IID_IAsyncOperation_1_IVectorView_12,
+                                      IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                                      alPlain,
+                                      "BackgroundUploader.GetCurrentUploadsAsync",
+                                      IID_IVectorView_1_UploadOperation)
 
 proc createWithCompletionGroup*(_: typedesc[BackgroundUploader],
                                 completionGroup: BackgroundTransferCompletionGroup
@@ -1012,27 +1011,37 @@ proc progress*(self: DownloadOperation): BackgroundDownloadProgress =
   withIface(self.p, IDownloadOperation, it):
     result = it.getValue(get_Progress, BackgroundDownloadProgress)
 
-proc startAsync*(self: DownloadOperation): Future[DownloadOperation] {.async.} =
+proc startAsync*(self: DownloadOperation,
+                 progress: ProgressHandler[DownloadOperation] = nil
+                ): Future[DownloadOperation] =
   ## Windows.Networking.BackgroundTransfer.DownloadOperation.StartAsync
   var op: pointer
   withIface(self.p, IDownloadOperation, it):
     check it.vtbl.StartAsync(it, op.addr), "DownloadOperation.StartAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_DownloadOperation_DownloadOperation,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_DownloadOperation_DownloadOperation,
-                              alProgress, "DownloadOperation.StartAsync")
-  result = adopt[DownloadOperation](obj)
+  result = futureObject[DownloadOperation](op,
+                                           IID_IAsyncOperationWithProgress_2_DownloadOperation_DownloadOperation,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_DownloadOperation_DownloadOperation,
+                                           alProgress,
+                                           "DownloadOperation.StartAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_DownloadOperation_DownloadOperation,
+                 progress, "DownloadOperation.StartAsync")
 
-proc attachAsync*(self: DownloadOperation): Future[DownloadOperation] {.async.} =
+proc attachAsync*(self: DownloadOperation,
+                  progress: ProgressHandler[DownloadOperation] = nil
+                 ): Future[DownloadOperation] =
   ## Windows.Networking.BackgroundTransfer.DownloadOperation.AttachAsync
   var op: pointer
   withIface(self.p, IDownloadOperation, it):
     check it.vtbl.AttachAsync(it, op.addr), "DownloadOperation.AttachAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_DownloadOperation_DownloadOperation,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_DownloadOperation_DownloadOperation,
-                              alProgress, "DownloadOperation.AttachAsync")
-  result = adopt[DownloadOperation](obj)
+  result = futureObject[DownloadOperation](op,
+                                           IID_IAsyncOperationWithProgress_2_DownloadOperation_DownloadOperation,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_DownloadOperation_DownloadOperation,
+                                           alProgress,
+                                           "DownloadOperation.AttachAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_DownloadOperation_DownloadOperation,
+                 progress, "DownloadOperation.AttachAsync")
 
 proc pause*(self: DownloadOperation) =
   ## Windows.Networking.BackgroundTransfer.DownloadOperation.Pause
@@ -1243,27 +1252,37 @@ proc progress*(self: UploadOperation): BackgroundUploadProgress =
   withIface(self.p, IUploadOperation, it):
     result = it.getValue(get_Progress, BackgroundUploadProgress)
 
-proc startAsync*(self: UploadOperation): Future[UploadOperation] {.async.} =
+proc startAsync*(self: UploadOperation,
+                 progress: ProgressHandler[UploadOperation] = nil
+                ): Future[UploadOperation] =
   ## Windows.Networking.BackgroundTransfer.UploadOperation.StartAsync
   var op: pointer
   withIface(self.p, IUploadOperation, it):
     check it.vtbl.StartAsync(it, op.addr), "UploadOperation.StartAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_UploadOperation_UploadOperation,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_UploadOperation_UploadOperation,
-                              alProgress, "UploadOperation.StartAsync")
-  result = adopt[UploadOperation](obj)
+  result = futureObject[UploadOperation](op,
+                                         IID_IAsyncOperationWithProgress_2_UploadOperation_UploadOperation,
+                                         IID_AsyncOperationWithProgressCompletedHandler_2_UploadOperation_UploadOperation,
+                                         alProgress,
+                                         "UploadOperation.StartAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_UploadOperation_UploadOperation,
+                 progress, "UploadOperation.StartAsync")
 
-proc attachAsync*(self: UploadOperation): Future[UploadOperation] {.async.} =
+proc attachAsync*(self: UploadOperation,
+                  progress: ProgressHandler[UploadOperation] = nil
+                 ): Future[UploadOperation] =
   ## Windows.Networking.BackgroundTransfer.UploadOperation.AttachAsync
   var op: pointer
   withIface(self.p, IUploadOperation, it):
     check it.vtbl.AttachAsync(it, op.addr), "UploadOperation.AttachAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_UploadOperation_UploadOperation,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_UploadOperation_UploadOperation,
-                              alProgress, "UploadOperation.AttachAsync")
-  result = adopt[UploadOperation](obj)
+  result = futureObject[UploadOperation](op,
+                                         IID_IAsyncOperationWithProgress_2_UploadOperation_UploadOperation,
+                                         IID_AsyncOperationWithProgressCompletedHandler_2_UploadOperation_UploadOperation,
+                                         alProgress,
+                                         "UploadOperation.AttachAsync")
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_UploadOperation_UploadOperation,
+                 progress, "UploadOperation.AttachAsync")
 
 proc guid*(self: UploadOperation): GUID =
   ## Windows.Networking.BackgroundTransfer.UploadOperation.get_Guid
@@ -1589,93 +1608,89 @@ proc getDomainConnectivityLevel*(self: ConnectionProfile): DomainConnectivityLev
 proc getNetworkUsageAsync*(self: ConnectionProfile, startTime: DateTime,
                            endTime: DateTime, granularity: DataUsageGranularity,
                            states: NetworkUsageStates
-                          ): Future[seq[NetworkUsage]] {.async.} =
+                          ): Future[seq[NetworkUsage]] =
   ## Windows.Networking.Connectivity.ConnectionProfile.GetNetworkUsageAsync
   var op: pointer
   withIface(self.p, IConnectionProfile2, it):
     check it.vtbl.GetNetworkUsageAsync(it, startTime, endTime, granularity,
                                        states, op.addr
                                       ), "ConnectionProfile.GetNetworkUsageAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_13,
-                               alPlain, "ConnectionProfile.GetNetworkUsageAsync"
-                              )
-  result = toSeq[NetworkUsage](coll, IID_IVectorView_1_NetworkUsage)
-  discard release(coll)
+  result = futureSeq[NetworkUsage](op, IID_IAsyncOperation_1_IVectorView_13,
+                                   IID_AsyncOperationCompletedHandler_1_IVectorView_13,
+                                   alPlain,
+                                   "ConnectionProfile.GetNetworkUsageAsync",
+                                   IID_IVectorView_1_NetworkUsage)
 
 proc getConnectivityIntervalsAsync*(self: ConnectionProfile,
                                     startTime: DateTime, endTime: DateTime,
                                     states: NetworkUsageStates
-                                   ): Future[seq[ConnectivityInterval]] {.async.} =
+                                   ): Future[seq[ConnectivityInterval]] =
   ## Windows.Networking.Connectivity.ConnectionProfile.GetConnectivityIntervalsAsync
   var op: pointer
   withIface(self.p, IConnectionProfile2, it):
     check it.vtbl.GetConnectivityIntervalsAsync(it, startTime, endTime, states,
                                                 op.addr
                                                ), "ConnectionProfile.GetConnectivityIntervalsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_14,
-                               alPlain,
-                               "ConnectionProfile.GetConnectivityIntervalsAsync"
-                              )
-  result = toSeq[ConnectivityInterval](coll,
-                                       IID_IVectorView_1_ConnectivityInterval)
-  discard release(coll)
+  result = futureSeq[ConnectivityInterval](op,
+                                           IID_IAsyncOperation_1_IVectorView_14,
+                                           IID_AsyncOperationCompletedHandler_1_IVectorView_14,
+                                           alPlain,
+                                           "ConnectionProfile.GetConnectivityIntervalsAsync",
+                                           IID_IVectorView_1_ConnectivityInterval
+                                          )
 
 proc getAttributedNetworkUsageAsync*(self: ConnectionProfile,
                                      startTime: DateTime, endTime: DateTime,
                                      states: NetworkUsageStates
-                                    ): Future[seq[AttributedNetworkUsage]] {.async.} =
+                                    ): Future[seq[AttributedNetworkUsage]] =
   ## Windows.Networking.Connectivity.ConnectionProfile.GetAttributedNetworkUsageAsync
   var op: pointer
   withIface(self.p, IConnectionProfile3, it):
     check it.vtbl.GetAttributedNetworkUsageAsync(it, startTime, endTime, states,
                                                  op.addr
                                                 ), "ConnectionProfile.GetAttributedNetworkUsageAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_15,
-                               alPlain,
-                               "ConnectionProfile.GetAttributedNetworkUsageAsync"
-                              )
-  result = toSeq[AttributedNetworkUsage](coll,
-                                         IID_IVectorView_1_AttributedNetworkUsage
-                                        )
-  discard release(coll)
+  result = futureSeq[AttributedNetworkUsage](op,
+                                             IID_IAsyncOperation_1_IVectorView_15,
+                                             IID_AsyncOperationCompletedHandler_1_IVectorView_15,
+                                             alPlain,
+                                             "ConnectionProfile.GetAttributedNetworkUsageAsync",
+                                             IID_IVectorView_1_AttributedNetworkUsage
+                                            )
 
 proc getProviderNetworkUsageAsync*(self: ConnectionProfile, startTime: DateTime,
                                    endTime: DateTime, states: NetworkUsageStates
-                                  ): Future[seq[ProviderNetworkUsage]] {.async.} =
+                                  ): Future[seq[ProviderNetworkUsage]] =
   ## Windows.Networking.Connectivity.ConnectionProfile.GetProviderNetworkUsageAsync
   var op: pointer
   withIface(self.p, IConnectionProfile4, it):
     check it.vtbl.GetProviderNetworkUsageAsync(it, startTime, endTime, states,
                                                op.addr
                                               ), "ConnectionProfile.GetProviderNetworkUsageAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_16,
-                               alPlain,
-                               "ConnectionProfile.GetProviderNetworkUsageAsync")
-  result = toSeq[ProviderNetworkUsage](coll,
-                                       IID_IVectorView_1_ProviderNetworkUsage)
-  discard release(coll)
+  result = futureSeq[ProviderNetworkUsage](op,
+                                           IID_IAsyncOperation_1_IVectorView_16,
+                                           IID_AsyncOperationCompletedHandler_1_IVectorView_16,
+                                           alPlain,
+                                           "ConnectionProfile.GetProviderNetworkUsageAsync",
+                                           IID_IVectorView_1_ProviderNetworkUsage
+                                          )
 
 proc canDelete*(self: ConnectionProfile): bool =
   ## Windows.Networking.Connectivity.ConnectionProfile.get_CanDelete
   withIface(self.p, IConnectionProfile5, it):
     result = it.getValue(get_CanDelete, bool)
 
-proc tryDeleteAsync*(self: ConnectionProfile): Future[ConnectionProfileDeleteStatus] {.async.} =
+proc tryDeleteAsync*(self: ConnectionProfile): Future[ConnectionProfileDeleteStatus] =
   ## Windows.Networking.Connectivity.ConnectionProfile.TryDeleteAsync
   var op: pointer
   withIface(self.p, IConnectionProfile5, it):
     check it.vtbl.TryDeleteAsync(it, op.addr
                                 ), "ConnectionProfile.TryDeleteAsync"
-  result = await awaitValue[ConnectionProfileDeleteStatus](op,
-                                                           IID_IAsyncOperation_1_ConnectionProfileDeleteStatus,
-                                                           IID_AsyncOperationCompletedHandler_1_ConnectionProfileDeleteStatus,
-                                                           alPlain,
-                                                           "ConnectionProfile.TryDeleteAsync"
-                                                          )
+  result = futureValue[ConnectionProfileDeleteStatus](op,
+                                                      IID_IAsyncOperation_1_ConnectionProfileDeleteStatus,
+                                                      IID_AsyncOperationCompletedHandler_1_ConnectionProfileDeleteStatus,
+                                                      alPlain,
+                                                      "ConnectionProfile.TryDeleteAsync"
+                                                     )
 
 proc isDomainAuthenticatedBy*(self: ConnectionProfile,
                               kind: DomainAuthenticationKind): bool =
@@ -1851,7 +1866,7 @@ proc connectionDuration*(self: ConnectivityInterval): TimeSpan =
 
 proc acquireConnectionAsync*(_: typedesc[ConnectivityManager],
                              cellularApnContext: CellularApnContext
-                            ): Future[ConnectionSession] {.async.} =
+                            ): Future[ConnectionSession] =
   ## Windows.Networking.Connectivity.ConnectivityManager.AcquireConnectionAsync
   var op: pointer
   withStatics("Windows.Networking.Connectivity.ConnectivityManager",
@@ -1859,11 +1874,12 @@ proc acquireConnectionAsync*(_: typedesc[ConnectivityManager],
     withIface(cellularApnContext.p, ICellularApnContext, p0):
       check it.vtbl.AcquireConnectionAsync(it, p0, op.addr
                                           ), "ConnectivityManager.AcquireConnectionAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ConnectionSession,
-                              IID_AsyncOperationCompletedHandler_1_ConnectionSession,
-                              alPlain,
-                              "ConnectivityManager.AcquireConnectionAsync")
-  result = adopt[ConnectionSession](obj)
+  result = futureObject[ConnectionSession](op,
+                                           IID_IAsyncOperation_1_ConnectionSession,
+                                           IID_AsyncOperationCompletedHandler_1_ConnectionSession,
+                                           alPlain,
+                                           "ConnectivityManager.AcquireConnectionAsync"
+                                          )
 
 proc addHttpRoutePolicy*(_: typedesc[ConnectivityManager],
                          routePolicy: RoutePolicy) =
@@ -2027,17 +2043,18 @@ proc networkAdapterId*(self: NetworkAdapter): GUID =
   withIface(self.p, INetworkAdapter, it):
     result = it.getValue(get_NetworkAdapterId, GUID)
 
-proc getConnectedProfileAsync*(self: NetworkAdapter): Future[ConnectionProfile] {.async.} =
+proc getConnectedProfileAsync*(self: NetworkAdapter): Future[ConnectionProfile] =
   ## Windows.Networking.Connectivity.NetworkAdapter.GetConnectedProfileAsync
   var op: pointer
   withIface(self.p, INetworkAdapter, it):
     check it.vtbl.GetConnectedProfileAsync(it, op.addr
                                           ), "NetworkAdapter.GetConnectedProfileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ConnectionProfile,
-                              IID_AsyncOperationCompletedHandler_1_ConnectionProfile,
-                              alPlain, "NetworkAdapter.GetConnectedProfileAsync"
-                             )
-  result = adopt[ConnectionProfile](obj)
+  result = futureObject[ConnectionProfile](op,
+                                           IID_IAsyncOperation_1_ConnectionProfile,
+                                           IID_AsyncOperationCompletedHandler_1_ConnectionProfile,
+                                           alPlain,
+                                           "NetworkAdapter.GetConnectedProfileAsync"
+                                          )
 
 proc getConnectionProfiles*(_: typedesc[NetworkInformation]): seq[ConnectionProfile] =
   ## Windows.Networking.Connectivity.NetworkInformation.GetConnectionProfiles
@@ -2078,7 +2095,7 @@ proc getHostNames*(_: typedesc[NetworkInformation]): seq[HostName] =
     release(tmp)
 
 proc getProxyConfigurationAsync*(_: typedesc[NetworkInformation], uri: Uri
-                                ): Future[ProxyConfiguration] {.async.} =
+                                ): Future[ProxyConfiguration] =
   ## Windows.Networking.Connectivity.NetworkInformation.GetProxyConfigurationAsync
   var op: pointer
   withStatics("Windows.Networking.Connectivity.NetworkInformation",
@@ -2086,11 +2103,12 @@ proc getProxyConfigurationAsync*(_: typedesc[NetworkInformation], uri: Uri
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.GetProxyConfigurationAsync(it, p0, op.addr
                                               ), "NetworkInformation.GetProxyConfigurationAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ProxyConfiguration,
-                              IID_AsyncOperationCompletedHandler_1_ProxyConfiguration,
-                              alPlain,
-                              "NetworkInformation.GetProxyConfigurationAsync")
-  result = adopt[ProxyConfiguration](obj)
+  result = futureObject[ProxyConfiguration](op,
+                                            IID_IAsyncOperation_1_ProxyConfiguration,
+                                            IID_AsyncOperationCompletedHandler_1_ProxyConfiguration,
+                                            alPlain,
+                                            "NetworkInformation.GetProxyConfigurationAsync"
+                                           )
 
 proc getSortedEndpointPairs*(_: typedesc[NetworkInformation],
                              destinationList: seq[EndpointPair],
@@ -2133,7 +2151,7 @@ proc removeNetworkStatusChanged*(_: typedesc[NetworkInformation], token: EventRe
 
 proc findConnectionProfilesAsync*(_: typedesc[NetworkInformation],
                                   pProfileFilter: ConnectionProfileFilter
-                                 ): Future[seq[ConnectionProfile]] {.async.} =
+                                 ): Future[seq[ConnectionProfile]] =
   ## Windows.Networking.Connectivity.NetworkInformation.FindConnectionProfilesAsync
   var op: pointer
   withStatics("Windows.Networking.Connectivity.NetworkInformation",
@@ -2141,12 +2159,12 @@ proc findConnectionProfilesAsync*(_: typedesc[NetworkInformation],
     withIface(pProfileFilter.p, IConnectionProfileFilter, p0):
       check it.vtbl.FindConnectionProfilesAsync(it, p0, op.addr
                                                ), "NetworkInformation.FindConnectionProfilesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_17,
-                               alPlain,
-                               "NetworkInformation.FindConnectionProfilesAsync")
-  result = toSeq[ConnectionProfile](coll, IID_IVectorView_1_ConnectionProfile)
-  discard release(coll)
+  result = futureSeq[ConnectionProfile](op,
+                                        IID_IAsyncOperation_1_IVectorView_17,
+                                        IID_AsyncOperationCompletedHandler_1_IVectorView_17,
+                                        alPlain,
+                                        "NetworkInformation.FindConnectionProfilesAsync",
+                                        IID_IVectorView_1_ConnectionProfile)
 
 proc networkId*(self: NetworkItem): GUID =
   ## Windows.Networking.Connectivity.NetworkItem.get_NetworkId
@@ -2495,41 +2513,42 @@ proc getProfiles*(self: ESim): seq[ESimProfile] =
     release(tmp)
 
 proc deleteProfileAsync*(self: ESim, profileId: string
-                        ): Future[ESimOperationResult] {.async.} =
+                        ): Future[ESimOperationResult] =
   ## Windows.Networking.NetworkOperators.ESim.DeleteProfileAsync
   var op: pointer
   withIface(self.p, IESim, it):
     withHString(profileId, h0):
       check it.vtbl.DeleteProfileAsync(it, h0, op.addr
                                       ), "ESim.DeleteProfileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ESimOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
-                              alPlain, "ESim.DeleteProfileAsync")
-  result = adopt[ESimOperationResult](obj)
+  result = futureObject[ESimOperationResult](op,
+                                             IID_IAsyncOperation_1_ESimOperationResult,
+                                             IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
+                                             alPlain, "ESim.DeleteProfileAsync")
 
 proc downloadProfileMetadataAsync*(self: ESim, activationCode: string
-                                  ): Future[ESimDownloadProfileMetadataResult] {.async.} =
+                                  ): Future[ESimDownloadProfileMetadataResult] =
   ## Windows.Networking.NetworkOperators.ESim.DownloadProfileMetadataAsync
   var op: pointer
   withIface(self.p, IESim, it):
     withHString(activationCode, h0):
       check it.vtbl.DownloadProfileMetadataAsync(it, h0, op.addr
                                                 ), "ESim.DownloadProfileMetadataAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_ESimDownloadProfileMetadataResult,
-                              IID_AsyncOperationCompletedHandler_1_ESimDownloadProfileMetadataResult,
-                              alPlain, "ESim.DownloadProfileMetadataAsync")
-  result = adopt[ESimDownloadProfileMetadataResult](obj)
+  result = futureObject[ESimDownloadProfileMetadataResult](op,
+                                                           IID_IAsyncOperation_1_ESimDownloadProfileMetadataResult,
+                                                           IID_AsyncOperationCompletedHandler_1_ESimDownloadProfileMetadataResult,
+                                                           alPlain,
+                                                           "ESim.DownloadProfileMetadataAsync"
+                                                          )
 
-proc resetAsync*(self: ESim): Future[ESimOperationResult] {.async.} =
+proc resetAsync*(self: ESim): Future[ESimOperationResult] =
   ## Windows.Networking.NetworkOperators.ESim.ResetAsync
   var op: pointer
   withIface(self.p, IESim, it):
     check it.vtbl.ResetAsync(it, op.addr), "ESim.ResetAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ESimOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
-                              alPlain, "ESim.ResetAsync")
-  result = adopt[ESimOperationResult](obj)
+  result = futureObject[ESimOperationResult](op,
+                                             IID_IAsyncOperation_1_ESimOperationResult,
+                                             IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
+                                             alPlain, "ESim.ResetAsync")
 
 proc onProfileChanged*(self: ESim, handler: EventHandler[ESim, WinRtObject]
                       ): EventRegistrationToken {.discardable.} =
@@ -2566,28 +2585,28 @@ proc discover*(self: ESim, serverAddress: string, matchingId: string
         check it.vtbl.Discover2(it, h0, h1, tmp.addr), "ESim.Discover"
         result = adopt[ESimDiscoverResult](tmp)
 
-proc discoverAsync*(self: ESim): Future[ESimDiscoverResult] {.async.} =
+proc discoverAsync*(self: ESim): Future[ESimDiscoverResult] =
   ## Windows.Networking.NetworkOperators.ESim.DiscoverAsync
   var op: pointer
   withIface(self.p, IESim2, it):
     check it.vtbl.DiscoverAsync(it, op.addr), "ESim.DiscoverAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ESimDiscoverResult,
-                              IID_AsyncOperationCompletedHandler_1_ESimDiscoverResult,
-                              alPlain, "ESim.DiscoverAsync")
-  result = adopt[ESimDiscoverResult](obj)
+  result = futureObject[ESimDiscoverResult](op,
+                                            IID_IAsyncOperation_1_ESimDiscoverResult,
+                                            IID_AsyncOperationCompletedHandler_1_ESimDiscoverResult,
+                                            alPlain, "ESim.DiscoverAsync")
 
 proc discoverAsync*(self: ESim, serverAddress: string, matchingId: string
-                   ): Future[ESimDiscoverResult] {.async.} =
+                   ): Future[ESimDiscoverResult] =
   ## Windows.Networking.NetworkOperators.ESim.DiscoverAsync
   var op: pointer
   withIface(self.p, IESim2, it):
     withHString(serverAddress, h0):
       withHString(matchingId, h1):
         check it.vtbl.DiscoverAsync2(it, h0, h1, op.addr), "ESim.DiscoverAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ESimDiscoverResult,
-                              IID_AsyncOperationCompletedHandler_1_ESimDiscoverResult,
-                              alPlain, "ESim.DiscoverAsync")
-  result = adopt[ESimDiscoverResult](obj)
+  result = futureObject[ESimDiscoverResult](op,
+                                            IID_IAsyncOperation_1_ESimDiscoverResult,
+                                            IID_AsyncOperationCompletedHandler_1_ESimDiscoverResult,
+                                            alPlain, "ESim.DiscoverAsync")
 
 proc slotIndex*(self: ESim): Option[int32] =
   ## Windows.Networking.NetworkOperators.ESim.get_SlotIndex
@@ -2731,38 +2750,40 @@ proc state*(self: ESimProfile): ESimProfileState =
   withIface(self.p, IESimProfile, it):
     result = it.getValue(get_State, ESimProfileState)
 
-proc disableAsync*(self: ESimProfile): Future[ESimOperationResult] {.async.} =
+proc disableAsync*(self: ESimProfile): Future[ESimOperationResult] =
   ## Windows.Networking.NetworkOperators.ESimProfile.DisableAsync
   var op: pointer
   withIface(self.p, IESimProfile, it):
     check it.vtbl.DisableAsync(it, op.addr), "ESimProfile.DisableAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ESimOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
-                              alPlain, "ESimProfile.DisableAsync")
-  result = adopt[ESimOperationResult](obj)
+  result = futureObject[ESimOperationResult](op,
+                                             IID_IAsyncOperation_1_ESimOperationResult,
+                                             IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
+                                             alPlain, "ESimProfile.DisableAsync"
+                                            )
 
-proc enableAsync*(self: ESimProfile): Future[ESimOperationResult] {.async.} =
+proc enableAsync*(self: ESimProfile): Future[ESimOperationResult] =
   ## Windows.Networking.NetworkOperators.ESimProfile.EnableAsync
   var op: pointer
   withIface(self.p, IESimProfile, it):
     check it.vtbl.EnableAsync(it, op.addr), "ESimProfile.EnableAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ESimOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
-                              alPlain, "ESimProfile.EnableAsync")
-  result = adopt[ESimOperationResult](obj)
+  result = futureObject[ESimOperationResult](op,
+                                             IID_IAsyncOperation_1_ESimOperationResult,
+                                             IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
+                                             alPlain, "ESimProfile.EnableAsync")
 
 proc setNicknameAsync*(self: ESimProfile, newNickname: string
-                      ): Future[ESimOperationResult] {.async.} =
+                      ): Future[ESimOperationResult] =
   ## Windows.Networking.NetworkOperators.ESimProfile.SetNicknameAsync
   var op: pointer
   withIface(self.p, IESimProfile, it):
     withHString(newNickname, h0):
       check it.vtbl.SetNicknameAsync(it, h0, op.addr
                                     ), "ESimProfile.SetNicknameAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ESimOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
-                              alPlain, "ESimProfile.SetNicknameAsync")
-  result = adopt[ESimOperationResult](obj)
+  result = futureObject[ESimOperationResult](op,
+                                             IID_IAsyncOperation_1_ESimOperationResult,
+                                             IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
+                                             alPlain,
+                                             "ESimProfile.SetNicknameAsync")
 
 proc isConfirmationCodeRequired*(self: ESimProfileMetadata): bool =
   ## Windows.Networking.NetworkOperators.ESimProfileMetadata.get_IsConfirmationCodeRequired
@@ -2799,56 +2820,68 @@ proc state*(self: ESimProfileMetadata): ESimProfileMetadataState =
   withIface(self.p, IESimProfileMetadata, it):
     result = it.getValue(get_State, ESimProfileMetadataState)
 
-proc denyInstallAsync*(self: ESimProfileMetadata): Future[ESimOperationResult] {.async.} =
+proc denyInstallAsync*(self: ESimProfileMetadata): Future[ESimOperationResult] =
   ## Windows.Networking.NetworkOperators.ESimProfileMetadata.DenyInstallAsync
   var op: pointer
   withIface(self.p, IESimProfileMetadata, it):
     check it.vtbl.DenyInstallAsync(it, op.addr
                                   ), "ESimProfileMetadata.DenyInstallAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ESimOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
-                              alPlain, "ESimProfileMetadata.DenyInstallAsync")
-  result = adopt[ESimOperationResult](obj)
+  result = futureObject[ESimOperationResult](op,
+                                             IID_IAsyncOperation_1_ESimOperationResult,
+                                             IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
+                                             alPlain,
+                                             "ESimProfileMetadata.DenyInstallAsync"
+                                            )
 
-proc confirmInstallAsync*(self: ESimProfileMetadata): Future[ESimOperationResult] {.async.} =
+proc confirmInstallAsync*(self: ESimProfileMetadata,
+                          progress: ProgressHandler[ESimProfileInstallProgress] = nil
+                         ): Future[ESimOperationResult] =
   ## Windows.Networking.NetworkOperators.ESimProfileMetadata.ConfirmInstallAsync
   var op: pointer
   withIface(self.p, IESimProfileMetadata, it):
     check it.vtbl.ConfirmInstallAsync(it, op.addr
                                      ), "ESimProfileMetadata.ConfirmInstallAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_ESimOperationResult_ESimProfileInstallProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_ESimOperationResult_ESimProfileInstallProgress,
-                              alProgress,
-                              "ESimProfileMetadata.ConfirmInstallAsync")
-  result = adopt[ESimOperationResult](obj)
+  result = futureObject[ESimOperationResult](op,
+                                             IID_IAsyncOperationWithProgress_2_ESimOperationResult_ESimProfileInstallProgress,
+                                             IID_AsyncOperationWithProgressCompletedHandler_2_ESimOperationResult_ESimProfileInstallProgress,
+                                             alProgress,
+                                             "ESimProfileMetadata.ConfirmInstallAsync"
+                                            )
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_ESimOperationResult_ESimProfileInstallProgress,
+                 progress, "ESimProfileMetadata.ConfirmInstallAsync")
 
-proc confirmInstallAsync*(self: ESimProfileMetadata, confirmationCode: string
-                         ): Future[ESimOperationResult] {.async.} =
+proc confirmInstallAsync*(self: ESimProfileMetadata, confirmationCode: string,
+                          progress: ProgressHandler[ESimProfileInstallProgress] = nil
+                         ): Future[ESimOperationResult] =
   ## Windows.Networking.NetworkOperators.ESimProfileMetadata.ConfirmInstallAsync
   var op: pointer
   withIface(self.p, IESimProfileMetadata, it):
     withHString(confirmationCode, h0):
       check it.vtbl.ConfirmInstallAsync2(it, h0, op.addr
                                         ), "ESimProfileMetadata.ConfirmInstallAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_ESimOperationResult_ESimProfileInstallProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_ESimOperationResult_ESimProfileInstallProgress,
-                              alProgress,
-                              "ESimProfileMetadata.ConfirmInstallAsync")
-  result = adopt[ESimOperationResult](obj)
+  result = futureObject[ESimOperationResult](op,
+                                             IID_IAsyncOperationWithProgress_2_ESimOperationResult_ESimProfileInstallProgress,
+                                             IID_AsyncOperationWithProgressCompletedHandler_2_ESimOperationResult_ESimProfileInstallProgress,
+                                             alProgress,
+                                             "ESimProfileMetadata.ConfirmInstallAsync"
+                                            )
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_ESimOperationResult_ESimProfileInstallProgress,
+                 progress, "ESimProfileMetadata.ConfirmInstallAsync")
 
-proc postponeInstallAsync*(self: ESimProfileMetadata): Future[ESimOperationResult] {.async.} =
+proc postponeInstallAsync*(self: ESimProfileMetadata): Future[ESimOperationResult] =
   ## Windows.Networking.NetworkOperators.ESimProfileMetadata.PostponeInstallAsync
   var op: pointer
   withIface(self.p, IESimProfileMetadata, it):
     check it.vtbl.PostponeInstallAsync(it, op.addr
                                       ), "ESimProfileMetadata.PostponeInstallAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ESimOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
-                              alPlain,
-                              "ESimProfileMetadata.PostponeInstallAsync")
-  result = adopt[ESimOperationResult](obj)
+  result = futureObject[ESimOperationResult](op,
+                                             IID_IAsyncOperation_1_ESimOperationResult,
+                                             IID_AsyncOperationCompletedHandler_1_ESimOperationResult,
+                                             alPlain,
+                                             "ESimProfileMetadata.PostponeInstallAsync"
+                                            )
 
 proc onStateChanged*(self: ESimProfileMetadata,
                      handler: EventHandler[ESimProfileMetadata, WinRtObject]
@@ -3081,7 +3114,7 @@ proc issueCredentialsAsync*(self: HotspotAuthenticationContext,
                             userName: string, password: string,
                             extraParameters: string,
                             markAsManualConnectOnFailure: bool
-                           ): Future[HotspotCredentialsAuthenticationResult] {.async.} =
+                           ): Future[HotspotCredentialsAuthenticationResult] =
   ## Windows.Networking.NetworkOperators.HotspotAuthenticationContext.IssueCredentialsAsync
   var op: pointer
   withIface(self.p, IHotspotAuthenticationContext2, it):
@@ -3092,13 +3125,12 @@ proc issueCredentialsAsync*(self: HotspotAuthenticationContext,
                                               markAsManualConnectOnFailure,
                                               op.addr
                                              ), "HotspotAuthenticationContext.IssueCredentialsAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_HotspotCredentialsAuthenticationResult,
-                              IID_AsyncOperationCompletedHandler_1_HotspotCredentialsAuthenticationResult,
-                              alPlain,
-                              "HotspotAuthenticationContext.IssueCredentialsAsync"
-                             )
-  result = adopt[HotspotCredentialsAuthenticationResult](obj)
+  result = futureObject[HotspotCredentialsAuthenticationResult](op,
+                                                                IID_IAsyncOperation_1_HotspotCredentialsAuthenticationResult,
+                                                                IID_AsyncOperationCompletedHandler_1_HotspotCredentialsAuthenticationResult,
+                                                                alPlain,
+                                                                "HotspotAuthenticationContext.IssueCredentialsAsync"
+                                                               )
 
 proc tryGetAuthenticationContext*(_: typedesc[HotspotAuthenticationContext],
                                   evenToken: string
@@ -4279,37 +4311,35 @@ proc responseData*(self: MobileBroadbandDeviceServiceCommandResult): Buffer =
 
 proc sendQueryCommandAsync*(self: MobileBroadbandDeviceServiceCommandSession,
                             commandId: uint32, data: Buffer
-                           ): Future[MobileBroadbandDeviceServiceCommandResult] {.async.} =
+                           ): Future[MobileBroadbandDeviceServiceCommandResult] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandSession.SendQueryCommandAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandDeviceServiceCommandSession, it):
     withIface(data.p, IBuffer, p1):
       check it.vtbl.SendQueryCommandAsync(it, commandId, p1, op.addr
                                          ), "MobileBroadbandDeviceServiceCommandSession.SendQueryCommandAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_MobileBroadbandDeviceServiceCommandResult,
-                              IID_AsyncOperationCompletedHandler_1_MobileBroadbandDeviceServiceCommandResult,
-                              alPlain,
-                              "MobileBroadbandDeviceServiceCommandSession.SendQueryCommandAsync"
-                             )
-  result = adopt[MobileBroadbandDeviceServiceCommandResult](obj)
+  result = futureObject[MobileBroadbandDeviceServiceCommandResult](op,
+                                                                   IID_IAsyncOperation_1_MobileBroadbandDeviceServiceCommandResult,
+                                                                   IID_AsyncOperationCompletedHandler_1_MobileBroadbandDeviceServiceCommandResult,
+                                                                   alPlain,
+                                                                   "MobileBroadbandDeviceServiceCommandSession.SendQueryCommandAsync"
+                                                                  )
 
 proc sendSetCommandAsync*(self: MobileBroadbandDeviceServiceCommandSession,
                           commandId: uint32, data: Buffer
-                         ): Future[MobileBroadbandDeviceServiceCommandResult] {.async.} =
+                         ): Future[MobileBroadbandDeviceServiceCommandResult] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandSession.SendSetCommandAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandDeviceServiceCommandSession, it):
     withIface(data.p, IBuffer, p1):
       check it.vtbl.SendSetCommandAsync(it, commandId, p1, op.addr
                                        ), "MobileBroadbandDeviceServiceCommandSession.SendSetCommandAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_MobileBroadbandDeviceServiceCommandResult,
-                              IID_AsyncOperationCompletedHandler_1_MobileBroadbandDeviceServiceCommandResult,
-                              alPlain,
-                              "MobileBroadbandDeviceServiceCommandSession.SendSetCommandAsync"
-                             )
-  result = adopt[MobileBroadbandDeviceServiceCommandResult](obj)
+  result = futureObject[MobileBroadbandDeviceServiceCommandResult](op,
+                                                                   IID_IAsyncOperation_1_MobileBroadbandDeviceServiceCommandResult,
+                                                                   IID_AsyncOperationCompletedHandler_1_MobileBroadbandDeviceServiceCommandResult,
+                                                                   alPlain,
+                                                                   "MobileBroadbandDeviceServiceCommandSession.SendSetCommandAsync"
+                                                                  )
 
 proc closeSession*(self: MobileBroadbandDeviceServiceCommandSession) =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandSession.CloseSession
@@ -4342,15 +4372,15 @@ proc receivedData*(self: MobileBroadbandDeviceServiceDataReceivedEventArgs): Buf
     result = it.getObject(get_ReceivedData, Buffer)
 
 proc writeDataAsync*(self: MobileBroadbandDeviceServiceDataSession,
-                     value: Buffer) {.async.} =
+                     value: Buffer): Future[void] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceDataSession.WriteDataAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandDeviceServiceDataSession, it):
     withIface(value.p, IBuffer, p0):
       check it.vtbl.WriteDataAsync(it, p0, op.addr
                                   ), "MobileBroadbandDeviceServiceDataSession.WriteDataAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "MobileBroadbandDeviceServiceDataSession.WriteDataAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "MobileBroadbandDeviceServiceDataSession.WriteDataAsync")
 
 proc closeSession*(self: MobileBroadbandDeviceServiceDataSession) =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceDataSession.CloseSession
@@ -4457,69 +4487,69 @@ proc isResetSupported*(self: MobileBroadbandModem): bool =
   withIface(self.p, IMobileBroadbandModem, it):
     result = it.getValue(get_IsResetSupported, bool)
 
-proc resetAsync*(self: MobileBroadbandModem) {.async.} =
+proc resetAsync*(self: MobileBroadbandModem): Future[void] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandModem.ResetAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandModem, it):
     check it.vtbl.ResetAsync(it, op.addr), "MobileBroadbandModem.ResetAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "MobileBroadbandModem.ResetAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "MobileBroadbandModem.ResetAsync")
 
-proc getCurrentConfigurationAsync*(self: MobileBroadbandModem): Future[MobileBroadbandModemConfiguration] {.async.} =
+proc getCurrentConfigurationAsync*(self: MobileBroadbandModem): Future[MobileBroadbandModemConfiguration] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandModem.GetCurrentConfigurationAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandModem, it):
     check it.vtbl.GetCurrentConfigurationAsync(it, op.addr
                                               ), "MobileBroadbandModem.GetCurrentConfigurationAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_MobileBroadbandModemConfiguration,
-                              IID_AsyncOperationCompletedHandler_1_MobileBroadbandModemConfiguration,
-                              alPlain,
-                              "MobileBroadbandModem.GetCurrentConfigurationAsync"
-                             )
-  result = adopt[MobileBroadbandModemConfiguration](obj)
+  result = futureObject[MobileBroadbandModemConfiguration](op,
+                                                           IID_IAsyncOperation_1_MobileBroadbandModemConfiguration,
+                                                           IID_AsyncOperationCompletedHandler_1_MobileBroadbandModemConfiguration,
+                                                           alPlain,
+                                                           "MobileBroadbandModem.GetCurrentConfigurationAsync"
+                                                          )
 
 proc currentNetwork*(self: MobileBroadbandModem): MobileBroadbandNetwork =
   ## Windows.Networking.NetworkOperators.MobileBroadbandModem.get_CurrentNetwork
   withIface(self.p, IMobileBroadbandModem, it):
     result = it.getObject(get_CurrentNetwork, MobileBroadbandNetwork)
 
-proc getIsPassthroughEnabledAsync*(self: MobileBroadbandModem): Future[bool] {.async.} =
+proc getIsPassthroughEnabledAsync*(self: MobileBroadbandModem): Future[bool] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandModem.GetIsPassthroughEnabledAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandModem2, it):
     check it.vtbl.GetIsPassthroughEnabledAsync(it, op.addr
                                               ), "MobileBroadbandModem.GetIsPassthroughEnabledAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "MobileBroadbandModem.GetIsPassthroughEnabledAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MobileBroadbandModem.GetIsPassthroughEnabledAsync"
+                            )
 
 proc setIsPassthroughEnabledAsync*(self: MobileBroadbandModem, value: bool
-                                  ): Future[MobileBroadbandModemStatus] {.async.} =
+                                  ): Future[MobileBroadbandModemStatus] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandModem.SetIsPassthroughEnabledAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandModem2, it):
     check it.vtbl.SetIsPassthroughEnabledAsync(it, value, op.addr
                                               ), "MobileBroadbandModem.SetIsPassthroughEnabledAsync"
-  result = await awaitValue[MobileBroadbandModemStatus](op,
-                                                        IID_IAsyncOperation_1_MobileBroadbandModemStatus,
-                                                        IID_AsyncOperationCompletedHandler_1_MobileBroadbandModemStatus,
-                                                        alPlain,
-                                                        "MobileBroadbandModem.SetIsPassthroughEnabledAsync"
-                                                       )
+  result = futureValue[MobileBroadbandModemStatus](op,
+                                                   IID_IAsyncOperation_1_MobileBroadbandModemStatus,
+                                                   IID_AsyncOperationCompletedHandler_1_MobileBroadbandModemStatus,
+                                                   alPlain,
+                                                   "MobileBroadbandModem.SetIsPassthroughEnabledAsync"
+                                                  )
 
-proc tryGetPcoAsync*(self: MobileBroadbandModem): Future[MobileBroadbandPco] {.async.} =
+proc tryGetPcoAsync*(self: MobileBroadbandModem): Future[MobileBroadbandPco] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandModem.TryGetPcoAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandModem3, it):
     check it.vtbl.TryGetPcoAsync(it, op.addr
                                 ), "MobileBroadbandModem.TryGetPcoAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_MobileBroadbandPco,
-                              IID_AsyncOperationCompletedHandler_1_MobileBroadbandPco,
-                              alPlain, "MobileBroadbandModem.TryGetPcoAsync")
-  result = adopt[MobileBroadbandPco](obj)
+  result = futureObject[MobileBroadbandPco](op,
+                                            IID_IAsyncOperation_1_MobileBroadbandPco,
+                                            IID_AsyncOperationCompletedHandler_1_MobileBroadbandPco,
+                                            alPlain,
+                                            "MobileBroadbandModem.TryGetPcoAsync"
+                                           )
 
 proc isInEmergencyCallMode*(self: MobileBroadbandModem): bool =
   ## Windows.Networking.NetworkOperators.MobileBroadbandModem.get_IsInEmergencyCallMode
@@ -4547,31 +4577,30 @@ proc removeIsInEmergencyCallModeChanged*(self: MobileBroadbandModem, token: Even
 
 proc setIsPassthroughEnabledAsync*(self: MobileBroadbandModem, value: bool,
                                    slotindex: int32
-                                  ): Future[MobileBroadbandModemStatus] {.async.} =
+                                  ): Future[MobileBroadbandModemStatus] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandModem.SetIsPassthroughEnabledAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandModem4, it):
     check it.vtbl.SetIsPassthroughEnabledAsync(it, value, slotindex, op.addr
                                               ), "MobileBroadbandModem.SetIsPassthroughEnabledAsync"
-  result = await awaitValue[MobileBroadbandModemStatus](op,
-                                                        IID_IAsyncOperation_1_MobileBroadbandModemStatus,
-                                                        IID_AsyncOperationCompletedHandler_1_MobileBroadbandModemStatus,
-                                                        alPlain,
-                                                        "MobileBroadbandModem.SetIsPassthroughEnabledAsync"
-                                                       )
+  result = futureValue[MobileBroadbandModemStatus](op,
+                                                   IID_IAsyncOperation_1_MobileBroadbandModemStatus,
+                                                   IID_AsyncOperationCompletedHandler_1_MobileBroadbandModemStatus,
+                                                   alPlain,
+                                                   "MobileBroadbandModem.SetIsPassthroughEnabledAsync"
+                                                  )
 
 proc getIsPassthroughEnabledAsync*(self: MobileBroadbandModem, slotindex: int32
-                                  ): Future[bool] {.async.} =
+                                  ): Future[bool] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandModem.GetIsPassthroughEnabledAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandModem4, it):
     check it.vtbl.GetIsPassthroughEnabledAsync(it, slotindex, op.addr
                                               ), "MobileBroadbandModem.GetIsPassthroughEnabledAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "MobileBroadbandModem.GetIsPassthroughEnabledAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MobileBroadbandModem.GetIsPassthroughEnabledAsync"
+                            )
 
 proc setIsPassthroughEnabled*(self: MobileBroadbandModem, value: bool,
                               slotindex: int32): MobileBroadbandModemStatus =
@@ -4654,23 +4683,23 @@ proc addAllowedHostRange*(self: MobileBroadbandModemIsolation, first: HostName,
         check it.vtbl.AddAllowedHostRange(it, p0, p1
                                          ), "MobileBroadbandModemIsolation.AddAllowedHostRange"
 
-proc applyConfigurationAsync*(self: MobileBroadbandModemIsolation) {.async.} =
+proc applyConfigurationAsync*(self: MobileBroadbandModemIsolation): Future[void] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandModemIsolation.ApplyConfigurationAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandModemIsolation, it):
     check it.vtbl.ApplyConfigurationAsync(it, op.addr
                                          ), "MobileBroadbandModemIsolation.ApplyConfigurationAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "MobileBroadbandModemIsolation.ApplyConfigurationAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "MobileBroadbandModemIsolation.ApplyConfigurationAsync")
 
-proc clearConfigurationAsync*(self: MobileBroadbandModemIsolation) {.async.} =
+proc clearConfigurationAsync*(self: MobileBroadbandModemIsolation): Future[void] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandModemIsolation.ClearConfigurationAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandModemIsolation, it):
     check it.vtbl.ClearConfigurationAsync(it, op.addr
                                          ), "MobileBroadbandModemIsolation.ClearConfigurationAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "MobileBroadbandModemIsolation.ClearConfigurationAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "MobileBroadbandModemIsolation.ClearConfigurationAsync")
 
 proc create*(_: typedesc[MobileBroadbandModemIsolation], modemDeviceId: string,
              ruleGroupId: string): MobileBroadbandModemIsolation =
@@ -4734,17 +4763,15 @@ proc showConnectionUI*(self: MobileBroadbandNetwork) =
   withIface(self.p, IMobileBroadbandNetwork, it):
     check it.vtbl.ShowConnectionUI(it), "MobileBroadbandNetwork.ShowConnectionUI"
 
-proc getVoiceCallSupportAsync*(self: MobileBroadbandNetwork): Future[bool] {.async.} =
+proc getVoiceCallSupportAsync*(self: MobileBroadbandNetwork): Future[bool] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandNetwork.GetVoiceCallSupportAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandNetwork2, it):
     check it.vtbl.GetVoiceCallSupportAsync(it, op.addr
                                           ), "MobileBroadbandNetwork.GetVoiceCallSupportAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "MobileBroadbandNetwork.GetVoiceCallSupportAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MobileBroadbandNetwork.GetVoiceCallSupportAsync")
 
 proc registrationUiccApps*(self: MobileBroadbandNetwork): seq[MobileBroadbandUiccApp] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandNetwork.get_RegistrationUiccApps
@@ -4757,18 +4784,18 @@ proc registrationUiccApps*(self: MobileBroadbandNetwork): seq[MobileBroadbandUic
                                           )
     release(tmp)
 
-proc getCellsInfoAsync*(self: MobileBroadbandNetwork): Future[MobileBroadbandCellsInfo] {.async.} =
+proc getCellsInfoAsync*(self: MobileBroadbandNetwork): Future[MobileBroadbandCellsInfo] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandNetwork.GetCellsInfoAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandNetwork3, it):
     check it.vtbl.GetCellsInfoAsync(it, op.addr
                                    ), "MobileBroadbandNetwork.GetCellsInfoAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_MobileBroadbandCellsInfo,
-                              IID_AsyncOperationCompletedHandler_1_MobileBroadbandCellsInfo,
-                              alPlain,
-                              "MobileBroadbandNetwork.GetCellsInfoAsync")
-  result = adopt[MobileBroadbandCellsInfo](obj)
+  result = futureObject[MobileBroadbandCellsInfo](op,
+                                                  IID_IAsyncOperation_1_MobileBroadbandCellsInfo,
+                                                  IID_AsyncOperationCompletedHandler_1_MobileBroadbandCellsInfo,
+                                                  alPlain,
+                                                  "MobileBroadbandNetwork.GetCellsInfoAsync"
+                                                 )
 
 proc deviceId*(self: MobileBroadbandNetworkRegistrationStateChange): string =
   ## Windows.Networking.NetworkOperators.MobileBroadbandNetworkRegistrationStateChange.get_DeviceId
@@ -4847,48 +4874,51 @@ proc attemptsRemaining*(self: MobileBroadbandPin): uint32 =
     result = it.getValue(get_AttemptsRemaining, uint32)
 
 proc enableAsync*(self: MobileBroadbandPin, currentPin: string
-                 ): Future[MobileBroadbandPinOperationResult] {.async.} =
+                 ): Future[MobileBroadbandPinOperationResult] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandPin.EnableAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandPin, it):
     withHString(currentPin, h0):
       check it.vtbl.EnableAsync(it, h0, op.addr
                                ), "MobileBroadbandPin.EnableAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_MobileBroadbandPinOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_MobileBroadbandPinOperationResult,
-                              alPlain, "MobileBroadbandPin.EnableAsync")
-  result = adopt[MobileBroadbandPinOperationResult](obj)
+  result = futureObject[MobileBroadbandPinOperationResult](op,
+                                                           IID_IAsyncOperation_1_MobileBroadbandPinOperationResult,
+                                                           IID_AsyncOperationCompletedHandler_1_MobileBroadbandPinOperationResult,
+                                                           alPlain,
+                                                           "MobileBroadbandPin.EnableAsync"
+                                                          )
 
 proc disableAsync*(self: MobileBroadbandPin, currentPin: string
-                  ): Future[MobileBroadbandPinOperationResult] {.async.} =
+                  ): Future[MobileBroadbandPinOperationResult] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandPin.DisableAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandPin, it):
     withHString(currentPin, h0):
       check it.vtbl.DisableAsync(it, h0, op.addr
                                 ), "MobileBroadbandPin.DisableAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_MobileBroadbandPinOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_MobileBroadbandPinOperationResult,
-                              alPlain, "MobileBroadbandPin.DisableAsync")
-  result = adopt[MobileBroadbandPinOperationResult](obj)
+  result = futureObject[MobileBroadbandPinOperationResult](op,
+                                                           IID_IAsyncOperation_1_MobileBroadbandPinOperationResult,
+                                                           IID_AsyncOperationCompletedHandler_1_MobileBroadbandPinOperationResult,
+                                                           alPlain,
+                                                           "MobileBroadbandPin.DisableAsync"
+                                                          )
 
 proc enterAsync*(self: MobileBroadbandPin, currentPin: string
-                ): Future[MobileBroadbandPinOperationResult] {.async.} =
+                ): Future[MobileBroadbandPinOperationResult] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandPin.EnterAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandPin, it):
     withHString(currentPin, h0):
       check it.vtbl.EnterAsync(it, h0, op.addr), "MobileBroadbandPin.EnterAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_MobileBroadbandPinOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_MobileBroadbandPinOperationResult,
-                              alPlain, "MobileBroadbandPin.EnterAsync")
-  result = adopt[MobileBroadbandPinOperationResult](obj)
+  result = futureObject[MobileBroadbandPinOperationResult](op,
+                                                           IID_IAsyncOperation_1_MobileBroadbandPinOperationResult,
+                                                           IID_AsyncOperationCompletedHandler_1_MobileBroadbandPinOperationResult,
+                                                           alPlain,
+                                                           "MobileBroadbandPin.EnterAsync"
+                                                          )
 
 proc changeAsync*(self: MobileBroadbandPin, currentPin: string, newPin: string
-                 ): Future[MobileBroadbandPinOperationResult] {.async.} =
+                 ): Future[MobileBroadbandPinOperationResult] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandPin.ChangeAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandPin, it):
@@ -4896,15 +4926,15 @@ proc changeAsync*(self: MobileBroadbandPin, currentPin: string, newPin: string
       withHString(newPin, h1):
         check it.vtbl.ChangeAsync(it, h0, h1, op.addr
                                  ), "MobileBroadbandPin.ChangeAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_MobileBroadbandPinOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_MobileBroadbandPinOperationResult,
-                              alPlain, "MobileBroadbandPin.ChangeAsync")
-  result = adopt[MobileBroadbandPinOperationResult](obj)
+  result = futureObject[MobileBroadbandPinOperationResult](op,
+                                                           IID_IAsyncOperation_1_MobileBroadbandPinOperationResult,
+                                                           IID_AsyncOperationCompletedHandler_1_MobileBroadbandPinOperationResult,
+                                                           alPlain,
+                                                           "MobileBroadbandPin.ChangeAsync"
+                                                          )
 
 proc unblockAsync*(self: MobileBroadbandPin, pinUnblockKey: string,
-                   newPin: string
-                  ): Future[MobileBroadbandPinOperationResult] {.async.} =
+                   newPin: string): Future[MobileBroadbandPinOperationResult] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandPin.UnblockAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandPin, it):
@@ -4912,11 +4942,12 @@ proc unblockAsync*(self: MobileBroadbandPin, pinUnblockKey: string,
       withHString(newPin, h1):
         check it.vtbl.UnblockAsync(it, h0, h1, op.addr
                                   ), "MobileBroadbandPin.UnblockAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_MobileBroadbandPinOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_MobileBroadbandPinOperationResult,
-                              alPlain, "MobileBroadbandPin.UnblockAsync")
-  result = adopt[MobileBroadbandPinOperationResult](obj)
+  result = futureObject[MobileBroadbandPinOperationResult](op,
+                                                           IID_IAsyncOperation_1_MobileBroadbandPinOperationResult,
+                                                           IID_AsyncOperationCompletedHandler_1_MobileBroadbandPinOperationResult,
+                                                           alPlain,
+                                                           "MobileBroadbandPin.UnblockAsync"
+                                                          )
 
 proc deviceId*(self: MobileBroadbandPinLockStateChange): string =
   ## Windows.Networking.NetworkOperators.MobileBroadbandPinLockStateChange.get_DeviceId
@@ -5046,27 +5077,27 @@ proc removeTransmissionStateChanged*(self: MobileBroadbandSarManager, token: Eve
   withIface(self.p, IMobileBroadbandSarManager, it):
     check it.vtbl.remove_TransmissionStateChanged(it, token), "MobileBroadbandSarManager.remove_TransmissionStateChanged"
 
-proc enableBackoffAsync*(self: MobileBroadbandSarManager) {.async.} =
+proc enableBackoffAsync*(self: MobileBroadbandSarManager): Future[void] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandSarManager.EnableBackoffAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandSarManager, it):
     check it.vtbl.EnableBackoffAsync(it, op.addr
                                     ), "MobileBroadbandSarManager.EnableBackoffAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "MobileBroadbandSarManager.EnableBackoffAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "MobileBroadbandSarManager.EnableBackoffAsync")
 
-proc disableBackoffAsync*(self: MobileBroadbandSarManager) {.async.} =
+proc disableBackoffAsync*(self: MobileBroadbandSarManager): Future[void] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandSarManager.DisableBackoffAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandSarManager, it):
     check it.vtbl.DisableBackoffAsync(it, op.addr
                                      ), "MobileBroadbandSarManager.DisableBackoffAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "MobileBroadbandSarManager.DisableBackoffAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "MobileBroadbandSarManager.DisableBackoffAsync")
 
 proc setConfigurationAsync*(self: MobileBroadbandSarManager,
                             antennas: seq[MobileBroadbandAntennaSar]
-                           ) {.async.} =
+                           ): Future[void] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandSarManager.SetConfigurationAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandSarManager, it):
@@ -5077,42 +5108,41 @@ proc setConfigurationAsync*(self: MobileBroadbandSarManager,
     defer: discard release(p0)
     check it.vtbl.SetConfigurationAsync(it, p0, op.addr
                                        ), "MobileBroadbandSarManager.SetConfigurationAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "MobileBroadbandSarManager.SetConfigurationAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "MobileBroadbandSarManager.SetConfigurationAsync")
 
-proc revertSarToHardwareControlAsync*(self: MobileBroadbandSarManager) {.async.} =
+proc revertSarToHardwareControlAsync*(self: MobileBroadbandSarManager): Future[void] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandSarManager.RevertSarToHardwareControlAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandSarManager, it):
     check it.vtbl.RevertSarToHardwareControlAsync(it, op.addr
                                                  ), "MobileBroadbandSarManager.RevertSarToHardwareControlAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "MobileBroadbandSarManager.RevertSarToHardwareControlAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "MobileBroadbandSarManager.RevertSarToHardwareControlAsync"
+                     )
 
 proc setTransmissionStateChangedHysteresisAsync*(self: MobileBroadbandSarManager,
                                                  timerPeriod: TimeSpan
-                                                ) {.async.} =
+                                                ): Future[void] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandSarManager.SetTransmissionStateChangedHysteresisAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandSarManager, it):
     check it.vtbl.SetTransmissionStateChangedHysteresisAsync(it, timerPeriod,
                                                              op.addr
                                                             ), "MobileBroadbandSarManager.SetTransmissionStateChangedHysteresisAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "MobileBroadbandSarManager.SetTransmissionStateChangedHysteresisAsync"
-                 )
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "MobileBroadbandSarManager.SetTransmissionStateChangedHysteresisAsync"
+                     )
 
-proc getIsTransmittingAsync*(self: MobileBroadbandSarManager): Future[bool] {.async.} =
+proc getIsTransmittingAsync*(self: MobileBroadbandSarManager): Future[bool] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandSarManager.GetIsTransmittingAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandSarManager, it):
     check it.vtbl.GetIsTransmittingAsync(it, op.addr
                                         ), "MobileBroadbandSarManager.GetIsTransmittingAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "MobileBroadbandSarManager.GetIsTransmittingAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MobileBroadbandSarManager.GetIsTransmittingAsync")
 
 proc startTransmissionStateMonitoring*(self: MobileBroadbandSarManager) =
   ## Windows.Networking.NetworkOperators.MobileBroadbandSarManager.StartTransmissionStateMonitoring
@@ -5170,18 +5200,18 @@ proc setCurrentSlot*(self: MobileBroadbandSlotManager, slotIndex: int32
     result = tmp
 
 proc setCurrentSlotAsync*(self: MobileBroadbandSlotManager, slotIndex: int32
-                         ): Future[MobileBroadbandModemStatus] {.async.} =
+                         ): Future[MobileBroadbandModemStatus] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandSlotManager.SetCurrentSlotAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandSlotManager, it):
     check it.vtbl.SetCurrentSlotAsync(it, slotIndex, op.addr
                                      ), "MobileBroadbandSlotManager.SetCurrentSlotAsync"
-  result = await awaitValue[MobileBroadbandModemStatus](op,
-                                                        IID_IAsyncOperation_1_MobileBroadbandModemStatus,
-                                                        IID_AsyncOperationCompletedHandler_1_MobileBroadbandModemStatus,
-                                                        alPlain,
-                                                        "MobileBroadbandSlotManager.SetCurrentSlotAsync"
-                                                       )
+  result = futureValue[MobileBroadbandModemStatus](op,
+                                                   IID_IAsyncOperation_1_MobileBroadbandModemStatus,
+                                                   IID_AsyncOperationCompletedHandler_1_MobileBroadbandModemStatus,
+                                                   alPlain,
+                                                   "MobileBroadbandSlotManager.SetCurrentSlotAsync"
+                                                  )
 
 proc onSlotInfoChanged*(self: MobileBroadbandSlotManager,
                         handler: EventHandler[MobileBroadbandSlotManager, MobileBroadbandSlotInfoChangedEventArgs]
@@ -5233,17 +5263,18 @@ proc simIccId*(self: MobileBroadbandUicc): string =
   withIface(self.p, IMobileBroadbandUicc, it):
     result = it.getString(get_SimIccId)
 
-proc getUiccAppsAsync*(self: MobileBroadbandUicc): Future[MobileBroadbandUiccAppsResult] {.async.} =
+proc getUiccAppsAsync*(self: MobileBroadbandUicc): Future[MobileBroadbandUiccAppsResult] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandUicc.GetUiccAppsAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandUicc, it):
     check it.vtbl.GetUiccAppsAsync(it, op.addr
                                   ), "MobileBroadbandUicc.GetUiccAppsAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_MobileBroadbandUiccAppsResult,
-                              IID_AsyncOperationCompletedHandler_1_MobileBroadbandUiccAppsResult,
-                              alPlain, "MobileBroadbandUicc.GetUiccAppsAsync")
-  result = adopt[MobileBroadbandUiccAppsResult](obj)
+  result = futureObject[MobileBroadbandUiccAppsResult](op,
+                                                       IID_IAsyncOperation_1_MobileBroadbandUiccAppsResult,
+                                                       IID_AsyncOperationCompletedHandler_1_MobileBroadbandUiccAppsResult,
+                                                       alPlain,
+                                                       "MobileBroadbandUicc.GetUiccAppsAsync"
+                                                      )
 
 proc id*(self: MobileBroadbandUiccApp): Buffer =
   ## Windows.Networking.NetworkOperators.MobileBroadbandUiccApp.get_Id
@@ -5257,7 +5288,7 @@ proc kind*(self: MobileBroadbandUiccApp): UiccAppKind =
 
 proc getRecordDetailsAsync*(self: MobileBroadbandUiccApp,
                             uiccFilePath: seq[uint32]
-                           ): Future[MobileBroadbandUiccAppRecordDetailsResult] {.async.} =
+                           ): Future[MobileBroadbandUiccAppRecordDetailsResult] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandUiccApp.GetRecordDetailsAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandUiccApp, it):
@@ -5267,16 +5298,16 @@ proc getRecordDetailsAsync*(self: MobileBroadbandUiccApp,
     defer: discard release(p0)
     check it.vtbl.GetRecordDetailsAsync(it, p0, op.addr
                                        ), "MobileBroadbandUiccApp.GetRecordDetailsAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_MobileBroadbandUiccAppRecordDetailsResult,
-                              IID_AsyncOperationCompletedHandler_1_MobileBroadbandUiccAppRecordDetailsResult,
-                              alPlain,
-                              "MobileBroadbandUiccApp.GetRecordDetailsAsync")
-  result = adopt[MobileBroadbandUiccAppRecordDetailsResult](obj)
+  result = futureObject[MobileBroadbandUiccAppRecordDetailsResult](op,
+                                                                   IID_IAsyncOperation_1_MobileBroadbandUiccAppRecordDetailsResult,
+                                                                   IID_AsyncOperationCompletedHandler_1_MobileBroadbandUiccAppRecordDetailsResult,
+                                                                   alPlain,
+                                                                   "MobileBroadbandUiccApp.GetRecordDetailsAsync"
+                                                                  )
 
 proc readRecordAsync*(self: MobileBroadbandUiccApp, uiccFilePath: seq[uint32],
                       recordIndex: int32
-                     ): Future[MobileBroadbandUiccAppReadRecordResult] {.async.} =
+                     ): Future[MobileBroadbandUiccAppReadRecordResult] =
   ## Windows.Networking.NetworkOperators.MobileBroadbandUiccApp.ReadRecordAsync
   var op: pointer
   withIface(self.p, IMobileBroadbandUiccApp, it):
@@ -5286,11 +5317,12 @@ proc readRecordAsync*(self: MobileBroadbandUiccApp, uiccFilePath: seq[uint32],
     defer: discard release(p0)
     check it.vtbl.ReadRecordAsync(it, p0, recordIndex, op.addr
                                  ), "MobileBroadbandUiccApp.ReadRecordAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_MobileBroadbandUiccAppReadRecordResult,
-                              IID_AsyncOperationCompletedHandler_1_MobileBroadbandUiccAppReadRecordResult,
-                              alPlain, "MobileBroadbandUiccApp.ReadRecordAsync")
-  result = adopt[MobileBroadbandUiccAppReadRecordResult](obj)
+  result = futureObject[MobileBroadbandUiccAppReadRecordResult](op,
+                                                                IID_IAsyncOperation_1_MobileBroadbandUiccAppReadRecordResult,
+                                                                IID_AsyncOperationCompletedHandler_1_MobileBroadbandUiccAppReadRecordResult,
+                                                                alPlain,
+                                                                "MobileBroadbandUiccApp.ReadRecordAsync"
+                                                               )
 
 proc status*(self: MobileBroadbandUiccAppReadRecordResult): MobileBroadbandUiccAppOperationStatus =
   ## Windows.Networking.NetworkOperators.MobileBroadbandUiccAppReadRecordResult.get_Status
@@ -5427,17 +5459,16 @@ proc isBandSupported*(self: NetworkOperatorTetheringAccessPointConfiguration,
     result = tmp
 
 proc isBandSupportedAsync*(self: NetworkOperatorTetheringAccessPointConfiguration,
-                           band: TetheringWiFiBand): Future[bool] {.async.} =
+                           band: TetheringWiFiBand): Future[bool] =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration.IsBandSupportedAsync
   var op: pointer
   withIface(self.p, INetworkOperatorTetheringAccessPointConfiguration2, it):
     check it.vtbl.IsBandSupportedAsync(it, band, op.addr
                                       ), "NetworkOperatorTetheringAccessPointConfiguration.IsBandSupportedAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "NetworkOperatorTetheringAccessPointConfiguration.IsBandSupportedAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "NetworkOperatorTetheringAccessPointConfiguration.IsBandSupportedAsync"
+                            )
 
 proc band*(self: NetworkOperatorTetheringAccessPointConfiguration): TetheringWiFiBand =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration.get_Band
@@ -5462,18 +5493,17 @@ proc isAuthenticationKindSupported*(self: NetworkOperatorTetheringAccessPointCon
 
 proc isAuthenticationKindSupportedAsync*(self: NetworkOperatorTetheringAccessPointConfiguration,
                                          authenticationKind: TetheringWiFiAuthenticationKind
-                                        ): Future[bool] {.async.} =
+                                        ): Future[bool] =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration.IsAuthenticationKindSupportedAsync
   var op: pointer
   withIface(self.p, INetworkOperatorTetheringAccessPointConfiguration3, it):
     check it.vtbl.IsAuthenticationKindSupportedAsync(it, authenticationKind,
                                                      op.addr
                                                     ), "NetworkOperatorTetheringAccessPointConfiguration.IsAuthenticationKindSupportedAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "NetworkOperatorTetheringAccessPointConfiguration.IsAuthenticationKindSupportedAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "NetworkOperatorTetheringAccessPointConfiguration.IsAuthenticationKindSupportedAsync"
+                            )
 
 proc authenticationKind*(self: NetworkOperatorTetheringAccessPointConfiguration): TetheringWiFiAuthenticationKind =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration.get_AuthenticationKind
@@ -5525,43 +5555,42 @@ proc getCurrentAccessPointConfiguration*(self: NetworkOperatorTetheringManager):
 
 proc configureAccessPointAsync*(self: NetworkOperatorTetheringManager,
                                 configuration: NetworkOperatorTetheringAccessPointConfiguration
-                               ) {.async.} =
+                               ): Future[void] =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager.ConfigureAccessPointAsync
   var op: pointer
   withIface(self.p, INetworkOperatorTetheringManager, it):
     withIface(configuration.p, INetworkOperatorTetheringAccessPointConfiguration, p0):
       check it.vtbl.ConfigureAccessPointAsync(it, p0, op.addr
                                              ), "NetworkOperatorTetheringManager.ConfigureAccessPointAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "NetworkOperatorTetheringManager.ConfigureAccessPointAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "NetworkOperatorTetheringManager.ConfigureAccessPointAsync"
+                     )
 
-proc startTetheringAsync*(self: NetworkOperatorTetheringManager): Future[NetworkOperatorTetheringOperationResult] {.async.} =
+proc startTetheringAsync*(self: NetworkOperatorTetheringManager): Future[NetworkOperatorTetheringOperationResult] =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager.StartTetheringAsync
   var op: pointer
   withIface(self.p, INetworkOperatorTetheringManager, it):
     check it.vtbl.StartTetheringAsync(it, op.addr
                                      ), "NetworkOperatorTetheringManager.StartTetheringAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_NetworkOperatorTetheringOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_NetworkOperatorTetheringOperationResult,
-                              alPlain,
-                              "NetworkOperatorTetheringManager.StartTetheringAsync"
-                             )
-  result = adopt[NetworkOperatorTetheringOperationResult](obj)
+  result = futureObject[NetworkOperatorTetheringOperationResult](op,
+                                                                 IID_IAsyncOperation_1_NetworkOperatorTetheringOperationResult,
+                                                                 IID_AsyncOperationCompletedHandler_1_NetworkOperatorTetheringOperationResult,
+                                                                 alPlain,
+                                                                 "NetworkOperatorTetheringManager.StartTetheringAsync"
+                                                                )
 
-proc stopTetheringAsync*(self: NetworkOperatorTetheringManager): Future[NetworkOperatorTetheringOperationResult] {.async.} =
+proc stopTetheringAsync*(self: NetworkOperatorTetheringManager): Future[NetworkOperatorTetheringOperationResult] =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager.StopTetheringAsync
   var op: pointer
   withIface(self.p, INetworkOperatorTetheringManager, it):
     check it.vtbl.StopTetheringAsync(it, op.addr
                                     ), "NetworkOperatorTetheringManager.StopTetheringAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_NetworkOperatorTetheringOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_NetworkOperatorTetheringOperationResult,
-                              alPlain,
-                              "NetworkOperatorTetheringManager.StopTetheringAsync"
-                             )
-  result = adopt[NetworkOperatorTetheringOperationResult](obj)
+  result = futureObject[NetworkOperatorTetheringOperationResult](op,
+                                                                 IID_IAsyncOperation_1_NetworkOperatorTetheringOperationResult,
+                                                                 IID_AsyncOperationCompletedHandler_1_NetworkOperatorTetheringOperationResult,
+                                                                 alPlain,
+                                                                 "NetworkOperatorTetheringManager.StopTetheringAsync"
+                                                                )
 
 proc getTetheringClients*(self: NetworkOperatorTetheringManager): seq[NetworkOperatorTetheringClient] =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager.GetTetheringClients
@@ -5576,20 +5605,19 @@ proc getTetheringClients*(self: NetworkOperatorTetheringManager): seq[NetworkOpe
 
 proc startTetheringAsync*(self: NetworkOperatorTetheringManager,
                           configuration: NetworkOperatorTetheringSessionAccessPointConfiguration
-                         ): Future[NetworkOperatorTetheringOperationResult] {.async.} =
+                         ): Future[NetworkOperatorTetheringOperationResult] =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager.StartTetheringAsync
   var op: pointer
   withIface(self.p, INetworkOperatorTetheringManager2, it):
     withIface(configuration.p, INetworkOperatorTetheringSessionAccessPointConfiguration, p0):
       check it.vtbl.StartTetheringAsync(it, p0, op.addr
                                        ), "NetworkOperatorTetheringManager.StartTetheringAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_NetworkOperatorTetheringOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_NetworkOperatorTetheringOperationResult,
-                              alPlain,
-                              "NetworkOperatorTetheringManager.StartTetheringAsync"
-                             )
-  result = adopt[NetworkOperatorTetheringOperationResult](obj)
+  result = futureObject[NetworkOperatorTetheringOperationResult](op,
+                                                                 IID_IAsyncOperation_1_NetworkOperatorTetheringOperationResult,
+                                                                 IID_AsyncOperationCompletedHandler_1_NetworkOperatorTetheringOperationResult,
+                                                                 alPlain,
+                                                                 "NetworkOperatorTetheringManager.StartTetheringAsync"
+                                                                )
 
 proc isNoConnectionsTimeoutEnabled*(_: typedesc[NetworkOperatorTetheringManager]): bool =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager.IsNoConnectionsTimeoutEnabled
@@ -5606,16 +5634,16 @@ proc enableNoConnectionsTimeout*(_: typedesc[NetworkOperatorTetheringManager]) =
               INetworkOperatorTetheringManagerStatics4, it):
     check it.vtbl.EnableNoConnectionsTimeout(it), "NetworkOperatorTetheringManager.EnableNoConnectionsTimeout"
 
-proc enableNoConnectionsTimeoutAsync*(_: typedesc[NetworkOperatorTetheringManager]) {.async.} =
+proc enableNoConnectionsTimeoutAsync*(_: typedesc[NetworkOperatorTetheringManager]): Future[void] =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager.EnableNoConnectionsTimeoutAsync
   var op: pointer
   withStatics("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager",
               INetworkOperatorTetheringManagerStatics4, it):
     check it.vtbl.EnableNoConnectionsTimeoutAsync(it, op.addr
                                                  ), "NetworkOperatorTetheringManager.EnableNoConnectionsTimeoutAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "NetworkOperatorTetheringManager.EnableNoConnectionsTimeoutAsync"
-                 )
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "NetworkOperatorTetheringManager.EnableNoConnectionsTimeoutAsync"
+                     )
 
 proc disableNoConnectionsTimeout*(_: typedesc[NetworkOperatorTetheringManager]) =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager.DisableNoConnectionsTimeout
@@ -5623,16 +5651,16 @@ proc disableNoConnectionsTimeout*(_: typedesc[NetworkOperatorTetheringManager]) 
               INetworkOperatorTetheringManagerStatics4, it):
     check it.vtbl.DisableNoConnectionsTimeout(it), "NetworkOperatorTetheringManager.DisableNoConnectionsTimeout"
 
-proc disableNoConnectionsTimeoutAsync*(_: typedesc[NetworkOperatorTetheringManager]) {.async.} =
+proc disableNoConnectionsTimeoutAsync*(_: typedesc[NetworkOperatorTetheringManager]): Future[void] =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager.DisableNoConnectionsTimeoutAsync
   var op: pointer
   withStatics("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager",
               INetworkOperatorTetheringManagerStatics4, it):
     check it.vtbl.DisableNoConnectionsTimeoutAsync(it, op.addr
                                                   ), "NetworkOperatorTetheringManager.DisableNoConnectionsTimeoutAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "NetworkOperatorTetheringManager.DisableNoConnectionsTimeoutAsync"
-                 )
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "NetworkOperatorTetheringManager.DisableNoConnectionsTimeoutAsync"
+                     )
 
 proc getTetheringCapabilityFromConnectionProfile*(_: typedesc[NetworkOperatorTetheringManager],
                                                   profile: ConnectionProfile
@@ -5741,17 +5769,16 @@ proc isBandSupported*(self: NetworkOperatorTetheringSessionAccessPointConfigurat
     result = tmp
 
 proc isBandSupportedAsync*(self: NetworkOperatorTetheringSessionAccessPointConfiguration,
-                           band: TetheringWiFiBand): Future[bool] {.async.} =
+                           band: TetheringWiFiBand): Future[bool] =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringSessionAccessPointConfiguration.IsBandSupportedAsync
   var op: pointer
   withIface(self.p, INetworkOperatorTetheringSessionAccessPointConfiguration, it):
     check it.vtbl.IsBandSupportedAsync(it, band, op.addr
                                       ), "NetworkOperatorTetheringSessionAccessPointConfiguration.IsBandSupportedAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "NetworkOperatorTetheringSessionAccessPointConfiguration.IsBandSupportedAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "NetworkOperatorTetheringSessionAccessPointConfiguration.IsBandSupportedAsync"
+                            )
 
 proc band*(self: NetworkOperatorTetheringSessionAccessPointConfiguration): TetheringWiFiBand =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringSessionAccessPointConfiguration.get_Band
@@ -5776,18 +5803,17 @@ proc isAuthenticationKindSupported*(self: NetworkOperatorTetheringSessionAccessP
 
 proc isAuthenticationKindSupportedAsync*(self: NetworkOperatorTetheringSessionAccessPointConfiguration,
                                          authenticationKind: TetheringWiFiAuthenticationKind
-                                        ): Future[bool] {.async.} =
+                                        ): Future[bool] =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringSessionAccessPointConfiguration.IsAuthenticationKindSupportedAsync
   var op: pointer
   withIface(self.p, INetworkOperatorTetheringSessionAccessPointConfiguration, it):
     check it.vtbl.IsAuthenticationKindSupportedAsync(it, authenticationKind,
                                                      op.addr
                                                     ), "NetworkOperatorTetheringSessionAccessPointConfiguration.IsAuthenticationKindSupportedAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "NetworkOperatorTetheringSessionAccessPointConfiguration.IsAuthenticationKindSupportedAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "NetworkOperatorTetheringSessionAccessPointConfiguration.IsAuthenticationKindSupportedAsync"
+                            )
 
 proc authenticationKind*(self: NetworkOperatorTetheringSessionAccessPointConfiguration): TetheringWiFiAuthenticationKind =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringSessionAccessPointConfiguration.get_AuthenticationKind
@@ -5837,19 +5863,19 @@ proc newProvisioningAgent*(): ProvisioningAgent =
 
 proc provisionFromXmlDocumentAsync*(self: ProvisioningAgent,
                                     provisioningXmlDocument: string
-                                   ): Future[ProvisionFromXmlDocumentResults] {.async.} =
+                                   ): Future[ProvisionFromXmlDocumentResults] =
   ## Windows.Networking.NetworkOperators.ProvisioningAgent.ProvisionFromXmlDocumentAsync
   var op: pointer
   withIface(self.p, IProvisioningAgent, it):
     withHString(provisioningXmlDocument, h0):
       check it.vtbl.ProvisionFromXmlDocumentAsync(it, h0, op.addr
                                                  ), "ProvisioningAgent.ProvisionFromXmlDocumentAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_ProvisionFromXmlDocumentResults,
-                              IID_AsyncOperationCompletedHandler_1_ProvisionFromXmlDocumentResults,
-                              alPlain,
-                              "ProvisioningAgent.ProvisionFromXmlDocumentAsync")
-  result = adopt[ProvisionFromXmlDocumentResults](obj)
+  result = futureObject[ProvisionFromXmlDocumentResults](op,
+                                                         IID_IAsyncOperation_1_ProvisionFromXmlDocumentResults,
+                                                         IID_AsyncOperationCompletedHandler_1_ProvisionFromXmlDocumentResults,
+                                                         alPlain,
+                                                         "ProvisioningAgent.ProvisionFromXmlDocumentAsync"
+                                                        )
 
 proc getProvisionedProfile*(self: ProvisioningAgent,
                             mediaType: ProfileMediaType, profileName: string
@@ -5948,18 +5974,17 @@ proc message*(self: UssdReply): UssdMessage =
     result = it.getObject(get_Message, UssdMessage)
 
 proc sendMessageAndGetReplyAsync*(self: UssdSession, message: UssdMessage
-                                 ): Future[UssdReply] {.async.} =
+                                 ): Future[UssdReply] =
   ## Windows.Networking.NetworkOperators.UssdSession.SendMessageAndGetReplyAsync
   var op: pointer
   withIface(self.p, IUssdSession, it):
     withIface(message.p, IUssdMessage, p0):
       check it.vtbl.SendMessageAndGetReplyAsync(it, p0, op.addr
                                                ), "UssdSession.SendMessageAndGetReplyAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_UssdReply,
-                              IID_AsyncOperationCompletedHandler_1_UssdReply,
-                              alPlain, "UssdSession.SendMessageAndGetReplyAsync"
-                             )
-  result = adopt[UssdReply](obj)
+  result = futureObject[UssdReply](op, IID_IAsyncOperation_1_UssdReply,
+                                   IID_AsyncOperationCompletedHandler_1_UssdReply,
+                                   alPlain,
+                                   "UssdSession.SendMessageAndGetReplyAsync")
 
 proc close*(self: UssdSession) =
   ## Windows.Networking.NetworkOperators.UssdSession.Close
@@ -6181,30 +6206,28 @@ proc removeConnectionRequested*(_: typedesc[PeerFinder], token: EventRegistratio
              ):
     check it.vtbl.remove_ConnectionRequested(it, token), "PeerFinder.remove_ConnectionRequested"
 
-proc findAllPeersAsync*(_: typedesc[PeerFinder]): Future[seq[PeerInformation]] {.async.} =
+proc findAllPeersAsync*(_: typedesc[PeerFinder]): Future[seq[PeerInformation]] =
   ## Windows.Networking.Proximity.PeerFinder.FindAllPeersAsync
   var op: pointer
   withStatics("Windows.Networking.Proximity.PeerFinder", IPeerFinderStatics, it
              ):
     check it.vtbl.FindAllPeersAsync(it, op.addr), "PeerFinder.FindAllPeersAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_18,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_18,
-                               alPlain, "PeerFinder.FindAllPeersAsync")
-  result = toSeq[PeerInformation](coll, IID_IVectorView_1_PeerInformation)
-  discard release(coll)
+  result = futureSeq[PeerInformation](op, IID_IAsyncOperation_1_IVectorView_18,
+                                      IID_AsyncOperationCompletedHandler_1_IVectorView_18,
+                                      alPlain, "PeerFinder.FindAllPeersAsync",
+                                      IID_IVectorView_1_PeerInformation)
 
 proc connectAsync*(_: typedesc[PeerFinder], peerInformation: PeerInformation
-                  ): Future[StreamSocket] {.async.} =
+                  ): Future[StreamSocket] =
   ## Windows.Networking.Proximity.PeerFinder.ConnectAsync
   var op: pointer
   withStatics("Windows.Networking.Proximity.PeerFinder", IPeerFinderStatics, it
              ):
     withIface(peerInformation.p, IPeerInformation, p0):
       check it.vtbl.ConnectAsync(it, p0, op.addr), "PeerFinder.ConnectAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StreamSocket,
-                              IID_AsyncOperationCompletedHandler_1_StreamSocket,
-                              alPlain, "PeerFinder.ConnectAsync")
-  result = adopt[StreamSocket](obj)
+  result = futureObject[StreamSocket](op, IID_IAsyncOperation_1_StreamSocket,
+                                      IID_AsyncOperationCompletedHandler_1_StreamSocket,
+                                      alPlain, "PeerFinder.ConnectAsync")
 
 proc displayName*(self: PeerInformation): string =
   ## Windows.Networking.Proximity.PeerInformation.get_DisplayName
@@ -6628,23 +6651,23 @@ proc getForUser*(_: typedesc[PushNotificationChannelManager], user: User
                               ), "PushNotificationChannelManager.GetForUser"
       result = adopt[PushNotificationChannelManagerForUser](tmp)
 
-proc createPushNotificationChannelForApplicationAsync*(_: typedesc[PushNotificationChannelManager]): Future[PushNotificationChannel] {.async.} =
+proc createPushNotificationChannelForApplicationAsync*(_: typedesc[PushNotificationChannelManager]): Future[PushNotificationChannel] =
   ## Windows.Networking.PushNotifications.PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync
   var op: pointer
   withStatics("Windows.Networking.PushNotifications.PushNotificationChannelManager",
               IPushNotificationChannelManagerStatics, it):
     check it.vtbl.CreatePushNotificationChannelForApplicationAsync(it, op.addr
                                                                   ), "PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PushNotificationChannel,
-                              IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
-                              alPlain,
-                              "PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync"
-                             )
-  result = adopt[PushNotificationChannel](obj)
+  result = futureObject[PushNotificationChannel](op,
+                                                 IID_IAsyncOperation_1_PushNotificationChannel,
+                                                 IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
+                                                 alPlain,
+                                                 "PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync"
+                                                )
 
 proc createPushNotificationChannelForApplicationAsync*(_: typedesc[PushNotificationChannelManager],
                                                        applicationId: string
-                                                      ): Future[PushNotificationChannel] {.async.} =
+                                                      ): Future[PushNotificationChannel] =
   ## Windows.Networking.PushNotifications.PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync
   var op: pointer
   withStatics("Windows.Networking.PushNotifications.PushNotificationChannelManager",
@@ -6653,16 +6676,16 @@ proc createPushNotificationChannelForApplicationAsync*(_: typedesc[PushNotificat
       check it.vtbl.CreatePushNotificationChannelForApplicationAsync2(it, h0,
                                                                       op.addr
                                                                      ), "PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PushNotificationChannel,
-                              IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
-                              alPlain,
-                              "PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync"
-                             )
-  result = adopt[PushNotificationChannel](obj)
+  result = futureObject[PushNotificationChannel](op,
+                                                 IID_IAsyncOperation_1_PushNotificationChannel,
+                                                 IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
+                                                 alPlain,
+                                                 "PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync"
+                                                )
 
 proc createPushNotificationChannelForSecondaryTileAsync*(_: typedesc[PushNotificationChannelManager],
                                                          tileId: string
-                                                        ): Future[PushNotificationChannel] {.async.} =
+                                                        ): Future[PushNotificationChannel] =
   ## Windows.Networking.PushNotifications.PushNotificationChannelManager.CreatePushNotificationChannelForSecondaryTileAsync
   var op: pointer
   withStatics("Windows.Networking.PushNotifications.PushNotificationChannelManager",
@@ -6671,12 +6694,12 @@ proc createPushNotificationChannelForSecondaryTileAsync*(_: typedesc[PushNotific
       check it.vtbl.CreatePushNotificationChannelForSecondaryTileAsync(it, h0,
                                                                        op.addr
                                                                       ), "PushNotificationChannelManager.CreatePushNotificationChannelForSecondaryTileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PushNotificationChannel,
-                              IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
-                              alPlain,
-                              "PushNotificationChannelManager.CreatePushNotificationChannelForSecondaryTileAsync"
-                             )
-  result = adopt[PushNotificationChannel](obj)
+  result = futureObject[PushNotificationChannel](op,
+                                                 IID_IAsyncOperation_1_PushNotificationChannel,
+                                                 IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
+                                                 alPlain,
+                                                 "PushNotificationChannelManager.CreatePushNotificationChannelForSecondaryTileAsync"
+                                                )
 
 proc getDefault*(_: typedesc[PushNotificationChannelManager]): PushNotificationChannelManagerForUser =
   ## Windows.Networking.PushNotifications.PushNotificationChannelManager.GetDefault
@@ -6687,22 +6710,22 @@ proc getDefault*(_: typedesc[PushNotificationChannelManager]): PushNotificationC
                             ), "PushNotificationChannelManager.GetDefault"
     result = adopt[PushNotificationChannelManagerForUser](tmp)
 
-proc createPushNotificationChannelForApplicationAsync*(self: PushNotificationChannelManagerForUser): Future[PushNotificationChannel] {.async.} =
+proc createPushNotificationChannelForApplicationAsync*(self: PushNotificationChannelManagerForUser): Future[PushNotificationChannel] =
   ## Windows.Networking.PushNotifications.PushNotificationChannelManagerForUser.CreatePushNotificationChannelForApplicationAsync
   var op: pointer
   withIface(self.p, IPushNotificationChannelManagerForUser, it):
     check it.vtbl.CreatePushNotificationChannelForApplicationAsync(it, op.addr
                                                                   ), "PushNotificationChannelManagerForUser.CreatePushNotificationChannelForApplicationAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PushNotificationChannel,
-                              IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
-                              alPlain,
-                              "PushNotificationChannelManagerForUser.CreatePushNotificationChannelForApplicationAsync"
-                             )
-  result = adopt[PushNotificationChannel](obj)
+  result = futureObject[PushNotificationChannel](op,
+                                                 IID_IAsyncOperation_1_PushNotificationChannel,
+                                                 IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
+                                                 alPlain,
+                                                 "PushNotificationChannelManagerForUser.CreatePushNotificationChannelForApplicationAsync"
+                                                )
 
 proc createPushNotificationChannelForApplicationAsync*(self: PushNotificationChannelManagerForUser,
                                                        applicationId: string
-                                                      ): Future[PushNotificationChannel] {.async.} =
+                                                      ): Future[PushNotificationChannel] =
   ## Windows.Networking.PushNotifications.PushNotificationChannelManagerForUser.CreatePushNotificationChannelForApplicationAsync
   var op: pointer
   withIface(self.p, IPushNotificationChannelManagerForUser, it):
@@ -6710,16 +6733,16 @@ proc createPushNotificationChannelForApplicationAsync*(self: PushNotificationCha
       check it.vtbl.CreatePushNotificationChannelForApplicationAsync2(it, h0,
                                                                       op.addr
                                                                      ), "PushNotificationChannelManagerForUser.CreatePushNotificationChannelForApplicationAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PushNotificationChannel,
-                              IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
-                              alPlain,
-                              "PushNotificationChannelManagerForUser.CreatePushNotificationChannelForApplicationAsync"
-                             )
-  result = adopt[PushNotificationChannel](obj)
+  result = futureObject[PushNotificationChannel](op,
+                                                 IID_IAsyncOperation_1_PushNotificationChannel,
+                                                 IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
+                                                 alPlain,
+                                                 "PushNotificationChannelManagerForUser.CreatePushNotificationChannelForApplicationAsync"
+                                                )
 
 proc createPushNotificationChannelForSecondaryTileAsync*(self: PushNotificationChannelManagerForUser,
                                                          tileId: string
-                                                        ): Future[PushNotificationChannel] {.async.} =
+                                                        ): Future[PushNotificationChannel] =
   ## Windows.Networking.PushNotifications.PushNotificationChannelManagerForUser.CreatePushNotificationChannelForSecondaryTileAsync
   var op: pointer
   withIface(self.p, IPushNotificationChannelManagerForUser, it):
@@ -6727,12 +6750,12 @@ proc createPushNotificationChannelForSecondaryTileAsync*(self: PushNotificationC
       check it.vtbl.CreatePushNotificationChannelForSecondaryTileAsync(it, h0,
                                                                        op.addr
                                                                       ), "PushNotificationChannelManagerForUser.CreatePushNotificationChannelForSecondaryTileAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PushNotificationChannel,
-                              IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
-                              alPlain,
-                              "PushNotificationChannelManagerForUser.CreatePushNotificationChannelForSecondaryTileAsync"
-                             )
-  result = adopt[PushNotificationChannel](obj)
+  result = futureObject[PushNotificationChannel](op,
+                                                 IID_IAsyncOperation_1_PushNotificationChannel,
+                                                 IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
+                                                 alPlain,
+                                                 "PushNotificationChannelManagerForUser.CreatePushNotificationChannelForSecondaryTileAsync"
+                                                )
 
 proc user*(self: PushNotificationChannelManagerForUser): User =
   ## Windows.Networking.PushNotifications.PushNotificationChannelManagerForUser.get_User
@@ -6742,7 +6765,7 @@ proc user*(self: PushNotificationChannelManagerForUser): User =
 proc createRawPushNotificationChannelWithAlternateKeyForApplicationAsync*(self: PushNotificationChannelManagerForUser,
                                                                           appServerKey: Buffer,
                                                                           channelId: string
-                                                                         ): Future[PushNotificationChannel] {.async.} =
+                                                                         ): Future[PushNotificationChannel] =
   ## Windows.Networking.PushNotifications.PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync
   var op: pointer
   withIface(self.p, IPushNotificationChannelManagerForUser2, it):
@@ -6753,18 +6776,18 @@ proc createRawPushNotificationChannelWithAlternateKeyForApplicationAsync*(self: 
                                                                                           h1,
                                                                                           op.addr
                                                                                          ), "PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PushNotificationChannel,
-                              IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
-                              alPlain,
-                              "PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync"
-                             )
-  result = adopt[PushNotificationChannel](obj)
+  result = futureObject[PushNotificationChannel](op,
+                                                 IID_IAsyncOperation_1_PushNotificationChannel,
+                                                 IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
+                                                 alPlain,
+                                                 "PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync"
+                                                )
 
 proc createRawPushNotificationChannelWithAlternateKeyForApplicationAsync*(self: PushNotificationChannelManagerForUser,
                                                                           appServerKey: Buffer,
                                                                           channelId: string,
                                                                           appId: string
-                                                                         ): Future[PushNotificationChannel] {.async.} =
+                                                                         ): Future[PushNotificationChannel] =
   ## Windows.Networking.PushNotifications.PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync
   var op: pointer
   withIface(self.p, IPushNotificationChannelManagerForUser2, it):
@@ -6777,12 +6800,12 @@ proc createRawPushNotificationChannelWithAlternateKeyForApplicationAsync*(self: 
                                                                                              h2,
                                                                                              op.addr
                                                                                             ), "PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_PushNotificationChannel,
-                              IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
-                              alPlain,
-                              "PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync"
-                             )
-  result = adopt[PushNotificationChannel](obj)
+  result = futureObject[PushNotificationChannel](op,
+                                                 IID_IAsyncOperation_1_PushNotificationChannel,
+                                                 IID_AsyncOperationCompletedHandler_1_PushNotificationChannel,
+                                                 alPlain,
+                                                 "PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync"
+                                                )
 
 proc `cancel=`*(self: PushNotificationReceivedEventArgs, value: bool) =
   ## Windows.Networking.PushNotifications.PushNotificationReceivedEventArgs.put_Cancel
@@ -6932,24 +6955,24 @@ proc textAttributes*(self: DnssdServiceInstance): Table[string, string] =
 
 proc registerStreamSocketListenerAsync*(self: DnssdServiceInstance,
                                         socket: StreamSocketListener
-                                       ): Future[DnssdRegistrationResult] {.async.} =
+                                       ): Future[DnssdRegistrationResult] =
   ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance.RegisterStreamSocketListenerAsync
   var op: pointer
   withIface(self.p, IDnssdServiceInstance, it):
     withIface(socket.p, IStreamSocketListener, p0):
       check it.vtbl.RegisterStreamSocketListenerAsync(it, p0, op.addr
                                                      ), "DnssdServiceInstance.RegisterStreamSocketListenerAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_DnssdRegistrationResult,
-                              IID_AsyncOperationCompletedHandler_1_DnssdRegistrationResult,
-                              alPlain,
-                              "DnssdServiceInstance.RegisterStreamSocketListenerAsync"
-                             )
-  result = adopt[DnssdRegistrationResult](obj)
+  result = futureObject[DnssdRegistrationResult](op,
+                                                 IID_IAsyncOperation_1_DnssdRegistrationResult,
+                                                 IID_AsyncOperationCompletedHandler_1_DnssdRegistrationResult,
+                                                 alPlain,
+                                                 "DnssdServiceInstance.RegisterStreamSocketListenerAsync"
+                                                )
 
 proc registerStreamSocketListenerAsync*(self: DnssdServiceInstance,
                                         socket: StreamSocketListener,
                                         adapter: NetworkAdapter
-                                       ): Future[DnssdRegistrationResult] {.async.} =
+                                       ): Future[DnssdRegistrationResult] =
   ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance.RegisterStreamSocketListenerAsync
   var op: pointer
   withIface(self.p, IDnssdServiceInstance, it):
@@ -6957,33 +6980,33 @@ proc registerStreamSocketListenerAsync*(self: DnssdServiceInstance,
       withIface(adapter.p, INetworkAdapter, p1):
         check it.vtbl.RegisterStreamSocketListenerAsync2(it, p0, p1, op.addr
                                                         ), "DnssdServiceInstance.RegisterStreamSocketListenerAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_DnssdRegistrationResult,
-                              IID_AsyncOperationCompletedHandler_1_DnssdRegistrationResult,
-                              alPlain,
-                              "DnssdServiceInstance.RegisterStreamSocketListenerAsync"
-                             )
-  result = adopt[DnssdRegistrationResult](obj)
+  result = futureObject[DnssdRegistrationResult](op,
+                                                 IID_IAsyncOperation_1_DnssdRegistrationResult,
+                                                 IID_AsyncOperationCompletedHandler_1_DnssdRegistrationResult,
+                                                 alPlain,
+                                                 "DnssdServiceInstance.RegisterStreamSocketListenerAsync"
+                                                )
 
 proc registerDatagramSocketAsync*(self: DnssdServiceInstance,
                                   socket: DatagramSocket
-                                 ): Future[DnssdRegistrationResult] {.async.} =
+                                 ): Future[DnssdRegistrationResult] =
   ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance.RegisterDatagramSocketAsync
   var op: pointer
   withIface(self.p, IDnssdServiceInstance, it):
     withIface(socket.p, IDatagramSocket, p0):
       check it.vtbl.RegisterDatagramSocketAsync(it, p0, op.addr
                                                ), "DnssdServiceInstance.RegisterDatagramSocketAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_DnssdRegistrationResult,
-                              IID_AsyncOperationCompletedHandler_1_DnssdRegistrationResult,
-                              alPlain,
-                              "DnssdServiceInstance.RegisterDatagramSocketAsync"
-                             )
-  result = adopt[DnssdRegistrationResult](obj)
+  result = futureObject[DnssdRegistrationResult](op,
+                                                 IID_IAsyncOperation_1_DnssdRegistrationResult,
+                                                 IID_AsyncOperationCompletedHandler_1_DnssdRegistrationResult,
+                                                 alPlain,
+                                                 "DnssdServiceInstance.RegisterDatagramSocketAsync"
+                                                )
 
 proc registerDatagramSocketAsync*(self: DnssdServiceInstance,
                                   socket: DatagramSocket,
                                   adapter: NetworkAdapter
-                                 ): Future[DnssdRegistrationResult] {.async.} =
+                                 ): Future[DnssdRegistrationResult] =
   ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance.RegisterDatagramSocketAsync
   var op: pointer
   withIface(self.p, IDnssdServiceInstance, it):
@@ -6991,12 +7014,12 @@ proc registerDatagramSocketAsync*(self: DnssdServiceInstance,
       withIface(adapter.p, INetworkAdapter, p1):
         check it.vtbl.RegisterDatagramSocketAsync2(it, p0, p1, op.addr
                                                   ), "DnssdServiceInstance.RegisterDatagramSocketAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_DnssdRegistrationResult,
-                              IID_AsyncOperationCompletedHandler_1_DnssdRegistrationResult,
-                              alPlain,
-                              "DnssdServiceInstance.RegisterDatagramSocketAsync"
-                             )
-  result = adopt[DnssdRegistrationResult](obj)
+  result = futureObject[DnssdRegistrationResult](op,
+                                                 IID_IAsyncOperation_1_DnssdRegistrationResult,
+                                                 IID_AsyncOperationCompletedHandler_1_DnssdRegistrationResult,
+                                                 alPlain,
+                                                 "DnssdServiceInstance.RegisterDatagramSocketAsync"
+                                                )
 
 proc toString*(self: DnssdServiceInstance): string =
   ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance.ToString
@@ -7211,7 +7234,7 @@ proc outputStream*(self: DatagramSocket): WinRtObject =
     result = it.getObject(get_OutputStream, WinRtObject)
 
 proc connectAsync*(self: DatagramSocket, remoteHostName: HostName,
-                   remoteServiceName: string) {.async.} =
+                   remoteServiceName: string): Future[void] =
   ## Windows.Networking.Sockets.DatagramSocket.ConnectAsync
   var op: pointer
   withIface(self.p, IDatagramSocket, it):
@@ -7219,32 +7242,33 @@ proc connectAsync*(self: DatagramSocket, remoteHostName: HostName,
       withHString(remoteServiceName, h1):
         check it.vtbl.ConnectAsync(it, p0, h1, op.addr
                                   ), "DatagramSocket.ConnectAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "DatagramSocket.ConnectAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "DatagramSocket.ConnectAsync")
 
-proc connectAsync*(self: DatagramSocket, endpointPair: EndpointPair) {.async.} =
+proc connectAsync*(self: DatagramSocket, endpointPair: EndpointPair
+                  ): Future[void] =
   ## Windows.Networking.Sockets.DatagramSocket.ConnectAsync
   var op: pointer
   withIface(self.p, IDatagramSocket, it):
     withIface(endpointPair.p, IEndpointPair, p0):
       check it.vtbl.ConnectAsync2(it, p0, op.addr
                                  ), "DatagramSocket.ConnectAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "DatagramSocket.ConnectAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "DatagramSocket.ConnectAsync")
 
 proc bindServiceNameAsync*(self: DatagramSocket, localServiceName: string
-                          ) {.async.} =
+                          ): Future[void] =
   ## Windows.Networking.Sockets.DatagramSocket.BindServiceNameAsync
   var op: pointer
   withIface(self.p, IDatagramSocket, it):
     withHString(localServiceName, h0):
       check it.vtbl.BindServiceNameAsync(it, h0, op.addr
                                         ), "DatagramSocket.BindServiceNameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "DatagramSocket.BindServiceNameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "DatagramSocket.BindServiceNameAsync")
 
 proc bindEndpointAsync*(self: DatagramSocket, localHostName: HostName,
-                        localServiceName: string) {.async.} =
+                        localServiceName: string): Future[void] =
   ## Windows.Networking.Sockets.DatagramSocket.BindEndpointAsync
   var op: pointer
   withIface(self.p, IDatagramSocket, it):
@@ -7252,8 +7276,8 @@ proc bindEndpointAsync*(self: DatagramSocket, localHostName: HostName,
       withHString(localServiceName, h1):
         check it.vtbl.BindEndpointAsync(it, p0, h1, op.addr
                                        ), "DatagramSocket.BindEndpointAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "DatagramSocket.BindEndpointAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "DatagramSocket.BindEndpointAsync")
 
 proc joinMulticastGroup*(self: DatagramSocket, host: HostName) =
   ## Windows.Networking.Sockets.DatagramSocket.JoinMulticastGroup
@@ -7263,8 +7287,7 @@ proc joinMulticastGroup*(self: DatagramSocket, host: HostName) =
                                       ), "DatagramSocket.JoinMulticastGroup"
 
 proc getOutputStreamAsync*(self: DatagramSocket, remoteHostName: HostName,
-                           remoteServiceName: string
-                          ): Future[WinRtObject] {.async.} =
+                           remoteServiceName: string): Future[WinRtObject] =
   ## Windows.Networking.Sockets.DatagramSocket.GetOutputStreamAsync
   var op: pointer
   withIface(self.p, IDatagramSocket, it):
@@ -7272,23 +7295,23 @@ proc getOutputStreamAsync*(self: DatagramSocket, remoteHostName: HostName,
       withHString(remoteServiceName, h1):
         check it.vtbl.GetOutputStreamAsync(it, p0, h1, op.addr
                                           ), "DatagramSocket.GetOutputStreamAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IOutputStream,
-                              IID_AsyncOperationCompletedHandler_1_IOutputStream,
-                              alPlain, "DatagramSocket.GetOutputStreamAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IOutputStream,
+                                     IID_AsyncOperationCompletedHandler_1_IOutputStream,
+                                     alPlain,
+                                     "DatagramSocket.GetOutputStreamAsync")
 
 proc getOutputStreamAsync*(self: DatagramSocket, endpointPair: EndpointPair
-                          ): Future[WinRtObject] {.async.} =
+                          ): Future[WinRtObject] =
   ## Windows.Networking.Sockets.DatagramSocket.GetOutputStreamAsync
   var op: pointer
   withIface(self.p, IDatagramSocket, it):
     withIface(endpointPair.p, IEndpointPair, p0):
       check it.vtbl.GetOutputStreamAsync2(it, p0, op.addr
                                          ), "DatagramSocket.GetOutputStreamAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IOutputStream,
-                              IID_AsyncOperationCompletedHandler_1_IOutputStream,
-                              alPlain, "DatagramSocket.GetOutputStreamAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IOutputStream,
+                                     IID_AsyncOperationCompletedHandler_1_IOutputStream,
+                                     alPlain,
+                                     "DatagramSocket.GetOutputStreamAsync")
 
 proc onMessageReceived*(self: DatagramSocket,
                         handler: EventHandler[DatagramSocket, DatagramSocketMessageReceivedEventArgs]
@@ -7316,7 +7339,7 @@ proc close*(self: DatagramSocket) =
     check it.vtbl.Close(it), "DatagramSocket.Close"
 
 proc bindServiceNameAsync*(self: DatagramSocket, localServiceName: string,
-                           adapter: NetworkAdapter) {.async.} =
+                           adapter: NetworkAdapter): Future[void] =
   ## Windows.Networking.Sockets.DatagramSocket.BindServiceNameAsync
   var op: pointer
   withIface(self.p, IDatagramSocket2, it):
@@ -7324,16 +7347,16 @@ proc bindServiceNameAsync*(self: DatagramSocket, localServiceName: string,
       withIface(adapter.p, INetworkAdapter, p1):
         check it.vtbl.BindServiceNameAsync(it, h0, p1, op.addr
                                           ), "DatagramSocket.BindServiceNameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "DatagramSocket.BindServiceNameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "DatagramSocket.BindServiceNameAsync")
 
-proc cancelIOAsync*(self: DatagramSocket) {.async.} =
+proc cancelIOAsync*(self: DatagramSocket): Future[void] =
   ## Windows.Networking.Sockets.DatagramSocket.CancelIOAsync
   var op: pointer
   withIface(self.p, IDatagramSocket3, it):
     check it.vtbl.CancelIOAsync(it, op.addr), "DatagramSocket.CancelIOAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "DatagramSocket.CancelIOAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "DatagramSocket.CancelIOAsync")
 
 proc enableTransferOwnership*(self: DatagramSocket, taskId: GUID) =
   ## Windows.Networking.Sockets.DatagramSocket.EnableTransferOwnership
@@ -7376,7 +7399,7 @@ proc transferOwnership*(self: DatagramSocket, socketId: string,
 
 proc getEndpointPairsAsync*(_: typedesc[DatagramSocket],
                             remoteHostName: HostName, remoteServiceName: string
-                           ): Future[seq[EndpointPair]] {.async.} =
+                           ): Future[seq[EndpointPair]] =
   ## Windows.Networking.Sockets.DatagramSocket.GetEndpointPairsAsync
   var op: pointer
   withStatics("Windows.Networking.Sockets.DatagramSocket",
@@ -7385,16 +7408,16 @@ proc getEndpointPairsAsync*(_: typedesc[DatagramSocket],
       withHString(remoteServiceName, h1):
         check it.vtbl.GetEndpointPairsAsync(it, p0, h1, op.addr
                                            ), "DatagramSocket.GetEndpointPairsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_19,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_19,
-                               alPlain, "DatagramSocket.GetEndpointPairsAsync")
-  result = toSeq[EndpointPair](coll, IID_IVectorView_1_EndpointPair)
-  discard release(coll)
+  result = futureSeq[EndpointPair](op, IID_IAsyncOperation_1_IVectorView_19,
+                                   IID_AsyncOperationCompletedHandler_1_IVectorView_19,
+                                   alPlain,
+                                   "DatagramSocket.GetEndpointPairsAsync",
+                                   IID_IVectorView_1_EndpointPair)
 
 proc getEndpointPairsAsync*(_: typedesc[DatagramSocket],
                             remoteHostName: HostName, remoteServiceName: string,
                             sortOptions: HostNameSortOptions
-                           ): Future[seq[EndpointPair]] {.async.} =
+                           ): Future[seq[EndpointPair]] =
   ## Windows.Networking.Sockets.DatagramSocket.GetEndpointPairsAsync
   var op: pointer
   withStatics("Windows.Networking.Sockets.DatagramSocket",
@@ -7403,11 +7426,11 @@ proc getEndpointPairsAsync*(_: typedesc[DatagramSocket],
       withHString(remoteServiceName, h1):
         check it.vtbl.GetEndpointPairsAsync2(it, p0, h1, sortOptions, op.addr
                                             ), "DatagramSocket.GetEndpointPairsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_19,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_19,
-                               alPlain, "DatagramSocket.GetEndpointPairsAsync")
-  result = toSeq[EndpointPair](coll, IID_IVectorView_1_EndpointPair)
-  discard release(coll)
+  result = futureSeq[EndpointPair](op, IID_IAsyncOperation_1_IVectorView_19,
+                                   IID_AsyncOperationCompletedHandler_1_IVectorView_19,
+                                   alPlain,
+                                   "DatagramSocket.GetEndpointPairsAsync",
+                                   IID_IVectorView_1_EndpointPair)
 
 proc qualityOfService*(self: DatagramSocketControl): SocketQualityOfService =
   ## Windows.Networking.Sockets.DatagramSocketControl.get_QualityOfService
@@ -7550,15 +7573,15 @@ proc outputStream*(self: MessageWebSocket): WinRtObject =
   withIface(self.p, IWebSocket, it):
     result = it.getObject(get_OutputStream, WinRtObject)
 
-proc connectAsync*(self: MessageWebSocket, uri: Uri) {.async.} =
+proc connectAsync*(self: MessageWebSocket, uri: Uri): Future[void] =
   ## Windows.Networking.Sockets.MessageWebSocket.ConnectAsync
   var op: pointer
   withIface(self.p, IWebSocket, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.ConnectAsync(it, p0, op.addr
                                 ), "MessageWebSocket.ConnectAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "MessageWebSocket.ConnectAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "MessageWebSocket.ConnectAsync")
 
 proc setRequestHeader*(self: MessageWebSocket, headerName: string,
                        headerValue: string) =
@@ -7619,31 +7642,37 @@ proc removeServerCustomValidationRequested*(self: MessageWebSocket, token: Event
   withIface(self.p, IMessageWebSocket2, it):
     check it.vtbl.remove_ServerCustomValidationRequested(it, token), "MessageWebSocket.remove_ServerCustomValidationRequested"
 
-proc sendNonfinalFrameAsync*(self: MessageWebSocket, data: Buffer
-                            ): Future[uint32] {.async.} =
+proc sendNonfinalFrameAsync*(self: MessageWebSocket, data: Buffer,
+                             progress: ProgressHandler[uint32] = nil
+                            ): Future[uint32] =
   ## Windows.Networking.Sockets.MessageWebSocket.SendNonfinalFrameAsync
   var op: pointer
   withIface(self.p, IMessageWebSocket3, it):
     withIface(data.p, IBuffer, p0):
       check it.vtbl.SendNonfinalFrameAsync(it, p0, op.addr
                                           ), "MessageWebSocket.SendNonfinalFrameAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress,
-                                    "MessageWebSocket.SendNonfinalFrameAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress,
+                               "MessageWebSocket.SendNonfinalFrameAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "MessageWebSocket.SendNonfinalFrameAsync")
 
-proc sendFinalFrameAsync*(self: MessageWebSocket, data: Buffer
-                         ): Future[uint32] {.async.} =
+proc sendFinalFrameAsync*(self: MessageWebSocket, data: Buffer,
+                          progress: ProgressHandler[uint32] = nil
+                         ): Future[uint32] =
   ## Windows.Networking.Sockets.MessageWebSocket.SendFinalFrameAsync
   var op: pointer
   withIface(self.p, IMessageWebSocket3, it):
     withIface(data.p, IBuffer, p0):
       check it.vtbl.SendFinalFrameAsync(it, p0, op.addr
                                        ), "MessageWebSocket.SendFinalFrameAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress,
-                                    "MessageWebSocket.SendFinalFrameAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress,
+                               "MessageWebSocket.SendFinalFrameAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "MessageWebSocket.SendFinalFrameAsync")
 
 proc maxMessageSize*(self: MessageWebSocketControl): uint32 =
   ## Windows.Networking.Sockets.MessageWebSocketControl.get_MaxMessageSize
@@ -8089,17 +8118,18 @@ proc outputStream*(self: StreamSocket): WinRtObject =
   withIface(self.p, IStreamSocket, it):
     result = it.getObject(get_OutputStream, WinRtObject)
 
-proc connectAsync*(self: StreamSocket, endpointPair: EndpointPair) {.async.} =
+proc connectAsync*(self: StreamSocket, endpointPair: EndpointPair
+                  ): Future[void] =
   ## Windows.Networking.Sockets.StreamSocket.ConnectAsync
   var op: pointer
   withIface(self.p, IStreamSocket, it):
     withIface(endpointPair.p, IEndpointPair, p0):
       check it.vtbl.ConnectAsync(it, p0, op.addr), "StreamSocket.ConnectAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StreamSocket.ConnectAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StreamSocket.ConnectAsync")
 
 proc connectAsync*(self: StreamSocket, remoteHostName: HostName,
-                   remoteServiceName: string) {.async.} =
+                   remoteServiceName: string): Future[void] =
   ## Windows.Networking.Sockets.StreamSocket.ConnectAsync
   var op: pointer
   withIface(self.p, IStreamSocket, it):
@@ -8107,23 +8137,23 @@ proc connectAsync*(self: StreamSocket, remoteHostName: HostName,
       withHString(remoteServiceName, h1):
         check it.vtbl.ConnectAsync2(it, p0, h1, op.addr
                                    ), "StreamSocket.ConnectAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StreamSocket.ConnectAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StreamSocket.ConnectAsync")
 
 proc connectAsync*(self: StreamSocket, endpointPair: EndpointPair,
-                   protectionLevel: SocketProtectionLevel) {.async.} =
+                   protectionLevel: SocketProtectionLevel): Future[void] =
   ## Windows.Networking.Sockets.StreamSocket.ConnectAsync
   var op: pointer
   withIface(self.p, IStreamSocket, it):
     withIface(endpointPair.p, IEndpointPair, p0):
       check it.vtbl.ConnectAsync3(it, p0, protectionLevel, op.addr
                                  ), "StreamSocket.ConnectAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StreamSocket.ConnectAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StreamSocket.ConnectAsync")
 
 proc connectAsync*(self: StreamSocket, remoteHostName: HostName,
                    remoteServiceName: string,
-                   protectionLevel: SocketProtectionLevel) {.async.} =
+                   protectionLevel: SocketProtectionLevel): Future[void] =
   ## Windows.Networking.Sockets.StreamSocket.ConnectAsync
   var op: pointer
   withIface(self.p, IStreamSocket, it):
@@ -8131,20 +8161,20 @@ proc connectAsync*(self: StreamSocket, remoteHostName: HostName,
       withHString(remoteServiceName, h1):
         check it.vtbl.ConnectAsync4(it, p0, h1, protectionLevel, op.addr
                                    ), "StreamSocket.ConnectAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StreamSocket.ConnectAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StreamSocket.ConnectAsync")
 
 proc upgradeToSslAsync*(self: StreamSocket,
                         protectionLevel: SocketProtectionLevel,
-                        validationHostName: HostName) {.async.} =
+                        validationHostName: HostName): Future[void] =
   ## Windows.Networking.Sockets.StreamSocket.UpgradeToSslAsync
   var op: pointer
   withIface(self.p, IStreamSocket, it):
     withIface(validationHostName.p, IHostName, p1):
       check it.vtbl.UpgradeToSslAsync(it, protectionLevel, p1, op.addr
                                      ), "StreamSocket.UpgradeToSslAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StreamSocket.UpgradeToSslAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StreamSocket.UpgradeToSslAsync")
 
 proc close*(self: StreamSocket) =
   ## Windows.Networking.Sockets.StreamSocket.Close
@@ -8154,7 +8184,7 @@ proc close*(self: StreamSocket) =
 proc connectAsync*(self: StreamSocket, remoteHostName: HostName,
                    remoteServiceName: string,
                    protectionLevel: SocketProtectionLevel,
-                   adapter: NetworkAdapter) {.async.} =
+                   adapter: NetworkAdapter): Future[void] =
   ## Windows.Networking.Sockets.StreamSocket.ConnectAsync
   var op: pointer
   withIface(self.p, IStreamSocket2, it):
@@ -8163,16 +8193,16 @@ proc connectAsync*(self: StreamSocket, remoteHostName: HostName,
         withIface(adapter.p, INetworkAdapter, p3):
           check it.vtbl.ConnectAsync(it, p0, h1, protectionLevel, p3, op.addr
                                     ), "StreamSocket.ConnectAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StreamSocket.ConnectAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StreamSocket.ConnectAsync")
 
-proc cancelIOAsync*(self: StreamSocket) {.async.} =
+proc cancelIOAsync*(self: StreamSocket): Future[void] =
   ## Windows.Networking.Sockets.StreamSocket.CancelIOAsync
   var op: pointer
   withIface(self.p, IStreamSocket3, it):
     check it.vtbl.CancelIOAsync(it, op.addr), "StreamSocket.CancelIOAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StreamSocket.CancelIOAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StreamSocket.CancelIOAsync")
 
 proc enableTransferOwnership*(self: StreamSocket, taskId: GUID) =
   ## Windows.Networking.Sockets.StreamSocket.EnableTransferOwnership
@@ -8214,7 +8244,7 @@ proc transferOwnership*(self: StreamSocket, socketId: string,
 
 proc getEndpointPairsAsync*(_: typedesc[StreamSocket], remoteHostName: HostName,
                             remoteServiceName: string
-                           ): Future[seq[EndpointPair]] {.async.} =
+                           ): Future[seq[EndpointPair]] =
   ## Windows.Networking.Sockets.StreamSocket.GetEndpointPairsAsync
   var op: pointer
   withStatics("Windows.Networking.Sockets.StreamSocket", IStreamSocketStatics,
@@ -8223,16 +8253,16 @@ proc getEndpointPairsAsync*(_: typedesc[StreamSocket], remoteHostName: HostName,
       withHString(remoteServiceName, h1):
         check it.vtbl.GetEndpointPairsAsync(it, p0, h1, op.addr
                                            ), "StreamSocket.GetEndpointPairsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_19,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_19,
-                               alPlain, "StreamSocket.GetEndpointPairsAsync")
-  result = toSeq[EndpointPair](coll, IID_IVectorView_1_EndpointPair)
-  discard release(coll)
+  result = futureSeq[EndpointPair](op, IID_IAsyncOperation_1_IVectorView_19,
+                                   IID_AsyncOperationCompletedHandler_1_IVectorView_19,
+                                   alPlain,
+                                   "StreamSocket.GetEndpointPairsAsync",
+                                   IID_IVectorView_1_EndpointPair)
 
 proc getEndpointPairsAsync*(_: typedesc[StreamSocket], remoteHostName: HostName,
                             remoteServiceName: string,
                             sortOptions: HostNameSortOptions
-                           ): Future[seq[EndpointPair]] {.async.} =
+                           ): Future[seq[EndpointPair]] =
   ## Windows.Networking.Sockets.StreamSocket.GetEndpointPairsAsync
   var op: pointer
   withStatics("Windows.Networking.Sockets.StreamSocket", IStreamSocketStatics,
@@ -8241,11 +8271,11 @@ proc getEndpointPairsAsync*(_: typedesc[StreamSocket], remoteHostName: HostName,
       withHString(remoteServiceName, h1):
         check it.vtbl.GetEndpointPairsAsync2(it, p0, h1, sortOptions, op.addr
                                             ), "StreamSocket.GetEndpointPairsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_19,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_19,
-                               alPlain, "StreamSocket.GetEndpointPairsAsync")
-  result = toSeq[EndpointPair](coll, IID_IVectorView_1_EndpointPair)
-  discard release(coll)
+  result = futureSeq[EndpointPair](op, IID_IAsyncOperation_1_IVectorView_19,
+                                   IID_AsyncOperationCompletedHandler_1_IVectorView_19,
+                                   alPlain,
+                                   "StreamSocket.GetEndpointPairsAsync",
+                                   IID_IVectorView_1_EndpointPair)
 
 proc noDelay*(self: StreamSocketControl): bool =
   ## Windows.Networking.Sockets.StreamSocketControl.get_NoDelay
@@ -8436,18 +8466,18 @@ proc information*(self: StreamSocketListener): StreamSocketListenerInformation =
     result = it.getObject(get_Information, StreamSocketListenerInformation)
 
 proc bindServiceNameAsync*(self: StreamSocketListener, localServiceName: string
-                          ) {.async.} =
+                          ): Future[void] =
   ## Windows.Networking.Sockets.StreamSocketListener.BindServiceNameAsync
   var op: pointer
   withIface(self.p, IStreamSocketListener, it):
     withHString(localServiceName, h0):
       check it.vtbl.BindServiceNameAsync(it, h0, op.addr
                                         ), "StreamSocketListener.BindServiceNameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StreamSocketListener.BindServiceNameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StreamSocketListener.BindServiceNameAsync")
 
 proc bindEndpointAsync*(self: StreamSocketListener, localHostName: HostName,
-                        localServiceName: string) {.async.} =
+                        localServiceName: string): Future[void] =
   ## Windows.Networking.Sockets.StreamSocketListener.BindEndpointAsync
   var op: pointer
   withIface(self.p, IStreamSocketListener, it):
@@ -8455,8 +8485,8 @@ proc bindEndpointAsync*(self: StreamSocketListener, localHostName: HostName,
       withHString(localServiceName, h1):
         check it.vtbl.BindEndpointAsync(it, p0, h1, op.addr
                                        ), "StreamSocketListener.BindEndpointAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StreamSocketListener.BindEndpointAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StreamSocketListener.BindEndpointAsync")
 
 proc onConnectionReceived*(self: StreamSocketListener,
                            handler: EventHandler[StreamSocketListener, StreamSocketListenerConnectionReceivedEventArgs]
@@ -8484,19 +8514,20 @@ proc close*(self: StreamSocketListener) =
     check it.vtbl.Close(it), "StreamSocketListener.Close"
 
 proc bindServiceNameAsync*(self: StreamSocketListener, localServiceName: string,
-                           protectionLevel: SocketProtectionLevel) {.async.} =
+                           protectionLevel: SocketProtectionLevel
+                          ): Future[void] =
   ## Windows.Networking.Sockets.StreamSocketListener.BindServiceNameAsync
   var op: pointer
   withIface(self.p, IStreamSocketListener2, it):
     withHString(localServiceName, h0):
       check it.vtbl.BindServiceNameAsync(it, h0, protectionLevel, op.addr
                                         ), "StreamSocketListener.BindServiceNameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StreamSocketListener.BindServiceNameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StreamSocketListener.BindServiceNameAsync")
 
 proc bindServiceNameAsync*(self: StreamSocketListener, localServiceName: string,
                            protectionLevel: SocketProtectionLevel,
-                           adapter: NetworkAdapter) {.async.} =
+                           adapter: NetworkAdapter): Future[void] =
   ## Windows.Networking.Sockets.StreamSocketListener.BindServiceNameAsync
   var op: pointer
   withIface(self.p, IStreamSocketListener2, it):
@@ -8504,17 +8535,17 @@ proc bindServiceNameAsync*(self: StreamSocketListener, localServiceName: string,
       withIface(adapter.p, INetworkAdapter, p2):
         check it.vtbl.BindServiceNameAsync2(it, h0, protectionLevel, p2, op.addr
                                            ), "StreamSocketListener.BindServiceNameAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StreamSocketListener.BindServiceNameAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StreamSocketListener.BindServiceNameAsync")
 
-proc cancelIOAsync*(self: StreamSocketListener) {.async.} =
+proc cancelIOAsync*(self: StreamSocketListener): Future[void] =
   ## Windows.Networking.Sockets.StreamSocketListener.CancelIOAsync
   var op: pointer
   withIface(self.p, IStreamSocketListener3, it):
     check it.vtbl.CancelIOAsync(it, op.addr
                                ), "StreamSocketListener.CancelIOAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StreamSocketListener.CancelIOAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StreamSocketListener.CancelIOAsync")
 
 proc enableTransferOwnership*(self: StreamSocketListener, taskId: GUID) =
   ## Windows.Networking.Sockets.StreamSocketListener.EnableTransferOwnership
@@ -8633,15 +8664,15 @@ proc outputStream*(self: StreamWebSocket): WinRtObject =
   withIface(self.p, IWebSocket, it):
     result = it.getObject(get_OutputStream, WinRtObject)
 
-proc connectAsync*(self: StreamWebSocket, uri: Uri) {.async.} =
+proc connectAsync*(self: StreamWebSocket, uri: Uri): Future[void] =
   ## Windows.Networking.Sockets.StreamWebSocket.ConnectAsync
   var op: pointer
   withIface(self.p, IWebSocket, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.ConnectAsync(it, p0, op.addr
                                 ), "StreamWebSocket.ConnectAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "StreamWebSocket.ConnectAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "StreamWebSocket.ConnectAsync")
 
 proc setRequestHeader*(self: StreamWebSocket, headerName: string,
                        headerValue: string) =
@@ -9172,7 +9203,7 @@ proc getVpnReceivePacketBuffer*(self: VpnChannel): VpnPacketBuffer =
 
 proc requestCustomPromptAsync*(self: VpnChannel,
                                customPromptElement: seq[WinRtObject]
-                              ) {.async.} =
+                              ): Future[void] =
   ## Windows.Networking.Vpn.VpnChannel.RequestCustomPromptAsync
   var op: pointer
   withIface(self.p, IVpnChannel2, it):
@@ -9183,12 +9214,12 @@ proc requestCustomPromptAsync*(self: VpnChannel,
     defer: discard release(p0)
     check it.vtbl.RequestCustomPromptAsync(it, p0, op.addr
                                           ), "VpnChannel.RequestCustomPromptAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "VpnChannel.RequestCustomPromptAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "VpnChannel.RequestCustomPromptAsync")
 
 proc requestCredentialsAsync*(self: VpnChannel, credType: VpnCredentialType,
                               credOptions: uint32, certificate: Certificate
-                             ): Future[VpnCredential] {.async.} =
+                             ): Future[VpnCredential] =
   ## Windows.Networking.Vpn.VpnChannel.RequestCredentialsAsync
   var op: pointer
   withIface(self.p, IVpnChannel2, it):
@@ -9196,35 +9227,34 @@ proc requestCredentialsAsync*(self: VpnChannel, credType: VpnCredentialType,
       check it.vtbl.RequestCredentialsAsync(it, credType, credOptions, p2,
                                             op.addr
                                            ), "VpnChannel.RequestCredentialsAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_VpnCredential,
-                              IID_AsyncOperationCompletedHandler_1_VpnCredential,
-                              alPlain, "VpnChannel.RequestCredentialsAsync")
-  result = adopt[VpnCredential](obj)
+  result = futureObject[VpnCredential](op, IID_IAsyncOperation_1_VpnCredential,
+                                       IID_AsyncOperationCompletedHandler_1_VpnCredential,
+                                       alPlain,
+                                       "VpnChannel.RequestCredentialsAsync")
 
 proc requestCredentialsAsync*(self: VpnChannel, credType: VpnCredentialType,
-                              credOptions: uint32
-                             ): Future[VpnCredential] {.async.} =
+                              credOptions: uint32): Future[VpnCredential] =
   ## Windows.Networking.Vpn.VpnChannel.RequestCredentialsAsync
   var op: pointer
   withIface(self.p, IVpnChannel2, it):
     check it.vtbl.RequestCredentialsAsync2(it, credType, credOptions, op.addr
                                           ), "VpnChannel.RequestCredentialsAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_VpnCredential,
-                              IID_AsyncOperationCompletedHandler_1_VpnCredential,
-                              alPlain, "VpnChannel.RequestCredentialsAsync")
-  result = adopt[VpnCredential](obj)
+  result = futureObject[VpnCredential](op, IID_IAsyncOperation_1_VpnCredential,
+                                       IID_AsyncOperationCompletedHandler_1_VpnCredential,
+                                       alPlain,
+                                       "VpnChannel.RequestCredentialsAsync")
 
 proc requestCredentialsAsync*(self: VpnChannel, credType: VpnCredentialType
-                             ): Future[VpnCredential] {.async.} =
+                             ): Future[VpnCredential] =
   ## Windows.Networking.Vpn.VpnChannel.RequestCredentialsAsync
   var op: pointer
   withIface(self.p, IVpnChannel2, it):
     check it.vtbl.RequestCredentialsAsync3(it, credType, op.addr
                                           ), "VpnChannel.RequestCredentialsAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_VpnCredential,
-                              IID_AsyncOperationCompletedHandler_1_VpnCredential,
-                              alPlain, "VpnChannel.RequestCredentialsAsync")
-  result = adopt[VpnCredential](obj)
+  result = futureObject[VpnCredential](op, IID_IAsyncOperation_1_VpnCredential,
+                                       IID_AsyncOperationCompletedHandler_1_VpnCredential,
+                                       alPlain,
+                                       "VpnChannel.RequestCredentialsAsync")
 
 proc terminateConnection*(self: VpnChannel, message: string) =
   ## Windows.Networking.Vpn.VpnChannel.TerminateConnection
@@ -10047,112 +10077,112 @@ proc newVpnManagementAgent*(): VpnManagementAgent =
   adopt[VpnManagementAgent](activateAs("Windows.Networking.Vpn.VpnManagementAgent", IID_IVpnManagementAgent))
 
 proc addProfileFromXmlAsync*(self: VpnManagementAgent, xml: string
-                            ): Future[VpnManagementErrorStatus] {.async.} =
+                            ): Future[VpnManagementErrorStatus] =
   ## Windows.Networking.Vpn.VpnManagementAgent.AddProfileFromXmlAsync
   var op: pointer
   withIface(self.p, IVpnManagementAgent, it):
     withHString(xml, h0):
       check it.vtbl.AddProfileFromXmlAsync(it, h0, op.addr
                                           ), "VpnManagementAgent.AddProfileFromXmlAsync"
-  result = await awaitValue[VpnManagementErrorStatus](op,
-                                                      IID_IAsyncOperation_1_VpnManagementErrorStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
-                                                      alPlain,
-                                                      "VpnManagementAgent.AddProfileFromXmlAsync"
-                                                     )
+  result = futureValue[VpnManagementErrorStatus](op,
+                                                 IID_IAsyncOperation_1_VpnManagementErrorStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
+                                                 alPlain,
+                                                 "VpnManagementAgent.AddProfileFromXmlAsync"
+                                                )
 
 proc addProfileFromObjectAsync*(self: VpnManagementAgent, profile: WinRtObject
-                               ): Future[VpnManagementErrorStatus] {.async.} =
+                               ): Future[VpnManagementErrorStatus] =
   ## Windows.Networking.Vpn.VpnManagementAgent.AddProfileFromObjectAsync
   var op: pointer
   withIface(self.p, IVpnManagementAgent, it):
     withIface(profile.p, IVpnProfile, p0):
       check it.vtbl.AddProfileFromObjectAsync(it, p0, op.addr
                                              ), "VpnManagementAgent.AddProfileFromObjectAsync"
-  result = await awaitValue[VpnManagementErrorStatus](op,
-                                                      IID_IAsyncOperation_1_VpnManagementErrorStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
-                                                      alPlain,
-                                                      "VpnManagementAgent.AddProfileFromObjectAsync"
-                                                     )
+  result = futureValue[VpnManagementErrorStatus](op,
+                                                 IID_IAsyncOperation_1_VpnManagementErrorStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
+                                                 alPlain,
+                                                 "VpnManagementAgent.AddProfileFromObjectAsync"
+                                                )
 
 proc updateProfileFromXmlAsync*(self: VpnManagementAgent, xml: string
-                               ): Future[VpnManagementErrorStatus] {.async.} =
+                               ): Future[VpnManagementErrorStatus] =
   ## Windows.Networking.Vpn.VpnManagementAgent.UpdateProfileFromXmlAsync
   var op: pointer
   withIface(self.p, IVpnManagementAgent, it):
     withHString(xml, h0):
       check it.vtbl.UpdateProfileFromXmlAsync(it, h0, op.addr
                                              ), "VpnManagementAgent.UpdateProfileFromXmlAsync"
-  result = await awaitValue[VpnManagementErrorStatus](op,
-                                                      IID_IAsyncOperation_1_VpnManagementErrorStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
-                                                      alPlain,
-                                                      "VpnManagementAgent.UpdateProfileFromXmlAsync"
-                                                     )
+  result = futureValue[VpnManagementErrorStatus](op,
+                                                 IID_IAsyncOperation_1_VpnManagementErrorStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
+                                                 alPlain,
+                                                 "VpnManagementAgent.UpdateProfileFromXmlAsync"
+                                                )
 
 proc updateProfileFromObjectAsync*(self: VpnManagementAgent,
                                    profile: WinRtObject
-                                  ): Future[VpnManagementErrorStatus] {.async.} =
+                                  ): Future[VpnManagementErrorStatus] =
   ## Windows.Networking.Vpn.VpnManagementAgent.UpdateProfileFromObjectAsync
   var op: pointer
   withIface(self.p, IVpnManagementAgent, it):
     withIface(profile.p, IVpnProfile, p0):
       check it.vtbl.UpdateProfileFromObjectAsync(it, p0, op.addr
                                                 ), "VpnManagementAgent.UpdateProfileFromObjectAsync"
-  result = await awaitValue[VpnManagementErrorStatus](op,
-                                                      IID_IAsyncOperation_1_VpnManagementErrorStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
-                                                      alPlain,
-                                                      "VpnManagementAgent.UpdateProfileFromObjectAsync"
-                                                     )
+  result = futureValue[VpnManagementErrorStatus](op,
+                                                 IID_IAsyncOperation_1_VpnManagementErrorStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
+                                                 alPlain,
+                                                 "VpnManagementAgent.UpdateProfileFromObjectAsync"
+                                                )
 
-proc getProfilesAsync*(self: VpnManagementAgent): Future[seq[WinRtObject]] {.async.} =
+proc getProfilesAsync*(self: VpnManagementAgent): Future[seq[WinRtObject]] =
   ## Windows.Networking.Vpn.VpnManagementAgent.GetProfilesAsync
   var op: pointer
   withIface(self.p, IVpnManagementAgent, it):
     check it.vtbl.GetProfilesAsync(it, op.addr
                                   ), "VpnManagementAgent.GetProfilesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_110,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_110,
-                               alPlain, "VpnManagementAgent.GetProfilesAsync")
-  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IVpnProfile)
-  discard release(coll)
+  result = futureSeq[WinRtObject](op, IID_IAsyncOperation_1_IVectorView_110,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_110,
+                                  alPlain,
+                                  "VpnManagementAgent.GetProfilesAsync",
+                                  IID_IVectorView_1_IVpnProfile)
 
 proc deleteProfileAsync*(self: VpnManagementAgent, profile: WinRtObject
-                        ): Future[VpnManagementErrorStatus] {.async.} =
+                        ): Future[VpnManagementErrorStatus] =
   ## Windows.Networking.Vpn.VpnManagementAgent.DeleteProfileAsync
   var op: pointer
   withIface(self.p, IVpnManagementAgent, it):
     withIface(profile.p, IVpnProfile, p0):
       check it.vtbl.DeleteProfileAsync(it, p0, op.addr
                                       ), "VpnManagementAgent.DeleteProfileAsync"
-  result = await awaitValue[VpnManagementErrorStatus](op,
-                                                      IID_IAsyncOperation_1_VpnManagementErrorStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
-                                                      alPlain,
-                                                      "VpnManagementAgent.DeleteProfileAsync"
-                                                     )
+  result = futureValue[VpnManagementErrorStatus](op,
+                                                 IID_IAsyncOperation_1_VpnManagementErrorStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
+                                                 alPlain,
+                                                 "VpnManagementAgent.DeleteProfileAsync"
+                                                )
 
 proc connectProfileAsync*(self: VpnManagementAgent, profile: WinRtObject
-                         ): Future[VpnManagementErrorStatus] {.async.} =
+                         ): Future[VpnManagementErrorStatus] =
   ## Windows.Networking.Vpn.VpnManagementAgent.ConnectProfileAsync
   var op: pointer
   withIface(self.p, IVpnManagementAgent, it):
     withIface(profile.p, IVpnProfile, p0):
       check it.vtbl.ConnectProfileAsync(it, p0, op.addr
                                        ), "VpnManagementAgent.ConnectProfileAsync"
-  result = await awaitValue[VpnManagementErrorStatus](op,
-                                                      IID_IAsyncOperation_1_VpnManagementErrorStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
-                                                      alPlain,
-                                                      "VpnManagementAgent.ConnectProfileAsync"
-                                                     )
+  result = futureValue[VpnManagementErrorStatus](op,
+                                                 IID_IAsyncOperation_1_VpnManagementErrorStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
+                                                 alPlain,
+                                                 "VpnManagementAgent.ConnectProfileAsync"
+                                                )
 
 proc connectProfileWithPasswordCredentialAsync*(self: VpnManagementAgent,
                                                 profile: WinRtObject,
                                                 passwordCredential: PasswordCredential
-                                               ): Future[VpnManagementErrorStatus] {.async.} =
+                                               ): Future[VpnManagementErrorStatus] =
   ## Windows.Networking.Vpn.VpnManagementAgent.ConnectProfileWithPasswordCredentialAsync
   var op: pointer
   withIface(self.p, IVpnManagementAgent, it):
@@ -10161,27 +10191,27 @@ proc connectProfileWithPasswordCredentialAsync*(self: VpnManagementAgent,
         check it.vtbl.ConnectProfileWithPasswordCredentialAsync(it, p0, p1,
                                                                 op.addr
                                                                ), "VpnManagementAgent.ConnectProfileWithPasswordCredentialAsync"
-  result = await awaitValue[VpnManagementErrorStatus](op,
-                                                      IID_IAsyncOperation_1_VpnManagementErrorStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
-                                                      alPlain,
-                                                      "VpnManagementAgent.ConnectProfileWithPasswordCredentialAsync"
-                                                     )
+  result = futureValue[VpnManagementErrorStatus](op,
+                                                 IID_IAsyncOperation_1_VpnManagementErrorStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
+                                                 alPlain,
+                                                 "VpnManagementAgent.ConnectProfileWithPasswordCredentialAsync"
+                                                )
 
 proc disconnectProfileAsync*(self: VpnManagementAgent, profile: WinRtObject
-                            ): Future[VpnManagementErrorStatus] {.async.} =
+                            ): Future[VpnManagementErrorStatus] =
   ## Windows.Networking.Vpn.VpnManagementAgent.DisconnectProfileAsync
   var op: pointer
   withIface(self.p, IVpnManagementAgent, it):
     withIface(profile.p, IVpnProfile, p0):
       check it.vtbl.DisconnectProfileAsync(it, p0, op.addr
                                           ), "VpnManagementAgent.DisconnectProfileAsync"
-  result = await awaitValue[VpnManagementErrorStatus](op,
-                                                      IID_IAsyncOperation_1_VpnManagementErrorStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
-                                                      alPlain,
-                                                      "VpnManagementAgent.DisconnectProfileAsync"
-                                                     )
+  result = futureValue[VpnManagementErrorStatus](op,
+                                                 IID_IAsyncOperation_1_VpnManagementErrorStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus,
+                                                 alPlain,
+                                                 "VpnManagementAgent.DisconnectProfileAsync"
+                                                )
 
 proc newVpnNamespaceAssignment*(): VpnNamespaceAssignment =
   ## Activate a `Windows.Networking.Vpn.VpnNamespaceAssignment`.
@@ -11052,13 +11082,13 @@ proc removeStateChanged*(self: XboxLiveEndpointPair, token: EventRegistrationTok
   withIface(self.p, IXboxLiveEndpointPair, it):
     check it.vtbl.remove_StateChanged(it, token), "XboxLiveEndpointPair.remove_StateChanged"
 
-proc deleteAsync*(self: XboxLiveEndpointPair) {.async.} =
+proc deleteAsync*(self: XboxLiveEndpointPair): Future[void] =
   ## Windows.Networking.XboxLive.XboxLiveEndpointPair.DeleteAsync
   var op: pointer
   withIface(self.p, IXboxLiveEndpointPair, it):
     check it.vtbl.DeleteAsync(it, op.addr), "XboxLiveEndpointPair.DeleteAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "XboxLiveEndpointPair.DeleteAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "XboxLiveEndpointPair.DeleteAsync")
 
 proc getRemoteSocketAddressBytes*(self: XboxLiveEndpointPair,
                                   socketAddress: openArray[uint8]) =
@@ -11201,44 +11231,42 @@ proc removeInboundEndpointPairCreated*(self: XboxLiveEndpointPairTemplate, token
 
 proc createEndpointPairAsync*(self: XboxLiveEndpointPairTemplate,
                               deviceAddress: XboxLiveDeviceAddress
-                             ): Future[XboxLiveEndpointPairCreationResult] {.async.} =
+                             ): Future[XboxLiveEndpointPairCreationResult] =
   ## Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate.CreateEndpointPairAsync
   var op: pointer
   withIface(self.p, IXboxLiveEndpointPairTemplate, it):
     withIface(deviceAddress.p, IXboxLiveDeviceAddress, p0):
       check it.vtbl.CreateEndpointPairAsync(it, p0, op.addr
                                            ), "XboxLiveEndpointPairTemplate.CreateEndpointPairAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_XboxLiveEndpointPairCreationResult,
-                              IID_AsyncOperationCompletedHandler_1_XboxLiveEndpointPairCreationResult,
-                              alPlain,
-                              "XboxLiveEndpointPairTemplate.CreateEndpointPairAsync"
-                             )
-  result = adopt[XboxLiveEndpointPairCreationResult](obj)
+  result = futureObject[XboxLiveEndpointPairCreationResult](op,
+                                                            IID_IAsyncOperation_1_XboxLiveEndpointPairCreationResult,
+                                                            IID_AsyncOperationCompletedHandler_1_XboxLiveEndpointPairCreationResult,
+                                                            alPlain,
+                                                            "XboxLiveEndpointPairTemplate.CreateEndpointPairAsync"
+                                                           )
 
 proc createEndpointPairAsync*(self: XboxLiveEndpointPairTemplate,
                               deviceAddress: XboxLiveDeviceAddress,
                               behaviors: XboxLiveEndpointPairCreationBehaviors
-                             ): Future[XboxLiveEndpointPairCreationResult] {.async.} =
+                             ): Future[XboxLiveEndpointPairCreationResult] =
   ## Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate.CreateEndpointPairAsync
   var op: pointer
   withIface(self.p, IXboxLiveEndpointPairTemplate, it):
     withIface(deviceAddress.p, IXboxLiveDeviceAddress, p0):
       check it.vtbl.CreateEndpointPairAsync2(it, p0, behaviors, op.addr
                                             ), "XboxLiveEndpointPairTemplate.CreateEndpointPairAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_XboxLiveEndpointPairCreationResult,
-                              IID_AsyncOperationCompletedHandler_1_XboxLiveEndpointPairCreationResult,
-                              alPlain,
-                              "XboxLiveEndpointPairTemplate.CreateEndpointPairAsync"
-                             )
-  result = adopt[XboxLiveEndpointPairCreationResult](obj)
+  result = futureObject[XboxLiveEndpointPairCreationResult](op,
+                                                            IID_IAsyncOperation_1_XboxLiveEndpointPairCreationResult,
+                                                            IID_AsyncOperationCompletedHandler_1_XboxLiveEndpointPairCreationResult,
+                                                            alPlain,
+                                                            "XboxLiveEndpointPairTemplate.CreateEndpointPairAsync"
+                                                           )
 
 proc createEndpointPairForPortsAsync*(self: XboxLiveEndpointPairTemplate,
                                       deviceAddress: XboxLiveDeviceAddress,
                                       initiatorPort: string,
                                       acceptorPort: string
-                                     ): Future[XboxLiveEndpointPairCreationResult] {.async.} =
+                                     ): Future[XboxLiveEndpointPairCreationResult] =
   ## Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate.CreateEndpointPairForPortsAsync
   var op: pointer
   withIface(self.p, IXboxLiveEndpointPairTemplate, it):
@@ -11247,20 +11275,19 @@ proc createEndpointPairForPortsAsync*(self: XboxLiveEndpointPairTemplate,
         withHString(acceptorPort, h2):
           check it.vtbl.CreateEndpointPairForPortsAsync(it, p0, h1, h2, op.addr
                                                        ), "XboxLiveEndpointPairTemplate.CreateEndpointPairForPortsAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_XboxLiveEndpointPairCreationResult,
-                              IID_AsyncOperationCompletedHandler_1_XboxLiveEndpointPairCreationResult,
-                              alPlain,
-                              "XboxLiveEndpointPairTemplate.CreateEndpointPairForPortsAsync"
-                             )
-  result = adopt[XboxLiveEndpointPairCreationResult](obj)
+  result = futureObject[XboxLiveEndpointPairCreationResult](op,
+                                                            IID_IAsyncOperation_1_XboxLiveEndpointPairCreationResult,
+                                                            IID_AsyncOperationCompletedHandler_1_XboxLiveEndpointPairCreationResult,
+                                                            alPlain,
+                                                            "XboxLiveEndpointPairTemplate.CreateEndpointPairForPortsAsync"
+                                                           )
 
 proc createEndpointPairForPortsAsync*(self: XboxLiveEndpointPairTemplate,
                                       deviceAddress: XboxLiveDeviceAddress,
                                       initiatorPort: string,
                                       acceptorPort: string,
                                       behaviors: XboxLiveEndpointPairCreationBehaviors
-                                     ): Future[XboxLiveEndpointPairCreationResult] {.async.} =
+                                     ): Future[XboxLiveEndpointPairCreationResult] =
   ## Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate.CreateEndpointPairForPortsAsync
   var op: pointer
   withIface(self.p, IXboxLiveEndpointPairTemplate, it):
@@ -11270,13 +11297,12 @@ proc createEndpointPairForPortsAsync*(self: XboxLiveEndpointPairTemplate,
           check it.vtbl.CreateEndpointPairForPortsAsync2(it, p0, h1, h2,
                                                          behaviors, op.addr
                                                         ), "XboxLiveEndpointPairTemplate.CreateEndpointPairForPortsAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_XboxLiveEndpointPairCreationResult,
-                              IID_AsyncOperationCompletedHandler_1_XboxLiveEndpointPairCreationResult,
-                              alPlain,
-                              "XboxLiveEndpointPairTemplate.CreateEndpointPairForPortsAsync"
-                             )
-  result = adopt[XboxLiveEndpointPairCreationResult](obj)
+  result = futureObject[XboxLiveEndpointPairCreationResult](op,
+                                                            IID_IAsyncOperation_1_XboxLiveEndpointPairCreationResult,
+                                                            IID_AsyncOperationCompletedHandler_1_XboxLiveEndpointPairCreationResult,
+                                                            alPlain,
+                                                            "XboxLiveEndpointPairTemplate.CreateEndpointPairForPortsAsync"
+                                                           )
 
 proc name*(self: XboxLiveEndpointPairTemplate): string =
   ## Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate.get_Name
@@ -11350,14 +11376,14 @@ proc newXboxLiveQualityOfServiceMeasurement*(): XboxLiveQualityOfServiceMeasurem
   ## Activate a `Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement`.
   adopt[XboxLiveQualityOfServiceMeasurement](activateAs("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement", IID_IXboxLiveQualityOfServiceMeasurement))
 
-proc measureAsync*(self: XboxLiveQualityOfServiceMeasurement) {.async.} =
+proc measureAsync*(self: XboxLiveQualityOfServiceMeasurement): Future[void] =
   ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.MeasureAsync
   var op: pointer
   withIface(self.p, IXboxLiveQualityOfServiceMeasurement, it):
     check it.vtbl.MeasureAsync(it, op.addr
                               ), "XboxLiveQualityOfServiceMeasurement.MeasureAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "XboxLiveQualityOfServiceMeasurement.MeasureAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "XboxLiveQualityOfServiceMeasurement.MeasureAsync")
 
 proc getMetricResultsForDevice*(self: XboxLiveQualityOfServiceMeasurement,
                                 deviceAddress: XboxLiveDeviceAddress

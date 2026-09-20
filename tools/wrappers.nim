@@ -181,8 +181,8 @@ func asyncResult(c: Ctx, t: SigType): tuple[isAsync: bool, res: SigType] =
   ## Whether `t` is an async operation, and what it eventually produces.
   ##
   ## An action produces nothing; an operation's first type argument is the
-  ## result, and a `WithProgress` variant's second is progress reporting this
-  ## does not surface.
+  ## result, and a `WithProgress` variant's second is what it reports along
+  ## the way.
   if t.kind == skInterface and t.name in AsyncActions:
     (true, SigType(kind: skVoid))
   elif t.kind == skUnsupported and t.name in AsyncActions:
@@ -416,10 +416,6 @@ func asyncSpelling(c: Ctx, res: SigType): string =
   ## What an async operation's result becomes in Nim. "void" is a real answer
   ## here — an action completes without producing anything — and "" means the
   ## result is a shape this cannot carry.
-  ## Only the shapes `core` can fetch a result for: nothing, a string, or an
-  ## object. A primitive result needs its own `GetResults` signature per width
-  ## and a nested collection needs the walk as well, so both stay skipped and
-  ## counted rather than half-supported.
   if res.kind == skVoid: return "void"
   # A collection, a map or a reference result is read after the wait, so it
   # reads as it would from any getter.
@@ -1617,7 +1613,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             "Windows.Foundation.IAsyncActionWithProgress`1",
             "Windows.Foundation.IAsyncOperationWithProgress`2"]
           let layout = if withProgress: "alProgress" else: "alPlain"
-          var opIid, handlerIid = ""
+          var opIid, handlerIid, progressIid = ""
           if asyncVoid and not withProgress:
             # A plain action's handler is not parameterised, so its IID is
             # declared in the metadata like any other delegate's.
@@ -1645,18 +1641,35 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               continue
             handlerIid = genericIidConst(hc, hs)
             opIid = genericIidConst(computed, sig.returns)
+          if withProgress:
+            # Progress arrives through a second parameterised delegate, whose
+            # last type argument is the progress value; the wrapper takes a
+            # closure for it as its last parameter.
+            let ps = SigType(kind: skUnsupported, args: sig.returns.args,
+              name: if asyncVoid: "Windows.Foundation.AsyncActionProgressHandler`1"
+                    else: "Windows.Foundation.AsyncOperationProgressHandler`2")
+            let pc = sigCtx.parameterizedIid(ps)
+            let pt = c.nimTypeOf(sig.returns.args[^1])
+            if pc.len > 0 and pt.len > 0:
+              progressIid = genericIidConst(pc, ps)
+              params.add &"progress: ProgressHandler[{pt}] = nil"
+            else:
+              skipReasons.inc "progress reporting for a value without a spelling"
           usesAsync = true
           lines.add fill(&"{indent}check it.vtbl.{field}(", callArgs & "op.addr",
                          &"), \"{what}\"")
           # Back out to the proc body, past every scope the arguments opened.
+          # Each `future*` in `asyncops` takes the operation over and completes
+          # the Future with what it reads out of it.
+          let common = @["op", opIid, handlerIid, layout, '"' & what & '"']
           let asyncElem = c.collectionElement(async.res)
           if asyncVoid:
-            lines.add fill("  await awaitVoid(", @["op", handlerIid, layout, '"' & what & '"'], ")")
+            lines.add fill("  result = futureVoid(",
+                           @["op", handlerIid, layout, '"' & what & '"'], ")")
           elif retType == "string":
-            lines.add fill("  result = await awaitString(",
-                           @["op", opIid, handlerIid, layout, '"' & what & '"'], ")")
+            lines.add fill("  result = futureString(", common, ")")
           elif c.mapValue(async.res).kind != skVoid:
-            # The operation yields a map, read after the wait like any other.
+            # The operation yields a map, read once there is one.
             let pairT = SigType(kind: skUnsupported, args: async.res.args,
                                 name: PairIface)
             let iterT = SigType(kind: skUnsupported, args: @[pairT],
@@ -1671,12 +1684,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             let vs = c.mapValueSpelling(c.mapValue(async.res))
             let innerIid = c.innerIidArg(sigCtx, c.mapValue(async.res),
                                          genericIidConst)
-            lines.add fill("  let coll = await awaitObject(",
-                           @["op", opIid, handlerIid, layout, '"' & what & '"'], ")")
-            lines.add fill(&"  result = toTable[{ks}, {vs}](",
-                           @["coll", genericIidConst(ic, iterT),
-                             genericIidConst(pc, pairT)] & trailing(innerIid), ")")
-            lines.add "  discard release(coll)"
+            lines.add fill(&"  result = futureTable[{ks}, {vs}](",
+                           common & @[genericIidConst(ic, iterT),
+                                      genericIidConst(pc, pairT)] &
+                           trailing(innerIid), ")")
           elif c.referenceValue(async.res).kind != skVoid:
             # The operation yields an `IReference<T>`: a value, or nothing.
             let computed = sigCtx.parameterizedIid(async.res)
@@ -1685,15 +1696,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               skipReasons.inc "a reference whose IID could not be computed"
               continue
             let inner = c.nimTypeOf(c.referenceValue(async.res))
-            lines.add &"  let box = await awaitObject(op, {opIid}, " &
-                      &"{handlerIid}, {layout}, \"{what}\")"
-            lines.add fill(&"  result = readReference[{inner}](",
-                           @["box", genericIidConst(computed, async.res),
-                             '"' & what & '"'], ")")
-            lines.add "  discard release(box)"
+            lines.add fill(&"  result = futureReference[{inner}](",
+                           common & genericIidConst(computed, async.res), ")")
           elif asyncElem.kind != skVoid:
-            # The operation yields a collection; walking it is the same as for
-            # any other, once there is something to walk.
+            # The operation yields a collection, walked once there is one.
             let inner = sigCtx.parameterizedIid(readableAs(async.res))
             if inner.len == 0:
               skipped.inc
@@ -1702,22 +1708,16 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             let collIid = genericIidConst(inner, async.res)
             let es = c.elementSpelling(asyncElem)
             let innerIid = c.innerIidArg(sigCtx, asyncElem, genericIidConst)
-            lines.add fill("  let coll = await awaitObject(",
-                           @["op", opIid, handlerIid, layout, '"' & what & '"'], ")")
-            lines.add fill(&"  result = toSeq[{es}](",
-                           @["coll", collIid] & trailing(innerIid), ")")
-            # Explicitly discarded: `release` returns a refcount, and the
-            # `{.async.}` transform types a proc body by its last expression,
-            # so leaving it bare makes the body a uint32.
-            lines.add "  discard release(coll)"
+            lines.add fill(&"  result = futureSeq[{es}](",
+                           common & collIid & trailing(innerIid), ")")
           elif async.res.kind in {skBool, skI1, skU1, skI2, skU2, skI4, skU4,
                                   skI8, skU8, skF4, skF8, skEnum, skStruct}:
-            lines.add fill(&"  result = await awaitValue[{retType}](",
-                           @["op", opIid, handlerIid, layout, '"' & what & '"'], ")")
+            lines.add fill(&"  result = futureValue[{retType}](", common, ")")
           else:
-            lines.add fill("  let obj = await awaitObject(",
-                           @["op", opIid, handlerIid, layout, '"' & what & '"'], ")")
-            lines.add &"  result = adopt[{retType}](obj)"
+            lines.add fill(&"  result = futureObject[{retType}](", common, ")")
+          if progressIid.len > 0:
+            lines.add fill("  reportProgress(",
+                           @["op", progressIid, "progress", '"' & what & '"'], ")")
         elif simpleSetter:
           let helper = if sig.params[0].kind == skString: "putString" else: "putValue"
           lines.add &"{indent}it.{helper}({field}, {outNames[0]})"
@@ -1840,8 +1840,8 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           lines.add &"{indent}result = (" & fields.join(", ") & ")"
 
         if async.isAsync:
-          let r = if retType.len > 0: &": Future[{retType}]" else: ""
-          buf.add fill(&"proc {name}*(", params, &"){r} {{.async.}} =") & "\n"
+          let r = if retType.len > 0: &": Future[{retType}]" else: ": Future[void]"
+          buf.add fill(&"proc {name}*(", params, &"){r} =") & "\n"
         else:
           let r = if retType.len > 0: ": " & retType else: ""
           buf.add fill(&"proc {name}*(", params, &"){r} =") & "\n"

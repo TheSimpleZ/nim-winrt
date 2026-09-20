@@ -21,6 +21,7 @@ const IID_EventHandler_1_ArcadeStick* = guid"6AFB8188-D28D-539B-BB69-EA1763FB992
 const IID_IVectorView_1_ArcadeStick* = guid"BECACE75-D0CD-5A9C-845F-72F085503CDF"
 const IID_AsyncOperationWithProgressCompletedHandler_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress* = guid"61B95949-A027-51D8-9F33-37927451502B"
 const IID_IAsyncOperationWithProgress_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress* = guid"BFAA48BD-155F-5112-BD86-E01D6F7CD405"
+const IID_AsyncOperationProgressHandler_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress* = guid"065C16AF-49DC-5C94-AFE2-9385937FACC9"
 const IID_EventHandler_1_FlightStick* = guid"D57470B1-CC22-5A43-8E18-5CA064AAFE21"
 const IID_IVectorView_1_FlightStick* = guid"8B9D067E-B6F5-592F-A90A-D72C3D98D4DA"
 const IID_AsyncOperationCompletedHandler_1_ForceFeedbackLoadEffectResult* = guid"F8220A41-F738-51E8-89BA-76BBD66158CB"
@@ -318,20 +319,24 @@ proc sendReceiveMessage*(self: GipGameControllerProvider,
                                     ), "GipGameControllerProvider.SendReceiveMessage"
 
 proc updateFirmwareAsync*(self: GipGameControllerProvider,
-                          firmwareImage: WinRtObject
-                         ): Future[GipFirmwareUpdateResult] {.async.} =
+                          firmwareImage: WinRtObject,
+                          progress: ProgressHandler[GipFirmwareUpdateProgress] = nil
+                         ): Future[GipFirmwareUpdateResult] =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.UpdateFirmwareAsync
   var op: pointer
   withIface(self.p, IGipGameControllerProvider, it):
     withIface(firmwareImage.p, IInputStream, p0):
       check it.vtbl.UpdateFirmwareAsync(it, p0, op.addr
                                        ), "GipGameControllerProvider.UpdateFirmwareAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperationWithProgress_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress,
-                              IID_AsyncOperationWithProgressCompletedHandler_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress,
-                              alProgress,
-                              "GipGameControllerProvider.UpdateFirmwareAsync")
-  result = adopt[GipFirmwareUpdateResult](obj)
+  result = futureObject[GipFirmwareUpdateResult](op,
+                                                 IID_IAsyncOperationWithProgress_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress,
+                                                 IID_AsyncOperationWithProgressCompletedHandler_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress,
+                                                 alProgress,
+                                                 "GipGameControllerProvider.UpdateFirmwareAsync"
+                                                )
+  reportProgress(op,
+                 IID_AsyncOperationProgressHandler_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress,
+                 progress, "GipGameControllerProvider.UpdateFirmwareAsync")
 
 proc firmwareVersionInfo*(self: GipGameControllerProvider): GameControllerVersionInfo =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.get_FirmwareVersionInfo
@@ -740,19 +745,19 @@ proc supportedAxes*(self: ForceFeedbackMotor): ForceFeedbackEffectAxes =
     result = it.getValue(get_SupportedAxes, ForceFeedbackEffectAxes)
 
 proc loadEffectAsync*(self: ForceFeedbackMotor, effect: WinRtObject
-                     ): Future[ForceFeedbackLoadEffectResult] {.async.} =
+                     ): Future[ForceFeedbackLoadEffectResult] =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.LoadEffectAsync
   var op: pointer
   withIface(self.p, IForceFeedbackMotor, it):
     withIface(effect.p, IForceFeedbackEffect, p0):
       check it.vtbl.LoadEffectAsync(it, p0, op.addr
                                    ), "ForceFeedbackMotor.LoadEffectAsync"
-  result = await awaitValue[ForceFeedbackLoadEffectResult](op,
-                                                           IID_IAsyncOperation_1_ForceFeedbackLoadEffectResult,
-                                                           IID_AsyncOperationCompletedHandler_1_ForceFeedbackLoadEffectResult,
-                                                           alPlain,
-                                                           "ForceFeedbackMotor.LoadEffectAsync"
-                                                          )
+  result = futureValue[ForceFeedbackLoadEffectResult](op,
+                                                      IID_IAsyncOperation_1_ForceFeedbackLoadEffectResult,
+                                                      IID_AsyncOperationCompletedHandler_1_ForceFeedbackLoadEffectResult,
+                                                      alPlain,
+                                                      "ForceFeedbackMotor.LoadEffectAsync"
+                                                     )
 
 proc pauseAllEffects*(self: ForceFeedbackMotor) =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.PauseAllEffects
@@ -769,47 +774,46 @@ proc stopAllEffects*(self: ForceFeedbackMotor) =
   withIface(self.p, IForceFeedbackMotor, it):
     check it.vtbl.StopAllEffects(it), "ForceFeedbackMotor.StopAllEffects"
 
-proc tryDisableAsync*(self: ForceFeedbackMotor): Future[bool] {.async.} =
+proc tryDisableAsync*(self: ForceFeedbackMotor): Future[bool] =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.TryDisableAsync
   var op: pointer
   withIface(self.p, IForceFeedbackMotor, it):
     check it.vtbl.TryDisableAsync(it, op.addr
                                  ), "ForceFeedbackMotor.TryDisableAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "ForceFeedbackMotor.TryDisableAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ForceFeedbackMotor.TryDisableAsync")
 
-proc tryEnableAsync*(self: ForceFeedbackMotor): Future[bool] {.async.} =
+proc tryEnableAsync*(self: ForceFeedbackMotor): Future[bool] =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.TryEnableAsync
   var op: pointer
   withIface(self.p, IForceFeedbackMotor, it):
     check it.vtbl.TryEnableAsync(it, op.addr
                                 ), "ForceFeedbackMotor.TryEnableAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "ForceFeedbackMotor.TryEnableAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ForceFeedbackMotor.TryEnableAsync")
 
-proc tryResetAsync*(self: ForceFeedbackMotor): Future[bool] {.async.} =
+proc tryResetAsync*(self: ForceFeedbackMotor): Future[bool] =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.TryResetAsync
   var op: pointer
   withIface(self.p, IForceFeedbackMotor, it):
     check it.vtbl.TryResetAsync(it, op.addr), "ForceFeedbackMotor.TryResetAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "ForceFeedbackMotor.TryResetAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ForceFeedbackMotor.TryResetAsync")
 
 proc tryUnloadEffectAsync*(self: ForceFeedbackMotor, effect: WinRtObject
-                          ): Future[bool] {.async.} =
+                          ): Future[bool] =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.TryUnloadEffectAsync
   var op: pointer
   withIface(self.p, IForceFeedbackMotor, it):
     withIface(effect.p, IForceFeedbackEffect, p0):
       check it.vtbl.TryUnloadEffectAsync(it, p0, op.addr
                                         ), "ForceFeedbackMotor.TryUnloadEffectAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "ForceFeedbackMotor.TryUnloadEffectAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ForceFeedbackMotor.TryUnloadEffectAsync")
 
 proc gain*(self: PeriodicForceEffect): float64 =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.get_Gain
@@ -1917,7 +1921,7 @@ proc uINavigationControllers*(_: typedesc[UINavigationController]): seq[UINaviga
     release(tmp)
 
 proc mergeEntriesAsync*(_: typedesc[GameList], left: GameListEntry,
-                        right: GameListEntry): Future[GameListEntry] {.async.} =
+                        right: GameListEntry): Future[GameListEntry] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameList.MergeEntriesAsync
   var op: pointer
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList",
@@ -1926,13 +1930,12 @@ proc mergeEntriesAsync*(_: typedesc[GameList], left: GameListEntry,
       withIface(right.p, IGameListEntry, p1):
         check it.vtbl.MergeEntriesAsync(it, p0, p1, op.addr
                                        ), "GameList.MergeEntriesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_GameListEntry,
-                              IID_AsyncOperationCompletedHandler_1_GameListEntry,
-                              alPlain, "GameList.MergeEntriesAsync")
-  result = adopt[GameListEntry](obj)
+  result = futureObject[GameListEntry](op, IID_IAsyncOperation_1_GameListEntry,
+                                       IID_AsyncOperationCompletedHandler_1_GameListEntry,
+                                       alPlain, "GameList.MergeEntriesAsync")
 
 proc unmergeEntryAsync*(_: typedesc[GameList], mergedEntry: GameListEntry
-                       ): Future[seq[GameListEntry]] {.async.} =
+                       ): Future[seq[GameListEntry]] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameList.UnmergeEntryAsync
   var op: pointer
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList",
@@ -1940,37 +1943,34 @@ proc unmergeEntryAsync*(_: typedesc[GameList], mergedEntry: GameListEntry
     withIface(mergedEntry.p, IGameListEntry, p0):
       check it.vtbl.UnmergeEntryAsync(it, p0, op.addr
                                      ), "GameList.UnmergeEntryAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain, "GameList.UnmergeEntryAsync")
-  result = toSeq[GameListEntry](coll, IID_IVectorView_1_GameListEntry)
-  discard release(coll)
+  result = futureSeq[GameListEntry](op, IID_IAsyncOperation_1_IVectorView_1,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                                    alPlain, "GameList.UnmergeEntryAsync",
+                                    IID_IVectorView_1_GameListEntry)
 
-proc findAllAsync*(_: typedesc[GameList]): Future[seq[GameListEntry]] {.async.} =
+proc findAllAsync*(_: typedesc[GameList]): Future[seq[GameListEntry]] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameList.FindAllAsync
   var op: pointer
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList",
               IGameListStatics, it):
     check it.vtbl.FindAllAsync(it, op.addr), "GameList.FindAllAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain, "GameList.FindAllAsync")
-  result = toSeq[GameListEntry](coll, IID_IVectorView_1_GameListEntry)
-  discard release(coll)
+  result = futureSeq[GameListEntry](op, IID_IAsyncOperation_1_IVectorView_1,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                                    alPlain, "GameList.FindAllAsync",
+                                    IID_IVectorView_1_GameListEntry)
 
 proc findAllAsync*(_: typedesc[GameList], packageFamilyName: string
-                  ): Future[seq[GameListEntry]] {.async.} =
+                  ): Future[seq[GameListEntry]] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameList.FindAllAsync
   var op: pointer
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList",
               IGameListStatics, it):
     withHString(packageFamilyName, h0):
       check it.vtbl.FindAllAsync2(it, h0, op.addr), "GameList.FindAllAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain, "GameList.FindAllAsync")
-  result = toSeq[GameListEntry](coll, IID_IVectorView_1_GameListEntry)
-  discard release(coll)
+  result = futureSeq[GameListEntry](op, IID_IAsyncOperation_1_IVectorView_1,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                                    alPlain, "GameList.FindAllAsync",
+                                    IID_IVectorView_1_GameListEntry)
 
 proc onGameAdded*(_: typedesc[GameList], handler: proc(sender: GameListEntry)
                  ): EventRegistrationToken {.discardable.} =
@@ -2040,14 +2040,14 @@ proc displayInfo*(self: GameListEntry): AppDisplayInfo =
   withIface(self.p, IGameListEntry, it):
     result = it.getObject(get_DisplayInfo, AppDisplayInfo)
 
-proc launchAsync*(self: GameListEntry): Future[bool] {.async.} =
+proc launchAsync*(self: GameListEntry): Future[bool] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.LaunchAsync
   var op: pointer
   withIface(self.p, IGameListEntry, it):
     check it.vtbl.LaunchAsync(it, op.addr), "GameListEntry.LaunchAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "GameListEntry.LaunchAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "GameListEntry.LaunchAsync")
 
 proc category*(self: GameListEntry): GameListCategory =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_Category
@@ -2063,14 +2063,15 @@ proc properties*(self: GameListEntry): Table[string, WinRtObject] =
                                           IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
-proc setCategoryAsync*(self: GameListEntry, value: GameListCategory) {.async.} =
+proc setCategoryAsync*(self: GameListEntry, value: GameListCategory
+                      ): Future[void] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetCategoryAsync
   var op: pointer
   withIface(self.p, IGameListEntry, it):
     check it.vtbl.SetCategoryAsync(it, value, op.addr
                                   ), "GameListEntry.SetCategoryAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "GameListEntry.SetCategoryAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "GameListEntry.SetCategoryAsync")
 
 proc launchableState*(self: GameListEntry): GameListEntryLaunchableState =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_LaunchableState
@@ -2088,19 +2089,20 @@ proc launchParameters*(self: GameListEntry): string =
     result = it.getString(get_LaunchParameters)
 
 proc setLauncherExecutableFileAsync*(self: GameListEntry,
-                                     executableFile: StorageFile) {.async.} =
+                                     executableFile: StorageFile
+                                    ): Future[void] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetLauncherExecutableFileAsync
   var op: pointer
   withIface(self.p, IGameListEntry2, it):
     withIface(executableFile.p, IStorageFile, p0):
       check it.vtbl.SetLauncherExecutableFileAsync(it, p0, op.addr
                                                   ), "GameListEntry.SetLauncherExecutableFileAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "GameListEntry.SetLauncherExecutableFileAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "GameListEntry.SetLauncherExecutableFileAsync")
 
 proc setLauncherExecutableFileAsync*(self: GameListEntry,
                                      executableFile: StorageFile,
-                                     launchParams: string) {.async.} =
+                                     launchParams: string): Future[void] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetLauncherExecutableFileAsync
   var op: pointer
   withIface(self.p, IGameListEntry2, it):
@@ -2108,23 +2110,23 @@ proc setLauncherExecutableFileAsync*(self: GameListEntry,
       withHString(launchParams, h1):
         check it.vtbl.SetLauncherExecutableFileAsync2(it, p0, h1, op.addr
                                                      ), "GameListEntry.SetLauncherExecutableFileAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "GameListEntry.SetLauncherExecutableFileAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "GameListEntry.SetLauncherExecutableFileAsync")
 
 proc titleId*(self: GameListEntry): string =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_TitleId
   withIface(self.p, IGameListEntry2, it):
     result = it.getString(get_TitleId)
 
-proc setTitleIdAsync*(self: GameListEntry, id: string) {.async.} =
+proc setTitleIdAsync*(self: GameListEntry, id: string): Future[void] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetTitleIdAsync
   var op: pointer
   withIface(self.p, IGameListEntry2, it):
     withHString(id, h0):
       check it.vtbl.SetTitleIdAsync(it, h0, op.addr
                                    ), "GameListEntry.SetTitleIdAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "GameListEntry.SetTitleIdAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "GameListEntry.SetTitleIdAsync")
 
 proc gameModeConfiguration*(self: GameListEntry): GameModeConfiguration =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_GameModeConfiguration
@@ -2284,13 +2286,13 @@ proc `affinitizeToExclusiveCpus=`*(self: GameModeConfiguration, value: bool) =
   withIface(self.p, IGameModeConfiguration, it):
     it.putValue(put_AffinitizeToExclusiveCpus, value)
 
-proc saveAsync*(self: GameModeConfiguration) {.async.} =
+proc saveAsync*(self: GameModeConfiguration): Future[void] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.SaveAsync
   var op: pointer
   withIface(self.p, IGameModeConfiguration, it):
     check it.vtbl.SaveAsync(it, op.addr), "GameModeConfiguration.SaveAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "GameModeConfiguration.SaveAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "GameModeConfiguration.SaveAsync")
 
 proc gamingRelatedProcessNames*(self: GameModeUserConfiguration): seq[string] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration.get_GamingRelatedProcessNames
@@ -2301,13 +2303,13 @@ proc gamingRelatedProcessNames*(self: GameModeUserConfiguration): seq[string] =
     result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
-proc saveAsync*(self: GameModeUserConfiguration) {.async.} =
+proc saveAsync*(self: GameModeUserConfiguration): Future[void] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration.SaveAsync
   var op: pointer
   withIface(self.p, IGameModeUserConfiguration, it):
     check it.vtbl.SaveAsync(it, op.addr), "GameModeUserConfiguration.SaveAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "GameModeUserConfiguration.SaveAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "GameModeUserConfiguration.SaveAsync")
 
 proc getDefault*(_: typedesc[GameModeUserConfiguration]): GameModeUserConfiguration =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration.GetDefault
@@ -2512,42 +2514,43 @@ proc value*(self: GameSaveBlobInfoGetResult): seq[GameSaveBlobInfo] =
     result = toSeq[GameSaveBlobInfo](tmp, IID_IVectorView_1_GameSaveBlobInfo)
     release(tmp)
 
-proc getBlobInfoAsync*(self: GameSaveBlobInfoQuery): Future[GameSaveBlobInfoGetResult] {.async.} =
+proc getBlobInfoAsync*(self: GameSaveBlobInfoQuery): Future[GameSaveBlobInfoGetResult] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoQuery.GetBlobInfoAsync
   var op: pointer
   withIface(self.p, IGameSaveBlobInfoQuery, it):
     check it.vtbl.GetBlobInfoAsync(it, op.addr
                                   ), "GameSaveBlobInfoQuery.GetBlobInfoAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_GameSaveBlobInfoGetResult,
-                              IID_AsyncOperationCompletedHandler_1_GameSaveBlobInfoGetResult,
-                              alPlain, "GameSaveBlobInfoQuery.GetBlobInfoAsync")
-  result = adopt[GameSaveBlobInfoGetResult](obj)
+  result = futureObject[GameSaveBlobInfoGetResult](op,
+                                                   IID_IAsyncOperation_1_GameSaveBlobInfoGetResult,
+                                                   IID_AsyncOperationCompletedHandler_1_GameSaveBlobInfoGetResult,
+                                                   alPlain,
+                                                   "GameSaveBlobInfoQuery.GetBlobInfoAsync"
+                                                  )
 
 proc getBlobInfoAsync*(self: GameSaveBlobInfoQuery, startIndex: uint32,
                        maxNumberOfItems: uint32
-                      ): Future[GameSaveBlobInfoGetResult] {.async.} =
+                      ): Future[GameSaveBlobInfoGetResult] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoQuery.GetBlobInfoAsync
   var op: pointer
   withIface(self.p, IGameSaveBlobInfoQuery, it):
     check it.vtbl.GetBlobInfoAsync2(it, startIndex, maxNumberOfItems, op.addr
                                    ), "GameSaveBlobInfoQuery.GetBlobInfoAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_GameSaveBlobInfoGetResult,
-                              IID_AsyncOperationCompletedHandler_1_GameSaveBlobInfoGetResult,
-                              alPlain, "GameSaveBlobInfoQuery.GetBlobInfoAsync")
-  result = adopt[GameSaveBlobInfoGetResult](obj)
+  result = futureObject[GameSaveBlobInfoGetResult](op,
+                                                   IID_IAsyncOperation_1_GameSaveBlobInfoGetResult,
+                                                   IID_AsyncOperationCompletedHandler_1_GameSaveBlobInfoGetResult,
+                                                   alPlain,
+                                                   "GameSaveBlobInfoQuery.GetBlobInfoAsync"
+                                                  )
 
-proc getItemCountAsync*(self: GameSaveBlobInfoQuery): Future[uint32] {.async.} =
+proc getItemCountAsync*(self: GameSaveBlobInfoQuery): Future[uint32] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoQuery.GetItemCountAsync
   var op: pointer
   withIface(self.p, IGameSaveBlobInfoQuery, it):
     check it.vtbl.GetItemCountAsync(it, op.addr
                                    ), "GameSaveBlobInfoQuery.GetItemCountAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
-                                    IID_AsyncOperationCompletedHandler_1_U4,
-                                    alPlain,
-                                    "GameSaveBlobInfoQuery.GetItemCountAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperation_1_U4,
+                               IID_AsyncOperationCompletedHandler_1_U4, alPlain,
+                               "GameSaveBlobInfoQuery.GetItemCountAsync")
 
 proc name*(self: GameSaveContainer): string =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.get_Name
@@ -2562,7 +2565,7 @@ proc provider*(self: GameSaveContainer): GameSaveProvider =
 proc submitUpdatesAsync*(self: GameSaveContainer,
                          blobsToWrite: Table[string, Buffer],
                          blobsToDelete: seq[string], displayName: string
-                        ): Future[GameSaveOperationResult] {.async.} =
+                        ): Future[GameSaveOperationResult] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.SubmitUpdatesAsync
   var op: pointer
   withIface(self.p, IGameSaveContainer, it):
@@ -2579,13 +2582,15 @@ proc submitUpdatesAsync*(self: GameSaveContainer,
     withHString(displayName, h2):
       check it.vtbl.SubmitUpdatesAsync(it, p0, p1, h2, op.addr
                                       ), "GameSaveContainer.SubmitUpdatesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_GameSaveOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult,
-                              alPlain, "GameSaveContainer.SubmitUpdatesAsync")
-  result = adopt[GameSaveOperationResult](obj)
+  result = futureObject[GameSaveOperationResult](op,
+                                                 IID_IAsyncOperation_1_GameSaveOperationResult,
+                                                 IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult,
+                                                 alPlain,
+                                                 "GameSaveContainer.SubmitUpdatesAsync"
+                                                )
 
 proc readAsync*(self: GameSaveContainer, blobsToRead: Table[string, Buffer]
-               ): Future[GameSaveOperationResult] {.async.} =
+               ): Future[GameSaveOperationResult] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.ReadAsync
   var op: pointer
   withIface(self.p, IGameSaveContainer, it):
@@ -2596,13 +2601,14 @@ proc readAsync*(self: GameSaveContainer, blobsToRead: Table[string, Buffer]
                                         map: IID_IMap_2_String_IBuffer))
     defer: discard release(p0)
     check it.vtbl.ReadAsync(it, p0, op.addr), "GameSaveContainer.ReadAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_GameSaveOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult,
-                              alPlain, "GameSaveContainer.ReadAsync")
-  result = adopt[GameSaveOperationResult](obj)
+  result = futureObject[GameSaveOperationResult](op,
+                                                 IID_IAsyncOperation_1_GameSaveOperationResult,
+                                                 IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult,
+                                                 alPlain,
+                                                 "GameSaveContainer.ReadAsync")
 
 proc getAsync*(self: GameSaveContainer, blobsToRead: seq[string]
-              ): Future[GameSaveBlobGetResult] {.async.} =
+              ): Future[GameSaveBlobGetResult] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.GetAsync
   var op: pointer
   withIface(self.p, IGameSaveContainer, it):
@@ -2611,16 +2617,17 @@ proc getAsync*(self: GameSaveContainer, blobsToRead: seq[string]
                                            IID_IIterator_1_String)
     defer: discard release(p0)
     check it.vtbl.GetAsync(it, p0, op.addr), "GameSaveContainer.GetAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_GameSaveBlobGetResult,
-                              IID_AsyncOperationCompletedHandler_1_GameSaveBlobGetResult,
-                              alPlain, "GameSaveContainer.GetAsync")
-  result = adopt[GameSaveBlobGetResult](obj)
+  result = futureObject[GameSaveBlobGetResult](op,
+                                               IID_IAsyncOperation_1_GameSaveBlobGetResult,
+                                               IID_AsyncOperationCompletedHandler_1_GameSaveBlobGetResult,
+                                               alPlain,
+                                               "GameSaveContainer.GetAsync")
 
 proc submitPropertySetUpdatesAsync*(self: GameSaveContainer,
                                     blobsToWrite: WinRtObject,
                                     blobsToDelete: seq[string],
                                     displayName: string
-                                   ): Future[GameSaveOperationResult] {.async.} =
+                                   ): Future[GameSaveOperationResult] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.SubmitPropertySetUpdatesAsync
   var op: pointer
   withIface(self.p, IGameSaveContainer, it):
@@ -2632,11 +2639,12 @@ proc submitPropertySetUpdatesAsync*(self: GameSaveContainer,
       withHString(displayName, h2):
         check it.vtbl.SubmitPropertySetUpdatesAsync(it, p0, p1, h2, op.addr
                                                    ), "GameSaveContainer.SubmitPropertySetUpdatesAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_GameSaveOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult,
-                              alPlain,
-                              "GameSaveContainer.SubmitPropertySetUpdatesAsync")
-  result = adopt[GameSaveOperationResult](obj)
+  result = futureObject[GameSaveOperationResult](op,
+                                                 IID_IAsyncOperation_1_GameSaveOperationResult,
+                                                 IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult,
+                                                 alPlain,
+                                                 "GameSaveContainer.SubmitPropertySetUpdatesAsync"
+                                                )
 
 proc createBlobInfoQuery*(self: GameSaveContainer, blobNamePrefix: string
                          ): GameSaveBlobInfoQuery =
@@ -2689,48 +2697,44 @@ proc value*(self: GameSaveContainerInfoGetResult): seq[GameSaveContainerInfo] =
                                          )
     release(tmp)
 
-proc getContainerInfoAsync*(self: GameSaveContainerInfoQuery): Future[GameSaveContainerInfoGetResult] {.async.} =
+proc getContainerInfoAsync*(self: GameSaveContainerInfoQuery): Future[GameSaveContainerInfoGetResult] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoQuery.GetContainerInfoAsync
   var op: pointer
   withIface(self.p, IGameSaveContainerInfoQuery, it):
     check it.vtbl.GetContainerInfoAsync(it, op.addr
                                        ), "GameSaveContainerInfoQuery.GetContainerInfoAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_GameSaveContainerInfoGetResult,
-                              IID_AsyncOperationCompletedHandler_1_GameSaveContainerInfoGetResult,
-                              alPlain,
-                              "GameSaveContainerInfoQuery.GetContainerInfoAsync"
-                             )
-  result = adopt[GameSaveContainerInfoGetResult](obj)
+  result = futureObject[GameSaveContainerInfoGetResult](op,
+                                                        IID_IAsyncOperation_1_GameSaveContainerInfoGetResult,
+                                                        IID_AsyncOperationCompletedHandler_1_GameSaveContainerInfoGetResult,
+                                                        alPlain,
+                                                        "GameSaveContainerInfoQuery.GetContainerInfoAsync"
+                                                       )
 
 proc getContainerInfoAsync*(self: GameSaveContainerInfoQuery,
                             startIndex: uint32, maxNumberOfItems: uint32
-                           ): Future[GameSaveContainerInfoGetResult] {.async.} =
+                           ): Future[GameSaveContainerInfoGetResult] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoQuery.GetContainerInfoAsync
   var op: pointer
   withIface(self.p, IGameSaveContainerInfoQuery, it):
     check it.vtbl.GetContainerInfoAsync2(it, startIndex, maxNumberOfItems,
                                          op.addr
                                         ), "GameSaveContainerInfoQuery.GetContainerInfoAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_GameSaveContainerInfoGetResult,
-                              IID_AsyncOperationCompletedHandler_1_GameSaveContainerInfoGetResult,
-                              alPlain,
-                              "GameSaveContainerInfoQuery.GetContainerInfoAsync"
-                             )
-  result = adopt[GameSaveContainerInfoGetResult](obj)
+  result = futureObject[GameSaveContainerInfoGetResult](op,
+                                                        IID_IAsyncOperation_1_GameSaveContainerInfoGetResult,
+                                                        IID_AsyncOperationCompletedHandler_1_GameSaveContainerInfoGetResult,
+                                                        alPlain,
+                                                        "GameSaveContainerInfoQuery.GetContainerInfoAsync"
+                                                       )
 
-proc getItemCountAsync*(self: GameSaveContainerInfoQuery): Future[uint32] {.async.} =
+proc getItemCountAsync*(self: GameSaveContainerInfoQuery): Future[uint32] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoQuery.GetItemCountAsync
   var op: pointer
   withIface(self.p, IGameSaveContainerInfoQuery, it):
     check it.vtbl.GetItemCountAsync(it, op.addr
                                    ), "GameSaveContainerInfoQuery.GetItemCountAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
-                                    IID_AsyncOperationCompletedHandler_1_U4,
-                                    alPlain,
-                                    "GameSaveContainerInfoQuery.GetItemCountAsync"
-                                   )
+  result = futureValue[uint32](op, IID_IAsyncOperation_1_U4,
+                               IID_AsyncOperationCompletedHandler_1_U4, alPlain,
+                               "GameSaveContainerInfoQuery.GetItemCountAsync")
 
 proc status*(self: GameSaveOperationResult): GameSaveErrorStatus =
   ## Windows.Gaming.XboxLive.Storage.GameSaveOperationResult.get_Status
@@ -2752,17 +2756,19 @@ proc createContainer*(self: GameSaveProvider, name: string): GameSaveContainer =
       result = adopt[GameSaveContainer](tmp)
 
 proc deleteContainerAsync*(self: GameSaveProvider, name: string
-                          ): Future[GameSaveOperationResult] {.async.} =
+                          ): Future[GameSaveOperationResult] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.DeleteContainerAsync
   var op: pointer
   withIface(self.p, IGameSaveProvider, it):
     withHString(name, h0):
       check it.vtbl.DeleteContainerAsync(it, h0, op.addr
                                         ), "GameSaveProvider.DeleteContainerAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_GameSaveOperationResult,
-                              IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult,
-                              alPlain, "GameSaveProvider.DeleteContainerAsync")
-  result = adopt[GameSaveOperationResult](obj)
+  result = futureObject[GameSaveOperationResult](op,
+                                                 IID_IAsyncOperation_1_GameSaveOperationResult,
+                                                 IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult,
+                                                 alPlain,
+                                                 "GameSaveProvider.DeleteContainerAsync"
+                                                )
 
 proc createContainerInfoQuery*(self: GameSaveProvider): GameSaveContainerInfoQuery =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.CreateContainerInfoQuery
@@ -2783,17 +2789,15 @@ proc createContainerInfoQuery*(self: GameSaveProvider,
                                              ), "GameSaveProvider.CreateContainerInfoQuery"
       result = adopt[GameSaveContainerInfoQuery](tmp)
 
-proc getRemainingBytesInQuotaAsync*(self: GameSaveProvider): Future[int64] {.async.} =
+proc getRemainingBytesInQuotaAsync*(self: GameSaveProvider): Future[int64] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.GetRemainingBytesInQuotaAsync
   var op: pointer
   withIface(self.p, IGameSaveProvider, it):
     check it.vtbl.GetRemainingBytesInQuotaAsync(it, op.addr
                                                ), "GameSaveProvider.GetRemainingBytesInQuotaAsync"
-  result = await awaitValue[int64](op, IID_IAsyncOperation_1_I8,
-                                   IID_AsyncOperationCompletedHandler_1_I8,
-                                   alPlain,
-                                   "GameSaveProvider.GetRemainingBytesInQuotaAsync"
-                                  )
+  result = futureValue[int64](op, IID_IAsyncOperation_1_I8,
+                              IID_AsyncOperationCompletedHandler_1_I8, alPlain,
+                              "GameSaveProvider.GetRemainingBytesInQuotaAsync")
 
 proc containersChangedSinceLastSync*(self: GameSaveProvider): seq[string] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.get_ContainersChangedSinceLastSync
@@ -2806,7 +2810,7 @@ proc containersChangedSinceLastSync*(self: GameSaveProvider): seq[string] =
 
 proc getForUserAsync*(_: typedesc[GameSaveProvider], user: User,
                       serviceConfigId: string
-                     ): Future[GameSaveProviderGetResult] {.async.} =
+                     ): Future[GameSaveProviderGetResult] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.GetForUserAsync
   var op: pointer
   withStatics("Windows.Gaming.XboxLive.Storage.GameSaveProvider",
@@ -2815,15 +2819,16 @@ proc getForUserAsync*(_: typedesc[GameSaveProvider], user: User,
       withHString(serviceConfigId, h1):
         check it.vtbl.GetForUserAsync(it, p0, h1, op.addr
                                      ), "GameSaveProvider.GetForUserAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_GameSaveProviderGetResult,
-                              IID_AsyncOperationCompletedHandler_1_GameSaveProviderGetResult,
-                              alPlain, "GameSaveProvider.GetForUserAsync")
-  result = adopt[GameSaveProviderGetResult](obj)
+  result = futureObject[GameSaveProviderGetResult](op,
+                                                   IID_IAsyncOperation_1_GameSaveProviderGetResult,
+                                                   IID_AsyncOperationCompletedHandler_1_GameSaveProviderGetResult,
+                                                   alPlain,
+                                                   "GameSaveProvider.GetForUserAsync"
+                                                  )
 
 proc getSyncOnDemandForUserAsync*(_: typedesc[GameSaveProvider], user: User,
                                   serviceConfigId: string
-                                 ): Future[GameSaveProviderGetResult] {.async.} =
+                                 ): Future[GameSaveProviderGetResult] =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.GetSyncOnDemandForUserAsync
   var op: pointer
   withStatics("Windows.Gaming.XboxLive.Storage.GameSaveProvider",
@@ -2832,12 +2837,12 @@ proc getSyncOnDemandForUserAsync*(_: typedesc[GameSaveProvider], user: User,
       withHString(serviceConfigId, h1):
         check it.vtbl.GetSyncOnDemandForUserAsync(it, p0, h1, op.addr
                                                  ), "GameSaveProvider.GetSyncOnDemandForUserAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_GameSaveProviderGetResult,
-                              IID_AsyncOperationCompletedHandler_1_GameSaveProviderGetResult,
-                              alPlain,
-                              "GameSaveProvider.GetSyncOnDemandForUserAsync")
-  result = adopt[GameSaveProviderGetResult](obj)
+  result = futureObject[GameSaveProviderGetResult](op,
+                                                   IID_IAsyncOperation_1_GameSaveProviderGetResult,
+                                                   IID_AsyncOperationCompletedHandler_1_GameSaveProviderGetResult,
+                                                   alPlain,
+                                                   "GameSaveProvider.GetSyncOnDemandForUserAsync"
+                                                  )
 
 proc status*(self: GameSaveProviderGetResult): GameSaveErrorStatus =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProviderGetResult.get_Status

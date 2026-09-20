@@ -306,6 +306,17 @@ which pushes `put_Completed` and `GetResults` two slots down and completes
 through a different parameterised delegate. `AsyncLayout` says which, and the
 generator decides it from the operation's name.
 
+A wrapper is not itself `{.async.}`: it starts the operation and returns the
+Future that `asyncops` builds for it — `futureObject`, `futureString`,
+`futureSeq` and the rest, one per shape a result comes in. That Future is the
+one the caller holds, which is what lets `cancel(fut)` find the operation
+behind it in a list of those still running and call `IAsyncInfo.Cancel`; the
+completion callback drops the entry, and a cancelled operation fails its
+Future with a `CancelledError`. For a `WithProgress` operation the wrapper
+takes a `progress` closure as its last parameter and hands `put_Progress` an
+ordinary delegate around it, whose IID is the progress handler's, computed
+like the completion handler's from the same type arguments.
+
 ## Calling back: delegates
 
 `src/winrt/delegate.nim` is the other direction — objects the runtime invokes.
@@ -364,20 +375,34 @@ opts out and takes on the rule: no GC memory on the runtime's thread.
 ## Implementing an interface
 
 `src/winrt/implement.nim` is the general form of what `delegate`, `seqview`,
-`mapview` and `reference` each do by hand: an object on the COM heap whose
-first field points at a vtable, with `QueryInterface`, an atomic reference
-count and the rest of `IInspectable` filled in, and the interface's own
-methods supplied by the caller as `{.abi.}` procs in a copy of the generated
-`XVtbl`. The vtable is copied per object rather than shared per type because
-two objects of one interface may carry different methods. `stateOf(self)`
-returns the pointer the caller attached, which is how a method reaches its
-data without a closure — a method here may be called on any thread, and there
-is no dispatcher in between as there is for a delegate.
+`mapview` and `reference` each do by hand: an object on the COM heap with
+`QueryInterface`, an atomic reference count and the rest of `IInspectable`
+filled in, and each interface's own methods supplied by the caller as
+`{.abi.}` procs in a copy of the generated `XVtbl`. The vtables are copied per
+object rather than shared per type because two objects of one interface may
+carry different methods.
 
-One interface per object. An object implementing several unrelated interfaces
-needs a vtable pointer per interface and, in every method, the offset back to
-the object — the arrangement `seqview` uses for `IIterable<T>`,
-`IVectorView<T>` and `IVector<T>` on one object.
+An object may implement several interfaces, and a COM interface pointer has
+to point at a vtable pointer, so the object holds one *slot* per interface:
+the vtable pointer COM reads, followed by a pointer back to the object's
+header, the interface's IID and whether it derives from `IInspectable`. An
+interface pointer is the address of its slot; `stateOf(self)` reads the
+header through whichever slot `self` is, which is why a method of any
+interface reaches the same state. `QueryInterface` answers `IUnknown` and
+`IAgileObject` with the first slot, `IInspectable` with the first slot that
+is one — an object of COM-only interfaces such as `IBufferByteAccess` is not
+an `IInspectable` — and each IID with its own; `GetIids` lists the
+inspectable ones. The slots are sized from the tuple of `(IID, vtable)` pairs
+`implement` was given, so the object is one allocation.
+
+A method may be called on any thread, and there is no dispatcher in between
+as there is for a delegate, because a method has to answer before it
+returns. The release that frees the object may come from any thread too, so
+the state is disposed of through `runOnDispatcher`: run at once when the
+releasing thread is the dispatcher's, otherwise posted as a job it does not
+wait for — the same pending list a delegate invocation travels, minus the
+event — since waiting could deadlock a dispatcher that is itself blocked on
+the runtime thread doing the releasing.
 
 ## Failures
 
@@ -396,8 +421,3 @@ Nothing in `Windows.winmd` is skipped: 4,670 classes, 33,056 methods,
 properties and constructors, 2,908 events. The generator still counts and
 prints anything it cannot spell, because a future SDK may add a shape it does
 not know, and `WINRT_DUMP_SKIPS=1 nimble bindings` names each method and why.
-
-An `IAsyncOperation<T>` is a `Future[T]`, and a `Future` has no `cancel` and
-no progress callback, so the `WithProgress` operations are awaited but report
-nothing along the way. That is a consequence of the model chosen, not a
-missing shape.

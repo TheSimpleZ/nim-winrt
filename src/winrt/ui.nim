@@ -112,8 +112,10 @@ const IID_IIterable_1_Point* = guid"C192280D-3A09-5423-9DC5-67B83EBDE41D"
 const IID_IIterator_1_Point* = guid"C602B59E-0A8E-5E99-B478-2B564585278D"
 const IID_AsyncActionWithProgressCompletedHandler_1_U8* = guid"E6FF857B-F160-571A-A934-2C61F98C862D"
 const IID_IAsyncActionWithProgress_1_U8* = guid"43F713D0-C49D-5E55-AEBF-AF395768351E"
+const IID_AsyncActionProgressHandler_1_U8* = guid"55E233CA-F243-5AE2-853B-F9CC7C0AE0CF"
 const IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4* = guid"1E466DC5-840F-54F9-B877-5E3A9F4B6C74"
 const IID_IAsyncOperationWithProgress_2_U4_U4* = guid"ECCB574A-C684-5572-A679-6B0842CFB57F"
+const IID_AsyncOperationProgressHandler_2_U4_U4* = guid"EA0FE405-D432-5AC7-9EF8-5A65E1F97D7E"
 const IID_IIterable_1_InkRecognitionResult* = guid"E29B658B-7CC1-561C-9912-001DBCA86651"
 const IID_IIterator_1_InkRecognitionResult* = guid"9ABC247F-0223-5F44-8FA1-0D6D691BF9AF"
 const IID_TypedEventHandler_2_InkPresenter_InkStrokesCollectedEventArgs* = guid"176BFA8F-C0DE-5B3A-B28C-0F3931CA52D3"
@@ -672,7 +674,7 @@ proc removeAccountCommandsRequested*(self: AccountsSettingsPane, token: EventReg
     check it.vtbl.remove_AccountCommandsRequested(it, token), "AccountsSettingsPane.remove_AccountCommandsRequested"
 
 proc showManageAccountsForUserAsync*(_: typedesc[AccountsSettingsPane],
-                                     user: User) {.async.} =
+                                     user: User): Future[void] =
   ## Windows.UI.ApplicationSettings.AccountsSettingsPane.ShowManageAccountsForUserAsync
   var op: pointer
   withStatics("Windows.UI.ApplicationSettings.AccountsSettingsPane",
@@ -680,11 +682,11 @@ proc showManageAccountsForUserAsync*(_: typedesc[AccountsSettingsPane],
     withIface(user.p, IUser, p0):
       check it.vtbl.ShowManageAccountsForUserAsync(it, p0, op.addr
                                                   ), "AccountsSettingsPane.ShowManageAccountsForUserAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "AccountsSettingsPane.ShowManageAccountsForUserAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "AccountsSettingsPane.ShowManageAccountsForUserAsync")
 
 proc showAddAccountForUserAsync*(_: typedesc[AccountsSettingsPane], user: User
-                                ) {.async.} =
+                                ): Future[void] =
   ## Windows.UI.ApplicationSettings.AccountsSettingsPane.ShowAddAccountForUserAsync
   var op: pointer
   withStatics("Windows.UI.ApplicationSettings.AccountsSettingsPane",
@@ -692,8 +694,8 @@ proc showAddAccountForUserAsync*(_: typedesc[AccountsSettingsPane], user: User
     withIface(user.p, IUser, p0):
       check it.vtbl.ShowAddAccountForUserAsync(it, p0, op.addr
                                               ), "AccountsSettingsPane.ShowAddAccountForUserAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "AccountsSettingsPane.ShowAddAccountForUserAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "AccountsSettingsPane.ShowAddAccountForUserAsync")
 
 proc getForCurrentView*(_: typedesc[AccountsSettingsPane]): AccountsSettingsPane =
   ## Windows.UI.ApplicationSettings.AccountsSettingsPane.GetForCurrentView
@@ -710,25 +712,25 @@ proc show*(_: typedesc[AccountsSettingsPane]) =
               IAccountsSettingsPaneStatics, it):
     check it.vtbl.Show(it), "AccountsSettingsPane.Show"
 
-proc showManageAccountsAsync*(_: typedesc[AccountsSettingsPane]) {.async.} =
+proc showManageAccountsAsync*(_: typedesc[AccountsSettingsPane]): Future[void] =
   ## Windows.UI.ApplicationSettings.AccountsSettingsPane.ShowManageAccountsAsync
   var op: pointer
   withStatics("Windows.UI.ApplicationSettings.AccountsSettingsPane",
               IAccountsSettingsPaneStatics2, it):
     check it.vtbl.ShowManageAccountsAsync(it, op.addr
                                          ), "AccountsSettingsPane.ShowManageAccountsAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "AccountsSettingsPane.ShowManageAccountsAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "AccountsSettingsPane.ShowManageAccountsAsync")
 
-proc showAddAccountAsync*(_: typedesc[AccountsSettingsPane]) {.async.} =
+proc showAddAccountAsync*(_: typedesc[AccountsSettingsPane]): Future[void] =
   ## Windows.UI.ApplicationSettings.AccountsSettingsPane.ShowAddAccountAsync
   var op: pointer
   withStatics("Windows.UI.ApplicationSettings.AccountsSettingsPane",
               IAccountsSettingsPaneStatics2, it):
     check it.vtbl.ShowAddAccountAsync(it, op.addr
                                      ), "AccountsSettingsPane.ShowAddAccountAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "AccountsSettingsPane.ShowAddAccountAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "AccountsSettingsPane.ShowAddAccountAsync")
 
 proc webAccountProviderCommands*(self: AccountsSettingsPaneCommandsRequestedEventArgs): seq[WebAccountProviderCommand] =
   ## Windows.UI.ApplicationSettings.AccountsSettingsPaneCommandsRequestedEventArgs.get_WebAccountProviderCommands
@@ -3302,7 +3304,7 @@ proc trim*(self: CompositionGraphicsDevice) =
 proc captureAsync*(self: CompositionGraphicsDevice, captureVisual: Visual,
                    size: SizeInt32, pixelFormat: DirectXPixelFormat,
                    alphaMode: DirectXAlphaMode, sdrBoost: float32
-                  ): Future[WinRtObject] {.async.} =
+                  ): Future[WinRtObject] =
   ## Windows.UI.Composition.CompositionGraphicsDevice.CaptureAsync
   var op: pointer
   withIface(self.p, ICompositionGraphicsDevice4, it):
@@ -3310,10 +3312,11 @@ proc captureAsync*(self: CompositionGraphicsDevice, captureVisual: Visual,
       check it.vtbl.CaptureAsync(it, p0, size, pixelFormat, alphaMode, sdrBoost,
                                  op.addr
                                 ), "CompositionGraphicsDevice.CaptureAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ICompositionSurface,
-                              IID_AsyncOperationCompletedHandler_1_ICompositionSurface,
-                              alPlain, "CompositionGraphicsDevice.CaptureAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_ICompositionSurface,
+                                     IID_AsyncOperationCompletedHandler_1_ICompositionSurface,
+                                     alPlain,
+                                     "CompositionGraphicsDevice.CaptureAsync")
 
 proc start*(self: CompositionLineGeometry): Vector2 =
   ## Windows.UI.Composition.CompositionLineGeometry.get_Start
@@ -4950,14 +4953,14 @@ proc createViewBox*(self: Compositor): CompositionViewBox =
     check it.vtbl.CreateViewBox(it, tmp.addr), "Compositor.CreateViewBox"
     result = adopt[CompositionViewBox](tmp)
 
-proc requestCommitAsync*(self: Compositor) {.async.} =
+proc requestCommitAsync*(self: Compositor): Future[void] =
   ## Windows.UI.Composition.Compositor.RequestCommitAsync
   var op: pointer
   withIface(self.p, ICompositor5, it):
     check it.vtbl.RequestCommitAsync(it, op.addr
                                     ), "Compositor.RequestCommitAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "Compositor.RequestCommitAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "Compositor.RequestCommitAsync")
 
 proc createGeometricClip*(self: Compositor): CompositionGeometricClip =
   ## Windows.UI.Composition.Compositor.CreateGeometricClip
@@ -5356,14 +5359,14 @@ proc commit*(self: CompositorController) =
   withIface(self.p, ICompositorController, it):
     check it.vtbl.Commit(it), "CompositorController.Commit"
 
-proc ensurePreviousCommitCompletedAsync*(self: CompositorController) {.async.} =
+proc ensurePreviousCommitCompletedAsync*(self: CompositorController): Future[void] =
   ## Windows.UI.Composition.Core.CompositorController.EnsurePreviousCommitCompletedAsync
   var op: pointer
   withIface(self.p, ICompositorController, it):
     check it.vtbl.EnsurePreviousCommitCompletedAsync(it, op.addr
                                                     ), "CompositorController.EnsurePreviousCommitCompletedAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "CompositorController.EnsurePreviousCommitCompletedAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "CompositorController.EnsurePreviousCommitCompletedAsync")
 
 proc onCommitNeeded*(self: CompositorController,
                      handler: EventHandler[CompositorController, WinRtObject]
@@ -8549,19 +8552,19 @@ proc processEvents*(self: CoreDispatcher, options: CoreProcessEventsOption) =
     check it.vtbl.ProcessEvents(it, options), "CoreDispatcher.ProcessEvents"
 
 proc runAsync*(self: CoreDispatcher, priority: CoreDispatcherPriority,
-               agileCallback: proc()) {.async.} =
+               agileCallback: proc()): Future[void] =
   ## Windows.UI.Core.CoreDispatcher.RunAsync
   var op: pointer
   withIface(self.p, ICoreDispatcher, it):
     let d1 = newDelegate(IID_DispatchedHandler, agileCallback)
     defer: discard release(d1)
     check it.vtbl.RunAsync(it, priority, d1, op.addr), "CoreDispatcher.RunAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "CoreDispatcher.RunAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "CoreDispatcher.RunAsync")
 
 proc runIdleAsync*(self: CoreDispatcher,
                    agileCallback: proc(a0: IdleDispatchedHandlerArgs)
-                  ) {.async.} =
+                  ): Future[void] =
   ## Windows.UI.Core.CoreDispatcher.RunIdleAsync
   var op: pointer
   withIface(self.p, ICoreDispatcher, it):
@@ -8570,8 +8573,8 @@ proc runIdleAsync*(self: CoreDispatcher,
                         )
     defer: discard release(d0)
     check it.vtbl.RunIdleAsync(it, d0, op.addr), "CoreDispatcher.RunIdleAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "CoreDispatcher.RunIdleAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "CoreDispatcher.RunIdleAsync")
 
 proc onAcceleratorKeyActivated*(self: CoreDispatcher,
                                 handler: EventHandler[CoreDispatcher, AcceleratorKeyEventArgs]
@@ -8624,7 +8627,7 @@ proc stopProcessEvents*(self: CoreDispatcher) =
     check it.vtbl.StopProcessEvents(it), "CoreDispatcher.StopProcessEvents"
 
 proc tryRunAsync*(self: CoreDispatcher, priority: CoreDispatcherPriority,
-                  agileCallback: proc()): Future[bool] {.async.} =
+                  agileCallback: proc()): Future[bool] =
   ## Windows.UI.Core.CoreDispatcher.TryRunAsync
   var op: pointer
   withIface(self.p, ICoreDispatcher2, it):
@@ -8632,13 +8635,13 @@ proc tryRunAsync*(self: CoreDispatcher, priority: CoreDispatcherPriority,
     defer: discard release(d1)
     check it.vtbl.TryRunAsync(it, priority, d1, op.addr
                              ), "CoreDispatcher.TryRunAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "CoreDispatcher.TryRunAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "CoreDispatcher.TryRunAsync")
 
 proc tryRunIdleAsync*(self: CoreDispatcher,
                       agileCallback: proc(a0: IdleDispatchedHandlerArgs)
-                     ): Future[bool] {.async.} =
+                     ): Future[bool] =
   ## Windows.UI.Core.CoreDispatcher.TryRunIdleAsync
   var op: pointer
   withIface(self.p, ICoreDispatcher2, it):
@@ -8648,9 +8651,9 @@ proc tryRunIdleAsync*(self: CoreDispatcher,
     defer: discard release(d0)
     check it.vtbl.TryRunIdleAsync(it, d0, op.addr
                                  ), "CoreDispatcher.TryRunIdleAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "CoreDispatcher.TryRunIdleAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "CoreDispatcher.TryRunIdleAsync")
 
 proc dispatcher*(self: CoreIndependentInputSource): CoreDispatcher =
   ## Windows.UI.Core.CoreIndependentInputSource.get_Dispatcher
@@ -9654,15 +9657,14 @@ proc `backButtonCommand=`*(self: CoreWindowDialog, value: proc(a0: WinRtObject)
     check it.vtbl.put_BackButtonCommand(it, d0
                                        ), "CoreWindowDialog.put_BackButtonCommand"
 
-proc showAsync*(self: CoreWindowDialog): Future[WinRtObject] {.async.} =
+proc showAsync*(self: CoreWindowDialog): Future[WinRtObject] =
   ## Windows.UI.Core.CoreWindowDialog.ShowAsync
   var op: pointer
   withIface(self.p, ICoreWindowDialog, it):
     check it.vtbl.ShowAsync(it, op.addr), "CoreWindowDialog.ShowAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IUICommand,
-                              IID_AsyncOperationCompletedHandler_1_IUICommand,
-                              alPlain, "CoreWindowDialog.ShowAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IUICommand,
+                                     IID_AsyncOperationCompletedHandler_1_IUICommand,
+                                     alPlain, "CoreWindowDialog.ShowAsync")
 
 proc createWithTitle*(_: typedesc[CoreWindowDialog], title: string
                      ): CoreWindowDialog =
@@ -9767,15 +9769,14 @@ proc `backButtonCommand=`*(self: CoreWindowFlyout, value: proc(a0: WinRtObject)
     check it.vtbl.put_BackButtonCommand(it, d0
                                        ), "CoreWindowFlyout.put_BackButtonCommand"
 
-proc showAsync*(self: CoreWindowFlyout): Future[WinRtObject] {.async.} =
+proc showAsync*(self: CoreWindowFlyout): Future[WinRtObject] =
   ## Windows.UI.Core.CoreWindowFlyout.ShowAsync
   var op: pointer
   withIface(self.p, ICoreWindowFlyout, it):
     check it.vtbl.ShowAsync(it, op.addr), "CoreWindowFlyout.ShowAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IUICommand,
-                              IID_AsyncOperationCompletedHandler_1_IUICommand,
-                              alPlain, "CoreWindowFlyout.ShowAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IUICommand,
+                                     IID_AsyncOperationCompletedHandler_1_IUICommand,
+                                     alPlain, "CoreWindowFlyout.ShowAsync")
 
 proc create*(_: typedesc[CoreWindowFlyout], position: Point): CoreWindowFlyout =
   ## Windows.UI.Core.CoreWindowFlyout.Create
@@ -11309,15 +11310,15 @@ proc setStrokeDataKind*(self: InkAnalyzer, strokeId: uint32,
     check it.vtbl.SetStrokeDataKind(it, strokeId, strokeKind
                                    ), "InkAnalyzer.SetStrokeDataKind"
 
-proc analyzeAsync*(self: InkAnalyzer): Future[InkAnalysisResult] {.async.} =
+proc analyzeAsync*(self: InkAnalyzer): Future[InkAnalysisResult] =
   ## Windows.UI.Input.Inking.Analysis.InkAnalyzer.AnalyzeAsync
   var op: pointer
   withIface(self.p, IInkAnalyzer, it):
     check it.vtbl.AnalyzeAsync(it, op.addr), "InkAnalyzer.AnalyzeAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_InkAnalysisResult,
-                              IID_AsyncOperationCompletedHandler_1_InkAnalysisResult,
-                              alPlain, "InkAnalyzer.AnalyzeAsync")
-  result = adopt[InkAnalysisResult](obj)
+  result = futureObject[InkAnalysisResult](op,
+                                           IID_IAsyncOperation_1_InkAnalysisResult,
+                                           IID_AsyncOperationCompletedHandler_1_InkAnalysisResult,
+                                           alPlain, "InkAnalyzer.AnalyzeAsync")
 
 proc appendInkPoints*(self: CoreIncrementalInkStroke, inkPoints: seq[InkPoint]
                      ): Rect =
@@ -11915,18 +11916,18 @@ proc setDefaultDrawingAttributes*(self: InkManager,
                                                ), "InkManager.SetDefaultDrawingAttributes"
 
 proc recognizeAsync*(self: InkManager, recognitionTarget: InkRecognitionTarget
-                    ): Future[seq[InkRecognitionResult]] {.async.} =
+                    ): Future[seq[InkRecognitionResult]] =
   ## Windows.UI.Input.Inking.InkManager.RecognizeAsync
   var op: pointer
   withIface(self.p, IInkManager, it):
     check it.vtbl.RecognizeAsync(it, recognitionTarget, op.addr
                                 ), "InkManager.RecognizeAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain, "InkManager.RecognizeAsync")
-  result = toSeq[InkRecognitionResult](coll,
-                                       IID_IVectorView_1_InkRecognitionResult)
-  discard release(coll)
+  result = futureSeq[InkRecognitionResult](op,
+                                           IID_IAsyncOperation_1_IVectorView_1,
+                                           IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                                           alPlain, "InkManager.RecognizeAsync",
+                                           IID_IVectorView_1_InkRecognitionResult
+                                          )
 
 proc setDefaultRecognizer*(self: InkManager, recognizer: InkRecognizer) =
   ## Windows.UI.Input.Inking.InkManager.SetDefaultRecognizer
@@ -11937,19 +11938,19 @@ proc setDefaultRecognizer*(self: InkManager, recognizer: InkRecognizer) =
 
 proc recognizeAsync*(self: InkManager, strokeCollection: InkStrokeContainer,
                      recognitionTarget: InkRecognitionTarget
-                    ): Future[seq[InkRecognitionResult]] {.async.} =
+                    ): Future[seq[InkRecognitionResult]] =
   ## Windows.UI.Input.Inking.InkManager.RecognizeAsync
   var op: pointer
   withIface(self.p, IInkRecognizerContainer, it):
     withIface(strokeCollection.p, IInkStrokeContainer, p0):
       check it.vtbl.RecognizeAsync(it, p0, recognitionTarget, op.addr
                                   ), "InkManager.RecognizeAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain, "InkManager.RecognizeAsync")
-  result = toSeq[InkRecognitionResult](coll,
-                                       IID_IVectorView_1_InkRecognitionResult)
-  discard release(coll)
+  result = futureSeq[InkRecognitionResult](op,
+                                           IID_IAsyncOperation_1_IVectorView_1,
+                                           IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                                           alPlain, "InkManager.RecognizeAsync",
+                                           IID_IVectorView_1_InkRecognitionResult
+                                          )
 
 proc getRecognizers*(self: InkManager): seq[InkRecognizer] =
   ## Windows.UI.Input.Inking.InkManager.GetRecognizers
@@ -12026,25 +12027,30 @@ proc canPasteFromClipboard*(self: InkManager): bool =
                                        ), "InkManager.CanPasteFromClipboard"
     result = tmp
 
-proc loadAsync*(self: InkManager, inputStream: WinRtObject) {.async.} =
+proc loadAsync*(self: InkManager, inputStream: WinRtObject,
+                progress: ProgressHandler[uint64] = nil): Future[void] =
   ## Windows.UI.Input.Inking.InkManager.LoadAsync
   var op: pointer
   withIface(self.p, IInkStrokeContainer, it):
     withIface(inputStream.p, IInputStream, p0):
       check it.vtbl.LoadAsync(it, p0, op.addr), "InkManager.LoadAsync"
-  await awaitVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_U8,
-                  alProgress, "InkManager.LoadAsync")
+  result = futureVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_U8,
+                      alProgress, "InkManager.LoadAsync")
+  reportProgress(op, IID_AsyncActionProgressHandler_1_U8, progress,
+                 "InkManager.LoadAsync")
 
-proc saveAsync*(self: InkManager, outputStream: WinRtObject
-               ): Future[uint32] {.async.} =
+proc saveAsync*(self: InkManager, outputStream: WinRtObject,
+                progress: ProgressHandler[uint32] = nil): Future[uint32] =
   ## Windows.UI.Input.Inking.InkManager.SaveAsync
   var op: pointer
   withIface(self.p, IInkStrokeContainer, it):
     withIface(outputStream.p, IOutputStream, p0):
       check it.vtbl.SaveAsync(it, p0, op.addr), "InkManager.SaveAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress, "InkManager.SaveAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress, "InkManager.SaveAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "InkManager.SaveAsync")
 
 proc updateRecognitionResults*(self: InkManager,
                                recognitionResults: seq[InkRecognitionResult]) =
@@ -12548,19 +12554,20 @@ proc setDefaultRecognizer*(self: InkRecognizerContainer,
 proc recognizeAsync*(self: InkRecognizerContainer,
                      strokeCollection: InkStrokeContainer,
                      recognitionTarget: InkRecognitionTarget
-                    ): Future[seq[InkRecognitionResult]] {.async.} =
+                    ): Future[seq[InkRecognitionResult]] =
   ## Windows.UI.Input.Inking.InkRecognizerContainer.RecognizeAsync
   var op: pointer
   withIface(self.p, IInkRecognizerContainer, it):
     withIface(strokeCollection.p, IInkStrokeContainer, p0):
       check it.vtbl.RecognizeAsync(it, p0, recognitionTarget, op.addr
                                   ), "InkRecognizerContainer.RecognizeAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
-                               alPlain, "InkRecognizerContainer.RecognizeAsync")
-  result = toSeq[InkRecognitionResult](coll,
-                                       IID_IVectorView_1_InkRecognitionResult)
-  discard release(coll)
+  result = futureSeq[InkRecognitionResult](op,
+                                           IID_IAsyncOperation_1_IVectorView_1,
+                                           IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                                           alPlain,
+                                           "InkRecognizerContainer.RecognizeAsync",
+                                           IID_IVectorView_1_InkRecognitionResult
+                                          )
 
 proc getRecognizers*(self: InkRecognizerContainer): seq[InkRecognizer] =
   ## Windows.UI.Input.Inking.InkRecognizerContainer.GetRecognizers
@@ -12837,25 +12844,30 @@ proc canPasteFromClipboard*(self: InkStrokeContainer): bool =
                                        ), "InkStrokeContainer.CanPasteFromClipboard"
     result = tmp
 
-proc loadAsync*(self: InkStrokeContainer, inputStream: WinRtObject) {.async.} =
+proc loadAsync*(self: InkStrokeContainer, inputStream: WinRtObject,
+                progress: ProgressHandler[uint64] = nil): Future[void] =
   ## Windows.UI.Input.Inking.InkStrokeContainer.LoadAsync
   var op: pointer
   withIface(self.p, IInkStrokeContainer, it):
     withIface(inputStream.p, IInputStream, p0):
       check it.vtbl.LoadAsync(it, p0, op.addr), "InkStrokeContainer.LoadAsync"
-  await awaitVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_U8,
-                  alProgress, "InkStrokeContainer.LoadAsync")
+  result = futureVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_U8,
+                      alProgress, "InkStrokeContainer.LoadAsync")
+  reportProgress(op, IID_AsyncActionProgressHandler_1_U8, progress,
+                 "InkStrokeContainer.LoadAsync")
 
-proc saveAsync*(self: InkStrokeContainer, outputStream: WinRtObject
-               ): Future[uint32] {.async.} =
+proc saveAsync*(self: InkStrokeContainer, outputStream: WinRtObject,
+                progress: ProgressHandler[uint32] = nil): Future[uint32] =
   ## Windows.UI.Input.Inking.InkStrokeContainer.SaveAsync
   var op: pointer
   withIface(self.p, IInkStrokeContainer, it):
     withIface(outputStream.p, IOutputStream, p0):
       check it.vtbl.SaveAsync(it, p0, op.addr), "InkStrokeContainer.SaveAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress, "InkStrokeContainer.SaveAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress, "InkStrokeContainer.SaveAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "InkStrokeContainer.SaveAsync")
 
 proc updateRecognitionResults*(self: InkStrokeContainer,
                                recognitionResults: seq[InkRecognitionResult]) =
@@ -12902,17 +12914,19 @@ proc clear*(self: InkStrokeContainer) =
     check it.vtbl.Clear(it), "InkStrokeContainer.Clear"
 
 proc saveAsync*(self: InkStrokeContainer, outputStream: WinRtObject,
-                inkPersistenceFormat: InkPersistenceFormat
-               ): Future[uint32] {.async.} =
+                inkPersistenceFormat: InkPersistenceFormat,
+                progress: ProgressHandler[uint32] = nil): Future[uint32] =
   ## Windows.UI.Input.Inking.InkStrokeContainer.SaveAsync
   var op: pointer
   withIface(self.p, IInkStrokeContainer3, it):
     withIface(outputStream.p, IOutputStream, p0):
       check it.vtbl.SaveAsync(it, p0, inkPersistenceFormat, op.addr
                              ), "InkStrokeContainer.SaveAsync"
-  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
-                                    IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
-                                    alProgress, "InkStrokeContainer.SaveAsync")
+  result = futureValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4,
+                               IID_AsyncOperationWithProgressCompletedHandler_2_U4_U4,
+                               alProgress, "InkStrokeContainer.SaveAsync")
+  reportProgress(op, IID_AsyncOperationProgressHandler_2_U4_U4, progress,
+                 "InkStrokeContainer.SaveAsync")
 
 proc getStrokeById*(self: InkStrokeContainer, id: uint32): InkStroke =
   ## Windows.UI.Input.Inking.InkStrokeContainer.GetStrokeById
@@ -14962,14 +14976,14 @@ proc populatedRange*(self: TextEditSession): CoreTextRange =
   withIface(self.p, ITextEditSession, it):
     result = it.getValue(get_PopulatedRange, CoreTextRange)
 
-proc populateAsync*(self: TextEditSession, range: CoreTextRange) {.async.} =
+proc populateAsync*(self: TextEditSession, range: CoreTextRange): Future[void] =
   ## Windows.UI.Input.Preview.Text.TextEditSession.PopulateAsync
   var op: pointer
   withIface(self.p, ITextEditSession, it):
     check it.vtbl.PopulateAsync(it, range, op.addr
                                ), "TextEditSession.PopulateAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "TextEditSession.PopulateAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "TextEditSession.PopulateAsync")
 
 proc getText*(self: TextEditSession, range: CoreTextRange): string =
   ## Windows.UI.Input.Preview.Text.TextEditSession.GetText
@@ -15031,17 +15045,16 @@ proc submitPayload*(self: TextEditSession): bool =
     check it.vtbl.SubmitPayload(it, tmp.addr), "TextEditSession.SubmitPayload"
     result = tmp
 
-proc submitPayloadAsync*(self: TextEditSession): Future[PayloadResult] {.async.} =
+proc submitPayloadAsync*(self: TextEditSession): Future[PayloadResult] =
   ## Windows.UI.Input.Preview.Text.TextEditSession.SubmitPayloadAsync
   var op: pointer
   withIface(self.p, ITextEditSession, it):
     check it.vtbl.SubmitPayloadAsync(it, op.addr
                                     ), "TextEditSession.SubmitPayloadAsync"
-  result = await awaitValue[PayloadResult](op,
-                                           IID_IAsyncOperation_1_PayloadResult,
-                                           IID_AsyncOperationCompletedHandler_1_PayloadResult,
-                                           alPlain,
-                                           "TextEditSession.SubmitPayloadAsync")
+  result = futureValue[PayloadResult](op, IID_IAsyncOperation_1_PayloadResult,
+                                      IID_AsyncOperationCompletedHandler_1_PayloadResult,
+                                      alPlain,
+                                      "TextEditSession.SubmitPayloadAsync")
 
 proc getSubscription*(self: TextInputProvider): TextInputServiceSubscription =
   ## Windows.UI.Input.Preview.Text.TextInputProvider.GetSubscription
@@ -16259,19 +16272,18 @@ proc version*(self: SpatialInteractionController): uint16 =
   withIface(self.p, ISpatialInteractionController, it):
     result = it.getValue(get_Version, uint16)
 
-proc tryGetRenderableModelAsync*(self: SpatialInteractionController): Future[WinRtObject] {.async.} =
+proc tryGetRenderableModelAsync*(self: SpatialInteractionController): Future[WinRtObject] =
   ## Windows.UI.Input.Spatial.SpatialInteractionController.TryGetRenderableModelAsync
   var op: pointer
   withIface(self.p, ISpatialInteractionController2, it):
     check it.vtbl.TryGetRenderableModelAsync(it, op.addr
                                             ), "SpatialInteractionController.TryGetRenderableModelAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
-                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
-                              alPlain,
-                              "SpatialInteractionController.TryGetRenderableModelAsync"
-                             )
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op,
+                                     IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
+                                     IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
+                                     alPlain,
+                                     "SpatialInteractionController.TryGetRenderableModelAsync"
+                                    )
 
 proc tryGetBatteryReport*(self: SpatialInteractionController): BatteryReport =
   ## Windows.UI.Input.Spatial.SpatialInteractionController.TryGetBatteryReport
@@ -16549,18 +16561,18 @@ proc tryCreateHandMeshObserver*(self: SpatialInteractionSource): HandMeshObserve
                                            ), "SpatialInteractionSource.TryCreateHandMeshObserver"
     result = adopt[HandMeshObserver](tmp)
 
-proc tryCreateHandMeshObserverAsync*(self: SpatialInteractionSource): Future[HandMeshObserver] {.async.} =
+proc tryCreateHandMeshObserverAsync*(self: SpatialInteractionSource): Future[HandMeshObserver] =
   ## Windows.UI.Input.Spatial.SpatialInteractionSource.TryCreateHandMeshObserverAsync
   var op: pointer
   withIface(self.p, ISpatialInteractionSource4, it):
     check it.vtbl.TryCreateHandMeshObserverAsync(it, op.addr
                                                 ), "SpatialInteractionSource.TryCreateHandMeshObserverAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_HandMeshObserver,
-                              IID_AsyncOperationCompletedHandler_1_HandMeshObserver,
-                              alPlain,
-                              "SpatialInteractionSource.TryCreateHandMeshObserverAsync"
-                             )
-  result = adopt[HandMeshObserver](obj)
+  result = futureObject[HandMeshObserver](op,
+                                          IID_IAsyncOperation_1_HandMeshObserver,
+                                          IID_AsyncOperationCompletedHandler_1_HandMeshObserver,
+                                          alPlain,
+                                          "SpatialInteractionSource.TryCreateHandMeshObserverAsync"
+                                         )
 
 proc state*(self: SpatialInteractionSourceEventArgs): SpatialInteractionSourceState =
   ## Windows.UI.Input.Spatial.SpatialInteractionSourceEventArgs.get_State
@@ -17597,18 +17609,18 @@ proc toastGeneric*(_: typedesc[KnownNotificationBindings]): string =
               IKnownNotificationBindingsStatics, it):
     result = it.getString(get_ToastGeneric)
 
-proc requestAccessAsync*(self: UserNotificationListener): Future[UserNotificationListenerAccessStatus] {.async.} =
+proc requestAccessAsync*(self: UserNotificationListener): Future[UserNotificationListenerAccessStatus] =
   ## Windows.UI.Notifications.Management.UserNotificationListener.RequestAccessAsync
   var op: pointer
   withIface(self.p, IUserNotificationListener, it):
     check it.vtbl.RequestAccessAsync(it, op.addr
                                     ), "UserNotificationListener.RequestAccessAsync"
-  result = await awaitValue[UserNotificationListenerAccessStatus](op,
-                                                                  IID_IAsyncOperation_1_UserNotificationListenerAccessStatus,
-                                                                  IID_AsyncOperationCompletedHandler_1_UserNotificationListenerAccessStatus,
-                                                                  alPlain,
-                                                                  "UserNotificationListener.RequestAccessAsync"
-                                                                 )
+  result = futureValue[UserNotificationListenerAccessStatus](op,
+                                                             IID_IAsyncOperation_1_UserNotificationListenerAccessStatus,
+                                                             IID_AsyncOperationCompletedHandler_1_UserNotificationListenerAccessStatus,
+                                                             alPlain,
+                                                             "UserNotificationListener.RequestAccessAsync"
+                                                            )
 
 proc getAccessStatus*(self: UserNotificationListener): UserNotificationListenerAccessStatus =
   ## Windows.UI.Notifications.Management.UserNotificationListener.GetAccessStatus
@@ -17640,18 +17652,17 @@ proc removeNotificationChanged*(self: UserNotificationListener, token: EventRegi
 
 proc getNotificationsAsync*(self: UserNotificationListener,
                             kinds: NotificationKinds
-                           ): Future[seq[UserNotification]] {.async.} =
+                           ): Future[seq[UserNotification]] =
   ## Windows.UI.Notifications.Management.UserNotificationListener.GetNotificationsAsync
   var op: pointer
   withIface(self.p, IUserNotificationListener, it):
     check it.vtbl.GetNotificationsAsync(it, kinds, op.addr
                                        ), "UserNotificationListener.GetNotificationsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
-                               alPlain,
-                               "UserNotificationListener.GetNotificationsAsync")
-  result = toSeq[UserNotification](coll, IID_IVectorView_1_UserNotification)
-  discard release(coll)
+  result = futureSeq[UserNotification](op, IID_IAsyncOperation_1_IVectorView_12,
+                                       IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                                       alPlain,
+                                       "UserNotificationListener.GetNotificationsAsync",
+                                       IID_IVectorView_1_UserNotification)
 
 proc getNotification*(self: UserNotificationListener, notificationId: uint32
                      ): UserNotification =
@@ -18494,63 +18505,62 @@ proc createInstance*(_: typedesc[ToastCollection], collectionId: string,
             result = adopt[ToastCollection](tmp)
 
 proc saveToastCollectionAsync*(self: ToastCollectionManager,
-                               collection: ToastCollection) {.async.} =
+                               collection: ToastCollection): Future[void] =
   ## Windows.UI.Notifications.ToastCollectionManager.SaveToastCollectionAsync
   var op: pointer
   withIface(self.p, IToastCollectionManager, it):
     withIface(collection.p, IToastCollection, p0):
       check it.vtbl.SaveToastCollectionAsync(it, p0, op.addr
                                             ), "ToastCollectionManager.SaveToastCollectionAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ToastCollectionManager.SaveToastCollectionAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ToastCollectionManager.SaveToastCollectionAsync")
 
-proc findAllToastCollectionsAsync*(self: ToastCollectionManager): Future[seq[ToastCollection]] {.async.} =
+proc findAllToastCollectionsAsync*(self: ToastCollectionManager): Future[seq[ToastCollection]] =
   ## Windows.UI.Notifications.ToastCollectionManager.FindAllToastCollectionsAsync
   var op: pointer
   withIface(self.p, IToastCollectionManager, it):
     check it.vtbl.FindAllToastCollectionsAsync(it, op.addr
                                               ), "ToastCollectionManager.FindAllToastCollectionsAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_13,
-                               alPlain,
-                               "ToastCollectionManager.FindAllToastCollectionsAsync"
-                              )
-  result = toSeq[ToastCollection](coll, IID_IVectorView_1_ToastCollection)
-  discard release(coll)
+  result = futureSeq[ToastCollection](op, IID_IAsyncOperation_1_IVectorView_13,
+                                      IID_AsyncOperationCompletedHandler_1_IVectorView_13,
+                                      alPlain,
+                                      "ToastCollectionManager.FindAllToastCollectionsAsync",
+                                      IID_IVectorView_1_ToastCollection)
 
 proc getToastCollectionAsync*(self: ToastCollectionManager, collectionId: string
-                             ): Future[ToastCollection] {.async.} =
+                             ): Future[ToastCollection] =
   ## Windows.UI.Notifications.ToastCollectionManager.GetToastCollectionAsync
   var op: pointer
   withIface(self.p, IToastCollectionManager, it):
     withHString(collectionId, h0):
       check it.vtbl.GetToastCollectionAsync(it, h0, op.addr
                                            ), "ToastCollectionManager.GetToastCollectionAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ToastCollection,
-                              IID_AsyncOperationCompletedHandler_1_ToastCollection,
-                              alPlain,
-                              "ToastCollectionManager.GetToastCollectionAsync")
-  result = adopt[ToastCollection](obj)
+  result = futureObject[ToastCollection](op,
+                                         IID_IAsyncOperation_1_ToastCollection,
+                                         IID_AsyncOperationCompletedHandler_1_ToastCollection,
+                                         alPlain,
+                                         "ToastCollectionManager.GetToastCollectionAsync"
+                                        )
 
 proc removeToastCollectionAsync*(self: ToastCollectionManager,
-                                 collectionId: string) {.async.} =
+                                 collectionId: string): Future[void] =
   ## Windows.UI.Notifications.ToastCollectionManager.RemoveToastCollectionAsync
   var op: pointer
   withIface(self.p, IToastCollectionManager, it):
     withHString(collectionId, h0):
       check it.vtbl.RemoveToastCollectionAsync(it, h0, op.addr
                                               ), "ToastCollectionManager.RemoveToastCollectionAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ToastCollectionManager.RemoveToastCollectionAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ToastCollectionManager.RemoveToastCollectionAsync")
 
-proc removeAllToastCollectionsAsync*(self: ToastCollectionManager) {.async.} =
+proc removeAllToastCollectionsAsync*(self: ToastCollectionManager): Future[void] =
   ## Windows.UI.Notifications.ToastCollectionManager.RemoveAllToastCollectionsAsync
   var op: pointer
   withIface(self.p, IToastCollectionManager, it):
     check it.vtbl.RemoveAllToastCollectionsAsync(it, op.addr
                                                 ), "ToastCollectionManager.RemoveAllToastCollectionsAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ToastCollectionManager.RemoveAllToastCollectionsAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ToastCollectionManager.RemoveAllToastCollectionsAsync")
 
 proc user*(self: ToastCollectionManager): User =
   ## Windows.UI.Notifications.ToastCollectionManager.get_User
@@ -18930,36 +18940,34 @@ proc user*(self: ToastNotificationManagerForUser): User =
 
 proc getToastNotifierForToastCollectionIdAsync*(self: ToastNotificationManagerForUser,
                                                 collectionId: string
-                                               ): Future[ToastNotifier] {.async.} =
+                                               ): Future[ToastNotifier] =
   ## Windows.UI.Notifications.ToastNotificationManagerForUser.GetToastNotifierForToastCollectionIdAsync
   var op: pointer
   withIface(self.p, IToastNotificationManagerForUser2, it):
     withHString(collectionId, h0):
       check it.vtbl.GetToastNotifierForToastCollectionIdAsync(it, h0, op.addr
                                                              ), "ToastNotificationManagerForUser.GetToastNotifierForToastCollectionIdAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_ToastNotifier,
-                              IID_AsyncOperationCompletedHandler_1_ToastNotifier,
-                              alPlain,
-                              "ToastNotificationManagerForUser.GetToastNotifierForToastCollectionIdAsync"
-                             )
-  result = adopt[ToastNotifier](obj)
+  result = futureObject[ToastNotifier](op, IID_IAsyncOperation_1_ToastNotifier,
+                                       IID_AsyncOperationCompletedHandler_1_ToastNotifier,
+                                       alPlain,
+                                       "ToastNotificationManagerForUser.GetToastNotifierForToastCollectionIdAsync"
+                                      )
 
 proc getHistoryForToastCollectionIdAsync*(self: ToastNotificationManagerForUser,
                                           collectionId: string
-                                         ): Future[ToastNotificationHistory] {.async.} =
+                                         ): Future[ToastNotificationHistory] =
   ## Windows.UI.Notifications.ToastNotificationManagerForUser.GetHistoryForToastCollectionIdAsync
   var op: pointer
   withIface(self.p, IToastNotificationManagerForUser2, it):
     withHString(collectionId, h0):
       check it.vtbl.GetHistoryForToastCollectionIdAsync(it, h0, op.addr
                                                        ), "ToastNotificationManagerForUser.GetHistoryForToastCollectionIdAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_ToastNotificationHistory,
-                              IID_AsyncOperationCompletedHandler_1_ToastNotificationHistory,
-                              alPlain,
-                              "ToastNotificationManagerForUser.GetHistoryForToastCollectionIdAsync"
-                             )
-  result = adopt[ToastNotificationHistory](obj)
+  result = futureObject[ToastNotificationHistory](op,
+                                                  IID_IAsyncOperation_1_ToastNotificationHistory,
+                                                  IID_AsyncOperationCompletedHandler_1_ToastNotificationHistory,
+                                                  alPlain,
+                                                  "ToastNotificationManagerForUser.GetHistoryForToastCollectionIdAsync"
+                                                 )
 
 proc getToastCollectionManager*(self: ToastNotificationManagerForUser): ToastCollectionManager =
   ## Windows.UI.Notifications.ToastNotificationManagerForUser.GetToastCollectionManager
@@ -19166,15 +19174,14 @@ proc `content=`*(self: MessageDialog, value: string) =
   withIface(self.p, IMessageDialog, it):
     it.putString(put_Content, value)
 
-proc showAsync*(self: MessageDialog): Future[WinRtObject] {.async.} =
+proc showAsync*(self: MessageDialog): Future[WinRtObject] =
   ## Windows.UI.Popups.MessageDialog.ShowAsync
   var op: pointer
   withIface(self.p, IMessageDialog, it):
     check it.vtbl.ShowAsync(it, op.addr), "MessageDialog.ShowAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IUICommand,
-                              IID_AsyncOperationCompletedHandler_1_IUICommand,
-                              alPlain, "MessageDialog.ShowAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IUICommand,
+                                     IID_AsyncOperationCompletedHandler_1_IUICommand,
+                                     alPlain, "MessageDialog.ShowAsync")
 
 proc options*(self: MessageDialog): MessageDialogOptions =
   ## Windows.UI.Popups.MessageDialog.get_Options
@@ -19217,42 +19224,38 @@ proc commands*(self: PopupMenu): seq[WinRtObject] =
     result = toSeq[WinRtObject](tmp, IID_IVector_1_IUICommand)
     release(tmp)
 
-proc showAsync*(self: PopupMenu, invocationPoint: Point
-               ): Future[WinRtObject] {.async.} =
+proc showAsync*(self: PopupMenu, invocationPoint: Point): Future[WinRtObject] =
   ## Windows.UI.Popups.PopupMenu.ShowAsync
   var op: pointer
   withIface(self.p, IPopupMenu, it):
     check it.vtbl.ShowAsync(it, invocationPoint, op.addr), "PopupMenu.ShowAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IUICommand,
-                              IID_AsyncOperationCompletedHandler_1_IUICommand,
-                              alPlain, "PopupMenu.ShowAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IUICommand,
+                                     IID_AsyncOperationCompletedHandler_1_IUICommand,
+                                     alPlain, "PopupMenu.ShowAsync")
 
 proc showForSelectionAsync*(self: PopupMenu, selection: Rect
-                           ): Future[WinRtObject] {.async.} =
+                           ): Future[WinRtObject] =
   ## Windows.UI.Popups.PopupMenu.ShowForSelectionAsync
   var op: pointer
   withIface(self.p, IPopupMenu, it):
     check it.vtbl.ShowForSelectionAsync(it, selection, op.addr
                                        ), "PopupMenu.ShowForSelectionAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IUICommand,
-                              IID_AsyncOperationCompletedHandler_1_IUICommand,
-                              alPlain, "PopupMenu.ShowForSelectionAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IUICommand,
+                                     IID_AsyncOperationCompletedHandler_1_IUICommand,
+                                     alPlain, "PopupMenu.ShowForSelectionAsync")
 
 proc showForSelectionAsync*(self: PopupMenu, selection: Rect,
                             preferredPlacement: Placement
-                           ): Future[WinRtObject] {.async.} =
+                           ): Future[WinRtObject] =
   ## Windows.UI.Popups.PopupMenu.ShowForSelectionAsync
   var op: pointer
   withIface(self.p, IPopupMenu, it):
     check it.vtbl.ShowForSelectionAsync2(it, selection, preferredPlacement,
                                          op.addr
                                         ), "PopupMenu.ShowForSelectionAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IUICommand,
-                              IID_AsyncOperationCompletedHandler_1_IUICommand,
-                              alPlain, "PopupMenu.ShowForSelectionAsync")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_IUICommand,
+                                     IID_AsyncOperationCompletedHandler_1_IUICommand,
+                                     alPlain, "PopupMenu.ShowForSelectionAsync")
 
 proc newUICommand*(): UICommand =
   ## Activate a `Windows.UI.Popups.UICommand`.
@@ -19381,20 +19384,19 @@ proc createAdaptiveCardFromJson*(_: typedesc[AdaptiveCardBuilder], value: string
       result = adopt[WinRtObject](tmp)
 
 proc requestWindowFromAppAsync*(self: CompanionWindowCoordinator, appId: string
-                               ): Future[CompanionWindowRequestResult] {.async.} =
+                               ): Future[CompanionWindowRequestResult] =
   ## Windows.UI.Shell.CompanionWindows.CompanionWindowCoordinator.RequestWindowFromAppAsync
   var op: pointer
   withIface(self.p, ICompanionWindowCoordinator, it):
     withHString(appId, h0):
       check it.vtbl.RequestWindowFromAppAsync(it, h0, op.addr
                                              ), "CompanionWindowCoordinator.RequestWindowFromAppAsync"
-  let obj = await awaitObject(op,
-                              IID_IAsyncOperation_1_CompanionWindowRequestResult,
-                              IID_AsyncOperationCompletedHandler_1_CompanionWindowRequestResult,
-                              alPlain,
-                              "CompanionWindowCoordinator.RequestWindowFromAppAsync"
-                             )
-  result = adopt[CompanionWindowRequestResult](obj)
+  result = futureObject[CompanionWindowRequestResult](op,
+                                                      IID_IAsyncOperation_1_CompanionWindowRequestResult,
+                                                      IID_AsyncOperationCompletedHandler_1_CompanionWindowRequestResult,
+                                                      alPlain,
+                                                      "CompanionWindowCoordinator.RequestWindowFromAppAsync"
+                                                     )
 
 proc detachCompanionWindow*(self: CompanionWindowCoordinator) =
   ## Windows.UI.Shell.CompanionWindows.CompanionWindowCoordinator.DetachCompanionWindow
@@ -19693,94 +19695,85 @@ proc isPinningAllowed*(self: TaskbarManager): bool =
   withIface(self.p, ITaskbarManager, it):
     result = it.getValue(get_IsPinningAllowed, bool)
 
-proc isCurrentAppPinnedAsync*(self: TaskbarManager): Future[bool] {.async.} =
+proc isCurrentAppPinnedAsync*(self: TaskbarManager): Future[bool] =
   ## Windows.UI.Shell.TaskbarManager.IsCurrentAppPinnedAsync
   var op: pointer
   withIface(self.p, ITaskbarManager, it):
     check it.vtbl.IsCurrentAppPinnedAsync(it, op.addr
                                          ), "TaskbarManager.IsCurrentAppPinnedAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "TaskbarManager.IsCurrentAppPinnedAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "TaskbarManager.IsCurrentAppPinnedAsync")
 
 proc isAppListEntryPinnedAsync*(self: TaskbarManager, appListEntry: AppListEntry
-                               ): Future[bool] {.async.} =
+                               ): Future[bool] =
   ## Windows.UI.Shell.TaskbarManager.IsAppListEntryPinnedAsync
   var op: pointer
   withIface(self.p, ITaskbarManager, it):
     withIface(appListEntry.p, IAppListEntry, p0):
       check it.vtbl.IsAppListEntryPinnedAsync(it, p0, op.addr
                                              ), "TaskbarManager.IsAppListEntryPinnedAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "TaskbarManager.IsAppListEntryPinnedAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "TaskbarManager.IsAppListEntryPinnedAsync")
 
-proc requestPinCurrentAppAsync*(self: TaskbarManager): Future[bool] {.async.} =
+proc requestPinCurrentAppAsync*(self: TaskbarManager): Future[bool] =
   ## Windows.UI.Shell.TaskbarManager.RequestPinCurrentAppAsync
   var op: pointer
   withIface(self.p, ITaskbarManager, it):
     check it.vtbl.RequestPinCurrentAppAsync(it, op.addr
                                            ), "TaskbarManager.RequestPinCurrentAppAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "TaskbarManager.RequestPinCurrentAppAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "TaskbarManager.RequestPinCurrentAppAsync")
 
 proc requestPinAppListEntryAsync*(self: TaskbarManager,
-                                  appListEntry: AppListEntry
-                                 ): Future[bool] {.async.} =
+                                  appListEntry: AppListEntry): Future[bool] =
   ## Windows.UI.Shell.TaskbarManager.RequestPinAppListEntryAsync
   var op: pointer
   withIface(self.p, ITaskbarManager, it):
     withIface(appListEntry.p, IAppListEntry, p0):
       check it.vtbl.RequestPinAppListEntryAsync(it, p0, op.addr
                                                ), "TaskbarManager.RequestPinAppListEntryAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "TaskbarManager.RequestPinAppListEntryAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "TaskbarManager.RequestPinAppListEntryAsync")
 
 proc isSecondaryTilePinnedAsync*(self: TaskbarManager, tileId: string
-                                ): Future[bool] {.async.} =
+                                ): Future[bool] =
   ## Windows.UI.Shell.TaskbarManager.IsSecondaryTilePinnedAsync
   var op: pointer
   withIface(self.p, ITaskbarManager2, it):
     withHString(tileId, h0):
       check it.vtbl.IsSecondaryTilePinnedAsync(it, h0, op.addr
                                               ), "TaskbarManager.IsSecondaryTilePinnedAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "TaskbarManager.IsSecondaryTilePinnedAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "TaskbarManager.IsSecondaryTilePinnedAsync")
 
 proc requestPinSecondaryTileAsync*(self: TaskbarManager,
-                                   secondaryTile: SecondaryTile
-                                  ): Future[bool] {.async.} =
+                                   secondaryTile: SecondaryTile): Future[bool] =
   ## Windows.UI.Shell.TaskbarManager.RequestPinSecondaryTileAsync
   var op: pointer
   withIface(self.p, ITaskbarManager2, it):
     withIface(secondaryTile.p, ISecondaryTile, p0):
       check it.vtbl.RequestPinSecondaryTileAsync(it, p0, op.addr
                                                 ), "TaskbarManager.RequestPinSecondaryTileAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "TaskbarManager.RequestPinSecondaryTileAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "TaskbarManager.RequestPinSecondaryTileAsync")
 
 proc tryUnpinSecondaryTileAsync*(self: TaskbarManager, tileId: string
-                                ): Future[bool] {.async.} =
+                                ): Future[bool] =
   ## Windows.UI.Shell.TaskbarManager.TryUnpinSecondaryTileAsync
   var op: pointer
   withIface(self.p, ITaskbarManager2, it):
     withHString(tileId, h0):
       check it.vtbl.TryUnpinSecondaryTileAsync(it, h0, op.addr
                                               ), "TaskbarManager.TryUnpinSecondaryTileAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "TaskbarManager.TryUnpinSecondaryTileAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "TaskbarManager.TryUnpinSecondaryTileAsync")
 
 proc getDefault*(_: typedesc[TaskbarManager]): TaskbarManager =
   ## Windows.UI.Shell.TaskbarManager.GetDefault
@@ -20332,23 +20325,22 @@ proc `systemGroupKind=`*(self: JumpList, value: JumpListSystemGroupKind) =
   withIface(self.p, IJumpList, it):
     it.putValue(put_SystemGroupKind, value)
 
-proc saveAsync*(self: JumpList) {.async.} =
+proc saveAsync*(self: JumpList): Future[void] =
   ## Windows.UI.StartScreen.JumpList.SaveAsync
   var op: pointer
   withIface(self.p, IJumpList, it):
     check it.vtbl.SaveAsync(it, op.addr), "JumpList.SaveAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "JumpList.SaveAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "JumpList.SaveAsync")
 
-proc loadCurrentAsync*(_: typedesc[JumpList]): Future[JumpList] {.async.} =
+proc loadCurrentAsync*(_: typedesc[JumpList]): Future[JumpList] =
   ## Windows.UI.StartScreen.JumpList.LoadCurrentAsync
   var op: pointer
   withStatics("Windows.UI.StartScreen.JumpList", IJumpListStatics, it):
     check it.vtbl.LoadCurrentAsync(it, op.addr), "JumpList.LoadCurrentAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_JumpList,
-                              IID_AsyncOperationCompletedHandler_1_JumpList,
-                              alPlain, "JumpList.LoadCurrentAsync")
-  result = adopt[JumpList](obj)
+  result = futureObject[JumpList](op, IID_IAsyncOperation_1_JumpList,
+                                  IID_AsyncOperationCompletedHandler_1_JumpList,
+                                  alPlain, "JumpList.LoadCurrentAsync")
 
 proc isSupported*(_: typedesc[JumpList]): bool =
   ## Windows.UI.StartScreen.JumpList.IsSupported
@@ -20560,112 +20552,104 @@ proc backgroundColor*(self: SecondaryTile): Color =
   withIface(self.p, ISecondaryTile, it):
     result = it.getValue(get_BackgroundColor, Color)
 
-proc requestCreateAsync*(self: SecondaryTile): Future[bool] {.async.} =
+proc requestCreateAsync*(self: SecondaryTile): Future[bool] =
   ## Windows.UI.StartScreen.SecondaryTile.RequestCreateAsync
   var op: pointer
   withIface(self.p, ISecondaryTile, it):
     check it.vtbl.RequestCreateAsync(it, op.addr
                                     ), "SecondaryTile.RequestCreateAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "SecondaryTile.RequestCreateAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "SecondaryTile.RequestCreateAsync")
 
 proc requestCreateAsync*(self: SecondaryTile, invocationPoint: Point
-                        ): Future[bool] {.async.} =
+                        ): Future[bool] =
   ## Windows.UI.StartScreen.SecondaryTile.RequestCreateAsync
   var op: pointer
   withIface(self.p, ISecondaryTile, it):
     check it.vtbl.RequestCreateAsync2(it, invocationPoint, op.addr
                                      ), "SecondaryTile.RequestCreateAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "SecondaryTile.RequestCreateAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "SecondaryTile.RequestCreateAsync")
 
 proc requestCreateForSelectionAsync*(self: SecondaryTile, selection: Rect
-                                    ): Future[bool] {.async.} =
+                                    ): Future[bool] =
   ## Windows.UI.StartScreen.SecondaryTile.RequestCreateForSelectionAsync
   var op: pointer
   withIface(self.p, ISecondaryTile, it):
     check it.vtbl.RequestCreateForSelectionAsync(it, selection, op.addr
                                                 ), "SecondaryTile.RequestCreateForSelectionAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "SecondaryTile.RequestCreateForSelectionAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "SecondaryTile.RequestCreateForSelectionAsync")
 
 proc requestCreateForSelectionAsync*(self: SecondaryTile, selection: Rect,
                                      preferredPlacement: Placement
-                                    ): Future[bool] {.async.} =
+                                    ): Future[bool] =
   ## Windows.UI.StartScreen.SecondaryTile.RequestCreateForSelectionAsync
   var op: pointer
   withIface(self.p, ISecondaryTile, it):
     check it.vtbl.RequestCreateForSelectionAsync2(it, selection,
                                                   preferredPlacement, op.addr
                                                  ), "SecondaryTile.RequestCreateForSelectionAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "SecondaryTile.RequestCreateForSelectionAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "SecondaryTile.RequestCreateForSelectionAsync")
 
-proc requestDeleteAsync*(self: SecondaryTile): Future[bool] {.async.} =
+proc requestDeleteAsync*(self: SecondaryTile): Future[bool] =
   ## Windows.UI.StartScreen.SecondaryTile.RequestDeleteAsync
   var op: pointer
   withIface(self.p, ISecondaryTile, it):
     check it.vtbl.RequestDeleteAsync(it, op.addr
                                     ), "SecondaryTile.RequestDeleteAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "SecondaryTile.RequestDeleteAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "SecondaryTile.RequestDeleteAsync")
 
 proc requestDeleteAsync*(self: SecondaryTile, invocationPoint: Point
-                        ): Future[bool] {.async.} =
+                        ): Future[bool] =
   ## Windows.UI.StartScreen.SecondaryTile.RequestDeleteAsync
   var op: pointer
   withIface(self.p, ISecondaryTile, it):
     check it.vtbl.RequestDeleteAsync2(it, invocationPoint, op.addr
                                      ), "SecondaryTile.RequestDeleteAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "SecondaryTile.RequestDeleteAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "SecondaryTile.RequestDeleteAsync")
 
 proc requestDeleteForSelectionAsync*(self: SecondaryTile, selection: Rect
-                                    ): Future[bool] {.async.} =
+                                    ): Future[bool] =
   ## Windows.UI.StartScreen.SecondaryTile.RequestDeleteForSelectionAsync
   var op: pointer
   withIface(self.p, ISecondaryTile, it):
     check it.vtbl.RequestDeleteForSelectionAsync(it, selection, op.addr
                                                 ), "SecondaryTile.RequestDeleteForSelectionAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "SecondaryTile.RequestDeleteForSelectionAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "SecondaryTile.RequestDeleteForSelectionAsync")
 
 proc requestDeleteForSelectionAsync*(self: SecondaryTile, selection: Rect,
                                      preferredPlacement: Placement
-                                    ): Future[bool] {.async.} =
+                                    ): Future[bool] =
   ## Windows.UI.StartScreen.SecondaryTile.RequestDeleteForSelectionAsync
   var op: pointer
   withIface(self.p, ISecondaryTile, it):
     check it.vtbl.RequestDeleteForSelectionAsync2(it, selection,
                                                   preferredPlacement, op.addr
                                                  ), "SecondaryTile.RequestDeleteForSelectionAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "SecondaryTile.RequestDeleteForSelectionAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "SecondaryTile.RequestDeleteForSelectionAsync")
 
-proc updateAsync*(self: SecondaryTile): Future[bool] {.async.} =
+proc updateAsync*(self: SecondaryTile): Future[bool] =
   ## Windows.UI.StartScreen.SecondaryTile.UpdateAsync
   var op: pointer
   withIface(self.p, ISecondaryTile, it):
     check it.vtbl.UpdateAsync(it, op.addr), "SecondaryTile.UpdateAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "SecondaryTile.UpdateAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "SecondaryTile.UpdateAsync")
 
 proc `phoneticName=`*(self: SecondaryTile, value: string) =
   ## Windows.UI.StartScreen.SecondaryTile.put_PhoneticName
@@ -20721,44 +20705,42 @@ proc exists*(_: typedesc[SecondaryTile], tileId: string): bool =
       check it.vtbl.Exists(it, h0, tmp.addr), "SecondaryTile.Exists"
       result = tmp
 
-proc findAllAsync*(_: typedesc[SecondaryTile]): Future[seq[SecondaryTile]] {.async.} =
+proc findAllAsync*(_: typedesc[SecondaryTile]): Future[seq[SecondaryTile]] =
   ## Windows.UI.StartScreen.SecondaryTile.FindAllAsync
   var op: pointer
   withStatics("Windows.UI.StartScreen.SecondaryTile", ISecondaryTileStatics, it
              ):
     check it.vtbl.FindAllAsync(it, op.addr), "SecondaryTile.FindAllAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_14,
-                               alPlain, "SecondaryTile.FindAllAsync")
-  result = toSeq[SecondaryTile](coll, IID_IVectorView_1_SecondaryTile)
-  discard release(coll)
+  result = futureSeq[SecondaryTile](op, IID_IAsyncOperation_1_IVectorView_14,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_14,
+                                    alPlain, "SecondaryTile.FindAllAsync",
+                                    IID_IVectorView_1_SecondaryTile)
 
 proc findAllAsync*(_: typedesc[SecondaryTile], applicationId: string
-                  ): Future[seq[SecondaryTile]] {.async.} =
+                  ): Future[seq[SecondaryTile]] =
   ## Windows.UI.StartScreen.SecondaryTile.FindAllAsync
   var op: pointer
   withStatics("Windows.UI.StartScreen.SecondaryTile", ISecondaryTileStatics, it
              ):
     withHString(applicationId, h0):
       check it.vtbl.FindAllAsync2(it, h0, op.addr), "SecondaryTile.FindAllAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_14,
-                               alPlain, "SecondaryTile.FindAllAsync")
-  result = toSeq[SecondaryTile](coll, IID_IVectorView_1_SecondaryTile)
-  discard release(coll)
+  result = futureSeq[SecondaryTile](op, IID_IAsyncOperation_1_IVectorView_14,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_14,
+                                    alPlain, "SecondaryTile.FindAllAsync",
+                                    IID_IVectorView_1_SecondaryTile)
 
-proc findAllForPackageAsync*(_: typedesc[SecondaryTile]): Future[seq[SecondaryTile]] {.async.} =
+proc findAllForPackageAsync*(_: typedesc[SecondaryTile]): Future[seq[SecondaryTile]] =
   ## Windows.UI.StartScreen.SecondaryTile.FindAllForPackageAsync
   var op: pointer
   withStatics("Windows.UI.StartScreen.SecondaryTile", ISecondaryTileStatics, it
              ):
     check it.vtbl.FindAllForPackageAsync(it, op.addr
                                         ), "SecondaryTile.FindAllForPackageAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_14,
-                               alPlain, "SecondaryTile.FindAllForPackageAsync")
-  result = toSeq[SecondaryTile](coll, IID_IVectorView_1_SecondaryTile)
-  discard release(coll)
+  result = futureSeq[SecondaryTile](op, IID_IAsyncOperation_1_IVectorView_14,
+                                    IID_AsyncOperationCompletedHandler_1_IVectorView_14,
+                                    alPlain,
+                                    "SecondaryTile.FindAllForPackageAsync",
+                                    IID_IVectorView_1_SecondaryTile)
 
 proc createTile*(_: typedesc[SecondaryTile], tileId: string, shortName: string,
                  displayName: string, arguments: string,
@@ -20980,62 +20962,52 @@ proc supportsAppListEntry*(self: StartScreenManager, appListEntry: AppListEntry
       result = tmp
 
 proc containsAppListEntryAsync*(self: StartScreenManager,
-                                appListEntry: AppListEntry
-                               ): Future[bool] {.async.} =
+                                appListEntry: AppListEntry): Future[bool] =
   ## Windows.UI.StartScreen.StartScreenManager.ContainsAppListEntryAsync
   var op: pointer
   withIface(self.p, IStartScreenManager, it):
     withIface(appListEntry.p, IAppListEntry, p0):
       check it.vtbl.ContainsAppListEntryAsync(it, p0, op.addr
                                              ), "StartScreenManager.ContainsAppListEntryAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "StartScreenManager.ContainsAppListEntryAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "StartScreenManager.ContainsAppListEntryAsync")
 
 proc requestAddAppListEntryAsync*(self: StartScreenManager,
-                                  appListEntry: AppListEntry
-                                 ): Future[bool] {.async.} =
+                                  appListEntry: AppListEntry): Future[bool] =
   ## Windows.UI.StartScreen.StartScreenManager.RequestAddAppListEntryAsync
   var op: pointer
   withIface(self.p, IStartScreenManager, it):
     withIface(appListEntry.p, IAppListEntry, p0):
       check it.vtbl.RequestAddAppListEntryAsync(it, p0, op.addr
                                                ), "StartScreenManager.RequestAddAppListEntryAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "StartScreenManager.RequestAddAppListEntryAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "StartScreenManager.RequestAddAppListEntryAsync")
 
 proc containsSecondaryTileAsync*(self: StartScreenManager, tileId: string
-                                ): Future[bool] {.async.} =
+                                ): Future[bool] =
   ## Windows.UI.StartScreen.StartScreenManager.ContainsSecondaryTileAsync
   var op: pointer
   withIface(self.p, IStartScreenManager2, it):
     withHString(tileId, h0):
       check it.vtbl.ContainsSecondaryTileAsync(it, h0, op.addr
                                               ), "StartScreenManager.ContainsSecondaryTileAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "StartScreenManager.ContainsSecondaryTileAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "StartScreenManager.ContainsSecondaryTileAsync")
 
 proc tryRemoveSecondaryTileAsync*(self: StartScreenManager, tileId: string
-                                 ): Future[bool] {.async.} =
+                                 ): Future[bool] =
   ## Windows.UI.StartScreen.StartScreenManager.TryRemoveSecondaryTileAsync
   var op: pointer
   withIface(self.p, IStartScreenManager2, it):
     withHString(tileId, h0):
       check it.vtbl.TryRemoveSecondaryTileAsync(it, h0, op.addr
                                                ), "StartScreenManager.TryRemoveSecondaryTileAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "StartScreenManager.TryRemoveSecondaryTileAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "StartScreenManager.TryRemoveSecondaryTileAsync")
 
 proc getDefault*(_: typedesc[StartScreenManager]): StartScreenManager =
   ## Windows.UI.StartScreen.StartScreenManager.GetDefault
@@ -22677,18 +22649,19 @@ proc stop*(self: RemoteAutomationClientSession) =
 proc createWindowAsync*(self: RemoteAutomationClientSession,
                         remoteWindowId: uint64, remoteProcessId: uint32,
                         parentAutomationElement: WinRtObject
-                       ): Future[RemoteAutomationWindow] {.async.} =
+                       ): Future[RemoteAutomationWindow] =
   ## Windows.UI.UIAutomation.Core.RemoteAutomationClientSession.CreateWindowAsync
   var op: pointer
   withIface(self.p, IRemoteAutomationClientSession, it):
     check it.vtbl.CreateWindowAsync(it, remoteWindowId, remoteProcessId,
                                     parentAutomationElement.p, op.addr
                                    ), "RemoteAutomationClientSession.CreateWindowAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_RemoteAutomationWindow,
-                              IID_AsyncOperationCompletedHandler_1_RemoteAutomationWindow,
-                              alPlain,
-                              "RemoteAutomationClientSession.CreateWindowAsync")
-  result = adopt[RemoteAutomationWindow](obj)
+  result = futureObject[RemoteAutomationWindow](op,
+                                                IID_IAsyncOperation_1_RemoteAutomationWindow,
+                                                IID_AsyncOperationCompletedHandler_1_RemoteAutomationWindow,
+                                                alPlain,
+                                                "RemoteAutomationClientSession.CreateWindowAsync"
+                                               )
 
 proc sessionId*(self: RemoteAutomationClientSession): GUID =
   ## Windows.UI.UIAutomation.Core.RemoteAutomationClientSession.get_SessionId
@@ -22784,14 +22757,14 @@ proc automationProvider*(self: RemoteAutomationWindow): WinRtObject =
   withIface(self.p, IRemoteAutomationWindow, it):
     result = it.getObject(get_AutomationProvider, WinRtObject)
 
-proc unregisterAsync*(self: RemoteAutomationWindow) {.async.} =
+proc unregisterAsync*(self: RemoteAutomationWindow): Future[void] =
   ## Windows.UI.UIAutomation.Core.RemoteAutomationWindow.UnregisterAsync
   var op: pointer
   withIface(self.p, IRemoteAutomationWindow, it):
     check it.vtbl.UnregisterAsync(it, op.addr
                                  ), "RemoteAutomationWindow.UnregisterAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "RemoteAutomationWindow.UnregisterAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "RemoteAutomationWindow.UnregisterAsync")
 
 proc uIContext*(self: UIContentRoot): UIContext =
   ## Windows.UI.UIContentRoot.get_UIContext
@@ -22832,24 +22805,24 @@ proc removeHighContrastChanged*(self: AccessibilitySettings, token: EventRegistr
     check it.vtbl.remove_HighContrastChanged(it, token), "AccessibilitySettings.remove_HighContrastChanged"
 
 proc showAsStandaloneAsync*(self: ActivationViewSwitcher, viewId: int32
-                           ) {.async.} =
+                           ): Future[void] =
   ## Windows.UI.ViewManagement.ActivationViewSwitcher.ShowAsStandaloneAsync
   var op: pointer
   withIface(self.p, IActivationViewSwitcher, it):
     check it.vtbl.ShowAsStandaloneAsync(it, viewId, op.addr
                                        ), "ActivationViewSwitcher.ShowAsStandaloneAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ActivationViewSwitcher.ShowAsStandaloneAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ActivationViewSwitcher.ShowAsStandaloneAsync")
 
 proc showAsStandaloneAsync*(self: ActivationViewSwitcher, viewId: int32,
-                            sizePreference: ViewSizePreference) {.async.} =
+                            sizePreference: ViewSizePreference): Future[void] =
   ## Windows.UI.ViewManagement.ActivationViewSwitcher.ShowAsStandaloneAsync
   var op: pointer
   withIface(self.p, IActivationViewSwitcher, it):
     check it.vtbl.ShowAsStandaloneAsync2(it, viewId, sizePreference, op.addr
                                         ), "ActivationViewSwitcher.ShowAsStandaloneAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ActivationViewSwitcher.ShowAsStandaloneAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ActivationViewSwitcher.ShowAsStandaloneAsync")
 
 proc isViewPresentedOnActivationVirtualDesktop*(self: ActivationViewSwitcher,
                                                 viewId: int32): bool =
@@ -23046,42 +23019,39 @@ proc isViewModeSupported*(self: ApplicationView, viewMode: ApplicationViewMode
     result = tmp
 
 proc tryEnterViewModeAsync*(self: ApplicationView, viewMode: ApplicationViewMode
-                           ): Future[bool] {.async.} =
+                           ): Future[bool] =
   ## Windows.UI.ViewManagement.ApplicationView.TryEnterViewModeAsync
   var op: pointer
   withIface(self.p, IApplicationView4, it):
     check it.vtbl.TryEnterViewModeAsync(it, viewMode, op.addr
                                        ), "ApplicationView.TryEnterViewModeAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "ApplicationView.TryEnterViewModeAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ApplicationView.TryEnterViewModeAsync")
 
 proc tryEnterViewModeAsync*(self: ApplicationView,
                             viewMode: ApplicationViewMode,
                             viewModePreferences: ViewModePreferences
-                           ): Future[bool] {.async.} =
+                           ): Future[bool] =
   ## Windows.UI.ViewManagement.ApplicationView.TryEnterViewModeAsync
   var op: pointer
   withIface(self.p, IApplicationView4, it):
     withIface(viewModePreferences.p, IViewModePreferences, p1):
       check it.vtbl.TryEnterViewModeAsync2(it, viewMode, p1, op.addr
                                           ), "ApplicationView.TryEnterViewModeAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "ApplicationView.TryEnterViewModeAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ApplicationView.TryEnterViewModeAsync")
 
-proc tryConsolidateAsync*(self: ApplicationView): Future[bool] {.async.} =
+proc tryConsolidateAsync*(self: ApplicationView): Future[bool] =
   ## Windows.UI.ViewManagement.ApplicationView.TryConsolidateAsync
   var op: pointer
   withIface(self.p, IApplicationView4, it):
     check it.vtbl.TryConsolidateAsync(it, op.addr
                                      ), "ApplicationView.TryConsolidateAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "ApplicationView.TryConsolidateAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ApplicationView.TryConsolidateAsync")
 
 proc persistedStateId*(self: ApplicationView): string =
   ## Windows.UI.ViewManagement.ApplicationView.get_PersistedStateId
@@ -23235,23 +23205,21 @@ proc trySetDisableLayoutScaling*(_: typedesc[ApplicationViewScaling],
 
 proc tryShowAsViewModeAsync*(_: typedesc[ApplicationViewSwitcher],
                              viewId: int32, viewMode: ApplicationViewMode
-                            ): Future[bool] {.async.} =
+                            ): Future[bool] =
   ## Windows.UI.ViewManagement.ApplicationViewSwitcher.TryShowAsViewModeAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher",
               IApplicationViewSwitcherStatics3, it):
     check it.vtbl.TryShowAsViewModeAsync(it, viewId, viewMode, op.addr
                                         ), "ApplicationViewSwitcher.TryShowAsViewModeAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "ApplicationViewSwitcher.TryShowAsViewModeAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ApplicationViewSwitcher.TryShowAsViewModeAsync")
 
 proc tryShowAsViewModeAsync*(_: typedesc[ApplicationViewSwitcher],
                              viewId: int32, viewMode: ApplicationViewMode,
                              viewModePreferences: ViewModePreferences
-                            ): Future[bool] {.async.} =
+                            ): Future[bool] =
   ## Windows.UI.ViewManagement.ApplicationViewSwitcher.TryShowAsViewModeAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher",
@@ -23259,11 +23227,9 @@ proc tryShowAsViewModeAsync*(_: typedesc[ApplicationViewSwitcher],
     withIface(viewModePreferences.p, IViewModePreferences, p2):
       check it.vtbl.TryShowAsViewModeAsync2(it, viewId, viewMode, p2, op.addr
                                            ), "ApplicationViewSwitcher.TryShowAsViewModeAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "ApplicationViewSwitcher.TryShowAsViewModeAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ApplicationViewSwitcher.TryShowAsViewModeAsync")
 
 proc disableSystemViewActivationPolicy*(_: typedesc[ApplicationViewSwitcher]) =
   ## Windows.UI.ViewManagement.ApplicationViewSwitcher.DisableSystemViewActivationPolicy
@@ -23278,40 +23244,36 @@ proc disableShowingMainViewOnActivation*(_: typedesc[ApplicationViewSwitcher]) =
     check it.vtbl.DisableShowingMainViewOnActivation(it), "ApplicationViewSwitcher.DisableShowingMainViewOnActivation"
 
 proc tryShowAsStandaloneAsync*(_: typedesc[ApplicationViewSwitcher],
-                               viewId: int32): Future[bool] {.async.} =
+                               viewId: int32): Future[bool] =
   ## Windows.UI.ViewManagement.ApplicationViewSwitcher.TryShowAsStandaloneAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher",
               IApplicationViewSwitcherStatics, it):
     check it.vtbl.TryShowAsStandaloneAsync(it, viewId, op.addr
                                           ), "ApplicationViewSwitcher.TryShowAsStandaloneAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "ApplicationViewSwitcher.TryShowAsStandaloneAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ApplicationViewSwitcher.TryShowAsStandaloneAsync")
 
 proc tryShowAsStandaloneAsync*(_: typedesc[ApplicationViewSwitcher],
                                viewId: int32, sizePreference: ViewSizePreference
-                              ): Future[bool] {.async.} =
+                              ): Future[bool] =
   ## Windows.UI.ViewManagement.ApplicationViewSwitcher.TryShowAsStandaloneAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher",
               IApplicationViewSwitcherStatics, it):
     check it.vtbl.TryShowAsStandaloneAsync2(it, viewId, sizePreference, op.addr
                                            ), "ApplicationViewSwitcher.TryShowAsStandaloneAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "ApplicationViewSwitcher.TryShowAsStandaloneAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ApplicationViewSwitcher.TryShowAsStandaloneAsync")
 
 proc tryShowAsStandaloneAsync*(_: typedesc[ApplicationViewSwitcher],
                                viewId: int32,
                                sizePreference: ViewSizePreference,
                                anchorViewId: int32,
                                anchorSizePreference: ViewSizePreference
-                              ): Future[bool] {.async.} =
+                              ): Future[bool] =
   ## Windows.UI.ViewManagement.ApplicationViewSwitcher.TryShowAsStandaloneAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher",
@@ -23320,50 +23282,48 @@ proc tryShowAsStandaloneAsync*(_: typedesc[ApplicationViewSwitcher],
                                             anchorViewId, anchorSizePreference,
                                             op.addr
                                            ), "ApplicationViewSwitcher.TryShowAsStandaloneAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "ApplicationViewSwitcher.TryShowAsStandaloneAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ApplicationViewSwitcher.TryShowAsStandaloneAsync")
 
 proc switchAsync*(_: typedesc[ApplicationViewSwitcher], viewId: int32
-                 ) {.async.} =
+                 ): Future[void] =
   ## Windows.UI.ViewManagement.ApplicationViewSwitcher.SwitchAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher",
               IApplicationViewSwitcherStatics, it):
     check it.vtbl.SwitchAsync(it, viewId, op.addr
                              ), "ApplicationViewSwitcher.SwitchAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ApplicationViewSwitcher.SwitchAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ApplicationViewSwitcher.SwitchAsync")
 
 proc switchAsync*(_: typedesc[ApplicationViewSwitcher], toViewId: int32,
-                  fromViewId: int32) {.async.} =
+                  fromViewId: int32): Future[void] =
   ## Windows.UI.ViewManagement.ApplicationViewSwitcher.SwitchAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher",
               IApplicationViewSwitcherStatics, it):
     check it.vtbl.SwitchAsync2(it, toViewId, fromViewId, op.addr
                               ), "ApplicationViewSwitcher.SwitchAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ApplicationViewSwitcher.SwitchAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ApplicationViewSwitcher.SwitchAsync")
 
 proc switchAsync*(_: typedesc[ApplicationViewSwitcher], toViewId: int32,
                   fromViewId: int32, options: ApplicationViewSwitchingOptions
-                 ) {.async.} =
+                 ): Future[void] =
   ## Windows.UI.ViewManagement.ApplicationViewSwitcher.SwitchAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher",
               IApplicationViewSwitcherStatics, it):
     check it.vtbl.SwitchAsync3(it, toViewId, fromViewId, options, op.addr
                               ), "ApplicationViewSwitcher.SwitchAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ApplicationViewSwitcher.SwitchAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ApplicationViewSwitcher.SwitchAsync")
 
 proc prepareForCustomAnimatedSwitchAsync*(_: typedesc[ApplicationViewSwitcher],
                                           toViewId: int32, fromViewId: int32,
                                           options: ApplicationViewSwitchingOptions
-                                         ): Future[bool] {.async.} =
+                                         ): Future[bool] =
   ## Windows.UI.ViewManagement.ApplicationViewSwitcher.PrepareForCustomAnimatedSwitchAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher",
@@ -23371,11 +23331,10 @@ proc prepareForCustomAnimatedSwitchAsync*(_: typedesc[ApplicationViewSwitcher],
     check it.vtbl.PrepareForCustomAnimatedSwitchAsync(it, toViewId, fromViewId,
                                                       options, op.addr
                                                      ), "ApplicationViewSwitcher.PrepareForCustomAnimatedSwitchAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "ApplicationViewSwitcher.PrepareForCustomAnimatedSwitchAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ApplicationViewSwitcher.PrepareForCustomAnimatedSwitchAsync"
+                            )
 
 proc `foregroundColor=`*(self: ApplicationViewTitleBar, value: Option[Color]) =
   ## Windows.UI.ViewManagement.ApplicationViewTitleBar.put_ForegroundColor
@@ -24090,18 +24049,19 @@ proc setTextScaleFactor*(self: UISettingsController, value: float64) =
     check it.vtbl.SetTextScaleFactor(it, value
                                     ), "UISettingsController.SetTextScaleFactor"
 
-proc requestDefaultAsync*(_: typedesc[UISettingsController]): Future[UISettingsController] {.async.} =
+proc requestDefaultAsync*(_: typedesc[UISettingsController]): Future[UISettingsController] =
   ## Windows.UI.ViewManagement.Core.UISettingsController.RequestDefaultAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.Core.UISettingsController",
               IUISettingsControllerStatics, it):
     check it.vtbl.RequestDefaultAsync(it, op.addr
                                      ), "UISettingsController.RequestDefaultAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_UISettingsController,
-                              IID_AsyncOperationCompletedHandler_1_UISettingsController,
-                              alPlain,
-                              "UISettingsController.RequestDefaultAsync")
-  result = adopt[UISettingsController](obj)
+  result = futureObject[UISettingsController](op,
+                                              IID_IAsyncOperation_1_UISettingsController,
+                                              IID_AsyncOperationCompletedHandler_1_UISettingsController,
+                                              alPlain,
+                                              "UISettingsController.RequestDefaultAsync"
+                                             )
 
 proc onShowing*(self: InputPane,
                 handler: EventHandler[InputPane, InputPaneVisibilityEventArgs]
@@ -24204,7 +24164,7 @@ proc ensuredFocusedElementInView*(self: InputPaneVisibilityEventArgs): bool =
 
 proc startProjectingAsync*(_: typedesc[ProjectionManager],
                            projectionViewId: int32, anchorViewId: int32,
-                           displayDeviceInfo: DeviceInformation) {.async.} =
+                           displayDeviceInfo: DeviceInformation): Future[void] =
   ## Windows.UI.ViewManagement.ProjectionManager.StartProjectingAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ProjectionManager",
@@ -24213,12 +24173,12 @@ proc startProjectingAsync*(_: typedesc[ProjectionManager],
       check it.vtbl.StartProjectingAsync(it, projectionViewId, anchorViewId, p2,
                                          op.addr
                                         ), "ProjectionManager.StartProjectingAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ProjectionManager.StartProjectingAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ProjectionManager.StartProjectingAsync")
 
 proc requestStartProjectingAsync*(_: typedesc[ProjectionManager],
                                   projectionViewId: int32, anchorViewId: int32,
-                                  selection: Rect): Future[bool] {.async.} =
+                                  selection: Rect): Future[bool] =
   ## Windows.UI.ViewManagement.ProjectionManager.RequestStartProjectingAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ProjectionManager",
@@ -24226,16 +24186,14 @@ proc requestStartProjectingAsync*(_: typedesc[ProjectionManager],
     check it.vtbl.RequestStartProjectingAsync(it, projectionViewId,
                                               anchorViewId, selection, op.addr
                                              ), "ProjectionManager.RequestStartProjectingAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "ProjectionManager.RequestStartProjectingAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ProjectionManager.RequestStartProjectingAsync")
 
 proc requestStartProjectingAsync*(_: typedesc[ProjectionManager],
                                   projectionViewId: int32, anchorViewId: int32,
                                   selection: Rect, prefferedPlacement: Placement
-                                 ): Future[bool] {.async.} =
+                                 ): Future[bool] =
   ## Windows.UI.ViewManagement.ProjectionManager.RequestStartProjectingAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ProjectionManager",
@@ -24244,11 +24202,9 @@ proc requestStartProjectingAsync*(_: typedesc[ProjectionManager],
                                                anchorViewId, selection,
                                                prefferedPlacement, op.addr
                                               ), "ProjectionManager.RequestStartProjectingAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "ProjectionManager.RequestStartProjectingAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ProjectionManager.RequestStartProjectingAsync")
 
 proc getDeviceSelector*(_: typedesc[ProjectionManager]): string =
   ## Windows.UI.ViewManagement.ProjectionManager.GetDeviceSelector
@@ -24261,7 +24217,7 @@ proc getDeviceSelector*(_: typedesc[ProjectionManager]): string =
 
 proc startProjectingAsync*(_: typedesc[ProjectionManager],
                            projectionViewId: int32, anchorViewId: int32
-                          ) {.async.} =
+                          ): Future[void] =
   ## Windows.UI.ViewManagement.ProjectionManager.StartProjectingAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ProjectionManager",
@@ -24269,12 +24225,12 @@ proc startProjectingAsync*(_: typedesc[ProjectionManager],
     check it.vtbl.StartProjectingAsync(it, projectionViewId, anchorViewId,
                                        op.addr
                                       ), "ProjectionManager.StartProjectingAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ProjectionManager.StartProjectingAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ProjectionManager.StartProjectingAsync")
 
 proc swapDisplaysForViewsAsync*(_: typedesc[ProjectionManager],
                                 projectionViewId: int32, anchorViewId: int32
-                               ) {.async.} =
+                               ): Future[void] =
   ## Windows.UI.ViewManagement.ProjectionManager.SwapDisplaysForViewsAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ProjectionManager",
@@ -24282,12 +24238,12 @@ proc swapDisplaysForViewsAsync*(_: typedesc[ProjectionManager],
     check it.vtbl.SwapDisplaysForViewsAsync(it, projectionViewId, anchorViewId,
                                             op.addr
                                            ), "ProjectionManager.SwapDisplaysForViewsAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ProjectionManager.SwapDisplaysForViewsAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ProjectionManager.SwapDisplaysForViewsAsync")
 
 proc stopProjectingAsync*(_: typedesc[ProjectionManager],
                           projectionViewId: int32, anchorViewId: int32
-                         ) {.async.} =
+                         ): Future[void] =
   ## Windows.UI.ViewManagement.ProjectionManager.StopProjectingAsync
   var op: pointer
   withStatics("Windows.UI.ViewManagement.ProjectionManager",
@@ -24295,8 +24251,8 @@ proc stopProjectingAsync*(_: typedesc[ProjectionManager],
     check it.vtbl.StopProjectingAsync(it, projectionViewId, anchorViewId,
                                       op.addr
                                      ), "ProjectionManager.StopProjectingAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ProjectionManager.StopProjectingAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ProjectionManager.StopProjectingAsync")
 
 proc projectionDisplayAvailable*(_: typedesc[ProjectionManager]): bool =
   ## Windows.UI.ViewManagement.ProjectionManager.get_ProjectionDisplayAvailable
@@ -24842,7 +24798,7 @@ proc deadline*(self: WebUISuspendingOperation): DateTime =
     result = it.getValue(get_Deadline, DateTime)
 
 proc requestRestartAsync*(_: typedesc[WebUIApplication], launchArguments: string
-                         ): Future[AppRestartFailureReason] {.async.} =
+                         ): Future[AppRestartFailureReason] =
   ## Windows.UI.WebUI.WebUIApplication.RequestRestartAsync
   var op: pointer
   withStatics("Windows.UI.WebUI.WebUIApplication", IWebUIActivationStatics3, it
@@ -24850,16 +24806,16 @@ proc requestRestartAsync*(_: typedesc[WebUIApplication], launchArguments: string
     withHString(launchArguments, h0):
       check it.vtbl.RequestRestartAsync(it, h0, op.addr
                                        ), "WebUIApplication.RequestRestartAsync"
-  result = await awaitValue[AppRestartFailureReason](op,
-                                                     IID_IAsyncOperation_1_AppRestartFailureReason,
-                                                     IID_AsyncOperationCompletedHandler_1_AppRestartFailureReason,
-                                                     alPlain,
-                                                     "WebUIApplication.RequestRestartAsync"
-                                                    )
+  result = futureValue[AppRestartFailureReason](op,
+                                                IID_IAsyncOperation_1_AppRestartFailureReason,
+                                                IID_AsyncOperationCompletedHandler_1_AppRestartFailureReason,
+                                                alPlain,
+                                                "WebUIApplication.RequestRestartAsync"
+                                               )
 
 proc requestRestartForUserAsync*(_: typedesc[WebUIApplication], user: User,
                                  launchArguments: string
-                                ): Future[AppRestartFailureReason] {.async.} =
+                                ): Future[AppRestartFailureReason] =
   ## Windows.UI.WebUI.WebUIApplication.RequestRestartForUserAsync
   var op: pointer
   withStatics("Windows.UI.WebUI.WebUIApplication", IWebUIActivationStatics3, it
@@ -24868,12 +24824,12 @@ proc requestRestartForUserAsync*(_: typedesc[WebUIApplication], user: User,
       withHString(launchArguments, h1):
         check it.vtbl.RequestRestartForUserAsync(it, p0, h1, op.addr
                                                 ), "WebUIApplication.RequestRestartForUserAsync"
-  result = await awaitValue[AppRestartFailureReason](op,
-                                                     IID_IAsyncOperation_1_AppRestartFailureReason,
-                                                     IID_AsyncOperationCompletedHandler_1_AppRestartFailureReason,
-                                                     alPlain,
-                                                     "WebUIApplication.RequestRestartForUserAsync"
-                                                    )
+  result = futureValue[AppRestartFailureReason](op,
+                                                IID_IAsyncOperation_1_AppRestartFailureReason,
+                                                IID_AsyncOperationCompletedHandler_1_AppRestartFailureReason,
+                                                alPlain,
+                                                "WebUIApplication.RequestRestartForUserAsync"
+                                               )
 
 proc onLeavingBackground*(_: typedesc[WebUIApplication],
                           handler: EventHandler[WinRtObject, WinRtObject]
@@ -26735,7 +26691,7 @@ proc navigateWithHttpRequestMessage*(self: WebUIView,
                                                   ), "WebUIView.NavigateWithHttpRequestMessage"
 
 proc invokeScriptAsync*(self: WebUIView, scriptName: string,
-                        arguments: seq[string]): Future[string] {.async.} =
+                        arguments: seq[string]): Future[string] =
   ## Windows.UI.WebUI.WebUIView.InvokeScriptAsync
   var op: pointer
   withIface(self.p, IWebViewControl, it):
@@ -26746,33 +26702,32 @@ proc invokeScriptAsync*(self: WebUIView, scriptName: string,
       defer: discard release(p1)
       check it.vtbl.InvokeScriptAsync(it, h0, p1, op.addr
                                      ), "WebUIView.InvokeScriptAsync"
-  result = await awaitString(op, IID_IAsyncOperation_1_String,
-                             IID_AsyncOperationCompletedHandler_1_String,
-                             alPlain, "WebUIView.InvokeScriptAsync")
+  result = futureString(op, IID_IAsyncOperation_1_String,
+                        IID_AsyncOperationCompletedHandler_1_String, alPlain,
+                        "WebUIView.InvokeScriptAsync")
 
 proc capturePreviewToStreamAsync*(self: WebUIView, stream: WinRtObject
-                                 ) {.async.} =
+                                 ): Future[void] =
   ## Windows.UI.WebUI.WebUIView.CapturePreviewToStreamAsync
   var op: pointer
   withIface(self.p, IWebViewControl, it):
     withIface(stream.p, IRandomAccessStream, p0):
       check it.vtbl.CapturePreviewToStreamAsync(it, p0, op.addr
                                                ), "WebUIView.CapturePreviewToStreamAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "WebUIView.CapturePreviewToStreamAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "WebUIView.CapturePreviewToStreamAsync")
 
-proc captureSelectedContentToDataPackageAsync*(self: WebUIView): Future[DataPackage] {.async.} =
+proc captureSelectedContentToDataPackageAsync*(self: WebUIView): Future[DataPackage] =
   ## Windows.UI.WebUI.WebUIView.CaptureSelectedContentToDataPackageAsync
   var op: pointer
   withIface(self.p, IWebViewControl, it):
     check it.vtbl.CaptureSelectedContentToDataPackageAsync(it, op.addr
                                                           ), "WebUIView.CaptureSelectedContentToDataPackageAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_DataPackage,
-                              IID_AsyncOperationCompletedHandler_1_DataPackage,
-                              alPlain,
-                              "WebUIView.CaptureSelectedContentToDataPackageAsync"
-                             )
-  result = adopt[DataPackage](obj)
+  result = futureObject[DataPackage](op, IID_IAsyncOperation_1_DataPackage,
+                                     IID_AsyncOperationCompletedHandler_1_DataPackage,
+                                     alPlain,
+                                     "WebUIView.CaptureSelectedContentToDataPackageAsync"
+                                    )
 
 proc buildLocalStreamUri*(self: WebUIView, contentIdentifier: string,
                           relativePath: string): Uri =
@@ -27138,27 +27093,24 @@ proc addInitializeScript*(self: WebUIView, script: string) =
     withHString(script, h0):
       check it.vtbl.AddInitializeScript(it, h0), "WebUIView.AddInitializeScript"
 
-proc createAsync*(_: typedesc[WebUIView]): Future[WebUIView] {.async.} =
+proc createAsync*(_: typedesc[WebUIView]): Future[WebUIView] =
   ## Windows.UI.WebUI.WebUIView.CreateAsync
   var op: pointer
   withStatics("Windows.UI.WebUI.WebUIView", IWebUIViewStatics, it):
     check it.vtbl.CreateAsync(it, op.addr), "WebUIView.CreateAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_WebUIView,
-                              IID_AsyncOperationCompletedHandler_1_WebUIView,
-                              alPlain, "WebUIView.CreateAsync")
-  result = adopt[WebUIView](obj)
+  result = futureObject[WebUIView](op, IID_IAsyncOperation_1_WebUIView,
+                                   IID_AsyncOperationCompletedHandler_1_WebUIView,
+                                   alPlain, "WebUIView.CreateAsync")
 
-proc createAsync*(_: typedesc[WebUIView], uri: Uri
-                 ): Future[WebUIView] {.async.} =
+proc createAsync*(_: typedesc[WebUIView], uri: Uri): Future[WebUIView] =
   ## Windows.UI.WebUI.WebUIView.CreateAsync
   var op: pointer
   withStatics("Windows.UI.WebUI.WebUIView", IWebUIViewStatics, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       check it.vtbl.CreateAsync2(it, p0, op.addr), "WebUIView.CreateAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_WebUIView,
-                              IID_AsyncOperationCompletedHandler_1_WebUIView,
-                              alPlain, "WebUIView.CreateAsync")
-  result = adopt[WebUIView](obj)
+  result = futureObject[WebUIView](op, IID_IAsyncOperation_1_WebUIView,
+                                   IID_AsyncOperationCompletedHandler_1_WebUIView,
+                                   alPlain, "WebUIView.CreateAsync")
 
 proc `result`*(self: WebUIVoiceCommandActivatedEventArgs): SpeechRecognitionResult =
   ## Windows.UI.WebUI.WebUIVoiceCommandActivatedEventArgs.get_Result
@@ -27345,13 +27297,13 @@ proc windowingEnvironment*(self: AppWindow): WindowingEnvironment =
   withIface(self.p, IAppWindow, it):
     result = it.getObject(get_WindowingEnvironment, WindowingEnvironment)
 
-proc closeAsync*(self: AppWindow) {.async.} =
+proc closeAsync*(self: AppWindow): Future[void] =
   ## Windows.UI.WindowManagement.AppWindow.CloseAsync
   var op: pointer
   withIface(self.p, IAppWindow, it):
     check it.vtbl.CloseAsync(it, op.addr), "AppWindow.CloseAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "AppWindow.CloseAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "AppWindow.CloseAsync")
 
 proc getPlacement*(self: AppWindow): AppWindowPlacement =
   ## Windows.UI.WindowManagement.AppWindow.GetPlacement
@@ -27419,14 +27371,14 @@ proc requestSize*(self: AppWindow, frameSize: Size) =
   withIface(self.p, IAppWindow, it):
     check it.vtbl.RequestSize(it, frameSize), "AppWindow.RequestSize"
 
-proc tryShowAsync*(self: AppWindow): Future[bool] {.async.} =
+proc tryShowAsync*(self: AppWindow): Future[bool] =
   ## Windows.UI.WindowManagement.AppWindow.TryShowAsync
   var op: pointer
   withIface(self.p, IAppWindow, it):
     check it.vtbl.TryShowAsync(it, op.addr), "AppWindow.TryShowAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "AppWindow.TryShowAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "AppWindow.TryShowAsync")
 
 proc onChanged*(self: AppWindow,
                 handler: EventHandler[AppWindow, AppWindowChangedEventArgs]
@@ -27486,15 +27438,14 @@ proc removeCloseRequested*(self: AppWindow, token: EventRegistrationToken) =
   withIface(self.p, IAppWindow, it):
     check it.vtbl.remove_CloseRequested(it, token), "AppWindow.remove_CloseRequested"
 
-proc tryCreateAsync*(_: typedesc[AppWindow]): Future[AppWindow] {.async.} =
+proc tryCreateAsync*(_: typedesc[AppWindow]): Future[AppWindow] =
   ## Windows.UI.WindowManagement.AppWindow.TryCreateAsync
   var op: pointer
   withStatics("Windows.UI.WindowManagement.AppWindow", IAppWindowStatics, it):
     check it.vtbl.TryCreateAsync(it, op.addr), "AppWindow.TryCreateAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_AppWindow,
-                              IID_AsyncOperationCompletedHandler_1_AppWindow,
-                              alPlain, "AppWindow.TryCreateAsync")
-  result = adopt[AppWindow](obj)
+  result = futureObject[AppWindow](op, IID_IAsyncOperation_1_AppWindow,
+                                   IID_AsyncOperationCompletedHandler_1_AppWindow,
+                                   alPlain, "AppWindow.TryCreateAsync")
 
 proc clearAllPersistedState*(_: typedesc[AppWindow]) =
   ## Windows.UI.WindowManagement.AppWindow.ClearAllPersistedState
@@ -33240,17 +33191,17 @@ proc removeDropCompleted*(self: UIElement, token: EventRegistrationToken) =
     check it.vtbl.remove_DropCompleted(it, token), "UIElement.remove_DropCompleted"
 
 proc startDragAsync*(self: UIElement, pointerPoint: PointerPoint
-                    ): Future[DataPackageOperation] {.async.} =
+                    ): Future[DataPackageOperation] =
   ## Windows.UI.Xaml.UIElement.StartDragAsync
   var op: pointer
   withIface(self.p, IUIElement3, it):
     withIface(pointerPoint.p, IPointerPoint, p0):
       check it.vtbl.StartDragAsync(it, p0, op.addr), "UIElement.StartDragAsync"
-  result = await awaitValue[DataPackageOperation](op,
-                                                  IID_IAsyncOperation_1_DataPackageOperation,
-                                                  IID_AsyncOperationCompletedHandler_1_DataPackageOperation,
-                                                  alPlain,
-                                                  "UIElement.StartDragAsync")
+  result = futureValue[DataPackageOperation](op,
+                                             IID_IAsyncOperation_1_DataPackageOperation,
+                                             IID_AsyncOperationCompletedHandler_1_DataPackageOperation,
+                                             alPlain, "UIElement.StartDragAsync"
+                                            )
 
 proc contextFlyout*(self: UIElement): FlyoutBase =
   ## Windows.UI.Xaml.UIElement.get_ContextFlyout
@@ -41317,16 +41268,15 @@ proc hide*(self: ContentDialog) =
   withIface(self.p, IContentDialog, it):
     check it.vtbl.Hide(it), "ContentDialog.Hide"
 
-proc showAsync*(self: ContentDialog): Future[ContentDialogResult] {.async.} =
+proc showAsync*(self: ContentDialog): Future[ContentDialogResult] =
   ## Windows.UI.Xaml.Controls.ContentDialog.ShowAsync
   var op: pointer
   withIface(self.p, IContentDialog, it):
     check it.vtbl.ShowAsync(it, op.addr), "ContentDialog.ShowAsync"
-  result = await awaitValue[ContentDialogResult](op,
-                                                 IID_IAsyncOperation_1_ContentDialogResult,
-                                                 IID_AsyncOperationCompletedHandler_1_ContentDialogResult,
-                                                 alPlain,
-                                                 "ContentDialog.ShowAsync")
+  result = futureValue[ContentDialogResult](op,
+                                            IID_IAsyncOperation_1_ContentDialogResult,
+                                            IID_AsyncOperationCompletedHandler_1_ContentDialogResult,
+                                            alPlain, "ContentDialog.ShowAsync")
 
 proc closeButtonText*(self: ContentDialog): string =
   ## Windows.UI.Xaml.Controls.ContentDialog.get_CloseButtonText
@@ -41428,16 +41378,15 @@ proc removeCloseButtonClick*(self: ContentDialog, token: EventRegistrationToken)
     check it.vtbl.remove_CloseButtonClick(it, token), "ContentDialog.remove_CloseButtonClick"
 
 proc showAsync*(self: ContentDialog, placement: ContentDialogPlacement
-               ): Future[ContentDialogResult] {.async.} =
+               ): Future[ContentDialogResult] =
   ## Windows.UI.Xaml.Controls.ContentDialog.ShowAsync
   var op: pointer
   withIface(self.p, IContentDialog3, it):
     check it.vtbl.ShowAsync(it, placement, op.addr), "ContentDialog.ShowAsync"
-  result = await awaitValue[ContentDialogResult](op,
-                                                 IID_IAsyncOperation_1_ContentDialogResult,
-                                                 IID_AsyncOperationCompletedHandler_1_ContentDialogResult,
-                                                 alPlain,
-                                                 "ContentDialog.ShowAsync")
+  result = futureValue[ContentDialogResult](op,
+                                            IID_IAsyncOperation_1_ContentDialogResult,
+                                            IID_AsyncOperationCompletedHandler_1_ContentDialogResult,
+                                            alPlain, "ContentDialog.ShowAsync")
 
 proc titleProperty*(_: typedesc[ContentDialog]): DependencyProperty =
   ## Windows.UI.Xaml.Controls.ContentDialog.get_TitleProperty
@@ -42625,16 +42574,16 @@ proc removeDatePicked*(self: DatePickerFlyout, token: EventRegistrationToken) =
     check it.vtbl.remove_DatePicked(it, token), "DatePickerFlyout.remove_DatePicked"
 
 proc showAtAsync*(self: DatePickerFlyout, target: FrameworkElement
-                 ): Future[Option[DateTime]] {.async.} =
+                 ): Future[Option[DateTime]] =
   ## Windows.UI.Xaml.Controls.DatePickerFlyout.ShowAtAsync
   var op: pointer
   withIface(self.p, IDatePickerFlyout, it):
     withIface(target.p, IFrameworkElement, p0):
       check it.vtbl.ShowAtAsync(it, p0, op.addr), "DatePickerFlyout.ShowAtAsync"
-  let box = await awaitObject(op, IID_IAsyncOperation_1_IReference_1, IID_AsyncOperationCompletedHandler_1_IReference_1, alPlain, "DatePickerFlyout.ShowAtAsync")
-  result = readReference[DateTime](box, IID_IReference_1_DateTime,
-                                   "DatePickerFlyout.ShowAtAsync")
-  discard release(box)
+  result = futureReference[DateTime](op, IID_IAsyncOperation_1_IReference_1,
+                                     IID_AsyncOperationCompletedHandler_1_IReference_1,
+                                     alPlain, "DatePickerFlyout.ShowAtAsync",
+                                     IID_IReference_1_DateTime)
 
 proc dayFormat*(self: DatePickerFlyout): string =
   ## Windows.UI.Xaml.Controls.DatePickerFlyout.get_DayFormat
@@ -43847,18 +43796,17 @@ proc selectAll*(self: ListViewBase) =
   withIface(self.p, IListViewBase, it):
     check it.vtbl.SelectAll(it), "ListViewBase.SelectAll"
 
-proc loadMoreItemsAsync*(self: ListViewBase): Future[LoadMoreItemsResult] {.async.} =
+proc loadMoreItemsAsync*(self: ListViewBase): Future[LoadMoreItemsResult] =
   ## Windows.UI.Xaml.Controls.ListViewBase.LoadMoreItemsAsync
   var op: pointer
   withIface(self.p, IListViewBase, it):
     check it.vtbl.LoadMoreItemsAsync(it, op.addr
                                     ), "ListViewBase.LoadMoreItemsAsync"
-  result = await awaitValue[LoadMoreItemsResult](op,
-                                                 IID_IAsyncOperation_1_LoadMoreItemsResult,
-                                                 IID_AsyncOperationCompletedHandler_1_LoadMoreItemsResult,
-                                                 alPlain,
-                                                 "ListViewBase.LoadMoreItemsAsync"
-                                                )
+  result = futureValue[LoadMoreItemsResult](op,
+                                            IID_IAsyncOperation_1_LoadMoreItemsResult,
+                                            IID_AsyncOperationCompletedHandler_1_LoadMoreItemsResult,
+                                            alPlain,
+                                            "ListViewBase.LoadMoreItemsAsync")
 
 proc scrollIntoView*(self: ListViewBase, item: WinRtObject,
                      alignment: ScrollIntoViewAlignment) =
@@ -44092,7 +44040,7 @@ proc isDragSource*(self: ListViewBase): bool =
 proc tryStartConnectedAnimationAsync*(self: ListViewBase,
                                       animation: ConnectedAnimation,
                                       item: WinRtObject, elementName: string
-                                     ): Future[bool] {.async.} =
+                                     ): Future[bool] =
   ## Windows.UI.Xaml.Controls.ListViewBase.TryStartConnectedAnimationAsync
   var op: pointer
   withIface(self.p, IListViewBase6, it):
@@ -44101,11 +44049,9 @@ proc tryStartConnectedAnimationAsync*(self: ListViewBase,
         check it.vtbl.TryStartConnectedAnimationAsync(it, p0, item.p, h2,
                                                       op.addr
                                                      ), "ListViewBase.TryStartConnectedAnimationAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain,
-                                  "ListViewBase.TryStartConnectedAnimationAsync"
-                                 )
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "ListViewBase.TryStartConnectedAnimationAsync")
 
 proc prepareConnectedAnimation*(self: ListViewBase, key: string,
                                 item: WinRtObject, elementName: string
@@ -46780,17 +46726,16 @@ proc removeItemsPicked*(self: ListPickerFlyout, token: EventRegistrationToken) =
     check it.vtbl.remove_ItemsPicked(it, token), "ListPickerFlyout.remove_ItemsPicked"
 
 proc showAtAsync*(self: ListPickerFlyout, target: FrameworkElement
-                 ): Future[seq[WinRtObject]] {.async.} =
+                 ): Future[seq[WinRtObject]] =
   ## Windows.UI.Xaml.Controls.ListPickerFlyout.ShowAtAsync
   var op: pointer
   withIface(self.p, IListPickerFlyout, it):
     withIface(target.p, IFrameworkElement, p0):
       check it.vtbl.ShowAtAsync(it, p0, op.addr), "ListPickerFlyout.ShowAtAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_15,
-                               alPlain, "ListPickerFlyout.ShowAtAsync")
-  result = toSeq[WinRtObject](coll, IID_IVectorView_1_Object)
-  discard release(coll)
+  result = futureSeq[WinRtObject](op, IID_IAsyncOperation_1_IVectorView_15,
+                                  IID_AsyncOperationCompletedHandler_1_IVectorView_15,
+                                  alPlain, "ListPickerFlyout.ShowAtAsync",
+                                  IID_IVectorView_1_Object)
 
 proc itemsSourceProperty*(_: typedesc[ListPickerFlyout]): DependencyProperty =
   ## Windows.UI.Xaml.Controls.ListPickerFlyout.get_ItemsSourceProperty
@@ -46868,17 +46813,15 @@ proc invoke*(self: ListViewItemToKeyHandler, item: WinRtObject): string =
                         ), "ListViewItemToKeyHandler.Invoke"
     result = takeString(tmp)
 
-proc invoke*(self: ListViewKeyToItemHandler, key: string
-            ): Future[WinRtObject] {.async.} =
+proc invoke*(self: ListViewKeyToItemHandler, key: string): Future[WinRtObject] =
   ## Windows.UI.Xaml.Controls.ListViewKeyToItemHandler.Invoke
   var op: pointer
   withIface(self.p, ListViewKeyToItemHandler, it):
     withHString(key, h0):
       check it.vtbl.Invoke(it, h0, op.addr), "ListViewKeyToItemHandler.Invoke"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_Object,
-                              IID_AsyncOperationCompletedHandler_1_Object,
-                              alPlain, "ListViewKeyToItemHandler.Invoke")
-  result = adopt[WinRtObject](obj)
+  result = futureObject[WinRtObject](op, IID_IAsyncOperation_1_Object,
+                                     IID_AsyncOperationCompletedHandler_1_Object,
+                                     alPlain, "ListViewKeyToItemHandler.Invoke")
 
 proc getRelativeScrollPosition*(_: typedesc[ListViewPersistenceHelper],
                                 listViewBase: ListViewBase,
@@ -46901,7 +46844,7 @@ proc setRelativeScrollPositionAsync*(_: typedesc[ListViewPersistenceHelper],
                                      listViewBase: ListViewBase,
                                      relativeScrollPosition: string,
                                      keyToItemHandler: proc(a0: string)
-                                    ) {.async.} =
+                                    ): Future[void] =
   ## Windows.UI.Xaml.Controls.ListViewPersistenceHelper.SetRelativeScrollPositionAsync
   var op: pointer
   withStatics("Windows.UI.Xaml.Controls.ListViewPersistenceHelper",
@@ -46913,8 +46856,9 @@ proc setRelativeScrollPositionAsync*(_: typedesc[ListViewPersistenceHelper],
         defer: discard release(d2)
         check it.vtbl.SetRelativeScrollPositionAsync(it, p0, h1, d2, op.addr
                                                     ), "ListViewPersistenceHelper.SetRelativeScrollPositionAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "ListViewPersistenceHelper.SetRelativeScrollPositionAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "ListViewPersistenceHelper.SetRelativeScrollPositionAsync"
+                     )
 
 proc newMapTileDataSource*(): MapTileDataSource =
   ## Compose a `Windows.UI.Xaml.Controls.Maps.MapTileDataSource`.
@@ -47782,8 +47726,7 @@ proc isLocationInView*(self: MapControl, location: Geopoint
 
 proc trySetViewBoundsAsync*(self: MapControl, bounds: GeoboundingBox,
                             margin: Option[Thickness],
-                            animation: MapAnimationKind
-                           ): Future[bool] {.async.} =
+                            animation: MapAnimationKind): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TrySetViewBoundsAsync
   var op: pointer
   withIface(self.p, IMapControl, it):
@@ -47792,24 +47735,23 @@ proc trySetViewBoundsAsync*(self: MapControl, bounds: GeoboundingBox,
       defer: discard release(p1)
       check it.vtbl.TrySetViewBoundsAsync(it, p0, p1, animation, op.addr
                                          ), "MapControl.TrySetViewBoundsAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TrySetViewBoundsAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TrySetViewBoundsAsync")
 
-proc trySetViewAsync*(self: MapControl, center: Geopoint
-                     ): Future[bool] {.async.} =
+proc trySetViewAsync*(self: MapControl, center: Geopoint): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TrySetViewAsync
   var op: pointer
   withIface(self.p, IMapControl, it):
     withIface(center.p, IGeopoint, p0):
       check it.vtbl.TrySetViewAsync(it, p0, op.addr
                                    ), "MapControl.TrySetViewAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TrySetViewAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TrySetViewAsync")
 
 proc trySetViewAsync*(self: MapControl, center: Geopoint,
-                      zoomLevel: Option[float64]): Future[bool] {.async.} =
+                      zoomLevel: Option[float64]): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TrySetViewAsync
   var op: pointer
   withIface(self.p, IMapControl, it):
@@ -47818,13 +47760,13 @@ proc trySetViewAsync*(self: MapControl, center: Geopoint,
       defer: discard release(p1)
       check it.vtbl.TrySetViewAsync2(it, p0, p1, op.addr
                                     ), "MapControl.TrySetViewAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TrySetViewAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TrySetViewAsync")
 
 proc trySetViewAsync*(self: MapControl, center: Geopoint,
                       zoomLevel: Option[float64], heading: Option[float64],
-                      desiredPitch: Option[float64]): Future[bool] {.async.} =
+                      desiredPitch: Option[float64]): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TrySetViewAsync
   var op: pointer
   withIface(self.p, IMapControl, it):
@@ -47837,14 +47779,14 @@ proc trySetViewAsync*(self: MapControl, center: Geopoint,
       defer: discard release(p3)
       check it.vtbl.TrySetViewAsync3(it, p0, p1, p2, p3, op.addr
                                     ), "MapControl.TrySetViewAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TrySetViewAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TrySetViewAsync")
 
 proc trySetViewAsync*(self: MapControl, center: Geopoint,
                       zoomLevel: Option[float64], heading: Option[float64],
                       desiredPitch: Option[float64], animation: MapAnimationKind
-                     ): Future[bool] {.async.} =
+                     ): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TrySetViewAsync
   var op: pointer
   withIface(self.p, IMapControl, it):
@@ -47857,9 +47799,9 @@ proc trySetViewAsync*(self: MapControl, center: Geopoint,
       defer: discard release(p3)
       check it.vtbl.TrySetViewAsync4(it, p0, p1, p2, p3, animation, op.addr
                                     ), "MapControl.TrySetViewAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TrySetViewAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TrySetViewAsync")
 
 proc businessLandmarksVisible*(self: MapControl): bool =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.get_BusinessLandmarksVisible
@@ -48136,101 +48078,96 @@ proc stopContinuousZoom*(self: MapControl) =
   withIface(self.p, IMapControl2, it):
     check it.vtbl.StopContinuousZoom(it), "MapControl.StopContinuousZoom"
 
-proc tryRotateAsync*(self: MapControl, degrees: float64
-                    ): Future[bool] {.async.} =
+proc tryRotateAsync*(self: MapControl, degrees: float64): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TryRotateAsync
   var op: pointer
   withIface(self.p, IMapControl2, it):
     check it.vtbl.TryRotateAsync(it, degrees, op.addr
                                 ), "MapControl.TryRotateAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TryRotateAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TryRotateAsync")
 
 proc tryRotateToAsync*(self: MapControl, angleInDegrees: float64
-                      ): Future[bool] {.async.} =
+                      ): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TryRotateToAsync
   var op: pointer
   withIface(self.p, IMapControl2, it):
     check it.vtbl.TryRotateToAsync(it, angleInDegrees, op.addr
                                   ), "MapControl.TryRotateToAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TryRotateToAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TryRotateToAsync")
 
-proc tryTiltAsync*(self: MapControl, degrees: float64): Future[bool] {.async.} =
+proc tryTiltAsync*(self: MapControl, degrees: float64): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TryTiltAsync
   var op: pointer
   withIface(self.p, IMapControl2, it):
     check it.vtbl.TryTiltAsync(it, degrees, op.addr), "MapControl.TryTiltAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TryTiltAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TryTiltAsync")
 
-proc tryTiltToAsync*(self: MapControl, angleInDegrees: float64
-                    ): Future[bool] {.async.} =
+proc tryTiltToAsync*(self: MapControl, angleInDegrees: float64): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TryTiltToAsync
   var op: pointer
   withIface(self.p, IMapControl2, it):
     check it.vtbl.TryTiltToAsync(it, angleInDegrees, op.addr
                                 ), "MapControl.TryTiltToAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TryTiltToAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TryTiltToAsync")
 
-proc tryZoomInAsync*(self: MapControl): Future[bool] {.async.} =
+proc tryZoomInAsync*(self: MapControl): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TryZoomInAsync
   var op: pointer
   withIface(self.p, IMapControl2, it):
     check it.vtbl.TryZoomInAsync(it, op.addr), "MapControl.TryZoomInAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TryZoomInAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TryZoomInAsync")
 
-proc tryZoomOutAsync*(self: MapControl): Future[bool] {.async.} =
+proc tryZoomOutAsync*(self: MapControl): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TryZoomOutAsync
   var op: pointer
   withIface(self.p, IMapControl2, it):
     check it.vtbl.TryZoomOutAsync(it, op.addr), "MapControl.TryZoomOutAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TryZoomOutAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TryZoomOutAsync")
 
-proc tryZoomToAsync*(self: MapControl, zoomLevel: float64
-                    ): Future[bool] {.async.} =
+proc tryZoomToAsync*(self: MapControl, zoomLevel: float64): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TryZoomToAsync
   var op: pointer
   withIface(self.p, IMapControl2, it):
     check it.vtbl.TryZoomToAsync(it, zoomLevel, op.addr
                                 ), "MapControl.TryZoomToAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TryZoomToAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TryZoomToAsync")
 
-proc trySetSceneAsync*(self: MapControl, scene: MapScene
-                      ): Future[bool] {.async.} =
+proc trySetSceneAsync*(self: MapControl, scene: MapScene): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TrySetSceneAsync
   var op: pointer
   withIface(self.p, IMapControl2, it):
     withIface(scene.p, IMapScene, p0):
       check it.vtbl.TrySetSceneAsync(it, p0, op.addr
                                     ), "MapControl.TrySetSceneAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TrySetSceneAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TrySetSceneAsync")
 
 proc trySetSceneAsync*(self: MapControl, scene: MapScene,
-                       animationKind: MapAnimationKind
-                      ): Future[bool] {.async.} =
+                       animationKind: MapAnimationKind): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TrySetSceneAsync
   var op: pointer
   withIface(self.p, IMapControl2, it):
     withIface(scene.p, IMapScene, p0):
       check it.vtbl.TrySetSceneAsync2(it, p0, animationKind, op.addr
                                      ), "MapControl.TrySetSceneAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TrySetSceneAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TrySetSceneAsync")
 
 proc onMapRightTapped*(self: MapControl,
                        handler: EventHandler[MapControl, MapRightTappedEventArgs]
@@ -48365,26 +48302,25 @@ proc stopContinuousPan*(self: MapControl) =
     check it.vtbl.StopContinuousPan(it), "MapControl.StopContinuousPan"
 
 proc tryPanAsync*(self: MapControl, horizontalPixels: float64,
-                  verticalPixels: float64): Future[bool] {.async.} =
+                  verticalPixels: float64): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TryPanAsync
   var op: pointer
   withIface(self.p, IMapControl5, it):
     check it.vtbl.TryPanAsync(it, horizontalPixels, verticalPixels, op.addr
                              ), "MapControl.TryPanAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TryPanAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TryPanAsync")
 
-proc tryPanToAsync*(self: MapControl, location: Geopoint
-                   ): Future[bool] {.async.} =
+proc tryPanToAsync*(self: MapControl, location: Geopoint): Future[bool] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TryPanToAsync
   var op: pointer
   withIface(self.p, IMapControl5, it):
     withIface(location.p, IGeopoint, p0):
       check it.vtbl.TryPanToAsync(it, p0, op.addr), "MapControl.TryPanToAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "MapControl.TryPanToAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "MapControl.TryPanToAsync")
 
 proc layers*(self: MapControl): seq[MapLayer] =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.get_Layers
@@ -49626,7 +49562,7 @@ proc newMapModel3D*(): MapModel3D =
                      IID_IMapModel3D, 6))
 
 proc createFrom3MFAsync*(_: typedesc[MapModel3D], source: WinRtObject
-                        ): Future[MapModel3D] {.async.} =
+                        ): Future[MapModel3D] =
   ## Windows.UI.Xaml.Controls.Maps.MapModel3D.CreateFrom3MFAsync
   var op: pointer
   withStatics("Windows.UI.Xaml.Controls.Maps.MapModel3D", IMapModel3DStatics, it
@@ -49634,14 +49570,13 @@ proc createFrom3MFAsync*(_: typedesc[MapModel3D], source: WinRtObject
     withIface(source.p, IRandomAccessStreamReference, p0):
       check it.vtbl.CreateFrom3MFAsync(it, p0, op.addr
                                       ), "MapModel3D.CreateFrom3MFAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapModel3D,
-                              IID_AsyncOperationCompletedHandler_1_MapModel3D,
-                              alPlain, "MapModel3D.CreateFrom3MFAsync")
-  result = adopt[MapModel3D](obj)
+  result = futureObject[MapModel3D](op, IID_IAsyncOperation_1_MapModel3D,
+                                    IID_AsyncOperationCompletedHandler_1_MapModel3D,
+                                    alPlain, "MapModel3D.CreateFrom3MFAsync")
 
 proc createFrom3MFAsync*(_: typedesc[MapModel3D], source: WinRtObject,
                          shadingOption: MapModel3DShadingOption
-                        ): Future[MapModel3D] {.async.} =
+                        ): Future[MapModel3D] =
   ## Windows.UI.Xaml.Controls.Maps.MapModel3D.CreateFrom3MFAsync
   var op: pointer
   withStatics("Windows.UI.Xaml.Controls.Maps.MapModel3D", IMapModel3DStatics, it
@@ -49649,10 +49584,9 @@ proc createFrom3MFAsync*(_: typedesc[MapModel3D], source: WinRtObject,
     withIface(source.p, IRandomAccessStreamReference, p0):
       check it.vtbl.CreateFrom3MFAsync2(it, p0, shadingOption, op.addr
                                        ), "MapModel3D.CreateFrom3MFAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapModel3D,
-                              IID_AsyncOperationCompletedHandler_1_MapModel3D,
-                              alPlain, "MapModel3D.CreateFrom3MFAsync")
-  result = adopt[MapModel3D](obj)
+  result = futureObject[MapModel3D](op, IID_IAsyncOperation_1_MapModel3D,
+                                    IID_AsyncOperationCompletedHandler_1_MapModel3D,
+                                    alPlain, "MapModel3D.CreateFrom3MFAsync")
 
 proc newMapPolygon*(): MapPolygon =
   ## Activate a `Windows.UI.Xaml.Controls.Maps.MapPolygon`.
@@ -50938,7 +50872,7 @@ proc location*(self: StreetsidePanorama): Geopoint =
     result = it.getObject(get_Location, Geopoint)
 
 proc findNearbyAsync*(_: typedesc[StreetsidePanorama], location: Geopoint
-                     ): Future[StreetsidePanorama] {.async.} =
+                     ): Future[StreetsidePanorama] =
   ## Windows.UI.Xaml.Controls.Maps.StreetsidePanorama.FindNearbyAsync
   var op: pointer
   withStatics("Windows.UI.Xaml.Controls.Maps.StreetsidePanorama",
@@ -50946,14 +50880,15 @@ proc findNearbyAsync*(_: typedesc[StreetsidePanorama], location: Geopoint
     withIface(location.p, IGeopoint, p0):
       check it.vtbl.FindNearbyAsync(it, p0, op.addr
                                    ), "StreetsidePanorama.FindNearbyAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StreetsidePanorama,
-                              IID_AsyncOperationCompletedHandler_1_StreetsidePanorama,
-                              alPlain, "StreetsidePanorama.FindNearbyAsync")
-  result = adopt[StreetsidePanorama](obj)
+  result = futureObject[StreetsidePanorama](op,
+                                            IID_IAsyncOperation_1_StreetsidePanorama,
+                                            IID_AsyncOperationCompletedHandler_1_StreetsidePanorama,
+                                            alPlain,
+                                            "StreetsidePanorama.FindNearbyAsync"
+                                           )
 
 proc findNearbyAsync*(_: typedesc[StreetsidePanorama], location: Geopoint,
-                      radiusInMeters: float64
-                     ): Future[StreetsidePanorama] {.async.} =
+                      radiusInMeters: float64): Future[StreetsidePanorama] =
   ## Windows.UI.Xaml.Controls.Maps.StreetsidePanorama.FindNearbyAsync
   var op: pointer
   withStatics("Windows.UI.Xaml.Controls.Maps.StreetsidePanorama",
@@ -50961,10 +50896,12 @@ proc findNearbyAsync*(_: typedesc[StreetsidePanorama], location: Geopoint,
     withIface(location.p, IGeopoint, p0):
       check it.vtbl.FindNearbyAsync2(it, p0, radiusInMeters, op.addr
                                     ), "StreetsidePanorama.FindNearbyAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_StreetsidePanorama,
-                              IID_AsyncOperationCompletedHandler_1_StreetsidePanorama,
-                              alPlain, "StreetsidePanorama.FindNearbyAsync")
-  result = adopt[StreetsidePanorama](obj)
+  result = futureObject[StreetsidePanorama](op,
+                                            IID_IAsyncOperation_1_StreetsidePanorama,
+                                            IID_AsyncOperationCompletedHandler_1_StreetsidePanorama,
+                                            alPlain,
+                                            "StreetsidePanorama.FindNearbyAsync"
+                                           )
 
 proc newMediaElement*(): MediaElement =
   ## Activate a `Windows.UI.Xaml.Controls.MediaElement`.
@@ -54684,16 +54621,15 @@ proc removeConfirmed*(self: PickerFlyout, token: EventRegistrationToken) =
   withIface(self.p, IPickerFlyout, it):
     check it.vtbl.remove_Confirmed(it, token), "PickerFlyout.remove_Confirmed"
 
-proc showAtAsync*(self: PickerFlyout, target: FrameworkElement
-                 ): Future[bool] {.async.} =
+proc showAtAsync*(self: PickerFlyout, target: FrameworkElement): Future[bool] =
   ## Windows.UI.Xaml.Controls.PickerFlyout.ShowAtAsync
   var op: pointer
   withIface(self.p, IPickerFlyout, it):
     withIface(target.p, IFrameworkElement, p0):
       check it.vtbl.ShowAtAsync(it, p0, op.addr), "PickerFlyout.ShowAtAsync"
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
-                                  IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "PickerFlyout.ShowAtAsync")
+  result = futureValue[bool](op, IID_IAsyncOperation_1_Bool,
+                             IID_AsyncOperationCompletedHandler_1_Bool, alPlain,
+                             "PickerFlyout.ShowAtAsync")
 
 proc contentProperty*(_: typedesc[PickerFlyout]): DependencyProperty =
   ## Windows.UI.Xaml.Controls.PickerFlyout.get_ContentProperty
@@ -60571,18 +60507,17 @@ proc removeTextChanging*(self: RichEditBox, token: EventRegistrationToken) =
   withIface(self.p, IRichEditBox3, it):
     check it.vtbl.remove_TextChanging(it, token), "RichEditBox.remove_TextChanging"
 
-proc getLinguisticAlternativesAsync*(self: RichEditBox): Future[seq[string]] {.async.} =
+proc getLinguisticAlternativesAsync*(self: RichEditBox): Future[seq[string]] =
   ## Windows.UI.Xaml.Controls.RichEditBox.GetLinguisticAlternativesAsync
   var op: pointer
   withIface(self.p, IRichEditBox4, it):
     check it.vtbl.GetLinguisticAlternativesAsync(it, op.addr
                                                 ), "RichEditBox.GetLinguisticAlternativesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_16,
-                               alPlain,
-                               "RichEditBox.GetLinguisticAlternativesAsync")
-  result = toSeq[string](coll, IID_IVectorView_1_String)
-  discard release(coll)
+  result = futureSeq[string](op, IID_IAsyncOperation_1_IVectorView_16,
+                             IID_AsyncOperationCompletedHandler_1_IVectorView_16,
+                             alPlain,
+                             "RichEditBox.GetLinguisticAlternativesAsync",
+                             IID_IVectorView_1_String)
 
 proc clipboardCopyFormat*(self: RichEditBox): RichEditClipboardFormat =
   ## Windows.UI.Xaml.Controls.RichEditBox.get_ClipboardCopyFormat
@@ -65590,18 +65525,16 @@ proc removeTextChanging*(self: TextBox, token: EventRegistrationToken) =
   withIface(self.p, ITextBox3, it):
     check it.vtbl.remove_TextChanging(it, token), "TextBox.remove_TextChanging"
 
-proc getLinguisticAlternativesAsync*(self: TextBox): Future[seq[string]] {.async.} =
+proc getLinguisticAlternativesAsync*(self: TextBox): Future[seq[string]] =
   ## Windows.UI.Xaml.Controls.TextBox.GetLinguisticAlternativesAsync
   var op: pointer
   withIface(self.p, ITextBox4, it):
     check it.vtbl.GetLinguisticAlternativesAsync(it, op.addr
                                                 ), "TextBox.GetLinguisticAlternativesAsync"
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16,
-                               IID_AsyncOperationCompletedHandler_1_IVectorView_16,
-                               alPlain, "TextBox.GetLinguisticAlternativesAsync"
-                              )
-  result = toSeq[string](coll, IID_IVectorView_1_String)
-  discard release(coll)
+  result = futureSeq[string](op, IID_IAsyncOperation_1_IVectorView_16,
+                             IID_AsyncOperationCompletedHandler_1_IVectorView_16,
+                             alPlain, "TextBox.GetLinguisticAlternativesAsync",
+                             IID_IVectorView_1_String)
 
 proc selectionHighlightColorWhenNotFocused*(self: TextBox): SolidColorBrush =
   ## Windows.UI.Xaml.Controls.TextBox.get_SelectionHighlightColorWhenNotFocused
@@ -66311,16 +66244,16 @@ proc removeTimePicked*(self: TimePickerFlyout, token: EventRegistrationToken) =
     check it.vtbl.remove_TimePicked(it, token), "TimePickerFlyout.remove_TimePicked"
 
 proc showAtAsync*(self: TimePickerFlyout, target: FrameworkElement
-                 ): Future[Option[TimeSpan]] {.async.} =
+                 ): Future[Option[TimeSpan]] =
   ## Windows.UI.Xaml.Controls.TimePickerFlyout.ShowAtAsync
   var op: pointer
   withIface(self.p, ITimePickerFlyout, it):
     withIface(target.p, IFrameworkElement, p0):
       check it.vtbl.ShowAtAsync(it, p0, op.addr), "TimePickerFlyout.ShowAtAsync"
-  let box = await awaitObject(op, IID_IAsyncOperation_1_IReference_12, IID_AsyncOperationCompletedHandler_1_IReference_12, alPlain, "TimePickerFlyout.ShowAtAsync")
-  result = readReference[TimeSpan](box, IID_IReference_1_TimeSpan,
-                                   "TimePickerFlyout.ShowAtAsync")
-  discard release(box)
+  result = futureReference[TimeSpan](op, IID_IAsyncOperation_1_IReference_12,
+                                     IID_AsyncOperationCompletedHandler_1_IReference_12,
+                                     alPlain, "TimePickerFlyout.ShowAtAsync",
+                                     IID_IReference_1_TimeSpan)
 
 proc clockIdentifierProperty*(_: typedesc[TimePickerFlyout]): DependencyProperty =
   ## Windows.UI.Xaml.Controls.TimePickerFlyout.get_ClockIdentifierProperty
@@ -68230,18 +68163,18 @@ proc stop*(self: WebView) =
     check it.vtbl.Stop(it), "WebView.Stop"
 
 proc capturePreviewToStreamAsync*(self: WebView, stream: WinRtObject
-                                 ) {.async.} =
+                                 ): Future[void] =
   ## Windows.UI.Xaml.Controls.WebView.CapturePreviewToStreamAsync
   var op: pointer
   withIface(self.p, IWebView2, it):
     withIface(stream.p, IRandomAccessStream, p0):
       check it.vtbl.CapturePreviewToStreamAsync(it, p0, op.addr
                                                ), "WebView.CapturePreviewToStreamAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "WebView.CapturePreviewToStreamAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "WebView.CapturePreviewToStreamAsync")
 
 proc invokeScriptAsync*(self: WebView, scriptName: string,
-                        arguments: seq[string]): Future[string] {.async.} =
+                        arguments: seq[string]): Future[string] =
   ## Windows.UI.Xaml.Controls.WebView.InvokeScriptAsync
   var op: pointer
   withIface(self.p, IWebView2, it):
@@ -68252,22 +68185,21 @@ proc invokeScriptAsync*(self: WebView, scriptName: string,
       defer: discard release(p1)
       check it.vtbl.InvokeScriptAsync(it, h0, p1, op.addr
                                      ), "WebView.InvokeScriptAsync"
-  result = await awaitString(op, IID_IAsyncOperation_1_String,
-                             IID_AsyncOperationCompletedHandler_1_String,
-                             alPlain, "WebView.InvokeScriptAsync")
+  result = futureString(op, IID_IAsyncOperation_1_String,
+                        IID_AsyncOperationCompletedHandler_1_String, alPlain,
+                        "WebView.InvokeScriptAsync")
 
-proc captureSelectedContentToDataPackageAsync*(self: WebView): Future[DataPackage] {.async.} =
+proc captureSelectedContentToDataPackageAsync*(self: WebView): Future[DataPackage] =
   ## Windows.UI.Xaml.Controls.WebView.CaptureSelectedContentToDataPackageAsync
   var op: pointer
   withIface(self.p, IWebView2, it):
     check it.vtbl.CaptureSelectedContentToDataPackageAsync(it, op.addr
                                                           ), "WebView.CaptureSelectedContentToDataPackageAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_DataPackage,
-                              IID_AsyncOperationCompletedHandler_1_DataPackage,
-                              alPlain,
-                              "WebView.CaptureSelectedContentToDataPackageAsync"
-                             )
-  result = adopt[DataPackage](obj)
+  result = futureObject[DataPackage](op, IID_IAsyncOperation_1_DataPackage,
+                                     IID_AsyncOperationCompletedHandler_1_DataPackage,
+                                     alPlain,
+                                     "WebView.CaptureSelectedContentToDataPackageAsync"
+                                    )
 
 proc navigateToLocalStreamUri*(self: WebView, source: Uri,
                                streamResolver: WinRtObject) =
@@ -68681,14 +68613,14 @@ proc defaultExecutionMode*(_: typedesc[WebView]): WebViewExecutionMode =
   withStatics("Windows.UI.Xaml.Controls.WebView", IWebViewStatics4, it):
     result = it.getValue(get_DefaultExecutionMode, WebViewExecutionMode)
 
-proc clearTemporaryWebDataAsync*(_: typedesc[WebView]) {.async.} =
+proc clearTemporaryWebDataAsync*(_: typedesc[WebView]): Future[void] =
   ## Windows.UI.Xaml.Controls.WebView.ClearTemporaryWebDataAsync
   var op: pointer
   withStatics("Windows.UI.Xaml.Controls.WebView", IWebViewStatics4, it):
     check it.vtbl.ClearTemporaryWebDataAsync(it, op.addr
                                             ), "WebView.ClearTemporaryWebDataAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "WebView.ClearTemporaryWebDataAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "WebView.ClearTemporaryWebDataAsync")
 
 proc canGoBackProperty*(_: typedesc[WebView]): DependencyProperty =
   ## Windows.UI.Xaml.Controls.WebView.get_CanGoBackProperty
@@ -73321,22 +73253,23 @@ proc removeDesignerAppExited*(self: DesignerAppManager, token: EventRegistration
 
 proc createNewViewAsync*(self: DesignerAppManager,
                          initialViewState: DesignerAppViewState,
-                         initialViewSize: Size
-                        ): Future[DesignerAppView] {.async.} =
+                         initialViewSize: Size): Future[DesignerAppView] =
   ## Windows.UI.Xaml.Hosting.DesignerAppManager.CreateNewViewAsync
   var op: pointer
   withIface(self.p, IDesignerAppManager, it):
     check it.vtbl.CreateNewViewAsync(it, initialViewState, initialViewSize,
                                      op.addr
                                     ), "DesignerAppManager.CreateNewViewAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_DesignerAppView,
-                              IID_AsyncOperationCompletedHandler_1_DesignerAppView,
-                              alPlain, "DesignerAppManager.CreateNewViewAsync")
-  result = adopt[DesignerAppView](obj)
+  result = futureObject[DesignerAppView](op,
+                                         IID_IAsyncOperation_1_DesignerAppView,
+                                         IID_AsyncOperationCompletedHandler_1_DesignerAppView,
+                                         alPlain,
+                                         "DesignerAppManager.CreateNewViewAsync"
+                                        )
 
 proc loadObjectIntoAppAsync*(self: DesignerAppManager, dllName: string,
                              classId: GUID, initializationData: string
-                            ) {.async.} =
+                            ): Future[void] =
   ## Windows.UI.Xaml.Hosting.DesignerAppManager.LoadObjectIntoAppAsync
   var op: pointer
   withIface(self.p, IDesignerAppManager, it):
@@ -73344,8 +73277,8 @@ proc loadObjectIntoAppAsync*(self: DesignerAppManager, dllName: string,
       withHString(initializationData, h2):
         check it.vtbl.LoadObjectIntoAppAsync(it, h0, classId, h2, op.addr
                                             ), "DesignerAppManager.LoadObjectIntoAppAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "DesignerAppManager.LoadObjectIntoAppAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "DesignerAppManager.LoadObjectIntoAppAsync")
 
 proc close*(self: DesignerAppManager) =
   ## Windows.UI.Xaml.Hosting.DesignerAppManager.Close
@@ -73383,14 +73316,14 @@ proc viewSize*(self: DesignerAppView): Size =
     result = it.getValue(get_ViewSize, Size)
 
 proc updateViewAsync*(self: DesignerAppView, viewState: DesignerAppViewState,
-                      viewSize: Size) {.async.} =
+                      viewSize: Size): Future[void] =
   ## Windows.UI.Xaml.Hosting.DesignerAppView.UpdateViewAsync
   var op: pointer
   withIface(self.p, IDesignerAppView, it):
     check it.vtbl.UpdateViewAsync(it, viewState, viewSize, op.addr
                                  ), "DesignerAppView.UpdateViewAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "DesignerAppView.UpdateViewAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "DesignerAppView.UpdateViewAsync")
 
 proc close*(self: DesignerAppView) =
   ## Windows.UI.Xaml.Hosting.DesignerAppView.Close
@@ -74190,45 +74123,48 @@ proc findNextElement*(_: typedesc[FocusManager],
       result = adopt[DependencyObject](tmp)
 
 proc tryFocusAsync*(_: typedesc[FocusManager], element: DependencyObject,
-                    value: FocusState): Future[FocusMovementResult] {.async.} =
+                    value: FocusState): Future[FocusMovementResult] =
   ## Windows.UI.Xaml.Input.FocusManager.TryFocusAsync
   var op: pointer
   withStatics("Windows.UI.Xaml.Input.FocusManager", IFocusManagerStatics5, it):
     withIface(element.p, IDependencyObject, p0):
       check it.vtbl.TryFocusAsync(it, p0, value, op.addr
                                  ), "FocusManager.TryFocusAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_FocusMovementResult,
-                              IID_AsyncOperationCompletedHandler_1_FocusMovementResult,
-                              alPlain, "FocusManager.TryFocusAsync")
-  result = adopt[FocusMovementResult](obj)
+  result = futureObject[FocusMovementResult](op,
+                                             IID_IAsyncOperation_1_FocusMovementResult,
+                                             IID_AsyncOperationCompletedHandler_1_FocusMovementResult,
+                                             alPlain,
+                                             "FocusManager.TryFocusAsync")
 
 proc tryMoveFocusAsync*(_: typedesc[FocusManager],
                         focusNavigationDirection: FocusNavigationDirection
-                       ): Future[FocusMovementResult] {.async.} =
+                       ): Future[FocusMovementResult] =
   ## Windows.UI.Xaml.Input.FocusManager.TryMoveFocusAsync
   var op: pointer
   withStatics("Windows.UI.Xaml.Input.FocusManager", IFocusManagerStatics5, it):
     check it.vtbl.TryMoveFocusAsync(it, focusNavigationDirection, op.addr
                                    ), "FocusManager.TryMoveFocusAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_FocusMovementResult,
-                              IID_AsyncOperationCompletedHandler_1_FocusMovementResult,
-                              alPlain, "FocusManager.TryMoveFocusAsync")
-  result = adopt[FocusMovementResult](obj)
+  result = futureObject[FocusMovementResult](op,
+                                             IID_IAsyncOperation_1_FocusMovementResult,
+                                             IID_AsyncOperationCompletedHandler_1_FocusMovementResult,
+                                             alPlain,
+                                             "FocusManager.TryMoveFocusAsync")
 
 proc tryMoveFocusAsync*(_: typedesc[FocusManager],
                         focusNavigationDirection: FocusNavigationDirection,
                         focusNavigationOptions: FindNextElementOptions
-                       ): Future[FocusMovementResult] {.async.} =
+                       ): Future[FocusMovementResult] =
   ## Windows.UI.Xaml.Input.FocusManager.TryMoveFocusAsync
   var op: pointer
   withStatics("Windows.UI.Xaml.Input.FocusManager", IFocusManagerStatics5, it):
     withIface(focusNavigationOptions.p, IFindNextElementOptions, p1):
       check it.vtbl.TryMoveFocusAsync2(it, focusNavigationDirection, p1, op.addr
                                       ), "FocusManager.TryMoveFocusAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_FocusMovementResult,
-                              IID_AsyncOperationCompletedHandler_1_FocusMovementResult,
-                              alPlain, "FocusManager.TryMoveFocusAsync")
-  result = adopt[FocusMovementResult](obj)
+  result = futureObject[FocusMovementResult](op,
+                                             IID_IAsyncOperation_1_FocusMovementResult,
+                                             IID_AsyncOperationCompletedHandler_1_FocusMovementResult,
+                                             alPlain,
+                                             "FocusManager.TryMoveFocusAsync")
 
 proc newFocusedElement*(self: FocusManagerGotFocusEventArgs): DependencyObject =
   ## Windows.UI.Xaml.Input.FocusManagerGotFocusEventArgs.get_NewFocusedElement
@@ -79383,15 +79319,16 @@ proc setSource*(self: BitmapSource, streamSource: WinRtObject) =
     withIface(streamSource.p, IRandomAccessStream, p0):
       check it.vtbl.SetSource(it, p0), "BitmapSource.SetSource"
 
-proc setSourceAsync*(self: BitmapSource, streamSource: WinRtObject) {.async.} =
+proc setSourceAsync*(self: BitmapSource, streamSource: WinRtObject
+                    ): Future[void] =
   ## Windows.UI.Xaml.Media.Imaging.BitmapSource.SetSourceAsync
   var op: pointer
   withIface(self.p, IBitmapSource, it):
     withIface(streamSource.p, IRandomAccessStream, p0):
       check it.vtbl.SetSourceAsync(it, p0, op.addr
                                   ), "BitmapSource.SetSourceAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BitmapSource.SetSourceAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "BitmapSource.SetSourceAsync")
 
 proc pixelWidthProperty*(_: typedesc[BitmapSource]): DependencyProperty =
   ## Windows.UI.Xaml.Media.Imaging.BitmapSource.get_PixelWidthProperty
@@ -79635,37 +79572,36 @@ proc pixelHeight*(self: RenderTargetBitmap): int32 =
   withIface(self.p, IRenderTargetBitmap, it):
     result = it.getValue(get_PixelHeight, int32)
 
-proc renderAsync*(self: RenderTargetBitmap, element: UIElement) {.async.} =
+proc renderAsync*(self: RenderTargetBitmap, element: UIElement): Future[void] =
   ## Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap.RenderAsync
   var op: pointer
   withIface(self.p, IRenderTargetBitmap, it):
     withIface(element.p, IUIElement, p0):
       check it.vtbl.RenderAsync(it, p0, op.addr
                                ), "RenderTargetBitmap.RenderAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "RenderTargetBitmap.RenderAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "RenderTargetBitmap.RenderAsync")
 
 proc renderAsync*(self: RenderTargetBitmap, element: UIElement,
-                  scaledWidth: int32, scaledHeight: int32) {.async.} =
+                  scaledWidth: int32, scaledHeight: int32): Future[void] =
   ## Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap.RenderAsync
   var op: pointer
   withIface(self.p, IRenderTargetBitmap, it):
     withIface(element.p, IUIElement, p0):
       check it.vtbl.RenderAsync2(it, p0, scaledWidth, scaledHeight, op.addr
                                 ), "RenderTargetBitmap.RenderAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "RenderTargetBitmap.RenderAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "RenderTargetBitmap.RenderAsync")
 
-proc getPixelsAsync*(self: RenderTargetBitmap): Future[Buffer] {.async.} =
+proc getPixelsAsync*(self: RenderTargetBitmap): Future[Buffer] =
   ## Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap.GetPixelsAsync
   var op: pointer
   withIface(self.p, IRenderTargetBitmap, it):
     check it.vtbl.GetPixelsAsync(it, op.addr
                                 ), "RenderTargetBitmap.GetPixelsAsync"
-  let obj = await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
-                              IID_AsyncOperationCompletedHandler_1_IBuffer,
-                              alPlain, "RenderTargetBitmap.GetPixelsAsync")
-  result = adopt[Buffer](obj)
+  result = futureObject[Buffer](op, IID_IAsyncOperation_1_IBuffer,
+                                IID_AsyncOperationCompletedHandler_1_IBuffer,
+                                alPlain, "RenderTargetBitmap.GetPixelsAsync")
 
 proc pixelWidthProperty*(_: typedesc[RenderTargetBitmap]): DependencyProperty =
   ## Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap.get_PixelWidthProperty
@@ -79684,15 +79620,15 @@ proc newSoftwareBitmapSource*(): SoftwareBitmapSource =
   adopt[SoftwareBitmapSource](activateAs("Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource", IID_ISoftwareBitmapSource))
 
 proc setBitmapAsync*(self: SoftwareBitmapSource, softwareBitmap: SoftwareBitmap
-                    ) {.async.} =
+                    ): Future[void] =
   ## Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource.SetBitmapAsync
   var op: pointer
   withIface(self.p, ISoftwareBitmapSource, it):
     withIface(softwareBitmap.p, ISoftwareBitmap, p0):
       check it.vtbl.SetBitmapAsync(it, p0, op.addr
                                   ), "SoftwareBitmapSource.SetBitmapAsync"
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "SoftwareBitmapSource.SetBitmapAsync")
+  result = futureVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                      "SoftwareBitmapSource.SetBitmapAsync")
 
 proc close*(self: SoftwareBitmapSource) =
   ## Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource.Close
@@ -79776,19 +79712,19 @@ proc removeOpenFailed*(self: SvgImageSource, token: EventRegistrationToken) =
     check it.vtbl.remove_OpenFailed(it, token), "SvgImageSource.remove_OpenFailed"
 
 proc setSourceAsync*(self: SvgImageSource, streamSource: WinRtObject
-                    ): Future[SvgImageSourceLoadStatus] {.async.} =
+                    ): Future[SvgImageSourceLoadStatus] =
   ## Windows.UI.Xaml.Media.Imaging.SvgImageSource.SetSourceAsync
   var op: pointer
   withIface(self.p, ISvgImageSource, it):
     withIface(streamSource.p, IRandomAccessStream, p0):
       check it.vtbl.SetSourceAsync(it, p0, op.addr
                                   ), "SvgImageSource.SetSourceAsync"
-  result = await awaitValue[SvgImageSourceLoadStatus](op,
-                                                      IID_IAsyncOperation_1_SvgImageSourceLoadStatus,
-                                                      IID_AsyncOperationCompletedHandler_1_SvgImageSourceLoadStatus,
-                                                      alPlain,
-                                                      "SvgImageSource.SetSourceAsync"
-                                                     )
+  result = futureValue[SvgImageSourceLoadStatus](op,
+                                                 IID_IAsyncOperation_1_SvgImageSourceLoadStatus,
+                                                 IID_AsyncOperationCompletedHandler_1_SvgImageSourceLoadStatus,
+                                                 alPlain,
+                                                 "SvgImageSource.SetSourceAsync"
+                                                )
 
 proc uriSourceProperty*(_: typedesc[SvgImageSource]): DependencyProperty =
   ## Windows.UI.Xaml.Media.Imaging.SvgImageSource.get_UriSourceProperty
