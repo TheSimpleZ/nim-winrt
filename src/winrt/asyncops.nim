@@ -153,24 +153,11 @@ proc failureOf(op: pointer, what: string): ref WinRtError =
 # ----------------------------------------------------------- the shapes
 
 # The four operation interfaces share one story and differ in two ways: whether
-# there is a result, and whether there is progress. Each `when` below is one of
-# those two questions.
-
-template ResultOf(Operation: typedesc): typedesc =
-  ## What an operation produces: nothing for an action.
-  when Operation is IAsyncOperationVtbl or
-       Operation is IAsyncOperationWithProgressVtbl:
-    Api(Operation.TResult)
-  else:
-    void
-
-template ProgressOf(Operation: typedesc): typedesc =
-  ## What a `WithProgress` operation reports along the way.
-  when Operation is IAsyncOperationWithProgressVtbl or
-       Operation is IAsyncActionWithProgressVtbl:
-    Api(Operation.TProgress)
-  else:
-    void
+# there is a result, and whether there is progress. Which delegate completes
+# one, and which reports its progress, is the `when` below. What it produces
+# is not asked here: the caller of `future` names that type, since a generic
+# whose signature expands a template reports an injected symbol wherever it
+# is instantiated.
 
 template CompletedHandler(Operation: typedesc): typedesc =
   ## The delegate an operation's `put_Completed` takes.
