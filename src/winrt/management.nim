@@ -389,14 +389,14 @@ proc `currentBatchIndex=`*(self: AgentProvisioningProgressReport, value: uint32
 
 proc getDefault*(_: typedesc[AppInstallerManager]): AppInstallerManager =
   ## Windows.Management.Deployment.IAppInstallerManagerStatics.GetDefault
-  let it = statics[IAppInstallerManagerStaticsVtbl]("Windows.Management.Deployment.AppInstallerManager")
+  let it = statics[IAppInstallerManagerStaticsVtbl](className(AppInstallerManager))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "AppInstallerManager.getDefault"
   adopt[AppInstallerManager](ret)
 
 proc getForSystem*(_: typedesc[AppInstallerManager]): AppInstallerManager =
   ## Windows.Management.Deployment.IAppInstallerManagerStatics.GetForSystem
-  let it = statics[IAppInstallerManagerStaticsVtbl]("Windows.Management.Deployment.AppInstallerManager")
+  let it = statics[IAppInstallerManagerStaticsVtbl](className(AppInstallerManager))
   var ret: pointer
   check it.vtbl.GetForSystem(it.raw, ret.addr
                             ), "AppInstallerManager.getForSystem"
@@ -433,7 +433,7 @@ proc pauseAutoUpdatesUntil*(self: AppInstallerManager,
 proc createForPackageFamily*(_: typedesc[ApplicationDataManager],
                              packageFamilyName: string): ApplicationData =
   ## Windows.Management.Core.IApplicationDataManagerStatics.CreateForPackageFamily
-  let it = statics[IApplicationDataManagerStaticsVtbl]("Windows.Management.Core.ApplicationDataManager")
+  let it = statics[IApplicationDataManagerStaticsVtbl](className(ApplicationDataManager))
   let a0 = toWinRtString(packageFamilyName)
   var ret: pointer
   check it.vtbl.CreateForPackageFamily(it.raw, a0.handle, ret.addr
@@ -450,7 +450,7 @@ proc createFromAppInstallerInfo*(_: typedesc[AutoUpdateSettingsOptions],
                                  appInstallerInfo: AppInstallerInfo
                                 ): AutoUpdateSettingsOptions =
   ## Windows.Management.Deployment.IAutoUpdateSettingsOptionsStatics.CreateFromAppInstallerInfo
-  let it = statics[IAutoUpdateSettingsOptionsStaticsVtbl]("Windows.Management.Deployment.AutoUpdateSettingsOptions")
+  let it = statics[IAutoUpdateSettingsOptionsStaticsVtbl](className(AutoUpdateSettingsOptions))
   let a0 = queryInterface[IAppInstallerInfoVtbl](appInstallerInfo)
   var ret: pointer
   check it.vtbl.CreateFromAppInstallerInfo(it.raw, a0.raw, ret.addr
@@ -622,7 +622,7 @@ proc optionalPackageUris*(self: AutoUpdateSettingsOptions): seq[Uri] =
 proc findInstalledApp*(_: typedesc[ClassicAppManager], appUninstallKey: string
                       ): InstalledClassicAppInfo =
   ## Windows.Management.Deployment.Preview.IClassicAppManagerStatics.FindInstalledApp
-  let it = statics[IClassicAppManagerStaticsVtbl]("Windows.Management.Deployment.Preview.ClassicAppManager")
+  let it = statics[IClassicAppManagerStaticsVtbl](className(ClassicAppManager))
   let a0 = toWinRtString(appUninstallKey)
   var ret: pointer
   check it.vtbl.FindInstalledApp(it.raw, a0.handle, ret.addr
@@ -842,7 +842,7 @@ proc change*(self: DeploymentSessionStateChangedEventArgs): DeploymentSessionSta
 
 proc newDeploymentWorkload*(id: string): DeploymentWorkload =
   ## Windows.Management.Setup.IDeploymentWorkloadFactory.CreateInstance
-  let it = statics[IDeploymentWorkloadFactoryVtbl]("Windows.Management.Setup.DeploymentWorkload")
+  let it = statics[IDeploymentWorkloadFactoryVtbl](className(DeploymentWorkload))
   let a0 = toWinRtString(id)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.handle, ret.addr
@@ -985,7 +985,7 @@ proc `stateDetails=`*(self: DeploymentWorkload, value: string) =
 
 proc newDeploymentWorkloadBatch*(id: uint32): DeploymentWorkloadBatch =
   ## Windows.Management.Setup.IDeploymentWorkloadBatchFactory.CreateInstance
-  let it = statics[IDeploymentWorkloadBatchFactoryVtbl]("Windows.Management.Setup.DeploymentWorkloadBatch")
+  let it = statics[IDeploymentWorkloadBatchFactoryVtbl](className(DeploymentWorkloadBatch))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, id, ret.addr
                               ), "DeploymentWorkloadBatch.new"
@@ -1093,7 +1093,7 @@ proc getForLaunchUri*(_: typedesc[MachineProvisioningProgressReporter],
                       heartbeatHandler: proc(eventArgs: DeploymentSessionHeartbeatRequestedEventArgs)
                      ): MachineProvisioningProgressReporter =
   ## Windows.Management.Setup.IMachineProvisioningProgressReporterStatics.GetForLaunchUri
-  let it = statics[IMachineProvisioningProgressReporterStaticsVtbl]("Windows.Management.Setup.MachineProvisioningProgressReporter")
+  let it = statics[IMachineProvisioningProgressReporterStaticsVtbl](className(MachineProvisioningProgressReporter))
   let a0 = queryInterface[IUriRuntimeClassVtbl](launchUri)
   proc shim1(a0: pointer) =
     heartbeatHandler(borrow[DeploymentSessionHeartbeatRequestedEventArgs](a0))
@@ -1279,21 +1279,21 @@ proc `type=`*(self: MdmAlert, value: string) =
 
 proc isBrowserAllowed*(_: typedesc[MdmPolicy]): bool =
   ## Windows.Management.Workplace.IMdmAllowPolicyStatics.IsBrowserAllowed
-  let it = statics[IMdmAllowPolicyStaticsVtbl]("Windows.Management.Workplace.MdmPolicy")
+  let it = statics[IMdmAllowPolicyStaticsVtbl](className(MdmPolicy))
   var ret: bool
   check it.vtbl.IsBrowserAllowed(it.raw, ret.addr), "MdmPolicy.isBrowserAllowed"
   ret
 
 proc isCameraAllowed*(_: typedesc[MdmPolicy]): bool =
   ## Windows.Management.Workplace.IMdmAllowPolicyStatics.IsCameraAllowed
-  let it = statics[IMdmAllowPolicyStaticsVtbl]("Windows.Management.Workplace.MdmPolicy")
+  let it = statics[IMdmAllowPolicyStaticsVtbl](className(MdmPolicy))
   var ret: bool
   check it.vtbl.IsCameraAllowed(it.raw, ret.addr), "MdmPolicy.isCameraAllowed"
   ret
 
 proc isMicrosoftAccountAllowed*(_: typedesc[MdmPolicy]): bool =
   ## Windows.Management.Workplace.IMdmAllowPolicyStatics.IsMicrosoftAccountAllowed
-  let it = statics[IMdmAllowPolicyStaticsVtbl]("Windows.Management.Workplace.MdmPolicy")
+  let it = statics[IMdmAllowPolicyStaticsVtbl](className(MdmPolicy))
   var ret: bool
   check it.vtbl.IsMicrosoftAccountAllowed(it.raw, ret.addr
                                          ), "MdmPolicy.isMicrosoftAccountAllowed"
@@ -1301,14 +1301,14 @@ proc isMicrosoftAccountAllowed*(_: typedesc[MdmPolicy]): bool =
 
 proc isStoreAllowed*(_: typedesc[MdmPolicy]): bool =
   ## Windows.Management.Workplace.IMdmAllowPolicyStatics.IsStoreAllowed
-  let it = statics[IMdmAllowPolicyStaticsVtbl]("Windows.Management.Workplace.MdmPolicy")
+  let it = statics[IMdmAllowPolicyStaticsVtbl](className(MdmPolicy))
   var ret: bool
   check it.vtbl.IsStoreAllowed(it.raw, ret.addr), "MdmPolicy.isStoreAllowed"
   ret
 
 proc getMessagingSyncPolicy*(_: typedesc[MdmPolicy]): MessagingSyncPolicy =
   ## Windows.Management.Workplace.IMdmPolicyStatics2.GetMessagingSyncPolicy
-  let it = statics[IMdmPolicyStatics2Vtbl]("Windows.Management.Workplace.MdmPolicy")
+  let it = statics[IMdmPolicyStatics2Vtbl](className(MdmPolicy))
   var ret: MessagingSyncPolicy
   check it.vtbl.GetMessagingSyncPolicy(it.raw, ret.addr
                                       ), "MdmPolicy.getMessagingSyncPolicy"
@@ -1375,14 +1375,14 @@ proc startAsync*(self: MdmSession, alerts: seq[MdmAlert]): Future[void] =
 
 proc sessionIds*(_: typedesc[MdmSessionManager]): seq[string] =
   ## Windows.Management.IMdmSessionManagerStatics.get_SessionIds
-  let it = statics[IMdmSessionManagerStaticsVtbl]("Windows.Management.MdmSessionManager")
+  let it = statics[IMdmSessionManagerStaticsVtbl](className(MdmSessionManager))
   var ret: pointer
   check it.vtbl.get_SessionIds(it.raw, ret.addr), "MdmSessionManager.sessionIds"
   takeSeq[IVectorViewVtbl[string], seq[string]](ret)
 
 proc tryCreateSession*(_: typedesc[MdmSessionManager]): MdmSession =
   ## Windows.Management.IMdmSessionManagerStatics.TryCreateSession
-  let it = statics[IMdmSessionManagerStaticsVtbl]("Windows.Management.MdmSessionManager")
+  let it = statics[IMdmSessionManagerStaticsVtbl](className(MdmSessionManager))
   var ret: pointer
   check it.vtbl.TryCreateSession(it.raw, ret.addr
                                 ), "MdmSessionManager.tryCreateSession"
@@ -1390,7 +1390,7 @@ proc tryCreateSession*(_: typedesc[MdmSessionManager]): MdmSession =
 
 proc deleteSessionById*(_: typedesc[MdmSessionManager], sessionId: string) =
   ## Windows.Management.IMdmSessionManagerStatics.DeleteSessionById
-  let it = statics[IMdmSessionManagerStaticsVtbl]("Windows.Management.MdmSessionManager")
+  let it = statics[IMdmSessionManagerStaticsVtbl](className(MdmSessionManager))
   let a0 = toWinRtString(sessionId)
   check it.vtbl.DeleteSessionById(it.raw, a0.handle
                                  ), "MdmSessionManager.deleteSessionById"
@@ -1398,7 +1398,7 @@ proc deleteSessionById*(_: typedesc[MdmSessionManager], sessionId: string) =
 proc getSessionById*(_: typedesc[MdmSessionManager], sessionId: string
                     ): MdmSession =
   ## Windows.Management.IMdmSessionManagerStatics.GetSessionById
-  let it = statics[IMdmSessionManagerStaticsVtbl]("Windows.Management.MdmSessionManager")
+  let it = statics[IMdmSessionManagerStaticsVtbl](className(MdmSessionManager))
   let a0 = toWinRtString(sessionId)
   var ret: pointer
   check it.vtbl.GetSessionById(it.raw, a0.handle, ret.addr
@@ -1410,7 +1410,7 @@ proc getSessionById*(_: typedesc[MdmSessionManager], sessionId: string
 proc getPolicyFromPath*(_: typedesc[NamedPolicy], area: string, name: string
                        ): NamedPolicyData =
   ## Windows.Management.Policies.INamedPolicyStatics.GetPolicyFromPath
-  let it = statics[INamedPolicyStaticsVtbl]("Windows.Management.Policies.NamedPolicy")
+  let it = statics[INamedPolicyStaticsVtbl](className(NamedPolicy))
   let a0 = toWinRtString(area)
   let a1 = toWinRtString(name)
   var ret: pointer
@@ -1421,7 +1421,7 @@ proc getPolicyFromPath*(_: typedesc[NamedPolicy], area: string, name: string
 proc getPolicyFromPathForUser*(_: typedesc[NamedPolicy], user: User,
                                area: string, name: string): NamedPolicyData =
   ## Windows.Management.Policies.INamedPolicyStatics.GetPolicyFromPathForUser
-  let it = statics[INamedPolicyStaticsVtbl]("Windows.Management.Policies.NamedPolicy")
+  let it = statics[INamedPolicyStaticsVtbl](className(NamedPolicy))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(area)
   let a2 = toWinRtString(name)
@@ -2759,14 +2759,14 @@ proc getAvailableSpaceAsync*(self: PackageVolume): Future[uint64] =
 
 proc getDefault*(_: typedesc[PreviewBuildsManager]): PreviewBuildsManager =
   ## Windows.Management.Update.IPreviewBuildsManagerStatics.GetDefault
-  let it = statics[IPreviewBuildsManagerStaticsVtbl]("Windows.Management.Update.PreviewBuildsManager")
+  let it = statics[IPreviewBuildsManagerStaticsVtbl](className(PreviewBuildsManager))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "PreviewBuildsManager.getDefault"
   adopt[PreviewBuildsManager](ret)
 
 proc isSupported*(_: typedesc[PreviewBuildsManager]): bool =
   ## Windows.Management.Update.IPreviewBuildsManagerStatics.IsSupported
-  let it = statics[IPreviewBuildsManagerStaticsVtbl]("Windows.Management.Update.PreviewBuildsManager")
+  let it = statics[IPreviewBuildsManagerStaticsVtbl](className(PreviewBuildsManager))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr
                            ), "PreviewBuildsManager.isSupported"
@@ -3096,7 +3096,7 @@ proc resetData*(self: SharedPackageContainer): UpdateSharedPackageContainerResul
 
 proc getDefault*(_: typedesc[SharedPackageContainerManager]): SharedPackageContainerManager =
   ## Windows.Management.Deployment.ISharedPackageContainerManagerStatics.GetDefault
-  let it = statics[ISharedPackageContainerManagerStaticsVtbl]("Windows.Management.Deployment.SharedPackageContainerManager")
+  let it = statics[ISharedPackageContainerManagerStaticsVtbl](className(SharedPackageContainerManager))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr
                           ), "SharedPackageContainerManager.getDefault"
@@ -3105,7 +3105,7 @@ proc getDefault*(_: typedesc[SharedPackageContainerManager]): SharedPackageConta
 proc getForUser*(_: typedesc[SharedPackageContainerManager], userSid: string
                 ): SharedPackageContainerManager =
   ## Windows.Management.Deployment.ISharedPackageContainerManagerStatics.GetForUser
-  let it = statics[ISharedPackageContainerManagerStaticsVtbl]("Windows.Management.Deployment.SharedPackageContainerManager")
+  let it = statics[ISharedPackageContainerManagerStaticsVtbl](className(SharedPackageContainerManager))
   let a0 = toWinRtString(userSid)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.handle, ret.addr
@@ -3114,7 +3114,7 @@ proc getForUser*(_: typedesc[SharedPackageContainerManager], userSid: string
 
 proc getForProvisioning*(_: typedesc[SharedPackageContainerManager]): SharedPackageContainerManager =
   ## Windows.Management.Deployment.ISharedPackageContainerManagerStatics.GetForProvisioning
-  let it = statics[ISharedPackageContainerManagerStaticsVtbl]("Windows.Management.Deployment.SharedPackageContainerManager")
+  let it = statics[ISharedPackageContainerManagerStaticsVtbl](className(SharedPackageContainerManager))
   var ret: pointer
   check it.vtbl.GetForProvisioning(it.raw, ret.addr
                                   ), "SharedPackageContainerManager.getForProvisioning"
@@ -3177,7 +3177,7 @@ proc findContainers*(self: SharedPackageContainerManager,
 
 proc newSharedPackageContainerMember*(packageFamilyName: string): SharedPackageContainerMember =
   ## Windows.Management.Deployment.ISharedPackageContainerMemberFactory.CreateInstance
-  let it = statics[ISharedPackageContainerMemberFactoryVtbl]("Windows.Management.Deployment.SharedPackageContainerMember")
+  let it = statics[ISharedPackageContainerMemberFactoryVtbl](className(SharedPackageContainerMember))
   let a0 = toWinRtString(packageFamilyName)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.handle, ret.addr
@@ -3451,7 +3451,7 @@ proc newWindowsSoftwareUpdate*(providerId: string,
                                optionalInfo: WindowsSoftwareUpdateOptionalInfo
                               ): WindowsSoftwareUpdate =
   ## Windows.Management.Update.IWindowsSoftwareUpdateFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdate")
+  let it = statics[IWindowsSoftwareUpdateFactoryVtbl](className(WindowsSoftwareUpdate))
   let a0 = toWinRtString(providerId)
   let a2 = toWinRtString(updateId)
   let a3 = toWinRtString(title)
@@ -3485,7 +3485,7 @@ proc newWindowsSoftwareUpdate*(providerId: string,
                                optionalInfo: WindowsSoftwareUpdateOptionalInfo
                               ): WindowsSoftwareUpdate =
   ## Windows.Management.Update.IWindowsSoftwareUpdateFactory.CreateInstance2
-  let it = statics[IWindowsSoftwareUpdateFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdate")
+  let it = statics[IWindowsSoftwareUpdateFactoryVtbl](className(WindowsSoftwareUpdate))
   let a0 = toWinRtString(providerId)
   let a2 = toWinRtString(updateId)
   let a3 = toWinRtString(title)
@@ -3707,7 +3707,7 @@ proc newWindowsSoftwareUpdateActionInfo*(fileName: string,
                                          actionType: WindowsSoftwareUpdateActionType
                                         ): WindowsSoftwareUpdateActionInfo =
   ## Windows.Management.Update.IWindowsSoftwareUpdateActionInfoFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateActionInfoFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateActionInfo")
+  let it = statics[IWindowsSoftwareUpdateActionInfoFactoryVtbl](className(WindowsSoftwareUpdateActionInfo))
   let a0 = toWinRtString(fileName)
   let a1 = toWinRtString(fileArguments)
   var ret: pointer
@@ -3814,7 +3814,7 @@ proc newWindowsSoftwareUpdateAppPackageInfo*(packageFamilyName: string,
                                              installUri: Uri
                                             ): WindowsSoftwareUpdateAppPackageInfo =
   ## Windows.Management.Update.IWindowsSoftwareUpdateAppPackageInfoFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateAppPackageInfoFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateAppPackageInfo")
+  let it = statics[IWindowsSoftwareUpdateAppPackageInfoFactoryVtbl](className(WindowsSoftwareUpdateAppPackageInfo))
   let a0 = toWinRtString(packageFamilyName)
   let a2 = queryInterface[IUriRuntimeClassVtbl](installUri)
   var ret: pointer
@@ -3854,7 +3854,7 @@ proc newWindowsSoftwareUpdateApprovalInfo*(userInitiated: bool,
                                            meteredNetwork: bool, seeker: bool
                                           ): WindowsSoftwareUpdateApprovalInfo =
   ## Windows.Management.Update.IWindowsSoftwareUpdateApprovalInfoFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateApprovalInfoFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateApprovalInfo")
+  let it = statics[IWindowsSoftwareUpdateApprovalInfoFactoryVtbl](className(WindowsSoftwareUpdateApprovalInfo))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, userInitiated, appClosure,
                                meteredNetwork, seeker, ret.addr
@@ -3900,7 +3900,7 @@ proc newWindowsSoftwareUpdateExecutionInfo*(downloadInfo: WindowsSoftwareUpdateA
                                             actions: WindowsSoftwareUpdateOptionalActionInfo
                                            ): WindowsSoftwareUpdateExecutionInfo =
   ## Windows.Management.Update.IWindowsSoftwareUpdateExecutionInfoFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateExecutionInfoFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateExecutionInfo")
+  let it = statics[IWindowsSoftwareUpdateExecutionInfoFactoryVtbl](className(WindowsSoftwareUpdateExecutionInfo))
   let a0 = queryInterface[IWindowsSoftwareUpdateActionInfoVtbl](downloadInfo)
   let a1 = queryInterface[IWindowsSoftwareUpdateActionInfoVtbl](installInfo)
   let a2 = queryInterface[IWindowsSoftwareUpdateOptionalActionInfoVtbl](actions)
@@ -3913,7 +3913,7 @@ proc newWindowsSoftwareUpdateExecutionInfo*(deployInfo: WindowsSoftwareUpdateAct
                                             actions: WindowsSoftwareUpdateOptionalActionInfo
                                            ): WindowsSoftwareUpdateExecutionInfo =
   ## Windows.Management.Update.IWindowsSoftwareUpdateExecutionInfoFactory.CreateInstance2
-  let it = statics[IWindowsSoftwareUpdateExecutionInfoFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateExecutionInfo")
+  let it = statics[IWindowsSoftwareUpdateExecutionInfoFactoryVtbl](className(WindowsSoftwareUpdateExecutionInfo))
   let a0 = queryInterface[IWindowsSoftwareUpdateActionInfoVtbl](deployInfo)
   let a1 = queryInterface[IWindowsSoftwareUpdateOptionalActionInfoVtbl](actions)
   var ret: pointer
@@ -3961,7 +3961,7 @@ proc newWindowsSoftwareUpdateLocalizationInfo*(languageId: uint32,
                                                moreInfoUrl: Uri
                                               ): WindowsSoftwareUpdateLocalizationInfo =
   ## Windows.Management.Update.IWindowsSoftwareUpdateLocalizationInfoFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateLocalizationInfoFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateLocalizationInfo")
+  let it = statics[IWindowsSoftwareUpdateLocalizationInfoFactoryVtbl](className(WindowsSoftwareUpdateLocalizationInfo))
   let a1 = toWinRtString(title)
   let a2 = toWinRtString(description)
   let a3 = queryInterface[IUriRuntimeClassVtbl](moreInfoUrl)
@@ -4010,7 +4010,7 @@ proc newWindowsSoftwareUpdateOptionalActionInfo*(closeAndDeployInfo: WindowsSoft
                                                  closeAndRestartInfo: WindowsSoftwareUpdateActionInfo
                                                 ): WindowsSoftwareUpdateOptionalActionInfo =
   ## Windows.Management.Update.IWindowsSoftwareUpdateOptionalActionInfoFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateOptionalActionInfoFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateOptionalActionInfo")
+  let it = statics[IWindowsSoftwareUpdateOptionalActionInfoFactoryVtbl](className(WindowsSoftwareUpdateOptionalActionInfo))
   let a0 = queryInterface[IWindowsSoftwareUpdateActionInfoVtbl](closeAndDeployInfo)
   let a1 = queryInterface[IWindowsSoftwareUpdateActionInfoVtbl](closeAndInstallInfo)
   let a2 = queryInterface[IWindowsSoftwareUpdateActionInfoVtbl](closeAndRestartInfo)
@@ -4049,7 +4049,7 @@ proc newWindowsSoftwareUpdateOptionalInfo*(complianceDeadlineInDays: Option[int3
                                            complianceGracePeriodInDays: Option[int32]
                                           ): WindowsSoftwareUpdateOptionalInfo =
   ## Windows.Management.Update.IWindowsSoftwareUpdateOptionalInfoFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateOptionalInfoFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateOptionalInfo")
+  let it = statics[IWindowsSoftwareUpdateOptionalInfoFactoryVtbl](className(WindowsSoftwareUpdateOptionalInfo))
   let a0 = asReference[int32](complianceDeadlineInDays)
   let a1 = asReference[int32](complianceGracePeriodInDays)
   var ret: pointer
@@ -4062,7 +4062,7 @@ proc newWindowsSoftwareUpdateOptionalInfo*(localizationInfo: seq[WindowsSoftware
                                            complianceGracePeriodInDays: Option[int32]
                                           ): WindowsSoftwareUpdateOptionalInfo =
   ## Windows.Management.Update.IWindowsSoftwareUpdateOptionalInfoFactory.CreateInstance2
-  let it = statics[IWindowsSoftwareUpdateOptionalInfoFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateOptionalInfo")
+  let it = statics[IWindowsSoftwareUpdateOptionalInfoFactoryVtbl](className(WindowsSoftwareUpdateOptionalInfo))
   let a0 = asCollection[WindowsSoftwareUpdateLocalizationInfo,
                         seq[WindowsSoftwareUpdateLocalizationInfo]](localizationInfo)
   let a1 = asReference[int32](complianceDeadlineInDays)
@@ -4100,7 +4100,7 @@ proc complianceGracePeriodInDays*(self: WindowsSoftwareUpdateOptionalInfo): Opti
 
 proc newWindowsSoftwareUpdateProvider*(folderPath: string): WindowsSoftwareUpdateProvider =
   ## Windows.Management.Update.IWindowsSoftwareUpdateProviderFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateProviderFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateProvider")
+  let it = statics[IWindowsSoftwareUpdateProviderFactoryVtbl](className(WindowsSoftwareUpdateProvider))
   let a0 = toWinRtString(folderPath)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.handle, ret.addr
@@ -4235,7 +4235,7 @@ proc newWindowsSoftwareUpdateProviderActionResult*(actionResult: WindowsSoftware
                                                    extendedError: uint64
                                                   ): WindowsSoftwareUpdateProviderActionResult =
   ## Windows.Management.Update.IWindowsSoftwareUpdateProviderActionResultFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateProviderActionResultFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateProviderActionResult")
+  let it = statics[IWindowsSoftwareUpdateProviderActionResultFactoryVtbl](className(WindowsSoftwareUpdateProviderActionResult))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, actionResult, restartReason, resultCode,
                                extendedError, ret.addr
@@ -4312,7 +4312,7 @@ proc trustState*(self: WindowsSoftwareUpdateProviderPayloadFileInfo): WindowsSof
 
 proc newWindowsSoftwareUpdateProviderStatus*(providerId: string): WindowsSoftwareUpdateProviderStatus =
   ## Windows.Management.Update.IWindowsSoftwareUpdateProviderStatusFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateProviderStatusFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateProviderStatus")
+  let it = statics[IWindowsSoftwareUpdateProviderStatusFactoryVtbl](className(WindowsSoftwareUpdateProviderStatus))
   let a0 = toWinRtString(providerId)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.handle, ret.addr
@@ -4379,7 +4379,7 @@ proc setActionResult*(self: WindowsSoftwareUpdateProviderStatus,
 proc newWindowsSoftwareUpdateResult*(succeeded: bool, resultCode: uint32
                                     ): WindowsSoftwareUpdateResult =
   ## Windows.Management.Update.IWindowsSoftwareUpdateResultFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateResultFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateResult")
+  let it = statics[IWindowsSoftwareUpdateResultFactoryVtbl](className(WindowsSoftwareUpdateResult))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, succeeded, resultCode, ret.addr
                               ), "WindowsSoftwareUpdateResult.new"
@@ -4389,7 +4389,7 @@ proc newWindowsSoftwareUpdateResult*(succeeded: bool, resultCode: uint32,
                                      extendedError: uint64
                                     ): WindowsSoftwareUpdateResult =
   ## Windows.Management.Update.IWindowsSoftwareUpdateResultFactory.CreateInstance2
-  let it = statics[IWindowsSoftwareUpdateResultFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateResult")
+  let it = statics[IWindowsSoftwareUpdateResultFactoryVtbl](className(WindowsSoftwareUpdateResult))
   var ret: pointer
   check it.vtbl.CreateInstance2(it.raw, succeeded, resultCode, extendedError,
                                 ret.addr), "WindowsSoftwareUpdateResult.new"
@@ -4399,7 +4399,7 @@ proc newWindowsSoftwareUpdateResult*(succeeded: bool, cancelRequested: bool,
                                      resultCode: uint32, extendedError: uint64
                                     ): WindowsSoftwareUpdateResult =
   ## Windows.Management.Update.IWindowsSoftwareUpdateResultFactory.CreateInstance3
-  let it = statics[IWindowsSoftwareUpdateResultFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateResult")
+  let it = statics[IWindowsSoftwareUpdateResultFactoryVtbl](className(WindowsSoftwareUpdateResult))
   var ret: pointer
   check it.vtbl.CreateInstance3(it.raw, succeeded, cancelRequested, resultCode,
                                 extendedError, ret.addr
@@ -4444,7 +4444,7 @@ proc newWindowsSoftwareUpdateScanResult*(succeeded: bool, resultCode: uint32,
                                          updates: seq[WindowsSoftwareUpdate]
                                         ): WindowsSoftwareUpdateScanResult =
   ## Windows.Management.Update.IWindowsSoftwareUpdateScanResultFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateScanResultFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateScanResult")
+  let it = statics[IWindowsSoftwareUpdateScanResultFactoryVtbl](className(WindowsSoftwareUpdateScanResult))
   let a2 = asCollection[WindowsSoftwareUpdate, seq[WindowsSoftwareUpdate]](updates)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, succeeded, resultCode, a2.raw, ret.addr
@@ -4456,7 +4456,7 @@ proc newWindowsSoftwareUpdateScanResult*(succeeded: bool, resultCode: uint32,
                                          updates: seq[WindowsSoftwareUpdate]
                                         ): WindowsSoftwareUpdateScanResult =
   ## Windows.Management.Update.IWindowsSoftwareUpdateScanResultFactory.CreateInstance2
-  let it = statics[IWindowsSoftwareUpdateScanResultFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateScanResult")
+  let it = statics[IWindowsSoftwareUpdateScanResultFactoryVtbl](className(WindowsSoftwareUpdateScanResult))
   let a3 = asCollection[WindowsSoftwareUpdate, seq[WindowsSoftwareUpdate]](updates)
   var ret: pointer
   check it.vtbl.CreateInstance2(it.raw, succeeded, resultCode, extendedError,
@@ -4503,7 +4503,7 @@ proc newWindowsSoftwareUpdateVersion*(major: uint32, minor: uint32,
                                       revisionMinor: uint32
                                      ): WindowsSoftwareUpdateVersion =
   ## Windows.Management.Update.IWindowsSoftwareUpdateVersionFactory.CreateInstance
-  let it = statics[IWindowsSoftwareUpdateVersionFactoryVtbl]("Windows.Management.Update.WindowsSoftwareUpdateVersion")
+  let it = statics[IWindowsSoftwareUpdateVersionFactoryVtbl](className(WindowsSoftwareUpdateVersion))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, major, minor, revisionMajor,
                                revisionMinor, ret.addr
@@ -4809,7 +4809,7 @@ proc getRegisteredAdministrator*(_: typedesc[WindowsUpdateAdministrator],
                                  organizationName: string
                                 ): WindowsUpdateGetAdministratorResult =
   ## Windows.Management.Update.IWindowsUpdateAdministratorStatics.GetRegisteredAdministrator
-  let it = statics[IWindowsUpdateAdministratorStaticsVtbl]("Windows.Management.Update.WindowsUpdateAdministrator")
+  let it = statics[IWindowsUpdateAdministratorStaticsVtbl](className(WindowsUpdateAdministrator))
   let a0 = toWinRtString(organizationName)
   var ret: pointer
   check it.vtbl.GetRegisteredAdministrator(it.raw, a0.handle, ret.addr
@@ -4821,7 +4821,7 @@ proc registerForAdministration*(_: typedesc[WindowsUpdateAdministrator],
                                 options: WindowsUpdateAdministratorOptions
                                ): WindowsUpdateAdministratorStatus =
   ## Windows.Management.Update.IWindowsUpdateAdministratorStatics.RegisterForAdministration
-  let it = statics[IWindowsUpdateAdministratorStaticsVtbl]("Windows.Management.Update.WindowsUpdateAdministrator")
+  let it = statics[IWindowsUpdateAdministratorStaticsVtbl](className(WindowsUpdateAdministrator))
   let a0 = toWinRtString(organizationName)
   var ret: WindowsUpdateAdministratorStatus
   check it.vtbl.RegisterForAdministration(it.raw, a0.handle, options, ret.addr
@@ -4832,7 +4832,7 @@ proc unregisterForAdministration*(_: typedesc[WindowsUpdateAdministrator],
                                   organizationName: string
                                  ): WindowsUpdateAdministratorStatus =
   ## Windows.Management.Update.IWindowsUpdateAdministratorStatics.UnregisterForAdministration
-  let it = statics[IWindowsUpdateAdministratorStaticsVtbl]("Windows.Management.Update.WindowsUpdateAdministrator")
+  let it = statics[IWindowsUpdateAdministratorStaticsVtbl](className(WindowsUpdateAdministrator))
   let a0 = toWinRtString(organizationName)
   var ret: WindowsUpdateAdministratorStatus
   check it.vtbl.UnregisterForAdministration(it.raw, a0.handle, ret.addr
@@ -4841,7 +4841,7 @@ proc unregisterForAdministration*(_: typedesc[WindowsUpdateAdministrator],
 
 proc getRegisteredAdministratorName*(_: typedesc[WindowsUpdateAdministrator]): string =
   ## Windows.Management.Update.IWindowsUpdateAdministratorStatics.GetRegisteredAdministratorName
-  let it = statics[IWindowsUpdateAdministratorStaticsVtbl]("Windows.Management.Update.WindowsUpdateAdministrator")
+  let it = statics[IWindowsUpdateAdministratorStaticsVtbl](className(WindowsUpdateAdministrator))
   var ret: HSTRING
   check it.vtbl.GetRegisteredAdministratorName(it.raw, ret.addr
                                               ), "WindowsUpdateAdministrator.getRegisteredAdministratorName"
@@ -4851,7 +4851,7 @@ proc requestRestart*(_: typedesc[WindowsUpdateAdministrator],
                      restartOptions: WindowsUpdateRestartRequestOptions
                     ): string =
   ## Windows.Management.Update.IWindowsUpdateAdministratorStatics.RequestRestart
-  let it = statics[IWindowsUpdateAdministratorStaticsVtbl]("Windows.Management.Update.WindowsUpdateAdministrator")
+  let it = statics[IWindowsUpdateAdministratorStaticsVtbl](className(WindowsUpdateAdministrator))
   let a0 = queryInterface[IWindowsUpdateRestartRequestOptionsVtbl](restartOptions)
   var ret: HSTRING
   check it.vtbl.RequestRestart(it.raw, a0.raw, ret.addr
@@ -4861,7 +4861,7 @@ proc requestRestart*(_: typedesc[WindowsUpdateAdministrator],
 proc cancelRestartRequest*(_: typedesc[WindowsUpdateAdministrator],
                            requestRestartToken: string) =
   ## Windows.Management.Update.IWindowsUpdateAdministratorStatics.CancelRestartRequest
-  let it = statics[IWindowsUpdateAdministratorStaticsVtbl]("Windows.Management.Update.WindowsUpdateAdministrator")
+  let it = statics[IWindowsUpdateAdministratorStaticsVtbl](className(WindowsUpdateAdministrator))
   let a0 = toWinRtString(requestRestartToken)
   check it.vtbl.CancelRestartRequest(it.raw, a0.handle
                                     ), "WindowsUpdateAdministrator.cancelRestartRequest"
@@ -5117,7 +5117,7 @@ proc newWindowsUpdateManager*(clientId: string,
                               providerIdFilter: openArray[string]
                              ): WindowsUpdateManager =
   ## Windows.Management.Update.IWindowsUpdateManagerFactory2.CreateInstance
-  let it = statics[IWindowsUpdateManagerFactory2Vtbl]("Windows.Management.Update.WindowsUpdateManager")
+  let it = statics[IWindowsUpdateManagerFactory2Vtbl](className(WindowsUpdateManager))
   let a0 = toWinRtString(clientId)
   let a1 = asArray[string, string](providerIdFilter)
   var ret: pointer
@@ -5127,7 +5127,7 @@ proc newWindowsUpdateManager*(clientId: string,
 
 proc newWindowsUpdateManager*(clientId: string): WindowsUpdateManager =
   ## Windows.Management.Update.IWindowsUpdateManagerFactory.CreateInstance
-  let it = statics[IWindowsUpdateManagerFactoryVtbl]("Windows.Management.Update.WindowsUpdateManager")
+  let it = statics[IWindowsUpdateManagerFactoryVtbl](className(WindowsUpdateManager))
   let a0 = toWinRtString(clientId)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.handle, ret.addr
@@ -5362,7 +5362,7 @@ proc newWindowsUpdateManagerScanOptions*(): WindowsUpdateManagerScanOptions =
 
 proc newWindowsUpdateManagerScanOptions*(isUserInitiated: bool): WindowsUpdateManagerScanOptions =
   ## Windows.Management.Update.IWindowsUpdateManagerScanOptionsFactory.CreateInstance
-  let it = statics[IWindowsUpdateManagerScanOptionsFactoryVtbl]("Windows.Management.Update.WindowsUpdateManagerScanOptions")
+  let it = statics[IWindowsUpdateManagerScanOptionsFactoryVtbl](className(WindowsUpdateManagerScanOptions))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, isUserInitiated, ret.addr
                               ), "WindowsUpdateManagerScanOptions.new"
@@ -5442,7 +5442,7 @@ proc newWindowsUpdateRestartRequestOptions*(title: string, description: string,
                                             complianceGracePeriodInDays: int32
                                            ): WindowsUpdateRestartRequestOptions =
   ## Windows.Management.Update.IWindowsUpdateRestartRequestOptionsFactory.CreateInstance
-  let it = statics[IWindowsUpdateRestartRequestOptionsFactoryVtbl]("Windows.Management.Update.WindowsUpdateRestartRequestOptions")
+  let it = statics[IWindowsUpdateRestartRequestOptionsFactoryVtbl](className(WindowsUpdateRestartRequestOptions))
   let a0 = toWinRtString(title)
   let a1 = toWinRtString(description)
   let a2 = queryInterface[IUriRuntimeClassVtbl](moreInfoUrl)
@@ -5597,7 +5597,7 @@ proc updates*(self: WindowsUpdateScanCompletedEventArgs): seq[WindowsUpdate] =
 
 proc isMicrosoftAccountOptional*(_: typedesc[WorkplaceSettings]): bool =
   ## Windows.Management.Workplace.IWorkplaceSettingsStatics.get_IsMicrosoftAccountOptional
-  let it = statics[IWorkplaceSettingsStaticsVtbl]("Windows.Management.Workplace.WorkplaceSettings")
+  let it = statics[IWorkplaceSettingsStaticsVtbl](className(WorkplaceSettings))
   var ret: bool
   check it.vtbl.get_IsMicrosoftAccountOptional(it.raw, ret.addr
                                               ), "WorkplaceSettings.isMicrosoftAccountOptional"

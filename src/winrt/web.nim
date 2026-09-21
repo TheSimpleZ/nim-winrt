@@ -31,7 +31,7 @@ proc newAtomPubClient*(): AtomPubClient =
 
 proc newAtomPubClient*(serverCredential: PasswordCredential): AtomPubClient =
   ## Windows.Web.AtomPub.IAtomPubClientFactory.CreateAtomPubClientWithCredentials
-  let it = statics[IAtomPubClientFactoryVtbl]("Windows.Web.AtomPub.AtomPubClient")
+  let it = statics[IAtomPubClientFactoryVtbl](className(AtomPubClient))
   let a0 = queryInterface[IPasswordCredentialVtbl](serverCredential)
   var ret: pointer
   check it.vtbl.CreateAtomPubClientWithCredentials(it.raw, a0.raw, ret.addr
@@ -181,7 +181,7 @@ proc newHttpBaseProtocolFilter*(): HttpBaseProtocolFilter =
 proc createForUser*(_: typedesc[HttpBaseProtocolFilter], user: User
                    ): HttpBaseProtocolFilter =
   ## Windows.Web.Http.Filters.IHttpBaseProtocolFilterStatics.CreateForUser
-  let it = statics[IHttpBaseProtocolFilterStaticsVtbl]("Windows.Web.Http.Filters.HttpBaseProtocolFilter")
+  let it = statics[IHttpBaseProtocolFilterStaticsVtbl](className(HttpBaseProtocolFilter))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.CreateForUser(it.raw, a0.raw, ret.addr
@@ -392,7 +392,7 @@ proc user*(self: HttpBaseProtocolFilter): User =
 
 proc newHttpBufferContent*(content: SomeBuffer): HttpBufferContent =
   ## Windows.Web.Http.IHttpBufferContentFactory.CreateFromBuffer
-  let it = statics[IHttpBufferContentFactoryVtbl]("Windows.Web.Http.HttpBufferContent")
+  let it = statics[IHttpBufferContentFactoryVtbl](className(HttpBufferContent))
   let a0 = queryInterface[IBufferVtbl](content)
   var ret: pointer
   check it.vtbl.CreateFromBuffer(it.raw, a0.raw, ret.addr
@@ -402,7 +402,7 @@ proc newHttpBufferContent*(content: SomeBuffer): HttpBufferContent =
 proc newHttpBufferContent*(content: SomeBuffer, offset: uint32, count: uint32
                           ): HttpBufferContent =
   ## Windows.Web.Http.IHttpBufferContentFactory.CreateFromBufferWithOffset
-  let it = statics[IHttpBufferContentFactoryVtbl]("Windows.Web.Http.HttpBufferContent")
+  let it = statics[IHttpBufferContentFactoryVtbl](className(HttpBufferContent))
   let a0 = queryInterface[IBufferVtbl](content)
   var ret: pointer
   check it.vtbl.CreateFromBufferWithOffset(it.raw, a0.raw, offset, count,
@@ -525,7 +525,7 @@ proc tryParseAdd*(self: HttpCacheDirectiveHeaderValueCollection, input: string
 
 proc newHttpChallengeHeaderValue*(scheme: string): HttpChallengeHeaderValue =
   ## Windows.Web.Http.Headers.IHttpChallengeHeaderValueFactory.CreateFromScheme
-  let it = statics[IHttpChallengeHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpChallengeHeaderValue")
+  let it = statics[IHttpChallengeHeaderValueFactoryVtbl](className(HttpChallengeHeaderValue))
   let a0 = toWinRtString(scheme)
   var ret: pointer
   check it.vtbl.CreateFromScheme(it.raw, a0.handle, ret.addr
@@ -535,7 +535,7 @@ proc newHttpChallengeHeaderValue*(scheme: string): HttpChallengeHeaderValue =
 proc newHttpChallengeHeaderValue*(scheme: string, token: string
                                  ): HttpChallengeHeaderValue =
   ## Windows.Web.Http.Headers.IHttpChallengeHeaderValueFactory.CreateFromSchemeWithToken
-  let it = statics[IHttpChallengeHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpChallengeHeaderValue")
+  let it = statics[IHttpChallengeHeaderValueFactoryVtbl](className(HttpChallengeHeaderValue))
   let a0 = toWinRtString(scheme)
   let a1 = toWinRtString(token)
   var ret: pointer
@@ -546,7 +546,7 @@ proc newHttpChallengeHeaderValue*(scheme: string, token: string
 proc parse*(_: typedesc[HttpChallengeHeaderValue], input: string
            ): HttpChallengeHeaderValue =
   ## Windows.Web.Http.Headers.IHttpChallengeHeaderValueStatics.Parse
-  let it = statics[IHttpChallengeHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpChallengeHeaderValue")
+  let it = statics[IHttpChallengeHeaderValueStaticsVtbl](className(HttpChallengeHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -556,7 +556,7 @@ proc parse*(_: typedesc[HttpChallengeHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpChallengeHeaderValue], input: string
               ): tuple[ok: bool, challengeHeaderValue: HttpChallengeHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpChallengeHeaderValueStatics.TryParse
-  let it = statics[IHttpChallengeHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpChallengeHeaderValue")
+  let it = statics[IHttpChallengeHeaderValueStaticsVtbl](className(HttpChallengeHeaderValue))
   let a0 = toWinRtString(input)
   var challengeHeaderValue: pointer
   var ret: bool
@@ -613,7 +613,7 @@ proc newHttpClient*(): HttpClient =
 
 proc newHttpClient*(filter: SomeHttpFilter): HttpClient =
   ## Windows.Web.Http.IHttpClientFactory.Create
-  let it = statics[IHttpClientFactoryVtbl]("Windows.Web.Http.HttpClient")
+  let it = statics[IHttpClientFactoryVtbl](className(HttpClient))
   let a0 = queryInterface[IHttpFilterVtbl](filter)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "HttpClient.new"
@@ -890,7 +890,7 @@ proc `defaultPrivacyAnnotation=`*(self: HttpClient, value: string) =
 
 proc newHttpConnectionOptionHeaderValue*(token: string): HttpConnectionOptionHeaderValue =
   ## Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueFactory.Create
-  let it = statics[IHttpConnectionOptionHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue")
+  let it = statics[IHttpConnectionOptionHeaderValueFactoryVtbl](className(HttpConnectionOptionHeaderValue))
   let a0 = toWinRtString(token)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -900,7 +900,7 @@ proc newHttpConnectionOptionHeaderValue*(token: string): HttpConnectionOptionHea
 proc parse*(_: typedesc[HttpConnectionOptionHeaderValue], input: string
            ): HttpConnectionOptionHeaderValue =
   ## Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueStatics.Parse
-  let it = statics[IHttpConnectionOptionHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue")
+  let it = statics[IHttpConnectionOptionHeaderValueStaticsVtbl](className(HttpConnectionOptionHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -910,7 +910,7 @@ proc parse*(_: typedesc[HttpConnectionOptionHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpConnectionOptionHeaderValue], input: string
               ): tuple[ok: bool, connectionOptionHeaderValue: HttpConnectionOptionHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueStatics.TryParse
-  let it = statics[IHttpConnectionOptionHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue")
+  let it = statics[IHttpConnectionOptionHeaderValueStaticsVtbl](className(HttpConnectionOptionHeaderValue))
   let a0 = toWinRtString(input)
   var connectionOptionHeaderValue: pointer
   var ret: bool
@@ -949,7 +949,7 @@ proc tryParseAdd*(self: HttpConnectionOptionHeaderValueCollection, input: string
 
 proc newHttpContentCodingHeaderValue*(contentCoding: string): HttpContentCodingHeaderValue =
   ## Windows.Web.Http.Headers.IHttpContentCodingHeaderValueFactory.Create
-  let it = statics[IHttpContentCodingHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpContentCodingHeaderValue")
+  let it = statics[IHttpContentCodingHeaderValueFactoryVtbl](className(HttpContentCodingHeaderValue))
   let a0 = toWinRtString(contentCoding)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -959,7 +959,7 @@ proc newHttpContentCodingHeaderValue*(contentCoding: string): HttpContentCodingH
 proc parse*(_: typedesc[HttpContentCodingHeaderValue], input: string
            ): HttpContentCodingHeaderValue =
   ## Windows.Web.Http.Headers.IHttpContentCodingHeaderValueStatics.Parse
-  let it = statics[IHttpContentCodingHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpContentCodingHeaderValue")
+  let it = statics[IHttpContentCodingHeaderValueStaticsVtbl](className(HttpContentCodingHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -969,7 +969,7 @@ proc parse*(_: typedesc[HttpContentCodingHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpContentCodingHeaderValue], input: string
               ): tuple[ok: bool, contentCodingHeaderValue: HttpContentCodingHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpContentCodingHeaderValueStatics.TryParse
-  let it = statics[IHttpContentCodingHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpContentCodingHeaderValue")
+  let it = statics[IHttpContentCodingHeaderValueStaticsVtbl](className(HttpContentCodingHeaderValue))
   let a0 = toWinRtString(input)
   var contentCodingHeaderValue: pointer
   var ret: bool
@@ -1008,7 +1008,7 @@ proc tryParseAdd*(self: HttpContentCodingHeaderValueCollection, input: string
 
 proc newHttpContentCodingWithQualityHeaderValue*(contentCoding: string): HttpContentCodingWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueFactory.CreateFromValue
-  let it = statics[IHttpContentCodingWithQualityHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue")
+  let it = statics[IHttpContentCodingWithQualityHeaderValueFactoryVtbl](className(HttpContentCodingWithQualityHeaderValue))
   let a0 = toWinRtString(contentCoding)
   var ret: pointer
   check it.vtbl.CreateFromValue(it.raw, a0.handle, ret.addr
@@ -1019,7 +1019,7 @@ proc newHttpContentCodingWithQualityHeaderValue*(contentCoding: string,
                                                  quality: float64
                                                 ): HttpContentCodingWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueFactory.CreateFromValueWithQuality
-  let it = statics[IHttpContentCodingWithQualityHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue")
+  let it = statics[IHttpContentCodingWithQualityHeaderValueFactoryVtbl](className(HttpContentCodingWithQualityHeaderValue))
   let a0 = toWinRtString(contentCoding)
   var ret: pointer
   check it.vtbl.CreateFromValueWithQuality(it.raw, a0.handle, quality, ret.addr
@@ -1029,7 +1029,7 @@ proc newHttpContentCodingWithQualityHeaderValue*(contentCoding: string,
 proc parse*(_: typedesc[HttpContentCodingWithQualityHeaderValue], input: string
            ): HttpContentCodingWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueStatics.Parse
-  let it = statics[IHttpContentCodingWithQualityHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue")
+  let it = statics[IHttpContentCodingWithQualityHeaderValueStaticsVtbl](className(HttpContentCodingWithQualityHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -1040,7 +1040,7 @@ proc tryParse*(_: typedesc[HttpContentCodingWithQualityHeaderValue],
                input: string
               ): tuple[ok: bool, contentCodingWithQualityHeaderValue: HttpContentCodingWithQualityHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueStatics.TryParse
-  let it = statics[IHttpContentCodingWithQualityHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue")
+  let it = statics[IHttpContentCodingWithQualityHeaderValueStaticsVtbl](className(HttpContentCodingWithQualityHeaderValue))
   let a0 = toWinRtString(input)
   var contentCodingWithQualityHeaderValue: pointer
   var ret: bool
@@ -1089,7 +1089,7 @@ proc tryParseAdd*(self: HttpContentCodingWithQualityHeaderValueCollection,
 
 proc newHttpContentDispositionHeaderValue*(dispositionType: string): HttpContentDispositionHeaderValue =
   ## Windows.Web.Http.Headers.IHttpContentDispositionHeaderValueFactory.Create
-  let it = statics[IHttpContentDispositionHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpContentDispositionHeaderValue")
+  let it = statics[IHttpContentDispositionHeaderValueFactoryVtbl](className(HttpContentDispositionHeaderValue))
   let a0 = toWinRtString(dispositionType)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -1099,7 +1099,7 @@ proc newHttpContentDispositionHeaderValue*(dispositionType: string): HttpContent
 proc parse*(_: typedesc[HttpContentDispositionHeaderValue], input: string
            ): HttpContentDispositionHeaderValue =
   ## Windows.Web.Http.Headers.IHttpContentDispositionHeaderValueStatics.Parse
-  let it = statics[IHttpContentDispositionHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpContentDispositionHeaderValue")
+  let it = statics[IHttpContentDispositionHeaderValueStaticsVtbl](className(HttpContentDispositionHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -1109,7 +1109,7 @@ proc parse*(_: typedesc[HttpContentDispositionHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpContentDispositionHeaderValue], input: string
               ): tuple[ok: bool, contentDispositionHeaderValue: HttpContentDispositionHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpContentDispositionHeaderValueStatics.TryParse
-  let it = statics[IHttpContentDispositionHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpContentDispositionHeaderValue")
+  let it = statics[IHttpContentDispositionHeaderValueStaticsVtbl](className(HttpContentDispositionHeaderValue))
   let a0 = toWinRtString(input)
   var contentDispositionHeaderValue: pointer
   var ret: bool
@@ -1372,7 +1372,7 @@ proc tryAppendWithoutValidation*(self: HttpContentHeaderCollection,
 
 proc newHttpContentRangeHeaderValue*(length: uint64): HttpContentRangeHeaderValue =
   ## Windows.Web.Http.Headers.IHttpContentRangeHeaderValueFactory.CreateFromLength
-  let it = statics[IHttpContentRangeHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpContentRangeHeaderValue")
+  let it = statics[IHttpContentRangeHeaderValueFactoryVtbl](className(HttpContentRangeHeaderValue))
   var ret: pointer
   check it.vtbl.CreateFromLength(it.raw, length, ret.addr
                                 ), "HttpContentRangeHeaderValue.new"
@@ -1381,7 +1381,7 @@ proc newHttpContentRangeHeaderValue*(length: uint64): HttpContentRangeHeaderValu
 proc newHttpContentRangeHeaderValue*(`from`: uint64, to: uint64
                                     ): HttpContentRangeHeaderValue =
   ## Windows.Web.Http.Headers.IHttpContentRangeHeaderValueFactory.CreateFromRange
-  let it = statics[IHttpContentRangeHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpContentRangeHeaderValue")
+  let it = statics[IHttpContentRangeHeaderValueFactoryVtbl](className(HttpContentRangeHeaderValue))
   var ret: pointer
   check it.vtbl.CreateFromRange(it.raw, `from`, to, ret.addr
                                ), "HttpContentRangeHeaderValue.new"
@@ -1390,7 +1390,7 @@ proc newHttpContentRangeHeaderValue*(`from`: uint64, to: uint64
 proc newHttpContentRangeHeaderValue*(`from`: uint64, to: uint64, length: uint64
                                     ): HttpContentRangeHeaderValue =
   ## Windows.Web.Http.Headers.IHttpContentRangeHeaderValueFactory.CreateFromRangeWithLength
-  let it = statics[IHttpContentRangeHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpContentRangeHeaderValue")
+  let it = statics[IHttpContentRangeHeaderValueFactoryVtbl](className(HttpContentRangeHeaderValue))
   var ret: pointer
   check it.vtbl.CreateFromRangeWithLength(it.raw, `from`, to, length, ret.addr
                                          ), "HttpContentRangeHeaderValue.new"
@@ -1399,7 +1399,7 @@ proc newHttpContentRangeHeaderValue*(`from`: uint64, to: uint64, length: uint64
 proc parse*(_: typedesc[HttpContentRangeHeaderValue], input: string
            ): HttpContentRangeHeaderValue =
   ## Windows.Web.Http.Headers.IHttpContentRangeHeaderValueStatics.Parse
-  let it = statics[IHttpContentRangeHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpContentRangeHeaderValue")
+  let it = statics[IHttpContentRangeHeaderValueStaticsVtbl](className(HttpContentRangeHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -1409,7 +1409,7 @@ proc parse*(_: typedesc[HttpContentRangeHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpContentRangeHeaderValue], input: string
               ): tuple[ok: bool, contentRangeHeaderValue: HttpContentRangeHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpContentRangeHeaderValueStatics.TryParse
-  let it = statics[IHttpContentRangeHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpContentRangeHeaderValue")
+  let it = statics[IHttpContentRangeHeaderValueStaticsVtbl](className(HttpContentRangeHeaderValue))
   let a0 = toWinRtString(input)
   var contentRangeHeaderValue: pointer
   var ret: bool
@@ -1458,7 +1458,7 @@ proc `unit=`*(self: HttpContentRangeHeaderValue, value: string) =
 
 proc newHttpCookie*(name: string, domain: string, path: string): HttpCookie =
   ## Windows.Web.Http.IHttpCookieFactory.Create
-  let it = statics[IHttpCookieFactoryVtbl]("Windows.Web.Http.HttpCookie")
+  let it = statics[IHttpCookieFactoryVtbl](className(HttpCookie))
   let a0 = toWinRtString(name)
   let a1 = toWinRtString(domain)
   let a2 = toWinRtString(path)
@@ -1578,7 +1578,7 @@ proc getCookies*(self: HttpCookieManager, uri: Uri): HttpCookieCollection =
 
 proc newHttpCookiePairHeaderValue*(name: string): HttpCookiePairHeaderValue =
   ## Windows.Web.Http.Headers.IHttpCookiePairHeaderValueFactory.CreateFromName
-  let it = statics[IHttpCookiePairHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpCookiePairHeaderValue")
+  let it = statics[IHttpCookiePairHeaderValueFactoryVtbl](className(HttpCookiePairHeaderValue))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.CreateFromName(it.raw, a0.handle, ret.addr
@@ -1588,7 +1588,7 @@ proc newHttpCookiePairHeaderValue*(name: string): HttpCookiePairHeaderValue =
 proc newHttpCookiePairHeaderValue*(name: string, value: string
                                   ): HttpCookiePairHeaderValue =
   ## Windows.Web.Http.Headers.IHttpCookiePairHeaderValueFactory.CreateFromNameWithValue
-  let it = statics[IHttpCookiePairHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpCookiePairHeaderValue")
+  let it = statics[IHttpCookiePairHeaderValueFactoryVtbl](className(HttpCookiePairHeaderValue))
   let a0 = toWinRtString(name)
   let a1 = toWinRtString(value)
   var ret: pointer
@@ -1599,7 +1599,7 @@ proc newHttpCookiePairHeaderValue*(name: string, value: string
 proc parse*(_: typedesc[HttpCookiePairHeaderValue], input: string
            ): HttpCookiePairHeaderValue =
   ## Windows.Web.Http.Headers.IHttpCookiePairHeaderValueStatics.Parse
-  let it = statics[IHttpCookiePairHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpCookiePairHeaderValue")
+  let it = statics[IHttpCookiePairHeaderValueStaticsVtbl](className(HttpCookiePairHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -1609,7 +1609,7 @@ proc parse*(_: typedesc[HttpCookiePairHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpCookiePairHeaderValue], input: string
               ): tuple[ok: bool, cookiePairHeaderValue: HttpCookiePairHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpCookiePairHeaderValueStatics.TryParse
-  let it = statics[IHttpCookiePairHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpCookiePairHeaderValue")
+  let it = statics[IHttpCookiePairHeaderValueStaticsVtbl](className(HttpCookiePairHeaderValue))
   let a0 = toWinRtString(input)
   var cookiePairHeaderValue: pointer
   var ret: bool
@@ -1660,7 +1660,7 @@ proc tryParseAdd*(self: HttpCookiePairHeaderValueCollection, input: string
 
 proc newHttpCredentialsHeaderValue*(scheme: string): HttpCredentialsHeaderValue =
   ## Windows.Web.Http.Headers.IHttpCredentialsHeaderValueFactory.CreateFromScheme
-  let it = statics[IHttpCredentialsHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpCredentialsHeaderValue")
+  let it = statics[IHttpCredentialsHeaderValueFactoryVtbl](className(HttpCredentialsHeaderValue))
   let a0 = toWinRtString(scheme)
   var ret: pointer
   check it.vtbl.CreateFromScheme(it.raw, a0.handle, ret.addr
@@ -1670,7 +1670,7 @@ proc newHttpCredentialsHeaderValue*(scheme: string): HttpCredentialsHeaderValue 
 proc newHttpCredentialsHeaderValue*(scheme: string, token: string
                                    ): HttpCredentialsHeaderValue =
   ## Windows.Web.Http.Headers.IHttpCredentialsHeaderValueFactory.CreateFromSchemeWithToken
-  let it = statics[IHttpCredentialsHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpCredentialsHeaderValue")
+  let it = statics[IHttpCredentialsHeaderValueFactoryVtbl](className(HttpCredentialsHeaderValue))
   let a0 = toWinRtString(scheme)
   let a1 = toWinRtString(token)
   var ret: pointer
@@ -1681,7 +1681,7 @@ proc newHttpCredentialsHeaderValue*(scheme: string, token: string
 proc parse*(_: typedesc[HttpCredentialsHeaderValue], input: string
            ): HttpCredentialsHeaderValue =
   ## Windows.Web.Http.Headers.IHttpCredentialsHeaderValueStatics.Parse
-  let it = statics[IHttpCredentialsHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpCredentialsHeaderValue")
+  let it = statics[IHttpCredentialsHeaderValueStaticsVtbl](className(HttpCredentialsHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -1691,7 +1691,7 @@ proc parse*(_: typedesc[HttpCredentialsHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpCredentialsHeaderValue], input: string
               ): tuple[ok: bool, credentialsHeaderValue: HttpCredentialsHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpCredentialsHeaderValueStatics.TryParse
-  let it = statics[IHttpCredentialsHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpCredentialsHeaderValue")
+  let it = statics[IHttpCredentialsHeaderValueStaticsVtbl](className(HttpCredentialsHeaderValue))
   let a0 = toWinRtString(input)
   var credentialsHeaderValue: pointer
   var ret: bool
@@ -1727,7 +1727,7 @@ proc token*(self: HttpCredentialsHeaderValue): string =
 proc parse*(_: typedesc[HttpDateOrDeltaHeaderValue], input: string
            ): HttpDateOrDeltaHeaderValue =
   ## Windows.Web.Http.Headers.IHttpDateOrDeltaHeaderValueStatics.Parse
-  let it = statics[IHttpDateOrDeltaHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue")
+  let it = statics[IHttpDateOrDeltaHeaderValueStaticsVtbl](className(HttpDateOrDeltaHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -1737,7 +1737,7 @@ proc parse*(_: typedesc[HttpDateOrDeltaHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpDateOrDeltaHeaderValue], input: string
               ): tuple[ok: bool, dateOrDeltaHeaderValue: HttpDateOrDeltaHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpDateOrDeltaHeaderValueStatics.TryParse
-  let it = statics[IHttpDateOrDeltaHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue")
+  let it = statics[IHttpDateOrDeltaHeaderValueStaticsVtbl](className(HttpDateOrDeltaHeaderValue))
   let a0 = toWinRtString(input)
   var dateOrDeltaHeaderValue: pointer
   var ret: bool
@@ -1765,7 +1765,7 @@ proc createFromProcessDiagnosticInfo*(_: typedesc[HttpDiagnosticProvider],
                                       processDiagnosticInfo: ProcessDiagnosticInfo
                                      ): HttpDiagnosticProvider =
   ## Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderStatics.CreateFromProcessDiagnosticInfo
-  let it = statics[IHttpDiagnosticProviderStaticsVtbl]("Windows.Web.Http.Diagnostics.HttpDiagnosticProvider")
+  let it = statics[IHttpDiagnosticProviderStaticsVtbl](className(HttpDiagnosticProvider))
   let a0 = queryInterface[IProcessDiagnosticInfoVtbl](processDiagnosticInfo)
   var ret: pointer
   check it.vtbl.CreateFromProcessDiagnosticInfo(it.raw, a0.raw, ret.addr
@@ -2091,7 +2091,7 @@ proc columnNumber*(self: HttpDiagnosticSourceLocation): uint64 =
 
 proc newHttpExpectationHeaderValue*(name: string): HttpExpectationHeaderValue =
   ## Windows.Web.Http.Headers.IHttpExpectationHeaderValueFactory.CreateFromName
-  let it = statics[IHttpExpectationHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpExpectationHeaderValue")
+  let it = statics[IHttpExpectationHeaderValueFactoryVtbl](className(HttpExpectationHeaderValue))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.CreateFromName(it.raw, a0.handle, ret.addr
@@ -2101,7 +2101,7 @@ proc newHttpExpectationHeaderValue*(name: string): HttpExpectationHeaderValue =
 proc newHttpExpectationHeaderValue*(name: string, value: string
                                    ): HttpExpectationHeaderValue =
   ## Windows.Web.Http.Headers.IHttpExpectationHeaderValueFactory.CreateFromNameWithValue
-  let it = statics[IHttpExpectationHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpExpectationHeaderValue")
+  let it = statics[IHttpExpectationHeaderValueFactoryVtbl](className(HttpExpectationHeaderValue))
   let a0 = toWinRtString(name)
   let a1 = toWinRtString(value)
   var ret: pointer
@@ -2112,7 +2112,7 @@ proc newHttpExpectationHeaderValue*(name: string, value: string
 proc parse*(_: typedesc[HttpExpectationHeaderValue], input: string
            ): HttpExpectationHeaderValue =
   ## Windows.Web.Http.Headers.IHttpExpectationHeaderValueStatics.Parse
-  let it = statics[IHttpExpectationHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpExpectationHeaderValue")
+  let it = statics[IHttpExpectationHeaderValueStaticsVtbl](className(HttpExpectationHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -2122,7 +2122,7 @@ proc parse*(_: typedesc[HttpExpectationHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpExpectationHeaderValue], input: string
               ): tuple[ok: bool, expectationHeaderValue: HttpExpectationHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpExpectationHeaderValueStatics.TryParse
-  let it = statics[IHttpExpectationHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpExpectationHeaderValue")
+  let it = statics[IHttpExpectationHeaderValueStaticsVtbl](className(HttpExpectationHeaderValue))
   let a0 = toWinRtString(input)
   var expectationHeaderValue: pointer
   var ret: bool
@@ -2181,7 +2181,7 @@ proc tryParseAdd*(self: HttpExpectationHeaderValueCollection, input: string
 
 proc newHttpFormUrlEncodedContent*(content: Table[string, string]): HttpFormUrlEncodedContent =
   ## Windows.Web.Http.IHttpFormUrlEncodedContentFactory.Create
-  let it = statics[IHttpFormUrlEncodedContentFactoryVtbl]("Windows.Web.Http.HttpFormUrlEncodedContent")
+  let it = statics[IHttpFormUrlEncodedContentFactoryVtbl](className(HttpFormUrlEncodedContent))
   let a0 = asMap[string, string, Table[string, string]](content)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -2332,7 +2332,7 @@ proc tryParseAdd*(self: HttpLanguageHeaderValueCollection, input: string
 
 proc newHttpLanguageRangeWithQualityHeaderValue*(languageRange: string): HttpLanguageRangeWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueFactory.CreateFromLanguageRange
-  let it = statics[IHttpLanguageRangeWithQualityHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue")
+  let it = statics[IHttpLanguageRangeWithQualityHeaderValueFactoryVtbl](className(HttpLanguageRangeWithQualityHeaderValue))
   let a0 = toWinRtString(languageRange)
   var ret: pointer
   check it.vtbl.CreateFromLanguageRange(it.raw, a0.handle, ret.addr
@@ -2343,7 +2343,7 @@ proc newHttpLanguageRangeWithQualityHeaderValue*(languageRange: string,
                                                  quality: float64
                                                 ): HttpLanguageRangeWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueFactory.CreateFromLanguageRangeWithQuality
-  let it = statics[IHttpLanguageRangeWithQualityHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue")
+  let it = statics[IHttpLanguageRangeWithQualityHeaderValueFactoryVtbl](className(HttpLanguageRangeWithQualityHeaderValue))
   let a0 = toWinRtString(languageRange)
   var ret: pointer
   check it.vtbl.CreateFromLanguageRangeWithQuality(it.raw, a0.handle, quality,
@@ -2354,7 +2354,7 @@ proc newHttpLanguageRangeWithQualityHeaderValue*(languageRange: string,
 proc parse*(_: typedesc[HttpLanguageRangeWithQualityHeaderValue], input: string
            ): HttpLanguageRangeWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueStatics.Parse
-  let it = statics[IHttpLanguageRangeWithQualityHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue")
+  let it = statics[IHttpLanguageRangeWithQualityHeaderValueStaticsVtbl](className(HttpLanguageRangeWithQualityHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -2365,7 +2365,7 @@ proc tryParse*(_: typedesc[HttpLanguageRangeWithQualityHeaderValue],
                input: string
               ): tuple[ok: bool, languageRangeWithQualityHeaderValue: HttpLanguageRangeWithQualityHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueStatics.TryParse
-  let it = statics[IHttpLanguageRangeWithQualityHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue")
+  let it = statics[IHttpLanguageRangeWithQualityHeaderValueStaticsVtbl](className(HttpLanguageRangeWithQualityHeaderValue))
   let a0 = toWinRtString(input)
   var languageRangeWithQualityHeaderValue: pointer
   var ret: bool
@@ -2414,7 +2414,7 @@ proc tryParseAdd*(self: HttpLanguageRangeWithQualityHeaderValueCollection,
 
 proc newHttpMediaTypeHeaderValue*(mediaType: string): HttpMediaTypeHeaderValue =
   ## Windows.Web.Http.Headers.IHttpMediaTypeHeaderValueFactory.Create
-  let it = statics[IHttpMediaTypeHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpMediaTypeHeaderValue")
+  let it = statics[IHttpMediaTypeHeaderValueFactoryVtbl](className(HttpMediaTypeHeaderValue))
   let a0 = toWinRtString(mediaType)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -2424,7 +2424,7 @@ proc newHttpMediaTypeHeaderValue*(mediaType: string): HttpMediaTypeHeaderValue =
 proc parse*(_: typedesc[HttpMediaTypeHeaderValue], input: string
            ): HttpMediaTypeHeaderValue =
   ## Windows.Web.Http.Headers.IHttpMediaTypeHeaderValueStatics.Parse
-  let it = statics[IHttpMediaTypeHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpMediaTypeHeaderValue")
+  let it = statics[IHttpMediaTypeHeaderValueStaticsVtbl](className(HttpMediaTypeHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -2434,7 +2434,7 @@ proc parse*(_: typedesc[HttpMediaTypeHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpMediaTypeHeaderValue], input: string
               ): tuple[ok: bool, mediaTypeHeaderValue: HttpMediaTypeHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpMediaTypeHeaderValueStatics.TryParse
-  let it = statics[IHttpMediaTypeHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpMediaTypeHeaderValue")
+  let it = statics[IHttpMediaTypeHeaderValueStaticsVtbl](className(HttpMediaTypeHeaderValue))
   let a0 = toWinRtString(input)
   var mediaTypeHeaderValue: pointer
   var ret: bool
@@ -2484,7 +2484,7 @@ proc parameters*(self: HttpMediaTypeHeaderValue): seq[HttpNameValueHeaderValue] 
 
 proc newHttpMediaTypeWithQualityHeaderValue*(mediaType: string): HttpMediaTypeWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueFactory.CreateFromMediaType
-  let it = statics[IHttpMediaTypeWithQualityHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue")
+  let it = statics[IHttpMediaTypeWithQualityHeaderValueFactoryVtbl](className(HttpMediaTypeWithQualityHeaderValue))
   let a0 = toWinRtString(mediaType)
   var ret: pointer
   check it.vtbl.CreateFromMediaType(it.raw, a0.handle, ret.addr
@@ -2494,7 +2494,7 @@ proc newHttpMediaTypeWithQualityHeaderValue*(mediaType: string): HttpMediaTypeWi
 proc newHttpMediaTypeWithQualityHeaderValue*(mediaType: string, quality: float64
                                             ): HttpMediaTypeWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueFactory.CreateFromMediaTypeWithQuality
-  let it = statics[IHttpMediaTypeWithQualityHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue")
+  let it = statics[IHttpMediaTypeWithQualityHeaderValueFactoryVtbl](className(HttpMediaTypeWithQualityHeaderValue))
   let a0 = toWinRtString(mediaType)
   var ret: pointer
   check it.vtbl.CreateFromMediaTypeWithQuality(it.raw, a0.handle, quality,
@@ -2505,7 +2505,7 @@ proc newHttpMediaTypeWithQualityHeaderValue*(mediaType: string, quality: float64
 proc parse*(_: typedesc[HttpMediaTypeWithQualityHeaderValue], input: string
            ): HttpMediaTypeWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueStatics.Parse
-  let it = statics[IHttpMediaTypeWithQualityHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue")
+  let it = statics[IHttpMediaTypeWithQualityHeaderValueStaticsVtbl](className(HttpMediaTypeWithQualityHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -2515,7 +2515,7 @@ proc parse*(_: typedesc[HttpMediaTypeWithQualityHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpMediaTypeWithQualityHeaderValue], input: string
               ): tuple[ok: bool, mediaTypeWithQualityHeaderValue: HttpMediaTypeWithQualityHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueStatics.TryParse
-  let it = statics[IHttpMediaTypeWithQualityHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue")
+  let it = statics[IHttpMediaTypeWithQualityHeaderValueStaticsVtbl](className(HttpMediaTypeWithQualityHeaderValue))
   let a0 = toWinRtString(input)
   var mediaTypeWithQualityHeaderValue: pointer
   var ret: bool
@@ -2602,7 +2602,7 @@ proc tryParseAdd*(self: HttpMediaTypeWithQualityHeaderValueCollection,
 
 proc newHttpMethod*(`method`: string): HttpMethod =
   ## Windows.Web.Http.IHttpMethodFactory.Create
-  let it = statics[IHttpMethodFactoryVtbl]("Windows.Web.Http.HttpMethod")
+  let it = statics[IHttpMethodFactoryVtbl](className(HttpMethod))
   let a0 = toWinRtString(`method`)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr), "HttpMethod.new"
@@ -2610,49 +2610,49 @@ proc newHttpMethod*(`method`: string): HttpMethod =
 
 proc delete*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.IHttpMethodStatics.get_Delete
-  let it = statics[IHttpMethodStaticsVtbl]("Windows.Web.Http.HttpMethod")
+  let it = statics[IHttpMethodStaticsVtbl](className(HttpMethod))
   var ret: pointer
   check it.vtbl.get_Delete(it.raw, ret.addr), "HttpMethod.delete"
   adopt[HttpMethod](ret)
 
 proc get*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.IHttpMethodStatics.get_Get
-  let it = statics[IHttpMethodStaticsVtbl]("Windows.Web.Http.HttpMethod")
+  let it = statics[IHttpMethodStaticsVtbl](className(HttpMethod))
   var ret: pointer
   check it.vtbl.get_Get(it.raw, ret.addr), "HttpMethod.get"
   adopt[HttpMethod](ret)
 
 proc head*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.IHttpMethodStatics.get_Head
-  let it = statics[IHttpMethodStaticsVtbl]("Windows.Web.Http.HttpMethod")
+  let it = statics[IHttpMethodStaticsVtbl](className(HttpMethod))
   var ret: pointer
   check it.vtbl.get_Head(it.raw, ret.addr), "HttpMethod.head"
   adopt[HttpMethod](ret)
 
 proc options*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.IHttpMethodStatics.get_Options
-  let it = statics[IHttpMethodStaticsVtbl]("Windows.Web.Http.HttpMethod")
+  let it = statics[IHttpMethodStaticsVtbl](className(HttpMethod))
   var ret: pointer
   check it.vtbl.get_Options(it.raw, ret.addr), "HttpMethod.options"
   adopt[HttpMethod](ret)
 
 proc patch*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.IHttpMethodStatics.get_Patch
-  let it = statics[IHttpMethodStaticsVtbl]("Windows.Web.Http.HttpMethod")
+  let it = statics[IHttpMethodStaticsVtbl](className(HttpMethod))
   var ret: pointer
   check it.vtbl.get_Patch(it.raw, ret.addr), "HttpMethod.patch"
   adopt[HttpMethod](ret)
 
 proc post*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.IHttpMethodStatics.get_Post
-  let it = statics[IHttpMethodStaticsVtbl]("Windows.Web.Http.HttpMethod")
+  let it = statics[IHttpMethodStaticsVtbl](className(HttpMethod))
   var ret: pointer
   check it.vtbl.get_Post(it.raw, ret.addr), "HttpMethod.post"
   adopt[HttpMethod](ret)
 
 proc put*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.IHttpMethodStatics.get_Put
-  let it = statics[IHttpMethodStaticsVtbl]("Windows.Web.Http.HttpMethod")
+  let it = statics[IHttpMethodStaticsVtbl](className(HttpMethod))
   var ret: pointer
   check it.vtbl.get_Put(it.raw, ret.addr), "HttpMethod.put"
   adopt[HttpMethod](ret)
@@ -2690,7 +2690,7 @@ proc newHttpMultipartContent*(): HttpMultipartContent =
 
 proc newHttpMultipartContent*(subtype: string): HttpMultipartContent =
   ## Windows.Web.Http.IHttpMultipartContentFactory.CreateWithSubtype
-  let it = statics[IHttpMultipartContentFactoryVtbl]("Windows.Web.Http.HttpMultipartContent")
+  let it = statics[IHttpMultipartContentFactoryVtbl](className(HttpMultipartContent))
   let a0 = toWinRtString(subtype)
   var ret: pointer
   check it.vtbl.CreateWithSubtype(it.raw, a0.handle, ret.addr
@@ -2700,7 +2700,7 @@ proc newHttpMultipartContent*(subtype: string): HttpMultipartContent =
 proc newHttpMultipartContent*(subtype: string, boundary: string
                              ): HttpMultipartContent =
   ## Windows.Web.Http.IHttpMultipartContentFactory.CreateWithSubtypeAndBoundary
-  let it = statics[IHttpMultipartContentFactoryVtbl]("Windows.Web.Http.HttpMultipartContent")
+  let it = statics[IHttpMultipartContentFactoryVtbl](className(HttpMultipartContent))
   let a0 = toWinRtString(subtype)
   let a1 = toWinRtString(boundary)
   var ret: pointer
@@ -2723,7 +2723,7 @@ proc newHttpMultipartFormDataContent*(): HttpMultipartFormDataContent =
 
 proc newHttpMultipartFormDataContent*(boundary: string): HttpMultipartFormDataContent =
   ## Windows.Web.Http.IHttpMultipartFormDataContentFactory.CreateWithBoundary
-  let it = statics[IHttpMultipartFormDataContentFactoryVtbl]("Windows.Web.Http.HttpMultipartFormDataContent")
+  let it = statics[IHttpMultipartFormDataContentFactoryVtbl](className(HttpMultipartFormDataContent))
   let a0 = toWinRtString(boundary)
   var ret: pointer
   check it.vtbl.CreateWithBoundary(it.raw, a0.handle, ret.addr
@@ -2759,7 +2759,7 @@ proc add*(self: HttpMultipartFormDataContent, content: SomeHttpContent,
 
 proc newHttpNameValueHeaderValue*(name: string): HttpNameValueHeaderValue =
   ## Windows.Web.Http.Headers.IHttpNameValueHeaderValueFactory.CreateFromName
-  let it = statics[IHttpNameValueHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpNameValueHeaderValue")
+  let it = statics[IHttpNameValueHeaderValueFactoryVtbl](className(HttpNameValueHeaderValue))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.CreateFromName(it.raw, a0.handle, ret.addr
@@ -2769,7 +2769,7 @@ proc newHttpNameValueHeaderValue*(name: string): HttpNameValueHeaderValue =
 proc newHttpNameValueHeaderValue*(name: string, value: string
                                  ): HttpNameValueHeaderValue =
   ## Windows.Web.Http.Headers.IHttpNameValueHeaderValueFactory.CreateFromNameWithValue
-  let it = statics[IHttpNameValueHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpNameValueHeaderValue")
+  let it = statics[IHttpNameValueHeaderValueFactoryVtbl](className(HttpNameValueHeaderValue))
   let a0 = toWinRtString(name)
   let a1 = toWinRtString(value)
   var ret: pointer
@@ -2780,7 +2780,7 @@ proc newHttpNameValueHeaderValue*(name: string, value: string
 proc parse*(_: typedesc[HttpNameValueHeaderValue], input: string
            ): HttpNameValueHeaderValue =
   ## Windows.Web.Http.Headers.IHttpNameValueHeaderValueStatics.Parse
-  let it = statics[IHttpNameValueHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpNameValueHeaderValue")
+  let it = statics[IHttpNameValueHeaderValueStaticsVtbl](className(HttpNameValueHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -2790,7 +2790,7 @@ proc parse*(_: typedesc[HttpNameValueHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpNameValueHeaderValue], input: string
               ): tuple[ok: bool, nameValueHeaderValue: HttpNameValueHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpNameValueHeaderValueStatics.TryParse
-  let it = statics[IHttpNameValueHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpNameValueHeaderValue")
+  let it = statics[IHttpNameValueHeaderValueStaticsVtbl](className(HttpNameValueHeaderValue))
   let a0 = toWinRtString(input)
   var nameValueHeaderValue: pointer
   var ret: bool
@@ -2822,7 +2822,7 @@ proc `value=`*(self: HttpNameValueHeaderValue, value: string) =
 
 proc newHttpProductHeaderValue*(productName: string): HttpProductHeaderValue =
   ## Windows.Web.Http.Headers.IHttpProductHeaderValueFactory.CreateFromName
-  let it = statics[IHttpProductHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpProductHeaderValue")
+  let it = statics[IHttpProductHeaderValueFactoryVtbl](className(HttpProductHeaderValue))
   let a0 = toWinRtString(productName)
   var ret: pointer
   check it.vtbl.CreateFromName(it.raw, a0.handle, ret.addr
@@ -2832,7 +2832,7 @@ proc newHttpProductHeaderValue*(productName: string): HttpProductHeaderValue =
 proc newHttpProductHeaderValue*(productName: string, productVersion: string
                                ): HttpProductHeaderValue =
   ## Windows.Web.Http.Headers.IHttpProductHeaderValueFactory.CreateFromNameWithVersion
-  let it = statics[IHttpProductHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpProductHeaderValue")
+  let it = statics[IHttpProductHeaderValueFactoryVtbl](className(HttpProductHeaderValue))
   let a0 = toWinRtString(productName)
   let a1 = toWinRtString(productVersion)
   var ret: pointer
@@ -2843,7 +2843,7 @@ proc newHttpProductHeaderValue*(productName: string, productVersion: string
 proc parse*(_: typedesc[HttpProductHeaderValue], input: string
            ): HttpProductHeaderValue =
   ## Windows.Web.Http.Headers.IHttpProductHeaderValueStatics.Parse
-  let it = statics[IHttpProductHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpProductHeaderValue")
+  let it = statics[IHttpProductHeaderValueStaticsVtbl](className(HttpProductHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -2853,7 +2853,7 @@ proc parse*(_: typedesc[HttpProductHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpProductHeaderValue], input: string
               ): tuple[ok: bool, productHeaderValue: HttpProductHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpProductHeaderValueStatics.TryParse
-  let it = statics[IHttpProductHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpProductHeaderValue")
+  let it = statics[IHttpProductHeaderValueStaticsVtbl](className(HttpProductHeaderValue))
   let a0 = toWinRtString(input)
   var productHeaderValue: pointer
   var ret: bool
@@ -2879,7 +2879,7 @@ proc version*(self: HttpProductHeaderValue): string =
 
 proc newHttpProductInfoHeaderValue*(productComment: string): HttpProductInfoHeaderValue =
   ## Windows.Web.Http.Headers.IHttpProductInfoHeaderValueFactory.CreateFromComment
-  let it = statics[IHttpProductInfoHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpProductInfoHeaderValue")
+  let it = statics[IHttpProductInfoHeaderValueFactoryVtbl](className(HttpProductInfoHeaderValue))
   let a0 = toWinRtString(productComment)
   var ret: pointer
   check it.vtbl.CreateFromComment(it.raw, a0.handle, ret.addr
@@ -2889,7 +2889,7 @@ proc newHttpProductInfoHeaderValue*(productComment: string): HttpProductInfoHead
 proc newHttpProductInfoHeaderValue*(productName: string, productVersion: string
                                    ): HttpProductInfoHeaderValue =
   ## Windows.Web.Http.Headers.IHttpProductInfoHeaderValueFactory.CreateFromNameWithVersion
-  let it = statics[IHttpProductInfoHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpProductInfoHeaderValue")
+  let it = statics[IHttpProductInfoHeaderValueFactoryVtbl](className(HttpProductInfoHeaderValue))
   let a0 = toWinRtString(productName)
   let a1 = toWinRtString(productVersion)
   var ret: pointer
@@ -2900,7 +2900,7 @@ proc newHttpProductInfoHeaderValue*(productName: string, productVersion: string
 proc parse*(_: typedesc[HttpProductInfoHeaderValue], input: string
            ): HttpProductInfoHeaderValue =
   ## Windows.Web.Http.Headers.IHttpProductInfoHeaderValueStatics.Parse
-  let it = statics[IHttpProductInfoHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpProductInfoHeaderValue")
+  let it = statics[IHttpProductInfoHeaderValueStaticsVtbl](className(HttpProductInfoHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -2910,7 +2910,7 @@ proc parse*(_: typedesc[HttpProductInfoHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpProductInfoHeaderValue], input: string
               ): tuple[ok: bool, productInfoHeaderValue: HttpProductInfoHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpProductInfoHeaderValueStatics.TryParse
-  let it = statics[IHttpProductInfoHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpProductInfoHeaderValue")
+  let it = statics[IHttpProductInfoHeaderValueStaticsVtbl](className(HttpProductInfoHeaderValue))
   let a0 = toWinRtString(input)
   var productInfoHeaderValue: pointer
   var ret: bool
@@ -3189,7 +3189,7 @@ proc newHttpRequestMessage*(): HttpRequestMessage =
 proc newHttpRequestMessage*(`method`: HttpMethod, uri: Uri
                            ): HttpRequestMessage =
   ## Windows.Web.Http.IHttpRequestMessageFactory.Create
-  let it = statics[IHttpRequestMessageFactoryVtbl]("Windows.Web.Http.HttpRequestMessage")
+  let it = statics[IHttpRequestMessageFactoryVtbl](className(HttpRequestMessage))
   let a0 = queryInterface[IHttpMethodVtbl](`method`)
   let a1 = queryInterface[IUriRuntimeClassVtbl](uri)
   var ret: pointer
@@ -3443,7 +3443,7 @@ proc newHttpResponseMessage*(): HttpResponseMessage =
 
 proc newHttpResponseMessage*(statusCode: HttpStatusCode): HttpResponseMessage =
   ## Windows.Web.Http.IHttpResponseMessageFactory.Create
-  let it = statics[IHttpResponseMessageFactoryVtbl]("Windows.Web.Http.HttpResponseMessage")
+  let it = statics[IHttpResponseMessageFactoryVtbl](className(HttpResponseMessage))
   var ret: pointer
   check it.vtbl.Create(it.raw, statusCode, ret.addr), "HttpResponseMessage.new"
   adopt[HttpResponseMessage](ret)
@@ -3610,7 +3610,7 @@ proc getDeferral*(self: HttpServerCustomValidationRequestedEventArgs): Deferral 
 
 proc newHttpStreamContent*(content: SomeInputStream): HttpStreamContent =
   ## Windows.Web.Http.IHttpStreamContentFactory.CreateFromInputStream
-  let it = statics[IHttpStreamContentFactoryVtbl]("Windows.Web.Http.HttpStreamContent")
+  let it = statics[IHttpStreamContentFactoryVtbl](className(HttpStreamContent))
   let a0 = queryInterface[IInputStreamVtbl](content)
   var ret: pointer
   check it.vtbl.CreateFromInputStream(it.raw, a0.raw, ret.addr
@@ -3621,7 +3621,7 @@ proc newHttpStreamContent*(content: SomeInputStream): HttpStreamContent =
 
 proc newHttpStringContent*(content: string): HttpStringContent =
   ## Windows.Web.Http.IHttpStringContentFactory.CreateFromString
-  let it = statics[IHttpStringContentFactoryVtbl]("Windows.Web.Http.HttpStringContent")
+  let it = statics[IHttpStringContentFactoryVtbl](className(HttpStringContent))
   let a0 = toWinRtString(content)
   var ret: pointer
   check it.vtbl.CreateFromString(it.raw, a0.handle, ret.addr
@@ -3631,7 +3631,7 @@ proc newHttpStringContent*(content: string): HttpStringContent =
 proc newHttpStringContent*(content: string, encoding: UnicodeEncoding
                           ): HttpStringContent =
   ## Windows.Web.Http.IHttpStringContentFactory.CreateFromStringWithEncoding
-  let it = statics[IHttpStringContentFactoryVtbl]("Windows.Web.Http.HttpStringContent")
+  let it = statics[IHttpStringContentFactoryVtbl](className(HttpStringContent))
   let a0 = toWinRtString(content)
   var ret: pointer
   check it.vtbl.CreateFromStringWithEncoding(it.raw, a0.handle, encoding,
@@ -3641,7 +3641,7 @@ proc newHttpStringContent*(content: string, encoding: UnicodeEncoding
 proc newHttpStringContent*(content: string, encoding: UnicodeEncoding,
                            mediaType: string): HttpStringContent =
   ## Windows.Web.Http.IHttpStringContentFactory.CreateFromStringWithEncodingAndMediaType
-  let it = statics[IHttpStringContentFactoryVtbl]("Windows.Web.Http.HttpStringContent")
+  let it = statics[IHttpStringContentFactoryVtbl](className(HttpStringContent))
   let a0 = toWinRtString(content)
   let a2 = toWinRtString(mediaType)
   var ret: pointer
@@ -3655,7 +3655,7 @@ proc newHttpStringContent*(content: string, encoding: UnicodeEncoding,
 
 proc newHttpTransferCodingHeaderValue*(input: string): HttpTransferCodingHeaderValue =
   ## Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueFactory.Create
-  let it = statics[IHttpTransferCodingHeaderValueFactoryVtbl]("Windows.Web.Http.Headers.HttpTransferCodingHeaderValue")
+  let it = statics[IHttpTransferCodingHeaderValueFactoryVtbl](className(HttpTransferCodingHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -3665,7 +3665,7 @@ proc newHttpTransferCodingHeaderValue*(input: string): HttpTransferCodingHeaderV
 proc parse*(_: typedesc[HttpTransferCodingHeaderValue], input: string
            ): HttpTransferCodingHeaderValue =
   ## Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueStatics.Parse
-  let it = statics[IHttpTransferCodingHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpTransferCodingHeaderValue")
+  let it = statics[IHttpTransferCodingHeaderValueStaticsVtbl](className(HttpTransferCodingHeaderValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr
@@ -3675,7 +3675,7 @@ proc parse*(_: typedesc[HttpTransferCodingHeaderValue], input: string
 proc tryParse*(_: typedesc[HttpTransferCodingHeaderValue], input: string
               ): tuple[ok: bool, transferCodingHeaderValue: HttpTransferCodingHeaderValue] =
   ## Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueStatics.TryParse
-  let it = statics[IHttpTransferCodingHeaderValueStaticsVtbl]("Windows.Web.Http.Headers.HttpTransferCodingHeaderValue")
+  let it = statics[IHttpTransferCodingHeaderValueStaticsVtbl](className(HttpTransferCodingHeaderValue))
   let a0 = toWinRtString(input)
   var transferCodingHeaderValue: pointer
   var ret: bool
@@ -3801,7 +3801,7 @@ proc newSyndicationAttribute*(): SyndicationAttribute =
 proc newSyndicationAttribute*(attributeName: string, attributeNamespace: string,
                               attributeValue: string): SyndicationAttribute =
   ## Windows.Web.Syndication.ISyndicationAttributeFactory.CreateSyndicationAttribute
-  let it = statics[ISyndicationAttributeFactoryVtbl]("Windows.Web.Syndication.SyndicationAttribute")
+  let it = statics[ISyndicationAttributeFactoryVtbl](className(SyndicationAttribute))
   let a0 = toWinRtString(attributeName)
   let a1 = toWinRtString(attributeNamespace)
   let a2 = toWinRtString(attributeValue)
@@ -3860,7 +3860,7 @@ proc newSyndicationCategory*(): SyndicationCategory =
 
 proc newSyndicationCategory*(term: string): SyndicationCategory =
   ## Windows.Web.Syndication.ISyndicationCategoryFactory.CreateSyndicationCategory
-  let it = statics[ISyndicationCategoryFactoryVtbl]("Windows.Web.Syndication.SyndicationCategory")
+  let it = statics[ISyndicationCategoryFactoryVtbl](className(SyndicationCategory))
   let a0 = toWinRtString(term)
   var ret: pointer
   check it.vtbl.CreateSyndicationCategory(it.raw, a0.handle, ret.addr
@@ -3870,7 +3870,7 @@ proc newSyndicationCategory*(term: string): SyndicationCategory =
 proc newSyndicationCategory*(term: string, scheme: string, label: string
                             ): SyndicationCategory =
   ## Windows.Web.Syndication.ISyndicationCategoryFactory.CreateSyndicationCategoryEx
-  let it = statics[ISyndicationCategoryFactoryVtbl]("Windows.Web.Syndication.SyndicationCategory")
+  let it = statics[ISyndicationCategoryFactoryVtbl](className(SyndicationCategory))
   let a0 = toWinRtString(term)
   let a1 = toWinRtString(scheme)
   let a2 = toWinRtString(label)
@@ -3927,7 +3927,7 @@ proc newSyndicationClient*(): SyndicationClient =
 
 proc newSyndicationClient*(serverCredential: PasswordCredential): SyndicationClient =
   ## Windows.Web.Syndication.ISyndicationClientFactory.CreateSyndicationClient
-  let it = statics[ISyndicationClientFactoryVtbl]("Windows.Web.Syndication.SyndicationClient")
+  let it = statics[ISyndicationClientFactoryVtbl](className(SyndicationClient))
   let a0 = queryInterface[IPasswordCredentialVtbl](serverCredential)
   var ret: pointer
   check it.vtbl.CreateSyndicationClient(it.raw, a0.raw, ret.addr
@@ -3943,7 +3943,7 @@ proc newSyndicationContent*(): SyndicationContent =
 proc newSyndicationContent*(text: string, `type`: SyndicationTextType
                            ): SyndicationContent =
   ## Windows.Web.Syndication.ISyndicationContentFactory.CreateSyndicationContent
-  let it = statics[ISyndicationContentFactoryVtbl]("Windows.Web.Syndication.SyndicationContent")
+  let it = statics[ISyndicationContentFactoryVtbl](className(SyndicationContent))
   let a0 = toWinRtString(text)
   var ret: pointer
   check it.vtbl.CreateSyndicationContent(it.raw, a0.handle, `type`, ret.addr
@@ -3952,7 +3952,7 @@ proc newSyndicationContent*(text: string, `type`: SyndicationTextType
 
 proc newSyndicationContent*(sourceUri: Uri): SyndicationContent =
   ## Windows.Web.Syndication.ISyndicationContentFactory.CreateSyndicationContentWithSourceUri
-  let it = statics[ISyndicationContentFactoryVtbl]("Windows.Web.Syndication.SyndicationContent")
+  let it = statics[ISyndicationContentFactoryVtbl](className(SyndicationContent))
   let a0 = queryInterface[IUriRuntimeClassVtbl](sourceUri)
   var ret: pointer
   check it.vtbl.CreateSyndicationContentWithSourceUri(it.raw, a0.raw, ret.addr
@@ -3977,7 +3977,7 @@ proc `sourceUri=`*(self: SyndicationContent, value: Uri) =
 proc getStatus*(_: typedesc[SyndicationError], hresult: int32
                ): SyndicationErrorStatus =
   ## Windows.Web.Syndication.ISyndicationErrorStatics.GetStatus
-  let it = statics[ISyndicationErrorStaticsVtbl]("Windows.Web.Syndication.SyndicationError")
+  let it = statics[ISyndicationErrorStaticsVtbl](className(SyndicationError))
   var ret: SyndicationErrorStatus
   check it.vtbl.GetStatus(it.raw, hresult, ret.addr
                          ), "SyndicationError.getStatus"
@@ -3992,7 +3992,7 @@ proc newSyndicationFeed*(): SyndicationFeed =
 proc newSyndicationFeed*(title: string, subtitle: string, uri: Uri
                         ): SyndicationFeed =
   ## Windows.Web.Syndication.ISyndicationFeedFactory.CreateSyndicationFeed
-  let it = statics[ISyndicationFeedFactoryVtbl]("Windows.Web.Syndication.SyndicationFeed")
+  let it = statics[ISyndicationFeedFactoryVtbl](className(SyndicationFeed))
   let a0 = toWinRtString(title)
   let a1 = toWinRtString(subtitle)
   let a2 = queryInterface[IUriRuntimeClassVtbl](uri)
@@ -4198,7 +4198,7 @@ proc newSyndicationGenerator*(): SyndicationGenerator =
 
 proc newSyndicationGenerator*(text: string): SyndicationGenerator =
   ## Windows.Web.Syndication.ISyndicationGeneratorFactory.CreateSyndicationGenerator
-  let it = statics[ISyndicationGeneratorFactoryVtbl]("Windows.Web.Syndication.SyndicationGenerator")
+  let it = statics[ISyndicationGeneratorFactoryVtbl](className(SyndicationGenerator))
   let a0 = toWinRtString(text)
   var ret: pointer
   check it.vtbl.CreateSyndicationGenerator(it.raw, a0.handle, ret.addr
@@ -4253,7 +4253,7 @@ proc newSyndicationItem*(): SyndicationItem =
 proc newSyndicationItem*(title: string, content: SyndicationContent, uri: Uri
                         ): SyndicationItem =
   ## Windows.Web.Syndication.ISyndicationItemFactory.CreateSyndicationItem
-  let it = statics[ISyndicationItemFactoryVtbl]("Windows.Web.Syndication.SyndicationItem")
+  let it = statics[ISyndicationItemFactoryVtbl](className(SyndicationItem))
   let a0 = toWinRtString(title)
   let a1 = queryInterface[ISyndicationTextVtbl](content)
   let a2 = queryInterface[IUriRuntimeClassVtbl](uri)
@@ -4459,7 +4459,7 @@ proc newSyndicationLink*(): SyndicationLink =
 
 proc newSyndicationLink*(uri: Uri): SyndicationLink =
   ## Windows.Web.Syndication.ISyndicationLinkFactory.CreateSyndicationLink
-  let it = statics[ISyndicationLinkFactoryVtbl]("Windows.Web.Syndication.SyndicationLink")
+  let it = statics[ISyndicationLinkFactoryVtbl](className(SyndicationLink))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var ret: pointer
   check it.vtbl.CreateSyndicationLink(it.raw, a0.raw, ret.addr
@@ -4469,7 +4469,7 @@ proc newSyndicationLink*(uri: Uri): SyndicationLink =
 proc newSyndicationLink*(uri: Uri, relationship: string, title: string,
                          mediaType: string, length: uint32): SyndicationLink =
   ## Windows.Web.Syndication.ISyndicationLinkFactory.CreateSyndicationLinkEx
-  let it = statics[ISyndicationLinkFactoryVtbl]("Windows.Web.Syndication.SyndicationLink")
+  let it = statics[ISyndicationLinkFactoryVtbl](className(SyndicationLink))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a1 = toWinRtString(relationship)
   let a2 = toWinRtString(title)
@@ -4570,7 +4570,7 @@ proc newSyndicationNode*(): SyndicationNode =
 proc newSyndicationNode*(nodeName: string, nodeNamespace: string,
                          nodeValue: string): SyndicationNode =
   ## Windows.Web.Syndication.ISyndicationNodeFactory.CreateSyndicationNode
-  let it = statics[ISyndicationNodeFactoryVtbl]("Windows.Web.Syndication.SyndicationNode")
+  let it = statics[ISyndicationNodeFactoryVtbl](className(SyndicationNode))
   let a0 = toWinRtString(nodeName)
   let a1 = toWinRtString(nodeNamespace)
   let a2 = toWinRtString(nodeValue)
@@ -4587,7 +4587,7 @@ proc newSyndicationPerson*(): SyndicationPerson =
 
 proc newSyndicationPerson*(name: string): SyndicationPerson =
   ## Windows.Web.Syndication.ISyndicationPersonFactory.CreateSyndicationPerson
-  let it = statics[ISyndicationPersonFactoryVtbl]("Windows.Web.Syndication.SyndicationPerson")
+  let it = statics[ISyndicationPersonFactoryVtbl](className(SyndicationPerson))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.CreateSyndicationPerson(it.raw, a0.handle, ret.addr
@@ -4597,7 +4597,7 @@ proc newSyndicationPerson*(name: string): SyndicationPerson =
 proc newSyndicationPerson*(name: string, email: string, uri: Uri
                           ): SyndicationPerson =
   ## Windows.Web.Syndication.ISyndicationPersonFactory.CreateSyndicationPersonEx
-  let it = statics[ISyndicationPersonFactoryVtbl]("Windows.Web.Syndication.SyndicationPerson")
+  let it = statics[ISyndicationPersonFactoryVtbl](className(SyndicationPerson))
   let a0 = toWinRtString(name)
   let a1 = toWinRtString(email)
   let a2 = queryInterface[IUriRuntimeClassVtbl](uri)
@@ -4653,7 +4653,7 @@ proc newSyndicationText*(): SyndicationText =
 
 proc newSyndicationText*(text: string): SyndicationText =
   ## Windows.Web.Syndication.ISyndicationTextFactory.CreateSyndicationText
-  let it = statics[ISyndicationTextFactoryVtbl]("Windows.Web.Syndication.SyndicationText")
+  let it = statics[ISyndicationTextFactoryVtbl](className(SyndicationText))
   let a0 = toWinRtString(text)
   var ret: pointer
   check it.vtbl.CreateSyndicationText(it.raw, a0.handle, ret.addr
@@ -4663,7 +4663,7 @@ proc newSyndicationText*(text: string): SyndicationText =
 proc newSyndicationText*(text: string, `type`: SyndicationTextType
                         ): SyndicationText =
   ## Windows.Web.Syndication.ISyndicationTextFactory.CreateSyndicationTextEx
-  let it = statics[ISyndicationTextFactoryVtbl]("Windows.Web.Syndication.SyndicationText")
+  let it = statics[ISyndicationTextFactoryVtbl](className(SyndicationText))
   let a0 = toWinRtString(text)
   var ret: pointer
   check it.vtbl.CreateSyndicationTextEx(it.raw, a0.handle, `type`, ret.addr
@@ -4674,7 +4674,7 @@ proc newSyndicationText*(text: string, `type`: SyndicationTextType
 
 proc getStatus*(_: typedesc[WebError], hresult: int32): WebErrorStatus =
   ## Windows.Web.IWebErrorStatics.GetStatus
-  let it = statics[IWebErrorStaticsVtbl]("Windows.Web.WebError")
+  let it = statics[IWebErrorStaticsVtbl](className(WebError))
   var ret: WebErrorStatus
   check it.vtbl.GetStatus(it.raw, hresult, ret.addr), "WebError.getStatus"
   ret
@@ -5123,7 +5123,7 @@ proc newWebViewControlProcess*(): WebViewControlProcess =
 
 proc newWebViewControlProcess*(processOptions: WebViewControlProcessOptions): WebViewControlProcess =
   ## Windows.Web.UI.Interop.IWebViewControlProcessFactory.CreateWithOptions
-  let it = statics[IWebViewControlProcessFactoryVtbl]("Windows.Web.UI.Interop.WebViewControlProcess")
+  let it = statics[IWebViewControlProcessFactoryVtbl](className(WebViewControlProcess))
   let a0 = queryInterface[IWebViewControlProcessOptionsVtbl](processOptions)
   var ret: pointer
   check it.vtbl.CreateWithOptions(it.raw, a0.raw, ret.addr

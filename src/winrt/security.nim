@@ -27,7 +27,7 @@ proc requestAccessForCapabilitiesAsync*(_: typedesc[AppCapability],
                                         capabilityNames: seq[string]
                                        ): Future[Table[string, AppCapabilityAccessStatus]] =
   ## Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityStatics.RequestAccessForCapabilitiesAsync
-  let it = statics[IAppCapabilityStaticsVtbl]("Windows.Security.Authorization.AppCapabilityAccess.AppCapability")
+  let it = statics[IAppCapabilityStaticsVtbl](className(AppCapability))
   let a0 = asCollection[string, seq[string]](capabilityNames)
   var op: pointer
   check it.vtbl.RequestAccessForCapabilitiesAsync(it.raw, a0.raw, op.addr
@@ -40,7 +40,7 @@ proc requestAccessForCapabilitiesForUserAsync*(_: typedesc[AppCapability],
                                                capabilityNames: seq[string]
                                               ): Future[Table[string, AppCapabilityAccessStatus]] =
   ## Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityStatics.RequestAccessForCapabilitiesForUserAsync
-  let it = statics[IAppCapabilityStaticsVtbl]("Windows.Security.Authorization.AppCapabilityAccess.AppCapability")
+  let it = statics[IAppCapabilityStaticsVtbl](className(AppCapability))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = asCollection[string, seq[string]](capabilityNames)
   var op: pointer
@@ -53,7 +53,7 @@ proc requestAccessForCapabilitiesForUserAsync*(_: typedesc[AppCapability],
 proc create*(_: typedesc[AppCapability], capabilityName: string
             ): AppCapability =
   ## Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityStatics.Create
-  let it = statics[IAppCapabilityStaticsVtbl]("Windows.Security.Authorization.AppCapabilityAccess.AppCapability")
+  let it = statics[IAppCapabilityStaticsVtbl](className(AppCapability))
   let a0 = toWinRtString(capabilityName)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr), "AppCapability.create"
@@ -63,7 +63,7 @@ proc createWithProcessIdForUser*(_: typedesc[AppCapability], user: User,
                                  capabilityName: string, pid: uint32
                                 ): AppCapability =
   ## Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityStatics.CreateWithProcessIdForUser
-  let it = statics[IAppCapabilityStaticsVtbl]("Windows.Security.Authorization.AppCapabilityAccess.AppCapability")
+  let it = statics[IAppCapabilityStaticsVtbl](className(AppCapability))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(capabilityName)
   var ret: pointer
@@ -141,7 +141,7 @@ proc `displayMessage=`*(self: AppCapability, value: string) =
 
 proc rsaPkcs1*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_RsaPkcs1
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_RsaPkcs1(it.raw, ret.addr
                             ), "AsymmetricAlgorithmNames.rsaPkcs1"
@@ -149,7 +149,7 @@ proc rsaPkcs1*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc rsaOaepSha1*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_RsaOaepSha1
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_RsaOaepSha1(it.raw, ret.addr
                                ), "AsymmetricAlgorithmNames.rsaOaepSha1"
@@ -157,7 +157,7 @@ proc rsaOaepSha1*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc rsaOaepSha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_RsaOaepSha256
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_RsaOaepSha256(it.raw, ret.addr
                                  ), "AsymmetricAlgorithmNames.rsaOaepSha256"
@@ -165,7 +165,7 @@ proc rsaOaepSha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc rsaOaepSha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_RsaOaepSha384
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_RsaOaepSha384(it.raw, ret.addr
                                  ), "AsymmetricAlgorithmNames.rsaOaepSha384"
@@ -173,7 +173,7 @@ proc rsaOaepSha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc rsaOaepSha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_RsaOaepSha512
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_RsaOaepSha512(it.raw, ret.addr
                                  ), "AsymmetricAlgorithmNames.rsaOaepSha512"
@@ -181,7 +181,7 @@ proc rsaOaepSha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc ecdsaP256Sha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_EcdsaP256Sha256
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_EcdsaP256Sha256(it.raw, ret.addr
                                    ), "AsymmetricAlgorithmNames.ecdsaP256Sha256"
@@ -189,7 +189,7 @@ proc ecdsaP256Sha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc ecdsaP384Sha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_EcdsaP384Sha384
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_EcdsaP384Sha384(it.raw, ret.addr
                                    ), "AsymmetricAlgorithmNames.ecdsaP384Sha384"
@@ -197,7 +197,7 @@ proc ecdsaP384Sha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc ecdsaP521Sha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_EcdsaP521Sha512
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_EcdsaP521Sha512(it.raw, ret.addr
                                    ), "AsymmetricAlgorithmNames.ecdsaP521Sha512"
@@ -205,7 +205,7 @@ proc ecdsaP521Sha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc dsaSha1*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_DsaSha1
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_DsaSha1(it.raw, ret.addr
                            ), "AsymmetricAlgorithmNames.dsaSha1"
@@ -213,7 +213,7 @@ proc dsaSha1*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc dsaSha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_DsaSha256
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_DsaSha256(it.raw, ret.addr
                              ), "AsymmetricAlgorithmNames.dsaSha256"
@@ -221,7 +221,7 @@ proc dsaSha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc rsaSignPkcs1Sha1*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_RsaSignPkcs1Sha1
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_RsaSignPkcs1Sha1(it.raw, ret.addr
                                     ), "AsymmetricAlgorithmNames.rsaSignPkcs1Sha1"
@@ -229,7 +229,7 @@ proc rsaSignPkcs1Sha1*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc rsaSignPkcs1Sha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_RsaSignPkcs1Sha256
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_RsaSignPkcs1Sha256(it.raw, ret.addr
                                       ), "AsymmetricAlgorithmNames.rsaSignPkcs1Sha256"
@@ -237,7 +237,7 @@ proc rsaSignPkcs1Sha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc rsaSignPkcs1Sha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_RsaSignPkcs1Sha384
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_RsaSignPkcs1Sha384(it.raw, ret.addr
                                       ), "AsymmetricAlgorithmNames.rsaSignPkcs1Sha384"
@@ -245,7 +245,7 @@ proc rsaSignPkcs1Sha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc rsaSignPkcs1Sha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_RsaSignPkcs1Sha512
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_RsaSignPkcs1Sha512(it.raw, ret.addr
                                       ), "AsymmetricAlgorithmNames.rsaSignPkcs1Sha512"
@@ -253,7 +253,7 @@ proc rsaSignPkcs1Sha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc rsaSignPssSha1*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_RsaSignPssSha1
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_RsaSignPssSha1(it.raw, ret.addr
                                   ), "AsymmetricAlgorithmNames.rsaSignPssSha1"
@@ -261,7 +261,7 @@ proc rsaSignPssSha1*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc rsaSignPssSha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_RsaSignPssSha256
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_RsaSignPssSha256(it.raw, ret.addr
                                     ), "AsymmetricAlgorithmNames.rsaSignPssSha256"
@@ -269,7 +269,7 @@ proc rsaSignPssSha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc rsaSignPssSha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_RsaSignPssSha384
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_RsaSignPssSha384(it.raw, ret.addr
                                     ), "AsymmetricAlgorithmNames.rsaSignPssSha384"
@@ -277,7 +277,7 @@ proc rsaSignPssSha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc rsaSignPssSha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics.get_RsaSignPssSha512
-  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStaticsVtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_RsaSignPssSha512(it.raw, ret.addr
                                     ), "AsymmetricAlgorithmNames.rsaSignPssSha512"
@@ -285,7 +285,7 @@ proc rsaSignPssSha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc ecdsaSha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics2.get_EcdsaSha256
-  let it = statics[IAsymmetricAlgorithmNamesStatics2Vtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStatics2Vtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_EcdsaSha256(it.raw, ret.addr
                                ), "AsymmetricAlgorithmNames.ecdsaSha256"
@@ -293,7 +293,7 @@ proc ecdsaSha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc ecdsaSha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics2.get_EcdsaSha384
-  let it = statics[IAsymmetricAlgorithmNamesStatics2Vtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStatics2Vtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_EcdsaSha384(it.raw, ret.addr
                                ), "AsymmetricAlgorithmNames.ecdsaSha384"
@@ -301,7 +301,7 @@ proc ecdsaSha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
 
 proc ecdsaSha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics2.get_EcdsaSha512
-  let it = statics[IAsymmetricAlgorithmNamesStatics2Vtbl]("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
+  let it = statics[IAsymmetricAlgorithmNamesStatics2Vtbl](className(AsymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_EcdsaSha512(it.raw, ret.addr
                                ), "AsymmetricAlgorithmNames.ecdsaSha512"
@@ -312,7 +312,7 @@ proc ecdsaSha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
 proc openAlgorithm*(_: typedesc[AsymmetricKeyAlgorithmProvider],
                     algorithm: string): AsymmetricKeyAlgorithmProvider =
   ## Windows.Security.Cryptography.Core.IAsymmetricKeyAlgorithmProviderStatics.OpenAlgorithm
-  let it = statics[IAsymmetricKeyAlgorithmProviderStaticsVtbl]("Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider")
+  let it = statics[IAsymmetricKeyAlgorithmProviderStaticsVtbl](className(AsymmetricKeyAlgorithmProvider))
   let a0 = toWinRtString(algorithm)
   var ret: pointer
   check it.vtbl.OpenAlgorithm(it.raw, a0.handle, ret.addr
@@ -422,7 +422,7 @@ proc protectionInfo*(self: BufferProtectUnprotectResult): DataProtectionInfo =
 
 proc newCertificate*(certBlob: SomeBuffer): Certificate =
   ## Windows.Security.Cryptography.Certificates.ICertificateFactory.CreateCertificate
-  let it = statics[ICertificateFactoryVtbl]("Windows.Security.Cryptography.Certificates.Certificate")
+  let it = statics[ICertificateFactoryVtbl](className(Certificate))
   let a0 = queryInterface[IBufferVtbl](certBlob)
   var ret: pointer
   check it.vtbl.CreateCertificate(it.raw, a0.raw, ret.addr), "Certificate.new"
@@ -650,7 +650,7 @@ proc getCertificates*(self: CertificateChain, includeRoot: bool
 
 proc userCertificateEnrollmentManager*(_: typedesc[CertificateEnrollmentManager]): UserCertificateEnrollmentManager =
   ## Windows.Security.Cryptography.Certificates.ICertificateEnrollmentManagerStatics2.get_UserCertificateEnrollmentManager
-  let it = statics[ICertificateEnrollmentManagerStatics2Vtbl]("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager")
+  let it = statics[ICertificateEnrollmentManagerStatics2Vtbl](className(CertificateEnrollmentManager))
   var ret: pointer
   check it.vtbl.get_UserCertificateEnrollmentManager(it.raw, ret.addr
                                                     ), "CertificateEnrollmentManager.userCertificateEnrollmentManager"
@@ -663,7 +663,7 @@ proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager],
                          installOption: InstallOptions, friendlyName: string,
                          keyStorageProvider: string): Future[void] =
   ## Windows.Security.Cryptography.Certificates.ICertificateEnrollmentManagerStatics2.ImportPfxDataAsync
-  let it = statics[ICertificateEnrollmentManagerStatics2Vtbl]("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager")
+  let it = statics[ICertificateEnrollmentManagerStatics2Vtbl](className(CertificateEnrollmentManager))
   let a0 = toWinRtString(pfxData)
   let a1 = toWinRtString(password)
   let a5 = toWinRtString(friendlyName)
@@ -679,7 +679,7 @@ proc createRequestAsync*(_: typedesc[CertificateEnrollmentManager],
                          request: CertificateRequestProperties
                         ): Future[string] =
   ## Windows.Security.Cryptography.Certificates.ICertificateEnrollmentManagerStatics.CreateRequestAsync
-  let it = statics[ICertificateEnrollmentManagerStaticsVtbl]("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager")
+  let it = statics[ICertificateEnrollmentManagerStaticsVtbl](className(CertificateEnrollmentManager))
   let a0 = queryInterface[ICertificateRequestPropertiesVtbl](request)
   var op: pointer
   check it.vtbl.CreateRequestAsync(it.raw, a0.raw, op.addr
@@ -690,7 +690,7 @@ proc installCertificateAsync*(_: typedesc[CertificateEnrollmentManager],
                               certificate: string, installOption: InstallOptions
                              ): Future[void] =
   ## Windows.Security.Cryptography.Certificates.ICertificateEnrollmentManagerStatics.InstallCertificateAsync
-  let it = statics[ICertificateEnrollmentManagerStaticsVtbl]("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager")
+  let it = statics[ICertificateEnrollmentManagerStaticsVtbl](className(CertificateEnrollmentManager))
   let a0 = toWinRtString(certificate)
   var op: pointer
   check it.vtbl.InstallCertificateAsync(it.raw, a0.handle, installOption,
@@ -705,7 +705,7 @@ proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager],
                          installOption: InstallOptions, friendlyName: string
                         ): Future[void] =
   ## Windows.Security.Cryptography.Certificates.ICertificateEnrollmentManagerStatics.ImportPfxDataAsync
-  let it = statics[ICertificateEnrollmentManagerStaticsVtbl]("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager")
+  let it = statics[ICertificateEnrollmentManagerStaticsVtbl](className(CertificateEnrollmentManager))
   let a0 = toWinRtString(pfxData)
   let a1 = toWinRtString(password)
   let a5 = toWinRtString(friendlyName)
@@ -721,7 +721,7 @@ proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager],
                          pfxImportParameters: PfxImportParameters
                         ): Future[void] =
   ## Windows.Security.Cryptography.Certificates.ICertificateEnrollmentManagerStatics3.ImportPfxDataAsync
-  let it = statics[ICertificateEnrollmentManagerStatics3Vtbl]("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager")
+  let it = statics[ICertificateEnrollmentManagerStatics3Vtbl](className(CertificateEnrollmentManager))
   let a0 = toWinRtString(pfxData)
   let a1 = toWinRtString(password)
   let a2 = queryInterface[IPfxImportParametersVtbl](pfxImportParameters)
@@ -1326,7 +1326,7 @@ proc name*(self: CertificateStore): string =
 
 proc findAllAsync*(_: typedesc[CertificateStores]): Future[seq[Certificate]] =
   ## Windows.Security.Cryptography.Certificates.ICertificateStoresStatics.FindAllAsync
-  let it = statics[ICertificateStoresStaticsVtbl]("Windows.Security.Cryptography.Certificates.CertificateStores")
+  let it = statics[ICertificateStoresStaticsVtbl](className(CertificateStores))
   var op: pointer
   check it.vtbl.FindAllAsync(it.raw, op.addr), "CertificateStores.findAllAsync"
   future[IAsyncOperationVtbl[IVectorViewVtbl[Certificate]], seq[Certificate]](op, "CertificateStores.findAllAsync")
@@ -1334,7 +1334,7 @@ proc findAllAsync*(_: typedesc[CertificateStores]): Future[seq[Certificate]] =
 proc findAllAsync*(_: typedesc[CertificateStores], query: CertificateQuery
                   ): Future[seq[Certificate]] =
   ## Windows.Security.Cryptography.Certificates.ICertificateStoresStatics.FindAllAsync
-  let it = statics[ICertificateStoresStaticsVtbl]("Windows.Security.Cryptography.Certificates.CertificateStores")
+  let it = statics[ICertificateStoresStaticsVtbl](className(CertificateStores))
   let a0 = queryInterface[ICertificateQueryVtbl](query)
   var op: pointer
   check it.vtbl.FindAllAsync2(it.raw, a0.raw, op.addr
@@ -1343,7 +1343,7 @@ proc findAllAsync*(_: typedesc[CertificateStores], query: CertificateQuery
 
 proc trustedRootCertificationAuthorities*(_: typedesc[CertificateStores]): CertificateStore =
   ## Windows.Security.Cryptography.Certificates.ICertificateStoresStatics.get_TrustedRootCertificationAuthorities
-  let it = statics[ICertificateStoresStaticsVtbl]("Windows.Security.Cryptography.Certificates.CertificateStores")
+  let it = statics[ICertificateStoresStaticsVtbl](className(CertificateStores))
   var ret: pointer
   check it.vtbl.get_TrustedRootCertificationAuthorities(it.raw, ret.addr
                                                        ), "CertificateStores.trustedRootCertificationAuthorities"
@@ -1351,7 +1351,7 @@ proc trustedRootCertificationAuthorities*(_: typedesc[CertificateStores]): Certi
 
 proc intermediateCertificationAuthorities*(_: typedesc[CertificateStores]): CertificateStore =
   ## Windows.Security.Cryptography.Certificates.ICertificateStoresStatics.get_IntermediateCertificationAuthorities
-  let it = statics[ICertificateStoresStaticsVtbl]("Windows.Security.Cryptography.Certificates.CertificateStores")
+  let it = statics[ICertificateStoresStaticsVtbl](className(CertificateStores))
   var ret: pointer
   check it.vtbl.get_IntermediateCertificationAuthorities(it.raw, ret.addr
                                                         ), "CertificateStores.intermediateCertificationAuthorities"
@@ -1360,7 +1360,7 @@ proc intermediateCertificationAuthorities*(_: typedesc[CertificateStores]): Cert
 proc getStoreByName*(_: typedesc[CertificateStores], storeName: string
                     ): CertificateStore =
   ## Windows.Security.Cryptography.Certificates.ICertificateStoresStatics.GetStoreByName
-  let it = statics[ICertificateStoresStaticsVtbl]("Windows.Security.Cryptography.Certificates.CertificateStores")
+  let it = statics[ICertificateStoresStaticsVtbl](className(CertificateStores))
   let a0 = toWinRtString(storeName)
   var ret: pointer
   check it.vtbl.GetStoreByName(it.raw, a0.handle, ret.addr
@@ -1370,7 +1370,7 @@ proc getStoreByName*(_: typedesc[CertificateStores], storeName: string
 proc getUserStoreByName*(_: typedesc[CertificateStores], storeName: string
                         ): UserCertificateStore =
   ## Windows.Security.Cryptography.Certificates.ICertificateStoresStatics2.GetUserStoreByName
-  let it = statics[ICertificateStoresStatics2Vtbl]("Windows.Security.Cryptography.Certificates.CertificateStores")
+  let it = statics[ICertificateStoresStatics2Vtbl](className(CertificateStores))
   let a0 = toWinRtString(storeName)
   var ret: pointer
   check it.vtbl.GetUserStoreByName(it.raw, a0.handle, ret.addr
@@ -1511,7 +1511,7 @@ proc `serverDnsName=`*(self: ChainValidationParameters, value: HostName) =
 
 proc newCmsAttachedSignature*(inputBlob: SomeBuffer): CmsAttachedSignature =
   ## Windows.Security.Cryptography.Certificates.ICmsAttachedSignatureFactory.CreateCmsAttachedSignature
-  let it = statics[ICmsAttachedSignatureFactoryVtbl]("Windows.Security.Cryptography.Certificates.CmsAttachedSignature")
+  let it = statics[ICmsAttachedSignatureFactoryVtbl](className(CmsAttachedSignature))
   let a0 = queryInterface[IBufferVtbl](inputBlob)
   var ret: pointer
   check it.vtbl.CreateCmsAttachedSignature(it.raw, a0.raw, ret.addr
@@ -1522,7 +1522,7 @@ proc generateSignatureAsync*(_: typedesc[CmsAttachedSignature],
                              data: SomeBuffer, signers: seq[CmsSignerInfo],
                              certificates: seq[Certificate]): Future[IBuffer] =
   ## Windows.Security.Cryptography.Certificates.ICmsAttachedSignatureStatics.GenerateSignatureAsync
-  let it = statics[ICmsAttachedSignatureStaticsVtbl]("Windows.Security.Cryptography.Certificates.CmsAttachedSignature")
+  let it = statics[ICmsAttachedSignatureStaticsVtbl](className(CmsAttachedSignature))
   let a0 = queryInterface[IBufferVtbl](data)
   let a1 = asCollection[CmsSignerInfo, seq[CmsSignerInfo]](signers)
   let a2 = asCollection[Certificate, seq[Certificate]](certificates)
@@ -1567,7 +1567,7 @@ proc verifySignature*(self: CmsAttachedSignature): SignatureValidationResult =
 
 proc newCmsDetachedSignature*(inputBlob: SomeBuffer): CmsDetachedSignature =
   ## Windows.Security.Cryptography.Certificates.ICmsDetachedSignatureFactory.CreateCmsDetachedSignature
-  let it = statics[ICmsDetachedSignatureFactoryVtbl]("Windows.Security.Cryptography.Certificates.CmsDetachedSignature")
+  let it = statics[ICmsDetachedSignatureFactoryVtbl](className(CmsDetachedSignature))
   let a0 = queryInterface[IBufferVtbl](inputBlob)
   var ret: pointer
   check it.vtbl.CreateCmsDetachedSignature(it.raw, a0.raw, ret.addr
@@ -1578,7 +1578,7 @@ proc generateSignatureAsync*(_: typedesc[CmsDetachedSignature],
                              data: SomeInputStream, signers: seq[CmsSignerInfo],
                              certificates: seq[Certificate]): Future[IBuffer] =
   ## Windows.Security.Cryptography.Certificates.ICmsDetachedSignatureStatics.GenerateSignatureAsync
-  let it = statics[ICmsDetachedSignatureStaticsVtbl]("Windows.Security.Cryptography.Certificates.CmsDetachedSignature")
+  let it = statics[ICmsDetachedSignatureStaticsVtbl](className(CmsDetachedSignature))
   let a0 = queryInterface[IInputStreamVtbl](data)
   let a1 = asCollection[CmsSignerInfo, seq[CmsSignerInfo]](signers)
   let a2 = asCollection[Certificate, seq[Certificate]](certificates)
@@ -1684,7 +1684,7 @@ proc timestamp*(self: CmsTimestampInfo): DateTime =
 proc pickAsync*(_: typedesc[CredentialPicker], options: CredentialPickerOptions
                ): Future[CredentialPickerResults] =
   ## Windows.Security.Credentials.UI.ICredentialPickerStatics.PickAsync
-  let it = statics[ICredentialPickerStaticsVtbl]("Windows.Security.Credentials.UI.CredentialPicker")
+  let it = statics[ICredentialPickerStaticsVtbl](className(CredentialPicker))
   let a0 = queryInterface[ICredentialPickerOptionsVtbl](options)
   var op: pointer
   check it.vtbl.PickAsync(it.raw, a0.raw, op.addr), "CredentialPicker.pickAsync"
@@ -1693,7 +1693,7 @@ proc pickAsync*(_: typedesc[CredentialPicker], options: CredentialPickerOptions
 proc pickAsync*(_: typedesc[CredentialPicker], targetName: string,
                 message: string): Future[CredentialPickerResults] =
   ## Windows.Security.Credentials.UI.ICredentialPickerStatics.PickAsync
-  let it = statics[ICredentialPickerStaticsVtbl]("Windows.Security.Credentials.UI.CredentialPicker")
+  let it = statics[ICredentialPickerStaticsVtbl](className(CredentialPicker))
   let a0 = toWinRtString(targetName)
   let a1 = toWinRtString(message)
   var op: pointer
@@ -1705,7 +1705,7 @@ proc pickAsync*(_: typedesc[CredentialPicker], targetName: string,
                 message: string, caption: string
                ): Future[CredentialPickerResults] =
   ## Windows.Security.Credentials.UI.ICredentialPickerStatics.PickAsync
-  let it = statics[ICredentialPickerStaticsVtbl]("Windows.Security.Credentials.UI.CredentialPicker")
+  let it = statics[ICredentialPickerStaticsVtbl](className(CredentialPicker))
   let a0 = toWinRtString(targetName)
   let a1 = toWinRtString(message)
   let a2 = toWinRtString(caption)
@@ -1929,7 +1929,7 @@ proc credentialPassword*(self: CredentialPickerResults): string =
 proc compare*(_: typedesc[CryptographicBuffer], object1: SomeBuffer,
               object2: SomeBuffer): bool =
   ## Windows.Security.Cryptography.ICryptographicBufferStatics.Compare
-  let it = statics[ICryptographicBufferStaticsVtbl]("Windows.Security.Cryptography.CryptographicBuffer")
+  let it = statics[ICryptographicBufferStaticsVtbl](className(CryptographicBuffer))
   let a0 = queryInterface[IBufferVtbl](object1)
   let a1 = queryInterface[IBufferVtbl](object2)
   var ret: bool
@@ -1940,7 +1940,7 @@ proc compare*(_: typedesc[CryptographicBuffer], object1: SomeBuffer,
 proc generateRandom*(_: typedesc[CryptographicBuffer], length: uint32
                     ): IBuffer =
   ## Windows.Security.Cryptography.ICryptographicBufferStatics.GenerateRandom
-  let it = statics[ICryptographicBufferStaticsVtbl]("Windows.Security.Cryptography.CryptographicBuffer")
+  let it = statics[ICryptographicBufferStaticsVtbl](className(CryptographicBuffer))
   var ret: pointer
   check it.vtbl.GenerateRandom(it.raw, length, ret.addr
                               ), "CryptographicBuffer.generateRandom"
@@ -1948,7 +1948,7 @@ proc generateRandom*(_: typedesc[CryptographicBuffer], length: uint32
 
 proc generateRandomNumber*(_: typedesc[CryptographicBuffer]): uint32 =
   ## Windows.Security.Cryptography.ICryptographicBufferStatics.GenerateRandomNumber
-  let it = statics[ICryptographicBufferStaticsVtbl]("Windows.Security.Cryptography.CryptographicBuffer")
+  let it = statics[ICryptographicBufferStaticsVtbl](className(CryptographicBuffer))
   var ret: uint32
   check it.vtbl.GenerateRandomNumber(it.raw, ret.addr
                                     ), "CryptographicBuffer.generateRandomNumber"
@@ -1957,7 +1957,7 @@ proc generateRandomNumber*(_: typedesc[CryptographicBuffer]): uint32 =
 proc createFromByteArray*(_: typedesc[CryptographicBuffer],
                           value: openArray[uint8]): IBuffer =
   ## Windows.Security.Cryptography.ICryptographicBufferStatics.CreateFromByteArray
-  let it = statics[ICryptographicBufferStaticsVtbl]("Windows.Security.Cryptography.CryptographicBuffer")
+  let it = statics[ICryptographicBufferStaticsVtbl](className(CryptographicBuffer))
   let a0 = asArray[uint8, uint8](value)
   var ret: pointer
   check it.vtbl.CreateFromByteArray(it.raw, a0.count, a0.data, ret.addr
@@ -1967,7 +1967,7 @@ proc createFromByteArray*(_: typedesc[CryptographicBuffer],
 proc copyToByteArray*(_: typedesc[CryptographicBuffer], buffer: SomeBuffer
                      ): seq[uint8] =
   ## Windows.Security.Cryptography.ICryptographicBufferStatics.CopyToByteArray
-  let it = statics[ICryptographicBufferStaticsVtbl]("Windows.Security.Cryptography.CryptographicBuffer")
+  let it = statics[ICryptographicBufferStaticsVtbl](className(CryptographicBuffer))
   let a0 = queryInterface[IBufferVtbl](buffer)
   var valueSize: uint32
   var valueBuf: ptr uint8
@@ -1978,7 +1978,7 @@ proc copyToByteArray*(_: typedesc[CryptographicBuffer], buffer: SomeBuffer
 proc decodeFromHexString*(_: typedesc[CryptographicBuffer], value: string
                          ): IBuffer =
   ## Windows.Security.Cryptography.ICryptographicBufferStatics.DecodeFromHexString
-  let it = statics[ICryptographicBufferStaticsVtbl]("Windows.Security.Cryptography.CryptographicBuffer")
+  let it = statics[ICryptographicBufferStaticsVtbl](className(CryptographicBuffer))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.DecodeFromHexString(it.raw, a0.handle, ret.addr
@@ -1988,7 +1988,7 @@ proc decodeFromHexString*(_: typedesc[CryptographicBuffer], value: string
 proc encodeToHexString*(_: typedesc[CryptographicBuffer], buffer: SomeBuffer
                        ): string =
   ## Windows.Security.Cryptography.ICryptographicBufferStatics.EncodeToHexString
-  let it = statics[ICryptographicBufferStaticsVtbl]("Windows.Security.Cryptography.CryptographicBuffer")
+  let it = statics[ICryptographicBufferStaticsVtbl](className(CryptographicBuffer))
   let a0 = queryInterface[IBufferVtbl](buffer)
   var ret: HSTRING
   check it.vtbl.EncodeToHexString(it.raw, a0.raw, ret.addr
@@ -1998,7 +1998,7 @@ proc encodeToHexString*(_: typedesc[CryptographicBuffer], buffer: SomeBuffer
 proc decodeFromBase64String*(_: typedesc[CryptographicBuffer], value: string
                             ): IBuffer =
   ## Windows.Security.Cryptography.ICryptographicBufferStatics.DecodeFromBase64String
-  let it = statics[ICryptographicBufferStaticsVtbl]("Windows.Security.Cryptography.CryptographicBuffer")
+  let it = statics[ICryptographicBufferStaticsVtbl](className(CryptographicBuffer))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.DecodeFromBase64String(it.raw, a0.handle, ret.addr
@@ -2008,7 +2008,7 @@ proc decodeFromBase64String*(_: typedesc[CryptographicBuffer], value: string
 proc encodeToBase64String*(_: typedesc[CryptographicBuffer], buffer: SomeBuffer
                           ): string =
   ## Windows.Security.Cryptography.ICryptographicBufferStatics.EncodeToBase64String
-  let it = statics[ICryptographicBufferStaticsVtbl]("Windows.Security.Cryptography.CryptographicBuffer")
+  let it = statics[ICryptographicBufferStaticsVtbl](className(CryptographicBuffer))
   let a0 = queryInterface[IBufferVtbl](buffer)
   var ret: HSTRING
   check it.vtbl.EncodeToBase64String(it.raw, a0.raw, ret.addr
@@ -2018,7 +2018,7 @@ proc encodeToBase64String*(_: typedesc[CryptographicBuffer], buffer: SomeBuffer
 proc convertStringToBinary*(_: typedesc[CryptographicBuffer], value: string,
                             encoding: BinaryStringEncoding): IBuffer =
   ## Windows.Security.Cryptography.ICryptographicBufferStatics.ConvertStringToBinary
-  let it = statics[ICryptographicBufferStaticsVtbl]("Windows.Security.Cryptography.CryptographicBuffer")
+  let it = statics[ICryptographicBufferStaticsVtbl](className(CryptographicBuffer))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.ConvertStringToBinary(it.raw, a0.handle, encoding, ret.addr
@@ -2029,7 +2029,7 @@ proc convertBinaryToString*(_: typedesc[CryptographicBuffer],
                             encoding: BinaryStringEncoding, buffer: SomeBuffer
                            ): string =
   ## Windows.Security.Cryptography.ICryptographicBufferStatics.ConvertBinaryToString
-  let it = statics[ICryptographicBufferStaticsVtbl]("Windows.Security.Cryptography.CryptographicBuffer")
+  let it = statics[ICryptographicBufferStaticsVtbl](className(CryptographicBuffer))
   let a1 = queryInterface[IBufferVtbl](buffer)
   var ret: HSTRING
   check it.vtbl.ConvertBinaryToString(it.raw, encoding, a1.raw, ret.addr
@@ -2041,7 +2041,7 @@ proc convertBinaryToString*(_: typedesc[CryptographicBuffer],
 proc signHashedData*(_: typedesc[CryptographicEngine], key: CryptographicKey,
                      data: SomeBuffer): IBuffer =
   ## Windows.Security.Cryptography.Core.ICryptographicEngineStatics2.SignHashedData
-  let it = statics[ICryptographicEngineStatics2Vtbl]("Windows.Security.Cryptography.Core.CryptographicEngine")
+  let it = statics[ICryptographicEngineStatics2Vtbl](className(CryptographicEngine))
   let a0 = queryInterface[ICryptographicKeyVtbl](key)
   let a1 = queryInterface[IBufferVtbl](data)
   var ret: pointer
@@ -2053,7 +2053,7 @@ proc verifySignatureWithHashInput*(_: typedesc[CryptographicEngine],
                                    key: CryptographicKey, data: SomeBuffer,
                                    signature: SomeBuffer): bool =
   ## Windows.Security.Cryptography.Core.ICryptographicEngineStatics2.VerifySignatureWithHashInput
-  let it = statics[ICryptographicEngineStatics2Vtbl]("Windows.Security.Cryptography.Core.CryptographicEngine")
+  let it = statics[ICryptographicEngineStatics2Vtbl](className(CryptographicEngine))
   let a0 = queryInterface[ICryptographicKeyVtbl](key)
   let a1 = queryInterface[IBufferVtbl](data)
   let a2 = queryInterface[IBufferVtbl](signature)
@@ -2066,7 +2066,7 @@ proc verifySignatureWithHashInput*(_: typedesc[CryptographicEngine],
 proc decryptAsync*(_: typedesc[CryptographicEngine], key: CryptographicKey,
                    data: SomeBuffer, iv: SomeBuffer): Future[IBuffer] =
   ## Windows.Security.Cryptography.Core.ICryptographicEngineStatics2.DecryptAsync
-  let it = statics[ICryptographicEngineStatics2Vtbl]("Windows.Security.Cryptography.Core.CryptographicEngine")
+  let it = statics[ICryptographicEngineStatics2Vtbl](className(CryptographicEngine))
   let a0 = queryInterface[ICryptographicKeyVtbl](key)
   let a1 = queryInterface[IBufferVtbl](data)
   let a2 = queryInterface[IBufferVtbl](iv)
@@ -2078,7 +2078,7 @@ proc decryptAsync*(_: typedesc[CryptographicEngine], key: CryptographicKey,
 proc signAsync*(_: typedesc[CryptographicEngine], key: CryptographicKey,
                 data: SomeBuffer): Future[IBuffer] =
   ## Windows.Security.Cryptography.Core.ICryptographicEngineStatics2.SignAsync
-  let it = statics[ICryptographicEngineStatics2Vtbl]("Windows.Security.Cryptography.Core.CryptographicEngine")
+  let it = statics[ICryptographicEngineStatics2Vtbl](className(CryptographicEngine))
   let a0 = queryInterface[ICryptographicKeyVtbl](key)
   let a1 = queryInterface[IBufferVtbl](data)
   var op: pointer
@@ -2090,7 +2090,7 @@ proc signHashedDataAsync*(_: typedesc[CryptographicEngine],
                           key: CryptographicKey, data: SomeBuffer
                          ): Future[IBuffer] =
   ## Windows.Security.Cryptography.Core.ICryptographicEngineStatics2.SignHashedDataAsync
-  let it = statics[ICryptographicEngineStatics2Vtbl]("Windows.Security.Cryptography.Core.CryptographicEngine")
+  let it = statics[ICryptographicEngineStatics2Vtbl](className(CryptographicEngine))
   let a0 = queryInterface[ICryptographicKeyVtbl](key)
   let a1 = queryInterface[IBufferVtbl](data)
   var op: pointer
@@ -2101,7 +2101,7 @@ proc signHashedDataAsync*(_: typedesc[CryptographicEngine],
 proc encrypt*(_: typedesc[CryptographicEngine], key: CryptographicKey,
               data: SomeBuffer, iv: SomeBuffer): IBuffer =
   ## Windows.Security.Cryptography.Core.ICryptographicEngineStatics.Encrypt
-  let it = statics[ICryptographicEngineStaticsVtbl]("Windows.Security.Cryptography.Core.CryptographicEngine")
+  let it = statics[ICryptographicEngineStaticsVtbl](className(CryptographicEngine))
   let a0 = queryInterface[ICryptographicKeyVtbl](key)
   let a1 = queryInterface[IBufferVtbl](data)
   let a2 = queryInterface[IBufferVtbl](iv)
@@ -2113,7 +2113,7 @@ proc encrypt*(_: typedesc[CryptographicEngine], key: CryptographicKey,
 proc decrypt*(_: typedesc[CryptographicEngine], key: CryptographicKey,
               data: SomeBuffer, iv: SomeBuffer): IBuffer =
   ## Windows.Security.Cryptography.Core.ICryptographicEngineStatics.Decrypt
-  let it = statics[ICryptographicEngineStaticsVtbl]("Windows.Security.Cryptography.Core.CryptographicEngine")
+  let it = statics[ICryptographicEngineStaticsVtbl](className(CryptographicEngine))
   let a0 = queryInterface[ICryptographicKeyVtbl](key)
   let a1 = queryInterface[IBufferVtbl](data)
   let a2 = queryInterface[IBufferVtbl](iv)
@@ -2127,7 +2127,7 @@ proc encryptAndAuthenticate*(_: typedesc[CryptographicEngine],
                              nonce: SomeBuffer, authenticatedData: SomeBuffer
                             ): EncryptedAndAuthenticatedData =
   ## Windows.Security.Cryptography.Core.ICryptographicEngineStatics.EncryptAndAuthenticate
-  let it = statics[ICryptographicEngineStaticsVtbl]("Windows.Security.Cryptography.Core.CryptographicEngine")
+  let it = statics[ICryptographicEngineStaticsVtbl](className(CryptographicEngine))
   let a0 = queryInterface[ICryptographicKeyVtbl](key)
   let a1 = queryInterface[IBufferVtbl](data)
   let a2 = queryInterface[IBufferVtbl](nonce)
@@ -2143,7 +2143,7 @@ proc decryptAndAuthenticate*(_: typedesc[CryptographicEngine],
                              nonce: SomeBuffer, authenticationTag: SomeBuffer,
                              authenticatedData: SomeBuffer): IBuffer =
   ## Windows.Security.Cryptography.Core.ICryptographicEngineStatics.DecryptAndAuthenticate
-  let it = statics[ICryptographicEngineStaticsVtbl]("Windows.Security.Cryptography.Core.CryptographicEngine")
+  let it = statics[ICryptographicEngineStaticsVtbl](className(CryptographicEngine))
   let a0 = queryInterface[ICryptographicKeyVtbl](key)
   let a1 = queryInterface[IBufferVtbl](data)
   let a2 = queryInterface[IBufferVtbl](nonce)
@@ -2158,7 +2158,7 @@ proc decryptAndAuthenticate*(_: typedesc[CryptographicEngine],
 proc sign*(_: typedesc[CryptographicEngine], key: CryptographicKey,
            data: SomeBuffer): IBuffer =
   ## Windows.Security.Cryptography.Core.ICryptographicEngineStatics.Sign
-  let it = statics[ICryptographicEngineStaticsVtbl]("Windows.Security.Cryptography.Core.CryptographicEngine")
+  let it = statics[ICryptographicEngineStaticsVtbl](className(CryptographicEngine))
   let a0 = queryInterface[ICryptographicKeyVtbl](key)
   let a1 = queryInterface[IBufferVtbl](data)
   var ret: pointer
@@ -2169,7 +2169,7 @@ proc sign*(_: typedesc[CryptographicEngine], key: CryptographicKey,
 proc verifySignature*(_: typedesc[CryptographicEngine], key: CryptographicKey,
                       data: SomeBuffer, signature: SomeBuffer): bool =
   ## Windows.Security.Cryptography.Core.ICryptographicEngineStatics.VerifySignature
-  let it = statics[ICryptographicEngineStaticsVtbl]("Windows.Security.Cryptography.Core.CryptographicEngine")
+  let it = statics[ICryptographicEngineStaticsVtbl](className(CryptographicEngine))
   let a0 = queryInterface[ICryptographicKeyVtbl](key)
   let a1 = queryInterface[IBufferVtbl](data)
   let a2 = queryInterface[IBufferVtbl](signature)
@@ -2182,7 +2182,7 @@ proc deriveKeyMaterial*(_: typedesc[CryptographicEngine], key: CryptographicKey,
                         parameters: KeyDerivationParameters,
                         desiredKeySize: uint32): IBuffer =
   ## Windows.Security.Cryptography.Core.ICryptographicEngineStatics.DeriveKeyMaterial
-  let it = statics[ICryptographicEngineStaticsVtbl]("Windows.Security.Cryptography.Core.CryptographicEngine")
+  let it = statics[ICryptographicEngineStaticsVtbl](className(CryptographicEngine))
   let a0 = queryInterface[ICryptographicKeyVtbl](key)
   let a1 = queryInterface[IKeyDerivationParametersVtbl](parameters)
   var ret: pointer
@@ -2269,7 +2269,7 @@ proc identity*(self: DataProtectionInfo): string =
 proc protectAsync*(_: typedesc[DataProtectionManager], data: SomeBuffer,
                    identity: string): Future[BufferProtectUnprotectResult] =
   ## Windows.Security.EnterpriseData.IDataProtectionManagerStatics.ProtectAsync
-  let it = statics[IDataProtectionManagerStaticsVtbl]("Windows.Security.EnterpriseData.DataProtectionManager")
+  let it = statics[IDataProtectionManagerStaticsVtbl](className(DataProtectionManager))
   let a0 = queryInterface[IBufferVtbl](data)
   let a1 = toWinRtString(identity)
   var op: pointer
@@ -2281,7 +2281,7 @@ proc protectAsync*(_: typedesc[DataProtectionManager], data: SomeBuffer,
 proc unprotectAsync*(_: typedesc[DataProtectionManager], data: SomeBuffer
                     ): Future[BufferProtectUnprotectResult] =
   ## Windows.Security.EnterpriseData.IDataProtectionManagerStatics.UnprotectAsync
-  let it = statics[IDataProtectionManagerStaticsVtbl]("Windows.Security.EnterpriseData.DataProtectionManager")
+  let it = statics[IDataProtectionManagerStaticsVtbl](className(DataProtectionManager))
   let a0 = queryInterface[IBufferVtbl](data)
   var op: pointer
   check it.vtbl.UnprotectAsync(it.raw, a0.raw, op.addr
@@ -2294,7 +2294,7 @@ proc protectStreamAsync*(_: typedesc[DataProtectionManager],
                          protectedStream: SomeOutputStream
                         ): Future[DataProtectionInfo] =
   ## Windows.Security.EnterpriseData.IDataProtectionManagerStatics.ProtectStreamAsync
-  let it = statics[IDataProtectionManagerStaticsVtbl]("Windows.Security.EnterpriseData.DataProtectionManager")
+  let it = statics[IDataProtectionManagerStaticsVtbl](className(DataProtectionManager))
   let a0 = queryInterface[IInputStreamVtbl](unprotectedStream)
   let a1 = toWinRtString(identity)
   let a2 = queryInterface[IOutputStreamVtbl](protectedStream)
@@ -2308,7 +2308,7 @@ proc unprotectStreamAsync*(_: typedesc[DataProtectionManager],
                            unprotectedStream: SomeOutputStream
                           ): Future[DataProtectionInfo] =
   ## Windows.Security.EnterpriseData.IDataProtectionManagerStatics.UnprotectStreamAsync
-  let it = statics[IDataProtectionManagerStaticsVtbl]("Windows.Security.EnterpriseData.DataProtectionManager")
+  let it = statics[IDataProtectionManagerStaticsVtbl](className(DataProtectionManager))
   let a0 = queryInterface[IInputStreamVtbl](protectedStream)
   let a1 = queryInterface[IOutputStreamVtbl](unprotectedStream)
   var op: pointer
@@ -2320,7 +2320,7 @@ proc getProtectionInfoAsync*(_: typedesc[DataProtectionManager],
                              protectedData: SomeBuffer
                             ): Future[DataProtectionInfo] =
   ## Windows.Security.EnterpriseData.IDataProtectionManagerStatics.GetProtectionInfoAsync
-  let it = statics[IDataProtectionManagerStaticsVtbl]("Windows.Security.EnterpriseData.DataProtectionManager")
+  let it = statics[IDataProtectionManagerStaticsVtbl](className(DataProtectionManager))
   let a0 = queryInterface[IBufferVtbl](protectedData)
   var op: pointer
   check it.vtbl.GetProtectionInfoAsync(it.raw, a0.raw, op.addr
@@ -2331,7 +2331,7 @@ proc getStreamProtectionInfoAsync*(_: typedesc[DataProtectionManager],
                                    protectedStream: SomeInputStream
                                   ): Future[DataProtectionInfo] =
   ## Windows.Security.EnterpriseData.IDataProtectionManagerStatics.GetStreamProtectionInfoAsync
-  let it = statics[IDataProtectionManagerStaticsVtbl]("Windows.Security.EnterpriseData.DataProtectionManager")
+  let it = statics[IDataProtectionManagerStaticsVtbl](className(DataProtectionManager))
   let a0 = queryInterface[IInputStreamVtbl](protectedStream)
   var op: pointer
   check it.vtbl.GetStreamProtectionInfoAsync(it.raw, a0.raw, op.addr
@@ -2346,7 +2346,7 @@ proc newDataProtectionProvider*(): DataProtectionProvider =
 
 proc newDataProtectionProvider*(protectionDescriptor: string): DataProtectionProvider =
   ## Windows.Security.Cryptography.DataProtection.IDataProtectionProviderFactory.CreateOverloadExplicit
-  let it = statics[IDataProtectionProviderFactoryVtbl]("Windows.Security.Cryptography.DataProtection.DataProtectionProvider")
+  let it = statics[IDataProtectionProviderFactoryVtbl](className(DataProtectionProvider))
   let a0 = toWinRtString(protectionDescriptor)
   var ret: pointer
   check it.vtbl.CreateOverloadExplicit(it.raw, a0.handle, ret.addr
@@ -2686,7 +2686,7 @@ proc encryptionProviderType*(self: EasComplianceResults): EasEncryptionProviderT
 
 proc brainpoolP160r1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP160r1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP160r1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP160r1"
@@ -2694,7 +2694,7 @@ proc brainpoolP160r1*(_: typedesc[EccCurveNames]): string =
 
 proc brainpoolP160t1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP160t1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP160t1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP160t1"
@@ -2702,7 +2702,7 @@ proc brainpoolP160t1*(_: typedesc[EccCurveNames]): string =
 
 proc brainpoolP192r1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP192r1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP192r1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP192r1"
@@ -2710,7 +2710,7 @@ proc brainpoolP192r1*(_: typedesc[EccCurveNames]): string =
 
 proc brainpoolP192t1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP192t1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP192t1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP192t1"
@@ -2718,7 +2718,7 @@ proc brainpoolP192t1*(_: typedesc[EccCurveNames]): string =
 
 proc brainpoolP224r1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP224r1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP224r1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP224r1"
@@ -2726,7 +2726,7 @@ proc brainpoolP224r1*(_: typedesc[EccCurveNames]): string =
 
 proc brainpoolP224t1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP224t1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP224t1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP224t1"
@@ -2734,7 +2734,7 @@ proc brainpoolP224t1*(_: typedesc[EccCurveNames]): string =
 
 proc brainpoolP256r1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP256r1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP256r1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP256r1"
@@ -2742,7 +2742,7 @@ proc brainpoolP256r1*(_: typedesc[EccCurveNames]): string =
 
 proc brainpoolP256t1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP256t1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP256t1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP256t1"
@@ -2750,7 +2750,7 @@ proc brainpoolP256t1*(_: typedesc[EccCurveNames]): string =
 
 proc brainpoolP320r1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP320r1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP320r1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP320r1"
@@ -2758,7 +2758,7 @@ proc brainpoolP320r1*(_: typedesc[EccCurveNames]): string =
 
 proc brainpoolP320t1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP320t1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP320t1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP320t1"
@@ -2766,7 +2766,7 @@ proc brainpoolP320t1*(_: typedesc[EccCurveNames]): string =
 
 proc brainpoolP384r1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP384r1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP384r1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP384r1"
@@ -2774,7 +2774,7 @@ proc brainpoolP384r1*(_: typedesc[EccCurveNames]): string =
 
 proc brainpoolP384t1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP384t1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP384t1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP384t1"
@@ -2782,7 +2782,7 @@ proc brainpoolP384t1*(_: typedesc[EccCurveNames]): string =
 
 proc brainpoolP512r1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP512r1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP512r1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP512r1"
@@ -2790,7 +2790,7 @@ proc brainpoolP512r1*(_: typedesc[EccCurveNames]): string =
 
 proc brainpoolP512t1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_BrainpoolP512t1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_BrainpoolP512t1(it.raw, ret.addr
                                    ), "EccCurveNames.brainpoolP512t1"
@@ -2798,224 +2798,224 @@ proc brainpoolP512t1*(_: typedesc[EccCurveNames]): string =
 
 proc curve25519*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_Curve25519
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_Curve25519(it.raw, ret.addr), "EccCurveNames.curve25519"
   takeString(ret)
 
 proc ec192wapi*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_Ec192wapi
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_Ec192wapi(it.raw, ret.addr), "EccCurveNames.ec192wapi"
   takeString(ret)
 
 proc nistP192*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_NistP192
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_NistP192(it.raw, ret.addr), "EccCurveNames.nistP192"
   takeString(ret)
 
 proc nistP224*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_NistP224
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_NistP224(it.raw, ret.addr), "EccCurveNames.nistP224"
   takeString(ret)
 
 proc nistP256*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_NistP256
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_NistP256(it.raw, ret.addr), "EccCurveNames.nistP256"
   takeString(ret)
 
 proc nistP384*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_NistP384
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_NistP384(it.raw, ret.addr), "EccCurveNames.nistP384"
   takeString(ret)
 
 proc nistP521*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_NistP521
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_NistP521(it.raw, ret.addr), "EccCurveNames.nistP521"
   takeString(ret)
 
 proc numsP256t1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_NumsP256t1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_NumsP256t1(it.raw, ret.addr), "EccCurveNames.numsP256t1"
   takeString(ret)
 
 proc numsP384t1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_NumsP384t1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_NumsP384t1(it.raw, ret.addr), "EccCurveNames.numsP384t1"
   takeString(ret)
 
 proc numsP512t1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_NumsP512t1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_NumsP512t1(it.raw, ret.addr), "EccCurveNames.numsP512t1"
   takeString(ret)
 
 proc secP160k1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_SecP160k1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_SecP160k1(it.raw, ret.addr), "EccCurveNames.secP160k1"
   takeString(ret)
 
 proc secP160r1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_SecP160r1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_SecP160r1(it.raw, ret.addr), "EccCurveNames.secP160r1"
   takeString(ret)
 
 proc secP160r2*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_SecP160r2
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_SecP160r2(it.raw, ret.addr), "EccCurveNames.secP160r2"
   takeString(ret)
 
 proc secP192k1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_SecP192k1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_SecP192k1(it.raw, ret.addr), "EccCurveNames.secP192k1"
   takeString(ret)
 
 proc secP192r1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_SecP192r1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_SecP192r1(it.raw, ret.addr), "EccCurveNames.secP192r1"
   takeString(ret)
 
 proc secP224k1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_SecP224k1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_SecP224k1(it.raw, ret.addr), "EccCurveNames.secP224k1"
   takeString(ret)
 
 proc secP224r1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_SecP224r1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_SecP224r1(it.raw, ret.addr), "EccCurveNames.secP224r1"
   takeString(ret)
 
 proc secP256k1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_SecP256k1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_SecP256k1(it.raw, ret.addr), "EccCurveNames.secP256k1"
   takeString(ret)
 
 proc secP256r1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_SecP256r1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_SecP256r1(it.raw, ret.addr), "EccCurveNames.secP256r1"
   takeString(ret)
 
 proc secP384r1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_SecP384r1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_SecP384r1(it.raw, ret.addr), "EccCurveNames.secP384r1"
   takeString(ret)
 
 proc secP521r1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_SecP521r1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_SecP521r1(it.raw, ret.addr), "EccCurveNames.secP521r1"
   takeString(ret)
 
 proc wtls7*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_Wtls7
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_Wtls7(it.raw, ret.addr), "EccCurveNames.wtls7"
   takeString(ret)
 
 proc wtls9*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_Wtls9
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_Wtls9(it.raw, ret.addr), "EccCurveNames.wtls9"
   takeString(ret)
 
 proc wtls12*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_Wtls12
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_Wtls12(it.raw, ret.addr), "EccCurveNames.wtls12"
   takeString(ret)
 
 proc x962P192v1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_X962P192v1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_X962P192v1(it.raw, ret.addr), "EccCurveNames.x962P192v1"
   takeString(ret)
 
 proc x962P192v2*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_X962P192v2
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_X962P192v2(it.raw, ret.addr), "EccCurveNames.x962P192v2"
   takeString(ret)
 
 proc x962P192v3*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_X962P192v3
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_X962P192v3(it.raw, ret.addr), "EccCurveNames.x962P192v3"
   takeString(ret)
 
 proc x962P239v1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_X962P239v1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_X962P239v1(it.raw, ret.addr), "EccCurveNames.x962P239v1"
   takeString(ret)
 
 proc x962P239v2*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_X962P239v2
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_X962P239v2(it.raw, ret.addr), "EccCurveNames.x962P239v2"
   takeString(ret)
 
 proc x962P239v3*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_X962P239v3
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_X962P239v3(it.raw, ret.addr), "EccCurveNames.x962P239v3"
   takeString(ret)
 
 proc x962P256v1*(_: typedesc[EccCurveNames]): string =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_X962P256v1
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: HSTRING
   check it.vtbl.get_X962P256v1(it.raw, ret.addr), "EccCurveNames.x962P256v1"
   takeString(ret)
 
 proc allEccCurveNames*(_: typedesc[EccCurveNames]): seq[string] =
   ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics.get_AllEccCurveNames
-  let it = statics[IEccCurveNamesStaticsVtbl]("Windows.Security.Cryptography.Core.EccCurveNames")
+  let it = statics[IEccCurveNamesStaticsVtbl](className(EccCurveNames))
   var ret: pointer
   check it.vtbl.get_AllEccCurveNames(it.raw, ret.addr
                                     ), "EccCurveNames.allEccCurveNames"
@@ -3085,7 +3085,7 @@ proc keyName*(self: EnterpriseKeyCredentialRegistrationInfo): string =
 
 proc current*(_: typedesc[EnterpriseKeyCredentialRegistrationManager]): EnterpriseKeyCredentialRegistrationManager =
   ## Windows.Security.Authentication.Identity.IEnterpriseKeyCredentialRegistrationManagerStatics.get_Current
-  let it = statics[IEnterpriseKeyCredentialRegistrationManagerStaticsVtbl]("Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationManager")
+  let it = statics[IEnterpriseKeyCredentialRegistrationManagerStaticsVtbl](className(EnterpriseKeyCredentialRegistrationManager))
   var ret: pointer
   check it.vtbl.get_Current(it.raw, ret.addr
                            ), "EnterpriseKeyCredentialRegistrationManager.current"
@@ -3137,7 +3137,7 @@ proc isProtectWhileOpenSupported*(self: FileProtectionInfo): bool =
 proc isContainerAsync*(_: typedesc[FileProtectionManager], file: SomeStorageFile
                       ): Future[bool] =
   ## Windows.Security.EnterpriseData.IFileProtectionManagerStatics2.IsContainerAsync
-  let it = statics[IFileProtectionManagerStatics2Vtbl]("Windows.Security.EnterpriseData.FileProtectionManager")
+  let it = statics[IFileProtectionManagerStatics2Vtbl](className(FileProtectionManager))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.IsContainerAsync(it.raw, a0.raw, op.addr
@@ -3150,7 +3150,7 @@ proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager],
                                  collisionOption: NameCollisionOption
                                 ): Future[ProtectedContainerImportResult] =
   ## Windows.Security.EnterpriseData.IFileProtectionManagerStatics2.LoadFileFromContainerAsync
-  let it = statics[IFileProtectionManagerStatics2Vtbl]("Windows.Security.EnterpriseData.FileProtectionManager")
+  let it = statics[IFileProtectionManagerStatics2Vtbl](className(FileProtectionManager))
   let a0 = queryInterface[IStorageFileVtbl](containerFile)
   let a1 = queryInterface[IStorageItemVtbl](target)
   var op: pointer
@@ -3165,7 +3165,7 @@ proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager],
                                sharedWithIdentities: seq[string]
                               ): Future[ProtectedContainerExportResult] =
   ## Windows.Security.EnterpriseData.IFileProtectionManagerStatics2.SaveFileAsContainerAsync
-  let it = statics[IFileProtectionManagerStatics2Vtbl]("Windows.Security.EnterpriseData.FileProtectionManager")
+  let it = statics[IFileProtectionManagerStatics2Vtbl](className(FileProtectionManager))
   let a0 = queryInterface[IStorageFileVtbl](protectedFile)
   let a1 = asCollection[string, seq[string]](sharedWithIdentities)
   var op: pointer
@@ -3177,7 +3177,7 @@ proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager],
 proc protectAsync*(_: typedesc[FileProtectionManager], target: SomeStorageItem,
                    identity: string): Future[FileProtectionInfo] =
   ## Windows.Security.EnterpriseData.IFileProtectionManagerStatics.ProtectAsync
-  let it = statics[IFileProtectionManagerStaticsVtbl]("Windows.Security.EnterpriseData.FileProtectionManager")
+  let it = statics[IFileProtectionManagerStaticsVtbl](className(FileProtectionManager))
   let a0 = queryInterface[IStorageItemVtbl](target)
   let a1 = toWinRtString(identity)
   var op: pointer
@@ -3189,7 +3189,7 @@ proc copyProtectionAsync*(_: typedesc[FileProtectionManager],
                           source: SomeStorageItem, target: SomeStorageItem
                          ): Future[bool] =
   ## Windows.Security.EnterpriseData.IFileProtectionManagerStatics.CopyProtectionAsync
-  let it = statics[IFileProtectionManagerStaticsVtbl]("Windows.Security.EnterpriseData.FileProtectionManager")
+  let it = statics[IFileProtectionManagerStaticsVtbl](className(FileProtectionManager))
   let a0 = queryInterface[IStorageItemVtbl](source)
   let a1 = queryInterface[IStorageItemVtbl](target)
   var op: pointer
@@ -3201,7 +3201,7 @@ proc getProtectionInfoAsync*(_: typedesc[FileProtectionManager],
                              source: SomeStorageItem
                             ): Future[FileProtectionInfo] =
   ## Windows.Security.EnterpriseData.IFileProtectionManagerStatics.GetProtectionInfoAsync
-  let it = statics[IFileProtectionManagerStaticsVtbl]("Windows.Security.EnterpriseData.FileProtectionManager")
+  let it = statics[IFileProtectionManagerStaticsVtbl](className(FileProtectionManager))
   let a0 = queryInterface[IStorageItemVtbl](source)
   var op: pointer
   check it.vtbl.GetProtectionInfoAsync(it.raw, a0.raw, op.addr
@@ -3212,7 +3212,7 @@ proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager],
                                protectedFile: SomeStorageFile
                               ): Future[ProtectedContainerExportResult] =
   ## Windows.Security.EnterpriseData.IFileProtectionManagerStatics.SaveFileAsContainerAsync
-  let it = statics[IFileProtectionManagerStaticsVtbl]("Windows.Security.EnterpriseData.FileProtectionManager")
+  let it = statics[IFileProtectionManagerStaticsVtbl](className(FileProtectionManager))
   let a0 = queryInterface[IStorageFileVtbl](protectedFile)
   var op: pointer
   check it.vtbl.SaveFileAsContainerAsync(it.raw, a0.raw, op.addr
@@ -3224,7 +3224,7 @@ proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager],
                                  containerFile: SomeStorageFile
                                 ): Future[ProtectedContainerImportResult] =
   ## Windows.Security.EnterpriseData.IFileProtectionManagerStatics.LoadFileFromContainerAsync
-  let it = statics[IFileProtectionManagerStaticsVtbl]("Windows.Security.EnterpriseData.FileProtectionManager")
+  let it = statics[IFileProtectionManagerStaticsVtbl](className(FileProtectionManager))
   let a0 = queryInterface[IStorageFileVtbl](containerFile)
   var op: pointer
   check it.vtbl.LoadFileFromContainerAsync(it.raw, a0.raw, op.addr
@@ -3237,7 +3237,7 @@ proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager],
                                  target: SomeStorageItem
                                 ): Future[ProtectedContainerImportResult] =
   ## Windows.Security.EnterpriseData.IFileProtectionManagerStatics.LoadFileFromContainerAsync
-  let it = statics[IFileProtectionManagerStaticsVtbl]("Windows.Security.EnterpriseData.FileProtectionManager")
+  let it = statics[IFileProtectionManagerStaticsVtbl](className(FileProtectionManager))
   let a0 = queryInterface[IStorageFileVtbl](containerFile)
   let a1 = queryInterface[IStorageItemVtbl](target)
   var op: pointer
@@ -3252,7 +3252,7 @@ proc createProtectedAndOpenAsync*(_: typedesc[FileProtectionManager],
                                   collisionOption: CreationCollisionOption
                                  ): Future[ProtectedFileCreateResult] =
   ## Windows.Security.EnterpriseData.IFileProtectionManagerStatics.CreateProtectedAndOpenAsync
-  let it = statics[IFileProtectionManagerStaticsVtbl]("Windows.Security.EnterpriseData.FileProtectionManager")
+  let it = statics[IFileProtectionManagerStaticsVtbl](className(FileProtectionManager))
   let a0 = queryInterface[IStorageFolderVtbl](parentFolder)
   let a1 = toWinRtString(desiredName)
   let a2 = toWinRtString(identity)
@@ -3265,7 +3265,7 @@ proc createProtectedAndOpenAsync*(_: typedesc[FileProtectionManager],
 proc unprotectAsync*(_: typedesc[FileProtectionManager], target: SomeStorageItem
                     ): Future[FileProtectionInfo] =
   ## Windows.Security.EnterpriseData.IFileProtectionManagerStatics3.UnprotectAsync
-  let it = statics[IFileProtectionManagerStatics3Vtbl]("Windows.Security.EnterpriseData.FileProtectionManager")
+  let it = statics[IFileProtectionManagerStatics3Vtbl](className(FileProtectionManager))
   let a0 = queryInterface[IStorageItemVtbl](target)
   var op: pointer
   check it.vtbl.UnprotectAsync(it.raw, a0.raw, op.addr
@@ -3276,7 +3276,7 @@ proc unprotectAsync*(_: typedesc[FileProtectionManager],
                      target: SomeStorageItem, options: FileUnprotectOptions
                     ): Future[FileProtectionInfo] =
   ## Windows.Security.EnterpriseData.IFileProtectionManagerStatics3.UnprotectAsync
-  let it = statics[IFileProtectionManagerStatics3Vtbl]("Windows.Security.EnterpriseData.FileProtectionManager")
+  let it = statics[IFileProtectionManagerStatics3Vtbl](className(FileProtectionManager))
   let a0 = queryInterface[IStorageItemVtbl](target)
   let a1 = queryInterface[IFileUnprotectOptionsVtbl](options)
   var op: pointer
@@ -3290,7 +3290,7 @@ proc protectAsync*(_: typedesc[FileRevocationManager],
                    storageItem: SomeStorageItem, enterpriseIdentity: string
                   ): Future[FileProtectionStatus] =
   ## Windows.Security.EnterpriseData.IFileRevocationManagerStatics.ProtectAsync
-  let it = statics[IFileRevocationManagerStaticsVtbl]("Windows.Security.EnterpriseData.FileRevocationManager")
+  let it = statics[IFileRevocationManagerStaticsVtbl](className(FileRevocationManager))
   let a0 = queryInterface[IStorageItemVtbl](storageItem)
   let a1 = toWinRtString(enterpriseIdentity)
   var op: pointer
@@ -3302,7 +3302,7 @@ proc copyProtectionAsync*(_: typedesc[FileRevocationManager],
                           sourceStorageItem: SomeStorageItem,
                           targetStorageItem: SomeStorageItem): Future[bool] =
   ## Windows.Security.EnterpriseData.IFileRevocationManagerStatics.CopyProtectionAsync
-  let it = statics[IFileRevocationManagerStaticsVtbl]("Windows.Security.EnterpriseData.FileRevocationManager")
+  let it = statics[IFileRevocationManagerStaticsVtbl](className(FileRevocationManager))
   let a0 = queryInterface[IStorageItemVtbl](sourceStorageItem)
   let a1 = queryInterface[IStorageItemVtbl](targetStorageItem)
   var op: pointer
@@ -3312,7 +3312,7 @@ proc copyProtectionAsync*(_: typedesc[FileRevocationManager],
 
 proc revoke*(_: typedesc[FileRevocationManager], enterpriseIdentity: string) =
   ## Windows.Security.EnterpriseData.IFileRevocationManagerStatics.Revoke
-  let it = statics[IFileRevocationManagerStaticsVtbl]("Windows.Security.EnterpriseData.FileRevocationManager")
+  let it = statics[IFileRevocationManagerStaticsVtbl](className(FileRevocationManager))
   let a0 = toWinRtString(enterpriseIdentity)
   check it.vtbl.Revoke(it.raw, a0.handle), "FileRevocationManager.revoke"
 
@@ -3320,7 +3320,7 @@ proc getStatusAsync*(_: typedesc[FileRevocationManager],
                      storageItem: SomeStorageItem
                     ): Future[FileProtectionStatus] =
   ## Windows.Security.EnterpriseData.IFileRevocationManagerStatics.GetStatusAsync
-  let it = statics[IFileRevocationManagerStaticsVtbl]("Windows.Security.EnterpriseData.FileRevocationManager")
+  let it = statics[IFileRevocationManagerStaticsVtbl](className(FileRevocationManager))
   let a0 = queryInterface[IStorageItemVtbl](storageItem)
   var op: pointer
   check it.vtbl.GetStatusAsync(it.raw, a0.raw, op.addr
@@ -3331,7 +3331,7 @@ proc getStatusAsync*(_: typedesc[FileRevocationManager],
 
 proc newFileUnprotectOptions*(audit: bool): FileUnprotectOptions =
   ## Windows.Security.EnterpriseData.IFileUnprotectOptionsFactory.Create
-  let it = statics[IFileUnprotectOptionsFactoryVtbl]("Windows.Security.EnterpriseData.FileUnprotectOptions")
+  let it = statics[IFileUnprotectOptionsFactoryVtbl](className(FileUnprotectOptions))
   var ret: pointer
   check it.vtbl.Create(it.raw, audit, ret.addr), "FileUnprotectOptions.new"
   adopt[FileUnprotectOptions](ret)
@@ -3376,35 +3376,35 @@ proc providerError*(self: FindAllAccountsResult): WebProviderError =
 
 proc md5*(_: typedesc[HashAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IHashAlgorithmNamesStatics.get_Md5
-  let it = statics[IHashAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.HashAlgorithmNames")
+  let it = statics[IHashAlgorithmNamesStaticsVtbl](className(HashAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Md5(it.raw, ret.addr), "HashAlgorithmNames.md5"
   takeString(ret)
 
 proc sha1*(_: typedesc[HashAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IHashAlgorithmNamesStatics.get_Sha1
-  let it = statics[IHashAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.HashAlgorithmNames")
+  let it = statics[IHashAlgorithmNamesStaticsVtbl](className(HashAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sha1(it.raw, ret.addr), "HashAlgorithmNames.sha1"
   takeString(ret)
 
 proc sha256*(_: typedesc[HashAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IHashAlgorithmNamesStatics.get_Sha256
-  let it = statics[IHashAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.HashAlgorithmNames")
+  let it = statics[IHashAlgorithmNamesStaticsVtbl](className(HashAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sha256(it.raw, ret.addr), "HashAlgorithmNames.sha256"
   takeString(ret)
 
 proc sha384*(_: typedesc[HashAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IHashAlgorithmNamesStatics.get_Sha384
-  let it = statics[IHashAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.HashAlgorithmNames")
+  let it = statics[IHashAlgorithmNamesStaticsVtbl](className(HashAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sha384(it.raw, ret.addr), "HashAlgorithmNames.sha384"
   takeString(ret)
 
 proc sha512*(_: typedesc[HashAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IHashAlgorithmNamesStatics.get_Sha512
-  let it = statics[IHashAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.HashAlgorithmNames")
+  let it = statics[IHashAlgorithmNamesStaticsVtbl](className(HashAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sha512(it.raw, ret.addr), "HashAlgorithmNames.sha512"
   takeString(ret)
@@ -3414,7 +3414,7 @@ proc sha512*(_: typedesc[HashAlgorithmNames]): string =
 proc openAlgorithm*(_: typedesc[HashAlgorithmProvider], algorithm: string
                    ): HashAlgorithmProvider =
   ## Windows.Security.Cryptography.Core.IHashAlgorithmProviderStatics.OpenAlgorithm
-  let it = statics[IHashAlgorithmProviderStaticsVtbl]("Windows.Security.Cryptography.Core.HashAlgorithmProvider")
+  let it = statics[IHashAlgorithmProviderStaticsVtbl](className(HashAlgorithmProvider))
   let a0 = toWinRtString(algorithm)
   var ret: pointer
   check it.vtbl.OpenAlgorithm(it.raw, a0.handle, ret.addr
@@ -3460,7 +3460,7 @@ proc createAsync*(_: typedesc[IsolatedWindowsEnvironment],
                   progress: proc(value: IsolatedWindowsEnvironmentCreateProgress) = nil
                  ): Future[IsolatedWindowsEnvironmentCreateResult] =
   ## Windows.Security.Isolation.IIsolatedWindowsEnvironmentFactory.CreateAsync
-  let it = statics[IIsolatedWindowsEnvironmentFactoryVtbl]("Windows.Security.Isolation.IsolatedWindowsEnvironment")
+  let it = statics[IIsolatedWindowsEnvironmentFactoryVtbl](className(IsolatedWindowsEnvironment))
   let a0 = queryInterface[IIsolatedWindowsEnvironmentOptionsVtbl](options)
   var op: pointer
   check it.vtbl.CreateAsync(it.raw, a0.raw, op.addr
@@ -3475,7 +3475,7 @@ proc createAsync*(_: typedesc[IsolatedWindowsEnvironment],
                   progress: proc(value: IsolatedWindowsEnvironmentCreateProgress) = nil
                  ): Future[IsolatedWindowsEnvironmentCreateResult] =
   ## Windows.Security.Isolation.IIsolatedWindowsEnvironmentFactory.CreateAsync
-  let it = statics[IIsolatedWindowsEnvironmentFactoryVtbl]("Windows.Security.Isolation.IsolatedWindowsEnvironment")
+  let it = statics[IIsolatedWindowsEnvironmentFactoryVtbl](className(IsolatedWindowsEnvironment))
   let a0 = queryInterface[IIsolatedWindowsEnvironmentOptionsVtbl](options)
   let a1 = queryInterface[IIsolatedWindowsEnvironmentTelemetryParametersVtbl](telemetryParameters)
   var op: pointer
@@ -3488,7 +3488,7 @@ proc createAsync*(_: typedesc[IsolatedWindowsEnvironment],
 proc getById*(_: typedesc[IsolatedWindowsEnvironment], environmentId: string
              ): IsolatedWindowsEnvironment =
   ## Windows.Security.Isolation.IIsolatedWindowsEnvironmentFactory.GetById
-  let it = statics[IIsolatedWindowsEnvironmentFactoryVtbl]("Windows.Security.Isolation.IsolatedWindowsEnvironment")
+  let it = statics[IIsolatedWindowsEnvironmentFactoryVtbl](className(IsolatedWindowsEnvironment))
   let a0 = toWinRtString(environmentId)
   var ret: pointer
   check it.vtbl.GetById(it.raw, a0.handle, ret.addr
@@ -3499,7 +3499,7 @@ proc findByOwnerId*(_: typedesc[IsolatedWindowsEnvironment],
                     environmentOwnerId: string
                    ): seq[IsolatedWindowsEnvironment] =
   ## Windows.Security.Isolation.IIsolatedWindowsEnvironmentFactory.FindByOwnerId
-  let it = statics[IIsolatedWindowsEnvironmentFactoryVtbl]("Windows.Security.Isolation.IsolatedWindowsEnvironment")
+  let it = statics[IIsolatedWindowsEnvironmentFactoryVtbl](className(IsolatedWindowsEnvironment))
   let a0 = toWinRtString(environmentOwnerId)
   var ret: pointer
   check it.vtbl.FindByOwnerId(it.raw, a0.handle, ret.addr
@@ -3793,7 +3793,7 @@ proc isReadOnly*(self: IsolatedWindowsEnvironmentFile): bool =
 
 proc isReady*(_: typedesc[IsolatedWindowsEnvironmentHost]): bool =
   ## Windows.Security.Isolation.IIsolatedWindowsEnvironmentHostStatics.get_IsReady
-  let it = statics[IIsolatedWindowsEnvironmentHostStaticsVtbl]("Windows.Security.Isolation.IsolatedWindowsEnvironmentHost")
+  let it = statics[IIsolatedWindowsEnvironmentHostStaticsVtbl](className(IsolatedWindowsEnvironmentHost))
   var ret: bool
   check it.vtbl.get_IsReady(it.raw, ret.addr
                            ), "IsolatedWindowsEnvironmentHost.isReady"
@@ -3801,7 +3801,7 @@ proc isReady*(_: typedesc[IsolatedWindowsEnvironmentHost]): bool =
 
 proc hostErrors*(_: typedesc[IsolatedWindowsEnvironmentHost]): seq[IsolatedWindowsEnvironmentHostError] =
   ## Windows.Security.Isolation.IIsolatedWindowsEnvironmentHostStatics.get_HostErrors
-  let it = statics[IIsolatedWindowsEnvironmentHostStaticsVtbl]("Windows.Security.Isolation.IsolatedWindowsEnvironmentHost")
+  let it = statics[IIsolatedWindowsEnvironmentHostStaticsVtbl](className(IsolatedWindowsEnvironmentHost))
   var ret: pointer
   check it.vtbl.get_HostErrors(it.raw, ret.addr
                               ), "IsolatedWindowsEnvironmentHost.hostErrors"
@@ -4043,7 +4043,7 @@ proc register*(_: typedesc[IsolatedWindowsEnvironmentOwnerRegistration],
                ownerRegistrationData: IsolatedWindowsEnvironmentOwnerRegistrationData
               ): IsolatedWindowsEnvironmentOwnerRegistrationResult =
   ## Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationStatics.Register
-  let it = statics[IIsolatedWindowsEnvironmentOwnerRegistrationStaticsVtbl]("Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistration")
+  let it = statics[IIsolatedWindowsEnvironmentOwnerRegistrationStaticsVtbl](className(IsolatedWindowsEnvironmentOwnerRegistration))
   let a0 = toWinRtString(ownerName)
   let a1 = queryInterface[IIsolatedWindowsEnvironmentOwnerRegistrationDataVtbl](ownerRegistrationData)
   var ret: pointer
@@ -4054,7 +4054,7 @@ proc register*(_: typedesc[IsolatedWindowsEnvironmentOwnerRegistration],
 proc unregister*(_: typedesc[IsolatedWindowsEnvironmentOwnerRegistration],
                  ownerName: string) =
   ## Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationStatics.Unregister
-  let it = statics[IIsolatedWindowsEnvironmentOwnerRegistrationStaticsVtbl]("Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistration")
+  let it = statics[IIsolatedWindowsEnvironmentOwnerRegistrationStaticsVtbl](className(IsolatedWindowsEnvironmentOwnerRegistration))
   let a0 = toWinRtString(ownerName)
   check it.vtbl.Unregister(it.raw, a0.handle
                           ), "IsolatedWindowsEnvironmentOwnerRegistration.unregister"
@@ -4346,7 +4346,7 @@ proc tryWaitForSignInWithProgressAsync*(self: IsolatedWindowsEnvironmentUserInfo
 proc postMessageToReceiver*(_: typedesc[IsolatedWindowsHostMessenger],
                             receiverId: GUID, message: seq[WinRtObject]) =
   ## Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics.PostMessageToReceiver
-  let it = statics[IIsolatedWindowsHostMessengerStaticsVtbl]("Windows.Security.Isolation.IsolatedWindowsHostMessenger")
+  let it = statics[IIsolatedWindowsHostMessengerStaticsVtbl](className(IsolatedWindowsHostMessenger))
   let a1 = asCollection[WinRtObject, seq[WinRtObject]](message)
   check it.vtbl.PostMessageToReceiver(it.raw, receiverId, a1.raw
                                      ), "IsolatedWindowsHostMessenger.postMessageToReceiver"
@@ -4354,7 +4354,7 @@ proc postMessageToReceiver*(_: typedesc[IsolatedWindowsHostMessenger],
 proc getFileId*(_: typedesc[IsolatedWindowsHostMessenger], filePath: string
                ): GUID =
   ## Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics.GetFileId
-  let it = statics[IIsolatedWindowsHostMessengerStaticsVtbl]("Windows.Security.Isolation.IsolatedWindowsHostMessenger")
+  let it = statics[IIsolatedWindowsHostMessengerStaticsVtbl](className(IsolatedWindowsHostMessenger))
   let a0 = toWinRtString(filePath)
   var ret: GUID
   check it.vtbl.GetFileId(it.raw, a0.handle, ret.addr
@@ -4366,7 +4366,7 @@ proc registerHostMessageReceiver*(_: typedesc[IsolatedWindowsHostMessenger],
                                   hostMessageReceivedCallback: proc(receiverId: GUID, message: seq[WinRtObject])
                                  ) =
   ## Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics2.RegisterHostMessageReceiver
-  let it = statics[IIsolatedWindowsHostMessengerStatics2Vtbl]("Windows.Security.Isolation.IsolatedWindowsHostMessenger")
+  let it = statics[IIsolatedWindowsHostMessengerStatics2Vtbl](className(IsolatedWindowsHostMessenger))
   proc shim1(a0: GUID, a1: pointer) =
     hostMessageReceivedCallback(a0,
                                 borrowSeq[IVectorViewVtbl[WinRtObject], seq[WinRtObject]](a1)
@@ -4378,7 +4378,7 @@ proc registerHostMessageReceiver*(_: typedesc[IsolatedWindowsHostMessenger],
 proc unregisterHostMessageReceiver*(_: typedesc[IsolatedWindowsHostMessenger],
                                     receiverId: GUID) =
   ## Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics2.UnregisterHostMessageReceiver
-  let it = statics[IIsolatedWindowsHostMessengerStatics2Vtbl]("Windows.Security.Isolation.IsolatedWindowsHostMessenger")
+  let it = statics[IIsolatedWindowsHostMessengerStatics2Vtbl](className(IsolatedWindowsHostMessenger))
   check it.vtbl.UnregisterHostMessageReceiver(it.raw, receiverId
                                              ), "IsolatedWindowsHostMessenger.unregisterHostMessageReceiver"
 
@@ -4386,70 +4386,70 @@ proc unregisterHostMessageReceiver*(_: typedesc[IsolatedWindowsHostMessenger],
 
 proc rsa*(_: typedesc[KeyAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyAlgorithmNamesStatics.get_Rsa
-  let it = statics[IKeyAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames")
+  let it = statics[IKeyAlgorithmNamesStaticsVtbl](className(KeyAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Rsa(it.raw, ret.addr), "KeyAlgorithmNames.rsa"
   takeString(ret)
 
 proc dsa*(_: typedesc[KeyAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyAlgorithmNamesStatics.get_Dsa
-  let it = statics[IKeyAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames")
+  let it = statics[IKeyAlgorithmNamesStaticsVtbl](className(KeyAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Dsa(it.raw, ret.addr), "KeyAlgorithmNames.dsa"
   takeString(ret)
 
 proc ecdh256*(_: typedesc[KeyAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyAlgorithmNamesStatics.get_Ecdh256
-  let it = statics[IKeyAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames")
+  let it = statics[IKeyAlgorithmNamesStaticsVtbl](className(KeyAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Ecdh256(it.raw, ret.addr), "KeyAlgorithmNames.ecdh256"
   takeString(ret)
 
 proc ecdh384*(_: typedesc[KeyAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyAlgorithmNamesStatics.get_Ecdh384
-  let it = statics[IKeyAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames")
+  let it = statics[IKeyAlgorithmNamesStaticsVtbl](className(KeyAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Ecdh384(it.raw, ret.addr), "KeyAlgorithmNames.ecdh384"
   takeString(ret)
 
 proc ecdh521*(_: typedesc[KeyAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyAlgorithmNamesStatics.get_Ecdh521
-  let it = statics[IKeyAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames")
+  let it = statics[IKeyAlgorithmNamesStaticsVtbl](className(KeyAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Ecdh521(it.raw, ret.addr), "KeyAlgorithmNames.ecdh521"
   takeString(ret)
 
 proc ecdsa256*(_: typedesc[KeyAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyAlgorithmNamesStatics.get_Ecdsa256
-  let it = statics[IKeyAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames")
+  let it = statics[IKeyAlgorithmNamesStaticsVtbl](className(KeyAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Ecdsa256(it.raw, ret.addr), "KeyAlgorithmNames.ecdsa256"
   takeString(ret)
 
 proc ecdsa384*(_: typedesc[KeyAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyAlgorithmNamesStatics.get_Ecdsa384
-  let it = statics[IKeyAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames")
+  let it = statics[IKeyAlgorithmNamesStaticsVtbl](className(KeyAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Ecdsa384(it.raw, ret.addr), "KeyAlgorithmNames.ecdsa384"
   takeString(ret)
 
 proc ecdsa521*(_: typedesc[KeyAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyAlgorithmNamesStatics.get_Ecdsa521
-  let it = statics[IKeyAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames")
+  let it = statics[IKeyAlgorithmNamesStaticsVtbl](className(KeyAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Ecdsa521(it.raw, ret.addr), "KeyAlgorithmNames.ecdsa521"
   takeString(ret)
 
 proc ecdsa*(_: typedesc[KeyAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyAlgorithmNamesStatics2.get_Ecdsa
-  let it = statics[IKeyAlgorithmNamesStatics2Vtbl]("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames")
+  let it = statics[IKeyAlgorithmNamesStatics2Vtbl](className(KeyAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Ecdsa(it.raw, ret.addr), "KeyAlgorithmNames.ecdsa"
   takeString(ret)
 
 proc ecdh*(_: typedesc[KeyAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyAlgorithmNamesStatics2.get_Ecdh
-  let it = statics[IKeyAlgorithmNamesStatics2Vtbl]("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames")
+  let it = statics[IKeyAlgorithmNamesStatics2Vtbl](className(KeyAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Ecdh(it.raw, ret.addr), "KeyAlgorithmNames.ecdh"
   takeString(ret)
@@ -4461,7 +4461,7 @@ proc decryptTpmAttestationCredentialAsync*(_: typedesc[KeyAttestationHelper],
                                            containerName: string
                                           ): Future[string] =
   ## Windows.Security.Cryptography.Certificates.IKeyAttestationHelperStatics2.DecryptTpmAttestationCredentialAsync
-  let it = statics[IKeyAttestationHelperStatics2Vtbl]("Windows.Security.Cryptography.Certificates.KeyAttestationHelper")
+  let it = statics[IKeyAttestationHelperStatics2Vtbl](className(KeyAttestationHelper))
   let a0 = toWinRtString(credential)
   let a1 = toWinRtString(containerName)
   var op: pointer
@@ -4473,7 +4473,7 @@ proc decryptTpmAttestationCredentialAsync*(_: typedesc[KeyAttestationHelper],
 proc decryptTpmAttestationCredentialAsync*(_: typedesc[KeyAttestationHelper],
                                            credential: string): Future[string] =
   ## Windows.Security.Cryptography.Certificates.IKeyAttestationHelperStatics.DecryptTpmAttestationCredentialAsync
-  let it = statics[IKeyAttestationHelperStaticsVtbl]("Windows.Security.Cryptography.Certificates.KeyAttestationHelper")
+  let it = statics[IKeyAttestationHelperStaticsVtbl](className(KeyAttestationHelper))
   let a0 = toWinRtString(credential)
   var op: pointer
   check it.vtbl.DecryptTpmAttestationCredentialAsync(it.raw, a0.handle, op.addr
@@ -4483,7 +4483,7 @@ proc decryptTpmAttestationCredentialAsync*(_: typedesc[KeyAttestationHelper],
 proc getTpmAttestationCredentialId*(_: typedesc[KeyAttestationHelper],
                                     credential: string): string =
   ## Windows.Security.Cryptography.Certificates.IKeyAttestationHelperStatics.GetTpmAttestationCredentialId
-  let it = statics[IKeyAttestationHelperStaticsVtbl]("Windows.Security.Cryptography.Certificates.KeyAttestationHelper")
+  let it = statics[IKeyAttestationHelperStaticsVtbl](className(KeyAttestationHelper))
   let a0 = toWinRtString(credential)
   var ret: HSTRING
   check it.vtbl.GetTpmAttestationCredentialId(it.raw, a0.handle, ret.addr
@@ -4605,7 +4605,7 @@ proc newKeyCredentialCacheConfiguration*(cacheOption: KeyCredentialCacheOption,
                                          timeout: TimeSpan, usageCount: uint32
                                         ): KeyCredentialCacheConfiguration =
   ## Windows.Security.Credentials.IKeyCredentialCacheConfigurationFactory.CreateInstance
-  let it = statics[IKeyCredentialCacheConfigurationFactoryVtbl]("Windows.Security.Credentials.KeyCredentialCacheConfiguration")
+  let it = statics[IKeyCredentialCacheConfigurationFactoryVtbl](className(KeyCredentialCacheConfiguration))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, cacheOption, timeout, usageCount,
                                ret.addr), "KeyCredentialCacheConfiguration.new"
@@ -4646,7 +4646,7 @@ proc requestCreateAsync*(_: typedesc[KeyCredentialManager], name: string,
                          attestationCallback: proc(challenge: IBuffer)
                         ): Future[KeyCredentialRetrievalResult] =
   ## Windows.Security.Credentials.IKeyCredentialManagerStatics2.RequestCreateAsync
-  let it = statics[IKeyCredentialManagerStatics2Vtbl]("Windows.Security.Credentials.KeyCredentialManager")
+  let it = statics[IKeyCredentialManagerStatics2Vtbl](className(KeyCredentialManager))
   let a0 = toWinRtString(name)
   let a2 = toWinRtString(algorithm)
   let a3 = toWinRtString(message)
@@ -4667,7 +4667,7 @@ proc openAsync*(_: typedesc[KeyCredentialManager], name: string,
                 attestationCallback: proc(challenge: IBuffer)
                ): Future[KeyCredentialRetrievalResult] =
   ## Windows.Security.Credentials.IKeyCredentialManagerStatics2.OpenAsync
-  let it = statics[IKeyCredentialManagerStatics2Vtbl]("Windows.Security.Credentials.KeyCredentialManager")
+  let it = statics[IKeyCredentialManagerStatics2Vtbl](className(KeyCredentialManager))
   let a0 = toWinRtString(name)
   proc shim2(a0: pointer) =
     attestationCallback(borrow[IBuffer](a0))
@@ -4680,7 +4680,7 @@ proc openAsync*(_: typedesc[KeyCredentialManager], name: string,
 
 proc getSecureId*(_: typedesc[KeyCredentialManager]): IBuffer =
   ## Windows.Security.Credentials.IKeyCredentialManagerStatics2.GetSecureId
-  let it = statics[IKeyCredentialManagerStatics2Vtbl]("Windows.Security.Credentials.KeyCredentialManager")
+  let it = statics[IKeyCredentialManagerStatics2Vtbl](className(KeyCredentialManager))
   var ret: pointer
   check it.vtbl.GetSecureId(it.raw, ret.addr
                            ), "KeyCredentialManager.getSecureId"
@@ -4688,7 +4688,7 @@ proc getSecureId*(_: typedesc[KeyCredentialManager]): IBuffer =
 
 proc isSupportedAsync*(_: typedesc[KeyCredentialManager]): Future[bool] =
   ## Windows.Security.Credentials.IKeyCredentialManagerStatics.IsSupportedAsync
-  let it = statics[IKeyCredentialManagerStaticsVtbl]("Windows.Security.Credentials.KeyCredentialManager")
+  let it = statics[IKeyCredentialManagerStaticsVtbl](className(KeyCredentialManager))
   var op: pointer
   check it.vtbl.IsSupportedAsync(it.raw, op.addr
                                 ), "KeyCredentialManager.isSupportedAsync"
@@ -4696,7 +4696,7 @@ proc isSupportedAsync*(_: typedesc[KeyCredentialManager]): Future[bool] =
 
 proc renewAttestationAsync*(_: typedesc[KeyCredentialManager]): Future[void] =
   ## Windows.Security.Credentials.IKeyCredentialManagerStatics.RenewAttestationAsync
-  let it = statics[IKeyCredentialManagerStaticsVtbl]("Windows.Security.Credentials.KeyCredentialManager")
+  let it = statics[IKeyCredentialManagerStaticsVtbl](className(KeyCredentialManager))
   var op: pointer
   check it.vtbl.RenewAttestationAsync(it.raw, op.addr
                                      ), "KeyCredentialManager.renewAttestationAsync"
@@ -4706,7 +4706,7 @@ proc requestCreateAsync*(_: typedesc[KeyCredentialManager], name: string,
                          option: KeyCredentialCreationOption
                         ): Future[KeyCredentialRetrievalResult] =
   ## Windows.Security.Credentials.IKeyCredentialManagerStatics.RequestCreateAsync
-  let it = statics[IKeyCredentialManagerStaticsVtbl]("Windows.Security.Credentials.KeyCredentialManager")
+  let it = statics[IKeyCredentialManagerStaticsVtbl](className(KeyCredentialManager))
   let a0 = toWinRtString(name)
   var op: pointer
   check it.vtbl.RequestCreateAsync(it.raw, a0.handle, option, op.addr
@@ -4717,7 +4717,7 @@ proc requestCreateAsync*(_: typedesc[KeyCredentialManager], name: string,
 proc openAsync*(_: typedesc[KeyCredentialManager], name: string
                ): Future[KeyCredentialRetrievalResult] =
   ## Windows.Security.Credentials.IKeyCredentialManagerStatics.OpenAsync
-  let it = statics[IKeyCredentialManagerStaticsVtbl]("Windows.Security.Credentials.KeyCredentialManager")
+  let it = statics[IKeyCredentialManagerStaticsVtbl](className(KeyCredentialManager))
   let a0 = toWinRtString(name)
   var op: pointer
   check it.vtbl.OpenAsync(it.raw, a0.handle, op.addr
@@ -4728,7 +4728,7 @@ proc openAsync*(_: typedesc[KeyCredentialManager], name: string
 proc deleteAsync*(_: typedesc[KeyCredentialManager], name: string
                  ): Future[void] =
   ## Windows.Security.Credentials.IKeyCredentialManagerStatics.DeleteAsync
-  let it = statics[IKeyCredentialManagerStaticsVtbl]("Windows.Security.Credentials.KeyCredentialManager")
+  let it = statics[IKeyCredentialManagerStaticsVtbl](className(KeyCredentialManager))
   let a0 = toWinRtString(name)
   var op: pointer
   check it.vtbl.DeleteAsync(it.raw, a0.handle, op.addr
@@ -4740,7 +4740,7 @@ proc requestCreateForWindowAsync*(_: typedesc[KeyCredentialManager],
                                   option: KeyCredentialCreationOption
                                  ): Future[KeyCredentialRetrievalResult] =
   ## Windows.Security.Credentials.IKeyCredentialManagerCreateWithWindowStatics.RequestCreateForWindowAsync
-  let it = statics[IKeyCredentialManagerCreateWithWindowStaticsVtbl]("Windows.Security.Credentials.KeyCredentialManager")
+  let it = statics[IKeyCredentialManagerCreateWithWindowStaticsVtbl](className(KeyCredentialManager))
   let a1 = toWinRtString(name)
   var op: pointer
   check it.vtbl.RequestCreateForWindowAsync(it.raw, window, a1.handle, option,
@@ -4789,7 +4789,7 @@ proc status*(self: KeyCredentialRetrievalResult): KeyCredentialStatus =
 
 proc capiKdfMd5*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics2.get_CapiKdfMd5
-  let it = statics[IKeyDerivationAlgorithmNamesStatics2Vtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStatics2Vtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_CapiKdfMd5(it.raw, ret.addr
                               ), "KeyDerivationAlgorithmNames.capiKdfMd5"
@@ -4797,7 +4797,7 @@ proc capiKdfMd5*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc capiKdfSha1*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics2.get_CapiKdfSha1
-  let it = statics[IKeyDerivationAlgorithmNamesStatics2Vtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStatics2Vtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_CapiKdfSha1(it.raw, ret.addr
                                ), "KeyDerivationAlgorithmNames.capiKdfSha1"
@@ -4805,7 +4805,7 @@ proc capiKdfSha1*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc capiKdfSha256*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics2.get_CapiKdfSha256
-  let it = statics[IKeyDerivationAlgorithmNamesStatics2Vtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStatics2Vtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_CapiKdfSha256(it.raw, ret.addr
                                  ), "KeyDerivationAlgorithmNames.capiKdfSha256"
@@ -4813,7 +4813,7 @@ proc capiKdfSha256*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc capiKdfSha384*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics2.get_CapiKdfSha384
-  let it = statics[IKeyDerivationAlgorithmNamesStatics2Vtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStatics2Vtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_CapiKdfSha384(it.raw, ret.addr
                                  ), "KeyDerivationAlgorithmNames.capiKdfSha384"
@@ -4821,7 +4821,7 @@ proc capiKdfSha384*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc capiKdfSha512*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics2.get_CapiKdfSha512
-  let it = statics[IKeyDerivationAlgorithmNamesStatics2Vtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStatics2Vtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_CapiKdfSha512(it.raw, ret.addr
                                  ), "KeyDerivationAlgorithmNames.capiKdfSha512"
@@ -4829,7 +4829,7 @@ proc capiKdfSha512*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc pbkdf2Md5*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Pbkdf2Md5
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Pbkdf2Md5(it.raw, ret.addr
                              ), "KeyDerivationAlgorithmNames.pbkdf2Md5"
@@ -4837,7 +4837,7 @@ proc pbkdf2Md5*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc pbkdf2Sha1*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Pbkdf2Sha1
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Pbkdf2Sha1(it.raw, ret.addr
                               ), "KeyDerivationAlgorithmNames.pbkdf2Sha1"
@@ -4845,7 +4845,7 @@ proc pbkdf2Sha1*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc pbkdf2Sha256*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Pbkdf2Sha256
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Pbkdf2Sha256(it.raw, ret.addr
                                 ), "KeyDerivationAlgorithmNames.pbkdf2Sha256"
@@ -4853,7 +4853,7 @@ proc pbkdf2Sha256*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc pbkdf2Sha384*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Pbkdf2Sha384
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Pbkdf2Sha384(it.raw, ret.addr
                                 ), "KeyDerivationAlgorithmNames.pbkdf2Sha384"
@@ -4861,7 +4861,7 @@ proc pbkdf2Sha384*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc pbkdf2Sha512*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Pbkdf2Sha512
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Pbkdf2Sha512(it.raw, ret.addr
                                 ), "KeyDerivationAlgorithmNames.pbkdf2Sha512"
@@ -4869,7 +4869,7 @@ proc pbkdf2Sha512*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc sp800108CtrHmacMd5*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Sp800108CtrHmacMd5
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sp800108CtrHmacMd5(it.raw, ret.addr
                                       ), "KeyDerivationAlgorithmNames.sp800108CtrHmacMd5"
@@ -4877,7 +4877,7 @@ proc sp800108CtrHmacMd5*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc sp800108CtrHmacSha1*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Sp800108CtrHmacSha1
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sp800108CtrHmacSha1(it.raw, ret.addr
                                        ), "KeyDerivationAlgorithmNames.sp800108CtrHmacSha1"
@@ -4885,7 +4885,7 @@ proc sp800108CtrHmacSha1*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc sp800108CtrHmacSha256*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Sp800108CtrHmacSha256
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sp800108CtrHmacSha256(it.raw, ret.addr
                                          ), "KeyDerivationAlgorithmNames.sp800108CtrHmacSha256"
@@ -4893,7 +4893,7 @@ proc sp800108CtrHmacSha256*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc sp800108CtrHmacSha384*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Sp800108CtrHmacSha384
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sp800108CtrHmacSha384(it.raw, ret.addr
                                          ), "KeyDerivationAlgorithmNames.sp800108CtrHmacSha384"
@@ -4901,7 +4901,7 @@ proc sp800108CtrHmacSha384*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc sp800108CtrHmacSha512*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Sp800108CtrHmacSha512
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sp800108CtrHmacSha512(it.raw, ret.addr
                                          ), "KeyDerivationAlgorithmNames.sp800108CtrHmacSha512"
@@ -4909,7 +4909,7 @@ proc sp800108CtrHmacSha512*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc sp80056aConcatMd5*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Sp80056aConcatMd5
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sp80056aConcatMd5(it.raw, ret.addr
                                      ), "KeyDerivationAlgorithmNames.sp80056aConcatMd5"
@@ -4917,7 +4917,7 @@ proc sp80056aConcatMd5*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc sp80056aConcatSha1*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Sp80056aConcatSha1
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sp80056aConcatSha1(it.raw, ret.addr
                                       ), "KeyDerivationAlgorithmNames.sp80056aConcatSha1"
@@ -4925,7 +4925,7 @@ proc sp80056aConcatSha1*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc sp80056aConcatSha256*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Sp80056aConcatSha256
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sp80056aConcatSha256(it.raw, ret.addr
                                         ), "KeyDerivationAlgorithmNames.sp80056aConcatSha256"
@@ -4933,7 +4933,7 @@ proc sp80056aConcatSha256*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc sp80056aConcatSha384*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Sp80056aConcatSha384
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sp80056aConcatSha384(it.raw, ret.addr
                                         ), "KeyDerivationAlgorithmNames.sp80056aConcatSha384"
@@ -4941,7 +4941,7 @@ proc sp80056aConcatSha384*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 
 proc sp80056aConcatSha512*(_: typedesc[KeyDerivationAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics.get_Sp80056aConcatSha512
-  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
+  let it = statics[IKeyDerivationAlgorithmNamesStaticsVtbl](className(KeyDerivationAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Sp80056aConcatSha512(it.raw, ret.addr
                                         ), "KeyDerivationAlgorithmNames.sp80056aConcatSha512"
@@ -4952,7 +4952,7 @@ proc sp80056aConcatSha512*(_: typedesc[KeyDerivationAlgorithmNames]): string =
 proc openAlgorithm*(_: typedesc[KeyDerivationAlgorithmProvider],
                     algorithm: string): KeyDerivationAlgorithmProvider =
   ## Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmProviderStatics.OpenAlgorithm
-  let it = statics[IKeyDerivationAlgorithmProviderStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmProvider")
+  let it = statics[IKeyDerivationAlgorithmProviderStaticsVtbl](className(KeyDerivationAlgorithmProvider))
   let a0 = toWinRtString(algorithm)
   var ret: pointer
   check it.vtbl.OpenAlgorithm(it.raw, a0.handle, ret.addr
@@ -4983,7 +4983,7 @@ proc buildForCapi1Kdf*(_: typedesc[KeyDerivationParameters],
                        capi1KdfTargetAlgorithm: Capi1KdfTargetAlgorithm
                       ): KeyDerivationParameters =
   ## Windows.Security.Cryptography.Core.IKeyDerivationParametersStatics2.BuildForCapi1Kdf
-  let it = statics[IKeyDerivationParametersStatics2Vtbl]("Windows.Security.Cryptography.Core.KeyDerivationParameters")
+  let it = statics[IKeyDerivationParametersStatics2Vtbl](className(KeyDerivationParameters))
   var ret: pointer
   check it.vtbl.BuildForCapi1Kdf(it.raw, capi1KdfTargetAlgorithm, ret.addr
                                 ), "KeyDerivationParameters.buildForCapi1Kdf"
@@ -4993,7 +4993,7 @@ proc buildForPbkdf2*(_: typedesc[KeyDerivationParameters],
                      pbkdf2Salt: SomeBuffer, iterationCount: uint32
                     ): KeyDerivationParameters =
   ## Windows.Security.Cryptography.Core.IKeyDerivationParametersStatics.BuildForPbkdf2
-  let it = statics[IKeyDerivationParametersStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationParameters")
+  let it = statics[IKeyDerivationParametersStaticsVtbl](className(KeyDerivationParameters))
   let a0 = queryInterface[IBufferVtbl](pbkdf2Salt)
   var ret: pointer
   check it.vtbl.BuildForPbkdf2(it.raw, a0.raw, iterationCount, ret.addr
@@ -5003,7 +5003,7 @@ proc buildForPbkdf2*(_: typedesc[KeyDerivationParameters],
 proc buildForSP800108*(_: typedesc[KeyDerivationParameters], label: SomeBuffer,
                        context: SomeBuffer): KeyDerivationParameters =
   ## Windows.Security.Cryptography.Core.IKeyDerivationParametersStatics.BuildForSP800108
-  let it = statics[IKeyDerivationParametersStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationParameters")
+  let it = statics[IKeyDerivationParametersStaticsVtbl](className(KeyDerivationParameters))
   let a0 = queryInterface[IBufferVtbl](label)
   let a1 = queryInterface[IBufferVtbl](context)
   var ret: pointer
@@ -5016,7 +5016,7 @@ proc buildForSP80056a*(_: typedesc[KeyDerivationParameters],
                        partyVInfo: SomeBuffer, suppPubInfo: SomeBuffer,
                        suppPrivInfo: SomeBuffer): KeyDerivationParameters =
   ## Windows.Security.Cryptography.Core.IKeyDerivationParametersStatics.BuildForSP80056a
-  let it = statics[IKeyDerivationParametersStaticsVtbl]("Windows.Security.Cryptography.Core.KeyDerivationParameters")
+  let it = statics[IKeyDerivationParametersStaticsVtbl](className(KeyDerivationParameters))
   let a0 = queryInterface[IBufferVtbl](algorithmId)
   let a1 = queryInterface[IBufferVtbl](partyUInfo)
   let a2 = queryInterface[IBufferVtbl](partyVInfo)
@@ -5070,7 +5070,7 @@ proc `capi1KdfTargetAlgorithm=`*(self: KeyDerivationParameters,
 
 proc passportKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyStorageProviderNamesStatics2.get_PassportKeyStorageProvider
-  let it = statics[IKeyStorageProviderNamesStatics2Vtbl]("Windows.Security.Cryptography.Certificates.KeyStorageProviderNames")
+  let it = statics[IKeyStorageProviderNamesStatics2Vtbl](className(KeyStorageProviderNames))
   var ret: HSTRING
   check it.vtbl.get_PassportKeyStorageProvider(it.raw, ret.addr
                                               ), "KeyStorageProviderNames.passportKeyStorageProvider"
@@ -5078,7 +5078,7 @@ proc passportKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string =
 
 proc softwareKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyStorageProviderNamesStatics.get_SoftwareKeyStorageProvider
-  let it = statics[IKeyStorageProviderNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.KeyStorageProviderNames")
+  let it = statics[IKeyStorageProviderNamesStaticsVtbl](className(KeyStorageProviderNames))
   var ret: HSTRING
   check it.vtbl.get_SoftwareKeyStorageProvider(it.raw, ret.addr
                                               ), "KeyStorageProviderNames.softwareKeyStorageProvider"
@@ -5086,7 +5086,7 @@ proc softwareKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string =
 
 proc smartcardKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyStorageProviderNamesStatics.get_SmartcardKeyStorageProvider
-  let it = statics[IKeyStorageProviderNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.KeyStorageProviderNames")
+  let it = statics[IKeyStorageProviderNamesStaticsVtbl](className(KeyStorageProviderNames))
   var ret: HSTRING
   check it.vtbl.get_SmartcardKeyStorageProvider(it.raw, ret.addr
                                                ), "KeyStorageProviderNames.smartcardKeyStorageProvider"
@@ -5094,7 +5094,7 @@ proc smartcardKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string 
 
 proc platformKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string =
   ## Windows.Security.Cryptography.Certificates.IKeyStorageProviderNamesStatics.get_PlatformKeyStorageProvider
-  let it = statics[IKeyStorageProviderNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.KeyStorageProviderNames")
+  let it = statics[IKeyStorageProviderNamesStaticsVtbl](className(KeyStorageProviderNames))
   var ret: HSTRING
   check it.vtbl.get_PlatformKeyStorageProvider(it.raw, ret.addr
                                               ), "KeyStorageProviderNames.platformKeyStorageProvider"
@@ -5104,42 +5104,42 @@ proc platformKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string =
 
 proc hmacMd5*(_: typedesc[MacAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IMacAlgorithmNamesStatics.get_HmacMd5
-  let it = statics[IMacAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.MacAlgorithmNames")
+  let it = statics[IMacAlgorithmNamesStaticsVtbl](className(MacAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_HmacMd5(it.raw, ret.addr), "MacAlgorithmNames.hmacMd5"
   takeString(ret)
 
 proc hmacSha1*(_: typedesc[MacAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IMacAlgorithmNamesStatics.get_HmacSha1
-  let it = statics[IMacAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.MacAlgorithmNames")
+  let it = statics[IMacAlgorithmNamesStaticsVtbl](className(MacAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_HmacSha1(it.raw, ret.addr), "MacAlgorithmNames.hmacSha1"
   takeString(ret)
 
 proc hmacSha256*(_: typedesc[MacAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IMacAlgorithmNamesStatics.get_HmacSha256
-  let it = statics[IMacAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.MacAlgorithmNames")
+  let it = statics[IMacAlgorithmNamesStaticsVtbl](className(MacAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_HmacSha256(it.raw, ret.addr), "MacAlgorithmNames.hmacSha256"
   takeString(ret)
 
 proc hmacSha384*(_: typedesc[MacAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IMacAlgorithmNamesStatics.get_HmacSha384
-  let it = statics[IMacAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.MacAlgorithmNames")
+  let it = statics[IMacAlgorithmNamesStaticsVtbl](className(MacAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_HmacSha384(it.raw, ret.addr), "MacAlgorithmNames.hmacSha384"
   takeString(ret)
 
 proc hmacSha512*(_: typedesc[MacAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IMacAlgorithmNamesStatics.get_HmacSha512
-  let it = statics[IMacAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.MacAlgorithmNames")
+  let it = statics[IMacAlgorithmNamesStaticsVtbl](className(MacAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_HmacSha512(it.raw, ret.addr), "MacAlgorithmNames.hmacSha512"
   takeString(ret)
 
 proc aesCmac*(_: typedesc[MacAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.IMacAlgorithmNamesStatics.get_AesCmac
-  let it = statics[IMacAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.MacAlgorithmNames")
+  let it = statics[IMacAlgorithmNamesStaticsVtbl](className(MacAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_AesCmac(it.raw, ret.addr), "MacAlgorithmNames.aesCmac"
   takeString(ret)
@@ -5149,7 +5149,7 @@ proc aesCmac*(_: typedesc[MacAlgorithmNames]): string =
 proc openAlgorithm*(_: typedesc[MacAlgorithmProvider], algorithm: string
                    ): MacAlgorithmProvider =
   ## Windows.Security.Cryptography.Core.IMacAlgorithmProviderStatics.OpenAlgorithm
-  let it = statics[IMacAlgorithmProviderStaticsVtbl]("Windows.Security.Cryptography.Core.MacAlgorithmProvider")
+  let it = statics[IMacAlgorithmProviderStaticsVtbl](className(MacAlgorithmProvider))
   let a0 = toWinRtString(algorithm)
   var ret: pointer
   check it.vtbl.OpenAlgorithm(it.raw, a0.handle, ret.addr
@@ -5196,7 +5196,7 @@ proc createHash*(self: MacAlgorithmProvider, keyMaterial: SomeBuffer
 
 proc current*(_: typedesc[MicrosoftAccountMultiFactorAuthenticationManager]): MicrosoftAccountMultiFactorAuthenticationManager =
   ## Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorAuthenticatorStatics.get_Current
-  let it = statics[IMicrosoftAccountMultiFactorAuthenticatorStaticsVtbl]("Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager")
+  let it = statics[IMicrosoftAccountMultiFactorAuthenticatorStaticsVtbl](className(MicrosoftAccountMultiFactorAuthenticationManager))
   var ret: pointer
   check it.vtbl.get_Current(it.raw, ret.addr
                            ), "MicrosoftAccountMultiFactorAuthenticationManager.current"
@@ -5570,7 +5570,7 @@ proc errorCode*(self: OnlineIdServiceTicket): int32 =
 proc newOnlineIdServiceTicketRequest*(service: string, policy: string
                                      ): OnlineIdServiceTicketRequest =
   ## Windows.Security.Authentication.OnlineId.IOnlineIdServiceTicketRequestFactory.CreateOnlineIdServiceTicketRequest
-  let it = statics[IOnlineIdServiceTicketRequestFactoryVtbl]("Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest")
+  let it = statics[IOnlineIdServiceTicketRequestFactoryVtbl](className(OnlineIdServiceTicketRequest))
   let a0 = toWinRtString(service)
   let a1 = toWinRtString(policy)
   var ret: pointer
@@ -5581,7 +5581,7 @@ proc newOnlineIdServiceTicketRequest*(service: string, policy: string
 
 proc newOnlineIdServiceTicketRequest*(service: string): OnlineIdServiceTicketRequest =
   ## Windows.Security.Authentication.OnlineId.IOnlineIdServiceTicketRequestFactory.CreateOnlineIdServiceTicketRequestAdvanced
-  let it = statics[IOnlineIdServiceTicketRequestFactoryVtbl]("Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest")
+  let it = statics[IOnlineIdServiceTicketRequestFactoryVtbl](className(OnlineIdServiceTicketRequest))
   let a0 = toWinRtString(service)
   var ret: pointer
   check it.vtbl.CreateOnlineIdServiceTicketRequestAdvanced(it.raw, a0.handle,
@@ -5609,7 +5609,7 @@ proc policy*(self: OnlineIdServiceTicketRequest): string =
 
 proc default*(_: typedesc[OnlineIdSystemAuthenticator]): OnlineIdSystemAuthenticatorForUser =
   ## Windows.Security.Authentication.OnlineId.IOnlineIdSystemAuthenticatorStatics.get_Default
-  let it = statics[IOnlineIdSystemAuthenticatorStaticsVtbl]("Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticator")
+  let it = statics[IOnlineIdSystemAuthenticatorStaticsVtbl](className(OnlineIdSystemAuthenticator))
   var ret: pointer
   check it.vtbl.get_Default(it.raw, ret.addr
                            ), "OnlineIdSystemAuthenticator.default"
@@ -5618,7 +5618,7 @@ proc default*(_: typedesc[OnlineIdSystemAuthenticator]): OnlineIdSystemAuthentic
 proc getForUser*(_: typedesc[OnlineIdSystemAuthenticator], user: User
                 ): OnlineIdSystemAuthenticatorForUser =
   ## Windows.Security.Authentication.OnlineId.IOnlineIdSystemAuthenticatorStatics.GetForUser
-  let it = statics[IOnlineIdSystemAuthenticatorStaticsVtbl]("Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticator")
+  let it = statics[IOnlineIdSystemAuthenticatorStaticsVtbl](className(OnlineIdSystemAuthenticator))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -5712,7 +5712,7 @@ proc newPasswordCredential*(): PasswordCredential =
 proc newPasswordCredential*(resource: string, userName: string, password: string
                            ): PasswordCredential =
   ## Windows.Security.Credentials.ICredentialFactory.CreatePasswordCredential
-  let it = statics[ICredentialFactoryVtbl]("Windows.Security.Credentials.PasswordCredential")
+  let it = statics[ICredentialFactoryVtbl](className(PasswordCredential))
   let a0 = toWinRtString(resource)
   let a1 = toWinRtString(userName)
   let a2 = toWinRtString(password)
@@ -5844,7 +5844,7 @@ proc openKeyPairFromCertificateAsync*(_: typedesc[PersistedKeyProvider],
                                       padding: CryptographicPadding
                                      ): Future[CryptographicKey] =
   ## Windows.Security.Cryptography.Core.IPersistedKeyProviderStatics.OpenKeyPairFromCertificateAsync
-  let it = statics[IPersistedKeyProviderStaticsVtbl]("Windows.Security.Cryptography.Core.PersistedKeyProvider")
+  let it = statics[IPersistedKeyProviderStaticsVtbl](className(PersistedKeyProvider))
   let a0 = queryInterface[ICertificateVtbl](certificate)
   let a1 = toWinRtString(hashAlgorithmName)
   var op: pointer
@@ -5859,7 +5859,7 @@ proc openPublicKeyFromCertificate*(_: typedesc[PersistedKeyProvider],
                                    padding: CryptographicPadding
                                   ): CryptographicKey =
   ## Windows.Security.Cryptography.Core.IPersistedKeyProviderStatics.OpenPublicKeyFromCertificate
-  let it = statics[IPersistedKeyProviderStaticsVtbl]("Windows.Security.Cryptography.Core.PersistedKeyProvider")
+  let it = statics[IPersistedKeyProviderStaticsVtbl](className(PersistedKeyProvider))
   let a0 = queryInterface[ICertificateVtbl](certificate)
   let a1 = toWinRtString(hashAlgorithmName)
   var ret: pointer
@@ -6090,7 +6090,7 @@ proc newProtectionPolicyAuditInfo*(action: ProtectionPolicyAuditAction,
                                    targetDescription: string
                                   ): ProtectionPolicyAuditInfo =
   ## Windows.Security.EnterpriseData.IProtectionPolicyAuditInfoFactory.Create
-  let it = statics[IProtectionPolicyAuditInfoFactoryVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo")
+  let it = statics[IProtectionPolicyAuditInfoFactoryVtbl](className(ProtectionPolicyAuditInfo))
   let a1 = toWinRtString(dataDescription)
   let a2 = toWinRtString(sourceDescription)
   let a3 = toWinRtString(targetDescription)
@@ -6103,7 +6103,7 @@ proc newProtectionPolicyAuditInfo*(action: ProtectionPolicyAuditAction,
                                    dataDescription: string
                                   ): ProtectionPolicyAuditInfo =
   ## Windows.Security.EnterpriseData.IProtectionPolicyAuditInfoFactory.CreateWithActionAndDataDescription
-  let it = statics[IProtectionPolicyAuditInfoFactoryVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo")
+  let it = statics[IProtectionPolicyAuditInfoFactoryVtbl](className(ProtectionPolicyAuditInfo))
   let a1 = toWinRtString(dataDescription)
   var ret: pointer
   check it.vtbl.CreateWithActionAndDataDescription(it.raw, action, a1.handle,
@@ -6174,7 +6174,7 @@ proc targetDescription*(self: ProtectionPolicyAuditInfo): string =
 proc isIdentityManaged*(_: typedesc[ProtectionPolicyManager], identity: string
                        ): bool =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.IsIdentityManaged
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(identity)
   var ret: bool
   check it.vtbl.IsIdentityManaged(it.raw, a0.handle, ret.addr
@@ -6184,7 +6184,7 @@ proc isIdentityManaged*(_: typedesc[ProtectionPolicyManager], identity: string
 proc tryApplyProcessUIPolicy*(_: typedesc[ProtectionPolicyManager],
                               identity: string): bool =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.TryApplyProcessUIPolicy
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(identity)
   var ret: bool
   check it.vtbl.TryApplyProcessUIPolicy(it.raw, a0.handle, ret.addr
@@ -6193,14 +6193,14 @@ proc tryApplyProcessUIPolicy*(_: typedesc[ProtectionPolicyManager],
 
 proc clearProcessUIPolicy*(_: typedesc[ProtectionPolicyManager]) =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.ClearProcessUIPolicy
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   check it.vtbl.ClearProcessUIPolicy(it.raw), "ProtectionPolicyManager.clearProcessUIPolicy"
 
 proc createCurrentThreadNetworkContext*(_: typedesc[ProtectionPolicyManager],
                                         identity: string
                                        ): ThreadNetworkContext =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.CreateCurrentThreadNetworkContext
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(identity)
   var ret: pointer
   check it.vtbl.CreateCurrentThreadNetworkContext(it.raw, a0.handle, ret.addr
@@ -6211,7 +6211,7 @@ proc getPrimaryManagedIdentityForNetworkEndpointAsync*(_: typedesc[ProtectionPol
                                                        endpointHost: HostName
                                                       ): Future[string] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.GetPrimaryManagedIdentityForNetworkEndpointAsync
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   let a0 = queryInterface[IHostNameVtbl](endpointHost)
   var op: pointer
   check it.vtbl.GetPrimaryManagedIdentityForNetworkEndpointAsync(it.raw, a0.raw,
@@ -6221,14 +6221,14 @@ proc getPrimaryManagedIdentityForNetworkEndpointAsync*(_: typedesc[ProtectionPol
 
 proc revokeContent*(_: typedesc[ProtectionPolicyManager], identity: string) =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.RevokeContent
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(identity)
   check it.vtbl.RevokeContent(it.raw, a0.handle
                              ), "ProtectionPolicyManager.revokeContent"
 
 proc getForCurrentView*(_: typedesc[ProtectionPolicyManager]): ProtectionPolicyManager =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.GetForCurrentView
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "ProtectionPolicyManager.getForCurrentView"
@@ -6239,7 +6239,7 @@ proc onProtectedAccessSuspending*(_: typedesc[ProtectionPolicyManager],
                                  ): EventRegistrationToken {.discardable.} =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.add_ProtectedAccessSuspending
   ## The token is what `removeProtectedAccessSuspending` takes.
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0),
             borrow[ProtectedAccessSuspendingEventArgs](a1))
@@ -6251,7 +6251,7 @@ proc onProtectedAccessSuspending*(_: typedesc[ProtectionPolicyManager],
 proc removeProtectedAccessSuspending*(_: typedesc[ProtectionPolicyManager],
                                       token: EventRegistrationToken) =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.remove_ProtectedAccessSuspending
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   check it.vtbl.remove_ProtectedAccessSuspending(it.raw, token
                                                 ), "ProtectionPolicyManager.protectedAccessSuspending"
 
@@ -6260,7 +6260,7 @@ proc onProtectedAccessResumed*(_: typedesc[ProtectionPolicyManager],
                               ): EventRegistrationToken {.discardable.} =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.add_ProtectedAccessResumed
   ## The token is what `removeProtectedAccessResumed` takes.
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[ProtectedAccessResumedEventArgs](a1)
            )
@@ -6272,7 +6272,7 @@ proc onProtectedAccessResumed*(_: typedesc[ProtectionPolicyManager],
 proc removeProtectedAccessResumed*(_: typedesc[ProtectionPolicyManager],
                                    token: EventRegistrationToken) =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.remove_ProtectedAccessResumed
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   check it.vtbl.remove_ProtectedAccessResumed(it.raw, token
                                              ), "ProtectionPolicyManager.protectedAccessResumed"
 
@@ -6281,7 +6281,7 @@ proc onProtectedContentRevoked*(_: typedesc[ProtectionPolicyManager],
                                ): EventRegistrationToken {.discardable.} =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.add_ProtectedContentRevoked
   ## The token is what `removeProtectedContentRevoked` takes.
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0),
             borrow[ProtectedContentRevokedEventArgs](a1))
@@ -6293,14 +6293,14 @@ proc onProtectedContentRevoked*(_: typedesc[ProtectionPolicyManager],
 proc removeProtectedContentRevoked*(_: typedesc[ProtectionPolicyManager],
                                     token: EventRegistrationToken) =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.remove_ProtectedContentRevoked
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   check it.vtbl.remove_ProtectedContentRevoked(it.raw, token
                                               ), "ProtectionPolicyManager.protectedContentRevoked"
 
 proc checkAccess*(_: typedesc[ProtectionPolicyManager], sourceIdentity: string,
                   targetIdentity: string): ProtectionPolicyEvaluationResult =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.CheckAccess
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(sourceIdentity)
   let a1 = toWinRtString(targetIdentity)
   var ret: ProtectionPolicyEvaluationResult
@@ -6312,7 +6312,7 @@ proc requestAccessAsync*(_: typedesc[ProtectionPolicyManager],
                          sourceIdentity: string, targetIdentity: string
                         ): Future[ProtectionPolicyEvaluationResult] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics.RequestAccessAsync
-  let it = statics[IProtectionPolicyManagerStaticsVtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStaticsVtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(sourceIdentity)
   let a1 = toWinRtString(targetIdentity)
   var op: pointer
@@ -6324,7 +6324,7 @@ proc requestAccessAsync*(_: typedesc[ProtectionPolicyManager],
 proc hasContentBeenRevokedSince*(_: typedesc[ProtectionPolicyManager],
                                  identity: string, since: DateTime): bool =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2.HasContentBeenRevokedSince
-  let it = statics[IProtectionPolicyManagerStatics2Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics2Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(identity)
   var ret: bool
   check it.vtbl.HasContentBeenRevokedSince(it.raw, a0.handle, since, ret.addr
@@ -6335,7 +6335,7 @@ proc checkAccessForApp*(_: typedesc[ProtectionPolicyManager],
                         sourceIdentity: string, appPackageFamilyName: string
                        ): ProtectionPolicyEvaluationResult =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2.CheckAccessForApp
-  let it = statics[IProtectionPolicyManagerStatics2Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics2Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(sourceIdentity)
   let a1 = toWinRtString(appPackageFamilyName)
   var ret: ProtectionPolicyEvaluationResult
@@ -6348,7 +6348,7 @@ proc requestAccessForAppAsync*(_: typedesc[ProtectionPolicyManager],
                                appPackageFamilyName: string
                               ): Future[ProtectionPolicyEvaluationResult] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2.RequestAccessForAppAsync
-  let it = statics[IProtectionPolicyManagerStatics2Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics2Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(sourceIdentity)
   let a1 = toWinRtString(appPackageFamilyName)
   var op: pointer
@@ -6360,7 +6360,7 @@ proc requestAccessForAppAsync*(_: typedesc[ProtectionPolicyManager],
 proc getEnforcementLevel*(_: typedesc[ProtectionPolicyManager], identity: string
                          ): EnforcementLevel =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2.GetEnforcementLevel
-  let it = statics[IProtectionPolicyManagerStatics2Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics2Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(identity)
   var ret: EnforcementLevel
   check it.vtbl.GetEnforcementLevel(it.raw, a0.handle, ret.addr
@@ -6370,7 +6370,7 @@ proc getEnforcementLevel*(_: typedesc[ProtectionPolicyManager], identity: string
 proc isUserDecryptionAllowed*(_: typedesc[ProtectionPolicyManager],
                               identity: string): bool =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2.IsUserDecryptionAllowed
-  let it = statics[IProtectionPolicyManagerStatics2Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics2Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(identity)
   var ret: bool
   check it.vtbl.IsUserDecryptionAllowed(it.raw, a0.handle, ret.addr
@@ -6380,7 +6380,7 @@ proc isUserDecryptionAllowed*(_: typedesc[ProtectionPolicyManager],
 proc isProtectionUnderLockRequired*(_: typedesc[ProtectionPolicyManager],
                                     identity: string): bool =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2.IsProtectionUnderLockRequired
-  let it = statics[IProtectionPolicyManagerStatics2Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics2Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(identity)
   var ret: bool
   check it.vtbl.IsProtectionUnderLockRequired(it.raw, a0.handle, ret.addr
@@ -6392,7 +6392,7 @@ proc onPolicyChanged*(_: typedesc[ProtectionPolicyManager],
                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2.add_PolicyChanged
   ## The token is what `removePolicyChanged` takes.
-  let it = statics[IProtectionPolicyManagerStatics2Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics2Vtbl](className(ProtectionPolicyManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -6402,13 +6402,13 @@ proc onPolicyChanged*(_: typedesc[ProtectionPolicyManager],
 proc removePolicyChanged*(_: typedesc[ProtectionPolicyManager],
                           token: EventRegistrationToken) =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2.remove_PolicyChanged
-  let it = statics[IProtectionPolicyManagerStatics2Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics2Vtbl](className(ProtectionPolicyManager))
   check it.vtbl.remove_PolicyChanged(it.raw, token
                                     ), "ProtectionPolicyManager.policyChanged"
 
 proc isProtectionEnabled*(_: typedesc[ProtectionPolicyManager]): bool =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2.get_IsProtectionEnabled
-  let it = statics[IProtectionPolicyManagerStatics2Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics2Vtbl](className(ProtectionPolicyManager))
   var ret: bool
   check it.vtbl.get_IsProtectionEnabled(it.raw, ret.addr
                                        ), "ProtectionPolicyManager.isProtectionEnabled"
@@ -6417,7 +6417,7 @@ proc isProtectionEnabled*(_: typedesc[ProtectionPolicyManager]): bool =
 proc isRoamableProtectionEnabled*(_: typedesc[ProtectionPolicyManager],
                                   identity: string): bool =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics4.IsRoamableProtectionEnabled
-  let it = statics[IProtectionPolicyManagerStatics4Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics4Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(identity)
   var ret: bool
   check it.vtbl.IsRoamableProtectionEnabled(it.raw, a0.handle, ret.addr
@@ -6431,7 +6431,7 @@ proc requestAccessAsync*(_: typedesc[ProtectionPolicyManager],
                          behavior: ProtectionPolicyRequestAccessBehavior
                         ): Future[ProtectionPolicyEvaluationResult] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics4.RequestAccessAsync
-  let it = statics[IProtectionPolicyManagerStatics4Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics4Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(sourceIdentity)
   let a1 = toWinRtString(targetIdentity)
   let a2 = queryInterface[IProtectionPolicyAuditInfoVtbl](auditInfo)
@@ -6451,7 +6451,7 @@ proc requestAccessForAppAsync*(_: typedesc[ProtectionPolicyManager],
                                behavior: ProtectionPolicyRequestAccessBehavior
                               ): Future[ProtectionPolicyEvaluationResult] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics4.RequestAccessForAppAsync
-  let it = statics[IProtectionPolicyManagerStatics4Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics4Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(sourceIdentity)
   let a1 = toWinRtString(appPackageFamilyName)
   let a2 = queryInterface[IProtectionPolicyAuditInfoVtbl](auditInfo)
@@ -6469,7 +6469,7 @@ proc requestAccessToFilesForAppAsync*(_: typedesc[ProtectionPolicyManager],
                                       auditInfo: ProtectionPolicyAuditInfo
                                      ): Future[ProtectionPolicyEvaluationResult] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics4.RequestAccessToFilesForAppAsync
-  let it = statics[IProtectionPolicyManagerStatics4Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics4Vtbl](className(ProtectionPolicyManager))
   let a0 = asCollection[IStorageItem, seq[IStorageItem]](sourceItemList)
   let a1 = toWinRtString(appPackageFamilyName)
   let a2 = queryInterface[IProtectionPolicyAuditInfoVtbl](auditInfo)
@@ -6488,7 +6488,7 @@ proc requestAccessToFilesForAppAsync*(_: typedesc[ProtectionPolicyManager],
                                       behavior: ProtectionPolicyRequestAccessBehavior
                                      ): Future[ProtectionPolicyEvaluationResult] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics4.RequestAccessToFilesForAppAsync
-  let it = statics[IProtectionPolicyManagerStatics4Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics4Vtbl](className(ProtectionPolicyManager))
   let a0 = asCollection[IStorageItem, seq[IStorageItem]](sourceItemList)
   let a1 = toWinRtString(appPackageFamilyName)
   let a2 = queryInterface[IProtectionPolicyAuditInfoVtbl](auditInfo)
@@ -6507,7 +6507,7 @@ proc requestAccessToFilesForProcessAsync*(_: typedesc[ProtectionPolicyManager],
                                           auditInfo: ProtectionPolicyAuditInfo
                                          ): Future[ProtectionPolicyEvaluationResult] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics4.RequestAccessToFilesForProcessAsync
-  let it = statics[IProtectionPolicyManagerStatics4Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics4Vtbl](className(ProtectionPolicyManager))
   let a0 = asCollection[IStorageItem, seq[IStorageItem]](sourceItemList)
   let a2 = queryInterface[IProtectionPolicyAuditInfoVtbl](auditInfo)
   var op: pointer
@@ -6525,7 +6525,7 @@ proc requestAccessToFilesForProcessAsync*(_: typedesc[ProtectionPolicyManager],
                                           behavior: ProtectionPolicyRequestAccessBehavior
                                          ): Future[ProtectionPolicyEvaluationResult] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics4.RequestAccessToFilesForProcessAsync
-  let it = statics[IProtectionPolicyManagerStatics4Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics4Vtbl](className(ProtectionPolicyManager))
   let a0 = asCollection[IStorageItem, seq[IStorageItem]](sourceItemList)
   let a2 = queryInterface[IProtectionPolicyAuditInfoVtbl](auditInfo)
   let a3 = toWinRtString(messageFromApp)
@@ -6541,7 +6541,7 @@ proc isFileProtectionRequiredAsync*(_: typedesc[ProtectionPolicyManager],
                                     target: SomeStorageItem, identity: string
                                    ): Future[bool] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics4.IsFileProtectionRequiredAsync
-  let it = statics[IProtectionPolicyManagerStatics4Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics4Vtbl](className(ProtectionPolicyManager))
   let a0 = queryInterface[IStorageItemVtbl](target)
   let a1 = toWinRtString(identity)
   var op: pointer
@@ -6555,7 +6555,7 @@ proc isFileProtectionRequiredForNewFileAsync*(_: typedesc[ProtectionPolicyManage
                                               desiredName: string
                                              ): Future[bool] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics4.IsFileProtectionRequiredForNewFileAsync
-  let it = statics[IProtectionPolicyManagerStatics4Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics4Vtbl](className(ProtectionPolicyManager))
   let a0 = queryInterface[IStorageFolderVtbl](parentFolder)
   let a1 = toWinRtString(identity)
   let a2 = toWinRtString(desiredName)
@@ -6568,7 +6568,7 @@ proc isFileProtectionRequiredForNewFileAsync*(_: typedesc[ProtectionPolicyManage
 
 proc primaryManagedIdentity*(_: typedesc[ProtectionPolicyManager]): string =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics4.get_PrimaryManagedIdentity
-  let it = statics[IProtectionPolicyManagerStatics4Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics4Vtbl](className(ProtectionPolicyManager))
   var ret: HSTRING
   check it.vtbl.get_PrimaryManagedIdentity(it.raw, ret.addr
                                           ), "ProtectionPolicyManager.primaryManagedIdentity"
@@ -6577,7 +6577,7 @@ proc primaryManagedIdentity*(_: typedesc[ProtectionPolicyManager]): string =
 proc getPrimaryManagedIdentityForIdentity*(_: typedesc[ProtectionPolicyManager],
                                            identity: string): string =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics4.GetPrimaryManagedIdentityForIdentity
-  let it = statics[IProtectionPolicyManagerStatics4Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics4Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(identity)
   var ret: HSTRING
   check it.vtbl.GetPrimaryManagedIdentityForIdentity(it.raw, a0.handle, ret.addr
@@ -6589,7 +6589,7 @@ proc requestAccessAsync*(_: typedesc[ProtectionPolicyManager],
                          auditInfo: ProtectionPolicyAuditInfo
                         ): Future[ProtectionPolicyEvaluationResult] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics3.RequestAccessAsync
-  let it = statics[IProtectionPolicyManagerStatics3Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics3Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(sourceIdentity)
   let a1 = toWinRtString(targetIdentity)
   let a2 = queryInterface[IProtectionPolicyAuditInfoVtbl](auditInfo)
@@ -6605,7 +6605,7 @@ proc requestAccessAsync*(_: typedesc[ProtectionPolicyManager],
                          messageFromApp: string
                         ): Future[ProtectionPolicyEvaluationResult] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics3.RequestAccessAsync
-  let it = statics[IProtectionPolicyManagerStatics3Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics3Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(sourceIdentity)
   let a1 = toWinRtString(targetIdentity)
   let a2 = queryInterface[IProtectionPolicyAuditInfoVtbl](auditInfo)
@@ -6623,7 +6623,7 @@ proc requestAccessForAppAsync*(_: typedesc[ProtectionPolicyManager],
                                auditInfo: ProtectionPolicyAuditInfo
                               ): Future[ProtectionPolicyEvaluationResult] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics3.RequestAccessForAppAsync
-  let it = statics[IProtectionPolicyManagerStatics3Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics3Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(sourceIdentity)
   let a1 = toWinRtString(appPackageFamilyName)
   let a2 = queryInterface[IProtectionPolicyAuditInfoVtbl](auditInfo)
@@ -6641,7 +6641,7 @@ proc requestAccessForAppAsync*(_: typedesc[ProtectionPolicyManager],
                                messageFromApp: string
                               ): Future[ProtectionPolicyEvaluationResult] =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics3.RequestAccessForAppAsync
-  let it = statics[IProtectionPolicyManagerStatics3Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics3Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(sourceIdentity)
   let a1 = toWinRtString(appPackageFamilyName)
   let a2 = queryInterface[IProtectionPolicyAuditInfoVtbl](auditInfo)
@@ -6657,7 +6657,7 @@ proc logAuditEvent*(_: typedesc[ProtectionPolicyManager],
                     sourceIdentity: string, targetIdentity: string,
                     auditInfo: ProtectionPolicyAuditInfo) =
   ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics3.LogAuditEvent
-  let it = statics[IProtectionPolicyManagerStatics3Vtbl]("Windows.Security.EnterpriseData.ProtectionPolicyManager")
+  let it = statics[IProtectionPolicyManagerStatics3Vtbl](className(ProtectionPolicyManager))
   let a0 = toWinRtString(sourceIdentity)
   let a1 = toWinRtString(targetIdentity)
   let a2 = queryInterface[IProtectionPolicyAuditInfoVtbl](auditInfo)
@@ -6700,7 +6700,7 @@ proc showNotificationMessageAsync*(_: typedesc[SecondaryAuthenticationFactorAuth
                                    message: SecondaryAuthenticationFactorAuthenticationMessage
                                   ): Future[void] =
   ## Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationStatics.ShowNotificationMessageAsync
-  let it = statics[ISecondaryAuthenticationFactorAuthenticationStaticsVtbl]("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication")
+  let it = statics[ISecondaryAuthenticationFactorAuthenticationStaticsVtbl](className(SecondaryAuthenticationFactorAuthentication))
   let a0 = toWinRtString(deviceName)
   var op: pointer
   check it.vtbl.ShowNotificationMessageAsync(it.raw, a0.handle, message, op.addr
@@ -6712,7 +6712,7 @@ proc startAuthenticationAsync*(_: typedesc[SecondaryAuthenticationFactorAuthenti
                                serviceAuthenticationNonce: SomeBuffer
                               ): Future[SecondaryAuthenticationFactorAuthenticationResult] =
   ## Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationStatics.StartAuthenticationAsync
-  let it = statics[ISecondaryAuthenticationFactorAuthenticationStaticsVtbl]("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication")
+  let it = statics[ISecondaryAuthenticationFactorAuthenticationStaticsVtbl](className(SecondaryAuthenticationFactorAuthentication))
   let a0 = toWinRtString(deviceId)
   let a1 = queryInterface[IBufferVtbl](serviceAuthenticationNonce)
   var op: pointer
@@ -6726,7 +6726,7 @@ proc onAuthenticationStageChanged*(_: typedesc[SecondaryAuthenticationFactorAuth
                                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationStatics.add_AuthenticationStageChanged
   ## The token is what `removeAuthenticationStageChanged` takes.
-  let it = statics[ISecondaryAuthenticationFactorAuthenticationStaticsVtbl]("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication")
+  let it = statics[ISecondaryAuthenticationFactorAuthenticationStaticsVtbl](className(SecondaryAuthenticationFactorAuthentication))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0),
             borrow[SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs](a1)
@@ -6739,13 +6739,13 @@ proc onAuthenticationStageChanged*(_: typedesc[SecondaryAuthenticationFactorAuth
 proc removeAuthenticationStageChanged*(_: typedesc[SecondaryAuthenticationFactorAuthentication],
                                        token: EventRegistrationToken) =
   ## Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationStatics.remove_AuthenticationStageChanged
-  let it = statics[ISecondaryAuthenticationFactorAuthenticationStaticsVtbl]("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication")
+  let it = statics[ISecondaryAuthenticationFactorAuthenticationStaticsVtbl](className(SecondaryAuthenticationFactorAuthentication))
   check it.vtbl.remove_AuthenticationStageChanged(it.raw, token
                                                  ), "SecondaryAuthenticationFactorAuthentication.authenticationStageChanged"
 
 proc getAuthenticationStageInfoAsync*(_: typedesc[SecondaryAuthenticationFactorAuthentication]): Future[SecondaryAuthenticationFactorAuthenticationStageInfo] =
   ## Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationStatics.GetAuthenticationStageInfoAsync
-  let it = statics[ISecondaryAuthenticationFactorAuthenticationStaticsVtbl]("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication")
+  let it = statics[ISecondaryAuthenticationFactorAuthenticationStaticsVtbl](className(SecondaryAuthenticationFactorAuthentication))
   var op: pointer
   check it.vtbl.GetAuthenticationStageInfoAsync(it.raw, op.addr
                                                ), "SecondaryAuthenticationFactorAuthentication.getAuthenticationStageInfoAsync"
@@ -6932,7 +6932,7 @@ proc requestStartRegisteringDeviceAsync*(_: typedesc[SecondaryAuthenticationFact
                                          mutualAuthenticationKey: SomeBuffer
                                         ): Future[SecondaryAuthenticationFactorRegistrationResult] =
   ## Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorRegistrationStatics.RequestStartRegisteringDeviceAsync
-  let it = statics[ISecondaryAuthenticationFactorRegistrationStaticsVtbl]("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration")
+  let it = statics[ISecondaryAuthenticationFactorRegistrationStaticsVtbl](className(SecondaryAuthenticationFactorRegistration))
   let a0 = toWinRtString(deviceId)
   let a2 = toWinRtString(deviceFriendlyName)
   let a3 = toWinRtString(deviceModelNumber)
@@ -6951,7 +6951,7 @@ proc findAllRegisteredDeviceInfoAsync*(_: typedesc[SecondaryAuthenticationFactor
                                        queryType: SecondaryAuthenticationFactorDeviceFindScope
                                       ): Future[seq[SecondaryAuthenticationFactorInfo]] =
   ## Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorRegistrationStatics.FindAllRegisteredDeviceInfoAsync
-  let it = statics[ISecondaryAuthenticationFactorRegistrationStaticsVtbl]("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration")
+  let it = statics[ISecondaryAuthenticationFactorRegistrationStaticsVtbl](className(SecondaryAuthenticationFactorRegistration))
   var op: pointer
   check it.vtbl.FindAllRegisteredDeviceInfoAsync(it.raw, queryType, op.addr
                                                 ), "SecondaryAuthenticationFactorRegistration.findAllRegisteredDeviceInfoAsync"
@@ -6961,7 +6961,7 @@ proc findAllRegisteredDeviceInfoAsync*(_: typedesc[SecondaryAuthenticationFactor
 proc unregisterDeviceAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration],
                             deviceId: string): Future[void] =
   ## Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorRegistrationStatics.UnregisterDeviceAsync
-  let it = statics[ISecondaryAuthenticationFactorRegistrationStaticsVtbl]("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration")
+  let it = statics[ISecondaryAuthenticationFactorRegistrationStaticsVtbl](className(SecondaryAuthenticationFactorRegistration))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.UnregisterDeviceAsync(it.raw, a0.handle, op.addr
@@ -6973,7 +6973,7 @@ proc updateDeviceConfigurationDataAsync*(_: typedesc[SecondaryAuthenticationFact
                                          deviceConfigurationData: SomeBuffer
                                         ): Future[void] =
   ## Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorRegistrationStatics.UpdateDeviceConfigurationDataAsync
-  let it = statics[ISecondaryAuthenticationFactorRegistrationStaticsVtbl]("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration")
+  let it = statics[ISecondaryAuthenticationFactorRegistrationStaticsVtbl](className(SecondaryAuthenticationFactorRegistration))
   let a0 = toWinRtString(deviceId)
   let a1 = queryInterface[IBufferVtbl](deviceConfigurationData)
   var op: pointer
@@ -6988,7 +6988,7 @@ proc registerDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationF
                                             monitoringMode: SecondaryAuthenticationFactorDevicePresenceMonitoringMode
                                            ): Future[SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus] =
   ## Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics.RegisterDevicePresenceMonitoringAsync
-  let it = statics[ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStaticsVtbl]("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration")
+  let it = statics[ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStaticsVtbl](className(SecondaryAuthenticationFactorRegistration))
   let a0 = toWinRtString(deviceId)
   let a1 = toWinRtString(deviceInstancePath)
   var op: pointer
@@ -7008,7 +7008,7 @@ proc registerDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationF
                                             deviceConfigurationData: SomeBuffer
                                            ): Future[SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus] =
   ## Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics.RegisterDevicePresenceMonitoringAsync
-  let it = statics[ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStaticsVtbl]("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration")
+  let it = statics[ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStaticsVtbl](className(SecondaryAuthenticationFactorRegistration))
   let a0 = toWinRtString(deviceId)
   let a1 = toWinRtString(deviceInstancePath)
   let a3 = toWinRtString(deviceFriendlyName)
@@ -7027,7 +7027,7 @@ proc registerDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationF
 proc unregisterDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration],
                                               deviceId: string): Future[void] =
   ## Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics.UnregisterDevicePresenceMonitoringAsync
-  let it = statics[ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStaticsVtbl]("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration")
+  let it = statics[ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStaticsVtbl](className(SecondaryAuthenticationFactorRegistration))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.UnregisterDevicePresenceMonitoringAsync(it.raw, a0.handle,
@@ -7037,7 +7037,7 @@ proc unregisterDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticatio
 
 proc isDevicePresenceMonitoringSupported*(_: typedesc[SecondaryAuthenticationFactorRegistration]): bool =
   ## Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics.IsDevicePresenceMonitoringSupported
-  let it = statics[ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStaticsVtbl]("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration")
+  let it = statics[ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStaticsVtbl](className(SecondaryAuthenticationFactorRegistration))
   var ret: bool
   check it.vtbl.IsDevicePresenceMonitoringSupported(it.raw, ret.addr
                                                    ), "SecondaryAuthenticationFactorRegistration.isDevicePresenceMonitoringSupported"
@@ -7086,7 +7086,7 @@ proc registration*(self: SecondaryAuthenticationFactorRegistrationResult): Secon
 
 proc personal*(_: typedesc[StandardCertificateStoreNames]): string =
   ## Windows.Security.Cryptography.Certificates.IStandardCertificateStoreNamesStatics.get_Personal
-  let it = statics[IStandardCertificateStoreNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.StandardCertificateStoreNames")
+  let it = statics[IStandardCertificateStoreNamesStaticsVtbl](className(StandardCertificateStoreNames))
   var ret: HSTRING
   check it.vtbl.get_Personal(it.raw, ret.addr
                             ), "StandardCertificateStoreNames.personal"
@@ -7094,7 +7094,7 @@ proc personal*(_: typedesc[StandardCertificateStoreNames]): string =
 
 proc trustedRootCertificationAuthorities*(_: typedesc[StandardCertificateStoreNames]): string =
   ## Windows.Security.Cryptography.Certificates.IStandardCertificateStoreNamesStatics.get_TrustedRootCertificationAuthorities
-  let it = statics[IStandardCertificateStoreNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.StandardCertificateStoreNames")
+  let it = statics[IStandardCertificateStoreNamesStaticsVtbl](className(StandardCertificateStoreNames))
   var ret: HSTRING
   check it.vtbl.get_TrustedRootCertificationAuthorities(it.raw, ret.addr
                                                        ), "StandardCertificateStoreNames.trustedRootCertificationAuthorities"
@@ -7102,7 +7102,7 @@ proc trustedRootCertificationAuthorities*(_: typedesc[StandardCertificateStoreNa
 
 proc intermediateCertificationAuthorities*(_: typedesc[StandardCertificateStoreNames]): string =
   ## Windows.Security.Cryptography.Certificates.IStandardCertificateStoreNamesStatics.get_IntermediateCertificationAuthorities
-  let it = statics[IStandardCertificateStoreNamesStaticsVtbl]("Windows.Security.Cryptography.Certificates.StandardCertificateStoreNames")
+  let it = statics[IStandardCertificateStoreNamesStaticsVtbl](className(StandardCertificateStoreNames))
   var ret: HSTRING
   check it.vtbl.get_IntermediateCertificationAuthorities(it.raw, ret.addr
                                                         ), "StandardCertificateStoreNames.intermediateCertificationAuthorities"
@@ -7220,21 +7220,21 @@ proc extension*(self: SubjectAlternativeNameInfo): CertificateExtension =
 
 proc desCbc*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_DesCbc
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_DesCbc(it.raw, ret.addr), "SymmetricAlgorithmNames.desCbc"
   takeString(ret)
 
 proc desEcb*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_DesEcb
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_DesEcb(it.raw, ret.addr), "SymmetricAlgorithmNames.desEcb"
   takeString(ret)
 
 proc tripleDesCbc*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_TripleDesCbc
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_TripleDesCbc(it.raw, ret.addr
                                 ), "SymmetricAlgorithmNames.tripleDesCbc"
@@ -7242,7 +7242,7 @@ proc tripleDesCbc*(_: typedesc[SymmetricAlgorithmNames]): string =
 
 proc tripleDesEcb*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_TripleDesEcb
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_TripleDesEcb(it.raw, ret.addr
                                 ), "SymmetricAlgorithmNames.tripleDesEcb"
@@ -7250,49 +7250,49 @@ proc tripleDesEcb*(_: typedesc[SymmetricAlgorithmNames]): string =
 
 proc rc2Cbc*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_Rc2Cbc
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Rc2Cbc(it.raw, ret.addr), "SymmetricAlgorithmNames.rc2Cbc"
   takeString(ret)
 
 proc rc2Ecb*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_Rc2Ecb
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Rc2Ecb(it.raw, ret.addr), "SymmetricAlgorithmNames.rc2Ecb"
   takeString(ret)
 
 proc aesCbc*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_AesCbc
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_AesCbc(it.raw, ret.addr), "SymmetricAlgorithmNames.aesCbc"
   takeString(ret)
 
 proc aesEcb*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_AesEcb
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_AesEcb(it.raw, ret.addr), "SymmetricAlgorithmNames.aesEcb"
   takeString(ret)
 
 proc aesGcm*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_AesGcm
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_AesGcm(it.raw, ret.addr), "SymmetricAlgorithmNames.aesGcm"
   takeString(ret)
 
 proc aesCcm*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_AesCcm
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_AesCcm(it.raw, ret.addr), "SymmetricAlgorithmNames.aesCcm"
   takeString(ret)
 
 proc aesCbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_AesCbcPkcs7
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_AesCbcPkcs7(it.raw, ret.addr
                                ), "SymmetricAlgorithmNames.aesCbcPkcs7"
@@ -7300,7 +7300,7 @@ proc aesCbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
 
 proc aesEcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_AesEcbPkcs7
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_AesEcbPkcs7(it.raw, ret.addr
                                ), "SymmetricAlgorithmNames.aesEcbPkcs7"
@@ -7308,7 +7308,7 @@ proc aesEcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
 
 proc desCbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_DesCbcPkcs7
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_DesCbcPkcs7(it.raw, ret.addr
                                ), "SymmetricAlgorithmNames.desCbcPkcs7"
@@ -7316,7 +7316,7 @@ proc desCbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
 
 proc desEcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_DesEcbPkcs7
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_DesEcbPkcs7(it.raw, ret.addr
                                ), "SymmetricAlgorithmNames.desEcbPkcs7"
@@ -7324,7 +7324,7 @@ proc desEcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
 
 proc tripleDesCbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_TripleDesCbcPkcs7
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_TripleDesCbcPkcs7(it.raw, ret.addr
                                      ), "SymmetricAlgorithmNames.tripleDesCbcPkcs7"
@@ -7332,7 +7332,7 @@ proc tripleDesCbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
 
 proc tripleDesEcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_TripleDesEcbPkcs7
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_TripleDesEcbPkcs7(it.raw, ret.addr
                                      ), "SymmetricAlgorithmNames.tripleDesEcbPkcs7"
@@ -7340,7 +7340,7 @@ proc tripleDesEcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
 
 proc rc2CbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_Rc2CbcPkcs7
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Rc2CbcPkcs7(it.raw, ret.addr
                                ), "SymmetricAlgorithmNames.rc2CbcPkcs7"
@@ -7348,7 +7348,7 @@ proc rc2CbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
 
 proc rc2EcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_Rc2EcbPkcs7
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Rc2EcbPkcs7(it.raw, ret.addr
                                ), "SymmetricAlgorithmNames.rc2EcbPkcs7"
@@ -7356,7 +7356,7 @@ proc rc2EcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
 
 proc rc4*(_: typedesc[SymmetricAlgorithmNames]): string =
   ## Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics.get_Rc4
-  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames")
+  let it = statics[ISymmetricAlgorithmNamesStaticsVtbl](className(SymmetricAlgorithmNames))
   var ret: HSTRING
   check it.vtbl.get_Rc4(it.raw, ret.addr), "SymmetricAlgorithmNames.rc4"
   takeString(ret)
@@ -7366,7 +7366,7 @@ proc rc4*(_: typedesc[SymmetricAlgorithmNames]): string =
 proc openAlgorithm*(_: typedesc[SymmetricKeyAlgorithmProvider],
                     algorithm: string): SymmetricKeyAlgorithmProvider =
   ## Windows.Security.Cryptography.Core.ISymmetricKeyAlgorithmProviderStatics.OpenAlgorithm
-  let it = statics[ISymmetricKeyAlgorithmProviderStaticsVtbl]("Windows.Security.Cryptography.Core.SymmetricKeyAlgorithmProvider")
+  let it = statics[ISymmetricKeyAlgorithmProviderStaticsVtbl](className(SymmetricKeyAlgorithmProvider))
   let a0 = toWinRtString(algorithm)
   var ret: pointer
   check it.vtbl.OpenAlgorithm(it.raw, a0.handle, ret.addr
@@ -7508,7 +7508,7 @@ proc name*(self: UserCertificateStore): string =
 
 proc checkAvailabilityAsync*(_: typedesc[UserConsentVerifier]): Future[UserConsentVerifierAvailability] =
   ## Windows.Security.Credentials.UI.IUserConsentVerifierStatics.CheckAvailabilityAsync
-  let it = statics[IUserConsentVerifierStaticsVtbl]("Windows.Security.Credentials.UI.UserConsentVerifier")
+  let it = statics[IUserConsentVerifierStaticsVtbl](className(UserConsentVerifier))
   var op: pointer
   check it.vtbl.CheckAvailabilityAsync(it.raw, op.addr
                                       ), "UserConsentVerifier.checkAvailabilityAsync"
@@ -7518,7 +7518,7 @@ proc checkAvailabilityAsync*(_: typedesc[UserConsentVerifier]): Future[UserConse
 proc requestVerificationAsync*(_: typedesc[UserConsentVerifier], message: string
                               ): Future[UserConsentVerificationResult] =
   ## Windows.Security.Credentials.UI.IUserConsentVerifierStatics.RequestVerificationAsync
-  let it = statics[IUserConsentVerifierStaticsVtbl]("Windows.Security.Credentials.UI.UserConsentVerifier")
+  let it = statics[IUserConsentVerifierStaticsVtbl](className(UserConsentVerifier))
   let a0 = toWinRtString(message)
   var op: pointer
   check it.vtbl.RequestVerificationAsync(it.raw, a0.handle, op.addr
@@ -7558,7 +7558,7 @@ proc unprotectedBuffer*(self: UserDataBufferUnprotectResult): IBuffer =
 
 proc tryGetDefault*(_: typedesc[UserDataProtectionManager]): UserDataProtectionManager =
   ## Windows.Security.DataProtection.IUserDataProtectionManagerStatics.TryGetDefault
-  let it = statics[IUserDataProtectionManagerStaticsVtbl]("Windows.Security.DataProtection.UserDataProtectionManager")
+  let it = statics[IUserDataProtectionManagerStaticsVtbl](className(UserDataProtectionManager))
   var ret: pointer
   check it.vtbl.TryGetDefault(it.raw, ret.addr
                              ), "UserDataProtectionManager.tryGetDefault"
@@ -7567,7 +7567,7 @@ proc tryGetDefault*(_: typedesc[UserDataProtectionManager]): UserDataProtectionM
 proc tryGetForUser*(_: typedesc[UserDataProtectionManager], user: User
                    ): UserDataProtectionManager =
   ## Windows.Security.DataProtection.IUserDataProtectionManagerStatics.TryGetForUser
-  let it = statics[IUserDataProtectionManagerStaticsVtbl]("Windows.Security.DataProtection.UserDataProtectionManager")
+  let it = statics[IUserDataProtectionManagerStaticsVtbl](className(UserDataProtectionManager))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.TryGetForUser(it.raw, a0.raw, ret.addr
@@ -7730,7 +7730,7 @@ proc isConfirmedPC*(self: UserIdentity): bool =
 proc newWebAccount*(webAccountProvider: WebAccountProvider, userName: string,
                     state: WebAccountState): WebAccount =
   ## Windows.Security.Credentials.IWebAccountFactory.CreateWebAccount
-  let it = statics[IWebAccountFactoryVtbl]("Windows.Security.Credentials.WebAccount")
+  let it = statics[IWebAccountFactoryVtbl](className(WebAccount))
   let a0 = queryInterface[IWebAccountProviderVtbl](webAccountProvider)
   let a1 = toWinRtString(userName)
   var ret: pointer
@@ -7783,7 +7783,7 @@ proc newWebAccountClientView*(viewType: WebAccountClientViewType,
                               applicationCallbackUri: Uri
                              ): WebAccountClientView =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountClientViewFactory.Create
-  let it = statics[IWebAccountClientViewFactoryVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountClientView")
+  let it = statics[IWebAccountClientViewFactoryVtbl](className(WebAccountClientView))
   let a1 = queryInterface[IUriRuntimeClassVtbl](applicationCallbackUri)
   var ret: pointer
   check it.vtbl.Create(it.raw, viewType, a1.raw, ret.addr
@@ -7794,7 +7794,7 @@ proc newWebAccountClientView*(viewType: WebAccountClientViewType,
                               applicationCallbackUri: Uri,
                               accountPairwiseId: string): WebAccountClientView =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountClientViewFactory.CreateWithPairwiseId
-  let it = statics[IWebAccountClientViewFactoryVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountClientView")
+  let it = statics[IWebAccountClientViewFactoryVtbl](className(WebAccountClientView))
   let a1 = queryInterface[IUriRuntimeClassVtbl](applicationCallbackUri)
   let a2 = toWinRtString(accountPairwiseId)
   var ret: pointer
@@ -7839,7 +7839,7 @@ proc account*(self: WebAccountEventArgs): WebAccount =
 proc pullCookiesAsync*(_: typedesc[WebAccountManager], uriString: string,
                        callerPFN: string): Future[void] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics2.PullCookiesAsync
-  let it = statics[IWebAccountManagerStatics2Vtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStatics2Vtbl](className(WebAccountManager))
   let a0 = toWinRtString(uriString)
   let a1 = toWinRtString(callerPFN)
   var op: pointer
@@ -7852,7 +7852,7 @@ proc addWebAccountAsync*(_: typedesc[WebAccountManager], webAccountId: string,
                          props: Table[string, string], scope: WebAccountScope
                         ): Future[WebAccount] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountScopeManagerStatics.AddWebAccountAsync
-  let it = statics[IWebAccountScopeManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountScopeManagerStaticsVtbl](className(WebAccountManager))
   let a0 = toWinRtString(webAccountId)
   let a1 = toWinRtString(webAccountUserName)
   let a2 = asMap[string, string, Table[string, string]](props)
@@ -7865,7 +7865,7 @@ proc addWebAccountAsync*(_: typedesc[WebAccountManager], webAccountId: string,
 proc setScopeAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount,
                     scope: WebAccountScope): Future[void] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountScopeManagerStatics.SetScopeAsync
-  let it = statics[IWebAccountScopeManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountScopeManagerStaticsVtbl](className(WebAccountManager))
   let a0 = queryInterface[IWebAccountVtbl](webAccount)
   var op: pointer
   check it.vtbl.SetScopeAsync(it.raw, a0.raw, scope, op.addr
@@ -7875,7 +7875,7 @@ proc setScopeAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount,
 proc getScope*(_: typedesc[WebAccountManager], webAccount: WebAccount
               ): WebAccountScope =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountScopeManagerStatics.GetScope
-  let it = statics[IWebAccountScopeManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountScopeManagerStaticsVtbl](className(WebAccountManager))
   let a0 = queryInterface[IWebAccountVtbl](webAccount)
   var ret: WebAccountScope
   check it.vtbl.GetScope(it.raw, a0.raw, ret.addr), "WebAccountManager.getScope"
@@ -7887,7 +7887,7 @@ proc updateWebAccountPropertiesAsync*(_: typedesc[WebAccountManager],
                                       additionalProperties: Table[string, string]
                                      ): Future[void] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics.UpdateWebAccountPropertiesAsync
-  let it = statics[IWebAccountManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStaticsVtbl](className(WebAccountManager))
   let a0 = queryInterface[IWebAccountVtbl](webAccount)
   let a1 = toWinRtString(webAccountUserName)
   let a2 = asMap[string, string, Table[string, string]](additionalProperties)
@@ -7901,7 +7901,7 @@ proc addWebAccountAsync*(_: typedesc[WebAccountManager], webAccountId: string,
                          webAccountUserName: string,
                          props: Table[string, string]): Future[WebAccount] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics.AddWebAccountAsync
-  let it = statics[IWebAccountManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStaticsVtbl](className(WebAccountManager))
   let a0 = toWinRtString(webAccountId)
   let a1 = toWinRtString(webAccountUserName)
   let a2 = asMap[string, string, Table[string, string]](props)
@@ -7913,7 +7913,7 @@ proc addWebAccountAsync*(_: typedesc[WebAccountManager], webAccountId: string,
 proc deleteWebAccountAsync*(_: typedesc[WebAccountManager],
                             webAccount: WebAccount): Future[void] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics.DeleteWebAccountAsync
-  let it = statics[IWebAccountManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStaticsVtbl](className(WebAccountManager))
   let a0 = queryInterface[IWebAccountVtbl](webAccount)
   var op: pointer
   check it.vtbl.DeleteWebAccountAsync(it.raw, a0.raw, op.addr
@@ -7922,7 +7922,7 @@ proc deleteWebAccountAsync*(_: typedesc[WebAccountManager],
 
 proc findAllProviderWebAccountsAsync*(_: typedesc[WebAccountManager]): Future[seq[WebAccount]] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics.FindAllProviderWebAccountsAsync
-  let it = statics[IWebAccountManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStaticsVtbl](className(WebAccountManager))
   var op: pointer
   check it.vtbl.FindAllProviderWebAccountsAsync(it.raw, op.addr
                                                ), "WebAccountManager.findAllProviderWebAccountsAsync"
@@ -7931,7 +7931,7 @@ proc findAllProviderWebAccountsAsync*(_: typedesc[WebAccountManager]): Future[se
 proc pushCookiesAsync*(_: typedesc[WebAccountManager], uri: Uri,
                        cookies: seq[HttpCookie]): Future[void] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics.PushCookiesAsync
-  let it = statics[IWebAccountManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStaticsVtbl](className(WebAccountManager))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a1 = asCollection[HttpCookie, seq[HttpCookie]](cookies)
   var op: pointer
@@ -7942,7 +7942,7 @@ proc pushCookiesAsync*(_: typedesc[WebAccountManager], uri: Uri,
 proc setViewAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount,
                    view: WebAccountClientView): Future[void] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics.SetViewAsync
-  let it = statics[IWebAccountManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStaticsVtbl](className(WebAccountManager))
   let a0 = queryInterface[IWebAccountVtbl](webAccount)
   let a1 = queryInterface[IWebAccountClientViewVtbl](view)
   var op: pointer
@@ -7953,7 +7953,7 @@ proc setViewAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount,
 proc clearViewAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount,
                      applicationCallbackUri: Uri): Future[void] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics.ClearViewAsync
-  let it = statics[IWebAccountManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStaticsVtbl](className(WebAccountManager))
   let a0 = queryInterface[IWebAccountVtbl](webAccount)
   let a1 = queryInterface[IUriRuntimeClassVtbl](applicationCallbackUri)
   var op: pointer
@@ -7964,7 +7964,7 @@ proc clearViewAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount,
 proc getViewsAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount
                    ): Future[seq[WebAccountClientView]] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics.GetViewsAsync
-  let it = statics[IWebAccountManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStaticsVtbl](className(WebAccountManager))
   let a0 = queryInterface[IWebAccountVtbl](webAccount)
   var op: pointer
   check it.vtbl.GetViewsAsync(it.raw, a0.raw, op.addr
@@ -7977,7 +7977,7 @@ proc setWebAccountPictureAsync*(_: typedesc[WebAccountManager],
                                 webAccountPicture: SomeRandomAccessStream
                                ): Future[void] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics.SetWebAccountPictureAsync
-  let it = statics[IWebAccountManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStaticsVtbl](className(WebAccountManager))
   let a0 = queryInterface[IWebAccountVtbl](webAccount)
   let a1 = queryInterface[IRandomAccessStreamVtbl](webAccountPicture)
   var op: pointer
@@ -7988,7 +7988,7 @@ proc setWebAccountPictureAsync*(_: typedesc[WebAccountManager],
 proc clearWebAccountPictureAsync*(_: typedesc[WebAccountManager],
                                   webAccount: WebAccount): Future[void] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics.ClearWebAccountPictureAsync
-  let it = statics[IWebAccountManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStaticsVtbl](className(WebAccountManager))
   let a0 = queryInterface[IWebAccountVtbl](webAccount)
   var op: pointer
   check it.vtbl.ClearWebAccountPictureAsync(it.raw, a0.raw, op.addr
@@ -8000,7 +8000,7 @@ proc addWebAccountAsync*(_: typedesc[WebAccountManager], webAccountId: string,
                          props: Table[string, string], scope: WebAccountScope,
                          perUserWebAccountId: string): Future[WebAccount] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountMapManagerStatics.AddWebAccountAsync
-  let it = statics[IWebAccountMapManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountMapManagerStaticsVtbl](className(WebAccountManager))
   let a0 = toWinRtString(webAccountId)
   let a1 = toWinRtString(webAccountUserName)
   let a2 = asMap[string, string, Table[string, string]](props)
@@ -8016,7 +8016,7 @@ proc setPerAppToPerUserAccountAsync*(_: typedesc[WebAccountManager],
                                      perUserWebAccountId: string
                                     ): Future[void] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountMapManagerStatics.SetPerAppToPerUserAccountAsync
-  let it = statics[IWebAccountMapManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountMapManagerStaticsVtbl](className(WebAccountManager))
   let a0 = queryInterface[IWebAccountVtbl](perAppAccount)
   let a1 = toWinRtString(perUserWebAccountId)
   var op: pointer
@@ -8029,7 +8029,7 @@ proc getPerUserFromPerAppAccountAsync*(_: typedesc[WebAccountManager],
                                        perAppAccount: WebAccount
                                       ): Future[WebAccount] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountMapManagerStatics.GetPerUserFromPerAppAccountAsync
-  let it = statics[IWebAccountMapManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountMapManagerStaticsVtbl](className(WebAccountManager))
   let a0 = queryInterface[IWebAccountVtbl](perAppAccount)
   var op: pointer
   check it.vtbl.GetPerUserFromPerAppAccountAsync(it.raw, a0.raw, op.addr
@@ -8040,7 +8040,7 @@ proc clearPerUserFromPerAppAccountAsync*(_: typedesc[WebAccountManager],
                                          perAppAccount: WebAccount
                                         ): Future[void] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountMapManagerStatics.ClearPerUserFromPerAppAccountAsync
-  let it = statics[IWebAccountMapManagerStaticsVtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountMapManagerStaticsVtbl](className(WebAccountManager))
   let a0 = queryInterface[IWebAccountVtbl](perAppAccount)
   var op: pointer
   check it.vtbl.ClearPerUserFromPerAppAccountAsync(it.raw, a0.raw, op.addr
@@ -8049,7 +8049,7 @@ proc clearPerUserFromPerAppAccountAsync*(_: typedesc[WebAccountManager],
 
 proc invalidateAppCacheForAllAccountsAsync*(_: typedesc[WebAccountManager]): Future[void] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics4.InvalidateAppCacheForAllAccountsAsync
-  let it = statics[IWebAccountManagerStatics4Vtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStatics4Vtbl](className(WebAccountManager))
   var op: pointer
   check it.vtbl.InvalidateAppCacheForAllAccountsAsync(it.raw, op.addr
                                                      ), "WebAccountManager.invalidateAppCacheForAllAccountsAsync"
@@ -8058,7 +8058,7 @@ proc invalidateAppCacheForAllAccountsAsync*(_: typedesc[WebAccountManager]): Fut
 proc invalidateAppCacheForAccountAsync*(_: typedesc[WebAccountManager],
                                         webAccount: WebAccount): Future[void] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics4.InvalidateAppCacheForAccountAsync
-  let it = statics[IWebAccountManagerStatics4Vtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStatics4Vtbl](className(WebAccountManager))
   let a0 = queryInterface[IWebAccountVtbl](webAccount)
   var op: pointer
   check it.vtbl.InvalidateAppCacheForAccountAsync(it.raw, a0.raw, op.addr
@@ -8069,7 +8069,7 @@ proc findAllProviderWebAccountsForUserAsync*(_: typedesc[WebAccountManager],
                                              user: User
                                             ): Future[seq[WebAccount]] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics3.FindAllProviderWebAccountsForUserAsync
-  let it = statics[IWebAccountManagerStatics3Vtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStatics3Vtbl](className(WebAccountManager))
   let a0 = queryInterface[IUserVtbl](user)
   var op: pointer
   check it.vtbl.FindAllProviderWebAccountsForUserAsync(it.raw, a0.raw, op.addr
@@ -8082,7 +8082,7 @@ proc addWebAccountForUserAsync*(_: typedesc[WebAccountManager], user: User,
                                 props: Table[string, string]
                                ): Future[WebAccount] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics3.AddWebAccountForUserAsync
-  let it = statics[IWebAccountManagerStatics3Vtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStatics3Vtbl](className(WebAccountManager))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(webAccountId)
   let a2 = toWinRtString(webAccountUserName)
@@ -8099,7 +8099,7 @@ proc addWebAccountForUserAsync*(_: typedesc[WebAccountManager], user: User,
                                 props: Table[string, string],
                                 scope: WebAccountScope): Future[WebAccount] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics3.AddWebAccountForUserAsync
-  let it = statics[IWebAccountManagerStatics3Vtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStatics3Vtbl](className(WebAccountManager))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(webAccountId)
   let a2 = toWinRtString(webAccountUserName)
@@ -8118,7 +8118,7 @@ proc addWebAccountForUserAsync*(_: typedesc[WebAccountManager], user: User,
                                 perUserWebAccountId: string
                                ): Future[WebAccount] =
   ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics3.AddWebAccountForUserAsync
-  let it = statics[IWebAccountManagerStatics3Vtbl]("Windows.Security.Authentication.Web.Provider.WebAccountManager")
+  let it = statics[IWebAccountManagerStatics3Vtbl](className(WebAccountManager))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(webAccountId)
   let a2 = toWinRtString(webAccountUserName)
@@ -8213,7 +8213,7 @@ proc removeAccountPictureUpdated*(self: WebAccountMonitor,
 proc newWebAccountProvider*(id: string, displayName: string, iconUri: Uri
                            ): WebAccountProvider =
   ## Windows.Security.Credentials.IWebAccountProviderFactory.CreateWebAccountProvider
-  let it = statics[IWebAccountProviderFactoryVtbl]("Windows.Security.Credentials.WebAccountProvider")
+  let it = statics[IWebAccountProviderFactoryVtbl](className(WebAccountProvider))
   let a0 = toWinRtString(id)
   let a1 = toWinRtString(displayName)
   let a2 = queryInterface[IUriRuntimeClassVtbl](iconUri)
@@ -8377,7 +8377,7 @@ proc clientId*(self: WebAccountProviderSignOutAccountOperation): string =
 
 proc newWebAuthenticationAddAccountResponse*(webAccount: WebAccount): WebAuthenticationAddAccountResponse =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResponseFactory.CreateWithAccount
-  let it = statics[IWebAuthenticationAddAccountResponseFactoryVtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResponse")
+  let it = statics[IWebAuthenticationAddAccountResponseFactoryVtbl](className(WebAuthenticationAddAccountResponse))
   let a0 = queryInterface[IWebAccountVtbl](webAccount)
   var ret: pointer
   check it.vtbl.CreateWithAccount(it.raw, a0.raw, ret.addr
@@ -8432,7 +8432,7 @@ proc authenticateAsync*(_: typedesc[WebAuthenticationBroker],
                         options: WebAuthenticationOptions, requestUri: Uri,
                         callbackUri: Uri): Future[WebAuthenticationResult] =
   ## Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics.AuthenticateAsync
-  let it = statics[IWebAuthenticationBrokerStaticsVtbl]("Windows.Security.Authentication.Web.WebAuthenticationBroker")
+  let it = statics[IWebAuthenticationBrokerStaticsVtbl](className(WebAuthenticationBroker))
   let a1 = queryInterface[IUriRuntimeClassVtbl](requestUri)
   let a2 = queryInterface[IUriRuntimeClassVtbl](callbackUri)
   var op: pointer
@@ -8444,7 +8444,7 @@ proc authenticateAsync*(_: typedesc[WebAuthenticationBroker],
                         options: WebAuthenticationOptions, requestUri: Uri
                        ): Future[WebAuthenticationResult] =
   ## Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics.AuthenticateAsync
-  let it = statics[IWebAuthenticationBrokerStaticsVtbl]("Windows.Security.Authentication.Web.WebAuthenticationBroker")
+  let it = statics[IWebAuthenticationBrokerStaticsVtbl](className(WebAuthenticationBroker))
   let a1 = queryInterface[IUriRuntimeClassVtbl](requestUri)
   var op: pointer
   check it.vtbl.AuthenticateAsync2(it.raw, options, a1.raw, op.addr
@@ -8453,7 +8453,7 @@ proc authenticateAsync*(_: typedesc[WebAuthenticationBroker],
 
 proc getCurrentApplicationCallbackUri*(_: typedesc[WebAuthenticationBroker]): Uri =
   ## Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics.GetCurrentApplicationCallbackUri
-  let it = statics[IWebAuthenticationBrokerStaticsVtbl]("Windows.Security.Authentication.Web.WebAuthenticationBroker")
+  let it = statics[IWebAuthenticationBrokerStaticsVtbl](className(WebAuthenticationBroker))
   var ret: pointer
   check it.vtbl.GetCurrentApplicationCallbackUri(it.raw, ret.addr
                                                 ), "WebAuthenticationBroker.getCurrentApplicationCallbackUri"
@@ -8462,7 +8462,7 @@ proc getCurrentApplicationCallbackUri*(_: typedesc[WebAuthenticationBroker]): Ur
 proc authenticateAndContinue*(_: typedesc[WebAuthenticationBroker],
                               requestUri: Uri) =
   ## Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics2.AuthenticateAndContinue
-  let it = statics[IWebAuthenticationBrokerStatics2Vtbl]("Windows.Security.Authentication.Web.WebAuthenticationBroker")
+  let it = statics[IWebAuthenticationBrokerStatics2Vtbl](className(WebAuthenticationBroker))
   let a0 = queryInterface[IUriRuntimeClassVtbl](requestUri)
   check it.vtbl.AuthenticateAndContinue(it.raw, a0.raw
                                        ), "WebAuthenticationBroker.authenticateAndContinue"
@@ -8470,7 +8470,7 @@ proc authenticateAndContinue*(_: typedesc[WebAuthenticationBroker],
 proc authenticateAndContinue*(_: typedesc[WebAuthenticationBroker],
                               requestUri: Uri, callbackUri: Uri) =
   ## Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics2.AuthenticateAndContinue
-  let it = statics[IWebAuthenticationBrokerStatics2Vtbl]("Windows.Security.Authentication.Web.WebAuthenticationBroker")
+  let it = statics[IWebAuthenticationBrokerStatics2Vtbl](className(WebAuthenticationBroker))
   let a0 = queryInterface[IUriRuntimeClassVtbl](requestUri)
   let a1 = queryInterface[IUriRuntimeClassVtbl](callbackUri)
   check it.vtbl.AuthenticateAndContinue2(it.raw, a0.raw, a1.raw
@@ -8481,7 +8481,7 @@ proc authenticateAndContinue*(_: typedesc[WebAuthenticationBroker],
                               continuationData: ValueSet,
                               options: WebAuthenticationOptions) =
   ## Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics2.AuthenticateAndContinue
-  let it = statics[IWebAuthenticationBrokerStatics2Vtbl]("Windows.Security.Authentication.Web.WebAuthenticationBroker")
+  let it = statics[IWebAuthenticationBrokerStatics2Vtbl](className(WebAuthenticationBroker))
   let a0 = queryInterface[IUriRuntimeClassVtbl](requestUri)
   let a1 = queryInterface[IUriRuntimeClassVtbl](callbackUri)
   let a2 = queryInterface[IPropertySetVtbl](continuationData)
@@ -8492,7 +8492,7 @@ proc authenticateSilentlyAsync*(_: typedesc[WebAuthenticationBroker],
                                 requestUri: Uri
                                ): Future[WebAuthenticationResult] =
   ## Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics2.AuthenticateSilentlyAsync
-  let it = statics[IWebAuthenticationBrokerStatics2Vtbl]("Windows.Security.Authentication.Web.WebAuthenticationBroker")
+  let it = statics[IWebAuthenticationBrokerStatics2Vtbl](className(WebAuthenticationBroker))
   let a0 = queryInterface[IUriRuntimeClassVtbl](requestUri)
   var op: pointer
   check it.vtbl.AuthenticateSilentlyAsync(it.raw, a0.raw, op.addr
@@ -8504,7 +8504,7 @@ proc authenticateSilentlyAsync*(_: typedesc[WebAuthenticationBroker],
                                 options: WebAuthenticationOptions
                                ): Future[WebAuthenticationResult] =
   ## Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics2.AuthenticateSilentlyAsync
-  let it = statics[IWebAuthenticationBrokerStatics2Vtbl]("Windows.Security.Authentication.Web.WebAuthenticationBroker")
+  let it = statics[IWebAuthenticationBrokerStatics2Vtbl](className(WebAuthenticationBroker))
   let a0 = queryInterface[IUriRuntimeClassVtbl](requestUri)
   var op: pointer
   check it.vtbl.AuthenticateSilentlyAsync2(it.raw, a0.raw, options, op.addr
@@ -8517,7 +8517,7 @@ proc getTokenSilentlyAsync*(_: typedesc[WebAuthenticationCoreManager],
                             request: WebTokenRequest
                            ): Future[WebTokenRequestResult] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics.GetTokenSilentlyAsync
-  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl](className(WebAuthenticationCoreManager))
   let a0 = queryInterface[IWebTokenRequestVtbl](request)
   var op: pointer
   check it.vtbl.GetTokenSilentlyAsync(it.raw, a0.raw, op.addr
@@ -8528,7 +8528,7 @@ proc getTokenSilentlyAsync*(_: typedesc[WebAuthenticationCoreManager],
                             request: WebTokenRequest, webAccount: WebAccount
                            ): Future[WebTokenRequestResult] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics.GetTokenSilentlyAsync
-  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl](className(WebAuthenticationCoreManager))
   let a0 = queryInterface[IWebTokenRequestVtbl](request)
   let a1 = queryInterface[IWebAccountVtbl](webAccount)
   var op: pointer
@@ -8540,7 +8540,7 @@ proc requestTokenAsync*(_: typedesc[WebAuthenticationCoreManager],
                         request: WebTokenRequest
                        ): Future[WebTokenRequestResult] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics.RequestTokenAsync
-  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl](className(WebAuthenticationCoreManager))
   let a0 = queryInterface[IWebTokenRequestVtbl](request)
   var op: pointer
   check it.vtbl.RequestTokenAsync(it.raw, a0.raw, op.addr
@@ -8551,7 +8551,7 @@ proc requestTokenAsync*(_: typedesc[WebAuthenticationCoreManager],
                         request: WebTokenRequest, webAccount: WebAccount
                        ): Future[WebTokenRequestResult] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics.RequestTokenAsync
-  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl](className(WebAuthenticationCoreManager))
   let a0 = queryInterface[IWebTokenRequestVtbl](request)
   let a1 = queryInterface[IWebAccountVtbl](webAccount)
   var op: pointer
@@ -8563,7 +8563,7 @@ proc findAccountAsync*(_: typedesc[WebAuthenticationCoreManager],
                        provider: WebAccountProvider, webAccountId: string
                       ): Future[WebAccount] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics.FindAccountAsync
-  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl](className(WebAuthenticationCoreManager))
   let a0 = queryInterface[IWebAccountProviderVtbl](provider)
   let a1 = toWinRtString(webAccountId)
   var op: pointer
@@ -8575,7 +8575,7 @@ proc findAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager],
                                webAccountProviderId: string
                               ): Future[WebAccountProvider] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics.FindAccountProviderAsync
-  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl](className(WebAuthenticationCoreManager))
   let a0 = toWinRtString(webAccountProviderId)
   var op: pointer
   check it.vtbl.FindAccountProviderAsync(it.raw, a0.handle, op.addr
@@ -8586,7 +8586,7 @@ proc findAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager],
                                webAccountProviderId: string, authority: string
                               ): Future[WebAccountProvider] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics.FindAccountProviderAsync
-  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStaticsVtbl](className(WebAuthenticationCoreManager))
   let a0 = toWinRtString(webAccountProviderId)
   let a1 = toWinRtString(authority)
   var op: pointer
@@ -8598,7 +8598,7 @@ proc addAccountWithTransferTokenAsync*(_: typedesc[WebAuthenticationCoreManager]
                                        request: WebAuthenticationTransferTokenRequest
                                       ): Future[WebAuthenticationAddAccountResult] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics5.AddAccountWithTransferTokenAsync
-  let it = statics[IWebAuthenticationCoreManagerStatics5Vtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStatics5Vtbl](className(WebAuthenticationCoreManager))
   let a0 = queryInterface[IWebAuthenticationTransferTokenRequestVtbl](request)
   var op: pointer
   check it.vtbl.AddAccountWithTransferTokenAsync(it.raw, a0.raw, op.addr
@@ -8610,7 +8610,7 @@ proc findAllAccountsAsync*(_: typedesc[WebAuthenticationCoreManager],
                            provider: WebAccountProvider
                           ): Future[FindAllAccountsResult] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics4.FindAllAccountsAsync
-  let it = statics[IWebAuthenticationCoreManagerStatics4Vtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStatics4Vtbl](className(WebAuthenticationCoreManager))
   let a0 = queryInterface[IWebAccountProviderVtbl](provider)
   var op: pointer
   check it.vtbl.FindAllAccountsAsync(it.raw, a0.raw, op.addr
@@ -8621,7 +8621,7 @@ proc findAllAccountsAsync*(_: typedesc[WebAuthenticationCoreManager],
                            provider: WebAccountProvider, clientId: string
                           ): Future[FindAllAccountsResult] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics4.FindAllAccountsAsync
-  let it = statics[IWebAuthenticationCoreManagerStatics4Vtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStatics4Vtbl](className(WebAuthenticationCoreManager))
   let a0 = queryInterface[IWebAccountProviderVtbl](provider)
   let a1 = toWinRtString(clientId)
   var op: pointer
@@ -8633,7 +8633,7 @@ proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager],
                                      webAccountProviderId: string
                                     ): Future[WebAccountProvider] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics4.FindSystemAccountProviderAsync
-  let it = statics[IWebAuthenticationCoreManagerStatics4Vtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStatics4Vtbl](className(WebAuthenticationCoreManager))
   let a0 = toWinRtString(webAccountProviderId)
   var op: pointer
   check it.vtbl.FindSystemAccountProviderAsync(it.raw, a0.handle, op.addr
@@ -8645,7 +8645,7 @@ proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager],
                                      authority: string
                                     ): Future[WebAccountProvider] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics4.FindSystemAccountProviderAsync
-  let it = statics[IWebAuthenticationCoreManagerStatics4Vtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStatics4Vtbl](className(WebAuthenticationCoreManager))
   let a0 = toWinRtString(webAccountProviderId)
   let a1 = toWinRtString(authority)
   var op: pointer
@@ -8659,7 +8659,7 @@ proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager],
                                      authority: string, user: User
                                     ): Future[WebAccountProvider] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics4.FindSystemAccountProviderAsync
-  let it = statics[IWebAuthenticationCoreManagerStatics4Vtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStatics4Vtbl](className(WebAuthenticationCoreManager))
   let a0 = toWinRtString(webAccountProviderId)
   let a1 = toWinRtString(authority)
   let a2 = queryInterface[IUserVtbl](user)
@@ -8672,7 +8672,7 @@ proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager],
 proc createWebAccountMonitor*(_: typedesc[WebAuthenticationCoreManager],
                               webAccounts: seq[WebAccount]): WebAccountMonitor =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics3.CreateWebAccountMonitor
-  let it = statics[IWebAuthenticationCoreManagerStatics3Vtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStatics3Vtbl](className(WebAuthenticationCoreManager))
   let a0 = asCollection[WebAccount, seq[WebAccount]](webAccounts)
   var ret: pointer
   check it.vtbl.CreateWebAccountMonitor(it.raw, a0.raw, ret.addr
@@ -8683,7 +8683,7 @@ proc findAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager],
                                webAccountProviderId: string, authority: string,
                                user: User): Future[WebAccountProvider] =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics2.FindAccountProviderAsync
-  let it = statics[IWebAuthenticationCoreManagerStatics2Vtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager")
+  let it = statics[IWebAuthenticationCoreManagerStatics2Vtbl](className(WebAuthenticationCoreManager))
   let a0 = toWinRtString(webAccountProviderId)
   let a1 = toWinRtString(authority)
   let a2 = queryInterface[IUserVtbl](user)
@@ -8725,7 +8725,7 @@ proc newWebAuthenticationTransferTokenRequest*(provider: WebAccountProvider,
                                                transferToken: string
                                               ): WebAuthenticationTransferTokenRequest =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationTransferTokenRequestFactory.Create
-  let it = statics[IWebAuthenticationTransferTokenRequestFactoryVtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest")
+  let it = statics[IWebAuthenticationTransferTokenRequestFactoryVtbl](className(WebAuthenticationTransferTokenRequest))
   let a0 = queryInterface[IWebAccountProviderVtbl](provider)
   let a1 = toWinRtString(transferToken)
   var ret: pointer
@@ -8738,7 +8738,7 @@ proc newWebAuthenticationTransferTokenRequest*(provider: WebAccountProvider,
                                                correlationId: string
                                               ): WebAuthenticationTransferTokenRequest =
   ## Windows.Security.Authentication.Web.Core.IWebAuthenticationTransferTokenRequestFactory.CreateWithCorrelationId
-  let it = statics[IWebAuthenticationTransferTokenRequestFactoryVtbl]("Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest")
+  let it = statics[IWebAuthenticationTransferTokenRequestFactoryVtbl](className(WebAuthenticationTransferTokenRequest))
   let a0 = queryInterface[IWebAccountProviderVtbl](provider)
   let a1 = toWinRtString(transferToken)
   let a2 = toWinRtString(correlationId)
@@ -8801,7 +8801,7 @@ proc `correlationId=`*(self: WebAuthenticationTransferTokenRequest,
 proc newWebProviderError*(errorCode: uint32, errorMessage: string
                          ): WebProviderError =
   ## Windows.Security.Authentication.Web.Core.IWebProviderErrorFactory.Create
-  let it = statics[IWebProviderErrorFactoryVtbl]("Windows.Security.Authentication.Web.Core.WebProviderError")
+  let it = statics[IWebProviderErrorFactoryVtbl](className(WebProviderError))
   let a1 = toWinRtString(errorMessage)
   var ret: pointer
   check it.vtbl.Create(it.raw, errorCode, a1.handle, ret.addr
@@ -8919,7 +8919,7 @@ proc checkApplicationForCapabilityAsync*(self: WebProviderTokenRequest,
 
 proc newWebProviderTokenResponse*(webTokenResponse: WebTokenResponse): WebProviderTokenResponse =
   ## Windows.Security.Authentication.Web.Provider.IWebProviderTokenResponseFactory.Create
-  let it = statics[IWebProviderTokenResponseFactoryVtbl]("Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse")
+  let it = statics[IWebProviderTokenResponseFactoryVtbl](className(WebProviderTokenResponse))
   let a0 = queryInterface[IWebTokenResponseVtbl](webTokenResponse)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "WebProviderTokenResponse.new"
@@ -8938,7 +8938,7 @@ proc clientResponse*(self: WebProviderTokenResponse): WebTokenResponse =
 proc newWebTokenRequest*(provider: WebAccountProvider, scope: string,
                          clientId: string): WebTokenRequest =
   ## Windows.Security.Authentication.Web.Core.IWebTokenRequestFactory.Create
-  let it = statics[IWebTokenRequestFactoryVtbl]("Windows.Security.Authentication.Web.Core.WebTokenRequest")
+  let it = statics[IWebTokenRequestFactoryVtbl](className(WebTokenRequest))
   let a0 = queryInterface[IWebAccountProviderVtbl](provider)
   let a1 = toWinRtString(scope)
   let a2 = toWinRtString(clientId)
@@ -8951,7 +8951,7 @@ proc newWebTokenRequest*(provider: WebAccountProvider, scope: string,
                          clientId: string, promptType: WebTokenRequestPromptType
                         ): WebTokenRequest =
   ## Windows.Security.Authentication.Web.Core.IWebTokenRequestFactory.CreateWithPromptType
-  let it = statics[IWebTokenRequestFactoryVtbl]("Windows.Security.Authentication.Web.Core.WebTokenRequest")
+  let it = statics[IWebTokenRequestFactoryVtbl](className(WebTokenRequest))
   let a0 = queryInterface[IWebAccountProviderVtbl](provider)
   let a1 = toWinRtString(scope)
   let a2 = toWinRtString(clientId)
@@ -8963,7 +8963,7 @@ proc newWebTokenRequest*(provider: WebAccountProvider, scope: string,
 
 proc newWebTokenRequest*(provider: WebAccountProvider): WebTokenRequest =
   ## Windows.Security.Authentication.Web.Core.IWebTokenRequestFactory.CreateWithProvider
-  let it = statics[IWebTokenRequestFactoryVtbl]("Windows.Security.Authentication.Web.Core.WebTokenRequest")
+  let it = statics[IWebTokenRequestFactoryVtbl](className(WebTokenRequest))
   let a0 = queryInterface[IWebAccountProviderVtbl](provider)
   var ret: pointer
   check it.vtbl.CreateWithProvider(it.raw, a0.raw, ret.addr
@@ -8973,7 +8973,7 @@ proc newWebTokenRequest*(provider: WebAccountProvider): WebTokenRequest =
 proc newWebTokenRequest*(provider: WebAccountProvider, scope: string
                         ): WebTokenRequest =
   ## Windows.Security.Authentication.Web.Core.IWebTokenRequestFactory.CreateWithScope
-  let it = statics[IWebTokenRequestFactoryVtbl]("Windows.Security.Authentication.Web.Core.WebTokenRequest")
+  let it = statics[IWebTokenRequestFactoryVtbl](className(WebTokenRequest))
   let a0 = queryInterface[IWebAccountProviderVtbl](provider)
   let a1 = toWinRtString(scope)
   var ret: pointer
@@ -9082,7 +9082,7 @@ proc newWebTokenResponse*(): WebTokenResponse =
 
 proc newWebTokenResponse*(token: string): WebTokenResponse =
   ## Windows.Security.Authentication.Web.Core.IWebTokenResponseFactory.CreateWithToken
-  let it = statics[IWebTokenResponseFactoryVtbl]("Windows.Security.Authentication.Web.Core.WebTokenResponse")
+  let it = statics[IWebTokenResponseFactoryVtbl](className(WebTokenResponse))
   let a0 = toWinRtString(token)
   var ret: pointer
   check it.vtbl.CreateWithToken(it.raw, a0.handle, ret.addr
@@ -9092,7 +9092,7 @@ proc newWebTokenResponse*(token: string): WebTokenResponse =
 proc newWebTokenResponse*(token: string, webAccount: WebAccount
                          ): WebTokenResponse =
   ## Windows.Security.Authentication.Web.Core.IWebTokenResponseFactory.CreateWithTokenAndAccount
-  let it = statics[IWebTokenResponseFactoryVtbl]("Windows.Security.Authentication.Web.Core.WebTokenResponse")
+  let it = statics[IWebTokenResponseFactoryVtbl](className(WebTokenResponse))
   let a0 = toWinRtString(token)
   let a1 = queryInterface[IWebAccountVtbl](webAccount)
   var ret: pointer
@@ -9103,7 +9103,7 @@ proc newWebTokenResponse*(token: string, webAccount: WebAccount
 proc newWebTokenResponse*(token: string, webAccount: WebAccount,
                           error: WebProviderError): WebTokenResponse =
   ## Windows.Security.Authentication.Web.Core.IWebTokenResponseFactory.CreateWithTokenAccountAndError
-  let it = statics[IWebTokenResponseFactoryVtbl]("Windows.Security.Authentication.Web.Core.WebTokenResponse")
+  let it = statics[IWebTokenResponseFactoryVtbl](className(WebTokenResponse))
   let a0 = toWinRtString(token)
   let a1 = queryInterface[IWebAccountVtbl](webAccount)
   let a2 = queryInterface[IWebProviderErrorVtbl](error)

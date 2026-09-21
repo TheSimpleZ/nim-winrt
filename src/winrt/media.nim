@@ -45,7 +45,7 @@ proc setEchoCancellationRenderEndpoint*(self: AcousticEchoCancellationConfigurat
 proc isContentTypeSupported*(_: typedesc[AdaptiveMediaSource],
                              contentType: string): bool =
   ## Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceStatics.IsContentTypeSupported
-  let it = statics[IAdaptiveMediaSourceStaticsVtbl]("Windows.Media.Streaming.Adaptive.AdaptiveMediaSource")
+  let it = statics[IAdaptiveMediaSourceStaticsVtbl](className(AdaptiveMediaSource))
   let a0 = toWinRtString(contentType)
   var ret: bool
   check it.vtbl.IsContentTypeSupported(it.raw, a0.handle, ret.addr
@@ -55,7 +55,7 @@ proc isContentTypeSupported*(_: typedesc[AdaptiveMediaSource],
 proc createFromUriAsync*(_: typedesc[AdaptiveMediaSource], uri: Uri
                         ): Future[AdaptiveMediaSourceCreationResult] =
   ## Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceStatics.CreateFromUriAsync
-  let it = statics[IAdaptiveMediaSourceStaticsVtbl]("Windows.Media.Streaming.Adaptive.AdaptiveMediaSource")
+  let it = statics[IAdaptiveMediaSourceStaticsVtbl](className(AdaptiveMediaSource))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var op: pointer
   check it.vtbl.CreateFromUriAsync(it.raw, a0.raw, op.addr
@@ -67,7 +67,7 @@ proc createFromUriAsync*(_: typedesc[AdaptiveMediaSource], uri: Uri,
                          httpClient: HttpClient
                         ): Future[AdaptiveMediaSourceCreationResult] =
   ## Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceStatics.CreateFromUriAsync
-  let it = statics[IAdaptiveMediaSourceStaticsVtbl]("Windows.Media.Streaming.Adaptive.AdaptiveMediaSource")
+  let it = statics[IAdaptiveMediaSourceStaticsVtbl](className(AdaptiveMediaSource))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a1 = queryInterface[IHttpClientVtbl](httpClient)
   var op: pointer
@@ -81,7 +81,7 @@ proc createFromStreamAsync*(_: typedesc[AdaptiveMediaSource],
                             contentType: string
                            ): Future[AdaptiveMediaSourceCreationResult] =
   ## Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceStatics.CreateFromStreamAsync
-  let it = statics[IAdaptiveMediaSourceStaticsVtbl]("Windows.Media.Streaming.Adaptive.AdaptiveMediaSource")
+  let it = statics[IAdaptiveMediaSourceStaticsVtbl](className(AdaptiveMediaSource))
   let a0 = queryInterface[IInputStreamVtbl](stream)
   let a1 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a2 = toWinRtString(contentType)
@@ -96,7 +96,7 @@ proc createFromStreamAsync*(_: typedesc[AdaptiveMediaSource],
                             contentType: string, httpClient: HttpClient
                            ): Future[AdaptiveMediaSourceCreationResult] =
   ## Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceStatics.CreateFromStreamAsync
-  let it = statics[IAdaptiveMediaSourceStaticsVtbl]("Windows.Media.Streaming.Adaptive.AdaptiveMediaSource")
+  let it = statics[IAdaptiveMediaSourceStaticsVtbl](className(AdaptiveMediaSource))
   let a0 = queryInterface[IInputStreamVtbl](stream)
   let a1 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a2 = toWinRtString(contentType)
@@ -1896,7 +1896,7 @@ proc handled*(self: AppBroadcastHeartbeatRequestedEventArgs): bool =
 
 proc getGlobalSettings*(_: typedesc[AppBroadcastManager]): AppBroadcastGlobalSettings =
   ## Windows.Media.Capture.IAppBroadcastManagerStatics.GetGlobalSettings
-  let it = statics[IAppBroadcastManagerStaticsVtbl]("Windows.Media.Capture.AppBroadcastManager")
+  let it = statics[IAppBroadcastManagerStaticsVtbl](className(AppBroadcastManager))
   var ret: pointer
   check it.vtbl.GetGlobalSettings(it.raw, ret.addr
                                  ), "AppBroadcastManager.getGlobalSettings"
@@ -1905,14 +1905,14 @@ proc getGlobalSettings*(_: typedesc[AppBroadcastManager]): AppBroadcastGlobalSet
 proc applyGlobalSettings*(_: typedesc[AppBroadcastManager],
                           value: AppBroadcastGlobalSettings) =
   ## Windows.Media.Capture.IAppBroadcastManagerStatics.ApplyGlobalSettings
-  let it = statics[IAppBroadcastManagerStaticsVtbl]("Windows.Media.Capture.AppBroadcastManager")
+  let it = statics[IAppBroadcastManagerStaticsVtbl](className(AppBroadcastManager))
   let a0 = queryInterface[IAppBroadcastGlobalSettingsVtbl](value)
   check it.vtbl.ApplyGlobalSettings(it.raw, a0.raw
                                    ), "AppBroadcastManager.applyGlobalSettings"
 
 proc getProviderSettings*(_: typedesc[AppBroadcastManager]): AppBroadcastProviderSettings =
   ## Windows.Media.Capture.IAppBroadcastManagerStatics.GetProviderSettings
-  let it = statics[IAppBroadcastManagerStaticsVtbl]("Windows.Media.Capture.AppBroadcastManager")
+  let it = statics[IAppBroadcastManagerStaticsVtbl](className(AppBroadcastManager))
   var ret: pointer
   check it.vtbl.GetProviderSettings(it.raw, ret.addr
                                    ), "AppBroadcastManager.getProviderSettings"
@@ -1921,7 +1921,7 @@ proc getProviderSettings*(_: typedesc[AppBroadcastManager]): AppBroadcastProvide
 proc applyProviderSettings*(_: typedesc[AppBroadcastManager],
                             value: AppBroadcastProviderSettings) =
   ## Windows.Media.Capture.IAppBroadcastManagerStatics.ApplyProviderSettings
-  let it = statics[IAppBroadcastManagerStaticsVtbl]("Windows.Media.Capture.AppBroadcastManager")
+  let it = statics[IAppBroadcastManagerStaticsVtbl](className(AppBroadcastManager))
   let a0 = queryInterface[IAppBroadcastProviderSettingsVtbl](value)
   check it.vtbl.ApplyProviderSettings(it.raw, a0.raw
                                      ), "AppBroadcastManager.applyProviderSettings"
@@ -1980,7 +1980,7 @@ proc displayName*(self: AppBroadcastPlugIn): string =
 
 proc getDefault*(_: typedesc[AppBroadcastPlugInManager]): AppBroadcastPlugInManager =
   ## Windows.Media.Capture.IAppBroadcastPlugInManagerStatics.GetDefault
-  let it = statics[IAppBroadcastPlugInManagerStaticsVtbl]("Windows.Media.Capture.AppBroadcastPlugInManager")
+  let it = statics[IAppBroadcastPlugInManagerStaticsVtbl](className(AppBroadcastPlugInManager))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr
                           ), "AppBroadcastPlugInManager.getDefault"
@@ -1989,7 +1989,7 @@ proc getDefault*(_: typedesc[AppBroadcastPlugInManager]): AppBroadcastPlugInMana
 proc getForUser*(_: typedesc[AppBroadcastPlugInManager], user: User
                 ): AppBroadcastPlugInManager =
   ## Windows.Media.Capture.IAppBroadcastPlugInManagerStatics.GetForUser
-  let it = statics[IAppBroadcastPlugInManagerStaticsVtbl]("Windows.Media.Capture.AppBroadcastPlugInManager")
+  let it = statics[IAppBroadcastPlugInManagerStaticsVtbl](className(AppBroadcastPlugInManager))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -3158,7 +3158,7 @@ proc isDisabledBySystem*(self: AppBroadcastingStatusDetails): bool =
 
 proc getDefault*(_: typedesc[AppBroadcastingUI]): AppBroadcastingUI =
   ## Windows.Media.AppBroadcasting.IAppBroadcastingUIStatics.GetDefault
-  let it = statics[IAppBroadcastingUIStaticsVtbl]("Windows.Media.AppBroadcasting.AppBroadcastingUI")
+  let it = statics[IAppBroadcastingUIStaticsVtbl](className(AppBroadcastingUI))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "AppBroadcastingUI.getDefault"
   adopt[AppBroadcastingUI](ret)
@@ -3166,7 +3166,7 @@ proc getDefault*(_: typedesc[AppBroadcastingUI]): AppBroadcastingUI =
 proc getForUser*(_: typedesc[AppBroadcastingUI], user: User
                 ): AppBroadcastingUI =
   ## Windows.Media.AppBroadcasting.IAppBroadcastingUIStatics.GetForUser
-  let it = statics[IAppBroadcastingUIStaticsVtbl]("Windows.Media.AppBroadcasting.AppBroadcastingUI")
+  let it = statics[IAppBroadcastingUIStaticsVtbl](className(AppBroadcastingUI))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -3189,7 +3189,7 @@ proc showBroadcastUI*(self: AppBroadcastingUI) =
 
 proc getForCurrentView*(_: typedesc[AppCapture]): AppCapture =
   ## Windows.Media.Capture.IAppCaptureStatics.GetForCurrentView
-  let it = statics[IAppCaptureStaticsVtbl]("Windows.Media.Capture.AppCapture")
+  let it = statics[IAppCaptureStaticsVtbl](className(AppCapture))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "AppCapture.getForCurrentView"
@@ -3197,7 +3197,7 @@ proc getForCurrentView*(_: typedesc[AppCapture]): AppCapture =
 
 proc setAllowedAsync*(_: typedesc[AppCapture], allowed: bool): Future[void] =
   ## Windows.Media.Capture.IAppCaptureStatics2.SetAllowedAsync
-  let it = statics[IAppCaptureStatics2Vtbl]("Windows.Media.Capture.AppCapture")
+  let it = statics[IAppCaptureStatics2Vtbl](className(AppCapture))
   var op: pointer
   check it.vtbl.SetAllowedAsync(it.raw, allowed, op.addr
                                ), "AppCapture.setAllowedAsync"
@@ -3504,7 +3504,7 @@ proc file*(self: AppCaptureFileGeneratedEventArgs): StorageFile =
 
 proc getCurrentSettings*(_: typedesc[AppCaptureManager]): AppCaptureSettings =
   ## Windows.Media.Capture.IAppCaptureManagerStatics.GetCurrentSettings
-  let it = statics[IAppCaptureManagerStaticsVtbl]("Windows.Media.Capture.AppCaptureManager")
+  let it = statics[IAppCaptureManagerStaticsVtbl](className(AppCaptureManager))
   var ret: pointer
   check it.vtbl.GetCurrentSettings(it.raw, ret.addr
                                   ), "AppCaptureManager.getCurrentSettings"
@@ -3513,7 +3513,7 @@ proc getCurrentSettings*(_: typedesc[AppCaptureManager]): AppCaptureSettings =
 proc applySettings*(_: typedesc[AppCaptureManager],
                     appCaptureSettings: AppCaptureSettings) =
   ## Windows.Media.Capture.IAppCaptureManagerStatics.ApplySettings
-  let it = statics[IAppCaptureManagerStaticsVtbl]("Windows.Media.Capture.AppCaptureManager")
+  let it = statics[IAppCaptureManagerStaticsVtbl](className(AppCaptureManager))
   let a0 = queryInterface[IAppCaptureSettingsVtbl](appCaptureSettings)
   check it.vtbl.ApplySettings(it.raw, a0.raw), "AppCaptureManager.applySettings"
 
@@ -4274,7 +4274,7 @@ proc removeCaptureTargetClosed*(self: AppCaptureState,
 
 proc getDefault*(_: typedesc[AppRecordingManager]): AppRecordingManager =
   ## Windows.Media.AppRecording.IAppRecordingManagerStatics.GetDefault
-  let it = statics[IAppRecordingManagerStaticsVtbl]("Windows.Media.AppRecording.AppRecordingManager")
+  let it = statics[IAppRecordingManagerStaticsVtbl](className(AppRecordingManager))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "AppRecordingManager.getDefault"
   adopt[AppRecordingManager](ret)
@@ -4683,7 +4683,7 @@ proc notificationData*(self: AudioDeviceModuleNotificationEventArgs): IBuffer =
 
 proc newAudioDeviceModulesManager*(deviceId: string): AudioDeviceModulesManager =
   ## Windows.Media.Devices.IAudioDeviceModulesManagerFactory.Create
-  let it = statics[IAudioDeviceModulesManagerFactoryVtbl]("Windows.Media.Devices.AudioDeviceModulesManager")
+  let it = statics[IAudioDeviceModulesManagerFactoryVtbl](className(AudioDeviceModulesManager))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -4778,7 +4778,7 @@ proc setState*(self: AudioEffect, newState: AudioEffectState) =
 
 proc newAudioEffectDefinition*(activatableClassId: string): AudioEffectDefinition =
   ## Windows.Media.Effects.IAudioEffectDefinitionFactory.Create
-  let it = statics[IAudioEffectDefinitionFactoryVtbl]("Windows.Media.Effects.AudioEffectDefinition")
+  let it = statics[IAudioEffectDefinitionFactoryVtbl](className(AudioEffectDefinition))
   let a0 = toWinRtString(activatableClassId)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr), "AudioEffectDefinition.new"
@@ -4787,7 +4787,7 @@ proc newAudioEffectDefinition*(activatableClassId: string): AudioEffectDefinitio
 proc newAudioEffectDefinition*(activatableClassId: string,
                                props: SomePropertySet): AudioEffectDefinition =
   ## Windows.Media.Effects.IAudioEffectDefinitionFactory.CreateWithProperties
-  let it = statics[IAudioEffectDefinitionFactoryVtbl]("Windows.Media.Effects.AudioEffectDefinition")
+  let it = statics[IAudioEffectDefinitionFactoryVtbl](className(AudioEffectDefinition))
   let a0 = toWinRtString(activatableClassId)
   let a1 = queryInterface[IPropertySetVtbl](props)
   var ret: pointer
@@ -4802,7 +4802,7 @@ proc createAudioRenderEffectsManager*(_: typedesc[AudioEffectsManager],
                                       category: AudioRenderCategory
                                      ): AudioRenderEffectsManager =
   ## Windows.Media.Effects.IAudioEffectsManagerStatics.CreateAudioRenderEffectsManager
-  let it = statics[IAudioEffectsManagerStaticsVtbl]("Windows.Media.Effects.AudioEffectsManager")
+  let it = statics[IAudioEffectsManagerStaticsVtbl](className(AudioEffectsManager))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.CreateAudioRenderEffectsManager(it.raw, a0.handle, category,
@@ -4816,7 +4816,7 @@ proc createAudioRenderEffectsManager*(_: typedesc[AudioEffectsManager],
                                       mode: AudioProcessing
                                      ): AudioRenderEffectsManager =
   ## Windows.Media.Effects.IAudioEffectsManagerStatics.CreateAudioRenderEffectsManager
-  let it = statics[IAudioEffectsManagerStaticsVtbl]("Windows.Media.Effects.AudioEffectsManager")
+  let it = statics[IAudioEffectsManagerStaticsVtbl](className(AudioEffectsManager))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.CreateAudioRenderEffectsManager2(it.raw, a0.handle, category,
@@ -4828,7 +4828,7 @@ proc createAudioCaptureEffectsManager*(_: typedesc[AudioEffectsManager],
                                        deviceId: string, category: MediaCategory
                                       ): AudioCaptureEffectsManager =
   ## Windows.Media.Effects.IAudioEffectsManagerStatics.CreateAudioCaptureEffectsManager
-  let it = statics[IAudioEffectsManagerStaticsVtbl]("Windows.Media.Effects.AudioEffectsManager")
+  let it = statics[IAudioEffectsManagerStaticsVtbl](className(AudioEffectsManager))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.CreateAudioCaptureEffectsManager(it.raw, a0.handle, category,
@@ -4842,7 +4842,7 @@ proc createAudioCaptureEffectsManager*(_: typedesc[AudioEffectsManager],
                                        mode: AudioProcessing
                                       ): AudioCaptureEffectsManager =
   ## Windows.Media.Effects.IAudioEffectsManagerStatics.CreateAudioCaptureEffectsManager
-  let it = statics[IAudioEffectsManagerStaticsVtbl]("Windows.Media.Effects.AudioEffectsManager")
+  let it = statics[IAudioEffectsManagerStaticsVtbl](className(AudioEffectsManager))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.CreateAudioCaptureEffectsManager2(it.raw, a0.handle, category,
@@ -4856,7 +4856,7 @@ proc getForDeviceId*(_: typedesc[AudioEffectsPackConfiguration],
                      effectsPackId: string, deviceId: string
                     ): AudioEffectsPackConfiguration =
   ## Windows.Media.Audio.IAudioEffectsPackConfigurationStatics.GetForDeviceId
-  let it = statics[IAudioEffectsPackConfigurationStaticsVtbl]("Windows.Media.Audio.AudioEffectsPackConfiguration")
+  let it = statics[IAudioEffectsPackConfigurationStaticsVtbl](className(AudioEffectsPackConfiguration))
   let a0 = toWinRtString(effectsPackId)
   let a1 = toWinRtString(deviceId)
   var ret: pointer
@@ -4867,7 +4867,7 @@ proc getForDeviceId*(_: typedesc[AudioEffectsPackConfiguration],
 proc isDeviceIdSupported*(_: typedesc[AudioEffectsPackConfiguration],
                           effectsPackId: string, deviceId: string): bool =
   ## Windows.Media.Audio.IAudioEffectsPackConfigurationStatics.IsDeviceIdSupported
-  let it = statics[IAudioEffectsPackConfigurationStaticsVtbl]("Windows.Media.Audio.AudioEffectsPackConfiguration")
+  let it = statics[IAudioEffectsPackConfigurationStaticsVtbl](className(AudioEffectsPackConfiguration))
   let a0 = toWinRtString(effectsPackId)
   let a1 = toWinRtString(deviceId)
   var ret: bool
@@ -4929,7 +4929,7 @@ proc createAlac*(_: typedesc[AudioEncodingProperties], sampleRate: uint32,
                  channelCount: uint32, bitsPerSample: uint32
                 ): AudioEncodingProperties =
   ## Windows.Media.MediaProperties.IAudioEncodingPropertiesStatics2.CreateAlac
-  let it = statics[IAudioEncodingPropertiesStatics2Vtbl]("Windows.Media.MediaProperties.AudioEncodingProperties")
+  let it = statics[IAudioEncodingPropertiesStatics2Vtbl](className(AudioEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateAlac(it.raw, sampleRate, channelCount, bitsPerSample,
                            ret.addr), "AudioEncodingProperties.createAlac"
@@ -4939,7 +4939,7 @@ proc createFlac*(_: typedesc[AudioEncodingProperties], sampleRate: uint32,
                  channelCount: uint32, bitsPerSample: uint32
                 ): AudioEncodingProperties =
   ## Windows.Media.MediaProperties.IAudioEncodingPropertiesStatics2.CreateFlac
-  let it = statics[IAudioEncodingPropertiesStatics2Vtbl]("Windows.Media.MediaProperties.AudioEncodingProperties")
+  let it = statics[IAudioEncodingPropertiesStatics2Vtbl](className(AudioEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateFlac(it.raw, sampleRate, channelCount, bitsPerSample,
                            ret.addr), "AudioEncodingProperties.createFlac"
@@ -4949,7 +4949,7 @@ proc createAac*(_: typedesc[AudioEncodingProperties], sampleRate: uint32,
                 channelCount: uint32, bitrate: uint32
                ): AudioEncodingProperties =
   ## Windows.Media.MediaProperties.IAudioEncodingPropertiesStatics.CreateAac
-  let it = statics[IAudioEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.AudioEncodingProperties")
+  let it = statics[IAudioEncodingPropertiesStaticsVtbl](className(AudioEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateAac(it.raw, sampleRate, channelCount, bitrate, ret.addr
                          ), "AudioEncodingProperties.createAac"
@@ -4959,7 +4959,7 @@ proc createAacAdts*(_: typedesc[AudioEncodingProperties], sampleRate: uint32,
                     channelCount: uint32, bitrate: uint32
                    ): AudioEncodingProperties =
   ## Windows.Media.MediaProperties.IAudioEncodingPropertiesStatics.CreateAacAdts
-  let it = statics[IAudioEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.AudioEncodingProperties")
+  let it = statics[IAudioEncodingPropertiesStaticsVtbl](className(AudioEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateAacAdts(it.raw, sampleRate, channelCount, bitrate,
                               ret.addr), "AudioEncodingProperties.createAacAdts"
@@ -4969,7 +4969,7 @@ proc createMp3*(_: typedesc[AudioEncodingProperties], sampleRate: uint32,
                 channelCount: uint32, bitrate: uint32
                ): AudioEncodingProperties =
   ## Windows.Media.MediaProperties.IAudioEncodingPropertiesStatics.CreateMp3
-  let it = statics[IAudioEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.AudioEncodingProperties")
+  let it = statics[IAudioEncodingPropertiesStaticsVtbl](className(AudioEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateMp3(it.raw, sampleRate, channelCount, bitrate, ret.addr
                          ), "AudioEncodingProperties.createMp3"
@@ -4979,7 +4979,7 @@ proc createPcm*(_: typedesc[AudioEncodingProperties], sampleRate: uint32,
                 channelCount: uint32, bitsPerSample: uint32
                ): AudioEncodingProperties =
   ## Windows.Media.MediaProperties.IAudioEncodingPropertiesStatics.CreatePcm
-  let it = statics[IAudioEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.AudioEncodingProperties")
+  let it = statics[IAudioEncodingPropertiesStaticsVtbl](className(AudioEncodingProperties))
   var ret: pointer
   check it.vtbl.CreatePcm(it.raw, sampleRate, channelCount, bitsPerSample,
                           ret.addr), "AudioEncodingProperties.createPcm"
@@ -4989,7 +4989,7 @@ proc createWma*(_: typedesc[AudioEncodingProperties], sampleRate: uint32,
                 channelCount: uint32, bitrate: uint32
                ): AudioEncodingProperties =
   ## Windows.Media.MediaProperties.IAudioEncodingPropertiesStatics.CreateWma
-  let it = statics[IAudioEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.AudioEncodingProperties")
+  let it = statics[IAudioEncodingPropertiesStaticsVtbl](className(AudioEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateWma(it.raw, sampleRate, channelCount, bitrate, ret.addr
                          ), "AudioEncodingProperties.createWma"
@@ -5212,7 +5212,7 @@ proc finalizeAsync*(self: AudioFileOutputNode): Future[TranscodeFailureReason] =
 
 proc newAudioFrame*(capacity: uint32): AudioFrame =
   ## Windows.Media.IAudioFrameFactory.Create
-  let it = statics[IAudioFrameFactoryVtbl]("Windows.Media.AudioFrame")
+  let it = statics[IAudioFrameFactoryVtbl](className(AudioFrame))
   var ret: pointer
   check it.vtbl.Create(it.raw, capacity, ret.addr), "AudioFrame.new"
   adopt[AudioFrame](ret)
@@ -5325,7 +5325,7 @@ proc getFrame*(self: AudioFrameOutputNode): AudioFrame =
 proc createAsync*(_: typedesc[AudioGraph], settings: AudioGraphSettings
                  ): Future[CreateAudioGraphResult] =
   ## Windows.Media.Audio.IAudioGraphStatics.CreateAsync
-  let it = statics[IAudioGraphStaticsVtbl]("Windows.Media.Audio.AudioGraph")
+  let it = statics[IAudioGraphStaticsVtbl](className(AudioGraph))
   let a0 = queryInterface[IAudioGraphSettingsVtbl](settings)
   var op: pointer
   check it.vtbl.CreateAsync(it.raw, a0.raw, op.addr), "AudioGraph.createAsync"
@@ -5706,7 +5706,7 @@ proc gain*(self: AudioGraphConnection): float64 =
 
 proc newAudioGraphSettings*(audioRenderCategory: AudioRenderCategory): AudioGraphSettings =
   ## Windows.Media.Audio.IAudioGraphSettingsFactory.Create
-  let it = statics[IAudioGraphSettingsFactoryVtbl]("Windows.Media.Audio.AudioGraphSettings")
+  let it = statics[IAudioGraphSettingsFactoryVtbl](className(AudioGraphSettings))
   var ret: pointer
   check it.vtbl.Create(it.raw, audioRenderCategory, ret.addr
                       ), "AudioGraphSettings.new"
@@ -5863,7 +5863,7 @@ proc newAudioNodeEmitter*(shape: AudioNodeEmitterShape,
                           settings: AudioNodeEmitterSettings
                          ): AudioNodeEmitter =
   ## Windows.Media.Audio.IAudioNodeEmitterFactory.CreateAudioNodeEmitter
-  let it = statics[IAudioNodeEmitterFactoryVtbl]("Windows.Media.Audio.AudioNodeEmitter")
+  let it = statics[IAudioNodeEmitterFactoryVtbl](className(AudioNodeEmitter))
   let a0 = queryInterface[IAudioNodeEmitterShapeVtbl](shape)
   let a1 = queryInterface[IAudioNodeEmitterDecayModelVtbl](decayModel)
   var ret: pointer
@@ -6016,7 +6016,7 @@ proc createNatural*(_: typedesc[AudioNodeEmitterDecayModel], minGain: float64,
                     maxGain: float64, unityGainDistance: float64,
                     cutoffDistance: float64): AudioNodeEmitterDecayModel =
   ## Windows.Media.Audio.IAudioNodeEmitterDecayModelStatics.CreateNatural
-  let it = statics[IAudioNodeEmitterDecayModelStaticsVtbl]("Windows.Media.Audio.AudioNodeEmitterDecayModel")
+  let it = statics[IAudioNodeEmitterDecayModelStaticsVtbl](className(AudioNodeEmitterDecayModel))
   var ret: pointer
   check it.vtbl.CreateNatural(it.raw, minGain, maxGain, unityGainDistance,
                               cutoffDistance, ret.addr
@@ -6026,7 +6026,7 @@ proc createNatural*(_: typedesc[AudioNodeEmitterDecayModel], minGain: float64,
 proc createCustom*(_: typedesc[AudioNodeEmitterDecayModel], minGain: float64,
                    maxGain: float64): AudioNodeEmitterDecayModel =
   ## Windows.Media.Audio.IAudioNodeEmitterDecayModelStatics.CreateCustom
-  let it = statics[IAudioNodeEmitterDecayModelStaticsVtbl]("Windows.Media.Audio.AudioNodeEmitterDecayModel")
+  let it = statics[IAudioNodeEmitterDecayModelStaticsVtbl](className(AudioNodeEmitterDecayModel))
   var ret: pointer
   check it.vtbl.CreateCustom(it.raw, minGain, maxGain, ret.addr
                             ), "AudioNodeEmitterDecayModel.createCustom"
@@ -6087,7 +6087,7 @@ proc createCone*(_: typedesc[AudioNodeEmitterShape], innerAngle: float64,
                  outerAngle: float64, outerAngleGain: float64
                 ): AudioNodeEmitterShape =
   ## Windows.Media.Audio.IAudioNodeEmitterShapeStatics.CreateCone
-  let it = statics[IAudioNodeEmitterShapeStaticsVtbl]("Windows.Media.Audio.AudioNodeEmitterShape")
+  let it = statics[IAudioNodeEmitterShapeStaticsVtbl](className(AudioNodeEmitterShape))
   var ret: pointer
   check it.vtbl.CreateCone(it.raw, innerAngle, outerAngle, outerAngleGain,
                            ret.addr), "AudioNodeEmitterShape.createCone"
@@ -6095,7 +6095,7 @@ proc createCone*(_: typedesc[AudioNodeEmitterShape], innerAngle: float64,
 
 proc createOmnidirectional*(_: typedesc[AudioNodeEmitterShape]): AudioNodeEmitterShape =
   ## Windows.Media.Audio.IAudioNodeEmitterShapeStatics.CreateOmnidirectional
-  let it = statics[IAudioNodeEmitterShapeStaticsVtbl]("Windows.Media.Audio.AudioNodeEmitterShape")
+  let it = statics[IAudioNodeEmitterShapeStaticsVtbl](className(AudioNodeEmitterShape))
   var ret: pointer
   check it.vtbl.CreateOmnidirectional(it.raw, ret.addr
                                      ), "AudioNodeEmitterShape.createOmnidirectional"
@@ -6179,7 +6179,7 @@ proc `dopplerVelocity=`*(self: AudioNodeListener, value: Vector3) =
 
 proc getDeviceSelector*(_: typedesc[AudioPlaybackConnection]): string =
   ## Windows.Media.Audio.IAudioPlaybackConnectionStatics.GetDeviceSelector
-  let it = statics[IAudioPlaybackConnectionStaticsVtbl]("Windows.Media.Audio.AudioPlaybackConnection")
+  let it = statics[IAudioPlaybackConnectionStaticsVtbl](className(AudioPlaybackConnection))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "AudioPlaybackConnection.getDeviceSelector"
@@ -6188,7 +6188,7 @@ proc getDeviceSelector*(_: typedesc[AudioPlaybackConnection]): string =
 proc tryCreateFromId*(_: typedesc[AudioPlaybackConnection], id: string
                      ): AudioPlaybackConnection =
   ## Windows.Media.Audio.IAudioPlaybackConnectionStatics.TryCreateFromId
-  let it = statics[IAudioPlaybackConnectionStaticsVtbl]("Windows.Media.Audio.AudioPlaybackConnection")
+  let it = statics[IAudioPlaybackConnectionStaticsVtbl](className(AudioPlaybackConnection))
   let a0 = toWinRtString(id)
   var ret: pointer
   check it.vtbl.TryCreateFromId(it.raw, a0.handle, ret.addr
@@ -6331,7 +6331,7 @@ proc showSettingsUI*(self: AudioRenderEffectsManager) =
 
 proc createForRenderMonitoring*(_: typedesc[AudioStateMonitor]): AudioStateMonitor =
   ## Windows.Media.Audio.IAudioStateMonitorStatics.CreateForRenderMonitoring
-  let it = statics[IAudioStateMonitorStaticsVtbl]("Windows.Media.Audio.AudioStateMonitor")
+  let it = statics[IAudioStateMonitorStaticsVtbl](className(AudioStateMonitor))
   var ret: pointer
   check it.vtbl.CreateForRenderMonitoring(it.raw, ret.addr
                                          ), "AudioStateMonitor.createForRenderMonitoring"
@@ -6341,7 +6341,7 @@ proc createForRenderMonitoring*(_: typedesc[AudioStateMonitor],
                                 category: AudioRenderCategory
                                ): AudioStateMonitor =
   ## Windows.Media.Audio.IAudioStateMonitorStatics.CreateForRenderMonitoring
-  let it = statics[IAudioStateMonitorStaticsVtbl]("Windows.Media.Audio.AudioStateMonitor")
+  let it = statics[IAudioStateMonitorStaticsVtbl](className(AudioStateMonitor))
   var ret: pointer
   check it.vtbl.CreateForRenderMonitoring2(it.raw, category, ret.addr
                                           ), "AudioStateMonitor.createForRenderMonitoring"
@@ -6351,7 +6351,7 @@ proc createForRenderMonitoring*(_: typedesc[AudioStateMonitor],
                                 category: AudioRenderCategory,
                                 role: AudioDeviceRole): AudioStateMonitor =
   ## Windows.Media.Audio.IAudioStateMonitorStatics.CreateForRenderMonitoring
-  let it = statics[IAudioStateMonitorStaticsVtbl]("Windows.Media.Audio.AudioStateMonitor")
+  let it = statics[IAudioStateMonitorStaticsVtbl](className(AudioStateMonitor))
   var ret: pointer
   check it.vtbl.CreateForRenderMonitoring3(it.raw, category, role, ret.addr
                                           ), "AudioStateMonitor.createForRenderMonitoring"
@@ -6362,7 +6362,7 @@ proc createForRenderMonitoringWithCategoryAndDeviceId*(_: typedesc[AudioStateMon
                                                        deviceId: string
                                                       ): AudioStateMonitor =
   ## Windows.Media.Audio.IAudioStateMonitorStatics.CreateForRenderMonitoringWithCategoryAndDeviceId
-  let it = statics[IAudioStateMonitorStaticsVtbl]("Windows.Media.Audio.AudioStateMonitor")
+  let it = statics[IAudioStateMonitorStaticsVtbl](className(AudioStateMonitor))
   let a1 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.CreateForRenderMonitoringWithCategoryAndDeviceId(it.raw,
@@ -6374,7 +6374,7 @@ proc createForRenderMonitoringWithCategoryAndDeviceId*(_: typedesc[AudioStateMon
 
 proc createForCaptureMonitoring*(_: typedesc[AudioStateMonitor]): AudioStateMonitor =
   ## Windows.Media.Audio.IAudioStateMonitorStatics.CreateForCaptureMonitoring
-  let it = statics[IAudioStateMonitorStaticsVtbl]("Windows.Media.Audio.AudioStateMonitor")
+  let it = statics[IAudioStateMonitorStaticsVtbl](className(AudioStateMonitor))
   var ret: pointer
   check it.vtbl.CreateForCaptureMonitoring(it.raw, ret.addr
                                           ), "AudioStateMonitor.createForCaptureMonitoring"
@@ -6383,7 +6383,7 @@ proc createForCaptureMonitoring*(_: typedesc[AudioStateMonitor]): AudioStateMoni
 proc createForCaptureMonitoring*(_: typedesc[AudioStateMonitor],
                                  category: MediaCategory): AudioStateMonitor =
   ## Windows.Media.Audio.IAudioStateMonitorStatics.CreateForCaptureMonitoring
-  let it = statics[IAudioStateMonitorStaticsVtbl]("Windows.Media.Audio.AudioStateMonitor")
+  let it = statics[IAudioStateMonitorStaticsVtbl](className(AudioStateMonitor))
   var ret: pointer
   check it.vtbl.CreateForCaptureMonitoring2(it.raw, category, ret.addr
                                            ), "AudioStateMonitor.createForCaptureMonitoring"
@@ -6393,7 +6393,7 @@ proc createForCaptureMonitoring*(_: typedesc[AudioStateMonitor],
                                  category: MediaCategory, role: AudioDeviceRole
                                 ): AudioStateMonitor =
   ## Windows.Media.Audio.IAudioStateMonitorStatics.CreateForCaptureMonitoring
-  let it = statics[IAudioStateMonitorStaticsVtbl]("Windows.Media.Audio.AudioStateMonitor")
+  let it = statics[IAudioStateMonitorStaticsVtbl](className(AudioStateMonitor))
   var ret: pointer
   check it.vtbl.CreateForCaptureMonitoring3(it.raw, category, role, ret.addr
                                            ), "AudioStateMonitor.createForCaptureMonitoring"
@@ -6404,7 +6404,7 @@ proc createForCaptureMonitoringWithCategoryAndDeviceId*(_: typedesc[AudioStateMo
                                                         deviceId: string
                                                        ): AudioStateMonitor =
   ## Windows.Media.Audio.IAudioStateMonitorStatics.CreateForCaptureMonitoringWithCategoryAndDeviceId
-  let it = statics[IAudioStateMonitorStaticsVtbl]("Windows.Media.Audio.AudioStateMonitor")
+  let it = statics[IAudioStateMonitorStaticsVtbl](className(AudioStateMonitor))
   let a1 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.CreateForCaptureMonitoringWithCategoryAndDeviceId(it.raw,
@@ -6445,7 +6445,7 @@ proc soundLevel*(self: AudioStateMonitor): SoundLevel =
 
 proc newAudioStreamDescriptor*(encodingProperties: AudioEncodingProperties): AudioStreamDescriptor =
   ## Windows.Media.Core.IAudioStreamDescriptorFactory.Create
-  let it = statics[IAudioStreamDescriptorFactoryVtbl]("Windows.Media.Core.AudioStreamDescriptor")
+  let it = statics[IAudioStreamDescriptorFactoryVtbl](className(AudioStreamDescriptor))
   let a0 = queryInterface[IAudioEncodingPropertiesVtbl](encodingProperties)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "AudioStreamDescriptor.new"
@@ -6605,7 +6605,7 @@ proc requestedAutoRepeatMode*(self: AutoRepeatModeChangeRequestedEventArgs): Med
 
 proc mainChromaSubsampling420BitDepth8*(_: typedesc[Av1ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics.get_MainChromaSubsampling420BitDepth8
-  let it = statics[IAv1ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Av1ProfileIds")
+  let it = statics[IAv1ProfileIdsStaticsVtbl](className(Av1ProfileIds))
   var ret: int32
   check it.vtbl.get_MainChromaSubsampling420BitDepth8(it.raw, ret.addr
                                                      ), "Av1ProfileIds.mainChromaSubsampling420BitDepth8"
@@ -6613,7 +6613,7 @@ proc mainChromaSubsampling420BitDepth8*(_: typedesc[Av1ProfileIds]): int32 =
 
 proc mainChromaSubsampling420BitDepth10*(_: typedesc[Av1ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics.get_MainChromaSubsampling420BitDepth10
-  let it = statics[IAv1ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Av1ProfileIds")
+  let it = statics[IAv1ProfileIdsStaticsVtbl](className(Av1ProfileIds))
   var ret: int32
   check it.vtbl.get_MainChromaSubsampling420BitDepth10(it.raw, ret.addr
                                                       ), "Av1ProfileIds.mainChromaSubsampling420BitDepth10"
@@ -6621,7 +6621,7 @@ proc mainChromaSubsampling420BitDepth10*(_: typedesc[Av1ProfileIds]): int32 =
 
 proc mainChromaSubsampling400BitDepth8*(_: typedesc[Av1ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics.get_MainChromaSubsampling400BitDepth8
-  let it = statics[IAv1ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Av1ProfileIds")
+  let it = statics[IAv1ProfileIdsStaticsVtbl](className(Av1ProfileIds))
   var ret: int32
   check it.vtbl.get_MainChromaSubsampling400BitDepth8(it.raw, ret.addr
                                                      ), "Av1ProfileIds.mainChromaSubsampling400BitDepth8"
@@ -6629,7 +6629,7 @@ proc mainChromaSubsampling400BitDepth8*(_: typedesc[Av1ProfileIds]): int32 =
 
 proc mainChromaSubsampling400BitDepth10*(_: typedesc[Av1ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics.get_MainChromaSubsampling400BitDepth10
-  let it = statics[IAv1ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Av1ProfileIds")
+  let it = statics[IAv1ProfileIdsStaticsVtbl](className(Av1ProfileIds))
   var ret: int32
   check it.vtbl.get_MainChromaSubsampling400BitDepth10(it.raw, ret.addr
                                                       ), "Av1ProfileIds.mainChromaSubsampling400BitDepth10"
@@ -6637,7 +6637,7 @@ proc mainChromaSubsampling400BitDepth10*(_: typedesc[Av1ProfileIds]): int32 =
 
 proc highChromaSubsampling444BitDepth8*(_: typedesc[Av1ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics.get_HighChromaSubsampling444BitDepth8
-  let it = statics[IAv1ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Av1ProfileIds")
+  let it = statics[IAv1ProfileIdsStaticsVtbl](className(Av1ProfileIds))
   var ret: int32
   check it.vtbl.get_HighChromaSubsampling444BitDepth8(it.raw, ret.addr
                                                      ), "Av1ProfileIds.highChromaSubsampling444BitDepth8"
@@ -6645,7 +6645,7 @@ proc highChromaSubsampling444BitDepth8*(_: typedesc[Av1ProfileIds]): int32 =
 
 proc highChromaSubsampling444BitDepth10*(_: typedesc[Av1ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics.get_HighChromaSubsampling444BitDepth10
-  let it = statics[IAv1ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Av1ProfileIds")
+  let it = statics[IAv1ProfileIdsStaticsVtbl](className(Av1ProfileIds))
   var ret: int32
   check it.vtbl.get_HighChromaSubsampling444BitDepth10(it.raw, ret.addr
                                                       ), "Av1ProfileIds.highChromaSubsampling444BitDepth10"
@@ -6653,7 +6653,7 @@ proc highChromaSubsampling444BitDepth10*(_: typedesc[Av1ProfileIds]): int32 =
 
 proc professionalChromaSubsampling420BitDepth12*(_: typedesc[Av1ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics.get_ProfessionalChromaSubsampling420BitDepth12
-  let it = statics[IAv1ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Av1ProfileIds")
+  let it = statics[IAv1ProfileIdsStaticsVtbl](className(Av1ProfileIds))
   var ret: int32
   check it.vtbl.get_ProfessionalChromaSubsampling420BitDepth12(it.raw, ret.addr
                                                               ), "Av1ProfileIds.professionalChromaSubsampling420BitDepth12"
@@ -6661,7 +6661,7 @@ proc professionalChromaSubsampling420BitDepth12*(_: typedesc[Av1ProfileIds]): in
 
 proc professionalChromaSubsampling400BitDepth12*(_: typedesc[Av1ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics.get_ProfessionalChromaSubsampling400BitDepth12
-  let it = statics[IAv1ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Av1ProfileIds")
+  let it = statics[IAv1ProfileIdsStaticsVtbl](className(Av1ProfileIds))
   var ret: int32
   check it.vtbl.get_ProfessionalChromaSubsampling400BitDepth12(it.raw, ret.addr
                                                               ), "Av1ProfileIds.professionalChromaSubsampling400BitDepth12"
@@ -6669,7 +6669,7 @@ proc professionalChromaSubsampling400BitDepth12*(_: typedesc[Av1ProfileIds]): in
 
 proc professionalChromaSubsampling444BitDepth12*(_: typedesc[Av1ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics.get_ProfessionalChromaSubsampling444BitDepth12
-  let it = statics[IAv1ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Av1ProfileIds")
+  let it = statics[IAv1ProfileIdsStaticsVtbl](className(Av1ProfileIds))
   var ret: int32
   check it.vtbl.get_ProfessionalChromaSubsampling444BitDepth12(it.raw, ret.addr
                                                               ), "Av1ProfileIds.professionalChromaSubsampling444BitDepth12"
@@ -6677,7 +6677,7 @@ proc professionalChromaSubsampling444BitDepth12*(_: typedesc[Av1ProfileIds]): in
 
 proc professionalChromaSubsampling422BitDepth8*(_: typedesc[Av1ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics.get_ProfessionalChromaSubsampling422BitDepth8
-  let it = statics[IAv1ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Av1ProfileIds")
+  let it = statics[IAv1ProfileIdsStaticsVtbl](className(Av1ProfileIds))
   var ret: int32
   check it.vtbl.get_ProfessionalChromaSubsampling422BitDepth8(it.raw, ret.addr
                                                              ), "Av1ProfileIds.professionalChromaSubsampling422BitDepth8"
@@ -6685,7 +6685,7 @@ proc professionalChromaSubsampling422BitDepth8*(_: typedesc[Av1ProfileIds]): int
 
 proc professionalChromaSubsampling422BitDepth10*(_: typedesc[Av1ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics.get_ProfessionalChromaSubsampling422BitDepth10
-  let it = statics[IAv1ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Av1ProfileIds")
+  let it = statics[IAv1ProfileIdsStaticsVtbl](className(Av1ProfileIds))
   var ret: int32
   check it.vtbl.get_ProfessionalChromaSubsampling422BitDepth10(it.raw, ret.addr
                                                               ), "Av1ProfileIds.professionalChromaSubsampling422BitDepth10"
@@ -6693,7 +6693,7 @@ proc professionalChromaSubsampling422BitDepth10*(_: typedesc[Av1ProfileIds]): in
 
 proc professionalChromaSubsampling422BitDepth12*(_: typedesc[Av1ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics.get_ProfessionalChromaSubsampling422BitDepth12
-  let it = statics[IAv1ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Av1ProfileIds")
+  let it = statics[IAv1ProfileIdsStaticsVtbl](className(Av1ProfileIds))
   var ret: int32
   check it.vtbl.get_ProfessionalChromaSubsampling422BitDepth12(it.raw, ret.addr
                                                               ), "Av1ProfileIds.professionalChromaSubsampling422BitDepth12"
@@ -6705,7 +6705,7 @@ proc createFromEmbeddedAudioTrack*(_: typedesc[BackgroundAudioTrack],
                                    embeddedAudioTrack: EmbeddedAudioTrack
                                   ): BackgroundAudioTrack =
   ## Windows.Media.Editing.IBackgroundAudioTrackStatics.CreateFromEmbeddedAudioTrack
-  let it = statics[IBackgroundAudioTrackStaticsVtbl]("Windows.Media.Editing.BackgroundAudioTrack")
+  let it = statics[IBackgroundAudioTrackStaticsVtbl](className(BackgroundAudioTrack))
   let a0 = queryInterface[IEmbeddedAudioTrackVtbl](embeddedAudioTrack)
   var ret: pointer
   check it.vtbl.CreateFromEmbeddedAudioTrack(it.raw, a0.raw, ret.addr
@@ -6715,7 +6715,7 @@ proc createFromEmbeddedAudioTrack*(_: typedesc[BackgroundAudioTrack],
 proc createFromFileAsync*(_: typedesc[BackgroundAudioTrack],
                           file: SomeStorageFile): Future[BackgroundAudioTrack] =
   ## Windows.Media.Editing.IBackgroundAudioTrackStatics.CreateFromFileAsync
-  let it = statics[IBackgroundAudioTrackStaticsVtbl]("Windows.Media.Editing.BackgroundAudioTrack")
+  let it = statics[IBackgroundAudioTrackStaticsVtbl](className(BackgroundAudioTrack))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.CreateFromFileAsync(it.raw, a0.raw, op.addr
@@ -6824,7 +6824,7 @@ proc audioEffectDefinitions*(self: BackgroundAudioTrack): seq[IAudioEffectDefini
 
 proc current*(_: typedesc[BackgroundMediaPlayer]): MediaPlayer =
   ## Windows.Media.Playback.IBackgroundMediaPlayerStatics.get_Current
-  let it = statics[IBackgroundMediaPlayerStaticsVtbl]("Windows.Media.Playback.BackgroundMediaPlayer")
+  let it = statics[IBackgroundMediaPlayerStaticsVtbl](className(BackgroundMediaPlayer))
   var ret: pointer
   check it.vtbl.get_Current(it.raw, ret.addr), "BackgroundMediaPlayer.current"
   adopt[MediaPlayer](ret)
@@ -6834,7 +6834,7 @@ proc onMessageReceivedFromBackground*(_: typedesc[BackgroundMediaPlayer],
                                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.IBackgroundMediaPlayerStatics.add_MessageReceivedFromBackground
   ## The token is what `removeMessageReceivedFromBackground` takes.
-  let it = statics[IBackgroundMediaPlayerStaticsVtbl]("Windows.Media.Playback.BackgroundMediaPlayer")
+  let it = statics[IBackgroundMediaPlayerStaticsVtbl](className(BackgroundMediaPlayer))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0),
             borrow[MediaPlayerDataReceivedEventArgs](a1))
@@ -6846,7 +6846,7 @@ proc onMessageReceivedFromBackground*(_: typedesc[BackgroundMediaPlayer],
 proc removeMessageReceivedFromBackground*(_: typedesc[BackgroundMediaPlayer],
                                           token: EventRegistrationToken) =
   ## Windows.Media.Playback.IBackgroundMediaPlayerStatics.remove_MessageReceivedFromBackground
-  let it = statics[IBackgroundMediaPlayerStaticsVtbl]("Windows.Media.Playback.BackgroundMediaPlayer")
+  let it = statics[IBackgroundMediaPlayerStaticsVtbl](className(BackgroundMediaPlayer))
   check it.vtbl.remove_MessageReceivedFromBackground(it.raw, token
                                                     ), "BackgroundMediaPlayer.messageReceivedFromBackground"
 
@@ -6855,7 +6855,7 @@ proc onMessageReceivedFromForeground*(_: typedesc[BackgroundMediaPlayer],
                                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.IBackgroundMediaPlayerStatics.add_MessageReceivedFromForeground
   ## The token is what `removeMessageReceivedFromForeground` takes.
-  let it = statics[IBackgroundMediaPlayerStaticsVtbl]("Windows.Media.Playback.BackgroundMediaPlayer")
+  let it = statics[IBackgroundMediaPlayerStaticsVtbl](className(BackgroundMediaPlayer))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0),
             borrow[MediaPlayerDataReceivedEventArgs](a1))
@@ -6867,14 +6867,14 @@ proc onMessageReceivedFromForeground*(_: typedesc[BackgroundMediaPlayer],
 proc removeMessageReceivedFromForeground*(_: typedesc[BackgroundMediaPlayer],
                                           token: EventRegistrationToken) =
   ## Windows.Media.Playback.IBackgroundMediaPlayerStatics.remove_MessageReceivedFromForeground
-  let it = statics[IBackgroundMediaPlayerStaticsVtbl]("Windows.Media.Playback.BackgroundMediaPlayer")
+  let it = statics[IBackgroundMediaPlayerStaticsVtbl](className(BackgroundMediaPlayer))
   check it.vtbl.remove_MessageReceivedFromForeground(it.raw, token
                                                     ), "BackgroundMediaPlayer.messageReceivedFromForeground"
 
 proc sendMessageToBackground*(_: typedesc[BackgroundMediaPlayer],
                               value: ValueSet) =
   ## Windows.Media.Playback.IBackgroundMediaPlayerStatics.SendMessageToBackground
-  let it = statics[IBackgroundMediaPlayerStaticsVtbl]("Windows.Media.Playback.BackgroundMediaPlayer")
+  let it = statics[IBackgroundMediaPlayerStaticsVtbl](className(BackgroundMediaPlayer))
   let a0 = queryInterface[IPropertySetVtbl](value)
   check it.vtbl.SendMessageToBackground(it.raw, a0.raw
                                        ), "BackgroundMediaPlayer.sendMessageToBackground"
@@ -6882,14 +6882,14 @@ proc sendMessageToBackground*(_: typedesc[BackgroundMediaPlayer],
 proc sendMessageToForeground*(_: typedesc[BackgroundMediaPlayer],
                               value: ValueSet) =
   ## Windows.Media.Playback.IBackgroundMediaPlayerStatics.SendMessageToForeground
-  let it = statics[IBackgroundMediaPlayerStaticsVtbl]("Windows.Media.Playback.BackgroundMediaPlayer")
+  let it = statics[IBackgroundMediaPlayerStaticsVtbl](className(BackgroundMediaPlayer))
   let a0 = queryInterface[IPropertySetVtbl](value)
   check it.vtbl.SendMessageToForeground(it.raw, a0.raw
                                        ), "BackgroundMediaPlayer.sendMessageToForeground"
 
 proc isMediaPlaying*(_: typedesc[BackgroundMediaPlayer]): bool =
   ## Windows.Media.Playback.IBackgroundMediaPlayerStatics.IsMediaPlaying
-  let it = statics[IBackgroundMediaPlayerStaticsVtbl]("Windows.Media.Playback.BackgroundMediaPlayer")
+  let it = statics[IBackgroundMediaPlayerStaticsVtbl](className(BackgroundMediaPlayer))
   var ret: bool
   check it.vtbl.IsMediaPlaying(it.raw, ret.addr
                               ), "BackgroundMediaPlayer.isMediaPlaying"
@@ -6897,7 +6897,7 @@ proc isMediaPlaying*(_: typedesc[BackgroundMediaPlayer]): bool =
 
 proc shutdown*(_: typedesc[BackgroundMediaPlayer]) =
   ## Windows.Media.Playback.IBackgroundMediaPlayerStatics.Shutdown
-  let it = statics[IBackgroundMediaPlayerStaticsVtbl]("Windows.Media.Playback.BackgroundMediaPlayer")
+  let it = statics[IBackgroundMediaPlayerStaticsVtbl](className(BackgroundMediaPlayer))
   check it.vtbl.Shutdown(it.raw), "BackgroundMediaPlayer.shutdown"
 
 # ---- Windows.Media.Capture.Frames.BufferMediaFrame
@@ -6921,14 +6921,14 @@ proc buffer*(self: BufferMediaFrame): IBuffer =
 
 proc getDefault*(_: typedesc[CallControl]): CallControl =
   ## Windows.Media.Devices.ICallControlStatics.GetDefault
-  let it = statics[ICallControlStaticsVtbl]("Windows.Media.Devices.CallControl")
+  let it = statics[ICallControlStaticsVtbl](className(CallControl))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "CallControl.getDefault"
   adopt[CallControl](ret)
 
 proc fromId*(_: typedesc[CallControl], deviceId: string): CallControl =
   ## Windows.Media.Devices.ICallControlStatics.FromId
-  let it = statics[ICallControlStaticsVtbl]("Windows.Media.Devices.CallControl")
+  let it = statics[ICallControlStaticsVtbl](className(CallControl))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.FromId(it.raw, a0.handle, ret.addr), "CallControl.fromId"
@@ -7251,7 +7251,7 @@ proc newCameraIntrinsics*(focalLength: Vector2, principalPoint: Vector2,
                           tangentialDistortion: Vector2, imageWidth: uint32,
                           imageHeight: uint32): CameraIntrinsics =
   ## Windows.Media.Devices.Core.ICameraIntrinsicsFactory.Create
-  let it = statics[ICameraIntrinsicsFactoryVtbl]("Windows.Media.Devices.Core.CameraIntrinsics")
+  let it = statics[ICameraIntrinsicsFactoryVtbl](className(CameraIntrinsics))
   var ret: pointer
   check it.vtbl.Create(it.raw, focalLength, principalPoint, radialDistortion,
                        tangentialDistortion, imageWidth, imageHeight, ret.addr
@@ -7458,7 +7458,7 @@ proc state*(self: CameraOcclusionStateChangedEventArgs): CameraOcclusionState =
 
 proc show*(_: typedesc[CameraOptionsUI], mediaCapture: MediaCapture) =
   ## Windows.Media.Capture.ICameraOptionsUIStatics.Show
-  let it = statics[ICameraOptionsUIStaticsVtbl]("Windows.Media.Capture.CameraOptionsUI")
+  let it = statics[ICameraOptionsUIStaticsVtbl](className(CameraOptionsUI))
   let a0 = queryInterface[IMediaCaptureVtbl](mediaCapture)
   check it.vtbl.Show(it.raw, a0.raw), "CameraOptionsUI.show"
 
@@ -7744,7 +7744,7 @@ proc message*(self: CastingConnectionErrorOccurredEventArgs): string =
 proc getDeviceSelector*(_: typedesc[CastingDevice], `type`: CastingPlaybackTypes
                        ): string =
   ## Windows.Media.Casting.ICastingDeviceStatics.GetDeviceSelector
-  let it = statics[ICastingDeviceStaticsVtbl]("Windows.Media.Casting.CastingDevice")
+  let it = statics[ICastingDeviceStaticsVtbl](className(CastingDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, `type`, ret.addr
                                  ), "CastingDevice.getDeviceSelector"
@@ -7754,7 +7754,7 @@ proc getDeviceSelectorFromCastingSourceAsync*(_: typedesc[CastingDevice],
                                               castingSource: CastingSource
                                              ): Future[string] =
   ## Windows.Media.Casting.ICastingDeviceStatics.GetDeviceSelectorFromCastingSourceAsync
-  let it = statics[ICastingDeviceStaticsVtbl]("Windows.Media.Casting.CastingDevice")
+  let it = statics[ICastingDeviceStaticsVtbl](className(CastingDevice))
   let a0 = queryInterface[ICastingSourceVtbl](castingSource)
   var op: pointer
   check it.vtbl.GetDeviceSelectorFromCastingSourceAsync(it.raw, a0.raw, op.addr
@@ -7764,7 +7764,7 @@ proc getDeviceSelectorFromCastingSourceAsync*(_: typedesc[CastingDevice],
 proc fromIdAsync*(_: typedesc[CastingDevice], value: string
                  ): Future[CastingDevice] =
   ## Windows.Media.Casting.ICastingDeviceStatics.FromIdAsync
-  let it = statics[ICastingDeviceStaticsVtbl]("Windows.Media.Casting.CastingDevice")
+  let it = statics[ICastingDeviceStaticsVtbl](className(CastingDevice))
   let a0 = toWinRtString(value)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -7774,7 +7774,7 @@ proc fromIdAsync*(_: typedesc[CastingDevice], value: string
 proc deviceInfoSupportsCastingAsync*(_: typedesc[CastingDevice],
                                      device: DeviceInformation): Future[bool] =
   ## Windows.Media.Casting.ICastingDeviceStatics.DeviceInfoSupportsCastingAsync
-  let it = statics[ICastingDeviceStaticsVtbl]("Windows.Media.Casting.CastingDevice")
+  let it = statics[ICastingDeviceStaticsVtbl](className(CastingDevice))
   let a0 = queryInterface[IDeviceInformationVtbl](device)
   var op: pointer
   check it.vtbl.DeviceInfoSupportsCastingAsync(it.raw, a0.raw, op.addr
@@ -7999,7 +7999,7 @@ proc title*(self: ChapterCue): string =
 
 proc fontColor*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionColor =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics.get_FontColor
-  let it = statics[IClosedCaptionPropertiesStaticsVtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStaticsVtbl](className(ClosedCaptionProperties))
   var ret: ClosedCaptionColor
   check it.vtbl.get_FontColor(it.raw, ret.addr
                              ), "ClosedCaptionProperties.fontColor"
@@ -8007,7 +8007,7 @@ proc fontColor*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionColor =
 
 proc computedFontColor*(_: typedesc[ClosedCaptionProperties]): Color =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics.get_ComputedFontColor
-  let it = statics[IClosedCaptionPropertiesStaticsVtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStaticsVtbl](className(ClosedCaptionProperties))
   var ret: Color
   check it.vtbl.get_ComputedFontColor(it.raw, ret.addr
                                      ), "ClosedCaptionProperties.computedFontColor"
@@ -8015,7 +8015,7 @@ proc computedFontColor*(_: typedesc[ClosedCaptionProperties]): Color =
 
 proc fontOpacity*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionOpacity =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics.get_FontOpacity
-  let it = statics[IClosedCaptionPropertiesStaticsVtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStaticsVtbl](className(ClosedCaptionProperties))
   var ret: ClosedCaptionOpacity
   check it.vtbl.get_FontOpacity(it.raw, ret.addr
                                ), "ClosedCaptionProperties.fontOpacity"
@@ -8023,7 +8023,7 @@ proc fontOpacity*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionOpacity =
 
 proc fontSize*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionSize =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics.get_FontSize
-  let it = statics[IClosedCaptionPropertiesStaticsVtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStaticsVtbl](className(ClosedCaptionProperties))
   var ret: ClosedCaptionSize
   check it.vtbl.get_FontSize(it.raw, ret.addr
                             ), "ClosedCaptionProperties.fontSize"
@@ -8031,7 +8031,7 @@ proc fontSize*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionSize =
 
 proc fontStyle*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionStyle =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics.get_FontStyle
-  let it = statics[IClosedCaptionPropertiesStaticsVtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStaticsVtbl](className(ClosedCaptionProperties))
   var ret: ClosedCaptionStyle
   check it.vtbl.get_FontStyle(it.raw, ret.addr
                              ), "ClosedCaptionProperties.fontStyle"
@@ -8039,7 +8039,7 @@ proc fontStyle*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionStyle =
 
 proc fontEffect*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionEdgeEffect =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics.get_FontEffect
-  let it = statics[IClosedCaptionPropertiesStaticsVtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStaticsVtbl](className(ClosedCaptionProperties))
   var ret: ClosedCaptionEdgeEffect
   check it.vtbl.get_FontEffect(it.raw, ret.addr
                               ), "ClosedCaptionProperties.fontEffect"
@@ -8047,7 +8047,7 @@ proc fontEffect*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionEdgeEffect 
 
 proc backgroundColor*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionColor =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics.get_BackgroundColor
-  let it = statics[IClosedCaptionPropertiesStaticsVtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStaticsVtbl](className(ClosedCaptionProperties))
   var ret: ClosedCaptionColor
   check it.vtbl.get_BackgroundColor(it.raw, ret.addr
                                    ), "ClosedCaptionProperties.backgroundColor"
@@ -8055,7 +8055,7 @@ proc backgroundColor*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionColor 
 
 proc computedBackgroundColor*(_: typedesc[ClosedCaptionProperties]): Color =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics.get_ComputedBackgroundColor
-  let it = statics[IClosedCaptionPropertiesStaticsVtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStaticsVtbl](className(ClosedCaptionProperties))
   var ret: Color
   check it.vtbl.get_ComputedBackgroundColor(it.raw, ret.addr
                                            ), "ClosedCaptionProperties.computedBackgroundColor"
@@ -8063,7 +8063,7 @@ proc computedBackgroundColor*(_: typedesc[ClosedCaptionProperties]): Color =
 
 proc backgroundOpacity*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionOpacity =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics.get_BackgroundOpacity
-  let it = statics[IClosedCaptionPropertiesStaticsVtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStaticsVtbl](className(ClosedCaptionProperties))
   var ret: ClosedCaptionOpacity
   check it.vtbl.get_BackgroundOpacity(it.raw, ret.addr
                                      ), "ClosedCaptionProperties.backgroundOpacity"
@@ -8071,7 +8071,7 @@ proc backgroundOpacity*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionOpac
 
 proc regionColor*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionColor =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics.get_RegionColor
-  let it = statics[IClosedCaptionPropertiesStaticsVtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStaticsVtbl](className(ClosedCaptionProperties))
   var ret: ClosedCaptionColor
   check it.vtbl.get_RegionColor(it.raw, ret.addr
                                ), "ClosedCaptionProperties.regionColor"
@@ -8079,7 +8079,7 @@ proc regionColor*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionColor =
 
 proc computedRegionColor*(_: typedesc[ClosedCaptionProperties]): Color =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics.get_ComputedRegionColor
-  let it = statics[IClosedCaptionPropertiesStaticsVtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStaticsVtbl](className(ClosedCaptionProperties))
   var ret: Color
   check it.vtbl.get_ComputedRegionColor(it.raw, ret.addr
                                        ), "ClosedCaptionProperties.computedRegionColor"
@@ -8087,7 +8087,7 @@ proc computedRegionColor*(_: typedesc[ClosedCaptionProperties]): Color =
 
 proc regionOpacity*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionOpacity =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics.get_RegionOpacity
-  let it = statics[IClosedCaptionPropertiesStaticsVtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStaticsVtbl](className(ClosedCaptionProperties))
   var ret: ClosedCaptionOpacity
   check it.vtbl.get_RegionOpacity(it.raw, ret.addr
                                  ), "ClosedCaptionProperties.regionOpacity"
@@ -8098,7 +8098,7 @@ proc onPropertiesChanged*(_: typedesc[ClosedCaptionProperties],
                          ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics2.add_PropertiesChanged
   ## The token is what `removePropertiesChanged` takes.
-  let it = statics[IClosedCaptionPropertiesStatics2Vtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStatics2Vtbl](className(ClosedCaptionProperties))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -8108,7 +8108,7 @@ proc onPropertiesChanged*(_: typedesc[ClosedCaptionProperties],
 proc removePropertiesChanged*(_: typedesc[ClosedCaptionProperties],
                               token: EventRegistrationToken) =
   ## Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics2.remove_PropertiesChanged
-  let it = statics[IClosedCaptionPropertiesStatics2Vtbl]("Windows.Media.ClosedCaptioning.ClosedCaptionProperties")
+  let it = statics[IClosedCaptionPropertiesStatics2Vtbl](className(ClosedCaptionProperties))
   check it.vtbl.remove_PropertiesChanged(it.raw, token
                                         ), "ClosedCaptionProperties.propertiesChanged"
 
@@ -8169,7 +8169,7 @@ proc findAllAsync*(self: CodecQuery, kind: CodecKind, category: CodecCategory,
 
 proc videoFormatDV25*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatDV25
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatDV25(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatDV25"
@@ -8177,7 +8177,7 @@ proc videoFormatDV25*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatDV50*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatDV50
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatDV50(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatDV50"
@@ -8185,7 +8185,7 @@ proc videoFormatDV50*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatDvc*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatDvc
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatDvc(it.raw, ret.addr
                                   ), "CodecSubtypes.videoFormatDvc"
@@ -8193,7 +8193,7 @@ proc videoFormatDvc*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatDvh1*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatDvh1
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatDvh1(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatDvh1"
@@ -8201,7 +8201,7 @@ proc videoFormatDvh1*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatDvhD*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatDvhD
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatDvhD(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatDvhD"
@@ -8209,7 +8209,7 @@ proc videoFormatDvhD*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatDvsd*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatDvsd
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatDvsd(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatDvsd"
@@ -8217,7 +8217,7 @@ proc videoFormatDvsd*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatDvsl*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatDvsl
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatDvsl(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatDvsl"
@@ -8225,7 +8225,7 @@ proc videoFormatDvsl*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatH263*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatH263
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatH263(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatH263"
@@ -8233,7 +8233,7 @@ proc videoFormatH263*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatH264*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatH264
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatH264(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatH264"
@@ -8241,7 +8241,7 @@ proc videoFormatH264*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatH265*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatH265
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatH265(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatH265"
@@ -8249,7 +8249,7 @@ proc videoFormatH265*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatH264ES*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatH264ES
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatH264ES(it.raw, ret.addr
                                      ), "CodecSubtypes.videoFormatH264ES"
@@ -8257,7 +8257,7 @@ proc videoFormatH264ES*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatHevc*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatHevc
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatHevc(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatHevc"
@@ -8265,7 +8265,7 @@ proc videoFormatHevc*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatHevcES*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatHevcES
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatHevcES(it.raw, ret.addr
                                      ), "CodecSubtypes.videoFormatHevcES"
@@ -8273,7 +8273,7 @@ proc videoFormatHevcES*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatM4S2*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatM4S2
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatM4S2(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatM4S2"
@@ -8281,7 +8281,7 @@ proc videoFormatM4S2*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatMjpg*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatMjpg
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatMjpg(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatMjpg"
@@ -8289,7 +8289,7 @@ proc videoFormatMjpg*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatMP43*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatMP43
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatMP43(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatMP43"
@@ -8297,7 +8297,7 @@ proc videoFormatMP43*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatMP4S*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatMP4S
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatMP4S(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatMP4S"
@@ -8305,7 +8305,7 @@ proc videoFormatMP4S*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatMP4V*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatMP4V
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatMP4V(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatMP4V"
@@ -8313,7 +8313,7 @@ proc videoFormatMP4V*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatMpeg2*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatMpeg2
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatMpeg2(it.raw, ret.addr
                                     ), "CodecSubtypes.videoFormatMpeg2"
@@ -8321,7 +8321,7 @@ proc videoFormatMpeg2*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatVP80*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatVP80
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatVP80(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatVP80"
@@ -8329,7 +8329,7 @@ proc videoFormatVP80*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatVP90*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatVP90
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatVP90(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatVP90"
@@ -8337,7 +8337,7 @@ proc videoFormatVP90*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatMpg1*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatMpg1
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatMpg1(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatMpg1"
@@ -8345,7 +8345,7 @@ proc videoFormatMpg1*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatMss1*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatMss1
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatMss1(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatMss1"
@@ -8353,7 +8353,7 @@ proc videoFormatMss1*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatMss2*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatMss2
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatMss2(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatMss2"
@@ -8361,7 +8361,7 @@ proc videoFormatMss2*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatWmv1*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatWmv1
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatWmv1(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatWmv1"
@@ -8369,7 +8369,7 @@ proc videoFormatWmv1*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatWmv2*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatWmv2
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatWmv2(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatWmv2"
@@ -8377,7 +8377,7 @@ proc videoFormatWmv2*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatWmv3*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatWmv3
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatWmv3(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatWmv3"
@@ -8385,7 +8385,7 @@ proc videoFormatWmv3*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatWvc1*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormatWvc1
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatWvc1(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormatWvc1"
@@ -8393,7 +8393,7 @@ proc videoFormatWvc1*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormat420O*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_VideoFormat420O
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormat420O(it.raw, ret.addr
                                    ), "CodecSubtypes.videoFormat420O"
@@ -8401,7 +8401,7 @@ proc videoFormat420O*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatAac*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatAac
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatAac(it.raw, ret.addr
                                   ), "CodecSubtypes.audioFormatAac"
@@ -8409,7 +8409,7 @@ proc audioFormatAac*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatAdts*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatAdts
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatAdts(it.raw, ret.addr
                                    ), "CodecSubtypes.audioFormatAdts"
@@ -8417,7 +8417,7 @@ proc audioFormatAdts*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatAlac*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatAlac
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatAlac(it.raw, ret.addr
                                    ), "CodecSubtypes.audioFormatAlac"
@@ -8425,7 +8425,7 @@ proc audioFormatAlac*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatAmrNB*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatAmrNB
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatAmrNB(it.raw, ret.addr
                                     ), "CodecSubtypes.audioFormatAmrNB"
@@ -8433,7 +8433,7 @@ proc audioFormatAmrNB*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatAmrWB*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatAmrWB
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatAmrWB(it.raw, ret.addr
                                     ), "CodecSubtypes.audioFormatAmrWB"
@@ -8441,7 +8441,7 @@ proc audioFormatAmrWB*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatAmrWP*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatAmrWP
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatAmrWP(it.raw, ret.addr
                                     ), "CodecSubtypes.audioFormatAmrWP"
@@ -8449,7 +8449,7 @@ proc audioFormatAmrWP*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatDolbyAC3*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatDolbyAC3
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatDolbyAC3(it.raw, ret.addr
                                        ), "CodecSubtypes.audioFormatDolbyAC3"
@@ -8457,7 +8457,7 @@ proc audioFormatDolbyAC3*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatDolbyAC3Spdif*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatDolbyAC3Spdif
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatDolbyAC3Spdif(it.raw, ret.addr
                                             ), "CodecSubtypes.audioFormatDolbyAC3Spdif"
@@ -8465,7 +8465,7 @@ proc audioFormatDolbyAC3Spdif*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatDolbyDDPlus*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatDolbyDDPlus
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatDolbyDDPlus(it.raw, ret.addr
                                           ), "CodecSubtypes.audioFormatDolbyDDPlus"
@@ -8473,7 +8473,7 @@ proc audioFormatDolbyDDPlus*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatDrm*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatDrm
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatDrm(it.raw, ret.addr
                                   ), "CodecSubtypes.audioFormatDrm"
@@ -8481,7 +8481,7 @@ proc audioFormatDrm*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatDts*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatDts
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatDts(it.raw, ret.addr
                                   ), "CodecSubtypes.audioFormatDts"
@@ -8489,7 +8489,7 @@ proc audioFormatDts*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatFlac*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatFlac
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatFlac(it.raw, ret.addr
                                    ), "CodecSubtypes.audioFormatFlac"
@@ -8497,7 +8497,7 @@ proc audioFormatFlac*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatFloat*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatFloat
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatFloat(it.raw, ret.addr
                                     ), "CodecSubtypes.audioFormatFloat"
@@ -8505,7 +8505,7 @@ proc audioFormatFloat*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatMP3*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatMP3
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatMP3(it.raw, ret.addr
                                   ), "CodecSubtypes.audioFormatMP3"
@@ -8513,7 +8513,7 @@ proc audioFormatMP3*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatMPeg*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatMPeg
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatMPeg(it.raw, ret.addr
                                    ), "CodecSubtypes.audioFormatMPeg"
@@ -8521,7 +8521,7 @@ proc audioFormatMPeg*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatMsp1*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatMsp1
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatMsp1(it.raw, ret.addr
                                    ), "CodecSubtypes.audioFormatMsp1"
@@ -8529,7 +8529,7 @@ proc audioFormatMsp1*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatOpus*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatOpus
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatOpus(it.raw, ret.addr
                                    ), "CodecSubtypes.audioFormatOpus"
@@ -8537,7 +8537,7 @@ proc audioFormatOpus*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatPcm*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatPcm
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatPcm(it.raw, ret.addr
                                   ), "CodecSubtypes.audioFormatPcm"
@@ -8545,7 +8545,7 @@ proc audioFormatPcm*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatWmaSpdif*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatWmaSpdif
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatWmaSpdif(it.raw, ret.addr
                                        ), "CodecSubtypes.audioFormatWmaSpdif"
@@ -8553,7 +8553,7 @@ proc audioFormatWmaSpdif*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatWMAudioLossless*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatWMAudioLossless
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatWMAudioLossless(it.raw, ret.addr
                                               ), "CodecSubtypes.audioFormatWMAudioLossless"
@@ -8561,7 +8561,7 @@ proc audioFormatWMAudioLossless*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatWMAudioV8*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatWMAudioV8
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatWMAudioV8(it.raw, ret.addr
                                         ), "CodecSubtypes.audioFormatWMAudioV8"
@@ -8569,7 +8569,7 @@ proc audioFormatWMAudioV8*(_: typedesc[CodecSubtypes]): string =
 
 proc audioFormatWMAudioV9*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics.get_AudioFormatWMAudioV9
-  let it = statics[ICodecSubtypesStaticsVtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStaticsVtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AudioFormatWMAudioV9(it.raw, ret.addr
                                         ), "CodecSubtypes.audioFormatWMAudioV9"
@@ -8577,7 +8577,7 @@ proc audioFormatWMAudioV9*(_: typedesc[CodecSubtypes]): string =
 
 proc videoFormatAv1*(_: typedesc[CodecSubtypes]): string =
   ## Windows.Media.Core.ICodecSubtypesStatics2.get_VideoFormatAv1
-  let it = statics[ICodecSubtypesStatics2Vtbl]("Windows.Media.Core.CodecSubtypes")
+  let it = statics[ICodecSubtypesStatics2Vtbl](className(CodecSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VideoFormatAv1(it.raw, ret.addr
                                   ), "CodecSubtypes.videoFormatAv1"
@@ -8608,7 +8608,7 @@ proc renewSystemComponentsAsync*(_: typedesc[ComponentRenewal],
                                  progress: proc(value: uint32) = nil
                                 ): Future[RenewalStatus] =
   ## Windows.Media.Protection.IComponentRenewalStatics.RenewSystemComponentsAsync
-  let it = statics[IComponentRenewalStaticsVtbl]("Windows.Media.Protection.ComponentRenewal")
+  let it = statics[IComponentRenewalStaticsVtbl](className(ComponentRenewal))
   let a0 = queryInterface[IRevocationAndRenewalInformationVtbl](information)
   var op: pointer
   check it.vtbl.RenewSystemComponentsAsync(it.raw, a0.raw, op.addr
@@ -9093,7 +9093,7 @@ proc fullXml*(self: DialAppStateDetails): string =
 
 proc getDeviceSelector*(_: typedesc[DialDevice], appName: string): string =
   ## Windows.Media.DialProtocol.IDialDeviceStatics.GetDeviceSelector
-  let it = statics[IDialDeviceStaticsVtbl]("Windows.Media.DialProtocol.DialDevice")
+  let it = statics[IDialDeviceStaticsVtbl](className(DialDevice))
   let a0 = toWinRtString(appName)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, a0.handle, ret.addr
@@ -9102,7 +9102,7 @@ proc getDeviceSelector*(_: typedesc[DialDevice], appName: string): string =
 
 proc fromIdAsync*(_: typedesc[DialDevice], value: string): Future[DialDevice] =
   ## Windows.Media.DialProtocol.IDialDeviceStatics.FromIdAsync
-  let it = statics[IDialDeviceStaticsVtbl]("Windows.Media.DialProtocol.DialDevice")
+  let it = statics[IDialDeviceStaticsVtbl](className(DialDevice))
   let a0 = toWinRtString(value)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -9112,7 +9112,7 @@ proc fromIdAsync*(_: typedesc[DialDevice], value: string): Future[DialDevice] =
 proc deviceInfoSupportsDialAsync*(_: typedesc[DialDevice],
                                   device: DeviceInformation): Future[bool] =
   ## Windows.Media.DialProtocol.IDialDeviceStatics.DeviceInfoSupportsDialAsync
-  let it = statics[IDialDeviceStaticsVtbl]("Windows.Media.DialProtocol.DialDevice")
+  let it = statics[IDialDeviceStaticsVtbl](className(DialDevice))
   let a0 = queryInterface[IDeviceInformationVtbl](device)
   var op: pointer
   check it.vtbl.DeviceInfoSupportsDialAsync(it.raw, a0.raw, op.addr
@@ -9309,7 +9309,7 @@ proc device*(self: DialDisconnectButtonClickedEventArgs): DialDevice =
 
 proc current*(_: typedesc[DialReceiverApp]): DialReceiverApp =
   ## Windows.Media.DialProtocol.IDialReceiverAppStatics.get_Current
-  let it = statics[IDialReceiverAppStaticsVtbl]("Windows.Media.DialProtocol.DialReceiverApp")
+  let it = statics[IDialReceiverAppStaticsVtbl](className(DialReceiverApp))
   var ret: pointer
   check it.vtbl.get_Current(it.raw, ret.addr), "DialReceiverApp.current"
   adopt[DialReceiverApp](ret)
@@ -9520,7 +9520,7 @@ proc getCapabilityForSize*(self: DigitalWindowControl, width: int32,
 
 proc newEchoEffectDefinition*(audioGraph: AudioGraph): EchoEffectDefinition =
   ## Windows.Media.Audio.IEchoEffectDefinitionFactory.Create
-  let it = statics[IEchoEffectDefinitionFactoryVtbl]("Windows.Media.Audio.EchoEffectDefinition")
+  let it = statics[IEchoEffectDefinitionFactoryVtbl](className(EchoEffectDefinition))
   let a0 = queryInterface[IAudioGraphVtbl](audioGraph)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "EchoEffectDefinition.new"
@@ -9617,7 +9617,7 @@ proc `gain=`*(self: EqualizerBand, value: float64) =
 
 proc newEqualizerEffectDefinition*(audioGraph: AudioGraph): EqualizerEffectDefinition =
   ## Windows.Media.Audio.IEqualizerEffectDefinitionFactory.Create
-  let it = statics[IEqualizerEffectDefinitionFactoryVtbl]("Windows.Media.Audio.EqualizerEffectDefinition")
+  let it = statics[IEqualizerEffectDefinitionFactoryVtbl](className(EqualizerEffectDefinition))
   let a0 = queryInterface[IAudioGraphVtbl](audioGraph)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -9871,14 +9871,14 @@ proc detectedFaces*(self: FaceDetectionEffectFrame): seq[DetectedFace] =
 
 proc createAsync*(_: typedesc[FaceDetector]): Future[FaceDetector] =
   ## Windows.Media.FaceAnalysis.IFaceDetectorStatics.CreateAsync
-  let it = statics[IFaceDetectorStaticsVtbl]("Windows.Media.FaceAnalysis.FaceDetector")
+  let it = statics[IFaceDetectorStaticsVtbl](className(FaceDetector))
   var op: pointer
   check it.vtbl.CreateAsync(it.raw, op.addr), "FaceDetector.createAsync"
   future[IAsyncOperationVtbl[FaceDetector], FaceDetector](op, "FaceDetector.createAsync")
 
 proc getSupportedBitmapPixelFormats*(_: typedesc[FaceDetector]): seq[BitmapPixelFormat] =
   ## Windows.Media.FaceAnalysis.IFaceDetectorStatics.GetSupportedBitmapPixelFormats
-  let it = statics[IFaceDetectorStaticsVtbl]("Windows.Media.FaceAnalysis.FaceDetector")
+  let it = statics[IFaceDetectorStaticsVtbl](className(FaceDetector))
   var ret: pointer
   check it.vtbl.GetSupportedBitmapPixelFormats(it.raw, ret.addr
                                               ), "FaceDetector.getSupportedBitmapPixelFormats"
@@ -9887,7 +9887,7 @@ proc getSupportedBitmapPixelFormats*(_: typedesc[FaceDetector]): seq[BitmapPixel
 proc isBitmapPixelFormatSupported*(_: typedesc[FaceDetector],
                                    bitmapPixelFormat: BitmapPixelFormat): bool =
   ## Windows.Media.FaceAnalysis.IFaceDetectorStatics.IsBitmapPixelFormatSupported
-  let it = statics[IFaceDetectorStaticsVtbl]("Windows.Media.FaceAnalysis.FaceDetector")
+  let it = statics[IFaceDetectorStaticsVtbl](className(FaceDetector))
   var ret: bool
   check it.vtbl.IsBitmapPixelFormatSupported(it.raw, bitmapPixelFormat, ret.addr
                                             ), "FaceDetector.isBitmapPixelFormatSupported"
@@ -9895,7 +9895,7 @@ proc isBitmapPixelFormatSupported*(_: typedesc[FaceDetector],
 
 proc isSupported*(_: typedesc[FaceDetector]): bool =
   ## Windows.Media.FaceAnalysis.IFaceDetectorStatics.get_IsSupported
-  let it = statics[IFaceDetectorStaticsVtbl]("Windows.Media.FaceAnalysis.FaceDetector")
+  let it = statics[IFaceDetectorStaticsVtbl](className(FaceDetector))
   var ret: bool
   check it.vtbl.get_IsSupported(it.raw, ret.addr), "FaceDetector.isSupported"
   ret
@@ -9952,14 +9952,14 @@ proc `maxDetectableFaceSize=`*(self: FaceDetector, value: BitmapSize) =
 
 proc createAsync*(_: typedesc[FaceTracker]): Future[FaceTracker] =
   ## Windows.Media.FaceAnalysis.IFaceTrackerStatics.CreateAsync
-  let it = statics[IFaceTrackerStaticsVtbl]("Windows.Media.FaceAnalysis.FaceTracker")
+  let it = statics[IFaceTrackerStaticsVtbl](className(FaceTracker))
   var op: pointer
   check it.vtbl.CreateAsync(it.raw, op.addr), "FaceTracker.createAsync"
   future[IAsyncOperationVtbl[FaceTracker], FaceTracker](op, "FaceTracker.createAsync")
 
 proc getSupportedBitmapPixelFormats*(_: typedesc[FaceTracker]): seq[BitmapPixelFormat] =
   ## Windows.Media.FaceAnalysis.IFaceTrackerStatics.GetSupportedBitmapPixelFormats
-  let it = statics[IFaceTrackerStaticsVtbl]("Windows.Media.FaceAnalysis.FaceTracker")
+  let it = statics[IFaceTrackerStaticsVtbl](className(FaceTracker))
   var ret: pointer
   check it.vtbl.GetSupportedBitmapPixelFormats(it.raw, ret.addr
                                               ), "FaceTracker.getSupportedBitmapPixelFormats"
@@ -9968,7 +9968,7 @@ proc getSupportedBitmapPixelFormats*(_: typedesc[FaceTracker]): seq[BitmapPixelF
 proc isBitmapPixelFormatSupported*(_: typedesc[FaceTracker],
                                    bitmapPixelFormat: BitmapPixelFormat): bool =
   ## Windows.Media.FaceAnalysis.IFaceTrackerStatics.IsBitmapPixelFormatSupported
-  let it = statics[IFaceTrackerStaticsVtbl]("Windows.Media.FaceAnalysis.FaceTracker")
+  let it = statics[IFaceTrackerStaticsVtbl](className(FaceTracker))
   var ret: bool
   check it.vtbl.IsBitmapPixelFormatSupported(it.raw, bitmapPixelFormat, ret.addr
                                             ), "FaceTracker.isBitmapPixelFormatSupported"
@@ -9976,7 +9976,7 @@ proc isBitmapPixelFormatSupported*(_: typedesc[FaceTracker],
 
 proc isSupported*(_: typedesc[FaceTracker]): bool =
   ## Windows.Media.FaceAnalysis.IFaceTrackerStatics.get_IsSupported
-  let it = statics[IFaceTrackerStaticsVtbl]("Windows.Media.FaceAnalysis.FaceTracker")
+  let it = statics[IFaceTrackerStaticsVtbl](className(FaceTracker))
   var ret: bool
   check it.vtbl.get_IsSupported(it.raw, ret.addr), "FaceTracker.isSupported"
   ret
@@ -10863,7 +10863,7 @@ proc origin*(self: GameBarServicesCommandEventArgs): GameBarCommandOrigin =
 
 proc getDefault*(_: typedesc[GameBarServicesManager]): GameBarServicesManager =
   ## Windows.Media.Capture.IGameBarServicesManagerStatics.GetDefault
-  let it = statics[IGameBarServicesManagerStaticsVtbl]("Windows.Media.Capture.GameBarServicesManager")
+  let it = statics[IGameBarServicesManagerStaticsVtbl](className(GameBarServicesManager))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr
                           ), "GameBarServicesManager.getDefault"
@@ -11166,7 +11166,7 @@ proc removeMediaPropertiesChanged*(self: GlobalSystemMediaTransportControlsSessi
 
 proc requestAsync*(_: typedesc[GlobalSystemMediaTransportControlsSessionManager]): Future[GlobalSystemMediaTransportControlsSessionManager] =
   ## Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionManagerStatics.RequestAsync
-  let it = statics[IGlobalSystemMediaTransportControlsSessionManagerStaticsVtbl]("Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager")
+  let it = statics[IGlobalSystemMediaTransportControlsSessionManagerStaticsVtbl](className(GlobalSystemMediaTransportControlsSessionManager))
   var op: pointer
   check it.vtbl.RequestAsync(it.raw, op.addr
                             ), "GlobalSystemMediaTransportControlsSessionManager.requestAsync"
@@ -11539,7 +11539,7 @@ proc lastUpdatedTime*(self: GlobalSystemMediaTransportControlsSessionTimelinePro
 
 proc constrainedBaseline*(_: typedesc[H264ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IH264ProfileIdsStatics.get_ConstrainedBaseline
-  let it = statics[IH264ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.H264ProfileIds")
+  let it = statics[IH264ProfileIdsStaticsVtbl](className(H264ProfileIds))
   var ret: int32
   check it.vtbl.get_ConstrainedBaseline(it.raw, ret.addr
                                        ), "H264ProfileIds.constrainedBaseline"
@@ -11547,63 +11547,63 @@ proc constrainedBaseline*(_: typedesc[H264ProfileIds]): int32 =
 
 proc baseline*(_: typedesc[H264ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IH264ProfileIdsStatics.get_Baseline
-  let it = statics[IH264ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.H264ProfileIds")
+  let it = statics[IH264ProfileIdsStaticsVtbl](className(H264ProfileIds))
   var ret: int32
   check it.vtbl.get_Baseline(it.raw, ret.addr), "H264ProfileIds.baseline"
   ret
 
 proc extended*(_: typedesc[H264ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IH264ProfileIdsStatics.get_Extended
-  let it = statics[IH264ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.H264ProfileIds")
+  let it = statics[IH264ProfileIdsStaticsVtbl](className(H264ProfileIds))
   var ret: int32
   check it.vtbl.get_Extended(it.raw, ret.addr), "H264ProfileIds.extended"
   ret
 
 proc main*(_: typedesc[H264ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IH264ProfileIdsStatics.get_Main
-  let it = statics[IH264ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.H264ProfileIds")
+  let it = statics[IH264ProfileIdsStaticsVtbl](className(H264ProfileIds))
   var ret: int32
   check it.vtbl.get_Main(it.raw, ret.addr), "H264ProfileIds.main"
   ret
 
 proc high*(_: typedesc[H264ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IH264ProfileIdsStatics.get_High
-  let it = statics[IH264ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.H264ProfileIds")
+  let it = statics[IH264ProfileIdsStaticsVtbl](className(H264ProfileIds))
   var ret: int32
   check it.vtbl.get_High(it.raw, ret.addr), "H264ProfileIds.high"
   ret
 
 proc high10*(_: typedesc[H264ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IH264ProfileIdsStatics.get_High10
-  let it = statics[IH264ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.H264ProfileIds")
+  let it = statics[IH264ProfileIdsStaticsVtbl](className(H264ProfileIds))
   var ret: int32
   check it.vtbl.get_High10(it.raw, ret.addr), "H264ProfileIds.high10"
   ret
 
 proc high422*(_: typedesc[H264ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IH264ProfileIdsStatics.get_High422
-  let it = statics[IH264ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.H264ProfileIds")
+  let it = statics[IH264ProfileIdsStaticsVtbl](className(H264ProfileIds))
   var ret: int32
   check it.vtbl.get_High422(it.raw, ret.addr), "H264ProfileIds.high422"
   ret
 
 proc high444*(_: typedesc[H264ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IH264ProfileIdsStatics.get_High444
-  let it = statics[IH264ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.H264ProfileIds")
+  let it = statics[IH264ProfileIdsStaticsVtbl](className(H264ProfileIds))
   var ret: int32
   check it.vtbl.get_High444(it.raw, ret.addr), "H264ProfileIds.high444"
   ret
 
 proc stereoHigh*(_: typedesc[H264ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IH264ProfileIdsStatics.get_StereoHigh
-  let it = statics[IH264ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.H264ProfileIds")
+  let it = statics[IH264ProfileIdsStaticsVtbl](className(H264ProfileIds))
   var ret: int32
   check it.vtbl.get_StereoHigh(it.raw, ret.addr), "H264ProfileIds.stereoHigh"
   ret
 
 proc multiviewHigh*(_: typedesc[H264ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IH264ProfileIdsStatics.get_MultiviewHigh
-  let it = statics[IH264ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.H264ProfileIds")
+  let it = statics[IH264ProfileIdsStaticsVtbl](className(H264ProfileIds))
   var ret: int32
   check it.vtbl.get_MultiviewHigh(it.raw, ret.addr
                                  ), "H264ProfileIds.multiviewHigh"
@@ -11694,7 +11694,7 @@ proc `mode=`*(self: HdrVideoControl, value: HdrVideoMode) =
 
 proc mainChromaSubsampling420BitDepth8*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainChromaSubsampling420BitDepth8
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainChromaSubsampling420BitDepth8(it.raw, ret.addr
                                                      ), "HevcProfileIds.mainChromaSubsampling420BitDepth8"
@@ -11702,7 +11702,7 @@ proc mainChromaSubsampling420BitDepth8*(_: typedesc[HevcProfileIds]): int32 =
 
 proc mainChromaSubsampling420BitDepth10*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainChromaSubsampling420BitDepth10
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainChromaSubsampling420BitDepth10(it.raw, ret.addr
                                                       ), "HevcProfileIds.mainChromaSubsampling420BitDepth10"
@@ -11710,7 +11710,7 @@ proc mainChromaSubsampling420BitDepth10*(_: typedesc[HevcProfileIds]): int32 =
 
 proc mainChromaSubsampling420BitDepth12*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainChromaSubsampling420BitDepth12
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainChromaSubsampling420BitDepth12(it.raw, ret.addr
                                                       ), "HevcProfileIds.mainChromaSubsampling420BitDepth12"
@@ -11718,7 +11718,7 @@ proc mainChromaSubsampling420BitDepth12*(_: typedesc[HevcProfileIds]): int32 =
 
 proc mainChromaSubsampling422BitDepth10*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainChromaSubsampling422BitDepth10
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainChromaSubsampling422BitDepth10(it.raw, ret.addr
                                                       ), "HevcProfileIds.mainChromaSubsampling422BitDepth10"
@@ -11726,7 +11726,7 @@ proc mainChromaSubsampling422BitDepth10*(_: typedesc[HevcProfileIds]): int32 =
 
 proc mainChromaSubsampling422BitDepth12*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainChromaSubsampling422BitDepth12
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainChromaSubsampling422BitDepth12(it.raw, ret.addr
                                                       ), "HevcProfileIds.mainChromaSubsampling422BitDepth12"
@@ -11734,7 +11734,7 @@ proc mainChromaSubsampling422BitDepth12*(_: typedesc[HevcProfileIds]): int32 =
 
 proc mainChromaSubsampling444BitDepth8*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainChromaSubsampling444BitDepth8
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainChromaSubsampling444BitDepth8(it.raw, ret.addr
                                                      ), "HevcProfileIds.mainChromaSubsampling444BitDepth8"
@@ -11742,7 +11742,7 @@ proc mainChromaSubsampling444BitDepth8*(_: typedesc[HevcProfileIds]): int32 =
 
 proc mainChromaSubsampling444BitDepth10*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainChromaSubsampling444BitDepth10
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainChromaSubsampling444BitDepth10(it.raw, ret.addr
                                                       ), "HevcProfileIds.mainChromaSubsampling444BitDepth10"
@@ -11750,7 +11750,7 @@ proc mainChromaSubsampling444BitDepth10*(_: typedesc[HevcProfileIds]): int32 =
 
 proc mainChromaSubsampling444BitDepth12*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainChromaSubsampling444BitDepth12
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainChromaSubsampling444BitDepth12(it.raw, ret.addr
                                                       ), "HevcProfileIds.mainChromaSubsampling444BitDepth12"
@@ -11758,7 +11758,7 @@ proc mainChromaSubsampling444BitDepth12*(_: typedesc[HevcProfileIds]): int32 =
 
 proc monochromeBitDepth12*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MonochromeBitDepth12
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MonochromeBitDepth12(it.raw, ret.addr
                                         ), "HevcProfileIds.monochromeBitDepth12"
@@ -11766,7 +11766,7 @@ proc monochromeBitDepth12*(_: typedesc[HevcProfileIds]): int32 =
 
 proc monochromeBitDepth16*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MonochromeBitDepth16
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MonochromeBitDepth16(it.raw, ret.addr
                                         ), "HevcProfileIds.monochromeBitDepth16"
@@ -11774,7 +11774,7 @@ proc monochromeBitDepth16*(_: typedesc[HevcProfileIds]): int32 =
 
 proc mainIntraChromaSubsampling420BitDepth8*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainIntraChromaSubsampling420BitDepth8
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainIntraChromaSubsampling420BitDepth8(it.raw, ret.addr
                                                           ), "HevcProfileIds.mainIntraChromaSubsampling420BitDepth8"
@@ -11782,7 +11782,7 @@ proc mainIntraChromaSubsampling420BitDepth8*(_: typedesc[HevcProfileIds]): int32
 
 proc mainIntraChromaSubsampling420BitDepth10*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainIntraChromaSubsampling420BitDepth10
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainIntraChromaSubsampling420BitDepth10(it.raw, ret.addr
                                                            ), "HevcProfileIds.mainIntraChromaSubsampling420BitDepth10"
@@ -11790,7 +11790,7 @@ proc mainIntraChromaSubsampling420BitDepth10*(_: typedesc[HevcProfileIds]): int3
 
 proc mainIntraChromaSubsampling420BitDepth12*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainIntraChromaSubsampling420BitDepth12
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainIntraChromaSubsampling420BitDepth12(it.raw, ret.addr
                                                            ), "HevcProfileIds.mainIntraChromaSubsampling420BitDepth12"
@@ -11798,7 +11798,7 @@ proc mainIntraChromaSubsampling420BitDepth12*(_: typedesc[HevcProfileIds]): int3
 
 proc mainIntraChromaSubsampling422BitDepth10*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainIntraChromaSubsampling422BitDepth10
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainIntraChromaSubsampling422BitDepth10(it.raw, ret.addr
                                                            ), "HevcProfileIds.mainIntraChromaSubsampling422BitDepth10"
@@ -11806,7 +11806,7 @@ proc mainIntraChromaSubsampling422BitDepth10*(_: typedesc[HevcProfileIds]): int3
 
 proc mainIntraChromaSubsampling422BitDepth12*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainIntraChromaSubsampling422BitDepth12
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainIntraChromaSubsampling422BitDepth12(it.raw, ret.addr
                                                            ), "HevcProfileIds.mainIntraChromaSubsampling422BitDepth12"
@@ -11814,7 +11814,7 @@ proc mainIntraChromaSubsampling422BitDepth12*(_: typedesc[HevcProfileIds]): int3
 
 proc mainIntraChromaSubsampling444BitDepth8*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainIntraChromaSubsampling444BitDepth8
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainIntraChromaSubsampling444BitDepth8(it.raw, ret.addr
                                                           ), "HevcProfileIds.mainIntraChromaSubsampling444BitDepth8"
@@ -11822,7 +11822,7 @@ proc mainIntraChromaSubsampling444BitDepth8*(_: typedesc[HevcProfileIds]): int32
 
 proc mainIntraChromaSubsampling444BitDepth10*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainIntraChromaSubsampling444BitDepth10
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainIntraChromaSubsampling444BitDepth10(it.raw, ret.addr
                                                            ), "HevcProfileIds.mainIntraChromaSubsampling444BitDepth10"
@@ -11830,7 +11830,7 @@ proc mainIntraChromaSubsampling444BitDepth10*(_: typedesc[HevcProfileIds]): int3
 
 proc mainIntraChromaSubsampling444BitDepth12*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainIntraChromaSubsampling444BitDepth12
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainIntraChromaSubsampling444BitDepth12(it.raw, ret.addr
                                                            ), "HevcProfileIds.mainIntraChromaSubsampling444BitDepth12"
@@ -11838,7 +11838,7 @@ proc mainIntraChromaSubsampling444BitDepth12*(_: typedesc[HevcProfileIds]): int3
 
 proc mainIntraChromaSubsampling444BitDepth16*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainIntraChromaSubsampling444BitDepth16
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainIntraChromaSubsampling444BitDepth16(it.raw, ret.addr
                                                            ), "HevcProfileIds.mainIntraChromaSubsampling444BitDepth16"
@@ -11846,7 +11846,7 @@ proc mainIntraChromaSubsampling444BitDepth16*(_: typedesc[HevcProfileIds]): int3
 
 proc mainStillChromaSubsampling420BitDepth8*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainStillChromaSubsampling420BitDepth8
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainStillChromaSubsampling420BitDepth8(it.raw, ret.addr
                                                           ), "HevcProfileIds.mainStillChromaSubsampling420BitDepth8"
@@ -11854,7 +11854,7 @@ proc mainStillChromaSubsampling420BitDepth8*(_: typedesc[HevcProfileIds]): int32
 
 proc mainStillChromaSubsampling444BitDepth8*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainStillChromaSubsampling444BitDepth8
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainStillChromaSubsampling444BitDepth8(it.raw, ret.addr
                                                           ), "HevcProfileIds.mainStillChromaSubsampling444BitDepth8"
@@ -11862,7 +11862,7 @@ proc mainStillChromaSubsampling444BitDepth8*(_: typedesc[HevcProfileIds]): int32
 
 proc mainStillChromaSubsampling444BitDepth16*(_: typedesc[HevcProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IHevcProfileIdsStatics.get_MainStillChromaSubsampling444BitDepth16
-  let it = statics[IHevcProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.HevcProfileIds")
+  let it = statics[IHevcProfileIdsStaticsVtbl](className(HevcProfileIds))
   var ret: int32
   check it.vtbl.get_MainStillChromaSubsampling444BitDepth16(it.raw, ret.addr
                                                            ), "HevcProfileIds.mainStillChromaSubsampling444BitDepth16"
@@ -11981,7 +11981,7 @@ proc newImageEncodingProperties*(): ImageEncodingProperties =
 
 proc createJpeg*(_: typedesc[ImageEncodingProperties]): ImageEncodingProperties =
   ## Windows.Media.MediaProperties.IImageEncodingPropertiesStatics.CreateJpeg
-  let it = statics[IImageEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.ImageEncodingProperties")
+  let it = statics[IImageEncodingPropertiesStaticsVtbl](className(ImageEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateJpeg(it.raw, ret.addr
                           ), "ImageEncodingProperties.createJpeg"
@@ -11989,14 +11989,14 @@ proc createJpeg*(_: typedesc[ImageEncodingProperties]): ImageEncodingProperties 
 
 proc createPng*(_: typedesc[ImageEncodingProperties]): ImageEncodingProperties =
   ## Windows.Media.MediaProperties.IImageEncodingPropertiesStatics.CreatePng
-  let it = statics[IImageEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.ImageEncodingProperties")
+  let it = statics[IImageEncodingPropertiesStaticsVtbl](className(ImageEncodingProperties))
   var ret: pointer
   check it.vtbl.CreatePng(it.raw, ret.addr), "ImageEncodingProperties.createPng"
   adopt[ImageEncodingProperties](ret)
 
 proc createJpegXR*(_: typedesc[ImageEncodingProperties]): ImageEncodingProperties =
   ## Windows.Media.MediaProperties.IImageEncodingPropertiesStatics.CreateJpegXR
-  let it = statics[IImageEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.ImageEncodingProperties")
+  let it = statics[IImageEncodingPropertiesStaticsVtbl](className(ImageEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateJpegXR(it.raw, ret.addr
                             ), "ImageEncodingProperties.createJpegXR"
@@ -12005,7 +12005,7 @@ proc createJpegXR*(_: typedesc[ImageEncodingProperties]): ImageEncodingPropertie
 proc createUncompressed*(_: typedesc[ImageEncodingProperties],
                          format: MediaPixelFormat): ImageEncodingProperties =
   ## Windows.Media.MediaProperties.IImageEncodingPropertiesStatics2.CreateUncompressed
-  let it = statics[IImageEncodingPropertiesStatics2Vtbl]("Windows.Media.MediaProperties.ImageEncodingProperties")
+  let it = statics[IImageEncodingPropertiesStatics2Vtbl](className(ImageEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateUncompressed(it.raw, format, ret.addr
                                   ), "ImageEncodingProperties.createUncompressed"
@@ -12013,14 +12013,14 @@ proc createUncompressed*(_: typedesc[ImageEncodingProperties],
 
 proc createBmp*(_: typedesc[ImageEncodingProperties]): ImageEncodingProperties =
   ## Windows.Media.MediaProperties.IImageEncodingPropertiesStatics2.CreateBmp
-  let it = statics[IImageEncodingPropertiesStatics2Vtbl]("Windows.Media.MediaProperties.ImageEncodingProperties")
+  let it = statics[IImageEncodingPropertiesStatics2Vtbl](className(ImageEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateBmp(it.raw, ret.addr), "ImageEncodingProperties.createBmp"
   adopt[ImageEncodingProperties](ret)
 
 proc createHeif*(_: typedesc[ImageEncodingProperties]): ImageEncodingProperties =
   ## Windows.Media.MediaProperties.IImageEncodingPropertiesStatics3.CreateHeif
-  let it = statics[IImageEncodingPropertiesStatics3Vtbl]("Windows.Media.MediaProperties.ImageEncodingProperties")
+  let it = statics[IImageEncodingPropertiesStatics3Vtbl](className(ImageEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateHeif(it.raw, ret.addr
                           ), "ImageEncodingProperties.createHeif"
@@ -12272,7 +12272,7 @@ proc telephonyKey*(self: KeypadPressedEventArgs): TelephonyKey =
 
 proc newLimiterEffectDefinition*(audioGraph: AudioGraph): LimiterEffectDefinition =
   ## Windows.Media.Audio.ILimiterEffectDefinitionFactory.Create
-  let it = statics[ILimiterEffectDefinitionFactoryVtbl]("Windows.Media.Audio.LimiterEffectDefinition")
+  let it = statics[ILimiterEffectDefinitionFactoryVtbl](className(LimiterEffectDefinition))
   let a0 = queryInterface[IAudioGraphVtbl](audioGraph)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "LimiterEffectDefinition.new"
@@ -12624,7 +12624,7 @@ proc hardwareAcceleratedThumbnailSupported*(self: LowLagPhotoSequenceControl): u
 
 proc supportedBitmapPixelFormats*(_: typedesc[LowLightFusion]): seq[BitmapPixelFormat] =
   ## Windows.Media.Core.ILowLightFusionStatics.get_SupportedBitmapPixelFormats
-  let it = statics[ILowLightFusionStaticsVtbl]("Windows.Media.Core.LowLightFusion")
+  let it = statics[ILowLightFusionStaticsVtbl](className(LowLightFusion))
   var ret: pointer
   check it.vtbl.get_SupportedBitmapPixelFormats(it.raw, ret.addr
                                                ), "LowLightFusion.supportedBitmapPixelFormats"
@@ -12632,7 +12632,7 @@ proc supportedBitmapPixelFormats*(_: typedesc[LowLightFusion]): seq[BitmapPixelF
 
 proc maxSupportedFrameCount*(_: typedesc[LowLightFusion]): int32 =
   ## Windows.Media.Core.ILowLightFusionStatics.get_MaxSupportedFrameCount
-  let it = statics[ILowLightFusionStaticsVtbl]("Windows.Media.Core.LowLightFusion")
+  let it = statics[ILowLightFusionStaticsVtbl](className(LowLightFusion))
   var ret: int32
   check it.vtbl.get_MaxSupportedFrameCount(it.raw, ret.addr
                                           ), "LowLightFusion.maxSupportedFrameCount"
@@ -12642,7 +12642,7 @@ proc fuseAsync*(_: typedesc[LowLightFusion], frameSet: seq[SoftwareBitmap],
                 progress: proc(value: float64) = nil
                ): Future[LowLightFusionResult] =
   ## Windows.Media.Core.ILowLightFusionStatics.FuseAsync
-  let it = statics[ILowLightFusionStaticsVtbl]("Windows.Media.Core.LowLightFusion")
+  let it = statics[ILowLightFusionStaticsVtbl](className(LowLightFusion))
   let a0 = asCollection[SoftwareBitmap, seq[SoftwareBitmap]](frameSet)
   var op: pointer
   check it.vtbl.FuseAsync(it.raw, a0.raw, op.addr), "LowLightFusion.fuseAsync"
@@ -12790,7 +12790,7 @@ proc setDownloadOperation*(self: MediaBindingEventArgs,
 
 proc newMediaBreak*(insertionMethod: MediaBreakInsertionMethod): MediaBreak =
   ## Windows.Media.Playback.IMediaBreakFactory.Create
-  let it = statics[IMediaBreakFactoryVtbl]("Windows.Media.Playback.MediaBreak")
+  let it = statics[IMediaBreakFactoryVtbl](className(MediaBreak))
   var ret: pointer
   check it.vtbl.Create(it.raw, insertionMethod, ret.addr), "MediaBreak.new"
   adopt[MediaBreak](ret)
@@ -12798,7 +12798,7 @@ proc newMediaBreak*(insertionMethod: MediaBreakInsertionMethod): MediaBreak =
 proc newMediaBreak*(insertionMethod: MediaBreakInsertionMethod,
                     presentationPosition: TimeSpan): MediaBreak =
   ## Windows.Media.Playback.IMediaBreakFactory.CreateWithPresentationPosition
-  let it = statics[IMediaBreakFactoryVtbl]("Windows.Media.Playback.MediaBreak")
+  let it = statics[IMediaBreakFactoryVtbl](className(MediaBreak))
   var ret: pointer
   check it.vtbl.CreateWithPresentationPosition(it.raw, insertionMethod,
                                                presentationPosition, ret.addr
@@ -13105,7 +13105,7 @@ proc newMediaCapture*(): MediaCapture =
 proc isVideoProfileSupported*(_: typedesc[MediaCapture], videoDeviceId: string
                              ): bool =
   ## Windows.Media.Capture.IMediaCaptureStatics.IsVideoProfileSupported
-  let it = statics[IMediaCaptureStaticsVtbl]("Windows.Media.Capture.MediaCapture")
+  let it = statics[IMediaCaptureStaticsVtbl](className(MediaCapture))
   let a0 = toWinRtString(videoDeviceId)
   var ret: bool
   check it.vtbl.IsVideoProfileSupported(it.raw, a0.handle, ret.addr
@@ -13115,7 +13115,7 @@ proc isVideoProfileSupported*(_: typedesc[MediaCapture], videoDeviceId: string
 proc findAllVideoProfiles*(_: typedesc[MediaCapture], videoDeviceId: string
                           ): seq[MediaCaptureVideoProfile] =
   ## Windows.Media.Capture.IMediaCaptureStatics.FindAllVideoProfiles
-  let it = statics[IMediaCaptureStaticsVtbl]("Windows.Media.Capture.MediaCapture")
+  let it = statics[IMediaCaptureStaticsVtbl](className(MediaCapture))
   let a0 = toWinRtString(videoDeviceId)
   var ret: pointer
   check it.vtbl.FindAllVideoProfiles(it.raw, a0.handle, ret.addr
@@ -13125,7 +13125,7 @@ proc findAllVideoProfiles*(_: typedesc[MediaCapture], videoDeviceId: string
 proc findConcurrentProfiles*(_: typedesc[MediaCapture], videoDeviceId: string
                             ): seq[MediaCaptureVideoProfile] =
   ## Windows.Media.Capture.IMediaCaptureStatics.FindConcurrentProfiles
-  let it = statics[IMediaCaptureStaticsVtbl]("Windows.Media.Capture.MediaCapture")
+  let it = statics[IMediaCaptureStaticsVtbl](className(MediaCapture))
   let a0 = toWinRtString(videoDeviceId)
   var ret: pointer
   check it.vtbl.FindConcurrentProfiles(it.raw, a0.handle, ret.addr
@@ -13136,7 +13136,7 @@ proc findKnownVideoProfiles*(_: typedesc[MediaCapture], videoDeviceId: string,
                              name: KnownVideoProfile
                             ): seq[MediaCaptureVideoProfile] =
   ## Windows.Media.Capture.IMediaCaptureStatics.FindKnownVideoProfiles
-  let it = statics[IMediaCaptureStaticsVtbl]("Windows.Media.Capture.MediaCapture")
+  let it = statics[IMediaCaptureStaticsVtbl](className(MediaCapture))
   let a0 = toWinRtString(videoDeviceId)
   var ret: pointer
   check it.vtbl.FindKnownVideoProfiles(it.raw, a0.handle, name, ret.addr
@@ -14472,7 +14472,7 @@ proc properties*(self: MediaCaptureVideoProfileMediaDescription): Table[GUID, Wi
 proc createFromSurface*(_: typedesc[MediaClip], surface: SomeDirect3DSurface,
                         originalDuration: TimeSpan): MediaClip =
   ## Windows.Media.Editing.IMediaClipStatics2.CreateFromSurface
-  let it = statics[IMediaClipStatics2Vtbl]("Windows.Media.Editing.MediaClip")
+  let it = statics[IMediaClipStatics2Vtbl](className(MediaClip))
   let a0 = queryInterface[IDirect3DSurfaceVtbl](surface)
   var ret: pointer
   check it.vtbl.CreateFromSurface(it.raw, a0.raw, originalDuration, ret.addr
@@ -14482,7 +14482,7 @@ proc createFromSurface*(_: typedesc[MediaClip], surface: SomeDirect3DSurface,
 proc createFromColor*(_: typedesc[MediaClip], color: Color,
                       originalDuration: TimeSpan): MediaClip =
   ## Windows.Media.Editing.IMediaClipStatics.CreateFromColor
-  let it = statics[IMediaClipStaticsVtbl]("Windows.Media.Editing.MediaClip")
+  let it = statics[IMediaClipStaticsVtbl](className(MediaClip))
   var ret: pointer
   check it.vtbl.CreateFromColor(it.raw, color, originalDuration, ret.addr
                                ), "MediaClip.createFromColor"
@@ -14491,7 +14491,7 @@ proc createFromColor*(_: typedesc[MediaClip], color: Color,
 proc createFromFileAsync*(_: typedesc[MediaClip], file: SomeStorageFile
                          ): Future[MediaClip] =
   ## Windows.Media.Editing.IMediaClipStatics.CreateFromFileAsync
-  let it = statics[IMediaClipStaticsVtbl]("Windows.Media.Editing.MediaClip")
+  let it = statics[IMediaClipStaticsVtbl](className(MediaClip))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.CreateFromFileAsync(it.raw, a0.raw, op.addr
@@ -14501,7 +14501,7 @@ proc createFromFileAsync*(_: typedesc[MediaClip], file: SomeStorageFile
 proc createFromImageFileAsync*(_: typedesc[MediaClip], file: SomeStorageFile,
                                originalDuration: TimeSpan): Future[MediaClip] =
   ## Windows.Media.Editing.IMediaClipStatics.CreateFromImageFileAsync
-  let it = statics[IMediaClipStaticsVtbl]("Windows.Media.Editing.MediaClip")
+  let it = statics[IMediaClipStaticsVtbl](className(MediaClip))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.CreateFromImageFileAsync(it.raw, a0.raw, originalDuration,
@@ -14649,7 +14649,7 @@ proc newMediaComposition*(): MediaComposition =
 proc loadAsync*(_: typedesc[MediaComposition], file: StorageFile
                ): Future[MediaComposition] =
   ## Windows.Media.Editing.IMediaCompositionStatics.LoadAsync
-  let it = statics[IMediaCompositionStaticsVtbl]("Windows.Media.Editing.MediaComposition")
+  let it = statics[IMediaCompositionStaticsVtbl](className(MediaComposition))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.LoadAsync(it.raw, a0.raw, op.addr), "MediaComposition.loadAsync"
@@ -14818,7 +14818,7 @@ proc onSoundLevelChanged*(_: typedesc[MediaControl],
                          ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.IMediaControl.add_SoundLevelChanged
   ## The token is what `removeSoundLevelChanged` takes.
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -14828,7 +14828,7 @@ proc onSoundLevelChanged*(_: typedesc[MediaControl],
 proc removeSoundLevelChanged*(_: typedesc[MediaControl],
                               token: EventRegistrationToken) =
   ## Windows.Media.IMediaControl.remove_SoundLevelChanged
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   check it.vtbl.remove_SoundLevelChanged(it.raw, token
                                         ), "MediaControl.soundLevelChanged"
 
@@ -14837,7 +14837,7 @@ proc onPlayPressed*(_: typedesc[MediaControl],
                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.IMediaControl.add_PlayPressed
   ## The token is what `removePlayPressed` takes.
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -14847,7 +14847,7 @@ proc onPlayPressed*(_: typedesc[MediaControl],
 proc removePlayPressed*(_: typedesc[MediaControl], token: EventRegistrationToken
                        ) =
   ## Windows.Media.IMediaControl.remove_PlayPressed
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   check it.vtbl.remove_PlayPressed(it.raw, token), "MediaControl.playPressed"
 
 proc onPausePressed*(_: typedesc[MediaControl],
@@ -14855,7 +14855,7 @@ proc onPausePressed*(_: typedesc[MediaControl],
                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.IMediaControl.add_PausePressed
   ## The token is what `removePausePressed` takes.
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -14865,7 +14865,7 @@ proc onPausePressed*(_: typedesc[MediaControl],
 proc removePausePressed*(_: typedesc[MediaControl],
                          token: EventRegistrationToken) =
   ## Windows.Media.IMediaControl.remove_PausePressed
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   check it.vtbl.remove_PausePressed(it.raw, token), "MediaControl.pausePressed"
 
 proc onStopPressed*(_: typedesc[MediaControl],
@@ -14873,7 +14873,7 @@ proc onStopPressed*(_: typedesc[MediaControl],
                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.IMediaControl.add_StopPressed
   ## The token is what `removeStopPressed` takes.
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -14883,7 +14883,7 @@ proc onStopPressed*(_: typedesc[MediaControl],
 proc removeStopPressed*(_: typedesc[MediaControl], token: EventRegistrationToken
                        ) =
   ## Windows.Media.IMediaControl.remove_StopPressed
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   check it.vtbl.remove_StopPressed(it.raw, token), "MediaControl.stopPressed"
 
 proc onPlayPauseTogglePressed*(_: typedesc[MediaControl],
@@ -14891,7 +14891,7 @@ proc onPlayPauseTogglePressed*(_: typedesc[MediaControl],
                               ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.IMediaControl.add_PlayPauseTogglePressed
   ## The token is what `removePlayPauseTogglePressed` takes.
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -14901,7 +14901,7 @@ proc onPlayPauseTogglePressed*(_: typedesc[MediaControl],
 proc removePlayPauseTogglePressed*(_: typedesc[MediaControl],
                                    token: EventRegistrationToken) =
   ## Windows.Media.IMediaControl.remove_PlayPauseTogglePressed
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   check it.vtbl.remove_PlayPauseTogglePressed(it.raw, token
                                              ), "MediaControl.playPauseTogglePressed"
 
@@ -14910,7 +14910,7 @@ proc onRecordPressed*(_: typedesc[MediaControl],
                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.IMediaControl.add_RecordPressed
   ## The token is what `removeRecordPressed` takes.
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -14920,7 +14920,7 @@ proc onRecordPressed*(_: typedesc[MediaControl],
 proc removeRecordPressed*(_: typedesc[MediaControl],
                           token: EventRegistrationToken) =
   ## Windows.Media.IMediaControl.remove_RecordPressed
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   check it.vtbl.remove_RecordPressed(it.raw, token
                                     ), "MediaControl.recordPressed"
 
@@ -14929,7 +14929,7 @@ proc onNextTrackPressed*(_: typedesc[MediaControl],
                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.IMediaControl.add_NextTrackPressed
   ## The token is what `removeNextTrackPressed` takes.
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -14939,7 +14939,7 @@ proc onNextTrackPressed*(_: typedesc[MediaControl],
 proc removeNextTrackPressed*(_: typedesc[MediaControl],
                              token: EventRegistrationToken) =
   ## Windows.Media.IMediaControl.remove_NextTrackPressed
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   check it.vtbl.remove_NextTrackPressed(it.raw, token
                                        ), "MediaControl.nextTrackPressed"
 
@@ -14948,7 +14948,7 @@ proc onPreviousTrackPressed*(_: typedesc[MediaControl],
                             ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.IMediaControl.add_PreviousTrackPressed
   ## The token is what `removePreviousTrackPressed` takes.
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -14958,7 +14958,7 @@ proc onPreviousTrackPressed*(_: typedesc[MediaControl],
 proc removePreviousTrackPressed*(_: typedesc[MediaControl],
                                  token: EventRegistrationToken) =
   ## Windows.Media.IMediaControl.remove_PreviousTrackPressed
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   check it.vtbl.remove_PreviousTrackPressed(it.raw, token
                                            ), "MediaControl.previousTrackPressed"
 
@@ -14967,7 +14967,7 @@ proc onFastForwardPressed*(_: typedesc[MediaControl],
                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.IMediaControl.add_FastForwardPressed
   ## The token is what `removeFastForwardPressed` takes.
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -14977,7 +14977,7 @@ proc onFastForwardPressed*(_: typedesc[MediaControl],
 proc removeFastForwardPressed*(_: typedesc[MediaControl],
                                token: EventRegistrationToken) =
   ## Windows.Media.IMediaControl.remove_FastForwardPressed
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   check it.vtbl.remove_FastForwardPressed(it.raw, token
                                          ), "MediaControl.fastForwardPressed"
 
@@ -14986,7 +14986,7 @@ proc onRewindPressed*(_: typedesc[MediaControl],
                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.IMediaControl.add_RewindPressed
   ## The token is what `removeRewindPressed` takes.
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -14996,7 +14996,7 @@ proc onRewindPressed*(_: typedesc[MediaControl],
 proc removeRewindPressed*(_: typedesc[MediaControl],
                           token: EventRegistrationToken) =
   ## Windows.Media.IMediaControl.remove_RewindPressed
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   check it.vtbl.remove_RewindPressed(it.raw, token
                                     ), "MediaControl.rewindPressed"
 
@@ -15005,7 +15005,7 @@ proc onChannelUpPressed*(_: typedesc[MediaControl],
                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.IMediaControl.add_ChannelUpPressed
   ## The token is what `removeChannelUpPressed` takes.
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -15015,7 +15015,7 @@ proc onChannelUpPressed*(_: typedesc[MediaControl],
 proc removeChannelUpPressed*(_: typedesc[MediaControl],
                              token: EventRegistrationToken) =
   ## Windows.Media.IMediaControl.remove_ChannelUpPressed
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   check it.vtbl.remove_ChannelUpPressed(it.raw, token
                                        ), "MediaControl.channelUpPressed"
 
@@ -15024,7 +15024,7 @@ proc onChannelDownPressed*(_: typedesc[MediaControl],
                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.IMediaControl.add_ChannelDownPressed
   ## The token is what `removeChannelDownPressed` takes.
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -15034,64 +15034,64 @@ proc onChannelDownPressed*(_: typedesc[MediaControl],
 proc removeChannelDownPressed*(_: typedesc[MediaControl],
                                token: EventRegistrationToken) =
   ## Windows.Media.IMediaControl.remove_ChannelDownPressed
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   check it.vtbl.remove_ChannelDownPressed(it.raw, token
                                          ), "MediaControl.channelDownPressed"
 
 proc soundLevel*(_: typedesc[MediaControl]): SoundLevel =
   ## Windows.Media.IMediaControl.get_SoundLevel
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   var ret: SoundLevel
   check it.vtbl.get_SoundLevel(it.raw, ret.addr), "MediaControl.soundLevel"
   ret
 
 proc `trackName=`*(_: typedesc[MediaControl], value: string) =
   ## Windows.Media.IMediaControl.put_TrackName
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   let a0 = toWinRtString(value)
   check it.vtbl.put_TrackName(it.raw, a0.handle), "MediaControl.trackName"
 
 proc trackName*(_: typedesc[MediaControl]): string =
   ## Windows.Media.IMediaControl.get_TrackName
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   var ret: HSTRING
   check it.vtbl.get_TrackName(it.raw, ret.addr), "MediaControl.trackName"
   takeString(ret)
 
 proc `artistName=`*(_: typedesc[MediaControl], value: string) =
   ## Windows.Media.IMediaControl.put_ArtistName
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   let a0 = toWinRtString(value)
   check it.vtbl.put_ArtistName(it.raw, a0.handle), "MediaControl.artistName"
 
 proc artistName*(_: typedesc[MediaControl]): string =
   ## Windows.Media.IMediaControl.get_ArtistName
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   var ret: HSTRING
   check it.vtbl.get_ArtistName(it.raw, ret.addr), "MediaControl.artistName"
   takeString(ret)
 
 proc `isPlaying=`*(_: typedesc[MediaControl], value: bool) =
   ## Windows.Media.IMediaControl.put_IsPlaying
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   check it.vtbl.put_IsPlaying(it.raw, value), "MediaControl.isPlaying"
 
 proc isPlaying*(_: typedesc[MediaControl]): bool =
   ## Windows.Media.IMediaControl.get_IsPlaying
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   var ret: bool
   check it.vtbl.get_IsPlaying(it.raw, ret.addr), "MediaControl.isPlaying"
   ret
 
 proc `albumArt=`*(_: typedesc[MediaControl], value: Uri) =
   ## Windows.Media.IMediaControl.put_AlbumArt
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   let a0 = queryInterface[IUriRuntimeClassVtbl](value)
   check it.vtbl.put_AlbumArt(it.raw, a0.raw), "MediaControl.albumArt"
 
 proc albumArt*(_: typedesc[MediaControl]): Uri =
   ## Windows.Media.IMediaControl.get_AlbumArt
-  let it = statics[IMediaControlVtbl]("Windows.Media.MediaControl")
+  let it = statics[IMediaControlVtbl](className(MediaControl))
   var ret: pointer
   check it.vtbl.get_AlbumArt(it.raw, ret.addr), "MediaControl.albumArt"
   adopt[Uri](ret)
@@ -15109,7 +15109,7 @@ proc cue*(self: MediaCueEventArgs): IMediaCue =
 
 proc getAudioCaptureSelector*(_: typedesc[MediaDevice]): string =
   ## Windows.Media.Devices.IMediaDeviceStatics.GetAudioCaptureSelector
-  let it = statics[IMediaDeviceStaticsVtbl]("Windows.Media.Devices.MediaDevice")
+  let it = statics[IMediaDeviceStaticsVtbl](className(MediaDevice))
   var ret: HSTRING
   check it.vtbl.GetAudioCaptureSelector(it.raw, ret.addr
                                        ), "MediaDevice.getAudioCaptureSelector"
@@ -15117,7 +15117,7 @@ proc getAudioCaptureSelector*(_: typedesc[MediaDevice]): string =
 
 proc getAudioRenderSelector*(_: typedesc[MediaDevice]): string =
   ## Windows.Media.Devices.IMediaDeviceStatics.GetAudioRenderSelector
-  let it = statics[IMediaDeviceStaticsVtbl]("Windows.Media.Devices.MediaDevice")
+  let it = statics[IMediaDeviceStaticsVtbl](className(MediaDevice))
   var ret: HSTRING
   check it.vtbl.GetAudioRenderSelector(it.raw, ret.addr
                                       ), "MediaDevice.getAudioRenderSelector"
@@ -15125,7 +15125,7 @@ proc getAudioRenderSelector*(_: typedesc[MediaDevice]): string =
 
 proc getVideoCaptureSelector*(_: typedesc[MediaDevice]): string =
   ## Windows.Media.Devices.IMediaDeviceStatics.GetVideoCaptureSelector
-  let it = statics[IMediaDeviceStaticsVtbl]("Windows.Media.Devices.MediaDevice")
+  let it = statics[IMediaDeviceStaticsVtbl](className(MediaDevice))
   var ret: HSTRING
   check it.vtbl.GetVideoCaptureSelector(it.raw, ret.addr
                                        ), "MediaDevice.getVideoCaptureSelector"
@@ -15134,7 +15134,7 @@ proc getVideoCaptureSelector*(_: typedesc[MediaDevice]): string =
 proc getDefaultAudioCaptureId*(_: typedesc[MediaDevice], role: AudioDeviceRole
                               ): string =
   ## Windows.Media.Devices.IMediaDeviceStatics.GetDefaultAudioCaptureId
-  let it = statics[IMediaDeviceStaticsVtbl]("Windows.Media.Devices.MediaDevice")
+  let it = statics[IMediaDeviceStaticsVtbl](className(MediaDevice))
   var ret: HSTRING
   check it.vtbl.GetDefaultAudioCaptureId(it.raw, role, ret.addr
                                         ), "MediaDevice.getDefaultAudioCaptureId"
@@ -15143,7 +15143,7 @@ proc getDefaultAudioCaptureId*(_: typedesc[MediaDevice], role: AudioDeviceRole
 proc getDefaultAudioRenderId*(_: typedesc[MediaDevice], role: AudioDeviceRole
                              ): string =
   ## Windows.Media.Devices.IMediaDeviceStatics.GetDefaultAudioRenderId
-  let it = statics[IMediaDeviceStaticsVtbl]("Windows.Media.Devices.MediaDevice")
+  let it = statics[IMediaDeviceStaticsVtbl](className(MediaDevice))
   var ret: HSTRING
   check it.vtbl.GetDefaultAudioRenderId(it.raw, role, ret.addr
                                        ), "MediaDevice.getDefaultAudioRenderId"
@@ -15154,7 +15154,7 @@ proc onDefaultAudioCaptureDeviceChanged*(_: typedesc[MediaDevice],
                                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Devices.IMediaDeviceStatics.add_DefaultAudioCaptureDeviceChanged
   ## The token is what `removeDefaultAudioCaptureDeviceChanged` takes.
-  let it = statics[IMediaDeviceStaticsVtbl]("Windows.Media.Devices.MediaDevice")
+  let it = statics[IMediaDeviceStaticsVtbl](className(MediaDevice))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0),
             borrow[DefaultAudioCaptureDeviceChangedEventArgs](a1))
@@ -15166,7 +15166,7 @@ proc onDefaultAudioCaptureDeviceChanged*(_: typedesc[MediaDevice],
 proc removeDefaultAudioCaptureDeviceChanged*(_: typedesc[MediaDevice],
                                              token: EventRegistrationToken) =
   ## Windows.Media.Devices.IMediaDeviceStatics.remove_DefaultAudioCaptureDeviceChanged
-  let it = statics[IMediaDeviceStaticsVtbl]("Windows.Media.Devices.MediaDevice")
+  let it = statics[IMediaDeviceStaticsVtbl](className(MediaDevice))
   check it.vtbl.remove_DefaultAudioCaptureDeviceChanged(it.raw, token
                                                        ), "MediaDevice.defaultAudioCaptureDeviceChanged"
 
@@ -15175,7 +15175,7 @@ proc onDefaultAudioRenderDeviceChanged*(_: typedesc[MediaDevice],
                                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Devices.IMediaDeviceStatics.add_DefaultAudioRenderDeviceChanged
   ## The token is what `removeDefaultAudioRenderDeviceChanged` takes.
-  let it = statics[IMediaDeviceStaticsVtbl]("Windows.Media.Devices.MediaDevice")
+  let it = statics[IMediaDeviceStaticsVtbl](className(MediaDevice))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0),
             borrow[DefaultAudioRenderDeviceChangedEventArgs](a1))
@@ -15187,7 +15187,7 @@ proc onDefaultAudioRenderDeviceChanged*(_: typedesc[MediaDevice],
 proc removeDefaultAudioRenderDeviceChanged*(_: typedesc[MediaDevice],
                                             token: EventRegistrationToken) =
   ## Windows.Media.Devices.IMediaDeviceStatics.remove_DefaultAudioRenderDeviceChanged
-  let it = statics[IMediaDeviceStaticsVtbl]("Windows.Media.Devices.MediaDevice")
+  let it = statics[IMediaDeviceStaticsVtbl](className(MediaDevice))
   check it.vtbl.remove_DefaultAudioRenderDeviceChanged(it.raw, token
                                                       ), "MediaDevice.defaultAudioRenderDeviceChanged"
 
@@ -15292,7 +15292,7 @@ proc newMediaEncodingProfile*(): MediaEncodingProfile =
 proc createVp9*(_: typedesc[MediaEncodingProfile], quality: VideoEncodingQuality
                ): MediaEncodingProfile =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics4.CreateVp9
-  let it = statics[IMediaEncodingProfileStatics4Vtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStatics4Vtbl](className(MediaEncodingProfile))
   var ret: pointer
   check it.vtbl.CreateVp9(it.raw, quality, ret.addr
                          ), "MediaEncodingProfile.createVp9"
@@ -15301,7 +15301,7 @@ proc createVp9*(_: typedesc[MediaEncodingProfile], quality: VideoEncodingQuality
 proc createAv1*(_: typedesc[MediaEncodingProfile], quality: VideoEncodingQuality
                ): MediaEncodingProfile =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics4.CreateAv1
-  let it = statics[IMediaEncodingProfileStatics4Vtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStatics4Vtbl](className(MediaEncodingProfile))
   var ret: pointer
   check it.vtbl.CreateAv1(it.raw, quality, ret.addr
                          ), "MediaEncodingProfile.createAv1"
@@ -15310,7 +15310,7 @@ proc createAv1*(_: typedesc[MediaEncodingProfile], quality: VideoEncodingQuality
 proc createM4a*(_: typedesc[MediaEncodingProfile], quality: AudioEncodingQuality
                ): MediaEncodingProfile =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics.CreateM4a
-  let it = statics[IMediaEncodingProfileStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStaticsVtbl](className(MediaEncodingProfile))
   var ret: pointer
   check it.vtbl.CreateM4a(it.raw, quality, ret.addr
                          ), "MediaEncodingProfile.createM4a"
@@ -15319,7 +15319,7 @@ proc createM4a*(_: typedesc[MediaEncodingProfile], quality: AudioEncodingQuality
 proc createMp3*(_: typedesc[MediaEncodingProfile], quality: AudioEncodingQuality
                ): MediaEncodingProfile =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics.CreateMp3
-  let it = statics[IMediaEncodingProfileStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStaticsVtbl](className(MediaEncodingProfile))
   var ret: pointer
   check it.vtbl.CreateMp3(it.raw, quality, ret.addr
                          ), "MediaEncodingProfile.createMp3"
@@ -15328,7 +15328,7 @@ proc createMp3*(_: typedesc[MediaEncodingProfile], quality: AudioEncodingQuality
 proc createWma*(_: typedesc[MediaEncodingProfile], quality: AudioEncodingQuality
                ): MediaEncodingProfile =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics.CreateWma
-  let it = statics[IMediaEncodingProfileStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStaticsVtbl](className(MediaEncodingProfile))
   var ret: pointer
   check it.vtbl.CreateWma(it.raw, quality, ret.addr
                          ), "MediaEncodingProfile.createWma"
@@ -15337,7 +15337,7 @@ proc createWma*(_: typedesc[MediaEncodingProfile], quality: AudioEncodingQuality
 proc createMp4*(_: typedesc[MediaEncodingProfile], quality: VideoEncodingQuality
                ): MediaEncodingProfile =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics.CreateMp4
-  let it = statics[IMediaEncodingProfileStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStaticsVtbl](className(MediaEncodingProfile))
   var ret: pointer
   check it.vtbl.CreateMp4(it.raw, quality, ret.addr
                          ), "MediaEncodingProfile.createMp4"
@@ -15346,7 +15346,7 @@ proc createMp4*(_: typedesc[MediaEncodingProfile], quality: VideoEncodingQuality
 proc createWmv*(_: typedesc[MediaEncodingProfile], quality: VideoEncodingQuality
                ): MediaEncodingProfile =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics.CreateWmv
-  let it = statics[IMediaEncodingProfileStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStaticsVtbl](className(MediaEncodingProfile))
   var ret: pointer
   check it.vtbl.CreateWmv(it.raw, quality, ret.addr
                          ), "MediaEncodingProfile.createWmv"
@@ -15355,7 +15355,7 @@ proc createWmv*(_: typedesc[MediaEncodingProfile], quality: VideoEncodingQuality
 proc createFromFileAsync*(_: typedesc[MediaEncodingProfile],
                           file: SomeStorageFile): Future[MediaEncodingProfile] =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics.CreateFromFileAsync
-  let it = statics[IMediaEncodingProfileStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStaticsVtbl](className(MediaEncodingProfile))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.CreateFromFileAsync(it.raw, a0.raw, op.addr
@@ -15366,7 +15366,7 @@ proc createFromStreamAsync*(_: typedesc[MediaEncodingProfile],
                             stream: SomeRandomAccessStream
                            ): Future[MediaEncodingProfile] =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics.CreateFromStreamAsync
-  let it = statics[IMediaEncodingProfileStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStaticsVtbl](className(MediaEncodingProfile))
   let a0 = queryInterface[IRandomAccessStreamVtbl](stream)
   var op: pointer
   check it.vtbl.CreateFromStreamAsync(it.raw, a0.raw, op.addr
@@ -15376,7 +15376,7 @@ proc createFromStreamAsync*(_: typedesc[MediaEncodingProfile],
 proc createAlac*(_: typedesc[MediaEncodingProfile],
                  quality: AudioEncodingQuality): MediaEncodingProfile =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics3.CreateAlac
-  let it = statics[IMediaEncodingProfileStatics3Vtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStatics3Vtbl](className(MediaEncodingProfile))
   var ret: pointer
   check it.vtbl.CreateAlac(it.raw, quality, ret.addr
                           ), "MediaEncodingProfile.createAlac"
@@ -15385,7 +15385,7 @@ proc createAlac*(_: typedesc[MediaEncodingProfile],
 proc createFlac*(_: typedesc[MediaEncodingProfile],
                  quality: AudioEncodingQuality): MediaEncodingProfile =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics3.CreateFlac
-  let it = statics[IMediaEncodingProfileStatics3Vtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStatics3Vtbl](className(MediaEncodingProfile))
   var ret: pointer
   check it.vtbl.CreateFlac(it.raw, quality, ret.addr
                           ), "MediaEncodingProfile.createFlac"
@@ -15394,7 +15394,7 @@ proc createFlac*(_: typedesc[MediaEncodingProfile],
 proc createHevc*(_: typedesc[MediaEncodingProfile],
                  quality: VideoEncodingQuality): MediaEncodingProfile =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics3.CreateHevc
-  let it = statics[IMediaEncodingProfileStatics3Vtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStatics3Vtbl](className(MediaEncodingProfile))
   var ret: pointer
   check it.vtbl.CreateHevc(it.raw, quality, ret.addr
                           ), "MediaEncodingProfile.createHevc"
@@ -15403,7 +15403,7 @@ proc createHevc*(_: typedesc[MediaEncodingProfile],
 proc createWav*(_: typedesc[MediaEncodingProfile], quality: AudioEncodingQuality
                ): MediaEncodingProfile =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics2.CreateWav
-  let it = statics[IMediaEncodingProfileStatics2Vtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStatics2Vtbl](className(MediaEncodingProfile))
   var ret: pointer
   check it.vtbl.CreateWav(it.raw, quality, ret.addr
                          ), "MediaEncodingProfile.createWav"
@@ -15412,7 +15412,7 @@ proc createWav*(_: typedesc[MediaEncodingProfile], quality: AudioEncodingQuality
 proc createAvi*(_: typedesc[MediaEncodingProfile], quality: VideoEncodingQuality
                ): MediaEncodingProfile =
   ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics2.CreateAvi
-  let it = statics[IMediaEncodingProfileStatics2Vtbl]("Windows.Media.MediaProperties.MediaEncodingProfile")
+  let it = statics[IMediaEncodingProfileStatics2Vtbl](className(MediaEncodingProfile))
   var ret: pointer
   check it.vtbl.CreateAvi(it.raw, quality, ret.addr
                          ), "MediaEncodingProfile.createAvi"
@@ -15512,371 +15512,371 @@ proc getTimedMetadataTracks*(self: MediaEncodingProfile): seq[TimedMetadataStrea
 
 proc av1*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics7.get_Av1
-  let it = statics[IMediaEncodingSubtypesStatics7Vtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStatics7Vtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Av1(it.raw, ret.addr), "MediaEncodingSubtypes.av1"
   takeString(ret)
 
 proc alac*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics3.get_Alac
-  let it = statics[IMediaEncodingSubtypesStatics3Vtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStatics3Vtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Alac(it.raw, ret.addr), "MediaEncodingSubtypes.alac"
   takeString(ret)
 
 proc flac*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics3.get_Flac
-  let it = statics[IMediaEncodingSubtypesStatics3Vtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStatics3Vtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Flac(it.raw, ret.addr), "MediaEncodingSubtypes.flac"
   takeString(ret)
 
 proc pgs*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics6.get_Pgs
-  let it = statics[IMediaEncodingSubtypesStatics6Vtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStatics6Vtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Pgs(it.raw, ret.addr), "MediaEncodingSubtypes.pgs"
   takeString(ret)
 
 proc srt*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics6.get_Srt
-  let it = statics[IMediaEncodingSubtypesStatics6Vtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStatics6Vtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Srt(it.raw, ret.addr), "MediaEncodingSubtypes.srt"
   takeString(ret)
 
 proc ssa*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics6.get_Ssa
-  let it = statics[IMediaEncodingSubtypesStatics6Vtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStatics6Vtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Ssa(it.raw, ret.addr), "MediaEncodingSubtypes.ssa"
   takeString(ret)
 
 proc vobSub*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics6.get_VobSub
-  let it = statics[IMediaEncodingSubtypesStatics6Vtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStatics6Vtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_VobSub(it.raw, ret.addr), "MediaEncodingSubtypes.vobSub"
   takeString(ret)
 
 proc p010*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics4.get_P010
-  let it = statics[IMediaEncodingSubtypesStatics4Vtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStatics4Vtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_P010(it.raw, ret.addr), "MediaEncodingSubtypes.p010"
   takeString(ret)
 
 proc heif*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics5.get_Heif
-  let it = statics[IMediaEncodingSubtypesStatics5Vtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStatics5Vtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Heif(it.raw, ret.addr), "MediaEncodingSubtypes.heif"
   takeString(ret)
 
 proc aac*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Aac
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Aac(it.raw, ret.addr), "MediaEncodingSubtypes.aac"
   takeString(ret)
 
 proc aacAdts*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_AacAdts
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AacAdts(it.raw, ret.addr), "MediaEncodingSubtypes.aacAdts"
   takeString(ret)
 
 proc ac3*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Ac3
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Ac3(it.raw, ret.addr), "MediaEncodingSubtypes.ac3"
   takeString(ret)
 
 proc amrNb*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_AmrNb
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AmrNb(it.raw, ret.addr), "MediaEncodingSubtypes.amrNb"
   takeString(ret)
 
 proc amrWb*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_AmrWb
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_AmrWb(it.raw, ret.addr), "MediaEncodingSubtypes.amrWb"
   takeString(ret)
 
 proc argb32*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Argb32
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Argb32(it.raw, ret.addr), "MediaEncodingSubtypes.argb32"
   takeString(ret)
 
 proc asf*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Asf
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Asf(it.raw, ret.addr), "MediaEncodingSubtypes.asf"
   takeString(ret)
 
 proc avi*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Avi
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Avi(it.raw, ret.addr), "MediaEncodingSubtypes.avi"
   takeString(ret)
 
 proc bgra8*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Bgra8
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Bgra8(it.raw, ret.addr), "MediaEncodingSubtypes.bgra8"
   takeString(ret)
 
 proc bmp*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Bmp
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Bmp(it.raw, ret.addr), "MediaEncodingSubtypes.bmp"
   takeString(ret)
 
 proc eac3*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Eac3
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Eac3(it.raw, ret.addr), "MediaEncodingSubtypes.eac3"
   takeString(ret)
 
 proc Float*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Float
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Float(it.raw, ret.addr), "MediaEncodingSubtypes.float"
   takeString(ret)
 
 proc gif*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Gif
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Gif(it.raw, ret.addr), "MediaEncodingSubtypes.gif"
   takeString(ret)
 
 proc h263*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_H263
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_H263(it.raw, ret.addr), "MediaEncodingSubtypes.h263"
   takeString(ret)
 
 proc h264*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_H264
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_H264(it.raw, ret.addr), "MediaEncodingSubtypes.h264"
   takeString(ret)
 
 proc h264Es*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_H264Es
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_H264Es(it.raw, ret.addr), "MediaEncodingSubtypes.h264Es"
   takeString(ret)
 
 proc hevc*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Hevc
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Hevc(it.raw, ret.addr), "MediaEncodingSubtypes.hevc"
   takeString(ret)
 
 proc hevcEs*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_HevcEs
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_HevcEs(it.raw, ret.addr), "MediaEncodingSubtypes.hevcEs"
   takeString(ret)
 
 proc iyuv*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Iyuv
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Iyuv(it.raw, ret.addr), "MediaEncodingSubtypes.iyuv"
   takeString(ret)
 
 proc jpeg*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Jpeg
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Jpeg(it.raw, ret.addr), "MediaEncodingSubtypes.jpeg"
   takeString(ret)
 
 proc jpegXr*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_JpegXr
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_JpegXr(it.raw, ret.addr), "MediaEncodingSubtypes.jpegXr"
   takeString(ret)
 
 proc mjpg*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Mjpg
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Mjpg(it.raw, ret.addr), "MediaEncodingSubtypes.mjpg"
   takeString(ret)
 
 proc mpeg*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Mpeg
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Mpeg(it.raw, ret.addr), "MediaEncodingSubtypes.mpeg"
   takeString(ret)
 
 proc mpeg1*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Mpeg1
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Mpeg1(it.raw, ret.addr), "MediaEncodingSubtypes.mpeg1"
   takeString(ret)
 
 proc mpeg2*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Mpeg2
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Mpeg2(it.raw, ret.addr), "MediaEncodingSubtypes.mpeg2"
   takeString(ret)
 
 proc mp3*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Mp3
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Mp3(it.raw, ret.addr), "MediaEncodingSubtypes.mp3"
   takeString(ret)
 
 proc mpeg4*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Mpeg4
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Mpeg4(it.raw, ret.addr), "MediaEncodingSubtypes.mpeg4"
   takeString(ret)
 
 proc nv12*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Nv12
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Nv12(it.raw, ret.addr), "MediaEncodingSubtypes.nv12"
   takeString(ret)
 
 proc pcm*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Pcm
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Pcm(it.raw, ret.addr), "MediaEncodingSubtypes.pcm"
   takeString(ret)
 
 proc png*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Png
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Png(it.raw, ret.addr), "MediaEncodingSubtypes.png"
   takeString(ret)
 
 proc rgb24*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Rgb24
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Rgb24(it.raw, ret.addr), "MediaEncodingSubtypes.rgb24"
   takeString(ret)
 
 proc rgb32*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Rgb32
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Rgb32(it.raw, ret.addr), "MediaEncodingSubtypes.rgb32"
   takeString(ret)
 
 proc tiff*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Tiff
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Tiff(it.raw, ret.addr), "MediaEncodingSubtypes.tiff"
   takeString(ret)
 
 proc wave*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Wave
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Wave(it.raw, ret.addr), "MediaEncodingSubtypes.wave"
   takeString(ret)
 
 proc wma8*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Wma8
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Wma8(it.raw, ret.addr), "MediaEncodingSubtypes.wma8"
   takeString(ret)
 
 proc wma9*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Wma9
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Wma9(it.raw, ret.addr), "MediaEncodingSubtypes.wma9"
   takeString(ret)
 
 proc wmv3*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Wmv3
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Wmv3(it.raw, ret.addr), "MediaEncodingSubtypes.wmv3"
   takeString(ret)
 
 proc wvc1*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Wvc1
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Wvc1(it.raw, ret.addr), "MediaEncodingSubtypes.wvc1"
   takeString(ret)
 
 proc yuy2*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Yuy2
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Yuy2(it.raw, ret.addr), "MediaEncodingSubtypes.yuy2"
   takeString(ret)
 
 proc yv12*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics.get_Yv12
-  let it = statics[IMediaEncodingSubtypesStaticsVtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStaticsVtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Yv12(it.raw, ret.addr), "MediaEncodingSubtypes.yv12"
   takeString(ret)
 
 proc vp9*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics2.get_Vp9
-  let it = statics[IMediaEncodingSubtypesStatics2Vtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStatics2Vtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_Vp9(it.raw, ret.addr), "MediaEncodingSubtypes.vp9"
   takeString(ret)
 
 proc l8*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics2.get_L8
-  let it = statics[IMediaEncodingSubtypesStatics2Vtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStatics2Vtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_L8(it.raw, ret.addr), "MediaEncodingSubtypes.l8"
   takeString(ret)
 
 proc l16*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics2.get_L16
-  let it = statics[IMediaEncodingSubtypesStatics2Vtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStatics2Vtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_L16(it.raw, ret.addr), "MediaEncodingSubtypes.l16"
   takeString(ret)
 
 proc d16*(_: typedesc[MediaEncodingSubtypes]): string =
   ## Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics2.get_D16
-  let it = statics[IMediaEncodingSubtypesStatics2Vtbl]("Windows.Media.MediaProperties.MediaEncodingSubtypes")
+  let it = statics[IMediaEncodingSubtypesStatics2Vtbl](className(MediaEncodingSubtypes))
   var ret: HSTRING
   check it.vtbl.get_D16(it.raw, ret.addr), "MediaEncodingSubtypes.d16"
   takeString(ret)
@@ -16375,7 +16375,7 @@ proc value*(self: MediaFrameSourceGetPropertyResult): WinRtObject =
 
 proc findAllAsync*(_: typedesc[MediaFrameSourceGroup]): Future[seq[MediaFrameSourceGroup]] =
   ## Windows.Media.Capture.Frames.IMediaFrameSourceGroupStatics.FindAllAsync
-  let it = statics[IMediaFrameSourceGroupStaticsVtbl]("Windows.Media.Capture.Frames.MediaFrameSourceGroup")
+  let it = statics[IMediaFrameSourceGroupStaticsVtbl](className(MediaFrameSourceGroup))
   var op: pointer
   check it.vtbl.FindAllAsync(it.raw, op.addr
                             ), "MediaFrameSourceGroup.findAllAsync"
@@ -16385,7 +16385,7 @@ proc findAllAsync*(_: typedesc[MediaFrameSourceGroup]): Future[seq[MediaFrameSou
 proc fromIdAsync*(_: typedesc[MediaFrameSourceGroup], id: string
                  ): Future[MediaFrameSourceGroup] =
   ## Windows.Media.Capture.Frames.IMediaFrameSourceGroupStatics.FromIdAsync
-  let it = statics[IMediaFrameSourceGroupStaticsVtbl]("Windows.Media.Capture.Frames.MediaFrameSourceGroup")
+  let it = statics[IMediaFrameSourceGroupStaticsVtbl](className(MediaFrameSourceGroup))
   let a0 = toWinRtString(id)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -16394,7 +16394,7 @@ proc fromIdAsync*(_: typedesc[MediaFrameSourceGroup], id: string
 
 proc getDeviceSelector*(_: typedesc[MediaFrameSourceGroup]): string =
   ## Windows.Media.Capture.Frames.IMediaFrameSourceGroupStatics.GetDeviceSelector
-  let it = statics[IMediaFrameSourceGroupStaticsVtbl]("Windows.Media.Capture.Frames.MediaFrameSourceGroup")
+  let it = statics[IMediaFrameSourceGroupStaticsVtbl](className(MediaFrameSourceGroup))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "MediaFrameSourceGroup.getDeviceSelector"
@@ -16569,7 +16569,7 @@ proc clearAll*(self: MediaItemDisplayProperties) =
 
 proc bookmark*(_: typedesc[MediaMarkerTypes]): string =
   ## Windows.Media.IMediaMarkerTypesStatics.get_Bookmark
-  let it = statics[IMediaMarkerTypesStaticsVtbl]("Windows.Media.MediaMarkerTypes")
+  let it = statics[IMediaMarkerTypesStaticsVtbl](className(MediaMarkerTypes))
   var ret: HSTRING
   check it.vtbl.get_Bookmark(it.raw, ret.addr), "MediaMarkerTypes.bookmark"
   takeString(ret)
@@ -16578,7 +16578,7 @@ proc bookmark*(_: typedesc[MediaMarkerTypes]): string =
 
 proc newMediaOverlay*(clip: MediaClip): MediaOverlay =
   ## Windows.Media.Editing.IMediaOverlayFactory.Create
-  let it = statics[IMediaOverlayFactoryVtbl]("Windows.Media.Editing.MediaOverlay")
+  let it = statics[IMediaOverlayFactoryVtbl](className(MediaOverlay))
   let a0 = queryInterface[IMediaClipVtbl](clip)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "MediaOverlay.new"
@@ -16587,7 +16587,7 @@ proc newMediaOverlay*(clip: MediaClip): MediaOverlay =
 proc newMediaOverlay*(clip: MediaClip, position: Rect, opacity: float64
                      ): MediaOverlay =
   ## Windows.Media.Editing.IMediaOverlayFactory.CreateWithPositionAndOpacity
-  let it = statics[IMediaOverlayFactoryVtbl]("Windows.Media.Editing.MediaOverlay")
+  let it = statics[IMediaOverlayFactoryVtbl](className(MediaOverlay))
   let a0 = queryInterface[IMediaClipVtbl](clip)
   var ret: pointer
   check it.vtbl.CreateWithPositionAndOpacity(it.raw, a0.raw, position, opacity,
@@ -16664,7 +16664,7 @@ proc newMediaOverlayLayer*(): MediaOverlayLayer =
 
 proc newMediaOverlayLayer*(compositorDefinition: SomeVideoCompositorDefinition): MediaOverlayLayer =
   ## Windows.Media.Editing.IMediaOverlayLayerFactory.CreateWithCompositorDefinition
-  let it = statics[IMediaOverlayLayerFactoryVtbl]("Windows.Media.Editing.MediaOverlayLayer")
+  let it = statics[IMediaOverlayLayerFactoryVtbl](className(MediaOverlayLayer))
   let a0 = queryInterface[IVideoCompositorDefinitionVtbl](compositorDefinition)
   var ret: pointer
   check it.vtbl.CreateWithCompositorDefinition(it.raw, a0.raw, ret.addr
@@ -17348,7 +17348,7 @@ proc getDeferral*(self: MediaPlaybackCommandManagerShuffleReceivedEventArgs): De
 
 proc newMediaPlaybackItem*(source: MediaSource): MediaPlaybackItem =
   ## Windows.Media.Playback.IMediaPlaybackItemFactory.Create
-  let it = statics[IMediaPlaybackItemFactoryVtbl]("Windows.Media.Playback.MediaPlaybackItem")
+  let it = statics[IMediaPlaybackItemFactoryVtbl](className(MediaPlaybackItem))
   let a0 = queryInterface[IMediaSource2Vtbl](source)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "MediaPlaybackItem.new"
@@ -17357,7 +17357,7 @@ proc newMediaPlaybackItem*(source: MediaSource): MediaPlaybackItem =
 proc newMediaPlaybackItem*(source: MediaSource, startTime: TimeSpan
                           ): MediaPlaybackItem =
   ## Windows.Media.Playback.IMediaPlaybackItemFactory2.CreateWithStartTime
-  let it = statics[IMediaPlaybackItemFactory2Vtbl]("Windows.Media.Playback.MediaPlaybackItem")
+  let it = statics[IMediaPlaybackItemFactory2Vtbl](className(MediaPlaybackItem))
   let a0 = queryInterface[IMediaSource2Vtbl](source)
   var ret: pointer
   check it.vtbl.CreateWithStartTime(it.raw, a0.raw, startTime, ret.addr
@@ -17367,7 +17367,7 @@ proc newMediaPlaybackItem*(source: MediaSource, startTime: TimeSpan
 proc newMediaPlaybackItem*(source: MediaSource, startTime: TimeSpan,
                            durationLimit: TimeSpan): MediaPlaybackItem =
   ## Windows.Media.Playback.IMediaPlaybackItemFactory2.CreateWithStartTimeAndDurationLimit
-  let it = statics[IMediaPlaybackItemFactory2Vtbl]("Windows.Media.Playback.MediaPlaybackItem")
+  let it = statics[IMediaPlaybackItemFactory2Vtbl](className(MediaPlaybackItem))
   let a0 = queryInterface[IMediaSource2Vtbl](source)
   var ret: pointer
   check it.vtbl.CreateWithStartTimeAndDurationLimit(it.raw, a0.raw, startTime,
@@ -17378,7 +17378,7 @@ proc newMediaPlaybackItem*(source: MediaSource, startTime: TimeSpan,
 proc findFromMediaSource*(_: typedesc[MediaPlaybackItem], source: MediaSource
                          ): MediaPlaybackItem =
   ## Windows.Media.Playback.IMediaPlaybackItemStatics.FindFromMediaSource
-  let it = statics[IMediaPlaybackItemStaticsVtbl]("Windows.Media.Playback.MediaPlaybackItem")
+  let it = statics[IMediaPlaybackItemStaticsVtbl](className(MediaPlaybackItem))
   let a0 = queryInterface[IMediaSource2Vtbl](source)
   var ret: pointer
   check it.vtbl.FindFromMediaSource(it.raw, a0.raw, ret.addr
@@ -19339,7 +19339,7 @@ proc properties*(self: MediaProtectionManager): IPropertySet =
 
 proc newMediaProtectionPMPServer*(pProperties: SomePropertySet): MediaProtectionPMPServer =
   ## Windows.Media.Protection.IMediaProtectionPMPServerFactory.CreatePMPServer
-  let it = statics[IMediaProtectionPMPServerFactoryVtbl]("Windows.Media.Protection.MediaProtectionPMPServer")
+  let it = statics[IMediaProtectionPMPServerFactoryVtbl](className(MediaProtectionPMPServer))
   let a0 = queryInterface[IPropertySetVtbl](pProperties)
   var ret: pointer
   check it.vtbl.CreatePMPServer(it.raw, a0.raw, ret.addr
@@ -19394,7 +19394,7 @@ proc createFromAdaptiveMediaSource*(_: typedesc[MediaSource],
                                     mediaSource: AdaptiveMediaSource
                                    ): MediaSource =
   ## Windows.Media.Core.IMediaSourceStatics.CreateFromAdaptiveMediaSource
-  let it = statics[IMediaSourceStaticsVtbl]("Windows.Media.Core.MediaSource")
+  let it = statics[IMediaSourceStaticsVtbl](className(MediaSource))
   let a0 = queryInterface[IAdaptiveMediaSourceVtbl](mediaSource)
   var ret: pointer
   check it.vtbl.CreateFromAdaptiveMediaSource(it.raw, a0.raw, ret.addr
@@ -19404,7 +19404,7 @@ proc createFromAdaptiveMediaSource*(_: typedesc[MediaSource],
 proc createFromMediaStreamSource*(_: typedesc[MediaSource],
                                   mediaSource: MediaStreamSource): MediaSource =
   ## Windows.Media.Core.IMediaSourceStatics.CreateFromMediaStreamSource
-  let it = statics[IMediaSourceStaticsVtbl]("Windows.Media.Core.MediaSource")
+  let it = statics[IMediaSourceStaticsVtbl](className(MediaSource))
   let a0 = queryInterface[IMediaStreamSourceVtbl](mediaSource)
   var ret: pointer
   check it.vtbl.CreateFromMediaStreamSource(it.raw, a0.raw, ret.addr
@@ -19414,7 +19414,7 @@ proc createFromMediaStreamSource*(_: typedesc[MediaSource],
 proc createFromMseStreamSource*(_: typedesc[MediaSource],
                                 mediaSource: MseStreamSource): MediaSource =
   ## Windows.Media.Core.IMediaSourceStatics.CreateFromMseStreamSource
-  let it = statics[IMediaSourceStaticsVtbl]("Windows.Media.Core.MediaSource")
+  let it = statics[IMediaSourceStaticsVtbl](className(MediaSource))
   let a0 = queryInterface[IMseStreamSourceVtbl](mediaSource)
   var ret: pointer
   check it.vtbl.CreateFromMseStreamSource(it.raw, a0.raw, ret.addr
@@ -19424,7 +19424,7 @@ proc createFromMseStreamSource*(_: typedesc[MediaSource],
 proc createFromIMediaSource*(_: typedesc[MediaSource],
                              mediaSource: SomeMediaSource): MediaSource =
   ## Windows.Media.Core.IMediaSourceStatics.CreateFromIMediaSource
-  let it = statics[IMediaSourceStaticsVtbl]("Windows.Media.Core.MediaSource")
+  let it = statics[IMediaSourceStaticsVtbl](className(MediaSource))
   let a0 = queryInterface[IMediaSourceVtbl](mediaSource)
   var ret: pointer
   check it.vtbl.CreateFromIMediaSource(it.raw, a0.raw, ret.addr
@@ -19434,7 +19434,7 @@ proc createFromIMediaSource*(_: typedesc[MediaSource],
 proc createFromStorageFile*(_: typedesc[MediaSource], file: SomeStorageFile
                            ): MediaSource =
   ## Windows.Media.Core.IMediaSourceStatics.CreateFromStorageFile
-  let it = statics[IMediaSourceStaticsVtbl]("Windows.Media.Core.MediaSource")
+  let it = statics[IMediaSourceStaticsVtbl](className(MediaSource))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var ret: pointer
   check it.vtbl.CreateFromStorageFile(it.raw, a0.raw, ret.addr
@@ -19444,7 +19444,7 @@ proc createFromStorageFile*(_: typedesc[MediaSource], file: SomeStorageFile
 proc createFromStream*(_: typedesc[MediaSource], stream: SomeRandomAccessStream,
                        contentType: string): MediaSource =
   ## Windows.Media.Core.IMediaSourceStatics.CreateFromStream
-  let it = statics[IMediaSourceStaticsVtbl]("Windows.Media.Core.MediaSource")
+  let it = statics[IMediaSourceStaticsVtbl](className(MediaSource))
   let a0 = queryInterface[IRandomAccessStreamVtbl](stream)
   let a1 = toWinRtString(contentType)
   var ret: pointer
@@ -19456,7 +19456,7 @@ proc createFromStreamReference*(_: typedesc[MediaSource],
                                 stream: SomeRandomAccessStreamReference,
                                 contentType: string): MediaSource =
   ## Windows.Media.Core.IMediaSourceStatics.CreateFromStreamReference
-  let it = statics[IMediaSourceStaticsVtbl]("Windows.Media.Core.MediaSource")
+  let it = statics[IMediaSourceStaticsVtbl](className(MediaSource))
   let a0 = queryInterface[IRandomAccessStreamReferenceVtbl](stream)
   let a1 = toWinRtString(contentType)
   var ret: pointer
@@ -19466,7 +19466,7 @@ proc createFromStreamReference*(_: typedesc[MediaSource],
 
 proc createFromUri*(_: typedesc[MediaSource], uri: Uri): MediaSource =
   ## Windows.Media.Core.IMediaSourceStatics.CreateFromUri
-  let it = statics[IMediaSourceStaticsVtbl]("Windows.Media.Core.MediaSource")
+  let it = statics[IMediaSourceStaticsVtbl](className(MediaSource))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var ret: pointer
   check it.vtbl.CreateFromUri(it.raw, a0.raw, ret.addr
@@ -19476,7 +19476,7 @@ proc createFromUri*(_: typedesc[MediaSource], uri: Uri): MediaSource =
 proc createFromMediaFrameSource*(_: typedesc[MediaSource],
                                  frameSource: MediaFrameSource): MediaSource =
   ## Windows.Media.Core.IMediaSourceStatics3.CreateFromMediaFrameSource
-  let it = statics[IMediaSourceStatics3Vtbl]("Windows.Media.Core.MediaSource")
+  let it = statics[IMediaSourceStatics3Vtbl](className(MediaSource))
   let a0 = queryInterface[IMediaFrameSourceVtbl](frameSource)
   var ret: pointer
   check it.vtbl.CreateFromMediaFrameSource(it.raw, a0.raw, ret.addr
@@ -19487,7 +19487,7 @@ proc createFromDownloadOperation*(_: typedesc[MediaSource],
                                   downloadOperation: DownloadOperation
                                  ): MediaSource =
   ## Windows.Media.Core.IMediaSourceStatics4.CreateFromDownloadOperation
-  let it = statics[IMediaSourceStatics4Vtbl]("Windows.Media.Core.MediaSource")
+  let it = statics[IMediaSourceStatics4Vtbl](className(MediaSource))
   let a0 = queryInterface[IDownloadOperationVtbl](downloadOperation)
   var ret: pointer
   check it.vtbl.CreateFromDownloadOperation(it.raw, a0.raw, ret.addr
@@ -19497,7 +19497,7 @@ proc createFromDownloadOperation*(_: typedesc[MediaSource],
 proc createFromMediaBinder*(_: typedesc[MediaSource], binder: MediaBinder
                            ): MediaSource =
   ## Windows.Media.Core.IMediaSourceStatics2.CreateFromMediaBinder
-  let it = statics[IMediaSourceStatics2Vtbl]("Windows.Media.Core.MediaSource")
+  let it = statics[IMediaSourceStatics2Vtbl](className(MediaSource))
   let a0 = queryInterface[IMediaBinderVtbl](binder)
   var ret: pointer
   check it.vtbl.CreateFromMediaBinder(it.raw, a0.raw, ret.addr
@@ -19644,7 +19644,7 @@ proc downloadOperation*(self: MediaSource): DownloadOperation =
 
 proc newMediaSourceAppServiceConnection*(appServiceConnection: AppServiceConnection): MediaSourceAppServiceConnection =
   ## Windows.Media.Core.IMediaSourceAppServiceConnectionFactory.Create
-  let it = statics[IMediaSourceAppServiceConnectionFactoryVtbl]("Windows.Media.Core.MediaSourceAppServiceConnection")
+  let it = statics[IMediaSourceAppServiceConnectionFactoryVtbl](className(MediaSourceAppServiceConnection))
   let a0 = queryInterface[IAppServiceConnectionVtbl](appServiceConnection)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -19831,7 +19831,7 @@ proc newState*(self: MediaSourceStateChangedEventArgs): MediaSourceState =
 proc createFromBuffer*(_: typedesc[MediaStreamSample], buffer: SomeBuffer,
                        timestamp: TimeSpan): MediaStreamSample =
   ## Windows.Media.Core.IMediaStreamSampleStatics.CreateFromBuffer
-  let it = statics[IMediaStreamSampleStaticsVtbl]("Windows.Media.Core.MediaStreamSample")
+  let it = statics[IMediaStreamSampleStaticsVtbl](className(MediaStreamSample))
   let a0 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
   check it.vtbl.CreateFromBuffer(it.raw, a0.raw, timestamp, ret.addr
@@ -19842,7 +19842,7 @@ proc createFromStreamAsync*(_: typedesc[MediaStreamSample],
                             stream: SomeInputStream, count: uint32,
                             timestamp: TimeSpan): Future[MediaStreamSample] =
   ## Windows.Media.Core.IMediaStreamSampleStatics.CreateFromStreamAsync
-  let it = statics[IMediaStreamSampleStaticsVtbl]("Windows.Media.Core.MediaStreamSample")
+  let it = statics[IMediaStreamSampleStaticsVtbl](className(MediaStreamSample))
   let a0 = queryInterface[IInputStreamVtbl](stream)
   var op: pointer
   check it.vtbl.CreateFromStreamAsync(it.raw, a0.raw, count, timestamp, op.addr
@@ -19853,7 +19853,7 @@ proc createFromDirect3D11Surface*(_: typedesc[MediaStreamSample],
                                   surface: SomeDirect3DSurface,
                                   timestamp: TimeSpan): MediaStreamSample =
   ## Windows.Media.Core.IMediaStreamSampleStatics2.CreateFromDirect3D11Surface
-  let it = statics[IMediaStreamSampleStatics2Vtbl]("Windows.Media.Core.MediaStreamSample")
+  let it = statics[IMediaStreamSampleStatics2Vtbl](className(MediaStreamSample))
   let a0 = queryInterface[IDirect3DSurfaceVtbl](surface)
   var ret: pointer
   check it.vtbl.CreateFromDirect3D11Surface(it.raw, a0.raw, timestamp, ret.addr
@@ -20024,7 +20024,7 @@ proc getSubSampleMapping*(self: MediaStreamSampleProtectionProperties): seq[uint
 
 proc newMediaStreamSource*(descriptor: SomeMediaStreamDescriptor): MediaStreamSource =
   ## Windows.Media.Core.IMediaStreamSourceFactory.CreateFromDescriptor
-  let it = statics[IMediaStreamSourceFactoryVtbl]("Windows.Media.Core.MediaStreamSource")
+  let it = statics[IMediaStreamSourceFactoryVtbl](className(MediaStreamSource))
   let a0 = queryInterface[IMediaStreamDescriptorVtbl](descriptor)
   var ret: pointer
   check it.vtbl.CreateFromDescriptor(it.raw, a0.raw, ret.addr
@@ -20035,7 +20035,7 @@ proc newMediaStreamSource*(descriptor: SomeMediaStreamDescriptor,
                            descriptor2: SomeMediaStreamDescriptor
                           ): MediaStreamSource =
   ## Windows.Media.Core.IMediaStreamSourceFactory.CreateFromDescriptors
-  let it = statics[IMediaStreamSourceFactoryVtbl]("Windows.Media.Core.MediaStreamSource")
+  let it = statics[IMediaStreamSourceFactoryVtbl](className(MediaStreamSource))
   let a0 = queryInterface[IMediaStreamDescriptorVtbl](descriptor)
   let a1 = queryInterface[IMediaStreamDescriptorVtbl](descriptor2)
   var ret: pointer
@@ -21746,21 +21746,21 @@ proc `result`*(self: ModuleCommandResult): IBuffer =
 
 proc simple*(_: typedesc[Mpeg2ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IMpeg2ProfileIdsStatics.get_Simple
-  let it = statics[IMpeg2ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Mpeg2ProfileIds")
+  let it = statics[IMpeg2ProfileIdsStaticsVtbl](className(Mpeg2ProfileIds))
   var ret: int32
   check it.vtbl.get_Simple(it.raw, ret.addr), "Mpeg2ProfileIds.simple"
   ret
 
 proc main*(_: typedesc[Mpeg2ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IMpeg2ProfileIdsStatics.get_Main
-  let it = statics[IMpeg2ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Mpeg2ProfileIds")
+  let it = statics[IMpeg2ProfileIdsStaticsVtbl](className(Mpeg2ProfileIds))
   var ret: int32
   check it.vtbl.get_Main(it.raw, ret.addr), "Mpeg2ProfileIds.main"
   ret
 
 proc signalNoiseRatioScalable*(_: typedesc[Mpeg2ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IMpeg2ProfileIdsStatics.get_SignalNoiseRatioScalable
-  let it = statics[IMpeg2ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Mpeg2ProfileIds")
+  let it = statics[IMpeg2ProfileIdsStaticsVtbl](className(Mpeg2ProfileIds))
   var ret: int32
   check it.vtbl.get_SignalNoiseRatioScalable(it.raw, ret.addr
                                             ), "Mpeg2ProfileIds.signalNoiseRatioScalable"
@@ -21768,7 +21768,7 @@ proc signalNoiseRatioScalable*(_: typedesc[Mpeg2ProfileIds]): int32 =
 
 proc spatiallyScalable*(_: typedesc[Mpeg2ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IMpeg2ProfileIdsStatics.get_SpatiallyScalable
-  let it = statics[IMpeg2ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Mpeg2ProfileIds")
+  let it = statics[IMpeg2ProfileIdsStaticsVtbl](className(Mpeg2ProfileIds))
   var ret: int32
   check it.vtbl.get_SpatiallyScalable(it.raw, ret.addr
                                      ), "Mpeg2ProfileIds.spatiallyScalable"
@@ -21776,7 +21776,7 @@ proc spatiallyScalable*(_: typedesc[Mpeg2ProfileIds]): int32 =
 
 proc high*(_: typedesc[Mpeg2ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IMpeg2ProfileIdsStatics.get_High
-  let it = statics[IMpeg2ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Mpeg2ProfileIds")
+  let it = statics[IMpeg2ProfileIdsStaticsVtbl](className(Mpeg2ProfileIds))
   var ret: int32
   check it.vtbl.get_High(it.raw, ret.addr), "Mpeg2ProfileIds.high"
   ret
@@ -22035,7 +22035,7 @@ proc newMseStreamSource*(): MseStreamSource =
 proc isContentTypeSupported*(_: typedesc[MseStreamSource], contentType: string
                             ): bool =
   ## Windows.Media.Core.IMseStreamSourceStatics.IsContentTypeSupported
-  let it = statics[IMseStreamSourceStaticsVtbl]("Windows.Media.Core.MseStreamSource")
+  let it = statics[IMseStreamSourceStaticsVtbl](className(MseStreamSource))
   let a0 = toWinRtString(contentType)
   var ret: bool
   check it.vtbl.IsContentTypeSupported(it.raw, a0.handle, ret.addr
@@ -22351,7 +22351,7 @@ proc newNDClient*(downloadEngine: INDDownloadEngine,
                   streamParser: INDStreamParser, pMessenger: SomeNDMessenger
                  ): NDClient =
   ## Windows.Media.Protection.PlayReady.INDClientFactory.CreateInstance
-  let it = statics[INDClientFactoryVtbl]("Windows.Media.Protection.PlayReady.NDClient")
+  let it = statics[INDClientFactoryVtbl](className(NDClient))
   let a0 = queryInterface[INDDownloadEngineVtbl](downloadEngine)
   let a1 = queryInterface[INDStreamParserVtbl](streamParser)
   let a2 = queryInterface[INDMessengerVtbl](pMessenger)
@@ -22508,7 +22508,7 @@ proc close*(self: NDClient) =
 proc newNDCustomData*(customDataTypeIDBytes: openArray[uint8],
                       customDataBytes: openArray[uint8]): NDCustomData =
   ## Windows.Media.Protection.PlayReady.INDCustomDataFactory.CreateInstance
-  let it = statics[INDCustomDataFactoryVtbl]("Windows.Media.Protection.PlayReady.NDCustomData")
+  let it = statics[INDCustomDataFactoryVtbl](className(NDCustomData))
   let a0 = asArray[uint8, uint8](customDataTypeIDBytes)
   let a1 = asArray[uint8, uint8](customDataBytes)
   var ret: pointer
@@ -22529,7 +22529,7 @@ proc newNDLicenseFetchDescriptor*(contentIDType: NDContentIDType,
                                   licenseFetchChallengeCustomData: SomeNDCustomData
                                  ): NDLicenseFetchDescriptor =
   ## Windows.Media.Protection.PlayReady.INDLicenseFetchDescriptorFactory.CreateInstance
-  let it = statics[INDLicenseFetchDescriptorFactoryVtbl]("Windows.Media.Protection.PlayReady.NDLicenseFetchDescriptor")
+  let it = statics[INDLicenseFetchDescriptorFactoryVtbl](className(NDLicenseFetchDescriptor))
   let a1 = asArray[uint8, uint8](contentIDBytes)
   let a2 = queryInterface[INDCustomDataVtbl](licenseFetchChallengeCustomData)
   var ret: pointer
@@ -22554,7 +22554,7 @@ proc newNDStreamParserNotifier*(): NDStreamParserNotifier =
 proc newNDTCPMessenger*(remoteHostName: string, remoteHostPort: uint32
                        ): NDTCPMessenger =
   ## Windows.Media.Protection.PlayReady.INDTCPMessengerFactory.CreateInstance
-  let it = statics[INDTCPMessengerFactoryVtbl]("Windows.Media.Protection.PlayReady.NDTCPMessenger")
+  let it = statics[INDTCPMessengerFactoryVtbl](className(NDTCPMessenger))
   let a0 = toWinRtString(remoteHostName)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.handle, remoteHostPort, ret.addr
@@ -22565,7 +22565,7 @@ proc newNDTCPMessenger*(remoteHostName: string, remoteHostPort: uint32
 
 proc maxImageDimension*(_: typedesc[OcrEngine]): uint32 =
   ## Windows.Media.Ocr.IOcrEngineStatics.get_MaxImageDimension
-  let it = statics[IOcrEngineStaticsVtbl]("Windows.Media.Ocr.OcrEngine")
+  let it = statics[IOcrEngineStaticsVtbl](className(OcrEngine))
   var ret: uint32
   check it.vtbl.get_MaxImageDimension(it.raw, ret.addr
                                      ), "OcrEngine.maxImageDimension"
@@ -22573,7 +22573,7 @@ proc maxImageDimension*(_: typedesc[OcrEngine]): uint32 =
 
 proc availableRecognizerLanguages*(_: typedesc[OcrEngine]): seq[Language] =
   ## Windows.Media.Ocr.IOcrEngineStatics.get_AvailableRecognizerLanguages
-  let it = statics[IOcrEngineStaticsVtbl]("Windows.Media.Ocr.OcrEngine")
+  let it = statics[IOcrEngineStaticsVtbl](className(OcrEngine))
   var ret: pointer
   check it.vtbl.get_AvailableRecognizerLanguages(it.raw, ret.addr
                                                 ), "OcrEngine.availableRecognizerLanguages"
@@ -22581,7 +22581,7 @@ proc availableRecognizerLanguages*(_: typedesc[OcrEngine]): seq[Language] =
 
 proc isLanguageSupported*(_: typedesc[OcrEngine], language: Language): bool =
   ## Windows.Media.Ocr.IOcrEngineStatics.IsLanguageSupported
-  let it = statics[IOcrEngineStaticsVtbl]("Windows.Media.Ocr.OcrEngine")
+  let it = statics[IOcrEngineStaticsVtbl](className(OcrEngine))
   let a0 = queryInterface[ILanguageVtbl](language)
   var ret: bool
   check it.vtbl.IsLanguageSupported(it.raw, a0.raw, ret.addr
@@ -22591,7 +22591,7 @@ proc isLanguageSupported*(_: typedesc[OcrEngine], language: Language): bool =
 proc tryCreateFromLanguage*(_: typedesc[OcrEngine], language: Language
                            ): OcrEngine =
   ## Windows.Media.Ocr.IOcrEngineStatics.TryCreateFromLanguage
-  let it = statics[IOcrEngineStaticsVtbl]("Windows.Media.Ocr.OcrEngine")
+  let it = statics[IOcrEngineStaticsVtbl](className(OcrEngine))
   let a0 = queryInterface[ILanguageVtbl](language)
   var ret: pointer
   check it.vtbl.TryCreateFromLanguage(it.raw, a0.raw, ret.addr
@@ -22600,7 +22600,7 @@ proc tryCreateFromLanguage*(_: typedesc[OcrEngine], language: Language
 
 proc tryCreateFromUserProfileLanguages*(_: typedesc[OcrEngine]): OcrEngine =
   ## Windows.Media.Ocr.IOcrEngineStatics.TryCreateFromUserProfileLanguages
-  let it = statics[IOcrEngineStaticsVtbl]("Windows.Media.Ocr.OcrEngine")
+  let it = statics[IOcrEngineStaticsVtbl](className(OcrEngine))
   var ret: pointer
   check it.vtbl.TryCreateFromUserProfileLanguages(it.raw, ret.addr
                                                  ), "OcrEngine.tryCreateFromUserProfileLanguages"
@@ -23450,7 +23450,7 @@ proc importedItem*(self: PhotoImportItemImportedEventArgs): PhotoImportItem =
 
 proc isSupportedAsync*(_: typedesc[PhotoImportManager]): Future[bool] =
   ## Windows.Media.Import.IPhotoImportManagerStatics.IsSupportedAsync
-  let it = statics[IPhotoImportManagerStaticsVtbl]("Windows.Media.Import.PhotoImportManager")
+  let it = statics[IPhotoImportManagerStaticsVtbl](className(PhotoImportManager))
   var op: pointer
   check it.vtbl.IsSupportedAsync(it.raw, op.addr
                                 ), "PhotoImportManager.isSupportedAsync"
@@ -23458,7 +23458,7 @@ proc isSupportedAsync*(_: typedesc[PhotoImportManager]): Future[bool] =
 
 proc findAllSourcesAsync*(_: typedesc[PhotoImportManager]): Future[seq[PhotoImportSource]] =
   ## Windows.Media.Import.IPhotoImportManagerStatics.FindAllSourcesAsync
-  let it = statics[IPhotoImportManagerStaticsVtbl]("Windows.Media.Import.PhotoImportManager")
+  let it = statics[IPhotoImportManagerStaticsVtbl](className(PhotoImportManager))
   var op: pointer
   check it.vtbl.FindAllSourcesAsync(it.raw, op.addr
                                    ), "PhotoImportManager.findAllSourcesAsync"
@@ -23467,7 +23467,7 @@ proc findAllSourcesAsync*(_: typedesc[PhotoImportManager]): Future[seq[PhotoImpo
 
 proc getPendingOperations*(_: typedesc[PhotoImportManager]): seq[PhotoImportOperation] =
   ## Windows.Media.Import.IPhotoImportManagerStatics.GetPendingOperations
-  let it = statics[IPhotoImportManagerStaticsVtbl]("Windows.Media.Import.PhotoImportManager")
+  let it = statics[IPhotoImportManagerStaticsVtbl](className(PhotoImportManager))
   var ret: pointer
   check it.vtbl.GetPendingOperations(it.raw, ret.addr
                                     ), "PhotoImportManager.getPendingOperations"
@@ -23679,7 +23679,7 @@ proc date*(self: PhotoImportSidecar): DateTime =
 proc fromIdAsync*(_: typedesc[PhotoImportSource], sourceId: string
                  ): Future[PhotoImportSource] =
   ## Windows.Media.Import.IPhotoImportSourceStatics.FromIdAsync
-  let it = statics[IPhotoImportSourceStaticsVtbl]("Windows.Media.Import.PhotoImportSource")
+  let it = statics[IPhotoImportSourceStaticsVtbl](className(PhotoImportSource))
   let a0 = toWinRtString(sourceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -23690,7 +23690,7 @@ proc fromFolderAsync*(_: typedesc[PhotoImportSource],
                       sourceRootFolder: SomeStorageFolder
                      ): Future[PhotoImportSource] =
   ## Windows.Media.Import.IPhotoImportSourceStatics.FromFolderAsync
-  let it = statics[IPhotoImportSourceStaticsVtbl]("Windows.Media.Import.PhotoImportSource")
+  let it = statics[IPhotoImportSourceStaticsVtbl](className(PhotoImportSource))
   let a0 = queryInterface[IStorageFolderVtbl](sourceRootFolder)
   var op: pointer
   check it.vtbl.FromFolderAsync(it.raw, a0.raw, op.addr
@@ -23936,7 +23936,7 @@ proc newPlayReadyContentHeader*(headerBytes: openArray[uint8],
                                 customAttributes: string, domainServiceId: GUID
                                ): PlayReadyContentHeader =
   ## Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory.CreateInstanceFromWindowsMediaDrmHeader
-  let it = statics[IPlayReadyContentHeaderFactoryVtbl]("Windows.Media.Protection.PlayReady.PlayReadyContentHeader")
+  let it = statics[IPlayReadyContentHeaderFactoryVtbl](className(PlayReadyContentHeader))
   let a0 = asArray[uint8, uint8](headerBytes)
   let a1 = queryInterface[IUriRuntimeClassVtbl](licenseAcquisitionUrl)
   let a2 = queryInterface[IUriRuntimeClassVtbl](licenseAcquisitionUserInterfaceUrl)
@@ -23957,7 +23957,7 @@ proc newPlayReadyContentHeader*(contentKeyId: GUID, contentKeyIdString: string,
                                 customAttributes: string, domainServiceId: GUID
                                ): PlayReadyContentHeader =
   ## Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory.CreateInstanceFromComponents
-  let it = statics[IPlayReadyContentHeaderFactoryVtbl]("Windows.Media.Protection.PlayReady.PlayReadyContentHeader")
+  let it = statics[IPlayReadyContentHeaderFactoryVtbl](className(PlayReadyContentHeader))
   let a1 = toWinRtString(contentKeyIdString)
   let a3 = queryInterface[IUriRuntimeClassVtbl](licenseAcquisitionUrl)
   let a4 = queryInterface[IUriRuntimeClassVtbl](licenseAcquisitionUserInterfaceUrl)
@@ -23972,7 +23972,7 @@ proc newPlayReadyContentHeader*(contentKeyId: GUID, contentKeyIdString: string,
 
 proc newPlayReadyContentHeader*(headerBytes: openArray[uint8]): PlayReadyContentHeader =
   ## Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory.CreateInstanceFromPlayReadyHeader
-  let it = statics[IPlayReadyContentHeaderFactoryVtbl]("Windows.Media.Protection.PlayReady.PlayReadyContentHeader")
+  let it = statics[IPlayReadyContentHeaderFactoryVtbl](className(PlayReadyContentHeader))
   let a0 = asArray[uint8, uint8](headerBytes)
   var ret: pointer
   check it.vtbl.CreateInstanceFromPlayReadyHeader(it.raw, a0.count, a0.data,
@@ -23988,7 +23988,7 @@ proc newPlayReadyContentHeader*(dwFlags: uint32, contentKeyIds: openArray[GUID],
                                 customAttributes: string, domainServiceId: GUID
                                ): PlayReadyContentHeader =
   ## Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory2.CreateInstanceFromComponents2
-  let it = statics[IPlayReadyContentHeaderFactory2Vtbl]("Windows.Media.Protection.PlayReady.PlayReadyContentHeader")
+  let it = statics[IPlayReadyContentHeaderFactory2Vtbl](className(PlayReadyContentHeader))
   let a1 = asArray[GUID, GUID](contentKeyIds)
   let a2 = asArray[string, string](contentKeyIdStrings)
   let a4 = queryInterface[IUriRuntimeClassVtbl](licenseAcquisitionUrl)
@@ -24107,7 +24107,7 @@ proc serviceRequest*(_: typedesc[PlayReadyContentResolver],
                      contentHeader: PlayReadyContentHeader
                     ): IPlayReadyServiceRequest =
   ## Windows.Media.Protection.PlayReady.IPlayReadyContentResolver.ServiceRequest
-  let it = statics[IPlayReadyContentResolverVtbl]("Windows.Media.Protection.PlayReady.PlayReadyContentResolver")
+  let it = statics[IPlayReadyContentResolverVtbl](className(PlayReadyContentResolver))
   let a0 = queryInterface[IPlayReadyContentHeaderVtbl](contentHeader)
   var ret: pointer
   check it.vtbl.ServiceRequest(it.raw, a0.raw, ret.addr
@@ -24118,7 +24118,7 @@ proc serviceRequest*(_: typedesc[PlayReadyContentResolver],
 
 proc newPlayReadyDomainIterable*(domainAccountId: GUID): PlayReadyDomainIterable =
   ## Windows.Media.Protection.PlayReady.IPlayReadyDomainIterableFactory.CreateInstance
-  let it = statics[IPlayReadyDomainIterableFactoryVtbl]("Windows.Media.Protection.PlayReady.PlayReadyDomainIterable")
+  let it = statics[IPlayReadyDomainIterableFactoryVtbl](className(PlayReadyDomainIterable))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, domainAccountId, ret.addr
                               ), "PlayReadyDomainIterable.new"
@@ -24304,7 +24304,7 @@ proc newPlayReadyLicenseIterable*(contentHeader: PlayReadyContentHeader,
                                   fullyEvaluated: bool
                                  ): PlayReadyLicenseIterable =
   ## Windows.Media.Protection.PlayReady.IPlayReadyLicenseIterableFactory.CreateInstance
-  let it = statics[IPlayReadyLicenseIterableFactoryVtbl]("Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable")
+  let it = statics[IPlayReadyLicenseIterableFactoryVtbl](className(PlayReadyLicenseIterable))
   let a0 = queryInterface[IPlayReadyContentHeaderVtbl](contentHeader)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.raw, fullyEvaluated, ret.addr
@@ -24316,7 +24316,7 @@ proc newPlayReadyLicenseIterable*(contentHeader: PlayReadyContentHeader,
 proc deleteLicenses*(_: typedesc[PlayReadyLicenseManagement],
                      contentHeader: PlayReadyContentHeader): Future[void] =
   ## Windows.Media.Protection.PlayReady.IPlayReadyLicenseManagement.DeleteLicenses
-  let it = statics[IPlayReadyLicenseManagementVtbl]("Windows.Media.Protection.PlayReady.PlayReadyLicenseManagement")
+  let it = statics[IPlayReadyLicenseManagementVtbl](className(PlayReadyLicenseManagement))
   let a0 = queryInterface[IPlayReadyContentHeaderVtbl](contentHeader)
   var op: pointer
   check it.vtbl.DeleteLicenses(it.raw, a0.raw, op.addr
@@ -24327,7 +24327,7 @@ proc deleteLicenses*(_: typedesc[PlayReadyLicenseManagement],
 
 proc newPlayReadyLicenseSession*(configuration: SomePropertySet): PlayReadyLicenseSession =
   ## Windows.Media.Protection.PlayReady.IPlayReadyLicenseSessionFactory.CreateInstance
-  let it = statics[IPlayReadyLicenseSessionFactoryVtbl]("Windows.Media.Protection.PlayReady.PlayReadyLicenseSession")
+  let it = statics[IPlayReadyLicenseSessionFactoryVtbl](className(PlayReadyLicenseSession))
   let a0 = queryInterface[IPropertySetVtbl](configuration)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.raw, ret.addr
@@ -24367,7 +24367,7 @@ proc newPlayReadyRevocationServiceRequest*(): PlayReadyRevocationServiceRequest 
 
 proc newPlayReadySecureStopIterable*(publisherCertBytes: openArray[uint8]): PlayReadySecureStopIterable =
   ## Windows.Media.Protection.PlayReady.IPlayReadySecureStopIterableFactory.CreateInstance
-  let it = statics[IPlayReadySecureStopIterableFactoryVtbl]("Windows.Media.Protection.PlayReady.PlayReadySecureStopIterable")
+  let it = statics[IPlayReadySecureStopIterableFactoryVtbl](className(PlayReadySecureStopIterable))
   let a0 = asArray[uint8, uint8](publisherCertBytes)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.count, a0.data, ret.addr
@@ -24378,7 +24378,7 @@ proc newPlayReadySecureStopIterable*(publisherCertBytes: openArray[uint8]): Play
 
 proc newPlayReadySecureStopServiceRequest*(publisherCertBytes: openArray[uint8]): PlayReadySecureStopServiceRequest =
   ## Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequestFactory.CreateInstance
-  let it = statics[IPlayReadySecureStopServiceRequestFactoryVtbl]("Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest")
+  let it = statics[IPlayReadySecureStopServiceRequestFactoryVtbl](className(PlayReadySecureStopServiceRequest))
   let a0 = asArray[uint8, uint8](publisherCertBytes)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.count, a0.data, ret.addr
@@ -24389,7 +24389,7 @@ proc newPlayReadySecureStopServiceRequest*(sessionID: GUID,
                                            publisherCertBytes: openArray[uint8]
                                           ): PlayReadySecureStopServiceRequest =
   ## Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequestFactory.CreateInstanceFromSessionID
-  let it = statics[IPlayReadySecureStopServiceRequestFactoryVtbl]("Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest")
+  let it = statics[IPlayReadySecureStopServiceRequestFactoryVtbl](className(PlayReadySecureStopServiceRequest))
   let a1 = asArray[uint8, uint8](publisherCertBytes)
   var ret: pointer
   check it.vtbl.CreateInstanceFromSessionID(it.raw, sessionID, a1.count,
@@ -24427,7 +24427,7 @@ proc uri*(self: PlayReadySoapMessage): Uri =
 
 proc playReadyCertificateSecurityLevel*(_: typedesc[PlayReadyStatics]): uint32 =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics2.get_PlayReadyCertificateSecurityLevel
-  let it = statics[IPlayReadyStatics2Vtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStatics2Vtbl](className(PlayReadyStatics))
   var ret: uint32
   check it.vtbl.get_PlayReadyCertificateSecurityLevel(it.raw, ret.addr
                                                      ), "PlayReadyStatics.playReadyCertificateSecurityLevel"
@@ -24435,7 +24435,7 @@ proc playReadyCertificateSecurityLevel*(_: typedesc[PlayReadyStatics]): uint32 =
 
 proc inputTrustAuthorityToCreate*(_: typedesc[PlayReadyStatics]): string =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics4.get_InputTrustAuthorityToCreate
-  let it = statics[IPlayReadyStatics4Vtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStatics4Vtbl](className(PlayReadyStatics))
   var ret: HSTRING
   check it.vtbl.get_InputTrustAuthorityToCreate(it.raw, ret.addr
                                                ), "PlayReadyStatics.inputTrustAuthorityToCreate"
@@ -24443,7 +24443,7 @@ proc inputTrustAuthorityToCreate*(_: typedesc[PlayReadyStatics]): string =
 
 proc protectionSystemId*(_: typedesc[PlayReadyStatics]): GUID =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics4.get_ProtectionSystemId
-  let it = statics[IPlayReadyStatics4Vtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStatics4Vtbl](className(PlayReadyStatics))
   var ret: GUID
   check it.vtbl.get_ProtectionSystemId(it.raw, ret.addr
                                       ), "PlayReadyStatics.protectionSystemId"
@@ -24451,7 +24451,7 @@ proc protectionSystemId*(_: typedesc[PlayReadyStatics]): GUID =
 
 proc secureStopServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics3.get_SecureStopServiceRequestType
-  let it = statics[IPlayReadyStatics3Vtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStatics3Vtbl](className(PlayReadyStatics))
   var ret: GUID
   check it.vtbl.get_SecureStopServiceRequestType(it.raw, ret.addr
                                                 ), "PlayReadyStatics.secureStopServiceRequestType"
@@ -24460,7 +24460,7 @@ proc secureStopServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
 proc checkSupportedHardware*(_: typedesc[PlayReadyStatics],
                              hwdrmFeature: PlayReadyHardwareDRMFeatures): bool =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics3.CheckSupportedHardware
-  let it = statics[IPlayReadyStatics3Vtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStatics3Vtbl](className(PlayReadyStatics))
   var ret: bool
   check it.vtbl.CheckSupportedHardware(it.raw, hwdrmFeature, ret.addr
                                       ), "PlayReadyStatics.checkSupportedHardware"
@@ -24468,7 +24468,7 @@ proc checkSupportedHardware*(_: typedesc[PlayReadyStatics],
 
 proc domainJoinServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics.get_DomainJoinServiceRequestType
-  let it = statics[IPlayReadyStaticsVtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStaticsVtbl](className(PlayReadyStatics))
   var ret: GUID
   check it.vtbl.get_DomainJoinServiceRequestType(it.raw, ret.addr
                                                 ), "PlayReadyStatics.domainJoinServiceRequestType"
@@ -24476,7 +24476,7 @@ proc domainJoinServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
 
 proc domainLeaveServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics.get_DomainLeaveServiceRequestType
-  let it = statics[IPlayReadyStaticsVtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStaticsVtbl](className(PlayReadyStatics))
   var ret: GUID
   check it.vtbl.get_DomainLeaveServiceRequestType(it.raw, ret.addr
                                                  ), "PlayReadyStatics.domainLeaveServiceRequestType"
@@ -24484,7 +24484,7 @@ proc domainLeaveServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
 
 proc individualizationServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics.get_IndividualizationServiceRequestType
-  let it = statics[IPlayReadyStaticsVtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStaticsVtbl](className(PlayReadyStatics))
   var ret: GUID
   check it.vtbl.get_IndividualizationServiceRequestType(it.raw, ret.addr
                                                        ), "PlayReadyStatics.individualizationServiceRequestType"
@@ -24492,7 +24492,7 @@ proc individualizationServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
 
 proc licenseAcquirerServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics.get_LicenseAcquirerServiceRequestType
-  let it = statics[IPlayReadyStaticsVtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStaticsVtbl](className(PlayReadyStatics))
   var ret: GUID
   check it.vtbl.get_LicenseAcquirerServiceRequestType(it.raw, ret.addr
                                                      ), "PlayReadyStatics.licenseAcquirerServiceRequestType"
@@ -24500,7 +24500,7 @@ proc licenseAcquirerServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
 
 proc meteringReportServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics.get_MeteringReportServiceRequestType
-  let it = statics[IPlayReadyStaticsVtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStaticsVtbl](className(PlayReadyStatics))
   var ret: GUID
   check it.vtbl.get_MeteringReportServiceRequestType(it.raw, ret.addr
                                                     ), "PlayReadyStatics.meteringReportServiceRequestType"
@@ -24508,7 +24508,7 @@ proc meteringReportServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
 
 proc revocationServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics.get_RevocationServiceRequestType
-  let it = statics[IPlayReadyStaticsVtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStaticsVtbl](className(PlayReadyStatics))
   var ret: GUID
   check it.vtbl.get_RevocationServiceRequestType(it.raw, ret.addr
                                                 ), "PlayReadyStatics.revocationServiceRequestType"
@@ -24516,7 +24516,7 @@ proc revocationServiceRequestType*(_: typedesc[PlayReadyStatics]): GUID =
 
 proc mediaProtectionSystemId*(_: typedesc[PlayReadyStatics]): GUID =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics.get_MediaProtectionSystemId
-  let it = statics[IPlayReadyStaticsVtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStaticsVtbl](className(PlayReadyStatics))
   var ret: GUID
   check it.vtbl.get_MediaProtectionSystemId(it.raw, ret.addr
                                            ), "PlayReadyStatics.mediaProtectionSystemId"
@@ -24524,7 +24524,7 @@ proc mediaProtectionSystemId*(_: typedesc[PlayReadyStatics]): GUID =
 
 proc playReadySecurityVersion*(_: typedesc[PlayReadyStatics]): uint32 =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics.get_PlayReadySecurityVersion
-  let it = statics[IPlayReadyStaticsVtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStaticsVtbl](className(PlayReadyStatics))
   var ret: uint32
   check it.vtbl.get_PlayReadySecurityVersion(it.raw, ret.addr
                                             ), "PlayReadyStatics.playReadySecurityVersion"
@@ -24532,7 +24532,7 @@ proc playReadySecurityVersion*(_: typedesc[PlayReadyStatics]): uint32 =
 
 proc hardwareDRMDisabledAtTime*(_: typedesc[PlayReadyStatics]): Option[DateTime] =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics5.get_HardwareDRMDisabledAtTime
-  let it = statics[IPlayReadyStatics5Vtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStatics5Vtbl](className(PlayReadyStatics))
   var ret: pointer
   check it.vtbl.get_HardwareDRMDisabledAtTime(it.raw, ret.addr
                                              ), "PlayReadyStatics.hardwareDRMDisabledAtTime"
@@ -24540,7 +24540,7 @@ proc hardwareDRMDisabledAtTime*(_: typedesc[PlayReadyStatics]): Option[DateTime]
 
 proc hardwareDRMDisabledUntilTime*(_: typedesc[PlayReadyStatics]): Option[DateTime] =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics5.get_HardwareDRMDisabledUntilTime
-  let it = statics[IPlayReadyStatics5Vtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStatics5Vtbl](className(PlayReadyStatics))
   var ret: pointer
   check it.vtbl.get_HardwareDRMDisabledUntilTime(it.raw, ret.addr
                                                 ), "PlayReadyStatics.hardwareDRMDisabledUntilTime"
@@ -24548,7 +24548,7 @@ proc hardwareDRMDisabledUntilTime*(_: typedesc[PlayReadyStatics]): Option[DateTi
 
 proc resetHardwareDRMDisabled*(_: typedesc[PlayReadyStatics]) =
   ## Windows.Media.Protection.PlayReady.IPlayReadyStatics5.ResetHardwareDRMDisabled
-  let it = statics[IPlayReadyStatics5Vtbl]("Windows.Media.Protection.PlayReady.PlayReadyStatics")
+  let it = statics[IPlayReadyStatics5Vtbl](className(PlayReadyStatics))
   check it.vtbl.ResetHardwareDRMDisabled(it.raw), "PlayReadyStatics.resetHardwareDRMDisabled"
 
 # ---- Windows.Media.PlayTo.PlayToConnection
@@ -24677,7 +24677,7 @@ proc currentSource*(self: PlayToConnectionTransferredEventArgs): PlayToSource =
 
 proc getForCurrentView*(_: typedesc[PlayToManager]): PlayToManager =
   ## Windows.Media.PlayTo.IPlayToManagerStatics.GetForCurrentView
-  let it = statics[IPlayToManagerStaticsVtbl]("Windows.Media.PlayTo.PlayToManager")
+  let it = statics[IPlayToManagerStaticsVtbl](className(PlayToManager))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "PlayToManager.getForCurrentView"
@@ -24685,7 +24685,7 @@ proc getForCurrentView*(_: typedesc[PlayToManager]): PlayToManager =
 
 proc showPlayToUI*(_: typedesc[PlayToManager]) =
   ## Windows.Media.PlayTo.IPlayToManagerStatics.ShowPlayToUI
-  let it = statics[IPlayToManagerStaticsVtbl]("Windows.Media.PlayTo.PlayToManager")
+  let it = statics[IPlayToManagerStaticsVtbl](className(PlayToManager))
   check it.vtbl.ShowPlayToUI(it.raw), "PlayToManager.showPlayToUI"
 
 proc onSourceRequested*(self: PlayToManager,
@@ -25204,7 +25204,7 @@ proc supportsVideo*(self: PlayToSourceSelectedEventArgs): bool =
 
 proc newPlaybackMediaMarker*(value: TimeSpan): PlaybackMediaMarker =
   ## Windows.Media.Playback.IPlaybackMediaMarkerFactory.CreateFromTime
-  let it = statics[IPlaybackMediaMarkerFactoryVtbl]("Windows.Media.Playback.PlaybackMediaMarker")
+  let it = statics[IPlaybackMediaMarkerFactoryVtbl](className(PlaybackMediaMarker))
   var ret: pointer
   check it.vtbl.CreateFromTime(it.raw, value, ret.addr
                               ), "PlaybackMediaMarker.new"
@@ -25213,7 +25213,7 @@ proc newPlaybackMediaMarker*(value: TimeSpan): PlaybackMediaMarker =
 proc newPlaybackMediaMarker*(value: TimeSpan, mediaMarketType: string,
                              text: string): PlaybackMediaMarker =
   ## Windows.Media.Playback.IPlaybackMediaMarkerFactory.Create
-  let it = statics[IPlaybackMediaMarkerFactoryVtbl]("Windows.Media.Playback.PlaybackMediaMarker")
+  let it = statics[IPlaybackMediaMarkerFactoryVtbl](className(PlaybackMediaMarker))
   let a1 = toWinRtString(mediaMarketType)
   let a2 = toWinRtString(text)
   var ret: pointer
@@ -25302,7 +25302,7 @@ proc newPlaylist*(): Playlist =
 proc loadAsync*(_: typedesc[Playlist], file: SomeStorageFile
                ): Future[Playlist] =
   ## Windows.Media.Playlists.IPlaylistStatics.LoadAsync
-  let it = statics[IPlaylistStaticsVtbl]("Windows.Media.Playlists.Playlist")
+  let it = statics[IPlaylistStaticsVtbl](className(Playlist))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.LoadAsync(it.raw, a0.raw, op.addr), "Playlist.loadAsync"
@@ -25432,7 +25432,7 @@ proc newRatedContentDescription*(id: string, title: string,
                                  category: RatedContentCategory
                                 ): RatedContentDescription =
   ## Windows.Media.ContentRestrictions.IRatedContentDescriptionFactory.Create
-  let it = statics[IRatedContentDescriptionFactoryVtbl]("Windows.Media.ContentRestrictions.RatedContentDescription")
+  let it = statics[IRatedContentDescriptionFactoryVtbl](className(RatedContentDescription))
   let a0 = toWinRtString(id)
   let a1 = toWinRtString(title)
   var ret: pointer
@@ -25514,7 +25514,7 @@ proc newRatedContentRestrictions*(): RatedContentRestrictions =
 
 proc newRatedContentRestrictions*(maxAgeRating: uint32): RatedContentRestrictions =
   ## Windows.Media.ContentRestrictions.IRatedContentRestrictionsFactory.CreateWithMaxAgeRating
-  let it = statics[IRatedContentRestrictionsFactoryVtbl]("Windows.Media.ContentRestrictions.RatedContentRestrictions")
+  let it = statics[IRatedContentRestrictionsFactoryVtbl](className(RatedContentRestrictions))
   var ret: pointer
   check it.vtbl.CreateWithMaxAgeRating(it.raw, maxAgeRating, ret.addr
                                       ), "RatedContentRestrictions.new"
@@ -25743,7 +25743,7 @@ proc autoExposureSupported*(self: RegionsOfInterestControl): bool =
 
 proc newReverbEffectDefinition*(audioGraph: AudioGraph): ReverbEffectDefinition =
   ## Windows.Media.Audio.IReverbEffectDefinitionFactory.Create
-  let it = statics[IReverbEffectDefinitionFactoryVtbl]("Windows.Media.Audio.ReverbEffectDefinition")
+  let it = statics[IReverbEffectDefinitionFactoryVtbl](className(ReverbEffectDefinition))
   let a0 = queryInterface[IAudioGraphVtbl](audioGraph)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "ReverbEffectDefinition.new"
@@ -26277,7 +26277,7 @@ proc requestedShuffleEnabled*(self: ShuffleEnabledChangeRequestedEventArgs): boo
 
 proc soundLevel*(_: typedesc[SoundLevelBroker]): SoundLevel =
   ## Windows.Media.Core.Preview.ISoundLevelBrokerStatics.get_SoundLevel
-  let it = statics[ISoundLevelBrokerStaticsVtbl]("Windows.Media.Core.Preview.SoundLevelBroker")
+  let it = statics[ISoundLevelBrokerStaticsVtbl](className(SoundLevelBroker))
   var ret: SoundLevel
   check it.vtbl.get_SoundLevel(it.raw, ret.addr), "SoundLevelBroker.soundLevel"
   ret
@@ -26287,7 +26287,7 @@ proc onSoundLevelChanged*(_: typedesc[SoundLevelBroker],
                          ): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.Preview.ISoundLevelBrokerStatics.add_SoundLevelChanged
   ## The token is what `removeSoundLevelChanged` takes.
-  let it = statics[ISoundLevelBrokerStaticsVtbl]("Windows.Media.Core.Preview.SoundLevelBroker")
+  let it = statics[ISoundLevelBrokerStaticsVtbl](className(SoundLevelBroker))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -26297,7 +26297,7 @@ proc onSoundLevelChanged*(_: typedesc[SoundLevelBroker],
 proc removeSoundLevelChanged*(_: typedesc[SoundLevelBroker],
                               token: EventRegistrationToken) =
   ## Windows.Media.Core.Preview.ISoundLevelBrokerStatics.remove_SoundLevelChanged
-  let it = statics[ISoundLevelBrokerStaticsVtbl]("Windows.Media.Core.Preview.SoundLevelBroker")
+  let it = statics[ISoundLevelBrokerStaticsVtbl](className(SoundLevelBroker))
   check it.vtbl.remove_SoundLevelChanged(it.raw, token
                                         ), "SoundLevelBroker.soundLevelChanged"
 
@@ -26388,7 +26388,7 @@ proc properties*(self: SourceChangeRequestedEventArgs): Table[string, WinRtObjec
 proc getForDeviceId*(_: typedesc[SpatialAudioDeviceConfiguration],
                      deviceId: string): SpatialAudioDeviceConfiguration =
   ## Windows.Media.Audio.ISpatialAudioDeviceConfigurationStatics.GetForDeviceId
-  let it = statics[ISpatialAudioDeviceConfigurationStaticsVtbl]("Windows.Media.Audio.SpatialAudioDeviceConfiguration")
+  let it = statics[ISpatialAudioDeviceConfigurationStaticsVtbl](className(SpatialAudioDeviceConfiguration))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.GetForDeviceId(it.raw, a0.handle, ret.addr
@@ -26474,7 +26474,7 @@ proc removeConfigurationChanged*(self: SpatialAudioDeviceConfiguration,
 
 proc getDefault*(_: typedesc[SpatialAudioFormatConfiguration]): SpatialAudioFormatConfiguration =
   ## Windows.Media.Audio.ISpatialAudioFormatConfigurationStatics.GetDefault
-  let it = statics[ISpatialAudioFormatConfigurationStaticsVtbl]("Windows.Media.Audio.SpatialAudioFormatConfiguration")
+  let it = statics[ISpatialAudioFormatConfigurationStaticsVtbl](className(SpatialAudioFormatConfiguration))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr
                           ), "SpatialAudioFormatConfiguration.getDefault"
@@ -26520,7 +26520,7 @@ proc `mixedRealityExclusiveModePolicy=`*(self: SpatialAudioFormatConfiguration,
 
 proc dTSXForHomeTheater*(_: typedesc[SpatialAudioFormatSubtype]): string =
   ## Windows.Media.Audio.ISpatialAudioFormatSubtypeStatics2.get_DTSXForHomeTheater
-  let it = statics[ISpatialAudioFormatSubtypeStatics2Vtbl]("Windows.Media.Audio.SpatialAudioFormatSubtype")
+  let it = statics[ISpatialAudioFormatSubtypeStatics2Vtbl](className(SpatialAudioFormatSubtype))
   var ret: HSTRING
   check it.vtbl.get_DTSXForHomeTheater(it.raw, ret.addr
                                       ), "SpatialAudioFormatSubtype.dTSXForHomeTheater"
@@ -26528,7 +26528,7 @@ proc dTSXForHomeTheater*(_: typedesc[SpatialAudioFormatSubtype]): string =
 
 proc windowsSonic*(_: typedesc[SpatialAudioFormatSubtype]): string =
   ## Windows.Media.Audio.ISpatialAudioFormatSubtypeStatics.get_WindowsSonic
-  let it = statics[ISpatialAudioFormatSubtypeStaticsVtbl]("Windows.Media.Audio.SpatialAudioFormatSubtype")
+  let it = statics[ISpatialAudioFormatSubtypeStaticsVtbl](className(SpatialAudioFormatSubtype))
   var ret: HSTRING
   check it.vtbl.get_WindowsSonic(it.raw, ret.addr
                                 ), "SpatialAudioFormatSubtype.windowsSonic"
@@ -26536,7 +26536,7 @@ proc windowsSonic*(_: typedesc[SpatialAudioFormatSubtype]): string =
 
 proc dolbyAtmosForHeadphones*(_: typedesc[SpatialAudioFormatSubtype]): string =
   ## Windows.Media.Audio.ISpatialAudioFormatSubtypeStatics.get_DolbyAtmosForHeadphones
-  let it = statics[ISpatialAudioFormatSubtypeStaticsVtbl]("Windows.Media.Audio.SpatialAudioFormatSubtype")
+  let it = statics[ISpatialAudioFormatSubtypeStaticsVtbl](className(SpatialAudioFormatSubtype))
   var ret: HSTRING
   check it.vtbl.get_DolbyAtmosForHeadphones(it.raw, ret.addr
                                            ), "SpatialAudioFormatSubtype.dolbyAtmosForHeadphones"
@@ -26544,7 +26544,7 @@ proc dolbyAtmosForHeadphones*(_: typedesc[SpatialAudioFormatSubtype]): string =
 
 proc dolbyAtmosForHomeTheater*(_: typedesc[SpatialAudioFormatSubtype]): string =
   ## Windows.Media.Audio.ISpatialAudioFormatSubtypeStatics.get_DolbyAtmosForHomeTheater
-  let it = statics[ISpatialAudioFormatSubtypeStaticsVtbl]("Windows.Media.Audio.SpatialAudioFormatSubtype")
+  let it = statics[ISpatialAudioFormatSubtypeStaticsVtbl](className(SpatialAudioFormatSubtype))
   var ret: HSTRING
   check it.vtbl.get_DolbyAtmosForHomeTheater(it.raw, ret.addr
                                             ), "SpatialAudioFormatSubtype.dolbyAtmosForHomeTheater"
@@ -26552,7 +26552,7 @@ proc dolbyAtmosForHomeTheater*(_: typedesc[SpatialAudioFormatSubtype]): string =
 
 proc dolbyAtmosForSpeakers*(_: typedesc[SpatialAudioFormatSubtype]): string =
   ## Windows.Media.Audio.ISpatialAudioFormatSubtypeStatics.get_DolbyAtmosForSpeakers
-  let it = statics[ISpatialAudioFormatSubtypeStaticsVtbl]("Windows.Media.Audio.SpatialAudioFormatSubtype")
+  let it = statics[ISpatialAudioFormatSubtypeStaticsVtbl](className(SpatialAudioFormatSubtype))
   var ret: HSTRING
   check it.vtbl.get_DolbyAtmosForSpeakers(it.raw, ret.addr
                                          ), "SpatialAudioFormatSubtype.dolbyAtmosForSpeakers"
@@ -26560,7 +26560,7 @@ proc dolbyAtmosForSpeakers*(_: typedesc[SpatialAudioFormatSubtype]): string =
 
 proc dTSHeadphoneX*(_: typedesc[SpatialAudioFormatSubtype]): string =
   ## Windows.Media.Audio.ISpatialAudioFormatSubtypeStatics.get_DTSHeadphoneX
-  let it = statics[ISpatialAudioFormatSubtypeStaticsVtbl]("Windows.Media.Audio.SpatialAudioFormatSubtype")
+  let it = statics[ISpatialAudioFormatSubtypeStaticsVtbl](className(SpatialAudioFormatSubtype))
   var ret: HSTRING
   check it.vtbl.get_DTSHeadphoneX(it.raw, ret.addr
                                  ), "SpatialAudioFormatSubtype.dTSHeadphoneX"
@@ -26568,7 +26568,7 @@ proc dTSHeadphoneX*(_: typedesc[SpatialAudioFormatSubtype]): string =
 
 proc dTSXUltra*(_: typedesc[SpatialAudioFormatSubtype]): string =
   ## Windows.Media.Audio.ISpatialAudioFormatSubtypeStatics.get_DTSXUltra
-  let it = statics[ISpatialAudioFormatSubtypeStaticsVtbl]("Windows.Media.Audio.SpatialAudioFormatSubtype")
+  let it = statics[ISpatialAudioFormatSubtypeStaticsVtbl](className(SpatialAudioFormatSubtype))
   var ret: HSTRING
   check it.vtbl.get_DTSXUltra(it.raw, ret.addr
                              ), "SpatialAudioFormatSubtype.dTSXUltra"
@@ -26762,7 +26762,7 @@ proc status*(self: SpeechRecognitionCompilationResult): SpeechRecognitionResultS
 
 proc newSpeechRecognitionGrammarFileConstraint*(file: StorageFile): SpeechRecognitionGrammarFileConstraint =
   ## Windows.Media.SpeechRecognition.ISpeechRecognitionGrammarFileConstraintFactory.Create
-  let it = statics[ISpeechRecognitionGrammarFileConstraintFactoryVtbl]("Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint")
+  let it = statics[ISpeechRecognitionGrammarFileConstraintFactoryVtbl](className(SpeechRecognitionGrammarFileConstraint))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -26772,7 +26772,7 @@ proc newSpeechRecognitionGrammarFileConstraint*(file: StorageFile): SpeechRecogn
 proc newSpeechRecognitionGrammarFileConstraint*(file: StorageFile, tag: string
                                                ): SpeechRecognitionGrammarFileConstraint =
   ## Windows.Media.SpeechRecognition.ISpeechRecognitionGrammarFileConstraintFactory.CreateWithTag
-  let it = statics[ISpeechRecognitionGrammarFileConstraintFactoryVtbl]("Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint")
+  let it = statics[ISpeechRecognitionGrammarFileConstraintFactoryVtbl](className(SpeechRecognitionGrammarFileConstraint))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = toWinRtString(tag)
   var ret: pointer
@@ -26811,7 +26811,7 @@ proc hypothesis*(self: SpeechRecognitionHypothesisGeneratedEventArgs): SpeechRec
 
 proc newSpeechRecognitionListConstraint*(commands: seq[string]): SpeechRecognitionListConstraint =
   ## Windows.Media.SpeechRecognition.ISpeechRecognitionListConstraintFactory.Create
-  let it = statics[ISpeechRecognitionListConstraintFactoryVtbl]("Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint")
+  let it = statics[ISpeechRecognitionListConstraintFactoryVtbl](className(SpeechRecognitionListConstraint))
   let a0 = asCollection[string, seq[string]](commands)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -26821,7 +26821,7 @@ proc newSpeechRecognitionListConstraint*(commands: seq[string]): SpeechRecogniti
 proc newSpeechRecognitionListConstraint*(commands: seq[string], tag: string
                                         ): SpeechRecognitionListConstraint =
   ## Windows.Media.SpeechRecognition.ISpeechRecognitionListConstraintFactory.CreateWithTag
-  let it = statics[ISpeechRecognitionListConstraintFactoryVtbl]("Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint")
+  let it = statics[ISpeechRecognitionListConstraintFactoryVtbl](className(SpeechRecognitionListConstraint))
   let a0 = asCollection[string, seq[string]](commands)
   let a1 = toWinRtString(tag)
   var ret: pointer
@@ -26944,7 +26944,7 @@ proc newSpeechRecognitionTopicConstraint*(scenario: SpeechRecognitionScenario,
                                           topicHint: string
                                          ): SpeechRecognitionTopicConstraint =
   ## Windows.Media.SpeechRecognition.ISpeechRecognitionTopicConstraintFactory.Create
-  let it = statics[ISpeechRecognitionTopicConstraintFactoryVtbl]("Windows.Media.SpeechRecognition.SpeechRecognitionTopicConstraint")
+  let it = statics[ISpeechRecognitionTopicConstraintFactoryVtbl](className(SpeechRecognitionTopicConstraint))
   let a1 = toWinRtString(topicHint)
   var ret: pointer
   check it.vtbl.Create(it.raw, scenario, a1.handle, ret.addr
@@ -26955,7 +26955,7 @@ proc newSpeechRecognitionTopicConstraint*(scenario: SpeechRecognitionScenario,
                                           topicHint: string, tag: string
                                          ): SpeechRecognitionTopicConstraint =
   ## Windows.Media.SpeechRecognition.ISpeechRecognitionTopicConstraintFactory.CreateWithTag
-  let it = statics[ISpeechRecognitionTopicConstraintFactoryVtbl]("Windows.Media.SpeechRecognition.SpeechRecognitionTopicConstraint")
+  let it = statics[ISpeechRecognitionTopicConstraintFactoryVtbl](className(SpeechRecognitionTopicConstraint))
   let a1 = toWinRtString(topicHint)
   let a2 = toWinRtString(tag)
   var ret: pointer
@@ -26987,7 +26987,7 @@ proc newSpeechRecognizer*(): SpeechRecognizer =
 
 proc newSpeechRecognizer*(language: Language): SpeechRecognizer =
   ## Windows.Media.SpeechRecognition.ISpeechRecognizerFactory.Create
-  let it = statics[ISpeechRecognizerFactoryVtbl]("Windows.Media.SpeechRecognition.SpeechRecognizer")
+  let it = statics[ISpeechRecognizerFactoryVtbl](className(SpeechRecognizer))
   let a0 = queryInterface[ILanguageVtbl](language)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "SpeechRecognizer.new"
@@ -26996,7 +26996,7 @@ proc newSpeechRecognizer*(language: Language): SpeechRecognizer =
 proc trySetSystemSpeechLanguageAsync*(_: typedesc[SpeechRecognizer],
                                       speechLanguage: Language): Future[bool] =
   ## Windows.Media.SpeechRecognition.ISpeechRecognizerStatics2.TrySetSystemSpeechLanguageAsync
-  let it = statics[ISpeechRecognizerStatics2Vtbl]("Windows.Media.SpeechRecognition.SpeechRecognizer")
+  let it = statics[ISpeechRecognizerStatics2Vtbl](className(SpeechRecognizer))
   let a0 = queryInterface[ILanguageVtbl](speechLanguage)
   var op: pointer
   check it.vtbl.TrySetSystemSpeechLanguageAsync(it.raw, a0.raw, op.addr
@@ -27005,7 +27005,7 @@ proc trySetSystemSpeechLanguageAsync*(_: typedesc[SpeechRecognizer],
 
 proc systemSpeechLanguage*(_: typedesc[SpeechRecognizer]): Language =
   ## Windows.Media.SpeechRecognition.ISpeechRecognizerStatics.get_SystemSpeechLanguage
-  let it = statics[ISpeechRecognizerStaticsVtbl]("Windows.Media.SpeechRecognition.SpeechRecognizer")
+  let it = statics[ISpeechRecognizerStaticsVtbl](className(SpeechRecognizer))
   var ret: pointer
   check it.vtbl.get_SystemSpeechLanguage(it.raw, ret.addr
                                         ), "SpeechRecognizer.systemSpeechLanguage"
@@ -27013,7 +27013,7 @@ proc systemSpeechLanguage*(_: typedesc[SpeechRecognizer]): Language =
 
 proc supportedTopicLanguages*(_: typedesc[SpeechRecognizer]): seq[Language] =
   ## Windows.Media.SpeechRecognition.ISpeechRecognizerStatics.get_SupportedTopicLanguages
-  let it = statics[ISpeechRecognizerStaticsVtbl]("Windows.Media.SpeechRecognition.SpeechRecognizer")
+  let it = statics[ISpeechRecognizerStaticsVtbl](className(SpeechRecognizer))
   var ret: pointer
   check it.vtbl.get_SupportedTopicLanguages(it.raw, ret.addr
                                            ), "SpeechRecognizer.supportedTopicLanguages"
@@ -27021,7 +27021,7 @@ proc supportedTopicLanguages*(_: typedesc[SpeechRecognizer]): seq[Language] =
 
 proc supportedGrammarLanguages*(_: typedesc[SpeechRecognizer]): seq[Language] =
   ## Windows.Media.SpeechRecognition.ISpeechRecognizerStatics.get_SupportedGrammarLanguages
-  let it = statics[ISpeechRecognizerStaticsVtbl]("Windows.Media.SpeechRecognition.SpeechRecognizer")
+  let it = statics[ISpeechRecognizerStaticsVtbl](className(SpeechRecognizer))
   var ret: pointer
   check it.vtbl.get_SupportedGrammarLanguages(it.raw, ret.addr
                                              ), "SpeechRecognizer.supportedGrammarLanguages"
@@ -27301,7 +27301,7 @@ proc newSpeechSynthesizer*(): SpeechSynthesizer =
 proc trySetDefaultVoiceAsync*(_: typedesc[SpeechSynthesizer],
                               voice: VoiceInformation): Future[bool] =
   ## Windows.Media.SpeechSynthesis.IInstalledVoicesStatic2.TrySetDefaultVoiceAsync
-  let it = statics[IInstalledVoicesStatic2Vtbl]("Windows.Media.SpeechSynthesis.SpeechSynthesizer")
+  let it = statics[IInstalledVoicesStatic2Vtbl](className(SpeechSynthesizer))
   let a0 = queryInterface[IVoiceInformationVtbl](voice)
   var op: pointer
   check it.vtbl.TrySetDefaultVoiceAsync(it.raw, a0.raw, op.addr
@@ -27310,14 +27310,14 @@ proc trySetDefaultVoiceAsync*(_: typedesc[SpeechSynthesizer],
 
 proc allVoices*(_: typedesc[SpeechSynthesizer]): seq[VoiceInformation] =
   ## Windows.Media.SpeechSynthesis.IInstalledVoicesStatic.get_AllVoices
-  let it = statics[IInstalledVoicesStaticVtbl]("Windows.Media.SpeechSynthesis.SpeechSynthesizer")
+  let it = statics[IInstalledVoicesStaticVtbl](className(SpeechSynthesizer))
   var ret: pointer
   check it.vtbl.get_AllVoices(it.raw, ret.addr), "SpeechSynthesizer.allVoices"
   takeSeq[IVectorViewVtbl[VoiceInformation], seq[VoiceInformation]](ret)
 
 proc defaultVoice*(_: typedesc[SpeechSynthesizer]): VoiceInformation =
   ## Windows.Media.SpeechSynthesis.IInstalledVoicesStatic.get_DefaultVoice
-  let it = statics[IInstalledVoicesStaticVtbl]("Windows.Media.SpeechSynthesis.SpeechSynthesizer")
+  let it = statics[IInstalledVoicesStaticVtbl](className(SpeechSynthesizer))
   var ret: pointer
   check it.vtbl.get_DefaultVoice(it.raw, ret.addr
                                 ), "SpeechSynthesizer.defaultVoice"
@@ -27471,7 +27471,7 @@ proc `punctuationSilence=`*(self: SpeechSynthesizerOptions,
 
 proc getForCurrentView*(_: typedesc[SystemMediaTransportControls]): SystemMediaTransportControls =
   ## Windows.Media.ISystemMediaTransportControlsStatics.GetForCurrentView
-  let it = statics[ISystemMediaTransportControlsStaticsVtbl]("Windows.Media.SystemMediaTransportControls")
+  let it = statics[ISystemMediaTransportControlsStaticsVtbl](className(SystemMediaTransportControls))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "SystemMediaTransportControls.getForCurrentView"
@@ -28043,7 +28043,7 @@ proc newTimedMetadataEncodingProperties*(): TimedMetadataEncodingProperties =
 
 proc createPgs*(_: typedesc[TimedMetadataEncodingProperties]): TimedMetadataEncodingProperties =
   ## Windows.Media.MediaProperties.ITimedMetadataEncodingPropertiesStatics.CreatePgs
-  let it = statics[ITimedMetadataEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.TimedMetadataEncodingProperties")
+  let it = statics[ITimedMetadataEncodingPropertiesStaticsVtbl](className(TimedMetadataEncodingProperties))
   var ret: pointer
   check it.vtbl.CreatePgs(it.raw, ret.addr
                          ), "TimedMetadataEncodingProperties.createPgs"
@@ -28051,7 +28051,7 @@ proc createPgs*(_: typedesc[TimedMetadataEncodingProperties]): TimedMetadataEnco
 
 proc createSrt*(_: typedesc[TimedMetadataEncodingProperties]): TimedMetadataEncodingProperties =
   ## Windows.Media.MediaProperties.ITimedMetadataEncodingPropertiesStatics.CreateSrt
-  let it = statics[ITimedMetadataEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.TimedMetadataEncodingProperties")
+  let it = statics[ITimedMetadataEncodingPropertiesStaticsVtbl](className(TimedMetadataEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateSrt(it.raw, ret.addr
                          ), "TimedMetadataEncodingProperties.createSrt"
@@ -28061,7 +28061,7 @@ proc createSsa*(_: typedesc[TimedMetadataEncodingProperties],
                 formatUserData: openArray[uint8]
                ): TimedMetadataEncodingProperties =
   ## Windows.Media.MediaProperties.ITimedMetadataEncodingPropertiesStatics.CreateSsa
-  let it = statics[ITimedMetadataEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.TimedMetadataEncodingProperties")
+  let it = statics[ITimedMetadataEncodingPropertiesStaticsVtbl](className(TimedMetadataEncodingProperties))
   let a0 = asArray[uint8, uint8](formatUserData)
   var ret: pointer
   check it.vtbl.CreateSsa(it.raw, a0.count, a0.data, ret.addr
@@ -28072,7 +28072,7 @@ proc createVobSub*(_: typedesc[TimedMetadataEncodingProperties],
                    formatUserData: openArray[uint8]
                   ): TimedMetadataEncodingProperties =
   ## Windows.Media.MediaProperties.ITimedMetadataEncodingPropertiesStatics.CreateVobSub
-  let it = statics[ITimedMetadataEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.TimedMetadataEncodingProperties")
+  let it = statics[ITimedMetadataEncodingPropertiesStaticsVtbl](className(TimedMetadataEncodingProperties))
   let a0 = asArray[uint8, uint8](formatUserData)
   var ret: pointer
   check it.vtbl.CreateVobSub(it.raw, a0.count, a0.data, ret.addr
@@ -28133,7 +28133,7 @@ proc newPresentationMode*(self: TimedMetadataPresentationModeChangedEventArgs): 
 
 proc newTimedMetadataStreamDescriptor*(encodingProperties: TimedMetadataEncodingProperties): TimedMetadataStreamDescriptor =
   ## Windows.Media.Core.ITimedMetadataStreamDescriptorFactory.Create
-  let it = statics[ITimedMetadataStreamDescriptorFactoryVtbl]("Windows.Media.Core.TimedMetadataStreamDescriptor")
+  let it = statics[ITimedMetadataStreamDescriptorFactoryVtbl](className(TimedMetadataStreamDescriptor))
   let a0 = queryInterface[ITimedMetadataEncodingPropertiesVtbl](encodingProperties)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -28160,7 +28160,7 @@ proc copy*(self: TimedMetadataStreamDescriptor): TimedMetadataStreamDescriptor =
 proc newTimedMetadataTrack*(id: string, language: string,
                             kind: TimedMetadataKind): TimedMetadataTrack =
   ## Windows.Media.Core.ITimedMetadataTrackFactory.Create
-  let it = statics[ITimedMetadataTrackFactoryVtbl]("Windows.Media.Core.TimedMetadataTrack")
+  let it = statics[ITimedMetadataTrackFactoryVtbl](className(TimedMetadataTrack))
   let a0 = toWinRtString(id)
   let a1 = toWinRtString(language)
   var ret: pointer
@@ -28631,7 +28631,7 @@ proc createFromStreamWithIndex*(_: typedesc[TimedTextSource],
                                 indexStream: SomeRandomAccessStream
                                ): TimedTextSource =
   ## Windows.Media.Core.ITimedTextSourceStatics2.CreateFromStreamWithIndex
-  let it = statics[ITimedTextSourceStatics2Vtbl]("Windows.Media.Core.TimedTextSource")
+  let it = statics[ITimedTextSourceStatics2Vtbl](className(TimedTextSource))
   let a0 = queryInterface[IRandomAccessStreamVtbl](stream)
   let a1 = queryInterface[IRandomAccessStreamVtbl](indexStream)
   var ret: pointer
@@ -28642,7 +28642,7 @@ proc createFromStreamWithIndex*(_: typedesc[TimedTextSource],
 proc createFromUriWithIndex*(_: typedesc[TimedTextSource], uri: Uri,
                              indexUri: Uri): TimedTextSource =
   ## Windows.Media.Core.ITimedTextSourceStatics2.CreateFromUriWithIndex
-  let it = statics[ITimedTextSourceStatics2Vtbl]("Windows.Media.Core.TimedTextSource")
+  let it = statics[ITimedTextSourceStatics2Vtbl](className(TimedTextSource))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a1 = queryInterface[IUriRuntimeClassVtbl](indexUri)
   var ret: pointer
@@ -28655,7 +28655,7 @@ proc createFromStreamWithIndex*(_: typedesc[TimedTextSource],
                                 indexStream: SomeRandomAccessStream,
                                 defaultLanguage: string): TimedTextSource =
   ## Windows.Media.Core.ITimedTextSourceStatics2.CreateFromStreamWithIndex
-  let it = statics[ITimedTextSourceStatics2Vtbl]("Windows.Media.Core.TimedTextSource")
+  let it = statics[ITimedTextSourceStatics2Vtbl](className(TimedTextSource))
   let a0 = queryInterface[IRandomAccessStreamVtbl](stream)
   let a1 = queryInterface[IRandomAccessStreamVtbl](indexStream)
   let a2 = toWinRtString(defaultLanguage)
@@ -28669,7 +28669,7 @@ proc createFromUriWithIndex*(_: typedesc[TimedTextSource], uri: Uri,
                              indexUri: Uri, defaultLanguage: string
                             ): TimedTextSource =
   ## Windows.Media.Core.ITimedTextSourceStatics2.CreateFromUriWithIndex
-  let it = statics[ITimedTextSourceStatics2Vtbl]("Windows.Media.Core.TimedTextSource")
+  let it = statics[ITimedTextSourceStatics2Vtbl](className(TimedTextSource))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a1 = queryInterface[IUriRuntimeClassVtbl](indexUri)
   let a2 = toWinRtString(defaultLanguage)
@@ -28682,7 +28682,7 @@ proc createFromUriWithIndex*(_: typedesc[TimedTextSource], uri: Uri,
 proc createFromStream*(_: typedesc[TimedTextSource],
                        stream: SomeRandomAccessStream): TimedTextSource =
   ## Windows.Media.Core.ITimedTextSourceStatics.CreateFromStream
-  let it = statics[ITimedTextSourceStaticsVtbl]("Windows.Media.Core.TimedTextSource")
+  let it = statics[ITimedTextSourceStaticsVtbl](className(TimedTextSource))
   let a0 = queryInterface[IRandomAccessStreamVtbl](stream)
   var ret: pointer
   check it.vtbl.CreateFromStream(it.raw, a0.raw, ret.addr
@@ -28691,7 +28691,7 @@ proc createFromStream*(_: typedesc[TimedTextSource],
 
 proc createFromUri*(_: typedesc[TimedTextSource], uri: Uri): TimedTextSource =
   ## Windows.Media.Core.ITimedTextSourceStatics.CreateFromUri
-  let it = statics[ITimedTextSourceStaticsVtbl]("Windows.Media.Core.TimedTextSource")
+  let it = statics[ITimedTextSourceStaticsVtbl](className(TimedTextSource))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var ret: pointer
   check it.vtbl.CreateFromUri(it.raw, a0.raw, ret.addr
@@ -28702,7 +28702,7 @@ proc createFromStream*(_: typedesc[TimedTextSource],
                        stream: SomeRandomAccessStream, defaultLanguage: string
                       ): TimedTextSource =
   ## Windows.Media.Core.ITimedTextSourceStatics.CreateFromStream
-  let it = statics[ITimedTextSourceStaticsVtbl]("Windows.Media.Core.TimedTextSource")
+  let it = statics[ITimedTextSourceStaticsVtbl](className(TimedTextSource))
   let a0 = queryInterface[IRandomAccessStreamVtbl](stream)
   let a1 = toWinRtString(defaultLanguage)
   var ret: pointer
@@ -28713,7 +28713,7 @@ proc createFromStream*(_: typedesc[TimedTextSource],
 proc createFromUri*(_: typedesc[TimedTextSource], uri: Uri,
                     defaultLanguage: string): TimedTextSource =
   ## Windows.Media.Core.ITimedTextSourceStatics.CreateFromUri
-  let it = statics[ITimedTextSourceStaticsVtbl]("Windows.Media.Core.TimedTextSource")
+  let it = statics[ITimedTextSourceStaticsVtbl](className(TimedTextSource))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a1 = toWinRtString(defaultLanguage)
   var ret: pointer
@@ -29282,7 +29282,7 @@ proc desiredFrameControllers*(self: VariablePhotoSequenceController): seq[FrameC
 
 proc newVideoCompositorDefinition*(activatableClassId: string): VideoCompositorDefinition =
   ## Windows.Media.Effects.IVideoCompositorDefinitionFactory.Create
-  let it = statics[IVideoCompositorDefinitionFactoryVtbl]("Windows.Media.Effects.VideoCompositorDefinition")
+  let it = statics[IVideoCompositorDefinitionFactoryVtbl](className(VideoCompositorDefinition))
   let a0 = toWinRtString(activatableClassId)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -29293,7 +29293,7 @@ proc newVideoCompositorDefinition*(activatableClassId: string,
                                    props: SomePropertySet
                                   ): VideoCompositorDefinition =
   ## Windows.Media.Effects.IVideoCompositorDefinitionFactory.CreateWithProperties
-  let it = statics[IVideoCompositorDefinitionFactoryVtbl]("Windows.Media.Effects.VideoCompositorDefinition")
+  let it = statics[IVideoCompositorDefinitionFactoryVtbl](className(VideoCompositorDefinition))
   let a0 = toWinRtString(activatableClassId)
   let a1 = queryInterface[IPropertySetVtbl](props)
   var ret: pointer
@@ -29761,7 +29761,7 @@ proc genres*(self: VideoDisplayProperties): seq[string] =
 
 proc newVideoEffectDefinition*(activatableClassId: string): VideoEffectDefinition =
   ## Windows.Media.Effects.IVideoEffectDefinitionFactory.Create
-  let it = statics[IVideoEffectDefinitionFactoryVtbl]("Windows.Media.Effects.VideoEffectDefinition")
+  let it = statics[IVideoEffectDefinitionFactoryVtbl](className(VideoEffectDefinition))
   let a0 = toWinRtString(activatableClassId)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr), "VideoEffectDefinition.new"
@@ -29770,7 +29770,7 @@ proc newVideoEffectDefinition*(activatableClassId: string): VideoEffectDefinitio
 proc newVideoEffectDefinition*(activatableClassId: string,
                                props: SomePropertySet): VideoEffectDefinition =
   ## Windows.Media.Effects.IVideoEffectDefinitionFactory.CreateWithProperties
-  let it = statics[IVideoEffectDefinitionFactoryVtbl]("Windows.Media.Effects.VideoEffectDefinition")
+  let it = statics[IVideoEffectDefinitionFactoryVtbl](className(VideoEffectDefinition))
   let a0 = toWinRtString(activatableClassId)
   let a1 = queryInterface[IPropertySetVtbl](props)
   var ret: pointer
@@ -29782,7 +29782,7 @@ proc newVideoEffectDefinition*(activatableClassId: string,
 
 proc videoStabilization*(_: typedesc[VideoEffects]): string =
   ## Windows.Media.IVideoEffectsStatics.get_VideoStabilization
-  let it = statics[IVideoEffectsStaticsVtbl]("Windows.Media.VideoEffects")
+  let it = statics[IVideoEffectsStaticsVtbl](className(VideoEffects))
   var ret: HSTRING
   check it.vtbl.get_VideoStabilization(it.raw, ret.addr
                                       ), "VideoEffects.videoStabilization"
@@ -29796,7 +29796,7 @@ proc newVideoEncodingProperties*(): VideoEncodingProperties =
 
 proc createH264*(_: typedesc[VideoEncodingProperties]): VideoEncodingProperties =
   ## Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics.CreateH264
-  let it = statics[IVideoEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.VideoEncodingProperties")
+  let it = statics[IVideoEncodingPropertiesStaticsVtbl](className(VideoEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateH264(it.raw, ret.addr
                           ), "VideoEncodingProperties.createH264"
@@ -29804,7 +29804,7 @@ proc createH264*(_: typedesc[VideoEncodingProperties]): VideoEncodingProperties 
 
 proc createMpeg2*(_: typedesc[VideoEncodingProperties]): VideoEncodingProperties =
   ## Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics.CreateMpeg2
-  let it = statics[IVideoEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.VideoEncodingProperties")
+  let it = statics[IVideoEncodingPropertiesStaticsVtbl](className(VideoEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateMpeg2(it.raw, ret.addr
                            ), "VideoEncodingProperties.createMpeg2"
@@ -29814,7 +29814,7 @@ proc createUncompressed*(_: typedesc[VideoEncodingProperties], subtype: string,
                          width: uint32, height: uint32
                         ): VideoEncodingProperties =
   ## Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics.CreateUncompressed
-  let it = statics[IVideoEncodingPropertiesStaticsVtbl]("Windows.Media.MediaProperties.VideoEncodingProperties")
+  let it = statics[IVideoEncodingPropertiesStaticsVtbl](className(VideoEncodingProperties))
   let a0 = toWinRtString(subtype)
   var ret: pointer
   check it.vtbl.CreateUncompressed(it.raw, a0.handle, width, height, ret.addr
@@ -29823,7 +29823,7 @@ proc createUncompressed*(_: typedesc[VideoEncodingProperties], subtype: string,
 
 proc createHevc*(_: typedesc[VideoEncodingProperties]): VideoEncodingProperties =
   ## Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics2.CreateHevc
-  let it = statics[IVideoEncodingPropertiesStatics2Vtbl]("Windows.Media.MediaProperties.VideoEncodingProperties")
+  let it = statics[IVideoEncodingPropertiesStatics2Vtbl](className(VideoEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateHevc(it.raw, ret.addr
                           ), "VideoEncodingProperties.createHevc"
@@ -29831,14 +29831,14 @@ proc createHevc*(_: typedesc[VideoEncodingProperties]): VideoEncodingProperties 
 
 proc createVp9*(_: typedesc[VideoEncodingProperties]): VideoEncodingProperties =
   ## Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics3.CreateVp9
-  let it = statics[IVideoEncodingPropertiesStatics3Vtbl]("Windows.Media.MediaProperties.VideoEncodingProperties")
+  let it = statics[IVideoEncodingPropertiesStatics3Vtbl](className(VideoEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateVp9(it.raw, ret.addr), "VideoEncodingProperties.createVp9"
   adopt[VideoEncodingProperties](ret)
 
 proc createAv1*(_: typedesc[VideoEncodingProperties]): VideoEncodingProperties =
   ## Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics3.CreateAv1
-  let it = statics[IVideoEncodingPropertiesStatics3Vtbl]("Windows.Media.MediaProperties.VideoEncodingProperties")
+  let it = statics[IVideoEncodingPropertiesStatics3Vtbl](className(VideoEncodingProperties))
   var ret: pointer
   check it.vtbl.CreateAv1(it.raw, ret.addr), "VideoEncodingProperties.createAv1"
   adopt[VideoEncodingProperties](ret)
@@ -29954,7 +29954,7 @@ proc copy*(self: VideoEncodingProperties): VideoEncodingProperties =
 proc newVideoFrame*(format: BitmapPixelFormat, width: int32, height: int32
                    ): VideoFrame =
   ## Windows.Media.IVideoFrameFactory.Create
-  let it = statics[IVideoFrameFactoryVtbl]("Windows.Media.VideoFrame")
+  let it = statics[IVideoFrameFactoryVtbl](className(VideoFrame))
   var ret: pointer
   check it.vtbl.Create(it.raw, format, width, height, ret.addr
                       ), "VideoFrame.new"
@@ -29963,7 +29963,7 @@ proc newVideoFrame*(format: BitmapPixelFormat, width: int32, height: int32
 proc newVideoFrame*(format: BitmapPixelFormat, width: int32, height: int32,
                     alpha: BitmapAlphaMode): VideoFrame =
   ## Windows.Media.IVideoFrameFactory.CreateWithAlpha
-  let it = statics[IVideoFrameFactoryVtbl]("Windows.Media.VideoFrame")
+  let it = statics[IVideoFrameFactoryVtbl](className(VideoFrame))
   var ret: pointer
   check it.vtbl.CreateWithAlpha(it.raw, format, width, height, alpha, ret.addr
                                ), "VideoFrame.new"
@@ -29973,7 +29973,7 @@ proc createAsDirect3D11SurfaceBacked*(_: typedesc[VideoFrame],
                                       format: DirectXPixelFormat, width: int32,
                                       height: int32): VideoFrame =
   ## Windows.Media.IVideoFrameStatics.CreateAsDirect3D11SurfaceBacked
-  let it = statics[IVideoFrameStaticsVtbl]("Windows.Media.VideoFrame")
+  let it = statics[IVideoFrameStaticsVtbl](className(VideoFrame))
   var ret: pointer
   check it.vtbl.CreateAsDirect3D11SurfaceBacked(it.raw, format, width, height,
                                                 ret.addr
@@ -29985,7 +29985,7 @@ proc createAsDirect3D11SurfaceBacked*(_: typedesc[VideoFrame],
                                       height: int32, device: SomeDirect3DDevice
                                      ): VideoFrame =
   ## Windows.Media.IVideoFrameStatics.CreateAsDirect3D11SurfaceBacked
-  let it = statics[IVideoFrameStaticsVtbl]("Windows.Media.VideoFrame")
+  let it = statics[IVideoFrameStaticsVtbl](className(VideoFrame))
   let a3 = queryInterface[IDirect3DDeviceVtbl](device)
   var ret: pointer
   check it.vtbl.CreateAsDirect3D11SurfaceBacked2(it.raw, format, width, height,
@@ -29996,7 +29996,7 @@ proc createAsDirect3D11SurfaceBacked*(_: typedesc[VideoFrame],
 proc createWithSoftwareBitmap*(_: typedesc[VideoFrame], bitmap: SoftwareBitmap
                               ): VideoFrame =
   ## Windows.Media.IVideoFrameStatics.CreateWithSoftwareBitmap
-  let it = statics[IVideoFrameStaticsVtbl]("Windows.Media.VideoFrame")
+  let it = statics[IVideoFrameStaticsVtbl](className(VideoFrame))
   let a0 = queryInterface[ISoftwareBitmapVtbl](bitmap)
   var ret: pointer
   check it.vtbl.CreateWithSoftwareBitmap(it.raw, a0.raw, ret.addr
@@ -30006,7 +30006,7 @@ proc createWithSoftwareBitmap*(_: typedesc[VideoFrame], bitmap: SoftwareBitmap
 proc createWithDirect3D11Surface*(_: typedesc[VideoFrame],
                                   surface: SomeDirect3DSurface): VideoFrame =
   ## Windows.Media.IVideoFrameStatics.CreateWithDirect3D11Surface
-  let it = statics[IVideoFrameStaticsVtbl]("Windows.Media.VideoFrame")
+  let it = statics[IVideoFrameStaticsVtbl](className(VideoFrame))
   let a0 = queryInterface[IDirect3DSurfaceVtbl](surface)
   var ret: pointer
   check it.vtbl.CreateWithDirect3D11Surface(it.raw, a0.raw, ret.addr
@@ -30234,7 +30234,7 @@ proc outputProperties*(self: VideoStreamConfiguration): VideoEncodingProperties 
 
 proc newVideoStreamDescriptor*(encodingProperties: VideoEncodingProperties): VideoStreamDescriptor =
   ## Windows.Media.Core.IVideoStreamDescriptorFactory.Create
-  let it = statics[IVideoStreamDescriptorFactoryVtbl]("Windows.Media.Core.VideoStreamDescriptor")
+  let it = statics[IVideoStreamDescriptorFactoryVtbl](className(VideoStreamDescriptor))
   let a0 = queryInterface[IVideoEncodingPropertiesVtbl](encodingProperties)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "VideoStreamDescriptor.new"
@@ -30592,7 +30592,7 @@ proc volume*(self: VolumeChangeRequestedEventArgs): float64 =
 
 proc profile0ChromaSubsampling420BitDepth8*(_: typedesc[Vp9ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IVp9ProfileIdsStatics.get_Profile0ChromaSubsampling420BitDepth8
-  let it = statics[IVp9ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Vp9ProfileIds")
+  let it = statics[IVp9ProfileIdsStaticsVtbl](className(Vp9ProfileIds))
   var ret: int32
   check it.vtbl.get_Profile0ChromaSubsampling420BitDepth8(it.raw, ret.addr
                                                          ), "Vp9ProfileIds.profile0ChromaSubsampling420BitDepth8"
@@ -30600,7 +30600,7 @@ proc profile0ChromaSubsampling420BitDepth8*(_: typedesc[Vp9ProfileIds]): int32 =
 
 proc profile2ChromaSubsampling420BitDepth10*(_: typedesc[Vp9ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IVp9ProfileIdsStatics.get_Profile2ChromaSubsampling420BitDepth10
-  let it = statics[IVp9ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Vp9ProfileIds")
+  let it = statics[IVp9ProfileIdsStaticsVtbl](className(Vp9ProfileIds))
   var ret: int32
   check it.vtbl.get_Profile2ChromaSubsampling420BitDepth10(it.raw, ret.addr
                                                           ), "Vp9ProfileIds.profile2ChromaSubsampling420BitDepth10"
@@ -30608,7 +30608,7 @@ proc profile2ChromaSubsampling420BitDepth10*(_: typedesc[Vp9ProfileIds]): int32 
 
 proc profile2ChromaSubsampling420BitDepth12*(_: typedesc[Vp9ProfileIds]): int32 =
   ## Windows.Media.MediaProperties.IVp9ProfileIdsStatics.get_Profile2ChromaSubsampling420BitDepth12
-  let it = statics[IVp9ProfileIdsStaticsVtbl]("Windows.Media.MediaProperties.Vp9ProfileIds")
+  let it = statics[IVp9ProfileIdsStaticsVtbl](className(Vp9ProfileIds))
   var ret: int32
   check it.vtbl.get_Profile2ChromaSubsampling420BitDepth12(it.raw, ret.addr
                                                           ), "Vp9ProfileIds.profile2ChromaSubsampling420BitDepth12"

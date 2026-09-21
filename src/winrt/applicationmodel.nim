@@ -37,7 +37,7 @@ proc newAcceptedVoipPhoneCallOptions*(): AcceptedVoipPhoneCallOptions =
 
 proc newAcceptedVoipPhoneCallOptions*(associatedDeviceIds: seq[string]): AcceptedVoipPhoneCallOptions =
   ## Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptionsFactory.CreateInstance
-  let it = statics[IAcceptedVoipPhoneCallOptionsFactoryVtbl]("Windows.ApplicationModel.Calls.AcceptedVoipPhoneCallOptions")
+  let it = statics[IAcceptedVoipPhoneCallOptionsFactoryVtbl](className(AcceptedVoipPhoneCallOptions))
   let a0 = asCollection[string, seq[string]](associatedDeviceIds)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.raw, ret.addr
@@ -650,7 +650,7 @@ proc detectorId*(self: ActivationSignalDetector): string =
 
 proc newActivitySensorTrigger*(reportIntervalInMilliseconds: uint32): ActivitySensorTrigger =
   ## Windows.ApplicationModel.Background.IActivitySensorTriggerFactory.Create
-  let it = statics[IActivitySensorTriggerFactoryVtbl]("Windows.ApplicationModel.Background.ActivitySensorTrigger")
+  let it = statics[IActivitySensorTriggerFactoryVtbl](className(ActivitySensorTrigger))
   var ret: pointer
   check it.vtbl.Create(it.raw, reportIntervalInMilliseconds, ret.addr
                       ), "ActivitySensorTrigger.new"
@@ -797,7 +797,7 @@ proc setRemoteIdentificationInformationAsync*(self: AggregateContactManager,
 
 proc requestAccessAsync*(_: typedesc[AlarmApplicationManager]): Future[AlarmAccessStatus] =
   ## Windows.ApplicationModel.Background.IAlarmApplicationManagerStatics.RequestAccessAsync
-  let it = statics[IAlarmApplicationManagerStaticsVtbl]("Windows.ApplicationModel.Background.AlarmApplicationManager")
+  let it = statics[IAlarmApplicationManagerStaticsVtbl](className(AlarmApplicationManager))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "AlarmApplicationManager.requestAccessAsync"
@@ -805,7 +805,7 @@ proc requestAccessAsync*(_: typedesc[AlarmApplicationManager]): Future[AlarmAcce
 
 proc getAccessStatus*(_: typedesc[AlarmApplicationManager]): AlarmAccessStatus =
   ## Windows.ApplicationModel.Background.IAlarmApplicationManagerStatics.GetAccessStatus
-  let it = statics[IAlarmApplicationManagerStaticsVtbl]("Windows.ApplicationModel.Background.AlarmApplicationManager")
+  let it = statics[IAlarmApplicationManagerStaticsVtbl](className(AlarmApplicationManager))
   var ret: AlarmAccessStatus
   check it.vtbl.GetAccessStatus(it.raw, ret.addr
                                ), "AlarmApplicationManager.getAccessStatus"
@@ -815,7 +815,7 @@ proc getAccessStatus*(_: typedesc[AlarmApplicationManager]): AlarmAccessStatus =
 
 proc newAppBroadcastTrigger*(providerKey: string): AppBroadcastTrigger =
   ## Windows.ApplicationModel.Background.IAppBroadcastTriggerFactory.CreateAppBroadcastTrigger
-  let it = statics[IAppBroadcastTriggerFactoryVtbl]("Windows.ApplicationModel.Background.AppBroadcastTrigger")
+  let it = statics[IAppBroadcastTriggerFactoryVtbl](className(AppBroadcastTrigger))
   let a0 = toWinRtString(providerKey)
   var ret: pointer
   check it.vtbl.CreateAppBroadcastTrigger(it.raw, a0.handle, ret.addr
@@ -1040,7 +1040,7 @@ proc getPublicFolder*(self: AppExtension): StorageFolder =
 proc open*(_: typedesc[AppExtensionCatalog], appExtensionName: string
           ): AppExtensionCatalog =
   ## Windows.ApplicationModel.AppExtensions.IAppExtensionCatalogStatics.Open
-  let it = statics[IAppExtensionCatalogStaticsVtbl]("Windows.ApplicationModel.AppExtensions.AppExtensionCatalog")
+  let it = statics[IAppExtensionCatalogStaticsVtbl](className(AppExtensionCatalog))
   let a0 = toWinRtString(appExtensionName)
   var ret: pointer
   check it.vtbl.Open(it.raw, a0.handle, ret.addr), "AppExtensionCatalog.open"
@@ -1286,7 +1286,7 @@ proc package*(self: AppExtensionPackageUpdatingEventArgs): Package =
 
 proc current*(_: typedesc[AppInfo]): AppInfo =
   ## Windows.ApplicationModel.IAppInfoStatics.get_Current
-  let it = statics[IAppInfoStaticsVtbl]("Windows.ApplicationModel.AppInfo")
+  let it = statics[IAppInfoStaticsVtbl](className(AppInfo))
   var ret: pointer
   check it.vtbl.get_Current(it.raw, ret.addr), "AppInfo.current"
   adopt[AppInfo](ret)
@@ -1294,7 +1294,7 @@ proc current*(_: typedesc[AppInfo]): AppInfo =
 proc getFromAppUserModelId*(_: typedesc[AppInfo], appUserModelId: string
                            ): AppInfo =
   ## Windows.ApplicationModel.IAppInfoStatics.GetFromAppUserModelId
-  let it = statics[IAppInfoStaticsVtbl]("Windows.ApplicationModel.AppInfo")
+  let it = statics[IAppInfoStaticsVtbl](className(AppInfo))
   let a0 = toWinRtString(appUserModelId)
   var ret: pointer
   check it.vtbl.GetFromAppUserModelId(it.raw, a0.handle, ret.addr
@@ -1304,7 +1304,7 @@ proc getFromAppUserModelId*(_: typedesc[AppInfo], appUserModelId: string
 proc getFromAppUserModelIdForUser*(_: typedesc[AppInfo], user: User,
                                    appUserModelId: string): AppInfo =
   ## Windows.ApplicationModel.IAppInfoStatics.GetFromAppUserModelIdForUser
-  let it = statics[IAppInfoStaticsVtbl]("Windows.ApplicationModel.AppInfo")
+  let it = statics[IAppInfoStaticsVtbl](className(AppInfo))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(appUserModelId)
   var ret: pointer
@@ -1373,7 +1373,7 @@ proc newAppInitiatedVoipPhoneCallOptions*(): AppInitiatedVoipPhoneCallOptions =
 
 proc newAppInitiatedVoipPhoneCallOptions*(associatedDeviceIds: seq[string]): AppInitiatedVoipPhoneCallOptions =
   ## Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptionsFactory.CreateInstance
-  let it = statics[IAppInitiatedVoipPhoneCallOptionsFactoryVtbl]("Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions")
+  let it = statics[IAppInitiatedVoipPhoneCallOptionsFactoryVtbl](className(AppInitiatedVoipPhoneCallOptions))
   let a0 = asCollection[string, seq[string]](associatedDeviceIds)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.raw, ret.addr
@@ -2722,7 +2722,7 @@ proc policySource*(self: AppInstallerInfo): AppInstallerPolicySource =
 
 proc recommendedInstance*(_: typedesc[AppInstance]): AppInstance =
   ## Windows.ApplicationModel.IAppInstanceStatics.get_RecommendedInstance
-  let it = statics[IAppInstanceStaticsVtbl]("Windows.ApplicationModel.AppInstance")
+  let it = statics[IAppInstanceStaticsVtbl](className(AppInstance))
   var ret: pointer
   check it.vtbl.get_RecommendedInstance(it.raw, ret.addr
                                        ), "AppInstance.recommendedInstance"
@@ -2730,7 +2730,7 @@ proc recommendedInstance*(_: typedesc[AppInstance]): AppInstance =
 
 proc getActivatedEventArgs*(_: typedesc[AppInstance]): IActivatedEventArgs =
   ## Windows.ApplicationModel.IAppInstanceStatics.GetActivatedEventArgs
-  let it = statics[IAppInstanceStaticsVtbl]("Windows.ApplicationModel.AppInstance")
+  let it = statics[IAppInstanceStaticsVtbl](className(AppInstance))
   var ret: pointer
   check it.vtbl.GetActivatedEventArgs(it.raw, ret.addr
                                      ), "AppInstance.getActivatedEventArgs"
@@ -2739,7 +2739,7 @@ proc getActivatedEventArgs*(_: typedesc[AppInstance]): IActivatedEventArgs =
 proc findOrRegisterInstanceForKey*(_: typedesc[AppInstance], key: string
                                   ): AppInstance =
   ## Windows.ApplicationModel.IAppInstanceStatics.FindOrRegisterInstanceForKey
-  let it = statics[IAppInstanceStaticsVtbl]("Windows.ApplicationModel.AppInstance")
+  let it = statics[IAppInstanceStaticsVtbl](className(AppInstance))
   let a0 = toWinRtString(key)
   var ret: pointer
   check it.vtbl.FindOrRegisterInstanceForKey(it.raw, a0.handle, ret.addr
@@ -2748,12 +2748,12 @@ proc findOrRegisterInstanceForKey*(_: typedesc[AppInstance], key: string
 
 proc unregister*(_: typedesc[AppInstance]) =
   ## Windows.ApplicationModel.IAppInstanceStatics.Unregister
-  let it = statics[IAppInstanceStaticsVtbl]("Windows.ApplicationModel.AppInstance")
+  let it = statics[IAppInstanceStaticsVtbl](className(AppInstance))
   check it.vtbl.Unregister(it.raw), "AppInstance.unregister"
 
 proc getInstances*(_: typedesc[AppInstance]): seq[AppInstance] =
   ## Windows.ApplicationModel.IAppInstanceStatics.GetInstances
-  let it = statics[IAppInstanceStaticsVtbl]("Windows.ApplicationModel.AppInstance")
+  let it = statics[IAppInstanceStaticsVtbl](className(AppInstance))
   var ret: pointer
   check it.vtbl.GetInstances(it.raw, ret.addr), "AppInstance.getInstances"
   takeSeq[IVectorVtbl[AppInstance], seq[AppInstance]](ret)
@@ -2824,7 +2824,7 @@ proc findAppServiceProvidersAsync*(_: typedesc[AppServiceCatalog],
                                    appServiceName: string
                                   ): Future[seq[AppInfo]] =
   ## Windows.ApplicationModel.AppService.IAppServiceCatalogStatics.FindAppServiceProvidersAsync
-  let it = statics[IAppServiceCatalogStaticsVtbl]("Windows.ApplicationModel.AppService.AppServiceCatalog")
+  let it = statics[IAppServiceCatalogStaticsVtbl](className(AppServiceCatalog))
   let a0 = toWinRtString(appServiceName)
   var op: pointer
   check it.vtbl.FindAppServiceProvidersAsync(it.raw, a0.handle, op.addr
@@ -2852,7 +2852,7 @@ proc sendStatelessMessageAsync*(_: typedesc[AppServiceConnection],
                                 message: ValueSet
                                ): Future[StatelessAppServiceResponse] =
   ## Windows.ApplicationModel.AppService.IAppServiceConnectionStatics.SendStatelessMessageAsync
-  let it = statics[IAppServiceConnectionStaticsVtbl]("Windows.ApplicationModel.AppService.AppServiceConnection")
+  let it = statics[IAppServiceConnectionStaticsVtbl](className(AppServiceConnection))
   let a0 = queryInterface[IAppServiceConnectionVtbl](connection)
   let a1 = queryInterface[IRemoteSystemConnectionRequestVtbl](connectionRequest)
   let a2 = queryInterface[IPropertySetVtbl](message)
@@ -4851,7 +4851,7 @@ proc `response=`*(self: AppointmentInvitee,
 proc showAppointmentDetailsAsync*(_: typedesc[AppointmentManager],
                                   appointmentId: string): Future[void] =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics2.ShowAppointmentDetailsAsync
-  let it = statics[IAppointmentManagerStatics2Vtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStatics2Vtbl](className(AppointmentManager))
   let a0 = toWinRtString(appointmentId)
   var op: pointer
   check it.vtbl.ShowAppointmentDetailsAsync(it.raw, a0.handle, op.addr
@@ -4862,7 +4862,7 @@ proc showAppointmentDetailsAsync*(_: typedesc[AppointmentManager],
                                   appointmentId: string,
                                   instanceStartDate: DateTime): Future[void] =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics2.ShowAppointmentDetailsAsync
-  let it = statics[IAppointmentManagerStatics2Vtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStatics2Vtbl](className(AppointmentManager))
   let a0 = toWinRtString(appointmentId)
   var op: pointer
   check it.vtbl.ShowAppointmentDetailsAsync2(it.raw, a0.handle,
@@ -4873,7 +4873,7 @@ proc showAppointmentDetailsAsync*(_: typedesc[AppointmentManager],
 proc showEditNewAppointmentAsync*(_: typedesc[AppointmentManager],
                                   appointment: Appointment): Future[string] =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics2.ShowEditNewAppointmentAsync
-  let it = statics[IAppointmentManagerStatics2Vtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStatics2Vtbl](className(AppointmentManager))
   let a0 = queryInterface[IAppointmentVtbl](appointment)
   var op: pointer
   check it.vtbl.ShowEditNewAppointmentAsync(it.raw, a0.raw, op.addr
@@ -4884,7 +4884,7 @@ proc requestStoreAsync*(_: typedesc[AppointmentManager],
                         options: AppointmentStoreAccessType
                        ): Future[AppointmentStore] =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics2.RequestStoreAsync
-  let it = statics[IAppointmentManagerStatics2Vtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStatics2Vtbl](className(AppointmentManager))
   var op: pointer
   check it.vtbl.RequestStoreAsync(it.raw, options, op.addr
                                  ), "AppointmentManager.requestStoreAsync"
@@ -4894,7 +4894,7 @@ proc showAddAppointmentAsync*(_: typedesc[AppointmentManager],
                               appointment: Appointment, selection: Rect
                              ): Future[string] =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics.ShowAddAppointmentAsync
-  let it = statics[IAppointmentManagerStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStaticsVtbl](className(AppointmentManager))
   let a0 = queryInterface[IAppointmentVtbl](appointment)
   var op: pointer
   check it.vtbl.ShowAddAppointmentAsync(it.raw, a0.raw, selection, op.addr
@@ -4905,7 +4905,7 @@ proc showAddAppointmentAsync*(_: typedesc[AppointmentManager],
                               appointment: Appointment, selection: Rect,
                               preferredPlacement: Placement): Future[string] =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics.ShowAddAppointmentAsync
-  let it = statics[IAppointmentManagerStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStaticsVtbl](className(AppointmentManager))
   let a0 = queryInterface[IAppointmentVtbl](appointment)
   var op: pointer
   check it.vtbl.ShowAddAppointmentAsync2(it.raw, a0.raw, selection,
@@ -4918,7 +4918,7 @@ proc showReplaceAppointmentAsync*(_: typedesc[AppointmentManager],
                                   appointment: Appointment, selection: Rect
                                  ): Future[string] =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics.ShowReplaceAppointmentAsync
-  let it = statics[IAppointmentManagerStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStaticsVtbl](className(AppointmentManager))
   let a0 = toWinRtString(appointmentId)
   let a1 = queryInterface[IAppointmentVtbl](appointment)
   var op: pointer
@@ -4933,7 +4933,7 @@ proc showReplaceAppointmentAsync*(_: typedesc[AppointmentManager],
                                   preferredPlacement: Placement
                                  ): Future[string] =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics.ShowReplaceAppointmentAsync
-  let it = statics[IAppointmentManagerStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStaticsVtbl](className(AppointmentManager))
   let a0 = toWinRtString(appointmentId)
   let a1 = queryInterface[IAppointmentVtbl](appointment)
   var op: pointer
@@ -4949,7 +4949,7 @@ proc showReplaceAppointmentAsync*(_: typedesc[AppointmentManager],
                                   preferredPlacement: Placement,
                                   instanceStartDate: DateTime): Future[string] =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics.ShowReplaceAppointmentAsync
-  let it = statics[IAppointmentManagerStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStaticsVtbl](className(AppointmentManager))
   let a0 = toWinRtString(appointmentId)
   let a1 = queryInterface[IAppointmentVtbl](appointment)
   var op: pointer
@@ -4963,7 +4963,7 @@ proc showRemoveAppointmentAsync*(_: typedesc[AppointmentManager],
                                  appointmentId: string, selection: Rect
                                 ): Future[bool] =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics.ShowRemoveAppointmentAsync
-  let it = statics[IAppointmentManagerStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStaticsVtbl](className(AppointmentManager))
   let a0 = toWinRtString(appointmentId)
   var op: pointer
   check it.vtbl.ShowRemoveAppointmentAsync(it.raw, a0.handle, selection, op.addr
@@ -4974,7 +4974,7 @@ proc showRemoveAppointmentAsync*(_: typedesc[AppointmentManager],
                                  appointmentId: string, selection: Rect,
                                  preferredPlacement: Placement): Future[bool] =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics.ShowRemoveAppointmentAsync
-  let it = statics[IAppointmentManagerStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStaticsVtbl](className(AppointmentManager))
   let a0 = toWinRtString(appointmentId)
   var op: pointer
   check it.vtbl.ShowRemoveAppointmentAsync2(it.raw, a0.handle, selection,
@@ -4987,7 +4987,7 @@ proc showRemoveAppointmentAsync*(_: typedesc[AppointmentManager],
                                  preferredPlacement: Placement,
                                  instanceStartDate: DateTime): Future[bool] =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics.ShowRemoveAppointmentAsync
-  let it = statics[IAppointmentManagerStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStaticsVtbl](className(AppointmentManager))
   let a0 = toWinRtString(appointmentId)
   var op: pointer
   check it.vtbl.ShowRemoveAppointmentAsync3(it.raw, a0.handle, selection,
@@ -4999,7 +4999,7 @@ proc showRemoveAppointmentAsync*(_: typedesc[AppointmentManager],
 proc showTimeFrameAsync*(_: typedesc[AppointmentManager], timeToShow: DateTime,
                          duration: TimeSpan): Future[void] =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics.ShowTimeFrameAsync
-  let it = statics[IAppointmentManagerStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStaticsVtbl](className(AppointmentManager))
   var op: pointer
   check it.vtbl.ShowTimeFrameAsync(it.raw, timeToShow, duration, op.addr
                                   ), "AppointmentManager.showTimeFrameAsync"
@@ -5008,7 +5008,7 @@ proc showTimeFrameAsync*(_: typedesc[AppointmentManager], timeToShow: DateTime,
 proc getForUser*(_: typedesc[AppointmentManager], user: User
                 ): AppointmentManagerForUser =
   ## Windows.ApplicationModel.Appointments.IAppointmentManagerStatics3.GetForUser
-  let it = statics[IAppointmentManagerStatics3Vtbl]("Windows.ApplicationModel.Appointments.AppointmentManager")
+  let it = statics[IAppointmentManagerStatics3Vtbl](className(AppointmentManager))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -5191,21 +5191,21 @@ proc newAppointmentOrganizer*(): AppointmentOrganizer =
 
 proc subject*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_Subject
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_Subject(it.raw, ret.addr), "AppointmentProperties.subject"
   takeString(ret)
 
 proc location*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_Location
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_Location(it.raw, ret.addr), "AppointmentProperties.location"
   takeString(ret)
 
 proc startTime*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_StartTime
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_StartTime(it.raw, ret.addr
                              ), "AppointmentProperties.startTime"
@@ -5213,21 +5213,21 @@ proc startTime*(_: typedesc[AppointmentProperties]): string =
 
 proc duration*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_Duration
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_Duration(it.raw, ret.addr), "AppointmentProperties.duration"
   takeString(ret)
 
 proc reminder*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_Reminder
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_Reminder(it.raw, ret.addr), "AppointmentProperties.reminder"
   takeString(ret)
 
 proc busyStatus*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_BusyStatus
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_BusyStatus(it.raw, ret.addr
                               ), "AppointmentProperties.busyStatus"
@@ -5235,7 +5235,7 @@ proc busyStatus*(_: typedesc[AppointmentProperties]): string =
 
 proc sensitivity*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_Sensitivity
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_Sensitivity(it.raw, ret.addr
                                ), "AppointmentProperties.sensitivity"
@@ -5243,7 +5243,7 @@ proc sensitivity*(_: typedesc[AppointmentProperties]): string =
 
 proc originalStartTime*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_OriginalStartTime
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_OriginalStartTime(it.raw, ret.addr
                                      ), "AppointmentProperties.originalStartTime"
@@ -5251,7 +5251,7 @@ proc originalStartTime*(_: typedesc[AppointmentProperties]): string =
 
 proc isResponseRequested*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_IsResponseRequested
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_IsResponseRequested(it.raw, ret.addr
                                        ), "AppointmentProperties.isResponseRequested"
@@ -5259,7 +5259,7 @@ proc isResponseRequested*(_: typedesc[AppointmentProperties]): string =
 
 proc allowNewTimeProposal*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_AllowNewTimeProposal
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_AllowNewTimeProposal(it.raw, ret.addr
                                         ), "AppointmentProperties.allowNewTimeProposal"
@@ -5267,21 +5267,21 @@ proc allowNewTimeProposal*(_: typedesc[AppointmentProperties]): string =
 
 proc allDay*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_AllDay
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_AllDay(it.raw, ret.addr), "AppointmentProperties.allDay"
   takeString(ret)
 
 proc details*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_Details
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_Details(it.raw, ret.addr), "AppointmentProperties.details"
   takeString(ret)
 
 proc onlineMeetingLink*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_OnlineMeetingLink
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_OnlineMeetingLink(it.raw, ret.addr
                                      ), "AppointmentProperties.onlineMeetingLink"
@@ -5289,7 +5289,7 @@ proc onlineMeetingLink*(_: typedesc[AppointmentProperties]): string =
 
 proc replyTime*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_ReplyTime
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_ReplyTime(it.raw, ret.addr
                              ), "AppointmentProperties.replyTime"
@@ -5297,7 +5297,7 @@ proc replyTime*(_: typedesc[AppointmentProperties]): string =
 
 proc organizer*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_Organizer
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_Organizer(it.raw, ret.addr
                              ), "AppointmentProperties.organizer"
@@ -5305,7 +5305,7 @@ proc organizer*(_: typedesc[AppointmentProperties]): string =
 
 proc userResponse*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_UserResponse
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_UserResponse(it.raw, ret.addr
                                 ), "AppointmentProperties.userResponse"
@@ -5313,7 +5313,7 @@ proc userResponse*(_: typedesc[AppointmentProperties]): string =
 
 proc hasInvitees*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_HasInvitees
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_HasInvitees(it.raw, ret.addr
                                ), "AppointmentProperties.hasInvitees"
@@ -5321,7 +5321,7 @@ proc hasInvitees*(_: typedesc[AppointmentProperties]): string =
 
 proc isCanceledMeeting*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_IsCanceledMeeting
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_IsCanceledMeeting(it.raw, ret.addr
                                      ), "AppointmentProperties.isCanceledMeeting"
@@ -5329,7 +5329,7 @@ proc isCanceledMeeting*(_: typedesc[AppointmentProperties]): string =
 
 proc isOrganizedByUser*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_IsOrganizedByUser
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_IsOrganizedByUser(it.raw, ret.addr
                                      ), "AppointmentProperties.isOrganizedByUser"
@@ -5337,7 +5337,7 @@ proc isOrganizedByUser*(_: typedesc[AppointmentProperties]): string =
 
 proc recurrence*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_Recurrence
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_Recurrence(it.raw, ret.addr
                               ), "AppointmentProperties.recurrence"
@@ -5345,21 +5345,21 @@ proc recurrence*(_: typedesc[AppointmentProperties]): string =
 
 proc uri*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_Uri
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_Uri(it.raw, ret.addr), "AppointmentProperties.uri"
   takeString(ret)
 
 proc invitees*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_Invitees
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_Invitees(it.raw, ret.addr), "AppointmentProperties.invitees"
   takeString(ret)
 
 proc defaultProperties*(_: typedesc[AppointmentProperties]): seq[string] =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics.get_DefaultProperties
-  let it = statics[IAppointmentPropertiesStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStaticsVtbl](className(AppointmentProperties))
   var ret: pointer
   check it.vtbl.get_DefaultProperties(it.raw, ret.addr
                                      ), "AppointmentProperties.defaultProperties"
@@ -5367,7 +5367,7 @@ proc defaultProperties*(_: typedesc[AppointmentProperties]): seq[string] =
 
 proc changeNumber*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics2.get_ChangeNumber
-  let it = statics[IAppointmentPropertiesStatics2Vtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStatics2Vtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_ChangeNumber(it.raw, ret.addr
                                 ), "AppointmentProperties.changeNumber"
@@ -5375,7 +5375,7 @@ proc changeNumber*(_: typedesc[AppointmentProperties]): string =
 
 proc remoteChangeNumber*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics2.get_RemoteChangeNumber
-  let it = statics[IAppointmentPropertiesStatics2Vtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStatics2Vtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_RemoteChangeNumber(it.raw, ret.addr
                                       ), "AppointmentProperties.remoteChangeNumber"
@@ -5383,7 +5383,7 @@ proc remoteChangeNumber*(_: typedesc[AppointmentProperties]): string =
 
 proc detailsKind*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics2.get_DetailsKind
-  let it = statics[IAppointmentPropertiesStatics2Vtbl]("Windows.ApplicationModel.Appointments.AppointmentProperties")
+  let it = statics[IAppointmentPropertiesStatics2Vtbl](className(AppointmentProperties))
   var ret: HSTRING
   check it.vtbl.get_DetailsKind(it.raw, ret.addr
                                ), "AppointmentProperties.detailsKind"
@@ -5908,7 +5908,7 @@ proc newAppointmentStoreNotificationTrigger*(): AppointmentStoreNotificationTrig
 
 proc showAppointmentDetails*(_: typedesc[AppointmentsProviderLaunchActionVerbs]): string =
   ## Windows.ApplicationModel.Appointments.AppointmentsProvider.IAppointmentsProviderLaunchActionVerbsStatics2.get_ShowAppointmentDetails
-  let it = statics[IAppointmentsProviderLaunchActionVerbsStatics2Vtbl]("Windows.ApplicationModel.Appointments.AppointmentsProvider.AppointmentsProviderLaunchActionVerbs")
+  let it = statics[IAppointmentsProviderLaunchActionVerbsStatics2Vtbl](className(AppointmentsProviderLaunchActionVerbs))
   var ret: HSTRING
   check it.vtbl.get_ShowAppointmentDetails(it.raw, ret.addr
                                           ), "AppointmentsProviderLaunchActionVerbs.showAppointmentDetails"
@@ -5916,7 +5916,7 @@ proc showAppointmentDetails*(_: typedesc[AppointmentsProviderLaunchActionVerbs])
 
 proc addAppointment*(_: typedesc[AppointmentsProviderLaunchActionVerbs]): string =
   ## Windows.ApplicationModel.Appointments.AppointmentsProvider.IAppointmentsProviderLaunchActionVerbsStatics.get_AddAppointment
-  let it = statics[IAppointmentsProviderLaunchActionVerbsStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentsProvider.AppointmentsProviderLaunchActionVerbs")
+  let it = statics[IAppointmentsProviderLaunchActionVerbsStaticsVtbl](className(AppointmentsProviderLaunchActionVerbs))
   var ret: HSTRING
   check it.vtbl.get_AddAppointment(it.raw, ret.addr
                                   ), "AppointmentsProviderLaunchActionVerbs.addAppointment"
@@ -5924,7 +5924,7 @@ proc addAppointment*(_: typedesc[AppointmentsProviderLaunchActionVerbs]): string
 
 proc replaceAppointment*(_: typedesc[AppointmentsProviderLaunchActionVerbs]): string =
   ## Windows.ApplicationModel.Appointments.AppointmentsProvider.IAppointmentsProviderLaunchActionVerbsStatics.get_ReplaceAppointment
-  let it = statics[IAppointmentsProviderLaunchActionVerbsStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentsProvider.AppointmentsProviderLaunchActionVerbs")
+  let it = statics[IAppointmentsProviderLaunchActionVerbsStaticsVtbl](className(AppointmentsProviderLaunchActionVerbs))
   var ret: HSTRING
   check it.vtbl.get_ReplaceAppointment(it.raw, ret.addr
                                       ), "AppointmentsProviderLaunchActionVerbs.replaceAppointment"
@@ -5932,7 +5932,7 @@ proc replaceAppointment*(_: typedesc[AppointmentsProviderLaunchActionVerbs]): st
 
 proc removeAppointment*(_: typedesc[AppointmentsProviderLaunchActionVerbs]): string =
   ## Windows.ApplicationModel.Appointments.AppointmentsProvider.IAppointmentsProviderLaunchActionVerbsStatics.get_RemoveAppointment
-  let it = statics[IAppointmentsProviderLaunchActionVerbsStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentsProvider.AppointmentsProviderLaunchActionVerbs")
+  let it = statics[IAppointmentsProviderLaunchActionVerbsStaticsVtbl](className(AppointmentsProviderLaunchActionVerbs))
   var ret: HSTRING
   check it.vtbl.get_RemoveAppointment(it.raw, ret.addr
                                      ), "AppointmentsProviderLaunchActionVerbs.removeAppointment"
@@ -5940,7 +5940,7 @@ proc removeAppointment*(_: typedesc[AppointmentsProviderLaunchActionVerbs]): str
 
 proc showTimeFrame*(_: typedesc[AppointmentsProviderLaunchActionVerbs]): string =
   ## Windows.ApplicationModel.Appointments.AppointmentsProvider.IAppointmentsProviderLaunchActionVerbsStatics.get_ShowTimeFrame
-  let it = statics[IAppointmentsProviderLaunchActionVerbsStaticsVtbl]("Windows.ApplicationModel.Appointments.AppointmentsProvider.AppointmentsProviderLaunchActionVerbs")
+  let it = statics[IAppointmentsProviderLaunchActionVerbsStaticsVtbl](className(AppointmentsProviderLaunchActionVerbs))
   var ret: HSTRING
   check it.vtbl.get_ShowTimeFrame(it.raw, ret.addr
                                  ), "AppointmentsProviderLaunchActionVerbs.showTimeFrame"
@@ -5952,7 +5952,7 @@ proc requestAccessKindAsync*(_: typedesc[BackgroundExecutionManager],
                              requestedAccess: BackgroundAccessRequestKind,
                              reason: string): Future[bool] =
   ## Windows.ApplicationModel.Background.IBackgroundExecutionManagerStatics2.RequestAccessKindAsync
-  let it = statics[IBackgroundExecutionManagerStatics2Vtbl]("Windows.ApplicationModel.Background.BackgroundExecutionManager")
+  let it = statics[IBackgroundExecutionManagerStatics2Vtbl](className(BackgroundExecutionManager))
   let a1 = toWinRtString(reason)
   var op: pointer
   check it.vtbl.RequestAccessKindAsync(it.raw, requestedAccess, a1.handle,
@@ -5962,7 +5962,7 @@ proc requestAccessKindAsync*(_: typedesc[BackgroundExecutionManager],
 
 proc requestAccessAsync*(_: typedesc[BackgroundExecutionManager]): Future[BackgroundAccessStatus] =
   ## Windows.ApplicationModel.Background.IBackgroundExecutionManagerStatics.RequestAccessAsync
-  let it = statics[IBackgroundExecutionManagerStaticsVtbl]("Windows.ApplicationModel.Background.BackgroundExecutionManager")
+  let it = statics[IBackgroundExecutionManagerStaticsVtbl](className(BackgroundExecutionManager))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "BackgroundExecutionManager.requestAccessAsync"
@@ -5972,7 +5972,7 @@ proc requestAccessAsync*(_: typedesc[BackgroundExecutionManager],
                          applicationId: string
                         ): Future[BackgroundAccessStatus] =
   ## Windows.ApplicationModel.Background.IBackgroundExecutionManagerStatics.RequestAccessAsync
-  let it = statics[IBackgroundExecutionManagerStaticsVtbl]("Windows.ApplicationModel.Background.BackgroundExecutionManager")
+  let it = statics[IBackgroundExecutionManagerStaticsVtbl](className(BackgroundExecutionManager))
   let a0 = toWinRtString(applicationId)
   var op: pointer
   check it.vtbl.RequestAccessAsync2(it.raw, a0.handle, op.addr
@@ -5981,20 +5981,20 @@ proc requestAccessAsync*(_: typedesc[BackgroundExecutionManager],
 
 proc removeAccess*(_: typedesc[BackgroundExecutionManager]) =
   ## Windows.ApplicationModel.Background.IBackgroundExecutionManagerStatics.RemoveAccess
-  let it = statics[IBackgroundExecutionManagerStaticsVtbl]("Windows.ApplicationModel.Background.BackgroundExecutionManager")
+  let it = statics[IBackgroundExecutionManagerStaticsVtbl](className(BackgroundExecutionManager))
   check it.vtbl.RemoveAccess(it.raw), "BackgroundExecutionManager.removeAccess"
 
 proc removeAccess*(_: typedesc[BackgroundExecutionManager],
                    applicationId: string) =
   ## Windows.ApplicationModel.Background.IBackgroundExecutionManagerStatics.RemoveAccess
-  let it = statics[IBackgroundExecutionManagerStaticsVtbl]("Windows.ApplicationModel.Background.BackgroundExecutionManager")
+  let it = statics[IBackgroundExecutionManagerStaticsVtbl](className(BackgroundExecutionManager))
   let a0 = toWinRtString(applicationId)
   check it.vtbl.RemoveAccess2(it.raw, a0.handle
                              ), "BackgroundExecutionManager.removeAccess"
 
 proc getAccessStatus*(_: typedesc[BackgroundExecutionManager]): BackgroundAccessStatus =
   ## Windows.ApplicationModel.Background.IBackgroundExecutionManagerStatics.GetAccessStatus
-  let it = statics[IBackgroundExecutionManagerStaticsVtbl]("Windows.ApplicationModel.Background.BackgroundExecutionManager")
+  let it = statics[IBackgroundExecutionManagerStaticsVtbl](className(BackgroundExecutionManager))
   var ret: BackgroundAccessStatus
   check it.vtbl.GetAccessStatus(it.raw, ret.addr
                                ), "BackgroundExecutionManager.getAccessStatus"
@@ -6003,7 +6003,7 @@ proc getAccessStatus*(_: typedesc[BackgroundExecutionManager]): BackgroundAccess
 proc getAccessStatus*(_: typedesc[BackgroundExecutionManager],
                       applicationId: string): BackgroundAccessStatus =
   ## Windows.ApplicationModel.Background.IBackgroundExecutionManagerStatics.GetAccessStatus
-  let it = statics[IBackgroundExecutionManagerStaticsVtbl]("Windows.ApplicationModel.Background.BackgroundExecutionManager")
+  let it = statics[IBackgroundExecutionManagerStaticsVtbl](className(BackgroundExecutionManager))
   let a0 = toWinRtString(applicationId)
   var ret: BackgroundAccessStatus
   check it.vtbl.GetAccessStatus2(it.raw, a0.handle, ret.addr
@@ -6014,7 +6014,7 @@ proc requestAccessKindForModernStandbyAsync*(_: typedesc[BackgroundExecutionMana
                                              requestedAccess: BackgroundAccessRequestKind,
                                              reason: string): Future[bool] =
   ## Windows.ApplicationModel.Background.IBackgroundExecutionManagerStatics3.RequestAccessKindForModernStandbyAsync
-  let it = statics[IBackgroundExecutionManagerStatics3Vtbl]("Windows.ApplicationModel.Background.BackgroundExecutionManager")
+  let it = statics[IBackgroundExecutionManagerStatics3Vtbl](className(BackgroundExecutionManager))
   let a1 = toWinRtString(reason)
   var op: pointer
   check it.vtbl.RequestAccessKindForModernStandbyAsync(it.raw, requestedAccess,
@@ -6024,7 +6024,7 @@ proc requestAccessKindForModernStandbyAsync*(_: typedesc[BackgroundExecutionMana
 
 proc getAccessStatusForModernStandby*(_: typedesc[BackgroundExecutionManager]): BackgroundAccessStatus =
   ## Windows.ApplicationModel.Background.IBackgroundExecutionManagerStatics3.GetAccessStatusForModernStandby
-  let it = statics[IBackgroundExecutionManagerStatics3Vtbl]("Windows.ApplicationModel.Background.BackgroundExecutionManager")
+  let it = statics[IBackgroundExecutionManagerStatics3Vtbl](className(BackgroundExecutionManager))
   var ret: BackgroundAccessStatus
   check it.vtbl.GetAccessStatusForModernStandby(it.raw, ret.addr
                                                ), "BackgroundExecutionManager.getAccessStatusForModernStandby"
@@ -6034,7 +6034,7 @@ proc getAccessStatusForModernStandby*(_: typedesc[BackgroundExecutionManager],
                                       applicationId: string
                                      ): BackgroundAccessStatus =
   ## Windows.ApplicationModel.Background.IBackgroundExecutionManagerStatics3.GetAccessStatusForModernStandby
-  let it = statics[IBackgroundExecutionManagerStatics3Vtbl]("Windows.ApplicationModel.Background.BackgroundExecutionManager")
+  let it = statics[IBackgroundExecutionManagerStatics3Vtbl](className(BackgroundExecutionManager))
   let a0 = toWinRtString(applicationId)
   var ret: BackgroundAccessStatus
   check it.vtbl.GetAccessStatusForModernStandby2(it.raw, a0.handle, ret.addr
@@ -6049,7 +6049,7 @@ proc newBackgroundTaskBuilder*(): BackgroundTaskBuilder =
 
 proc isRunningTaskInStandbySupported*(_: typedesc[BackgroundTaskBuilder]): bool =
   ## Windows.ApplicationModel.Background.IBackgroundTaskBuilderStatics.get_IsRunningTaskInStandbySupported
-  let it = statics[IBackgroundTaskBuilderStaticsVtbl]("Windows.ApplicationModel.Background.BackgroundTaskBuilder")
+  let it = statics[IBackgroundTaskBuilderStaticsVtbl](className(BackgroundTaskBuilder))
   var ret: bool
   check it.vtbl.get_IsRunningTaskInStandbySupported(it.raw, ret.addr
                                                    ), "BackgroundTaskBuilder.isRunningTaskInStandbySupported"
@@ -6229,7 +6229,7 @@ proc progress*(self: BackgroundTaskProgressEventArgs): uint32 =
 
 proc allTaskGroups*(_: typedesc[BackgroundTaskRegistration]): Table[string, BackgroundTaskRegistrationGroup] =
   ## Windows.ApplicationModel.Background.IBackgroundTaskRegistrationStatics2.get_AllTaskGroups
-  let it = statics[IBackgroundTaskRegistrationStatics2Vtbl]("Windows.ApplicationModel.Background.BackgroundTaskRegistration")
+  let it = statics[IBackgroundTaskRegistrationStatics2Vtbl](className(BackgroundTaskRegistration))
   var ret: pointer
   check it.vtbl.get_AllTaskGroups(it.raw, ret.addr
                                  ), "BackgroundTaskRegistration.allTaskGroups"
@@ -6238,7 +6238,7 @@ proc allTaskGroups*(_: typedesc[BackgroundTaskRegistration]): Table[string, Back
 proc getTaskGroup*(_: typedesc[BackgroundTaskRegistration], groupId: string
                   ): BackgroundTaskRegistrationGroup =
   ## Windows.ApplicationModel.Background.IBackgroundTaskRegistrationStatics2.GetTaskGroup
-  let it = statics[IBackgroundTaskRegistrationStatics2Vtbl]("Windows.ApplicationModel.Background.BackgroundTaskRegistration")
+  let it = statics[IBackgroundTaskRegistrationStatics2Vtbl](className(BackgroundTaskRegistration))
   let a0 = toWinRtString(groupId)
   var ret: pointer
   check it.vtbl.GetTaskGroup(it.raw, a0.handle, ret.addr
@@ -6247,7 +6247,7 @@ proc getTaskGroup*(_: typedesc[BackgroundTaskRegistration], groupId: string
 
 proc allTasks*(_: typedesc[BackgroundTaskRegistration]): Table[GUID, IBackgroundTaskRegistration] =
   ## Windows.ApplicationModel.Background.IBackgroundTaskRegistrationStatics.get_AllTasks
-  let it = statics[IBackgroundTaskRegistrationStaticsVtbl]("Windows.ApplicationModel.Background.BackgroundTaskRegistration")
+  let it = statics[IBackgroundTaskRegistrationStaticsVtbl](className(BackgroundTaskRegistration))
   var ret: pointer
   check it.vtbl.get_AllTasks(it.raw, ret.addr
                             ), "BackgroundTaskRegistration.allTasks"
@@ -6273,7 +6273,7 @@ proc appEnergyUsePredictionContribution*(self: BackgroundTaskRegistration): floa
 
 proc newBackgroundTaskRegistrationGroup*(id: string): BackgroundTaskRegistrationGroup =
   ## Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroupFactory.Create
-  let it = statics[IBackgroundTaskRegistrationGroupFactoryVtbl]("Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup")
+  let it = statics[IBackgroundTaskRegistrationGroupFactoryVtbl](className(BackgroundTaskRegistrationGroup))
   let a0 = toWinRtString(id)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -6283,7 +6283,7 @@ proc newBackgroundTaskRegistrationGroup*(id: string): BackgroundTaskRegistration
 proc newBackgroundTaskRegistrationGroup*(id: string, name: string
                                         ): BackgroundTaskRegistrationGroup =
   ## Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroupFactory.CreateWithName
-  let it = statics[IBackgroundTaskRegistrationGroupFactoryVtbl]("Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup")
+  let it = statics[IBackgroundTaskRegistrationGroupFactoryVtbl](className(BackgroundTaskRegistrationGroup))
   let a0 = toWinRtString(id)
   let a1 = toWinRtString(name)
   var ret: pointer
@@ -6339,7 +6339,7 @@ proc allTasks*(self: BackgroundTaskRegistrationGroup): Table[GUID, BackgroundTas
 
 proc appEnergyUseLevel*(_: typedesc[BackgroundWorkCost]): EnergyUseLevel =
   ## Windows.ApplicationModel.Background.IBackgroundWorkCostStatics2.get_AppEnergyUseLevel
-  let it = statics[IBackgroundWorkCostStatics2Vtbl]("Windows.ApplicationModel.Background.BackgroundWorkCost")
+  let it = statics[IBackgroundWorkCostStatics2Vtbl](className(BackgroundWorkCost))
   var ret: EnergyUseLevel
   check it.vtbl.get_AppEnergyUseLevel(it.raw, ret.addr
                                      ), "BackgroundWorkCost.appEnergyUseLevel"
@@ -6347,7 +6347,7 @@ proc appEnergyUseLevel*(_: typedesc[BackgroundWorkCost]): EnergyUseLevel =
 
 proc appEnergyUsePrediction*(_: typedesc[BackgroundWorkCost]): EnergyUseLevel =
   ## Windows.ApplicationModel.Background.IBackgroundWorkCostStatics2.get_AppEnergyUsePrediction
-  let it = statics[IBackgroundWorkCostStatics2Vtbl]("Windows.ApplicationModel.Background.BackgroundWorkCost")
+  let it = statics[IBackgroundWorkCostStatics2Vtbl](className(BackgroundWorkCost))
   var ret: EnergyUseLevel
   check it.vtbl.get_AppEnergyUsePrediction(it.raw, ret.addr
                                           ), "BackgroundWorkCost.appEnergyUsePrediction"
@@ -6355,7 +6355,7 @@ proc appEnergyUsePrediction*(_: typedesc[BackgroundWorkCost]): EnergyUseLevel =
 
 proc appLastThrottledInStandbyTimestamp*(_: typedesc[BackgroundWorkCost]): DateTime =
   ## Windows.ApplicationModel.Background.IBackgroundWorkCostStatics2.get_AppLastThrottledInStandbyTimestamp
-  let it = statics[IBackgroundWorkCostStatics2Vtbl]("Windows.ApplicationModel.Background.BackgroundWorkCost")
+  let it = statics[IBackgroundWorkCostStatics2Vtbl](className(BackgroundWorkCost))
   var ret: DateTime
   check it.vtbl.get_AppLastThrottledInStandbyTimestamp(it.raw, ret.addr
                                                       ), "BackgroundWorkCost.appLastThrottledInStandbyTimestamp"
@@ -6363,7 +6363,7 @@ proc appLastThrottledInStandbyTimestamp*(_: typedesc[BackgroundWorkCost]): DateT
 
 proc currentBackgroundWorkCost*(_: typedesc[BackgroundWorkCost]): BackgroundWorkCostValue =
   ## Windows.ApplicationModel.Background.IBackgroundWorkCostStatics.get_CurrentBackgroundWorkCost
-  let it = statics[IBackgroundWorkCostStaticsVtbl]("Windows.ApplicationModel.Background.BackgroundWorkCost")
+  let it = statics[IBackgroundWorkCostStaticsVtbl](className(BackgroundWorkCost))
   var ret: BackgroundWorkCostValue
   check it.vtbl.get_CurrentBackgroundWorkCost(it.raw, ret.addr
                                              ), "BackgroundWorkCost.currentBackgroundWorkCost"
@@ -6721,7 +6721,7 @@ proc getCachedCapabilitiesAsync*(_: typedesc[ChatCapabilitiesManager],
                                  address: string, transportId: string
                                 ): Future[ChatCapabilities] =
   ## Windows.ApplicationModel.Chat.IChatCapabilitiesManagerStatics2.GetCachedCapabilitiesAsync
-  let it = statics[IChatCapabilitiesManagerStatics2Vtbl]("Windows.ApplicationModel.Chat.ChatCapabilitiesManager")
+  let it = statics[IChatCapabilitiesManagerStatics2Vtbl](className(ChatCapabilitiesManager))
   let a0 = toWinRtString(address)
   let a1 = toWinRtString(transportId)
   var op: pointer
@@ -6733,7 +6733,7 @@ proc getCapabilitiesFromNetworkAsync*(_: typedesc[ChatCapabilitiesManager],
                                       address: string, transportId: string
                                      ): Future[ChatCapabilities] =
   ## Windows.ApplicationModel.Chat.IChatCapabilitiesManagerStatics2.GetCapabilitiesFromNetworkAsync
-  let it = statics[IChatCapabilitiesManagerStatics2Vtbl]("Windows.ApplicationModel.Chat.ChatCapabilitiesManager")
+  let it = statics[IChatCapabilitiesManagerStatics2Vtbl](className(ChatCapabilitiesManager))
   let a0 = toWinRtString(address)
   let a1 = toWinRtString(transportId)
   var op: pointer
@@ -6745,7 +6745,7 @@ proc getCapabilitiesFromNetworkAsync*(_: typedesc[ChatCapabilitiesManager],
 proc getCachedCapabilitiesAsync*(_: typedesc[ChatCapabilitiesManager],
                                  address: string): Future[ChatCapabilities] =
   ## Windows.ApplicationModel.Chat.IChatCapabilitiesManagerStatics.GetCachedCapabilitiesAsync
-  let it = statics[IChatCapabilitiesManagerStaticsVtbl]("Windows.ApplicationModel.Chat.ChatCapabilitiesManager")
+  let it = statics[IChatCapabilitiesManagerStaticsVtbl](className(ChatCapabilitiesManager))
   let a0 = toWinRtString(address)
   var op: pointer
   check it.vtbl.GetCachedCapabilitiesAsync(it.raw, a0.handle, op.addr
@@ -6756,7 +6756,7 @@ proc getCapabilitiesFromNetworkAsync*(_: typedesc[ChatCapabilitiesManager],
                                       address: string
                                      ): Future[ChatCapabilities] =
   ## Windows.ApplicationModel.Chat.IChatCapabilitiesManagerStatics.GetCapabilitiesFromNetworkAsync
-  let it = statics[IChatCapabilitiesManagerStaticsVtbl]("Windows.ApplicationModel.Chat.ChatCapabilitiesManager")
+  let it = statics[IChatCapabilitiesManagerStaticsVtbl](className(ChatCapabilitiesManager))
   let a0 = toWinRtString(address)
   var op: pointer
   check it.vtbl.GetCapabilitiesFromNetworkAsync(it.raw, a0.handle, op.addr
@@ -7357,7 +7357,7 @@ proc newChatMessageAttachment*(mimeType: string,
                                dataStreamReference: SomeRandomAccessStreamReference
                               ): ChatMessageAttachment =
   ## Windows.ApplicationModel.Chat.IChatMessageAttachmentFactory.CreateChatMessageAttachment
-  let it = statics[IChatMessageAttachmentFactoryVtbl]("Windows.ApplicationModel.Chat.ChatMessageAttachment")
+  let it = statics[IChatMessageAttachmentFactoryVtbl](className(ChatMessageAttachment))
   let a0 = toWinRtString(mimeType)
   let a1 = queryInterface[IRandomAccessStreamReferenceVtbl](dataStreamReference)
   var ret: pointer
@@ -7470,7 +7470,7 @@ proc markMessageAsBlockedAsync*(_: typedesc[ChatMessageBlocking],
                                 localChatMessageId: string, blocked: bool
                                ): Future[void] =
   ## Windows.ApplicationModel.Chat.IChatMessageBlockingStatic.MarkMessageAsBlockedAsync
-  let it = statics[IChatMessageBlockingStaticVtbl]("Windows.ApplicationModel.Chat.ChatMessageBlocking")
+  let it = statics[IChatMessageBlockingStaticVtbl](className(ChatMessageBlocking))
   let a0 = toWinRtString(localChatMessageId)
   var op: pointer
   check it.vtbl.MarkMessageAsBlockedAsync(it.raw, a0.handle, blocked, op.addr
@@ -7558,7 +7558,7 @@ proc getDeferral*(self: ChatMessageChangedEventArgs): ChatMessageChangedDeferral
 
 proc getTransportsAsync*(_: typedesc[ChatMessageManager]): Future[seq[ChatMessageTransport]] =
   ## Windows.ApplicationModel.Chat.IChatMessageManagerStatic.GetTransportsAsync
-  let it = statics[IChatMessageManagerStaticVtbl]("Windows.ApplicationModel.Chat.ChatMessageManager")
+  let it = statics[IChatMessageManagerStaticVtbl](className(ChatMessageManager))
   var op: pointer
   check it.vtbl.GetTransportsAsync(it.raw, op.addr
                                   ), "ChatMessageManager.getTransportsAsync"
@@ -7567,7 +7567,7 @@ proc getTransportsAsync*(_: typedesc[ChatMessageManager]): Future[seq[ChatMessag
 
 proc requestStoreAsync*(_: typedesc[ChatMessageManager]): Future[ChatMessageStore] =
   ## Windows.ApplicationModel.Chat.IChatMessageManagerStatic.RequestStoreAsync
-  let it = statics[IChatMessageManagerStaticVtbl]("Windows.ApplicationModel.Chat.ChatMessageManager")
+  let it = statics[IChatMessageManagerStaticVtbl](className(ChatMessageManager))
   var op: pointer
   check it.vtbl.RequestStoreAsync(it.raw, op.addr
                                  ), "ChatMessageManager.requestStoreAsync"
@@ -7576,7 +7576,7 @@ proc requestStoreAsync*(_: typedesc[ChatMessageManager]): Future[ChatMessageStor
 proc showComposeSmsMessageAsync*(_: typedesc[ChatMessageManager],
                                  message: ChatMessage): Future[void] =
   ## Windows.ApplicationModel.Chat.IChatMessageManagerStatic.ShowComposeSmsMessageAsync
-  let it = statics[IChatMessageManagerStaticVtbl]("Windows.ApplicationModel.Chat.ChatMessageManager")
+  let it = statics[IChatMessageManagerStaticVtbl](className(ChatMessageManager))
   let a0 = queryInterface[IChatMessageVtbl](message)
   var op: pointer
   check it.vtbl.ShowComposeSmsMessageAsync(it.raw, a0.raw, op.addr
@@ -7585,12 +7585,12 @@ proc showComposeSmsMessageAsync*(_: typedesc[ChatMessageManager],
 
 proc showSmsSettings*(_: typedesc[ChatMessageManager]) =
   ## Windows.ApplicationModel.Chat.IChatMessageManagerStatic.ShowSmsSettings
-  let it = statics[IChatMessageManagerStaticVtbl]("Windows.ApplicationModel.Chat.ChatMessageManager")
+  let it = statics[IChatMessageManagerStaticVtbl](className(ChatMessageManager))
   check it.vtbl.ShowSmsSettings(it.raw), "ChatMessageManager.showSmsSettings"
 
 proc requestSyncManagerAsync*(_: typedesc[ChatMessageManager]): Future[ChatSyncManager] =
   ## Windows.ApplicationModel.Chat.IChatMessageManagerStatics3.RequestSyncManagerAsync
-  let it = statics[IChatMessageManagerStatics3Vtbl]("Windows.ApplicationModel.Chat.ChatMessageManager")
+  let it = statics[IChatMessageManagerStatics3Vtbl](className(ChatMessageManager))
   var op: pointer
   check it.vtbl.RequestSyncManagerAsync(it.raw, op.addr
                                        ), "ChatMessageManager.requestSyncManagerAsync"
@@ -7598,7 +7598,7 @@ proc requestSyncManagerAsync*(_: typedesc[ChatMessageManager]): Future[ChatSyncM
 
 proc registerTransportAsync*(_: typedesc[ChatMessageManager]): Future[string] =
   ## Windows.ApplicationModel.Chat.IChatMessageManager2Statics.RegisterTransportAsync
-  let it = statics[IChatMessageManager2StaticsVtbl]("Windows.ApplicationModel.Chat.ChatMessageManager")
+  let it = statics[IChatMessageManager2StaticsVtbl](className(ChatMessageManager))
   var op: pointer
   check it.vtbl.RegisterTransportAsync(it.raw, op.addr
                                       ), "ChatMessageManager.registerTransportAsync"
@@ -7607,7 +7607,7 @@ proc registerTransportAsync*(_: typedesc[ChatMessageManager]): Future[string] =
 proc getTransportAsync*(_: typedesc[ChatMessageManager], transportId: string
                        ): Future[ChatMessageTransport] =
   ## Windows.ApplicationModel.Chat.IChatMessageManager2Statics.GetTransportAsync
-  let it = statics[IChatMessageManager2StaticsVtbl]("Windows.ApplicationModel.Chat.ChatMessageManager")
+  let it = statics[IChatMessageManager2StaticsVtbl](className(ChatMessageManager))
   let a0 = toWinRtString(transportId)
   var op: pointer
   check it.vtbl.GetTransportAsync(it.raw, a0.handle, op.addr
@@ -8354,7 +8354,7 @@ proc setConfigurationAsync*(self: ChatSyncManager,
 
 proc getHistoryItemsAsync*(_: typedesc[Clipboard]): Future[ClipboardHistoryItemsResult] =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics2.GetHistoryItemsAsync
-  let it = statics[IClipboardStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStatics2Vtbl](className(Clipboard))
   var op: pointer
   check it.vtbl.GetHistoryItemsAsync(it.raw, op.addr
                                     ), "Clipboard.getHistoryItemsAsync"
@@ -8363,7 +8363,7 @@ proc getHistoryItemsAsync*(_: typedesc[Clipboard]): Future[ClipboardHistoryItems
 
 proc clearHistory*(_: typedesc[Clipboard]): bool =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics2.ClearHistory
-  let it = statics[IClipboardStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStatics2Vtbl](className(Clipboard))
   var ret: bool
   check it.vtbl.ClearHistory(it.raw, ret.addr), "Clipboard.clearHistory"
   ret
@@ -8371,7 +8371,7 @@ proc clearHistory*(_: typedesc[Clipboard]): bool =
 proc deleteItemFromHistory*(_: typedesc[Clipboard], item: ClipboardHistoryItem
                            ): bool =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics2.DeleteItemFromHistory
-  let it = statics[IClipboardStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStatics2Vtbl](className(Clipboard))
   let a0 = queryInterface[IClipboardHistoryItemVtbl](item)
   var ret: bool
   check it.vtbl.DeleteItemFromHistory(it.raw, a0.raw, ret.addr
@@ -8381,7 +8381,7 @@ proc deleteItemFromHistory*(_: typedesc[Clipboard], item: ClipboardHistoryItem
 proc setHistoryItemAsContent*(_: typedesc[Clipboard], item: ClipboardHistoryItem
                              ): SetHistoryItemAsContentStatus =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics2.SetHistoryItemAsContent
-  let it = statics[IClipboardStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStatics2Vtbl](className(Clipboard))
   let a0 = queryInterface[IClipboardHistoryItemVtbl](item)
   var ret: SetHistoryItemAsContentStatus
   check it.vtbl.SetHistoryItemAsContent(it.raw, a0.raw, ret.addr
@@ -8390,14 +8390,14 @@ proc setHistoryItemAsContent*(_: typedesc[Clipboard], item: ClipboardHistoryItem
 
 proc isHistoryEnabled*(_: typedesc[Clipboard]): bool =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics2.IsHistoryEnabled
-  let it = statics[IClipboardStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStatics2Vtbl](className(Clipboard))
   var ret: bool
   check it.vtbl.IsHistoryEnabled(it.raw, ret.addr), "Clipboard.isHistoryEnabled"
   ret
 
 proc isRoamingEnabled*(_: typedesc[Clipboard]): bool =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics2.IsRoamingEnabled
-  let it = statics[IClipboardStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStatics2Vtbl](className(Clipboard))
   var ret: bool
   check it.vtbl.IsRoamingEnabled(it.raw, ret.addr), "Clipboard.isRoamingEnabled"
   ret
@@ -8405,7 +8405,7 @@ proc isRoamingEnabled*(_: typedesc[Clipboard]): bool =
 proc setContentWithOptions*(_: typedesc[Clipboard], content: DataPackage,
                             options: ClipboardContentOptions): bool =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics2.SetContentWithOptions
-  let it = statics[IClipboardStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStatics2Vtbl](className(Clipboard))
   let a0 = queryInterface[IDataPackageVtbl](content)
   let a1 = queryInterface[IClipboardContentOptionsVtbl](options)
   var ret: bool
@@ -8418,7 +8418,7 @@ proc onHistoryChanged*(_: typedesc[Clipboard],
                       ): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics2.add_HistoryChanged
   ## The token is what `removeHistoryChanged` takes.
-  let it = statics[IClipboardStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStatics2Vtbl](className(Clipboard))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0),
             borrow[ClipboardHistoryChangedEventArgs](a1))
@@ -8430,7 +8430,7 @@ proc onHistoryChanged*(_: typedesc[Clipboard],
 proc removeHistoryChanged*(_: typedesc[Clipboard], token: EventRegistrationToken
                           ) =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics2.remove_HistoryChanged
-  let it = statics[IClipboardStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStatics2Vtbl](className(Clipboard))
   check it.vtbl.remove_HistoryChanged(it.raw, token), "Clipboard.historyChanged"
 
 proc onRoamingEnabledChanged*(_: typedesc[Clipboard],
@@ -8438,7 +8438,7 @@ proc onRoamingEnabledChanged*(_: typedesc[Clipboard],
                              ): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics2.add_RoamingEnabledChanged
   ## The token is what `removeRoamingEnabledChanged` takes.
-  let it = statics[IClipboardStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStatics2Vtbl](className(Clipboard))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -8448,7 +8448,7 @@ proc onRoamingEnabledChanged*(_: typedesc[Clipboard],
 proc removeRoamingEnabledChanged*(_: typedesc[Clipboard],
                                   token: EventRegistrationToken) =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics2.remove_RoamingEnabledChanged
-  let it = statics[IClipboardStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStatics2Vtbl](className(Clipboard))
   check it.vtbl.remove_RoamingEnabledChanged(it.raw, token
                                             ), "Clipboard.roamingEnabledChanged"
 
@@ -8457,7 +8457,7 @@ proc onHistoryEnabledChanged*(_: typedesc[Clipboard],
                              ): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics2.add_HistoryEnabledChanged
   ## The token is what `removeHistoryEnabledChanged` takes.
-  let it = statics[IClipboardStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStatics2Vtbl](className(Clipboard))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -8467,31 +8467,31 @@ proc onHistoryEnabledChanged*(_: typedesc[Clipboard],
 proc removeHistoryEnabledChanged*(_: typedesc[Clipboard],
                                   token: EventRegistrationToken) =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics2.remove_HistoryEnabledChanged
-  let it = statics[IClipboardStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStatics2Vtbl](className(Clipboard))
   check it.vtbl.remove_HistoryEnabledChanged(it.raw, token
                                             ), "Clipboard.historyEnabledChanged"
 
 proc getContent*(_: typedesc[Clipboard]): DataPackageView =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics.GetContent
-  let it = statics[IClipboardStaticsVtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStaticsVtbl](className(Clipboard))
   var ret: pointer
   check it.vtbl.GetContent(it.raw, ret.addr), "Clipboard.getContent"
   adopt[DataPackageView](ret)
 
 proc setContent*(_: typedesc[Clipboard], content: DataPackage) =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics.SetContent
-  let it = statics[IClipboardStaticsVtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStaticsVtbl](className(Clipboard))
   let a0 = queryInterface[IDataPackageVtbl](content)
   check it.vtbl.SetContent(it.raw, a0.raw), "Clipboard.setContent"
 
 proc flush*(_: typedesc[Clipboard]) =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics.Flush
-  let it = statics[IClipboardStaticsVtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStaticsVtbl](className(Clipboard))
   check it.vtbl.Flush(it.raw), "Clipboard.flush"
 
 proc clear*(_: typedesc[Clipboard]) =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics.Clear
-  let it = statics[IClipboardStaticsVtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStaticsVtbl](className(Clipboard))
   check it.vtbl.Clear(it.raw), "Clipboard.clear"
 
 proc onContentChanged*(_: typedesc[Clipboard],
@@ -8499,7 +8499,7 @@ proc onContentChanged*(_: typedesc[Clipboard],
                       ): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics.add_ContentChanged
   ## The token is what `removeContentChanged` takes.
-  let it = statics[IClipboardStaticsVtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStaticsVtbl](className(Clipboard))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -8509,7 +8509,7 @@ proc onContentChanged*(_: typedesc[Clipboard],
 proc removeContentChanged*(_: typedesc[Clipboard], token: EventRegistrationToken
                           ) =
   ## Windows.ApplicationModel.DataTransfer.IClipboardStatics.remove_ContentChanged
-  let it = statics[IClipboardStaticsVtbl]("Windows.ApplicationModel.DataTransfer.Clipboard")
+  let it = statics[IClipboardStaticsVtbl](className(Clipboard))
   check it.vtbl.remove_ContentChanged(it.raw, token), "Clipboard.contentChanged"
 
 # ---- Windows.ApplicationModel.DataTransfer.ClipboardContentOptions
@@ -8647,7 +8647,7 @@ proc getDeferral*(self: CommandLineActivationOperation): Deferral =
 
 proc isBlockingActive*(_: typedesc[CommunicationBlockingAccessManager]): bool =
   ## Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAccessManagerStatics.get_IsBlockingActive
-  let it = statics[ICommunicationBlockingAccessManagerStaticsVtbl]("Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager")
+  let it = statics[ICommunicationBlockingAccessManagerStaticsVtbl](className(CommunicationBlockingAccessManager))
   var ret: bool
   check it.vtbl.get_IsBlockingActive(it.raw, ret.addr
                                     ), "CommunicationBlockingAccessManager.isBlockingActive"
@@ -8656,7 +8656,7 @@ proc isBlockingActive*(_: typedesc[CommunicationBlockingAccessManager]): bool =
 proc isBlockedNumberAsync*(_: typedesc[CommunicationBlockingAccessManager],
                            number: string): Future[bool] =
   ## Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAccessManagerStatics.IsBlockedNumberAsync
-  let it = statics[ICommunicationBlockingAccessManagerStaticsVtbl]("Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager")
+  let it = statics[ICommunicationBlockingAccessManagerStaticsVtbl](className(CommunicationBlockingAccessManager))
   let a0 = toWinRtString(number)
   var op: pointer
   check it.vtbl.IsBlockedNumberAsync(it.raw, a0.handle, op.addr
@@ -8666,7 +8666,7 @@ proc isBlockedNumberAsync*(_: typedesc[CommunicationBlockingAccessManager],
 proc showBlockNumbersUI*(_: typedesc[CommunicationBlockingAccessManager],
                          phoneNumbers: seq[string]): bool =
   ## Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAccessManagerStatics.ShowBlockNumbersUI
-  let it = statics[ICommunicationBlockingAccessManagerStaticsVtbl]("Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager")
+  let it = statics[ICommunicationBlockingAccessManagerStaticsVtbl](className(CommunicationBlockingAccessManager))
   let a0 = asCollection[string, seq[string]](phoneNumbers)
   var ret: bool
   check it.vtbl.ShowBlockNumbersUI(it.raw, a0.raw, ret.addr
@@ -8676,7 +8676,7 @@ proc showBlockNumbersUI*(_: typedesc[CommunicationBlockingAccessManager],
 proc showUnblockNumbersUI*(_: typedesc[CommunicationBlockingAccessManager],
                            phoneNumbers: seq[string]): bool =
   ## Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAccessManagerStatics.ShowUnblockNumbersUI
-  let it = statics[ICommunicationBlockingAccessManagerStaticsVtbl]("Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager")
+  let it = statics[ICommunicationBlockingAccessManagerStaticsVtbl](className(CommunicationBlockingAccessManager))
   let a0 = asCollection[string, seq[string]](phoneNumbers)
   var ret: bool
   check it.vtbl.ShowUnblockNumbersUI(it.raw, a0.raw, ret.addr
@@ -8685,19 +8685,19 @@ proc showUnblockNumbersUI*(_: typedesc[CommunicationBlockingAccessManager],
 
 proc showBlockedCallsUI*(_: typedesc[CommunicationBlockingAccessManager]) =
   ## Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAccessManagerStatics.ShowBlockedCallsUI
-  let it = statics[ICommunicationBlockingAccessManagerStaticsVtbl]("Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager")
+  let it = statics[ICommunicationBlockingAccessManagerStaticsVtbl](className(CommunicationBlockingAccessManager))
   check it.vtbl.ShowBlockedCallsUI(it.raw), "CommunicationBlockingAccessManager.showBlockedCallsUI"
 
 proc showBlockedMessagesUI*(_: typedesc[CommunicationBlockingAccessManager]) =
   ## Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAccessManagerStatics.ShowBlockedMessagesUI
-  let it = statics[ICommunicationBlockingAccessManagerStaticsVtbl]("Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager")
+  let it = statics[ICommunicationBlockingAccessManagerStaticsVtbl](className(CommunicationBlockingAccessManager))
   check it.vtbl.ShowBlockedMessagesUI(it.raw), "CommunicationBlockingAccessManager.showBlockedMessagesUI"
 
 # ---- Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAppManager
 
 proc requestSetAsActiveBlockingAppAsync*(_: typedesc[CommunicationBlockingAppManager]): Future[bool] =
   ## Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAppManagerStatics2.RequestSetAsActiveBlockingAppAsync
-  let it = statics[ICommunicationBlockingAppManagerStatics2Vtbl]("Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAppManager")
+  let it = statics[ICommunicationBlockingAppManagerStatics2Vtbl](className(CommunicationBlockingAppManager))
   var op: pointer
   check it.vtbl.RequestSetAsActiveBlockingAppAsync(it.raw, op.addr
                                                   ), "CommunicationBlockingAppManager.requestSetAsActiveBlockingAppAsync"
@@ -8705,7 +8705,7 @@ proc requestSetAsActiveBlockingAppAsync*(_: typedesc[CommunicationBlockingAppMan
 
 proc isCurrentAppActiveBlockingApp*(_: typedesc[CommunicationBlockingAppManager]): bool =
   ## Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAppManagerStatics.get_IsCurrentAppActiveBlockingApp
-  let it = statics[ICommunicationBlockingAppManagerStaticsVtbl]("Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAppManager")
+  let it = statics[ICommunicationBlockingAppManagerStaticsVtbl](className(CommunicationBlockingAppManager))
   var ret: bool
   check it.vtbl.get_IsCurrentAppActiveBlockingApp(it.raw, ret.addr
                                                  ), "CommunicationBlockingAppManager.isCurrentAppActiveBlockingApp"
@@ -8713,7 +8713,7 @@ proc isCurrentAppActiveBlockingApp*(_: typedesc[CommunicationBlockingAppManager]
 
 proc showCommunicationBlockingSettingsUI*(_: typedesc[CommunicationBlockingAppManager]) =
   ## Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAppManagerStatics.ShowCommunicationBlockingSettingsUI
-  let it = statics[ICommunicationBlockingAppManagerStaticsVtbl]("Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAppManager")
+  let it = statics[ICommunicationBlockingAppManagerStaticsVtbl](className(CommunicationBlockingAppManager))
   check it.vtbl.ShowCommunicationBlockingSettingsUI(it.raw), "CommunicationBlockingAppManager.showCommunicationBlockingSettingsUI"
 
 # ---- Windows.ApplicationModel.Background.CommunicationBlockingAppSetAsActiveTrigger
@@ -9904,7 +9904,7 @@ proc `description=`*(self: ContactEmail, value: string) =
 
 proc newContactField*(value: string, `type`: ContactFieldType): ContactField =
   ## Windows.ApplicationModel.Contacts.IContactFieldFactory.CreateField
-  let it = statics[IContactFieldFactoryVtbl]("Windows.ApplicationModel.Contacts.ContactField")
+  let it = statics[IContactFieldFactoryVtbl](className(ContactField))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.CreateField(it.raw, a0.handle, `type`, ret.addr
@@ -9914,7 +9914,7 @@ proc newContactField*(value: string, `type`: ContactFieldType): ContactField =
 proc newContactField*(value: string, `type`: ContactFieldType,
                       category: ContactFieldCategory): ContactField =
   ## Windows.ApplicationModel.Contacts.IContactFieldFactory.CreateField
-  let it = statics[IContactFieldFactoryVtbl]("Windows.ApplicationModel.Contacts.ContactField")
+  let it = statics[IContactFieldFactoryVtbl](className(ContactField))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.CreateField2(it.raw, a0.handle, `type`, category, ret.addr
@@ -9924,7 +9924,7 @@ proc newContactField*(value: string, `type`: ContactFieldType,
 proc newContactField*(name: string, value: string, `type`: ContactFieldType,
                       category: ContactFieldCategory): ContactField =
   ## Windows.ApplicationModel.Contacts.IContactFieldFactory.CreateField
-  let it = statics[IContactFieldFactoryVtbl]("Windows.ApplicationModel.Contacts.ContactField")
+  let it = statics[IContactFieldFactoryVtbl](className(ContactField))
   let a0 = toWinRtString(name)
   let a1 = toWinRtString(value)
   var ret: pointer
@@ -10008,7 +10008,7 @@ proc queryCustomFields*(self: ContactInformation, customName: string
 
 proc newContactInstantMessageField*(userName: string): ContactInstantMessageField =
   ## Windows.ApplicationModel.Contacts.IContactInstantMessageFieldFactory.CreateInstantMessage
-  let it = statics[IContactInstantMessageFieldFactoryVtbl]("Windows.ApplicationModel.Contacts.ContactInstantMessageField")
+  let it = statics[IContactInstantMessageFieldFactoryVtbl](className(ContactInstantMessageField))
   let a0 = toWinRtString(userName)
   var ret: pointer
   check it.vtbl.CreateInstantMessage(it.raw, a0.handle, ret.addr
@@ -10019,7 +10019,7 @@ proc newContactInstantMessageField*(userName: string,
                                     category: ContactFieldCategory
                                    ): ContactInstantMessageField =
   ## Windows.ApplicationModel.Contacts.IContactInstantMessageFieldFactory.CreateInstantMessage
-  let it = statics[IContactInstantMessageFieldFactoryVtbl]("Windows.ApplicationModel.Contacts.ContactInstantMessageField")
+  let it = statics[IContactInstantMessageFieldFactoryVtbl](className(ContactInstantMessageField))
   let a0 = toWinRtString(userName)
   var ret: pointer
   check it.vtbl.CreateInstantMessage2(it.raw, a0.handle, category, ret.addr
@@ -10031,7 +10031,7 @@ proc newContactInstantMessageField*(userName: string,
                                     service: string, displayText: string,
                                     verb: Uri): ContactInstantMessageField =
   ## Windows.ApplicationModel.Contacts.IContactInstantMessageFieldFactory.CreateInstantMessage
-  let it = statics[IContactInstantMessageFieldFactoryVtbl]("Windows.ApplicationModel.Contacts.ContactInstantMessageField")
+  let it = statics[IContactInstantMessageFieldFactoryVtbl](className(ContactInstantMessageField))
   let a0 = toWinRtString(userName)
   let a2 = toWinRtString(service)
   let a3 = toWinRtString(displayText)
@@ -10192,14 +10192,14 @@ proc `description=`*(self: ContactJobInfo, value: string) =
 
 proc call*(_: typedesc[ContactLaunchActionVerbs]): string =
   ## Windows.ApplicationModel.Contacts.IContactLaunchActionVerbsStatics.get_Call
-  let it = statics[IContactLaunchActionVerbsStaticsVtbl]("Windows.ApplicationModel.Contacts.ContactLaunchActionVerbs")
+  let it = statics[IContactLaunchActionVerbsStaticsVtbl](className(ContactLaunchActionVerbs))
   var ret: HSTRING
   check it.vtbl.get_Call(it.raw, ret.addr), "ContactLaunchActionVerbs.call"
   takeString(ret)
 
 proc message*(_: typedesc[ContactLaunchActionVerbs]): string =
   ## Windows.ApplicationModel.Contacts.IContactLaunchActionVerbsStatics.get_Message
-  let it = statics[IContactLaunchActionVerbsStaticsVtbl]("Windows.ApplicationModel.Contacts.ContactLaunchActionVerbs")
+  let it = statics[IContactLaunchActionVerbsStaticsVtbl](className(ContactLaunchActionVerbs))
   var ret: HSTRING
   check it.vtbl.get_Message(it.raw, ret.addr
                            ), "ContactLaunchActionVerbs.message"
@@ -10207,21 +10207,21 @@ proc message*(_: typedesc[ContactLaunchActionVerbs]): string =
 
 proc map*(_: typedesc[ContactLaunchActionVerbs]): string =
   ## Windows.ApplicationModel.Contacts.IContactLaunchActionVerbsStatics.get_Map
-  let it = statics[IContactLaunchActionVerbsStaticsVtbl]("Windows.ApplicationModel.Contacts.ContactLaunchActionVerbs")
+  let it = statics[IContactLaunchActionVerbsStaticsVtbl](className(ContactLaunchActionVerbs))
   var ret: HSTRING
   check it.vtbl.get_Map(it.raw, ret.addr), "ContactLaunchActionVerbs.map"
   takeString(ret)
 
 proc post*(_: typedesc[ContactLaunchActionVerbs]): string =
   ## Windows.ApplicationModel.Contacts.IContactLaunchActionVerbsStatics.get_Post
-  let it = statics[IContactLaunchActionVerbsStaticsVtbl]("Windows.ApplicationModel.Contacts.ContactLaunchActionVerbs")
+  let it = statics[IContactLaunchActionVerbsStaticsVtbl](className(ContactLaunchActionVerbs))
   var ret: HSTRING
   check it.vtbl.get_Post(it.raw, ret.addr), "ContactLaunchActionVerbs.post"
   takeString(ret)
 
 proc videoCall*(_: typedesc[ContactLaunchActionVerbs]): string =
   ## Windows.ApplicationModel.Contacts.IContactLaunchActionVerbsStatics.get_VideoCall
-  let it = statics[IContactLaunchActionVerbsStaticsVtbl]("Windows.ApplicationModel.Contacts.ContactLaunchActionVerbs")
+  let it = statics[IContactLaunchActionVerbsStaticsVtbl](className(ContactLaunchActionVerbs))
   var ret: HSTRING
   check it.vtbl.get_VideoCall(it.raw, ret.addr
                              ), "ContactLaunchActionVerbs.videoCall"
@@ -11234,7 +11234,7 @@ proc getDeferral*(self: ContactListSyncManagerSyncRequestEventArgs): Deferral =
 
 proc newContactLocationField*(unstructuredAddress: string): ContactLocationField =
   ## Windows.ApplicationModel.Contacts.IContactLocationFieldFactory.CreateLocation
-  let it = statics[IContactLocationFieldFactoryVtbl]("Windows.ApplicationModel.Contacts.ContactLocationField")
+  let it = statics[IContactLocationFieldFactoryVtbl](className(ContactLocationField))
   let a0 = toWinRtString(unstructuredAddress)
   var ret: pointer
   check it.vtbl.CreateLocation(it.raw, a0.handle, ret.addr
@@ -11245,7 +11245,7 @@ proc newContactLocationField*(unstructuredAddress: string,
                               category: ContactFieldCategory
                              ): ContactLocationField =
   ## Windows.ApplicationModel.Contacts.IContactLocationFieldFactory.CreateLocation
-  let it = statics[IContactLocationFieldFactoryVtbl]("Windows.ApplicationModel.Contacts.ContactLocationField")
+  let it = statics[IContactLocationFieldFactoryVtbl](className(ContactLocationField))
   let a0 = toWinRtString(unstructuredAddress)
   var ret: pointer
   check it.vtbl.CreateLocation2(it.raw, a0.handle, category, ret.addr
@@ -11257,7 +11257,7 @@ proc newContactLocationField*(unstructuredAddress: string,
                               city: string, region: string, country: string,
                               postalCode: string): ContactLocationField =
   ## Windows.ApplicationModel.Contacts.IContactLocationFieldFactory.CreateLocation
-  let it = statics[IContactLocationFieldFactoryVtbl]("Windows.ApplicationModel.Contacts.ContactLocationField")
+  let it = statics[IContactLocationFieldFactoryVtbl](className(ContactLocationField))
   let a0 = toWinRtString(unstructuredAddress)
   let a2 = toWinRtString(street)
   let a3 = toWinRtString(city)
@@ -11318,7 +11318,7 @@ proc postalCode*(self: ContactLocationField): string =
 
 proc requestStoreAsync*(_: typedesc[ContactManager]): Future[ContactStore] =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics2.RequestStoreAsync
-  let it = statics[IContactManagerStatics2Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics2Vtbl](className(ContactManager))
   var op: pointer
   check it.vtbl.RequestStoreAsync(it.raw, op.addr
                                  ), "ContactManager.requestStoreAsync"
@@ -11327,7 +11327,7 @@ proc requestStoreAsync*(_: typedesc[ContactManager]): Future[ContactStore] =
 proc showContactCard*(_: typedesc[ContactManager], contact: Contact,
                       selection: Rect) =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics.ShowContactCard
-  let it = statics[IContactManagerStaticsVtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStaticsVtbl](className(ContactManager))
   let a0 = queryInterface[IContactVtbl](contact)
   check it.vtbl.ShowContactCard(it.raw, a0.raw, selection
                                ), "ContactManager.showContactCard"
@@ -11335,7 +11335,7 @@ proc showContactCard*(_: typedesc[ContactManager], contact: Contact,
 proc showContactCard*(_: typedesc[ContactManager], contact: Contact,
                       selection: Rect, preferredPlacement: Placement) =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics.ShowContactCard
-  let it = statics[IContactManagerStaticsVtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStaticsVtbl](className(ContactManager))
   let a0 = queryInterface[IContactVtbl](contact)
   check it.vtbl.ShowContactCard2(it.raw, a0.raw, selection, preferredPlacement
                                 ), "ContactManager.showContactCard"
@@ -11344,7 +11344,7 @@ proc showDelayLoadedContactCard*(_: typedesc[ContactManager], contact: Contact,
                                  selection: Rect, preferredPlacement: Placement
                                 ): ContactCardDelayedDataLoader =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics.ShowDelayLoadedContactCard
-  let it = statics[IContactManagerStaticsVtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStaticsVtbl](className(ContactManager))
   let a0 = queryInterface[IContactVtbl](contact)
   var ret: pointer
   check it.vtbl.ShowDelayLoadedContactCard(it.raw, a0.raw, selection,
@@ -11354,7 +11354,7 @@ proc showDelayLoadedContactCard*(_: typedesc[ContactManager], contact: Contact,
 
 proc isShowFullContactCardSupportedAsync*(_: typedesc[ContactManager]): Future[bool] =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics5.IsShowFullContactCardSupportedAsync
-  let it = statics[IContactManagerStatics5Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics5Vtbl](className(ContactManager))
   var op: pointer
   check it.vtbl.IsShowFullContactCardSupportedAsync(it.raw, op.addr
                                                    ), "ContactManager.isShowFullContactCardSupportedAsync"
@@ -11362,7 +11362,7 @@ proc isShowFullContactCardSupportedAsync*(_: typedesc[ContactManager]): Future[b
 
 proc includeMiddleNameInSystemDisplayAndSort*(_: typedesc[ContactManager]): bool =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics5.get_IncludeMiddleNameInSystemDisplayAndSort
-  let it = statics[IContactManagerStatics5Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics5Vtbl](className(ContactManager))
   var ret: bool
   check it.vtbl.get_IncludeMiddleNameInSystemDisplayAndSort(it.raw, ret.addr
                                                            ), "ContactManager.includeMiddleNameInSystemDisplayAndSort"
@@ -11371,14 +11371,14 @@ proc includeMiddleNameInSystemDisplayAndSort*(_: typedesc[ContactManager]): bool
 proc `includeMiddleNameInSystemDisplayAndSort=`*(_: typedesc[ContactManager],
                                                  value: bool) =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics5.put_IncludeMiddleNameInSystemDisplayAndSort
-  let it = statics[IContactManagerStatics5Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics5Vtbl](className(ContactManager))
   check it.vtbl.put_IncludeMiddleNameInSystemDisplayAndSort(it.raw, value
                                                            ), "ContactManager.includeMiddleNameInSystemDisplayAndSort"
 
 proc convertContactToVCardAsync*(_: typedesc[ContactManager], contact: Contact
                                 ): Future[RandomAccessStreamReference] =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.ConvertContactToVCardAsync
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   let a0 = queryInterface[IContactVtbl](contact)
   var op: pointer
   check it.vtbl.ConvertContactToVCardAsync(it.raw, a0.raw, op.addr
@@ -11390,7 +11390,7 @@ proc convertContactToVCardAsync*(_: typedesc[ContactManager], contact: Contact,
                                  maxBytes: uint32
                                 ): Future[RandomAccessStreamReference] =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.ConvertContactToVCardAsync
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   let a0 = queryInterface[IContactVtbl](contact)
   var op: pointer
   check it.vtbl.ConvertContactToVCardAsync2(it.raw, a0.raw, maxBytes, op.addr
@@ -11402,7 +11402,7 @@ proc convertVCardToContactAsync*(_: typedesc[ContactManager],
                                  vCard: SomeRandomAccessStreamReference
                                 ): Future[Contact] =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.ConvertVCardToContactAsync
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   let a0 = queryInterface[IRandomAccessStreamReferenceVtbl](vCard)
   var op: pointer
   check it.vtbl.ConvertVCardToContactAsync(it.raw, a0.raw, op.addr
@@ -11413,7 +11413,7 @@ proc requestStoreAsync*(_: typedesc[ContactManager],
                         accessType: ContactStoreAccessType
                        ): Future[ContactStore] =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.RequestStoreAsync
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   var op: pointer
   check it.vtbl.RequestStoreAsync(it.raw, accessType, op.addr
                                  ), "ContactManager.requestStoreAsync"
@@ -11423,7 +11423,7 @@ proc requestAnnotationStoreAsync*(_: typedesc[ContactManager],
                                   accessType: ContactAnnotationStoreAccessType
                                  ): Future[ContactAnnotationStore] =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.RequestAnnotationStoreAsync
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   var op: pointer
   check it.vtbl.RequestAnnotationStoreAsync(it.raw, accessType, op.addr
                                            ), "ContactManager.requestAnnotationStoreAsync"
@@ -11431,7 +11431,7 @@ proc requestAnnotationStoreAsync*(_: typedesc[ContactManager],
 
 proc isShowContactCardSupported*(_: typedesc[ContactManager]): bool =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.IsShowContactCardSupported
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   var ret: bool
   check it.vtbl.IsShowContactCardSupported(it.raw, ret.addr
                                           ), "ContactManager.isShowContactCardSupported"
@@ -11441,7 +11441,7 @@ proc showContactCard*(_: typedesc[ContactManager], contact: Contact,
                       selection: Rect, preferredPlacement: Placement,
                       contactCardOptions: ContactCardOptions) =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.ShowContactCard
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   let a0 = queryInterface[IContactVtbl](contact)
   let a3 = queryInterface[IContactCardOptionsVtbl](contactCardOptions)
   check it.vtbl.ShowContactCard(it.raw, a0.raw, selection, preferredPlacement,
@@ -11449,7 +11449,7 @@ proc showContactCard*(_: typedesc[ContactManager], contact: Contact,
 
 proc isShowDelayLoadedContactCardSupported*(_: typedesc[ContactManager]): bool =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.IsShowDelayLoadedContactCardSupported
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   var ret: bool
   check it.vtbl.IsShowDelayLoadedContactCardSupported(it.raw, ret.addr
                                                      ), "ContactManager.isShowDelayLoadedContactCardSupported"
@@ -11460,7 +11460,7 @@ proc showDelayLoadedContactCard*(_: typedesc[ContactManager], contact: Contact,
                                  contactCardOptions: ContactCardOptions
                                 ): ContactCardDelayedDataLoader =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.ShowDelayLoadedContactCard
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   let a0 = queryInterface[IContactVtbl](contact)
   let a3 = queryInterface[IContactCardOptionsVtbl](contactCardOptions)
   var ret: pointer
@@ -11472,7 +11472,7 @@ proc showDelayLoadedContactCard*(_: typedesc[ContactManager], contact: Contact,
 proc showFullContactCard*(_: typedesc[ContactManager], contact: Contact,
                           fullContactCardOptions: FullContactCardOptions) =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.ShowFullContactCard
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   let a0 = queryInterface[IContactVtbl](contact)
   let a1 = queryInterface[IFullContactCardOptionsVtbl](fullContactCardOptions)
   check it.vtbl.ShowFullContactCard(it.raw, a0.raw, a1.raw
@@ -11480,7 +11480,7 @@ proc showFullContactCard*(_: typedesc[ContactManager], contact: Contact,
 
 proc systemDisplayNameOrder*(_: typedesc[ContactManager]): ContactNameOrder =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.get_SystemDisplayNameOrder
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   var ret: ContactNameOrder
   check it.vtbl.get_SystemDisplayNameOrder(it.raw, ret.addr
                                           ), "ContactManager.systemDisplayNameOrder"
@@ -11489,13 +11489,13 @@ proc systemDisplayNameOrder*(_: typedesc[ContactManager]): ContactNameOrder =
 proc `systemDisplayNameOrder=`*(_: typedesc[ContactManager],
                                 value: ContactNameOrder) =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.put_SystemDisplayNameOrder
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   check it.vtbl.put_SystemDisplayNameOrder(it.raw, value
                                           ), "ContactManager.systemDisplayNameOrder"
 
 proc systemSortOrder*(_: typedesc[ContactManager]): ContactNameOrder =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.get_SystemSortOrder
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   var ret: ContactNameOrder
   check it.vtbl.get_SystemSortOrder(it.raw, ret.addr
                                    ), "ContactManager.systemSortOrder"
@@ -11503,14 +11503,14 @@ proc systemSortOrder*(_: typedesc[ContactManager]): ContactNameOrder =
 
 proc `systemSortOrder=`*(_: typedesc[ContactManager], value: ContactNameOrder) =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics3.put_SystemSortOrder
-  let it = statics[IContactManagerStatics3Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics3Vtbl](className(ContactManager))
   check it.vtbl.put_SystemSortOrder(it.raw, value
                                    ), "ContactManager.systemSortOrder"
 
 proc getForUser*(_: typedesc[ContactManager], user: User
                 ): ContactManagerForUser =
   ## Windows.ApplicationModel.Contacts.IContactManagerStatics4.GetForUser
-  let it = statics[IContactManagerStatics4Vtbl]("Windows.ApplicationModel.Contacts.ContactManager")
+  let it = statics[IContactManagerStatics4Vtbl](className(ContactManager))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -11778,7 +11778,7 @@ proc newContactPicker*(): ContactPicker =
 
 proc createForUser*(_: typedesc[ContactPicker], user: User): ContactPicker =
   ## Windows.ApplicationModel.Contacts.IContactPickerStatics.CreateForUser
-  let it = statics[IContactPickerStaticsVtbl]("Windows.ApplicationModel.Contacts.ContactPicker")
+  let it = statics[IContactPickerStaticsVtbl](className(ContactPicker))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.CreateForUser(it.raw, a0.raw, ret.addr
@@ -11787,7 +11787,7 @@ proc createForUser*(_: typedesc[ContactPicker], user: User): ContactPicker =
 
 proc isSupportedAsync*(_: typedesc[ContactPicker]): Future[bool] =
   ## Windows.ApplicationModel.Contacts.IContactPickerStatics.IsSupportedAsync
-  let it = statics[IContactPickerStaticsVtbl]("Windows.ApplicationModel.Contacts.ContactPicker")
+  let it = statics[IContactPickerStaticsVtbl](className(ContactPicker))
   var op: pointer
   check it.vtbl.IsSupportedAsync(it.raw, op.addr
                                 ), "ContactPicker.isSupportedAsync"
@@ -11967,7 +11967,7 @@ proc newContactQueryOptions*(): ContactQueryOptions =
 
 proc newContactQueryOptions*(text: string): ContactQueryOptions =
   ## Windows.ApplicationModel.Contacts.IContactQueryOptionsFactory.CreateWithText
-  let it = statics[IContactQueryOptionsFactoryVtbl]("Windows.ApplicationModel.Contacts.ContactQueryOptions")
+  let it = statics[IContactQueryOptionsFactoryVtbl](className(ContactQueryOptions))
   let a0 = toWinRtString(text)
   var ret: pointer
   check it.vtbl.CreateWithText(it.raw, a0.handle, ret.addr
@@ -11977,7 +11977,7 @@ proc newContactQueryOptions*(text: string): ContactQueryOptions =
 proc newContactQueryOptions*(text: string, fields: ContactQuerySearchFields
                             ): ContactQueryOptions =
   ## Windows.ApplicationModel.Contacts.IContactQueryOptionsFactory.CreateWithTextAndFields
-  let it = statics[IContactQueryOptionsFactoryVtbl]("Windows.ApplicationModel.Contacts.ContactQueryOptions")
+  let it = statics[IContactQueryOptionsFactoryVtbl](className(ContactQueryOptions))
   let a0 = toWinRtString(text)
   var ret: pointer
   check it.vtbl.CreateWithTextAndFields(it.raw, a0.handle, fields, ret.addr
@@ -12370,7 +12370,7 @@ proc newContentPrefetchTrigger*(): ContentPrefetchTrigger =
 
 proc newContentPrefetchTrigger*(waitInterval: TimeSpan): ContentPrefetchTrigger =
   ## Windows.ApplicationModel.Background.IContentPrefetchTriggerFactory.Create
-  let it = statics[IContentPrefetchTriggerFactoryVtbl]("Windows.ApplicationModel.Background.ContentPrefetchTrigger")
+  let it = statics[IContentPrefetchTriggerFactoryVtbl](className(ContentPrefetchTrigger))
   var ret: pointer
   check it.vtbl.Create(it.raw, waitInterval, ret.addr
                       ), "ContentPrefetchTrigger.new"
@@ -12388,7 +12388,7 @@ proc waitInterval*(self: ContentPrefetchTrigger): TimeSpan =
 
 proc default*(_: typedesc[ConversationalAgentDetectorManager]): ConversationalAgentDetectorManager =
   ## Windows.ApplicationModel.ConversationalAgent.IConversationalAgentDetectorManagerStatics.get_Default
-  let it = statics[IConversationalAgentDetectorManagerStaticsVtbl]("Windows.ApplicationModel.ConversationalAgent.ConversationalAgentDetectorManager")
+  let it = statics[IConversationalAgentDetectorManagerStaticsVtbl](className(ConversationalAgentDetectorManager))
   var ret: pointer
   check it.vtbl.get_Default(it.raw, ret.addr
                            ), "ConversationalAgentDetectorManager.default"
@@ -12459,7 +12459,7 @@ proc getActivationSignalDetectorFromIdAsync*(self: ConversationalAgentDetectorMa
 
 proc getCurrentSessionAsync*(_: typedesc[ConversationalAgentSession]): Future[ConversationalAgentSession] =
   ## Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSessionStatics.GetCurrentSessionAsync
-  let it = statics[IConversationalAgentSessionStaticsVtbl]("Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession")
+  let it = statics[IConversationalAgentSessionStaticsVtbl](className(ConversationalAgentSession))
   var op: pointer
   check it.vtbl.GetCurrentSessionAsync(it.raw, op.addr
                                       ), "ConversationalAgentSession.getCurrentSessionAsync"
@@ -12468,7 +12468,7 @@ proc getCurrentSessionAsync*(_: typedesc[ConversationalAgentSession]): Future[Co
 
 proc getCurrentSessionSync*(_: typedesc[ConversationalAgentSession]): ConversationalAgentSession =
   ## Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSessionStatics.GetCurrentSessionSync
-  let it = statics[IConversationalAgentSessionStaticsVtbl]("Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession")
+  let it = statics[IConversationalAgentSessionStaticsVtbl](className(ConversationalAgentSession))
   var ret: pointer
   check it.vtbl.GetCurrentSessionSync(it.raw, ret.addr
                                      ), "ConversationalAgentSession.getCurrentSessionSync"
@@ -12962,7 +12962,7 @@ proc newConversationalAgentTrigger*(): ConversationalAgentTrigger =
 proc createNewView*(_: typedesc[CoreApplication],
                     viewSource: SomeFrameworkViewSource): CoreApplicationView =
   ## Windows.ApplicationModel.Core.ICoreImmersiveApplication3.CreateNewView
-  let it = statics[ICoreImmersiveApplication3Vtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreImmersiveApplication3Vtbl](className(CoreApplication))
   let a0 = queryInterface[IFrameworkViewSourceVtbl](viewSource)
   var ret: pointer
   check it.vtbl.CreateNewView(it.raw, a0.raw, ret.addr
@@ -12971,7 +12971,7 @@ proc createNewView*(_: typedesc[CoreApplication],
 
 proc views*(_: typedesc[CoreApplication]): seq[CoreApplicationView] =
   ## Windows.ApplicationModel.Core.ICoreImmersiveApplication.get_Views
-  let it = statics[ICoreImmersiveApplicationVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreImmersiveApplicationVtbl](className(CoreApplication))
   var ret: pointer
   check it.vtbl.get_Views(it.raw, ret.addr), "CoreApplication.views"
   takeSeq[IVectorViewVtbl[CoreApplicationView], seq[CoreApplicationView]](ret)
@@ -12979,7 +12979,7 @@ proc views*(_: typedesc[CoreApplication]): seq[CoreApplicationView] =
 proc createNewView*(_: typedesc[CoreApplication], runtimeType: string,
                     entryPoint: string): CoreApplicationView =
   ## Windows.ApplicationModel.Core.ICoreImmersiveApplication.CreateNewView
-  let it = statics[ICoreImmersiveApplicationVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreImmersiveApplicationVtbl](className(CoreApplication))
   let a0 = toWinRtString(runtimeType)
   let a1 = toWinRtString(entryPoint)
   var ret: pointer
@@ -12989,14 +12989,14 @@ proc createNewView*(_: typedesc[CoreApplication], runtimeType: string,
 
 proc mainView*(_: typedesc[CoreApplication]): CoreApplicationView =
   ## Windows.ApplicationModel.Core.ICoreImmersiveApplication.get_MainView
-  let it = statics[ICoreImmersiveApplicationVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreImmersiveApplicationVtbl](className(CoreApplication))
   var ret: pointer
   check it.vtbl.get_MainView(it.raw, ret.addr), "CoreApplication.mainView"
   adopt[CoreApplicationView](ret)
 
 proc id*(_: typedesc[CoreApplication]): string =
   ## Windows.ApplicationModel.Core.ICoreApplication.get_Id
-  let it = statics[ICoreApplicationVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationVtbl](className(CoreApplication))
   var ret: HSTRING
   check it.vtbl.get_Id(it.raw, ret.addr), "CoreApplication.id"
   takeString(ret)
@@ -13006,7 +13006,7 @@ proc onSuspending*(_: typedesc[CoreApplication],
                   ): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.Core.ICoreApplication.add_Suspending
   ## The token is what `removeSuspending` takes.
-  let it = statics[ICoreApplicationVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationVtbl](className(CoreApplication))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[SuspendingEventArgs](a1))
   let cb = newDelegate(EventHandlerVtbl[SuspendingEventArgs], shim, event = true
@@ -13017,7 +13017,7 @@ proc onSuspending*(_: typedesc[CoreApplication],
 proc removeSuspending*(_: typedesc[CoreApplication],
                        token: EventRegistrationToken) =
   ## Windows.ApplicationModel.Core.ICoreApplication.remove_Suspending
-  let it = statics[ICoreApplicationVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationVtbl](className(CoreApplication))
   check it.vtbl.remove_Suspending(it.raw, token), "CoreApplication.suspending"
 
 proc onResuming*(_: typedesc[CoreApplication],
@@ -13025,7 +13025,7 @@ proc onResuming*(_: typedesc[CoreApplication],
                 ): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.Core.ICoreApplication.add_Resuming
   ## The token is what `removeResuming` takes.
-  let it = statics[ICoreApplicationVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationVtbl](className(CoreApplication))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -13035,19 +13035,19 @@ proc onResuming*(_: typedesc[CoreApplication],
 proc removeResuming*(_: typedesc[CoreApplication], token: EventRegistrationToken
                     ) =
   ## Windows.ApplicationModel.Core.ICoreApplication.remove_Resuming
-  let it = statics[ICoreApplicationVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationVtbl](className(CoreApplication))
   check it.vtbl.remove_Resuming(it.raw, token), "CoreApplication.resuming"
 
 proc properties*(_: typedesc[CoreApplication]): IPropertySet =
   ## Windows.ApplicationModel.Core.ICoreApplication.get_Properties
-  let it = statics[ICoreApplicationVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationVtbl](className(CoreApplication))
   var ret: pointer
   check it.vtbl.get_Properties(it.raw, ret.addr), "CoreApplication.properties"
   adopt[IPropertySet](ret)
 
 proc getCurrentView*(_: typedesc[CoreApplication]): CoreApplicationView =
   ## Windows.ApplicationModel.Core.ICoreApplication.GetCurrentView
-  let it = statics[ICoreApplicationVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationVtbl](className(CoreApplication))
   var ret: pointer
   check it.vtbl.GetCurrentView(it.raw, ret.addr
                               ), "CoreApplication.getCurrentView"
@@ -13055,7 +13055,7 @@ proc getCurrentView*(_: typedesc[CoreApplication]): CoreApplicationView =
 
 proc run*(_: typedesc[CoreApplication], viewSource: SomeFrameworkViewSource) =
   ## Windows.ApplicationModel.Core.ICoreApplication.Run
-  let it = statics[ICoreApplicationVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationVtbl](className(CoreApplication))
   let a0 = queryInterface[IFrameworkViewSourceVtbl](viewSource)
   check it.vtbl.Run(it.raw, a0.raw), "CoreApplication.run"
 
@@ -13063,7 +13063,7 @@ proc runWithActivationFactories*(_: typedesc[CoreApplication],
                                  activationFactoryCallback: IGetActivationFactory
                                 ) =
   ## Windows.ApplicationModel.Core.ICoreApplication.RunWithActivationFactories
-  let it = statics[ICoreApplicationVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationVtbl](className(CoreApplication))
   let a0 = queryInterface[IGetActivationFactoryVtbl](activationFactoryCallback)
   check it.vtbl.RunWithActivationFactories(it.raw, a0.raw
                                           ), "CoreApplication.runWithActivationFactories"
@@ -13071,7 +13071,7 @@ proc runWithActivationFactories*(_: typedesc[CoreApplication],
 proc requestRestartAsync*(_: typedesc[CoreApplication], launchArguments: string
                          ): Future[AppRestartFailureReason] =
   ## Windows.ApplicationModel.Core.ICoreApplication3.RequestRestartAsync
-  let it = statics[ICoreApplication3Vtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplication3Vtbl](className(CoreApplication))
   let a0 = toWinRtString(launchArguments)
   var op: pointer
   check it.vtbl.RequestRestartAsync(it.raw, a0.handle, op.addr
@@ -13082,7 +13082,7 @@ proc requestRestartForUserAsync*(_: typedesc[CoreApplication], user: User,
                                  launchArguments: string
                                 ): Future[AppRestartFailureReason] =
   ## Windows.ApplicationModel.Core.ICoreApplication3.RequestRestartForUserAsync
-  let it = statics[ICoreApplication3Vtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplication3Vtbl](className(CoreApplication))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(launchArguments)
   var op: pointer
@@ -13095,7 +13095,7 @@ proc onBackgroundActivated*(_: typedesc[CoreApplication],
                            ): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.Core.ICoreApplication2.add_BackgroundActivated
   ## The token is what `removeBackgroundActivated` takes.
-  let it = statics[ICoreApplication2Vtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplication2Vtbl](className(CoreApplication))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[BackgroundActivatedEventArgs](a1))
   let cb = newDelegate(EventHandlerVtbl[BackgroundActivatedEventArgs], shim,
@@ -13106,7 +13106,7 @@ proc onBackgroundActivated*(_: typedesc[CoreApplication],
 proc removeBackgroundActivated*(_: typedesc[CoreApplication],
                                 token: EventRegistrationToken) =
   ## Windows.ApplicationModel.Core.ICoreApplication2.remove_BackgroundActivated
-  let it = statics[ICoreApplication2Vtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplication2Vtbl](className(CoreApplication))
   check it.vtbl.remove_BackgroundActivated(it.raw, token
                                           ), "CoreApplication.backgroundActivated"
 
@@ -13115,7 +13115,7 @@ proc onLeavingBackground*(_: typedesc[CoreApplication],
                          ): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.Core.ICoreApplication2.add_LeavingBackground
   ## The token is what `removeLeavingBackground` takes.
-  let it = statics[ICoreApplication2Vtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplication2Vtbl](className(CoreApplication))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[LeavingBackgroundEventArgs](a1))
   let cb = newDelegate(EventHandlerVtbl[LeavingBackgroundEventArgs], shim,
@@ -13126,7 +13126,7 @@ proc onLeavingBackground*(_: typedesc[CoreApplication],
 proc removeLeavingBackground*(_: typedesc[CoreApplication],
                               token: EventRegistrationToken) =
   ## Windows.ApplicationModel.Core.ICoreApplication2.remove_LeavingBackground
-  let it = statics[ICoreApplication2Vtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplication2Vtbl](className(CoreApplication))
   check it.vtbl.remove_LeavingBackground(it.raw, token
                                         ), "CoreApplication.leavingBackground"
 
@@ -13135,7 +13135,7 @@ proc onEnteredBackground*(_: typedesc[CoreApplication],
                          ): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.Core.ICoreApplication2.add_EnteredBackground
   ## The token is what `removeEnteredBackground` takes.
-  let it = statics[ICoreApplication2Vtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplication2Vtbl](className(CoreApplication))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[EnteredBackgroundEventArgs](a1))
   let cb = newDelegate(EventHandlerVtbl[EnteredBackgroundEventArgs], shim,
@@ -13146,13 +13146,13 @@ proc onEnteredBackground*(_: typedesc[CoreApplication],
 proc removeEnteredBackground*(_: typedesc[CoreApplication],
                               token: EventRegistrationToken) =
   ## Windows.ApplicationModel.Core.ICoreApplication2.remove_EnteredBackground
-  let it = statics[ICoreApplication2Vtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplication2Vtbl](className(CoreApplication))
   check it.vtbl.remove_EnteredBackground(it.raw, token
                                         ), "CoreApplication.enteredBackground"
 
 proc enablePrelaunch*(_: typedesc[CoreApplication], value: bool) =
   ## Windows.ApplicationModel.Core.ICoreApplication2.EnablePrelaunch
-  let it = statics[ICoreApplication2Vtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplication2Vtbl](className(CoreApplication))
   check it.vtbl.EnablePrelaunch(it.raw, value
                                ), "CoreApplication.enablePrelaunch"
 
@@ -13161,7 +13161,7 @@ proc onUnhandledErrorDetected*(_: typedesc[CoreApplication],
                               ): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.Core.ICoreApplicationUnhandledError.add_UnhandledErrorDetected
   ## The token is what `removeUnhandledErrorDetected` takes.
-  let it = statics[ICoreApplicationUnhandledErrorVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationUnhandledErrorVtbl](className(CoreApplication))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[UnhandledErrorDetectedEventArgs](a1)
            )
@@ -13173,20 +13173,20 @@ proc onUnhandledErrorDetected*(_: typedesc[CoreApplication],
 proc removeUnhandledErrorDetected*(_: typedesc[CoreApplication],
                                    token: EventRegistrationToken) =
   ## Windows.ApplicationModel.Core.ICoreApplicationUnhandledError.remove_UnhandledErrorDetected
-  let it = statics[ICoreApplicationUnhandledErrorVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationUnhandledErrorVtbl](className(CoreApplication))
   check it.vtbl.remove_UnhandledErrorDetected(it.raw, token
                                              ), "CoreApplication.unhandledErrorDetected"
 
 proc createNewView*(_: typedesc[CoreApplication]): CoreApplicationView =
   ## Windows.ApplicationModel.Core.ICoreImmersiveApplication2.CreateNewView
-  let it = statics[ICoreImmersiveApplication2Vtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreImmersiveApplication2Vtbl](className(CoreApplication))
   var ret: pointer
   check it.vtbl.CreateNewView(it.raw, ret.addr), "CoreApplication.createNewView"
   adopt[CoreApplicationView](ret)
 
 proc exit*(_: typedesc[CoreApplication]) =
   ## Windows.ApplicationModel.Core.ICoreApplicationExit.Exit
-  let it = statics[ICoreApplicationExitVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationExitVtbl](className(CoreApplication))
   check it.vtbl.Exit(it.raw), "CoreApplication.exit"
 
 proc onExiting*(_: typedesc[CoreApplication],
@@ -13194,7 +13194,7 @@ proc onExiting*(_: typedesc[CoreApplication],
                ): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.Core.ICoreApplicationExit.add_Exiting
   ## The token is what `removeExiting` takes.
-  let it = statics[ICoreApplicationExitVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationExitVtbl](className(CoreApplication))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -13204,17 +13204,17 @@ proc onExiting*(_: typedesc[CoreApplication],
 proc removeExiting*(_: typedesc[CoreApplication], token: EventRegistrationToken
                    ) =
   ## Windows.ApplicationModel.Core.ICoreApplicationExit.remove_Exiting
-  let it = statics[ICoreApplicationExitVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationExitVtbl](className(CoreApplication))
   check it.vtbl.remove_Exiting(it.raw, token), "CoreApplication.exiting"
 
 proc incrementApplicationUseCount*(_: typedesc[CoreApplication]) =
   ## Windows.ApplicationModel.Core.ICoreApplicationUseCount.IncrementApplicationUseCount
-  let it = statics[ICoreApplicationUseCountVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationUseCountVtbl](className(CoreApplication))
   check it.vtbl.IncrementApplicationUseCount(it.raw), "CoreApplication.incrementApplicationUseCount"
 
 proc decrementApplicationUseCount*(_: typedesc[CoreApplication]) =
   ## Windows.ApplicationModel.Core.ICoreApplicationUseCount.DecrementApplicationUseCount
-  let it = statics[ICoreApplicationUseCountVtbl]("Windows.ApplicationModel.Core.CoreApplication")
+  let it = statics[ICoreApplicationUseCountVtbl](className(CoreApplication))
   check it.vtbl.DecrementApplicationUseCount(it.raw), "CoreApplication.decrementApplicationUseCount"
 
 # ---- Windows.ApplicationModel.Core.CoreApplicationView
@@ -13413,7 +13413,7 @@ proc removeIsVisibleChanged*(self: CoreApplicationViewTitleBar,
 
 proc getForCurrentView*(_: typedesc[CoreDragDropManager]): CoreDragDropManager =
   ## Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragDropManagerStatics.GetForCurrentView
-  let it = statics[ICoreDragDropManagerStaticsVtbl]("Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragDropManager")
+  let it = statics[ICoreDragDropManagerStaticsVtbl](className(CoreDragDropManager))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "CoreDragDropManager.getForCurrentView"
@@ -13654,7 +13654,7 @@ proc createUserActivitySessionInBackground*(_: typedesc[CoreUserActivityManager]
                                             activity: UserActivity
                                            ): UserActivitySession =
   ## Windows.ApplicationModel.UserActivities.Core.ICoreUserActivityManagerStatics.CreateUserActivitySessionInBackground
-  let it = statics[ICoreUserActivityManagerStaticsVtbl]("Windows.ApplicationModel.UserActivities.Core.CoreUserActivityManager")
+  let it = statics[ICoreUserActivityManagerStaticsVtbl](className(CoreUserActivityManager))
   let a0 = queryInterface[IUserActivityVtbl](activity)
   var ret: pointer
   check it.vtbl.CreateUserActivitySessionInBackground(it.raw, a0.raw, ret.addr
@@ -13667,7 +13667,7 @@ proc deleteUserActivitySessionsInTimeRangeAsync*(_: typedesc[CoreUserActivityMan
                                                  endTime: DateTime
                                                 ): Future[void] =
   ## Windows.ApplicationModel.UserActivities.Core.ICoreUserActivityManagerStatics.DeleteUserActivitySessionsInTimeRangeAsync
-  let it = statics[ICoreUserActivityManagerStaticsVtbl]("Windows.ApplicationModel.UserActivities.Core.CoreUserActivityManager")
+  let it = statics[ICoreUserActivityManagerStaticsVtbl](className(CoreUserActivityManager))
   let a0 = queryInterface[IUserActivityChannelVtbl](channel)
   var op: pointer
   check it.vtbl.DeleteUserActivitySessionsInTimeRangeAsync(it.raw, a0.raw,
@@ -13682,7 +13682,7 @@ proc reportConsumableFulfillmentAsync*(_: typedesc[CurrentApp],
                                        productId: string, transactionId: GUID
                                       ): Future[FulfillmentResult] =
   ## Windows.ApplicationModel.Store.ICurrentAppWithConsumables.ReportConsumableFulfillmentAsync
-  let it = statics[ICurrentAppWithConsumablesVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppWithConsumablesVtbl](className(CurrentApp))
   let a0 = toWinRtString(productId)
   var op: pointer
   check it.vtbl.ReportConsumableFulfillmentAsync(it.raw, a0.handle,
@@ -13693,7 +13693,7 @@ proc reportConsumableFulfillmentAsync*(_: typedesc[CurrentApp],
 proc requestProductPurchaseAsync*(_: typedesc[CurrentApp], productId: string
                                  ): Future[PurchaseResults] =
   ## Windows.ApplicationModel.Store.ICurrentAppWithConsumables.RequestProductPurchaseAsync
-  let it = statics[ICurrentAppWithConsumablesVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppWithConsumablesVtbl](className(CurrentApp))
   let a0 = toWinRtString(productId)
   var op: pointer
   check it.vtbl.RequestProductPurchaseAsync(it.raw, a0.handle, op.addr
@@ -13705,7 +13705,7 @@ proc requestProductPurchaseAsync*(_: typedesc[CurrentApp], productId: string,
                                   displayProperties: ProductPurchaseDisplayProperties
                                  ): Future[PurchaseResults] =
   ## Windows.ApplicationModel.Store.ICurrentAppWithConsumables.RequestProductPurchaseAsync
-  let it = statics[ICurrentAppWithConsumablesVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppWithConsumablesVtbl](className(CurrentApp))
   let a0 = toWinRtString(productId)
   let a1 = toWinRtString(offerId)
   let a2 = queryInterface[IProductPurchaseDisplayPropertiesVtbl](displayProperties)
@@ -13717,7 +13717,7 @@ proc requestProductPurchaseAsync*(_: typedesc[CurrentApp], productId: string,
 
 proc getUnfulfilledConsumablesAsync*(_: typedesc[CurrentApp]): Future[seq[UnfulfilledConsumable]] =
   ## Windows.ApplicationModel.Store.ICurrentAppWithConsumables.GetUnfulfilledConsumablesAsync
-  let it = statics[ICurrentAppWithConsumablesVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppWithConsumablesVtbl](className(CurrentApp))
   var op: pointer
   check it.vtbl.GetUnfulfilledConsumablesAsync(it.raw, op.addr
                                               ), "CurrentApp.getUnfulfilledConsumablesAsync"
@@ -13726,7 +13726,7 @@ proc getUnfulfilledConsumablesAsync*(_: typedesc[CurrentApp]): Future[seq[Unfulf
 
 proc licenseInformation*(_: typedesc[CurrentApp]): LicenseInformation =
   ## Windows.ApplicationModel.Store.ICurrentApp.get_LicenseInformation
-  let it = statics[ICurrentAppVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppVtbl](className(CurrentApp))
   var ret: pointer
   check it.vtbl.get_LicenseInformation(it.raw, ret.addr
                                       ), "CurrentApp.licenseInformation"
@@ -13734,14 +13734,14 @@ proc licenseInformation*(_: typedesc[CurrentApp]): LicenseInformation =
 
 proc linkUri*(_: typedesc[CurrentApp]): Uri =
   ## Windows.ApplicationModel.Store.ICurrentApp.get_LinkUri
-  let it = statics[ICurrentAppVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppVtbl](className(CurrentApp))
   var ret: pointer
   check it.vtbl.get_LinkUri(it.raw, ret.addr), "CurrentApp.linkUri"
   adopt[Uri](ret)
 
 proc appId*(_: typedesc[CurrentApp]): GUID =
   ## Windows.ApplicationModel.Store.ICurrentApp.get_AppId
-  let it = statics[ICurrentAppVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppVtbl](className(CurrentApp))
   var ret: GUID
   check it.vtbl.get_AppId(it.raw, ret.addr), "CurrentApp.appId"
   ret
@@ -13749,7 +13749,7 @@ proc appId*(_: typedesc[CurrentApp]): GUID =
 proc requestAppPurchaseAsync*(_: typedesc[CurrentApp], includeReceipt: bool
                              ): Future[string] =
   ## Windows.ApplicationModel.Store.ICurrentApp.RequestAppPurchaseAsync
-  let it = statics[ICurrentAppVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppVtbl](className(CurrentApp))
   var op: pointer
   check it.vtbl.RequestAppPurchaseAsync(it.raw, includeReceipt, op.addr
                                        ), "CurrentApp.requestAppPurchaseAsync"
@@ -13758,7 +13758,7 @@ proc requestAppPurchaseAsync*(_: typedesc[CurrentApp], includeReceipt: bool
 proc requestProductPurchaseAsync*(_: typedesc[CurrentApp], productId: string,
                                   includeReceipt: bool): Future[string] =
   ## Windows.ApplicationModel.Store.ICurrentApp.RequestProductPurchaseAsync
-  let it = statics[ICurrentAppVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppVtbl](className(CurrentApp))
   let a0 = toWinRtString(productId)
   var op: pointer
   check it.vtbl.RequestProductPurchaseAsync(it.raw, a0.handle, includeReceipt,
@@ -13768,7 +13768,7 @@ proc requestProductPurchaseAsync*(_: typedesc[CurrentApp], productId: string,
 
 proc loadListingInformationAsync*(_: typedesc[CurrentApp]): Future[ListingInformation] =
   ## Windows.ApplicationModel.Store.ICurrentApp.LoadListingInformationAsync
-  let it = statics[ICurrentAppVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppVtbl](className(CurrentApp))
   var op: pointer
   check it.vtbl.LoadListingInformationAsync(it.raw, op.addr
                                            ), "CurrentApp.loadListingInformationAsync"
@@ -13776,7 +13776,7 @@ proc loadListingInformationAsync*(_: typedesc[CurrentApp]): Future[ListingInform
 
 proc getAppReceiptAsync*(_: typedesc[CurrentApp]): Future[string] =
   ## Windows.ApplicationModel.Store.ICurrentApp.GetAppReceiptAsync
-  let it = statics[ICurrentAppVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppVtbl](className(CurrentApp))
   var op: pointer
   check it.vtbl.GetAppReceiptAsync(it.raw, op.addr
                                   ), "CurrentApp.getAppReceiptAsync"
@@ -13785,7 +13785,7 @@ proc getAppReceiptAsync*(_: typedesc[CurrentApp]): Future[string] =
 proc getProductReceiptAsync*(_: typedesc[CurrentApp], productId: string
                             ): Future[string] =
   ## Windows.ApplicationModel.Store.ICurrentApp.GetProductReceiptAsync
-  let it = statics[ICurrentAppVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppVtbl](className(CurrentApp))
   let a0 = toWinRtString(productId)
   var op: pointer
   check it.vtbl.GetProductReceiptAsync(it.raw, a0.handle, op.addr
@@ -13794,7 +13794,7 @@ proc getProductReceiptAsync*(_: typedesc[CurrentApp], productId: string
 
 proc getAppPurchaseCampaignIdAsync*(_: typedesc[CurrentApp]): Future[string] =
   ## Windows.ApplicationModel.Store.ICurrentAppWithCampaignId.GetAppPurchaseCampaignIdAsync
-  let it = statics[ICurrentAppWithCampaignIdVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppWithCampaignIdVtbl](className(CurrentApp))
   var op: pointer
   check it.vtbl.GetAppPurchaseCampaignIdAsync(it.raw, op.addr
                                              ), "CurrentApp.getAppPurchaseCampaignIdAsync"
@@ -13804,7 +13804,7 @@ proc loadListingInformationByProductIdsAsync*(_: typedesc[CurrentApp],
                                               productIds: seq[string]
                                              ): Future[ListingInformation] =
   ## Windows.ApplicationModel.Store.ICurrentAppStaticsWithFiltering.LoadListingInformationByProductIdsAsync
-  let it = statics[ICurrentAppStaticsWithFilteringVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppStaticsWithFilteringVtbl](className(CurrentApp))
   let a0 = asCollection[string, seq[string]](productIds)
   var op: pointer
   check it.vtbl.LoadListingInformationByProductIdsAsync(it.raw, a0.raw, op.addr
@@ -13815,7 +13815,7 @@ proc loadListingInformationByKeywordsAsync*(_: typedesc[CurrentApp],
                                             keywords: seq[string]
                                            ): Future[ListingInformation] =
   ## Windows.ApplicationModel.Store.ICurrentAppStaticsWithFiltering.LoadListingInformationByKeywordsAsync
-  let it = statics[ICurrentAppStaticsWithFilteringVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppStaticsWithFilteringVtbl](className(CurrentApp))
   let a0 = asCollection[string, seq[string]](keywords)
   var op: pointer
   check it.vtbl.LoadListingInformationByKeywordsAsync(it.raw, a0.raw, op.addr
@@ -13824,7 +13824,7 @@ proc loadListingInformationByKeywordsAsync*(_: typedesc[CurrentApp],
 
 proc reportProductFulfillment*(_: typedesc[CurrentApp], productId: string) =
   ## Windows.ApplicationModel.Store.ICurrentAppStaticsWithFiltering.ReportProductFulfillment
-  let it = statics[ICurrentAppStaticsWithFilteringVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentAppStaticsWithFilteringVtbl](className(CurrentApp))
   let a0 = toWinRtString(productId)
   check it.vtbl.ReportProductFulfillment(it.raw, a0.handle
                                         ), "CurrentApp.reportProductFulfillment"
@@ -13832,7 +13832,7 @@ proc reportProductFulfillment*(_: typedesc[CurrentApp], productId: string) =
 proc getCustomerPurchaseIdAsync*(_: typedesc[CurrentApp], serviceTicket: string,
                                  publisherUserId: string): Future[string] =
   ## Windows.ApplicationModel.Store.ICurrentApp2Statics.GetCustomerPurchaseIdAsync
-  let it = statics[ICurrentApp2StaticsVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentApp2StaticsVtbl](className(CurrentApp))
   let a0 = toWinRtString(serviceTicket)
   let a1 = toWinRtString(publisherUserId)
   var op: pointer
@@ -13844,7 +13844,7 @@ proc getCustomerCollectionsIdAsync*(_: typedesc[CurrentApp],
                                     serviceTicket: string,
                                     publisherUserId: string): Future[string] =
   ## Windows.ApplicationModel.Store.ICurrentApp2Statics.GetCustomerCollectionsIdAsync
-  let it = statics[ICurrentApp2StaticsVtbl]("Windows.ApplicationModel.Store.CurrentApp")
+  let it = statics[ICurrentApp2StaticsVtbl](className(CurrentApp))
   let a0 = toWinRtString(serviceTicket)
   let a1 = toWinRtString(publisherUserId)
   var op: pointer
@@ -13859,7 +13859,7 @@ proc reportConsumableFulfillmentAsync*(_: typedesc[CurrentAppSimulator],
                                        productId: string, transactionId: GUID
                                       ): Future[FulfillmentResult] =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulatorWithConsumables.ReportConsumableFulfillmentAsync
-  let it = statics[ICurrentAppSimulatorWithConsumablesVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorWithConsumablesVtbl](className(CurrentAppSimulator))
   let a0 = toWinRtString(productId)
   var op: pointer
   check it.vtbl.ReportConsumableFulfillmentAsync(it.raw, a0.handle,
@@ -13870,7 +13870,7 @@ proc reportConsumableFulfillmentAsync*(_: typedesc[CurrentAppSimulator],
 proc requestProductPurchaseAsync*(_: typedesc[CurrentAppSimulator],
                                   productId: string): Future[PurchaseResults] =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulatorWithConsumables.RequestProductPurchaseAsync
-  let it = statics[ICurrentAppSimulatorWithConsumablesVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorWithConsumablesVtbl](className(CurrentAppSimulator))
   let a0 = toWinRtString(productId)
   var op: pointer
   check it.vtbl.RequestProductPurchaseAsync(it.raw, a0.handle, op.addr
@@ -13882,7 +13882,7 @@ proc requestProductPurchaseAsync*(_: typedesc[CurrentAppSimulator],
                                   displayProperties: ProductPurchaseDisplayProperties
                                  ): Future[PurchaseResults] =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulatorWithConsumables.RequestProductPurchaseAsync
-  let it = statics[ICurrentAppSimulatorWithConsumablesVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorWithConsumablesVtbl](className(CurrentAppSimulator))
   let a0 = toWinRtString(productId)
   let a1 = toWinRtString(offerId)
   let a2 = queryInterface[IProductPurchaseDisplayPropertiesVtbl](displayProperties)
@@ -13894,7 +13894,7 @@ proc requestProductPurchaseAsync*(_: typedesc[CurrentAppSimulator],
 
 proc getUnfulfilledConsumablesAsync*(_: typedesc[CurrentAppSimulator]): Future[seq[UnfulfilledConsumable]] =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulatorWithConsumables.GetUnfulfilledConsumablesAsync
-  let it = statics[ICurrentAppSimulatorWithConsumablesVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorWithConsumablesVtbl](className(CurrentAppSimulator))
   var op: pointer
   check it.vtbl.GetUnfulfilledConsumablesAsync(it.raw, op.addr
                                               ), "CurrentAppSimulator.getUnfulfilledConsumablesAsync"
@@ -13903,7 +13903,7 @@ proc getUnfulfilledConsumablesAsync*(_: typedesc[CurrentAppSimulator]): Future[s
 
 proc getAppPurchaseCampaignIdAsync*(_: typedesc[CurrentAppSimulator]): Future[string] =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulatorWithCampaignId.GetAppPurchaseCampaignIdAsync
-  let it = statics[ICurrentAppSimulatorWithCampaignIdVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorWithCampaignIdVtbl](className(CurrentAppSimulator))
   var op: pointer
   check it.vtbl.GetAppPurchaseCampaignIdAsync(it.raw, op.addr
                                              ), "CurrentAppSimulator.getAppPurchaseCampaignIdAsync"
@@ -13911,7 +13911,7 @@ proc getAppPurchaseCampaignIdAsync*(_: typedesc[CurrentAppSimulator]): Future[st
 
 proc licenseInformation*(_: typedesc[CurrentAppSimulator]): LicenseInformation =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulator.get_LicenseInformation
-  let it = statics[ICurrentAppSimulatorVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorVtbl](className(CurrentAppSimulator))
   var ret: pointer
   check it.vtbl.get_LicenseInformation(it.raw, ret.addr
                                       ), "CurrentAppSimulator.licenseInformation"
@@ -13919,14 +13919,14 @@ proc licenseInformation*(_: typedesc[CurrentAppSimulator]): LicenseInformation =
 
 proc linkUri*(_: typedesc[CurrentAppSimulator]): Uri =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulator.get_LinkUri
-  let it = statics[ICurrentAppSimulatorVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorVtbl](className(CurrentAppSimulator))
   var ret: pointer
   check it.vtbl.get_LinkUri(it.raw, ret.addr), "CurrentAppSimulator.linkUri"
   adopt[Uri](ret)
 
 proc appId*(_: typedesc[CurrentAppSimulator]): GUID =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulator.get_AppId
-  let it = statics[ICurrentAppSimulatorVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorVtbl](className(CurrentAppSimulator))
   var ret: GUID
   check it.vtbl.get_AppId(it.raw, ret.addr), "CurrentAppSimulator.appId"
   ret
@@ -13934,7 +13934,7 @@ proc appId*(_: typedesc[CurrentAppSimulator]): GUID =
 proc requestAppPurchaseAsync*(_: typedesc[CurrentAppSimulator],
                               includeReceipt: bool): Future[string] =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulator.RequestAppPurchaseAsync
-  let it = statics[ICurrentAppSimulatorVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorVtbl](className(CurrentAppSimulator))
   var op: pointer
   check it.vtbl.RequestAppPurchaseAsync(it.raw, includeReceipt, op.addr
                                        ), "CurrentAppSimulator.requestAppPurchaseAsync"
@@ -13944,7 +13944,7 @@ proc requestProductPurchaseAsync*(_: typedesc[CurrentAppSimulator],
                                   productId: string, includeReceipt: bool
                                  ): Future[string] =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulator.RequestProductPurchaseAsync
-  let it = statics[ICurrentAppSimulatorVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorVtbl](className(CurrentAppSimulator))
   let a0 = toWinRtString(productId)
   var op: pointer
   check it.vtbl.RequestProductPurchaseAsync(it.raw, a0.handle, includeReceipt,
@@ -13954,7 +13954,7 @@ proc requestProductPurchaseAsync*(_: typedesc[CurrentAppSimulator],
 
 proc loadListingInformationAsync*(_: typedesc[CurrentAppSimulator]): Future[ListingInformation] =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulator.LoadListingInformationAsync
-  let it = statics[ICurrentAppSimulatorVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorVtbl](className(CurrentAppSimulator))
   var op: pointer
   check it.vtbl.LoadListingInformationAsync(it.raw, op.addr
                                            ), "CurrentAppSimulator.loadListingInformationAsync"
@@ -13962,7 +13962,7 @@ proc loadListingInformationAsync*(_: typedesc[CurrentAppSimulator]): Future[List
 
 proc getAppReceiptAsync*(_: typedesc[CurrentAppSimulator]): Future[string] =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulator.GetAppReceiptAsync
-  let it = statics[ICurrentAppSimulatorVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorVtbl](className(CurrentAppSimulator))
   var op: pointer
   check it.vtbl.GetAppReceiptAsync(it.raw, op.addr
                                   ), "CurrentAppSimulator.getAppReceiptAsync"
@@ -13971,7 +13971,7 @@ proc getAppReceiptAsync*(_: typedesc[CurrentAppSimulator]): Future[string] =
 proc getProductReceiptAsync*(_: typedesc[CurrentAppSimulator], productId: string
                             ): Future[string] =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulator.GetProductReceiptAsync
-  let it = statics[ICurrentAppSimulatorVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorVtbl](className(CurrentAppSimulator))
   let a0 = toWinRtString(productId)
   var op: pointer
   check it.vtbl.GetProductReceiptAsync(it.raw, a0.handle, op.addr
@@ -13981,7 +13981,7 @@ proc getProductReceiptAsync*(_: typedesc[CurrentAppSimulator], productId: string
 proc reloadSimulatorAsync*(_: typedesc[CurrentAppSimulator],
                            simulatorSettingsFile: StorageFile): Future[void] =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulator.ReloadSimulatorAsync
-  let it = statics[ICurrentAppSimulatorVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorVtbl](className(CurrentAppSimulator))
   let a0 = queryInterface[IStorageFileVtbl](simulatorSettingsFile)
   var op: pointer
   check it.vtbl.ReloadSimulatorAsync(it.raw, a0.raw, op.addr
@@ -13992,7 +13992,7 @@ proc loadListingInformationByProductIdsAsync*(_: typedesc[CurrentAppSimulator],
                                               productIds: seq[string]
                                              ): Future[ListingInformation] =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulatorStaticsWithFiltering.LoadListingInformationByProductIdsAsync
-  let it = statics[ICurrentAppSimulatorStaticsWithFilteringVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorStaticsWithFilteringVtbl](className(CurrentAppSimulator))
   let a0 = asCollection[string, seq[string]](productIds)
   var op: pointer
   check it.vtbl.LoadListingInformationByProductIdsAsync(it.raw, a0.raw, op.addr
@@ -14003,7 +14003,7 @@ proc loadListingInformationByKeywordsAsync*(_: typedesc[CurrentAppSimulator],
                                             keywords: seq[string]
                                            ): Future[ListingInformation] =
   ## Windows.ApplicationModel.Store.ICurrentAppSimulatorStaticsWithFiltering.LoadListingInformationByKeywordsAsync
-  let it = statics[ICurrentAppSimulatorStaticsWithFilteringVtbl]("Windows.ApplicationModel.Store.CurrentAppSimulator")
+  let it = statics[ICurrentAppSimulatorStaticsWithFilteringVtbl](className(CurrentAppSimulator))
   let a0 = asCollection[string, seq[string]](keywords)
   var op: pointer
   check it.vtbl.LoadListingInformationByKeywordsAsync(it.raw, a0.raw, op.addr
@@ -14016,7 +14016,7 @@ proc newCustomSystemEventTrigger*(triggerId: string,
                                   recurrence: CustomSystemEventTriggerRecurrence
                                  ): CustomSystemEventTrigger =
   ## Windows.ApplicationModel.Background.ICustomSystemEventTriggerFactory.Create
-  let it = statics[ICustomSystemEventTriggerFactoryVtbl]("Windows.ApplicationModel.Background.CustomSystemEventTrigger")
+  let it = statics[ICustomSystemEventTriggerFactoryVtbl](className(CustomSystemEventTrigger))
   let a0 = toWinRtString(triggerId)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, recurrence, ret.addr
@@ -14790,25 +14790,25 @@ proc request*(self: DataRequestedEventArgs): DataRequest =
 
 proc showShareUI*(_: typedesc[DataTransferManager], options: ShareUIOptions) =
   ## Windows.ApplicationModel.DataTransfer.IDataTransferManagerStatics3.ShowShareUI
-  let it = statics[IDataTransferManagerStatics3Vtbl]("Windows.ApplicationModel.DataTransfer.DataTransferManager")
+  let it = statics[IDataTransferManagerStatics3Vtbl](className(DataTransferManager))
   let a0 = queryInterface[IShareUIOptionsVtbl](options)
   check it.vtbl.ShowShareUI(it.raw, a0.raw), "DataTransferManager.showShareUI"
 
 proc isSupported*(_: typedesc[DataTransferManager]): bool =
   ## Windows.ApplicationModel.DataTransfer.IDataTransferManagerStatics2.IsSupported
-  let it = statics[IDataTransferManagerStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.DataTransferManager")
+  let it = statics[IDataTransferManagerStatics2Vtbl](className(DataTransferManager))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr), "DataTransferManager.isSupported"
   ret
 
 proc showShareUI*(_: typedesc[DataTransferManager]) =
   ## Windows.ApplicationModel.DataTransfer.IDataTransferManagerStatics.ShowShareUI
-  let it = statics[IDataTransferManagerStaticsVtbl]("Windows.ApplicationModel.DataTransfer.DataTransferManager")
+  let it = statics[IDataTransferManagerStaticsVtbl](className(DataTransferManager))
   check it.vtbl.ShowShareUI(it.raw), "DataTransferManager.showShareUI"
 
 proc getForCurrentView*(_: typedesc[DataTransferManager]): DataTransferManager =
   ## Windows.ApplicationModel.DataTransfer.IDataTransferManagerStatics.GetForCurrentView
-  let it = statics[IDataTransferManagerStaticsVtbl]("Windows.ApplicationModel.DataTransfer.DataTransferManager")
+  let it = statics[IDataTransferManagerStaticsVtbl](className(DataTransferManager))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "DataTransferManager.getForCurrentView"
@@ -14880,7 +14880,7 @@ proc removeShareProvidersRequested*(self: DataTransferManager,
 
 proc getCurrentSettings*(_: typedesc[DeliveryOptimizationSettings]): DeliveryOptimizationSettings =
   ## Windows.ApplicationModel.Store.Preview.IDeliveryOptimizationSettingsStatics.GetCurrentSettings
-  let it = statics[IDeliveryOptimizationSettingsStaticsVtbl]("Windows.ApplicationModel.Store.Preview.DeliveryOptimizationSettings")
+  let it = statics[IDeliveryOptimizationSettingsStaticsVtbl](className(DeliveryOptimizationSettings))
   var ret: pointer
   check it.vtbl.GetCurrentSettings(it.raw, ret.addr
                                   ), "DeliveryOptimizationSettings.getCurrentSettings"
@@ -14906,7 +14906,7 @@ proc downloadModeSource*(self: DeliveryOptimizationSettings): DeliveryOptimizati
 
 proc designMode2Enabled*(_: typedesc[DesignMode]): bool =
   ## Windows.ApplicationModel.IDesignModeStatics2.get_DesignMode2Enabled
-  let it = statics[IDesignModeStatics2Vtbl]("Windows.ApplicationModel.DesignMode")
+  let it = statics[IDesignModeStatics2Vtbl](className(DesignMode))
   var ret: bool
   check it.vtbl.get_DesignMode2Enabled(it.raw, ret.addr
                                       ), "DesignMode.designMode2Enabled"
@@ -14914,7 +14914,7 @@ proc designMode2Enabled*(_: typedesc[DesignMode]): bool =
 
 proc designModeEnabled*(_: typedesc[DesignMode]): bool =
   ## Windows.ApplicationModel.IDesignModeStatics.get_DesignModeEnabled
-  let it = statics[IDesignModeStaticsVtbl]("Windows.ApplicationModel.DesignMode")
+  let it = statics[IDesignModeStaticsVtbl](className(DesignMode))
   var ret: bool
   check it.vtbl.get_DesignModeEnabled(it.raw, ret.addr
                                      ), "DesignMode.designModeEnabled"
@@ -15644,7 +15644,7 @@ proc `isSyncScheduleManagedBySystem=`*(self: DeviceAccountConfiguration,
 proc fromIdAsync*(_: typedesc[DeviceConnectionChangeTrigger], deviceId: string
                  ): Future[DeviceConnectionChangeTrigger] =
   ## Windows.ApplicationModel.Background.IDeviceConnectionChangeTriggerStatics.FromIdAsync
-  let it = statics[IDeviceConnectionChangeTriggerStaticsVtbl]("Windows.ApplicationModel.Background.DeviceConnectionChangeTrigger")
+  let it = statics[IDeviceConnectionChangeTriggerStaticsVtbl](className(DeviceConnectionChangeTrigger))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -15688,7 +15688,7 @@ proc newDeviceManufacturerNotificationTrigger*(triggerQualifier: string,
                                                oneShot: bool
                                               ): DeviceManufacturerNotificationTrigger =
   ## Windows.ApplicationModel.Background.IDeviceManufacturerNotificationTriggerFactory.Create
-  let it = statics[IDeviceManufacturerNotificationTriggerFactoryVtbl]("Windows.ApplicationModel.Background.DeviceManufacturerNotificationTrigger")
+  let it = statics[IDeviceManufacturerNotificationTriggerFactoryVtbl](className(DeviceManufacturerNotificationTrigger))
   let a0 = toWinRtString(triggerQualifier)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, oneShot, ret.addr
@@ -15775,7 +15775,7 @@ proc newEmailAttachment*(): EmailAttachment =
 proc newEmailAttachment*(fileName: string, data: SomeRandomAccessStreamReference
                         ): EmailAttachment =
   ## Windows.ApplicationModel.Email.IEmailAttachmentFactory.Create
-  let it = statics[IEmailAttachmentFactoryVtbl]("Windows.ApplicationModel.Email.EmailAttachment")
+  let it = statics[IEmailAttachmentFactoryVtbl](className(EmailAttachment))
   let a0 = toWinRtString(fileName)
   let a1 = queryInterface[IRandomAccessStreamReferenceVtbl](data)
   var ret: pointer
@@ -15787,7 +15787,7 @@ proc newEmailAttachment*(fileName: string,
                          data: SomeRandomAccessStreamReference, mimeType: string
                         ): EmailAttachment =
   ## Windows.ApplicationModel.Email.IEmailAttachmentFactory2.Create
-  let it = statics[IEmailAttachmentFactory2Vtbl]("Windows.ApplicationModel.Email.EmailAttachment")
+  let it = statics[IEmailAttachmentFactory2Vtbl](className(EmailAttachment))
   let a0 = toWinRtString(fileName)
   let a1 = queryInterface[IRandomAccessStreamReferenceVtbl](data)
   let a2 = toWinRtString(mimeType)
@@ -16602,7 +16602,7 @@ proc newEmailIrmInfo*(): EmailIrmInfo =
 proc newEmailIrmInfo*(expiration: DateTime, irmTemplate: EmailIrmTemplate
                      ): EmailIrmInfo =
   ## Windows.ApplicationModel.Email.IEmailIrmInfoFactory.Create
-  let it = statics[IEmailIrmInfoFactoryVtbl]("Windows.ApplicationModel.Email.EmailIrmInfo")
+  let it = statics[IEmailIrmInfoFactoryVtbl](className(EmailIrmInfo))
   let a1 = queryInterface[IEmailIrmTemplateVtbl](irmTemplate)
   var ret: pointer
   check it.vtbl.Create(it.raw, expiration, a1.raw, ret.addr), "EmailIrmInfo.new"
@@ -16772,7 +16772,7 @@ proc newEmailIrmTemplate*(): EmailIrmTemplate =
 proc newEmailIrmTemplate*(id: string, name: string, description: string
                          ): EmailIrmTemplate =
   ## Windows.ApplicationModel.Email.IEmailIrmTemplateFactory.Create
-  let it = statics[IEmailIrmTemplateFactoryVtbl]("Windows.ApplicationModel.Email.EmailIrmTemplate")
+  let it = statics[IEmailIrmTemplateFactoryVtbl](className(EmailIrmTemplate))
   let a0 = toWinRtString(id)
   let a1 = toWinRtString(name)
   let a2 = toWinRtString(description)
@@ -19012,7 +19012,7 @@ proc getDeferral*(self: EmailMailboxValidateCertificatesRequestEventArgs): Defer
 
 proc getForUser*(_: typedesc[EmailManager], user: User): EmailManagerForUser =
   ## Windows.ApplicationModel.Email.IEmailManagerStatics3.GetForUser
-  let it = statics[IEmailManagerStatics3Vtbl]("Windows.ApplicationModel.Email.EmailManager")
+  let it = statics[IEmailManagerStatics3Vtbl](className(EmailManager))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr), "EmailManager.getForUser"
@@ -19021,7 +19021,7 @@ proc getForUser*(_: typedesc[EmailManager], user: User): EmailManagerForUser =
 proc requestStoreAsync*(_: typedesc[EmailManager],
                         accessType: EmailStoreAccessType): Future[EmailStore] =
   ## Windows.ApplicationModel.Email.IEmailManagerStatics2.RequestStoreAsync
-  let it = statics[IEmailManagerStatics2Vtbl]("Windows.ApplicationModel.Email.EmailManager")
+  let it = statics[IEmailManagerStatics2Vtbl](className(EmailManager))
   var op: pointer
   check it.vtbl.RequestStoreAsync(it.raw, accessType, op.addr
                                  ), "EmailManager.requestStoreAsync"
@@ -19030,7 +19030,7 @@ proc requestStoreAsync*(_: typedesc[EmailManager],
 proc showComposeNewEmailAsync*(_: typedesc[EmailManager], message: EmailMessage
                               ): Future[void] =
   ## Windows.ApplicationModel.Email.IEmailManagerStatics.ShowComposeNewEmailAsync
-  let it = statics[IEmailManagerStaticsVtbl]("Windows.ApplicationModel.Email.EmailManager")
+  let it = statics[IEmailManagerStaticsVtbl](className(EmailManager))
   let a0 = queryInterface[IEmailMessageVtbl](message)
   var op: pointer
   check it.vtbl.ShowComposeNewEmailAsync(it.raw, a0.raw, op.addr
@@ -19709,7 +19709,7 @@ proc newEmailQueryOptions*(): EmailQueryOptions =
 
 proc newEmailQueryOptions*(text: string): EmailQueryOptions =
   ## Windows.ApplicationModel.Email.IEmailQueryOptionsFactory.CreateWithText
-  let it = statics[IEmailQueryOptionsFactoryVtbl]("Windows.ApplicationModel.Email.EmailQueryOptions")
+  let it = statics[IEmailQueryOptionsFactoryVtbl](className(EmailQueryOptions))
   let a0 = toWinRtString(text)
   var ret: pointer
   check it.vtbl.CreateWithText(it.raw, a0.handle, ret.addr
@@ -19719,7 +19719,7 @@ proc newEmailQueryOptions*(text: string): EmailQueryOptions =
 proc newEmailQueryOptions*(text: string, fields: EmailQuerySearchFields
                           ): EmailQueryOptions =
   ## Windows.ApplicationModel.Email.IEmailQueryOptionsFactory.CreateWithTextAndFields
-  let it = statics[IEmailQueryOptionsFactoryVtbl]("Windows.ApplicationModel.Email.EmailQueryOptions")
+  let it = statics[IEmailQueryOptionsFactoryVtbl](className(EmailQueryOptions))
   let a0 = toWinRtString(text)
   var ret: pointer
   check it.vtbl.CreateWithTextAndFields(it.raw, a0.handle, fields, ret.addr
@@ -19830,7 +19830,7 @@ proc newEmailRecipient*(): EmailRecipient =
 
 proc newEmailRecipient*(address: string): EmailRecipient =
   ## Windows.ApplicationModel.Email.IEmailRecipientFactory.Create
-  let it = statics[IEmailRecipientFactoryVtbl]("Windows.ApplicationModel.Email.EmailRecipient")
+  let it = statics[IEmailRecipientFactoryVtbl](className(EmailRecipient))
   let a0 = toWinRtString(address)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr), "EmailRecipient.new"
@@ -19838,7 +19838,7 @@ proc newEmailRecipient*(address: string): EmailRecipient =
 
 proc newEmailRecipient*(address: string, name: string): EmailRecipient =
   ## Windows.ApplicationModel.Email.IEmailRecipientFactory.CreateWithName
-  let it = statics[IEmailRecipientFactoryVtbl]("Windows.ApplicationModel.Email.EmailRecipient")
+  let it = statics[IEmailRecipientFactoryVtbl](className(EmailRecipient))
   let a0 = toWinRtString(address)
   let a1 = toWinRtString(name)
   var ret: pointer
@@ -20238,7 +20238,7 @@ proc `maxCount=`*(self: FindAppointmentsOptions, value: uint32) =
 
 proc newFindRelatedPackagesOptions*(relationship: PackageRelationship): FindRelatedPackagesOptions =
   ## Windows.ApplicationModel.IFindRelatedPackagesOptionsFactory.CreateInstance
-  let it = statics[IFindRelatedPackagesOptionsFactoryVtbl]("Windows.ApplicationModel.FindRelatedPackagesOptions")
+  let it = statics[IFindRelatedPackagesOptionsFactoryVtbl](className(FindRelatedPackagesOptions))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, relationship, ret.addr
                               ), "FindRelatedPackagesOptions.new"
@@ -20358,7 +20358,7 @@ proc extendedError*(self: FullTrustProcessLaunchResult): HRESULT =
 
 proc launchFullTrustProcessForCurrentAppAsync*(_: typedesc[FullTrustProcessLauncher]): Future[void] =
   ## Windows.ApplicationModel.IFullTrustProcessLauncherStatics.LaunchFullTrustProcessForCurrentAppAsync
-  let it = statics[IFullTrustProcessLauncherStaticsVtbl]("Windows.ApplicationModel.FullTrustProcessLauncher")
+  let it = statics[IFullTrustProcessLauncherStaticsVtbl](className(FullTrustProcessLauncher))
   var op: pointer
   check it.vtbl.LaunchFullTrustProcessForCurrentAppAsync(it.raw, op.addr
                                                         ), "FullTrustProcessLauncher.launchFullTrustProcessForCurrentAppAsync"
@@ -20368,7 +20368,7 @@ proc launchFullTrustProcessForCurrentAppAsync*(_: typedesc[FullTrustProcessLaunc
                                                parameterGroupId: string
                                               ): Future[void] =
   ## Windows.ApplicationModel.IFullTrustProcessLauncherStatics.LaunchFullTrustProcessForCurrentAppAsync
-  let it = statics[IFullTrustProcessLauncherStaticsVtbl]("Windows.ApplicationModel.FullTrustProcessLauncher")
+  let it = statics[IFullTrustProcessLauncherStaticsVtbl](className(FullTrustProcessLauncher))
   let a0 = toWinRtString(parameterGroupId)
   var op: pointer
   check it.vtbl.LaunchFullTrustProcessForCurrentAppAsync2(it.raw, a0.handle,
@@ -20380,7 +20380,7 @@ proc launchFullTrustProcessForAppAsync*(_: typedesc[FullTrustProcessLauncher],
                                         fullTrustPackageRelativeAppId: string
                                        ): Future[void] =
   ## Windows.ApplicationModel.IFullTrustProcessLauncherStatics.LaunchFullTrustProcessForAppAsync
-  let it = statics[IFullTrustProcessLauncherStaticsVtbl]("Windows.ApplicationModel.FullTrustProcessLauncher")
+  let it = statics[IFullTrustProcessLauncherStaticsVtbl](className(FullTrustProcessLauncher))
   let a0 = toWinRtString(fullTrustPackageRelativeAppId)
   var op: pointer
   check it.vtbl.LaunchFullTrustProcessForAppAsync(it.raw, a0.handle, op.addr
@@ -20392,7 +20392,7 @@ proc launchFullTrustProcessForAppAsync*(_: typedesc[FullTrustProcessLauncher],
                                         parameterGroupId: string
                                        ): Future[void] =
   ## Windows.ApplicationModel.IFullTrustProcessLauncherStatics.LaunchFullTrustProcessForAppAsync
-  let it = statics[IFullTrustProcessLauncherStaticsVtbl]("Windows.ApplicationModel.FullTrustProcessLauncher")
+  let it = statics[IFullTrustProcessLauncherStaticsVtbl](className(FullTrustProcessLauncher))
   let a0 = toWinRtString(fullTrustPackageRelativeAppId)
   let a1 = toWinRtString(parameterGroupId)
   var op: pointer
@@ -20405,7 +20405,7 @@ proc launchFullTrustProcessForCurrentAppWithArgumentsAsync*(_: typedesc[FullTrus
                                                             commandLine: string
                                                            ): Future[FullTrustProcessLaunchResult] =
   ## Windows.ApplicationModel.IFullTrustProcessLauncherStatics2.LaunchFullTrustProcessForCurrentAppWithArgumentsAsync
-  let it = statics[IFullTrustProcessLauncherStatics2Vtbl]("Windows.ApplicationModel.FullTrustProcessLauncher")
+  let it = statics[IFullTrustProcessLauncherStatics2Vtbl](className(FullTrustProcessLauncher))
   let a0 = toWinRtString(commandLine)
   var op: pointer
   check it.vtbl.LaunchFullTrustProcessForCurrentAppWithArgumentsAsync(it.raw,
@@ -20420,7 +20420,7 @@ proc launchFullTrustProcessForAppWithArgumentsAsync*(_: typedesc[FullTrustProces
                                                      commandLine: string
                                                     ): Future[FullTrustProcessLaunchResult] =
   ## Windows.ApplicationModel.IFullTrustProcessLauncherStatics2.LaunchFullTrustProcessForAppWithArgumentsAsync
-  let it = statics[IFullTrustProcessLauncherStatics2Vtbl]("Windows.ApplicationModel.FullTrustProcessLauncher")
+  let it = statics[IFullTrustProcessLauncherStatics2Vtbl](className(FullTrustProcessLauncher))
   let a0 = toWinRtString(fullTrustPackageRelativeAppId)
   let a1 = toWinRtString(commandLine)
   var op: pointer
@@ -20438,7 +20438,7 @@ proc newGattCharacteristicNotificationTrigger*(characteristic: GattCharacteristi
                                                eventTriggeringMode: BluetoothEventTriggeringMode
                                               ): GattCharacteristicNotificationTrigger =
   ## Windows.ApplicationModel.Background.IGattCharacteristicNotificationTriggerFactory2.Create
-  let it = statics[IGattCharacteristicNotificationTriggerFactory2Vtbl]("Windows.ApplicationModel.Background.GattCharacteristicNotificationTrigger")
+  let it = statics[IGattCharacteristicNotificationTriggerFactory2Vtbl](className(GattCharacteristicNotificationTrigger))
   let a0 = queryInterface[IGattCharacteristicVtbl](characteristic)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, eventTriggeringMode, ret.addr
@@ -20447,7 +20447,7 @@ proc newGattCharacteristicNotificationTrigger*(characteristic: GattCharacteristi
 
 proc newGattCharacteristicNotificationTrigger*(characteristic: GattCharacteristic): GattCharacteristicNotificationTrigger =
   ## Windows.ApplicationModel.Background.IGattCharacteristicNotificationTriggerFactory.Create
-  let it = statics[IGattCharacteristicNotificationTriggerFactoryVtbl]("Windows.ApplicationModel.Background.GattCharacteristicNotificationTrigger")
+  let it = statics[IGattCharacteristicNotificationTriggerFactoryVtbl](className(GattCharacteristicNotificationTrigger))
   let a0 = queryInterface[IGattCharacteristicVtbl](characteristic)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -20475,7 +20475,7 @@ proc eventTriggeringMode*(self: GattCharacteristicNotificationTrigger): Bluetoot
 proc createAsync*(_: typedesc[GattServiceProviderTrigger], triggerId: string,
                   serviceUuid: GUID): Future[GattServiceProviderTriggerResult] =
   ## Windows.ApplicationModel.Background.IGattServiceProviderTriggerStatics.CreateAsync
-  let it = statics[IGattServiceProviderTriggerStaticsVtbl]("Windows.ApplicationModel.Background.GattServiceProviderTrigger")
+  let it = statics[IGattServiceProviderTriggerStaticsVtbl](className(GattServiceProviderTrigger))
   let a0 = toWinRtString(triggerId)
   var op: pointer
   check it.vtbl.CreateAsync(it.raw, a0.handle, serviceUuid, op.addr
@@ -20597,7 +20597,7 @@ proc availabilityId*(self: GetEntitlementResult): string =
 
 proc isCurrentViewPresentedOnHolographicDisplay*(_: typedesc[HolographicApplicationPreview]): bool =
   ## Windows.ApplicationModel.Preview.Holographic.IHolographicApplicationPreviewStatics.IsCurrentViewPresentedOnHolographicDisplay
-  let it = statics[IHolographicApplicationPreviewStaticsVtbl]("Windows.ApplicationModel.Preview.Holographic.HolographicApplicationPreview")
+  let it = statics[IHolographicApplicationPreviewStaticsVtbl](className(HolographicApplicationPreview))
   var ret: bool
   check it.vtbl.IsCurrentViewPresentedOnHolographicDisplay(it.raw, ret.addr
                                                           ), "HolographicApplicationPreview.isCurrentViewPresentedOnHolographicDisplay"
@@ -20607,7 +20607,7 @@ proc isHolographicActivation*(_: typedesc[HolographicApplicationPreview],
                               activatedEventArgs: SomeActivatedEventArgs
                              ): bool =
   ## Windows.ApplicationModel.Preview.Holographic.IHolographicApplicationPreviewStatics.IsHolographicActivation
-  let it = statics[IHolographicApplicationPreviewStaticsVtbl]("Windows.ApplicationModel.Preview.Holographic.HolographicApplicationPreview")
+  let it = statics[IHolographicApplicationPreviewStaticsVtbl](className(HolographicApplicationPreview))
   let a0 = queryInterface[IActivatedEventArgsVtbl](activatedEventArgs)
   var ret: bool
   check it.vtbl.IsHolographicActivation(it.raw, a0.raw, ret.addr
@@ -20618,7 +20618,7 @@ proc isHolographicActivation*(_: typedesc[HolographicApplicationPreview],
 
 proc getDefault*(_: typedesc[HolographicKeyboard]): HolographicKeyboard =
   ## Windows.ApplicationModel.Holographic.IHolographicKeyboardStatics.GetDefault
-  let it = statics[IHolographicKeyboardStaticsVtbl]("Windows.ApplicationModel.Holographic.HolographicKeyboard")
+  let it = statics[IHolographicKeyboardStaticsVtbl](className(HolographicKeyboard))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "HolographicKeyboard.getDefault"
   adopt[HolographicKeyboard](ret)
@@ -20654,7 +20654,7 @@ proc resetPlacementOverride*(self: HolographicKeyboard) =
 
 proc getForCurrentView*(_: typedesc[HolographicKeyboardPlacementOverridePreview]): HolographicKeyboardPlacementOverridePreview =
   ## Windows.ApplicationModel.Preview.Holographic.IHolographicKeyboardPlacementOverridePreviewStatics.GetForCurrentView
-  let it = statics[IHolographicKeyboardPlacementOverridePreviewStaticsVtbl]("Windows.ApplicationModel.Preview.Holographic.HolographicKeyboardPlacementOverridePreview")
+  let it = statics[IHolographicKeyboardPlacementOverridePreviewStaticsVtbl](className(HolographicKeyboardPlacementOverridePreview))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "HolographicKeyboardPlacementOverridePreview.getForCurrentView"
@@ -20700,7 +20700,7 @@ proc getDeferral*(self: HostedViewClosingEventArgs): Deferral =
 proc getStaticFragment*(_: typedesc[HtmlFormatHelper], htmlFormat: string
                        ): string =
   ## Windows.ApplicationModel.DataTransfer.IHtmlFormatHelperStatics.GetStaticFragment
-  let it = statics[IHtmlFormatHelperStaticsVtbl]("Windows.ApplicationModel.DataTransfer.HtmlFormatHelper")
+  let it = statics[IHtmlFormatHelperStaticsVtbl](className(HtmlFormatHelper))
   let a0 = toWinRtString(htmlFormat)
   var ret: HSTRING
   check it.vtbl.GetStaticFragment(it.raw, a0.handle, ret.addr
@@ -20710,7 +20710,7 @@ proc getStaticFragment*(_: typedesc[HtmlFormatHelper], htmlFormat: string
 proc createHtmlFormat*(_: typedesc[HtmlFormatHelper], htmlFragment: string
                       ): string =
   ## Windows.ApplicationModel.DataTransfer.IHtmlFormatHelperStatics.CreateHtmlFormat
-  let it = statics[IHtmlFormatHelperStaticsVtbl]("Windows.ApplicationModel.DataTransfer.HtmlFormatHelper")
+  let it = statics[IHtmlFormatHelperStaticsVtbl](className(HtmlFormatHelper))
   let a0 = toWinRtString(htmlFragment)
   var ret: HSTRING
   check it.vtbl.CreateHtmlFormat(it.raw, a0.handle, ret.addr
@@ -20725,7 +20725,7 @@ proc newIncomingVoipPhoneCallOptions*(): IncomingVoipPhoneCallOptions =
 
 proc newIncomingVoipPhoneCallOptions*(associatedDeviceIds: seq[string]): IncomingVoipPhoneCallOptions =
   ## Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptionsFactory.CreateInstance
-  let it = statics[IIncomingVoipPhoneCallOptionsFactoryVtbl]("Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions")
+  let it = statics[IIncomingVoipPhoneCallOptionsFactoryVtbl](className(IncomingVoipPhoneCallOptions))
   let a0 = asCollection[string, seq[string]](associatedDeviceIds)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.raw, ret.addr
@@ -20974,7 +20974,7 @@ proc qualifierValue*(self: IndexedResourceQualifier): string =
 
 proc getForCurrentApp*(_: typedesc[InkWorkspaceHostedAppManager]): InkWorkspaceHostedAppManager =
   ## Windows.ApplicationModel.Preview.InkWorkspace.IInkWorkspaceHostedAppManagerStatics.GetForCurrentApp
-  let it = statics[IInkWorkspaceHostedAppManagerStaticsVtbl]("Windows.ApplicationModel.Preview.InkWorkspace.InkWorkspaceHostedAppManager")
+  let it = statics[IInkWorkspaceHostedAppManagerStaticsVtbl](className(InkWorkspaceHostedAppManager))
   var ret: pointer
   check it.vtbl.GetForCurrentApp(it.raw, ret.addr
                                 ), "InkWorkspaceHostedAppManager.getForCurrentApp"
@@ -20994,14 +20994,14 @@ proc setThumbnailAsync*(self: InkWorkspaceHostedAppManager,
 
 proc email*(_: typedesc[KnownContactField]): string =
   ## Windows.ApplicationModel.Contacts.IKnownContactFieldStatics.get_Email
-  let it = statics[IKnownContactFieldStaticsVtbl]("Windows.ApplicationModel.Contacts.KnownContactField")
+  let it = statics[IKnownContactFieldStaticsVtbl](className(KnownContactField))
   var ret: HSTRING
   check it.vtbl.get_Email(it.raw, ret.addr), "KnownContactField.email"
   takeString(ret)
 
 proc phoneNumber*(_: typedesc[KnownContactField]): string =
   ## Windows.ApplicationModel.Contacts.IKnownContactFieldStatics.get_PhoneNumber
-  let it = statics[IKnownContactFieldStaticsVtbl]("Windows.ApplicationModel.Contacts.KnownContactField")
+  let it = statics[IKnownContactFieldStaticsVtbl](className(KnownContactField))
   var ret: HSTRING
   check it.vtbl.get_PhoneNumber(it.raw, ret.addr
                                ), "KnownContactField.phoneNumber"
@@ -21009,14 +21009,14 @@ proc phoneNumber*(_: typedesc[KnownContactField]): string =
 
 proc location*(_: typedesc[KnownContactField]): string =
   ## Windows.ApplicationModel.Contacts.IKnownContactFieldStatics.get_Location
-  let it = statics[IKnownContactFieldStaticsVtbl]("Windows.ApplicationModel.Contacts.KnownContactField")
+  let it = statics[IKnownContactFieldStaticsVtbl](className(KnownContactField))
   var ret: HSTRING
   check it.vtbl.get_Location(it.raw, ret.addr), "KnownContactField.location"
   takeString(ret)
 
 proc instantMessage*(_: typedesc[KnownContactField]): string =
   ## Windows.ApplicationModel.Contacts.IKnownContactFieldStatics.get_InstantMessage
-  let it = statics[IKnownContactFieldStaticsVtbl]("Windows.ApplicationModel.Contacts.KnownContactField")
+  let it = statics[IKnownContactFieldStaticsVtbl](className(KnownContactField))
   var ret: HSTRING
   check it.vtbl.get_InstantMessage(it.raw, ret.addr
                                   ), "KnownContactField.instantMessage"
@@ -21025,7 +21025,7 @@ proc instantMessage*(_: typedesc[KnownContactField]): string =
 proc convertNameToType*(_: typedesc[KnownContactField], name: string
                        ): ContactFieldType =
   ## Windows.ApplicationModel.Contacts.IKnownContactFieldStatics.ConvertNameToType
-  let it = statics[IKnownContactFieldStaticsVtbl]("Windows.ApplicationModel.Contacts.KnownContactField")
+  let it = statics[IKnownContactFieldStaticsVtbl](className(KnownContactField))
   let a0 = toWinRtString(name)
   var ret: ContactFieldType
   check it.vtbl.ConvertNameToType(it.raw, a0.handle, ret.addr
@@ -21035,7 +21035,7 @@ proc convertNameToType*(_: typedesc[KnownContactField], name: string
 proc convertTypeToName*(_: typedesc[KnownContactField], `type`: ContactFieldType
                        ): string =
   ## Windows.ApplicationModel.Contacts.IKnownContactFieldStatics.ConvertTypeToName
-  let it = statics[IKnownContactFieldStaticsVtbl]("Windows.ApplicationModel.Contacts.KnownContactField")
+  let it = statics[IKnownContactFieldStaticsVtbl](className(KnownContactField))
   var ret: HSTRING
   check it.vtbl.ConvertTypeToName(it.raw, `type`, ret.addr
                                  ), "KnownContactField.convertTypeToName"
@@ -21094,7 +21094,7 @@ proc removeLicenseChanged*(self: LicenseInformation,
 proc addLicenseAsync*(_: typedesc[LicenseManager], license: SomeBuffer
                      ): Future[void] =
   ## Windows.ApplicationModel.Store.LicenseManagement.ILicenseManagerStatics.AddLicenseAsync
-  let it = statics[ILicenseManagerStaticsVtbl]("Windows.ApplicationModel.Store.LicenseManagement.LicenseManager")
+  let it = statics[ILicenseManagerStaticsVtbl](className(LicenseManager))
   let a0 = queryInterface[IBufferVtbl](license)
   var op: pointer
   check it.vtbl.AddLicenseAsync(it.raw, a0.raw, op.addr
@@ -21105,7 +21105,7 @@ proc getSatisfactionInfosAsync*(_: typedesc[LicenseManager],
                                 contentIds: seq[string], keyIds: seq[string]
                                ): Future[LicenseSatisfactionResult] =
   ## Windows.ApplicationModel.Store.LicenseManagement.ILicenseManagerStatics.GetSatisfactionInfosAsync
-  let it = statics[ILicenseManagerStaticsVtbl]("Windows.ApplicationModel.Store.LicenseManagement.LicenseManager")
+  let it = statics[ILicenseManagerStaticsVtbl](className(LicenseManager))
   let a0 = asCollection[string, seq[string]](contentIds)
   let a1 = asCollection[string, seq[string]](keyIds)
   var op: pointer
@@ -21116,7 +21116,7 @@ proc getSatisfactionInfosAsync*(_: typedesc[LicenseManager],
 proc refreshLicensesAsync*(_: typedesc[LicenseManager],
                            refreshOption: LicenseRefreshOption): Future[void] =
   ## Windows.ApplicationModel.Store.LicenseManagement.ILicenseManagerStatics2.RefreshLicensesAsync
-  let it = statics[ILicenseManagerStatics2Vtbl]("Windows.ApplicationModel.Store.LicenseManagement.LicenseManager")
+  let it = statics[ILicenseManagerStatics2Vtbl](className(LicenseManager))
   var op: pointer
   check it.vtbl.RefreshLicensesAsync(it.raw, refreshOption, op.addr
                                     ), "LicenseManager.refreshLicensesAsync"
@@ -21230,7 +21230,7 @@ proc tryUnlockFeature*(_: typedesc[LimitedAccessFeatures], featureId: string,
                        token: string, attestation: string
                       ): LimitedAccessFeatureRequestResult =
   ## Windows.ApplicationModel.ILimitedAccessFeaturesStatics.TryUnlockFeature
-  let it = statics[ILimitedAccessFeaturesStaticsVtbl]("Windows.ApplicationModel.LimitedAccessFeatures")
+  let it = statics[ILimitedAccessFeaturesStaticsVtbl](className(LimitedAccessFeatures))
   let a0 = toWinRtString(featureId)
   let a1 = toWinRtString(token)
   let a2 = toWinRtString(attestation)
@@ -21374,7 +21374,7 @@ proc propertiesToMatch*(self: LocalContentSuggestionSettings): seq[string] =
 
 proc newLocationTrigger*(triggerType: LocationTriggerType): LocationTrigger =
   ## Windows.ApplicationModel.Background.ILocationTriggerFactory.Create
-  let it = statics[ILocationTriggerFactoryVtbl]("Windows.ApplicationModel.Background.LocationTrigger")
+  let it = statics[ILocationTriggerFactoryVtbl](className(LocationTrigger))
   var ret: pointer
   check it.vtbl.Create(it.raw, triggerType, ret.addr), "LocationTrigger.new"
   adopt[LocationTrigger](ret)
@@ -21390,7 +21390,7 @@ proc triggerType*(self: LocationTrigger): LocationTriggerType =
 
 proc getForCurrentView*(_: typedesc[LockApplicationHost]): LockApplicationHost =
   ## Windows.ApplicationModel.LockScreen.ILockApplicationHostStatics.GetForCurrentView
-  let it = statics[ILockApplicationHostStaticsVtbl]("Windows.ApplicationModel.LockScreen.LockApplicationHost")
+  let it = statics[ILockApplicationHostStaticsVtbl](className(LockApplicationHost))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "LockApplicationHost.getForCurrentView"
@@ -21681,7 +21681,7 @@ proc deadline*(self: LockScreenUnlockingEventArgs): DateTime =
 proc newMaintenanceTrigger*(freshnessTime: uint32, oneShot: bool
                            ): MaintenanceTrigger =
   ## Windows.ApplicationModel.Background.IMaintenanceTriggerFactory.Create
-  let it = statics[IMaintenanceTriggerFactoryVtbl]("Windows.ApplicationModel.Background.MaintenanceTrigger")
+  let it = statics[IMaintenanceTriggerFactoryVtbl](className(MaintenanceTrigger))
   var ret: pointer
   check it.vtbl.Create(it.raw, freshnessTime, oneShot, ret.addr
                       ), "MaintenanceTrigger.new"
@@ -21832,7 +21832,7 @@ proc newNetworkOperatorHotspotAuthenticationTrigger*(): NetworkOperatorHotspotAu
 
 proc newNetworkOperatorNotificationTrigger*(networkAccountId: string): NetworkOperatorNotificationTrigger =
   ## Windows.ApplicationModel.Background.INetworkOperatorNotificationTriggerFactory.Create
-  let it = statics[INetworkOperatorNotificationTriggerFactoryVtbl]("Windows.ApplicationModel.Background.NetworkOperatorNotificationTrigger")
+  let it = statics[INetworkOperatorNotificationTriggerFactoryVtbl](className(NetworkOperatorNotificationTrigger))
   let a0 = toWinRtString(networkAccountId)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -21879,7 +21879,7 @@ proc isVisible*(self: NoteVisibilityChangedPreviewEventArgs): bool =
 
 proc getForCurrentApp*(_: typedesc[NotesWindowManagerPreview]): NotesWindowManagerPreview =
   ## Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreviewStatics.GetForCurrentApp
-  let it = statics[INotesWindowManagerPreviewStaticsVtbl]("Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview")
+  let it = statics[INotesWindowManagerPreviewStaticsVtbl](className(NotesWindowManagerPreview))
   var ret: pointer
   check it.vtbl.GetForCurrentApp(it.raw, ret.addr
                                 ), "NotesWindowManagerPreview.getForCurrentApp"
@@ -22097,7 +22097,7 @@ proc newOutgoingVoipPhoneCallOptions*(): OutgoingVoipPhoneCallOptions =
 
 proc newOutgoingVoipPhoneCallOptions*(associatedDeviceIds: seq[string]): OutgoingVoipPhoneCallOptions =
   ## Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptionsFactory.CreateInstance
-  let it = statics[IOutgoingVoipPhoneCallOptionsFactoryVtbl]("Windows.ApplicationModel.Calls.OutgoingVoipPhoneCallOptions")
+  let it = statics[IOutgoingVoipPhoneCallOptionsFactoryVtbl](className(OutgoingVoipPhoneCallOptions))
   let a0 = asCollection[string, seq[string]](associatedDeviceIds)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.raw, ret.addr
@@ -22174,7 +22174,7 @@ proc associatedDeviceIds*(self: OutgoingVoipPhoneCallOptions): seq[string] =
 
 proc current*(_: typedesc[Package]): Package =
   ## Windows.ApplicationModel.IPackageStatics.get_Current
-  let it = statics[IPackageStaticsVtbl]("Windows.ApplicationModel.Package")
+  let it = statics[IPackageStaticsVtbl](className(Package))
   var ret: pointer
   check it.vtbl.get_Current(it.raw, ret.addr), "Package.current"
   adopt[Package](ret)
@@ -22521,7 +22521,7 @@ proc sourceUriSchemeName*(self: Package): string =
 proc openForPackage*(_: typedesc[PackageCatalog], package: Package
                     ): PackageCatalog =
   ## Windows.ApplicationModel.IPackageCatalogStatics2.OpenForPackage
-  let it = statics[IPackageCatalogStatics2Vtbl]("Windows.ApplicationModel.PackageCatalog")
+  let it = statics[IPackageCatalogStatics2Vtbl](className(PackageCatalog))
   let a0 = queryInterface[IPackageVtbl](package)
   var ret: pointer
   check it.vtbl.OpenForPackage(it.raw, a0.raw, ret.addr
@@ -22530,7 +22530,7 @@ proc openForPackage*(_: typedesc[PackageCatalog], package: Package
 
 proc openForCurrentPackage*(_: typedesc[PackageCatalog]): PackageCatalog =
   ## Windows.ApplicationModel.IPackageCatalogStatics.OpenForCurrentPackage
-  let it = statics[IPackageCatalogStaticsVtbl]("Windows.ApplicationModel.PackageCatalog")
+  let it = statics[IPackageCatalogStaticsVtbl](className(PackageCatalog))
   var ret: pointer
   check it.vtbl.OpenForCurrentPackage(it.raw, ret.addr
                                      ), "PackageCatalog.openForCurrentPackage"
@@ -22538,7 +22538,7 @@ proc openForCurrentPackage*(_: typedesc[PackageCatalog]): PackageCatalog =
 
 proc openForCurrentUser*(_: typedesc[PackageCatalog]): PackageCatalog =
   ## Windows.ApplicationModel.IPackageCatalogStatics.OpenForCurrentUser
-  let it = statics[IPackageCatalogStaticsVtbl]("Windows.ApplicationModel.PackageCatalog")
+  let it = statics[IPackageCatalogStaticsVtbl](className(PackageCatalog))
   var ret: pointer
   check it.vtbl.OpenForCurrentUser(it.raw, ret.addr
                                   ), "PackageCatalog.openForCurrentUser"
@@ -22804,7 +22804,7 @@ proc extendedError*(self: PackageCatalogRemoveResourcePackagesResult): HRESULT =
 
 proc requiredGroupName*(_: typedesc[PackageContentGroup]): string =
   ## Windows.ApplicationModel.IPackageContentGroupStatics.get_RequiredGroupName
-  let it = statics[IPackageContentGroupStaticsVtbl]("Windows.ApplicationModel.PackageContentGroup")
+  let it = statics[IPackageContentGroupStaticsVtbl](className(PackageContentGroup))
   var ret: HSTRING
   check it.vtbl.get_RequiredGroupName(it.raw, ret.addr
                                      ), "PackageContentGroup.requiredGroupName"
@@ -22974,7 +22974,7 @@ proc getPublicFolderAsync*(self: PackageExtension): Future[StorageFolder] =
 proc open*(_: typedesc[PackageExtensionCatalog], packageExtensionName: string
           ): PackageExtensionCatalog =
   ## Windows.ApplicationModel.PackageExtensions.IPackageExtensionCatalogStatics.Open
-  let it = statics[IPackageExtensionCatalogStaticsVtbl]("Windows.ApplicationModel.PackageExtensions.PackageExtensionCatalog")
+  let it = statics[IPackageExtensionCatalogStaticsVtbl](className(PackageExtensionCatalog))
   let a0 = toWinRtString(packageExtensionName)
   var ret: pointer
   check it.vtbl.Open(it.raw, a0.handle, ret.addr
@@ -23684,7 +23684,7 @@ proc reportCanMakePaymentResult*(self: PaymentAppCanMakePaymentTriggerDetails,
 
 proc current*(_: typedesc[PaymentAppManager]): PaymentAppManager =
   ## Windows.ApplicationModel.Payments.Provider.IPaymentAppManagerStatics.get_Current
-  let it = statics[IPaymentAppManagerStaticsVtbl]("Windows.ApplicationModel.Payments.Provider.PaymentAppManager")
+  let it = statics[IPaymentAppManagerStaticsVtbl](className(PaymentAppManager))
   var ret: pointer
   check it.vtbl.get_Current(it.raw, ret.addr), "PaymentAppManager.current"
   adopt[PaymentAppManager](ret)
@@ -23711,7 +23711,7 @@ proc unregisterAsync*(self: PaymentAppManager): Future[void] =
 
 proc newPaymentCanMakePaymentResult*(value: PaymentCanMakePaymentResultStatus): PaymentCanMakePaymentResult =
   ## Windows.ApplicationModel.Payments.IPaymentCanMakePaymentResultFactory.Create
-  let it = statics[IPaymentCanMakePaymentResultFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentCanMakePaymentResult")
+  let it = statics[IPaymentCanMakePaymentResultFactoryVtbl](className(PaymentCanMakePaymentResult))
   var ret: pointer
   check it.vtbl.Create(it.raw, value, ret.addr
                       ), "PaymentCanMakePaymentResult.new"
@@ -23730,7 +23730,7 @@ proc status*(self: PaymentCanMakePaymentResult): PaymentCanMakePaymentResultStat
 proc newPaymentCurrencyAmount*(value: string, currency: string
                               ): PaymentCurrencyAmount =
   ## Windows.ApplicationModel.Payments.IPaymentCurrencyAmountFactory.Create
-  let it = statics[IPaymentCurrencyAmountFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentCurrencyAmount")
+  let it = statics[IPaymentCurrencyAmountFactoryVtbl](className(PaymentCurrencyAmount))
   let a0 = toWinRtString(value)
   let a1 = toWinRtString(currency)
   var ret: pointer
@@ -23741,7 +23741,7 @@ proc newPaymentCurrencyAmount*(value: string, currency: string
 proc newPaymentCurrencyAmount*(value: string, currency: string,
                                currencySystem: string): PaymentCurrencyAmount =
   ## Windows.ApplicationModel.Payments.IPaymentCurrencyAmountFactory.CreateWithCurrencySystem
-  let it = statics[IPaymentCurrencyAmountFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentCurrencyAmount")
+  let it = statics[IPaymentCurrencyAmountFactoryVtbl](className(PaymentCurrencyAmount))
   let a0 = toWinRtString(value)
   let a1 = toWinRtString(currency)
   let a2 = toWinRtString(currencySystem)
@@ -23801,7 +23801,7 @@ proc newPaymentDetails*(): PaymentDetails =
 
 proc newPaymentDetails*(total: PaymentItem): PaymentDetails =
   ## Windows.ApplicationModel.Payments.IPaymentDetailsFactory.Create
-  let it = statics[IPaymentDetailsFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentDetails")
+  let it = statics[IPaymentDetailsFactoryVtbl](className(PaymentDetails))
   let a0 = queryInterface[IPaymentItemVtbl](total)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "PaymentDetails.new"
@@ -23810,7 +23810,7 @@ proc newPaymentDetails*(total: PaymentItem): PaymentDetails =
 proc newPaymentDetails*(total: PaymentItem, displayItems: seq[PaymentItem]
                        ): PaymentDetails =
   ## Windows.ApplicationModel.Payments.IPaymentDetailsFactory.CreateWithDisplayItems
-  let it = statics[IPaymentDetailsFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentDetails")
+  let it = statics[IPaymentDetailsFactoryVtbl](className(PaymentDetails))
   let a0 = queryInterface[IPaymentItemVtbl](total)
   let a1 = asCollection[PaymentItem, seq[PaymentItem]](displayItems)
   var ret: pointer
@@ -23879,7 +23879,7 @@ proc `modifiers=`*(self: PaymentDetails, value: seq[PaymentDetailsModifier]) =
 proc newPaymentDetailsModifier*(supportedMethodIds: seq[string],
                                 total: PaymentItem): PaymentDetailsModifier =
   ## Windows.ApplicationModel.Payments.IPaymentDetailsModifierFactory.Create
-  let it = statics[IPaymentDetailsModifierFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentDetailsModifier")
+  let it = statics[IPaymentDetailsModifierFactoryVtbl](className(PaymentDetailsModifier))
   let a0 = asCollection[string, seq[string]](supportedMethodIds)
   let a1 = queryInterface[IPaymentItemVtbl](total)
   var ret: pointer
@@ -23892,7 +23892,7 @@ proc newPaymentDetailsModifier*(supportedMethodIds: seq[string],
                                 additionalDisplayItems: seq[PaymentItem]
                                ): PaymentDetailsModifier =
   ## Windows.ApplicationModel.Payments.IPaymentDetailsModifierFactory.CreateWithAdditionalDisplayItems
-  let it = statics[IPaymentDetailsModifierFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentDetailsModifier")
+  let it = statics[IPaymentDetailsModifierFactoryVtbl](className(PaymentDetailsModifier))
   let a0 = asCollection[string, seq[string]](supportedMethodIds)
   let a1 = queryInterface[IPaymentItemVtbl](total)
   let a2 = asCollection[PaymentItem, seq[PaymentItem]](additionalDisplayItems)
@@ -23907,7 +23907,7 @@ proc newPaymentDetailsModifier*(supportedMethodIds: seq[string],
                                 additionalDisplayItems: seq[PaymentItem],
                                 jsonData: string): PaymentDetailsModifier =
   ## Windows.ApplicationModel.Payments.IPaymentDetailsModifierFactory.CreateWithAdditionalDisplayItemsAndJsonData
-  let it = statics[IPaymentDetailsModifierFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentDetailsModifier")
+  let it = statics[IPaymentDetailsModifierFactoryVtbl](className(PaymentDetailsModifier))
   let a0 = asCollection[string, seq[string]](supportedMethodIds)
   let a1 = queryInterface[IPaymentItemVtbl](total)
   let a2 = asCollection[PaymentItem, seq[PaymentItem]](additionalDisplayItems)
@@ -23955,7 +23955,7 @@ proc additionalDisplayItems*(self: PaymentDetailsModifier): seq[PaymentItem] =
 proc newPaymentItem*(label: string, amount: PaymentCurrencyAmount
                     ): PaymentItem =
   ## Windows.ApplicationModel.Payments.IPaymentItemFactory.Create
-  let it = statics[IPaymentItemFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentItem")
+  let it = statics[IPaymentItemFactoryVtbl](className(PaymentItem))
   let a0 = toWinRtString(label)
   let a1 = queryInterface[IPaymentCurrencyAmountVtbl](amount)
   var ret: pointer
@@ -24062,7 +24062,7 @@ proc newPaymentMerchantInfo*(): PaymentMerchantInfo =
 
 proc newPaymentMerchantInfo*(uri: Uri): PaymentMerchantInfo =
   ## Windows.ApplicationModel.Payments.IPaymentMerchantInfoFactory.Create
-  let it = statics[IPaymentMerchantInfoFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentMerchantInfo")
+  let it = statics[IPaymentMerchantInfoFactoryVtbl](className(PaymentMerchantInfo))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "PaymentMerchantInfo.new"
@@ -24087,7 +24087,7 @@ proc uri*(self: PaymentMerchantInfo): Uri =
 
 proc newPaymentMethodData*(supportedMethodIds: seq[string]): PaymentMethodData =
   ## Windows.ApplicationModel.Payments.IPaymentMethodDataFactory.Create
-  let it = statics[IPaymentMethodDataFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentMethodData")
+  let it = statics[IPaymentMethodDataFactoryVtbl](className(PaymentMethodData))
   let a0 = asCollection[string, seq[string]](supportedMethodIds)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "PaymentMethodData.new"
@@ -24096,7 +24096,7 @@ proc newPaymentMethodData*(supportedMethodIds: seq[string]): PaymentMethodData =
 proc newPaymentMethodData*(supportedMethodIds: seq[string], jsonData: string
                           ): PaymentMethodData =
   ## Windows.ApplicationModel.Payments.IPaymentMethodDataFactory.CreateWithJsonData
-  let it = statics[IPaymentMethodDataFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentMethodData")
+  let it = statics[IPaymentMethodDataFactoryVtbl](className(PaymentMethodData))
   let a0 = asCollection[string, seq[string]](supportedMethodIds)
   let a1 = toWinRtString(jsonData)
   var ret: pointer
@@ -24202,7 +24202,7 @@ proc newPaymentRequest*(details: PaymentDetails,
                         merchantInfo: PaymentMerchantInfo,
                         options: PaymentOptions, id: string): PaymentRequest =
   ## Windows.ApplicationModel.Payments.IPaymentRequestFactory2.CreateWithMerchantInfoOptionsAndId
-  let it = statics[IPaymentRequestFactory2Vtbl]("Windows.ApplicationModel.Payments.PaymentRequest")
+  let it = statics[IPaymentRequestFactory2Vtbl](className(PaymentRequest))
   let a0 = queryInterface[IPaymentDetailsVtbl](details)
   let a1 = asCollection[PaymentMethodData, seq[PaymentMethodData]](methodData)
   let a2 = queryInterface[IPaymentMerchantInfoVtbl](merchantInfo)
@@ -24218,7 +24218,7 @@ proc newPaymentRequest*(details: PaymentDetails,
 proc newPaymentRequest*(details: PaymentDetails,
                         methodData: seq[PaymentMethodData]): PaymentRequest =
   ## Windows.ApplicationModel.Payments.IPaymentRequestFactory.Create
-  let it = statics[IPaymentRequestFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentRequest")
+  let it = statics[IPaymentRequestFactoryVtbl](className(PaymentRequest))
   let a0 = queryInterface[IPaymentDetailsVtbl](details)
   let a1 = asCollection[PaymentMethodData, seq[PaymentMethodData]](methodData)
   var ret: pointer
@@ -24229,7 +24229,7 @@ proc newPaymentRequest*(details: PaymentDetails,
                         methodData: seq[PaymentMethodData],
                         merchantInfo: PaymentMerchantInfo): PaymentRequest =
   ## Windows.ApplicationModel.Payments.IPaymentRequestFactory.CreateWithMerchantInfo
-  let it = statics[IPaymentRequestFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentRequest")
+  let it = statics[IPaymentRequestFactoryVtbl](className(PaymentRequest))
   let a0 = queryInterface[IPaymentDetailsVtbl](details)
   let a1 = asCollection[PaymentMethodData, seq[PaymentMethodData]](methodData)
   let a2 = queryInterface[IPaymentMerchantInfoVtbl](merchantInfo)
@@ -24243,7 +24243,7 @@ proc newPaymentRequest*(details: PaymentDetails,
                         merchantInfo: PaymentMerchantInfo,
                         options: PaymentOptions): PaymentRequest =
   ## Windows.ApplicationModel.Payments.IPaymentRequestFactory.CreateWithMerchantInfoAndOptions
-  let it = statics[IPaymentRequestFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentRequest")
+  let it = statics[IPaymentRequestFactoryVtbl](className(PaymentRequest))
   let a0 = queryInterface[IPaymentDetailsVtbl](details)
   let a1 = asCollection[PaymentMethodData, seq[PaymentMethodData]](methodData)
   let a2 = queryInterface[IPaymentMerchantInfoVtbl](merchantInfo)
@@ -24328,7 +24328,7 @@ proc acknowledge*(self: PaymentRequestChangedArgs,
 
 proc newPaymentRequestChangedResult*(changeAcceptedByMerchant: bool): PaymentRequestChangedResult =
   ## Windows.ApplicationModel.Payments.IPaymentRequestChangedResultFactory.Create
-  let it = statics[IPaymentRequestChangedResultFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentRequestChangedResult")
+  let it = statics[IPaymentRequestChangedResultFactoryVtbl](className(PaymentRequestChangedResult))
   var ret: pointer
   check it.vtbl.Create(it.raw, changeAcceptedByMerchant, ret.addr
                       ), "PaymentRequestChangedResult.new"
@@ -24338,7 +24338,7 @@ proc newPaymentRequestChangedResult*(changeAcceptedByMerchant: bool,
                                      updatedPaymentDetails: PaymentDetails
                                     ): PaymentRequestChangedResult =
   ## Windows.ApplicationModel.Payments.IPaymentRequestChangedResultFactory.CreateWithPaymentDetails
-  let it = statics[IPaymentRequestChangedResultFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentRequestChangedResult")
+  let it = statics[IPaymentRequestChangedResultFactoryVtbl](className(PaymentRequestChangedResult))
   let a1 = queryInterface[IPaymentDetailsVtbl](updatedPaymentDetails)
   var ret: pointer
   check it.vtbl.CreateWithPaymentDetails(it.raw, changeAcceptedByMerchant,
@@ -24472,7 +24472,7 @@ proc completeAsync*(self: PaymentResponse,
 proc newPaymentShippingOption*(label: string, amount: PaymentCurrencyAmount
                               ): PaymentShippingOption =
   ## Windows.ApplicationModel.Payments.IPaymentShippingOptionFactory.Create
-  let it = statics[IPaymentShippingOptionFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentShippingOption")
+  let it = statics[IPaymentShippingOptionFactoryVtbl](className(PaymentShippingOption))
   let a0 = toWinRtString(label)
   let a1 = queryInterface[IPaymentCurrencyAmountVtbl](amount)
   var ret: pointer
@@ -24483,7 +24483,7 @@ proc newPaymentShippingOption*(label: string, amount: PaymentCurrencyAmount
 proc newPaymentShippingOption*(label: string, amount: PaymentCurrencyAmount,
                                selected: bool): PaymentShippingOption =
   ## Windows.ApplicationModel.Payments.IPaymentShippingOptionFactory.CreateWithSelected
-  let it = statics[IPaymentShippingOptionFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentShippingOption")
+  let it = statics[IPaymentShippingOptionFactoryVtbl](className(PaymentShippingOption))
   let a0 = toWinRtString(label)
   let a1 = queryInterface[IPaymentCurrencyAmountVtbl](amount)
   var ret: pointer
@@ -24495,7 +24495,7 @@ proc newPaymentShippingOption*(label: string, amount: PaymentCurrencyAmount,
                                selected: bool, tag: string
                               ): PaymentShippingOption =
   ## Windows.ApplicationModel.Payments.IPaymentShippingOptionFactory.CreateWithSelectedAndTag
-  let it = statics[IPaymentShippingOptionFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentShippingOption")
+  let it = statics[IPaymentShippingOptionFactoryVtbl](className(PaymentShippingOption))
   let a0 = toWinRtString(label)
   let a1 = queryInterface[IPaymentCurrencyAmountVtbl](amount)
   let a3 = toWinRtString(tag)
@@ -24562,7 +24562,7 @@ proc `isSelected=`*(self: PaymentShippingOption, value: bool) =
 
 proc newPaymentToken*(paymentMethodId: string): PaymentToken =
   ## Windows.ApplicationModel.Payments.IPaymentTokenFactory.Create
-  let it = statics[IPaymentTokenFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentToken")
+  let it = statics[IPaymentTokenFactoryVtbl](className(PaymentToken))
   let a0 = toWinRtString(paymentMethodId)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr), "PaymentToken.new"
@@ -24571,7 +24571,7 @@ proc newPaymentToken*(paymentMethodId: string): PaymentToken =
 proc newPaymentToken*(paymentMethodId: string, jsonDetails: string
                      ): PaymentToken =
   ## Windows.ApplicationModel.Payments.IPaymentTokenFactory.CreateWithJsonDetails
-  let it = statics[IPaymentTokenFactoryVtbl]("Windows.ApplicationModel.Payments.PaymentToken")
+  let it = statics[IPaymentTokenFactoryVtbl](className(PaymentToken))
   let a0 = toWinRtString(paymentMethodId)
   let a1 = toWinRtString(jsonDetails)
   var ret: pointer
@@ -24599,7 +24599,7 @@ proc jsonDetails*(self: PaymentToken): string =
 proc fromIdAsync*(_: typedesc[PaymentTransaction], id: string
                  ): Future[PaymentTransaction] =
   ## Windows.ApplicationModel.Payments.Provider.IPaymentTransactionStatics.FromIdAsync
-  let it = statics[IPaymentTransactionStaticsVtbl]("Windows.ApplicationModel.Payments.Provider.PaymentTransaction")
+  let it = statics[IPaymentTransactionStaticsVtbl](className(PaymentTransaction))
   let a0 = toWinRtString(id)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -24711,7 +24711,7 @@ proc status*(self: PaymentTransactionAcceptResult): PaymentRequestCompletionStat
 
 proc getFromId*(_: typedesc[PhoneCall], callId: string): PhoneCall =
   ## Windows.ApplicationModel.Calls.IPhoneCallStatics.GetFromId
-  let it = statics[IPhoneCallStaticsVtbl]("Windows.ApplicationModel.Calls.PhoneCall")
+  let it = statics[IPhoneCallStaticsVtbl](className(PhoneCall))
   let a0 = toWinRtString(callId)
   var ret: pointer
   check it.vtbl.GetFromId(it.raw, a0.handle, ret.addr), "PhoneCall.getFromId"
@@ -24984,7 +24984,7 @@ proc callBlockedReason*(self: PhoneCallBlockedTriggerDetails): PhoneCallBlockedR
 
 proc blockUnknownNumbers*(_: typedesc[PhoneCallBlocking]): bool =
   ## Windows.ApplicationModel.Calls.IPhoneCallBlockingStatics.get_BlockUnknownNumbers
-  let it = statics[IPhoneCallBlockingStaticsVtbl]("Windows.ApplicationModel.Calls.PhoneCallBlocking")
+  let it = statics[IPhoneCallBlockingStaticsVtbl](className(PhoneCallBlocking))
   var ret: bool
   check it.vtbl.get_BlockUnknownNumbers(it.raw, ret.addr
                                        ), "PhoneCallBlocking.blockUnknownNumbers"
@@ -24992,13 +24992,13 @@ proc blockUnknownNumbers*(_: typedesc[PhoneCallBlocking]): bool =
 
 proc `blockUnknownNumbers=`*(_: typedesc[PhoneCallBlocking], value: bool) =
   ## Windows.ApplicationModel.Calls.IPhoneCallBlockingStatics.put_BlockUnknownNumbers
-  let it = statics[IPhoneCallBlockingStaticsVtbl]("Windows.ApplicationModel.Calls.PhoneCallBlocking")
+  let it = statics[IPhoneCallBlockingStaticsVtbl](className(PhoneCallBlocking))
   check it.vtbl.put_BlockUnknownNumbers(it.raw, value
                                        ), "PhoneCallBlocking.blockUnknownNumbers"
 
 proc blockPrivateNumbers*(_: typedesc[PhoneCallBlocking]): bool =
   ## Windows.ApplicationModel.Calls.IPhoneCallBlockingStatics.get_BlockPrivateNumbers
-  let it = statics[IPhoneCallBlockingStaticsVtbl]("Windows.ApplicationModel.Calls.PhoneCallBlocking")
+  let it = statics[IPhoneCallBlockingStaticsVtbl](className(PhoneCallBlocking))
   var ret: bool
   check it.vtbl.get_BlockPrivateNumbers(it.raw, ret.addr
                                        ), "PhoneCallBlocking.blockPrivateNumbers"
@@ -25006,14 +25006,14 @@ proc blockPrivateNumbers*(_: typedesc[PhoneCallBlocking]): bool =
 
 proc `blockPrivateNumbers=`*(_: typedesc[PhoneCallBlocking], value: bool) =
   ## Windows.ApplicationModel.Calls.IPhoneCallBlockingStatics.put_BlockPrivateNumbers
-  let it = statics[IPhoneCallBlockingStaticsVtbl]("Windows.ApplicationModel.Calls.PhoneCallBlocking")
+  let it = statics[IPhoneCallBlockingStaticsVtbl](className(PhoneCallBlocking))
   check it.vtbl.put_BlockPrivateNumbers(it.raw, value
                                        ), "PhoneCallBlocking.blockPrivateNumbers"
 
 proc setCallBlockingListAsync*(_: typedesc[PhoneCallBlocking],
                                phoneNumberList: seq[string]): Future[bool] =
   ## Windows.ApplicationModel.Calls.IPhoneCallBlockingStatics.SetCallBlockingListAsync
-  let it = statics[IPhoneCallBlockingStaticsVtbl]("Windows.ApplicationModel.Calls.PhoneCallBlocking")
+  let it = statics[IPhoneCallBlockingStaticsVtbl](className(PhoneCallBlocking))
   let a0 = asCollection[string, seq[string]](phoneNumberList)
   var op: pointer
   check it.vtbl.SetCallBlockingListAsync(it.raw, a0.raw, op.addr
@@ -25268,7 +25268,7 @@ proc newPhoneCallHistoryEntryAddress*(rawAddress: string,
                                       rawAddressKind: PhoneCallHistoryEntryRawAddressKind
                                      ): PhoneCallHistoryEntryAddress =
   ## Windows.ApplicationModel.Calls.IPhoneCallHistoryEntryAddressFactory.Create
-  let it = statics[IPhoneCallHistoryEntryAddressFactoryVtbl]("Windows.ApplicationModel.Calls.PhoneCallHistoryEntryAddress")
+  let it = statics[IPhoneCallHistoryEntryAddressFactoryVtbl](className(PhoneCallHistoryEntryAddress))
   let a0 = toWinRtString(rawAddress)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, rawAddressKind, ret.addr
@@ -25380,7 +25380,7 @@ proc readBatchAsync*(self: PhoneCallHistoryEntryReader): Future[seq[PhoneCallHis
 proc getForUser*(_: typedesc[PhoneCallHistoryManager], user: User
                 ): PhoneCallHistoryManagerForUser =
   ## Windows.ApplicationModel.Calls.IPhoneCallHistoryManagerStatics2.GetForUser
-  let it = statics[IPhoneCallHistoryManagerStatics2Vtbl]("Windows.ApplicationModel.Calls.PhoneCallHistoryManager")
+  let it = statics[IPhoneCallHistoryManagerStatics2Vtbl](className(PhoneCallHistoryManager))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -25391,7 +25391,7 @@ proc requestStoreAsync*(_: typedesc[PhoneCallHistoryManager],
                         accessType: PhoneCallHistoryStoreAccessType
                        ): Future[PhoneCallHistoryStore] =
   ## Windows.ApplicationModel.Calls.IPhoneCallHistoryManagerStatics.RequestStoreAsync
-  let it = statics[IPhoneCallHistoryManagerStaticsVtbl]("Windows.ApplicationModel.Calls.PhoneCallHistoryManager")
+  let it = statics[IPhoneCallHistoryManagerStaticsVtbl](className(PhoneCallHistoryManager))
   var op: pointer
   check it.vtbl.RequestStoreAsync(it.raw, accessType, op.addr
                                  ), "PhoneCallHistoryManager.requestStoreAsync"
@@ -25588,7 +25588,7 @@ proc callDirection*(self: PhoneCallInfo): PhoneCallDirection =
 proc showPhoneCallUI*(_: typedesc[PhoneCallManager], phoneNumber: string,
                       displayName: string) =
   ## Windows.ApplicationModel.Calls.IPhoneCallManagerStatics.ShowPhoneCallUI
-  let it = statics[IPhoneCallManagerStaticsVtbl]("Windows.ApplicationModel.Calls.PhoneCallManager")
+  let it = statics[IPhoneCallManagerStaticsVtbl](className(PhoneCallManager))
   let a0 = toWinRtString(phoneNumber)
   let a1 = toWinRtString(displayName)
   check it.vtbl.ShowPhoneCallUI(it.raw, a0.handle, a1.handle
@@ -25599,7 +25599,7 @@ proc onCallStateChanged*(_: typedesc[PhoneCallManager],
                         ): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.Calls.IPhoneCallManagerStatics2.add_CallStateChanged
   ## The token is what `removeCallStateChanged` takes.
-  let it = statics[IPhoneCallManagerStatics2Vtbl]("Windows.ApplicationModel.Calls.PhoneCallManager")
+  let it = statics[IPhoneCallManagerStatics2Vtbl](className(PhoneCallManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -25609,13 +25609,13 @@ proc onCallStateChanged*(_: typedesc[PhoneCallManager],
 proc removeCallStateChanged*(_: typedesc[PhoneCallManager],
                              token: EventRegistrationToken) =
   ## Windows.ApplicationModel.Calls.IPhoneCallManagerStatics2.remove_CallStateChanged
-  let it = statics[IPhoneCallManagerStatics2Vtbl]("Windows.ApplicationModel.Calls.PhoneCallManager")
+  let it = statics[IPhoneCallManagerStatics2Vtbl](className(PhoneCallManager))
   check it.vtbl.remove_CallStateChanged(it.raw, token
                                        ), "PhoneCallManager.callStateChanged"
 
 proc isCallActive*(_: typedesc[PhoneCallManager]): bool =
   ## Windows.ApplicationModel.Calls.IPhoneCallManagerStatics2.get_IsCallActive
-  let it = statics[IPhoneCallManagerStatics2Vtbl]("Windows.ApplicationModel.Calls.PhoneCallManager")
+  let it = statics[IPhoneCallManagerStatics2Vtbl](className(PhoneCallManager))
   var ret: bool
   check it.vtbl.get_IsCallActive(it.raw, ret.addr
                                 ), "PhoneCallManager.isCallActive"
@@ -25623,7 +25623,7 @@ proc isCallActive*(_: typedesc[PhoneCallManager]): bool =
 
 proc isCallIncoming*(_: typedesc[PhoneCallManager]): bool =
   ## Windows.ApplicationModel.Calls.IPhoneCallManagerStatics2.get_IsCallIncoming
-  let it = statics[IPhoneCallManagerStatics2Vtbl]("Windows.ApplicationModel.Calls.PhoneCallManager")
+  let it = statics[IPhoneCallManagerStatics2Vtbl](className(PhoneCallManager))
   var ret: bool
   check it.vtbl.get_IsCallIncoming(it.raw, ret.addr
                                   ), "PhoneCallManager.isCallIncoming"
@@ -25631,12 +25631,12 @@ proc isCallIncoming*(_: typedesc[PhoneCallManager]): bool =
 
 proc showPhoneCallSettingsUI*(_: typedesc[PhoneCallManager]) =
   ## Windows.ApplicationModel.Calls.IPhoneCallManagerStatics2.ShowPhoneCallSettingsUI
-  let it = statics[IPhoneCallManagerStatics2Vtbl]("Windows.ApplicationModel.Calls.PhoneCallManager")
+  let it = statics[IPhoneCallManagerStatics2Vtbl](className(PhoneCallManager))
   check it.vtbl.ShowPhoneCallSettingsUI(it.raw), "PhoneCallManager.showPhoneCallSettingsUI"
 
 proc requestStoreAsync*(_: typedesc[PhoneCallManager]): Future[PhoneCallStore] =
   ## Windows.ApplicationModel.Calls.IPhoneCallManagerStatics2.RequestStoreAsync
-  let it = statics[IPhoneCallManagerStatics2Vtbl]("Windows.ApplicationModel.Calls.PhoneCallManager")
+  let it = statics[IPhoneCallManagerStatics2Vtbl](className(PhoneCallManager))
   var op: pointer
   check it.vtbl.RequestStoreAsync(it.raw, op.addr
                                  ), "PhoneCallManager.requestStoreAsync"
@@ -25740,7 +25740,7 @@ proc phoneNumber*(self: PhoneCallOriginDataRequestTriggerDetails): string =
 
 proc isSupported*(_: typedesc[PhoneCallOriginManager]): bool =
   ## Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics3.get_IsSupported
-  let it = statics[IPhoneCallOriginManagerStatics3Vtbl]("Windows.ApplicationModel.Calls.Provider.PhoneCallOriginManager")
+  let it = statics[IPhoneCallOriginManagerStatics3Vtbl](className(PhoneCallOriginManager))
   var ret: bool
   check it.vtbl.get_IsSupported(it.raw, ret.addr
                                ), "PhoneCallOriginManager.isSupported"
@@ -25748,7 +25748,7 @@ proc isSupported*(_: typedesc[PhoneCallOriginManager]): bool =
 
 proc requestSetAsActiveCallOriginAppAsync*(_: typedesc[PhoneCallOriginManager]): Future[bool] =
   ## Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics2.RequestSetAsActiveCallOriginAppAsync
-  let it = statics[IPhoneCallOriginManagerStatics2Vtbl]("Windows.ApplicationModel.Calls.Provider.PhoneCallOriginManager")
+  let it = statics[IPhoneCallOriginManagerStatics2Vtbl](className(PhoneCallOriginManager))
   var op: pointer
   check it.vtbl.RequestSetAsActiveCallOriginAppAsync(it.raw, op.addr
                                                     ), "PhoneCallOriginManager.requestSetAsActiveCallOriginAppAsync"
@@ -25756,7 +25756,7 @@ proc requestSetAsActiveCallOriginAppAsync*(_: typedesc[PhoneCallOriginManager]):
 
 proc isCurrentAppActiveCallOriginApp*(_: typedesc[PhoneCallOriginManager]): bool =
   ## Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics.get_IsCurrentAppActiveCallOriginApp
-  let it = statics[IPhoneCallOriginManagerStaticsVtbl]("Windows.ApplicationModel.Calls.Provider.PhoneCallOriginManager")
+  let it = statics[IPhoneCallOriginManagerStaticsVtbl](className(PhoneCallOriginManager))
   var ret: bool
   check it.vtbl.get_IsCurrentAppActiveCallOriginApp(it.raw, ret.addr
                                                    ), "PhoneCallOriginManager.isCurrentAppActiveCallOriginApp"
@@ -25764,13 +25764,13 @@ proc isCurrentAppActiveCallOriginApp*(_: typedesc[PhoneCallOriginManager]): bool
 
 proc showPhoneCallOriginSettingsUI*(_: typedesc[PhoneCallOriginManager]) =
   ## Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics.ShowPhoneCallOriginSettingsUI
-  let it = statics[IPhoneCallOriginManagerStaticsVtbl]("Windows.ApplicationModel.Calls.Provider.PhoneCallOriginManager")
+  let it = statics[IPhoneCallOriginManagerStaticsVtbl](className(PhoneCallOriginManager))
   check it.vtbl.ShowPhoneCallOriginSettingsUI(it.raw), "PhoneCallOriginManager.showPhoneCallOriginSettingsUI"
 
 proc setCallOrigin*(_: typedesc[PhoneCallOriginManager], requestId: GUID,
                     callOrigin: PhoneCallOrigin) =
   ## Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics.SetCallOrigin
-  let it = statics[IPhoneCallOriginManagerStaticsVtbl]("Windows.ApplicationModel.Calls.Provider.PhoneCallOriginManager")
+  let it = statics[IPhoneCallOriginManagerStaticsVtbl](className(PhoneCallOriginManager))
   let a1 = queryInterface[IPhoneCallOriginVtbl](callOrigin)
   check it.vtbl.SetCallOrigin(it.raw, requestId, a1.raw
                              ), "PhoneCallOriginManager.setCallOrigin"
@@ -25819,7 +25819,7 @@ proc getCapabilitiesAsync*(_: typedesc[PhoneCallVideoCapabilitiesManager],
                            phoneNumber: string
                           ): Future[PhoneCallVideoCapabilities] =
   ## Windows.ApplicationModel.Calls.IPhoneCallVideoCapabilitiesManagerStatics.GetCapabilitiesAsync
-  let it = statics[IPhoneCallVideoCapabilitiesManagerStaticsVtbl]("Windows.ApplicationModel.Calls.PhoneCallVideoCapabilitiesManager")
+  let it = statics[IPhoneCallVideoCapabilitiesManagerStaticsVtbl](className(PhoneCallVideoCapabilitiesManager))
   let a0 = toWinRtString(phoneNumber)
   var op: pointer
   check it.vtbl.GetCapabilitiesAsync(it.raw, a0.handle, op.addr
@@ -26006,7 +26006,7 @@ proc callId*(self: PhoneIncomingCallNotificationTriggerDetails): string =
 
 proc fromIdAsync*(_: typedesc[PhoneLine], lineId: GUID): Future[PhoneLine] =
   ## Windows.ApplicationModel.Calls.IPhoneLineStatics.FromIdAsync
-  let it = statics[IPhoneLineStaticsVtbl]("Windows.ApplicationModel.Calls.PhoneLine")
+  let it = statics[IPhoneLineStaticsVtbl](className(PhoneLine))
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, lineId, op.addr), "PhoneLine.fromIdAsync"
   future[IAsyncOperationVtbl[PhoneLine], PhoneLine](op, "PhoneLine.fromIdAsync")
@@ -26302,7 +26302,7 @@ proc dialedCall*(self: PhoneLineDialResult): PhoneCall =
 proc fromId*(_: typedesc[PhoneLineTransportDevice], id: string
             ): PhoneLineTransportDevice =
   ## Windows.ApplicationModel.Calls.IPhoneLineTransportDeviceStatics.FromId
-  let it = statics[IPhoneLineTransportDeviceStaticsVtbl]("Windows.ApplicationModel.Calls.PhoneLineTransportDevice")
+  let it = statics[IPhoneLineTransportDeviceStaticsVtbl](className(PhoneLineTransportDevice))
   let a0 = toWinRtString(id)
   var ret: pointer
   check it.vtbl.FromId(it.raw, a0.handle, ret.addr
@@ -26311,7 +26311,7 @@ proc fromId*(_: typedesc[PhoneLineTransportDevice], id: string
 
 proc getDeviceSelector*(_: typedesc[PhoneLineTransportDevice]): string =
   ## Windows.ApplicationModel.Calls.IPhoneLineTransportDeviceStatics.GetDeviceSelector
-  let it = statics[IPhoneLineTransportDeviceStaticsVtbl]("Windows.ApplicationModel.Calls.PhoneLineTransportDevice")
+  let it = statics[IPhoneLineTransportDeviceStaticsVtbl](className(PhoneLineTransportDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "PhoneLineTransportDevice.getDeviceSelector"
@@ -26320,7 +26320,7 @@ proc getDeviceSelector*(_: typedesc[PhoneLineTransportDevice]): string =
 proc getDeviceSelector*(_: typedesc[PhoneLineTransportDevice],
                         transport: PhoneLineTransport): string =
   ## Windows.ApplicationModel.Calls.IPhoneLineTransportDeviceStatics.GetDeviceSelector
-  let it = statics[IPhoneLineTransportDeviceStaticsVtbl]("Windows.ApplicationModel.Calls.PhoneLineTransportDevice")
+  let it = statics[IPhoneLineTransportDeviceStaticsVtbl](className(PhoneLineTransportDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector2(it.raw, transport, ret.addr
                                   ), "PhoneLineTransportDevice.getDeviceSelector"
@@ -26605,7 +26605,7 @@ proc operatorMessage*(self: PhoneNewVoicemailMessageTriggerDetails): string =
 
 proc newPhoneTrigger*(`type`: PhoneTriggerType, oneShot: bool): PhoneTrigger =
   ## Windows.ApplicationModel.Background.IPhoneTriggerFactory.Create
-  let it = statics[IPhoneTriggerFactoryVtbl]("Windows.ApplicationModel.Background.PhoneTrigger")
+  let it = statics[IPhoneTriggerFactoryVtbl](className(PhoneTrigger))
   var ret: pointer
   check it.vtbl.Create(it.raw, `type`, oneShot, ret.addr), "PhoneTrigger.new"
   adopt[PhoneTrigger](ret)
@@ -26670,7 +26670,7 @@ proc contactIds*(self: PinnedContactIdsQueryResult): seq[string] =
 
 proc getDefault*(_: typedesc[PinnedContactManager]): PinnedContactManager =
   ## Windows.ApplicationModel.Contacts.IPinnedContactManagerStatics.GetDefault
-  let it = statics[IPinnedContactManagerStaticsVtbl]("Windows.ApplicationModel.Contacts.PinnedContactManager")
+  let it = statics[IPinnedContactManagerStaticsVtbl](className(PinnedContactManager))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "PinnedContactManager.getDefault"
   adopt[PinnedContactManager](ret)
@@ -26678,7 +26678,7 @@ proc getDefault*(_: typedesc[PinnedContactManager]): PinnedContactManager =
 proc getForUser*(_: typedesc[PinnedContactManager], user: User
                 ): PinnedContactManager =
   ## Windows.ApplicationModel.Contacts.IPinnedContactManagerStatics.GetForUser
-  let it = statics[IPinnedContactManagerStaticsVtbl]("Windows.ApplicationModel.Contacts.PinnedContactManager")
+  let it = statics[IPinnedContactManagerStaticsVtbl](className(PinnedContactManager))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -26687,7 +26687,7 @@ proc getForUser*(_: typedesc[PinnedContactManager], user: User
 
 proc isSupported*(_: typedesc[PinnedContactManager]): bool =
   ## Windows.ApplicationModel.Contacts.IPinnedContactManagerStatics.IsSupported
-  let it = statics[IPinnedContactManagerStaticsVtbl]("Windows.ApplicationModel.Contacts.PinnedContactManager")
+  let it = statics[IPinnedContactManagerStaticsVtbl](className(PinnedContactManager))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr
                            ), "PinnedContactManager.isSupported"
@@ -26895,7 +26895,7 @@ proc newProductPurchaseDisplayProperties*(): ProductPurchaseDisplayProperties =
 
 proc newProductPurchaseDisplayProperties*(name: string): ProductPurchaseDisplayProperties =
   ## Windows.ApplicationModel.Store.IProductPurchaseDisplayPropertiesFactory.CreateProductPurchaseDisplayProperties
-  let it = statics[IProductPurchaseDisplayPropertiesFactoryVtbl]("Windows.ApplicationModel.Store.ProductPurchaseDisplayProperties")
+  let it = statics[IProductPurchaseDisplayPropertiesFactoryVtbl](className(ProductPurchaseDisplayProperties))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.CreateProductPurchaseDisplayProperties(it.raw, a0.handle,
@@ -26987,7 +26987,7 @@ proc newPushNotificationTrigger*(): PushNotificationTrigger =
 
 proc newPushNotificationTrigger*(applicationId: string): PushNotificationTrigger =
   ## Windows.ApplicationModel.Background.IPushNotificationTriggerFactory.Create
-  let it = statics[IPushNotificationTriggerFactoryVtbl]("Windows.ApplicationModel.Background.PushNotificationTrigger")
+  let it = statics[IPushNotificationTriggerFactoryVtbl](className(PushNotificationTrigger))
   let a0 = toWinRtString(applicationId)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -27197,7 +27197,7 @@ proc onTransportListChanged*(_: typedesc[RcsManager],
                             ): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.Chat.IRcsManagerStatics2.add_TransportListChanged
   ## The token is what `removeTransportListChanged` takes.
-  let it = statics[IRcsManagerStatics2Vtbl]("Windows.ApplicationModel.Chat.RcsManager")
+  let it = statics[IRcsManagerStatics2Vtbl](className(RcsManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -27207,13 +27207,13 @@ proc onTransportListChanged*(_: typedesc[RcsManager],
 proc removeTransportListChanged*(_: typedesc[RcsManager],
                                  token: EventRegistrationToken) =
   ## Windows.ApplicationModel.Chat.IRcsManagerStatics2.remove_TransportListChanged
-  let it = statics[IRcsManagerStatics2Vtbl]("Windows.ApplicationModel.Chat.RcsManager")
+  let it = statics[IRcsManagerStatics2Vtbl](className(RcsManager))
   check it.vtbl.remove_TransportListChanged(it.raw, token
                                            ), "RcsManager.transportListChanged"
 
 proc getEndUserMessageManager*(_: typedesc[RcsManager]): RcsEndUserMessageManager =
   ## Windows.ApplicationModel.Chat.IRcsManagerStatics.GetEndUserMessageManager
-  let it = statics[IRcsManagerStaticsVtbl]("Windows.ApplicationModel.Chat.RcsManager")
+  let it = statics[IRcsManagerStaticsVtbl](className(RcsManager))
   var ret: pointer
   check it.vtbl.GetEndUserMessageManager(it.raw, ret.addr
                                         ), "RcsManager.getEndUserMessageManager"
@@ -27221,7 +27221,7 @@ proc getEndUserMessageManager*(_: typedesc[RcsManager]): RcsEndUserMessageManage
 
 proc getTransportsAsync*(_: typedesc[RcsManager]): Future[seq[RcsTransport]] =
   ## Windows.ApplicationModel.Chat.IRcsManagerStatics.GetTransportsAsync
-  let it = statics[IRcsManagerStaticsVtbl]("Windows.ApplicationModel.Chat.RcsManager")
+  let it = statics[IRcsManagerStaticsVtbl](className(RcsManager))
   var op: pointer
   check it.vtbl.GetTransportsAsync(it.raw, op.addr
                                   ), "RcsManager.getTransportsAsync"
@@ -27230,7 +27230,7 @@ proc getTransportsAsync*(_: typedesc[RcsManager]): Future[seq[RcsTransport]] =
 proc getTransportAsync*(_: typedesc[RcsManager], transportId: string
                        ): Future[RcsTransport] =
   ## Windows.ApplicationModel.Chat.IRcsManagerStatics.GetTransportAsync
-  let it = statics[IRcsManagerStaticsVtbl]("Windows.ApplicationModel.Chat.RcsManager")
+  let it = statics[IRcsManagerStaticsVtbl](className(RcsManager))
   let a0 = toWinRtString(transportId)
   var op: pointer
   check it.vtbl.GetTransportAsync(it.raw, a0.handle, op.addr
@@ -27240,7 +27240,7 @@ proc getTransportAsync*(_: typedesc[RcsManager], transportId: string
 proc leaveConversationAsync*(_: typedesc[RcsManager],
                              conversation: ChatConversation): Future[void] =
   ## Windows.ApplicationModel.Chat.IRcsManagerStatics.LeaveConversationAsync
-  let it = statics[IRcsManagerStaticsVtbl]("Windows.ApplicationModel.Chat.RcsManager")
+  let it = statics[IRcsManagerStaticsVtbl](className(RcsManager))
   let a0 = queryInterface[IChatConversationVtbl](conversation)
   var op: pointer
   check it.vtbl.LeaveConversationAsync(it.raw, a0.raw, op.addr
@@ -27599,7 +27599,7 @@ proc newResourceContext*(): ResourceContext =
 proc createMatchingContext*(_: typedesc[ResourceContext],
                             result2: seq[ResourceQualifier]): ResourceContext =
   ## Windows.ApplicationModel.Resources.Core.IResourceContextStatics.CreateMatchingContext
-  let it = statics[IResourceContextStaticsVtbl]("Windows.ApplicationModel.Resources.Core.ResourceContext")
+  let it = statics[IResourceContextStaticsVtbl](className(ResourceContext))
   let a0 = asCollection[ResourceQualifier, seq[ResourceQualifier]](result2)
   var ret: pointer
   check it.vtbl.CreateMatchingContext(it.raw, a0.raw, ret.addr
@@ -27610,7 +27610,7 @@ proc setGlobalQualifierValue*(_: typedesc[ResourceContext], key: string,
                               value: string,
                               persistence: ResourceQualifierPersistence) =
   ## Windows.ApplicationModel.Resources.Core.IResourceContextStatics3.SetGlobalQualifierValue
-  let it = statics[IResourceContextStatics3Vtbl]("Windows.ApplicationModel.Resources.Core.ResourceContext")
+  let it = statics[IResourceContextStatics3Vtbl](className(ResourceContext))
   let a0 = toWinRtString(key)
   let a1 = toWinRtString(value)
   check it.vtbl.SetGlobalQualifierValue(it.raw, a0.handle, a1.handle,
@@ -27620,7 +27620,7 @@ proc setGlobalQualifierValue*(_: typedesc[ResourceContext], key: string,
 proc getForUIContext*(_: typedesc[ResourceContext], context: UIContext
                      ): ResourceContext =
   ## Windows.ApplicationModel.Resources.Core.IResourceContextStatics4.GetForUIContext
-  let it = statics[IResourceContextStatics4Vtbl]("Windows.ApplicationModel.Resources.Core.ResourceContext")
+  let it = statics[IResourceContextStatics4Vtbl](className(ResourceContext))
   let a0 = queryInterface[IUIContextVtbl](context)
   var ret: pointer
   check it.vtbl.GetForUIContext(it.raw, a0.raw, ret.addr
@@ -27629,7 +27629,7 @@ proc getForUIContext*(_: typedesc[ResourceContext], context: UIContext
 
 proc getForCurrentView*(_: typedesc[ResourceContext]): ResourceContext =
   ## Windows.ApplicationModel.Resources.Core.IResourceContextStatics2.GetForCurrentView
-  let it = statics[IResourceContextStatics2Vtbl]("Windows.ApplicationModel.Resources.Core.ResourceContext")
+  let it = statics[IResourceContextStatics2Vtbl](className(ResourceContext))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "ResourceContext.getForCurrentView"
@@ -27638,7 +27638,7 @@ proc getForCurrentView*(_: typedesc[ResourceContext]): ResourceContext =
 proc setGlobalQualifierValue*(_: typedesc[ResourceContext], key: string,
                               value: string) =
   ## Windows.ApplicationModel.Resources.Core.IResourceContextStatics2.SetGlobalQualifierValue
-  let it = statics[IResourceContextStatics2Vtbl]("Windows.ApplicationModel.Resources.Core.ResourceContext")
+  let it = statics[IResourceContextStatics2Vtbl](className(ResourceContext))
   let a0 = toWinRtString(key)
   let a1 = toWinRtString(value)
   check it.vtbl.SetGlobalQualifierValue(it.raw, a0.handle, a1.handle
@@ -27646,20 +27646,20 @@ proc setGlobalQualifierValue*(_: typedesc[ResourceContext], key: string,
 
 proc resetGlobalQualifierValues*(_: typedesc[ResourceContext]) =
   ## Windows.ApplicationModel.Resources.Core.IResourceContextStatics2.ResetGlobalQualifierValues
-  let it = statics[IResourceContextStatics2Vtbl]("Windows.ApplicationModel.Resources.Core.ResourceContext")
+  let it = statics[IResourceContextStatics2Vtbl](className(ResourceContext))
   check it.vtbl.ResetGlobalQualifierValues(it.raw), "ResourceContext.resetGlobalQualifierValues"
 
 proc resetGlobalQualifierValues*(_: typedesc[ResourceContext],
                                  qualifierNames: seq[string]) =
   ## Windows.ApplicationModel.Resources.Core.IResourceContextStatics2.ResetGlobalQualifierValues
-  let it = statics[IResourceContextStatics2Vtbl]("Windows.ApplicationModel.Resources.Core.ResourceContext")
+  let it = statics[IResourceContextStatics2Vtbl](className(ResourceContext))
   let a0 = asCollection[string, seq[string]](qualifierNames)
   check it.vtbl.ResetGlobalQualifierValues2(it.raw, a0.raw
                                            ), "ResourceContext.resetGlobalQualifierValues"
 
 proc getForViewIndependentUse*(_: typedesc[ResourceContext]): ResourceContext =
   ## Windows.ApplicationModel.Resources.Core.IResourceContextStatics2.GetForViewIndependentUse
-  let it = statics[IResourceContextStatics2Vtbl]("Windows.ApplicationModel.Resources.Core.ResourceContext")
+  let it = statics[IResourceContextStatics2Vtbl](className(ResourceContext))
   var ret: pointer
   check it.vtbl.GetForViewIndependentUse(it.raw, ret.addr
                                         ), "ResourceContext.getForViewIndependentUse"
@@ -27715,7 +27715,7 @@ proc `languages=`*(self: ResourceContext, value: seq[string]) =
 
 proc newResourceIndexer*(projectRoot: Uri): ResourceIndexer =
   ## Windows.ApplicationModel.Resources.Management.IResourceIndexerFactory.CreateResourceIndexer
-  let it = statics[IResourceIndexerFactoryVtbl]("Windows.ApplicationModel.Resources.Management.ResourceIndexer")
+  let it = statics[IResourceIndexerFactoryVtbl](className(ResourceIndexer))
   let a0 = queryInterface[IUriRuntimeClassVtbl](projectRoot)
   var ret: pointer
   check it.vtbl.CreateResourceIndexer(it.raw, a0.raw, ret.addr
@@ -27725,7 +27725,7 @@ proc newResourceIndexer*(projectRoot: Uri): ResourceIndexer =
 proc newResourceIndexer*(projectRoot: Uri, extensionDllPath: Uri
                         ): ResourceIndexer =
   ## Windows.ApplicationModel.Resources.Management.IResourceIndexerFactory2.CreateResourceIndexerWithExtension
-  let it = statics[IResourceIndexerFactory2Vtbl]("Windows.ApplicationModel.Resources.Management.ResourceIndexer")
+  let it = statics[IResourceIndexerFactory2Vtbl](className(ResourceIndexer))
   let a0 = queryInterface[IUriRuntimeClassVtbl](projectRoot)
   let a1 = queryInterface[IUriRuntimeClassVtbl](extensionDllPath)
   var ret: pointer
@@ -27763,7 +27763,7 @@ proc newResourceLoader*(): ResourceLoader =
 
 proc newResourceLoader*(name: string): ResourceLoader =
   ## Windows.ApplicationModel.Resources.IResourceLoaderFactory.CreateResourceLoaderByName
-  let it = statics[IResourceLoaderFactoryVtbl]("Windows.ApplicationModel.Resources.ResourceLoader")
+  let it = statics[IResourceLoaderFactoryVtbl](className(ResourceLoader))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.CreateResourceLoaderByName(it.raw, a0.handle, ret.addr
@@ -27773,7 +27773,7 @@ proc newResourceLoader*(name: string): ResourceLoader =
 proc getForUIContext*(_: typedesc[ResourceLoader], context: UIContext
                      ): ResourceLoader =
   ## Windows.ApplicationModel.Resources.IResourceLoaderStatics3.GetForUIContext
-  let it = statics[IResourceLoaderStatics3Vtbl]("Windows.ApplicationModel.Resources.ResourceLoader")
+  let it = statics[IResourceLoaderStatics3Vtbl](className(ResourceLoader))
   let a0 = queryInterface[IUIContextVtbl](context)
   var ret: pointer
   check it.vtbl.GetForUIContext(it.raw, a0.raw, ret.addr
@@ -27782,7 +27782,7 @@ proc getForUIContext*(_: typedesc[ResourceLoader], context: UIContext
 
 proc getForCurrentView*(_: typedesc[ResourceLoader]): ResourceLoader =
   ## Windows.ApplicationModel.Resources.IResourceLoaderStatics2.GetForCurrentView
-  let it = statics[IResourceLoaderStatics2Vtbl]("Windows.ApplicationModel.Resources.ResourceLoader")
+  let it = statics[IResourceLoaderStatics2Vtbl](className(ResourceLoader))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "ResourceLoader.getForCurrentView"
@@ -27791,7 +27791,7 @@ proc getForCurrentView*(_: typedesc[ResourceLoader]): ResourceLoader =
 proc getForCurrentView*(_: typedesc[ResourceLoader], name: string
                        ): ResourceLoader =
   ## Windows.ApplicationModel.Resources.IResourceLoaderStatics2.GetForCurrentView
-  let it = statics[IResourceLoaderStatics2Vtbl]("Windows.ApplicationModel.Resources.ResourceLoader")
+  let it = statics[IResourceLoaderStatics2Vtbl](className(ResourceLoader))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.GetForCurrentView2(it.raw, a0.handle, ret.addr
@@ -27800,7 +27800,7 @@ proc getForCurrentView*(_: typedesc[ResourceLoader], name: string
 
 proc getForViewIndependentUse*(_: typedesc[ResourceLoader]): ResourceLoader =
   ## Windows.ApplicationModel.Resources.IResourceLoaderStatics2.GetForViewIndependentUse
-  let it = statics[IResourceLoaderStatics2Vtbl]("Windows.ApplicationModel.Resources.ResourceLoader")
+  let it = statics[IResourceLoaderStatics2Vtbl](className(ResourceLoader))
   var ret: pointer
   check it.vtbl.GetForViewIndependentUse(it.raw, ret.addr
                                         ), "ResourceLoader.getForViewIndependentUse"
@@ -27809,7 +27809,7 @@ proc getForViewIndependentUse*(_: typedesc[ResourceLoader]): ResourceLoader =
 proc getForViewIndependentUse*(_: typedesc[ResourceLoader], name: string
                               ): ResourceLoader =
   ## Windows.ApplicationModel.Resources.IResourceLoaderStatics2.GetForViewIndependentUse
-  let it = statics[IResourceLoaderStatics2Vtbl]("Windows.ApplicationModel.Resources.ResourceLoader")
+  let it = statics[IResourceLoaderStatics2Vtbl](className(ResourceLoader))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.GetForViewIndependentUse2(it.raw, a0.handle, ret.addr
@@ -27819,7 +27819,7 @@ proc getForViewIndependentUse*(_: typedesc[ResourceLoader], name: string
 proc getDefaultPriPath*(_: typedesc[ResourceLoader], packageFullName: string
                        ): string =
   ## Windows.ApplicationModel.Resources.IResourceLoaderStatics4.GetDefaultPriPath
-  let it = statics[IResourceLoaderStatics4Vtbl]("Windows.ApplicationModel.Resources.ResourceLoader")
+  let it = statics[IResourceLoaderStatics4Vtbl](className(ResourceLoader))
   let a0 = toWinRtString(packageFullName)
   var ret: HSTRING
   check it.vtbl.GetDefaultPriPath(it.raw, a0.handle, ret.addr
@@ -27828,7 +27828,7 @@ proc getDefaultPriPath*(_: typedesc[ResourceLoader], packageFullName: string
 
 proc getStringForReference*(_: typedesc[ResourceLoader], uri: Uri): string =
   ## Windows.ApplicationModel.Resources.IResourceLoaderStatics.GetStringForReference
-  let it = statics[IResourceLoaderStaticsVtbl]("Windows.ApplicationModel.Resources.ResourceLoader")
+  let it = statics[IResourceLoaderStaticsVtbl](className(ResourceLoader))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var ret: HSTRING
   check it.vtbl.GetStringForReference(it.raw, a0.raw, ret.addr
@@ -27857,7 +27857,7 @@ proc getStringForUri*(self: ResourceLoader, uri: Uri): string =
 
 proc current*(_: typedesc[ResourceManager]): ResourceManager =
   ## Windows.ApplicationModel.Resources.Core.IResourceManagerStatics.get_Current
-  let it = statics[IResourceManagerStaticsVtbl]("Windows.ApplicationModel.Resources.Core.ResourceManager")
+  let it = statics[IResourceManagerStaticsVtbl](className(ResourceManager))
   var ret: pointer
   check it.vtbl.get_Current(it.raw, ret.addr), "ResourceManager.current"
   adopt[ResourceManager](ret)
@@ -27865,7 +27865,7 @@ proc current*(_: typedesc[ResourceManager]): ResourceManager =
 proc isResourceReference*(_: typedesc[ResourceManager],
                           resourceReference: string): bool =
   ## Windows.ApplicationModel.Resources.Core.IResourceManagerStatics.IsResourceReference
-  let it = statics[IResourceManagerStaticsVtbl]("Windows.ApplicationModel.Resources.Core.ResourceManager")
+  let it = statics[IResourceManagerStaticsVtbl](className(ResourceManager))
   let a0 = toWinRtString(resourceReference)
   var ret: bool
   check it.vtbl.IsResourceReference(it.raw, a0.handle, ret.addr
@@ -28078,7 +28078,7 @@ proc `remoteHostName=`*(self: RfcommConnectionTrigger, value: HostName) =
 
 proc getForCurrentView*(_: typedesc[SearchPane]): SearchPane =
   ## Windows.ApplicationModel.Search.ISearchPaneStatics.GetForCurrentView
-  let it = statics[ISearchPaneStaticsVtbl]("Windows.ApplicationModel.Search.SearchPane")
+  let it = statics[ISearchPaneStaticsVtbl](className(SearchPane))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "SearchPane.getForCurrentView"
@@ -28086,7 +28086,7 @@ proc getForCurrentView*(_: typedesc[SearchPane]): SearchPane =
 
 proc hideThisApplication*(_: typedesc[SearchPane]) =
   ## Windows.ApplicationModel.Search.ISearchPaneStaticsWithHideThisApplication.HideThisApplication
-  let it = statics[ISearchPaneStaticsWithHideThisApplicationVtbl]("Windows.ApplicationModel.Search.SearchPane")
+  let it = statics[ISearchPaneStaticsWithHideThisApplicationVtbl](className(SearchPane))
   check it.vtbl.HideThisApplication(it.raw), "SearchPane.hideThisApplication"
 
 proc `searchHistoryEnabled=`*(self: SearchPane, value: bool) =
@@ -28419,7 +28419,7 @@ proc newSearchQueryLinguisticDetails*(queryTextAlternatives: seq[string],
                                       queryTextCompositionLength: uint32
                                      ): SearchQueryLinguisticDetails =
   ## Windows.ApplicationModel.Search.ISearchQueryLinguisticDetailsFactory.CreateInstance
-  let it = statics[ISearchQueryLinguisticDetailsFactoryVtbl]("Windows.ApplicationModel.Search.SearchQueryLinguisticDetails")
+  let it = statics[ISearchQueryLinguisticDetailsFactoryVtbl](className(SearchQueryLinguisticDetails))
   let a0 = asCollection[string, seq[string]](queryTextAlternatives)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.raw, queryTextCompositionStart,
@@ -28760,7 +28760,7 @@ proc newSecondaryAuthenticationFactorAuthenticationTrigger*(): SecondaryAuthenti
 
 proc newSensorDataThresholdTrigger*(threshold: SomeSensorDataThreshold): SensorDataThresholdTrigger =
   ## Windows.ApplicationModel.Background.ISensorDataThresholdTriggerFactory.Create
-  let it = statics[ISensorDataThresholdTriggerFactoryVtbl]("Windows.ApplicationModel.Background.SensorDataThresholdTrigger")
+  let it = statics[ISensorDataThresholdTriggerFactoryVtbl](className(SensorDataThresholdTrigger))
   let a0 = queryInterface[ISensorDataThresholdVtbl](threshold)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -28850,7 +28850,7 @@ proc newShareProvider*(title: string, displayIcon: RandomAccessStreamReference,
                        handler: proc(operation: ShareProviderOperation)
                       ): ShareProvider =
   ## Windows.ApplicationModel.DataTransfer.IShareProviderFactory.Create
-  let it = statics[IShareProviderFactoryVtbl]("Windows.ApplicationModel.DataTransfer.ShareProvider")
+  let it = statics[IShareProviderFactoryVtbl](className(ShareProvider))
   let a0 = toWinRtString(title)
   let a1 = queryInterface[IRandomAccessStreamReferenceVtbl](displayIcon)
   proc shim3(a0: pointer) =
@@ -28999,7 +28999,7 @@ proc `selectionRect=`*(self: ShareUIOptions, value: Option[Rect]) =
 proc addFile*(_: typedesc[SharedStorageAccessManager], file: SomeStorageFile
              ): string =
   ## Windows.ApplicationModel.DataTransfer.ISharedStorageAccessManagerStatics.AddFile
-  let it = statics[ISharedStorageAccessManagerStaticsVtbl]("Windows.ApplicationModel.DataTransfer.SharedStorageAccessManager")
+  let it = statics[ISharedStorageAccessManagerStaticsVtbl](className(SharedStorageAccessManager))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var ret: HSTRING
   check it.vtbl.AddFile(it.raw, a0.raw, ret.addr
@@ -29009,7 +29009,7 @@ proc addFile*(_: typedesc[SharedStorageAccessManager], file: SomeStorageFile
 proc redeemTokenForFileAsync*(_: typedesc[SharedStorageAccessManager],
                               token: string): Future[StorageFile] =
   ## Windows.ApplicationModel.DataTransfer.ISharedStorageAccessManagerStatics.RedeemTokenForFileAsync
-  let it = statics[ISharedStorageAccessManagerStaticsVtbl]("Windows.ApplicationModel.DataTransfer.SharedStorageAccessManager")
+  let it = statics[ISharedStorageAccessManagerStaticsVtbl](className(SharedStorageAccessManager))
   let a0 = toWinRtString(token)
   var op: pointer
   check it.vtbl.RedeemTokenForFileAsync(it.raw, a0.handle, op.addr
@@ -29018,7 +29018,7 @@ proc redeemTokenForFileAsync*(_: typedesc[SharedStorageAccessManager],
 
 proc removeFile*(_: typedesc[SharedStorageAccessManager], token: string) =
   ## Windows.ApplicationModel.DataTransfer.ISharedStorageAccessManagerStatics.RemoveFile
-  let it = statics[ISharedStorageAccessManagerStaticsVtbl]("Windows.ApplicationModel.DataTransfer.SharedStorageAccessManager")
+  let it = statics[ISharedStorageAccessManagerStaticsVtbl](className(SharedStorageAccessManager))
   let a0 = toWinRtString(token)
   check it.vtbl.RemoveFile(it.raw, a0.handle
                           ), "SharedStorageAccessManager.removeFile"
@@ -29027,7 +29027,7 @@ proc removeFile*(_: typedesc[SharedStorageAccessManager], token: string) =
 
 proc newSmartCardTrigger*(triggerType: SmartCardTriggerType): SmartCardTrigger =
   ## Windows.ApplicationModel.Background.ISmartCardTriggerFactory.Create
-  let it = statics[ISmartCardTriggerFactoryVtbl]("Windows.ApplicationModel.Background.SmartCardTrigger")
+  let it = statics[ISmartCardTriggerFactoryVtbl](className(SmartCardTrigger))
   var ret: pointer
   check it.vtbl.Create(it.raw, triggerType, ret.addr), "SmartCardTrigger.new"
   adopt[SmartCardTrigger](ret)
@@ -29044,7 +29044,7 @@ proc triggerType*(self: SmartCardTrigger): SmartCardTriggerType =
 
 proc newSmsMessageReceivedTrigger*(filterRules: SmsFilterRules): SmsMessageReceivedTrigger =
   ## Windows.ApplicationModel.Background.ISmsMessageReceivedTriggerFactory.Create
-  let it = statics[ISmsMessageReceivedTriggerFactoryVtbl]("Windows.ApplicationModel.Background.SmsMessageReceivedTrigger")
+  let it = statics[ISmsMessageReceivedTriggerFactoryVtbl](className(SmsMessageReceivedTrigger))
   let a0 = queryInterface[ISmsFilterRulesVtbl](filterRules)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -29485,7 +29485,7 @@ proc createSocialFeedUpdaterAsync*(_: typedesc[SocialInfoProviderManager],
                                    ownerRemoteId: string
                                   ): Future[SocialFeedUpdater] =
   ## Windows.ApplicationModel.SocialInfo.Provider.ISocialInfoProviderManagerStatics.CreateSocialFeedUpdaterAsync
-  let it = statics[ISocialInfoProviderManagerStaticsVtbl]("Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager")
+  let it = statics[ISocialInfoProviderManagerStaticsVtbl](className(SocialInfoProviderManager))
   let a2 = toWinRtString(ownerRemoteId)
   var op: pointer
   check it.vtbl.CreateSocialFeedUpdaterAsync(it.raw, kind, mode, a2.handle,
@@ -29497,7 +29497,7 @@ proc createDashboardItemUpdaterAsync*(_: typedesc[SocialInfoProviderManager],
                                       ownerRemoteId: string
                                      ): Future[SocialDashboardItemUpdater] =
   ## Windows.ApplicationModel.SocialInfo.Provider.ISocialInfoProviderManagerStatics.CreateDashboardItemUpdaterAsync
-  let it = statics[ISocialInfoProviderManagerStaticsVtbl]("Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager")
+  let it = statics[ISocialInfoProviderManagerStaticsVtbl](className(SocialInfoProviderManager))
   let a0 = toWinRtString(ownerRemoteId)
   var op: pointer
   check it.vtbl.CreateDashboardItemUpdaterAsync(it.raw, a0.handle, op.addr
@@ -29508,7 +29508,7 @@ proc createDashboardItemUpdaterAsync*(_: typedesc[SocialInfoProviderManager],
 proc updateBadgeCountValue*(_: typedesc[SocialInfoProviderManager],
                             itemRemoteId: string, newCount: int32) =
   ## Windows.ApplicationModel.SocialInfo.Provider.ISocialInfoProviderManagerStatics.UpdateBadgeCountValue
-  let it = statics[ISocialInfoProviderManagerStaticsVtbl]("Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager")
+  let it = statics[ISocialInfoProviderManagerStaticsVtbl](className(SocialInfoProviderManager))
   let a0 = toWinRtString(itemRemoteId)
   check it.vtbl.UpdateBadgeCountValue(it.raw, a0.handle, newCount
                                      ), "SocialInfoProviderManager.updateBadgeCountValue"
@@ -29516,14 +29516,14 @@ proc updateBadgeCountValue*(_: typedesc[SocialInfoProviderManager],
 proc reportNewContentAvailable*(_: typedesc[SocialInfoProviderManager],
                                 contactRemoteId: string, kind: SocialFeedKind) =
   ## Windows.ApplicationModel.SocialInfo.Provider.ISocialInfoProviderManagerStatics.ReportNewContentAvailable
-  let it = statics[ISocialInfoProviderManagerStaticsVtbl]("Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager")
+  let it = statics[ISocialInfoProviderManagerStaticsVtbl](className(SocialInfoProviderManager))
   let a0 = toWinRtString(contactRemoteId)
   check it.vtbl.ReportNewContentAvailable(it.raw, a0.handle, kind
                                          ), "SocialInfoProviderManager.reportNewContentAvailable"
 
 proc provisionAsync*(_: typedesc[SocialInfoProviderManager]): Future[bool] =
   ## Windows.ApplicationModel.SocialInfo.Provider.ISocialInfoProviderManagerStatics.ProvisionAsync
-  let it = statics[ISocialInfoProviderManagerStaticsVtbl]("Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager")
+  let it = statics[ISocialInfoProviderManagerStaticsVtbl](className(SocialInfoProviderManager))
   var op: pointer
   check it.vtbl.ProvisionAsync(it.raw, op.addr
                               ), "SocialInfoProviderManager.provisionAsync"
@@ -29531,7 +29531,7 @@ proc provisionAsync*(_: typedesc[SocialInfoProviderManager]): Future[bool] =
 
 proc deprovisionAsync*(_: typedesc[SocialInfoProviderManager]): Future[void] =
   ## Windows.ApplicationModel.SocialInfo.Provider.ISocialInfoProviderManagerStatics.DeprovisionAsync
-  let it = statics[ISocialInfoProviderManagerStaticsVtbl]("Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager")
+  let it = statics[ISocialInfoProviderManagerStaticsVtbl](className(SocialInfoProviderManager))
   var op: pointer
   check it.vtbl.DeprovisionAsync(it.raw, op.addr
                                 ), "SocialInfoProviderManager.deprovisionAsync"
@@ -29692,7 +29692,7 @@ proc removeDismissed*(self: SplashScreen, token: EventRegistrationToken) =
 
 proc userActivityJsonArray*(_: typedesc[StandardDataFormats]): string =
   ## Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics3.get_UserActivityJsonArray
-  let it = statics[IStandardDataFormatsStatics3Vtbl]("Windows.ApplicationModel.DataTransfer.StandardDataFormats")
+  let it = statics[IStandardDataFormatsStatics3Vtbl](className(StandardDataFormats))
   var ret: HSTRING
   check it.vtbl.get_UserActivityJsonArray(it.raw, ret.addr
                                          ), "StandardDataFormats.userActivityJsonArray"
@@ -29700,42 +29700,42 @@ proc userActivityJsonArray*(_: typedesc[StandardDataFormats]): string =
 
 proc text*(_: typedesc[StandardDataFormats]): string =
   ## Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics.get_Text
-  let it = statics[IStandardDataFormatsStaticsVtbl]("Windows.ApplicationModel.DataTransfer.StandardDataFormats")
+  let it = statics[IStandardDataFormatsStaticsVtbl](className(StandardDataFormats))
   var ret: HSTRING
   check it.vtbl.get_Text(it.raw, ret.addr), "StandardDataFormats.text"
   takeString(ret)
 
 proc uri*(_: typedesc[StandardDataFormats]): string =
   ## Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics.get_Uri
-  let it = statics[IStandardDataFormatsStaticsVtbl]("Windows.ApplicationModel.DataTransfer.StandardDataFormats")
+  let it = statics[IStandardDataFormatsStaticsVtbl](className(StandardDataFormats))
   var ret: HSTRING
   check it.vtbl.get_Uri(it.raw, ret.addr), "StandardDataFormats.uri"
   takeString(ret)
 
 proc html*(_: typedesc[StandardDataFormats]): string =
   ## Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics.get_Html
-  let it = statics[IStandardDataFormatsStaticsVtbl]("Windows.ApplicationModel.DataTransfer.StandardDataFormats")
+  let it = statics[IStandardDataFormatsStaticsVtbl](className(StandardDataFormats))
   var ret: HSTRING
   check it.vtbl.get_Html(it.raw, ret.addr), "StandardDataFormats.html"
   takeString(ret)
 
 proc rtf*(_: typedesc[StandardDataFormats]): string =
   ## Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics.get_Rtf
-  let it = statics[IStandardDataFormatsStaticsVtbl]("Windows.ApplicationModel.DataTransfer.StandardDataFormats")
+  let it = statics[IStandardDataFormatsStaticsVtbl](className(StandardDataFormats))
   var ret: HSTRING
   check it.vtbl.get_Rtf(it.raw, ret.addr), "StandardDataFormats.rtf"
   takeString(ret)
 
 proc bitmap*(_: typedesc[StandardDataFormats]): string =
   ## Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics.get_Bitmap
-  let it = statics[IStandardDataFormatsStaticsVtbl]("Windows.ApplicationModel.DataTransfer.StandardDataFormats")
+  let it = statics[IStandardDataFormatsStaticsVtbl](className(StandardDataFormats))
   var ret: HSTRING
   check it.vtbl.get_Bitmap(it.raw, ret.addr), "StandardDataFormats.bitmap"
   takeString(ret)
 
 proc storageItems*(_: typedesc[StandardDataFormats]): string =
   ## Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics.get_StorageItems
-  let it = statics[IStandardDataFormatsStaticsVtbl]("Windows.ApplicationModel.DataTransfer.StandardDataFormats")
+  let it = statics[IStandardDataFormatsStaticsVtbl](className(StandardDataFormats))
   var ret: HSTRING
   check it.vtbl.get_StorageItems(it.raw, ret.addr
                                 ), "StandardDataFormats.storageItems"
@@ -29743,14 +29743,14 @@ proc storageItems*(_: typedesc[StandardDataFormats]): string =
 
 proc webLink*(_: typedesc[StandardDataFormats]): string =
   ## Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics2.get_WebLink
-  let it = statics[IStandardDataFormatsStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.StandardDataFormats")
+  let it = statics[IStandardDataFormatsStatics2Vtbl](className(StandardDataFormats))
   var ret: HSTRING
   check it.vtbl.get_WebLink(it.raw, ret.addr), "StandardDataFormats.webLink"
   takeString(ret)
 
 proc applicationLink*(_: typedesc[StandardDataFormats]): string =
   ## Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics2.get_ApplicationLink
-  let it = statics[IStandardDataFormatsStatics2Vtbl]("Windows.ApplicationModel.DataTransfer.StandardDataFormats")
+  let it = statics[IStandardDataFormatsStatics2Vtbl](className(StandardDataFormats))
   var ret: HSTRING
   check it.vtbl.get_ApplicationLink(it.raw, ret.addr
                                    ), "StandardDataFormats.applicationLink"
@@ -29801,7 +29801,7 @@ proc executablePath*(self: StartupAppInfoPreview): string =
 
 proc getDefault*(_: typedesc[StartupAppsManagerPreview]): StartupAppsManagerPreview =
   ## Windows.ApplicationModel.Preview.IStartupAppsManagerPreviewStatics.GetDefault
-  let it = statics[IStartupAppsManagerPreviewStaticsVtbl]("Windows.ApplicationModel.Preview.StartupAppsManagerPreview")
+  let it = statics[IStartupAppsManagerPreviewStaticsVtbl](className(StartupAppsManagerPreview))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr
                           ), "StartupAppsManagerPreview.getDefault"
@@ -29819,7 +29819,7 @@ proc getStartupAppInfos*(self: StartupAppsManagerPreview): seq[StartupAppInfoPre
 
 proc getForCurrentPackageAsync*(_: typedesc[StartupTask]): Future[seq[StartupTask]] =
   ## Windows.ApplicationModel.IStartupTaskStatics.GetForCurrentPackageAsync
-  let it = statics[IStartupTaskStaticsVtbl]("Windows.ApplicationModel.StartupTask")
+  let it = statics[IStartupTaskStaticsVtbl](className(StartupTask))
   var op: pointer
   check it.vtbl.GetForCurrentPackageAsync(it.raw, op.addr
                                          ), "StartupTask.getForCurrentPackageAsync"
@@ -29827,7 +29827,7 @@ proc getForCurrentPackageAsync*(_: typedesc[StartupTask]): Future[seq[StartupTas
 
 proc getAsync*(_: typedesc[StartupTask], taskId: string): Future[StartupTask] =
   ## Windows.ApplicationModel.IStartupTaskStatics.GetAsync
-  let it = statics[IStartupTaskStaticsVtbl]("Windows.ApplicationModel.StartupTask")
+  let it = statics[IStartupTaskStaticsVtbl](className(StartupTask))
   let a0 = toWinRtString(taskId)
   var op: pointer
   check it.vtbl.GetAsync(it.raw, a0.handle, op.addr), "StartupTask.getAsync"
@@ -29882,7 +29882,7 @@ proc status*(self: StatelessAppServiceResponse): StatelessAppServiceResponseStat
 
 proc newStorageLibraryChangeTrackerTrigger*(tracker: StorageLibraryChangeTracker): StorageLibraryChangeTrackerTrigger =
   ## Windows.ApplicationModel.Background.IStorageLibraryChangeTrackerTriggerFactory.Create
-  let it = statics[IStorageLibraryChangeTrackerTriggerFactoryVtbl]("Windows.ApplicationModel.Background.StorageLibraryChangeTrackerTrigger")
+  let it = statics[IStorageLibraryChangeTrackerTriggerFactoryVtbl](className(StorageLibraryChangeTrackerTrigger))
   let a0 = queryInterface[IStorageLibraryChangeTrackerVtbl](tracker)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -29895,7 +29895,7 @@ proc create*(_: typedesc[StorageLibraryContentChangedTrigger],
              storageLibrary: StorageLibrary
             ): StorageLibraryContentChangedTrigger =
   ## Windows.ApplicationModel.Background.IStorageLibraryContentChangedTriggerStatics.Create
-  let it = statics[IStorageLibraryContentChangedTriggerStaticsVtbl]("Windows.ApplicationModel.Background.StorageLibraryContentChangedTrigger")
+  let it = statics[IStorageLibraryContentChangedTriggerStaticsVtbl](className(StorageLibraryContentChangedTrigger))
   let a0 = queryInterface[IStorageLibraryVtbl](storageLibrary)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -29906,7 +29906,7 @@ proc createFromLibraries*(_: typedesc[StorageLibraryContentChangedTrigger],
                           storageLibraries: seq[StorageLibrary]
                          ): StorageLibraryContentChangedTrigger =
   ## Windows.ApplicationModel.Background.IStorageLibraryContentChangedTriggerStatics.CreateFromLibraries
-  let it = statics[IStorageLibraryContentChangedTriggerStaticsVtbl]("Windows.ApplicationModel.Background.StorageLibraryContentChangedTrigger")
+  let it = statics[IStorageLibraryContentChangedTriggerStaticsVtbl](className(StorageLibraryContentChangedTrigger))
   let a0 = asCollection[StorageLibrary, seq[StorageLibrary]](storageLibraries)
   var ret: pointer
   check it.vtbl.CreateFromLibraries(it.raw, a0.raw, ret.addr
@@ -29917,7 +29917,7 @@ proc createFromLibraries*(_: typedesc[StorageLibraryContentChangedTrigger],
 
 proc purchasePromptingPolicy*(_: typedesc[StoreConfiguration]): Option[uint32] =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics2.get_PurchasePromptingPolicy
-  let it = statics[IStoreConfigurationStatics2Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics2Vtbl](className(StoreConfiguration))
   var ret: pointer
   check it.vtbl.get_PurchasePromptingPolicy(it.raw, ret.addr
                                            ), "StoreConfiguration.purchasePromptingPolicy"
@@ -29926,7 +29926,7 @@ proc purchasePromptingPolicy*(_: typedesc[StoreConfiguration]): Option[uint32] =
 proc `purchasePromptingPolicy=`*(_: typedesc[StoreConfiguration],
                                  value: Option[uint32]) =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics2.put_PurchasePromptingPolicy
-  let it = statics[IStoreConfigurationStatics2Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics2Vtbl](className(StoreConfiguration))
   let a0 = asReference[uint32](value)
   check it.vtbl.put_PurchasePromptingPolicy(it.raw, a0.raw
                                            ), "StoreConfiguration.purchasePromptingPolicy"
@@ -29937,7 +29937,7 @@ proc setSystemConfiguration*(_: typedesc[StoreConfiguration],
                              systemConfigurationExpiration: DateTime,
                              catalogHardwareDescriptor: string) =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics.SetSystemConfiguration
-  let it = statics[IStoreConfigurationStaticsVtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStaticsVtbl](className(StoreConfiguration))
   let a0 = toWinRtString(catalogHardwareManufacturerId)
   let a1 = toWinRtString(catalogStoreContentModifierId)
   let a3 = toWinRtString(catalogHardwareDescriptor)
@@ -29950,7 +29950,7 @@ proc setMobileOperatorConfiguration*(_: typedesc[StoreConfiguration],
                                      appDownloadLimitInMegabytes: uint32,
                                      updateDownloadLimitInMegabytes: uint32) =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics.SetMobileOperatorConfiguration
-  let it = statics[IStoreConfigurationStaticsVtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStaticsVtbl](className(StoreConfiguration))
   let a0 = toWinRtString(mobileOperatorId)
   check it.vtbl.SetMobileOperatorConfiguration(it.raw, a0.handle,
                                                appDownloadLimitInMegabytes,
@@ -29960,7 +29960,7 @@ proc setMobileOperatorConfiguration*(_: typedesc[StoreConfiguration],
 proc setStoreWebAccountId*(_: typedesc[StoreConfiguration], webAccountId: string
                           ) =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics.SetStoreWebAccountId
-  let it = statics[IStoreConfigurationStaticsVtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStaticsVtbl](className(StoreConfiguration))
   let a0 = toWinRtString(webAccountId)
   check it.vtbl.SetStoreWebAccountId(it.raw, a0.handle
                                     ), "StoreConfiguration.setStoreWebAccountId"
@@ -29968,7 +29968,7 @@ proc setStoreWebAccountId*(_: typedesc[StoreConfiguration], webAccountId: string
 proc isStoreWebAccountId*(_: typedesc[StoreConfiguration], webAccountId: string
                          ): bool =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics.IsStoreWebAccountId
-  let it = statics[IStoreConfigurationStaticsVtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStaticsVtbl](className(StoreConfiguration))
   let a0 = toWinRtString(webAccountId)
   var ret: bool
   check it.vtbl.IsStoreWebAccountId(it.raw, a0.handle, ret.addr
@@ -29977,7 +29977,7 @@ proc isStoreWebAccountId*(_: typedesc[StoreConfiguration], webAccountId: string
 
 proc hardwareManufacturerInfo*(_: typedesc[StoreConfiguration]): StoreHardwareManufacturerInfo =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics.get_HardwareManufacturerInfo
-  let it = statics[IStoreConfigurationStaticsVtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStaticsVtbl](className(StoreConfiguration))
   var ret: pointer
   check it.vtbl.get_HardwareManufacturerInfo(it.raw, ret.addr
                                             ), "StoreConfiguration.hardwareManufacturerInfo"
@@ -29987,7 +29987,7 @@ proc filterUnsupportedSystemFeaturesAsync*(_: typedesc[StoreConfiguration],
                                            systemFeatures: seq[StoreSystemFeature]
                                           ): Future[seq[StoreSystemFeature]] =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics.FilterUnsupportedSystemFeaturesAsync
-  let it = statics[IStoreConfigurationStaticsVtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStaticsVtbl](className(StoreConfiguration))
   let a0 = asCollection[StoreSystemFeature, seq[StoreSystemFeature]](systemFeatures)
   var op: pointer
   check it.vtbl.FilterUnsupportedSystemFeaturesAsync(it.raw, a0.raw, op.addr
@@ -29997,7 +29997,7 @@ proc filterUnsupportedSystemFeaturesAsync*(_: typedesc[StoreConfiguration],
 
 proc isPinToDesktopSupported*(_: typedesc[StoreConfiguration]): bool =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics5.IsPinToDesktopSupported
-  let it = statics[IStoreConfigurationStatics5Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics5Vtbl](className(StoreConfiguration))
   var ret: bool
   check it.vtbl.IsPinToDesktopSupported(it.raw, ret.addr
                                        ), "StoreConfiguration.isPinToDesktopSupported"
@@ -30005,7 +30005,7 @@ proc isPinToDesktopSupported*(_: typedesc[StoreConfiguration]): bool =
 
 proc isPinToTaskbarSupported*(_: typedesc[StoreConfiguration]): bool =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics5.IsPinToTaskbarSupported
-  let it = statics[IStoreConfigurationStatics5Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics5Vtbl](className(StoreConfiguration))
   var ret: bool
   check it.vtbl.IsPinToTaskbarSupported(it.raw, ret.addr
                                        ), "StoreConfiguration.isPinToTaskbarSupported"
@@ -30013,7 +30013,7 @@ proc isPinToTaskbarSupported*(_: typedesc[StoreConfiguration]): bool =
 
 proc isPinToStartSupported*(_: typedesc[StoreConfiguration]): bool =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics5.IsPinToStartSupported
-  let it = statics[IStoreConfigurationStatics5Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics5Vtbl](className(StoreConfiguration))
   var ret: bool
   check it.vtbl.IsPinToStartSupported(it.raw, ret.addr
                                      ), "StoreConfiguration.isPinToStartSupported"
@@ -30022,7 +30022,7 @@ proc isPinToStartSupported*(_: typedesc[StoreConfiguration]): bool =
 proc pinToDesktop*(_: typedesc[StoreConfiguration], appPackageFamilyName: string
                   ) =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics5.PinToDesktop
-  let it = statics[IStoreConfigurationStatics5Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics5Vtbl](className(StoreConfiguration))
   let a0 = toWinRtString(appPackageFamilyName)
   check it.vtbl.PinToDesktop(it.raw, a0.handle
                             ), "StoreConfiguration.pinToDesktop"
@@ -30030,7 +30030,7 @@ proc pinToDesktop*(_: typedesc[StoreConfiguration], appPackageFamilyName: string
 proc pinToDesktopForUser*(_: typedesc[StoreConfiguration], user: User,
                           appPackageFamilyName: string) =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics5.PinToDesktopForUser
-  let it = statics[IStoreConfigurationStatics5Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics5Vtbl](className(StoreConfiguration))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(appPackageFamilyName)
   check it.vtbl.PinToDesktopForUser(it.raw, a0.raw, a1.handle
@@ -30038,7 +30038,7 @@ proc pinToDesktopForUser*(_: typedesc[StoreConfiguration], user: User,
 
 proc hasStoreWebAccount*(_: typedesc[StoreConfiguration]): bool =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics3.HasStoreWebAccount
-  let it = statics[IStoreConfigurationStatics3Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics3Vtbl](className(StoreConfiguration))
   var ret: bool
   check it.vtbl.HasStoreWebAccount(it.raw, ret.addr
                                   ), "StoreConfiguration.hasStoreWebAccount"
@@ -30047,7 +30047,7 @@ proc hasStoreWebAccount*(_: typedesc[StoreConfiguration]): bool =
 proc hasStoreWebAccountForUser*(_: typedesc[StoreConfiguration], user: User
                                ): bool =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics3.HasStoreWebAccountForUser
-  let it = statics[IStoreConfigurationStatics3Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics3Vtbl](className(StoreConfiguration))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: bool
   check it.vtbl.HasStoreWebAccountForUser(it.raw, a0.raw, ret.addr
@@ -30058,7 +30058,7 @@ proc getStoreLogDataAsync*(_: typedesc[StoreConfiguration],
                            options: StoreLogOptions
                           ): Future[IRandomAccessStreamReference] =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics3.GetStoreLogDataAsync
-  let it = statics[IStoreConfigurationStatics3Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics3Vtbl](className(StoreConfiguration))
   var op: pointer
   check it.vtbl.GetStoreLogDataAsync(it.raw, options, op.addr
                                     ), "StoreConfiguration.getStoreLogDataAsync"
@@ -30068,7 +30068,7 @@ proc getStoreLogDataAsync*(_: typedesc[StoreConfiguration],
 proc setStoreWebAccountIdForUser*(_: typedesc[StoreConfiguration], user: User,
                                   webAccountId: string) =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics3.SetStoreWebAccountIdForUser
-  let it = statics[IStoreConfigurationStatics3Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics3Vtbl](className(StoreConfiguration))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(webAccountId)
   check it.vtbl.SetStoreWebAccountIdForUser(it.raw, a0.raw, a1.handle
@@ -30077,7 +30077,7 @@ proc setStoreWebAccountIdForUser*(_: typedesc[StoreConfiguration], user: User,
 proc isStoreWebAccountIdForUser*(_: typedesc[StoreConfiguration], user: User,
                                  webAccountId: string): bool =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics3.IsStoreWebAccountIdForUser
-  let it = statics[IStoreConfigurationStatics3Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics3Vtbl](className(StoreConfiguration))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(webAccountId)
   var ret: bool
@@ -30088,7 +30088,7 @@ proc isStoreWebAccountIdForUser*(_: typedesc[StoreConfiguration], user: User,
 proc getPurchasePromptingPolicyForUser*(_: typedesc[StoreConfiguration],
                                         user: User): Option[uint32] =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics3.GetPurchasePromptingPolicyForUser
-  let it = statics[IStoreConfigurationStatics3Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics3Vtbl](className(StoreConfiguration))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetPurchasePromptingPolicyForUser(it.raw, a0.raw, ret.addr
@@ -30098,7 +30098,7 @@ proc getPurchasePromptingPolicyForUser*(_: typedesc[StoreConfiguration],
 proc setPurchasePromptingPolicyForUser*(_: typedesc[StoreConfiguration],
                                         user: User, value: Option[uint32]) =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics3.SetPurchasePromptingPolicyForUser
-  let it = statics[IStoreConfigurationStatics3Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics3Vtbl](className(StoreConfiguration))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = asReference[uint32](value)
   check it.vtbl.SetPurchasePromptingPolicyForUser(it.raw, a0.raw, a1.raw
@@ -30106,7 +30106,7 @@ proc setPurchasePromptingPolicyForUser*(_: typedesc[StoreConfiguration],
 
 proc getStoreWebAccountId*(_: typedesc[StoreConfiguration]): string =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics4.GetStoreWebAccountId
-  let it = statics[IStoreConfigurationStatics4Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics4Vtbl](className(StoreConfiguration))
   var ret: HSTRING
   check it.vtbl.GetStoreWebAccountId(it.raw, ret.addr
                                     ), "StoreConfiguration.getStoreWebAccountId"
@@ -30115,7 +30115,7 @@ proc getStoreWebAccountId*(_: typedesc[StoreConfiguration]): string =
 proc getStoreWebAccountIdForUser*(_: typedesc[StoreConfiguration], user: User
                                  ): string =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics4.GetStoreWebAccountIdForUser
-  let it = statics[IStoreConfigurationStatics4Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics4Vtbl](className(StoreConfiguration))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: HSTRING
   check it.vtbl.GetStoreWebAccountIdForUser(it.raw, a0.raw, ret.addr
@@ -30125,7 +30125,7 @@ proc getStoreWebAccountIdForUser*(_: typedesc[StoreConfiguration], user: User
 proc setEnterpriseStoreWebAccountId*(_: typedesc[StoreConfiguration],
                                      webAccountId: string) =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics4.SetEnterpriseStoreWebAccountId
-  let it = statics[IStoreConfigurationStatics4Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics4Vtbl](className(StoreConfiguration))
   let a0 = toWinRtString(webAccountId)
   check it.vtbl.SetEnterpriseStoreWebAccountId(it.raw, a0.handle
                                               ), "StoreConfiguration.setEnterpriseStoreWebAccountId"
@@ -30133,7 +30133,7 @@ proc setEnterpriseStoreWebAccountId*(_: typedesc[StoreConfiguration],
 proc setEnterpriseStoreWebAccountIdForUser*(_: typedesc[StoreConfiguration],
                                             user: User, webAccountId: string) =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics4.SetEnterpriseStoreWebAccountIdForUser
-  let it = statics[IStoreConfigurationStatics4Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics4Vtbl](className(StoreConfiguration))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(webAccountId)
   check it.vtbl.SetEnterpriseStoreWebAccountIdForUser(it.raw, a0.raw, a1.handle
@@ -30141,7 +30141,7 @@ proc setEnterpriseStoreWebAccountIdForUser*(_: typedesc[StoreConfiguration],
 
 proc getEnterpriseStoreWebAccountId*(_: typedesc[StoreConfiguration]): string =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics4.GetEnterpriseStoreWebAccountId
-  let it = statics[IStoreConfigurationStatics4Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics4Vtbl](className(StoreConfiguration))
   var ret: HSTRING
   check it.vtbl.GetEnterpriseStoreWebAccountId(it.raw, ret.addr
                                               ), "StoreConfiguration.getEnterpriseStoreWebAccountId"
@@ -30150,7 +30150,7 @@ proc getEnterpriseStoreWebAccountId*(_: typedesc[StoreConfiguration]): string =
 proc getEnterpriseStoreWebAccountIdForUser*(_: typedesc[StoreConfiguration],
                                             user: User): string =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics4.GetEnterpriseStoreWebAccountIdForUser
-  let it = statics[IStoreConfigurationStatics4Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics4Vtbl](className(StoreConfiguration))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: HSTRING
   check it.vtbl.GetEnterpriseStoreWebAccountIdForUser(it.raw, a0.raw, ret.addr
@@ -30159,7 +30159,7 @@ proc getEnterpriseStoreWebAccountIdForUser*(_: typedesc[StoreConfiguration],
 
 proc shouldRestrictToEnterpriseStoreOnly*(_: typedesc[StoreConfiguration]): bool =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics4.ShouldRestrictToEnterpriseStoreOnly
-  let it = statics[IStoreConfigurationStatics4Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics4Vtbl](className(StoreConfiguration))
   var ret: bool
   check it.vtbl.ShouldRestrictToEnterpriseStoreOnly(it.raw, ret.addr
                                                    ), "StoreConfiguration.shouldRestrictToEnterpriseStoreOnly"
@@ -30168,7 +30168,7 @@ proc shouldRestrictToEnterpriseStoreOnly*(_: typedesc[StoreConfiguration]): bool
 proc shouldRestrictToEnterpriseStoreOnlyForUser*(_: typedesc[StoreConfiguration],
                                                  user: User): bool =
   ## Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics4.ShouldRestrictToEnterpriseStoreOnlyForUser
-  let it = statics[IStoreConfigurationStatics4Vtbl]("Windows.ApplicationModel.Store.Preview.StoreConfiguration")
+  let it = statics[IStoreConfigurationStatics4Vtbl](className(StoreConfiguration))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: bool
   check it.vtbl.ShouldRestrictToEnterpriseStoreOnlyForUser(it.raw, a0.raw,
@@ -30217,7 +30217,7 @@ proc requestProductPurchaseByProductIdAndSkuIdAsync*(_: typedesc[StorePreview],
                                                      skuId: string
                                                     ): Future[StorePreviewPurchaseResults] =
   ## Windows.ApplicationModel.Store.Preview.IStorePreview.RequestProductPurchaseByProductIdAndSkuIdAsync
-  let it = statics[IStorePreviewVtbl]("Windows.ApplicationModel.Store.Preview.StorePreview")
+  let it = statics[IStorePreviewVtbl](className(StorePreview))
   let a0 = toWinRtString(productId)
   let a1 = toWinRtString(skuId)
   var op: pointer
@@ -30231,7 +30231,7 @@ proc requestProductPurchaseByProductIdAndSkuIdAsync*(_: typedesc[StorePreview],
 
 proc loadAddOnProductInfosAsync*(_: typedesc[StorePreview]): Future[seq[StorePreviewProductInfo]] =
   ## Windows.ApplicationModel.Store.Preview.IStorePreview.LoadAddOnProductInfosAsync
-  let it = statics[IStorePreviewVtbl]("Windows.ApplicationModel.Store.Preview.StorePreview")
+  let it = statics[IStorePreviewVtbl](className(StorePreview))
   var op: pointer
   check it.vtbl.LoadAddOnProductInfosAsync(it.raw, op.addr
                                           ), "StorePreview.loadAddOnProductInfosAsync"
@@ -30363,7 +30363,7 @@ proc extendedData*(self: StorePreviewSkuInfo): string =
 
 proc newSystemCondition*(conditionType: SystemConditionType): SystemCondition =
   ## Windows.ApplicationModel.Background.ISystemConditionFactory.Create
-  let it = statics[ISystemConditionFactoryVtbl]("Windows.ApplicationModel.Background.SystemCondition")
+  let it = statics[ISystemConditionFactoryVtbl](className(SystemCondition))
   var ret: pointer
   check it.vtbl.Create(it.raw, conditionType, ret.addr), "SystemCondition.new"
   adopt[SystemCondition](ret)
@@ -30381,7 +30381,7 @@ proc conditionType*(self: SystemCondition): SystemConditionType =
 proc newSystemTrigger*(triggerType: SystemTriggerType, oneShot: bool
                       ): SystemTrigger =
   ## Windows.ApplicationModel.Background.ISystemTriggerFactory.Create
-  let it = statics[ISystemTriggerFactoryVtbl]("Windows.ApplicationModel.Background.SystemTrigger")
+  let it = statics[ISystemTriggerFactoryVtbl](className(SystemTrigger))
   var ret: pointer
   check it.vtbl.Create(it.raw, triggerType, oneShot, ret.addr
                       ), "SystemTrigger.new"
@@ -30431,7 +30431,7 @@ proc recentlyShownNotifications*(self: TileActivatedInfo): seq[ShownTileNotifica
 
 proc newTimeTrigger*(freshnessTime: uint32, oneShot: bool): TimeTrigger =
   ## Windows.ApplicationModel.Background.ITimeTriggerFactory.Create
-  let it = statics[ITimeTriggerFactoryVtbl]("Windows.ApplicationModel.Background.TimeTrigger")
+  let it = statics[ITimeTriggerFactoryVtbl](className(TimeTrigger))
   var ret: pointer
   check it.vtbl.Create(it.raw, freshnessTime, oneShot, ret.addr
                       ), "TimeTrigger.new"
@@ -30459,7 +30459,7 @@ proc newToastNotificationActionTrigger*(): ToastNotificationActionTrigger =
 
 proc newToastNotificationActionTrigger*(applicationId: string): ToastNotificationActionTrigger =
   ## Windows.ApplicationModel.Background.IToastNotificationActionTriggerFactory.Create
-  let it = statics[IToastNotificationActionTriggerFactoryVtbl]("Windows.ApplicationModel.Background.ToastNotificationActionTrigger")
+  let it = statics[IToastNotificationActionTriggerFactoryVtbl](className(ToastNotificationActionTrigger))
   let a0 = toWinRtString(applicationId)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -30474,7 +30474,7 @@ proc newToastNotificationHistoryChangedTrigger*(): ToastNotificationHistoryChang
 
 proc newToastNotificationHistoryChangedTrigger*(applicationId: string): ToastNotificationHistoryChangedTrigger =
   ## Windows.ApplicationModel.Background.IToastNotificationHistoryChangedTriggerFactory.Create
-  let it = statics[IToastNotificationHistoryChangedTriggerFactoryVtbl]("Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger")
+  let it = statics[IToastNotificationHistoryChangedTriggerFactoryVtbl](className(ToastNotificationHistoryChangedTrigger))
   let a0 = toWinRtString(applicationId)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -30487,7 +30487,7 @@ proc createWatcher*(_: typedesc[TransferTarget],
                     options: TransferTargetDiscoveryOptions
                    ): TransferTargetWatcher =
   ## Windows.ApplicationModel.DataTransfer.ITransferTargetStatics.CreateWatcher
-  let it = statics[ITransferTargetStaticsVtbl]("Windows.ApplicationModel.DataTransfer.TransferTarget")
+  let it = statics[ITransferTargetStaticsVtbl](className(TransferTarget))
   let a0 = queryInterface[ITransferTargetDiscoveryOptionsVtbl](options)
   var ret: pointer
   check it.vtbl.CreateWatcher(it.raw, a0.raw, ret.addr
@@ -30536,7 +30536,7 @@ proc target*(self: TransferTargetChangedEventArgs): TransferTarget =
 
 proc newTransferTargetDiscoveryOptions*(dataPackage: DataPackageView): TransferTargetDiscoveryOptions =
   ## Windows.ApplicationModel.DataTransfer.ITransferTargetDiscoveryOptionsFactory.CreateInstance
-  let it = statics[ITransferTargetDiscoveryOptionsFactoryVtbl]("Windows.ApplicationModel.DataTransfer.TransferTargetDiscoveryOptions")
+  let it = statics[ITransferTargetDiscoveryOptionsFactoryVtbl](className(TransferTargetDiscoveryOptions))
   let a0 = queryInterface[IDataPackageViewVtbl](dataPackage)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.raw, ret.addr
@@ -30605,7 +30605,7 @@ proc extendedError*(self: TransferTargetInvokeResult): HRESULT =
 proc isSupported*(_: typedesc[TransferTargetWatcher],
                   dataPackage: DataPackageView): bool =
   ## Windows.ApplicationModel.DataTransfer.ITransferTargetWatcherStatics.IsSupported
-  let it = statics[ITransferTargetWatcherStaticsVtbl]("Windows.ApplicationModel.DataTransfer.TransferTargetWatcher")
+  let it = statics[ITransferTargetWatcherStaticsVtbl](className(TransferTargetWatcher))
   let a0 = queryInterface[IDataPackageViewVtbl](dataPackage)
   var ret: bool
   check it.vtbl.IsSupported(it.raw, a0.raw, ret.addr
@@ -30786,7 +30786,7 @@ proc unhandledError*(self: UnhandledErrorDetectedEventArgs): UnhandledError =
 
 proc newUserActivity*(activityId: string): UserActivity =
   ## Windows.ApplicationModel.UserActivities.IUserActivityFactory.CreateWithActivityId
-  let it = statics[IUserActivityFactoryVtbl]("Windows.ApplicationModel.UserActivities.UserActivity")
+  let it = statics[IUserActivityFactoryVtbl](className(UserActivity))
   let a0 = toWinRtString(activityId)
   var ret: pointer
   check it.vtbl.CreateWithActivityId(it.raw, a0.handle, ret.addr
@@ -30795,7 +30795,7 @@ proc newUserActivity*(activityId: string): UserActivity =
 
 proc tryParseFromJson*(_: typedesc[UserActivity], json: string): UserActivity =
   ## Windows.ApplicationModel.UserActivities.IUserActivityStatics.TryParseFromJson
-  let it = statics[IUserActivityStaticsVtbl]("Windows.ApplicationModel.UserActivities.UserActivity")
+  let it = statics[IUserActivityStaticsVtbl](className(UserActivity))
   let a0 = toWinRtString(json)
   var ret: pointer
   check it.vtbl.TryParseFromJson(it.raw, a0.handle, ret.addr
@@ -30805,7 +30805,7 @@ proc tryParseFromJson*(_: typedesc[UserActivity], json: string): UserActivity =
 proc tryParseFromJsonArray*(_: typedesc[UserActivity], json: string
                            ): seq[UserActivity] =
   ## Windows.ApplicationModel.UserActivities.IUserActivityStatics.TryParseFromJsonArray
-  let it = statics[IUserActivityStaticsVtbl]("Windows.ApplicationModel.UserActivities.UserActivity")
+  let it = statics[IUserActivityStaticsVtbl](className(UserActivity))
   let a0 = toWinRtString(json)
   var ret: pointer
   check it.vtbl.TryParseFromJsonArray(it.raw, a0.handle, ret.addr
@@ -30815,7 +30815,7 @@ proc tryParseFromJsonArray*(_: typedesc[UserActivity], json: string
 proc toJsonArray*(_: typedesc[UserActivity], activities: seq[UserActivity]
                  ): string =
   ## Windows.ApplicationModel.UserActivities.IUserActivityStatics.ToJsonArray
-  let it = statics[IUserActivityStaticsVtbl]("Windows.ApplicationModel.UserActivities.UserActivity")
+  let it = statics[IUserActivityStaticsVtbl](className(UserActivity))
   let a0 = asCollection[UserActivity, seq[UserActivity]](activities)
   var ret: HSTRING
   check it.vtbl.ToJsonArray(it.raw, a0.raw, ret.addr
@@ -30951,7 +30951,7 @@ proc newUserActivityAttribution*(): UserActivityAttribution =
 
 proc newUserActivityAttribution*(iconUri: Uri): UserActivityAttribution =
   ## Windows.ApplicationModel.UserActivities.IUserActivityAttributionFactory.CreateWithUri
-  let it = statics[IUserActivityAttributionFactoryVtbl]("Windows.ApplicationModel.UserActivities.UserActivityAttribution")
+  let it = statics[IUserActivityAttributionFactoryVtbl](className(UserActivityAttribution))
   let a0 = queryInterface[IUriRuntimeClassVtbl](iconUri)
   var ret: pointer
   check it.vtbl.CreateWithUri(it.raw, a0.raw, ret.addr
@@ -31005,7 +31005,7 @@ proc `addImageQuery=`*(self: UserActivityAttribution, value: bool) =
 proc getForUser*(_: typedesc[UserActivityChannel], user: User
                 ): UserActivityChannel =
   ## Windows.ApplicationModel.UserActivities.IUserActivityChannelStatics3.GetForUser
-  let it = statics[IUserActivityChannelStatics3Vtbl]("Windows.ApplicationModel.UserActivities.UserActivityChannel")
+  let it = statics[IUserActivityChannelStatics3Vtbl](className(UserActivityChannel))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -31014,13 +31014,13 @@ proc getForUser*(_: typedesc[UserActivityChannel], user: User
 
 proc disableAutoSessionCreation*(_: typedesc[UserActivityChannel]) =
   ## Windows.ApplicationModel.UserActivities.IUserActivityChannelStatics2.DisableAutoSessionCreation
-  let it = statics[IUserActivityChannelStatics2Vtbl]("Windows.ApplicationModel.UserActivities.UserActivityChannel")
+  let it = statics[IUserActivityChannelStatics2Vtbl](className(UserActivityChannel))
   check it.vtbl.DisableAutoSessionCreation(it.raw), "UserActivityChannel.disableAutoSessionCreation"
 
 proc tryGetForWebAccount*(_: typedesc[UserActivityChannel], account: WebAccount
                          ): UserActivityChannel =
   ## Windows.ApplicationModel.UserActivities.IUserActivityChannelStatics2.TryGetForWebAccount
-  let it = statics[IUserActivityChannelStatics2Vtbl]("Windows.ApplicationModel.UserActivities.UserActivityChannel")
+  let it = statics[IUserActivityChannelStatics2Vtbl](className(UserActivityChannel))
   let a0 = queryInterface[IWebAccountVtbl](account)
   var ret: pointer
   check it.vtbl.TryGetForWebAccount(it.raw, a0.raw, ret.addr
@@ -31029,7 +31029,7 @@ proc tryGetForWebAccount*(_: typedesc[UserActivityChannel], account: WebAccount
 
 proc getDefault*(_: typedesc[UserActivityChannel]): UserActivityChannel =
   ## Windows.ApplicationModel.UserActivities.IUserActivityChannelStatics.GetDefault
-  let it = statics[IUserActivityChannelStaticsVtbl]("Windows.ApplicationModel.UserActivities.UserActivityChannel")
+  let it = statics[IUserActivityChannelStaticsVtbl](className(UserActivityChannel))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "UserActivityChannel.getDefault"
   adopt[UserActivityChannel](ret)
@@ -31093,7 +31093,7 @@ proc getSessionHistoryItemsForUserActivityAsync*(self: UserActivityChannel,
 proc fromJson*(_: typedesc[UserActivityContentInfo], value: string
               ): UserActivityContentInfo =
   ## Windows.ApplicationModel.UserActivities.IUserActivityContentInfoStatics.FromJson
-  let it = statics[IUserActivityContentInfoStaticsVtbl]("Windows.ApplicationModel.UserActivities.UserActivityContentInfo")
+  let it = statics[IUserActivityContentInfoStaticsVtbl](className(UserActivityContentInfo))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.FromJson(it.raw, a0.handle, ret.addr
@@ -31113,7 +31113,7 @@ proc setUserActivity*(self: UserActivityRequest, activity: UserActivity) =
 
 proc getForCurrentView*(_: typedesc[UserActivityRequestManager]): UserActivityRequestManager =
   ## Windows.ApplicationModel.UserActivities.IUserActivityRequestManagerStatics.GetForCurrentView
-  let it = statics[IUserActivityRequestManagerStaticsVtbl]("Windows.ApplicationModel.UserActivities.UserActivityRequestManager")
+  let it = statics[IUserActivityRequestManagerStaticsVtbl](className(UserActivityRequestManager))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "UserActivityRequestManager.getForCurrentView"
@@ -31500,7 +31500,7 @@ proc requestStoreAsync*(_: typedesc[UserDataAccountManager],
                         storeAccessType: UserDataAccountStoreAccessType
                        ): Future[UserDataAccountStore] =
   ## Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics.RequestStoreAsync
-  let it = statics[IUserDataAccountManagerStaticsVtbl]("Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager")
+  let it = statics[IUserDataAccountManagerStaticsVtbl](className(UserDataAccountManager))
   var op: pointer
   check it.vtbl.RequestStoreAsync(it.raw, storeAccessType, op.addr
                                  ), "UserDataAccountManager.requestStoreAsync"
@@ -31510,7 +31510,7 @@ proc showAddAccountAsync*(_: typedesc[UserDataAccountManager],
                           contentKinds: UserDataAccountContentKinds
                          ): Future[string] =
   ## Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics.ShowAddAccountAsync
-  let it = statics[IUserDataAccountManagerStaticsVtbl]("Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager")
+  let it = statics[IUserDataAccountManagerStaticsVtbl](className(UserDataAccountManager))
   var op: pointer
   check it.vtbl.ShowAddAccountAsync(it.raw, contentKinds, op.addr
                                    ), "UserDataAccountManager.showAddAccountAsync"
@@ -31519,7 +31519,7 @@ proc showAddAccountAsync*(_: typedesc[UserDataAccountManager],
 proc showAccountSettingsAsync*(_: typedesc[UserDataAccountManager], id: string
                               ): Future[void] =
   ## Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics.ShowAccountSettingsAsync
-  let it = statics[IUserDataAccountManagerStaticsVtbl]("Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager")
+  let it = statics[IUserDataAccountManagerStaticsVtbl](className(UserDataAccountManager))
   let a0 = toWinRtString(id)
   var op: pointer
   check it.vtbl.ShowAccountSettingsAsync(it.raw, a0.handle, op.addr
@@ -31529,7 +31529,7 @@ proc showAccountSettingsAsync*(_: typedesc[UserDataAccountManager], id: string
 proc showAccountErrorResolverAsync*(_: typedesc[UserDataAccountManager],
                                     id: string): Future[void] =
   ## Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics.ShowAccountErrorResolverAsync
-  let it = statics[IUserDataAccountManagerStaticsVtbl]("Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager")
+  let it = statics[IUserDataAccountManagerStaticsVtbl](className(UserDataAccountManager))
   let a0 = toWinRtString(id)
   var op: pointer
   check it.vtbl.ShowAccountErrorResolverAsync(it.raw, a0.handle, op.addr
@@ -31539,7 +31539,7 @@ proc showAccountErrorResolverAsync*(_: typedesc[UserDataAccountManager],
 proc getForUser*(_: typedesc[UserDataAccountManager], user: User
                 ): UserDataAccountManagerForUser =
   ## Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics2.GetForUser
-  let it = statics[IUserDataAccountManagerStatics2Vtbl]("Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager")
+  let it = statics[IUserDataAccountManagerStatics2Vtbl](className(UserDataAccountManager))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -31741,7 +31741,7 @@ proc addAndShowDeviceAccountsAsync*(_: typedesc[UserDataAccountSystemAccessManag
                                     accounts: seq[DeviceAccountConfiguration]
                                    ): Future[seq[string]] =
   ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.IUserDataAccountSystemAccessManagerStatics.AddAndShowDeviceAccountsAsync
-  let it = statics[IUserDataAccountSystemAccessManagerStaticsVtbl]("Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager")
+  let it = statics[IUserDataAccountSystemAccessManagerStaticsVtbl](className(UserDataAccountSystemAccessManager))
   let a0 = asCollection[DeviceAccountConfiguration,
                         seq[DeviceAccountConfiguration]](accounts)
   var op: pointer
@@ -31753,7 +31753,7 @@ proc suppressLocalAccountWithAccountAsync*(_: typedesc[UserDataAccountSystemAcce
                                            userDataAccountId: string
                                           ): Future[void] =
   ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.IUserDataAccountSystemAccessManagerStatics2.SuppressLocalAccountWithAccountAsync
-  let it = statics[IUserDataAccountSystemAccessManagerStatics2Vtbl]("Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager")
+  let it = statics[IUserDataAccountSystemAccessManagerStatics2Vtbl](className(UserDataAccountSystemAccessManager))
   let a0 = toWinRtString(userDataAccountId)
   var op: pointer
   check it.vtbl.SuppressLocalAccountWithAccountAsync(it.raw, a0.handle, op.addr
@@ -31764,7 +31764,7 @@ proc createDeviceAccountAsync*(_: typedesc[UserDataAccountSystemAccessManager],
                                account: DeviceAccountConfiguration
                               ): Future[string] =
   ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.IUserDataAccountSystemAccessManagerStatics2.CreateDeviceAccountAsync
-  let it = statics[IUserDataAccountSystemAccessManagerStatics2Vtbl]("Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager")
+  let it = statics[IUserDataAccountSystemAccessManagerStatics2Vtbl](className(UserDataAccountSystemAccessManager))
   let a0 = queryInterface[IDeviceAccountConfigurationVtbl](account)
   var op: pointer
   check it.vtbl.CreateDeviceAccountAsync(it.raw, a0.raw, op.addr
@@ -31774,7 +31774,7 @@ proc createDeviceAccountAsync*(_: typedesc[UserDataAccountSystemAccessManager],
 proc deleteDeviceAccountAsync*(_: typedesc[UserDataAccountSystemAccessManager],
                                accountId: string): Future[void] =
   ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.IUserDataAccountSystemAccessManagerStatics2.DeleteDeviceAccountAsync
-  let it = statics[IUserDataAccountSystemAccessManagerStatics2Vtbl]("Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager")
+  let it = statics[IUserDataAccountSystemAccessManagerStatics2Vtbl](className(UserDataAccountSystemAccessManager))
   let a0 = toWinRtString(accountId)
   var op: pointer
   check it.vtbl.DeleteDeviceAccountAsync(it.raw, a0.handle, op.addr
@@ -31785,7 +31785,7 @@ proc getDeviceAccountConfigurationAsync*(_: typedesc[UserDataAccountSystemAccess
                                          accountId: string
                                         ): Future[DeviceAccountConfiguration] =
   ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.IUserDataAccountSystemAccessManagerStatics2.GetDeviceAccountConfigurationAsync
-  let it = statics[IUserDataAccountSystemAccessManagerStatics2Vtbl]("Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager")
+  let it = statics[IUserDataAccountSystemAccessManagerStatics2Vtbl](className(UserDataAccountSystemAccessManager))
   let a0 = toWinRtString(accountId)
   var op: pointer
   check it.vtbl.GetDeviceAccountConfigurationAsync(it.raw, a0.handle, op.addr
@@ -32644,7 +32644,7 @@ proc getDeferral*(self: UserDataTaskListSyncManagerSyncRequestEventArgs): Deferr
 
 proc getDefault*(_: typedesc[UserDataTaskManager]): UserDataTaskManager =
   ## Windows.ApplicationModel.UserDataTasks.IUserDataTaskManagerStatics.GetDefault
-  let it = statics[IUserDataTaskManagerStaticsVtbl]("Windows.ApplicationModel.UserDataTasks.UserDataTaskManager")
+  let it = statics[IUserDataTaskManagerStaticsVtbl](className(UserDataTaskManager))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "UserDataTaskManager.getDefault"
   adopt[UserDataTaskManager](ret)
@@ -32652,7 +32652,7 @@ proc getDefault*(_: typedesc[UserDataTaskManager]): UserDataTaskManager =
 proc getForUser*(_: typedesc[UserDataTaskManager], user: User
                 ): UserDataTaskManager =
   ## Windows.ApplicationModel.UserDataTasks.IUserDataTaskManagerStatics.GetForUser
-  let it = statics[IUserDataTaskManagerStaticsVtbl]("Windows.ApplicationModel.UserDataTasks.UserDataTaskManager")
+  let it = statics[IUserDataTaskManagerStaticsVtbl](className(UserDataTaskManager))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -32959,7 +32959,7 @@ proc getListAsync*(self: UserDataTaskStore, taskListId: string
 
 proc newUserNotificationChangedTrigger*(notificationKinds: NotificationKinds): UserNotificationChangedTrigger =
   ## Windows.ApplicationModel.Background.IUserNotificationChangedTriggerFactory.Create
-  let it = statics[IUserNotificationChangedTriggerFactoryVtbl]("Windows.ApplicationModel.Background.UserNotificationChangedTrigger")
+  let it = statics[IUserNotificationChangedTriggerFactoryVtbl](className(UserNotificationChangedTrigger))
   var ret: pointer
   check it.vtbl.Create(it.raw, notificationKinds, ret.addr
                       ), "UserNotificationChangedTrigger.new"
@@ -33164,7 +33164,7 @@ proc installCommandDefinitionsFromStorageFileAsync*(_: typedesc[VoiceCommandDefi
                                                     file: StorageFile
                                                    ): Future[void] =
   ## Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinitionManagerStatics.InstallCommandDefinitionsFromStorageFileAsync
-  let it = statics[IVoiceCommandDefinitionManagerStaticsVtbl]("Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager")
+  let it = statics[IVoiceCommandDefinitionManagerStaticsVtbl](className(VoiceCommandDefinitionManager))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.InstallCommandDefinitionsFromStorageFileAsync(it.raw, a0.raw,
@@ -33174,7 +33174,7 @@ proc installCommandDefinitionsFromStorageFileAsync*(_: typedesc[VoiceCommandDefi
 
 proc installedCommandDefinitions*(_: typedesc[VoiceCommandDefinitionManager]): Table[string, VoiceCommandDefinition] =
   ## Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinitionManagerStatics.get_InstalledCommandDefinitions
-  let it = statics[IVoiceCommandDefinitionManagerStaticsVtbl]("Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager")
+  let it = statics[IVoiceCommandDefinitionManagerStaticsVtbl](className(VoiceCommandDefinitionManager))
   var ret: pointer
   check it.vtbl.get_InstalledCommandDefinitions(it.raw, ret.addr
                                                ), "VoiceCommandDefinitionManager.installedCommandDefinitions"
@@ -33194,7 +33194,7 @@ proc selectedItem*(self: VoiceCommandDisambiguationResult): VoiceCommandContentT
 
 proc maxSupportedVoiceCommandContentTiles*(_: typedesc[VoiceCommandResponse]): uint32 =
   ## Windows.ApplicationModel.VoiceCommands.IVoiceCommandResponseStatics.get_MaxSupportedVoiceCommandContentTiles
-  let it = statics[IVoiceCommandResponseStaticsVtbl]("Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse")
+  let it = statics[IVoiceCommandResponseStaticsVtbl](className(VoiceCommandResponse))
   var ret: uint32
   check it.vtbl.get_MaxSupportedVoiceCommandContentTiles(it.raw, ret.addr
                                                         ), "VoiceCommandResponse.maxSupportedVoiceCommandContentTiles"
@@ -33204,7 +33204,7 @@ proc createResponse*(_: typedesc[VoiceCommandResponse],
                      userMessage: VoiceCommandUserMessage
                     ): VoiceCommandResponse =
   ## Windows.ApplicationModel.VoiceCommands.IVoiceCommandResponseStatics.CreateResponse
-  let it = statics[IVoiceCommandResponseStaticsVtbl]("Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse")
+  let it = statics[IVoiceCommandResponseStaticsVtbl](className(VoiceCommandResponse))
   let a0 = queryInterface[IVoiceCommandUserMessageVtbl](userMessage)
   var ret: pointer
   check it.vtbl.CreateResponse(it.raw, a0.raw, ret.addr
@@ -33216,7 +33216,7 @@ proc createResponse*(_: typedesc[VoiceCommandResponse],
                      contentTiles: seq[VoiceCommandContentTile]
                     ): VoiceCommandResponse =
   ## Windows.ApplicationModel.VoiceCommands.IVoiceCommandResponseStatics.CreateResponse
-  let it = statics[IVoiceCommandResponseStaticsVtbl]("Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse")
+  let it = statics[IVoiceCommandResponseStaticsVtbl](className(VoiceCommandResponse))
   let a0 = queryInterface[IVoiceCommandUserMessageVtbl](message)
   let a1 = asCollection[VoiceCommandContentTile, seq[VoiceCommandContentTile]](contentTiles)
   var ret: pointer
@@ -33229,7 +33229,7 @@ proc createResponseForPrompt*(_: typedesc[VoiceCommandResponse],
                               repeatMessage: VoiceCommandUserMessage
                              ): VoiceCommandResponse =
   ## Windows.ApplicationModel.VoiceCommands.IVoiceCommandResponseStatics.CreateResponseForPrompt
-  let it = statics[IVoiceCommandResponseStaticsVtbl]("Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse")
+  let it = statics[IVoiceCommandResponseStaticsVtbl](className(VoiceCommandResponse))
   let a0 = queryInterface[IVoiceCommandUserMessageVtbl](message)
   let a1 = queryInterface[IVoiceCommandUserMessageVtbl](repeatMessage)
   var ret: pointer
@@ -33243,7 +33243,7 @@ proc createResponseForPrompt*(_: typedesc[VoiceCommandResponse],
                               contentTiles: seq[VoiceCommandContentTile]
                              ): VoiceCommandResponse =
   ## Windows.ApplicationModel.VoiceCommands.IVoiceCommandResponseStatics.CreateResponseForPrompt
-  let it = statics[IVoiceCommandResponseStaticsVtbl]("Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse")
+  let it = statics[IVoiceCommandResponseStaticsVtbl](className(VoiceCommandResponse))
   let a0 = queryInterface[IVoiceCommandUserMessageVtbl](message)
   let a1 = queryInterface[IVoiceCommandUserMessageVtbl](repeatMessage)
   let a2 = asCollection[VoiceCommandContentTile, seq[VoiceCommandContentTile]](contentTiles)
@@ -33311,7 +33311,7 @@ proc fromAppServiceTriggerDetails*(_: typedesc[VoiceCommandServiceConnection],
                                    triggerDetails: AppServiceTriggerDetails
                                   ): VoiceCommandServiceConnection =
   ## Windows.ApplicationModel.VoiceCommands.IVoiceCommandServiceConnectionStatics.FromAppServiceTriggerDetails
-  let it = statics[IVoiceCommandServiceConnectionStaticsVtbl]("Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection")
+  let it = statics[IVoiceCommandServiceConnectionStaticsVtbl](className(VoiceCommandServiceConnection))
   let a0 = queryInterface[IAppServiceTriggerDetailsVtbl](triggerDetails)
   var ret: pointer
   check it.vtbl.FromAppServiceTriggerDetails(it.raw, a0.raw, ret.addr
@@ -33459,7 +33459,7 @@ proc `spokenMessage=`*(self: VoiceCommandUserMessage, value: string) =
 
 proc getDefault*(_: typedesc[VoipCallCoordinator]): VoipCallCoordinator =
   ## Windows.ApplicationModel.Calls.IVoipCallCoordinatorStatics.GetDefault
-  let it = statics[IVoipCallCoordinatorStaticsVtbl]("Windows.ApplicationModel.Calls.VoipCallCoordinator")
+  let it = statics[IVoipCallCoordinatorStaticsVtbl](className(VoipCallCoordinator))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "VoipCallCoordinator.getDefault"
   adopt[VoipCallCoordinator](ret)
@@ -33468,7 +33468,7 @@ proc isCallControlDeviceKindSupportedForAssociation*(_: typedesc[VoipCallCoordin
                                                      kind: VoipCallControlDeviceKind
                                                     ): bool =
   ## Windows.ApplicationModel.Calls.IVoipCallCoordinatorStatics2.IsCallControlDeviceKindSupportedForAssociation
-  let it = statics[IVoipCallCoordinatorStatics2Vtbl]("Windows.ApplicationModel.Calls.VoipCallCoordinator")
+  let it = statics[IVoipCallCoordinatorStatics2Vtbl](className(VoipCallCoordinator))
   var ret: bool
   check it.vtbl.IsCallControlDeviceKindSupportedForAssociation(it.raw, kind,
                                                                ret.addr
@@ -33477,7 +33477,7 @@ proc isCallControlDeviceKindSupportedForAssociation*(_: typedesc[VoipCallCoordin
 
 proc getDeviceSelectorForCallControl*(_: typedesc[VoipCallCoordinator]): string =
   ## Windows.ApplicationModel.Calls.IVoipCallCoordinatorStatics2.GetDeviceSelectorForCallControl
-  let it = statics[IVoipCallCoordinatorStatics2Vtbl]("Windows.ApplicationModel.Calls.VoipCallCoordinator")
+  let it = statics[IVoipCallCoordinatorStatics2Vtbl](className(VoipCallCoordinator))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorForCallControl(it.raw, ret.addr
                                                ), "VoipCallCoordinator.getDeviceSelectorForCallControl"
@@ -33943,7 +33943,7 @@ proc getAssociatedCallControlDevices*(self: VoipPhoneCall): seq[string] =
 proc newWalletBarcode*(symbology: WalletBarcodeSymbology, value: string
                       ): WalletBarcode =
   ## Windows.ApplicationModel.Wallet.IWalletBarcodeFactory.CreateWalletBarcode
-  let it = statics[IWalletBarcodeFactoryVtbl]("Windows.ApplicationModel.Wallet.WalletBarcode")
+  let it = statics[IWalletBarcodeFactoryVtbl](className(WalletBarcode))
   let a1 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.CreateWalletBarcode(it.raw, symbology, a1.handle, ret.addr
@@ -33952,7 +33952,7 @@ proc newWalletBarcode*(symbology: WalletBarcodeSymbology, value: string
 
 proc newWalletBarcode*(streamToBarcodeImage: SomeRandomAccessStreamReference): WalletBarcode =
   ## Windows.ApplicationModel.Wallet.IWalletBarcodeFactory.CreateCustomWalletBarcode
-  let it = statics[IWalletBarcodeFactoryVtbl]("Windows.ApplicationModel.Wallet.WalletBarcode")
+  let it = statics[IWalletBarcodeFactoryVtbl](className(WalletBarcode))
   let a0 = queryInterface[IRandomAccessStreamReferenceVtbl](streamToBarcodeImage)
   var ret: pointer
   check it.vtbl.CreateCustomWalletBarcode(it.raw, a0.raw, ret.addr
@@ -33985,7 +33985,7 @@ proc getImageAsync*(self: WalletBarcode): Future[IRandomAccessStreamReference] =
 
 proc newWalletItem*(kind: WalletItemKind, displayName: string): WalletItem =
   ## Windows.ApplicationModel.Wallet.IWalletItemFactory.CreateWalletItem
-  let it = statics[IWalletItemFactoryVtbl]("Windows.ApplicationModel.Wallet.WalletItem")
+  let it = statics[IWalletItemFactoryVtbl](className(WalletItem))
   let a1 = toWinRtString(displayName)
   var ret: pointer
   check it.vtbl.CreateWalletItem(it.raw, kind, a1.handle, ret.addr
@@ -34356,7 +34356,7 @@ proc verbs*(self: WalletItem): Table[string, WalletVerb] =
 proc newWalletItemCustomProperty*(name: string, value: string
                                  ): WalletItemCustomProperty =
   ## Windows.ApplicationModel.Wallet.IWalletItemCustomPropertyFactory.CreateWalletItemCustomProperty
-  let it = statics[IWalletItemCustomPropertyFactoryVtbl]("Windows.ApplicationModel.Wallet.WalletItemCustomProperty")
+  let it = statics[IWalletItemCustomPropertyFactoryVtbl](className(WalletItemCustomProperty))
   let a0 = toWinRtString(name)
   let a1 = toWinRtString(value)
   var ret: pointer
@@ -34600,7 +34600,7 @@ proc removeItemsChanged*(self: WalletItemSystemStore,
 
 proc requestStoreAsync*(_: typedesc[WalletManager]): Future[WalletItemStore] =
   ## Windows.ApplicationModel.Wallet.IWalletManagerStatics.RequestStoreAsync
-  let it = statics[IWalletManagerStaticsVtbl]("Windows.ApplicationModel.Wallet.WalletManager")
+  let it = statics[IWalletManagerStaticsVtbl](className(WalletManager))
   var op: pointer
   check it.vtbl.RequestStoreAsync(it.raw, op.addr
                                  ), "WalletManager.requestStoreAsync"
@@ -34610,7 +34610,7 @@ proc requestStoreAsync*(_: typedesc[WalletManager]): Future[WalletItemStore] =
 
 proc requestStoreAsync*(_: typedesc[WalletManagerSystem]): Future[WalletItemSystemStore] =
   ## Windows.ApplicationModel.Wallet.System.IWalletManagerSystemStatics.RequestStoreAsync
-  let it = statics[IWalletManagerSystemStaticsVtbl]("Windows.ApplicationModel.Wallet.System.WalletManagerSystem")
+  let it = statics[IWalletManagerSystemStaticsVtbl](className(WalletManagerSystem))
   var op: pointer
   check it.vtbl.RequestStoreAsync(it.raw, op.addr
                                  ), "WalletManagerSystem.requestStoreAsync"
@@ -34748,7 +34748,7 @@ proc `isLaunchable=`*(self: WalletTransaction, value: bool) =
 
 proc newWalletVerb*(name: string): WalletVerb =
   ## Windows.ApplicationModel.Wallet.IWalletVerbFactory.CreateWalletVerb
-  let it = statics[IWalletVerbFactoryVtbl]("Windows.ApplicationModel.Wallet.WalletVerb")
+  let it = statics[IWalletVerbFactoryVtbl](className(WalletVerb))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.CreateWalletVerb(it.raw, a0.handle, ret.addr), "WalletVerb.new"
@@ -34774,7 +34774,7 @@ proc requestTokenWithUIElementHostingAsync*(_: typedesc[WebAuthenticationCoreMan
                                             uiElement: UIElement
                                            ): Future[WebTokenRequestResult] =
   ## Windows.ApplicationModel.Store.Preview.IWebAuthenticationCoreManagerHelper.RequestTokenWithUIElementHostingAsync
-  let it = statics[IWebAuthenticationCoreManagerHelperVtbl]("Windows.ApplicationModel.Store.Preview.WebAuthenticationCoreManagerHelper")
+  let it = statics[IWebAuthenticationCoreManagerHelperVtbl](className(WebAuthenticationCoreManagerHelper))
   let a0 = queryInterface[IWebTokenRequestVtbl](request)
   let a1 = queryInterface[IUIElementVtbl](uiElement)
   var op: pointer
@@ -34789,7 +34789,7 @@ proc requestTokenWithUIElementHostingAsync*(_: typedesc[WebAuthenticationCoreMan
                                             uiElement: UIElement
                                            ): Future[WebTokenRequestResult] =
   ## Windows.ApplicationModel.Store.Preview.IWebAuthenticationCoreManagerHelper.RequestTokenWithUIElementHostingAsync
-  let it = statics[IWebAuthenticationCoreManagerHelperVtbl]("Windows.ApplicationModel.Store.Preview.WebAuthenticationCoreManagerHelper")
+  let it = statics[IWebAuthenticationCoreManagerHelperVtbl](className(WebAuthenticationCoreManagerHelper))
   let a0 = queryInterface[IWebTokenRequestVtbl](request)
   let a1 = queryInterface[IWebAccountVtbl](webAccount)
   let a2 = queryInterface[IUIElementVtbl](uiElement)

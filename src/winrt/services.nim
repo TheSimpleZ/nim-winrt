@@ -26,7 +26,7 @@ export foundation
 
 proc getDefault*(_: typedesc[CortanaActionableInsights]): CortanaActionableInsights =
   ## Windows.Services.Cortana.ICortanaActionableInsightsStatics.GetDefault
-  let it = statics[ICortanaActionableInsightsStaticsVtbl]("Windows.Services.Cortana.CortanaActionableInsights")
+  let it = statics[ICortanaActionableInsightsStaticsVtbl](className(CortanaActionableInsights))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr
                           ), "CortanaActionableInsights.getDefault"
@@ -35,7 +35,7 @@ proc getDefault*(_: typedesc[CortanaActionableInsights]): CortanaActionableInsig
 proc getForUser*(_: typedesc[CortanaActionableInsights], user: User
                 ): CortanaActionableInsights =
   ## Windows.Services.Cortana.ICortanaActionableInsightsStatics.GetForUser
-  let it = statics[ICortanaActionableInsightsStaticsVtbl]("Windows.Services.Cortana.CortanaActionableInsights")
+  let it = statics[ICortanaActionableInsightsStaticsVtbl](className(CortanaActionableInsights))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -168,7 +168,7 @@ proc `surroundingText=`*(self: CortanaActionableInsightsOptions, value: string
 
 proc getDefault*(_: typedesc[CortanaPermissionsManager]): CortanaPermissionsManager =
   ## Windows.Services.Cortana.ICortanaPermissionsManagerStatics.GetDefault
-  let it = statics[ICortanaPermissionsManagerStaticsVtbl]("Windows.Services.Cortana.CortanaPermissionsManager")
+  let it = statics[ICortanaPermissionsManagerStaticsVtbl](className(CortanaPermissionsManager))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr
                           ), "CortanaPermissionsManager.getDefault"
@@ -221,14 +221,14 @@ proc revokePermissionsAsync*(self: CortanaPermissionsManager,
 
 proc isSupported*(_: typedesc[CortanaSettings]): bool =
   ## Windows.Services.Cortana.ICortanaSettingsStatics.IsSupported
-  let it = statics[ICortanaSettingsStaticsVtbl]("Windows.Services.Cortana.CortanaSettings")
+  let it = statics[ICortanaSettingsStaticsVtbl](className(CortanaSettings))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr), "CortanaSettings.isSupported"
   ret
 
 proc getDefault*(_: typedesc[CortanaSettings]): CortanaSettings =
   ## Windows.Services.Cortana.ICortanaSettingsStatics.GetDefault
-  let it = statics[ICortanaSettingsStaticsVtbl]("Windows.Services.Cortana.CortanaSettings")
+  let it = statics[ICortanaSettingsStaticsVtbl](className(CortanaSettings))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "CortanaSettings.getDefault"
   adopt[CortanaSettings](ret)
@@ -260,7 +260,7 @@ proc `isVoiceActivationEnabled=`*(self: CortanaSettings, value: bool) =
 proc newEnhancedWaypoint*(point: Geopoint, kind: WaypointKind
                          ): EnhancedWaypoint =
   ## Windows.Services.Maps.IEnhancedWaypointFactory.Create
-  let it = statics[IEnhancedWaypointFactoryVtbl]("Windows.Services.Maps.EnhancedWaypoint")
+  let it = statics[IEnhancedWaypointFactoryVtbl](className(EnhancedWaypoint))
   let a0 = queryInterface[IGeopointVtbl](point)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, kind, ret.addr), "EnhancedWaypoint.new"
@@ -463,14 +463,14 @@ proc road*(self: GuidanceMapMatchedCoordinate): GuidanceRoadSegment =
 
 proc getCurrent*(_: typedesc[GuidanceNavigator]): GuidanceNavigator =
   ## Windows.Services.Maps.Guidance.IGuidanceNavigatorStatics.GetCurrent
-  let it = statics[IGuidanceNavigatorStaticsVtbl]("Windows.Services.Maps.Guidance.GuidanceNavigator")
+  let it = statics[IGuidanceNavigatorStaticsVtbl](className(GuidanceNavigator))
   var ret: pointer
   check it.vtbl.GetCurrent(it.raw, ret.addr), "GuidanceNavigator.getCurrent"
   adopt[GuidanceNavigator](ret)
 
 proc useAppProvidedVoice*(_: typedesc[GuidanceNavigator]): bool =
   ## Windows.Services.Maps.Guidance.IGuidanceNavigatorStatics2.get_UseAppProvidedVoice
-  let it = statics[IGuidanceNavigatorStatics2Vtbl]("Windows.Services.Maps.Guidance.GuidanceNavigator")
+  let it = statics[IGuidanceNavigatorStatics2Vtbl](className(GuidanceNavigator))
   var ret: bool
   check it.vtbl.get_UseAppProvidedVoice(it.raw, ret.addr
                                        ), "GuidanceNavigator.useAppProvidedVoice"
@@ -872,7 +872,7 @@ proc exitDirections*(self: GuidanceRoadSignpost): seq[string] =
 proc canCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute
                            ): bool =
   ## Windows.Services.Maps.Guidance.IGuidanceRouteStatics.CanCreateFromMapRoute
-  let it = statics[IGuidanceRouteStaticsVtbl]("Windows.Services.Maps.Guidance.GuidanceRoute")
+  let it = statics[IGuidanceRouteStaticsVtbl](className(GuidanceRoute))
   let a0 = queryInterface[IMapRouteVtbl](mapRoute)
   var ret: bool
   check it.vtbl.CanCreateFromMapRoute(it.raw, a0.raw, ret.addr
@@ -882,7 +882,7 @@ proc canCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute
 proc tryCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute
                            ): GuidanceRoute =
   ## Windows.Services.Maps.Guidance.IGuidanceRouteStatics.TryCreateFromMapRoute
-  let it = statics[IGuidanceRouteStaticsVtbl]("Windows.Services.Maps.Guidance.GuidanceRoute")
+  let it = statics[IGuidanceRouteStaticsVtbl](className(GuidanceRoute))
   let a0 = queryInterface[IMapRouteVtbl](mapRoute)
   var ret: pointer
   check it.vtbl.TryCreateFromMapRoute(it.raw, a0.raw, ret.addr
@@ -943,7 +943,7 @@ proc convertToMapRoute*(self: GuidanceRoute): MapRoute =
 
 proc getCurrent*(_: typedesc[GuidanceTelemetryCollector]): GuidanceTelemetryCollector =
   ## Windows.Services.Maps.Guidance.IGuidanceTelemetryCollectorStatics.GetCurrent
-  let it = statics[IGuidanceTelemetryCollectorStaticsVtbl]("Windows.Services.Maps.Guidance.GuidanceTelemetryCollector")
+  let it = statics[IGuidanceTelemetryCollectorStaticsVtbl](className(GuidanceTelemetryCollector))
   var ret: pointer
   check it.vtbl.GetCurrent(it.raw, ret.addr
                           ), "GuidanceTelemetryCollector.getCurrent"
@@ -1111,7 +1111,7 @@ proc laneInfo*(self: GuidanceUpdatedEventArgs): seq[GuidanceLaneInfo] =
 
 proc bankAndCreditUnions*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics.get_BankAndCreditUnions
-  let it = statics[ILocalCategoriesStaticsVtbl]("Windows.Services.Maps.LocalSearch.LocalCategories")
+  let it = statics[ILocalCategoriesStaticsVtbl](className(LocalCategories))
   var ret: HSTRING
   check it.vtbl.get_BankAndCreditUnions(it.raw, ret.addr
                                        ), "LocalCategories.bankAndCreditUnions"
@@ -1119,21 +1119,21 @@ proc bankAndCreditUnions*(_: typedesc[LocalCategories]): string =
 
 proc eatDrink*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics.get_EatDrink
-  let it = statics[ILocalCategoriesStaticsVtbl]("Windows.Services.Maps.LocalSearch.LocalCategories")
+  let it = statics[ILocalCategoriesStaticsVtbl](className(LocalCategories))
   var ret: HSTRING
   check it.vtbl.get_EatDrink(it.raw, ret.addr), "LocalCategories.eatDrink"
   takeString(ret)
 
 proc hospitals*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics.get_Hospitals
-  let it = statics[ILocalCategoriesStaticsVtbl]("Windows.Services.Maps.LocalSearch.LocalCategories")
+  let it = statics[ILocalCategoriesStaticsVtbl](className(LocalCategories))
   var ret: HSTRING
   check it.vtbl.get_Hospitals(it.raw, ret.addr), "LocalCategories.hospitals"
   takeString(ret)
 
 proc hotelsAndMotels*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics.get_HotelsAndMotels
-  let it = statics[ILocalCategoriesStaticsVtbl]("Windows.Services.Maps.LocalSearch.LocalCategories")
+  let it = statics[ILocalCategoriesStaticsVtbl](className(LocalCategories))
   var ret: HSTRING
   check it.vtbl.get_HotelsAndMotels(it.raw, ret.addr
                                    ), "LocalCategories.hotelsAndMotels"
@@ -1141,28 +1141,28 @@ proc hotelsAndMotels*(_: typedesc[LocalCategories]): string =
 
 proc all*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics.get_All
-  let it = statics[ILocalCategoriesStaticsVtbl]("Windows.Services.Maps.LocalSearch.LocalCategories")
+  let it = statics[ILocalCategoriesStaticsVtbl](className(LocalCategories))
   var ret: HSTRING
   check it.vtbl.get_All(it.raw, ret.addr), "LocalCategories.all"
   takeString(ret)
 
 proc parking*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics.get_Parking
-  let it = statics[ILocalCategoriesStaticsVtbl]("Windows.Services.Maps.LocalSearch.LocalCategories")
+  let it = statics[ILocalCategoriesStaticsVtbl](className(LocalCategories))
   var ret: HSTRING
   check it.vtbl.get_Parking(it.raw, ret.addr), "LocalCategories.parking"
   takeString(ret)
 
 proc seeDo*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics.get_SeeDo
-  let it = statics[ILocalCategoriesStaticsVtbl]("Windows.Services.Maps.LocalSearch.LocalCategories")
+  let it = statics[ILocalCategoriesStaticsVtbl](className(LocalCategories))
   var ret: HSTRING
   check it.vtbl.get_SeeDo(it.raw, ret.addr), "LocalCategories.seeDo"
   takeString(ret)
 
 proc shop*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics.get_Shop
-  let it = statics[ILocalCategoriesStaticsVtbl]("Windows.Services.Maps.LocalSearch.LocalCategories")
+  let it = statics[ILocalCategoriesStaticsVtbl](className(LocalCategories))
   var ret: HSTRING
   check it.vtbl.get_Shop(it.raw, ret.addr), "LocalCategories.shop"
   takeString(ret)
@@ -1248,7 +1248,7 @@ proc findLocalLocationsAsync*(_: typedesc[LocalLocationFinder],
                               localCategory: string, maxResults: uint32
                              ): Future[LocalLocationFinderResult] =
   ## Windows.Services.Maps.LocalSearch.ILocalLocationFinderStatics.FindLocalLocationsAsync
-  let it = statics[ILocalLocationFinderStaticsVtbl]("Windows.Services.Maps.LocalSearch.LocalLocationFinder")
+  let it = statics[ILocalLocationFinderStaticsVtbl](className(LocalLocationFinder))
   let a0 = toWinRtString(searchTerm)
   let a1 = queryInterface[IGeocircleVtbl](searchArea)
   let a2 = toWinRtString(localCategory)
@@ -1493,7 +1493,7 @@ proc address*(self: MapLocation): MapAddress =
 proc findLocationsAtAsync*(_: typedesc[MapLocationFinder], queryPoint: Geopoint
                           ): Future[MapLocationFinderResult] =
   ## Windows.Services.Maps.IMapLocationFinderStatics.FindLocationsAtAsync
-  let it = statics[IMapLocationFinderStaticsVtbl]("Windows.Services.Maps.MapLocationFinder")
+  let it = statics[IMapLocationFinderStaticsVtbl](className(MapLocationFinder))
   let a0 = queryInterface[IGeopointVtbl](queryPoint)
   var op: pointer
   check it.vtbl.FindLocationsAtAsync(it.raw, a0.raw, op.addr
@@ -1504,7 +1504,7 @@ proc findLocationsAsync*(_: typedesc[MapLocationFinder], searchText: string,
                          referencePoint: Geopoint
                         ): Future[MapLocationFinderResult] =
   ## Windows.Services.Maps.IMapLocationFinderStatics.FindLocationsAsync
-  let it = statics[IMapLocationFinderStaticsVtbl]("Windows.Services.Maps.MapLocationFinder")
+  let it = statics[IMapLocationFinderStaticsVtbl](className(MapLocationFinder))
   let a0 = toWinRtString(searchText)
   let a1 = queryInterface[IGeopointVtbl](referencePoint)
   var op: pointer
@@ -1516,7 +1516,7 @@ proc findLocationsAsync*(_: typedesc[MapLocationFinder], searchText: string,
                          referencePoint: Geopoint, maxCount: uint32
                         ): Future[MapLocationFinderResult] =
   ## Windows.Services.Maps.IMapLocationFinderStatics.FindLocationsAsync
-  let it = statics[IMapLocationFinderStaticsVtbl]("Windows.Services.Maps.MapLocationFinder")
+  let it = statics[IMapLocationFinderStaticsVtbl](className(MapLocationFinder))
   let a0 = toWinRtString(searchText)
   let a1 = queryInterface[IGeopointVtbl](referencePoint)
   var op: pointer
@@ -1528,7 +1528,7 @@ proc findLocationsAtAsync*(_: typedesc[MapLocationFinder], queryPoint: Geopoint,
                            accuracy: MapLocationDesiredAccuracy
                           ): Future[MapLocationFinderResult] =
   ## Windows.Services.Maps.IMapLocationFinderStatics2.FindLocationsAtAsync
-  let it = statics[IMapLocationFinderStatics2Vtbl]("Windows.Services.Maps.MapLocationFinder")
+  let it = statics[IMapLocationFinderStatics2Vtbl](className(MapLocationFinder))
   let a0 = queryInterface[IGeopointVtbl](queryPoint)
   var op: pointer
   check it.vtbl.FindLocationsAtAsync(it.raw, a0.raw, accuracy, op.addr
@@ -1556,12 +1556,12 @@ proc status*(self: MapLocationFinderResult): MapLocationFinderStatus =
 
 proc showDownloadedMapsUI*(_: typedesc[MapManager]) =
   ## Windows.Services.Maps.IMapManagerStatics.ShowDownloadedMapsUI
-  let it = statics[IMapManagerStaticsVtbl]("Windows.Services.Maps.MapManager")
+  let it = statics[IMapManagerStaticsVtbl](className(MapManager))
   check it.vtbl.ShowDownloadedMapsUI(it.raw), "MapManager.showDownloadedMapsUI"
 
 proc showMapsUpdateUI*(_: typedesc[MapManager]) =
   ## Windows.Services.Maps.IMapManagerStatics.ShowMapsUpdateUI
-  let it = statics[IMapManagerStaticsVtbl]("Windows.Services.Maps.MapManager")
+  let it = statics[IMapManagerStaticsVtbl](className(MapManager))
   check it.vtbl.ShowMapsUpdateUI(it.raw), "MapManager.showMapsUpdateUI"
 
 # ---- Windows.Services.Maps.MapRoute
@@ -1733,7 +1733,7 @@ proc `departureTime=`*(self: MapRouteDrivingOptions, value: Option[DateTime]) =
 proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
                            endPoint: Geopoint): Future[MapRouteFinderResult] =
   ## Windows.Services.Maps.IMapRouteFinderStatics.GetDrivingRouteAsync
-  let it = statics[IMapRouteFinderStaticsVtbl]("Windows.Services.Maps.MapRouteFinder")
+  let it = statics[IMapRouteFinderStaticsVtbl](className(MapRouteFinder))
   let a0 = queryInterface[IGeopointVtbl](startPoint)
   let a1 = queryInterface[IGeopointVtbl](endPoint)
   var op: pointer
@@ -1746,7 +1746,7 @@ proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
                            optimization: MapRouteOptimization
                           ): Future[MapRouteFinderResult] =
   ## Windows.Services.Maps.IMapRouteFinderStatics.GetDrivingRouteAsync
-  let it = statics[IMapRouteFinderStaticsVtbl]("Windows.Services.Maps.MapRouteFinder")
+  let it = statics[IMapRouteFinderStaticsVtbl](className(MapRouteFinder))
   let a0 = queryInterface[IGeopointVtbl](startPoint)
   let a1 = queryInterface[IGeopointVtbl](endPoint)
   var op: pointer
@@ -1761,7 +1761,7 @@ proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
                            restrictions: MapRouteRestrictions
                           ): Future[MapRouteFinderResult] =
   ## Windows.Services.Maps.IMapRouteFinderStatics.GetDrivingRouteAsync
-  let it = statics[IMapRouteFinderStaticsVtbl]("Windows.Services.Maps.MapRouteFinder")
+  let it = statics[IMapRouteFinderStaticsVtbl](className(MapRouteFinder))
   let a0 = queryInterface[IGeopointVtbl](startPoint)
   let a1 = queryInterface[IGeopointVtbl](endPoint)
   var op: pointer
@@ -1777,7 +1777,7 @@ proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
                            headingInDegrees: float64
                           ): Future[MapRouteFinderResult] =
   ## Windows.Services.Maps.IMapRouteFinderStatics.GetDrivingRouteAsync
-  let it = statics[IMapRouteFinderStaticsVtbl]("Windows.Services.Maps.MapRouteFinder")
+  let it = statics[IMapRouteFinderStaticsVtbl](className(MapRouteFinder))
   let a0 = queryInterface[IGeopointVtbl](startPoint)
   let a1 = queryInterface[IGeopointVtbl](endPoint)
   var op: pointer
@@ -1790,7 +1790,7 @@ proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
                                         wayPoints: seq[Geopoint]
                                        ): Future[MapRouteFinderResult] =
   ## Windows.Services.Maps.IMapRouteFinderStatics.GetDrivingRouteFromWaypointsAsync
-  let it = statics[IMapRouteFinderStaticsVtbl]("Windows.Services.Maps.MapRouteFinder")
+  let it = statics[IMapRouteFinderStaticsVtbl](className(MapRouteFinder))
   let a0 = asCollection[Geopoint, seq[Geopoint]](wayPoints)
   var op: pointer
   check it.vtbl.GetDrivingRouteFromWaypointsAsync(it.raw, a0.raw, op.addr
@@ -1802,7 +1802,7 @@ proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
                                         optimization: MapRouteOptimization
                                        ): Future[MapRouteFinderResult] =
   ## Windows.Services.Maps.IMapRouteFinderStatics.GetDrivingRouteFromWaypointsAsync
-  let it = statics[IMapRouteFinderStaticsVtbl]("Windows.Services.Maps.MapRouteFinder")
+  let it = statics[IMapRouteFinderStaticsVtbl](className(MapRouteFinder))
   let a0 = asCollection[Geopoint, seq[Geopoint]](wayPoints)
   var op: pointer
   check it.vtbl.GetDrivingRouteFromWaypointsAsync2(it.raw, a0.raw, optimization,
@@ -1816,7 +1816,7 @@ proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
                                         restrictions: MapRouteRestrictions
                                        ): Future[MapRouteFinderResult] =
   ## Windows.Services.Maps.IMapRouteFinderStatics.GetDrivingRouteFromWaypointsAsync
-  let it = statics[IMapRouteFinderStaticsVtbl]("Windows.Services.Maps.MapRouteFinder")
+  let it = statics[IMapRouteFinderStaticsVtbl](className(MapRouteFinder))
   let a0 = asCollection[Geopoint, seq[Geopoint]](wayPoints)
   var op: pointer
   check it.vtbl.GetDrivingRouteFromWaypointsAsync3(it.raw, a0.raw, optimization,
@@ -1831,7 +1831,7 @@ proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
                                         headingInDegrees: float64
                                        ): Future[MapRouteFinderResult] =
   ## Windows.Services.Maps.IMapRouteFinderStatics.GetDrivingRouteFromWaypointsAsync
-  let it = statics[IMapRouteFinderStaticsVtbl]("Windows.Services.Maps.MapRouteFinder")
+  let it = statics[IMapRouteFinderStaticsVtbl](className(MapRouteFinder))
   let a0 = asCollection[Geopoint, seq[Geopoint]](wayPoints)
   var op: pointer
   check it.vtbl.GetDrivingRouteFromWaypointsAsync4(it.raw, a0.raw, optimization,
@@ -1843,7 +1843,7 @@ proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
 proc getWalkingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
                            endPoint: Geopoint): Future[MapRouteFinderResult] =
   ## Windows.Services.Maps.IMapRouteFinderStatics.GetWalkingRouteAsync
-  let it = statics[IMapRouteFinderStaticsVtbl]("Windows.Services.Maps.MapRouteFinder")
+  let it = statics[IMapRouteFinderStaticsVtbl](className(MapRouteFinder))
   let a0 = queryInterface[IGeopointVtbl](startPoint)
   let a1 = queryInterface[IGeopointVtbl](endPoint)
   var op: pointer
@@ -1855,7 +1855,7 @@ proc getWalkingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
                                         wayPoints: seq[Geopoint]
                                        ): Future[MapRouteFinderResult] =
   ## Windows.Services.Maps.IMapRouteFinderStatics.GetWalkingRouteFromWaypointsAsync
-  let it = statics[IMapRouteFinderStaticsVtbl]("Windows.Services.Maps.MapRouteFinder")
+  let it = statics[IMapRouteFinderStaticsVtbl](className(MapRouteFinder))
   let a0 = asCollection[Geopoint, seq[Geopoint]](wayPoints)
   var op: pointer
   check it.vtbl.GetWalkingRouteFromWaypointsAsync(it.raw, a0.raw, op.addr
@@ -1866,7 +1866,7 @@ proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
                            endPoint: Geopoint, options: MapRouteDrivingOptions
                           ): Future[MapRouteFinderResult] =
   ## Windows.Services.Maps.IMapRouteFinderStatics2.GetDrivingRouteAsync
-  let it = statics[IMapRouteFinderStatics2Vtbl]("Windows.Services.Maps.MapRouteFinder")
+  let it = statics[IMapRouteFinderStatics2Vtbl](className(MapRouteFinder))
   let a0 = queryInterface[IGeopointVtbl](startPoint)
   let a1 = queryInterface[IGeopointVtbl](endPoint)
   let a2 = queryInterface[IMapRouteDrivingOptionsVtbl](options)
@@ -1879,7 +1879,7 @@ proc getDrivingRouteFromEnhancedWaypointsAsync*(_: typedesc[MapRouteFinder],
                                                 waypoints: seq[EnhancedWaypoint]
                                                ): Future[MapRouteFinderResult] =
   ## Windows.Services.Maps.IMapRouteFinderStatics3.GetDrivingRouteFromEnhancedWaypointsAsync
-  let it = statics[IMapRouteFinderStatics3Vtbl]("Windows.Services.Maps.MapRouteFinder")
+  let it = statics[IMapRouteFinderStatics3Vtbl](className(MapRouteFinder))
   let a0 = asCollection[EnhancedWaypoint, seq[EnhancedWaypoint]](waypoints)
   var op: pointer
   check it.vtbl.GetDrivingRouteFromEnhancedWaypointsAsync(it.raw, a0.raw,
@@ -1892,7 +1892,7 @@ proc getDrivingRouteFromEnhancedWaypointsAsync*(_: typedesc[MapRouteFinder],
                                                 options: MapRouteDrivingOptions
                                                ): Future[MapRouteFinderResult] =
   ## Windows.Services.Maps.IMapRouteFinderStatics3.GetDrivingRouteFromEnhancedWaypointsAsync
-  let it = statics[IMapRouteFinderStatics3Vtbl]("Windows.Services.Maps.MapRouteFinder")
+  let it = statics[IMapRouteFinderStatics3Vtbl](className(MapRouteFinder))
   let a0 = asCollection[EnhancedWaypoint, seq[EnhancedWaypoint]](waypoints)
   let a1 = queryInterface[IMapRouteDrivingOptionsVtbl](options)
   var op: pointer
@@ -2062,13 +2062,13 @@ proc warnings*(self: MapRouteManeuver): seq[ManeuverWarning] =
 proc `dataUsagePreference=`*(_: typedesc[MapService],
                              value: MapServiceDataUsagePreference) =
   ## Windows.Services.Maps.IMapServiceStatics4.put_DataUsagePreference
-  let it = statics[IMapServiceStatics4Vtbl]("Windows.Services.Maps.MapService")
+  let it = statics[IMapServiceStatics4Vtbl](className(MapService))
   check it.vtbl.put_DataUsagePreference(it.raw, value
                                        ), "MapService.dataUsagePreference"
 
 proc dataUsagePreference*(_: typedesc[MapService]): MapServiceDataUsagePreference =
   ## Windows.Services.Maps.IMapServiceStatics4.get_DataUsagePreference
-  let it = statics[IMapServiceStatics4Vtbl]("Windows.Services.Maps.MapService")
+  let it = statics[IMapServiceStatics4Vtbl](className(MapService))
   var ret: MapServiceDataUsagePreference
   check it.vtbl.get_DataUsagePreference(it.raw, ret.addr
                                        ), "MapService.dataUsagePreference"
@@ -2076,20 +2076,20 @@ proc dataUsagePreference*(_: typedesc[MapService]): MapServiceDataUsagePreferenc
 
 proc `serviceToken=`*(_: typedesc[MapService], value: string) =
   ## Windows.Services.Maps.IMapServiceStatics.put_ServiceToken
-  let it = statics[IMapServiceStaticsVtbl]("Windows.Services.Maps.MapService")
+  let it = statics[IMapServiceStaticsVtbl](className(MapService))
   let a0 = toWinRtString(value)
   check it.vtbl.put_ServiceToken(it.raw, a0.handle), "MapService.serviceToken"
 
 proc serviceToken*(_: typedesc[MapService]): string =
   ## Windows.Services.Maps.IMapServiceStatics.get_ServiceToken
-  let it = statics[IMapServiceStaticsVtbl]("Windows.Services.Maps.MapService")
+  let it = statics[IMapServiceStaticsVtbl](className(MapService))
   var ret: HSTRING
   check it.vtbl.get_ServiceToken(it.raw, ret.addr), "MapService.serviceToken"
   takeString(ret)
 
 proc worldViewRegionCode*(_: typedesc[MapService]): string =
   ## Windows.Services.Maps.IMapServiceStatics2.get_WorldViewRegionCode
-  let it = statics[IMapServiceStatics2Vtbl]("Windows.Services.Maps.MapService")
+  let it = statics[IMapServiceStatics2Vtbl](className(MapService))
   var ret: HSTRING
   check it.vtbl.get_WorldViewRegionCode(it.raw, ret.addr
                                        ), "MapService.worldViewRegionCode"
@@ -2097,7 +2097,7 @@ proc worldViewRegionCode*(_: typedesc[MapService]): string =
 
 proc dataAttributions*(_: typedesc[MapService]): string =
   ## Windows.Services.Maps.IMapServiceStatics3.get_DataAttributions
-  let it = statics[IMapServiceStatics3Vtbl]("Windows.Services.Maps.MapService")
+  let it = statics[IMapServiceStatics3Vtbl](className(MapService))
   var ret: HSTRING
   check it.vtbl.get_DataAttributions(it.raw, ret.addr
                                     ), "MapService.dataAttributions"
@@ -2108,7 +2108,7 @@ proc dataAttributions*(_: typedesc[MapService]): string =
 proc findPackagesAsync*(_: typedesc[OfflineMapPackage], queryPoint: Geopoint
                        ): Future[OfflineMapPackageQueryResult] =
   ## Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStatics.FindPackagesAsync
-  let it = statics[IOfflineMapPackageStaticsVtbl]("Windows.Services.Maps.OfflineMaps.OfflineMapPackage")
+  let it = statics[IOfflineMapPackageStaticsVtbl](className(OfflineMapPackage))
   let a0 = queryInterface[IGeopointVtbl](queryPoint)
   var op: pointer
   check it.vtbl.FindPackagesAsync(it.raw, a0.raw, op.addr
@@ -2120,7 +2120,7 @@ proc findPackagesInBoundingBoxAsync*(_: typedesc[OfflineMapPackage],
                                      queryBoundingBox: GeoboundingBox
                                     ): Future[OfflineMapPackageQueryResult] =
   ## Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStatics.FindPackagesInBoundingBoxAsync
-  let it = statics[IOfflineMapPackageStaticsVtbl]("Windows.Services.Maps.OfflineMaps.OfflineMapPackage")
+  let it = statics[IOfflineMapPackageStaticsVtbl](className(OfflineMapPackage))
   let a0 = queryInterface[IGeoboundingBoxVtbl](queryBoundingBox)
   var op: pointer
   check it.vtbl.FindPackagesInBoundingBoxAsync(it.raw, a0.raw, op.addr
@@ -2132,7 +2132,7 @@ proc findPackagesInGeocircleAsync*(_: typedesc[OfflineMapPackage],
                                    queryCircle: Geocircle
                                   ): Future[OfflineMapPackageQueryResult] =
   ## Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStatics.FindPackagesInGeocircleAsync
-  let it = statics[IOfflineMapPackageStaticsVtbl]("Windows.Services.Maps.OfflineMaps.OfflineMapPackage")
+  let it = statics[IOfflineMapPackageStaticsVtbl](className(OfflineMapPackage))
   let a0 = queryInterface[IGeocircleVtbl](queryCircle)
   var op: pointer
   check it.vtbl.FindPackagesInGeocircleAsync(it.raw, a0.raw, op.addr
@@ -2233,7 +2233,7 @@ proc status*(self: OfflineMapPackageStartDownloadResult): OfflineMapPackageStart
 proc createFromAddress*(_: typedesc[PlaceInfo], displayAddress: string
                        ): PlaceInfo =
   ## Windows.Services.Maps.IPlaceInfoStatics2.CreateFromAddress
-  let it = statics[IPlaceInfoStatics2Vtbl]("Windows.Services.Maps.PlaceInfo")
+  let it = statics[IPlaceInfoStatics2Vtbl](className(PlaceInfo))
   let a0 = toWinRtString(displayAddress)
   var ret: pointer
   check it.vtbl.CreateFromAddress(it.raw, a0.handle, ret.addr
@@ -2243,7 +2243,7 @@ proc createFromAddress*(_: typedesc[PlaceInfo], displayAddress: string
 proc createFromAddress*(_: typedesc[PlaceInfo], displayAddress: string,
                         displayName: string): PlaceInfo =
   ## Windows.Services.Maps.IPlaceInfoStatics2.CreateFromAddress
-  let it = statics[IPlaceInfoStatics2Vtbl]("Windows.Services.Maps.PlaceInfo")
+  let it = statics[IPlaceInfoStatics2Vtbl](className(PlaceInfo))
   let a0 = toWinRtString(displayAddress)
   let a1 = toWinRtString(displayName)
   var ret: pointer
@@ -2253,7 +2253,7 @@ proc createFromAddress*(_: typedesc[PlaceInfo], displayAddress: string,
 
 proc create*(_: typedesc[PlaceInfo], referencePoint: Geopoint): PlaceInfo =
   ## Windows.Services.Maps.IPlaceInfoStatics.Create
-  let it = statics[IPlaceInfoStaticsVtbl]("Windows.Services.Maps.PlaceInfo")
+  let it = statics[IPlaceInfoStaticsVtbl](className(PlaceInfo))
   let a0 = queryInterface[IGeopointVtbl](referencePoint)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "PlaceInfo.create"
@@ -2262,7 +2262,7 @@ proc create*(_: typedesc[PlaceInfo], referencePoint: Geopoint): PlaceInfo =
 proc create*(_: typedesc[PlaceInfo], referencePoint: Geopoint,
              options: PlaceInfoCreateOptions): PlaceInfo =
   ## Windows.Services.Maps.IPlaceInfoStatics.Create
-  let it = statics[IPlaceInfoStaticsVtbl]("Windows.Services.Maps.PlaceInfo")
+  let it = statics[IPlaceInfoStaticsVtbl](className(PlaceInfo))
   let a0 = queryInterface[IGeopointVtbl](referencePoint)
   let a1 = queryInterface[IPlaceInfoCreateOptionsVtbl](options)
   var ret: pointer
@@ -2272,7 +2272,7 @@ proc create*(_: typedesc[PlaceInfo], referencePoint: Geopoint,
 proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string
                           ): PlaceInfo =
   ## Windows.Services.Maps.IPlaceInfoStatics.CreateFromIdentifier
-  let it = statics[IPlaceInfoStaticsVtbl]("Windows.Services.Maps.PlaceInfo")
+  let it = statics[IPlaceInfoStaticsVtbl](className(PlaceInfo))
   let a0 = toWinRtString(identifier)
   var ret: pointer
   check it.vtbl.CreateFromIdentifier(it.raw, a0.handle, ret.addr
@@ -2283,7 +2283,7 @@ proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string,
                            defaultPoint: Geopoint,
                            options: PlaceInfoCreateOptions): PlaceInfo =
   ## Windows.Services.Maps.IPlaceInfoStatics.CreateFromIdentifier
-  let it = statics[IPlaceInfoStaticsVtbl]("Windows.Services.Maps.PlaceInfo")
+  let it = statics[IPlaceInfoStaticsVtbl](className(PlaceInfo))
   let a0 = toWinRtString(identifier)
   let a1 = queryInterface[IGeopointVtbl](defaultPoint)
   let a2 = queryInterface[IPlaceInfoCreateOptionsVtbl](options)
@@ -2296,7 +2296,7 @@ proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string,
 proc createFromMapLocation*(_: typedesc[PlaceInfo], location: MapLocation
                            ): PlaceInfo =
   ## Windows.Services.Maps.IPlaceInfoStatics.CreateFromMapLocation
-  let it = statics[IPlaceInfoStaticsVtbl]("Windows.Services.Maps.PlaceInfo")
+  let it = statics[IPlaceInfoStaticsVtbl](className(PlaceInfo))
   let a0 = queryInterface[IMapLocationVtbl](location)
   var ret: pointer
   check it.vtbl.CreateFromMapLocation(it.raw, a0.raw, ret.addr
@@ -2305,7 +2305,7 @@ proc createFromMapLocation*(_: typedesc[PlaceInfo], location: MapLocation
 
 proc isShowSupported*(_: typedesc[PlaceInfo]): bool =
   ## Windows.Services.Maps.IPlaceInfoStatics.get_IsShowSupported
-  let it = statics[IPlaceInfoStaticsVtbl]("Windows.Services.Maps.PlaceInfo")
+  let it = statics[IPlaceInfoStaticsVtbl](className(PlaceInfo))
   var ret: bool
   check it.vtbl.get_IsShowSupported(it.raw, ret.addr
                                    ), "PlaceInfo.isShowSupported"
@@ -2390,7 +2390,7 @@ proc displayAddress*(self: PlaceInfoCreateOptions): string =
 proc createFromLocalLocation*(_: typedesc[PlaceInfoHelper],
                               location: LocalLocation): PlaceInfo =
   ## Windows.Services.Maps.LocalSearch.IPlaceInfoHelperStatics.CreateFromLocalLocation
-  let it = statics[IPlaceInfoHelperStaticsVtbl]("Windows.Services.Maps.LocalSearch.PlaceInfoHelper")
+  let it = statics[IPlaceInfoHelperStaticsVtbl](className(PlaceInfoHelper))
   let a0 = queryInterface[ILocalLocationVtbl](location)
   var ret: pointer
   check it.vtbl.CreateFromLocalLocation(it.raw, a0.raw, ret.addr
@@ -2670,14 +2670,14 @@ proc extendedError*(self: StoreConsumableResult): HRESULT =
 
 proc getDefault*(_: typedesc[StoreContext]): StoreContext =
   ## Windows.Services.Store.IStoreContextStatics.GetDefault
-  let it = statics[IStoreContextStaticsVtbl]("Windows.Services.Store.StoreContext")
+  let it = statics[IStoreContextStaticsVtbl](className(StoreContext))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "StoreContext.getDefault"
   adopt[StoreContext](ret)
 
 proc getForUser*(_: typedesc[StoreContext], user: User): StoreContext =
   ## Windows.Services.Store.IStoreContextStatics.GetForUser
-  let it = statics[IStoreContextStaticsVtbl]("Windows.Services.Store.StoreContext")
+  let it = statics[IStoreContextStaticsVtbl](className(StoreContext))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr), "StoreContext.getForUser"
@@ -3637,7 +3637,7 @@ proc newStorePurchaseProperties*(): StorePurchaseProperties =
 
 proc newStorePurchaseProperties*(name: string): StorePurchaseProperties =
   ## Windows.Services.Store.IStorePurchasePropertiesFactory.Create
-  let it = statics[IStorePurchasePropertiesFactoryVtbl]("Windows.Services.Store.StorePurchaseProperties")
+  let it = statics[IStorePurchasePropertiesFactoryVtbl](className(StorePurchaseProperties))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -3866,7 +3866,7 @@ proc sendRequestAsync*(_: typedesc[StoreRequestHelper], context: StoreContext,
                        requestKind: uint32, parametersAsJson: string
                       ): Future[StoreSendRequestResult] =
   ## Windows.Services.Store.IStoreRequestHelperStatics.SendRequestAsync
-  let it = statics[IStoreRequestHelperStaticsVtbl]("Windows.Services.Store.StoreRequestHelper")
+  let it = statics[IStoreRequestHelperStaticsVtbl](className(StoreRequestHelper))
   let a0 = queryInterface[IStoreContextVtbl](context)
   let a2 = toWinRtString(parametersAsJson)
   var op: pointer
@@ -4247,7 +4247,7 @@ proc items*(self: TargetedContentCollection): seq[TargetedContentItem] =
 proc getAsync*(_: typedesc[TargetedContentContainer], contentId: string
               ): Future[TargetedContentContainer] =
   ## Windows.Services.TargetedContent.ITargetedContentContainerStatics.GetAsync
-  let it = statics[ITargetedContentContainerStaticsVtbl]("Windows.Services.TargetedContent.TargetedContentContainer")
+  let it = statics[ITargetedContentContainerStaticsVtbl](className(TargetedContentContainer))
   let a0 = toWinRtString(contentId)
   var op: pointer
   check it.vtbl.GetAsync(it.raw, a0.handle, op.addr
@@ -4423,7 +4423,7 @@ proc getDeferral*(self: TargetedContentStateChangedEventArgs): Deferral =
 proc getAsync*(_: typedesc[TargetedContentSubscription], subscriptionId: string
               ): Future[TargetedContentSubscription] =
   ## Windows.Services.TargetedContent.ITargetedContentSubscriptionStatics.GetAsync
-  let it = statics[ITargetedContentSubscriptionStaticsVtbl]("Windows.Services.TargetedContent.TargetedContentSubscription")
+  let it = statics[ITargetedContentSubscriptionStaticsVtbl](className(TargetedContentSubscription))
   let a0 = toWinRtString(subscriptionId)
   var op: pointer
   check it.vtbl.GetAsync(it.raw, a0.handle, op.addr
@@ -4434,7 +4434,7 @@ proc getAsync*(_: typedesc[TargetedContentSubscription], subscriptionId: string
 proc getOptions*(_: typedesc[TargetedContentSubscription],
                  subscriptionId: string): TargetedContentSubscriptionOptions =
   ## Windows.Services.TargetedContent.ITargetedContentSubscriptionStatics.GetOptions
-  let it = statics[ITargetedContentSubscriptionStaticsVtbl]("Windows.Services.TargetedContent.TargetedContentSubscription")
+  let it = statics[ITargetedContentSubscriptionStaticsVtbl](className(TargetedContentSubscription))
   let a0 = toWinRtString(subscriptionId)
   var ret: pointer
   check it.vtbl.GetOptions(it.raw, a0.handle, ret.addr

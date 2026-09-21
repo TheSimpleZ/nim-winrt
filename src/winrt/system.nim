@@ -29,7 +29,7 @@ export foundation
 proc getForUser*(_: typedesc[AdvertisingManager], user: User
                 ): AdvertisingManagerForUser =
   ## Windows.System.UserProfile.IAdvertisingManagerStatics2.GetForUser
-  let it = statics[IAdvertisingManagerStatics2Vtbl]("Windows.System.UserProfile.AdvertisingManager")
+  let it = statics[IAdvertisingManagerStatics2Vtbl](className(AdvertisingManager))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -38,7 +38,7 @@ proc getForUser*(_: typedesc[AdvertisingManager], user: User
 
 proc advertisingId*(_: typedesc[AdvertisingManager]): string =
   ## Windows.System.UserProfile.IAdvertisingManagerStatics.get_AdvertisingId
-  let it = statics[IAdvertisingManagerStaticsVtbl]("Windows.System.UserProfile.AdvertisingManager")
+  let it = statics[IAdvertisingManagerStaticsVtbl](className(AdvertisingManager))
   var ret: HSTRING
   check it.vtbl.get_AdvertisingId(it.raw, ret.addr
                                  ), "AdvertisingManager.advertisingId"
@@ -65,14 +65,14 @@ proc user*(self: AdvertisingManagerForUser): User =
 
 proc versionInfo*(_: typedesc[AnalyticsInfo]): AnalyticsVersionInfo =
   ## Windows.System.Profile.IAnalyticsInfoStatics.get_VersionInfo
-  let it = statics[IAnalyticsInfoStaticsVtbl]("Windows.System.Profile.AnalyticsInfo")
+  let it = statics[IAnalyticsInfoStaticsVtbl](className(AnalyticsInfo))
   var ret: pointer
   check it.vtbl.get_VersionInfo(it.raw, ret.addr), "AnalyticsInfo.versionInfo"
   adopt[AnalyticsVersionInfo](ret)
 
 proc deviceForm*(_: typedesc[AnalyticsInfo]): string =
   ## Windows.System.Profile.IAnalyticsInfoStatics.get_DeviceForm
-  let it = statics[IAnalyticsInfoStaticsVtbl]("Windows.System.Profile.AnalyticsInfo")
+  let it = statics[IAnalyticsInfoStaticsVtbl](className(AnalyticsInfo))
   var ret: HSTRING
   check it.vtbl.get_DeviceForm(it.raw, ret.addr), "AnalyticsInfo.deviceForm"
   takeString(ret)
@@ -81,7 +81,7 @@ proc getSystemPropertiesAsync*(_: typedesc[AnalyticsInfo],
                                attributeNames: seq[string]
                               ): Future[Table[string, string]] =
   ## Windows.System.Profile.IAnalyticsInfoStatics2.GetSystemPropertiesAsync
-  let it = statics[IAnalyticsInfoStatics2Vtbl]("Windows.System.Profile.AnalyticsInfo")
+  let it = statics[IAnalyticsInfoStatics2Vtbl](className(AnalyticsInfo))
   let a0 = asCollection[string, seq[string]](attributeNames)
   var op: pointer
   check it.vtbl.GetSystemPropertiesAsync(it.raw, a0.raw, op.addr
@@ -138,7 +138,7 @@ proc getUnsupportedAppRequirements*(_: typedesc[AppApplicability],
                                     capabilities: seq[string]
                                    ): seq[UnsupportedAppRequirement] =
   ## Windows.System.Profile.IAppApplicabilityStatics.GetUnsupportedAppRequirements
-  let it = statics[IAppApplicabilityStaticsVtbl]("Windows.System.Profile.AppApplicability")
+  let it = statics[IAppApplicabilityStaticsVtbl](className(AppApplicability))
   let a0 = asCollection[string, seq[string]](capabilities)
   var ret: pointer
   check it.vtbl.GetUnsupportedAppRequirements(it.raw, a0.raw, ret.addr
@@ -149,7 +149,7 @@ proc getUnsupportedAppRequirements*(_: typedesc[AppApplicability],
 
 proc requestInfoAsync*(_: typedesc[AppDiagnosticInfo]): Future[seq[AppDiagnosticInfo]] =
   ## Windows.System.IAppDiagnosticInfoStatics.RequestInfoAsync
-  let it = statics[IAppDiagnosticInfoStaticsVtbl]("Windows.System.AppDiagnosticInfo")
+  let it = statics[IAppDiagnosticInfoStaticsVtbl](className(AppDiagnosticInfo))
   var op: pointer
   check it.vtbl.RequestInfoAsync(it.raw, op.addr
                                 ), "AppDiagnosticInfo.requestInfoAsync"
@@ -158,7 +158,7 @@ proc requestInfoAsync*(_: typedesc[AppDiagnosticInfo]): Future[seq[AppDiagnostic
 
 proc createWatcher*(_: typedesc[AppDiagnosticInfo]): AppDiagnosticInfoWatcher =
   ## Windows.System.IAppDiagnosticInfoStatics2.CreateWatcher
-  let it = statics[IAppDiagnosticInfoStatics2Vtbl]("Windows.System.AppDiagnosticInfo")
+  let it = statics[IAppDiagnosticInfoStatics2Vtbl](className(AppDiagnosticInfo))
   var ret: pointer
   check it.vtbl.CreateWatcher(it.raw, ret.addr
                              ), "AppDiagnosticInfo.createWatcher"
@@ -166,7 +166,7 @@ proc createWatcher*(_: typedesc[AppDiagnosticInfo]): AppDiagnosticInfoWatcher =
 
 proc requestAccessAsync*(_: typedesc[AppDiagnosticInfo]): Future[DiagnosticAccessStatus] =
   ## Windows.System.IAppDiagnosticInfoStatics2.RequestAccessAsync
-  let it = statics[IAppDiagnosticInfoStatics2Vtbl]("Windows.System.AppDiagnosticInfo")
+  let it = statics[IAppDiagnosticInfoStatics2Vtbl](className(AppDiagnosticInfo))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "AppDiagnosticInfo.requestAccessAsync"
@@ -176,7 +176,7 @@ proc requestInfoForPackageAsync*(_: typedesc[AppDiagnosticInfo],
                                  packageFamilyName: string
                                 ): Future[seq[AppDiagnosticInfo]] =
   ## Windows.System.IAppDiagnosticInfoStatics2.RequestInfoForPackageAsync
-  let it = statics[IAppDiagnosticInfoStatics2Vtbl]("Windows.System.AppDiagnosticInfo")
+  let it = statics[IAppDiagnosticInfoStatics2Vtbl](className(AppDiagnosticInfo))
   let a0 = toWinRtString(packageFamilyName)
   var op: pointer
   check it.vtbl.RequestInfoForPackageAsync(it.raw, a0.handle, op.addr
@@ -186,7 +186,7 @@ proc requestInfoForPackageAsync*(_: typedesc[AppDiagnosticInfo],
 
 proc requestInfoForAppAsync*(_: typedesc[AppDiagnosticInfo]): Future[seq[AppDiagnosticInfo]] =
   ## Windows.System.IAppDiagnosticInfoStatics2.RequestInfoForAppAsync
-  let it = statics[IAppDiagnosticInfoStatics2Vtbl]("Windows.System.AppDiagnosticInfo")
+  let it = statics[IAppDiagnosticInfoStatics2Vtbl](className(AppDiagnosticInfo))
   var op: pointer
   check it.vtbl.RequestInfoForAppAsync(it.raw, op.addr
                                       ), "AppDiagnosticInfo.requestInfoForAppAsync"
@@ -197,7 +197,7 @@ proc requestInfoForAppAsync*(_: typedesc[AppDiagnosticInfo],
                              appUserModelId: string
                             ): Future[seq[AppDiagnosticInfo]] =
   ## Windows.System.IAppDiagnosticInfoStatics2.RequestInfoForAppAsync
-  let it = statics[IAppDiagnosticInfoStatics2Vtbl]("Windows.System.AppDiagnosticInfo")
+  let it = statics[IAppDiagnosticInfoStatics2Vtbl](className(AppDiagnosticInfo))
   let a0 = toWinRtString(appUserModelId)
   var op: pointer
   check it.vtbl.RequestInfoForAppAsync2(it.raw, a0.handle, op.addr
@@ -744,7 +744,7 @@ proc newAppUriHandlerHost*(): AppUriHandlerHost =
 
 proc newAppUriHandlerHost*(name: string): AppUriHandlerHost =
   ## Windows.System.IAppUriHandlerHostFactory.CreateInstance
-  let it = statics[IAppUriHandlerHostFactoryVtbl]("Windows.System.AppUriHandlerHost")
+  let it = statics[IAppUriHandlerHostFactoryVtbl](className(AppUriHandlerHost))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.handle, ret.addr
@@ -839,7 +839,7 @@ proc packageFamilyName*(self: AppUriHandlerRegistration): string =
 
 proc getDefault*(_: typedesc[AppUriHandlerRegistrationManager]): AppUriHandlerRegistrationManager =
   ## Windows.System.IAppUriHandlerRegistrationManagerStatics.GetDefault
-  let it = statics[IAppUriHandlerRegistrationManagerStaticsVtbl]("Windows.System.AppUriHandlerRegistrationManager")
+  let it = statics[IAppUriHandlerRegistrationManagerStaticsVtbl](className(AppUriHandlerRegistrationManager))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr
                           ), "AppUriHandlerRegistrationManager.getDefault"
@@ -848,7 +848,7 @@ proc getDefault*(_: typedesc[AppUriHandlerRegistrationManager]): AppUriHandlerRe
 proc getForUser*(_: typedesc[AppUriHandlerRegistrationManager], user: User
                 ): AppUriHandlerRegistrationManager =
   ## Windows.System.IAppUriHandlerRegistrationManagerStatics.GetForUser
-  let it = statics[IAppUriHandlerRegistrationManagerStaticsVtbl]("Windows.System.AppUriHandlerRegistrationManager")
+  let it = statics[IAppUriHandlerRegistrationManagerStaticsVtbl](className(AppUriHandlerRegistrationManager))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -859,7 +859,7 @@ proc getForPackage*(_: typedesc[AppUriHandlerRegistrationManager],
                     packageFamilyName: string
                    ): AppUriHandlerRegistrationManager =
   ## Windows.System.IAppUriHandlerRegistrationManagerStatics2.GetForPackage
-  let it = statics[IAppUriHandlerRegistrationManagerStatics2Vtbl]("Windows.System.AppUriHandlerRegistrationManager")
+  let it = statics[IAppUriHandlerRegistrationManagerStatics2Vtbl](className(AppUriHandlerRegistrationManager))
   let a0 = toWinRtString(packageFamilyName)
   var ret: pointer
   check it.vtbl.GetForPackage(it.raw, a0.handle, ret.addr
@@ -870,7 +870,7 @@ proc getForPackageForUser*(_: typedesc[AppUriHandlerRegistrationManager],
                            packageFamilyName: string, user: User
                           ): AppUriHandlerRegistrationManager =
   ## Windows.System.IAppUriHandlerRegistrationManagerStatics2.GetForPackageForUser
-  let it = statics[IAppUriHandlerRegistrationManagerStatics2Vtbl]("Windows.System.AppUriHandlerRegistrationManager")
+  let it = statics[IAppUriHandlerRegistrationManagerStatics2Vtbl](className(AppUriHandlerRegistrationManager))
   let a0 = toWinRtString(packageFamilyName)
   let a1 = queryInterface[IUserVtbl](user)
   var ret: pointer
@@ -908,7 +908,7 @@ proc packageFamilyName*(self: AppUriHandlerRegistrationManager): string =
 
 proc getDefault*(_: typedesc[AssignedAccessSettings]): AssignedAccessSettings =
   ## Windows.System.UserProfile.IAssignedAccessSettingsStatics.GetDefault
-  let it = statics[IAssignedAccessSettingsStaticsVtbl]("Windows.System.UserProfile.AssignedAccessSettings")
+  let it = statics[IAssignedAccessSettingsStaticsVtbl](className(AssignedAccessSettings))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr
                           ), "AssignedAccessSettings.getDefault"
@@ -917,7 +917,7 @@ proc getDefault*(_: typedesc[AssignedAccessSettings]): AssignedAccessSettings =
 proc getForUser*(_: typedesc[AssignedAccessSettings], user: User
                 ): AssignedAccessSettings =
   ## Windows.System.UserProfile.IAssignedAccessSettingsStatics.GetForUser
-  let it = statics[IAssignedAccessSettingsStaticsVtbl]("Windows.System.UserProfile.AssignedAccessSettings")
+  let it = statics[IAssignedAccessSettingsStaticsVtbl](className(AssignedAccessSettings))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -951,7 +951,7 @@ proc user*(self: AssignedAccessSettings): User =
 
 proc deviceSpecificConversionFactor*(_: typedesc[BackgroundEnergyDiagnostics]): float64 =
   ## Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics.get_DeviceSpecificConversionFactor
-  let it = statics[IBackgroundEnergyDiagnosticsStaticsVtbl]("Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics")
+  let it = statics[IBackgroundEnergyDiagnosticsStaticsVtbl](className(BackgroundEnergyDiagnostics))
   var ret: float64
   check it.vtbl.get_DeviceSpecificConversionFactor(it.raw, ret.addr
                                                   ), "BackgroundEnergyDiagnostics.deviceSpecificConversionFactor"
@@ -959,7 +959,7 @@ proc deviceSpecificConversionFactor*(_: typedesc[BackgroundEnergyDiagnostics]): 
 
 proc computeTotalEnergyUsage*(_: typedesc[BackgroundEnergyDiagnostics]): uint64 =
   ## Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics.ComputeTotalEnergyUsage
-  let it = statics[IBackgroundEnergyDiagnosticsStaticsVtbl]("Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics")
+  let it = statics[IBackgroundEnergyDiagnosticsStaticsVtbl](className(BackgroundEnergyDiagnostics))
   var ret: uint64
   check it.vtbl.ComputeTotalEnergyUsage(it.raw, ret.addr
                                        ), "BackgroundEnergyDiagnostics.computeTotalEnergyUsage"
@@ -967,14 +967,14 @@ proc computeTotalEnergyUsage*(_: typedesc[BackgroundEnergyDiagnostics]): uint64 
 
 proc resetTotalEnergyUsage*(_: typedesc[BackgroundEnergyDiagnostics]) =
   ## Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics.ResetTotalEnergyUsage
-  let it = statics[IBackgroundEnergyDiagnosticsStaticsVtbl]("Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics")
+  let it = statics[IBackgroundEnergyDiagnosticsStaticsVtbl](className(BackgroundEnergyDiagnostics))
   check it.vtbl.ResetTotalEnergyUsage(it.raw), "BackgroundEnergyDiagnostics.resetTotalEnergyUsage"
 
 # ---- Windows.System.Power.BackgroundEnergyManager
 
 proc lowUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.IBackgroundEnergyManagerStatics.get_LowUsageLevel
-  let it = statics[IBackgroundEnergyManagerStaticsVtbl]("Windows.System.Power.BackgroundEnergyManager")
+  let it = statics[IBackgroundEnergyManagerStaticsVtbl](className(BackgroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_LowUsageLevel(it.raw, ret.addr
                                  ), "BackgroundEnergyManager.lowUsageLevel"
@@ -982,7 +982,7 @@ proc lowUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
 
 proc nearMaxAcceptableUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.IBackgroundEnergyManagerStatics.get_NearMaxAcceptableUsageLevel
-  let it = statics[IBackgroundEnergyManagerStaticsVtbl]("Windows.System.Power.BackgroundEnergyManager")
+  let it = statics[IBackgroundEnergyManagerStaticsVtbl](className(BackgroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_NearMaxAcceptableUsageLevel(it.raw, ret.addr
                                                ), "BackgroundEnergyManager.nearMaxAcceptableUsageLevel"
@@ -990,7 +990,7 @@ proc nearMaxAcceptableUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 
 
 proc maxAcceptableUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.IBackgroundEnergyManagerStatics.get_MaxAcceptableUsageLevel
-  let it = statics[IBackgroundEnergyManagerStaticsVtbl]("Windows.System.Power.BackgroundEnergyManager")
+  let it = statics[IBackgroundEnergyManagerStaticsVtbl](className(BackgroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_MaxAcceptableUsageLevel(it.raw, ret.addr
                                            ), "BackgroundEnergyManager.maxAcceptableUsageLevel"
@@ -998,7 +998,7 @@ proc maxAcceptableUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
 
 proc excessiveUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.IBackgroundEnergyManagerStatics.get_ExcessiveUsageLevel
-  let it = statics[IBackgroundEnergyManagerStaticsVtbl]("Windows.System.Power.BackgroundEnergyManager")
+  let it = statics[IBackgroundEnergyManagerStaticsVtbl](className(BackgroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_ExcessiveUsageLevel(it.raw, ret.addr
                                        ), "BackgroundEnergyManager.excessiveUsageLevel"
@@ -1006,7 +1006,7 @@ proc excessiveUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
 
 proc nearTerminationUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.IBackgroundEnergyManagerStatics.get_NearTerminationUsageLevel
-  let it = statics[IBackgroundEnergyManagerStaticsVtbl]("Windows.System.Power.BackgroundEnergyManager")
+  let it = statics[IBackgroundEnergyManagerStaticsVtbl](className(BackgroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_NearTerminationUsageLevel(it.raw, ret.addr
                                              ), "BackgroundEnergyManager.nearTerminationUsageLevel"
@@ -1014,7 +1014,7 @@ proc nearTerminationUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
 
 proc terminationUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.IBackgroundEnergyManagerStatics.get_TerminationUsageLevel
-  let it = statics[IBackgroundEnergyManagerStaticsVtbl]("Windows.System.Power.BackgroundEnergyManager")
+  let it = statics[IBackgroundEnergyManagerStaticsVtbl](className(BackgroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_TerminationUsageLevel(it.raw, ret.addr
                                          ), "BackgroundEnergyManager.terminationUsageLevel"
@@ -1022,7 +1022,7 @@ proc terminationUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
 
 proc recentEnergyUsage*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.IBackgroundEnergyManagerStatics.get_RecentEnergyUsage
-  let it = statics[IBackgroundEnergyManagerStaticsVtbl]("Windows.System.Power.BackgroundEnergyManager")
+  let it = statics[IBackgroundEnergyManagerStaticsVtbl](className(BackgroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_RecentEnergyUsage(it.raw, ret.addr
                                      ), "BackgroundEnergyManager.recentEnergyUsage"
@@ -1030,7 +1030,7 @@ proc recentEnergyUsage*(_: typedesc[BackgroundEnergyManager]): uint32 =
 
 proc recentEnergyUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.IBackgroundEnergyManagerStatics.get_RecentEnergyUsageLevel
-  let it = statics[IBackgroundEnergyManagerStaticsVtbl]("Windows.System.Power.BackgroundEnergyManager")
+  let it = statics[IBackgroundEnergyManagerStaticsVtbl](className(BackgroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_RecentEnergyUsageLevel(it.raw, ret.addr
                                           ), "BackgroundEnergyManager.recentEnergyUsageLevel"
@@ -1041,7 +1041,7 @@ proc onRecentEnergyUsageIncreased*(_: typedesc[BackgroundEnergyManager],
                                   ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.IBackgroundEnergyManagerStatics.add_RecentEnergyUsageIncreased
   ## The token is what `removeRecentEnergyUsageIncreased` takes.
-  let it = statics[IBackgroundEnergyManagerStaticsVtbl]("Windows.System.Power.BackgroundEnergyManager")
+  let it = statics[IBackgroundEnergyManagerStaticsVtbl](className(BackgroundEnergyManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -1051,7 +1051,7 @@ proc onRecentEnergyUsageIncreased*(_: typedesc[BackgroundEnergyManager],
 proc removeRecentEnergyUsageIncreased*(_: typedesc[BackgroundEnergyManager],
                                        token: EventRegistrationToken) =
   ## Windows.System.Power.IBackgroundEnergyManagerStatics.remove_RecentEnergyUsageIncreased
-  let it = statics[IBackgroundEnergyManagerStaticsVtbl]("Windows.System.Power.BackgroundEnergyManager")
+  let it = statics[IBackgroundEnergyManagerStaticsVtbl](className(BackgroundEnergyManager))
   check it.vtbl.remove_RecentEnergyUsageIncreased(it.raw, token
                                                  ), "BackgroundEnergyManager.recentEnergyUsageIncreased"
 
@@ -1060,7 +1060,7 @@ proc onRecentEnergyUsageReturnedToLow*(_: typedesc[BackgroundEnergyManager],
                                       ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.IBackgroundEnergyManagerStatics.add_RecentEnergyUsageReturnedToLow
   ## The token is what `removeRecentEnergyUsageReturnedToLow` takes.
-  let it = statics[IBackgroundEnergyManagerStaticsVtbl]("Windows.System.Power.BackgroundEnergyManager")
+  let it = statics[IBackgroundEnergyManagerStaticsVtbl](className(BackgroundEnergyManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -1070,7 +1070,7 @@ proc onRecentEnergyUsageReturnedToLow*(_: typedesc[BackgroundEnergyManager],
 proc removeRecentEnergyUsageReturnedToLow*(_: typedesc[BackgroundEnergyManager],
                                            token: EventRegistrationToken) =
   ## Windows.System.Power.IBackgroundEnergyManagerStatics.remove_RecentEnergyUsageReturnedToLow
-  let it = statics[IBackgroundEnergyManagerStaticsVtbl]("Windows.System.Power.BackgroundEnergyManager")
+  let it = statics[IBackgroundEnergyManagerStaticsVtbl](className(BackgroundEnergyManager))
   check it.vtbl.remove_RecentEnergyUsageReturnedToLow(it.raw, token
                                                      ), "BackgroundEnergyManager.recentEnergyUsageReturnedToLow"
 
@@ -1078,7 +1078,7 @@ proc removeRecentEnergyUsageReturnedToLow*(_: typedesc[BackgroundEnergyManager],
 
 proc setSystemDateTime*(_: typedesc[DateTimeSettings], utcDateTime: DateTime) =
   ## Windows.System.IDateTimeSettingsStatics.SetSystemDateTime
-  let it = statics[IDateTimeSettingsStaticsVtbl]("Windows.System.DateTimeSettings")
+  let it = statics[IDateTimeSettingsStaticsVtbl](className(DateTimeSettings))
   check it.vtbl.SetSystemDateTime(it.raw, utcDateTime
                                  ), "DateTimeSettings.setSystemDateTime"
 
@@ -1088,7 +1088,7 @@ proc getForAppServiceConnection*(_: typedesc[DevicePortalConnection],
                                  appServiceConnection: AppServiceConnection
                                 ): DevicePortalConnection =
   ## Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionStatics.GetForAppServiceConnection
-  let it = statics[IDevicePortalConnectionStaticsVtbl]("Windows.System.Diagnostics.DevicePortal.DevicePortalConnection")
+  let it = statics[IDevicePortalConnectionStaticsVtbl](className(DevicePortalConnection))
   let a0 = queryInterface[IAppServiceConnectionVtbl](appServiceConnection)
   var ret: pointer
   check it.vtbl.GetForAppServiceConnection(it.raw, a0.raw, ret.addr
@@ -1284,7 +1284,7 @@ proc results*(self: DiagnosticActionResult): ValueSet =
 
 proc getDefault*(_: typedesc[DiagnosticInvoker]): DiagnosticInvoker =
   ## Windows.System.Diagnostics.IDiagnosticInvokerStatics.GetDefault
-  let it = statics[IDiagnosticInvokerStaticsVtbl]("Windows.System.Diagnostics.DiagnosticInvoker")
+  let it = statics[IDiagnosticInvokerStaticsVtbl](className(DiagnosticInvoker))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "DiagnosticInvoker.getDefault"
   adopt[DiagnosticInvoker](ret)
@@ -1292,7 +1292,7 @@ proc getDefault*(_: typedesc[DiagnosticInvoker]): DiagnosticInvoker =
 proc getForUser*(_: typedesc[DiagnosticInvoker], user: User
                 ): DiagnosticInvoker =
   ## Windows.System.Diagnostics.IDiagnosticInvokerStatics.GetForUser
-  let it = statics[IDiagnosticInvokerStaticsVtbl]("Windows.System.Diagnostics.DiagnosticInvoker")
+  let it = statics[IDiagnosticInvokerStaticsVtbl](className(DiagnosticInvoker))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -1301,7 +1301,7 @@ proc getForUser*(_: typedesc[DiagnosticInvoker], user: User
 
 proc isSupported*(_: typedesc[DiagnosticInvoker]): bool =
   ## Windows.System.Diagnostics.IDiagnosticInvokerStatics.get_IsSupported
-  let it = statics[IDiagnosticInvokerStaticsVtbl]("Windows.System.Diagnostics.DiagnosticInvoker")
+  let it = statics[IDiagnosticInvokerStaticsVtbl](className(DiagnosticInvoker))
   var ret: bool
   check it.vtbl.get_IsSupported(it.raw, ret.addr
                                ), "DiagnosticInvoker.isSupported"
@@ -1336,7 +1336,7 @@ proc runDiagnosticActionFromStringAsync*(self: DiagnosticInvoker,
 
 proc getDefault*(_: typedesc[DiagnosticsSettings]): DiagnosticsSettings =
   ## Windows.System.UserProfile.IDiagnosticsSettingsStatics.GetDefault
-  let it = statics[IDiagnosticsSettingsStaticsVtbl]("Windows.System.UserProfile.DiagnosticsSettings")
+  let it = statics[IDiagnosticsSettingsStaticsVtbl](className(DiagnosticsSettings))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "DiagnosticsSettings.getDefault"
   adopt[DiagnosticsSettings](ret)
@@ -1344,7 +1344,7 @@ proc getDefault*(_: typedesc[DiagnosticsSettings]): DiagnosticsSettings =
 proc getForUser*(_: typedesc[DiagnosticsSettings], user: User
                 ): DiagnosticsSettings =
   ## Windows.System.UserProfile.IDiagnosticsSettingsStatics.GetForUser
-  let it = statics[IDiagnosticsSettingsStaticsVtbl]("Windows.System.UserProfile.DiagnosticsSettings")
+  let it = statics[IDiagnosticsSettingsStaticsVtbl](className(DiagnosticsSettings))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -1370,7 +1370,7 @@ proc user*(self: DiagnosticsSettings): User =
 
 proc getForCurrentThread*(_: typedesc[DispatcherQueue]): DispatcherQueue =
   ## Windows.System.IDispatcherQueueStatics.GetForCurrentThread
-  let it = statics[IDispatcherQueueStaticsVtbl]("Windows.System.DispatcherQueue")
+  let it = statics[IDispatcherQueueStaticsVtbl](className(DispatcherQueue))
   var ret: pointer
   check it.vtbl.GetForCurrentThread(it.raw, ret.addr
                                    ), "DispatcherQueue.getForCurrentThread"
@@ -1455,7 +1455,7 @@ proc hasThreadAccess*(self: DispatcherQueue): bool =
 
 proc createOnDedicatedThread*(_: typedesc[DispatcherQueueController]): DispatcherQueueController =
   ## Windows.System.IDispatcherQueueControllerStatics.CreateOnDedicatedThread
-  let it = statics[IDispatcherQueueControllerStaticsVtbl]("Windows.System.DispatcherQueueController")
+  let it = statics[IDispatcherQueueControllerStaticsVtbl](className(DispatcherQueueController))
   var ret: pointer
   check it.vtbl.CreateOnDedicatedThread(it.raw, ret.addr
                                        ), "DispatcherQueueController.createOnDedicatedThread"
@@ -1571,7 +1571,7 @@ proc requestRelease*(self: DisplayRequest) =
 
 proc isEducationEnvironment*(_: typedesc[EducationSettings]): bool =
   ## Windows.System.Profile.IEducationSettingsStatics.get_IsEducationEnvironment
-  let it = statics[IEducationSettingsStaticsVtbl]("Windows.System.Profile.EducationSettings")
+  let it = statics[IEducationSettingsStaticsVtbl](className(EducationSettings))
   var ret: bool
   check it.vtbl.get_IsEducationEnvironment(it.raw, ret.addr
                                           ), "EducationSettings.isEducationEnvironment"
@@ -1581,7 +1581,7 @@ proc isEducationEnvironment*(_: typedesc[EducationSettings]): bool =
 
 proc getDefault*(_: typedesc[FirstSignInSettings]): FirstSignInSettings =
   ## Windows.System.UserProfile.IFirstSignInSettingsStatics.GetDefault
-  let it = statics[IFirstSignInSettingsStaticsVtbl]("Windows.System.UserProfile.FirstSignInSettings")
+  let it = statics[IFirstSignInSettingsStaticsVtbl](className(FirstSignInSettings))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "FirstSignInSettings.getDefault"
   adopt[FirstSignInSettings](ret)
@@ -1604,7 +1604,7 @@ proc itemsToSelect*(self: FolderLauncherOptions): seq[IStorageItem] =
 
 proc deviceSpecificConversionFactor*(_: typedesc[ForegroundEnergyDiagnostics]): float64 =
   ## Windows.System.Power.Diagnostics.IForegroundEnergyDiagnosticsStatics.get_DeviceSpecificConversionFactor
-  let it = statics[IForegroundEnergyDiagnosticsStaticsVtbl]("Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics")
+  let it = statics[IForegroundEnergyDiagnosticsStaticsVtbl](className(ForegroundEnergyDiagnostics))
   var ret: float64
   check it.vtbl.get_DeviceSpecificConversionFactor(it.raw, ret.addr
                                                   ), "ForegroundEnergyDiagnostics.deviceSpecificConversionFactor"
@@ -1612,7 +1612,7 @@ proc deviceSpecificConversionFactor*(_: typedesc[ForegroundEnergyDiagnostics]): 
 
 proc computeTotalEnergyUsage*(_: typedesc[ForegroundEnergyDiagnostics]): uint64 =
   ## Windows.System.Power.Diagnostics.IForegroundEnergyDiagnosticsStatics.ComputeTotalEnergyUsage
-  let it = statics[IForegroundEnergyDiagnosticsStaticsVtbl]("Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics")
+  let it = statics[IForegroundEnergyDiagnosticsStaticsVtbl](className(ForegroundEnergyDiagnostics))
   var ret: uint64
   check it.vtbl.ComputeTotalEnergyUsage(it.raw, ret.addr
                                        ), "ForegroundEnergyDiagnostics.computeTotalEnergyUsage"
@@ -1620,14 +1620,14 @@ proc computeTotalEnergyUsage*(_: typedesc[ForegroundEnergyDiagnostics]): uint64 
 
 proc resetTotalEnergyUsage*(_: typedesc[ForegroundEnergyDiagnostics]) =
   ## Windows.System.Power.Diagnostics.IForegroundEnergyDiagnosticsStatics.ResetTotalEnergyUsage
-  let it = statics[IForegroundEnergyDiagnosticsStaticsVtbl]("Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics")
+  let it = statics[IForegroundEnergyDiagnosticsStaticsVtbl](className(ForegroundEnergyDiagnostics))
   check it.vtbl.ResetTotalEnergyUsage(it.raw), "ForegroundEnergyDiagnostics.resetTotalEnergyUsage"
 
 # ---- Windows.System.Power.ForegroundEnergyManager
 
 proc lowUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 =
   ## Windows.System.Power.IForegroundEnergyManagerStatics.get_LowUsageLevel
-  let it = statics[IForegroundEnergyManagerStaticsVtbl]("Windows.System.Power.ForegroundEnergyManager")
+  let it = statics[IForegroundEnergyManagerStaticsVtbl](className(ForegroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_LowUsageLevel(it.raw, ret.addr
                                  ), "ForegroundEnergyManager.lowUsageLevel"
@@ -1635,7 +1635,7 @@ proc lowUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 =
 
 proc nearMaxAcceptableUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 =
   ## Windows.System.Power.IForegroundEnergyManagerStatics.get_NearMaxAcceptableUsageLevel
-  let it = statics[IForegroundEnergyManagerStaticsVtbl]("Windows.System.Power.ForegroundEnergyManager")
+  let it = statics[IForegroundEnergyManagerStaticsVtbl](className(ForegroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_NearMaxAcceptableUsageLevel(it.raw, ret.addr
                                                ), "ForegroundEnergyManager.nearMaxAcceptableUsageLevel"
@@ -1643,7 +1643,7 @@ proc nearMaxAcceptableUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 
 
 proc maxAcceptableUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 =
   ## Windows.System.Power.IForegroundEnergyManagerStatics.get_MaxAcceptableUsageLevel
-  let it = statics[IForegroundEnergyManagerStaticsVtbl]("Windows.System.Power.ForegroundEnergyManager")
+  let it = statics[IForegroundEnergyManagerStaticsVtbl](className(ForegroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_MaxAcceptableUsageLevel(it.raw, ret.addr
                                            ), "ForegroundEnergyManager.maxAcceptableUsageLevel"
@@ -1651,7 +1651,7 @@ proc maxAcceptableUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 =
 
 proc excessiveUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 =
   ## Windows.System.Power.IForegroundEnergyManagerStatics.get_ExcessiveUsageLevel
-  let it = statics[IForegroundEnergyManagerStaticsVtbl]("Windows.System.Power.ForegroundEnergyManager")
+  let it = statics[IForegroundEnergyManagerStaticsVtbl](className(ForegroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_ExcessiveUsageLevel(it.raw, ret.addr
                                        ), "ForegroundEnergyManager.excessiveUsageLevel"
@@ -1659,7 +1659,7 @@ proc excessiveUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 =
 
 proc recentEnergyUsage*(_: typedesc[ForegroundEnergyManager]): uint32 =
   ## Windows.System.Power.IForegroundEnergyManagerStatics.get_RecentEnergyUsage
-  let it = statics[IForegroundEnergyManagerStaticsVtbl]("Windows.System.Power.ForegroundEnergyManager")
+  let it = statics[IForegroundEnergyManagerStaticsVtbl](className(ForegroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_RecentEnergyUsage(it.raw, ret.addr
                                      ), "ForegroundEnergyManager.recentEnergyUsage"
@@ -1667,7 +1667,7 @@ proc recentEnergyUsage*(_: typedesc[ForegroundEnergyManager]): uint32 =
 
 proc recentEnergyUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 =
   ## Windows.System.Power.IForegroundEnergyManagerStatics.get_RecentEnergyUsageLevel
-  let it = statics[IForegroundEnergyManagerStaticsVtbl]("Windows.System.Power.ForegroundEnergyManager")
+  let it = statics[IForegroundEnergyManagerStaticsVtbl](className(ForegroundEnergyManager))
   var ret: uint32
   check it.vtbl.get_RecentEnergyUsageLevel(it.raw, ret.addr
                                           ), "ForegroundEnergyManager.recentEnergyUsageLevel"
@@ -1678,7 +1678,7 @@ proc onRecentEnergyUsageIncreased*(_: typedesc[ForegroundEnergyManager],
                                   ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.IForegroundEnergyManagerStatics.add_RecentEnergyUsageIncreased
   ## The token is what `removeRecentEnergyUsageIncreased` takes.
-  let it = statics[IForegroundEnergyManagerStaticsVtbl]("Windows.System.Power.ForegroundEnergyManager")
+  let it = statics[IForegroundEnergyManagerStaticsVtbl](className(ForegroundEnergyManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -1688,7 +1688,7 @@ proc onRecentEnergyUsageIncreased*(_: typedesc[ForegroundEnergyManager],
 proc removeRecentEnergyUsageIncreased*(_: typedesc[ForegroundEnergyManager],
                                        token: EventRegistrationToken) =
   ## Windows.System.Power.IForegroundEnergyManagerStatics.remove_RecentEnergyUsageIncreased
-  let it = statics[IForegroundEnergyManagerStaticsVtbl]("Windows.System.Power.ForegroundEnergyManager")
+  let it = statics[IForegroundEnergyManagerStaticsVtbl](className(ForegroundEnergyManager))
   check it.vtbl.remove_RecentEnergyUsageIncreased(it.raw, token
                                                  ), "ForegroundEnergyManager.recentEnergyUsageIncreased"
 
@@ -1697,7 +1697,7 @@ proc onRecentEnergyUsageReturnedToLow*(_: typedesc[ForegroundEnergyManager],
                                       ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.IForegroundEnergyManagerStatics.add_RecentEnergyUsageReturnedToLow
   ## The token is what `removeRecentEnergyUsageReturnedToLow` takes.
-  let it = statics[IForegroundEnergyManagerStaticsVtbl]("Windows.System.Power.ForegroundEnergyManager")
+  let it = statics[IForegroundEnergyManagerStaticsVtbl](className(ForegroundEnergyManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -1707,7 +1707,7 @@ proc onRecentEnergyUsageReturnedToLow*(_: typedesc[ForegroundEnergyManager],
 proc removeRecentEnergyUsageReturnedToLow*(_: typedesc[ForegroundEnergyManager],
                                            token: EventRegistrationToken) =
   ## Windows.System.Power.IForegroundEnergyManagerStatics.remove_RecentEnergyUsageReturnedToLow
-  let it = statics[IForegroundEnergyManagerStaticsVtbl]("Windows.System.Power.ForegroundEnergyManager")
+  let it = statics[IForegroundEnergyManagerStaticsVtbl](className(ForegroundEnergyManager))
   check it.vtbl.remove_RecentEnergyUsageReturnedToLow(it.raw, token
                                                      ), "ForegroundEnergyManager.recentEnergyUsageReturnedToLow"
 
@@ -1716,7 +1716,7 @@ proc removeRecentEnergyUsageReturnedToLow*(_: typedesc[ForegroundEnergyManager],
 proc trySetHomeGeographicRegion*(_: typedesc[GlobalizationPreferences],
                                  region: string): bool =
   ## Windows.System.UserProfile.IGlobalizationPreferencesStatics2.TrySetHomeGeographicRegion
-  let it = statics[IGlobalizationPreferencesStatics2Vtbl]("Windows.System.UserProfile.GlobalizationPreferences")
+  let it = statics[IGlobalizationPreferencesStatics2Vtbl](className(GlobalizationPreferences))
   let a0 = toWinRtString(region)
   var ret: bool
   check it.vtbl.TrySetHomeGeographicRegion(it.raw, a0.handle, ret.addr
@@ -1726,7 +1726,7 @@ proc trySetHomeGeographicRegion*(_: typedesc[GlobalizationPreferences],
 proc trySetLanguages*(_: typedesc[GlobalizationPreferences],
                       languageTags: seq[string]): bool =
   ## Windows.System.UserProfile.IGlobalizationPreferencesStatics2.TrySetLanguages
-  let it = statics[IGlobalizationPreferencesStatics2Vtbl]("Windows.System.UserProfile.GlobalizationPreferences")
+  let it = statics[IGlobalizationPreferencesStatics2Vtbl](className(GlobalizationPreferences))
   let a0 = asCollection[string, seq[string]](languageTags)
   var ret: bool
   check it.vtbl.TrySetLanguages(it.raw, a0.raw, ret.addr
@@ -1735,7 +1735,7 @@ proc trySetLanguages*(_: typedesc[GlobalizationPreferences],
 
 proc calendars*(_: typedesc[GlobalizationPreferences]): seq[string] =
   ## Windows.System.UserProfile.IGlobalizationPreferencesStatics.get_Calendars
-  let it = statics[IGlobalizationPreferencesStaticsVtbl]("Windows.System.UserProfile.GlobalizationPreferences")
+  let it = statics[IGlobalizationPreferencesStaticsVtbl](className(GlobalizationPreferences))
   var ret: pointer
   check it.vtbl.get_Calendars(it.raw, ret.addr
                              ), "GlobalizationPreferences.calendars"
@@ -1743,14 +1743,14 @@ proc calendars*(_: typedesc[GlobalizationPreferences]): seq[string] =
 
 proc clocks*(_: typedesc[GlobalizationPreferences]): seq[string] =
   ## Windows.System.UserProfile.IGlobalizationPreferencesStatics.get_Clocks
-  let it = statics[IGlobalizationPreferencesStaticsVtbl]("Windows.System.UserProfile.GlobalizationPreferences")
+  let it = statics[IGlobalizationPreferencesStaticsVtbl](className(GlobalizationPreferences))
   var ret: pointer
   check it.vtbl.get_Clocks(it.raw, ret.addr), "GlobalizationPreferences.clocks"
   takeSeq[IVectorViewVtbl[string], seq[string]](ret)
 
 proc currencies*(_: typedesc[GlobalizationPreferences]): seq[string] =
   ## Windows.System.UserProfile.IGlobalizationPreferencesStatics.get_Currencies
-  let it = statics[IGlobalizationPreferencesStaticsVtbl]("Windows.System.UserProfile.GlobalizationPreferences")
+  let it = statics[IGlobalizationPreferencesStaticsVtbl](className(GlobalizationPreferences))
   var ret: pointer
   check it.vtbl.get_Currencies(it.raw, ret.addr
                               ), "GlobalizationPreferences.currencies"
@@ -1758,7 +1758,7 @@ proc currencies*(_: typedesc[GlobalizationPreferences]): seq[string] =
 
 proc languages*(_: typedesc[GlobalizationPreferences]): seq[string] =
   ## Windows.System.UserProfile.IGlobalizationPreferencesStatics.get_Languages
-  let it = statics[IGlobalizationPreferencesStaticsVtbl]("Windows.System.UserProfile.GlobalizationPreferences")
+  let it = statics[IGlobalizationPreferencesStaticsVtbl](className(GlobalizationPreferences))
   var ret: pointer
   check it.vtbl.get_Languages(it.raw, ret.addr
                              ), "GlobalizationPreferences.languages"
@@ -1766,7 +1766,7 @@ proc languages*(_: typedesc[GlobalizationPreferences]): seq[string] =
 
 proc homeGeographicRegion*(_: typedesc[GlobalizationPreferences]): string =
   ## Windows.System.UserProfile.IGlobalizationPreferencesStatics.get_HomeGeographicRegion
-  let it = statics[IGlobalizationPreferencesStaticsVtbl]("Windows.System.UserProfile.GlobalizationPreferences")
+  let it = statics[IGlobalizationPreferencesStaticsVtbl](className(GlobalizationPreferences))
   var ret: HSTRING
   check it.vtbl.get_HomeGeographicRegion(it.raw, ret.addr
                                         ), "GlobalizationPreferences.homeGeographicRegion"
@@ -1774,7 +1774,7 @@ proc homeGeographicRegion*(_: typedesc[GlobalizationPreferences]): string =
 
 proc weekStartsOn*(_: typedesc[GlobalizationPreferences]): DayOfWeek =
   ## Windows.System.UserProfile.IGlobalizationPreferencesStatics.get_WeekStartsOn
-  let it = statics[IGlobalizationPreferencesStaticsVtbl]("Windows.System.UserProfile.GlobalizationPreferences")
+  let it = statics[IGlobalizationPreferencesStaticsVtbl](className(GlobalizationPreferences))
   var ret: DayOfWeek
   check it.vtbl.get_WeekStartsOn(it.raw, ret.addr
                                 ), "GlobalizationPreferences.weekStartsOn"
@@ -1783,7 +1783,7 @@ proc weekStartsOn*(_: typedesc[GlobalizationPreferences]): DayOfWeek =
 proc getForUser*(_: typedesc[GlobalizationPreferences], user: User
                 ): GlobalizationPreferencesForUser =
   ## Windows.System.UserProfile.IGlobalizationPreferencesStatics3.GetForUser
-  let it = statics[IGlobalizationPreferencesStatics3Vtbl]("Windows.System.UserProfile.GlobalizationPreferences")
+  let it = statics[IGlobalizationPreferencesStatics3Vtbl](className(GlobalizationPreferences))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -1853,7 +1853,7 @@ proc weekStartsOn*(self: GlobalizationPreferencesForUser): DayOfWeek =
 proc getPackageSpecificToken*(_: typedesc[HardwareIdentification],
                               nonce: SomeBuffer): HardwareToken =
   ## Windows.System.Profile.IHardwareIdentificationStatics.GetPackageSpecificToken
-  let it = statics[IHardwareIdentificationStaticsVtbl]("Windows.System.Profile.HardwareIdentification")
+  let it = statics[IHardwareIdentificationStaticsVtbl](className(HardwareIdentification))
   let a0 = queryInterface[IBufferVtbl](nonce)
   var ret: pointer
   check it.vtbl.GetPackageSpecificToken(it.raw, a0.raw, ret.addr
@@ -1887,7 +1887,7 @@ proc certificate*(self: HardwareToken): IBuffer =
 
 proc getInventoryAsync*(_: typedesc[InstalledDesktopApp]): Future[seq[InstalledDesktopApp]] =
   ## Windows.System.Inventory.IInstalledDesktopAppStatics.GetInventoryAsync
-  let it = statics[IInstalledDesktopAppStaticsVtbl]("Windows.System.Inventory.InstalledDesktopApp")
+  let it = statics[IInstalledDesktopAppStaticsVtbl](className(InstalledDesktopApp))
   var op: pointer
   check it.vtbl.GetInventoryAsync(it.raw, op.addr
                                  ), "InstalledDesktopApp.getInventoryAsync"
@@ -1928,7 +1928,7 @@ proc displayVersion*(self: InstalledDesktopApp): string =
 
 proc isRemote*(_: typedesc[InteractiveSession]): bool =
   ## Windows.System.RemoteDesktop.IInteractiveSessionStatics.get_IsRemote
-  let it = statics[IInteractiveSessionStaticsVtbl]("Windows.System.RemoteDesktop.InteractiveSession")
+  let it = statics[IInteractiveSessionStaticsVtbl](className(InteractiveSession))
   var ret: bool
   check it.vtbl.get_IsRemote(it.raw, ret.addr), "InteractiveSession.isRemote"
   ret
@@ -1937,7 +1937,7 @@ proc isRemote*(_: typedesc[InteractiveSession]): bool =
 
 proc appService*(_: typedesc[KnownRemoteSystemCapabilities]): string =
   ## Windows.System.RemoteSystems.IKnownRemoteSystemCapabilitiesStatics.get_AppService
-  let it = statics[IKnownRemoteSystemCapabilitiesStaticsVtbl]("Windows.System.RemoteSystems.KnownRemoteSystemCapabilities")
+  let it = statics[IKnownRemoteSystemCapabilitiesStaticsVtbl](className(KnownRemoteSystemCapabilities))
   var ret: HSTRING
   check it.vtbl.get_AppService(it.raw, ret.addr
                               ), "KnownRemoteSystemCapabilities.appService"
@@ -1945,7 +1945,7 @@ proc appService*(_: typedesc[KnownRemoteSystemCapabilities]): string =
 
 proc launchUri*(_: typedesc[KnownRemoteSystemCapabilities]): string =
   ## Windows.System.RemoteSystems.IKnownRemoteSystemCapabilitiesStatics.get_LaunchUri
-  let it = statics[IKnownRemoteSystemCapabilitiesStaticsVtbl]("Windows.System.RemoteSystems.KnownRemoteSystemCapabilities")
+  let it = statics[IKnownRemoteSystemCapabilitiesStaticsVtbl](className(KnownRemoteSystemCapabilities))
   var ret: HSTRING
   check it.vtbl.get_LaunchUri(it.raw, ret.addr
                              ), "KnownRemoteSystemCapabilities.launchUri"
@@ -1953,7 +1953,7 @@ proc launchUri*(_: typedesc[KnownRemoteSystemCapabilities]): string =
 
 proc remoteSession*(_: typedesc[KnownRemoteSystemCapabilities]): string =
   ## Windows.System.RemoteSystems.IKnownRemoteSystemCapabilitiesStatics.get_RemoteSession
-  let it = statics[IKnownRemoteSystemCapabilitiesStaticsVtbl]("Windows.System.RemoteSystems.KnownRemoteSystemCapabilities")
+  let it = statics[IKnownRemoteSystemCapabilitiesStaticsVtbl](className(KnownRemoteSystemCapabilities))
   var ret: HSTRING
   check it.vtbl.get_RemoteSession(it.raw, ret.addr
                                  ), "KnownRemoteSystemCapabilities.remoteSession"
@@ -1961,7 +1961,7 @@ proc remoteSession*(_: typedesc[KnownRemoteSystemCapabilities]): string =
 
 proc spatialEntity*(_: typedesc[KnownRemoteSystemCapabilities]): string =
   ## Windows.System.RemoteSystems.IKnownRemoteSystemCapabilitiesStatics.get_SpatialEntity
-  let it = statics[IKnownRemoteSystemCapabilitiesStaticsVtbl]("Windows.System.RemoteSystems.KnownRemoteSystemCapabilities")
+  let it = statics[IKnownRemoteSystemCapabilitiesStaticsVtbl](className(KnownRemoteSystemCapabilities))
   var ret: HSTRING
   check it.vtbl.get_SpatialEntity(it.raw, ret.addr
                                  ), "KnownRemoteSystemCapabilities.spatialEntity"
@@ -1971,7 +1971,7 @@ proc spatialEntity*(_: typedesc[KnownRemoteSystemCapabilities]): string =
 
 proc retailAccessCode*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_RetailAccessCode
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_RetailAccessCode(it.raw, ret.addr
                                     ), "KnownRetailInfoProperties.retailAccessCode"
@@ -1979,7 +1979,7 @@ proc retailAccessCode*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc manufacturerName*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_ManufacturerName
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_ManufacturerName(it.raw, ret.addr
                                     ), "KnownRetailInfoProperties.manufacturerName"
@@ -1987,7 +1987,7 @@ proc manufacturerName*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc modelName*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_ModelName
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_ModelName(it.raw, ret.addr
                              ), "KnownRetailInfoProperties.modelName"
@@ -1995,7 +1995,7 @@ proc modelName*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc displayModelName*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_DisplayModelName
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_DisplayModelName(it.raw, ret.addr
                                     ), "KnownRetailInfoProperties.displayModelName"
@@ -2003,14 +2003,14 @@ proc displayModelName*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc price*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_Price
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_Price(it.raw, ret.addr), "KnownRetailInfoProperties.price"
   takeString(ret)
 
 proc isFeatured*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_IsFeatured
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_IsFeatured(it.raw, ret.addr
                               ), "KnownRetailInfoProperties.isFeatured"
@@ -2018,7 +2018,7 @@ proc isFeatured*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc formFactor*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_FormFactor
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_FormFactor(it.raw, ret.addr
                               ), "KnownRetailInfoProperties.formFactor"
@@ -2026,7 +2026,7 @@ proc formFactor*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc screenSize*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_ScreenSize
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_ScreenSize(it.raw, ret.addr
                               ), "KnownRetailInfoProperties.screenSize"
@@ -2034,14 +2034,14 @@ proc screenSize*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc weight*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_Weight
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_Weight(it.raw, ret.addr), "KnownRetailInfoProperties.weight"
   takeString(ret)
 
 proc displayDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_DisplayDescription
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_DisplayDescription(it.raw, ret.addr
                                       ), "KnownRetailInfoProperties.displayDescription"
@@ -2049,7 +2049,7 @@ proc displayDescription*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc batteryLifeDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_BatteryLifeDescription
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_BatteryLifeDescription(it.raw, ret.addr
                                           ), "KnownRetailInfoProperties.batteryLifeDescription"
@@ -2057,7 +2057,7 @@ proc batteryLifeDescription*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc processorDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_ProcessorDescription
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_ProcessorDescription(it.raw, ret.addr
                                         ), "KnownRetailInfoProperties.processorDescription"
@@ -2065,14 +2065,14 @@ proc processorDescription*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc memory*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_Memory
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_Memory(it.raw, ret.addr), "KnownRetailInfoProperties.memory"
   takeString(ret)
 
 proc storageDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_StorageDescription
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_StorageDescription(it.raw, ret.addr
                                       ), "KnownRetailInfoProperties.storageDescription"
@@ -2080,7 +2080,7 @@ proc storageDescription*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc graphicsDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_GraphicsDescription
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_GraphicsDescription(it.raw, ret.addr
                                        ), "KnownRetailInfoProperties.graphicsDescription"
@@ -2088,7 +2088,7 @@ proc graphicsDescription*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc frontCameraDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_FrontCameraDescription
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_FrontCameraDescription(it.raw, ret.addr
                                           ), "KnownRetailInfoProperties.frontCameraDescription"
@@ -2096,7 +2096,7 @@ proc frontCameraDescription*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc rearCameraDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_RearCameraDescription
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_RearCameraDescription(it.raw, ret.addr
                                          ), "KnownRetailInfoProperties.rearCameraDescription"
@@ -2104,14 +2104,14 @@ proc rearCameraDescription*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc hasNfc*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_HasNfc
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_HasNfc(it.raw, ret.addr), "KnownRetailInfoProperties.hasNfc"
   takeString(ret)
 
 proc hasSdSlot*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_HasSdSlot
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_HasSdSlot(it.raw, ret.addr
                              ), "KnownRetailInfoProperties.hasSdSlot"
@@ -2119,7 +2119,7 @@ proc hasSdSlot*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc hasOpticalDrive*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_HasOpticalDrive
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_HasOpticalDrive(it.raw, ret.addr
                                    ), "KnownRetailInfoProperties.hasOpticalDrive"
@@ -2127,7 +2127,7 @@ proc hasOpticalDrive*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc isOfficeInstalled*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_IsOfficeInstalled
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_IsOfficeInstalled(it.raw, ret.addr
                                      ), "KnownRetailInfoProperties.isOfficeInstalled"
@@ -2135,7 +2135,7 @@ proc isOfficeInstalled*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc windowsEdition*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics.get_WindowsEdition
-  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl]("Windows.System.Profile.KnownRetailInfoProperties")
+  let it = statics[IKnownRetailInfoPropertiesStaticsVtbl](className(KnownRetailInfoProperties))
   var ret: HSTRING
   check it.vtbl.get_WindowsEdition(it.raw, ret.addr
                                   ), "KnownRetailInfoProperties.windowsEdition"
@@ -2145,7 +2145,7 @@ proc windowsEdition*(_: typedesc[KnownRetailInfoProperties]): string =
 
 proc displayName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.IKnownUserPropertiesStatics.get_DisplayName
-  let it = statics[IKnownUserPropertiesStaticsVtbl]("Windows.System.KnownUserProperties")
+  let it = statics[IKnownUserPropertiesStaticsVtbl](className(KnownUserProperties))
   var ret: HSTRING
   check it.vtbl.get_DisplayName(it.raw, ret.addr
                                ), "KnownUserProperties.displayName"
@@ -2153,21 +2153,21 @@ proc displayName*(_: typedesc[KnownUserProperties]): string =
 
 proc firstName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.IKnownUserPropertiesStatics.get_FirstName
-  let it = statics[IKnownUserPropertiesStaticsVtbl]("Windows.System.KnownUserProperties")
+  let it = statics[IKnownUserPropertiesStaticsVtbl](className(KnownUserProperties))
   var ret: HSTRING
   check it.vtbl.get_FirstName(it.raw, ret.addr), "KnownUserProperties.firstName"
   takeString(ret)
 
 proc lastName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.IKnownUserPropertiesStatics.get_LastName
-  let it = statics[IKnownUserPropertiesStaticsVtbl]("Windows.System.KnownUserProperties")
+  let it = statics[IKnownUserPropertiesStaticsVtbl](className(KnownUserProperties))
   var ret: HSTRING
   check it.vtbl.get_LastName(it.raw, ret.addr), "KnownUserProperties.lastName"
   takeString(ret)
 
 proc providerName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.IKnownUserPropertiesStatics.get_ProviderName
-  let it = statics[IKnownUserPropertiesStaticsVtbl]("Windows.System.KnownUserProperties")
+  let it = statics[IKnownUserPropertiesStaticsVtbl](className(KnownUserProperties))
   var ret: HSTRING
   check it.vtbl.get_ProviderName(it.raw, ret.addr
                                 ), "KnownUserProperties.providerName"
@@ -2175,7 +2175,7 @@ proc providerName*(_: typedesc[KnownUserProperties]): string =
 
 proc accountName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.IKnownUserPropertiesStatics.get_AccountName
-  let it = statics[IKnownUserPropertiesStaticsVtbl]("Windows.System.KnownUserProperties")
+  let it = statics[IKnownUserPropertiesStaticsVtbl](className(KnownUserProperties))
   var ret: HSTRING
   check it.vtbl.get_AccountName(it.raw, ret.addr
                                ), "KnownUserProperties.accountName"
@@ -2183,14 +2183,14 @@ proc accountName*(_: typedesc[KnownUserProperties]): string =
 
 proc guestHost*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.IKnownUserPropertiesStatics.get_GuestHost
-  let it = statics[IKnownUserPropertiesStaticsVtbl]("Windows.System.KnownUserProperties")
+  let it = statics[IKnownUserPropertiesStaticsVtbl](className(KnownUserProperties))
   var ret: HSTRING
   check it.vtbl.get_GuestHost(it.raw, ret.addr), "KnownUserProperties.guestHost"
   takeString(ret)
 
 proc principalName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.IKnownUserPropertiesStatics.get_PrincipalName
-  let it = statics[IKnownUserPropertiesStaticsVtbl]("Windows.System.KnownUserProperties")
+  let it = statics[IKnownUserPropertiesStaticsVtbl](className(KnownUserProperties))
   var ret: HSTRING
   check it.vtbl.get_PrincipalName(it.raw, ret.addr
                                  ), "KnownUserProperties.principalName"
@@ -2198,7 +2198,7 @@ proc principalName*(_: typedesc[KnownUserProperties]): string =
 
 proc domainName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.IKnownUserPropertiesStatics.get_DomainName
-  let it = statics[IKnownUserPropertiesStaticsVtbl]("Windows.System.KnownUserProperties")
+  let it = statics[IKnownUserPropertiesStaticsVtbl](className(KnownUserProperties))
   var ret: HSTRING
   check it.vtbl.get_DomainName(it.raw, ret.addr
                               ), "KnownUserProperties.domainName"
@@ -2206,7 +2206,7 @@ proc domainName*(_: typedesc[KnownUserProperties]): string =
 
 proc sessionInitiationProtocolUri*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.IKnownUserPropertiesStatics.get_SessionInitiationProtocolUri
-  let it = statics[IKnownUserPropertiesStaticsVtbl]("Windows.System.KnownUserProperties")
+  let it = statics[IKnownUserPropertiesStaticsVtbl](className(KnownUserProperties))
   var ret: HSTRING
   check it.vtbl.get_SessionInitiationProtocolUri(it.raw, ret.addr
                                                 ), "KnownUserProperties.sessionInitiationProtocolUri"
@@ -2214,7 +2214,7 @@ proc sessionInitiationProtocolUri*(_: typedesc[KnownUserProperties]): string =
 
 proc ageEnforcementRegion*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.IKnownUserPropertiesStatics2.get_AgeEnforcementRegion
-  let it = statics[IKnownUserPropertiesStatics2Vtbl]("Windows.System.KnownUserProperties")
+  let it = statics[IKnownUserPropertiesStatics2Vtbl](className(KnownUserProperties))
   var ret: HSTRING
   check it.vtbl.get_AgeEnforcementRegion(it.raw, ret.addr
                                         ), "KnownUserProperties.ageEnforcementRegion"
@@ -2241,7 +2241,7 @@ proc `result`*(self: LaunchUriResult): ValueSet =
 proc launchFileAsync*(_: typedesc[Launcher], file: SomeStorageFile
                      ): Future[bool] =
   ## Windows.System.ILauncherStatics.LaunchFileAsync
-  let it = statics[ILauncherStaticsVtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStaticsVtbl](className(Launcher))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.LaunchFileAsync(it.raw, a0.raw, op.addr
@@ -2251,7 +2251,7 @@ proc launchFileAsync*(_: typedesc[Launcher], file: SomeStorageFile
 proc launchFileAsync*(_: typedesc[Launcher], file: SomeStorageFile,
                       options: LauncherOptions): Future[bool] =
   ## Windows.System.ILauncherStatics.LaunchFileAsync
-  let it = statics[ILauncherStaticsVtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStaticsVtbl](className(Launcher))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = queryInterface[ILauncherOptions2Vtbl](options)
   var op: pointer
@@ -2261,7 +2261,7 @@ proc launchFileAsync*(_: typedesc[Launcher], file: SomeStorageFile,
 
 proc launchUriAsync*(_: typedesc[Launcher], uri: Uri): Future[bool] =
   ## Windows.System.ILauncherStatics.LaunchUriAsync
-  let it = statics[ILauncherStaticsVtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStaticsVtbl](className(Launcher))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var op: pointer
   check it.vtbl.LaunchUriAsync(it.raw, a0.raw, op.addr
@@ -2271,7 +2271,7 @@ proc launchUriAsync*(_: typedesc[Launcher], uri: Uri): Future[bool] =
 proc launchUriAsync*(_: typedesc[Launcher], uri: Uri, options: LauncherOptions
                     ): Future[bool] =
   ## Windows.System.ILauncherStatics.LaunchUriAsync
-  let it = statics[ILauncherStaticsVtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStaticsVtbl](className(Launcher))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a1 = queryInterface[ILauncherOptions2Vtbl](options)
   var op: pointer
@@ -2282,7 +2282,7 @@ proc launchUriAsync*(_: typedesc[Launcher], uri: Uri, options: LauncherOptions
 proc launchFolderAsync*(_: typedesc[Launcher], folder: SomeStorageFolder
                        ): Future[bool] =
   ## Windows.System.ILauncherStatics3.LaunchFolderAsync
-  let it = statics[ILauncherStatics3Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics3Vtbl](className(Launcher))
   let a0 = queryInterface[IStorageFolderVtbl](folder)
   var op: pointer
   check it.vtbl.LaunchFolderAsync(it.raw, a0.raw, op.addr
@@ -2292,7 +2292,7 @@ proc launchFolderAsync*(_: typedesc[Launcher], folder: SomeStorageFolder
 proc launchFolderAsync*(_: typedesc[Launcher], folder: SomeStorageFolder,
                         options: FolderLauncherOptions): Future[bool] =
   ## Windows.System.ILauncherStatics3.LaunchFolderAsync
-  let it = statics[ILauncherStatics3Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics3Vtbl](className(Launcher))
   let a0 = queryInterface[IStorageFolderVtbl](folder)
   let a1 = queryInterface[IFolderLauncherOptionsVtbl](options)
   var op: pointer
@@ -2303,7 +2303,7 @@ proc launchFolderAsync*(_: typedesc[Launcher], folder: SomeStorageFolder,
 proc queryAppUriSupportAsync*(_: typedesc[Launcher], uri: Uri
                              ): Future[LaunchQuerySupportStatus] =
   ## Windows.System.ILauncherStatics4.QueryAppUriSupportAsync
-  let it = statics[ILauncherStatics4Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics4Vtbl](className(Launcher))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var op: pointer
   check it.vtbl.QueryAppUriSupportAsync(it.raw, a0.raw, op.addr
@@ -2314,7 +2314,7 @@ proc queryAppUriSupportAsync*(_: typedesc[Launcher], uri: Uri,
                               packageFamilyName: string
                              ): Future[LaunchQuerySupportStatus] =
   ## Windows.System.ILauncherStatics4.QueryAppUriSupportAsync
-  let it = statics[ILauncherStatics4Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics4Vtbl](className(Launcher))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a1 = toWinRtString(packageFamilyName)
   var op: pointer
@@ -2325,7 +2325,7 @@ proc queryAppUriSupportAsync*(_: typedesc[Launcher], uri: Uri,
 proc findAppUriHandlersAsync*(_: typedesc[Launcher], uri: Uri
                              ): Future[seq[AppInfo]] =
   ## Windows.System.ILauncherStatics4.FindAppUriHandlersAsync
-  let it = statics[ILauncherStatics4Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics4Vtbl](className(Launcher))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var op: pointer
   check it.vtbl.FindAppUriHandlersAsync(it.raw, a0.raw, op.addr
@@ -2335,7 +2335,7 @@ proc findAppUriHandlersAsync*(_: typedesc[Launcher], uri: Uri
 proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri
                            ): Future[LaunchUriStatus] =
   ## Windows.System.ILauncherStatics4.LaunchUriForUserAsync
-  let it = statics[ILauncherStatics4Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics4Vtbl](className(Launcher))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = queryInterface[IUriRuntimeClassVtbl](uri)
   var op: pointer
@@ -2346,7 +2346,7 @@ proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri
 proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri,
                             options: LauncherOptions): Future[LaunchUriStatus] =
   ## Windows.System.ILauncherStatics4.LaunchUriForUserAsync
-  let it = statics[ILauncherStatics4Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics4Vtbl](className(Launcher))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a2 = queryInterface[ILauncherOptions2Vtbl](options)
@@ -2359,7 +2359,7 @@ proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri,
                             options: LauncherOptions, inputData: ValueSet
                            ): Future[LaunchUriStatus] =
   ## Windows.System.ILauncherStatics4.LaunchUriForUserAsync
-  let it = statics[ILauncherStatics4Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics4Vtbl](className(Launcher))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a2 = queryInterface[ILauncherOptions2Vtbl](options)
@@ -2374,7 +2374,7 @@ proc launchUriForResultsForUserAsync*(_: typedesc[Launcher], user: User,
                                       uri: Uri, options: LauncherOptions
                                      ): Future[LaunchUriResult] =
   ## Windows.System.ILauncherStatics4.LaunchUriForResultsForUserAsync
-  let it = statics[ILauncherStatics4Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics4Vtbl](className(Launcher))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a2 = queryInterface[ILauncherOptions2Vtbl](options)
@@ -2389,7 +2389,7 @@ proc launchUriForResultsForUserAsync*(_: typedesc[Launcher], user: User,
                                       inputData: ValueSet
                                      ): Future[LaunchUriResult] =
   ## Windows.System.ILauncherStatics4.LaunchUriForResultsForUserAsync
-  let it = statics[ILauncherStatics4Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics4Vtbl](className(Launcher))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a2 = queryInterface[ILauncherOptions2Vtbl](options)
@@ -2402,7 +2402,7 @@ proc launchUriForResultsForUserAsync*(_: typedesc[Launcher], user: User,
 
 proc launchFolderPathAsync*(_: typedesc[Launcher], path: string): Future[bool] =
   ## Windows.System.ILauncherStatics5.LaunchFolderPathAsync
-  let it = statics[ILauncherStatics5Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics5Vtbl](className(Launcher))
   let a0 = toWinRtString(path)
   var op: pointer
   check it.vtbl.LaunchFolderPathAsync(it.raw, a0.handle, op.addr
@@ -2412,7 +2412,7 @@ proc launchFolderPathAsync*(_: typedesc[Launcher], path: string): Future[bool] =
 proc launchFolderPathAsync*(_: typedesc[Launcher], path: string,
                             options: FolderLauncherOptions): Future[bool] =
   ## Windows.System.ILauncherStatics5.LaunchFolderPathAsync
-  let it = statics[ILauncherStatics5Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics5Vtbl](className(Launcher))
   let a0 = toWinRtString(path)
   let a1 = queryInterface[IFolderLauncherOptionsVtbl](options)
   var op: pointer
@@ -2423,7 +2423,7 @@ proc launchFolderPathAsync*(_: typedesc[Launcher], path: string,
 proc launchFolderPathForUserAsync*(_: typedesc[Launcher], user: User,
                                    path: string): Future[bool] =
   ## Windows.System.ILauncherStatics5.LaunchFolderPathForUserAsync
-  let it = statics[ILauncherStatics5Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics5Vtbl](className(Launcher))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(path)
   var op: pointer
@@ -2435,7 +2435,7 @@ proc launchFolderPathForUserAsync*(_: typedesc[Launcher], user: User,
                                    path: string, options: FolderLauncherOptions
                                   ): Future[bool] =
   ## Windows.System.ILauncherStatics5.LaunchFolderPathForUserAsync
-  let it = statics[ILauncherStatics5Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics5Vtbl](className(Launcher))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(path)
   let a2 = queryInterface[IFolderLauncherOptionsVtbl](options)
@@ -2449,7 +2449,7 @@ proc launchUriForResultsAsync*(_: typedesc[Launcher], uri: Uri,
                                options: LauncherOptions
                               ): Future[LaunchUriResult] =
   ## Windows.System.ILauncherStatics2.LaunchUriForResultsAsync
-  let it = statics[ILauncherStatics2Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics2Vtbl](className(Launcher))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a1 = queryInterface[ILauncherOptions2Vtbl](options)
   var op: pointer
@@ -2461,7 +2461,7 @@ proc launchUriForResultsAsync*(_: typedesc[Launcher], uri: Uri,
                                options: LauncherOptions, inputData: ValueSet
                               ): Future[LaunchUriResult] =
   ## Windows.System.ILauncherStatics2.LaunchUriForResultsAsync
-  let it = statics[ILauncherStatics2Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics2Vtbl](className(Launcher))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a1 = queryInterface[ILauncherOptions2Vtbl](options)
   let a2 = queryInterface[IPropertySetVtbl](inputData)
@@ -2474,7 +2474,7 @@ proc launchUriForResultsAsync*(_: typedesc[Launcher], uri: Uri,
 proc launchUriAsync*(_: typedesc[Launcher], uri: Uri, options: LauncherOptions,
                      inputData: ValueSet): Future[bool] =
   ## Windows.System.ILauncherStatics2.LaunchUriAsync
-  let it = statics[ILauncherStatics2Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics2Vtbl](className(Launcher))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a1 = queryInterface[ILauncherOptions2Vtbl](options)
   let a2 = queryInterface[IPropertySetVtbl](inputData)
@@ -2487,7 +2487,7 @@ proc queryUriSupportAsync*(_: typedesc[Launcher], uri: Uri,
                            launchQuerySupportType: LaunchQuerySupportType
                           ): Future[LaunchQuerySupportStatus] =
   ## Windows.System.ILauncherStatics2.QueryUriSupportAsync
-  let it = statics[ILauncherStatics2Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics2Vtbl](className(Launcher))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var op: pointer
   check it.vtbl.QueryUriSupportAsync(it.raw, a0.raw, launchQuerySupportType,
@@ -2499,7 +2499,7 @@ proc queryUriSupportAsync*(_: typedesc[Launcher], uri: Uri,
                            packageFamilyName: string
                           ): Future[LaunchQuerySupportStatus] =
   ## Windows.System.ILauncherStatics2.QueryUriSupportAsync
-  let it = statics[ILauncherStatics2Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics2Vtbl](className(Launcher))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a2 = toWinRtString(packageFamilyName)
   var op: pointer
@@ -2511,7 +2511,7 @@ proc queryUriSupportAsync*(_: typedesc[Launcher], uri: Uri,
 proc queryFileSupportAsync*(_: typedesc[Launcher], file: StorageFile
                            ): Future[LaunchQuerySupportStatus] =
   ## Windows.System.ILauncherStatics2.QueryFileSupportAsync
-  let it = statics[ILauncherStatics2Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics2Vtbl](className(Launcher))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.QueryFileSupportAsync(it.raw, a0.raw, op.addr
@@ -2522,7 +2522,7 @@ proc queryFileSupportAsync*(_: typedesc[Launcher], file: StorageFile,
                             packageFamilyName: string
                            ): Future[LaunchQuerySupportStatus] =
   ## Windows.System.ILauncherStatics2.QueryFileSupportAsync
-  let it = statics[ILauncherStatics2Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics2Vtbl](className(Launcher))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = toWinRtString(packageFamilyName)
   var op: pointer
@@ -2533,7 +2533,7 @@ proc queryFileSupportAsync*(_: typedesc[Launcher], file: StorageFile,
 proc findUriSchemeHandlersAsync*(_: typedesc[Launcher], scheme: string
                                 ): Future[seq[AppInfo]] =
   ## Windows.System.ILauncherStatics2.FindUriSchemeHandlersAsync
-  let it = statics[ILauncherStatics2Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics2Vtbl](className(Launcher))
   let a0 = toWinRtString(scheme)
   var op: pointer
   check it.vtbl.FindUriSchemeHandlersAsync(it.raw, a0.handle, op.addr
@@ -2544,7 +2544,7 @@ proc findUriSchemeHandlersAsync*(_: typedesc[Launcher], scheme: string,
                                  launchQuerySupportType: LaunchQuerySupportType
                                 ): Future[seq[AppInfo]] =
   ## Windows.System.ILauncherStatics2.FindUriSchemeHandlersAsync
-  let it = statics[ILauncherStatics2Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics2Vtbl](className(Launcher))
   let a0 = toWinRtString(scheme)
   var op: pointer
   check it.vtbl.FindUriSchemeHandlersAsync2(it.raw, a0.handle,
@@ -2555,7 +2555,7 @@ proc findUriSchemeHandlersAsync*(_: typedesc[Launcher], scheme: string,
 proc findFileHandlersAsync*(_: typedesc[Launcher], extension: string
                            ): Future[seq[AppInfo]] =
   ## Windows.System.ILauncherStatics2.FindFileHandlersAsync
-  let it = statics[ILauncherStatics2Vtbl]("Windows.System.Launcher")
+  let it = statics[ILauncherStatics2Vtbl](className(Launcher))
   let a0 = toWinRtString(extension)
   var op: pointer
   check it.vtbl.FindFileHandlersAsync(it.raw, a0.handle, op.addr
@@ -2772,7 +2772,7 @@ proc `preferredPlacement=`*(self: LauncherUIOptions, value: Placement) =
 
 proc originalImageFile*(_: typedesc[LockScreen]): Uri =
   ## Windows.System.UserProfile.ILockScreenStatics.get_OriginalImageFile
-  let it = statics[ILockScreenStaticsVtbl]("Windows.System.UserProfile.LockScreen")
+  let it = statics[ILockScreenStaticsVtbl](className(LockScreen))
   var ret: pointer
   check it.vtbl.get_OriginalImageFile(it.raw, ret.addr
                                      ), "LockScreen.originalImageFile"
@@ -2780,7 +2780,7 @@ proc originalImageFile*(_: typedesc[LockScreen]): Uri =
 
 proc getImageStream*(_: typedesc[LockScreen]): IRandomAccessStream =
   ## Windows.System.UserProfile.ILockScreenStatics.GetImageStream
-  let it = statics[ILockScreenStaticsVtbl]("Windows.System.UserProfile.LockScreen")
+  let it = statics[ILockScreenStaticsVtbl](className(LockScreen))
   var ret: pointer
   check it.vtbl.GetImageStream(it.raw, ret.addr), "LockScreen.getImageStream"
   adopt[IRandomAccessStream](ret)
@@ -2788,7 +2788,7 @@ proc getImageStream*(_: typedesc[LockScreen]): IRandomAccessStream =
 proc setImageFileAsync*(_: typedesc[LockScreen], value: SomeStorageFile
                        ): Future[void] =
   ## Windows.System.UserProfile.ILockScreenStatics.SetImageFileAsync
-  let it = statics[ILockScreenStaticsVtbl]("Windows.System.UserProfile.LockScreen")
+  let it = statics[ILockScreenStaticsVtbl](className(LockScreen))
   let a0 = queryInterface[IStorageFileVtbl](value)
   var op: pointer
   check it.vtbl.SetImageFileAsync(it.raw, a0.raw, op.addr
@@ -2798,7 +2798,7 @@ proc setImageFileAsync*(_: typedesc[LockScreen], value: SomeStorageFile
 proc setImageStreamAsync*(_: typedesc[LockScreen], value: SomeRandomAccessStream
                          ): Future[void] =
   ## Windows.System.UserProfile.ILockScreenStatics.SetImageStreamAsync
-  let it = statics[ILockScreenStaticsVtbl]("Windows.System.UserProfile.LockScreen")
+  let it = statics[ILockScreenStaticsVtbl](className(LockScreen))
   let a0 = queryInterface[IRandomAccessStreamVtbl](value)
   var op: pointer
   check it.vtbl.SetImageStreamAsync(it.raw, a0.raw, op.addr
@@ -2808,7 +2808,7 @@ proc setImageStreamAsync*(_: typedesc[LockScreen], value: SomeRandomAccessStream
 proc requestSetImageFeedAsync*(_: typedesc[LockScreen], syndicationFeedUri: Uri
                               ): Future[SetImageFeedResult] =
   ## Windows.System.UserProfile.ILockScreenImageFeedStatics.RequestSetImageFeedAsync
-  let it = statics[ILockScreenImageFeedStaticsVtbl]("Windows.System.UserProfile.LockScreen")
+  let it = statics[ILockScreenImageFeedStaticsVtbl](className(LockScreen))
   let a0 = queryInterface[IUriRuntimeClassVtbl](syndicationFeedUri)
   var op: pointer
   check it.vtbl.RequestSetImageFeedAsync(it.raw, a0.raw, op.addr
@@ -2817,7 +2817,7 @@ proc requestSetImageFeedAsync*(_: typedesc[LockScreen], syndicationFeedUri: Uri
 
 proc tryRemoveImageFeed*(_: typedesc[LockScreen]): bool =
   ## Windows.System.UserProfile.ILockScreenImageFeedStatics.TryRemoveImageFeed
-  let it = statics[ILockScreenImageFeedStaticsVtbl]("Windows.System.UserProfile.LockScreen")
+  let it = statics[ILockScreenImageFeedStaticsVtbl](className(LockScreen))
   var ret: bool
   check it.vtbl.TryRemoveImageFeed(it.raw, ret.addr
                                   ), "LockScreen.tryRemoveImageFeed"
@@ -2827,7 +2827,7 @@ proc tryRemoveImageFeed*(_: typedesc[LockScreen]): bool =
 
 proc appMemoryUsage*(_: typedesc[MemoryManager]): uint64 =
   ## Windows.System.IMemoryManagerStatics.get_AppMemoryUsage
-  let it = statics[IMemoryManagerStaticsVtbl]("Windows.System.MemoryManager")
+  let it = statics[IMemoryManagerStaticsVtbl](className(MemoryManager))
   var ret: uint64
   check it.vtbl.get_AppMemoryUsage(it.raw, ret.addr
                                   ), "MemoryManager.appMemoryUsage"
@@ -2835,7 +2835,7 @@ proc appMemoryUsage*(_: typedesc[MemoryManager]): uint64 =
 
 proc appMemoryUsageLimit*(_: typedesc[MemoryManager]): uint64 =
   ## Windows.System.IMemoryManagerStatics.get_AppMemoryUsageLimit
-  let it = statics[IMemoryManagerStaticsVtbl]("Windows.System.MemoryManager")
+  let it = statics[IMemoryManagerStaticsVtbl](className(MemoryManager))
   var ret: uint64
   check it.vtbl.get_AppMemoryUsageLimit(it.raw, ret.addr
                                        ), "MemoryManager.appMemoryUsageLimit"
@@ -2843,7 +2843,7 @@ proc appMemoryUsageLimit*(_: typedesc[MemoryManager]): uint64 =
 
 proc appMemoryUsageLevel*(_: typedesc[MemoryManager]): AppMemoryUsageLevel =
   ## Windows.System.IMemoryManagerStatics.get_AppMemoryUsageLevel
-  let it = statics[IMemoryManagerStaticsVtbl]("Windows.System.MemoryManager")
+  let it = statics[IMemoryManagerStaticsVtbl](className(MemoryManager))
   var ret: AppMemoryUsageLevel
   check it.vtbl.get_AppMemoryUsageLevel(it.raw, ret.addr
                                        ), "MemoryManager.appMemoryUsageLevel"
@@ -2854,7 +2854,7 @@ proc onAppMemoryUsageIncreased*(_: typedesc[MemoryManager],
                                ): EventRegistrationToken {.discardable.} =
   ## Windows.System.IMemoryManagerStatics.add_AppMemoryUsageIncreased
   ## The token is what `removeAppMemoryUsageIncreased` takes.
-  let it = statics[IMemoryManagerStaticsVtbl]("Windows.System.MemoryManager")
+  let it = statics[IMemoryManagerStaticsVtbl](className(MemoryManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -2864,7 +2864,7 @@ proc onAppMemoryUsageIncreased*(_: typedesc[MemoryManager],
 proc removeAppMemoryUsageIncreased*(_: typedesc[MemoryManager],
                                     token: EventRegistrationToken) =
   ## Windows.System.IMemoryManagerStatics.remove_AppMemoryUsageIncreased
-  let it = statics[IMemoryManagerStaticsVtbl]("Windows.System.MemoryManager")
+  let it = statics[IMemoryManagerStaticsVtbl](className(MemoryManager))
   check it.vtbl.remove_AppMemoryUsageIncreased(it.raw, token
                                               ), "MemoryManager.appMemoryUsageIncreased"
 
@@ -2873,7 +2873,7 @@ proc onAppMemoryUsageDecreased*(_: typedesc[MemoryManager],
                                ): EventRegistrationToken {.discardable.} =
   ## Windows.System.IMemoryManagerStatics.add_AppMemoryUsageDecreased
   ## The token is what `removeAppMemoryUsageDecreased` takes.
-  let it = statics[IMemoryManagerStaticsVtbl]("Windows.System.MemoryManager")
+  let it = statics[IMemoryManagerStaticsVtbl](className(MemoryManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -2883,7 +2883,7 @@ proc onAppMemoryUsageDecreased*(_: typedesc[MemoryManager],
 proc removeAppMemoryUsageDecreased*(_: typedesc[MemoryManager],
                                     token: EventRegistrationToken) =
   ## Windows.System.IMemoryManagerStatics.remove_AppMemoryUsageDecreased
-  let it = statics[IMemoryManagerStaticsVtbl]("Windows.System.MemoryManager")
+  let it = statics[IMemoryManagerStaticsVtbl](className(MemoryManager))
   check it.vtbl.remove_AppMemoryUsageDecreased(it.raw, token
                                               ), "MemoryManager.appMemoryUsageDecreased"
 
@@ -2892,7 +2892,7 @@ proc onAppMemoryUsageLimitChanging*(_: typedesc[MemoryManager],
                                    ): EventRegistrationToken {.discardable.} =
   ## Windows.System.IMemoryManagerStatics.add_AppMemoryUsageLimitChanging
   ## The token is what `removeAppMemoryUsageLimitChanging` takes.
-  let it = statics[IMemoryManagerStaticsVtbl]("Windows.System.MemoryManager")
+  let it = statics[IMemoryManagerStaticsVtbl](className(MemoryManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0),
             borrow[AppMemoryUsageLimitChangingEventArgs](a1))
@@ -2904,13 +2904,13 @@ proc onAppMemoryUsageLimitChanging*(_: typedesc[MemoryManager],
 proc removeAppMemoryUsageLimitChanging*(_: typedesc[MemoryManager],
                                         token: EventRegistrationToken) =
   ## Windows.System.IMemoryManagerStatics.remove_AppMemoryUsageLimitChanging
-  let it = statics[IMemoryManagerStaticsVtbl]("Windows.System.MemoryManager")
+  let it = statics[IMemoryManagerStaticsVtbl](className(MemoryManager))
   check it.vtbl.remove_AppMemoryUsageLimitChanging(it.raw, token
                                                   ), "MemoryManager.appMemoryUsageLimitChanging"
 
 proc getAppMemoryReport*(_: typedesc[MemoryManager]): AppMemoryReport =
   ## Windows.System.IMemoryManagerStatics2.GetAppMemoryReport
-  let it = statics[IMemoryManagerStatics2Vtbl]("Windows.System.MemoryManager")
+  let it = statics[IMemoryManagerStatics2Vtbl](className(MemoryManager))
   var ret: pointer
   check it.vtbl.GetAppMemoryReport(it.raw, ret.addr
                                   ), "MemoryManager.getAppMemoryReport"
@@ -2918,7 +2918,7 @@ proc getAppMemoryReport*(_: typedesc[MemoryManager]): AppMemoryReport =
 
 proc getProcessMemoryReport*(_: typedesc[MemoryManager]): ProcessMemoryReport =
   ## Windows.System.IMemoryManagerStatics2.GetProcessMemoryReport
-  let it = statics[IMemoryManagerStatics2Vtbl]("Windows.System.MemoryManager")
+  let it = statics[IMemoryManagerStatics2Vtbl](className(MemoryManager))
   var ret: pointer
   check it.vtbl.GetProcessMemoryReport(it.raw, ret.addr
                                       ), "MemoryManager.getProcessMemoryReport"
@@ -2927,7 +2927,7 @@ proc getProcessMemoryReport*(_: typedesc[MemoryManager]): ProcessMemoryReport =
 proc trySetAppMemoryUsageLimit*(_: typedesc[MemoryManager], value: uint64
                                ): bool =
   ## Windows.System.IMemoryManagerStatics3.TrySetAppMemoryUsageLimit
-  let it = statics[IMemoryManagerStatics3Vtbl]("Windows.System.MemoryManager")
+  let it = statics[IMemoryManagerStatics3Vtbl](className(MemoryManager))
   var ret: bool
   check it.vtbl.TrySetAppMemoryUsageLimit(it.raw, value, ret.addr
                                          ), "MemoryManager.trySetAppMemoryUsageLimit"
@@ -2935,7 +2935,7 @@ proc trySetAppMemoryUsageLimit*(_: typedesc[MemoryManager], value: uint64
 
 proc expectedAppMemoryUsageLimit*(_: typedesc[MemoryManager]): uint64 =
   ## Windows.System.IMemoryManagerStatics4.get_ExpectedAppMemoryUsageLimit
-  let it = statics[IMemoryManagerStatics4Vtbl]("Windows.System.MemoryManager")
+  let it = statics[IMemoryManagerStatics4Vtbl](className(MemoryManager))
   var ret: uint64
   check it.vtbl.get_ExpectedAppMemoryUsageLimit(it.raw, ret.addr
                                                ), "MemoryManager.expectedAppMemoryUsageLimit"
@@ -2980,7 +2980,7 @@ proc action*(self: PerformLocalActionRequestedEventArgs): RemoteDesktopLocalActi
 
 proc policy*(_: typedesc[PlatformAutomaticAppSignInManager]): PlatformAutomaticAppSignInPolicy =
   ## Windows.System.Profile.IPlatformAutomaticAppSignInManagerStatics.get_Policy
-  let it = statics[IPlatformAutomaticAppSignInManagerStaticsVtbl]("Windows.System.Profile.PlatformAutomaticAppSignInManager")
+  let it = statics[IPlatformAutomaticAppSignInManagerStaticsVtbl](className(PlatformAutomaticAppSignInManager))
   var ret: PlatformAutomaticAppSignInPolicy
   check it.vtbl.get_Policy(it.raw, ret.addr
                           ), "PlatformAutomaticAppSignInManager.policy"
@@ -2991,7 +2991,7 @@ proc policy*(_: typedesc[PlatformAutomaticAppSignInManager]): PlatformAutomaticA
 proc isScenarioEnabled*(_: typedesc[PlatformDiagnosticActions], scenarioId: GUID
                        ): bool =
   ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics.IsScenarioEnabled
-  let it = statics[IPlatformDiagnosticActionsStaticsVtbl]("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions")
+  let it = statics[IPlatformDiagnosticActionsStaticsVtbl](className(PlatformDiagnosticActions))
   var ret: bool
   check it.vtbl.IsScenarioEnabled(it.raw, scenarioId, ret.addr
                                  ), "PlatformDiagnosticActions.isScenarioEnabled"
@@ -3005,7 +3005,7 @@ proc tryEscalateScenario*(_: typedesc[PlatformDiagnosticActions],
                           forceEscalationUpload: bool,
                           triggers: Table[string, string]): bool =
   ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics.TryEscalateScenario
-  let it = statics[IPlatformDiagnosticActionsStaticsVtbl]("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions")
+  let it = statics[IPlatformDiagnosticActionsStaticsVtbl](className(PlatformDiagnosticActions))
   let a2 = toWinRtString(outputDirectory)
   let a5 = asMap[string, string, Table[string, string]](triggers)
   var ret: bool
@@ -3022,7 +3022,7 @@ proc downloadLatestSettingsForNamespace*(_: typedesc[PlatformDiagnosticActions],
                                          downloadOverBattery: bool
                                         ): PlatformDiagnosticActionState =
   ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics.DownloadLatestSettingsForNamespace
-  let it = statics[IPlatformDiagnosticActionsStaticsVtbl]("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions")
+  let it = statics[IPlatformDiagnosticActionsStaticsVtbl](className(PlatformDiagnosticActions))
   let a0 = toWinRtString(partner)
   let a1 = toWinRtString(feature)
   var ret: PlatformDiagnosticActionState
@@ -3035,7 +3035,7 @@ proc downloadLatestSettingsForNamespace*(_: typedesc[PlatformDiagnosticActions],
 
 proc getActiveScenarioList*(_: typedesc[PlatformDiagnosticActions]): seq[GUID] =
   ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics.GetActiveScenarioList
-  let it = statics[IPlatformDiagnosticActionsStaticsVtbl]("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions")
+  let it = statics[IPlatformDiagnosticActionsStaticsVtbl](className(PlatformDiagnosticActions))
   var ret: pointer
   check it.vtbl.GetActiveScenarioList(it.raw, ret.addr
                                      ), "PlatformDiagnosticActions.getActiveScenarioList"
@@ -3046,7 +3046,7 @@ proc forceUpload*(_: typedesc[PlatformDiagnosticActions],
                   uploadOverCostedNetwork: bool, uploadOverBattery: bool
                  ): PlatformDiagnosticActionState =
   ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics.ForceUpload
-  let it = statics[IPlatformDiagnosticActionsStaticsVtbl]("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions")
+  let it = statics[IPlatformDiagnosticActionsStaticsVtbl](className(PlatformDiagnosticActions))
   var ret: PlatformDiagnosticActionState
   check it.vtbl.ForceUpload(it.raw, latency, uploadOverCostedNetwork,
                             uploadOverBattery, ret.addr
@@ -3058,7 +3058,7 @@ proc isTraceRunning*(_: typedesc[PlatformDiagnosticActions],
                      scenarioId: GUID, traceProfileHash: uint64
                     ): PlatformDiagnosticTraceSlotState =
   ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics.IsTraceRunning
-  let it = statics[IPlatformDiagnosticActionsStaticsVtbl]("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions")
+  let it = statics[IPlatformDiagnosticActionsStaticsVtbl](className(PlatformDiagnosticActions))
   var ret: PlatformDiagnosticTraceSlotState
   check it.vtbl.IsTraceRunning(it.raw, slotType, scenarioId, traceProfileHash,
                                ret.addr
@@ -3069,7 +3069,7 @@ proc getActiveTraceRuntime*(_: typedesc[PlatformDiagnosticActions],
                             slotType: PlatformDiagnosticTraceSlotType
                            ): PlatformDiagnosticTraceRuntimeInfo =
   ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics.GetActiveTraceRuntime
-  let it = statics[IPlatformDiagnosticActionsStaticsVtbl]("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions")
+  let it = statics[IPlatformDiagnosticActionsStaticsVtbl](className(PlatformDiagnosticActions))
   var ret: pointer
   check it.vtbl.GetActiveTraceRuntime(it.raw, slotType, ret.addr
                                      ), "PlatformDiagnosticActions.getActiveTraceRuntime"
@@ -3079,7 +3079,7 @@ proc getKnownTraceList*(_: typedesc[PlatformDiagnosticActions],
                         slotType: PlatformDiagnosticTraceSlotType
                        ): seq[PlatformDiagnosticTraceInfo] =
   ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics.GetKnownTraceList
-  let it = statics[IPlatformDiagnosticActionsStaticsVtbl]("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions")
+  let it = statics[IPlatformDiagnosticActionsStaticsVtbl](className(PlatformDiagnosticActions))
   var ret: pointer
   check it.vtbl.GetKnownTraceList(it.raw, slotType, ret.addr
                                  ), "PlatformDiagnosticActions.getKnownTraceList"
@@ -3157,7 +3157,7 @@ proc etwRuntimeFileTime*(self: PlatformDiagnosticTraceRuntimeInfo): int64 =
 
 proc collectionLevel*(_: typedesc[PlatformDiagnosticsAndUsageDataSettings]): PlatformDataCollectionLevel =
   ## Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics.get_CollectionLevel
-  let it = statics[IPlatformDiagnosticsAndUsageDataSettingsStaticsVtbl]("Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings")
+  let it = statics[IPlatformDiagnosticsAndUsageDataSettingsStaticsVtbl](className(PlatformDiagnosticsAndUsageDataSettings))
   var ret: PlatformDataCollectionLevel
   check it.vtbl.get_CollectionLevel(it.raw, ret.addr
                                    ), "PlatformDiagnosticsAndUsageDataSettings.collectionLevel"
@@ -3168,7 +3168,7 @@ proc onCollectionLevelChanged*(_: typedesc[PlatformDiagnosticsAndUsageDataSettin
                               ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics.add_CollectionLevelChanged
   ## The token is what `removeCollectionLevelChanged` takes.
-  let it = statics[IPlatformDiagnosticsAndUsageDataSettingsStaticsVtbl]("Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings")
+  let it = statics[IPlatformDiagnosticsAndUsageDataSettingsStaticsVtbl](className(PlatformDiagnosticsAndUsageDataSettings))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -3178,14 +3178,14 @@ proc onCollectionLevelChanged*(_: typedesc[PlatformDiagnosticsAndUsageDataSettin
 proc removeCollectionLevelChanged*(_: typedesc[PlatformDiagnosticsAndUsageDataSettings],
                                    token: EventRegistrationToken) =
   ## Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics.remove_CollectionLevelChanged
-  let it = statics[IPlatformDiagnosticsAndUsageDataSettingsStaticsVtbl]("Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings")
+  let it = statics[IPlatformDiagnosticsAndUsageDataSettingsStaticsVtbl](className(PlatformDiagnosticsAndUsageDataSettings))
   check it.vtbl.remove_CollectionLevelChanged(it.raw, token
                                              ), "PlatformDiagnosticsAndUsageDataSettings.collectionLevelChanged"
 
 proc canCollectDiagnostics*(_: typedesc[PlatformDiagnosticsAndUsageDataSettings],
                             level: PlatformDataCollectionLevel): bool =
   ## Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics.CanCollectDiagnostics
-  let it = statics[IPlatformDiagnosticsAndUsageDataSettingsStaticsVtbl]("Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings")
+  let it = statics[IPlatformDiagnosticsAndUsageDataSettingsStaticsVtbl](className(PlatformDiagnosticsAndUsageDataSettings))
   var ret: bool
   check it.vtbl.CanCollectDiagnostics(it.raw, level, ret.addr
                                      ), "PlatformDiagnosticsAndUsageDataSettings.canCollectDiagnostics"
@@ -3196,7 +3196,7 @@ proc canCollectDiagnostics*(_: typedesc[PlatformDiagnosticsAndUsageDataSettings]
 proc register*(_: typedesc[PlatformTelemetryClient], id: string
               ): PlatformTelemetryRegistrationResult =
   ## Windows.System.Diagnostics.Telemetry.IPlatformTelemetryClientStatics.Register
-  let it = statics[IPlatformTelemetryClientStaticsVtbl]("Windows.System.Diagnostics.Telemetry.PlatformTelemetryClient")
+  let it = statics[IPlatformTelemetryClientStaticsVtbl](className(PlatformTelemetryClient))
   let a0 = toWinRtString(id)
   var ret: pointer
   check it.vtbl.Register(it.raw, a0.handle, ret.addr
@@ -3207,7 +3207,7 @@ proc register*(_: typedesc[PlatformTelemetryClient], id: string,
                settings: PlatformTelemetryRegistrationSettings
               ): PlatformTelemetryRegistrationResult =
   ## Windows.System.Diagnostics.Telemetry.IPlatformTelemetryClientStatics.Register
-  let it = statics[IPlatformTelemetryClientStaticsVtbl]("Windows.System.Diagnostics.Telemetry.PlatformTelemetryClient")
+  let it = statics[IPlatformTelemetryClientStaticsVtbl](className(PlatformTelemetryClient))
   let a0 = toWinRtString(id)
   let a1 = queryInterface[IPlatformTelemetryRegistrationSettingsVtbl](settings)
   var ret: pointer
@@ -3265,7 +3265,7 @@ proc `uploadQuotaSize=`*(self: PlatformTelemetryRegistrationSettings,
 
 proc energySaverStatus*(_: typedesc[PowerManager]): EnergySaverStatus =
   ## Windows.System.Power.IPowerManagerStatics.get_EnergySaverStatus
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   var ret: EnergySaverStatus
   check it.vtbl.get_EnergySaverStatus(it.raw, ret.addr
                                      ), "PowerManager.energySaverStatus"
@@ -3276,7 +3276,7 @@ proc onEnergySaverStatusChanged*(_: typedesc[PowerManager],
                                 ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.IPowerManagerStatics.add_EnergySaverStatusChanged
   ## The token is what `removeEnergySaverStatusChanged` takes.
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -3286,13 +3286,13 @@ proc onEnergySaverStatusChanged*(_: typedesc[PowerManager],
 proc removeEnergySaverStatusChanged*(_: typedesc[PowerManager],
                                      token: EventRegistrationToken) =
   ## Windows.System.Power.IPowerManagerStatics.remove_EnergySaverStatusChanged
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   check it.vtbl.remove_EnergySaverStatusChanged(it.raw, token
                                                ), "PowerManager.energySaverStatusChanged"
 
 proc batteryStatus*(_: typedesc[PowerManager]): BatteryStatus =
   ## Windows.System.Power.IPowerManagerStatics.get_BatteryStatus
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   var ret: BatteryStatus
   check it.vtbl.get_BatteryStatus(it.raw, ret.addr
                                  ), "PowerManager.batteryStatus"
@@ -3303,7 +3303,7 @@ proc onBatteryStatusChanged*(_: typedesc[PowerManager],
                             ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.IPowerManagerStatics.add_BatteryStatusChanged
   ## The token is what `removeBatteryStatusChanged` takes.
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -3313,13 +3313,13 @@ proc onBatteryStatusChanged*(_: typedesc[PowerManager],
 proc removeBatteryStatusChanged*(_: typedesc[PowerManager],
                                  token: EventRegistrationToken) =
   ## Windows.System.Power.IPowerManagerStatics.remove_BatteryStatusChanged
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   check it.vtbl.remove_BatteryStatusChanged(it.raw, token
                                            ), "PowerManager.batteryStatusChanged"
 
 proc powerSupplyStatus*(_: typedesc[PowerManager]): PowerSupplyStatus =
   ## Windows.System.Power.IPowerManagerStatics.get_PowerSupplyStatus
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   var ret: PowerSupplyStatus
   check it.vtbl.get_PowerSupplyStatus(it.raw, ret.addr
                                      ), "PowerManager.powerSupplyStatus"
@@ -3330,7 +3330,7 @@ proc onPowerSupplyStatusChanged*(_: typedesc[PowerManager],
                                 ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.IPowerManagerStatics.add_PowerSupplyStatusChanged
   ## The token is what `removePowerSupplyStatusChanged` takes.
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -3340,13 +3340,13 @@ proc onPowerSupplyStatusChanged*(_: typedesc[PowerManager],
 proc removePowerSupplyStatusChanged*(_: typedesc[PowerManager],
                                      token: EventRegistrationToken) =
   ## Windows.System.Power.IPowerManagerStatics.remove_PowerSupplyStatusChanged
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   check it.vtbl.remove_PowerSupplyStatusChanged(it.raw, token
                                                ), "PowerManager.powerSupplyStatusChanged"
 
 proc remainingChargePercent*(_: typedesc[PowerManager]): int32 =
   ## Windows.System.Power.IPowerManagerStatics.get_RemainingChargePercent
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   var ret: int32
   check it.vtbl.get_RemainingChargePercent(it.raw, ret.addr
                                           ), "PowerManager.remainingChargePercent"
@@ -3357,7 +3357,7 @@ proc onRemainingChargePercentChanged*(_: typedesc[PowerManager],
                                      ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.IPowerManagerStatics.add_RemainingChargePercentChanged
   ## The token is what `removeRemainingChargePercentChanged` takes.
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -3367,13 +3367,13 @@ proc onRemainingChargePercentChanged*(_: typedesc[PowerManager],
 proc removeRemainingChargePercentChanged*(_: typedesc[PowerManager],
                                           token: EventRegistrationToken) =
   ## Windows.System.Power.IPowerManagerStatics.remove_RemainingChargePercentChanged
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   check it.vtbl.remove_RemainingChargePercentChanged(it.raw, token
                                                     ), "PowerManager.remainingChargePercentChanged"
 
 proc remainingDischargeTime*(_: typedesc[PowerManager]): TimeSpan =
   ## Windows.System.Power.IPowerManagerStatics.get_RemainingDischargeTime
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   var ret: TimeSpan
   check it.vtbl.get_RemainingDischargeTime(it.raw, ret.addr
                                           ), "PowerManager.remainingDischargeTime"
@@ -3384,7 +3384,7 @@ proc onRemainingDischargeTimeChanged*(_: typedesc[PowerManager],
                                      ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.IPowerManagerStatics.add_RemainingDischargeTimeChanged
   ## The token is what `removeRemainingDischargeTimeChanged` takes.
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -3394,7 +3394,7 @@ proc onRemainingDischargeTimeChanged*(_: typedesc[PowerManager],
 proc removeRemainingDischargeTimeChanged*(_: typedesc[PowerManager],
                                           token: EventRegistrationToken) =
   ## Windows.System.Power.IPowerManagerStatics.remove_RemainingDischargeTimeChanged
-  let it = statics[IPowerManagerStaticsVtbl]("Windows.System.Power.PowerManager")
+  let it = statics[IPowerManagerStaticsVtbl](className(PowerManager))
   check it.vtbl.remove_RemainingDischargeTimeChanged(it.raw, token
                                                     ), "PowerManager.remainingDischargeTimeChanged"
 
@@ -3428,7 +3428,7 @@ proc getConfigurationNumericParameters*(self: PowerThermalChannelConfiguration):
 
 proc newPowerThermalChannelDataConsumer*(channelIds: openArray[PowerThermalChannelId]): PowerThermalChannelDataConsumer =
   ## Windows.System.Power.Thermal.IPowerThermalChannelDataConsumerFactory.CreateInstance
-  let it = statics[IPowerThermalChannelDataConsumerFactoryVtbl]("Windows.System.Power.Thermal.PowerThermalChannelDataConsumer")
+  let it = statics[IPowerThermalChannelDataConsumerFactoryVtbl](className(PowerThermalChannelDataConsumer))
   let a0 = asArray[PowerThermalChannelId, PowerThermalChannelId](channelIds)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.count, a0.data, ret.addr
@@ -3516,7 +3516,7 @@ proc removeBackEndStatusChanged*(self: PowerThermalChannelDataConsumer,
 
 proc newPowerThermalChannelDataProducer*(channelIds: openArray[PowerThermalChannelId]): PowerThermalChannelDataProducer =
   ## Windows.System.Power.Thermal.IPowerThermalChannelDataProducerFactory.CreateInstance
-  let it = statics[IPowerThermalChannelDataProducerFactoryVtbl]("Windows.System.Power.Thermal.PowerThermalChannelDataProducer")
+  let it = statics[IPowerThermalChannelDataProducerFactoryVtbl](className(PowerThermalChannelDataProducer))
   let a0 = asArray[PowerThermalChannelId, PowerThermalChannelId](channelIds)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.count, a0.data, ret.addr
@@ -3609,7 +3609,7 @@ proc getData*(self: PowerThermalChannelDataReceivedEventArgs): seq[PowerThermalC
 
 proc current*(_: typedesc[PowerThermalChannelDiagnostics]): PowerThermalChannelDiagnostics =
   ## Windows.System.Power.Thermal.IPowerThermalChannelDiagnosticsStatics.get_Current
-  let it = statics[IPowerThermalChannelDiagnosticsStaticsVtbl]("Windows.System.Power.Thermal.PowerThermalChannelDiagnostics")
+  let it = statics[IPowerThermalChannelDiagnosticsStaticsVtbl](className(PowerThermalChannelDiagnostics))
   var ret: pointer
   check it.vtbl.get_Current(it.raw, ret.addr
                            ), "PowerThermalChannelDiagnostics.current"
@@ -3619,7 +3619,7 @@ proc getDataForChannels*(_: typedesc[PowerThermalChannelDiagnostics],
                          channelIds: openArray[PowerThermalChannelId]
                         ): seq[PowerThermalChannelData] =
   ## Windows.System.Power.Thermal.IPowerThermalChannelDiagnosticsStatics.GetDataForChannels
-  let it = statics[IPowerThermalChannelDiagnosticsStaticsVtbl]("Windows.System.Power.Thermal.PowerThermalChannelDiagnostics")
+  let it = statics[IPowerThermalChannelDiagnosticsStaticsVtbl](className(PowerThermalChannelDiagnostics))
   let a0 = asArray[PowerThermalChannelId, PowerThermalChannelId](channelIds)
   var retSize: uint32
   var ret: ptr PowerThermalChannelData
@@ -3633,7 +3633,7 @@ proc getDataForChannels*(_: typedesc[PowerThermalChannelDiagnostics],
 proc findChannels*(_: typedesc[PowerThermalChannelFinder],
                    channelInterfaceType: GUID): seq[PowerThermalChannelId] =
   ## Windows.System.Power.Thermal.IPowerThermalChannelFinderStatics.FindChannels
-  let it = statics[IPowerThermalChannelFinderStaticsVtbl]("Windows.System.Power.Thermal.PowerThermalChannelFinder")
+  let it = statics[IPowerThermalChannelFinderStaticsVtbl](className(PowerThermalChannelFinder))
   var retSize: uint32
   var ret: ptr PowerThermalChannelId
   check it.vtbl.FindChannels(it.raw, channelInterfaceType, retSize.addr,
@@ -3644,7 +3644,7 @@ proc findChannels*(_: typedesc[PowerThermalChannelFinder],
 
 proc newPreallocatedWorkItem*(handler: proc(operation: IAsyncAction)): PreallocatedWorkItem =
   ## Windows.System.Threading.Core.IPreallocatedWorkItemFactory.CreateWorkItem
-  let it = statics[IPreallocatedWorkItemFactoryVtbl]("Windows.System.Threading.Core.PreallocatedWorkItem")
+  let it = statics[IPreallocatedWorkItemFactoryVtbl](className(PreallocatedWorkItem))
   proc shim0(a0: pointer) =
     handler(borrow[IAsyncAction](a0))
   let d0 = newDelegate(WorkItemHandlerVtbl, shim0)
@@ -3657,7 +3657,7 @@ proc newPreallocatedWorkItem*(handler: proc(operation: IAsyncAction),
                               priority: WorkItemPriority
                              ): PreallocatedWorkItem =
   ## Windows.System.Threading.Core.IPreallocatedWorkItemFactory.CreateWorkItemWithPriority
-  let it = statics[IPreallocatedWorkItemFactoryVtbl]("Windows.System.Threading.Core.PreallocatedWorkItem")
+  let it = statics[IPreallocatedWorkItemFactoryVtbl](className(PreallocatedWorkItem))
   proc shim0(a0: pointer) =
     handler(borrow[IAsyncAction](a0))
   let d0 = newDelegate(WorkItemHandlerVtbl, shim0)
@@ -3670,7 +3670,7 @@ proc newPreallocatedWorkItem*(handler: proc(operation: IAsyncAction),
                               priority: WorkItemPriority,
                               options: WorkItemOptions): PreallocatedWorkItem =
   ## Windows.System.Threading.Core.IPreallocatedWorkItemFactory.CreateWorkItemWithPriorityAndOptions
-  let it = statics[IPreallocatedWorkItemFactoryVtbl]("Windows.System.Threading.Core.PreallocatedWorkItem")
+  let it = statics[IPreallocatedWorkItemFactoryVtbl](className(PreallocatedWorkItem))
   proc shim0(a0: pointer) =
     handler(borrow[IAsyncAction](a0))
   let d0 = newDelegate(WorkItemHandlerVtbl, shim0)
@@ -3717,7 +3717,7 @@ proc userTime*(self: ProcessCpuUsageReport): TimeSpan =
 
 proc getForProcesses*(_: typedesc[ProcessDiagnosticInfo]): seq[ProcessDiagnosticInfo] =
   ## Windows.System.Diagnostics.IProcessDiagnosticInfoStatics.GetForProcesses
-  let it = statics[IProcessDiagnosticInfoStaticsVtbl]("Windows.System.Diagnostics.ProcessDiagnosticInfo")
+  let it = statics[IProcessDiagnosticInfoStaticsVtbl](className(ProcessDiagnosticInfo))
   var ret: pointer
   check it.vtbl.GetForProcesses(it.raw, ret.addr
                                ), "ProcessDiagnosticInfo.getForProcesses"
@@ -3725,7 +3725,7 @@ proc getForProcesses*(_: typedesc[ProcessDiagnosticInfo]): seq[ProcessDiagnostic
 
 proc getForCurrentProcess*(_: typedesc[ProcessDiagnosticInfo]): ProcessDiagnosticInfo =
   ## Windows.System.Diagnostics.IProcessDiagnosticInfoStatics.GetForCurrentProcess
-  let it = statics[IProcessDiagnosticInfoStaticsVtbl]("Windows.System.Diagnostics.ProcessDiagnosticInfo")
+  let it = statics[IProcessDiagnosticInfoStaticsVtbl](className(ProcessDiagnosticInfo))
   var ret: pointer
   check it.vtbl.GetForCurrentProcess(it.raw, ret.addr
                                     ), "ProcessDiagnosticInfo.getForCurrentProcess"
@@ -3734,7 +3734,7 @@ proc getForCurrentProcess*(_: typedesc[ProcessDiagnosticInfo]): ProcessDiagnosti
 proc tryGetForProcessId*(_: typedesc[ProcessDiagnosticInfo], processId: uint32
                         ): ProcessDiagnosticInfo =
   ## Windows.System.Diagnostics.IProcessDiagnosticInfoStatics2.TryGetForProcessId
-  let it = statics[IProcessDiagnosticInfoStatics2Vtbl]("Windows.System.Diagnostics.ProcessDiagnosticInfo")
+  let it = statics[IProcessDiagnosticInfoStatics2Vtbl](className(ProcessDiagnosticInfo))
   var ret: pointer
   check it.vtbl.TryGetForProcessId(it.raw, processId, ret.addr
                                   ), "ProcessDiagnosticInfo.tryGetForProcessId"
@@ -3874,7 +3874,7 @@ proc otherBytesCount*(self: ProcessDiskUsageReport): int64 =
 proc runToCompletionAsync*(_: typedesc[ProcessLauncher], fileName: string,
                            args: string): Future[ProcessLauncherResult] =
   ## Windows.System.IProcessLauncherStatics.RunToCompletionAsync
-  let it = statics[IProcessLauncherStaticsVtbl]("Windows.System.ProcessLauncher")
+  let it = statics[IProcessLauncherStaticsVtbl](className(ProcessLauncher))
   let a0 = toWinRtString(fileName)
   let a1 = toWinRtString(args)
   var op: pointer
@@ -3886,7 +3886,7 @@ proc runToCompletionAsync*(_: typedesc[ProcessLauncher], fileName: string,
                            args: string, options: ProcessLauncherOptions
                           ): Future[ProcessLauncherResult] =
   ## Windows.System.IProcessLauncherStatics.RunToCompletionAsync
-  let it = statics[IProcessLauncherStaticsVtbl]("Windows.System.ProcessLauncher")
+  let it = statics[IProcessLauncherStaticsVtbl](className(ProcessLauncher))
   let a0 = toWinRtString(fileName)
   let a1 = toWinRtString(args)
   let a2 = queryInterface[IProcessLauncherOptionsVtbl](options)
@@ -4110,7 +4110,7 @@ proc reportCompleted*(self: ProtocolForResultsOperation, data: ValueSet) =
 proc getForLaunchUri*(_: typedesc[RemoteDesktopConnectionInfo], launchUri: Uri,
                       windowId: WindowId): RemoteDesktopConnectionInfo =
   ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionInfoStatics.GetForLaunchUri
-  let it = statics[IRemoteDesktopConnectionInfoStaticsVtbl]("Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionInfo")
+  let it = statics[IRemoteDesktopConnectionInfoStaticsVtbl](className(RemoteDesktopConnectionInfo))
   let a0 = queryInterface[IUriRuntimeClassVtbl](launchUri)
   var ret: pointer
   check it.vtbl.GetForLaunchUri(it.raw, a0.raw, windowId, ret.addr
@@ -4140,7 +4140,7 @@ proc performLocalActionFromRemote*(self: RemoteDesktopConnectionInfo,
 
 proc isSwitchSupported*(_: typedesc[RemoteDesktopConnectionRemoteInfo]): bool =
   ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfoStatics.IsSwitchSupported
-  let it = statics[IRemoteDesktopConnectionRemoteInfoStaticsVtbl]("Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo")
+  let it = statics[IRemoteDesktopConnectionRemoteInfoStaticsVtbl](className(RemoteDesktopConnectionRemoteInfo))
   var ret: bool
   check it.vtbl.IsSwitchSupported(it.raw, ret.addr
                                  ), "RemoteDesktopConnectionRemoteInfo.isSwitchSupported"
@@ -4149,7 +4149,7 @@ proc isSwitchSupported*(_: typedesc[RemoteDesktopConnectionRemoteInfo]): bool =
 proc getForLaunchUri*(_: typedesc[RemoteDesktopConnectionRemoteInfo],
                       launchUri: Uri): RemoteDesktopConnectionRemoteInfo =
   ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfoStatics.GetForLaunchUri
-  let it = statics[IRemoteDesktopConnectionRemoteInfoStaticsVtbl]("Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo")
+  let it = statics[IRemoteDesktopConnectionRemoteInfoStaticsVtbl](className(RemoteDesktopConnectionRemoteInfo))
   let a0 = queryInterface[IUriRuntimeClassVtbl](launchUri)
   var ret: pointer
   check it.vtbl.GetForLaunchUri(it.raw, a0.raw, ret.addr
@@ -4207,7 +4207,7 @@ proc removePerformLocalActionRequested*(self: RemoteDesktopConnectionRemoteInfo,
 
 proc newRemoteDesktopInfo*(id: string, displayName: string): RemoteDesktopInfo =
   ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfoFactory.CreateInstance
-  let it = statics[IRemoteDesktopInfoFactoryVtbl]("Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo")
+  let it = statics[IRemoteDesktopInfoFactoryVtbl](className(RemoteDesktopInfo))
   let a0 = toWinRtString(id)
   let a1 = toWinRtString(displayName)
   var ret: pointer
@@ -4234,7 +4234,7 @@ proc id*(self: RemoteDesktopInfo): string =
 
 proc desktopInfos*(_: typedesc[RemoteDesktopRegistrar]): seq[RemoteDesktopInfo] =
   ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopRegistrarStatics.get_DesktopInfos
-  let it = statics[IRemoteDesktopRegistrarStaticsVtbl]("Windows.System.RemoteDesktop.Provider.RemoteDesktopRegistrar")
+  let it = statics[IRemoteDesktopRegistrarStaticsVtbl](className(RemoteDesktopRegistrar))
   var ret: pointer
   check it.vtbl.get_DesktopInfos(it.raw, ret.addr
                                 ), "RemoteDesktopRegistrar.desktopInfos"
@@ -4242,7 +4242,7 @@ proc desktopInfos*(_: typedesc[RemoteDesktopRegistrar]): seq[RemoteDesktopInfo] 
 
 proc isSwitchToLocalSessionEnabled*(_: typedesc[RemoteDesktopRegistrar]): bool =
   ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopRegistrarStatics.IsSwitchToLocalSessionEnabled
-  let it = statics[IRemoteDesktopRegistrarStaticsVtbl]("Windows.System.RemoteDesktop.Provider.RemoteDesktopRegistrar")
+  let it = statics[IRemoteDesktopRegistrarStaticsVtbl](className(RemoteDesktopRegistrar))
   var ret: bool
   check it.vtbl.IsSwitchToLocalSessionEnabled(it.raw, ret.addr
                                              ), "RemoteDesktopRegistrar.isSwitchToLocalSessionEnabled"
@@ -4254,7 +4254,7 @@ proc launchUriAsync*(_: typedesc[RemoteLauncher],
                      remoteSystemConnectionRequest: RemoteSystemConnectionRequest,
                      uri: Uri): Future[RemoteLaunchUriStatus] =
   ## Windows.System.IRemoteLauncherStatics.LaunchUriAsync
-  let it = statics[IRemoteLauncherStaticsVtbl]("Windows.System.RemoteLauncher")
+  let it = statics[IRemoteLauncherStaticsVtbl](className(RemoteLauncher))
   let a0 = queryInterface[IRemoteSystemConnectionRequestVtbl](remoteSystemConnectionRequest)
   let a1 = queryInterface[IUriRuntimeClassVtbl](uri)
   var op: pointer
@@ -4267,7 +4267,7 @@ proc launchUriAsync*(_: typedesc[RemoteLauncher],
                      uri: Uri, options: RemoteLauncherOptions
                     ): Future[RemoteLaunchUriStatus] =
   ## Windows.System.IRemoteLauncherStatics.LaunchUriAsync
-  let it = statics[IRemoteLauncherStaticsVtbl]("Windows.System.RemoteLauncher")
+  let it = statics[IRemoteLauncherStaticsVtbl](className(RemoteLauncher))
   let a0 = queryInterface[IRemoteSystemConnectionRequestVtbl](remoteSystemConnectionRequest)
   let a1 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a2 = queryInterface[IRemoteLauncherOptionsVtbl](options)
@@ -4281,7 +4281,7 @@ proc launchUriAsync*(_: typedesc[RemoteLauncher],
                      uri: Uri, options: RemoteLauncherOptions,
                      inputData: ValueSet): Future[RemoteLaunchUriStatus] =
   ## Windows.System.IRemoteLauncherStatics.LaunchUriAsync
-  let it = statics[IRemoteLauncherStaticsVtbl]("Windows.System.RemoteLauncher")
+  let it = statics[IRemoteLauncherStaticsVtbl](className(RemoteLauncher))
   let a0 = queryInterface[IRemoteSystemConnectionRequestVtbl](remoteSystemConnectionRequest)
   let a1 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a2 = queryInterface[IRemoteLauncherOptionsVtbl](options)
@@ -4325,7 +4325,7 @@ proc preferredAppIds*(self: RemoteLauncherOptions): seq[string] =
 proc findByHostNameAsync*(_: typedesc[RemoteSystem], hostName: HostName
                          ): Future[RemoteSystem] =
   ## Windows.System.RemoteSystems.IRemoteSystemStatics.FindByHostNameAsync
-  let it = statics[IRemoteSystemStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystem")
+  let it = statics[IRemoteSystemStaticsVtbl](className(RemoteSystem))
   let a0 = queryInterface[IHostNameVtbl](hostName)
   var op: pointer
   check it.vtbl.FindByHostNameAsync(it.raw, a0.raw, op.addr
@@ -4334,7 +4334,7 @@ proc findByHostNameAsync*(_: typedesc[RemoteSystem], hostName: HostName
 
 proc createWatcher*(_: typedesc[RemoteSystem]): RemoteSystemWatcher =
   ## Windows.System.RemoteSystems.IRemoteSystemStatics.CreateWatcher
-  let it = statics[IRemoteSystemStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystem")
+  let it = statics[IRemoteSystemStaticsVtbl](className(RemoteSystem))
   var ret: pointer
   check it.vtbl.CreateWatcher(it.raw, ret.addr), "RemoteSystem.createWatcher"
   adopt[RemoteSystemWatcher](ret)
@@ -4342,7 +4342,7 @@ proc createWatcher*(_: typedesc[RemoteSystem]): RemoteSystemWatcher =
 proc createWatcher*(_: typedesc[RemoteSystem], filters: seq[IRemoteSystemFilter]
                    ): RemoteSystemWatcher =
   ## Windows.System.RemoteSystems.IRemoteSystemStatics.CreateWatcher
-  let it = statics[IRemoteSystemStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystem")
+  let it = statics[IRemoteSystemStaticsVtbl](className(RemoteSystem))
   let a0 = asCollection[IRemoteSystemFilter, seq[IRemoteSystemFilter]](filters)
   var ret: pointer
   check it.vtbl.CreateWatcher2(it.raw, a0.raw, ret.addr
@@ -4351,7 +4351,7 @@ proc createWatcher*(_: typedesc[RemoteSystem], filters: seq[IRemoteSystemFilter]
 
 proc requestAccessAsync*(_: typedesc[RemoteSystem]): Future[RemoteSystemAccessStatus] =
   ## Windows.System.RemoteSystems.IRemoteSystemStatics.RequestAccessAsync
-  let it = statics[IRemoteSystemStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystem")
+  let it = statics[IRemoteSystemStaticsVtbl](className(RemoteSystem))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "RemoteSystem.requestAccessAsync"
@@ -4360,7 +4360,7 @@ proc requestAccessAsync*(_: typedesc[RemoteSystem]): Future[RemoteSystemAccessSt
 proc createWatcherForUser*(_: typedesc[RemoteSystem], user: User
                           ): RemoteSystemWatcher =
   ## Windows.System.RemoteSystems.IRemoteSystemStatics3.CreateWatcherForUser
-  let it = statics[IRemoteSystemStatics3Vtbl]("Windows.System.RemoteSystems.RemoteSystem")
+  let it = statics[IRemoteSystemStatics3Vtbl](className(RemoteSystem))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.CreateWatcherForUser(it.raw, a0.raw, ret.addr
@@ -4371,7 +4371,7 @@ proc createWatcherForUser*(_: typedesc[RemoteSystem], user: User,
                            filters: seq[IRemoteSystemFilter]
                           ): RemoteSystemWatcher =
   ## Windows.System.RemoteSystems.IRemoteSystemStatics3.CreateWatcherForUser
-  let it = statics[IRemoteSystemStatics3Vtbl]("Windows.System.RemoteSystems.RemoteSystem")
+  let it = statics[IRemoteSystemStatics3Vtbl](className(RemoteSystem))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = asCollection[IRemoteSystemFilter, seq[IRemoteSystemFilter]](filters)
   var ret: pointer
@@ -4382,7 +4382,7 @@ proc createWatcherForUser*(_: typedesc[RemoteSystem], user: User,
 proc isAuthorizationKindEnabled*(_: typedesc[RemoteSystem],
                                  kind: RemoteSystemAuthorizationKind): bool =
   ## Windows.System.RemoteSystems.IRemoteSystemStatics2.IsAuthorizationKindEnabled
-  let it = statics[IRemoteSystemStatics2Vtbl]("Windows.System.RemoteSystems.RemoteSystem")
+  let it = statics[IRemoteSystemStatics2Vtbl](className(RemoteSystem))
   var ret: bool
   check it.vtbl.IsAuthorizationKindEnabled(it.raw, kind, ret.addr
                                           ), "RemoteSystem.isAuthorizationKindEnabled"
@@ -4547,7 +4547,7 @@ proc connectionToken*(self: RemoteSystemApp): string =
 
 proc getDefault*(_: typedesc[RemoteSystemAppRegistration]): RemoteSystemAppRegistration =
   ## Windows.System.RemoteSystems.IRemoteSystemAppRegistrationStatics.GetDefault
-  let it = statics[IRemoteSystemAppRegistrationStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystemAppRegistration")
+  let it = statics[IRemoteSystemAppRegistrationStaticsVtbl](className(RemoteSystemAppRegistration))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr
                           ), "RemoteSystemAppRegistration.getDefault"
@@ -4556,7 +4556,7 @@ proc getDefault*(_: typedesc[RemoteSystemAppRegistration]): RemoteSystemAppRegis
 proc getForUser*(_: typedesc[RemoteSystemAppRegistration], user: User
                 ): RemoteSystemAppRegistration =
   ## Windows.System.RemoteSystems.IRemoteSystemAppRegistrationStatics.GetForUser
-  let it = statics[IRemoteSystemAppRegistrationStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystemAppRegistration")
+  let it = statics[IRemoteSystemAppRegistrationStaticsVtbl](className(RemoteSystemAppRegistration))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -4590,7 +4590,7 @@ proc saveAsync*(self: RemoteSystemAppRegistration): Future[bool] =
 
 proc newRemoteSystemAuthorizationKindFilter*(remoteSystemAuthorizationKind: RemoteSystemAuthorizationKind): RemoteSystemAuthorizationKindFilter =
   ## Windows.System.RemoteSystems.IRemoteSystemAuthorizationKindFilterFactory.Create
-  let it = statics[IRemoteSystemAuthorizationKindFilterFactoryVtbl]("Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter")
+  let it = statics[IRemoteSystemAuthorizationKindFilterFactoryVtbl](className(RemoteSystemAuthorizationKindFilter))
   var ret: pointer
   check it.vtbl.Create(it.raw, remoteSystemAuthorizationKind, ret.addr
                       ), "RemoteSystemAuthorizationKindFilter.new"
@@ -4610,7 +4610,7 @@ proc tryCreateFromAppServiceConnection*(_: typedesc[RemoteSystemConnectionInfo],
                                         connection: AppServiceConnection
                                        ): RemoteSystemConnectionInfo =
   ## Windows.System.RemoteSystems.IRemoteSystemConnectionInfoStatics.TryCreateFromAppServiceConnection
-  let it = statics[IRemoteSystemConnectionInfoStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystemConnectionInfo")
+  let it = statics[IRemoteSystemConnectionInfoStaticsVtbl](className(RemoteSystemConnectionInfo))
   let a0 = queryInterface[IAppServiceConnectionVtbl](connection)
   var ret: pointer
   check it.vtbl.TryCreateFromAppServiceConnection(it.raw, a0.raw, ret.addr
@@ -4629,7 +4629,7 @@ proc isProximal*(self: RemoteSystemConnectionInfo): bool =
 
 proc newRemoteSystemConnectionRequest*(remoteSystem: RemoteSystem): RemoteSystemConnectionRequest =
   ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequestFactory.Create
-  let it = statics[IRemoteSystemConnectionRequestFactoryVtbl]("Windows.System.RemoteSystems.RemoteSystemConnectionRequest")
+  let it = statics[IRemoteSystemConnectionRequestFactoryVtbl](className(RemoteSystemConnectionRequest))
   let a0 = queryInterface[IRemoteSystemVtbl](remoteSystem)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -4640,7 +4640,7 @@ proc createFromConnectionToken*(_: typedesc[RemoteSystemConnectionRequest],
                                 connectionToken: string
                                ): RemoteSystemConnectionRequest =
   ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequestStatics2.CreateFromConnectionToken
-  let it = statics[IRemoteSystemConnectionRequestStatics2Vtbl]("Windows.System.RemoteSystems.RemoteSystemConnectionRequest")
+  let it = statics[IRemoteSystemConnectionRequestStatics2Vtbl](className(RemoteSystemConnectionRequest))
   let a0 = toWinRtString(connectionToken)
   var ret: pointer
   check it.vtbl.CreateFromConnectionToken(it.raw, a0.handle, ret.addr
@@ -4651,7 +4651,7 @@ proc createFromConnectionTokenForUser*(_: typedesc[RemoteSystemConnectionRequest
                                        user: User, connectionToken: string
                                       ): RemoteSystemConnectionRequest =
   ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequestStatics2.CreateFromConnectionTokenForUser
-  let it = statics[IRemoteSystemConnectionRequestStatics2Vtbl]("Windows.System.RemoteSystems.RemoteSystemConnectionRequest")
+  let it = statics[IRemoteSystemConnectionRequestStatics2Vtbl](className(RemoteSystemConnectionRequest))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(connectionToken)
   var ret: pointer
@@ -4664,7 +4664,7 @@ proc createForApp*(_: typedesc[RemoteSystemConnectionRequest],
                    remoteSystemApp: RemoteSystemApp
                   ): RemoteSystemConnectionRequest =
   ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequestStatics.CreateForApp
-  let it = statics[IRemoteSystemConnectionRequestStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystemConnectionRequest")
+  let it = statics[IRemoteSystemConnectionRequestStaticsVtbl](className(RemoteSystemConnectionRequest))
   let a0 = queryInterface[IRemoteSystemAppVtbl](remoteSystemApp)
   var ret: pointer
   check it.vtbl.CreateForApp(it.raw, a0.raw, ret.addr
@@ -4699,7 +4699,7 @@ proc connectionToken*(self: RemoteSystemConnectionRequest): string =
 
 proc newRemoteSystemDiscoveryTypeFilter*(discoveryType: RemoteSystemDiscoveryType): RemoteSystemDiscoveryTypeFilter =
   ## Windows.System.RemoteSystems.IRemoteSystemDiscoveryTypeFilterFactory.Create
-  let it = statics[IRemoteSystemDiscoveryTypeFilterFactoryVtbl]("Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter")
+  let it = statics[IRemoteSystemDiscoveryTypeFilterFactoryVtbl](className(RemoteSystemDiscoveryTypeFilter))
   var ret: pointer
   check it.vtbl.Create(it.raw, discoveryType, ret.addr
                       ), "RemoteSystemDiscoveryTypeFilter.new"
@@ -4717,7 +4717,7 @@ proc remoteSystemDiscoveryType*(self: RemoteSystemDiscoveryTypeFilter): RemoteSy
 
 proc newRemoteSystemKindFilter*(remoteSystemKinds: seq[string]): RemoteSystemKindFilter =
   ## Windows.System.RemoteSystems.IRemoteSystemKindFilterFactory.Create
-  let it = statics[IRemoteSystemKindFilterFactoryVtbl]("Windows.System.RemoteSystems.RemoteSystemKindFilter")
+  let it = statics[IRemoteSystemKindFilterFactoryVtbl](className(RemoteSystemKindFilter))
   let a0 = asCollection[string, seq[string]](remoteSystemKinds)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "RemoteSystemKindFilter.new"
@@ -4735,42 +4735,42 @@ proc remoteSystemKinds*(self: RemoteSystemKindFilter): seq[string] =
 
 proc iot*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.IRemoteSystemKindStatics2.get_Iot
-  let it = statics[IRemoteSystemKindStatics2Vtbl]("Windows.System.RemoteSystems.RemoteSystemKinds")
+  let it = statics[IRemoteSystemKindStatics2Vtbl](className(RemoteSystemKinds))
   var ret: HSTRING
   check it.vtbl.get_Iot(it.raw, ret.addr), "RemoteSystemKinds.iot"
   takeString(ret)
 
 proc tablet*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.IRemoteSystemKindStatics2.get_Tablet
-  let it = statics[IRemoteSystemKindStatics2Vtbl]("Windows.System.RemoteSystems.RemoteSystemKinds")
+  let it = statics[IRemoteSystemKindStatics2Vtbl](className(RemoteSystemKinds))
   var ret: HSTRING
   check it.vtbl.get_Tablet(it.raw, ret.addr), "RemoteSystemKinds.tablet"
   takeString(ret)
 
 proc laptop*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.IRemoteSystemKindStatics2.get_Laptop
-  let it = statics[IRemoteSystemKindStatics2Vtbl]("Windows.System.RemoteSystems.RemoteSystemKinds")
+  let it = statics[IRemoteSystemKindStatics2Vtbl](className(RemoteSystemKinds))
   var ret: HSTRING
   check it.vtbl.get_Laptop(it.raw, ret.addr), "RemoteSystemKinds.laptop"
   takeString(ret)
 
 proc phone*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.IRemoteSystemKindStatics.get_Phone
-  let it = statics[IRemoteSystemKindStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystemKinds")
+  let it = statics[IRemoteSystemKindStaticsVtbl](className(RemoteSystemKinds))
   var ret: HSTRING
   check it.vtbl.get_Phone(it.raw, ret.addr), "RemoteSystemKinds.phone"
   takeString(ret)
 
 proc hub*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.IRemoteSystemKindStatics.get_Hub
-  let it = statics[IRemoteSystemKindStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystemKinds")
+  let it = statics[IRemoteSystemKindStaticsVtbl](className(RemoteSystemKinds))
   var ret: HSTRING
   check it.vtbl.get_Hub(it.raw, ret.addr), "RemoteSystemKinds.hub"
   takeString(ret)
 
 proc holographic*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.IRemoteSystemKindStatics.get_Holographic
-  let it = statics[IRemoteSystemKindStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystemKinds")
+  let it = statics[IRemoteSystemKindStaticsVtbl](className(RemoteSystemKinds))
   var ret: HSTRING
   check it.vtbl.get_Holographic(it.raw, ret.addr
                                ), "RemoteSystemKinds.holographic"
@@ -4778,14 +4778,14 @@ proc holographic*(_: typedesc[RemoteSystemKinds]): string =
 
 proc desktop*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.IRemoteSystemKindStatics.get_Desktop
-  let it = statics[IRemoteSystemKindStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystemKinds")
+  let it = statics[IRemoteSystemKindStaticsVtbl](className(RemoteSystemKinds))
   var ret: HSTRING
   check it.vtbl.get_Desktop(it.raw, ret.addr), "RemoteSystemKinds.desktop"
   takeString(ret)
 
 proc xbox*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.IRemoteSystemKindStatics.get_Xbox
-  let it = statics[IRemoteSystemKindStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystemKinds")
+  let it = statics[IRemoteSystemKindStaticsVtbl](className(RemoteSystemKinds))
   var ret: HSTRING
   check it.vtbl.get_Xbox(it.raw, ret.addr), "RemoteSystemKinds.xbox"
   takeString(ret)
@@ -4804,7 +4804,7 @@ proc remoteSystemId*(self: RemoteSystemRemovedEventArgs): string =
 
 proc createWatcher*(_: typedesc[RemoteSystemSession]): RemoteSystemSessionWatcher =
   ## Windows.System.RemoteSystems.IRemoteSystemSessionStatics.CreateWatcher
-  let it = statics[IRemoteSystemSessionStaticsVtbl]("Windows.System.RemoteSystems.RemoteSystemSession")
+  let it = statics[IRemoteSystemSessionStaticsVtbl](className(RemoteSystemSession))
   var ret: pointer
   check it.vtbl.CreateWatcher(it.raw, ret.addr
                              ), "RemoteSystemSession.createWatcher"
@@ -4886,7 +4886,7 @@ proc sessionInfo*(self: RemoteSystemSessionAddedEventArgs): RemoteSystemSessionI
 
 proc newRemoteSystemSessionController*(displayName: string): RemoteSystemSessionController =
   ## Windows.System.RemoteSystems.IRemoteSystemSessionControllerFactory.CreateController
-  let it = statics[IRemoteSystemSessionControllerFactoryVtbl]("Windows.System.RemoteSystems.RemoteSystemSessionController")
+  let it = statics[IRemoteSystemSessionControllerFactoryVtbl](className(RemoteSystemSessionController))
   let a0 = toWinRtString(displayName)
   var ret: pointer
   check it.vtbl.CreateController(it.raw, a0.handle, ret.addr
@@ -4897,7 +4897,7 @@ proc newRemoteSystemSessionController*(displayName: string,
                                        options: RemoteSystemSessionOptions
                                       ): RemoteSystemSessionController =
   ## Windows.System.RemoteSystems.IRemoteSystemSessionControllerFactory.CreateController
-  let it = statics[IRemoteSystemSessionControllerFactoryVtbl]("Windows.System.RemoteSystems.RemoteSystemSessionController")
+  let it = statics[IRemoteSystemSessionControllerFactoryVtbl](className(RemoteSystemSessionController))
   let a0 = toWinRtString(displayName)
   let a1 = queryInterface[IRemoteSystemSessionOptionsVtbl](options)
   var ret: pointer
@@ -5112,7 +5112,7 @@ proc newRemoteSystemSessionMessageChannel*(session: RemoteSystemSession,
                                            channelName: string
                                           ): RemoteSystemSessionMessageChannel =
   ## Windows.System.RemoteSystems.IRemoteSystemSessionMessageChannelFactory.Create
-  let it = statics[IRemoteSystemSessionMessageChannelFactoryVtbl]("Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel")
+  let it = statics[IRemoteSystemSessionMessageChannelFactoryVtbl](className(RemoteSystemSessionMessageChannel))
   let a0 = queryInterface[IRemoteSystemSessionVtbl](session)
   let a1 = toWinRtString(channelName)
   var ret: pointer
@@ -5125,7 +5125,7 @@ proc newRemoteSystemSessionMessageChannel*(session: RemoteSystemSession,
                                            reliability: RemoteSystemSessionMessageChannelReliability
                                           ): RemoteSystemSessionMessageChannel =
   ## Windows.System.RemoteSystems.IRemoteSystemSessionMessageChannelFactory.Create
-  let it = statics[IRemoteSystemSessionMessageChannelFactoryVtbl]("Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel")
+  let it = statics[IRemoteSystemSessionMessageChannelFactoryVtbl](className(RemoteSystemSessionMessageChannel))
   let a0 = queryInterface[IRemoteSystemSessionVtbl](session)
   let a1 = toWinRtString(channelName)
   var ret: pointer
@@ -5464,7 +5464,7 @@ proc removeRemoved*(self: RemoteSystemSessionWatcher,
 
 proc newRemoteSystemStatusTypeFilter*(remoteSystemStatusType: RemoteSystemStatusType): RemoteSystemStatusTypeFilter =
   ## Windows.System.RemoteSystems.IRemoteSystemStatusTypeFilterFactory.Create
-  let it = statics[IRemoteSystemStatusTypeFilterFactoryVtbl]("Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter")
+  let it = statics[IRemoteSystemStatusTypeFilterFactoryVtbl](className(RemoteSystemStatusTypeFilter))
   var ret: pointer
   check it.vtbl.Create(it.raw, remoteSystemStatusType, ret.addr
                       ), "RemoteSystemStatusTypeFilter.new"
@@ -5626,7 +5626,7 @@ proc error*(self: RemoteSystemWatcherErrorOccurredEventArgs): RemoteSystemWatche
 
 proc newRemoteSystemWebAccountFilter*(account: WebAccount): RemoteSystemWebAccountFilter =
   ## Windows.System.RemoteSystems.IRemoteSystemWebAccountFilterFactory.Create
-  let it = statics[IRemoteSystemWebAccountFilterFactoryVtbl]("Windows.System.RemoteSystems.RemoteSystemWebAccountFilter")
+  let it = statics[IRemoteSystemWebAccountFilterFactoryVtbl](className(RemoteSystemWebAccountFilter))
   let a0 = queryInterface[IWebAccountVtbl](account)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -5648,7 +5648,7 @@ proc newRemoteTextConnection*(connectionId: GUID,
                               options: RemoteTextConnectionOptions
                              ): RemoteTextConnection =
   ## Windows.System.RemoteDesktop.Input.IRemoteTextConnectionFactory2.CreateInstance
-  let it = statics[IRemoteTextConnectionFactory2Vtbl]("Windows.System.RemoteDesktop.Input.RemoteTextConnection")
+  let it = statics[IRemoteTextConnectionFactory2Vtbl](className(RemoteTextConnection))
   proc shim1(a0Size: uint32, a0: ptr uint8) =
     pduForwarder(borrowArray[uint8, seq[uint8]](a0Size, a0))
   let d1 = newDelegate(RemoteTextConnectionDataHandlerVtbl, shim1)
@@ -5661,7 +5661,7 @@ proc newRemoteTextConnection*(connectionId: GUID,
                               pduForwarder: proc(pduData: seq[uint8])
                              ): RemoteTextConnection =
   ## Windows.System.RemoteDesktop.Input.IRemoteTextConnectionFactory.CreateInstance
-  let it = statics[IRemoteTextConnectionFactoryVtbl]("Windows.System.RemoteDesktop.Input.RemoteTextConnection")
+  let it = statics[IRemoteTextConnectionFactoryVtbl](className(RemoteTextConnection))
   proc shim1(a0Size: uint32, a0: ptr uint8) =
     pduForwarder(borrowArray[uint8, seq[uint8]](a0Size, a0))
   let d1 = newDelegate(RemoteTextConnectionDataHandlerVtbl, shim1)
@@ -5714,7 +5714,7 @@ proc reportPredictedKeyEvent*(self: RemoteTextConnection, scanCode: uint16,
 
 proc isDemoModeEnabled*(_: typedesc[RetailInfo]): bool =
   ## Windows.System.Profile.IRetailInfoStatics.get_IsDemoModeEnabled
-  let it = statics[IRetailInfoStaticsVtbl]("Windows.System.Profile.RetailInfo")
+  let it = statics[IRetailInfoStaticsVtbl](className(RetailInfo))
   var ret: bool
   check it.vtbl.get_IsDemoModeEnabled(it.raw, ret.addr
                                      ), "RetailInfo.isDemoModeEnabled"
@@ -5722,7 +5722,7 @@ proc isDemoModeEnabled*(_: typedesc[RetailInfo]): bool =
 
 proc properties*(_: typedesc[RetailInfo]): Table[string, WinRtObject] =
   ## Windows.System.Profile.IRetailInfoStatics.get_Properties
-  let it = statics[IRetailInfoStaticsVtbl]("Windows.System.Profile.RetailInfo")
+  let it = statics[IRetailInfoStaticsVtbl](className(RetailInfo))
   var ret: pointer
   check it.vtbl.get_Properties(it.raw, ret.addr), "RetailInfo.properties"
   takeTable[IMapViewVtbl[string, WinRtObject], Table[string, WinRtObject]](ret)
@@ -5731,7 +5731,7 @@ proc properties*(_: typedesc[RetailInfo]): Table[string, WinRtObject] =
 
 proc shouldAvoidLocalStorage*(_: typedesc[SharedModeSettings]): bool =
   ## Windows.System.Profile.ISharedModeSettingsStatics2.get_ShouldAvoidLocalStorage
-  let it = statics[ISharedModeSettingsStatics2Vtbl]("Windows.System.Profile.SharedModeSettings")
+  let it = statics[ISharedModeSettingsStatics2Vtbl](className(SharedModeSettings))
   var ret: bool
   check it.vtbl.get_ShouldAvoidLocalStorage(it.raw, ret.addr
                                            ), "SharedModeSettings.shouldAvoidLocalStorage"
@@ -5739,7 +5739,7 @@ proc shouldAvoidLocalStorage*(_: typedesc[SharedModeSettings]): bool =
 
 proc isEnabled*(_: typedesc[SharedModeSettings]): bool =
   ## Windows.System.Profile.ISharedModeSettingsStatics.get_IsEnabled
-  let it = statics[ISharedModeSettingsStaticsVtbl]("Windows.System.Profile.SharedModeSettings")
+  let it = statics[ISharedModeSettingsStaticsVtbl](className(SharedModeSettings))
   var ret: bool
   check it.vtbl.get_IsEnabled(it.raw, ret.addr), "SharedModeSettings.isEnabled"
   ret
@@ -5749,7 +5749,7 @@ proc isEnabled*(_: typedesc[SharedModeSettings]): bool =
 proc isPowerStateSupported*(_: typedesc[ShutdownManager], powerState: PowerState
                            ): bool =
   ## Windows.System.IShutdownManagerStatics2.IsPowerStateSupported
-  let it = statics[IShutdownManagerStatics2Vtbl]("Windows.System.ShutdownManager")
+  let it = statics[IShutdownManagerStatics2Vtbl](className(ShutdownManager))
   var ret: bool
   check it.vtbl.IsPowerStateSupported(it.raw, powerState, ret.addr
                                      ), "ShutdownManager.isPowerStateSupported"
@@ -5757,27 +5757,27 @@ proc isPowerStateSupported*(_: typedesc[ShutdownManager], powerState: PowerState
 
 proc enterPowerState*(_: typedesc[ShutdownManager], powerState: PowerState) =
   ## Windows.System.IShutdownManagerStatics2.EnterPowerState
-  let it = statics[IShutdownManagerStatics2Vtbl]("Windows.System.ShutdownManager")
+  let it = statics[IShutdownManagerStatics2Vtbl](className(ShutdownManager))
   check it.vtbl.EnterPowerState(it.raw, powerState
                                ), "ShutdownManager.enterPowerState"
 
 proc enterPowerState*(_: typedesc[ShutdownManager], powerState: PowerState,
                       wakeUpAfter: TimeSpan) =
   ## Windows.System.IShutdownManagerStatics2.EnterPowerState
-  let it = statics[IShutdownManagerStatics2Vtbl]("Windows.System.ShutdownManager")
+  let it = statics[IShutdownManagerStatics2Vtbl](className(ShutdownManager))
   check it.vtbl.EnterPowerState2(it.raw, powerState, wakeUpAfter
                                 ), "ShutdownManager.enterPowerState"
 
 proc beginShutdown*(_: typedesc[ShutdownManager], shutdownKind: ShutdownKind,
                     timeout: TimeSpan) =
   ## Windows.System.IShutdownManagerStatics.BeginShutdown
-  let it = statics[IShutdownManagerStaticsVtbl]("Windows.System.ShutdownManager")
+  let it = statics[IShutdownManagerStaticsVtbl](className(ShutdownManager))
   check it.vtbl.BeginShutdown(it.raw, shutdownKind, timeout
                              ), "ShutdownManager.beginShutdown"
 
 proc cancelShutdown*(_: typedesc[ShutdownManager]) =
   ## Windows.System.IShutdownManagerStatics.CancelShutdown
-  let it = statics[IShutdownManagerStaticsVtbl]("Windows.System.ShutdownManager")
+  let it = statics[IShutdownManagerStaticsVtbl](className(ShutdownManager))
   check it.vtbl.CancelShutdown(it.raw), "ShutdownManager.cancelShutdown"
 
 # ---- Windows.System.Threading.Core.SignalNotifier
@@ -5786,7 +5786,7 @@ proc attachToEvent*(_: typedesc[SignalNotifier], name: string,
                     handler: proc(signalNotifier: SignalNotifier, timedOut: bool)
                    ): SignalNotifier =
   ## Windows.System.Threading.Core.ISignalNotifierStatics.AttachToEvent
-  let it = statics[ISignalNotifierStaticsVtbl]("Windows.System.Threading.Core.SignalNotifier")
+  let it = statics[ISignalNotifierStaticsVtbl](className(SignalNotifier))
   let a0 = toWinRtString(name)
   proc shim1(a0: pointer, a1: bool) =
     handler(borrow[SignalNotifier](a0), a1)
@@ -5800,7 +5800,7 @@ proc attachToEvent*(_: typedesc[SignalNotifier], name: string,
                     handler: proc(signalNotifier: SignalNotifier, timedOut: bool),
                     timeout: TimeSpan): SignalNotifier =
   ## Windows.System.Threading.Core.ISignalNotifierStatics.AttachToEvent
-  let it = statics[ISignalNotifierStaticsVtbl]("Windows.System.Threading.Core.SignalNotifier")
+  let it = statics[ISignalNotifierStaticsVtbl](className(SignalNotifier))
   let a0 = toWinRtString(name)
   proc shim1(a0: pointer, a1: bool) =
     handler(borrow[SignalNotifier](a0), a1)
@@ -5814,7 +5814,7 @@ proc attachToSemaphore*(_: typedesc[SignalNotifier], name: string,
                         handler: proc(signalNotifier: SignalNotifier, timedOut: bool)
                        ): SignalNotifier =
   ## Windows.System.Threading.Core.ISignalNotifierStatics.AttachToSemaphore
-  let it = statics[ISignalNotifierStaticsVtbl]("Windows.System.Threading.Core.SignalNotifier")
+  let it = statics[ISignalNotifierStaticsVtbl](className(SignalNotifier))
   let a0 = toWinRtString(name)
   proc shim1(a0: pointer, a1: bool) =
     handler(borrow[SignalNotifier](a0), a1)
@@ -5828,7 +5828,7 @@ proc attachToSemaphore*(_: typedesc[SignalNotifier], name: string,
                         handler: proc(signalNotifier: SignalNotifier, timedOut: bool),
                         timeout: TimeSpan): SignalNotifier =
   ## Windows.System.Threading.Core.ISignalNotifierStatics.AttachToSemaphore
-  let it = statics[ISignalNotifierStaticsVtbl]("Windows.System.Threading.Core.SignalNotifier")
+  let it = statics[ISignalNotifierStaticsVtbl](className(SignalNotifier))
   let a0 = toWinRtString(name)
   proc shim1(a0: pointer, a1: bool) =
     handler(borrow[SignalNotifier](a0), a1)
@@ -5852,7 +5852,7 @@ proc terminate*(self: SignalNotifier) =
 
 proc isEnabled*(_: typedesc[SmartAppControlPolicy]): bool =
   ## Windows.System.Profile.ISmartAppControlPolicyStatics.get_IsEnabled
-  let it = statics[ISmartAppControlPolicyStaticsVtbl]("Windows.System.Profile.SmartAppControlPolicy")
+  let it = statics[ISmartAppControlPolicyStaticsVtbl](className(SmartAppControlPolicy))
   var ret: bool
   check it.vtbl.get_IsEnabled(it.raw, ret.addr
                              ), "SmartAppControlPolicy.isEnabled"
@@ -5863,7 +5863,7 @@ proc onChanged*(_: typedesc[SmartAppControlPolicy],
                ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Profile.ISmartAppControlPolicyStatics.add_Changed
   ## The token is what `removeChanged` takes.
-  let it = statics[ISmartAppControlPolicyStaticsVtbl]("Windows.System.Profile.SmartAppControlPolicy")
+  let it = statics[ISmartAppControlPolicyStaticsVtbl](className(SmartAppControlPolicy))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -5873,14 +5873,14 @@ proc onChanged*(_: typedesc[SmartAppControlPolicy],
 proc removeChanged*(_: typedesc[SmartAppControlPolicy],
                     token: EventRegistrationToken) =
   ## Windows.System.Profile.ISmartAppControlPolicyStatics.remove_Changed
-  let it = statics[ISmartAppControlPolicyStaticsVtbl]("Windows.System.Profile.SmartAppControlPolicy")
+  let it = statics[ISmartAppControlPolicyStaticsVtbl](className(SmartAppControlPolicy))
   check it.vtbl.remove_Changed(it.raw, token), "SmartAppControlPolicy.changed"
 
 # ---- Windows.System.Profile.SystemManufacturers.SmbiosInformation
 
 proc serialNumber*(_: typedesc[SmbiosInformation]): string =
   ## Windows.System.Profile.SystemManufacturers.ISmbiosInformationStatics.get_SerialNumber
-  let it = statics[ISmbiosInformationStaticsVtbl]("Windows.System.Profile.SystemManufacturers.SmbiosInformation")
+  let it = statics[ISmbiosInformationStaticsVtbl](className(SmbiosInformation))
   var ret: HSTRING
   check it.vtbl.get_SerialNumber(it.raw, ret.addr
                                 ), "SmbiosInformation.serialNumber"
@@ -5890,7 +5890,7 @@ proc serialNumber*(_: typedesc[SmbiosInformation]): string =
 
 proc newSysStorageProviderEventReceivedEventArgs*(json: string): SysStorageProviderEventReceivedEventArgs =
   ## Windows.System.Implementation.FileExplorer.ISysStorageProviderEventReceivedEventArgsFactory.CreateInstance
-  let it = statics[ISysStorageProviderEventReceivedEventArgsFactoryVtbl]("Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs")
+  let it = statics[ISysStorageProviderEventReceivedEventArgsFactoryVtbl](className(SysStorageProviderEventReceivedEventArgs))
   let a0 = toWinRtString(json)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.handle, ret.addr
@@ -5942,7 +5942,7 @@ proc idleTime*(self: SystemCpuUsageReport): TimeSpan =
 
 proc getForCurrentSystem*(_: typedesc[SystemDiagnosticInfo]): SystemDiagnosticInfo =
   ## Windows.System.Diagnostics.ISystemDiagnosticInfoStatics.GetForCurrentSystem
-  let it = statics[ISystemDiagnosticInfoStaticsVtbl]("Windows.System.Diagnostics.SystemDiagnosticInfo")
+  let it = statics[ISystemDiagnosticInfoStaticsVtbl](className(SystemDiagnosticInfo))
   var ret: pointer
   check it.vtbl.GetForCurrentSystem(it.raw, ret.addr
                                    ), "SystemDiagnosticInfo.getForCurrentSystem"
@@ -5951,7 +5951,7 @@ proc getForCurrentSystem*(_: typedesc[SystemDiagnosticInfo]): SystemDiagnosticIn
 proc isArchitectureSupported*(_: typedesc[SystemDiagnosticInfo],
                               `type`: ProcessorArchitecture): bool =
   ## Windows.System.Diagnostics.ISystemDiagnosticInfoStatics2.IsArchitectureSupported
-  let it = statics[ISystemDiagnosticInfoStatics2Vtbl]("Windows.System.Diagnostics.SystemDiagnosticInfo")
+  let it = statics[ISystemDiagnosticInfoStatics2Vtbl](className(SystemDiagnosticInfo))
   var ret: bool
   check it.vtbl.IsArchitectureSupported(it.raw, `type`, ret.addr
                                        ), "SystemDiagnosticInfo.isArchitectureSupported"
@@ -5959,7 +5959,7 @@ proc isArchitectureSupported*(_: typedesc[SystemDiagnosticInfo],
 
 proc preferredArchitecture*(_: typedesc[SystemDiagnosticInfo]): ProcessorArchitecture =
   ## Windows.System.Diagnostics.ISystemDiagnosticInfoStatics2.get_PreferredArchitecture
-  let it = statics[ISystemDiagnosticInfoStatics2Vtbl]("Windows.System.Diagnostics.SystemDiagnosticInfo")
+  let it = statics[ISystemDiagnosticInfoStatics2Vtbl](className(SystemDiagnosticInfo))
   var ret: ProcessorArchitecture
   check it.vtbl.get_PreferredArchitecture(it.raw, ret.addr
                                          ), "SystemDiagnosticInfo.preferredArchitecture"
@@ -5984,7 +5984,7 @@ proc cpuUsage*(self: SystemDiagnosticInfo): SystemCpuUsage =
 
 proc getSystemIdForPublisher*(_: typedesc[SystemIdentification]): SystemIdentificationInfo =
   ## Windows.System.Profile.ISystemIdentificationStatics.GetSystemIdForPublisher
-  let it = statics[ISystemIdentificationStaticsVtbl]("Windows.System.Profile.SystemIdentification")
+  let it = statics[ISystemIdentificationStaticsVtbl](className(SystemIdentification))
   var ret: pointer
   check it.vtbl.GetSystemIdForPublisher(it.raw, ret.addr
                                        ), "SystemIdentification.getSystemIdForPublisher"
@@ -5993,7 +5993,7 @@ proc getSystemIdForPublisher*(_: typedesc[SystemIdentification]): SystemIdentifi
 proc getSystemIdForUser*(_: typedesc[SystemIdentification], user: User
                         ): SystemIdentificationInfo =
   ## Windows.System.Profile.ISystemIdentificationStatics.GetSystemIdForUser
-  let it = statics[ISystemIdentificationStaticsVtbl]("Windows.System.Profile.SystemIdentification")
+  let it = statics[ISystemIdentificationStaticsVtbl](className(SystemIdentification))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetSystemIdForUser(it.raw, a0.raw, ret.addr
@@ -6055,7 +6055,7 @@ proc committedSizeInBytes*(self: SystemMemoryUsageReport): uint64 =
 
 proc outOfBoxExperienceState*(_: typedesc[SystemSetupInfo]): SystemOutOfBoxExperienceState =
   ## Windows.System.Profile.ISystemSetupInfoStatics.get_OutOfBoxExperienceState
-  let it = statics[ISystemSetupInfoStaticsVtbl]("Windows.System.Profile.SystemSetupInfo")
+  let it = statics[ISystemSetupInfoStaticsVtbl](className(SystemSetupInfo))
   var ret: SystemOutOfBoxExperienceState
   check it.vtbl.get_OutOfBoxExperienceState(it.raw, ret.addr
                                            ), "SystemSetupInfo.outOfBoxExperienceState"
@@ -6066,7 +6066,7 @@ proc onOutOfBoxExperienceStateChanged*(_: typedesc[SystemSetupInfo],
                                       ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Profile.ISystemSetupInfoStatics.add_OutOfBoxExperienceStateChanged
   ## The token is what `removeOutOfBoxExperienceStateChanged` takes.
-  let it = statics[ISystemSetupInfoStaticsVtbl]("Windows.System.Profile.SystemSetupInfo")
+  let it = statics[ISystemSetupInfoStaticsVtbl](className(SystemSetupInfo))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -6076,7 +6076,7 @@ proc onOutOfBoxExperienceStateChanged*(_: typedesc[SystemSetupInfo],
 proc removeOutOfBoxExperienceStateChanged*(_: typedesc[SystemSetupInfo],
                                            token: EventRegistrationToken) =
   ## Windows.System.Profile.ISystemSetupInfoStatics.remove_OutOfBoxExperienceStateChanged
-  let it = statics[ISystemSetupInfoStaticsVtbl]("Windows.System.Profile.SystemSetupInfo")
+  let it = statics[ISystemSetupInfoStaticsVtbl](className(SystemSetupInfo))
   check it.vtbl.remove_OutOfBoxExperienceStateChanged(it.raw, token
                                                      ), "SystemSetupInfo.outOfBoxExperienceStateChanged"
 
@@ -6142,7 +6142,7 @@ proc systemFirmwareVersion*(self: SystemSupportDeviceInfo): string =
 
 proc localDeviceInfo*(_: typedesc[SystemSupportInfo]): SystemSupportDeviceInfo =
   ## Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics2.get_LocalDeviceInfo
-  let it = statics[ISystemSupportInfoStatics2Vtbl]("Windows.System.Profile.SystemManufacturers.SystemSupportInfo")
+  let it = statics[ISystemSupportInfoStatics2Vtbl](className(SystemSupportInfo))
   var ret: pointer
   check it.vtbl.get_LocalDeviceInfo(it.raw, ret.addr
                                    ), "SystemSupportInfo.localDeviceInfo"
@@ -6150,7 +6150,7 @@ proc localDeviceInfo*(_: typedesc[SystemSupportInfo]): SystemSupportDeviceInfo =
 
 proc localSystemEdition*(_: typedesc[SystemSupportInfo]): string =
   ## Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics.get_LocalSystemEdition
-  let it = statics[ISystemSupportInfoStaticsVtbl]("Windows.System.Profile.SystemManufacturers.SystemSupportInfo")
+  let it = statics[ISystemSupportInfoStaticsVtbl](className(SystemSupportInfo))
   var ret: HSTRING
   check it.vtbl.get_LocalSystemEdition(it.raw, ret.addr
                                       ), "SystemSupportInfo.localSystemEdition"
@@ -6158,7 +6158,7 @@ proc localSystemEdition*(_: typedesc[SystemSupportInfo]): string =
 
 proc oemSupportInfo*(_: typedesc[SystemSupportInfo]): OemSupportInfo =
   ## Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics.get_OemSupportInfo
-  let it = statics[ISystemSupportInfoStaticsVtbl]("Windows.System.Profile.SystemManufacturers.SystemSupportInfo")
+  let it = statics[ISystemSupportInfoStaticsVtbl](className(SystemSupportInfo))
   var ret: pointer
   check it.vtbl.get_OemSupportInfo(it.raw, ret.addr
                                   ), "SystemSupportInfo.oemSupportInfo"
@@ -6255,14 +6255,14 @@ proc isInteractive*(self: SystemUpdateLastErrorInfo): bool =
 
 proc isSupported*(_: typedesc[SystemUpdateManager]): bool =
   ## Windows.System.Update.ISystemUpdateManagerStatics.IsSupported
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr), "SystemUpdateManager.isSupported"
   ret
 
 proc state*(_: typedesc[SystemUpdateManager]): SystemUpdateManagerState =
   ## Windows.System.Update.ISystemUpdateManagerStatics.get_State
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: SystemUpdateManagerState
   check it.vtbl.get_State(it.raw, ret.addr), "SystemUpdateManager.state"
   ret
@@ -6272,7 +6272,7 @@ proc onStateChanged*(_: typedesc[SystemUpdateManager],
                     ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Update.ISystemUpdateManagerStatics.add_StateChanged
   ## The token is what `removeStateChanged` takes.
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -6282,13 +6282,13 @@ proc onStateChanged*(_: typedesc[SystemUpdateManager],
 proc removeStateChanged*(_: typedesc[SystemUpdateManager],
                          token: EventRegistrationToken) =
   ## Windows.System.Update.ISystemUpdateManagerStatics.remove_StateChanged
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   check it.vtbl.remove_StateChanged(it.raw, token
                                    ), "SystemUpdateManager.stateChanged"
 
 proc downloadProgress*(_: typedesc[SystemUpdateManager]): float64 =
   ## Windows.System.Update.ISystemUpdateManagerStatics.get_DownloadProgress
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: float64
   check it.vtbl.get_DownloadProgress(it.raw, ret.addr
                                     ), "SystemUpdateManager.downloadProgress"
@@ -6296,7 +6296,7 @@ proc downloadProgress*(_: typedesc[SystemUpdateManager]): float64 =
 
 proc installProgress*(_: typedesc[SystemUpdateManager]): float64 =
   ## Windows.System.Update.ISystemUpdateManagerStatics.get_InstallProgress
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: float64
   check it.vtbl.get_InstallProgress(it.raw, ret.addr
                                    ), "SystemUpdateManager.installProgress"
@@ -6304,7 +6304,7 @@ proc installProgress*(_: typedesc[SystemUpdateManager]): float64 =
 
 proc userActiveHoursStart*(_: typedesc[SystemUpdateManager]): TimeSpan =
   ## Windows.System.Update.ISystemUpdateManagerStatics.get_UserActiveHoursStart
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: TimeSpan
   check it.vtbl.get_UserActiveHoursStart(it.raw, ret.addr
                                         ), "SystemUpdateManager.userActiveHoursStart"
@@ -6312,7 +6312,7 @@ proc userActiveHoursStart*(_: typedesc[SystemUpdateManager]): TimeSpan =
 
 proc userActiveHoursEnd*(_: typedesc[SystemUpdateManager]): TimeSpan =
   ## Windows.System.Update.ISystemUpdateManagerStatics.get_UserActiveHoursEnd
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: TimeSpan
   check it.vtbl.get_UserActiveHoursEnd(it.raw, ret.addr
                                       ), "SystemUpdateManager.userActiveHoursEnd"
@@ -6320,7 +6320,7 @@ proc userActiveHoursEnd*(_: typedesc[SystemUpdateManager]): TimeSpan =
 
 proc userActiveHoursMax*(_: typedesc[SystemUpdateManager]): int32 =
   ## Windows.System.Update.ISystemUpdateManagerStatics.get_UserActiveHoursMax
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: int32
   check it.vtbl.get_UserActiveHoursMax(it.raw, ret.addr
                                       ), "SystemUpdateManager.userActiveHoursMax"
@@ -6329,7 +6329,7 @@ proc userActiveHoursMax*(_: typedesc[SystemUpdateManager]): int32 =
 proc trySetUserActiveHours*(_: typedesc[SystemUpdateManager], start: TimeSpan,
                             `end`: TimeSpan): bool =
   ## Windows.System.Update.ISystemUpdateManagerStatics.TrySetUserActiveHours
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: bool
   check it.vtbl.TrySetUserActiveHours(it.raw, start, `end`, ret.addr
                                      ), "SystemUpdateManager.trySetUserActiveHours"
@@ -6337,7 +6337,7 @@ proc trySetUserActiveHours*(_: typedesc[SystemUpdateManager], start: TimeSpan,
 
 proc lastUpdateCheckTime*(_: typedesc[SystemUpdateManager]): DateTime =
   ## Windows.System.Update.ISystemUpdateManagerStatics.get_LastUpdateCheckTime
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: DateTime
   check it.vtbl.get_LastUpdateCheckTime(it.raw, ret.addr
                                        ), "SystemUpdateManager.lastUpdateCheckTime"
@@ -6345,7 +6345,7 @@ proc lastUpdateCheckTime*(_: typedesc[SystemUpdateManager]): DateTime =
 
 proc lastUpdateInstallTime*(_: typedesc[SystemUpdateManager]): DateTime =
   ## Windows.System.Update.ISystemUpdateManagerStatics.get_LastUpdateInstallTime
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: DateTime
   check it.vtbl.get_LastUpdateInstallTime(it.raw, ret.addr
                                          ), "SystemUpdateManager.lastUpdateInstallTime"
@@ -6353,7 +6353,7 @@ proc lastUpdateInstallTime*(_: typedesc[SystemUpdateManager]): DateTime =
 
 proc lastErrorInfo*(_: typedesc[SystemUpdateManager]): SystemUpdateLastErrorInfo =
   ## Windows.System.Update.ISystemUpdateManagerStatics.get_LastErrorInfo
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: pointer
   check it.vtbl.get_LastErrorInfo(it.raw, ret.addr
                                  ), "SystemUpdateManager.lastErrorInfo"
@@ -6361,7 +6361,7 @@ proc lastErrorInfo*(_: typedesc[SystemUpdateManager]): SystemUpdateLastErrorInfo
 
 proc getAutomaticRebootBlockIds*(_: typedesc[SystemUpdateManager]): seq[string] =
   ## Windows.System.Update.ISystemUpdateManagerStatics.GetAutomaticRebootBlockIds
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: pointer
   check it.vtbl.GetAutomaticRebootBlockIds(it.raw, ret.addr
                                           ), "SystemUpdateManager.getAutomaticRebootBlockIds"
@@ -6370,7 +6370,7 @@ proc getAutomaticRebootBlockIds*(_: typedesc[SystemUpdateManager]): seq[string] 
 proc blockAutomaticRebootAsync*(_: typedesc[SystemUpdateManager], lockId: string
                                ): Future[bool] =
   ## Windows.System.Update.ISystemUpdateManagerStatics.BlockAutomaticRebootAsync
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   let a0 = toWinRtString(lockId)
   var op: pointer
   check it.vtbl.BlockAutomaticRebootAsync(it.raw, a0.handle, op.addr
@@ -6380,7 +6380,7 @@ proc blockAutomaticRebootAsync*(_: typedesc[SystemUpdateManager], lockId: string
 proc unblockAutomaticRebootAsync*(_: typedesc[SystemUpdateManager],
                                   lockId: string): Future[bool] =
   ## Windows.System.Update.ISystemUpdateManagerStatics.UnblockAutomaticRebootAsync
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   let a0 = toWinRtString(lockId)
   var op: pointer
   check it.vtbl.UnblockAutomaticRebootAsync(it.raw, a0.handle, op.addr
@@ -6389,7 +6389,7 @@ proc unblockAutomaticRebootAsync*(_: typedesc[SystemUpdateManager],
 
 proc extendedError*(_: typedesc[SystemUpdateManager]): HRESULT =
   ## Windows.System.Update.ISystemUpdateManagerStatics.get_ExtendedError
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: HRESULT
   check it.vtbl.get_ExtendedError(it.raw, ret.addr
                                  ), "SystemUpdateManager.extendedError"
@@ -6397,7 +6397,7 @@ proc extendedError*(_: typedesc[SystemUpdateManager]): HRESULT =
 
 proc getUpdateItems*(_: typedesc[SystemUpdateManager]): seq[SystemUpdateItem] =
   ## Windows.System.Update.ISystemUpdateManagerStatics.GetUpdateItems
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: pointer
   check it.vtbl.GetUpdateItems(it.raw, ret.addr
                               ), "SystemUpdateManager.getUpdateItems"
@@ -6405,7 +6405,7 @@ proc getUpdateItems*(_: typedesc[SystemUpdateManager]): seq[SystemUpdateItem] =
 
 proc attentionRequiredReason*(_: typedesc[SystemUpdateManager]): SystemUpdateAttentionRequiredReason =
   ## Windows.System.Update.ISystemUpdateManagerStatics.get_AttentionRequiredReason
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: SystemUpdateAttentionRequiredReason
   check it.vtbl.get_AttentionRequiredReason(it.raw, ret.addr
                                            ), "SystemUpdateManager.attentionRequiredReason"
@@ -6414,7 +6414,7 @@ proc attentionRequiredReason*(_: typedesc[SystemUpdateManager]): SystemUpdateAtt
 proc setFlightRing*(_: typedesc[SystemUpdateManager], flightRing: string
                    ): bool =
   ## Windows.System.Update.ISystemUpdateManagerStatics.SetFlightRing
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   let a0 = toWinRtString(flightRing)
   var ret: bool
   check it.vtbl.SetFlightRing(it.raw, a0.handle, ret.addr
@@ -6423,7 +6423,7 @@ proc setFlightRing*(_: typedesc[SystemUpdateManager], flightRing: string
 
 proc getFlightRing*(_: typedesc[SystemUpdateManager]): string =
   ## Windows.System.Update.ISystemUpdateManagerStatics.GetFlightRing
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   var ret: HSTRING
   check it.vtbl.GetFlightRing(it.raw, ret.addr
                              ), "SystemUpdateManager.getFlightRing"
@@ -6432,17 +6432,17 @@ proc getFlightRing*(_: typedesc[SystemUpdateManager]): string =
 proc startInstall*(_: typedesc[SystemUpdateManager],
                    action: SystemUpdateStartInstallAction) =
   ## Windows.System.Update.ISystemUpdateManagerStatics.StartInstall
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   check it.vtbl.StartInstall(it.raw, action), "SystemUpdateManager.startInstall"
 
 proc rebootToCompleteInstall*(_: typedesc[SystemUpdateManager]) =
   ## Windows.System.Update.ISystemUpdateManagerStatics.RebootToCompleteInstall
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   check it.vtbl.RebootToCompleteInstall(it.raw), "SystemUpdateManager.rebootToCompleteInstall"
 
 proc startCancelUpdates*(_: typedesc[SystemUpdateManager]) =
   ## Windows.System.Update.ISystemUpdateManagerStatics.StartCancelUpdates
-  let it = statics[ISystemUpdateManagerStaticsVtbl]("Windows.System.Update.SystemUpdateManager")
+  let it = statics[ISystemUpdateManagerStaticsVtbl](className(SystemUpdateManager))
   check it.vtbl.StartCancelUpdates(it.raw), "SystemUpdateManager.startCancelUpdates"
 
 # ---- Windows.System.Threading.ThreadPool
@@ -6450,7 +6450,7 @@ proc startCancelUpdates*(_: typedesc[SystemUpdateManager]) =
 proc runAsync*(_: typedesc[ThreadPool], handler: proc(operation: IAsyncAction)
               ): Future[void] =
   ## Windows.System.Threading.IThreadPoolStatics.RunAsync
-  let it = statics[IThreadPoolStaticsVtbl]("Windows.System.Threading.ThreadPool")
+  let it = statics[IThreadPoolStaticsVtbl](className(ThreadPool))
   proc shim0(a0: pointer) =
     handler(borrow[IAsyncAction](a0))
   let d0 = newDelegate(WorkItemHandlerVtbl, shim0)
@@ -6461,7 +6461,7 @@ proc runAsync*(_: typedesc[ThreadPool], handler: proc(operation: IAsyncAction)
 proc runAsync*(_: typedesc[ThreadPool], handler: proc(operation: IAsyncAction),
                priority: WorkItemPriority): Future[void] =
   ## Windows.System.Threading.IThreadPoolStatics.RunAsync
-  let it = statics[IThreadPoolStaticsVtbl]("Windows.System.Threading.ThreadPool")
+  let it = statics[IThreadPoolStaticsVtbl](className(ThreadPool))
   proc shim0(a0: pointer) =
     handler(borrow[IAsyncAction](a0))
   let d0 = newDelegate(WorkItemHandlerVtbl, shim0)
@@ -6474,7 +6474,7 @@ proc runAsync*(_: typedesc[ThreadPool], handler: proc(operation: IAsyncAction),
                priority: WorkItemPriority, options: WorkItemOptions
               ): Future[void] =
   ## Windows.System.Threading.IThreadPoolStatics.RunAsync
-  let it = statics[IThreadPoolStaticsVtbl]("Windows.System.Threading.ThreadPool")
+  let it = statics[IThreadPoolStaticsVtbl](className(ThreadPool))
   proc shim0(a0: pointer) =
     handler(borrow[IAsyncAction](a0))
   let d0 = newDelegate(WorkItemHandlerVtbl, shim0)
@@ -6489,7 +6489,7 @@ proc createPeriodicTimer*(_: typedesc[ThreadPoolTimer],
                           handler: proc(timer: ThreadPoolTimer),
                           period: TimeSpan): ThreadPoolTimer =
   ## Windows.System.Threading.IThreadPoolTimerStatics.CreatePeriodicTimer
-  let it = statics[IThreadPoolTimerStaticsVtbl]("Windows.System.Threading.ThreadPoolTimer")
+  let it = statics[IThreadPoolTimerStaticsVtbl](className(ThreadPoolTimer))
   proc shim0(a0: pointer) =
     handler(borrow[ThreadPoolTimer](a0))
   let d0 = newDelegate(TimerElapsedHandlerVtbl, shim0)
@@ -6502,7 +6502,7 @@ proc createTimer*(_: typedesc[ThreadPoolTimer],
                   handler: proc(timer: ThreadPoolTimer), delay: TimeSpan
                  ): ThreadPoolTimer =
   ## Windows.System.Threading.IThreadPoolTimerStatics.CreateTimer
-  let it = statics[IThreadPoolTimerStaticsVtbl]("Windows.System.Threading.ThreadPoolTimer")
+  let it = statics[IThreadPoolTimerStaticsVtbl](className(ThreadPoolTimer))
   proc shim0(a0: pointer) =
     handler(borrow[ThreadPoolTimer](a0))
   let d0 = newDelegate(TimerElapsedHandlerVtbl, shim0)
@@ -6517,7 +6517,7 @@ proc createPeriodicTimer*(_: typedesc[ThreadPoolTimer],
                           destroyed: proc(timer: ThreadPoolTimer)
                          ): ThreadPoolTimer =
   ## Windows.System.Threading.IThreadPoolTimerStatics.CreatePeriodicTimer
-  let it = statics[IThreadPoolTimerStaticsVtbl]("Windows.System.Threading.ThreadPoolTimer")
+  let it = statics[IThreadPoolTimerStaticsVtbl](className(ThreadPoolTimer))
   proc shim0(a0: pointer) =
     handler(borrow[ThreadPoolTimer](a0))
   let d0 = newDelegate(TimerElapsedHandlerVtbl, shim0)
@@ -6533,7 +6533,7 @@ proc createTimer*(_: typedesc[ThreadPoolTimer],
                   handler: proc(timer: ThreadPoolTimer), delay: TimeSpan,
                   destroyed: proc(timer: ThreadPoolTimer)): ThreadPoolTimer =
   ## Windows.System.Threading.IThreadPoolTimerStatics.CreateTimer
-  let it = statics[IThreadPoolTimerStaticsVtbl]("Windows.System.Threading.ThreadPoolTimer")
+  let it = statics[IThreadPoolTimerStaticsVtbl](className(ThreadPoolTimer))
   proc shim0(a0: pointer) =
     handler(borrow[ThreadPoolTimer](a0))
   let d0 = newDelegate(TimerElapsedHandlerVtbl, shim0)
@@ -6568,7 +6568,7 @@ proc cancel*(self: ThreadPoolTimer) =
 
 proc currentTimeZoneDisplayName*(_: typedesc[TimeZoneSettings]): string =
   ## Windows.System.ITimeZoneSettingsStatics.get_CurrentTimeZoneDisplayName
-  let it = statics[ITimeZoneSettingsStaticsVtbl]("Windows.System.TimeZoneSettings")
+  let it = statics[ITimeZoneSettingsStaticsVtbl](className(TimeZoneSettings))
   var ret: HSTRING
   check it.vtbl.get_CurrentTimeZoneDisplayName(it.raw, ret.addr
                                               ), "TimeZoneSettings.currentTimeZoneDisplayName"
@@ -6576,7 +6576,7 @@ proc currentTimeZoneDisplayName*(_: typedesc[TimeZoneSettings]): string =
 
 proc supportedTimeZoneDisplayNames*(_: typedesc[TimeZoneSettings]): seq[string] =
   ## Windows.System.ITimeZoneSettingsStatics.get_SupportedTimeZoneDisplayNames
-  let it = statics[ITimeZoneSettingsStaticsVtbl]("Windows.System.TimeZoneSettings")
+  let it = statics[ITimeZoneSettingsStaticsVtbl](className(TimeZoneSettings))
   var ret: pointer
   check it.vtbl.get_SupportedTimeZoneDisplayNames(it.raw, ret.addr
                                                  ), "TimeZoneSettings.supportedTimeZoneDisplayNames"
@@ -6584,7 +6584,7 @@ proc supportedTimeZoneDisplayNames*(_: typedesc[TimeZoneSettings]): seq[string] 
 
 proc canChangeTimeZone*(_: typedesc[TimeZoneSettings]): bool =
   ## Windows.System.ITimeZoneSettingsStatics.get_CanChangeTimeZone
-  let it = statics[ITimeZoneSettingsStaticsVtbl]("Windows.System.TimeZoneSettings")
+  let it = statics[ITimeZoneSettingsStaticsVtbl](className(TimeZoneSettings))
   var ret: bool
   check it.vtbl.get_CanChangeTimeZone(it.raw, ret.addr
                                      ), "TimeZoneSettings.canChangeTimeZone"
@@ -6593,7 +6593,7 @@ proc canChangeTimeZone*(_: typedesc[TimeZoneSettings]): bool =
 proc changeTimeZoneByDisplayName*(_: typedesc[TimeZoneSettings],
                                   timeZoneDisplayName: string) =
   ## Windows.System.ITimeZoneSettingsStatics.ChangeTimeZoneByDisplayName
-  let it = statics[ITimeZoneSettingsStaticsVtbl]("Windows.System.TimeZoneSettings")
+  let it = statics[ITimeZoneSettingsStaticsVtbl](className(TimeZoneSettings))
   let a0 = toWinRtString(timeZoneDisplayName)
   check it.vtbl.ChangeTimeZoneByDisplayName(it.raw, a0.handle
                                            ), "TimeZoneSettings.changeTimeZoneByDisplayName"
@@ -6601,7 +6601,7 @@ proc changeTimeZoneByDisplayName*(_: typedesc[TimeZoneSettings],
 proc autoUpdateTimeZoneAsync*(_: typedesc[TimeZoneSettings], timeout: TimeSpan
                              ): Future[AutoUpdateTimeZoneStatus] =
   ## Windows.System.ITimeZoneSettingsStatics2.AutoUpdateTimeZoneAsync
-  let it = statics[ITimeZoneSettingsStatics2Vtbl]("Windows.System.TimeZoneSettings")
+  let it = statics[ITimeZoneSettingsStatics2Vtbl](className(TimeZoneSettings))
   var op: pointer
   check it.vtbl.AutoUpdateTimeZoneAsync(it.raw, timeout, op.addr
                                        ), "TimeZoneSettings.autoUpdateTimeZoneAsync"
@@ -6611,7 +6611,7 @@ proc autoUpdateTimeZoneAsync*(_: typedesc[TimeZoneSettings], timeout: TimeSpan
 
 proc getDefaultAsync*(_: typedesc[TwoPanelHingedDevicePosturePreview]): Future[TwoPanelHingedDevicePosturePreview] =
   ## Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewStatics.GetDefaultAsync
-  let it = statics[ITwoPanelHingedDevicePosturePreviewStaticsVtbl]("Windows.System.Preview.TwoPanelHingedDevicePosturePreview")
+  let it = statics[ITwoPanelHingedDevicePosturePreviewStaticsVtbl](className(TwoPanelHingedDevicePosturePreview))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "TwoPanelHingedDevicePosturePreview.getDefaultAsync"
@@ -6731,28 +6731,28 @@ proc reasons*(self: UnsupportedAppRequirement): UnsupportedAppRequirementReasons
 
 proc getDefault*(_: typedesc[User]): User =
   ## Windows.System.IUserStatics2.GetDefault
-  let it = statics[IUserStatics2Vtbl]("Windows.System.User")
+  let it = statics[IUserStatics2Vtbl](className(User))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "User.getDefault"
   adopt[User](ret)
 
 proc createWatcher*(_: typedesc[User]): UserWatcher =
   ## Windows.System.IUserStatics.CreateWatcher
-  let it = statics[IUserStaticsVtbl]("Windows.System.User")
+  let it = statics[IUserStaticsVtbl](className(User))
   var ret: pointer
   check it.vtbl.CreateWatcher(it.raw, ret.addr), "User.createWatcher"
   adopt[UserWatcher](ret)
 
 proc findAllAsync*(_: typedesc[User]): Future[seq[User]] =
   ## Windows.System.IUserStatics.FindAllAsync
-  let it = statics[IUserStaticsVtbl]("Windows.System.User")
+  let it = statics[IUserStaticsVtbl](className(User))
   var op: pointer
   check it.vtbl.FindAllAsync(it.raw, op.addr), "User.findAllAsync"
   future[IAsyncOperationVtbl[IVectorViewVtbl[User]], seq[User]](op, "User.findAllAsync")
 
 proc findAllAsync*(_: typedesc[User], `type`: UserType): Future[seq[User]] =
   ## Windows.System.IUserStatics.FindAllAsync
-  let it = statics[IUserStaticsVtbl]("Windows.System.User")
+  let it = statics[IUserStaticsVtbl](className(User))
   var op: pointer
   check it.vtbl.FindAllAsync2(it.raw, `type`, op.addr), "User.findAllAsync"
   future[IAsyncOperationVtbl[IVectorViewVtbl[User]], seq[User]](op, "User.findAllAsync")
@@ -6760,7 +6760,7 @@ proc findAllAsync*(_: typedesc[User], `type`: UserType): Future[seq[User]] =
 proc findAllAsync*(_: typedesc[User], `type`: UserType,
                    status: UserAuthenticationStatus): Future[seq[User]] =
   ## Windows.System.IUserStatics.FindAllAsync
-  let it = statics[IUserStaticsVtbl]("Windows.System.User")
+  let it = statics[IUserStaticsVtbl](className(User))
   var op: pointer
   check it.vtbl.FindAllAsync3(it.raw, `type`, status, op.addr
                              ), "User.findAllAsync"
@@ -6768,7 +6768,7 @@ proc findAllAsync*(_: typedesc[User], `type`: UserType,
 
 proc getFromId*(_: typedesc[User], nonRoamableId: string): User =
   ## Windows.System.IUserStatics.GetFromId
-  let it = statics[IUserStaticsVtbl]("Windows.System.User")
+  let it = statics[IUserStaticsVtbl](className(User))
   let a0 = toWinRtString(nonRoamableId)
   var ret: pointer
   check it.vtbl.GetFromId(it.raw, a0.handle, ret.addr), "User.getFromId"
@@ -6898,7 +6898,7 @@ proc changedPropertyKinds*(self: UserChangedEventArgs): seq[UserWatcherUpdateKin
 proc findUserFromDeviceId*(_: typedesc[UserDeviceAssociation], deviceId: string
                           ): User =
   ## Windows.System.IUserDeviceAssociationStatics.FindUserFromDeviceId
-  let it = statics[IUserDeviceAssociationStaticsVtbl]("Windows.System.UserDeviceAssociation")
+  let it = statics[IUserDeviceAssociationStaticsVtbl](className(UserDeviceAssociation))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.FindUserFromDeviceId(it.raw, a0.handle, ret.addr
@@ -6910,7 +6910,7 @@ proc onUserDeviceAssociationChanged*(_: typedesc[UserDeviceAssociation],
                                     ): EventRegistrationToken {.discardable.} =
   ## Windows.System.IUserDeviceAssociationStatics.add_UserDeviceAssociationChanged
   ## The token is what `removeUserDeviceAssociationChanged` takes.
-  let it = statics[IUserDeviceAssociationStaticsVtbl]("Windows.System.UserDeviceAssociation")
+  let it = statics[IUserDeviceAssociationStaticsVtbl](className(UserDeviceAssociation))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0),
             borrow[UserDeviceAssociationChangedEventArgs](a1))
@@ -6922,7 +6922,7 @@ proc onUserDeviceAssociationChanged*(_: typedesc[UserDeviceAssociation],
 proc removeUserDeviceAssociationChanged*(_: typedesc[UserDeviceAssociation],
                                          token: EventRegistrationToken) =
   ## Windows.System.IUserDeviceAssociationStatics.remove_UserDeviceAssociationChanged
-  let it = statics[IUserDeviceAssociationStaticsVtbl]("Windows.System.UserDeviceAssociation")
+  let it = statics[IUserDeviceAssociationStaticsVtbl](className(UserDeviceAssociation))
   check it.vtbl.remove_UserDeviceAssociationChanged(it.raw, token
                                                    ), "UserDeviceAssociation.userDeviceAssociationChanged"
 
@@ -6956,7 +6956,7 @@ proc oldUser*(self: UserDeviceAssociationChangedEventArgs): User =
 
 proc accountPictureChangeEnabled*(_: typedesc[UserInformation]): bool =
   ## Windows.System.UserProfile.IUserInformationStatics.get_AccountPictureChangeEnabled
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   var ret: bool
   check it.vtbl.get_AccountPictureChangeEnabled(it.raw, ret.addr
                                                ), "UserInformation.accountPictureChangeEnabled"
@@ -6964,7 +6964,7 @@ proc accountPictureChangeEnabled*(_: typedesc[UserInformation]): bool =
 
 proc nameAccessAllowed*(_: typedesc[UserInformation]): bool =
   ## Windows.System.UserProfile.IUserInformationStatics.get_NameAccessAllowed
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   var ret: bool
   check it.vtbl.get_NameAccessAllowed(it.raw, ret.addr
                                      ), "UserInformation.nameAccessAllowed"
@@ -6973,7 +6973,7 @@ proc nameAccessAllowed*(_: typedesc[UserInformation]): bool =
 proc getAccountPicture*(_: typedesc[UserInformation], kind: AccountPictureKind
                        ): IStorageFile =
   ## Windows.System.UserProfile.IUserInformationStatics.GetAccountPicture
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   var ret: pointer
   check it.vtbl.GetAccountPicture(it.raw, kind, ret.addr
                                  ), "UserInformation.getAccountPicture"
@@ -6983,7 +6983,7 @@ proc setAccountPictureAsync*(_: typedesc[UserInformation],
                              image: SomeStorageFile
                             ): Future[SetAccountPictureResult] =
   ## Windows.System.UserProfile.IUserInformationStatics.SetAccountPictureAsync
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   let a0 = queryInterface[IStorageFileVtbl](image)
   var op: pointer
   check it.vtbl.SetAccountPictureAsync(it.raw, a0.raw, op.addr
@@ -6996,7 +6996,7 @@ proc setAccountPicturesAsync*(_: typedesc[UserInformation],
                               video: SomeStorageFile
                              ): Future[SetAccountPictureResult] =
   ## Windows.System.UserProfile.IUserInformationStatics.SetAccountPicturesAsync
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   let a0 = queryInterface[IStorageFileVtbl](smallImage)
   let a1 = queryInterface[IStorageFileVtbl](largeImage)
   let a2 = queryInterface[IStorageFileVtbl](video)
@@ -7009,7 +7009,7 @@ proc setAccountPictureFromStreamAsync*(_: typedesc[UserInformation],
                                        image: SomeRandomAccessStream
                                       ): Future[SetAccountPictureResult] =
   ## Windows.System.UserProfile.IUserInformationStatics.SetAccountPictureFromStreamAsync
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   let a0 = queryInterface[IRandomAccessStreamVtbl](image)
   var op: pointer
   check it.vtbl.SetAccountPictureFromStreamAsync(it.raw, a0.raw, op.addr
@@ -7022,7 +7022,7 @@ proc setAccountPicturesFromStreamsAsync*(_: typedesc[UserInformation],
                                          video: SomeRandomAccessStream
                                         ): Future[SetAccountPictureResult] =
   ## Windows.System.UserProfile.IUserInformationStatics.SetAccountPicturesFromStreamsAsync
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   let a0 = queryInterface[IRandomAccessStreamVtbl](smallImage)
   let a1 = queryInterface[IRandomAccessStreamVtbl](largeImage)
   let a2 = queryInterface[IRandomAccessStreamVtbl](video)
@@ -7037,7 +7037,7 @@ proc onAccountPictureChanged*(_: typedesc[UserInformation],
                              ): EventRegistrationToken {.discardable.} =
   ## Windows.System.UserProfile.IUserInformationStatics.add_AccountPictureChanged
   ## The token is what `removeAccountPictureChanged` takes.
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -7047,13 +7047,13 @@ proc onAccountPictureChanged*(_: typedesc[UserInformation],
 proc removeAccountPictureChanged*(_: typedesc[UserInformation],
                                   token: EventRegistrationToken) =
   ## Windows.System.UserProfile.IUserInformationStatics.remove_AccountPictureChanged
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   check it.vtbl.remove_AccountPictureChanged(it.raw, token
                                             ), "UserInformation.accountPictureChanged"
 
 proc getDisplayNameAsync*(_: typedesc[UserInformation]): Future[string] =
   ## Windows.System.UserProfile.IUserInformationStatics.GetDisplayNameAsync
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   var op: pointer
   check it.vtbl.GetDisplayNameAsync(it.raw, op.addr
                                    ), "UserInformation.getDisplayNameAsync"
@@ -7061,7 +7061,7 @@ proc getDisplayNameAsync*(_: typedesc[UserInformation]): Future[string] =
 
 proc getFirstNameAsync*(_: typedesc[UserInformation]): Future[string] =
   ## Windows.System.UserProfile.IUserInformationStatics.GetFirstNameAsync
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   var op: pointer
   check it.vtbl.GetFirstNameAsync(it.raw, op.addr
                                  ), "UserInformation.getFirstNameAsync"
@@ -7069,7 +7069,7 @@ proc getFirstNameAsync*(_: typedesc[UserInformation]): Future[string] =
 
 proc getLastNameAsync*(_: typedesc[UserInformation]): Future[string] =
   ## Windows.System.UserProfile.IUserInformationStatics.GetLastNameAsync
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   var op: pointer
   check it.vtbl.GetLastNameAsync(it.raw, op.addr
                                 ), "UserInformation.getLastNameAsync"
@@ -7077,7 +7077,7 @@ proc getLastNameAsync*(_: typedesc[UserInformation]): Future[string] =
 
 proc getPrincipalNameAsync*(_: typedesc[UserInformation]): Future[string] =
   ## Windows.System.UserProfile.IUserInformationStatics.GetPrincipalNameAsync
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   var op: pointer
   check it.vtbl.GetPrincipalNameAsync(it.raw, op.addr
                                      ), "UserInformation.getPrincipalNameAsync"
@@ -7085,7 +7085,7 @@ proc getPrincipalNameAsync*(_: typedesc[UserInformation]): Future[string] =
 
 proc getSessionInitiationProtocolUriAsync*(_: typedesc[UserInformation]): Future[Uri] =
   ## Windows.System.UserProfile.IUserInformationStatics.GetSessionInitiationProtocolUriAsync
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   var op: pointer
   check it.vtbl.GetSessionInitiationProtocolUriAsync(it.raw, op.addr
                                                     ), "UserInformation.getSessionInitiationProtocolUriAsync"
@@ -7093,7 +7093,7 @@ proc getSessionInitiationProtocolUriAsync*(_: typedesc[UserInformation]): Future
 
 proc getDomainNameAsync*(_: typedesc[UserInformation]): Future[string] =
   ## Windows.System.UserProfile.IUserInformationStatics.GetDomainNameAsync
-  let it = statics[IUserInformationStaticsVtbl]("Windows.System.UserProfile.UserInformation")
+  let it = statics[IUserInformationStaticsVtbl](className(UserInformation))
   var op: pointer
   check it.vtbl.GetDomainNameAsync(it.raw, op.addr
                                   ), "UserInformation.getDomainNameAsync"
@@ -7107,7 +7107,7 @@ proc newUserPicker*(): UserPicker =
 
 proc isSupported*(_: typedesc[UserPicker]): bool =
   ## Windows.System.IUserPickerStatics.IsSupported
-  let it = statics[IUserPickerStaticsVtbl]("Windows.System.UserPicker")
+  let it = statics[IUserPickerStaticsVtbl](className(UserPicker))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr), "UserPicker.isSupported"
   ret
@@ -7153,7 +7153,7 @@ proc pickSingleUserAsync*(self: UserPicker): Future[User] =
 
 proc current*(_: typedesc[UserProfilePersonalizationSettings]): UserProfilePersonalizationSettings =
   ## Windows.System.UserProfile.IUserProfilePersonalizationSettingsStatics.get_Current
-  let it = statics[IUserProfilePersonalizationSettingsStaticsVtbl]("Windows.System.UserProfile.UserProfilePersonalizationSettings")
+  let it = statics[IUserProfilePersonalizationSettingsStaticsVtbl](className(UserProfilePersonalizationSettings))
   var ret: pointer
   check it.vtbl.get_Current(it.raw, ret.addr
                            ), "UserProfilePersonalizationSettings.current"
@@ -7161,7 +7161,7 @@ proc current*(_: typedesc[UserProfilePersonalizationSettings]): UserProfilePerso
 
 proc isSupported*(_: typedesc[UserProfilePersonalizationSettings]): bool =
   ## Windows.System.UserProfile.IUserProfilePersonalizationSettingsStatics.IsSupported
-  let it = statics[IUserProfilePersonalizationSettingsStaticsVtbl]("Windows.System.UserProfile.UserProfilePersonalizationSettings")
+  let it = statics[IUserProfilePersonalizationSettingsStaticsVtbl](className(UserProfilePersonalizationSettings))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr
                            ), "UserProfilePersonalizationSettings.isSupported"
@@ -7339,7 +7339,7 @@ proc removeStopped*(self: UserWatcher, token: EventRegistrationToken) =
 
 proc isEnabled*(_: typedesc[WindowsIntegrityPolicy]): bool =
   ## Windows.System.Profile.IWindowsIntegrityPolicyStatics.get_IsEnabled
-  let it = statics[IWindowsIntegrityPolicyStaticsVtbl]("Windows.System.Profile.WindowsIntegrityPolicy")
+  let it = statics[IWindowsIntegrityPolicyStaticsVtbl](className(WindowsIntegrityPolicy))
   var ret: bool
   check it.vtbl.get_IsEnabled(it.raw, ret.addr
                              ), "WindowsIntegrityPolicy.isEnabled"
@@ -7347,7 +7347,7 @@ proc isEnabled*(_: typedesc[WindowsIntegrityPolicy]): bool =
 
 proc isEnabledForTrial*(_: typedesc[WindowsIntegrityPolicy]): bool =
   ## Windows.System.Profile.IWindowsIntegrityPolicyStatics.get_IsEnabledForTrial
-  let it = statics[IWindowsIntegrityPolicyStaticsVtbl]("Windows.System.Profile.WindowsIntegrityPolicy")
+  let it = statics[IWindowsIntegrityPolicyStaticsVtbl](className(WindowsIntegrityPolicy))
   var ret: bool
   check it.vtbl.get_IsEnabledForTrial(it.raw, ret.addr
                                      ), "WindowsIntegrityPolicy.isEnabledForTrial"
@@ -7355,7 +7355,7 @@ proc isEnabledForTrial*(_: typedesc[WindowsIntegrityPolicy]): bool =
 
 proc canDisable*(_: typedesc[WindowsIntegrityPolicy]): bool =
   ## Windows.System.Profile.IWindowsIntegrityPolicyStatics.get_CanDisable
-  let it = statics[IWindowsIntegrityPolicyStaticsVtbl]("Windows.System.Profile.WindowsIntegrityPolicy")
+  let it = statics[IWindowsIntegrityPolicyStaticsVtbl](className(WindowsIntegrityPolicy))
   var ret: bool
   check it.vtbl.get_CanDisable(it.raw, ret.addr
                               ), "WindowsIntegrityPolicy.canDisable"
@@ -7363,7 +7363,7 @@ proc canDisable*(_: typedesc[WindowsIntegrityPolicy]): bool =
 
 proc isDisableSupported*(_: typedesc[WindowsIntegrityPolicy]): bool =
   ## Windows.System.Profile.IWindowsIntegrityPolicyStatics.get_IsDisableSupported
-  let it = statics[IWindowsIntegrityPolicyStaticsVtbl]("Windows.System.Profile.WindowsIntegrityPolicy")
+  let it = statics[IWindowsIntegrityPolicyStaticsVtbl](className(WindowsIntegrityPolicy))
   var ret: bool
   check it.vtbl.get_IsDisableSupported(it.raw, ret.addr
                                       ), "WindowsIntegrityPolicy.isDisableSupported"
@@ -7374,7 +7374,7 @@ proc onPolicyChanged*(_: typedesc[WindowsIntegrityPolicy],
                      ): EventRegistrationToken {.discardable.} =
   ## Windows.System.Profile.IWindowsIntegrityPolicyStatics.add_PolicyChanged
   ## The token is what `removePolicyChanged` takes.
-  let it = statics[IWindowsIntegrityPolicyStaticsVtbl]("Windows.System.Profile.WindowsIntegrityPolicy")
+  let it = statics[IWindowsIntegrityPolicyStaticsVtbl](className(WindowsIntegrityPolicy))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -7384,7 +7384,7 @@ proc onPolicyChanged*(_: typedesc[WindowsIntegrityPolicy],
 proc removePolicyChanged*(_: typedesc[WindowsIntegrityPolicy],
                           token: EventRegistrationToken) =
   ## Windows.System.Profile.IWindowsIntegrityPolicyStatics.remove_PolicyChanged
-  let it = statics[IWindowsIntegrityPolicyStaticsVtbl]("Windows.System.Profile.WindowsIntegrityPolicy")
+  let it = statics[IWindowsIntegrityPolicyStaticsVtbl](className(WindowsIntegrityPolicy))
   check it.vtbl.remove_PolicyChanged(it.raw, token
                                     ), "WindowsIntegrityPolicy.policyChanged"
 

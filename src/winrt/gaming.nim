@@ -25,7 +25,7 @@ export foundation
 proc fromGameController*(_: typedesc[ArcadeStick],
                          gameController: SomeGameController): ArcadeStick =
   ## Windows.Gaming.Input.IArcadeStickStatics2.FromGameController
-  let it = statics[IArcadeStickStatics2Vtbl]("Windows.Gaming.Input.ArcadeStick")
+  let it = statics[IArcadeStickStatics2Vtbl](className(ArcadeStick))
   let a0 = queryInterface[IGameControllerVtbl](gameController)
   var ret: pointer
   check it.vtbl.FromGameController(it.raw, a0.raw, ret.addr
@@ -37,7 +37,7 @@ proc onArcadeStickAdded*(_: typedesc[ArcadeStick],
                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.IArcadeStickStatics.add_ArcadeStickAdded
   ## The token is what `removeArcadeStickAdded` takes.
-  let it = statics[IArcadeStickStaticsVtbl]("Windows.Gaming.Input.ArcadeStick")
+  let it = statics[IArcadeStickStaticsVtbl](className(ArcadeStick))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[ArcadeStick](a1))
   let cb = newDelegate(EventHandlerVtbl[ArcadeStick], shim, event = true)
@@ -47,7 +47,7 @@ proc onArcadeStickAdded*(_: typedesc[ArcadeStick],
 proc removeArcadeStickAdded*(_: typedesc[ArcadeStick],
                              token: EventRegistrationToken) =
   ## Windows.Gaming.Input.IArcadeStickStatics.remove_ArcadeStickAdded
-  let it = statics[IArcadeStickStaticsVtbl]("Windows.Gaming.Input.ArcadeStick")
+  let it = statics[IArcadeStickStaticsVtbl](className(ArcadeStick))
   check it.vtbl.remove_ArcadeStickAdded(it.raw, token
                                        ), "ArcadeStick.arcadeStickAdded"
 
@@ -56,7 +56,7 @@ proc onArcadeStickRemoved*(_: typedesc[ArcadeStick],
                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.IArcadeStickStatics.add_ArcadeStickRemoved
   ## The token is what `removeArcadeStickRemoved` takes.
-  let it = statics[IArcadeStickStaticsVtbl]("Windows.Gaming.Input.ArcadeStick")
+  let it = statics[IArcadeStickStaticsVtbl](className(ArcadeStick))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[ArcadeStick](a1))
   let cb = newDelegate(EventHandlerVtbl[ArcadeStick], shim, event = true)
@@ -66,13 +66,13 @@ proc onArcadeStickRemoved*(_: typedesc[ArcadeStick],
 proc removeArcadeStickRemoved*(_: typedesc[ArcadeStick],
                                token: EventRegistrationToken) =
   ## Windows.Gaming.Input.IArcadeStickStatics.remove_ArcadeStickRemoved
-  let it = statics[IArcadeStickStaticsVtbl]("Windows.Gaming.Input.ArcadeStick")
+  let it = statics[IArcadeStickStaticsVtbl](className(ArcadeStick))
   check it.vtbl.remove_ArcadeStickRemoved(it.raw, token
                                          ), "ArcadeStick.arcadeStickRemoved"
 
 proc arcadeSticks*(_: typedesc[ArcadeStick]): seq[ArcadeStick] =
   ## Windows.Gaming.Input.IArcadeStickStatics.get_ArcadeSticks
-  let it = statics[IArcadeStickStaticsVtbl]("Windows.Gaming.Input.ArcadeStick")
+  let it = statics[IArcadeStickStaticsVtbl](className(ArcadeStick))
   var ret: pointer
   check it.vtbl.get_ArcadeSticks(it.raw, ret.addr), "ArcadeStick.arcadeSticks"
   takeSeq[IVectorViewVtbl[ArcadeStick], seq[ArcadeStick]](ret)
@@ -98,7 +98,7 @@ proc getCurrentReading*(self: ArcadeStick): ArcadeStickReading =
 
 proc newConditionForceEffect*(effectKind: ConditionForceEffectKind): ConditionForceEffect =
   ## Windows.Gaming.Input.ForceFeedback.IConditionForceEffectFactory.CreateInstance
-  let it = statics[IConditionForceEffectFactoryVtbl]("Windows.Gaming.Input.ForceFeedback.ConditionForceEffect")
+  let it = statics[IConditionForceEffectFactoryVtbl](className(ConditionForceEffect))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, effectKind, ret.addr
                               ), "ConditionForceEffect.new"
@@ -158,7 +158,7 @@ proc onFlightStickAdded*(_: typedesc[FlightStick],
                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.IFlightStickStatics.add_FlightStickAdded
   ## The token is what `removeFlightStickAdded` takes.
-  let it = statics[IFlightStickStaticsVtbl]("Windows.Gaming.Input.FlightStick")
+  let it = statics[IFlightStickStaticsVtbl](className(FlightStick))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[FlightStick](a1))
   let cb = newDelegate(EventHandlerVtbl[FlightStick], shim, event = true)
@@ -168,7 +168,7 @@ proc onFlightStickAdded*(_: typedesc[FlightStick],
 proc removeFlightStickAdded*(_: typedesc[FlightStick],
                              token: EventRegistrationToken) =
   ## Windows.Gaming.Input.IFlightStickStatics.remove_FlightStickAdded
-  let it = statics[IFlightStickStaticsVtbl]("Windows.Gaming.Input.FlightStick")
+  let it = statics[IFlightStickStaticsVtbl](className(FlightStick))
   check it.vtbl.remove_FlightStickAdded(it.raw, token
                                        ), "FlightStick.flightStickAdded"
 
@@ -177,7 +177,7 @@ proc onFlightStickRemoved*(_: typedesc[FlightStick],
                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.IFlightStickStatics.add_FlightStickRemoved
   ## The token is what `removeFlightStickRemoved` takes.
-  let it = statics[IFlightStickStaticsVtbl]("Windows.Gaming.Input.FlightStick")
+  let it = statics[IFlightStickStaticsVtbl](className(FlightStick))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[FlightStick](a1))
   let cb = newDelegate(EventHandlerVtbl[FlightStick], shim, event = true)
@@ -187,13 +187,13 @@ proc onFlightStickRemoved*(_: typedesc[FlightStick],
 proc removeFlightStickRemoved*(_: typedesc[FlightStick],
                                token: EventRegistrationToken) =
   ## Windows.Gaming.Input.IFlightStickStatics.remove_FlightStickRemoved
-  let it = statics[IFlightStickStaticsVtbl]("Windows.Gaming.Input.FlightStick")
+  let it = statics[IFlightStickStaticsVtbl](className(FlightStick))
   check it.vtbl.remove_FlightStickRemoved(it.raw, token
                                          ), "FlightStick.flightStickRemoved"
 
 proc flightSticks*(_: typedesc[FlightStick]): seq[FlightStick] =
   ## Windows.Gaming.Input.IFlightStickStatics.get_FlightSticks
-  let it = statics[IFlightStickStaticsVtbl]("Windows.Gaming.Input.FlightStick")
+  let it = statics[IFlightStickStaticsVtbl](className(FlightStick))
   var ret: pointer
   check it.vtbl.get_FlightSticks(it.raw, ret.addr), "FlightStick.flightSticks"
   takeSeq[IVectorViewVtbl[FlightStick], seq[FlightStick]](ret)
@@ -201,7 +201,7 @@ proc flightSticks*(_: typedesc[FlightStick]): seq[FlightStick] =
 proc fromGameController*(_: typedesc[FlightStick],
                          gameController: SomeGameController): FlightStick =
   ## Windows.Gaming.Input.IFlightStickStatics.FromGameController
-  let it = statics[IFlightStickStaticsVtbl]("Windows.Gaming.Input.FlightStick")
+  let it = statics[IFlightStickStaticsVtbl](className(FlightStick))
   let a0 = queryInterface[IGameControllerVtbl](gameController)
   var ret: pointer
   check it.vtbl.FromGameController(it.raw, a0.raw, ret.addr
@@ -337,7 +337,7 @@ proc onVisibilityChanged*(_: typedesc[GameBar],
                          ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.UI.IGameBarStatics.add_VisibilityChanged
   ## The token is what `removeVisibilityChanged` takes.
-  let it = statics[IGameBarStaticsVtbl]("Windows.Gaming.UI.GameBar")
+  let it = statics[IGameBarStaticsVtbl](className(GameBar))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -347,7 +347,7 @@ proc onVisibilityChanged*(_: typedesc[GameBar],
 proc removeVisibilityChanged*(_: typedesc[GameBar],
                               token: EventRegistrationToken) =
   ## Windows.Gaming.UI.IGameBarStatics.remove_VisibilityChanged
-  let it = statics[IGameBarStaticsVtbl]("Windows.Gaming.UI.GameBar")
+  let it = statics[IGameBarStaticsVtbl](className(GameBar))
   check it.vtbl.remove_VisibilityChanged(it.raw, token
                                         ), "GameBar.visibilityChanged"
 
@@ -356,7 +356,7 @@ proc onIsInputRedirectedChanged*(_: typedesc[GameBar],
                                 ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.UI.IGameBarStatics.add_IsInputRedirectedChanged
   ## The token is what `removeIsInputRedirectedChanged` takes.
-  let it = statics[IGameBarStaticsVtbl]("Windows.Gaming.UI.GameBar")
+  let it = statics[IGameBarStaticsVtbl](className(GameBar))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -366,20 +366,20 @@ proc onIsInputRedirectedChanged*(_: typedesc[GameBar],
 proc removeIsInputRedirectedChanged*(_: typedesc[GameBar],
                                      token: EventRegistrationToken) =
   ## Windows.Gaming.UI.IGameBarStatics.remove_IsInputRedirectedChanged
-  let it = statics[IGameBarStaticsVtbl]("Windows.Gaming.UI.GameBar")
+  let it = statics[IGameBarStaticsVtbl](className(GameBar))
   check it.vtbl.remove_IsInputRedirectedChanged(it.raw, token
                                                ), "GameBar.isInputRedirectedChanged"
 
 proc visible*(_: typedesc[GameBar]): bool =
   ## Windows.Gaming.UI.IGameBarStatics.get_Visible
-  let it = statics[IGameBarStaticsVtbl]("Windows.Gaming.UI.GameBar")
+  let it = statics[IGameBarStaticsVtbl](className(GameBar))
   var ret: bool
   check it.vtbl.get_Visible(it.raw, ret.addr), "GameBar.visible"
   ret
 
 proc isInputRedirected*(_: typedesc[GameBar]): bool =
   ## Windows.Gaming.UI.IGameBarStatics.get_IsInputRedirected
-  let it = statics[IGameBarStaticsVtbl]("Windows.Gaming.UI.GameBar")
+  let it = statics[IGameBarStaticsVtbl](className(GameBar))
   var ret: bool
   check it.vtbl.get_IsInputRedirected(it.raw, ret.addr
                                      ), "GameBar.isInputRedirected"
@@ -431,7 +431,7 @@ proc origin*(self: GameChatMessageReceivedEventArgs): GameChatMessageOrigin =
 
 proc getDefault*(_: typedesc[GameChatOverlay]): GameChatOverlay =
   ## Windows.Gaming.UI.IGameChatOverlayStatics.GetDefault
-  let it = statics[IGameChatOverlayStaticsVtbl]("Windows.Gaming.UI.GameChatOverlay")
+  let it = statics[IGameChatOverlayStaticsVtbl](className(GameChatOverlay))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "GameChatOverlay.getDefault"
   adopt[GameChatOverlay](ret)
@@ -501,7 +501,7 @@ proc tryGetFactoryControllerFromGameController*(_: typedesc[GameControllerFactor
                                                 gameController: SomeGameController
                                                ): IGameController =
   ## Windows.Gaming.Input.Custom.IGameControllerFactoryManagerStatics2.TryGetFactoryControllerFromGameController
-  let it = statics[IGameControllerFactoryManagerStatics2Vtbl]("Windows.Gaming.Input.Custom.GameControllerFactoryManager")
+  let it = statics[IGameControllerFactoryManagerStatics2Vtbl](className(GameControllerFactoryManager))
   let a0 = queryInterface[ICustomGameControllerFactoryVtbl](factory)
   let a1 = queryInterface[IGameControllerVtbl](gameController)
   var ret: pointer
@@ -514,7 +514,7 @@ proc registerCustomFactoryForGipInterface*(_: typedesc[GameControllerFactoryMana
                                            factory: ICustomGameControllerFactory,
                                            interfaceId: GUID) =
   ## Windows.Gaming.Input.Custom.IGameControllerFactoryManagerStatics.RegisterCustomFactoryForGipInterface
-  let it = statics[IGameControllerFactoryManagerStaticsVtbl]("Windows.Gaming.Input.Custom.GameControllerFactoryManager")
+  let it = statics[IGameControllerFactoryManagerStaticsVtbl](className(GameControllerFactoryManager))
   let a0 = queryInterface[ICustomGameControllerFactoryVtbl](factory)
   check it.vtbl.RegisterCustomFactoryForGipInterface(it.raw, a0.raw, interfaceId
                                                     ), "GameControllerFactoryManager.registerCustomFactoryForGipInterface"
@@ -524,7 +524,7 @@ proc registerCustomFactoryForHardwareId*(_: typedesc[GameControllerFactoryManage
                                          hardwareVendorId: uint16,
                                          hardwareProductId: uint16) =
   ## Windows.Gaming.Input.Custom.IGameControllerFactoryManagerStatics.RegisterCustomFactoryForHardwareId
-  let it = statics[IGameControllerFactoryManagerStaticsVtbl]("Windows.Gaming.Input.Custom.GameControllerFactoryManager")
+  let it = statics[IGameControllerFactoryManagerStaticsVtbl](className(GameControllerFactoryManager))
   let a0 = queryInterface[ICustomGameControllerFactoryVtbl](factory)
   check it.vtbl.RegisterCustomFactoryForHardwareId(it.raw, a0.raw,
                                                    hardwareVendorId,
@@ -536,7 +536,7 @@ proc registerCustomFactoryForXusbType*(_: typedesc[GameControllerFactoryManager]
                                        xusbType: XusbDeviceType,
                                        xusbSubtype: XusbDeviceSubtype) =
   ## Windows.Gaming.Input.Custom.IGameControllerFactoryManagerStatics.RegisterCustomFactoryForXusbType
-  let it = statics[IGameControllerFactoryManagerStaticsVtbl]("Windows.Gaming.Input.Custom.GameControllerFactoryManager")
+  let it = statics[IGameControllerFactoryManagerStaticsVtbl](className(GameControllerFactoryManager))
   let a0 = queryInterface[ICustomGameControllerFactoryVtbl](factory)
   check it.vtbl.RegisterCustomFactoryForXusbType(it.raw, a0.raw, xusbType,
                                                  xusbSubtype
@@ -547,7 +547,7 @@ proc registerCustomFactoryForXusbType*(_: typedesc[GameControllerFactoryManager]
 proc getParentProviderId*(_: typedesc[GameControllerProviderInfo],
                           provider: SomeGameControllerProvider): string =
   ## Windows.Gaming.Input.Preview.IGameControllerProviderInfoStatics.GetParentProviderId
-  let it = statics[IGameControllerProviderInfoStaticsVtbl]("Windows.Gaming.Input.Preview.GameControllerProviderInfo")
+  let it = statics[IGameControllerProviderInfoStaticsVtbl](className(GameControllerProviderInfo))
   let a0 = queryInterface[IGameControllerProviderVtbl](provider)
   var ret: HSTRING
   check it.vtbl.GetParentProviderId(it.raw, a0.raw, ret.addr
@@ -557,7 +557,7 @@ proc getParentProviderId*(_: typedesc[GameControllerProviderInfo],
 proc getProviderId*(_: typedesc[GameControllerProviderInfo],
                     provider: SomeGameControllerProvider): string =
   ## Windows.Gaming.Input.Preview.IGameControllerProviderInfoStatics.GetProviderId
-  let it = statics[IGameControllerProviderInfoStaticsVtbl]("Windows.Gaming.Input.Preview.GameControllerProviderInfo")
+  let it = statics[IGameControllerProviderInfoStaticsVtbl](className(GameControllerProviderInfo))
   let a0 = queryInterface[IGameControllerProviderVtbl](provider)
   var ret: HSTRING
   check it.vtbl.GetProviderId(it.raw, a0.raw, ret.addr
@@ -569,7 +569,7 @@ proc getProviderId*(_: typedesc[GameControllerProviderInfo],
 proc mergeEntriesAsync*(_: typedesc[GameList], left: GameListEntry,
                         right: GameListEntry): Future[GameListEntry] =
   ## Windows.Gaming.Preview.GamesEnumeration.IGameListStatics2.MergeEntriesAsync
-  let it = statics[IGameListStatics2Vtbl]("Windows.Gaming.Preview.GamesEnumeration.GameList")
+  let it = statics[IGameListStatics2Vtbl](className(GameList))
   let a0 = queryInterface[IGameListEntryVtbl](left)
   let a1 = queryInterface[IGameListEntryVtbl](right)
   var op: pointer
@@ -580,7 +580,7 @@ proc mergeEntriesAsync*(_: typedesc[GameList], left: GameListEntry,
 proc unmergeEntryAsync*(_: typedesc[GameList], mergedEntry: GameListEntry
                        ): Future[seq[GameListEntry]] =
   ## Windows.Gaming.Preview.GamesEnumeration.IGameListStatics2.UnmergeEntryAsync
-  let it = statics[IGameListStatics2Vtbl]("Windows.Gaming.Preview.GamesEnumeration.GameList")
+  let it = statics[IGameListStatics2Vtbl](className(GameList))
   let a0 = queryInterface[IGameListEntryVtbl](mergedEntry)
   var op: pointer
   check it.vtbl.UnmergeEntryAsync(it.raw, a0.raw, op.addr
@@ -589,7 +589,7 @@ proc unmergeEntryAsync*(_: typedesc[GameList], mergedEntry: GameListEntry
 
 proc findAllAsync*(_: typedesc[GameList]): Future[seq[GameListEntry]] =
   ## Windows.Gaming.Preview.GamesEnumeration.IGameListStatics.FindAllAsync
-  let it = statics[IGameListStaticsVtbl]("Windows.Gaming.Preview.GamesEnumeration.GameList")
+  let it = statics[IGameListStaticsVtbl](className(GameList))
   var op: pointer
   check it.vtbl.FindAllAsync(it.raw, op.addr), "GameList.findAllAsync"
   future[IAsyncOperationVtbl[IVectorViewVtbl[GameListEntry]], seq[GameListEntry]](op, "GameList.findAllAsync")
@@ -597,7 +597,7 @@ proc findAllAsync*(_: typedesc[GameList]): Future[seq[GameListEntry]] =
 proc findAllAsync*(_: typedesc[GameList], packageFamilyName: string
                   ): Future[seq[GameListEntry]] =
   ## Windows.Gaming.Preview.GamesEnumeration.IGameListStatics.FindAllAsync
-  let it = statics[IGameListStaticsVtbl]("Windows.Gaming.Preview.GamesEnumeration.GameList")
+  let it = statics[IGameListStaticsVtbl](className(GameList))
   let a0 = toWinRtString(packageFamilyName)
   var op: pointer
   check it.vtbl.FindAllAsync2(it.raw, a0.handle, op.addr
@@ -608,7 +608,7 @@ proc onGameAdded*(_: typedesc[GameList], handler: proc(game: GameListEntry)
                  ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Preview.GamesEnumeration.IGameListStatics.add_GameAdded
   ## The token is what `removeGameAdded` takes.
-  let it = statics[IGameListStaticsVtbl]("Windows.Gaming.Preview.GamesEnumeration.GameList")
+  let it = statics[IGameListStaticsVtbl](className(GameList))
   proc shim(a0: pointer) =
     handler(borrow[GameListEntry](a0))
   let cb = newDelegate(GameListChangedEventHandlerVtbl, shim, event = true)
@@ -616,14 +616,14 @@ proc onGameAdded*(_: typedesc[GameList], handler: proc(game: GameListEntry)
 
 proc removeGameAdded*(_: typedesc[GameList], token: EventRegistrationToken) =
   ## Windows.Gaming.Preview.GamesEnumeration.IGameListStatics.remove_GameAdded
-  let it = statics[IGameListStaticsVtbl]("Windows.Gaming.Preview.GamesEnumeration.GameList")
+  let it = statics[IGameListStaticsVtbl](className(GameList))
   check it.vtbl.remove_GameAdded(it.raw, token), "GameList.gameAdded"
 
 proc onGameRemoved*(_: typedesc[GameList], handler: proc(identifier: string)
                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Preview.GamesEnumeration.IGameListStatics.add_GameRemoved
   ## The token is what `removeGameRemoved` takes.
-  let it = statics[IGameListStaticsVtbl]("Windows.Gaming.Preview.GamesEnumeration.GameList")
+  let it = statics[IGameListStaticsVtbl](className(GameList))
   proc shim(a0: HSTRING) =
     handler($a0)
   let cb = newDelegate(GameListRemovedEventHandlerVtbl, shim, event = true)
@@ -632,14 +632,14 @@ proc onGameRemoved*(_: typedesc[GameList], handler: proc(identifier: string)
 
 proc removeGameRemoved*(_: typedesc[GameList], token: EventRegistrationToken) =
   ## Windows.Gaming.Preview.GamesEnumeration.IGameListStatics.remove_GameRemoved
-  let it = statics[IGameListStaticsVtbl]("Windows.Gaming.Preview.GamesEnumeration.GameList")
+  let it = statics[IGameListStaticsVtbl](className(GameList))
   check it.vtbl.remove_GameRemoved(it.raw, token), "GameList.gameRemoved"
 
 proc onGameUpdated*(_: typedesc[GameList], handler: proc(game: GameListEntry)
                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Preview.GamesEnumeration.IGameListStatics.add_GameUpdated
   ## The token is what `removeGameUpdated` takes.
-  let it = statics[IGameListStaticsVtbl]("Windows.Gaming.Preview.GamesEnumeration.GameList")
+  let it = statics[IGameListStaticsVtbl](className(GameList))
   proc shim(a0: pointer) =
     handler(borrow[GameListEntry](a0))
   let cb = newDelegate(GameListChangedEventHandlerVtbl, shim, event = true)
@@ -648,7 +648,7 @@ proc onGameUpdated*(_: typedesc[GameList], handler: proc(game: GameListEntry)
 
 proc removeGameUpdated*(_: typedesc[GameList], token: EventRegistrationToken) =
   ## Windows.Gaming.Preview.GamesEnumeration.IGameListStatics.remove_GameUpdated
-  let it = statics[IGameListStaticsVtbl]("Windows.Gaming.Preview.GamesEnumeration.GameList")
+  let it = statics[IGameListStaticsVtbl](className(GameList))
   check it.vtbl.remove_GameUpdated(it.raw, token), "GameList.gameUpdated"
 
 # ---- Windows.Gaming.Preview.GamesEnumeration.GameListEntry
@@ -868,7 +868,7 @@ proc saveAsync*(self: GameModeConfiguration): Future[void] =
 
 proc getDefault*(_: typedesc[GameModeUserConfiguration]): GameModeUserConfiguration =
   ## Windows.Gaming.Preview.GamesEnumeration.IGameModeUserConfigurationStatics.GetDefault
-  let it = statics[IGameModeUserConfigurationStaticsVtbl]("Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration")
+  let it = statics[IGameModeUserConfigurationStaticsVtbl](className(GameModeUserConfiguration))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr
                           ), "GameModeUserConfiguration.getDefault"
@@ -1146,7 +1146,7 @@ proc getForUserAsync*(_: typedesc[GameSaveProvider], user: User,
                       serviceConfigId: string
                      ): Future[GameSaveProviderGetResult] =
   ## Windows.Gaming.XboxLive.Storage.IGameSaveProviderStatics.GetForUserAsync
-  let it = statics[IGameSaveProviderStaticsVtbl]("Windows.Gaming.XboxLive.Storage.GameSaveProvider")
+  let it = statics[IGameSaveProviderStaticsVtbl](className(GameSaveProvider))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(serviceConfigId)
   var op: pointer
@@ -1158,7 +1158,7 @@ proc getSyncOnDemandForUserAsync*(_: typedesc[GameSaveProvider], user: User,
                                   serviceConfigId: string
                                  ): Future[GameSaveProviderGetResult] =
   ## Windows.Gaming.XboxLive.Storage.IGameSaveProviderStatics.GetSyncOnDemandForUserAsync
-  let it = statics[IGameSaveProviderStaticsVtbl]("Windows.Gaming.XboxLive.Storage.GameSaveProvider")
+  let it = statics[IGameSaveProviderStaticsVtbl](className(GameSaveProvider))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(serviceConfigId)
   var op: pointer
@@ -1268,7 +1268,7 @@ proc onGamepadAdded*(_: typedesc[Gamepad],
                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.IGamepadStatics.add_GamepadAdded
   ## The token is what `removeGamepadAdded` takes.
-  let it = statics[IGamepadStaticsVtbl]("Windows.Gaming.Input.Gamepad")
+  let it = statics[IGamepadStaticsVtbl](className(Gamepad))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[Gamepad](a1))
   let cb = newDelegate(EventHandlerVtbl[Gamepad], shim, event = true)
@@ -1277,7 +1277,7 @@ proc onGamepadAdded*(_: typedesc[Gamepad],
 
 proc removeGamepadAdded*(_: typedesc[Gamepad], token: EventRegistrationToken) =
   ## Windows.Gaming.Input.IGamepadStatics.remove_GamepadAdded
-  let it = statics[IGamepadStaticsVtbl]("Windows.Gaming.Input.Gamepad")
+  let it = statics[IGamepadStaticsVtbl](className(Gamepad))
   check it.vtbl.remove_GamepadAdded(it.raw, token), "Gamepad.gamepadAdded"
 
 proc onGamepadRemoved*(_: typedesc[Gamepad],
@@ -1285,7 +1285,7 @@ proc onGamepadRemoved*(_: typedesc[Gamepad],
                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.IGamepadStatics.add_GamepadRemoved
   ## The token is what `removeGamepadRemoved` takes.
-  let it = statics[IGamepadStaticsVtbl]("Windows.Gaming.Input.Gamepad")
+  let it = statics[IGamepadStaticsVtbl](className(Gamepad))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[Gamepad](a1))
   let cb = newDelegate(EventHandlerVtbl[Gamepad], shim, event = true)
@@ -1295,12 +1295,12 @@ proc onGamepadRemoved*(_: typedesc[Gamepad],
 proc removeGamepadRemoved*(_: typedesc[Gamepad], token: EventRegistrationToken
                           ) =
   ## Windows.Gaming.Input.IGamepadStatics.remove_GamepadRemoved
-  let it = statics[IGamepadStaticsVtbl]("Windows.Gaming.Input.Gamepad")
+  let it = statics[IGamepadStaticsVtbl](className(Gamepad))
   check it.vtbl.remove_GamepadRemoved(it.raw, token), "Gamepad.gamepadRemoved"
 
 proc gamepads*(_: typedesc[Gamepad]): seq[Gamepad] =
   ## Windows.Gaming.Input.IGamepadStatics.get_Gamepads
-  let it = statics[IGamepadStaticsVtbl]("Windows.Gaming.Input.Gamepad")
+  let it = statics[IGamepadStaticsVtbl](className(Gamepad))
   var ret: pointer
   check it.vtbl.get_Gamepads(it.raw, ret.addr), "Gamepad.gamepads"
   takeSeq[IVectorViewVtbl[Gamepad], seq[Gamepad]](ret)
@@ -1308,7 +1308,7 @@ proc gamepads*(_: typedesc[Gamepad]): seq[Gamepad] =
 proc fromGameController*(_: typedesc[Gamepad],
                          gameController: SomeGameController): Gamepad =
   ## Windows.Gaming.Input.IGamepadStatics2.FromGameController
-  let it = statics[IGamepadStatics2Vtbl]("Windows.Gaming.Input.Gamepad")
+  let it = statics[IGamepadStatics2Vtbl](className(Gamepad))
   let a0 = queryInterface[IGameControllerVtbl](gameController)
   var ret: pointer
   check it.vtbl.FromGameController(it.raw, a0.raw, ret.addr
@@ -1468,7 +1468,7 @@ proc fromGameController*(_: typedesc[LegacyGipGameControllerProvider],
                          controller: SomeGameController
                         ): LegacyGipGameControllerProvider =
   ## Windows.Gaming.Input.Preview.ILegacyGipGameControllerProviderStatics.FromGameController
-  let it = statics[ILegacyGipGameControllerProviderStaticsVtbl]("Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider")
+  let it = statics[ILegacyGipGameControllerProviderStaticsVtbl](className(LegacyGipGameControllerProvider))
   let a0 = queryInterface[IGameControllerVtbl](controller)
   var ret: pointer
   check it.vtbl.FromGameController(it.raw, a0.raw, ret.addr
@@ -1479,7 +1479,7 @@ proc fromGameControllerProvider*(_: typedesc[LegacyGipGameControllerProvider],
                                  provider: SomeGameControllerProvider
                                 ): LegacyGipGameControllerProvider =
   ## Windows.Gaming.Input.Preview.ILegacyGipGameControllerProviderStatics.FromGameControllerProvider
-  let it = statics[ILegacyGipGameControllerProviderStaticsVtbl]("Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider")
+  let it = statics[ILegacyGipGameControllerProviderStaticsVtbl](className(LegacyGipGameControllerProvider))
   let a0 = queryInterface[IGameControllerProviderVtbl](provider)
   var ret: pointer
   check it.vtbl.FromGameControllerProvider(it.raw, a0.raw, ret.addr
@@ -1490,7 +1490,7 @@ proc pairPilotToCopilot*(_: typedesc[LegacyGipGameControllerProvider],
                          user: User, pilotControllerProviderId: string,
                          copilotControllerProviderId: string) =
   ## Windows.Gaming.Input.Preview.ILegacyGipGameControllerProviderStatics.PairPilotToCopilot
-  let it = statics[ILegacyGipGameControllerProviderStaticsVtbl]("Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider")
+  let it = statics[ILegacyGipGameControllerProviderStaticsVtbl](className(LegacyGipGameControllerProvider))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(pilotControllerProviderId)
   let a2 = toWinRtString(copilotControllerProviderId)
@@ -1500,7 +1500,7 @@ proc pairPilotToCopilot*(_: typedesc[LegacyGipGameControllerProvider],
 proc clearPairing*(_: typedesc[LegacyGipGameControllerProvider], user: User,
                    controllerProviderId: string) =
   ## Windows.Gaming.Input.Preview.ILegacyGipGameControllerProviderStatics.ClearPairing
-  let it = statics[ILegacyGipGameControllerProviderStaticsVtbl]("Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider")
+  let it = statics[ILegacyGipGameControllerProviderStaticsVtbl](className(LegacyGipGameControllerProvider))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(controllerProviderId)
   check it.vtbl.ClearPairing(it.raw, a0.raw, a1.handle
@@ -1509,7 +1509,7 @@ proc clearPairing*(_: typedesc[LegacyGipGameControllerProvider], user: User,
 proc isPilot*(_: typedesc[LegacyGipGameControllerProvider], user: User,
               controllerProviderId: string): string =
   ## Windows.Gaming.Input.Preview.ILegacyGipGameControllerProviderStatics.IsPilot
-  let it = statics[ILegacyGipGameControllerProviderStaticsVtbl]("Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider")
+  let it = statics[ILegacyGipGameControllerProviderStaticsVtbl](className(LegacyGipGameControllerProvider))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(controllerProviderId)
   var ret: HSTRING
@@ -1520,7 +1520,7 @@ proc isPilot*(_: typedesc[LegacyGipGameControllerProvider], user: User,
 proc isCopilot*(_: typedesc[LegacyGipGameControllerProvider], user: User,
                 controllerProviderId: string): string =
   ## Windows.Gaming.Input.Preview.ILegacyGipGameControllerProviderStatics.IsCopilot
-  let it = statics[ILegacyGipGameControllerProviderStaticsVtbl]("Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider")
+  let it = statics[ILegacyGipGameControllerProviderStaticsVtbl](className(LegacyGipGameControllerProvider))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(controllerProviderId)
   var ret: HSTRING
@@ -1672,7 +1672,7 @@ proc getStandardControllerButtonRemapping*(self: LegacyGipGameControllerProvider
 
 proc newPeriodicForceEffect*(effectKind: PeriodicForceEffectKind): PeriodicForceEffect =
   ## Windows.Gaming.Input.ForceFeedback.IPeriodicForceEffectFactory.CreateInstance
-  let it = statics[IPeriodicForceEffectFactoryVtbl]("Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect")
+  let it = statics[IPeriodicForceEffectFactoryVtbl](className(PeriodicForceEffect))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, effectKind, ret.addr
                               ), "PeriodicForceEffect.new"
@@ -1717,7 +1717,7 @@ proc onRacingWheelAdded*(_: typedesc[RacingWheel],
                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.IRacingWheelStatics.add_RacingWheelAdded
   ## The token is what `removeRacingWheelAdded` takes.
-  let it = statics[IRacingWheelStaticsVtbl]("Windows.Gaming.Input.RacingWheel")
+  let it = statics[IRacingWheelStaticsVtbl](className(RacingWheel))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[RacingWheel](a1))
   let cb = newDelegate(EventHandlerVtbl[RacingWheel], shim, event = true)
@@ -1727,7 +1727,7 @@ proc onRacingWheelAdded*(_: typedesc[RacingWheel],
 proc removeRacingWheelAdded*(_: typedesc[RacingWheel],
                              token: EventRegistrationToken) =
   ## Windows.Gaming.Input.IRacingWheelStatics.remove_RacingWheelAdded
-  let it = statics[IRacingWheelStaticsVtbl]("Windows.Gaming.Input.RacingWheel")
+  let it = statics[IRacingWheelStaticsVtbl](className(RacingWheel))
   check it.vtbl.remove_RacingWheelAdded(it.raw, token
                                        ), "RacingWheel.racingWheelAdded"
 
@@ -1736,7 +1736,7 @@ proc onRacingWheelRemoved*(_: typedesc[RacingWheel],
                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.IRacingWheelStatics.add_RacingWheelRemoved
   ## The token is what `removeRacingWheelRemoved` takes.
-  let it = statics[IRacingWheelStaticsVtbl]("Windows.Gaming.Input.RacingWheel")
+  let it = statics[IRacingWheelStaticsVtbl](className(RacingWheel))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[RacingWheel](a1))
   let cb = newDelegate(EventHandlerVtbl[RacingWheel], shim, event = true)
@@ -1746,13 +1746,13 @@ proc onRacingWheelRemoved*(_: typedesc[RacingWheel],
 proc removeRacingWheelRemoved*(_: typedesc[RacingWheel],
                                token: EventRegistrationToken) =
   ## Windows.Gaming.Input.IRacingWheelStatics.remove_RacingWheelRemoved
-  let it = statics[IRacingWheelStaticsVtbl]("Windows.Gaming.Input.RacingWheel")
+  let it = statics[IRacingWheelStaticsVtbl](className(RacingWheel))
   check it.vtbl.remove_RacingWheelRemoved(it.raw, token
                                          ), "RacingWheel.racingWheelRemoved"
 
 proc racingWheels*(_: typedesc[RacingWheel]): seq[RacingWheel] =
   ## Windows.Gaming.Input.IRacingWheelStatics.get_RacingWheels
-  let it = statics[IRacingWheelStaticsVtbl]("Windows.Gaming.Input.RacingWheel")
+  let it = statics[IRacingWheelStaticsVtbl](className(RacingWheel))
   var ret: pointer
   check it.vtbl.get_RacingWheels(it.raw, ret.addr), "RacingWheel.racingWheels"
   takeSeq[IVectorViewVtbl[RacingWheel], seq[RacingWheel]](ret)
@@ -1760,7 +1760,7 @@ proc racingWheels*(_: typedesc[RacingWheel]): seq[RacingWheel] =
 proc fromGameController*(_: typedesc[RacingWheel],
                          gameController: SomeGameController): RacingWheel =
   ## Windows.Gaming.Input.IRacingWheelStatics2.FromGameController
-  let it = statics[IRacingWheelStatics2Vtbl]("Windows.Gaming.Input.RacingWheel")
+  let it = statics[IRacingWheelStatics2Vtbl](className(RacingWheel))
   let a0 = queryInterface[IGameControllerVtbl](gameController)
   var ret: pointer
   check it.vtbl.FromGameController(it.raw, a0.raw, ret.addr
@@ -1864,7 +1864,7 @@ proc onRawGameControllerAdded*(_: typedesc[RawGameController],
                               ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.IRawGameControllerStatics.add_RawGameControllerAdded
   ## The token is what `removeRawGameControllerAdded` takes.
-  let it = statics[IRawGameControllerStaticsVtbl]("Windows.Gaming.Input.RawGameController")
+  let it = statics[IRawGameControllerStaticsVtbl](className(RawGameController))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[RawGameController](a1))
   let cb = newDelegate(EventHandlerVtbl[RawGameController], shim, event = true)
@@ -1874,7 +1874,7 @@ proc onRawGameControllerAdded*(_: typedesc[RawGameController],
 proc removeRawGameControllerAdded*(_: typedesc[RawGameController],
                                    token: EventRegistrationToken) =
   ## Windows.Gaming.Input.IRawGameControllerStatics.remove_RawGameControllerAdded
-  let it = statics[IRawGameControllerStaticsVtbl]("Windows.Gaming.Input.RawGameController")
+  let it = statics[IRawGameControllerStaticsVtbl](className(RawGameController))
   check it.vtbl.remove_RawGameControllerAdded(it.raw, token
                                              ), "RawGameController.rawGameControllerAdded"
 
@@ -1883,7 +1883,7 @@ proc onRawGameControllerRemoved*(_: typedesc[RawGameController],
                                 ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.IRawGameControllerStatics.add_RawGameControllerRemoved
   ## The token is what `removeRawGameControllerRemoved` takes.
-  let it = statics[IRawGameControllerStaticsVtbl]("Windows.Gaming.Input.RawGameController")
+  let it = statics[IRawGameControllerStaticsVtbl](className(RawGameController))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[RawGameController](a1))
   let cb = newDelegate(EventHandlerVtbl[RawGameController], shim, event = true)
@@ -1893,13 +1893,13 @@ proc onRawGameControllerRemoved*(_: typedesc[RawGameController],
 proc removeRawGameControllerRemoved*(_: typedesc[RawGameController],
                                      token: EventRegistrationToken) =
   ## Windows.Gaming.Input.IRawGameControllerStatics.remove_RawGameControllerRemoved
-  let it = statics[IRawGameControllerStaticsVtbl]("Windows.Gaming.Input.RawGameController")
+  let it = statics[IRawGameControllerStaticsVtbl](className(RawGameController))
   check it.vtbl.remove_RawGameControllerRemoved(it.raw, token
                                                ), "RawGameController.rawGameControllerRemoved"
 
 proc rawGameControllers*(_: typedesc[RawGameController]): seq[RawGameController] =
   ## Windows.Gaming.Input.IRawGameControllerStatics.get_RawGameControllers
-  let it = statics[IRawGameControllerStaticsVtbl]("Windows.Gaming.Input.RawGameController")
+  let it = statics[IRawGameControllerStaticsVtbl](className(RawGameController))
   var ret: pointer
   check it.vtbl.get_RawGameControllers(it.raw, ret.addr
                                       ), "RawGameController.rawGameControllers"
@@ -1909,7 +1909,7 @@ proc fromGameController*(_: typedesc[RawGameController],
                          gameController: SomeGameController
                         ): RawGameController =
   ## Windows.Gaming.Input.IRawGameControllerStatics.FromGameController
-  let it = statics[IRawGameControllerStaticsVtbl]("Windows.Gaming.Input.RawGameController")
+  let it = statics[IRawGameControllerStaticsVtbl](className(RawGameController))
   let a0 = queryInterface[IGameControllerVtbl](gameController)
   var ret: pointer
   check it.vtbl.FromGameController(it.raw, a0.raw, ret.addr
@@ -2025,7 +2025,7 @@ proc fromGameController*(_: typedesc[UINavigationController],
                          gameController: SomeGameController
                         ): UINavigationController =
   ## Windows.Gaming.Input.IUINavigationControllerStatics2.FromGameController
-  let it = statics[IUINavigationControllerStatics2Vtbl]("Windows.Gaming.Input.UINavigationController")
+  let it = statics[IUINavigationControllerStatics2Vtbl](className(UINavigationController))
   let a0 = queryInterface[IGameControllerVtbl](gameController)
   var ret: pointer
   check it.vtbl.FromGameController(it.raw, a0.raw, ret.addr
@@ -2037,7 +2037,7 @@ proc onUINavigationControllerAdded*(_: typedesc[UINavigationController],
                                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.IUINavigationControllerStatics.add_UINavigationControllerAdded
   ## The token is what `removeUINavigationControllerAdded` takes.
-  let it = statics[IUINavigationControllerStaticsVtbl]("Windows.Gaming.Input.UINavigationController")
+  let it = statics[IUINavigationControllerStaticsVtbl](className(UINavigationController))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[UINavigationController](a1))
   let cb = newDelegate(EventHandlerVtbl[UINavigationController], shim,
@@ -2048,7 +2048,7 @@ proc onUINavigationControllerAdded*(_: typedesc[UINavigationController],
 proc removeUINavigationControllerAdded*(_: typedesc[UINavigationController],
                                         token: EventRegistrationToken) =
   ## Windows.Gaming.Input.IUINavigationControllerStatics.remove_UINavigationControllerAdded
-  let it = statics[IUINavigationControllerStaticsVtbl]("Windows.Gaming.Input.UINavigationController")
+  let it = statics[IUINavigationControllerStaticsVtbl](className(UINavigationController))
   check it.vtbl.remove_UINavigationControllerAdded(it.raw, token
                                                   ), "UINavigationController.uINavigationControllerAdded"
 
@@ -2057,7 +2057,7 @@ proc onUINavigationControllerRemoved*(_: typedesc[UINavigationController],
                                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.IUINavigationControllerStatics.add_UINavigationControllerRemoved
   ## The token is what `removeUINavigationControllerRemoved` takes.
-  let it = statics[IUINavigationControllerStaticsVtbl]("Windows.Gaming.Input.UINavigationController")
+  let it = statics[IUINavigationControllerStaticsVtbl](className(UINavigationController))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[UINavigationController](a1))
   let cb = newDelegate(EventHandlerVtbl[UINavigationController], shim,
@@ -2068,13 +2068,13 @@ proc onUINavigationControllerRemoved*(_: typedesc[UINavigationController],
 proc removeUINavigationControllerRemoved*(_: typedesc[UINavigationController],
                                           token: EventRegistrationToken) =
   ## Windows.Gaming.Input.IUINavigationControllerStatics.remove_UINavigationControllerRemoved
-  let it = statics[IUINavigationControllerStaticsVtbl]("Windows.Gaming.Input.UINavigationController")
+  let it = statics[IUINavigationControllerStaticsVtbl](className(UINavigationController))
   check it.vtbl.remove_UINavigationControllerRemoved(it.raw, token
                                                     ), "UINavigationController.uINavigationControllerRemoved"
 
 proc uINavigationControllers*(_: typedesc[UINavigationController]): seq[UINavigationController] =
   ## Windows.Gaming.Input.IUINavigationControllerStatics.get_UINavigationControllers
-  let it = statics[IUINavigationControllerStaticsVtbl]("Windows.Gaming.Input.UINavigationController")
+  let it = statics[IUINavigationControllerStaticsVtbl](className(UINavigationController))
   var ret: pointer
   check it.vtbl.get_UINavigationControllers(it.raw, ret.addr
                                            ), "UINavigationController.uINavigationControllers"

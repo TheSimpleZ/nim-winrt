@@ -167,7 +167,7 @@ proc mimeTypes*(self: BitmapCodecInformation): seq[string] =
 
 proc heifDecoderId*(_: typedesc[BitmapDecoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapDecoderStatics2.get_HeifDecoderId
-  let it = statics[IBitmapDecoderStatics2Vtbl]("Windows.Graphics.Imaging.BitmapDecoder")
+  let it = statics[IBitmapDecoderStatics2Vtbl](className(BitmapDecoder))
   var ret: GUID
   check it.vtbl.get_HeifDecoderId(it.raw, ret.addr
                                  ), "BitmapDecoder.heifDecoderId"
@@ -175,7 +175,7 @@ proc heifDecoderId*(_: typedesc[BitmapDecoder]): GUID =
 
 proc webpDecoderId*(_: typedesc[BitmapDecoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapDecoderStatics2.get_WebpDecoderId
-  let it = statics[IBitmapDecoderStatics2Vtbl]("Windows.Graphics.Imaging.BitmapDecoder")
+  let it = statics[IBitmapDecoderStatics2Vtbl](className(BitmapDecoder))
   var ret: GUID
   check it.vtbl.get_WebpDecoderId(it.raw, ret.addr
                                  ), "BitmapDecoder.webpDecoderId"
@@ -183,14 +183,14 @@ proc webpDecoderId*(_: typedesc[BitmapDecoder]): GUID =
 
 proc bmpDecoderId*(_: typedesc[BitmapDecoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapDecoderStatics.get_BmpDecoderId
-  let it = statics[IBitmapDecoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapDecoder")
+  let it = statics[IBitmapDecoderStaticsVtbl](className(BitmapDecoder))
   var ret: GUID
   check it.vtbl.get_BmpDecoderId(it.raw, ret.addr), "BitmapDecoder.bmpDecoderId"
   ret
 
 proc jpegDecoderId*(_: typedesc[BitmapDecoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapDecoderStatics.get_JpegDecoderId
-  let it = statics[IBitmapDecoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapDecoder")
+  let it = statics[IBitmapDecoderStaticsVtbl](className(BitmapDecoder))
   var ret: GUID
   check it.vtbl.get_JpegDecoderId(it.raw, ret.addr
                                  ), "BitmapDecoder.jpegDecoderId"
@@ -198,14 +198,14 @@ proc jpegDecoderId*(_: typedesc[BitmapDecoder]): GUID =
 
 proc pngDecoderId*(_: typedesc[BitmapDecoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapDecoderStatics.get_PngDecoderId
-  let it = statics[IBitmapDecoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapDecoder")
+  let it = statics[IBitmapDecoderStaticsVtbl](className(BitmapDecoder))
   var ret: GUID
   check it.vtbl.get_PngDecoderId(it.raw, ret.addr), "BitmapDecoder.pngDecoderId"
   ret
 
 proc tiffDecoderId*(_: typedesc[BitmapDecoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapDecoderStatics.get_TiffDecoderId
-  let it = statics[IBitmapDecoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapDecoder")
+  let it = statics[IBitmapDecoderStaticsVtbl](className(BitmapDecoder))
   var ret: GUID
   check it.vtbl.get_TiffDecoderId(it.raw, ret.addr
                                  ), "BitmapDecoder.tiffDecoderId"
@@ -213,14 +213,14 @@ proc tiffDecoderId*(_: typedesc[BitmapDecoder]): GUID =
 
 proc gifDecoderId*(_: typedesc[BitmapDecoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapDecoderStatics.get_GifDecoderId
-  let it = statics[IBitmapDecoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapDecoder")
+  let it = statics[IBitmapDecoderStaticsVtbl](className(BitmapDecoder))
   var ret: GUID
   check it.vtbl.get_GifDecoderId(it.raw, ret.addr), "BitmapDecoder.gifDecoderId"
   ret
 
 proc jpegXRDecoderId*(_: typedesc[BitmapDecoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapDecoderStatics.get_JpegXRDecoderId
-  let it = statics[IBitmapDecoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapDecoder")
+  let it = statics[IBitmapDecoderStaticsVtbl](className(BitmapDecoder))
   var ret: GUID
   check it.vtbl.get_JpegXRDecoderId(it.raw, ret.addr
                                    ), "BitmapDecoder.jpegXRDecoderId"
@@ -228,14 +228,14 @@ proc jpegXRDecoderId*(_: typedesc[BitmapDecoder]): GUID =
 
 proc icoDecoderId*(_: typedesc[BitmapDecoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapDecoderStatics.get_IcoDecoderId
-  let it = statics[IBitmapDecoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapDecoder")
+  let it = statics[IBitmapDecoderStaticsVtbl](className(BitmapDecoder))
   var ret: GUID
   check it.vtbl.get_IcoDecoderId(it.raw, ret.addr), "BitmapDecoder.icoDecoderId"
   ret
 
 proc getDecoderInformationEnumerator*(_: typedesc[BitmapDecoder]): seq[BitmapCodecInformation] =
   ## Windows.Graphics.Imaging.IBitmapDecoderStatics.GetDecoderInformationEnumerator
-  let it = statics[IBitmapDecoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapDecoder")
+  let it = statics[IBitmapDecoderStaticsVtbl](className(BitmapDecoder))
   var ret: pointer
   check it.vtbl.GetDecoderInformationEnumerator(it.raw, ret.addr
                                                ), "BitmapDecoder.getDecoderInformationEnumerator"
@@ -244,7 +244,7 @@ proc getDecoderInformationEnumerator*(_: typedesc[BitmapDecoder]): seq[BitmapCod
 proc createAsync*(_: typedesc[BitmapDecoder], stream: SomeRandomAccessStream
                  ): Future[BitmapDecoder] =
   ## Windows.Graphics.Imaging.IBitmapDecoderStatics.CreateAsync
-  let it = statics[IBitmapDecoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapDecoder")
+  let it = statics[IBitmapDecoderStaticsVtbl](className(BitmapDecoder))
   let a0 = queryInterface[IRandomAccessStreamVtbl](stream)
   var op: pointer
   check it.vtbl.CreateAsync(it.raw, a0.raw, op.addr
@@ -254,7 +254,7 @@ proc createAsync*(_: typedesc[BitmapDecoder], stream: SomeRandomAccessStream
 proc createAsync*(_: typedesc[BitmapDecoder], decoderId: GUID,
                   stream: SomeRandomAccessStream): Future[BitmapDecoder] =
   ## Windows.Graphics.Imaging.IBitmapDecoderStatics.CreateAsync
-  let it = statics[IBitmapDecoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapDecoder")
+  let it = statics[IBitmapDecoderStaticsVtbl](className(BitmapDecoder))
   let a1 = queryInterface[IRandomAccessStreamVtbl](stream)
   var op: pointer
   check it.vtbl.CreateAsync2(it.raw, decoderId, a1.raw, op.addr
@@ -305,7 +305,7 @@ proc getFrameAsync*(self: BitmapDecoder, frameIndex: uint32
 
 proc heifEncoderId*(_: typedesc[BitmapEncoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapEncoderStatics2.get_HeifEncoderId
-  let it = statics[IBitmapEncoderStatics2Vtbl]("Windows.Graphics.Imaging.BitmapEncoder")
+  let it = statics[IBitmapEncoderStatics2Vtbl](className(BitmapEncoder))
   var ret: GUID
   check it.vtbl.get_HeifEncoderId(it.raw, ret.addr
                                  ), "BitmapEncoder.heifEncoderId"
@@ -313,14 +313,14 @@ proc heifEncoderId*(_: typedesc[BitmapEncoder]): GUID =
 
 proc bmpEncoderId*(_: typedesc[BitmapEncoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapEncoderStatics.get_BmpEncoderId
-  let it = statics[IBitmapEncoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapEncoder")
+  let it = statics[IBitmapEncoderStaticsVtbl](className(BitmapEncoder))
   var ret: GUID
   check it.vtbl.get_BmpEncoderId(it.raw, ret.addr), "BitmapEncoder.bmpEncoderId"
   ret
 
 proc jpegEncoderId*(_: typedesc[BitmapEncoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapEncoderStatics.get_JpegEncoderId
-  let it = statics[IBitmapEncoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapEncoder")
+  let it = statics[IBitmapEncoderStaticsVtbl](className(BitmapEncoder))
   var ret: GUID
   check it.vtbl.get_JpegEncoderId(it.raw, ret.addr
                                  ), "BitmapEncoder.jpegEncoderId"
@@ -328,14 +328,14 @@ proc jpegEncoderId*(_: typedesc[BitmapEncoder]): GUID =
 
 proc pngEncoderId*(_: typedesc[BitmapEncoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapEncoderStatics.get_PngEncoderId
-  let it = statics[IBitmapEncoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapEncoder")
+  let it = statics[IBitmapEncoderStaticsVtbl](className(BitmapEncoder))
   var ret: GUID
   check it.vtbl.get_PngEncoderId(it.raw, ret.addr), "BitmapEncoder.pngEncoderId"
   ret
 
 proc tiffEncoderId*(_: typedesc[BitmapEncoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapEncoderStatics.get_TiffEncoderId
-  let it = statics[IBitmapEncoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapEncoder")
+  let it = statics[IBitmapEncoderStaticsVtbl](className(BitmapEncoder))
   var ret: GUID
   check it.vtbl.get_TiffEncoderId(it.raw, ret.addr
                                  ), "BitmapEncoder.tiffEncoderId"
@@ -343,14 +343,14 @@ proc tiffEncoderId*(_: typedesc[BitmapEncoder]): GUID =
 
 proc gifEncoderId*(_: typedesc[BitmapEncoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapEncoderStatics.get_GifEncoderId
-  let it = statics[IBitmapEncoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapEncoder")
+  let it = statics[IBitmapEncoderStaticsVtbl](className(BitmapEncoder))
   var ret: GUID
   check it.vtbl.get_GifEncoderId(it.raw, ret.addr), "BitmapEncoder.gifEncoderId"
   ret
 
 proc jpegXREncoderId*(_: typedesc[BitmapEncoder]): GUID =
   ## Windows.Graphics.Imaging.IBitmapEncoderStatics.get_JpegXREncoderId
-  let it = statics[IBitmapEncoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapEncoder")
+  let it = statics[IBitmapEncoderStaticsVtbl](className(BitmapEncoder))
   var ret: GUID
   check it.vtbl.get_JpegXREncoderId(it.raw, ret.addr
                                    ), "BitmapEncoder.jpegXREncoderId"
@@ -358,7 +358,7 @@ proc jpegXREncoderId*(_: typedesc[BitmapEncoder]): GUID =
 
 proc getEncoderInformationEnumerator*(_: typedesc[BitmapEncoder]): seq[BitmapCodecInformation] =
   ## Windows.Graphics.Imaging.IBitmapEncoderStatics.GetEncoderInformationEnumerator
-  let it = statics[IBitmapEncoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapEncoder")
+  let it = statics[IBitmapEncoderStaticsVtbl](className(BitmapEncoder))
   var ret: pointer
   check it.vtbl.GetEncoderInformationEnumerator(it.raw, ret.addr
                                                ), "BitmapEncoder.getEncoderInformationEnumerator"
@@ -367,7 +367,7 @@ proc getEncoderInformationEnumerator*(_: typedesc[BitmapEncoder]): seq[BitmapCod
 proc createAsync*(_: typedesc[BitmapEncoder], encoderId: GUID,
                   stream: SomeRandomAccessStream): Future[BitmapEncoder] =
   ## Windows.Graphics.Imaging.IBitmapEncoderStatics.CreateAsync
-  let it = statics[IBitmapEncoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapEncoder")
+  let it = statics[IBitmapEncoderStaticsVtbl](className(BitmapEncoder))
   let a1 = queryInterface[IRandomAccessStreamVtbl](stream)
   var op: pointer
   check it.vtbl.CreateAsync(it.raw, encoderId, a1.raw, op.addr
@@ -379,7 +379,7 @@ proc createAsync*(_: typedesc[BitmapEncoder], encoderId: GUID,
                   encodingOptions: Table[string, BitmapTypedValue]
                  ): Future[BitmapEncoder] =
   ## Windows.Graphics.Imaging.IBitmapEncoderStatics.CreateAsync
-  let it = statics[IBitmapEncoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapEncoder")
+  let it = statics[IBitmapEncoderStaticsVtbl](className(BitmapEncoder))
   let a1 = queryInterface[IRandomAccessStreamVtbl](stream)
   let a2 = asMap[string, BitmapTypedValue, Table[string, BitmapTypedValue]](encodingOptions)
   var op: pointer
@@ -392,7 +392,7 @@ proc createForTranscodingAsync*(_: typedesc[BitmapEncoder],
                                 bitmapDecoder: BitmapDecoder
                                ): Future[BitmapEncoder] =
   ## Windows.Graphics.Imaging.IBitmapEncoderStatics.CreateForTranscodingAsync
-  let it = statics[IBitmapEncoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapEncoder")
+  let it = statics[IBitmapEncoderStaticsVtbl](className(BitmapEncoder))
   let a0 = queryInterface[IRandomAccessStreamVtbl](stream)
   let a1 = queryInterface[IBitmapDecoderVtbl](bitmapDecoder)
   var op: pointer
@@ -404,7 +404,7 @@ proc createForInPlacePropertyEncodingAsync*(_: typedesc[BitmapEncoder],
                                             bitmapDecoder: BitmapDecoder
                                            ): Future[BitmapEncoder] =
   ## Windows.Graphics.Imaging.IBitmapEncoderStatics.CreateForInPlacePropertyEncodingAsync
-  let it = statics[IBitmapEncoderStaticsVtbl]("Windows.Graphics.Imaging.BitmapEncoder")
+  let it = statics[IBitmapEncoderStaticsVtbl](className(BitmapEncoder))
   let a0 = queryInterface[IBitmapDecoderVtbl](bitmapDecoder)
   var op: pointer
   check it.vtbl.CreateForInPlacePropertyEncodingAsync(it.raw, a0.raw, op.addr
@@ -634,7 +634,7 @@ proc `bounds=`*(self: BitmapTransform, value: BitmapBounds) =
 proc newBitmapTypedValue*(value: WinRtObject, `type`: PropertyType
                          ): BitmapTypedValue =
   ## Windows.Graphics.Imaging.IBitmapTypedValueFactory.Create
-  let it = statics[IBitmapTypedValueFactoryVtbl]("Windows.Graphics.Imaging.BitmapTypedValue")
+  let it = statics[IBitmapTypedValueFactoryVtbl](className(BitmapTypedValue))
   var ret: pointer
   check it.vtbl.Create(it.raw, value.raw, `type`, ret.addr
                       ), "BitmapTypedValue.new"
@@ -658,7 +658,7 @@ proc `type`*(self: BitmapTypedValue): PropertyType =
 
 proc getDefaultForSystem*(_: typedesc[BrightnessOverride]): BrightnessOverride =
   ## Windows.Graphics.Display.IBrightnessOverrideStatics.GetDefaultForSystem
-  let it = statics[IBrightnessOverrideStaticsVtbl]("Windows.Graphics.Display.BrightnessOverride")
+  let it = statics[IBrightnessOverrideStaticsVtbl](className(BrightnessOverride))
   var ret: pointer
   check it.vtbl.GetDefaultForSystem(it.raw, ret.addr
                                    ), "BrightnessOverride.getDefaultForSystem"
@@ -666,7 +666,7 @@ proc getDefaultForSystem*(_: typedesc[BrightnessOverride]): BrightnessOverride =
 
 proc getForCurrentView*(_: typedesc[BrightnessOverride]): BrightnessOverride =
   ## Windows.Graphics.Display.IBrightnessOverrideStatics.GetForCurrentView
-  let it = statics[IBrightnessOverrideStaticsVtbl]("Windows.Graphics.Display.BrightnessOverride")
+  let it = statics[IBrightnessOverrideStaticsVtbl](className(BrightnessOverride))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "BrightnessOverride.getForCurrentView"
@@ -675,7 +675,7 @@ proc getForCurrentView*(_: typedesc[BrightnessOverride]): BrightnessOverride =
 proc saveForSystemAsync*(_: typedesc[BrightnessOverride],
                          value: BrightnessOverride): Future[bool] =
   ## Windows.Graphics.Display.IBrightnessOverrideStatics.SaveForSystemAsync
-  let it = statics[IBrightnessOverrideStaticsVtbl]("Windows.Graphics.Display.BrightnessOverride")
+  let it = statics[IBrightnessOverrideStaticsVtbl](className(BrightnessOverride))
   let a0 = queryInterface[IBrightnessOverrideVtbl](value)
   var op: pointer
   check it.vtbl.SaveForSystemAsync(it.raw, a0.raw, op.addr
@@ -805,7 +805,7 @@ proc removeBrightnessLevelChanged*(self: BrightnessOverride,
 proc createFromLevel*(_: typedesc[BrightnessOverrideSettings], level: float64
                      ): BrightnessOverrideSettings =
   ## Windows.Graphics.Display.IBrightnessOverrideSettingsStatics.CreateFromLevel
-  let it = statics[IBrightnessOverrideSettingsStaticsVtbl]("Windows.Graphics.Display.BrightnessOverrideSettings")
+  let it = statics[IBrightnessOverrideSettingsStaticsVtbl](className(BrightnessOverrideSettings))
   var ret: pointer
   check it.vtbl.CreateFromLevel(it.raw, level, ret.addr
                                ), "BrightnessOverrideSettings.createFromLevel"
@@ -814,7 +814,7 @@ proc createFromLevel*(_: typedesc[BrightnessOverrideSettings], level: float64
 proc createFromNits*(_: typedesc[BrightnessOverrideSettings], nits: float32
                     ): BrightnessOverrideSettings =
   ## Windows.Graphics.Display.IBrightnessOverrideSettingsStatics.CreateFromNits
-  let it = statics[IBrightnessOverrideSettingsStaticsVtbl]("Windows.Graphics.Display.BrightnessOverrideSettings")
+  let it = statics[IBrightnessOverrideSettingsStaticsVtbl](className(BrightnessOverrideSettings))
   var ret: pointer
   check it.vtbl.CreateFromNits(it.raw, nits, ret.addr
                               ), "BrightnessOverrideSettings.createFromNits"
@@ -824,7 +824,7 @@ proc createFromDisplayBrightnessOverrideScenario*(_: typedesc[BrightnessOverride
                                                   overrideScenario: DisplayBrightnessOverrideScenario
                                                  ): BrightnessOverrideSettings =
   ## Windows.Graphics.Display.IBrightnessOverrideSettingsStatics.CreateFromDisplayBrightnessOverrideScenario
-  let it = statics[IBrightnessOverrideSettingsStaticsVtbl]("Windows.Graphics.Display.BrightnessOverrideSettings")
+  let it = statics[IBrightnessOverrideSettingsStaticsVtbl](className(BrightnessOverrideSettings))
   var ret: pointer
   check it.vtbl.CreateFromDisplayBrightnessOverrideScenario(it.raw,
                                                             overrideScenario,
@@ -854,7 +854,7 @@ proc createFromDisplayColorOverrideScenario*(_: typedesc[ColorOverrideSettings],
                                              overrideScenario: DisplayColorOverrideScenario
                                             ): ColorOverrideSettings =
   ## Windows.Graphics.Display.IColorOverrideSettingsStatics.CreateFromDisplayColorOverrideScenario
-  let it = statics[IColorOverrideSettingsStaticsVtbl]("Windows.Graphics.Display.ColorOverrideSettings")
+  let it = statics[IColorOverrideSettingsStaticsVtbl](className(ColorOverrideSettings))
   var ret: pointer
   check it.vtbl.CreateFromDisplayColorOverrideScenario(it.raw, overrideScenario,
                                                        ret.addr
@@ -918,7 +918,7 @@ proc createFreeThreaded*(_: typedesc[Direct3D11CaptureFramePool],
                          numberOfBuffers: int32, size: SizeInt32
                         ): Direct3D11CaptureFramePool =
   ## Windows.Graphics.Capture.IDirect3D11CaptureFramePoolStatics2.CreateFreeThreaded
-  let it = statics[IDirect3D11CaptureFramePoolStatics2Vtbl]("Windows.Graphics.Capture.Direct3D11CaptureFramePool")
+  let it = statics[IDirect3D11CaptureFramePoolStatics2Vtbl](className(Direct3D11CaptureFramePool))
   let a0 = queryInterface[IDirect3DDeviceVtbl](device)
   var ret: pointer
   check it.vtbl.CreateFreeThreaded(it.raw, a0.raw, pixelFormat, numberOfBuffers,
@@ -931,7 +931,7 @@ proc create*(_: typedesc[Direct3D11CaptureFramePool],
              numberOfBuffers: int32, size: SizeInt32
             ): Direct3D11CaptureFramePool =
   ## Windows.Graphics.Capture.IDirect3D11CaptureFramePoolStatics.Create
-  let it = statics[IDirect3D11CaptureFramePoolStaticsVtbl]("Windows.Graphics.Capture.Direct3D11CaptureFramePool")
+  let it = statics[IDirect3D11CaptureFramePoolStaticsVtbl](className(Direct3D11CaptureFramePool))
   let a0 = queryInterface[IDirect3DDeviceVtbl](device)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, pixelFormat, numberOfBuffers, size,
@@ -997,7 +997,7 @@ proc dispatcherQueue*(self: Direct3D11CaptureFramePool): DispatcherQueue =
 
 proc getForCurrentView*(_: typedesc[DisplayEnhancementOverride]): DisplayEnhancementOverride =
   ## Windows.Graphics.Display.IDisplayEnhancementOverrideStatics.GetForCurrentView
-  let it = statics[IDisplayEnhancementOverrideStaticsVtbl]("Windows.Graphics.Display.DisplayEnhancementOverride")
+  let it = statics[IDisplayEnhancementOverrideStaticsVtbl](className(DisplayEnhancementOverride))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "DisplayEnhancementOverride.getForCurrentView"
@@ -1175,7 +1175,7 @@ proc capabilities*(self: DisplayEnhancementOverrideCapabilitiesChangedEventArgs)
 
 proc getForCurrentView*(_: typedesc[DisplayInformation]): DisplayInformation =
   ## Windows.Graphics.Display.IDisplayInformationStatics.GetForCurrentView
-  let it = statics[IDisplayInformationStaticsVtbl]("Windows.Graphics.Display.DisplayInformation")
+  let it = statics[IDisplayInformationStaticsVtbl](className(DisplayInformation))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "DisplayInformation.getForCurrentView"
@@ -1183,7 +1183,7 @@ proc getForCurrentView*(_: typedesc[DisplayInformation]): DisplayInformation =
 
 proc autoRotationPreferences*(_: typedesc[DisplayInformation]): DisplayOrientations =
   ## Windows.Graphics.Display.IDisplayInformationStatics.get_AutoRotationPreferences
-  let it = statics[IDisplayInformationStaticsVtbl]("Windows.Graphics.Display.DisplayInformation")
+  let it = statics[IDisplayInformationStaticsVtbl](className(DisplayInformation))
   var ret: DisplayOrientations
   check it.vtbl.get_AutoRotationPreferences(it.raw, ret.addr
                                            ), "DisplayInformation.autoRotationPreferences"
@@ -1192,7 +1192,7 @@ proc autoRotationPreferences*(_: typedesc[DisplayInformation]): DisplayOrientati
 proc `autoRotationPreferences=`*(_: typedesc[DisplayInformation],
                                  value: DisplayOrientations) =
   ## Windows.Graphics.Display.IDisplayInformationStatics.put_AutoRotationPreferences
-  let it = statics[IDisplayInformationStaticsVtbl]("Windows.Graphics.Display.DisplayInformation")
+  let it = statics[IDisplayInformationStaticsVtbl](className(DisplayInformation))
   check it.vtbl.put_AutoRotationPreferences(it.raw, value
                                            ), "DisplayInformation.autoRotationPreferences"
 
@@ -1201,7 +1201,7 @@ proc onDisplayContentsInvalidated*(_: typedesc[DisplayInformation],
                                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.IDisplayInformationStatics.add_DisplayContentsInvalidated
   ## The token is what `removeDisplayContentsInvalidated` takes.
-  let it = statics[IDisplayInformationStaticsVtbl]("Windows.Graphics.Display.DisplayInformation")
+  let it = statics[IDisplayInformationStaticsVtbl](className(DisplayInformation))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[DisplayInformation](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(TypedEventHandlerVtbl[DisplayInformation, WinRtObject],
@@ -1212,7 +1212,7 @@ proc onDisplayContentsInvalidated*(_: typedesc[DisplayInformation],
 proc removeDisplayContentsInvalidated*(_: typedesc[DisplayInformation],
                                        token: EventRegistrationToken) =
   ## Windows.Graphics.Display.IDisplayInformationStatics.remove_DisplayContentsInvalidated
-  let it = statics[IDisplayInformationStaticsVtbl]("Windows.Graphics.Display.DisplayInformation")
+  let it = statics[IDisplayInformationStaticsVtbl](className(DisplayInformation))
   check it.vtbl.remove_DisplayContentsInvalidated(it.raw, token
                                                  ), "DisplayInformation.displayContentsInvalidated"
 
@@ -1422,7 +1422,7 @@ proc removeAdvancedColorInfoChanged*(self: DisplayInformation,
 
 proc currentOrientation*(_: typedesc[DisplayProperties]): DisplayOrientations =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.get_CurrentOrientation
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   var ret: DisplayOrientations
   check it.vtbl.get_CurrentOrientation(it.raw, ret.addr
                                       ), "DisplayProperties.currentOrientation"
@@ -1430,7 +1430,7 @@ proc currentOrientation*(_: typedesc[DisplayProperties]): DisplayOrientations =
 
 proc nativeOrientation*(_: typedesc[DisplayProperties]): DisplayOrientations =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.get_NativeOrientation
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   var ret: DisplayOrientations
   check it.vtbl.get_NativeOrientation(it.raw, ret.addr
                                      ), "DisplayProperties.nativeOrientation"
@@ -1438,7 +1438,7 @@ proc nativeOrientation*(_: typedesc[DisplayProperties]): DisplayOrientations =
 
 proc autoRotationPreferences*(_: typedesc[DisplayProperties]): DisplayOrientations =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.get_AutoRotationPreferences
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   var ret: DisplayOrientations
   check it.vtbl.get_AutoRotationPreferences(it.raw, ret.addr
                                            ), "DisplayProperties.autoRotationPreferences"
@@ -1447,7 +1447,7 @@ proc autoRotationPreferences*(_: typedesc[DisplayProperties]): DisplayOrientatio
 proc `autoRotationPreferences=`*(_: typedesc[DisplayProperties],
                                  value: DisplayOrientations) =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.put_AutoRotationPreferences
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   check it.vtbl.put_AutoRotationPreferences(it.raw, value
                                            ), "DisplayProperties.autoRotationPreferences"
 
@@ -1456,7 +1456,7 @@ proc onOrientationChanged*(_: typedesc[DisplayProperties],
                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.add_OrientationChanged
   ## The token is what `removeOrientationChanged` takes.
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   proc shim(a0: pointer) =
     handler(borrow[WinRtObject](a0))
   let cb = newDelegate(DisplayPropertiesEventHandlerVtbl, shim, event = true)
@@ -1466,13 +1466,13 @@ proc onOrientationChanged*(_: typedesc[DisplayProperties],
 proc removeOrientationChanged*(_: typedesc[DisplayProperties],
                                token: EventRegistrationToken) =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.remove_OrientationChanged
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   check it.vtbl.remove_OrientationChanged(it.raw, token
                                          ), "DisplayProperties.orientationChanged"
 
 proc resolutionScale*(_: typedesc[DisplayProperties]): ResolutionScale =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.get_ResolutionScale
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   var ret: ResolutionScale
   check it.vtbl.get_ResolutionScale(it.raw, ret.addr
                                    ), "DisplayProperties.resolutionScale"
@@ -1480,7 +1480,7 @@ proc resolutionScale*(_: typedesc[DisplayProperties]): ResolutionScale =
 
 proc logicalDpi*(_: typedesc[DisplayProperties]): float32 =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.get_LogicalDpi
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   var ret: float32
   check it.vtbl.get_LogicalDpi(it.raw, ret.addr), "DisplayProperties.logicalDpi"
   ret
@@ -1490,7 +1490,7 @@ proc onLogicalDpiChanged*(_: typedesc[DisplayProperties],
                          ): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.add_LogicalDpiChanged
   ## The token is what `removeLogicalDpiChanged` takes.
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   proc shim(a0: pointer) =
     handler(borrow[WinRtObject](a0))
   let cb = newDelegate(DisplayPropertiesEventHandlerVtbl, shim, event = true)
@@ -1500,13 +1500,13 @@ proc onLogicalDpiChanged*(_: typedesc[DisplayProperties],
 proc removeLogicalDpiChanged*(_: typedesc[DisplayProperties],
                               token: EventRegistrationToken) =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.remove_LogicalDpiChanged
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   check it.vtbl.remove_LogicalDpiChanged(it.raw, token
                                         ), "DisplayProperties.logicalDpiChanged"
 
 proc stereoEnabled*(_: typedesc[DisplayProperties]): bool =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.get_StereoEnabled
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   var ret: bool
   check it.vtbl.get_StereoEnabled(it.raw, ret.addr
                                  ), "DisplayProperties.stereoEnabled"
@@ -1517,7 +1517,7 @@ proc onStereoEnabledChanged*(_: typedesc[DisplayProperties],
                             ): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.add_StereoEnabledChanged
   ## The token is what `removeStereoEnabledChanged` takes.
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   proc shim(a0: pointer) =
     handler(borrow[WinRtObject](a0))
   let cb = newDelegate(DisplayPropertiesEventHandlerVtbl, shim, event = true)
@@ -1527,13 +1527,13 @@ proc onStereoEnabledChanged*(_: typedesc[DisplayProperties],
 proc removeStereoEnabledChanged*(_: typedesc[DisplayProperties],
                                  token: EventRegistrationToken) =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.remove_StereoEnabledChanged
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   check it.vtbl.remove_StereoEnabledChanged(it.raw, token
                                            ), "DisplayProperties.stereoEnabledChanged"
 
 proc getColorProfileAsync*(_: typedesc[DisplayProperties]): Future[IRandomAccessStream] =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.GetColorProfileAsync
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   var op: pointer
   check it.vtbl.GetColorProfileAsync(it.raw, op.addr
                                     ), "DisplayProperties.getColorProfileAsync"
@@ -1544,7 +1544,7 @@ proc onColorProfileChanged*(_: typedesc[DisplayProperties],
                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.add_ColorProfileChanged
   ## The token is what `removeColorProfileChanged` takes.
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   proc shim(a0: pointer) =
     handler(borrow[WinRtObject](a0))
   let cb = newDelegate(DisplayPropertiesEventHandlerVtbl, shim, event = true)
@@ -1554,7 +1554,7 @@ proc onColorProfileChanged*(_: typedesc[DisplayProperties],
 proc removeColorProfileChanged*(_: typedesc[DisplayProperties],
                                 token: EventRegistrationToken) =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.remove_ColorProfileChanged
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   check it.vtbl.remove_ColorProfileChanged(it.raw, token
                                           ), "DisplayProperties.colorProfileChanged"
 
@@ -1563,7 +1563,7 @@ proc onDisplayContentsInvalidated*(_: typedesc[DisplayProperties],
                                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.add_DisplayContentsInvalidated
   ## The token is what `removeDisplayContentsInvalidated` takes.
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   proc shim(a0: pointer) =
     handler(borrow[WinRtObject](a0))
   let cb = newDelegate(DisplayPropertiesEventHandlerVtbl, shim, event = true)
@@ -1573,7 +1573,7 @@ proc onDisplayContentsInvalidated*(_: typedesc[DisplayProperties],
 proc removeDisplayContentsInvalidated*(_: typedesc[DisplayProperties],
                                        token: EventRegistrationToken) =
   ## Windows.Graphics.Display.IDisplayPropertiesStatics.remove_DisplayContentsInvalidated
-  let it = statics[IDisplayPropertiesStaticsVtbl]("Windows.Graphics.Display.DisplayProperties")
+  let it = statics[IDisplayPropertiesStaticsVtbl](className(DisplayProperties))
   check it.vtbl.remove_DisplayContentsInvalidated(it.raw, token
                                                  ), "DisplayProperties.displayContentsInvalidated"
 
@@ -1581,7 +1581,7 @@ proc removeDisplayContentsInvalidated*(_: typedesc[DisplayProperties],
 
 proc findAll*(_: typedesc[DisplayServices]): seq[DisplayId] =
   ## Windows.Graphics.Display.IDisplayServicesStatics.FindAll
-  let it = statics[IDisplayServicesStaticsVtbl]("Windows.Graphics.Display.DisplayServices")
+  let it = statics[IDisplayServicesStaticsVtbl](className(DisplayServices))
   var retSize: uint32
   var ret: ptr DisplayId
   check it.vtbl.FindAll(it.raw, retSize.addr, ret.addr
@@ -1594,7 +1594,7 @@ proc requestAccessAsync*(_: typedesc[GraphicsCaptureAccess],
                          request: GraphicsCaptureAccessKind
                         ): Future[AppCapabilityAccessStatus] =
   ## Windows.Graphics.Capture.IGraphicsCaptureAccessStatics.RequestAccessAsync
-  let it = statics[IGraphicsCaptureAccessStaticsVtbl]("Windows.Graphics.Capture.GraphicsCaptureAccess")
+  let it = statics[IGraphicsCaptureAccessStaticsVtbl](className(GraphicsCaptureAccess))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, request, op.addr
                                   ), "GraphicsCaptureAccess.requestAccessAsync"
@@ -1605,7 +1605,7 @@ proc requestAccessAsync*(_: typedesc[GraphicsCaptureAccess],
 proc createFromVisual*(_: typedesc[GraphicsCaptureItem], visual: Visual
                       ): GraphicsCaptureItem =
   ## Windows.Graphics.Capture.IGraphicsCaptureItemStatics.CreateFromVisual
-  let it = statics[IGraphicsCaptureItemStaticsVtbl]("Windows.Graphics.Capture.GraphicsCaptureItem")
+  let it = statics[IGraphicsCaptureItemStaticsVtbl](className(GraphicsCaptureItem))
   let a0 = queryInterface[IVisualVtbl](visual)
   var ret: pointer
   check it.vtbl.CreateFromVisual(it.raw, a0.raw, ret.addr
@@ -1615,7 +1615,7 @@ proc createFromVisual*(_: typedesc[GraphicsCaptureItem], visual: Visual
 proc tryCreateFromWindowId*(_: typedesc[GraphicsCaptureItem], windowId: WindowId
                            ): GraphicsCaptureItem =
   ## Windows.Graphics.Capture.IGraphicsCaptureItemStatics2.TryCreateFromWindowId
-  let it = statics[IGraphicsCaptureItemStatics2Vtbl]("Windows.Graphics.Capture.GraphicsCaptureItem")
+  let it = statics[IGraphicsCaptureItemStatics2Vtbl](className(GraphicsCaptureItem))
   var ret: pointer
   check it.vtbl.TryCreateFromWindowId(it.raw, windowId, ret.addr
                                      ), "GraphicsCaptureItem.tryCreateFromWindowId"
@@ -1624,7 +1624,7 @@ proc tryCreateFromWindowId*(_: typedesc[GraphicsCaptureItem], windowId: WindowId
 proc tryCreateFromDisplayId*(_: typedesc[GraphicsCaptureItem],
                              displayId: DisplayId): GraphicsCaptureItem =
   ## Windows.Graphics.Capture.IGraphicsCaptureItemStatics2.TryCreateFromDisplayId
-  let it = statics[IGraphicsCaptureItemStatics2Vtbl]("Windows.Graphics.Capture.GraphicsCaptureItem")
+  let it = statics[IGraphicsCaptureItemStatics2Vtbl](className(GraphicsCaptureItem))
   var ret: pointer
   check it.vtbl.TryCreateFromDisplayId(it.raw, displayId, ret.addr
                                       ), "GraphicsCaptureItem.tryCreateFromDisplayId"
@@ -1681,7 +1681,7 @@ proc pickSingleItemAsync*(self: GraphicsCapturePicker): Future[GraphicsCaptureIt
 
 proc isSupported*(_: typedesc[GraphicsCaptureSession]): bool =
   ## Windows.Graphics.Capture.IGraphicsCaptureSessionStatics.IsSupported
-  let it = statics[IGraphicsCaptureSessionStaticsVtbl]("Windows.Graphics.Capture.GraphicsCaptureSession")
+  let it = statics[IGraphicsCaptureSessionStaticsVtbl](className(GraphicsCaptureSession))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr
                            ), "GraphicsCaptureSession.isSupported"
@@ -1767,7 +1767,7 @@ proc `includeSecondaryWindows=`*(self: GraphicsCaptureSession, value: bool) =
 
 proc getForCurrentView*(_: typedesc[HdmiDisplayInformation]): HdmiDisplayInformation =
   ## Windows.Graphics.Display.Core.IHdmiDisplayInformationStatics.GetForCurrentView
-  let it = statics[IHdmiDisplayInformationStaticsVtbl]("Windows.Graphics.Display.Core.HdmiDisplayInformation")
+  let it = statics[IHdmiDisplayInformationStaticsVtbl](className(HdmiDisplayInformation))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "HdmiDisplayInformation.getForCurrentView"
@@ -2314,7 +2314,7 @@ proc visibleAreaMesh*(self: HolographicCameraViewportParameters): seq[Vector2] =
 
 proc getDefault*(_: typedesc[HolographicDisplay]): HolographicDisplay =
   ## Windows.Graphics.Holographic.IHolographicDisplayStatics.GetDefault
-  let it = statics[IHolographicDisplayStaticsVtbl]("Windows.Graphics.Holographic.HolographicDisplay")
+  let it = statics[IHolographicDisplayStaticsVtbl](className(HolographicDisplay))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "HolographicDisplay.getDefault"
   adopt[HolographicDisplay](ret)
@@ -2640,7 +2640,7 @@ proc systemRelativePhotonTime*(self: HolographicFrameScanoutReport): TimeSpan =
 
 proc newHolographicQuadLayer*(size: Size): HolographicQuadLayer =
   ## Windows.Graphics.Holographic.IHolographicQuadLayerFactory.Create
-  let it = statics[IHolographicQuadLayerFactoryVtbl]("Windows.Graphics.Holographic.HolographicQuadLayer")
+  let it = statics[IHolographicQuadLayerFactoryVtbl](className(HolographicQuadLayer))
   var ret: pointer
   check it.vtbl.Create(it.raw, size, ret.addr), "HolographicQuadLayer.new"
   adopt[HolographicQuadLayer](ret)
@@ -2648,7 +2648,7 @@ proc newHolographicQuadLayer*(size: Size): HolographicQuadLayer =
 proc newHolographicQuadLayer*(size: Size, pixelFormat: DirectXPixelFormat
                              ): HolographicQuadLayer =
   ## Windows.Graphics.Holographic.IHolographicQuadLayerFactory.CreateWithPixelFormat
-  let it = statics[IHolographicQuadLayerFactoryVtbl]("Windows.Graphics.Holographic.HolographicQuadLayer")
+  let it = statics[IHolographicQuadLayerFactoryVtbl](className(HolographicQuadLayer))
   var ret: pointer
   check it.vtbl.CreateWithPixelFormat(it.raw, size, pixelFormat, ret.addr
                                      ), "HolographicQuadLayer.new"
@@ -2740,7 +2740,7 @@ proc acquireBufferToUpdateContentWithHardwareProtection*(self: HolographicQuadLa
 
 proc isSupported*(_: typedesc[HolographicSpace]): bool =
   ## Windows.Graphics.Holographic.IHolographicSpaceStatics2.get_IsSupported
-  let it = statics[IHolographicSpaceStatics2Vtbl]("Windows.Graphics.Holographic.HolographicSpace")
+  let it = statics[IHolographicSpaceStatics2Vtbl](className(HolographicSpace))
   var ret: bool
   check it.vtbl.get_IsSupported(it.raw, ret.addr
                                ), "HolographicSpace.isSupported"
@@ -2748,7 +2748,7 @@ proc isSupported*(_: typedesc[HolographicSpace]): bool =
 
 proc isAvailable*(_: typedesc[HolographicSpace]): bool =
   ## Windows.Graphics.Holographic.IHolographicSpaceStatics2.get_IsAvailable
-  let it = statics[IHolographicSpaceStatics2Vtbl]("Windows.Graphics.Holographic.HolographicSpace")
+  let it = statics[IHolographicSpaceStatics2Vtbl](className(HolographicSpace))
   var ret: bool
   check it.vtbl.get_IsAvailable(it.raw, ret.addr
                                ), "HolographicSpace.isAvailable"
@@ -2759,7 +2759,7 @@ proc onIsAvailableChanged*(_: typedesc[HolographicSpace],
                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Holographic.IHolographicSpaceStatics2.add_IsAvailableChanged
   ## The token is what `removeIsAvailableChanged` takes.
-  let it = statics[IHolographicSpaceStatics2Vtbl]("Windows.Graphics.Holographic.HolographicSpace")
+  let it = statics[IHolographicSpaceStatics2Vtbl](className(HolographicSpace))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -2769,14 +2769,14 @@ proc onIsAvailableChanged*(_: typedesc[HolographicSpace],
 proc removeIsAvailableChanged*(_: typedesc[HolographicSpace],
                                token: EventRegistrationToken) =
   ## Windows.Graphics.Holographic.IHolographicSpaceStatics2.remove_IsAvailableChanged
-  let it = statics[IHolographicSpaceStatics2Vtbl]("Windows.Graphics.Holographic.HolographicSpace")
+  let it = statics[IHolographicSpaceStatics2Vtbl](className(HolographicSpace))
   check it.vtbl.remove_IsAvailableChanged(it.raw, token
                                          ), "HolographicSpace.isAvailableChanged"
 
 proc createForCoreWindow*(_: typedesc[HolographicSpace], window: CoreWindow
                          ): HolographicSpace =
   ## Windows.Graphics.Holographic.IHolographicSpaceStatics.CreateForCoreWindow
-  let it = statics[IHolographicSpaceStaticsVtbl]("Windows.Graphics.Holographic.HolographicSpace")
+  let it = statics[IHolographicSpaceStaticsVtbl](className(HolographicSpace))
   let a0 = queryInterface[ICoreWindowVtbl](window)
   var ret: pointer
   check it.vtbl.CreateForCoreWindow(it.raw, a0.raw, ret.addr
@@ -2785,7 +2785,7 @@ proc createForCoreWindow*(_: typedesc[HolographicSpace], window: CoreWindow
 
 proc isConfigured*(_: typedesc[HolographicSpace]): bool =
   ## Windows.Graphics.Holographic.IHolographicSpaceStatics3.get_IsConfigured
-  let it = statics[IHolographicSpaceStatics3Vtbl]("Windows.Graphics.Holographic.HolographicSpace")
+  let it = statics[IHolographicSpaceStatics3Vtbl](className(HolographicSpace))
   var ret: bool
   check it.vtbl.get_IsConfigured(it.raw, ret.addr
                                 ), "HolographicSpace.isConfigured"
@@ -3062,7 +3062,7 @@ proc detachPixelData*(self: PixelDataProvider): seq[uint8] =
 
 proc getForCurrentView*(_: typedesc[Print3DManager]): Print3DManager =
   ## Windows.Graphics.Printing3D.IPrint3DManagerStatics.GetForCurrentView
-  let it = statics[IPrint3DManagerStaticsVtbl]("Windows.Graphics.Printing3D.Print3DManager")
+  let it = statics[IPrint3DManagerStaticsVtbl](className(Print3DManager))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "Print3DManager.getForCurrentView"
@@ -3070,7 +3070,7 @@ proc getForCurrentView*(_: typedesc[Print3DManager]): Print3DManager =
 
 proc showPrintUIAsync*(_: typedesc[Print3DManager]): Future[bool] =
   ## Windows.Graphics.Printing3D.IPrint3DManagerStatics.ShowPrintUIAsync
-  let it = statics[IPrint3DManagerStaticsVtbl]("Windows.Graphics.Printing3D.Print3DManager")
+  let it = statics[IPrint3DManagerStaticsVtbl](className(Print3DManager))
   var op: pointer
   check it.vtbl.ShowPrintUIAsync(it.raw, op.addr
                                 ), "Print3DManager.showPrintUIAsync"
@@ -3608,14 +3608,14 @@ proc description*(self: PrintHolePunchOptionDetails): string =
 
 proc isSupported*(_: typedesc[PrintManager]): bool =
   ## Windows.Graphics.Printing.IPrintManagerStatic2.IsSupported
-  let it = statics[IPrintManagerStatic2Vtbl]("Windows.Graphics.Printing.PrintManager")
+  let it = statics[IPrintManagerStatic2Vtbl](className(PrintManager))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr), "PrintManager.isSupported"
   ret
 
 proc getForCurrentView*(_: typedesc[PrintManager]): PrintManager =
   ## Windows.Graphics.Printing.IPrintManagerStatic.GetForCurrentView
-  let it = statics[IPrintManagerStaticVtbl]("Windows.Graphics.Printing.PrintManager")
+  let it = statics[IPrintManagerStaticVtbl](className(PrintManager))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "PrintManager.getForCurrentView"
@@ -3623,7 +3623,7 @@ proc getForCurrentView*(_: typedesc[PrintManager]): PrintManager =
 
 proc showPrintUIAsync*(_: typedesc[PrintManager]): Future[bool] =
   ## Windows.Graphics.Printing.IPrintManagerStatic.ShowPrintUIAsync
-  let it = statics[IPrintManagerStaticVtbl]("Windows.Graphics.Printing.PrintManager")
+  let it = statics[IPrintManagerStaticVtbl](className(PrintManager))
   var op: pointer
   check it.vtbl.ShowPrintUIAsync(it.raw, op.addr
                                 ), "PrintManager.showPrintUIAsync"
@@ -3815,7 +3815,7 @@ proc orientation*(self: PrintPageInfo): PrintOrientation =
 
 proc newPrintPageRange*(firstPage: int32, lastPage: int32): PrintPageRange =
   ## Windows.Graphics.Printing.IPrintPageRangeFactory.Create
-  let it = statics[IPrintPageRangeFactoryVtbl]("Windows.Graphics.Printing.PrintPageRange")
+  let it = statics[IPrintPageRangeFactoryVtbl](className(PrintPageRange))
   var ret: pointer
   check it.vtbl.Create(it.raw, firstPage, lastPage, ret.addr
                       ), "PrintPageRange.new"
@@ -3823,7 +3823,7 @@ proc newPrintPageRange*(firstPage: int32, lastPage: int32): PrintPageRange =
 
 proc newPrintPageRange*(page: int32): PrintPageRange =
   ## Windows.Graphics.Printing.IPrintPageRangeFactory.CreateWithSinglePage
-  let it = statics[IPrintPageRangeFactoryVtbl]("Windows.Graphics.Printing.PrintPageRange")
+  let it = statics[IPrintPageRangeFactoryVtbl](className(PrintPageRange))
   var ret: pointer
   check it.vtbl.CreateWithSinglePage(it.raw, page, ret.addr
                                     ), "PrintPageRange.new"
@@ -3990,7 +3990,7 @@ proc description*(self: PrintStapleOptionDetails): string =
 proc getPrintJobShowsUI*(_: typedesc[PrintSupportAppInfo], printerName: string,
                          printTicket: WorkflowPrintTicket): Option[bool] =
   ## Windows.Graphics.Printing.PrintSupport.IPrintSupportAppInfoStatics.GetPrintJobShowsUI
-  let it = statics[IPrintSupportAppInfoStaticsVtbl]("Windows.Graphics.Printing.PrintSupport.PrintSupportAppInfo")
+  let it = statics[IPrintSupportAppInfoStaticsVtbl](className(PrintSupportAppInfo))
   let a0 = toWinRtString(printerName)
   let a1 = queryInterface[IWorkflowPrintTicketVtbl](printTicket)
   var ret: pointer
@@ -4001,7 +4001,7 @@ proc getPrintJobShowsUI*(_: typedesc[PrintSupportAppInfo], printerName: string,
 proc fromPrinterName*(_: typedesc[PrintSupportAppInfo], printerName: string
                      ): PrintSupportAppInfo =
   ## Windows.Graphics.Printing.PrintSupport.IPrintSupportAppInfoStatics.FromPrinterName
-  let it = statics[IPrintSupportAppInfoStaticsVtbl]("Windows.Graphics.Printing.PrintSupport.PrintSupportAppInfo")
+  let it = statics[IPrintSupportAppInfoStaticsVtbl](className(PrintSupportAppInfo))
   let a0 = toWinRtString(printerName)
   var ret: pointer
   check it.vtbl.FromPrinterName(it.raw, a0.handle, ret.addr
@@ -4454,7 +4454,7 @@ proc createPeriodicRefresh*(_: typedesc[PrintSupportPrintDeviceCapabilitiesUpdat
                             updatePeriod: TimeSpan
                            ): PrintSupportPrintDeviceCapabilitiesUpdatePolicy =
   ## Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics.CreatePeriodicRefresh
-  let it = statics[IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStaticsVtbl]("Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesUpdatePolicy")
+  let it = statics[IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStaticsVtbl](className(PrintSupportPrintDeviceCapabilitiesUpdatePolicy))
   var ret: pointer
   check it.vtbl.CreatePeriodicRefresh(it.raw, updatePeriod, ret.addr
                                      ), "PrintSupportPrintDeviceCapabilitiesUpdatePolicy.createPeriodicRefresh"
@@ -4464,7 +4464,7 @@ proc createPrintJobRefresh*(_: typedesc[PrintSupportPrintDeviceCapabilitiesUpdat
                             numberOfJobs: uint32
                            ): PrintSupportPrintDeviceCapabilitiesUpdatePolicy =
   ## Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics.CreatePrintJobRefresh
-  let it = statics[IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStaticsVtbl]("Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesUpdatePolicy")
+  let it = statics[IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStaticsVtbl](className(PrintSupportPrintDeviceCapabilitiesUpdatePolicy))
   var ret: pointer
   check it.vtbl.CreatePrintJobRefresh(it.raw, numberOfJobs, ret.addr
                                      ), "PrintSupportPrintDeviceCapabilitiesUpdatePolicy.createPrintJobRefresh"
@@ -4855,7 +4855,7 @@ proc getFromPrintTaskOptions*(_: typedesc[PrintTaskOptionDetails],
                               printTaskOptions: PrintTaskOptions
                              ): PrintTaskOptionDetails =
   ## Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetailsStatic.GetFromPrintTaskOptions
-  let it = statics[IPrintTaskOptionDetailsStaticVtbl]("Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails")
+  let it = statics[IPrintTaskOptionDetailsStaticVtbl](className(PrintTaskOptionDetails))
   let a0 = queryInterface[IPrintTaskOptionsCoreVtbl](printTaskOptions)
   var ret: pointer
   check it.vtbl.GetFromPrintTaskOptions(it.raw, a0.raw, ret.addr
@@ -6067,7 +6067,7 @@ proc removeVirtualPrinterUIDataAvailable*(self: PrintWorkflowJobUISession,
 
 proc newPrintWorkflowObjectModelSourceFileContent*(xpsStream: SomeInputStream): PrintWorkflowObjectModelSourceFileContent =
   ## Windows.Graphics.Printing.Workflow.IPrintWorkflowObjectModelSourceFileContentFactory.CreateInstance
-  let it = statics[IPrintWorkflowObjectModelSourceFileContentFactoryVtbl]("Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelSourceFileContent")
+  let it = statics[IPrintWorkflowObjectModelSourceFileContentFactoryVtbl](className(PrintWorkflowObjectModelSourceFileContent))
   let a0 = queryInterface[IInputStreamVtbl](xpsStream)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.raw, ret.addr
@@ -6799,7 +6799,7 @@ proc newPrinting3D3MFPackage*(): Printing3D3MFPackage =
 proc loadAsync*(_: typedesc[Printing3D3MFPackage], value: SomeRandomAccessStream
                ): Future[Printing3D3MFPackage] =
   ## Windows.Graphics.Printing3D.IPrinting3D3MFPackageStatics.LoadAsync
-  let it = statics[IPrinting3D3MFPackageStaticsVtbl]("Windows.Graphics.Printing3D.Printing3D3MFPackage")
+  let it = statics[IPrinting3D3MFPackageStaticsVtbl](className(Printing3D3MFPackage))
   let a0 = queryInterface[IRandomAccessStreamVtbl](value)
   var op: pointer
   check it.vtbl.LoadAsync(it.raw, a0.raw, op.addr
@@ -6909,14 +6909,14 @@ proc newPrinting3DBaseMaterial*(): Printing3DBaseMaterial =
 
 proc abs*(_: typedesc[Printing3DBaseMaterial]): string =
   ## Windows.Graphics.Printing3D.IPrinting3DBaseMaterialStatics.get_Abs
-  let it = statics[IPrinting3DBaseMaterialStaticsVtbl]("Windows.Graphics.Printing3D.Printing3DBaseMaterial")
+  let it = statics[IPrinting3DBaseMaterialStaticsVtbl](className(Printing3DBaseMaterial))
   var ret: HSTRING
   check it.vtbl.get_Abs(it.raw, ret.addr), "Printing3DBaseMaterial.abs"
   takeString(ret)
 
 proc pla*(_: typedesc[Printing3DBaseMaterial]): string =
   ## Windows.Graphics.Printing3D.IPrinting3DBaseMaterialStatics.get_Pla
-  let it = statics[IPrinting3DBaseMaterialStaticsVtbl]("Windows.Graphics.Printing3D.Printing3DBaseMaterial")
+  let it = statics[IPrinting3DBaseMaterialStaticsVtbl](className(Printing3DBaseMaterial))
   var ret: HSTRING
   check it.vtbl.get_Pla(it.raw, ret.addr), "Printing3DBaseMaterial.pla"
   takeString(ret)
@@ -6951,7 +6951,7 @@ proc `color=`*(self: Printing3DBaseMaterial, value: Printing3DColorMaterial) =
 
 proc newPrinting3DBaseMaterialGroup*(materialGroupId: uint32): Printing3DBaseMaterialGroup =
   ## Windows.Graphics.Printing3D.IPrinting3DBaseMaterialGroupFactory.Create
-  let it = statics[IPrinting3DBaseMaterialGroupFactoryVtbl]("Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup")
+  let it = statics[IPrinting3DBaseMaterialGroupFactoryVtbl](className(Printing3DBaseMaterialGroup))
   var ret: pointer
   check it.vtbl.Create(it.raw, materialGroupId, ret.addr
                       ), "Printing3DBaseMaterialGroup.new"
@@ -7006,7 +7006,7 @@ proc `color=`*(self: Printing3DColorMaterial, value: Color) =
 
 proc newPrinting3DColorMaterialGroup*(materialGroupId: uint32): Printing3DColorMaterialGroup =
   ## Windows.Graphics.Printing3D.IPrinting3DColorMaterialGroupFactory.Create
-  let it = statics[IPrinting3DColorMaterialGroupFactoryVtbl]("Windows.Graphics.Printing3D.Printing3DColorMaterialGroup")
+  let it = statics[IPrinting3DColorMaterialGroupFactoryVtbl](className(Printing3DColorMaterialGroup))
   var ret: pointer
   check it.vtbl.Create(it.raw, materialGroupId, ret.addr
                       ), "Printing3DColorMaterialGroup.new"
@@ -7163,7 +7163,7 @@ proc values*(self: Printing3DCompositeMaterial): seq[float64] =
 
 proc newPrinting3DCompositeMaterialGroup*(materialGroupId: uint32): Printing3DCompositeMaterialGroup =
   ## Windows.Graphics.Printing3D.IPrinting3DCompositeMaterialGroupFactory.Create
-  let it = statics[IPrinting3DCompositeMaterialGroupFactoryVtbl]("Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup")
+  let it = statics[IPrinting3DCompositeMaterialGroupFactoryVtbl](className(Printing3DCompositeMaterialGroup))
   var ret: pointer
   check it.vtbl.Create(it.raw, materialGroupId, ret.addr
                       ), "Printing3DCompositeMaterialGroup.new"
@@ -7739,7 +7739,7 @@ proc materialIndices*(self: Printing3DMultiplePropertyMaterial): seq[uint32] =
 
 proc newPrinting3DMultiplePropertyMaterialGroup*(materialGroupId: uint32): Printing3DMultiplePropertyMaterialGroup =
   ## Windows.Graphics.Printing3D.IPrinting3DMultiplePropertyMaterialGroupFactory.Create
-  let it = statics[IPrinting3DMultiplePropertyMaterialGroupFactoryVtbl]("Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup")
+  let it = statics[IPrinting3DMultiplePropertyMaterialGroupFactoryVtbl](className(Printing3DMultiplePropertyMaterialGroup))
   var ret: pointer
   check it.vtbl.Create(it.raw, materialGroupId, ret.addr
                       ), "Printing3DMultiplePropertyMaterialGroup.new"
@@ -7819,7 +7819,7 @@ proc `v=`*(self: Printing3DTexture2CoordMaterial, value: float64) =
 
 proc newPrinting3DTexture2CoordMaterialGroup*(materialGroupId: uint32): Printing3DTexture2CoordMaterialGroup =
   ## Windows.Graphics.Printing3D.IPrinting3DTexture2CoordMaterialGroupFactory.Create
-  let it = statics[IPrinting3DTexture2CoordMaterialGroupFactoryVtbl]("Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterialGroup")
+  let it = statics[IPrinting3DTexture2CoordMaterialGroupFactoryVtbl](className(Printing3DTexture2CoordMaterialGroup))
   var ret: pointer
   check it.vtbl.Create(it.raw, materialGroupId, ret.addr
                       ), "Printing3DTexture2CoordMaterialGroup.new"
@@ -7897,7 +7897,7 @@ proc `name=`*(self: Printing3DTextureResource, value: string) =
 proc newSoftwareBitmap*(format: BitmapPixelFormat, width: int32, height: int32
                        ): SoftwareBitmap =
   ## Windows.Graphics.Imaging.ISoftwareBitmapFactory.Create
-  let it = statics[ISoftwareBitmapFactoryVtbl]("Windows.Graphics.Imaging.SoftwareBitmap")
+  let it = statics[ISoftwareBitmapFactoryVtbl](className(SoftwareBitmap))
   var ret: pointer
   check it.vtbl.Create(it.raw, format, width, height, ret.addr
                       ), "SoftwareBitmap.new"
@@ -7906,7 +7906,7 @@ proc newSoftwareBitmap*(format: BitmapPixelFormat, width: int32, height: int32
 proc newSoftwareBitmap*(format: BitmapPixelFormat, width: int32, height: int32,
                         alpha: BitmapAlphaMode): SoftwareBitmap =
   ## Windows.Graphics.Imaging.ISoftwareBitmapFactory.CreateWithAlpha
-  let it = statics[ISoftwareBitmapFactoryVtbl]("Windows.Graphics.Imaging.SoftwareBitmap")
+  let it = statics[ISoftwareBitmapFactoryVtbl](className(SoftwareBitmap))
   var ret: pointer
   check it.vtbl.CreateWithAlpha(it.raw, format, width, height, alpha, ret.addr
                                ), "SoftwareBitmap.new"
@@ -7915,7 +7915,7 @@ proc newSoftwareBitmap*(format: BitmapPixelFormat, width: int32, height: int32,
 proc copy*(_: typedesc[SoftwareBitmap], source: SoftwareBitmap
           ): SoftwareBitmap =
   ## Windows.Graphics.Imaging.ISoftwareBitmapStatics.Copy
-  let it = statics[ISoftwareBitmapStaticsVtbl]("Windows.Graphics.Imaging.SoftwareBitmap")
+  let it = statics[ISoftwareBitmapStaticsVtbl](className(SoftwareBitmap))
   let a0 = queryInterface[ISoftwareBitmapVtbl](source)
   var ret: pointer
   check it.vtbl.Copy(it.raw, a0.raw, ret.addr), "SoftwareBitmap.copy"
@@ -7924,7 +7924,7 @@ proc copy*(_: typedesc[SoftwareBitmap], source: SoftwareBitmap
 proc convert*(_: typedesc[SoftwareBitmap], source: SoftwareBitmap,
               format: BitmapPixelFormat): SoftwareBitmap =
   ## Windows.Graphics.Imaging.ISoftwareBitmapStatics.Convert
-  let it = statics[ISoftwareBitmapStaticsVtbl]("Windows.Graphics.Imaging.SoftwareBitmap")
+  let it = statics[ISoftwareBitmapStaticsVtbl](className(SoftwareBitmap))
   let a0 = queryInterface[ISoftwareBitmapVtbl](source)
   var ret: pointer
   check it.vtbl.Convert(it.raw, a0.raw, format, ret.addr
@@ -7935,7 +7935,7 @@ proc convert*(_: typedesc[SoftwareBitmap], source: SoftwareBitmap,
               format: BitmapPixelFormat, alpha: BitmapAlphaMode
              ): SoftwareBitmap =
   ## Windows.Graphics.Imaging.ISoftwareBitmapStatics.Convert
-  let it = statics[ISoftwareBitmapStaticsVtbl]("Windows.Graphics.Imaging.SoftwareBitmap")
+  let it = statics[ISoftwareBitmapStaticsVtbl](className(SoftwareBitmap))
   let a0 = queryInterface[ISoftwareBitmapVtbl](source)
   var ret: pointer
   check it.vtbl.Convert2(it.raw, a0.raw, format, alpha, ret.addr
@@ -7946,7 +7946,7 @@ proc createCopyFromBuffer*(_: typedesc[SoftwareBitmap], source: SomeBuffer,
                            format: BitmapPixelFormat, width: int32,
                            height: int32): SoftwareBitmap =
   ## Windows.Graphics.Imaging.ISoftwareBitmapStatics.CreateCopyFromBuffer
-  let it = statics[ISoftwareBitmapStaticsVtbl]("Windows.Graphics.Imaging.SoftwareBitmap")
+  let it = statics[ISoftwareBitmapStaticsVtbl](className(SoftwareBitmap))
   let a0 = queryInterface[IBufferVtbl](source)
   var ret: pointer
   check it.vtbl.CreateCopyFromBuffer(it.raw, a0.raw, format, width, height,
@@ -7959,7 +7959,7 @@ proc createCopyFromBuffer*(_: typedesc[SoftwareBitmap], source: SomeBuffer,
                            height: int32, alpha: BitmapAlphaMode
                           ): SoftwareBitmap =
   ## Windows.Graphics.Imaging.ISoftwareBitmapStatics.CreateCopyFromBuffer
-  let it = statics[ISoftwareBitmapStaticsVtbl]("Windows.Graphics.Imaging.SoftwareBitmap")
+  let it = statics[ISoftwareBitmapStaticsVtbl](className(SoftwareBitmap))
   let a0 = queryInterface[IBufferVtbl](source)
   var ret: pointer
   check it.vtbl.CreateCopyFromBuffer2(it.raw, a0.raw, format, width, height,
@@ -7971,7 +7971,7 @@ proc createCopyFromSurfaceAsync*(_: typedesc[SoftwareBitmap],
                                  surface: SomeDirect3DSurface
                                 ): Future[SoftwareBitmap] =
   ## Windows.Graphics.Imaging.ISoftwareBitmapStatics.CreateCopyFromSurfaceAsync
-  let it = statics[ISoftwareBitmapStaticsVtbl]("Windows.Graphics.Imaging.SoftwareBitmap")
+  let it = statics[ISoftwareBitmapStaticsVtbl](className(SoftwareBitmap))
   let a0 = queryInterface[IDirect3DSurfaceVtbl](surface)
   var op: pointer
   check it.vtbl.CreateCopyFromSurfaceAsync(it.raw, a0.raw, op.addr
@@ -7983,7 +7983,7 @@ proc createCopyFromSurfaceAsync*(_: typedesc[SoftwareBitmap],
                                  alpha: BitmapAlphaMode
                                 ): Future[SoftwareBitmap] =
   ## Windows.Graphics.Imaging.ISoftwareBitmapStatics.CreateCopyFromSurfaceAsync
-  let it = statics[ISoftwareBitmapStaticsVtbl]("Windows.Graphics.Imaging.SoftwareBitmap")
+  let it = statics[ISoftwareBitmapStaticsVtbl](className(SoftwareBitmap))
   let a0 = queryInterface[IDirect3DSurfaceVtbl](surface)
   var op: pointer
   check it.vtbl.CreateCopyFromSurfaceAsync2(it.raw, a0.raw, alpha, op.addr
@@ -8089,7 +8089,7 @@ proc getReadOnlyView*(self: SoftwareBitmap): SoftwareBitmap =
 
 proc customPageRanges*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic3.get_CustomPageRanges
-  let it = statics[IStandardPrintTaskOptionsStatic3Vtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStatic3Vtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_CustomPageRanges(it.raw, ret.addr
                                     ), "StandardPrintTaskOptions.customPageRanges"
@@ -8097,7 +8097,7 @@ proc customPageRanges*(_: typedesc[StandardPrintTaskOptions]): string =
 
 proc mediaSize*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic.get_MediaSize
-  let it = statics[IStandardPrintTaskOptionsStaticVtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStaticVtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_MediaSize(it.raw, ret.addr
                              ), "StandardPrintTaskOptions.mediaSize"
@@ -8105,7 +8105,7 @@ proc mediaSize*(_: typedesc[StandardPrintTaskOptions]): string =
 
 proc mediaType*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic.get_MediaType
-  let it = statics[IStandardPrintTaskOptionsStaticVtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStaticVtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_MediaType(it.raw, ret.addr
                              ), "StandardPrintTaskOptions.mediaType"
@@ -8113,7 +8113,7 @@ proc mediaType*(_: typedesc[StandardPrintTaskOptions]): string =
 
 proc orientation*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic.get_Orientation
-  let it = statics[IStandardPrintTaskOptionsStaticVtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStaticVtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_Orientation(it.raw, ret.addr
                                ), "StandardPrintTaskOptions.orientation"
@@ -8121,7 +8121,7 @@ proc orientation*(_: typedesc[StandardPrintTaskOptions]): string =
 
 proc printQuality*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic.get_PrintQuality
-  let it = statics[IStandardPrintTaskOptionsStaticVtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStaticVtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_PrintQuality(it.raw, ret.addr
                                 ), "StandardPrintTaskOptions.printQuality"
@@ -8129,7 +8129,7 @@ proc printQuality*(_: typedesc[StandardPrintTaskOptions]): string =
 
 proc colorMode*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic.get_ColorMode
-  let it = statics[IStandardPrintTaskOptionsStaticVtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStaticVtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_ColorMode(it.raw, ret.addr
                              ), "StandardPrintTaskOptions.colorMode"
@@ -8137,14 +8137,14 @@ proc colorMode*(_: typedesc[StandardPrintTaskOptions]): string =
 
 proc duplex*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic.get_Duplex
-  let it = statics[IStandardPrintTaskOptionsStaticVtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStaticVtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_Duplex(it.raw, ret.addr), "StandardPrintTaskOptions.duplex"
   takeString(ret)
 
 proc collation*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic.get_Collation
-  let it = statics[IStandardPrintTaskOptionsStaticVtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStaticVtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_Collation(it.raw, ret.addr
                              ), "StandardPrintTaskOptions.collation"
@@ -8152,14 +8152,14 @@ proc collation*(_: typedesc[StandardPrintTaskOptions]): string =
 
 proc staple*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic.get_Staple
-  let it = statics[IStandardPrintTaskOptionsStaticVtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStaticVtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_Staple(it.raw, ret.addr), "StandardPrintTaskOptions.staple"
   takeString(ret)
 
 proc holePunch*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic.get_HolePunch
-  let it = statics[IStandardPrintTaskOptionsStaticVtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStaticVtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_HolePunch(it.raw, ret.addr
                              ), "StandardPrintTaskOptions.holePunch"
@@ -8167,7 +8167,7 @@ proc holePunch*(_: typedesc[StandardPrintTaskOptions]): string =
 
 proc binding*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic.get_Binding
-  let it = statics[IStandardPrintTaskOptionsStaticVtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStaticVtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_Binding(it.raw, ret.addr
                            ), "StandardPrintTaskOptions.binding"
@@ -8175,21 +8175,21 @@ proc binding*(_: typedesc[StandardPrintTaskOptions]): string =
 
 proc copies*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic.get_Copies
-  let it = statics[IStandardPrintTaskOptionsStaticVtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStaticVtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_Copies(it.raw, ret.addr), "StandardPrintTaskOptions.copies"
   takeString(ret)
 
 proc nUp*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic.get_NUp
-  let it = statics[IStandardPrintTaskOptionsStaticVtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStaticVtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_NUp(it.raw, ret.addr), "StandardPrintTaskOptions.nUp"
   takeString(ret)
 
 proc inputBin*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic.get_InputBin
-  let it = statics[IStandardPrintTaskOptionsStaticVtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStaticVtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_InputBin(it.raw, ret.addr
                             ), "StandardPrintTaskOptions.inputBin"
@@ -8197,7 +8197,7 @@ proc inputBin*(_: typedesc[StandardPrintTaskOptions]): string =
 
 proc bordering*(_: typedesc[StandardPrintTaskOptions]): string =
   ## Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic2.get_Bordering
-  let it = statics[IStandardPrintTaskOptionsStatic2Vtbl]("Windows.Graphics.Printing.StandardPrintTaskOptions")
+  let it = statics[IStandardPrintTaskOptionsStatic2Vtbl](className(StandardPrintTaskOptions))
   var ret: HSTRING
   check it.vtbl.get_Bordering(it.raw, ret.addr
                              ), "StandardPrintTaskOptions.bordering"
@@ -8207,7 +8207,7 @@ proc bordering*(_: typedesc[StandardPrintTaskOptions]): string =
 
 proc isProtectedPrintEnabled*(_: typedesc[WindowsProtectedPrintInfo]): bool =
   ## Windows.Graphics.Printing.ProtectedPrint.IWindowsProtectedPrintInfoStatics.get_IsProtectedPrintEnabled
-  let it = statics[IWindowsProtectedPrintInfoStaticsVtbl]("Windows.Graphics.Printing.ProtectedPrint.WindowsProtectedPrintInfo")
+  let it = statics[IWindowsProtectedPrintInfoStaticsVtbl](className(WindowsProtectedPrintInfo))
   var ret: bool
   check it.vtbl.get_IsProtectedPrintEnabled(it.raw, ret.addr
                                            ), "WindowsProtectedPrintInfo.isProtectedPrintEnabled"
@@ -8219,7 +8219,7 @@ proc newWorkflowPrintTicket*(printerName: string,
                              printTicketStream: SomeInputStream
                             ): WorkflowPrintTicket =
   ## Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicketFactory.CreateInstance
-  let it = statics[IWorkflowPrintTicketFactoryVtbl]("Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket")
+  let it = statics[IWorkflowPrintTicketFactoryVtbl](className(WorkflowPrintTicket))
   let a0 = toWinRtString(printerName)
   let a1 = queryInterface[IInputStreamVtbl](printTicketStream)
   var ret: pointer

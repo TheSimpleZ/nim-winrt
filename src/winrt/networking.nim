@@ -72,7 +72,7 @@ proc newBackgroundDownloader*(): BackgroundDownloader =
 
 proc newBackgroundDownloader*(completionGroup: BackgroundTransferCompletionGroup): BackgroundDownloader =
   ## Windows.Networking.BackgroundTransfer.IBackgroundDownloaderFactory.CreateWithCompletionGroup
-  let it = statics[IBackgroundDownloaderFactoryVtbl]("Windows.Networking.BackgroundTransfer.BackgroundDownloader")
+  let it = statics[IBackgroundDownloaderFactoryVtbl](className(BackgroundDownloader))
   let a0 = queryInterface[IBackgroundTransferCompletionGroupVtbl](completionGroup)
   var ret: pointer
   check it.vtbl.CreateWithCompletionGroup(it.raw, a0.raw, ret.addr
@@ -83,7 +83,7 @@ proc requestUnconstrainedDownloadsAsync*(_: typedesc[BackgroundDownloader],
                                          operations: seq[DownloadOperation]
                                         ): Future[UnconstrainedTransferRequestResult] =
   ## Windows.Networking.BackgroundTransfer.IBackgroundDownloaderUserConsent.RequestUnconstrainedDownloadsAsync
-  let it = statics[IBackgroundDownloaderUserConsentVtbl]("Windows.Networking.BackgroundTransfer.BackgroundDownloader")
+  let it = statics[IBackgroundDownloaderUserConsentVtbl](className(BackgroundDownloader))
   let a0 = asCollection[DownloadOperation, seq[DownloadOperation]](operations)
   var op: pointer
   check it.vtbl.RequestUnconstrainedDownloadsAsync(it.raw, a0.raw, op.addr
@@ -95,7 +95,7 @@ proc getCurrentDownloadsForTransferGroupAsync*(_: typedesc[BackgroundDownloader]
                                                group: BackgroundTransferGroup
                                               ): Future[seq[DownloadOperation]] =
   ## Windows.Networking.BackgroundTransfer.IBackgroundDownloaderStaticMethods2.GetCurrentDownloadsForTransferGroupAsync
-  let it = statics[IBackgroundDownloaderStaticMethods2Vtbl]("Windows.Networking.BackgroundTransfer.BackgroundDownloader")
+  let it = statics[IBackgroundDownloaderStaticMethods2Vtbl](className(BackgroundDownloader))
   let a0 = queryInterface[IBackgroundTransferGroupVtbl](group)
   var op: pointer
   check it.vtbl.GetCurrentDownloadsForTransferGroupAsync(it.raw, a0.raw, op.addr
@@ -105,7 +105,7 @@ proc getCurrentDownloadsForTransferGroupAsync*(_: typedesc[BackgroundDownloader]
 
 proc getCurrentDownloadsAsync*(_: typedesc[BackgroundDownloader]): Future[seq[DownloadOperation]] =
   ## Windows.Networking.BackgroundTransfer.IBackgroundDownloaderStaticMethods.GetCurrentDownloadsAsync
-  let it = statics[IBackgroundDownloaderStaticMethodsVtbl]("Windows.Networking.BackgroundTransfer.BackgroundDownloader")
+  let it = statics[IBackgroundDownloaderStaticMethodsVtbl](className(BackgroundDownloader))
   var op: pointer
   check it.vtbl.GetCurrentDownloadsAsync(it.raw, op.addr
                                         ), "BackgroundDownloader.getCurrentDownloadsAsync"
@@ -115,7 +115,7 @@ proc getCurrentDownloadsAsync*(_: typedesc[BackgroundDownloader]): Future[seq[Do
 proc getCurrentDownloadsAsync*(_: typedesc[BackgroundDownloader], group: string
                               ): Future[seq[DownloadOperation]] =
   ## Windows.Networking.BackgroundTransfer.IBackgroundDownloaderStaticMethods.GetCurrentDownloadsAsync
-  let it = statics[IBackgroundDownloaderStaticMethodsVtbl]("Windows.Networking.BackgroundTransfer.BackgroundDownloader")
+  let it = statics[IBackgroundDownloaderStaticMethodsVtbl](className(BackgroundDownloader))
   let a0 = toWinRtString(group)
   var op: pointer
   check it.vtbl.GetCurrentDownloadsAsync2(it.raw, a0.handle, op.addr
@@ -302,7 +302,7 @@ proc newBackgroundTransferContentPart*(): BackgroundTransferContentPart =
 
 proc newBackgroundTransferContentPart*(name: string): BackgroundTransferContentPart =
   ## Windows.Networking.BackgroundTransfer.IBackgroundTransferContentPartFactory.CreateWithName
-  let it = statics[IBackgroundTransferContentPartFactoryVtbl]("Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart")
+  let it = statics[IBackgroundTransferContentPartFactoryVtbl](className(BackgroundTransferContentPart))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.CreateWithName(it.raw, a0.handle, ret.addr
@@ -312,7 +312,7 @@ proc newBackgroundTransferContentPart*(name: string): BackgroundTransferContentP
 proc newBackgroundTransferContentPart*(name: string, fileName: string
                                       ): BackgroundTransferContentPart =
   ## Windows.Networking.BackgroundTransfer.IBackgroundTransferContentPartFactory.CreateWithNameAndFileName
-  let it = statics[IBackgroundTransferContentPartFactoryVtbl]("Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart")
+  let it = statics[IBackgroundTransferContentPartFactoryVtbl](className(BackgroundTransferContentPart))
   let a0 = toWinRtString(name)
   let a1 = toWinRtString(fileName)
   var ret: pointer
@@ -347,7 +347,7 @@ proc setFile*(self: BackgroundTransferContentPart, value: SomeStorageFile) =
 proc getStatus*(_: typedesc[BackgroundTransferError], hresult: int32
                ): WebErrorStatus =
   ## Windows.Networking.BackgroundTransfer.IBackgroundTransferErrorStaticMethods.GetStatus
-  let it = statics[IBackgroundTransferErrorStaticMethodsVtbl]("Windows.Networking.BackgroundTransfer.BackgroundTransferError")
+  let it = statics[IBackgroundTransferErrorStaticMethodsVtbl](className(BackgroundTransferError))
   var ret: WebErrorStatus
   check it.vtbl.GetStatus(it.raw, hresult, ret.addr
                          ), "BackgroundTransferError.getStatus"
@@ -358,7 +358,7 @@ proc getStatus*(_: typedesc[BackgroundTransferError], hresult: int32
 proc createGroup*(_: typedesc[BackgroundTransferGroup], name: string
                  ): BackgroundTransferGroup =
   ## Windows.Networking.BackgroundTransfer.IBackgroundTransferGroupStatics.CreateGroup
-  let it = statics[IBackgroundTransferGroupStaticsVtbl]("Windows.Networking.BackgroundTransfer.BackgroundTransferGroup")
+  let it = statics[IBackgroundTransferGroupStaticsVtbl](className(BackgroundTransferGroup))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.CreateGroup(it.raw, a0.handle, ret.addr
@@ -421,7 +421,7 @@ proc newBackgroundUploader*(): BackgroundUploader =
 
 proc newBackgroundUploader*(completionGroup: BackgroundTransferCompletionGroup): BackgroundUploader =
   ## Windows.Networking.BackgroundTransfer.IBackgroundUploaderFactory.CreateWithCompletionGroup
-  let it = statics[IBackgroundUploaderFactoryVtbl]("Windows.Networking.BackgroundTransfer.BackgroundUploader")
+  let it = statics[IBackgroundUploaderFactoryVtbl](className(BackgroundUploader))
   let a0 = queryInterface[IBackgroundTransferCompletionGroupVtbl](completionGroup)
   var ret: pointer
   check it.vtbl.CreateWithCompletionGroup(it.raw, a0.raw, ret.addr
@@ -432,7 +432,7 @@ proc requestUnconstrainedUploadsAsync*(_: typedesc[BackgroundUploader],
                                        operations: seq[UploadOperation]
                                       ): Future[UnconstrainedTransferRequestResult] =
   ## Windows.Networking.BackgroundTransfer.IBackgroundUploaderUserConsent.RequestUnconstrainedUploadsAsync
-  let it = statics[IBackgroundUploaderUserConsentVtbl]("Windows.Networking.BackgroundTransfer.BackgroundUploader")
+  let it = statics[IBackgroundUploaderUserConsentVtbl](className(BackgroundUploader))
   let a0 = asCollection[UploadOperation, seq[UploadOperation]](operations)
   var op: pointer
   check it.vtbl.RequestUnconstrainedUploadsAsync(it.raw, a0.raw, op.addr
@@ -444,7 +444,7 @@ proc getCurrentUploadsForTransferGroupAsync*(_: typedesc[BackgroundUploader],
                                              group: BackgroundTransferGroup
                                             ): Future[seq[UploadOperation]] =
   ## Windows.Networking.BackgroundTransfer.IBackgroundUploaderStaticMethods2.GetCurrentUploadsForTransferGroupAsync
-  let it = statics[IBackgroundUploaderStaticMethods2Vtbl]("Windows.Networking.BackgroundTransfer.BackgroundUploader")
+  let it = statics[IBackgroundUploaderStaticMethods2Vtbl](className(BackgroundUploader))
   let a0 = queryInterface[IBackgroundTransferGroupVtbl](group)
   var op: pointer
   check it.vtbl.GetCurrentUploadsForTransferGroupAsync(it.raw, a0.raw, op.addr
@@ -454,7 +454,7 @@ proc getCurrentUploadsForTransferGroupAsync*(_: typedesc[BackgroundUploader],
 
 proc getCurrentUploadsAsync*(_: typedesc[BackgroundUploader]): Future[seq[UploadOperation]] =
   ## Windows.Networking.BackgroundTransfer.IBackgroundUploaderStaticMethods.GetCurrentUploadsAsync
-  let it = statics[IBackgroundUploaderStaticMethodsVtbl]("Windows.Networking.BackgroundTransfer.BackgroundUploader")
+  let it = statics[IBackgroundUploaderStaticMethodsVtbl](className(BackgroundUploader))
   var op: pointer
   check it.vtbl.GetCurrentUploadsAsync(it.raw, op.addr
                                       ), "BackgroundUploader.getCurrentUploadsAsync"
@@ -464,7 +464,7 @@ proc getCurrentUploadsAsync*(_: typedesc[BackgroundUploader]): Future[seq[Upload
 proc getCurrentUploadsAsync*(_: typedesc[BackgroundUploader], group: string
                             ): Future[seq[UploadOperation]] =
   ## Windows.Networking.BackgroundTransfer.IBackgroundUploaderStaticMethods.GetCurrentUploadsAsync
-  let it = statics[IBackgroundUploaderStaticMethodsVtbl]("Windows.Networking.BackgroundTransfer.BackgroundUploader")
+  let it = statics[IBackgroundUploaderStaticMethodsVtbl](className(BackgroundUploader))
   let a0 = toWinRtString(group)
   var op: pointer
   check it.vtbl.GetCurrentUploadsAsync2(it.raw, a0.handle, op.addr
@@ -1172,7 +1172,7 @@ proc acquireConnectionAsync*(_: typedesc[ConnectivityManager],
                              cellularApnContext: CellularApnContext
                             ): Future[ConnectionSession] =
   ## Windows.Networking.Connectivity.IConnectivityManagerStatics.AcquireConnectionAsync
-  let it = statics[IConnectivityManagerStaticsVtbl]("Windows.Networking.Connectivity.ConnectivityManager")
+  let it = statics[IConnectivityManagerStaticsVtbl](className(ConnectivityManager))
   let a0 = queryInterface[ICellularApnContextVtbl](cellularApnContext)
   var op: pointer
   check it.vtbl.AcquireConnectionAsync(it.raw, a0.raw, op.addr
@@ -1182,7 +1182,7 @@ proc acquireConnectionAsync*(_: typedesc[ConnectivityManager],
 proc addHttpRoutePolicy*(_: typedesc[ConnectivityManager],
                          routePolicy: RoutePolicy) =
   ## Windows.Networking.Connectivity.IConnectivityManagerStatics.AddHttpRoutePolicy
-  let it = statics[IConnectivityManagerStaticsVtbl]("Windows.Networking.Connectivity.ConnectivityManager")
+  let it = statics[IConnectivityManagerStaticsVtbl](className(ConnectivityManager))
   let a0 = queryInterface[IRoutePolicyVtbl](routePolicy)
   check it.vtbl.AddHttpRoutePolicy(it.raw, a0.raw
                                   ), "ConnectivityManager.addHttpRoutePolicy"
@@ -1190,7 +1190,7 @@ proc addHttpRoutePolicy*(_: typedesc[ConnectivityManager],
 proc removeHttpRoutePolicy*(_: typedesc[ConnectivityManager],
                             routePolicy: RoutePolicy) =
   ## Windows.Networking.Connectivity.IConnectivityManagerStatics.RemoveHttpRoutePolicy
-  let it = statics[IConnectivityManagerStaticsVtbl]("Windows.Networking.Connectivity.ConnectivityManager")
+  let it = statics[IConnectivityManagerStaticsVtbl](className(ConnectivityManager))
   let a0 = queryInterface[IRoutePolicyVtbl](routePolicy)
   check it.vtbl.RemoveHttpRoutePolicy(it.raw, a0.raw
                                      ), "ConnectivityManager.removeHttpRoutePolicy"
@@ -1199,7 +1199,7 @@ proc removeHttpRoutePolicy*(_: typedesc[ConnectivityManager],
 
 proc lastSuccessfulPrefetchTime*(_: typedesc[ContentPrefetcher]): Option[DateTime] =
   ## Windows.Networking.BackgroundTransfer.IContentPrefetcherTime.get_LastSuccessfulPrefetchTime
-  let it = statics[IContentPrefetcherTimeVtbl]("Windows.Networking.BackgroundTransfer.ContentPrefetcher")
+  let it = statics[IContentPrefetcherTimeVtbl](className(ContentPrefetcher))
   var ret: pointer
   check it.vtbl.get_LastSuccessfulPrefetchTime(it.raw, ret.addr
                                               ), "ContentPrefetcher.lastSuccessfulPrefetchTime"
@@ -1207,7 +1207,7 @@ proc lastSuccessfulPrefetchTime*(_: typedesc[ContentPrefetcher]): Option[DateTim
 
 proc contentUris*(_: typedesc[ContentPrefetcher]): seq[Uri] =
   ## Windows.Networking.BackgroundTransfer.IContentPrefetcher.get_ContentUris
-  let it = statics[IContentPrefetcherVtbl]("Windows.Networking.BackgroundTransfer.ContentPrefetcher")
+  let it = statics[IContentPrefetcherVtbl](className(ContentPrefetcher))
   var ret: pointer
   check it.vtbl.get_ContentUris(it.raw, ret.addr
                                ), "ContentPrefetcher.contentUris"
@@ -1215,14 +1215,14 @@ proc contentUris*(_: typedesc[ContentPrefetcher]): seq[Uri] =
 
 proc `indirectContentUri=`*(_: typedesc[ContentPrefetcher], value: Uri) =
   ## Windows.Networking.BackgroundTransfer.IContentPrefetcher.put_IndirectContentUri
-  let it = statics[IContentPrefetcherVtbl]("Windows.Networking.BackgroundTransfer.ContentPrefetcher")
+  let it = statics[IContentPrefetcherVtbl](className(ContentPrefetcher))
   let a0 = queryInterface[IUriRuntimeClassVtbl](value)
   check it.vtbl.put_IndirectContentUri(it.raw, a0.raw
                                       ), "ContentPrefetcher.indirectContentUri"
 
 proc indirectContentUri*(_: typedesc[ContentPrefetcher]): Uri =
   ## Windows.Networking.BackgroundTransfer.IContentPrefetcher.get_IndirectContentUri
-  let it = statics[IContentPrefetcherVtbl]("Windows.Networking.BackgroundTransfer.ContentPrefetcher")
+  let it = statics[IContentPrefetcherVtbl](className(ContentPrefetcher))
   var ret: pointer
   check it.vtbl.get_IndirectContentUri(it.raw, ret.addr
                                       ), "ContentPrefetcher.indirectContentUri"
@@ -1234,7 +1234,7 @@ proc newControlChannelTrigger*(channelId: string,
                                serverKeepAliveIntervalInMinutes: uint32
                               ): ControlChannelTrigger =
   ## Windows.Networking.Sockets.IControlChannelTriggerFactory.CreateControlChannelTrigger
-  let it = statics[IControlChannelTriggerFactoryVtbl]("Windows.Networking.Sockets.ControlChannelTrigger")
+  let it = statics[IControlChannelTriggerFactoryVtbl](className(ControlChannelTrigger))
   let a0 = toWinRtString(channelId)
   var ret: pointer
   check it.vtbl.CreateControlChannelTrigger(it.raw, a0.handle,
@@ -1248,7 +1248,7 @@ proc newControlChannelTrigger*(channelId: string,
                                resourceRequestType: ControlChannelTriggerResourceType
                               ): ControlChannelTrigger =
   ## Windows.Networking.Sockets.IControlChannelTriggerFactory.CreateControlChannelTriggerEx
-  let it = statics[IControlChannelTriggerFactoryVtbl]("Windows.Networking.Sockets.ControlChannelTrigger")
+  let it = statics[IControlChannelTriggerFactoryVtbl](className(ControlChannelTrigger))
   let a0 = toWinRtString(channelId)
   var ret: pointer
   check it.vtbl.CreateControlChannelTriggerEx(it.raw, a0.handle,
@@ -1437,7 +1437,7 @@ proc getEndpointPairsAsync*(_: typedesc[DatagramSocket],
                             remoteHostName: HostName, remoteServiceName: string
                            ): Future[seq[EndpointPair]] =
   ## Windows.Networking.Sockets.IDatagramSocketStatics.GetEndpointPairsAsync
-  let it = statics[IDatagramSocketStaticsVtbl]("Windows.Networking.Sockets.DatagramSocket")
+  let it = statics[IDatagramSocketStaticsVtbl](className(DatagramSocket))
   let a0 = queryInterface[IHostNameVtbl](remoteHostName)
   let a1 = toWinRtString(remoteServiceName)
   var op: pointer
@@ -1450,7 +1450,7 @@ proc getEndpointPairsAsync*(_: typedesc[DatagramSocket],
                             sortOptions: HostNameSortOptions
                            ): Future[seq[EndpointPair]] =
   ## Windows.Networking.Sockets.IDatagramSocketStatics.GetEndpointPairsAsync
-  let it = statics[IDatagramSocketStaticsVtbl]("Windows.Networking.Sockets.DatagramSocket")
+  let it = statics[IDatagramSocketStaticsVtbl](className(DatagramSocket))
   let a0 = queryInterface[IHostNameVtbl](remoteHostName)
   let a1 = toWinRtString(remoteServiceName)
   var op: pointer
@@ -1813,7 +1813,7 @@ proc newDnssdServiceInstance*(dnssdServiceInstanceName: string,
                               hostName: HostName, port: uint16
                              ): DnssdServiceInstance =
   ## Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceInstanceFactory.Create
-  let it = statics[IDnssdServiceInstanceFactoryVtbl]("Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance")
+  let it = statics[IDnssdServiceInstanceFactoryVtbl](className(DnssdServiceInstance))
   let a0 = toWinRtString(dnssdServiceInstanceName)
   let a1 = queryInterface[IHostNameVtbl](hostName)
   var ret: pointer
@@ -2387,14 +2387,14 @@ proc profileMetadata*(self: ESimDownloadProfileMetadataResult): ESimProfileMetad
 
 proc serviceInfo*(_: typedesc[ESimManager]): ESimServiceInfo =
   ## Windows.Networking.NetworkOperators.IESimManagerStatics.get_ServiceInfo
-  let it = statics[IESimManagerStaticsVtbl]("Windows.Networking.NetworkOperators.ESimManager")
+  let it = statics[IESimManagerStaticsVtbl](className(ESimManager))
   var ret: pointer
   check it.vtbl.get_ServiceInfo(it.raw, ret.addr), "ESimManager.serviceInfo"
   adopt[ESimServiceInfo](ret)
 
 proc tryCreateESimWatcher*(_: typedesc[ESimManager]): ESimWatcher =
   ## Windows.Networking.NetworkOperators.IESimManagerStatics.TryCreateESimWatcher
-  let it = statics[IESimManagerStaticsVtbl]("Windows.Networking.NetworkOperators.ESimManager")
+  let it = statics[IESimManagerStaticsVtbl](className(ESimManager))
   var ret: pointer
   check it.vtbl.TryCreateESimWatcher(it.raw, ret.addr
                                     ), "ESimManager.tryCreateESimWatcher"
@@ -2405,7 +2405,7 @@ proc onServiceInfoChanged*(_: typedesc[ESimManager],
                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Networking.NetworkOperators.IESimManagerStatics.add_ServiceInfoChanged
   ## The token is what `removeServiceInfoChanged` takes.
-  let it = statics[IESimManagerStaticsVtbl]("Windows.Networking.NetworkOperators.ESimManager")
+  let it = statics[IESimManagerStaticsVtbl](className(ESimManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -2415,7 +2415,7 @@ proc onServiceInfoChanged*(_: typedesc[ESimManager],
 proc removeServiceInfoChanged*(_: typedesc[ESimManager],
                                token: EventRegistrationToken) =
   ## Windows.Networking.NetworkOperators.IESimManagerStatics.remove_ServiceInfoChanged
-  let it = statics[IESimManagerStaticsVtbl]("Windows.Networking.NetworkOperators.ESimManager")
+  let it = statics[IESimManagerStaticsVtbl](className(ESimManager))
   check it.vtbl.remove_ServiceInfoChanged(it.raw, token
                                          ), "ESimManager.serviceInfoChanged"
 
@@ -2807,7 +2807,7 @@ proc newEndpointPair*(localHostName: HostName, localServiceName: string,
                       remoteHostName: HostName, remoteServiceName: string
                      ): EndpointPair =
   ## Windows.Networking.IEndpointPairFactory.CreateEndpointPair
-  let it = statics[IEndpointPairFactoryVtbl]("Windows.Networking.EndpointPair")
+  let it = statics[IEndpointPairFactoryVtbl](className(EndpointPair))
   let a0 = queryInterface[IHostNameVtbl](localHostName)
   let a1 = toWinRtString(localServiceName)
   let a2 = queryInterface[IHostNameVtbl](remoteHostName)
@@ -2880,7 +2880,7 @@ proc `remoteServiceName=`*(self: EndpointPair, value: string) =
 
 proc newHostName*(hostName: string): HostName =
   ## Windows.Networking.IHostNameFactory.CreateHostName
-  let it = statics[IHostNameFactoryVtbl]("Windows.Networking.HostName")
+  let it = statics[IHostNameFactoryVtbl](className(HostName))
   let a0 = toWinRtString(hostName)
   var ret: pointer
   check it.vtbl.CreateHostName(it.raw, a0.handle, ret.addr), "HostName.new"
@@ -2888,7 +2888,7 @@ proc newHostName*(hostName: string): HostName =
 
 proc compare*(_: typedesc[HostName], value1: string, value2: string): int32 =
   ## Windows.Networking.IHostNameStatics.Compare
-  let it = statics[IHostNameStaticsVtbl]("Windows.Networking.HostName")
+  let it = statics[IHostNameStaticsVtbl](className(HostName))
   let a0 = toWinRtString(value1)
   let a1 = toWinRtString(value2)
   var ret: int32
@@ -2945,7 +2945,7 @@ proc tryGetAuthenticationContext*(_: typedesc[HotspotAuthenticationContext],
                                   evenToken: string
                                  ): tuple[ok: bool, context: HotspotAuthenticationContext] =
   ## Windows.Networking.NetworkOperators.IHotspotAuthenticationContextStatics.TryGetAuthenticationContext
-  let it = statics[IHotspotAuthenticationContextStaticsVtbl]("Windows.Networking.NetworkOperators.HotspotAuthenticationContext")
+  let it = statics[IHotspotAuthenticationContextStaticsVtbl](className(HotspotAuthenticationContext))
   let a0 = toWinRtString(evenToken)
   var context: pointer
   var ret: bool
@@ -3111,21 +3111,21 @@ proc prefixLength*(self: IPInformation): Option[uint8] =
 
 proc eFSpn*(_: typedesc[KnownCSimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownCSimFilePathsStatics.get_EFSpn
-  let it = statics[IKnownCSimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownCSimFilePaths")
+  let it = statics[IKnownCSimFilePathsStaticsVtbl](className(KnownCSimFilePaths))
   var ret: pointer
   check it.vtbl.get_EFSpn(it.raw, ret.addr), "KnownCSimFilePaths.eFSpn"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
 
 proc gid1*(_: typedesc[KnownCSimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownCSimFilePathsStatics.get_Gid1
-  let it = statics[IKnownCSimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownCSimFilePaths")
+  let it = statics[IKnownCSimFilePathsStaticsVtbl](className(KnownCSimFilePaths))
   var ret: pointer
   check it.vtbl.get_Gid1(it.raw, ret.addr), "KnownCSimFilePaths.gid1"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
 
 proc gid2*(_: typedesc[KnownCSimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownCSimFilePathsStatics.get_Gid2
-  let it = statics[IKnownCSimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownCSimFilePaths")
+  let it = statics[IKnownCSimFilePathsStaticsVtbl](className(KnownCSimFilePaths))
   var ret: pointer
   check it.vtbl.get_Gid2(it.raw, ret.addr), "KnownCSimFilePaths.gid2"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
@@ -3134,21 +3134,21 @@ proc gid2*(_: typedesc[KnownCSimFilePaths]): seq[uint32] =
 
 proc eFSpn*(_: typedesc[KnownRuimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownRuimFilePathsStatics.get_EFSpn
-  let it = statics[IKnownRuimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownRuimFilePaths")
+  let it = statics[IKnownRuimFilePathsStaticsVtbl](className(KnownRuimFilePaths))
   var ret: pointer
   check it.vtbl.get_EFSpn(it.raw, ret.addr), "KnownRuimFilePaths.eFSpn"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
 
 proc gid1*(_: typedesc[KnownRuimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownRuimFilePathsStatics.get_Gid1
-  let it = statics[IKnownRuimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownRuimFilePaths")
+  let it = statics[IKnownRuimFilePathsStaticsVtbl](className(KnownRuimFilePaths))
   var ret: pointer
   check it.vtbl.get_Gid1(it.raw, ret.addr), "KnownRuimFilePaths.gid1"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
 
 proc gid2*(_: typedesc[KnownRuimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownRuimFilePathsStatics.get_Gid2
-  let it = statics[IKnownRuimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownRuimFilePaths")
+  let it = statics[IKnownRuimFilePathsStaticsVtbl](className(KnownRuimFilePaths))
   var ret: pointer
   check it.vtbl.get_Gid2(it.raw, ret.addr), "KnownRuimFilePaths.gid2"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
@@ -3157,28 +3157,28 @@ proc gid2*(_: typedesc[KnownRuimFilePaths]): seq[uint32] =
 
 proc eFOns*(_: typedesc[KnownSimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownSimFilePathsStatics.get_EFOns
-  let it = statics[IKnownSimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownSimFilePaths")
+  let it = statics[IKnownSimFilePathsStaticsVtbl](className(KnownSimFilePaths))
   var ret: pointer
   check it.vtbl.get_EFOns(it.raw, ret.addr), "KnownSimFilePaths.eFOns"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
 
 proc eFSpn*(_: typedesc[KnownSimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownSimFilePathsStatics.get_EFSpn
-  let it = statics[IKnownSimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownSimFilePaths")
+  let it = statics[IKnownSimFilePathsStaticsVtbl](className(KnownSimFilePaths))
   var ret: pointer
   check it.vtbl.get_EFSpn(it.raw, ret.addr), "KnownSimFilePaths.eFSpn"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
 
 proc gid1*(_: typedesc[KnownSimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownSimFilePathsStatics.get_Gid1
-  let it = statics[IKnownSimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownSimFilePaths")
+  let it = statics[IKnownSimFilePathsStaticsVtbl](className(KnownSimFilePaths))
   var ret: pointer
   check it.vtbl.get_Gid1(it.raw, ret.addr), "KnownSimFilePaths.gid1"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
 
 proc gid2*(_: typedesc[KnownSimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownSimFilePathsStatics.get_Gid2
-  let it = statics[IKnownSimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownSimFilePaths")
+  let it = statics[IKnownSimFilePathsStaticsVtbl](className(KnownSimFilePaths))
   var ret: pointer
   check it.vtbl.get_Gid2(it.raw, ret.addr), "KnownSimFilePaths.gid2"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
@@ -3187,35 +3187,35 @@ proc gid2*(_: typedesc[KnownSimFilePaths]): seq[uint32] =
 
 proc eFSpn*(_: typedesc[KnownUSimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownUSimFilePathsStatics.get_EFSpn
-  let it = statics[IKnownUSimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownUSimFilePaths")
+  let it = statics[IKnownUSimFilePathsStaticsVtbl](className(KnownUSimFilePaths))
   var ret: pointer
   check it.vtbl.get_EFSpn(it.raw, ret.addr), "KnownUSimFilePaths.eFSpn"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
 
 proc eFOpl*(_: typedesc[KnownUSimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownUSimFilePathsStatics.get_EFOpl
-  let it = statics[IKnownUSimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownUSimFilePaths")
+  let it = statics[IKnownUSimFilePathsStaticsVtbl](className(KnownUSimFilePaths))
   var ret: pointer
   check it.vtbl.get_EFOpl(it.raw, ret.addr), "KnownUSimFilePaths.eFOpl"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
 
 proc eFPnn*(_: typedesc[KnownUSimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownUSimFilePathsStatics.get_EFPnn
-  let it = statics[IKnownUSimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownUSimFilePaths")
+  let it = statics[IKnownUSimFilePathsStaticsVtbl](className(KnownUSimFilePaths))
   var ret: pointer
   check it.vtbl.get_EFPnn(it.raw, ret.addr), "KnownUSimFilePaths.eFPnn"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
 
 proc gid1*(_: typedesc[KnownUSimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownUSimFilePathsStatics.get_Gid1
-  let it = statics[IKnownUSimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownUSimFilePaths")
+  let it = statics[IKnownUSimFilePathsStaticsVtbl](className(KnownUSimFilePaths))
   var ret: pointer
   check it.vtbl.get_Gid1(it.raw, ret.addr), "KnownUSimFilePaths.gid1"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
 
 proc gid2*(_: typedesc[KnownUSimFilePaths]): seq[uint32] =
   ## Windows.Networking.NetworkOperators.IKnownUSimFilePathsStatics.get_Gid2
-  let it = statics[IKnownUSimFilePathsStaticsVtbl]("Windows.Networking.NetworkOperators.KnownUSimFilePaths")
+  let it = statics[IKnownUSimFilePathsStaticsVtbl](className(KnownUSimFilePaths))
   var ret: pointer
   check it.vtbl.get_Gid2(it.raw, ret.addr), "KnownUSimFilePaths.gid2"
   takeSeq[IVectorViewVtbl[uint32], seq[uint32]](ret)
@@ -3466,7 +3466,7 @@ proc isMessageComplete*(self: MessageWebSocketMessageReceivedEventArgs): bool =
 
 proc availableNetworkAccountIds*(_: typedesc[MobileBroadbandAccount]): seq[string] =
   ## Windows.Networking.NetworkOperators.IMobileBroadbandAccountStatics.get_AvailableNetworkAccountIds
-  let it = statics[IMobileBroadbandAccountStaticsVtbl]("Windows.Networking.NetworkOperators.MobileBroadbandAccount")
+  let it = statics[IMobileBroadbandAccountStaticsVtbl](className(MobileBroadbandAccount))
   var ret: pointer
   check it.vtbl.get_AvailableNetworkAccountIds(it.raw, ret.addr
                                               ), "MobileBroadbandAccount.availableNetworkAccountIds"
@@ -3476,7 +3476,7 @@ proc createFromNetworkAccountId*(_: typedesc[MobileBroadbandAccount],
                                  networkAccountId: string
                                 ): MobileBroadbandAccount =
   ## Windows.Networking.NetworkOperators.IMobileBroadbandAccountStatics.CreateFromNetworkAccountId
-  let it = statics[IMobileBroadbandAccountStaticsVtbl]("Windows.Networking.NetworkOperators.MobileBroadbandAccount")
+  let it = statics[IMobileBroadbandAccountStaticsVtbl](className(MobileBroadbandAccount))
   let a0 = toWinRtString(networkAccountId)
   var ret: pointer
   check it.vtbl.CreateFromNetworkAccountId(it.raw, a0.handle, ret.addr
@@ -3707,7 +3707,7 @@ proc stop*(self: MobileBroadbandAccountWatcher) =
 proc newMobileBroadbandAntennaSar*(antennaIndex: int32, sarBackoffIndex: int32
                                   ): MobileBroadbandAntennaSar =
   ## Windows.Networking.NetworkOperators.IMobileBroadbandAntennaSarFactory.CreateWithIndex
-  let it = statics[IMobileBroadbandAntennaSarFactoryVtbl]("Windows.Networking.NetworkOperators.MobileBroadbandAntennaSar")
+  let it = statics[IMobileBroadbandAntennaSarFactoryVtbl](className(MobileBroadbandAntennaSar))
   var ret: pointer
   check it.vtbl.CreateWithIndex(it.raw, antennaIndex, sarBackoffIndex, ret.addr
                                ), "MobileBroadbandAntennaSar.new"
@@ -4649,7 +4649,7 @@ proc eventId*(self: MobileBroadbandDeviceServiceTriggerDetails): uint32 =
 
 proc getDeviceSelector*(_: typedesc[MobileBroadbandModem]): string =
   ## Windows.Networking.NetworkOperators.IMobileBroadbandModemStatics.GetDeviceSelector
-  let it = statics[IMobileBroadbandModemStaticsVtbl]("Windows.Networking.NetworkOperators.MobileBroadbandModem")
+  let it = statics[IMobileBroadbandModemStaticsVtbl](className(MobileBroadbandModem))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "MobileBroadbandModem.getDeviceSelector"
@@ -4658,7 +4658,7 @@ proc getDeviceSelector*(_: typedesc[MobileBroadbandModem]): string =
 proc fromId*(_: typedesc[MobileBroadbandModem], deviceId: string
             ): MobileBroadbandModem =
   ## Windows.Networking.NetworkOperators.IMobileBroadbandModemStatics.FromId
-  let it = statics[IMobileBroadbandModemStaticsVtbl]("Windows.Networking.NetworkOperators.MobileBroadbandModem")
+  let it = statics[IMobileBroadbandModemStaticsVtbl](className(MobileBroadbandModem))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.FromId(it.raw, a0.handle, ret.addr
@@ -4667,7 +4667,7 @@ proc fromId*(_: typedesc[MobileBroadbandModem], deviceId: string
 
 proc getDefault*(_: typedesc[MobileBroadbandModem]): MobileBroadbandModem =
   ## Windows.Networking.NetworkOperators.IMobileBroadbandModemStatics.GetDefault
-  let it = statics[IMobileBroadbandModemStaticsVtbl]("Windows.Networking.NetworkOperators.MobileBroadbandModem")
+  let it = statics[IMobileBroadbandModemStaticsVtbl](className(MobileBroadbandModem))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "MobileBroadbandModem.getDefault"
   adopt[MobileBroadbandModem](ret)
@@ -4885,7 +4885,7 @@ proc newMobileBroadbandModemIsolation*(modemDeviceId: string,
                                        ruleGroupId: string
                                       ): MobileBroadbandModemIsolation =
   ## Windows.Networking.NetworkOperators.IMobileBroadbandModemIsolationFactory.Create
-  let it = statics[IMobileBroadbandModemIsolationFactoryVtbl]("Windows.Networking.NetworkOperators.MobileBroadbandModemIsolation")
+  let it = statics[IMobileBroadbandModemIsolationFactoryVtbl](className(MobileBroadbandModemIsolation))
   let a0 = toWinRtString(modemDeviceId)
   let a1 = toWinRtString(ruleGroupId)
   var ret: pointer
@@ -5747,7 +5747,7 @@ proc getConnectedProfileAsync*(self: NetworkAdapter): Future[ConnectionProfile] 
 
 proc getConnectionProfiles*(_: typedesc[NetworkInformation]): seq[ConnectionProfile] =
   ## Windows.Networking.Connectivity.INetworkInformationStatics.GetConnectionProfiles
-  let it = statics[INetworkInformationStaticsVtbl]("Windows.Networking.Connectivity.NetworkInformation")
+  let it = statics[INetworkInformationStaticsVtbl](className(NetworkInformation))
   var ret: pointer
   check it.vtbl.GetConnectionProfiles(it.raw, ret.addr
                                      ), "NetworkInformation.getConnectionProfiles"
@@ -5755,7 +5755,7 @@ proc getConnectionProfiles*(_: typedesc[NetworkInformation]): seq[ConnectionProf
 
 proc getInternetConnectionProfile*(_: typedesc[NetworkInformation]): ConnectionProfile =
   ## Windows.Networking.Connectivity.INetworkInformationStatics.GetInternetConnectionProfile
-  let it = statics[INetworkInformationStaticsVtbl]("Windows.Networking.Connectivity.NetworkInformation")
+  let it = statics[INetworkInformationStaticsVtbl](className(NetworkInformation))
   var ret: pointer
   check it.vtbl.GetInternetConnectionProfile(it.raw, ret.addr
                                             ), "NetworkInformation.getInternetConnectionProfile"
@@ -5763,7 +5763,7 @@ proc getInternetConnectionProfile*(_: typedesc[NetworkInformation]): ConnectionP
 
 proc getLanIdentifiers*(_: typedesc[NetworkInformation]): seq[LanIdentifier] =
   ## Windows.Networking.Connectivity.INetworkInformationStatics.GetLanIdentifiers
-  let it = statics[INetworkInformationStaticsVtbl]("Windows.Networking.Connectivity.NetworkInformation")
+  let it = statics[INetworkInformationStaticsVtbl](className(NetworkInformation))
   var ret: pointer
   check it.vtbl.GetLanIdentifiers(it.raw, ret.addr
                                  ), "NetworkInformation.getLanIdentifiers"
@@ -5771,7 +5771,7 @@ proc getLanIdentifiers*(_: typedesc[NetworkInformation]): seq[LanIdentifier] =
 
 proc getHostNames*(_: typedesc[NetworkInformation]): seq[HostName] =
   ## Windows.Networking.Connectivity.INetworkInformationStatics.GetHostNames
-  let it = statics[INetworkInformationStaticsVtbl]("Windows.Networking.Connectivity.NetworkInformation")
+  let it = statics[INetworkInformationStaticsVtbl](className(NetworkInformation))
   var ret: pointer
   check it.vtbl.GetHostNames(it.raw, ret.addr
                             ), "NetworkInformation.getHostNames"
@@ -5780,7 +5780,7 @@ proc getHostNames*(_: typedesc[NetworkInformation]): seq[HostName] =
 proc getProxyConfigurationAsync*(_: typedesc[NetworkInformation], uri: Uri
                                 ): Future[ProxyConfiguration] =
   ## Windows.Networking.Connectivity.INetworkInformationStatics.GetProxyConfigurationAsync
-  let it = statics[INetworkInformationStaticsVtbl]("Windows.Networking.Connectivity.NetworkInformation")
+  let it = statics[INetworkInformationStaticsVtbl](className(NetworkInformation))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var op: pointer
   check it.vtbl.GetProxyConfigurationAsync(it.raw, a0.raw, op.addr
@@ -5792,7 +5792,7 @@ proc getSortedEndpointPairs*(_: typedesc[NetworkInformation],
                              sortOptions: HostNameSortOptions
                             ): seq[EndpointPair] =
   ## Windows.Networking.Connectivity.INetworkInformationStatics.GetSortedEndpointPairs
-  let it = statics[INetworkInformationStaticsVtbl]("Windows.Networking.Connectivity.NetworkInformation")
+  let it = statics[INetworkInformationStaticsVtbl](className(NetworkInformation))
   let a0 = asCollection[EndpointPair, seq[EndpointPair]](destinationList)
   var ret: pointer
   check it.vtbl.GetSortedEndpointPairs(it.raw, a0.raw, sortOptions, ret.addr
@@ -5804,7 +5804,7 @@ proc onNetworkStatusChanged*(_: typedesc[NetworkInformation],
                             ): EventRegistrationToken {.discardable.} =
   ## Windows.Networking.Connectivity.INetworkInformationStatics.add_NetworkStatusChanged
   ## The token is what `removeNetworkStatusChanged` takes.
-  let it = statics[INetworkInformationStaticsVtbl]("Windows.Networking.Connectivity.NetworkInformation")
+  let it = statics[INetworkInformationStaticsVtbl](className(NetworkInformation))
   proc shim(a0: pointer) =
     handler(borrow[WinRtObject](a0))
   let cb = newDelegate(NetworkStatusChangedEventHandlerVtbl, shim, event = true)
@@ -5814,7 +5814,7 @@ proc onNetworkStatusChanged*(_: typedesc[NetworkInformation],
 proc removeNetworkStatusChanged*(_: typedesc[NetworkInformation],
                                  token: EventRegistrationToken) =
   ## Windows.Networking.Connectivity.INetworkInformationStatics.remove_NetworkStatusChanged
-  let it = statics[INetworkInformationStaticsVtbl]("Windows.Networking.Connectivity.NetworkInformation")
+  let it = statics[INetworkInformationStaticsVtbl](className(NetworkInformation))
   check it.vtbl.remove_NetworkStatusChanged(it.raw, token
                                            ), "NetworkInformation.networkStatusChanged"
 
@@ -5822,7 +5822,7 @@ proc findConnectionProfilesAsync*(_: typedesc[NetworkInformation],
                                   pProfileFilter: ConnectionProfileFilter
                                  ): Future[seq[ConnectionProfile]] =
   ## Windows.Networking.Connectivity.INetworkInformationStatics2.FindConnectionProfilesAsync
-  let it = statics[INetworkInformationStatics2Vtbl]("Windows.Networking.Connectivity.NetworkInformation")
+  let it = statics[INetworkInformationStatics2Vtbl](className(NetworkInformation))
   let a0 = queryInterface[IConnectionProfileFilterVtbl](pProfileFilter)
   var op: pointer
   check it.vtbl.FindConnectionProfilesAsync(it.raw, a0.raw, op.addr
@@ -6044,7 +6044,7 @@ proc hostNames*(self: NetworkOperatorTetheringClient): seq[HostName] =
 
 proc isNoConnectionsTimeoutEnabled*(_: typedesc[NetworkOperatorTetheringManager]): bool =
   ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics4.IsNoConnectionsTimeoutEnabled
-  let it = statics[INetworkOperatorTetheringManagerStatics4Vtbl]("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
+  let it = statics[INetworkOperatorTetheringManagerStatics4Vtbl](className(NetworkOperatorTetheringManager))
   var ret: bool
   check it.vtbl.IsNoConnectionsTimeoutEnabled(it.raw, ret.addr
                                              ), "NetworkOperatorTetheringManager.isNoConnectionsTimeoutEnabled"
@@ -6052,12 +6052,12 @@ proc isNoConnectionsTimeoutEnabled*(_: typedesc[NetworkOperatorTetheringManager]
 
 proc enableNoConnectionsTimeout*(_: typedesc[NetworkOperatorTetheringManager]) =
   ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics4.EnableNoConnectionsTimeout
-  let it = statics[INetworkOperatorTetheringManagerStatics4Vtbl]("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
+  let it = statics[INetworkOperatorTetheringManagerStatics4Vtbl](className(NetworkOperatorTetheringManager))
   check it.vtbl.EnableNoConnectionsTimeout(it.raw), "NetworkOperatorTetheringManager.enableNoConnectionsTimeout"
 
 proc enableNoConnectionsTimeoutAsync*(_: typedesc[NetworkOperatorTetheringManager]): Future[void] =
   ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics4.EnableNoConnectionsTimeoutAsync
-  let it = statics[INetworkOperatorTetheringManagerStatics4Vtbl]("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
+  let it = statics[INetworkOperatorTetheringManagerStatics4Vtbl](className(NetworkOperatorTetheringManager))
   var op: pointer
   check it.vtbl.EnableNoConnectionsTimeoutAsync(it.raw, op.addr
                                                ), "NetworkOperatorTetheringManager.enableNoConnectionsTimeoutAsync"
@@ -6065,12 +6065,12 @@ proc enableNoConnectionsTimeoutAsync*(_: typedesc[NetworkOperatorTetheringManage
 
 proc disableNoConnectionsTimeout*(_: typedesc[NetworkOperatorTetheringManager]) =
   ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics4.DisableNoConnectionsTimeout
-  let it = statics[INetworkOperatorTetheringManagerStatics4Vtbl]("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
+  let it = statics[INetworkOperatorTetheringManagerStatics4Vtbl](className(NetworkOperatorTetheringManager))
   check it.vtbl.DisableNoConnectionsTimeout(it.raw), "NetworkOperatorTetheringManager.disableNoConnectionsTimeout"
 
 proc disableNoConnectionsTimeoutAsync*(_: typedesc[NetworkOperatorTetheringManager]): Future[void] =
   ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics4.DisableNoConnectionsTimeoutAsync
-  let it = statics[INetworkOperatorTetheringManagerStatics4Vtbl]("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
+  let it = statics[INetworkOperatorTetheringManagerStatics4Vtbl](className(NetworkOperatorTetheringManager))
   var op: pointer
   check it.vtbl.DisableNoConnectionsTimeoutAsync(it.raw, op.addr
                                                 ), "NetworkOperatorTetheringManager.disableNoConnectionsTimeoutAsync"
@@ -6080,7 +6080,7 @@ proc getTetheringCapabilityFromConnectionProfile*(_: typedesc[NetworkOperatorTet
                                                   profile: ConnectionProfile
                                                  ): TetheringCapability =
   ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics2.GetTetheringCapabilityFromConnectionProfile
-  let it = statics[INetworkOperatorTetheringManagerStatics2Vtbl]("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
+  let it = statics[INetworkOperatorTetheringManagerStatics2Vtbl](className(NetworkOperatorTetheringManager))
   let a0 = queryInterface[IConnectionProfileVtbl](profile)
   var ret: TetheringCapability
   check it.vtbl.GetTetheringCapabilityFromConnectionProfile(it.raw, a0.raw,
@@ -6092,7 +6092,7 @@ proc createFromConnectionProfile*(_: typedesc[NetworkOperatorTetheringManager],
                                   profile: ConnectionProfile
                                  ): NetworkOperatorTetheringManager =
   ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics2.CreateFromConnectionProfile
-  let it = statics[INetworkOperatorTetheringManagerStatics2Vtbl]("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
+  let it = statics[INetworkOperatorTetheringManagerStatics2Vtbl](className(NetworkOperatorTetheringManager))
   let a0 = queryInterface[IConnectionProfileVtbl](profile)
   var ret: pointer
   check it.vtbl.CreateFromConnectionProfile(it.raw, a0.raw, ret.addr
@@ -6102,7 +6102,7 @@ proc createFromConnectionProfile*(_: typedesc[NetworkOperatorTetheringManager],
 proc getTetheringCapability*(_: typedesc[NetworkOperatorTetheringManager],
                              networkAccountId: string): TetheringCapability =
   ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics.GetTetheringCapability
-  let it = statics[INetworkOperatorTetheringManagerStaticsVtbl]("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
+  let it = statics[INetworkOperatorTetheringManagerStaticsVtbl](className(NetworkOperatorTetheringManager))
   let a0 = toWinRtString(networkAccountId)
   var ret: TetheringCapability
   check it.vtbl.GetTetheringCapability(it.raw, a0.handle, ret.addr
@@ -6113,7 +6113,7 @@ proc createFromNetworkAccountId*(_: typedesc[NetworkOperatorTetheringManager],
                                  networkAccountId: string
                                 ): NetworkOperatorTetheringManager =
   ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics.CreateFromNetworkAccountId
-  let it = statics[INetworkOperatorTetheringManagerStaticsVtbl]("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
+  let it = statics[INetworkOperatorTetheringManagerStaticsVtbl](className(NetworkOperatorTetheringManager))
   let a0 = toWinRtString(networkAccountId)
   var ret: pointer
   check it.vtbl.CreateFromNetworkAccountId(it.raw, a0.handle, ret.addr
@@ -6125,7 +6125,7 @@ proc createFromConnectionProfile*(_: typedesc[NetworkOperatorTetheringManager],
                                   adapter: NetworkAdapter
                                  ): NetworkOperatorTetheringManager =
   ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics3.CreateFromConnectionProfile
-  let it = statics[INetworkOperatorTetheringManagerStatics3Vtbl]("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
+  let it = statics[INetworkOperatorTetheringManagerStatics3Vtbl](className(NetworkOperatorTetheringManager))
   let a0 = queryInterface[IConnectionProfileVtbl](profile)
   let a1 = queryInterface[INetworkAdapterVtbl](adapter)
   var ret: pointer
@@ -6468,39 +6468,39 @@ proc connectionDuration*(self: NetworkUsage): TimeSpan =
 
 proc role*(_: typedesc[PeerFinder]): PeerRole =
   ## Windows.Networking.Proximity.IPeerFinderStatics2.get_Role
-  let it = statics[IPeerFinderStatics2Vtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStatics2Vtbl](className(PeerFinder))
   var ret: PeerRole
   check it.vtbl.get_Role(it.raw, ret.addr), "PeerFinder.role"
   ret
 
 proc `role=`*(_: typedesc[PeerFinder], value: PeerRole) =
   ## Windows.Networking.Proximity.IPeerFinderStatics2.put_Role
-  let it = statics[IPeerFinderStatics2Vtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStatics2Vtbl](className(PeerFinder))
   check it.vtbl.put_Role(it.raw, value), "PeerFinder.role"
 
 proc discoveryData*(_: typedesc[PeerFinder]): IBuffer =
   ## Windows.Networking.Proximity.IPeerFinderStatics2.get_DiscoveryData
-  let it = statics[IPeerFinderStatics2Vtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStatics2Vtbl](className(PeerFinder))
   var ret: pointer
   check it.vtbl.get_DiscoveryData(it.raw, ret.addr), "PeerFinder.discoveryData"
   adopt[IBuffer](ret)
 
 proc `discoveryData=`*(_: typedesc[PeerFinder], value: SomeBuffer) =
   ## Windows.Networking.Proximity.IPeerFinderStatics2.put_DiscoveryData
-  let it = statics[IPeerFinderStatics2Vtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStatics2Vtbl](className(PeerFinder))
   let a0 = queryInterface[IBufferVtbl](value)
   check it.vtbl.put_DiscoveryData(it.raw, a0.raw), "PeerFinder.discoveryData"
 
 proc createWatcher*(_: typedesc[PeerFinder]): PeerWatcher =
   ## Windows.Networking.Proximity.IPeerFinderStatics2.CreateWatcher
-  let it = statics[IPeerFinderStatics2Vtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStatics2Vtbl](className(PeerFinder))
   var ret: pointer
   check it.vtbl.CreateWatcher(it.raw, ret.addr), "PeerFinder.createWatcher"
   adopt[PeerWatcher](ret)
 
 proc allowBluetooth*(_: typedesc[PeerFinder]): bool =
   ## Windows.Networking.Proximity.IPeerFinderStatics.get_AllowBluetooth
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   var ret: bool
   check it.vtbl.get_AllowBluetooth(it.raw, ret.addr
                                   ), "PeerFinder.allowBluetooth"
@@ -6508,12 +6508,12 @@ proc allowBluetooth*(_: typedesc[PeerFinder]): bool =
 
 proc `allowBluetooth=`*(_: typedesc[PeerFinder], value: bool) =
   ## Windows.Networking.Proximity.IPeerFinderStatics.put_AllowBluetooth
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   check it.vtbl.put_AllowBluetooth(it.raw, value), "PeerFinder.allowBluetooth"
 
 proc allowInfrastructure*(_: typedesc[PeerFinder]): bool =
   ## Windows.Networking.Proximity.IPeerFinderStatics.get_AllowInfrastructure
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   var ret: bool
   check it.vtbl.get_AllowInfrastructure(it.raw, ret.addr
                                        ), "PeerFinder.allowInfrastructure"
@@ -6521,13 +6521,13 @@ proc allowInfrastructure*(_: typedesc[PeerFinder]): bool =
 
 proc `allowInfrastructure=`*(_: typedesc[PeerFinder], value: bool) =
   ## Windows.Networking.Proximity.IPeerFinderStatics.put_AllowInfrastructure
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   check it.vtbl.put_AllowInfrastructure(it.raw, value
                                        ), "PeerFinder.allowInfrastructure"
 
 proc allowWiFiDirect*(_: typedesc[PeerFinder]): bool =
   ## Windows.Networking.Proximity.IPeerFinderStatics.get_AllowWiFiDirect
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   var ret: bool
   check it.vtbl.get_AllowWiFiDirect(it.raw, ret.addr
                                    ), "PeerFinder.allowWiFiDirect"
@@ -6535,25 +6535,25 @@ proc allowWiFiDirect*(_: typedesc[PeerFinder]): bool =
 
 proc `allowWiFiDirect=`*(_: typedesc[PeerFinder], value: bool) =
   ## Windows.Networking.Proximity.IPeerFinderStatics.put_AllowWiFiDirect
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   check it.vtbl.put_AllowWiFiDirect(it.raw, value), "PeerFinder.allowWiFiDirect"
 
 proc displayName*(_: typedesc[PeerFinder]): string =
   ## Windows.Networking.Proximity.IPeerFinderStatics.get_DisplayName
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   var ret: HSTRING
   check it.vtbl.get_DisplayName(it.raw, ret.addr), "PeerFinder.displayName"
   takeString(ret)
 
 proc `displayName=`*(_: typedesc[PeerFinder], value: string) =
   ## Windows.Networking.Proximity.IPeerFinderStatics.put_DisplayName
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   let a0 = toWinRtString(value)
   check it.vtbl.put_DisplayName(it.raw, a0.handle), "PeerFinder.displayName"
 
 proc supportedDiscoveryTypes*(_: typedesc[PeerFinder]): PeerDiscoveryTypes =
   ## Windows.Networking.Proximity.IPeerFinderStatics.get_SupportedDiscoveryTypes
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   var ret: PeerDiscoveryTypes
   check it.vtbl.get_SupportedDiscoveryTypes(it.raw, ret.addr
                                            ), "PeerFinder.supportedDiscoveryTypes"
@@ -6561,7 +6561,7 @@ proc supportedDiscoveryTypes*(_: typedesc[PeerFinder]): PeerDiscoveryTypes =
 
 proc alternateIdentities*(_: typedesc[PeerFinder]): Table[string, string] =
   ## Windows.Networking.Proximity.IPeerFinderStatics.get_AlternateIdentities
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   var ret: pointer
   check it.vtbl.get_AlternateIdentities(it.raw, ret.addr
                                        ), "PeerFinder.alternateIdentities"
@@ -6569,18 +6569,18 @@ proc alternateIdentities*(_: typedesc[PeerFinder]): Table[string, string] =
 
 proc start*(_: typedesc[PeerFinder]) =
   ## Windows.Networking.Proximity.IPeerFinderStatics.Start
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   check it.vtbl.Start(it.raw), "PeerFinder.start"
 
 proc start*(_: typedesc[PeerFinder], peerMessage: string) =
   ## Windows.Networking.Proximity.IPeerFinderStatics.Start
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   let a0 = toWinRtString(peerMessage)
   check it.vtbl.Start2(it.raw, a0.handle), "PeerFinder.start"
 
 proc stop*(_: typedesc[PeerFinder]) =
   ## Windows.Networking.Proximity.IPeerFinderStatics.Stop
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   check it.vtbl.Stop(it.raw), "PeerFinder.stop"
 
 proc onTriggeredConnectionStateChanged*(_: typedesc[PeerFinder],
@@ -6588,7 +6588,7 @@ proc onTriggeredConnectionStateChanged*(_: typedesc[PeerFinder],
                                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Networking.Proximity.IPeerFinderStatics.add_TriggeredConnectionStateChanged
   ## The token is what `removeTriggeredConnectionStateChanged` takes.
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0),
             borrow[TriggeredConnectionStateChangedEventArgs](a1))
@@ -6600,7 +6600,7 @@ proc onTriggeredConnectionStateChanged*(_: typedesc[PeerFinder],
 proc removeTriggeredConnectionStateChanged*(_: typedesc[PeerFinder],
                                             token: EventRegistrationToken) =
   ## Windows.Networking.Proximity.IPeerFinderStatics.remove_TriggeredConnectionStateChanged
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   check it.vtbl.remove_TriggeredConnectionStateChanged(it.raw, token
                                                       ), "PeerFinder.triggeredConnectionStateChanged"
 
@@ -6609,7 +6609,7 @@ proc onConnectionRequested*(_: typedesc[PeerFinder],
                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Networking.Proximity.IPeerFinderStatics.add_ConnectionRequested
   ## The token is what `removeConnectionRequested` takes.
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[ConnectionRequestedEventArgs](a1))
   let cb = newDelegate(TypedEventHandlerVtbl[WinRtObject, ConnectionRequestedEventArgs],
@@ -6620,13 +6620,13 @@ proc onConnectionRequested*(_: typedesc[PeerFinder],
 proc removeConnectionRequested*(_: typedesc[PeerFinder],
                                 token: EventRegistrationToken) =
   ## Windows.Networking.Proximity.IPeerFinderStatics.remove_ConnectionRequested
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   check it.vtbl.remove_ConnectionRequested(it.raw, token
                                           ), "PeerFinder.connectionRequested"
 
 proc findAllPeersAsync*(_: typedesc[PeerFinder]): Future[seq[PeerInformation]] =
   ## Windows.Networking.Proximity.IPeerFinderStatics.FindAllPeersAsync
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   var op: pointer
   check it.vtbl.FindAllPeersAsync(it.raw, op.addr
                                  ), "PeerFinder.findAllPeersAsync"
@@ -6636,7 +6636,7 @@ proc findAllPeersAsync*(_: typedesc[PeerFinder]): Future[seq[PeerInformation]] =
 proc connectAsync*(_: typedesc[PeerFinder], peerInformation: PeerInformation
                   ): Future[StreamSocket] =
   ## Windows.Networking.Proximity.IPeerFinderStatics.ConnectAsync
-  let it = statics[IPeerFinderStaticsVtbl]("Windows.Networking.Proximity.PeerFinder")
+  let it = statics[IPeerFinderStaticsVtbl](className(PeerFinder))
   let a0 = queryInterface[IPeerInformationVtbl](peerInformation)
   var op: pointer
   check it.vtbl.ConnectAsync(it.raw, a0.raw, op.addr), "PeerFinder.connectAsync"
@@ -6852,7 +6852,7 @@ proc newProvisioningAgent*(): ProvisioningAgent =
 proc createFromNetworkAccountId*(_: typedesc[ProvisioningAgent],
                                  networkAccountId: string): ProvisioningAgent =
   ## Windows.Networking.NetworkOperators.IProvisioningAgentStaticMethods.CreateFromNetworkAccountId
-  let it = statics[IProvisioningAgentStaticMethodsVtbl]("Windows.Networking.NetworkOperators.ProvisioningAgent")
+  let it = statics[IProvisioningAgentStaticMethodsVtbl](className(ProvisioningAgent))
   let a0 = toWinRtString(networkAccountId)
   var ret: pointer
   check it.vtbl.CreateFromNetworkAccountId(it.raw, a0.handle, ret.addr
@@ -6886,7 +6886,7 @@ proc getProvisionedProfile*(self: ProvisioningAgent,
 
 proc getDeviceSelector*(_: typedesc[ProximityDevice]): string =
   ## Windows.Networking.Proximity.IProximityDeviceStatics.GetDeviceSelector
-  let it = statics[IProximityDeviceStaticsVtbl]("Windows.Networking.Proximity.ProximityDevice")
+  let it = statics[IProximityDeviceStaticsVtbl](className(ProximityDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "ProximityDevice.getDeviceSelector"
@@ -6894,14 +6894,14 @@ proc getDeviceSelector*(_: typedesc[ProximityDevice]): string =
 
 proc getDefault*(_: typedesc[ProximityDevice]): ProximityDevice =
   ## Windows.Networking.Proximity.IProximityDeviceStatics.GetDefault
-  let it = statics[IProximityDeviceStaticsVtbl]("Windows.Networking.Proximity.ProximityDevice")
+  let it = statics[IProximityDeviceStaticsVtbl](className(ProximityDevice))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "ProximityDevice.getDefault"
   adopt[ProximityDevice](ret)
 
 proc fromId*(_: typedesc[ProximityDevice], deviceId: string): ProximityDevice =
   ## Windows.Networking.Proximity.IProximityDeviceStatics.FromId
-  let it = statics[IProximityDeviceStaticsVtbl]("Windows.Networking.Proximity.ProximityDevice")
+  let it = statics[IProximityDeviceStaticsVtbl](className(ProximityDevice))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.FromId(it.raw, a0.handle, ret.addr), "ProximityDevice.fromId"
@@ -7173,7 +7173,7 @@ proc onChannelsRevoked*(_: typedesc[PushNotificationChannelManager],
                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Networking.PushNotifications.IPushNotificationChannelManagerStatics4.add_ChannelsRevoked
   ## The token is what `removeChannelsRevoked` takes.
-  let it = statics[IPushNotificationChannelManagerStatics4Vtbl]("Windows.Networking.PushNotifications.PushNotificationChannelManager")
+  let it = statics[IPushNotificationChannelManagerStatics4Vtbl](className(PushNotificationChannelManager))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0),
             borrow[PushNotificationChannelsRevokedEventArgs](a1))
@@ -7185,14 +7185,14 @@ proc onChannelsRevoked*(_: typedesc[PushNotificationChannelManager],
 proc removeChannelsRevoked*(_: typedesc[PushNotificationChannelManager],
                             token: EventRegistrationToken) =
   ## Windows.Networking.PushNotifications.IPushNotificationChannelManagerStatics4.remove_ChannelsRevoked
-  let it = statics[IPushNotificationChannelManagerStatics4Vtbl]("Windows.Networking.PushNotifications.PushNotificationChannelManager")
+  let it = statics[IPushNotificationChannelManagerStatics4Vtbl](className(PushNotificationChannelManager))
   check it.vtbl.remove_ChannelsRevoked(it.raw, token
                                       ), "PushNotificationChannelManager.channelsRevoked"
 
 proc getForUser*(_: typedesc[PushNotificationChannelManager], user: User
                 ): PushNotificationChannelManagerForUser =
   ## Windows.Networking.PushNotifications.IPushNotificationChannelManagerStatics2.GetForUser
-  let it = statics[IPushNotificationChannelManagerStatics2Vtbl]("Windows.Networking.PushNotifications.PushNotificationChannelManager")
+  let it = statics[IPushNotificationChannelManagerStatics2Vtbl](className(PushNotificationChannelManager))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr
@@ -7201,7 +7201,7 @@ proc getForUser*(_: typedesc[PushNotificationChannelManager], user: User
 
 proc createPushNotificationChannelForApplicationAsync*(_: typedesc[PushNotificationChannelManager]): Future[PushNotificationChannel] =
   ## Windows.Networking.PushNotifications.IPushNotificationChannelManagerStatics.CreatePushNotificationChannelForApplicationAsync
-  let it = statics[IPushNotificationChannelManagerStaticsVtbl]("Windows.Networking.PushNotifications.PushNotificationChannelManager")
+  let it = statics[IPushNotificationChannelManagerStaticsVtbl](className(PushNotificationChannelManager))
   var op: pointer
   check it.vtbl.CreatePushNotificationChannelForApplicationAsync(it.raw, op.addr
                                                                 ), "PushNotificationChannelManager.createPushNotificationChannelForApplicationAsync"
@@ -7211,7 +7211,7 @@ proc createPushNotificationChannelForApplicationAsync*(_: typedesc[PushNotificat
                                                        applicationId: string
                                                       ): Future[PushNotificationChannel] =
   ## Windows.Networking.PushNotifications.IPushNotificationChannelManagerStatics.CreatePushNotificationChannelForApplicationAsync
-  let it = statics[IPushNotificationChannelManagerStaticsVtbl]("Windows.Networking.PushNotifications.PushNotificationChannelManager")
+  let it = statics[IPushNotificationChannelManagerStaticsVtbl](className(PushNotificationChannelManager))
   let a0 = toWinRtString(applicationId)
   var op: pointer
   check it.vtbl.CreatePushNotificationChannelForApplicationAsync2(it.raw,
@@ -7224,7 +7224,7 @@ proc createPushNotificationChannelForSecondaryTileAsync*(_: typedesc[PushNotific
                                                          tileId: string
                                                         ): Future[PushNotificationChannel] =
   ## Windows.Networking.PushNotifications.IPushNotificationChannelManagerStatics.CreatePushNotificationChannelForSecondaryTileAsync
-  let it = statics[IPushNotificationChannelManagerStaticsVtbl]("Windows.Networking.PushNotifications.PushNotificationChannelManager")
+  let it = statics[IPushNotificationChannelManagerStaticsVtbl](className(PushNotificationChannelManager))
   let a0 = toWinRtString(tileId)
   var op: pointer
   check it.vtbl.CreatePushNotificationChannelForSecondaryTileAsync(it.raw,
@@ -7235,7 +7235,7 @@ proc createPushNotificationChannelForSecondaryTileAsync*(_: typedesc[PushNotific
 
 proc getDefault*(_: typedesc[PushNotificationChannelManager]): PushNotificationChannelManagerForUser =
   ## Windows.Networking.PushNotifications.IPushNotificationChannelManagerStatics3.GetDefault
-  let it = statics[IPushNotificationChannelManagerStatics3Vtbl]("Windows.Networking.PushNotifications.PushNotificationChannelManager")
+  let it = statics[IPushNotificationChannelManagerStatics3Vtbl](className(PushNotificationChannelManager))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr
                           ), "PushNotificationChannelManager.getDefault"
@@ -7444,7 +7444,7 @@ proc headers*(self: ResponseInformation): Table[string, string] =
 proc newRoutePolicy*(connectionProfile: ConnectionProfile, hostName: HostName,
                      `type`: DomainNameType): RoutePolicy =
   ## Windows.Networking.Connectivity.IRoutePolicyFactory.CreateRoutePolicy
-  let it = statics[IRoutePolicyFactoryVtbl]("Windows.Networking.Connectivity.RoutePolicy")
+  let it = statics[IRoutePolicyFactoryVtbl](className(RoutePolicy))
   let a0 = queryInterface[IConnectionProfileVtbl](connectionProfile)
   let a1 = queryInterface[IHostNameVtbl](hostName)
   var ret: pointer
@@ -7670,7 +7670,7 @@ proc localAddress*(self: ServerStreamWebSocketInformation): HostName =
 
 proc newSocketActivityContext*(data: SomeBuffer): SocketActivityContext =
   ## Windows.Networking.Sockets.ISocketActivityContextFactory.Create
-  let it = statics[ISocketActivityContextFactoryVtbl]("Windows.Networking.Sockets.SocketActivityContext")
+  let it = statics[ISocketActivityContextFactoryVtbl](className(SocketActivityContext))
   let a0 = queryInterface[IBufferVtbl](data)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "SocketActivityContext.new"
@@ -7687,7 +7687,7 @@ proc data*(self: SocketActivityContext): IBuffer =
 
 proc allSockets*(_: typedesc[SocketActivityInformation]): Table[string, SocketActivityInformation] =
   ## Windows.Networking.Sockets.ISocketActivityInformationStatics.get_AllSockets
-  let it = statics[ISocketActivityInformationStaticsVtbl]("Windows.Networking.Sockets.SocketActivityInformation")
+  let it = statics[ISocketActivityInformationStaticsVtbl](className(SocketActivityInformation))
   var ret: pointer
   check it.vtbl.get_AllSockets(it.raw, ret.addr
                               ), "SocketActivityInformation.allSockets"
@@ -7769,7 +7769,7 @@ proc socketInformation*(self: SocketActivityTriggerDetails): SocketActivityInfor
 
 proc getStatus*(_: typedesc[SocketError], hresult: int32): SocketErrorStatus =
   ## Windows.Networking.Sockets.ISocketErrorStatics.GetStatus
-  let it = statics[ISocketErrorStaticsVtbl]("Windows.Networking.Sockets.SocketError")
+  let it = statics[ISocketErrorStaticsVtbl](className(SocketError))
   var ret: SocketErrorStatus
   check it.vtbl.GetStatus(it.raw, hresult, ret.addr), "SocketError.getStatus"
   ret
@@ -7784,7 +7784,7 @@ proc getEndpointPairsAsync*(_: typedesc[StreamSocket], remoteHostName: HostName,
                             remoteServiceName: string
                            ): Future[seq[EndpointPair]] =
   ## Windows.Networking.Sockets.IStreamSocketStatics.GetEndpointPairsAsync
-  let it = statics[IStreamSocketStaticsVtbl]("Windows.Networking.Sockets.StreamSocket")
+  let it = statics[IStreamSocketStaticsVtbl](className(StreamSocket))
   let a0 = queryInterface[IHostNameVtbl](remoteHostName)
   let a1 = toWinRtString(remoteServiceName)
   var op: pointer
@@ -7797,7 +7797,7 @@ proc getEndpointPairsAsync*(_: typedesc[StreamSocket], remoteHostName: HostName,
                             sortOptions: HostNameSortOptions
                            ): Future[seq[EndpointPair]] =
   ## Windows.Networking.Sockets.IStreamSocketStatics.GetEndpointPairsAsync
-  let it = statics[IStreamSocketStaticsVtbl]("Windows.Networking.Sockets.StreamSocket")
+  let it = statics[IStreamSocketStaticsVtbl](className(StreamSocket))
   let a0 = queryInterface[IHostNameVtbl](remoteHostName)
   let a1 = toWinRtString(remoteServiceName)
   var op: pointer
@@ -8631,7 +8631,7 @@ proc removeRequestHeader*(self: UploadOperation, headerName: string) =
 
 proc newUssdMessage*(messageText: string): UssdMessage =
   ## Windows.Networking.NetworkOperators.IUssdMessageFactory.CreateMessage
-  let it = statics[IUssdMessageFactoryVtbl]("Windows.Networking.NetworkOperators.UssdMessage")
+  let it = statics[IUssdMessageFactoryVtbl](className(UssdMessage))
   let a0 = toWinRtString(messageText)
   var ret: pointer
   check it.vtbl.CreateMessage(it.raw, a0.handle, ret.addr), "UssdMessage.new"
@@ -8701,7 +8701,7 @@ proc message*(self: UssdReply): UssdMessage =
 proc createFromNetworkAccountId*(_: typedesc[UssdSession],
                                  networkAccountId: string): UssdSession =
   ## Windows.Networking.NetworkOperators.IUssdSessionStatics.CreateFromNetworkAccountId
-  let it = statics[IUssdSessionStaticsVtbl]("Windows.Networking.NetworkOperators.UssdSession")
+  let it = statics[IUssdSessionStaticsVtbl](className(UssdSession))
   let a0 = toWinRtString(networkAccountId)
   var ret: pointer
   check it.vtbl.CreateFromNetworkAccountId(it.raw, a0.handle, ret.addr
@@ -8711,7 +8711,7 @@ proc createFromNetworkAccountId*(_: typedesc[UssdSession],
 proc createFromNetworkInterfaceId*(_: typedesc[UssdSession],
                                    networkInterfaceId: string): UssdSession =
   ## Windows.Networking.NetworkOperators.IUssdSessionStatics.CreateFromNetworkInterfaceId
-  let it = statics[IUssdSessionStaticsVtbl]("Windows.Networking.NetworkOperators.UssdSession")
+  let it = statics[IUssdSessionStaticsVtbl](className(UssdSession))
   let a0 = toWinRtString(networkInterfaceId)
   var ret: pointer
   check it.vtbl.CreateFromNetworkInterfaceId(it.raw, a0.handle, ret.addr
@@ -8737,7 +8737,7 @@ proc close*(self: UssdSession) =
 
 proc newVpnAppId*(`type`: VpnAppIdType, value: string): VpnAppId =
   ## Windows.Networking.Vpn.IVpnAppIdFactory.Create
-  let it = statics[IVpnAppIdFactoryVtbl]("Windows.Networking.Vpn.VpnAppId")
+  let it = statics[IVpnAppIdFactoryVtbl](className(VpnAppId))
   let a1 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.Create(it.raw, `type`, a1.handle, ret.addr), "VpnAppId.new"
@@ -8773,7 +8773,7 @@ proc `value=`*(self: VpnAppId, value: string) =
 proc processEventAsync*(_: typedesc[VpnChannel], thirdPartyPlugIn: WinRtObject,
                         event: WinRtObject) =
   ## Windows.Networking.Vpn.IVpnChannelStatics.ProcessEventAsync
-  let it = statics[IVpnChannelStaticsVtbl]("Windows.Networking.Vpn.VpnChannel")
+  let it = statics[IVpnChannelStaticsVtbl](className(VpnChannel))
   check it.vtbl.ProcessEventAsync(it.raw, thirdPartyPlugIn.raw, event.raw
                                  ), "VpnChannel.processEventAsync"
 
@@ -9480,7 +9480,7 @@ proc newVpnDomainNameInfo*(name: string, nameType: VpnDomainNameType,
                            dnsServerList: seq[HostName],
                            proxyServerList: seq[HostName]): VpnDomainNameInfo =
   ## Windows.Networking.Vpn.IVpnDomainNameInfoFactory.CreateVpnDomainNameInfo
-  let it = statics[IVpnDomainNameInfoFactoryVtbl]("Windows.Networking.Vpn.VpnDomainNameInfo")
+  let it = statics[IVpnDomainNameInfoFactoryVtbl](className(VpnDomainNameInfo))
   let a0 = toWinRtString(name)
   let a2 = asCollection[HostName, seq[HostName]](dnsServerList)
   let a3 = asCollection[HostName, seq[HostName]](proxyServerList)
@@ -9579,7 +9579,7 @@ proc complete*(self: VpnForegroundActivationOperation, result2: ValueSet) =
 
 proc newVpnInterfaceId*(address: openArray[uint8]): VpnInterfaceId =
   ## Windows.Networking.Vpn.IVpnInterfaceIdFactory.CreateVpnInterfaceId
-  let it = statics[IVpnInterfaceIdFactoryVtbl]("Windows.Networking.Vpn.VpnInterfaceId")
+  let it = statics[IVpnInterfaceIdFactoryVtbl](className(VpnInterfaceId))
   let a0 = asArray[uint8, uint8](address)
   var ret: pointer
   check it.vtbl.CreateVpnInterfaceId(it.raw, a0.count, a0.data, ret.addr
@@ -9737,7 +9737,7 @@ proc proxyAutoConfigUri*(self: VpnNamespaceAssignment): Uri =
 proc newVpnNamespaceInfo*(name: string, dnsServerList: seq[HostName],
                           proxyServerList: seq[HostName]): VpnNamespaceInfo =
   ## Windows.Networking.Vpn.IVpnNamespaceInfoFactory.CreateVpnNamespaceInfo
-  let it = statics[IVpnNamespaceInfoFactoryVtbl]("Windows.Networking.Vpn.VpnNamespaceInfo")
+  let it = statics[IVpnNamespaceInfoFactoryVtbl](className(VpnNamespaceInfo))
   let a0 = toWinRtString(name)
   let a1 = asCollection[HostName, seq[HostName]](dnsServerList)
   let a2 = asCollection[HostName, seq[HostName]](proxyServerList)
@@ -9902,7 +9902,7 @@ proc connectionStatus*(self: VpnNativeProfile): VpnManagementConnectionStatus =
 proc newVpnPacketBuffer*(parentBuffer: VpnPacketBuffer, offset: uint32,
                          length: uint32): VpnPacketBuffer =
   ## Windows.Networking.Vpn.IVpnPacketBufferFactory.CreateVpnPacketBuffer
-  let it = statics[IVpnPacketBufferFactoryVtbl]("Windows.Networking.Vpn.VpnPacketBuffer")
+  let it = statics[IVpnPacketBufferFactoryVtbl](className(VpnPacketBuffer))
   let a0 = queryInterface[IVpnPacketBufferVtbl](parentBuffer)
   var ret: pointer
   check it.vtbl.CreateVpnPacketBuffer(it.raw, a0.raw, offset, length, ret.addr
@@ -10112,7 +10112,7 @@ proc connectionStatus*(self: VpnPlugInProfile): VpnManagementConnectionStatus =
 
 proc newVpnRoute*(address: HostName, prefixSize: uint8): VpnRoute =
   ## Windows.Networking.Vpn.IVpnRouteFactory.CreateVpnRoute
-  let it = statics[IVpnRouteFactoryVtbl]("Windows.Networking.Vpn.VpnRoute")
+  let it = statics[IVpnRouteFactoryVtbl](className(VpnRoute))
   let a0 = queryInterface[IHostNameVtbl](address)
   var ret: pointer
   check it.vtbl.CreateVpnRoute(it.raw, a0.raw, prefixSize, ret.addr
@@ -10238,7 +10238,7 @@ proc statementOfHealth*(self: VpnSystemHealth): Buffer =
 
 proc newVpnTrafficFilter*(appId: VpnAppId): VpnTrafficFilter =
   ## Windows.Networking.Vpn.IVpnTrafficFilterFactory.Create
-  let it = statics[IVpnTrafficFilterFactoryVtbl]("Windows.Networking.Vpn.VpnTrafficFilter")
+  let it = statics[IVpnTrafficFilterFactoryVtbl](className(VpnTrafficFilter))
   let a0 = queryInterface[IVpnAppIdVtbl](appId)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "VpnTrafficFilter.new"
@@ -10385,7 +10385,7 @@ proc reason*(self: WebSocketClosedEventArgs): string =
 
 proc getStatus*(_: typedesc[WebSocketError], hresult: int32): WebErrorStatus =
   ## Windows.Networking.Sockets.IWebSocketErrorStatics.GetStatus
-  let it = statics[IWebSocketErrorStaticsVtbl]("Windows.Networking.Sockets.WebSocketError")
+  let it = statics[IWebSocketErrorStaticsVtbl](className(WebSocketError))
   var ret: WebErrorStatus
   check it.vtbl.GetStatus(it.raw, hresult, ret.addr), "WebSocketError.getStatus"
   ret
@@ -10508,7 +10508,7 @@ proc purposeGuids*(self: WwanConnectionProfileDetails): seq[GUID] =
 proc createFromSnapshotBase64*(_: typedesc[XboxLiveDeviceAddress],
                                base64: string): XboxLiveDeviceAddress =
   ## Windows.Networking.XboxLive.IXboxLiveDeviceAddressStatics.CreateFromSnapshotBase64
-  let it = statics[IXboxLiveDeviceAddressStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveDeviceAddress")
+  let it = statics[IXboxLiveDeviceAddressStaticsVtbl](className(XboxLiveDeviceAddress))
   let a0 = toWinRtString(base64)
   var ret: pointer
   check it.vtbl.CreateFromSnapshotBase64(it.raw, a0.handle, ret.addr
@@ -10518,7 +10518,7 @@ proc createFromSnapshotBase64*(_: typedesc[XboxLiveDeviceAddress],
 proc createFromSnapshotBuffer*(_: typedesc[XboxLiveDeviceAddress],
                                buffer: SomeBuffer): XboxLiveDeviceAddress =
   ## Windows.Networking.XboxLive.IXboxLiveDeviceAddressStatics.CreateFromSnapshotBuffer
-  let it = statics[IXboxLiveDeviceAddressStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveDeviceAddress")
+  let it = statics[IXboxLiveDeviceAddressStaticsVtbl](className(XboxLiveDeviceAddress))
   let a0 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
   check it.vtbl.CreateFromSnapshotBuffer(it.raw, a0.raw, ret.addr
@@ -10528,7 +10528,7 @@ proc createFromSnapshotBuffer*(_: typedesc[XboxLiveDeviceAddress],
 proc createFromSnapshotBytes*(_: typedesc[XboxLiveDeviceAddress],
                               buffer: openArray[uint8]): XboxLiveDeviceAddress =
   ## Windows.Networking.XboxLive.IXboxLiveDeviceAddressStatics.CreateFromSnapshotBytes
-  let it = statics[IXboxLiveDeviceAddressStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveDeviceAddress")
+  let it = statics[IXboxLiveDeviceAddressStaticsVtbl](className(XboxLiveDeviceAddress))
   let a0 = asArray[uint8, uint8](buffer)
   var ret: pointer
   check it.vtbl.CreateFromSnapshotBytes(it.raw, a0.count, a0.data, ret.addr
@@ -10537,14 +10537,14 @@ proc createFromSnapshotBytes*(_: typedesc[XboxLiveDeviceAddress],
 
 proc getLocal*(_: typedesc[XboxLiveDeviceAddress]): XboxLiveDeviceAddress =
   ## Windows.Networking.XboxLive.IXboxLiveDeviceAddressStatics.GetLocal
-  let it = statics[IXboxLiveDeviceAddressStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveDeviceAddress")
+  let it = statics[IXboxLiveDeviceAddressStaticsVtbl](className(XboxLiveDeviceAddress))
   var ret: pointer
   check it.vtbl.GetLocal(it.raw, ret.addr), "XboxLiveDeviceAddress.getLocal"
   adopt[XboxLiveDeviceAddress](ret)
 
 proc maxSnapshotBytesSize*(_: typedesc[XboxLiveDeviceAddress]): uint32 =
   ## Windows.Networking.XboxLive.IXboxLiveDeviceAddressStatics.get_MaxSnapshotBytesSize
-  let it = statics[IXboxLiveDeviceAddressStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveDeviceAddress")
+  let it = statics[IXboxLiveDeviceAddressStaticsVtbl](className(XboxLiveDeviceAddress))
   var ret: uint32
   check it.vtbl.get_MaxSnapshotBytesSize(it.raw, ret.addr
                                         ), "XboxLiveDeviceAddress.maxSnapshotBytesSize"
@@ -10635,7 +10635,7 @@ proc findEndpointPairBySocketAddressBytes*(_: typedesc[XboxLiveEndpointPair],
                                            remoteSocketAddress: openArray[uint8]
                                           ): XboxLiveEndpointPair =
   ## Windows.Networking.XboxLive.IXboxLiveEndpointPairStatics.FindEndpointPairBySocketAddressBytes
-  let it = statics[IXboxLiveEndpointPairStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveEndpointPair")
+  let it = statics[IXboxLiveEndpointPairStaticsVtbl](className(XboxLiveEndpointPair))
   let a0 = asArray[uint8, uint8](localSocketAddress)
   let a1 = asArray[uint8, uint8](remoteSocketAddress)
   var ret: pointer
@@ -10651,7 +10651,7 @@ proc findEndpointPairByHostNamesAndPorts*(_: typedesc[XboxLiveEndpointPair],
                                           remotePort: string
                                          ): XboxLiveEndpointPair =
   ## Windows.Networking.XboxLive.IXboxLiveEndpointPairStatics.FindEndpointPairByHostNamesAndPorts
-  let it = statics[IXboxLiveEndpointPairStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveEndpointPair")
+  let it = statics[IXboxLiveEndpointPairStaticsVtbl](className(XboxLiveEndpointPair))
   let a0 = queryInterface[IHostNameVtbl](localHostName)
   let a1 = toWinRtString(localPort)
   let a2 = queryInterface[IHostNameVtbl](remoteHostName)
@@ -10817,7 +10817,7 @@ proc newState*(self: XboxLiveEndpointPairStateChangedEventArgs): XboxLiveEndpoin
 proc getTemplateByName*(_: typedesc[XboxLiveEndpointPairTemplate], name: string
                        ): XboxLiveEndpointPairTemplate =
   ## Windows.Networking.XboxLive.IXboxLiveEndpointPairTemplateStatics.GetTemplateByName
-  let it = statics[IXboxLiveEndpointPairTemplateStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate")
+  let it = statics[IXboxLiveEndpointPairTemplateStaticsVtbl](className(XboxLiveEndpointPairTemplate))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.GetTemplateByName(it.raw, a0.handle, ret.addr
@@ -10826,7 +10826,7 @@ proc getTemplateByName*(_: typedesc[XboxLiveEndpointPairTemplate], name: string
 
 proc templates*(_: typedesc[XboxLiveEndpointPairTemplate]): seq[XboxLiveEndpointPairTemplate] =
   ## Windows.Networking.XboxLive.IXboxLiveEndpointPairTemplateStatics.get_Templates
-  let it = statics[IXboxLiveEndpointPairTemplateStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate")
+  let it = statics[IXboxLiveEndpointPairTemplateStaticsVtbl](className(XboxLiveEndpointPairTemplate))
   var ret: pointer
   check it.vtbl.get_Templates(it.raw, ret.addr
                              ), "XboxLiveEndpointPairTemplate.templates"
@@ -10987,19 +10987,19 @@ proc newXboxLiveQualityOfServiceMeasurement*(): XboxLiveQualityOfServiceMeasurem
 proc publishPrivatePayloadBytes*(_: typedesc[XboxLiveQualityOfServiceMeasurement],
                                  payload: openArray[uint8]) =
   ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics.PublishPrivatePayloadBytes
-  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement")
+  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl](className(XboxLiveQualityOfServiceMeasurement))
   let a0 = asArray[uint8, uint8](payload)
   check it.vtbl.PublishPrivatePayloadBytes(it.raw, a0.count, a0.data
                                           ), "XboxLiveQualityOfServiceMeasurement.publishPrivatePayloadBytes"
 
 proc clearPrivatePayload*(_: typedesc[XboxLiveQualityOfServiceMeasurement]) =
   ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics.ClearPrivatePayload
-  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement")
+  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl](className(XboxLiveQualityOfServiceMeasurement))
   check it.vtbl.ClearPrivatePayload(it.raw), "XboxLiveQualityOfServiceMeasurement.clearPrivatePayload"
 
 proc maxSimultaneousProbeConnections*(_: typedesc[XboxLiveQualityOfServiceMeasurement]): uint32 =
   ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics.get_MaxSimultaneousProbeConnections
-  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement")
+  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl](className(XboxLiveQualityOfServiceMeasurement))
   var ret: uint32
   check it.vtbl.get_MaxSimultaneousProbeConnections(it.raw, ret.addr
                                                    ), "XboxLiveQualityOfServiceMeasurement.maxSimultaneousProbeConnections"
@@ -11008,13 +11008,13 @@ proc maxSimultaneousProbeConnections*(_: typedesc[XboxLiveQualityOfServiceMeasur
 proc `maxSimultaneousProbeConnections=`*(_: typedesc[XboxLiveQualityOfServiceMeasurement],
                                          value: uint32) =
   ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics.put_MaxSimultaneousProbeConnections
-  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement")
+  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl](className(XboxLiveQualityOfServiceMeasurement))
   check it.vtbl.put_MaxSimultaneousProbeConnections(it.raw, value
                                                    ), "XboxLiveQualityOfServiceMeasurement.maxSimultaneousProbeConnections"
 
 proc isSystemOutboundBandwidthConstrained*(_: typedesc[XboxLiveQualityOfServiceMeasurement]): bool =
   ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics.get_IsSystemOutboundBandwidthConstrained
-  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement")
+  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl](className(XboxLiveQualityOfServiceMeasurement))
   var ret: bool
   check it.vtbl.get_IsSystemOutboundBandwidthConstrained(it.raw, ret.addr
                                                         ), "XboxLiveQualityOfServiceMeasurement.isSystemOutboundBandwidthConstrained"
@@ -11023,13 +11023,13 @@ proc isSystemOutboundBandwidthConstrained*(_: typedesc[XboxLiveQualityOfServiceM
 proc `isSystemOutboundBandwidthConstrained=`*(_: typedesc[XboxLiveQualityOfServiceMeasurement],
                                               value: bool) =
   ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics.put_IsSystemOutboundBandwidthConstrained
-  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement")
+  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl](className(XboxLiveQualityOfServiceMeasurement))
   check it.vtbl.put_IsSystemOutboundBandwidthConstrained(it.raw, value
                                                         ), "XboxLiveQualityOfServiceMeasurement.isSystemOutboundBandwidthConstrained"
 
 proc isSystemInboundBandwidthConstrained*(_: typedesc[XboxLiveQualityOfServiceMeasurement]): bool =
   ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics.get_IsSystemInboundBandwidthConstrained
-  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement")
+  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl](className(XboxLiveQualityOfServiceMeasurement))
   var ret: bool
   check it.vtbl.get_IsSystemInboundBandwidthConstrained(it.raw, ret.addr
                                                        ), "XboxLiveQualityOfServiceMeasurement.isSystemInboundBandwidthConstrained"
@@ -11038,13 +11038,13 @@ proc isSystemInboundBandwidthConstrained*(_: typedesc[XboxLiveQualityOfServiceMe
 proc `isSystemInboundBandwidthConstrained=`*(_: typedesc[XboxLiveQualityOfServiceMeasurement],
                                              value: bool) =
   ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics.put_IsSystemInboundBandwidthConstrained
-  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement")
+  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl](className(XboxLiveQualityOfServiceMeasurement))
   check it.vtbl.put_IsSystemInboundBandwidthConstrained(it.raw, value
                                                        ), "XboxLiveQualityOfServiceMeasurement.isSystemInboundBandwidthConstrained"
 
 proc publishedPrivatePayload*(_: typedesc[XboxLiveQualityOfServiceMeasurement]): IBuffer =
   ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics.get_PublishedPrivatePayload
-  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement")
+  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl](className(XboxLiveQualityOfServiceMeasurement))
   var ret: pointer
   check it.vtbl.get_PublishedPrivatePayload(it.raw, ret.addr
                                            ), "XboxLiveQualityOfServiceMeasurement.publishedPrivatePayload"
@@ -11053,14 +11053,14 @@ proc publishedPrivatePayload*(_: typedesc[XboxLiveQualityOfServiceMeasurement]):
 proc `publishedPrivatePayload=`*(_: typedesc[XboxLiveQualityOfServiceMeasurement],
                                  value: SomeBuffer) =
   ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics.put_PublishedPrivatePayload
-  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement")
+  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl](className(XboxLiveQualityOfServiceMeasurement))
   let a0 = queryInterface[IBufferVtbl](value)
   check it.vtbl.put_PublishedPrivatePayload(it.raw, a0.raw
                                            ), "XboxLiveQualityOfServiceMeasurement.publishedPrivatePayload"
 
 proc maxPrivatePayloadSize*(_: typedesc[XboxLiveQualityOfServiceMeasurement]): uint32 =
   ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics.get_MaxPrivatePayloadSize
-  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl]("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement")
+  let it = statics[IXboxLiveQualityOfServiceMeasurementStaticsVtbl](className(XboxLiveQualityOfServiceMeasurement))
   var ret: uint32
   check it.vtbl.get_MaxPrivatePayloadSize(it.raw, ret.addr
                                          ), "XboxLiveQualityOfServiceMeasurement.maxPrivatePayloadSize"

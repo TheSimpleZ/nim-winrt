@@ -19,7 +19,7 @@ export winrt, classes, types, generic, abiFoundation, abiStorage
 
 proc isTypePresent*(_: typedesc[ApiInformation], typeName: string): bool =
   ## Windows.Foundation.Metadata.IApiInformationStatics.IsTypePresent
-  let it = statics[IApiInformationStaticsVtbl]("Windows.Foundation.Metadata.ApiInformation")
+  let it = statics[IApiInformationStaticsVtbl](className(ApiInformation))
   let a0 = toWinRtString(typeName)
   var ret: bool
   check it.vtbl.IsTypePresent(it.raw, a0.handle, ret.addr
@@ -29,7 +29,7 @@ proc isTypePresent*(_: typedesc[ApiInformation], typeName: string): bool =
 proc isMethodPresent*(_: typedesc[ApiInformation], typeName: string,
                       methodName: string): bool =
   ## Windows.Foundation.Metadata.IApiInformationStatics.IsMethodPresent
-  let it = statics[IApiInformationStaticsVtbl]("Windows.Foundation.Metadata.ApiInformation")
+  let it = statics[IApiInformationStaticsVtbl](className(ApiInformation))
   let a0 = toWinRtString(typeName)
   let a1 = toWinRtString(methodName)
   var ret: bool
@@ -40,7 +40,7 @@ proc isMethodPresent*(_: typedesc[ApiInformation], typeName: string,
 proc isMethodPresent*(_: typedesc[ApiInformation], typeName: string,
                       methodName: string, inputParameterCount: uint32): bool =
   ## Windows.Foundation.Metadata.IApiInformationStatics.IsMethodPresent
-  let it = statics[IApiInformationStaticsVtbl]("Windows.Foundation.Metadata.ApiInformation")
+  let it = statics[IApiInformationStaticsVtbl](className(ApiInformation))
   let a0 = toWinRtString(typeName)
   let a1 = toWinRtString(methodName)
   var ret: bool
@@ -52,7 +52,7 @@ proc isMethodPresent*(_: typedesc[ApiInformation], typeName: string,
 proc isEventPresent*(_: typedesc[ApiInformation], typeName: string,
                      eventName: string): bool =
   ## Windows.Foundation.Metadata.IApiInformationStatics.IsEventPresent
-  let it = statics[IApiInformationStaticsVtbl]("Windows.Foundation.Metadata.ApiInformation")
+  let it = statics[IApiInformationStaticsVtbl](className(ApiInformation))
   let a0 = toWinRtString(typeName)
   let a1 = toWinRtString(eventName)
   var ret: bool
@@ -63,7 +63,7 @@ proc isEventPresent*(_: typedesc[ApiInformation], typeName: string,
 proc isPropertyPresent*(_: typedesc[ApiInformation], typeName: string,
                         propertyName: string): bool =
   ## Windows.Foundation.Metadata.IApiInformationStatics.IsPropertyPresent
-  let it = statics[IApiInformationStaticsVtbl]("Windows.Foundation.Metadata.ApiInformation")
+  let it = statics[IApiInformationStaticsVtbl](className(ApiInformation))
   let a0 = toWinRtString(typeName)
   let a1 = toWinRtString(propertyName)
   var ret: bool
@@ -74,7 +74,7 @@ proc isPropertyPresent*(_: typedesc[ApiInformation], typeName: string,
 proc isReadOnlyPropertyPresent*(_: typedesc[ApiInformation], typeName: string,
                                 propertyName: string): bool =
   ## Windows.Foundation.Metadata.IApiInformationStatics.IsReadOnlyPropertyPresent
-  let it = statics[IApiInformationStaticsVtbl]("Windows.Foundation.Metadata.ApiInformation")
+  let it = statics[IApiInformationStaticsVtbl](className(ApiInformation))
   let a0 = toWinRtString(typeName)
   let a1 = toWinRtString(propertyName)
   var ret: bool
@@ -85,7 +85,7 @@ proc isReadOnlyPropertyPresent*(_: typedesc[ApiInformation], typeName: string,
 proc isWriteablePropertyPresent*(_: typedesc[ApiInformation], typeName: string,
                                  propertyName: string): bool =
   ## Windows.Foundation.Metadata.IApiInformationStatics.IsWriteablePropertyPresent
-  let it = statics[IApiInformationStaticsVtbl]("Windows.Foundation.Metadata.ApiInformation")
+  let it = statics[IApiInformationStaticsVtbl](className(ApiInformation))
   let a0 = toWinRtString(typeName)
   let a1 = toWinRtString(propertyName)
   var ret: bool
@@ -97,7 +97,7 @@ proc isWriteablePropertyPresent*(_: typedesc[ApiInformation], typeName: string,
 proc isEnumNamedValuePresent*(_: typedesc[ApiInformation], enumTypeName: string,
                               valueName: string): bool =
   ## Windows.Foundation.Metadata.IApiInformationStatics.IsEnumNamedValuePresent
-  let it = statics[IApiInformationStaticsVtbl]("Windows.Foundation.Metadata.ApiInformation")
+  let it = statics[IApiInformationStaticsVtbl](className(ApiInformation))
   let a0 = toWinRtString(enumTypeName)
   let a1 = toWinRtString(valueName)
   var ret: bool
@@ -108,7 +108,7 @@ proc isEnumNamedValuePresent*(_: typedesc[ApiInformation], enumTypeName: string,
 proc isApiContractPresent*(_: typedesc[ApiInformation], contractName: string,
                            majorVersion: uint16): bool =
   ## Windows.Foundation.Metadata.IApiInformationStatics.IsApiContractPresent
-  let it = statics[IApiInformationStaticsVtbl]("Windows.Foundation.Metadata.ApiInformation")
+  let it = statics[IApiInformationStaticsVtbl](className(ApiInformation))
   let a0 = toWinRtString(contractName)
   var ret: bool
   check it.vtbl.IsApiContractPresent(it.raw, a0.handle, majorVersion, ret.addr
@@ -118,7 +118,7 @@ proc isApiContractPresent*(_: typedesc[ApiInformation], contractName: string,
 proc isApiContractPresent*(_: typedesc[ApiInformation], contractName: string,
                            majorVersion: uint16, minorVersion: uint16): bool =
   ## Windows.Foundation.Metadata.IApiInformationStatics.IsApiContractPresent
-  let it = statics[IApiInformationStaticsVtbl]("Windows.Foundation.Metadata.ApiInformation")
+  let it = statics[IApiInformationStaticsVtbl](className(ApiInformation))
   let a0 = toWinRtString(contractName)
   var ret: bool
   check it.vtbl.IsApiContractPresent2(it.raw, a0.handle, majorVersion,
@@ -134,7 +134,7 @@ proc traceOperationCreation*(_: typedesc[AsyncCausalityTracer],
                              operationId: uint64, operationName: string,
                              relatedContext: uint64) =
   ## Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics.TraceOperationCreation
-  let it = statics[IAsyncCausalityTracerStaticsVtbl]("Windows.Foundation.Diagnostics.AsyncCausalityTracer")
+  let it = statics[IAsyncCausalityTracerStaticsVtbl](className(AsyncCausalityTracer))
   let a4 = toWinRtString(operationName)
   check it.vtbl.TraceOperationCreation(it.raw, traceLevel, source, platformId,
                                        operationId, a4.handle, relatedContext
@@ -145,7 +145,7 @@ proc traceOperationCompletion*(_: typedesc[AsyncCausalityTracer],
                                source: CausalitySource, platformId: GUID,
                                operationId: uint64, status: AsyncStatus) =
   ## Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics.TraceOperationCompletion
-  let it = statics[IAsyncCausalityTracerStaticsVtbl]("Windows.Foundation.Diagnostics.AsyncCausalityTracer")
+  let it = statics[IAsyncCausalityTracerStaticsVtbl](className(AsyncCausalityTracer))
   check it.vtbl.TraceOperationCompletion(it.raw, traceLevel, source, platformId,
                                          operationId, status
                                         ), "AsyncCausalityTracer.traceOperationCompletion"
@@ -155,7 +155,7 @@ proc traceOperationRelation*(_: typedesc[AsyncCausalityTracer],
                              source: CausalitySource, platformId: GUID,
                              operationId: uint64, relation: CausalityRelation) =
   ## Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics.TraceOperationRelation
-  let it = statics[IAsyncCausalityTracerStaticsVtbl]("Windows.Foundation.Diagnostics.AsyncCausalityTracer")
+  let it = statics[IAsyncCausalityTracerStaticsVtbl](className(AsyncCausalityTracer))
   check it.vtbl.TraceOperationRelation(it.raw, traceLevel, source, platformId,
                                        operationId, relation
                                       ), "AsyncCausalityTracer.traceOperationRelation"
@@ -166,7 +166,7 @@ proc traceSynchronousWorkStart*(_: typedesc[AsyncCausalityTracer],
                                 operationId: uint64,
                                 work: CausalitySynchronousWork) =
   ## Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics.TraceSynchronousWorkStart
-  let it = statics[IAsyncCausalityTracerStaticsVtbl]("Windows.Foundation.Diagnostics.AsyncCausalityTracer")
+  let it = statics[IAsyncCausalityTracerStaticsVtbl](className(AsyncCausalityTracer))
   check it.vtbl.TraceSynchronousWorkStart(it.raw, traceLevel, source,
                                           platformId, operationId, work
                                          ), "AsyncCausalityTracer.traceSynchronousWorkStart"
@@ -176,7 +176,7 @@ proc traceSynchronousWorkCompletion*(_: typedesc[AsyncCausalityTracer],
                                      source: CausalitySource,
                                      work: CausalitySynchronousWork) =
   ## Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics.TraceSynchronousWorkCompletion
-  let it = statics[IAsyncCausalityTracerStaticsVtbl]("Windows.Foundation.Diagnostics.AsyncCausalityTracer")
+  let it = statics[IAsyncCausalityTracerStaticsVtbl](className(AsyncCausalityTracer))
   check it.vtbl.TraceSynchronousWorkCompletion(it.raw, traceLevel, source, work
                                               ), "AsyncCausalityTracer.traceSynchronousWorkCompletion"
 
@@ -185,7 +185,7 @@ proc onTracingStatusChanged*(_: typedesc[AsyncCausalityTracer],
                             ): EventRegistrationToken {.discardable.} =
   ## Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics.add_TracingStatusChanged
   ## The token is what `removeTracingStatusChanged` takes.
-  let it = statics[IAsyncCausalityTracerStaticsVtbl]("Windows.Foundation.Diagnostics.AsyncCausalityTracer")
+  let it = statics[IAsyncCausalityTracerStaticsVtbl](className(AsyncCausalityTracer))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[TracingStatusChangedEventArgs](a1))
   let cb = newDelegate(EventHandlerVtbl[TracingStatusChangedEventArgs], shim,
@@ -196,7 +196,7 @@ proc onTracingStatusChanged*(_: typedesc[AsyncCausalityTracer],
 proc removeTracingStatusChanged*(_: typedesc[AsyncCausalityTracer],
                                  token: EventRegistrationToken) =
   ## Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics.remove_TracingStatusChanged
-  let it = statics[IAsyncCausalityTracerStaticsVtbl]("Windows.Foundation.Diagnostics.AsyncCausalityTracer")
+  let it = statics[IAsyncCausalityTracerStaticsVtbl](className(AsyncCausalityTracer))
   check it.vtbl.remove_TracingStatusChanged(it.raw, token
                                            ), "AsyncCausalityTracer.tracingStatusChanged"
 
@@ -204,7 +204,7 @@ proc removeTracingStatusChanged*(_: typedesc[AsyncCausalityTracer],
 
 proc newDeferral*(handler: proc()): Deferral =
   ## Windows.Foundation.IDeferralFactory.Create
-  let it = statics[IDeferralFactoryVtbl]("Windows.Foundation.Deferral")
+  let it = statics[IDeferralFactoryVtbl](className(Deferral))
   let d0 = newDelegate(DeferralCompletedHandlerVtbl, handler)
   var ret: pointer
   check it.vtbl.Create(it.raw, d0.raw, ret.addr), "Deferral.new"
@@ -220,7 +220,7 @@ proc complete*(self: Deferral) =
 proc createFromHResultAsync*(_: typedesc[ErrorDetails], errorCode: int32
                             ): Future[ErrorDetails] =
   ## Windows.Foundation.Diagnostics.IErrorDetailsStatics.CreateFromHResultAsync
-  let it = statics[IErrorDetailsStaticsVtbl]("Windows.Foundation.Diagnostics.ErrorDetails")
+  let it = statics[IErrorDetailsStaticsVtbl](className(ErrorDetails))
   var op: pointer
   check it.vtbl.CreateFromHResultAsync(it.raw, errorCode, op.addr
                                       ), "ErrorDetails.createFromHResultAsync"
@@ -252,7 +252,7 @@ proc helpUri*(self: ErrorDetails): Uri =
 
 proc newFileLoggingSession*(name: string): FileLoggingSession =
   ## Windows.Foundation.Diagnostics.IFileLoggingSessionFactory.Create
-  let it = statics[IFileLoggingSessionFactoryVtbl]("Windows.Foundation.Diagnostics.FileLoggingSession")
+  let it = statics[IFileLoggingSessionFactoryVtbl](className(FileLoggingSession))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr), "FileLoggingSession.new"
@@ -262,21 +262,21 @@ proc newFileLoggingSession*(name: string): FileLoggingSession =
 
 proc createNewGuid*(_: typedesc[GuidHelper]): GUID =
   ## Windows.Foundation.IGuidHelperStatics.CreateNewGuid
-  let it = statics[IGuidHelperStaticsVtbl]("Windows.Foundation.GuidHelper")
+  let it = statics[IGuidHelperStaticsVtbl](className(GuidHelper))
   var ret: GUID
   check it.vtbl.CreateNewGuid(it.raw, ret.addr), "GuidHelper.createNewGuid"
   ret
 
 proc empty*(_: typedesc[GuidHelper]): GUID =
   ## Windows.Foundation.IGuidHelperStatics.get_Empty
-  let it = statics[IGuidHelperStaticsVtbl]("Windows.Foundation.GuidHelper")
+  let it = statics[IGuidHelperStaticsVtbl](className(GuidHelper))
   var ret: GUID
   check it.vtbl.get_Empty(it.raw, ret.addr), "GuidHelper.empty"
   ret
 
 proc equals*(_: typedesc[GuidHelper], target: GUID, value: GUID): bool =
   ## Windows.Foundation.IGuidHelperStatics.Equals
-  let it = statics[IGuidHelperStaticsVtbl]("Windows.Foundation.GuidHelper")
+  let it = statics[IGuidHelperStaticsVtbl](className(GuidHelper))
   var by0 = target
   var by1 = value
   var ret: bool
@@ -298,7 +298,7 @@ proc file*(self: LogFileGeneratedEventArgs): StorageFile =
 proc newLoggingActivity*(activityName: string,
                          loggingChannel: SomeLoggingChannel): LoggingActivity =
   ## Windows.Foundation.Diagnostics.ILoggingActivityFactory.CreateLoggingActivity
-  let it = statics[ILoggingActivityFactoryVtbl]("Windows.Foundation.Diagnostics.LoggingActivity")
+  let it = statics[ILoggingActivityFactoryVtbl](className(LoggingActivity))
   let a0 = toWinRtString(activityName)
   let a1 = queryInterface[ILoggingChannelVtbl](loggingChannel)
   var ret: pointer
@@ -310,7 +310,7 @@ proc newLoggingActivity*(activityName: string,
                          loggingChannel: SomeLoggingChannel, level: LoggingLevel
                         ): LoggingActivity =
   ## Windows.Foundation.Diagnostics.ILoggingActivityFactory.CreateLoggingActivityWithLevel
-  let it = statics[ILoggingActivityFactoryVtbl]("Windows.Foundation.Diagnostics.LoggingActivity")
+  let it = statics[ILoggingActivityFactoryVtbl](className(LoggingActivity))
   let a0 = toWinRtString(activityName)
   let a1 = queryInterface[ILoggingChannelVtbl](loggingChannel)
   var ret: pointer
@@ -369,7 +369,7 @@ proc stopActivity*(self: LoggingActivity, stopEventName: string,
 proc newLoggingChannel*(name: string, options: LoggingChannelOptions
                        ): LoggingChannel =
   ## Windows.Foundation.Diagnostics.ILoggingChannelFactory2.CreateWithOptions
-  let it = statics[ILoggingChannelFactory2Vtbl]("Windows.Foundation.Diagnostics.LoggingChannel")
+  let it = statics[ILoggingChannelFactory2Vtbl](className(LoggingChannel))
   let a0 = toWinRtString(name)
   let a1 = queryInterface[ILoggingChannelOptionsVtbl](options)
   var ret: pointer
@@ -380,7 +380,7 @@ proc newLoggingChannel*(name: string, options: LoggingChannelOptions
 proc newLoggingChannel*(name: string, options: LoggingChannelOptions, id: GUID
                        ): LoggingChannel =
   ## Windows.Foundation.Diagnostics.ILoggingChannelFactory2.CreateWithOptionsAndId
-  let it = statics[ILoggingChannelFactory2Vtbl]("Windows.Foundation.Diagnostics.LoggingChannel")
+  let it = statics[ILoggingChannelFactory2Vtbl](className(LoggingChannel))
   let a0 = toWinRtString(name)
   let a1 = queryInterface[ILoggingChannelOptionsVtbl](options)
   var ret: pointer
@@ -390,7 +390,7 @@ proc newLoggingChannel*(name: string, options: LoggingChannelOptions, id: GUID
 
 proc newLoggingChannel*(name: string): LoggingChannel =
   ## Windows.Foundation.Diagnostics.ILoggingChannelFactory.Create
-  let it = statics[ILoggingChannelFactoryVtbl]("Windows.Foundation.Diagnostics.LoggingChannel")
+  let it = statics[ILoggingChannelFactoryVtbl](className(LoggingChannel))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr), "LoggingChannel.new"
@@ -411,7 +411,7 @@ proc newLoggingChannelOptions*(): LoggingChannelOptions =
 
 proc newLoggingChannelOptions*(group: GUID): LoggingChannelOptions =
   ## Windows.Foundation.Diagnostics.ILoggingChannelOptionsFactory.Create
-  let it = statics[ILoggingChannelOptionsFactoryVtbl]("Windows.Foundation.Diagnostics.LoggingChannelOptions")
+  let it = statics[ILoggingChannelOptionsFactoryVtbl](className(LoggingChannelOptions))
   var ret: pointer
   check it.vtbl.Create(it.raw, group, ret.addr), "LoggingChannelOptions.new"
   adopt[LoggingChannelOptions](ret)
@@ -1379,7 +1379,7 @@ proc newLoggingOptions*(): LoggingOptions =
 
 proc newLoggingOptions*(keywords: int64): LoggingOptions =
   ## Windows.Foundation.Diagnostics.ILoggingOptionsFactory.CreateWithKeywords
-  let it = statics[ILoggingOptionsFactoryVtbl]("Windows.Foundation.Diagnostics.LoggingOptions")
+  let it = statics[ILoggingOptionsFactoryVtbl](className(LoggingOptions))
   var ret: pointer
   check it.vtbl.CreateWithKeywords(it.raw, keywords, ret.addr
                                   ), "LoggingOptions.new"
@@ -1463,7 +1463,7 @@ proc `relatedActivityId=`*(self: LoggingOptions, value: GUID) =
 
 proc newLoggingSession*(name: string): LoggingSession =
   ## Windows.Foundation.Diagnostics.ILoggingSessionFactory.Create
-  let it = statics[ILoggingSessionFactoryVtbl]("Windows.Foundation.Diagnostics.LoggingSession")
+  let it = statics[ILoggingSessionFactoryVtbl](className(LoggingSession))
   let a0 = toWinRtString(name)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr), "LoggingSession.new"
@@ -1473,7 +1473,7 @@ proc newLoggingSession*(name: string): LoggingSession =
 
 proc newMemoryBuffer*(capacity: uint32): MemoryBuffer =
   ## Windows.Foundation.IMemoryBufferFactory.Create
-  let it = statics[IMemoryBufferFactoryVtbl]("Windows.Foundation.MemoryBuffer")
+  let it = statics[IMemoryBufferFactoryVtbl](className(MemoryBuffer))
   var ret: pointer
   check it.vtbl.Create(it.raw, capacity, ret.addr), "MemoryBuffer.new"
   adopt[MemoryBuffer](ret)
@@ -1488,14 +1488,14 @@ proc newPropertySet*(): PropertySet =
 
 proc createEmpty*(_: typedesc[PropertyValue]): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateEmpty
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateEmpty(it.raw, ret.addr), "PropertyValue.createEmpty"
   adopt[WinRtObject](ret)
 
 proc createUInt8*(_: typedesc[PropertyValue], value: uint8): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateUInt8
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateUInt8(it.raw, value, ret.addr
                            ), "PropertyValue.createUInt8"
@@ -1503,7 +1503,7 @@ proc createUInt8*(_: typedesc[PropertyValue], value: uint8): WinRtObject =
 
 proc createInt16*(_: typedesc[PropertyValue], value: int16): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateInt16
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateInt16(it.raw, value, ret.addr
                            ), "PropertyValue.createInt16"
@@ -1511,7 +1511,7 @@ proc createInt16*(_: typedesc[PropertyValue], value: int16): WinRtObject =
 
 proc createUInt16*(_: typedesc[PropertyValue], value: uint16): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateUInt16
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateUInt16(it.raw, value, ret.addr
                             ), "PropertyValue.createUInt16"
@@ -1519,7 +1519,7 @@ proc createUInt16*(_: typedesc[PropertyValue], value: uint16): WinRtObject =
 
 proc createInt32*(_: typedesc[PropertyValue], value: int32): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateInt32
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateInt32(it.raw, value, ret.addr
                            ), "PropertyValue.createInt32"
@@ -1527,7 +1527,7 @@ proc createInt32*(_: typedesc[PropertyValue], value: int32): WinRtObject =
 
 proc createUInt32*(_: typedesc[PropertyValue], value: uint32): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateUInt32
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateUInt32(it.raw, value, ret.addr
                             ), "PropertyValue.createUInt32"
@@ -1535,7 +1535,7 @@ proc createUInt32*(_: typedesc[PropertyValue], value: uint32): WinRtObject =
 
 proc createInt64*(_: typedesc[PropertyValue], value: int64): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateInt64
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateInt64(it.raw, value, ret.addr
                            ), "PropertyValue.createInt64"
@@ -1543,7 +1543,7 @@ proc createInt64*(_: typedesc[PropertyValue], value: int64): WinRtObject =
 
 proc createUInt64*(_: typedesc[PropertyValue], value: uint64): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateUInt64
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateUInt64(it.raw, value, ret.addr
                             ), "PropertyValue.createUInt64"
@@ -1551,7 +1551,7 @@ proc createUInt64*(_: typedesc[PropertyValue], value: uint64): WinRtObject =
 
 proc createSingle*(_: typedesc[PropertyValue], value: float32): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateSingle
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateSingle(it.raw, value, ret.addr
                             ), "PropertyValue.createSingle"
@@ -1559,7 +1559,7 @@ proc createSingle*(_: typedesc[PropertyValue], value: float32): WinRtObject =
 
 proc createDouble*(_: typedesc[PropertyValue], value: float64): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateDouble
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateDouble(it.raw, value, ret.addr
                             ), "PropertyValue.createDouble"
@@ -1567,7 +1567,7 @@ proc createDouble*(_: typedesc[PropertyValue], value: float64): WinRtObject =
 
 proc createChar16*(_: typedesc[PropertyValue], value: Char16): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateChar16
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateChar16(it.raw, value, ret.addr
                             ), "PropertyValue.createChar16"
@@ -1575,7 +1575,7 @@ proc createChar16*(_: typedesc[PropertyValue], value: Char16): WinRtObject =
 
 proc createBoolean*(_: typedesc[PropertyValue], value: bool): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateBoolean
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateBoolean(it.raw, value, ret.addr
                              ), "PropertyValue.createBoolean"
@@ -1583,7 +1583,7 @@ proc createBoolean*(_: typedesc[PropertyValue], value: bool): WinRtObject =
 
 proc createString*(_: typedesc[PropertyValue], value: string): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateString
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.CreateString(it.raw, a0.handle, ret.addr
@@ -1593,7 +1593,7 @@ proc createString*(_: typedesc[PropertyValue], value: string): WinRtObject =
 proc createInspectable*(_: typedesc[PropertyValue], value: WinRtObject
                        ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateInspectable
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateInspectable(it.raw, value.raw, ret.addr
                                  ), "PropertyValue.createInspectable"
@@ -1601,14 +1601,14 @@ proc createInspectable*(_: typedesc[PropertyValue], value: WinRtObject
 
 proc createGuid*(_: typedesc[PropertyValue], value: GUID): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateGuid
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateGuid(it.raw, value, ret.addr), "PropertyValue.createGuid"
   adopt[WinRtObject](ret)
 
 proc createDateTime*(_: typedesc[PropertyValue], value: DateTime): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateDateTime
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateDateTime(it.raw, value, ret.addr
                               ), "PropertyValue.createDateTime"
@@ -1616,7 +1616,7 @@ proc createDateTime*(_: typedesc[PropertyValue], value: DateTime): WinRtObject =
 
 proc createTimeSpan*(_: typedesc[PropertyValue], value: TimeSpan): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateTimeSpan
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateTimeSpan(it.raw, value, ret.addr
                               ), "PropertyValue.createTimeSpan"
@@ -1624,7 +1624,7 @@ proc createTimeSpan*(_: typedesc[PropertyValue], value: TimeSpan): WinRtObject =
 
 proc createPoint*(_: typedesc[PropertyValue], value: Point): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreatePoint
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreatePoint(it.raw, value, ret.addr
                            ), "PropertyValue.createPoint"
@@ -1632,14 +1632,14 @@ proc createPoint*(_: typedesc[PropertyValue], value: Point): WinRtObject =
 
 proc createSize*(_: typedesc[PropertyValue], value: Size): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateSize
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateSize(it.raw, value, ret.addr), "PropertyValue.createSize"
   adopt[WinRtObject](ret)
 
 proc createRect*(_: typedesc[PropertyValue], value: Rect): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateRect
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   var ret: pointer
   check it.vtbl.CreateRect(it.raw, value, ret.addr), "PropertyValue.createRect"
   adopt[WinRtObject](ret)
@@ -1647,7 +1647,7 @@ proc createRect*(_: typedesc[PropertyValue], value: Rect): WinRtObject =
 proc createUInt8Array*(_: typedesc[PropertyValue], value: openArray[uint8]
                       ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateUInt8Array
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[uint8, uint8](value)
   var ret: pointer
   check it.vtbl.CreateUInt8Array(it.raw, a0.count, a0.data, ret.addr
@@ -1657,7 +1657,7 @@ proc createUInt8Array*(_: typedesc[PropertyValue], value: openArray[uint8]
 proc createInt16Array*(_: typedesc[PropertyValue], value: openArray[int16]
                       ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateInt16Array
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[int16, int16](value)
   var ret: pointer
   check it.vtbl.CreateInt16Array(it.raw, a0.count, a0.data, ret.addr
@@ -1667,7 +1667,7 @@ proc createInt16Array*(_: typedesc[PropertyValue], value: openArray[int16]
 proc createUInt16Array*(_: typedesc[PropertyValue], value: openArray[uint16]
                        ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateUInt16Array
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[uint16, uint16](value)
   var ret: pointer
   check it.vtbl.CreateUInt16Array(it.raw, a0.count, a0.data, ret.addr
@@ -1677,7 +1677,7 @@ proc createUInt16Array*(_: typedesc[PropertyValue], value: openArray[uint16]
 proc createInt32Array*(_: typedesc[PropertyValue], value: openArray[int32]
                       ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateInt32Array
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[int32, int32](value)
   var ret: pointer
   check it.vtbl.CreateInt32Array(it.raw, a0.count, a0.data, ret.addr
@@ -1687,7 +1687,7 @@ proc createInt32Array*(_: typedesc[PropertyValue], value: openArray[int32]
 proc createUInt32Array*(_: typedesc[PropertyValue], value: openArray[uint32]
                        ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateUInt32Array
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[uint32, uint32](value)
   var ret: pointer
   check it.vtbl.CreateUInt32Array(it.raw, a0.count, a0.data, ret.addr
@@ -1697,7 +1697,7 @@ proc createUInt32Array*(_: typedesc[PropertyValue], value: openArray[uint32]
 proc createInt64Array*(_: typedesc[PropertyValue], value: openArray[int64]
                       ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateInt64Array
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[int64, int64](value)
   var ret: pointer
   check it.vtbl.CreateInt64Array(it.raw, a0.count, a0.data, ret.addr
@@ -1707,7 +1707,7 @@ proc createInt64Array*(_: typedesc[PropertyValue], value: openArray[int64]
 proc createUInt64Array*(_: typedesc[PropertyValue], value: openArray[uint64]
                        ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateUInt64Array
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[uint64, uint64](value)
   var ret: pointer
   check it.vtbl.CreateUInt64Array(it.raw, a0.count, a0.data, ret.addr
@@ -1717,7 +1717,7 @@ proc createUInt64Array*(_: typedesc[PropertyValue], value: openArray[uint64]
 proc createSingleArray*(_: typedesc[PropertyValue], value: openArray[float32]
                        ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateSingleArray
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[float32, float32](value)
   var ret: pointer
   check it.vtbl.CreateSingleArray(it.raw, a0.count, a0.data, ret.addr
@@ -1727,7 +1727,7 @@ proc createSingleArray*(_: typedesc[PropertyValue], value: openArray[float32]
 proc createDoubleArray*(_: typedesc[PropertyValue], value: openArray[float64]
                        ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateDoubleArray
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[float64, float64](value)
   var ret: pointer
   check it.vtbl.CreateDoubleArray(it.raw, a0.count, a0.data, ret.addr
@@ -1737,7 +1737,7 @@ proc createDoubleArray*(_: typedesc[PropertyValue], value: openArray[float64]
 proc createChar16Array*(_: typedesc[PropertyValue], value: openArray[Char16]
                        ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateChar16Array
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[Char16, Char16](value)
   var ret: pointer
   check it.vtbl.CreateChar16Array(it.raw, a0.count, a0.data, ret.addr
@@ -1747,7 +1747,7 @@ proc createChar16Array*(_: typedesc[PropertyValue], value: openArray[Char16]
 proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]
                         ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateBooleanArray
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[bool, bool](value)
   var ret: pointer
   check it.vtbl.CreateBooleanArray(it.raw, a0.count, a0.data, ret.addr
@@ -1757,7 +1757,7 @@ proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]
 proc createStringArray*(_: typedesc[PropertyValue], value: openArray[string]
                        ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateStringArray
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[string, string](value)
   var ret: pointer
   check it.vtbl.CreateStringArray(it.raw, a0.count, a0.data, ret.addr
@@ -1767,7 +1767,7 @@ proc createStringArray*(_: typedesc[PropertyValue], value: openArray[string]
 proc createInspectableArray*(_: typedesc[PropertyValue],
                              value: openArray[WinRtObject]): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateInspectableArray
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[WinRtObject, WinRtObject](value)
   var ret: pointer
   check it.vtbl.CreateInspectableArray(it.raw, a0.count, a0.data, ret.addr
@@ -1777,7 +1777,7 @@ proc createInspectableArray*(_: typedesc[PropertyValue],
 proc createGuidArray*(_: typedesc[PropertyValue], value: openArray[GUID]
                      ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateGuidArray
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[GUID, GUID](value)
   var ret: pointer
   check it.vtbl.CreateGuidArray(it.raw, a0.count, a0.data, ret.addr
@@ -1787,7 +1787,7 @@ proc createGuidArray*(_: typedesc[PropertyValue], value: openArray[GUID]
 proc createDateTimeArray*(_: typedesc[PropertyValue], value: openArray[DateTime]
                          ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateDateTimeArray
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[DateTime, DateTime](value)
   var ret: pointer
   check it.vtbl.CreateDateTimeArray(it.raw, a0.count, a0.data, ret.addr
@@ -1797,7 +1797,7 @@ proc createDateTimeArray*(_: typedesc[PropertyValue], value: openArray[DateTime]
 proc createTimeSpanArray*(_: typedesc[PropertyValue], value: openArray[TimeSpan]
                          ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateTimeSpanArray
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[TimeSpan, TimeSpan](value)
   var ret: pointer
   check it.vtbl.CreateTimeSpanArray(it.raw, a0.count, a0.data, ret.addr
@@ -1807,7 +1807,7 @@ proc createTimeSpanArray*(_: typedesc[PropertyValue], value: openArray[TimeSpan]
 proc createPointArray*(_: typedesc[PropertyValue], value: openArray[Point]
                       ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreatePointArray
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[Point, Point](value)
   var ret: pointer
   check it.vtbl.CreatePointArray(it.raw, a0.count, a0.data, ret.addr
@@ -1817,7 +1817,7 @@ proc createPointArray*(_: typedesc[PropertyValue], value: openArray[Point]
 proc createSizeArray*(_: typedesc[PropertyValue], value: openArray[Size]
                      ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateSizeArray
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[Size, Size](value)
   var ret: pointer
   check it.vtbl.CreateSizeArray(it.raw, a0.count, a0.data, ret.addr
@@ -1827,7 +1827,7 @@ proc createSizeArray*(_: typedesc[PropertyValue], value: openArray[Size]
 proc createRectArray*(_: typedesc[PropertyValue], value: openArray[Rect]
                      ): WinRtObject =
   ## Windows.Foundation.IPropertyValueStatics.CreateRectArray
-  let it = statics[IPropertyValueStaticsVtbl]("Windows.Foundation.PropertyValue")
+  let it = statics[IPropertyValueStaticsVtbl](className(PropertyValue))
   let a0 = asArray[Rect, Rect](value)
   var ret: pointer
   check it.vtbl.CreateRectArray(it.raw, a0.count, a0.data, ret.addr
@@ -1868,7 +1868,7 @@ proc traceLevel*(self: TracingStatusChangedEventArgs): CausalityTraceLevel =
 
 proc newUri*(uri: string): Uri =
   ## Windows.Foundation.IUriRuntimeClassFactory.CreateUri
-  let it = statics[IUriRuntimeClassFactoryVtbl]("Windows.Foundation.Uri")
+  let it = statics[IUriRuntimeClassFactoryVtbl](className(Uri))
   let a0 = toWinRtString(uri)
   var ret: pointer
   check it.vtbl.CreateUri(it.raw, a0.handle, ret.addr), "Uri.new"
@@ -1876,7 +1876,7 @@ proc newUri*(uri: string): Uri =
 
 proc newUri*(baseUri: string, relativeUri: string): Uri =
   ## Windows.Foundation.IUriRuntimeClassFactory.CreateWithRelativeUri
-  let it = statics[IUriRuntimeClassFactoryVtbl]("Windows.Foundation.Uri")
+  let it = statics[IUriRuntimeClassFactoryVtbl](className(Uri))
   let a0 = toWinRtString(baseUri)
   let a1 = toWinRtString(relativeUri)
   var ret: pointer
@@ -1886,7 +1886,7 @@ proc newUri*(baseUri: string, relativeUri: string): Uri =
 
 proc unescapeComponent*(_: typedesc[Uri], toUnescape: string): string =
   ## Windows.Foundation.IUriEscapeStatics.UnescapeComponent
-  let it = statics[IUriEscapeStaticsVtbl]("Windows.Foundation.Uri")
+  let it = statics[IUriEscapeStaticsVtbl](className(Uri))
   let a0 = toWinRtString(toUnescape)
   var ret: HSTRING
   check it.vtbl.UnescapeComponent(it.raw, a0.handle, ret.addr
@@ -1895,7 +1895,7 @@ proc unescapeComponent*(_: typedesc[Uri], toUnescape: string): string =
 
 proc escapeComponent*(_: typedesc[Uri], toEscape: string): string =
   ## Windows.Foundation.IUriEscapeStatics.EscapeComponent
-  let it = statics[IUriEscapeStaticsVtbl]("Windows.Foundation.Uri")
+  let it = statics[IUriEscapeStaticsVtbl](className(Uri))
   let a0 = toWinRtString(toEscape)
   var ret: HSTRING
   check it.vtbl.EscapeComponent(it.raw, a0.handle, ret.addr
@@ -2048,7 +2048,7 @@ proc newValueSet*(): ValueSet =
 
 proc newWwwFormUrlDecoder*(query: string): WwwFormUrlDecoder =
   ## Windows.Foundation.IWwwFormUrlDecoderRuntimeClassFactory.CreateWwwFormUrlDecoder
-  let it = statics[IWwwFormUrlDecoderRuntimeClassFactoryVtbl]("Windows.Foundation.WwwFormUrlDecoder")
+  let it = statics[IWwwFormUrlDecoderRuntimeClassFactoryVtbl](className(WwwFormUrlDecoder))
   let a0 = toWinRtString(query)
   var ret: pointer
   check it.vtbl.CreateWwwFormUrlDecoder(it.raw, a0.handle, ret.addr

@@ -25,7 +25,7 @@ export foundation
 proc setActivationFactoryProvider*(_: typedesc[CorePerceptionAutomation],
                                    provider: IGetActivationFactory) =
   ## Windows.Perception.Automation.Core.ICorePerceptionAutomationStatics.SetActivationFactoryProvider
-  let it = statics[ICorePerceptionAutomationStaticsVtbl]("Windows.Perception.Automation.Core.CorePerceptionAutomation")
+  let it = statics[ICorePerceptionAutomationStaticsVtbl](className(CorePerceptionAutomation))
   let a0 = queryInterface[IGetActivationFactoryVtbl](provider)
   check it.vtbl.SetActivationFactoryProvider(it.raw, a0.raw
                                             ), "CorePerceptionAutomation.setActivationFactoryProvider"
@@ -34,14 +34,14 @@ proc setActivationFactoryProvider*(_: typedesc[CorePerceptionAutomation],
 
 proc isSupported*(_: typedesc[EyesPose]): bool =
   ## Windows.Perception.People.IEyesPoseStatics.IsSupported
-  let it = statics[IEyesPoseStaticsVtbl]("Windows.Perception.People.EyesPose")
+  let it = statics[IEyesPoseStaticsVtbl](className(EyesPose))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr), "EyesPose.isSupported"
   ret
 
 proc requestAccessAsync*(_: typedesc[EyesPose]): Future[GazeInputAccessStatus] =
   ## Windows.Perception.People.IEyesPoseStatics.RequestAccessAsync
-  let it = statics[IEyesPoseStaticsVtbl]("Windows.Perception.People.EyesPose")
+  let it = statics[IEyesPoseStaticsVtbl](className(EyesPose))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "EyesPose.requestAccessAsync"
@@ -263,7 +263,7 @@ proc systemRelativeTargetTime*(self: PerceptionTimestamp): TimeSpan =
 proc fromHistoricalTargetTime*(_: typedesc[PerceptionTimestampHelper],
                                targetTime: DateTime): PerceptionTimestamp =
   ## Windows.Perception.IPerceptionTimestampHelperStatics.FromHistoricalTargetTime
-  let it = statics[IPerceptionTimestampHelperStaticsVtbl]("Windows.Perception.PerceptionTimestampHelper")
+  let it = statics[IPerceptionTimestampHelperStaticsVtbl](className(PerceptionTimestampHelper))
   var ret: pointer
   check it.vtbl.FromHistoricalTargetTime(it.raw, targetTime, ret.addr
                                         ), "PerceptionTimestampHelper.fromHistoricalTargetTime"
@@ -272,7 +272,7 @@ proc fromHistoricalTargetTime*(_: typedesc[PerceptionTimestampHelper],
 proc fromSystemRelativeTargetTime*(_: typedesc[PerceptionTimestampHelper],
                                    targetTime: TimeSpan): PerceptionTimestamp =
   ## Windows.Perception.IPerceptionTimestampHelperStatics2.FromSystemRelativeTargetTime
-  let it = statics[IPerceptionTimestampHelperStatics2Vtbl]("Windows.Perception.PerceptionTimestampHelper")
+  let it = statics[IPerceptionTimestampHelperStatics2Vtbl](className(PerceptionTimestampHelper))
   var ret: pointer
   check it.vtbl.FromSystemRelativeTargetTime(it.raw, targetTime, ret.addr
                                             ), "PerceptionTimestampHelper.fromSystemRelativeTargetTime"
@@ -284,7 +284,7 @@ proc tryCreateRelativeTo*(_: typedesc[SpatialAnchor],
                           coordinateSystem: SpatialCoordinateSystem
                          ): SpatialAnchor =
   ## Windows.Perception.Spatial.ISpatialAnchorStatics.TryCreateRelativeTo
-  let it = statics[ISpatialAnchorStaticsVtbl]("Windows.Perception.Spatial.SpatialAnchor")
+  let it = statics[ISpatialAnchorStaticsVtbl](className(SpatialAnchor))
   let a0 = queryInterface[ISpatialCoordinateSystemVtbl](coordinateSystem)
   var ret: pointer
   check it.vtbl.TryCreateRelativeTo(it.raw, a0.raw, ret.addr
@@ -295,7 +295,7 @@ proc tryCreateRelativeTo*(_: typedesc[SpatialAnchor],
                           coordinateSystem: SpatialCoordinateSystem,
                           position: Vector3): SpatialAnchor =
   ## Windows.Perception.Spatial.ISpatialAnchorStatics.TryCreateRelativeTo
-  let it = statics[ISpatialAnchorStaticsVtbl]("Windows.Perception.Spatial.SpatialAnchor")
+  let it = statics[ISpatialAnchorStaticsVtbl](className(SpatialAnchor))
   let a0 = queryInterface[ISpatialCoordinateSystemVtbl](coordinateSystem)
   var ret: pointer
   check it.vtbl.TryCreateRelativeTo2(it.raw, a0.raw, position, ret.addr
@@ -307,7 +307,7 @@ proc tryCreateRelativeTo*(_: typedesc[SpatialAnchor],
                           position: Vector3, orientation: Quaternion
                          ): SpatialAnchor =
   ## Windows.Perception.Spatial.ISpatialAnchorStatics.TryCreateRelativeTo
-  let it = statics[ISpatialAnchorStaticsVtbl]("Windows.Perception.Spatial.SpatialAnchor")
+  let it = statics[ISpatialAnchorStaticsVtbl](className(SpatialAnchor))
   let a0 = queryInterface[ISpatialCoordinateSystemVtbl](coordinateSystem)
   var ret: pointer
   check it.vtbl.TryCreateRelativeTo3(it.raw, a0.raw, position, orientation,
@@ -390,14 +390,14 @@ proc recommendedSufficiencyLevel*(self: SpatialAnchorExportSufficiency): float64
 
 proc getDefault*(_: typedesc[SpatialAnchorExporter]): SpatialAnchorExporter =
   ## Windows.Perception.Spatial.ISpatialAnchorExporterStatics.GetDefault
-  let it = statics[ISpatialAnchorExporterStaticsVtbl]("Windows.Perception.Spatial.SpatialAnchorExporter")
+  let it = statics[ISpatialAnchorExporterStaticsVtbl](className(SpatialAnchorExporter))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "SpatialAnchorExporter.getDefault"
   adopt[SpatialAnchorExporter](ret)
 
 proc requestAccessAsync*(_: typedesc[SpatialAnchorExporter]): Future[SpatialPerceptionAccessStatus] =
   ## Windows.Perception.Spatial.ISpatialAnchorExporterStatics.RequestAccessAsync
-  let it = statics[ISpatialAnchorExporterStaticsVtbl]("Windows.Perception.Spatial.SpatialAnchorExporter")
+  let it = statics[ISpatialAnchorExporterStaticsVtbl](className(SpatialAnchorExporter))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "SpatialAnchorExporter.requestAccessAsync"
@@ -433,7 +433,7 @@ proc tryExportAnchorAsync*(self: SpatialAnchorExporter, anchor: SpatialAnchor,
 
 proc requestStoreAsync*(_: typedesc[SpatialAnchorManager]): Future[SpatialAnchorStore] =
   ## Windows.Perception.Spatial.ISpatialAnchorManagerStatics.RequestStoreAsync
-  let it = statics[ISpatialAnchorManagerStaticsVtbl]("Windows.Perception.Spatial.SpatialAnchorManager")
+  let it = statics[ISpatialAnchorManagerStaticsVtbl](className(SpatialAnchorManager))
   var op: pointer
   check it.vtbl.RequestStoreAsync(it.raw, op.addr
                                  ), "SpatialAnchorManager.requestStoreAsync"
@@ -488,7 +488,7 @@ proc tryImportAnchorsAsync*(_: typedesc[SpatialAnchorTransferManager],
                             stream: SomeInputStream
                            ): Future[Table[string, SpatialAnchor]] =
   ## Windows.Perception.Spatial.ISpatialAnchorTransferManagerStatics.TryImportAnchorsAsync
-  let it = statics[ISpatialAnchorTransferManagerStaticsVtbl]("Windows.Perception.Spatial.SpatialAnchorTransferManager")
+  let it = statics[ISpatialAnchorTransferManagerStaticsVtbl](className(SpatialAnchorTransferManager))
   let a0 = queryInterface[IInputStreamVtbl](stream)
   var op: pointer
   check it.vtbl.TryImportAnchorsAsync(it.raw, a0.raw, op.addr
@@ -500,7 +500,7 @@ proc tryExportAnchorsAsync*(_: typedesc[SpatialAnchorTransferManager],
                             anchors: Table[string, SpatialAnchor],
                             stream: SomeOutputStream): Future[bool] =
   ## Windows.Perception.Spatial.ISpatialAnchorTransferManagerStatics.TryExportAnchorsAsync
-  let it = statics[ISpatialAnchorTransferManagerStaticsVtbl]("Windows.Perception.Spatial.SpatialAnchorTransferManager")
+  let it = statics[ISpatialAnchorTransferManagerStaticsVtbl](className(SpatialAnchorTransferManager))
   let a0 = asMap[string, SpatialAnchor, Table[string, SpatialAnchor]](anchors)
   let a1 = queryInterface[IOutputStreamVtbl](stream)
   var op: pointer
@@ -510,7 +510,7 @@ proc tryExportAnchorsAsync*(_: typedesc[SpatialAnchorTransferManager],
 
 proc requestAccessAsync*(_: typedesc[SpatialAnchorTransferManager]): Future[SpatialPerceptionAccessStatus] =
   ## Windows.Perception.Spatial.ISpatialAnchorTransferManagerStatics.RequestAccessAsync
-  let it = statics[ISpatialAnchorTransferManagerStaticsVtbl]("Windows.Perception.Spatial.SpatialAnchorTransferManager")
+  let it = statics[ISpatialAnchorTransferManagerStaticsVtbl](className(SpatialAnchorTransferManager))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "SpatialAnchorTransferManager.requestAccessAsync"
@@ -523,7 +523,7 @@ proc fromBox*(_: typedesc[SpatialBoundingVolume],
               coordinateSystem: SpatialCoordinateSystem, box: SpatialBoundingBox
              ): SpatialBoundingVolume =
   ## Windows.Perception.Spatial.ISpatialBoundingVolumeStatics.FromBox
-  let it = statics[ISpatialBoundingVolumeStaticsVtbl]("Windows.Perception.Spatial.SpatialBoundingVolume")
+  let it = statics[ISpatialBoundingVolumeStaticsVtbl](className(SpatialBoundingVolume))
   let a0 = queryInterface[ISpatialCoordinateSystemVtbl](coordinateSystem)
   var ret: pointer
   check it.vtbl.FromBox(it.raw, a0.raw, box, ret.addr
@@ -534,7 +534,7 @@ proc fromOrientedBox*(_: typedesc[SpatialBoundingVolume],
                       coordinateSystem: SpatialCoordinateSystem,
                       box: SpatialBoundingOrientedBox): SpatialBoundingVolume =
   ## Windows.Perception.Spatial.ISpatialBoundingVolumeStatics.FromOrientedBox
-  let it = statics[ISpatialBoundingVolumeStaticsVtbl]("Windows.Perception.Spatial.SpatialBoundingVolume")
+  let it = statics[ISpatialBoundingVolumeStaticsVtbl](className(SpatialBoundingVolume))
   let a0 = queryInterface[ISpatialCoordinateSystemVtbl](coordinateSystem)
   var ret: pointer
   check it.vtbl.FromOrientedBox(it.raw, a0.raw, box, ret.addr
@@ -545,7 +545,7 @@ proc fromSphere*(_: typedesc[SpatialBoundingVolume],
                  coordinateSystem: SpatialCoordinateSystem,
                  sphere: SpatialBoundingSphere): SpatialBoundingVolume =
   ## Windows.Perception.Spatial.ISpatialBoundingVolumeStatics.FromSphere
-  let it = statics[ISpatialBoundingVolumeStaticsVtbl]("Windows.Perception.Spatial.SpatialBoundingVolume")
+  let it = statics[ISpatialBoundingVolumeStaticsVtbl](className(SpatialBoundingVolume))
   let a0 = queryInterface[ISpatialCoordinateSystemVtbl](coordinateSystem)
   var ret: pointer
   check it.vtbl.FromSphere(it.raw, a0.raw, sphere, ret.addr
@@ -556,7 +556,7 @@ proc fromFrustum*(_: typedesc[SpatialBoundingVolume],
                   coordinateSystem: SpatialCoordinateSystem,
                   frustum: SpatialBoundingFrustum): SpatialBoundingVolume =
   ## Windows.Perception.Spatial.ISpatialBoundingVolumeStatics.FromFrustum
-  let it = statics[ISpatialBoundingVolumeStaticsVtbl]("Windows.Perception.Spatial.SpatialBoundingVolume")
+  let it = statics[ISpatialBoundingVolumeStaticsVtbl](className(SpatialBoundingVolume))
   let a0 = queryInterface[ISpatialCoordinateSystemVtbl](coordinateSystem)
   var ret: pointer
   check it.vtbl.FromFrustum(it.raw, a0.raw, frustum, ret.addr
@@ -579,7 +579,7 @@ proc tryGetTransformTo*(self: SpatialCoordinateSystem,
 
 proc newSpatialEntity*(spatialAnchor: SpatialAnchor): SpatialEntity =
   ## Windows.Perception.Spatial.ISpatialEntityFactory.CreateWithSpatialAnchor
-  let it = statics[ISpatialEntityFactoryVtbl]("Windows.Perception.Spatial.SpatialEntity")
+  let it = statics[ISpatialEntityFactoryVtbl](className(SpatialEntity))
   let a0 = queryInterface[ISpatialAnchorVtbl](spatialAnchor)
   var ret: pointer
   check it.vtbl.CreateWithSpatialAnchor(it.raw, a0.raw, ret.addr
@@ -589,7 +589,7 @@ proc newSpatialEntity*(spatialAnchor: SpatialAnchor): SpatialEntity =
 proc newSpatialEntity*(spatialAnchor: SpatialAnchor, propertySet: ValueSet
                       ): SpatialEntity =
   ## Windows.Perception.Spatial.ISpatialEntityFactory.CreateWithSpatialAnchorAndProperties
-  let it = statics[ISpatialEntityFactoryVtbl]("Windows.Perception.Spatial.SpatialEntity")
+  let it = statics[ISpatialEntityFactoryVtbl](className(SpatialEntity))
   let a0 = queryInterface[ISpatialAnchorVtbl](spatialAnchor)
   let a1 = queryInterface[IPropertySetVtbl](propertySet)
   var ret: pointer
@@ -643,7 +643,7 @@ proc entity*(self: SpatialEntityRemovedEventArgs): SpatialEntity =
 
 proc isSupported*(_: typedesc[SpatialEntityStore]): bool =
   ## Windows.Perception.Spatial.ISpatialEntityStoreStatics.get_IsSupported
-  let it = statics[ISpatialEntityStoreStaticsVtbl]("Windows.Perception.Spatial.SpatialEntityStore")
+  let it = statics[ISpatialEntityStoreStaticsVtbl](className(SpatialEntityStore))
   var ret: bool
   check it.vtbl.get_IsSupported(it.raw, ret.addr
                                ), "SpatialEntityStore.isSupported"
@@ -652,7 +652,7 @@ proc isSupported*(_: typedesc[SpatialEntityStore]): bool =
 proc tryGet*(_: typedesc[SpatialEntityStore], session: RemoteSystemSession
             ): SpatialEntityStore =
   ## Windows.Perception.Spatial.ISpatialEntityStoreStatics.TryGet
-  let it = statics[ISpatialEntityStoreStaticsVtbl]("Windows.Perception.Spatial.SpatialEntityStore")
+  let it = statics[ISpatialEntityStoreStaticsVtbl](className(SpatialEntityStore))
   let a0 = queryInterface[IRemoteSystemSessionVtbl](session)
   var ret: pointer
   check it.vtbl.TryGet(it.raw, a0.raw, ret.addr), "SpatialEntityStore.tryGet"
@@ -822,7 +822,7 @@ proc coordinateSystemToNodeTransform*(self: SpatialGraphInteropFrameOfReferenceP
 proc createCoordinateSystemForNode*(_: typedesc[SpatialGraphInteropPreview],
                                     nodeId: GUID): SpatialCoordinateSystem =
   ## Windows.Perception.Spatial.Preview.ISpatialGraphInteropPreviewStatics.CreateCoordinateSystemForNode
-  let it = statics[ISpatialGraphInteropPreviewStaticsVtbl]("Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview")
+  let it = statics[ISpatialGraphInteropPreviewStaticsVtbl](className(SpatialGraphInteropPreview))
   var ret: pointer
   check it.vtbl.CreateCoordinateSystemForNode(it.raw, nodeId, ret.addr
                                              ), "SpatialGraphInteropPreview.createCoordinateSystemForNode"
@@ -832,7 +832,7 @@ proc createCoordinateSystemForNode*(_: typedesc[SpatialGraphInteropPreview],
                                     nodeId: GUID, relativePosition: Vector3
                                    ): SpatialCoordinateSystem =
   ## Windows.Perception.Spatial.Preview.ISpatialGraphInteropPreviewStatics.CreateCoordinateSystemForNode
-  let it = statics[ISpatialGraphInteropPreviewStaticsVtbl]("Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview")
+  let it = statics[ISpatialGraphInteropPreviewStaticsVtbl](className(SpatialGraphInteropPreview))
   var ret: pointer
   check it.vtbl.CreateCoordinateSystemForNode2(it.raw, nodeId, relativePosition,
                                                ret.addr
@@ -844,7 +844,7 @@ proc createCoordinateSystemForNode*(_: typedesc[SpatialGraphInteropPreview],
                                     relativeOrientation: Quaternion
                                    ): SpatialCoordinateSystem =
   ## Windows.Perception.Spatial.Preview.ISpatialGraphInteropPreviewStatics.CreateCoordinateSystemForNode
-  let it = statics[ISpatialGraphInteropPreviewStaticsVtbl]("Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview")
+  let it = statics[ISpatialGraphInteropPreviewStaticsVtbl](className(SpatialGraphInteropPreview))
   var ret: pointer
   check it.vtbl.CreateCoordinateSystemForNode3(it.raw, nodeId, relativePosition,
                                                relativeOrientation, ret.addr
@@ -854,7 +854,7 @@ proc createCoordinateSystemForNode*(_: typedesc[SpatialGraphInteropPreview],
 proc createLocatorForNode*(_: typedesc[SpatialGraphInteropPreview], nodeId: GUID
                           ): SpatialLocator =
   ## Windows.Perception.Spatial.Preview.ISpatialGraphInteropPreviewStatics.CreateLocatorForNode
-  let it = statics[ISpatialGraphInteropPreviewStaticsVtbl]("Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview")
+  let it = statics[ISpatialGraphInteropPreviewStaticsVtbl](className(SpatialGraphInteropPreview))
   var ret: pointer
   check it.vtbl.CreateLocatorForNode(it.raw, nodeId, ret.addr
                                     ), "SpatialGraphInteropPreview.createLocatorForNode"
@@ -864,7 +864,7 @@ proc tryCreateFrameOfReference*(_: typedesc[SpatialGraphInteropPreview],
                                 coordinateSystem: SpatialCoordinateSystem
                                ): SpatialGraphInteropFrameOfReferencePreview =
   ## Windows.Perception.Spatial.Preview.ISpatialGraphInteropPreviewStatics2.TryCreateFrameOfReference
-  let it = statics[ISpatialGraphInteropPreviewStatics2Vtbl]("Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview")
+  let it = statics[ISpatialGraphInteropPreviewStatics2Vtbl](className(SpatialGraphInteropPreview))
   let a0 = queryInterface[ISpatialCoordinateSystemVtbl](coordinateSystem)
   var ret: pointer
   check it.vtbl.TryCreateFrameOfReference(it.raw, a0.raw, ret.addr
@@ -876,7 +876,7 @@ proc tryCreateFrameOfReference*(_: typedesc[SpatialGraphInteropPreview],
                                 relativePosition: Vector3
                                ): SpatialGraphInteropFrameOfReferencePreview =
   ## Windows.Perception.Spatial.Preview.ISpatialGraphInteropPreviewStatics2.TryCreateFrameOfReference
-  let it = statics[ISpatialGraphInteropPreviewStatics2Vtbl]("Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview")
+  let it = statics[ISpatialGraphInteropPreviewStatics2Vtbl](className(SpatialGraphInteropPreview))
   let a0 = queryInterface[ISpatialCoordinateSystemVtbl](coordinateSystem)
   var ret: pointer
   check it.vtbl.TryCreateFrameOfReference2(it.raw, a0.raw, relativePosition,
@@ -890,7 +890,7 @@ proc tryCreateFrameOfReference*(_: typedesc[SpatialGraphInteropPreview],
                                 relativeOrientation: Quaternion
                                ): SpatialGraphInteropFrameOfReferencePreview =
   ## Windows.Perception.Spatial.Preview.ISpatialGraphInteropPreviewStatics2.TryCreateFrameOfReference
-  let it = statics[ISpatialGraphInteropPreviewStatics2Vtbl]("Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview")
+  let it = statics[ISpatialGraphInteropPreviewStatics2Vtbl](className(SpatialGraphInteropPreview))
   let a0 = queryInterface[ISpatialCoordinateSystemVtbl](coordinateSystem)
   var ret: pointer
   check it.vtbl.TryCreateFrameOfReference3(it.raw, a0.raw, relativePosition,
@@ -966,7 +966,7 @@ proc absoluteAngularAccelerationAxisAngle*(self: SpatialLocation): Vector3 =
 
 proc getDefault*(_: typedesc[SpatialLocator]): SpatialLocator =
   ## Windows.Perception.Spatial.ISpatialLocatorStatics.GetDefault
-  let it = statics[ISpatialLocatorStaticsVtbl]("Windows.Perception.Spatial.SpatialLocator")
+  let it = statics[ISpatialLocatorStaticsVtbl](className(SpatialLocator))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "SpatialLocator.getDefault"
   adopt[SpatialLocator](ret)
@@ -1216,7 +1216,7 @@ proc `canceled=`*(self: SpatialLocatorPositionalTrackingDeactivatingEventArgs,
 
 proc current*(_: typedesc[SpatialStageFrameOfReference]): SpatialStageFrameOfReference =
   ## Windows.Perception.Spatial.ISpatialStageFrameOfReferenceStatics.get_Current
-  let it = statics[ISpatialStageFrameOfReferenceStaticsVtbl]("Windows.Perception.Spatial.SpatialStageFrameOfReference")
+  let it = statics[ISpatialStageFrameOfReferenceStaticsVtbl](className(SpatialStageFrameOfReference))
   var ret: pointer
   check it.vtbl.get_Current(it.raw, ret.addr
                            ), "SpatialStageFrameOfReference.current"
@@ -1227,7 +1227,7 @@ proc onCurrentChanged*(_: typedesc[SpatialStageFrameOfReference],
                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Perception.Spatial.ISpatialStageFrameOfReferenceStatics.add_CurrentChanged
   ## The token is what `removeCurrentChanged` takes.
-  let it = statics[ISpatialStageFrameOfReferenceStaticsVtbl]("Windows.Perception.Spatial.SpatialStageFrameOfReference")
+  let it = statics[ISpatialStageFrameOfReferenceStaticsVtbl](className(SpatialStageFrameOfReference))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -1237,13 +1237,13 @@ proc onCurrentChanged*(_: typedesc[SpatialStageFrameOfReference],
 proc removeCurrentChanged*(_: typedesc[SpatialStageFrameOfReference],
                            token: EventRegistrationToken) =
   ## Windows.Perception.Spatial.ISpatialStageFrameOfReferenceStatics.remove_CurrentChanged
-  let it = statics[ISpatialStageFrameOfReferenceStaticsVtbl]("Windows.Perception.Spatial.SpatialStageFrameOfReference")
+  let it = statics[ISpatialStageFrameOfReferenceStaticsVtbl](className(SpatialStageFrameOfReference))
   check it.vtbl.remove_CurrentChanged(it.raw, token
                                      ), "SpatialStageFrameOfReference.currentChanged"
 
 proc requestNewStageAsync*(_: typedesc[SpatialStageFrameOfReference]): Future[SpatialStageFrameOfReference] =
   ## Windows.Perception.Spatial.ISpatialStageFrameOfReferenceStatics.RequestNewStageAsync
-  let it = statics[ISpatialStageFrameOfReferenceStaticsVtbl]("Windows.Perception.Spatial.SpatialStageFrameOfReference")
+  let it = statics[ISpatialStageFrameOfReferenceStaticsVtbl](className(SpatialStageFrameOfReference))
   var op: pointer
   check it.vtbl.RequestNewStageAsync(it.raw, op.addr
                                     ), "SpatialStageFrameOfReference.requestNewStageAsync"
@@ -1448,7 +1448,7 @@ proc newSpatialSurfaceMeshOptions*(): SpatialSurfaceMeshOptions =
 
 proc supportedVertexPositionFormats*(_: typedesc[SpatialSurfaceMeshOptions]): seq[DirectXPixelFormat] =
   ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptionsStatics.get_SupportedVertexPositionFormats
-  let it = statics[ISpatialSurfaceMeshOptionsStaticsVtbl]("Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions")
+  let it = statics[ISpatialSurfaceMeshOptionsStaticsVtbl](className(SpatialSurfaceMeshOptions))
   var ret: pointer
   check it.vtbl.get_SupportedVertexPositionFormats(it.raw, ret.addr
                                                   ), "SpatialSurfaceMeshOptions.supportedVertexPositionFormats"
@@ -1456,7 +1456,7 @@ proc supportedVertexPositionFormats*(_: typedesc[SpatialSurfaceMeshOptions]): se
 
 proc supportedTriangleIndexFormats*(_: typedesc[SpatialSurfaceMeshOptions]): seq[DirectXPixelFormat] =
   ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptionsStatics.get_SupportedTriangleIndexFormats
-  let it = statics[ISpatialSurfaceMeshOptionsStaticsVtbl]("Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions")
+  let it = statics[ISpatialSurfaceMeshOptionsStaticsVtbl](className(SpatialSurfaceMeshOptions))
   var ret: pointer
   check it.vtbl.get_SupportedTriangleIndexFormats(it.raw, ret.addr
                                                  ), "SpatialSurfaceMeshOptions.supportedTriangleIndexFormats"
@@ -1464,7 +1464,7 @@ proc supportedTriangleIndexFormats*(_: typedesc[SpatialSurfaceMeshOptions]): seq
 
 proc supportedVertexNormalFormats*(_: typedesc[SpatialSurfaceMeshOptions]): seq[DirectXPixelFormat] =
   ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptionsStatics.get_SupportedVertexNormalFormats
-  let it = statics[ISpatialSurfaceMeshOptionsStaticsVtbl]("Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions")
+  let it = statics[ISpatialSurfaceMeshOptionsStaticsVtbl](className(SpatialSurfaceMeshOptions))
   var ret: pointer
   check it.vtbl.get_SupportedVertexNormalFormats(it.raw, ret.addr
                                                 ), "SpatialSurfaceMeshOptions.supportedVertexNormalFormats"
@@ -1537,7 +1537,7 @@ proc newSpatialSurfaceObserver*(): SpatialSurfaceObserver =
 
 proc requestAccessAsync*(_: typedesc[SpatialSurfaceObserver]): Future[SpatialPerceptionAccessStatus] =
   ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics.RequestAccessAsync
-  let it = statics[ISpatialSurfaceObserverStaticsVtbl]("Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver")
+  let it = statics[ISpatialSurfaceObserverStaticsVtbl](className(SpatialSurfaceObserver))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "SpatialSurfaceObserver.requestAccessAsync"
@@ -1546,7 +1546,7 @@ proc requestAccessAsync*(_: typedesc[SpatialSurfaceObserver]): Future[SpatialPer
 
 proc isSupported*(_: typedesc[SpatialSurfaceObserver]): bool =
   ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics2.IsSupported
-  let it = statics[ISpatialSurfaceObserverStatics2Vtbl]("Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver")
+  let it = statics[ISpatialSurfaceObserverStatics2Vtbl](className(SpatialSurfaceObserver))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr
                            ), "SpatialSurfaceObserver.isSupported"

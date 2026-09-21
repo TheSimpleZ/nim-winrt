@@ -733,7 +733,7 @@ proc getSupportsFeedback*(self: ActionOverload): bool =
 
 proc getDefault*(_: typedesc[ActionRuntime]): ActionRuntime =
   ## Windows.AI.Actions.IActionRuntimeStatics.GetDefault
-  let it = statics[IActionRuntimeStaticsVtbl]("Windows.AI.Actions.ActionRuntime")
+  let it = statics[IActionRuntimeStaticsVtbl](className(ActionRuntime))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "ActionRuntime.getDefault"
   adopt[ActionRuntime](ret)
@@ -1064,7 +1064,7 @@ proc pixelRange*(self: ImageFeatureDescriptor): LearningModelPixelRange =
 proc createFromVideoFrame*(_: typedesc[ImageFeatureValue], image: VideoFrame
                           ): ImageFeatureValue =
   ## Windows.AI.MachineLearning.IImageFeatureValueStatics.CreateFromVideoFrame
-  let it = statics[IImageFeatureValueStaticsVtbl]("Windows.AI.MachineLearning.ImageFeatureValue")
+  let it = statics[IImageFeatureValueStaticsVtbl](className(ImageFeatureValue))
   let a0 = queryInterface[IVideoFrameVtbl](image)
   var ret: pointer
   check it.vtbl.CreateFromVideoFrame(it.raw, a0.raw, ret.addr
@@ -1185,7 +1185,7 @@ proc loadFromStorageFileAsync*(_: typedesc[LearningModel],
                                modelFile: SomeStorageFile
                               ): Future[LearningModel] =
   ## Windows.AI.MachineLearning.ILearningModelStatics.LoadFromStorageFileAsync
-  let it = statics[ILearningModelStaticsVtbl]("Windows.AI.MachineLearning.LearningModel")
+  let it = statics[ILearningModelStaticsVtbl](className(LearningModel))
   let a0 = queryInterface[IStorageFileVtbl](modelFile)
   var op: pointer
   check it.vtbl.LoadFromStorageFileAsync(it.raw, a0.raw, op.addr
@@ -1196,7 +1196,7 @@ proc loadFromStreamAsync*(_: typedesc[LearningModel],
                           modelStream: SomeRandomAccessStreamReference
                          ): Future[LearningModel] =
   ## Windows.AI.MachineLearning.ILearningModelStatics.LoadFromStreamAsync
-  let it = statics[ILearningModelStaticsVtbl]("Windows.AI.MachineLearning.LearningModel")
+  let it = statics[ILearningModelStaticsVtbl](className(LearningModel))
   let a0 = queryInterface[IRandomAccessStreamReferenceVtbl](modelStream)
   var op: pointer
   check it.vtbl.LoadFromStreamAsync(it.raw, a0.raw, op.addr
@@ -1206,7 +1206,7 @@ proc loadFromStreamAsync*(_: typedesc[LearningModel],
 proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string
                       ): LearningModel =
   ## Windows.AI.MachineLearning.ILearningModelStatics.LoadFromFilePath
-  let it = statics[ILearningModelStaticsVtbl]("Windows.AI.MachineLearning.LearningModel")
+  let it = statics[ILearningModelStaticsVtbl](className(LearningModel))
   let a0 = toWinRtString(filePath)
   var ret: pointer
   check it.vtbl.LoadFromFilePath(it.raw, a0.handle, ret.addr
@@ -1217,7 +1217,7 @@ proc loadFromStream*(_: typedesc[LearningModel],
                      modelStream: SomeRandomAccessStreamReference
                     ): LearningModel =
   ## Windows.AI.MachineLearning.ILearningModelStatics.LoadFromStream
-  let it = statics[ILearningModelStaticsVtbl]("Windows.AI.MachineLearning.LearningModel")
+  let it = statics[ILearningModelStaticsVtbl](className(LearningModel))
   let a0 = queryInterface[IRandomAccessStreamReferenceVtbl](modelStream)
   var ret: pointer
   check it.vtbl.LoadFromStream(it.raw, a0.raw, ret.addr
@@ -1229,7 +1229,7 @@ proc loadFromStorageFileAsync*(_: typedesc[LearningModel],
                                operatorProvider: ILearningModelOperatorProvider
                               ): Future[LearningModel] =
   ## Windows.AI.MachineLearning.ILearningModelStatics.LoadFromStorageFileAsync
-  let it = statics[ILearningModelStaticsVtbl]("Windows.AI.MachineLearning.LearningModel")
+  let it = statics[ILearningModelStaticsVtbl](className(LearningModel))
   let a0 = queryInterface[IStorageFileVtbl](modelFile)
   let a1 = queryInterface[ILearningModelOperatorProviderVtbl](operatorProvider)
   var op: pointer
@@ -1242,7 +1242,7 @@ proc loadFromStreamAsync*(_: typedesc[LearningModel],
                           operatorProvider: ILearningModelOperatorProvider
                          ): Future[LearningModel] =
   ## Windows.AI.MachineLearning.ILearningModelStatics.LoadFromStreamAsync
-  let it = statics[ILearningModelStaticsVtbl]("Windows.AI.MachineLearning.LearningModel")
+  let it = statics[ILearningModelStaticsVtbl](className(LearningModel))
   let a0 = queryInterface[IRandomAccessStreamReferenceVtbl](modelStream)
   let a1 = queryInterface[ILearningModelOperatorProviderVtbl](operatorProvider)
   var op: pointer
@@ -1254,7 +1254,7 @@ proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string,
                        operatorProvider: ILearningModelOperatorProvider
                       ): LearningModel =
   ## Windows.AI.MachineLearning.ILearningModelStatics.LoadFromFilePath
-  let it = statics[ILearningModelStaticsVtbl]("Windows.AI.MachineLearning.LearningModel")
+  let it = statics[ILearningModelStaticsVtbl](className(LearningModel))
   let a0 = toWinRtString(filePath)
   let a1 = queryInterface[ILearningModelOperatorProviderVtbl](operatorProvider)
   var ret: pointer
@@ -1267,7 +1267,7 @@ proc loadFromStream*(_: typedesc[LearningModel],
                      operatorProvider: ILearningModelOperatorProvider
                     ): LearningModel =
   ## Windows.AI.MachineLearning.ILearningModelStatics.LoadFromStream
-  let it = statics[ILearningModelStaticsVtbl]("Windows.AI.MachineLearning.LearningModel")
+  let it = statics[ILearningModelStaticsVtbl](className(LearningModel))
   let a0 = queryInterface[IRandomAccessStreamReferenceVtbl](modelStream)
   let a1 = queryInterface[ILearningModelOperatorProviderVtbl](operatorProvider)
   var ret: pointer
@@ -1337,7 +1337,7 @@ proc outputFeatures*(self: LearningModel): seq[ILearningModelFeatureDescriptor] 
 
 proc newLearningModelBinding*(session: LearningModelSession): LearningModelBinding =
   ## Windows.AI.MachineLearning.ILearningModelBindingFactory.CreateFromSession
-  let it = statics[ILearningModelBindingFactoryVtbl]("Windows.AI.MachineLearning.LearningModelBinding")
+  let it = statics[ILearningModelBindingFactoryVtbl](className(LearningModelBinding))
   let a0 = queryInterface[ILearningModelSessionVtbl](session)
   var ret: pointer
   check it.vtbl.CreateFromSession(it.raw, a0.raw, ret.addr
@@ -1369,7 +1369,7 @@ proc clear*(self: LearningModelBinding) =
 
 proc newLearningModelBindingPreview*(model: LearningModelPreview): LearningModelBindingPreview =
   ## Windows.AI.MachineLearning.Preview.ILearningModelBindingPreviewFactory.CreateFromModel
-  let it = statics[ILearningModelBindingPreviewFactoryVtbl]("Windows.AI.MachineLearning.Preview.LearningModelBindingPreview")
+  let it = statics[ILearningModelBindingPreviewFactoryVtbl](className(LearningModelBindingPreview))
   let a0 = queryInterface[ILearningModelPreviewVtbl](model)
   var ret: pointer
   check it.vtbl.CreateFromModel(it.raw, a0.raw, ret.addr
@@ -1468,7 +1468,7 @@ proc outputFeatures*(self: LearningModelDescriptionPreview): seq[ILearningModelV
 
 proc newLearningModelDevice*(deviceKind: LearningModelDeviceKind): LearningModelDevice =
   ## Windows.AI.MachineLearning.ILearningModelDeviceFactory.Create
-  let it = statics[ILearningModelDeviceFactoryVtbl]("Windows.AI.MachineLearning.LearningModelDevice")
+  let it = statics[ILearningModelDeviceFactoryVtbl](className(LearningModelDevice))
   var ret: pointer
   check it.vtbl.Create(it.raw, deviceKind, ret.addr), "LearningModelDevice.new"
   adopt[LearningModelDevice](ret)
@@ -1477,7 +1477,7 @@ proc createFromDirect3D11Device*(_: typedesc[LearningModelDevice],
                                  device: SomeDirect3DDevice
                                 ): LearningModelDevice =
   ## Windows.AI.MachineLearning.ILearningModelDeviceStatics.CreateFromDirect3D11Device
-  let it = statics[ILearningModelDeviceStaticsVtbl]("Windows.AI.MachineLearning.LearningModelDevice")
+  let it = statics[ILearningModelDeviceStaticsVtbl](className(LearningModelDevice))
   let a0 = queryInterface[IDirect3DDeviceVtbl](device)
   var ret: pointer
   check it.vtbl.CreateFromDirect3D11Device(it.raw, a0.raw, ret.addr
@@ -1557,7 +1557,7 @@ proc loadModelFromStorageFileAsync*(_: typedesc[LearningModelPreview],
                                     modelFile: SomeStorageFile
                                    ): Future[LearningModelPreview] =
   ## Windows.AI.MachineLearning.Preview.ILearningModelPreviewStatics.LoadModelFromStorageFileAsync
-  let it = statics[ILearningModelPreviewStaticsVtbl]("Windows.AI.MachineLearning.Preview.LearningModelPreview")
+  let it = statics[ILearningModelPreviewStaticsVtbl](className(LearningModelPreview))
   let a0 = queryInterface[IStorageFileVtbl](modelFile)
   var op: pointer
   check it.vtbl.LoadModelFromStorageFileAsync(it.raw, a0.raw, op.addr
@@ -1568,7 +1568,7 @@ proc loadModelFromStreamAsync*(_: typedesc[LearningModelPreview],
                                modelStream: SomeRandomAccessStreamReference
                               ): Future[LearningModelPreview] =
   ## Windows.AI.MachineLearning.Preview.ILearningModelPreviewStatics.LoadModelFromStreamAsync
-  let it = statics[ILearningModelPreviewStaticsVtbl]("Windows.AI.MachineLearning.Preview.LearningModelPreview")
+  let it = statics[ILearningModelPreviewStaticsVtbl](className(LearningModelPreview))
   let a0 = queryInterface[IRandomAccessStreamReferenceVtbl](modelStream)
   var op: pointer
   check it.vtbl.LoadModelFromStreamAsync(it.raw, a0.raw, op.addr
@@ -1630,7 +1630,7 @@ proc `inferencingOptions=`*(self: LearningModelPreview,
 
 proc newLearningModelSession*(model: LearningModel): LearningModelSession =
   ## Windows.AI.MachineLearning.ILearningModelSessionFactory.CreateFromModel
-  let it = statics[ILearningModelSessionFactoryVtbl]("Windows.AI.MachineLearning.LearningModelSession")
+  let it = statics[ILearningModelSessionFactoryVtbl](className(LearningModelSession))
   let a0 = queryInterface[ILearningModelVtbl](model)
   var ret: pointer
   check it.vtbl.CreateFromModel(it.raw, a0.raw, ret.addr
@@ -1641,7 +1641,7 @@ proc newLearningModelSession*(model: LearningModel,
                               deviceToRunOn: LearningModelDevice
                              ): LearningModelSession =
   ## Windows.AI.MachineLearning.ILearningModelSessionFactory.CreateFromModelOnDevice
-  let it = statics[ILearningModelSessionFactoryVtbl]("Windows.AI.MachineLearning.LearningModelSession")
+  let it = statics[ILearningModelSessionFactoryVtbl](className(LearningModelSession))
   let a0 = queryInterface[ILearningModelVtbl](model)
   let a1 = queryInterface[ILearningModelDeviceVtbl](deviceToRunOn)
   var ret: pointer
@@ -1654,7 +1654,7 @@ proc newLearningModelSession*(model: LearningModel,
                               learningModelSessionOptions: LearningModelSessionOptions
                              ): LearningModelSession =
   ## Windows.AI.MachineLearning.ILearningModelSessionFactory2.CreateFromModelOnDeviceWithSessionOptions
-  let it = statics[ILearningModelSessionFactory2Vtbl]("Windows.AI.MachineLearning.LearningModelSession")
+  let it = statics[ILearningModelSessionFactory2Vtbl](className(LearningModelSession))
   let a0 = queryInterface[ILearningModelVtbl](model)
   let a1 = queryInterface[ILearningModelDeviceVtbl](deviceToRunOn)
   let a2 = queryInterface[ILearningModelSessionOptionsVtbl](learningModelSessionOptions)
@@ -2132,14 +2132,14 @@ proc columnCount*(self: TableActionEntity): uint32 =
 
 proc create*(_: typedesc[TensorBoolean]): TensorBoolean =
   ## Windows.AI.MachineLearning.ITensorBooleanStatics.Create
-  let it = statics[ITensorBooleanStaticsVtbl]("Windows.AI.MachineLearning.TensorBoolean")
+  let it = statics[ITensorBooleanStaticsVtbl](className(TensorBoolean))
   var ret: pointer
   check it.vtbl.Create(it.raw, ret.addr), "TensorBoolean.create"
   adopt[TensorBoolean](ret)
 
 proc create*(_: typedesc[TensorBoolean], shape: seq[int64]): TensorBoolean =
   ## Windows.AI.MachineLearning.ITensorBooleanStatics.Create
-  let it = statics[ITensorBooleanStaticsVtbl]("Windows.AI.MachineLearning.TensorBoolean")
+  let it = statics[ITensorBooleanStaticsVtbl](className(TensorBoolean))
   let a0 = asCollection[int64, seq[int64]](shape)
   var ret: pointer
   check it.vtbl.Create2(it.raw, a0.raw, ret.addr), "TensorBoolean.create"
@@ -2148,7 +2148,7 @@ proc create*(_: typedesc[TensorBoolean], shape: seq[int64]): TensorBoolean =
 proc createFromArray*(_: typedesc[TensorBoolean], shape: seq[int64],
                       data: openArray[bool]): TensorBoolean =
   ## Windows.AI.MachineLearning.ITensorBooleanStatics.CreateFromArray
-  let it = statics[ITensorBooleanStaticsVtbl]("Windows.AI.MachineLearning.TensorBoolean")
+  let it = statics[ITensorBooleanStaticsVtbl](className(TensorBoolean))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asArray[bool, bool](data)
   var ret: pointer
@@ -2159,7 +2159,7 @@ proc createFromArray*(_: typedesc[TensorBoolean], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorBoolean], shape: seq[int64],
                          data: seq[bool]): TensorBoolean =
   ## Windows.AI.MachineLearning.ITensorBooleanStatics.CreateFromIterable
-  let it = statics[ITensorBooleanStaticsVtbl]("Windows.AI.MachineLearning.TensorBoolean")
+  let it = statics[ITensorBooleanStaticsVtbl](className(TensorBoolean))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asCollection[bool, seq[bool]](data)
   var ret: pointer
@@ -2171,7 +2171,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorBoolean],
                                        shape: openArray[int64],
                                        data: openArray[bool]): TensorBoolean =
   ## Windows.AI.MachineLearning.ITensorBooleanStatics2.CreateFromShapeArrayAndDataArray
-  let it = statics[ITensorBooleanStatics2Vtbl]("Windows.AI.MachineLearning.TensorBoolean")
+  let it = statics[ITensorBooleanStatics2Vtbl](className(TensorBoolean))
   let a0 = asArray[int64, int64](shape)
   let a1 = asArray[bool, bool](data)
   var ret: pointer
@@ -2183,7 +2183,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorBoolean],
 proc createFromBuffer*(_: typedesc[TensorBoolean], shape: openArray[int64],
                        buffer: SomeBuffer): TensorBoolean =
   ## Windows.AI.MachineLearning.ITensorBooleanStatics2.CreateFromBuffer
-  let it = statics[ITensorBooleanStatics2Vtbl]("Windows.AI.MachineLearning.TensorBoolean")
+  let it = statics[ITensorBooleanStatics2Vtbl](className(TensorBoolean))
   let a0 = asArray[int64, int64](shape)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
@@ -2203,14 +2203,14 @@ proc getAsVectorView*(self: TensorBoolean): seq[bool] =
 
 proc create*(_: typedesc[TensorDouble]): TensorDouble =
   ## Windows.AI.MachineLearning.ITensorDoubleStatics.Create
-  let it = statics[ITensorDoubleStaticsVtbl]("Windows.AI.MachineLearning.TensorDouble")
+  let it = statics[ITensorDoubleStaticsVtbl](className(TensorDouble))
   var ret: pointer
   check it.vtbl.Create(it.raw, ret.addr), "TensorDouble.create"
   adopt[TensorDouble](ret)
 
 proc create*(_: typedesc[TensorDouble], shape: seq[int64]): TensorDouble =
   ## Windows.AI.MachineLearning.ITensorDoubleStatics.Create
-  let it = statics[ITensorDoubleStaticsVtbl]("Windows.AI.MachineLearning.TensorDouble")
+  let it = statics[ITensorDoubleStaticsVtbl](className(TensorDouble))
   let a0 = asCollection[int64, seq[int64]](shape)
   var ret: pointer
   check it.vtbl.Create2(it.raw, a0.raw, ret.addr), "TensorDouble.create"
@@ -2219,7 +2219,7 @@ proc create*(_: typedesc[TensorDouble], shape: seq[int64]): TensorDouble =
 proc createFromArray*(_: typedesc[TensorDouble], shape: seq[int64],
                       data: openArray[float64]): TensorDouble =
   ## Windows.AI.MachineLearning.ITensorDoubleStatics.CreateFromArray
-  let it = statics[ITensorDoubleStaticsVtbl]("Windows.AI.MachineLearning.TensorDouble")
+  let it = statics[ITensorDoubleStaticsVtbl](className(TensorDouble))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asArray[float64, float64](data)
   var ret: pointer
@@ -2230,7 +2230,7 @@ proc createFromArray*(_: typedesc[TensorDouble], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorDouble], shape: seq[int64],
                          data: seq[float64]): TensorDouble =
   ## Windows.AI.MachineLearning.ITensorDoubleStatics.CreateFromIterable
-  let it = statics[ITensorDoubleStaticsVtbl]("Windows.AI.MachineLearning.TensorDouble")
+  let it = statics[ITensorDoubleStaticsVtbl](className(TensorDouble))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asCollection[float64, seq[float64]](data)
   var ret: pointer
@@ -2242,7 +2242,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorDouble],
                                        shape: openArray[int64],
                                        data: openArray[float64]): TensorDouble =
   ## Windows.AI.MachineLearning.ITensorDoubleStatics2.CreateFromShapeArrayAndDataArray
-  let it = statics[ITensorDoubleStatics2Vtbl]("Windows.AI.MachineLearning.TensorDouble")
+  let it = statics[ITensorDoubleStatics2Vtbl](className(TensorDouble))
   let a0 = asArray[int64, int64](shape)
   let a1 = asArray[float64, float64](data)
   var ret: pointer
@@ -2254,7 +2254,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorDouble],
 proc createFromBuffer*(_: typedesc[TensorDouble], shape: openArray[int64],
                        buffer: SomeBuffer): TensorDouble =
   ## Windows.AI.MachineLearning.ITensorDoubleStatics2.CreateFromBuffer
-  let it = statics[ITensorDoubleStatics2Vtbl]("Windows.AI.MachineLearning.TensorDouble")
+  let it = statics[ITensorDoubleStatics2Vtbl](className(TensorDouble))
   let a0 = asArray[int64, int64](shape)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
@@ -2291,14 +2291,14 @@ proc shape*(self: TensorFeatureDescriptor): seq[int64] =
 
 proc create*(_: typedesc[TensorFloat]): TensorFloat =
   ## Windows.AI.MachineLearning.ITensorFloatStatics.Create
-  let it = statics[ITensorFloatStaticsVtbl]("Windows.AI.MachineLearning.TensorFloat")
+  let it = statics[ITensorFloatStaticsVtbl](className(TensorFloat))
   var ret: pointer
   check it.vtbl.Create(it.raw, ret.addr), "TensorFloat.create"
   adopt[TensorFloat](ret)
 
 proc create*(_: typedesc[TensorFloat], shape: seq[int64]): TensorFloat =
   ## Windows.AI.MachineLearning.ITensorFloatStatics.Create
-  let it = statics[ITensorFloatStaticsVtbl]("Windows.AI.MachineLearning.TensorFloat")
+  let it = statics[ITensorFloatStaticsVtbl](className(TensorFloat))
   let a0 = asCollection[int64, seq[int64]](shape)
   var ret: pointer
   check it.vtbl.Create2(it.raw, a0.raw, ret.addr), "TensorFloat.create"
@@ -2307,7 +2307,7 @@ proc create*(_: typedesc[TensorFloat], shape: seq[int64]): TensorFloat =
 proc createFromArray*(_: typedesc[TensorFloat], shape: seq[int64],
                       data: openArray[float32]): TensorFloat =
   ## Windows.AI.MachineLearning.ITensorFloatStatics.CreateFromArray
-  let it = statics[ITensorFloatStaticsVtbl]("Windows.AI.MachineLearning.TensorFloat")
+  let it = statics[ITensorFloatStaticsVtbl](className(TensorFloat))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asArray[float32, float32](data)
   var ret: pointer
@@ -2318,7 +2318,7 @@ proc createFromArray*(_: typedesc[TensorFloat], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorFloat], shape: seq[int64],
                          data: seq[float32]): TensorFloat =
   ## Windows.AI.MachineLearning.ITensorFloatStatics.CreateFromIterable
-  let it = statics[ITensorFloatStaticsVtbl]("Windows.AI.MachineLearning.TensorFloat")
+  let it = statics[ITensorFloatStaticsVtbl](className(TensorFloat))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asCollection[float32, seq[float32]](data)
   var ret: pointer
@@ -2330,7 +2330,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat],
                                        shape: openArray[int64],
                                        data: openArray[float32]): TensorFloat =
   ## Windows.AI.MachineLearning.ITensorFloatStatics2.CreateFromShapeArrayAndDataArray
-  let it = statics[ITensorFloatStatics2Vtbl]("Windows.AI.MachineLearning.TensorFloat")
+  let it = statics[ITensorFloatStatics2Vtbl](className(TensorFloat))
   let a0 = asArray[int64, int64](shape)
   let a1 = asArray[float32, float32](data)
   var ret: pointer
@@ -2342,7 +2342,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat],
 proc createFromBuffer*(_: typedesc[TensorFloat], shape: openArray[int64],
                        buffer: SomeBuffer): TensorFloat =
   ## Windows.AI.MachineLearning.ITensorFloatStatics2.CreateFromBuffer
-  let it = statics[ITensorFloatStatics2Vtbl]("Windows.AI.MachineLearning.TensorFloat")
+  let it = statics[ITensorFloatStatics2Vtbl](className(TensorFloat))
   let a0 = asArray[int64, int64](shape)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
@@ -2364,7 +2364,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat16Bit],
                                        data: openArray[float32]
                                       ): TensorFloat16Bit =
   ## Windows.AI.MachineLearning.ITensorFloat16BitStatics2.CreateFromShapeArrayAndDataArray
-  let it = statics[ITensorFloat16BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorFloat16Bit")
+  let it = statics[ITensorFloat16BitStatics2Vtbl](className(TensorFloat16Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = asArray[float32, float32](data)
   var ret: pointer
@@ -2376,7 +2376,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat16Bit],
 proc createFromBuffer*(_: typedesc[TensorFloat16Bit], shape: openArray[int64],
                        buffer: SomeBuffer): TensorFloat16Bit =
   ## Windows.AI.MachineLearning.ITensorFloat16BitStatics2.CreateFromBuffer
-  let it = statics[ITensorFloat16BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorFloat16Bit")
+  let it = statics[ITensorFloat16BitStatics2Vtbl](className(TensorFloat16Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
@@ -2386,7 +2386,7 @@ proc createFromBuffer*(_: typedesc[TensorFloat16Bit], shape: openArray[int64],
 
 proc create*(_: typedesc[TensorFloat16Bit]): TensorFloat16Bit =
   ## Windows.AI.MachineLearning.ITensorFloat16BitStatics.Create
-  let it = statics[ITensorFloat16BitStaticsVtbl]("Windows.AI.MachineLearning.TensorFloat16Bit")
+  let it = statics[ITensorFloat16BitStaticsVtbl](className(TensorFloat16Bit))
   var ret: pointer
   check it.vtbl.Create(it.raw, ret.addr), "TensorFloat16Bit.create"
   adopt[TensorFloat16Bit](ret)
@@ -2394,7 +2394,7 @@ proc create*(_: typedesc[TensorFloat16Bit]): TensorFloat16Bit =
 proc create*(_: typedesc[TensorFloat16Bit], shape: seq[int64]
             ): TensorFloat16Bit =
   ## Windows.AI.MachineLearning.ITensorFloat16BitStatics.Create
-  let it = statics[ITensorFloat16BitStaticsVtbl]("Windows.AI.MachineLearning.TensorFloat16Bit")
+  let it = statics[ITensorFloat16BitStaticsVtbl](className(TensorFloat16Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   var ret: pointer
   check it.vtbl.Create2(it.raw, a0.raw, ret.addr), "TensorFloat16Bit.create"
@@ -2403,7 +2403,7 @@ proc create*(_: typedesc[TensorFloat16Bit], shape: seq[int64]
 proc createFromArray*(_: typedesc[TensorFloat16Bit], shape: seq[int64],
                       data: openArray[float32]): TensorFloat16Bit =
   ## Windows.AI.MachineLearning.ITensorFloat16BitStatics.CreateFromArray
-  let it = statics[ITensorFloat16BitStaticsVtbl]("Windows.AI.MachineLearning.TensorFloat16Bit")
+  let it = statics[ITensorFloat16BitStaticsVtbl](className(TensorFloat16Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asArray[float32, float32](data)
   var ret: pointer
@@ -2414,7 +2414,7 @@ proc createFromArray*(_: typedesc[TensorFloat16Bit], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorFloat16Bit], shape: seq[int64],
                          data: seq[float32]): TensorFloat16Bit =
   ## Windows.AI.MachineLearning.ITensorFloat16BitStatics.CreateFromIterable
-  let it = statics[ITensorFloat16BitStaticsVtbl]("Windows.AI.MachineLearning.TensorFloat16Bit")
+  let it = statics[ITensorFloat16BitStaticsVtbl](className(TensorFloat16Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asCollection[float32, seq[float32]](data)
   var ret: pointer
@@ -2434,14 +2434,14 @@ proc getAsVectorView*(self: TensorFloat16Bit): seq[float32] =
 
 proc create*(_: typedesc[TensorInt16Bit]): TensorInt16Bit =
   ## Windows.AI.MachineLearning.ITensorInt16BitStatics.Create
-  let it = statics[ITensorInt16BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt16Bit")
+  let it = statics[ITensorInt16BitStaticsVtbl](className(TensorInt16Bit))
   var ret: pointer
   check it.vtbl.Create(it.raw, ret.addr), "TensorInt16Bit.create"
   adopt[TensorInt16Bit](ret)
 
 proc create*(_: typedesc[TensorInt16Bit], shape: seq[int64]): TensorInt16Bit =
   ## Windows.AI.MachineLearning.ITensorInt16BitStatics.Create
-  let it = statics[ITensorInt16BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt16Bit")
+  let it = statics[ITensorInt16BitStaticsVtbl](className(TensorInt16Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   var ret: pointer
   check it.vtbl.Create2(it.raw, a0.raw, ret.addr), "TensorInt16Bit.create"
@@ -2450,7 +2450,7 @@ proc create*(_: typedesc[TensorInt16Bit], shape: seq[int64]): TensorInt16Bit =
 proc createFromArray*(_: typedesc[TensorInt16Bit], shape: seq[int64],
                       data: openArray[int16]): TensorInt16Bit =
   ## Windows.AI.MachineLearning.ITensorInt16BitStatics.CreateFromArray
-  let it = statics[ITensorInt16BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt16Bit")
+  let it = statics[ITensorInt16BitStaticsVtbl](className(TensorInt16Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asArray[int16, int16](data)
   var ret: pointer
@@ -2461,7 +2461,7 @@ proc createFromArray*(_: typedesc[TensorInt16Bit], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorInt16Bit], shape: seq[int64],
                          data: seq[int16]): TensorInt16Bit =
   ## Windows.AI.MachineLearning.ITensorInt16BitStatics.CreateFromIterable
-  let it = statics[ITensorInt16BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt16Bit")
+  let it = statics[ITensorInt16BitStaticsVtbl](className(TensorInt16Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asCollection[int16, seq[int16]](data)
   var ret: pointer
@@ -2473,7 +2473,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt16Bit],
                                        shape: openArray[int64],
                                        data: openArray[int16]): TensorInt16Bit =
   ## Windows.AI.MachineLearning.ITensorInt16BitStatics2.CreateFromShapeArrayAndDataArray
-  let it = statics[ITensorInt16BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorInt16Bit")
+  let it = statics[ITensorInt16BitStatics2Vtbl](className(TensorInt16Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = asArray[int16, int16](data)
   var ret: pointer
@@ -2485,7 +2485,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt16Bit],
 proc createFromBuffer*(_: typedesc[TensorInt16Bit], shape: openArray[int64],
                        buffer: SomeBuffer): TensorInt16Bit =
   ## Windows.AI.MachineLearning.ITensorInt16BitStatics2.CreateFromBuffer
-  let it = statics[ITensorInt16BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorInt16Bit")
+  let it = statics[ITensorInt16BitStatics2Vtbl](className(TensorInt16Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
@@ -2507,7 +2507,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt32Bit],
                                        shape: openArray[int64],
                                        data: openArray[int32]): TensorInt32Bit =
   ## Windows.AI.MachineLearning.ITensorInt32BitStatics2.CreateFromShapeArrayAndDataArray
-  let it = statics[ITensorInt32BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorInt32Bit")
+  let it = statics[ITensorInt32BitStatics2Vtbl](className(TensorInt32Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = asArray[int32, int32](data)
   var ret: pointer
@@ -2519,7 +2519,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt32Bit],
 proc createFromBuffer*(_: typedesc[TensorInt32Bit], shape: openArray[int64],
                        buffer: SomeBuffer): TensorInt32Bit =
   ## Windows.AI.MachineLearning.ITensorInt32BitStatics2.CreateFromBuffer
-  let it = statics[ITensorInt32BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorInt32Bit")
+  let it = statics[ITensorInt32BitStatics2Vtbl](className(TensorInt32Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
@@ -2529,14 +2529,14 @@ proc createFromBuffer*(_: typedesc[TensorInt32Bit], shape: openArray[int64],
 
 proc create*(_: typedesc[TensorInt32Bit]): TensorInt32Bit =
   ## Windows.AI.MachineLearning.ITensorInt32BitStatics.Create
-  let it = statics[ITensorInt32BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt32Bit")
+  let it = statics[ITensorInt32BitStaticsVtbl](className(TensorInt32Bit))
   var ret: pointer
   check it.vtbl.Create(it.raw, ret.addr), "TensorInt32Bit.create"
   adopt[TensorInt32Bit](ret)
 
 proc create*(_: typedesc[TensorInt32Bit], shape: seq[int64]): TensorInt32Bit =
   ## Windows.AI.MachineLearning.ITensorInt32BitStatics.Create
-  let it = statics[ITensorInt32BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt32Bit")
+  let it = statics[ITensorInt32BitStaticsVtbl](className(TensorInt32Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   var ret: pointer
   check it.vtbl.Create2(it.raw, a0.raw, ret.addr), "TensorInt32Bit.create"
@@ -2545,7 +2545,7 @@ proc create*(_: typedesc[TensorInt32Bit], shape: seq[int64]): TensorInt32Bit =
 proc createFromArray*(_: typedesc[TensorInt32Bit], shape: seq[int64],
                       data: openArray[int32]): TensorInt32Bit =
   ## Windows.AI.MachineLearning.ITensorInt32BitStatics.CreateFromArray
-  let it = statics[ITensorInt32BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt32Bit")
+  let it = statics[ITensorInt32BitStaticsVtbl](className(TensorInt32Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asArray[int32, int32](data)
   var ret: pointer
@@ -2556,7 +2556,7 @@ proc createFromArray*(_: typedesc[TensorInt32Bit], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorInt32Bit], shape: seq[int64],
                          data: seq[int32]): TensorInt32Bit =
   ## Windows.AI.MachineLearning.ITensorInt32BitStatics.CreateFromIterable
-  let it = statics[ITensorInt32BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt32Bit")
+  let it = statics[ITensorInt32BitStaticsVtbl](className(TensorInt32Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asCollection[int32, seq[int32]](data)
   var ret: pointer
@@ -2576,14 +2576,14 @@ proc getAsVectorView*(self: TensorInt32Bit): seq[int32] =
 
 proc create*(_: typedesc[TensorInt64Bit]): TensorInt64Bit =
   ## Windows.AI.MachineLearning.ITensorInt64BitStatics.Create
-  let it = statics[ITensorInt64BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt64Bit")
+  let it = statics[ITensorInt64BitStaticsVtbl](className(TensorInt64Bit))
   var ret: pointer
   check it.vtbl.Create(it.raw, ret.addr), "TensorInt64Bit.create"
   adopt[TensorInt64Bit](ret)
 
 proc create*(_: typedesc[TensorInt64Bit], shape: seq[int64]): TensorInt64Bit =
   ## Windows.AI.MachineLearning.ITensorInt64BitStatics.Create
-  let it = statics[ITensorInt64BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt64Bit")
+  let it = statics[ITensorInt64BitStaticsVtbl](className(TensorInt64Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   var ret: pointer
   check it.vtbl.Create2(it.raw, a0.raw, ret.addr), "TensorInt64Bit.create"
@@ -2592,7 +2592,7 @@ proc create*(_: typedesc[TensorInt64Bit], shape: seq[int64]): TensorInt64Bit =
 proc createFromArray*(_: typedesc[TensorInt64Bit], shape: seq[int64],
                       data: openArray[int64]): TensorInt64Bit =
   ## Windows.AI.MachineLearning.ITensorInt64BitStatics.CreateFromArray
-  let it = statics[ITensorInt64BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt64Bit")
+  let it = statics[ITensorInt64BitStaticsVtbl](className(TensorInt64Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asArray[int64, int64](data)
   var ret: pointer
@@ -2603,7 +2603,7 @@ proc createFromArray*(_: typedesc[TensorInt64Bit], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorInt64Bit], shape: seq[int64],
                          data: seq[int64]): TensorInt64Bit =
   ## Windows.AI.MachineLearning.ITensorInt64BitStatics.CreateFromIterable
-  let it = statics[ITensorInt64BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt64Bit")
+  let it = statics[ITensorInt64BitStaticsVtbl](className(TensorInt64Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asCollection[int64, seq[int64]](data)
   var ret: pointer
@@ -2615,7 +2615,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt64Bit],
                                        shape: openArray[int64],
                                        data: openArray[int64]): TensorInt64Bit =
   ## Windows.AI.MachineLearning.ITensorInt64BitStatics2.CreateFromShapeArrayAndDataArray
-  let it = statics[ITensorInt64BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorInt64Bit")
+  let it = statics[ITensorInt64BitStatics2Vtbl](className(TensorInt64Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = asArray[int64, int64](data)
   var ret: pointer
@@ -2627,7 +2627,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt64Bit],
 proc createFromBuffer*(_: typedesc[TensorInt64Bit], shape: openArray[int64],
                        buffer: SomeBuffer): TensorInt64Bit =
   ## Windows.AI.MachineLearning.ITensorInt64BitStatics2.CreateFromBuffer
-  let it = statics[ITensorInt64BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorInt64Bit")
+  let it = statics[ITensorInt64BitStatics2Vtbl](className(TensorInt64Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
@@ -2649,7 +2649,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt8Bit],
                                        shape: openArray[int64],
                                        data: openArray[uint8]): TensorInt8Bit =
   ## Windows.AI.MachineLearning.ITensorInt8BitStatics2.CreateFromShapeArrayAndDataArray
-  let it = statics[ITensorInt8BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorInt8Bit")
+  let it = statics[ITensorInt8BitStatics2Vtbl](className(TensorInt8Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = asArray[uint8, uint8](data)
   var ret: pointer
@@ -2661,7 +2661,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt8Bit],
 proc createFromBuffer*(_: typedesc[TensorInt8Bit], shape: openArray[int64],
                        buffer: SomeBuffer): TensorInt8Bit =
   ## Windows.AI.MachineLearning.ITensorInt8BitStatics2.CreateFromBuffer
-  let it = statics[ITensorInt8BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorInt8Bit")
+  let it = statics[ITensorInt8BitStatics2Vtbl](className(TensorInt8Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
@@ -2671,14 +2671,14 @@ proc createFromBuffer*(_: typedesc[TensorInt8Bit], shape: openArray[int64],
 
 proc create*(_: typedesc[TensorInt8Bit]): TensorInt8Bit =
   ## Windows.AI.MachineLearning.ITensorInt8BitStatics.Create
-  let it = statics[ITensorInt8BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt8Bit")
+  let it = statics[ITensorInt8BitStaticsVtbl](className(TensorInt8Bit))
   var ret: pointer
   check it.vtbl.Create(it.raw, ret.addr), "TensorInt8Bit.create"
   adopt[TensorInt8Bit](ret)
 
 proc create*(_: typedesc[TensorInt8Bit], shape: seq[int64]): TensorInt8Bit =
   ## Windows.AI.MachineLearning.ITensorInt8BitStatics.Create
-  let it = statics[ITensorInt8BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt8Bit")
+  let it = statics[ITensorInt8BitStaticsVtbl](className(TensorInt8Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   var ret: pointer
   check it.vtbl.Create2(it.raw, a0.raw, ret.addr), "TensorInt8Bit.create"
@@ -2687,7 +2687,7 @@ proc create*(_: typedesc[TensorInt8Bit], shape: seq[int64]): TensorInt8Bit =
 proc createFromArray*(_: typedesc[TensorInt8Bit], shape: seq[int64],
                       data: openArray[uint8]): TensorInt8Bit =
   ## Windows.AI.MachineLearning.ITensorInt8BitStatics.CreateFromArray
-  let it = statics[ITensorInt8BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt8Bit")
+  let it = statics[ITensorInt8BitStaticsVtbl](className(TensorInt8Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asArray[uint8, uint8](data)
   var ret: pointer
@@ -2698,7 +2698,7 @@ proc createFromArray*(_: typedesc[TensorInt8Bit], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorInt8Bit], shape: seq[int64],
                          data: seq[uint8]): TensorInt8Bit =
   ## Windows.AI.MachineLearning.ITensorInt8BitStatics.CreateFromIterable
-  let it = statics[ITensorInt8BitStaticsVtbl]("Windows.AI.MachineLearning.TensorInt8Bit")
+  let it = statics[ITensorInt8BitStaticsVtbl](className(TensorInt8Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asCollection[uint8, seq[uint8]](data)
   var ret: pointer
@@ -2720,7 +2720,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorString],
                                        shape: openArray[int64],
                                        data: openArray[string]): TensorString =
   ## Windows.AI.MachineLearning.ITensorStringStatics2.CreateFromShapeArrayAndDataArray
-  let it = statics[ITensorStringStatics2Vtbl]("Windows.AI.MachineLearning.TensorString")
+  let it = statics[ITensorStringStatics2Vtbl](className(TensorString))
   let a0 = asArray[int64, int64](shape)
   let a1 = asArray[string, string](data)
   var ret: pointer
@@ -2731,14 +2731,14 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorString],
 
 proc create*(_: typedesc[TensorString]): TensorString =
   ## Windows.AI.MachineLearning.ITensorStringStatics.Create
-  let it = statics[ITensorStringStaticsVtbl]("Windows.AI.MachineLearning.TensorString")
+  let it = statics[ITensorStringStaticsVtbl](className(TensorString))
   var ret: pointer
   check it.vtbl.Create(it.raw, ret.addr), "TensorString.create"
   adopt[TensorString](ret)
 
 proc create*(_: typedesc[TensorString], shape: seq[int64]): TensorString =
   ## Windows.AI.MachineLearning.ITensorStringStatics.Create
-  let it = statics[ITensorStringStaticsVtbl]("Windows.AI.MachineLearning.TensorString")
+  let it = statics[ITensorStringStaticsVtbl](className(TensorString))
   let a0 = asCollection[int64, seq[int64]](shape)
   var ret: pointer
   check it.vtbl.Create2(it.raw, a0.raw, ret.addr), "TensorString.create"
@@ -2747,7 +2747,7 @@ proc create*(_: typedesc[TensorString], shape: seq[int64]): TensorString =
 proc createFromArray*(_: typedesc[TensorString], shape: seq[int64],
                       data: openArray[string]): TensorString =
   ## Windows.AI.MachineLearning.ITensorStringStatics.CreateFromArray
-  let it = statics[ITensorStringStaticsVtbl]("Windows.AI.MachineLearning.TensorString")
+  let it = statics[ITensorStringStaticsVtbl](className(TensorString))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asArray[string, string](data)
   var ret: pointer
@@ -2758,7 +2758,7 @@ proc createFromArray*(_: typedesc[TensorString], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorString], shape: seq[int64],
                          data: seq[string]): TensorString =
   ## Windows.AI.MachineLearning.ITensorStringStatics.CreateFromIterable
-  let it = statics[ITensorStringStaticsVtbl]("Windows.AI.MachineLearning.TensorString")
+  let it = statics[ITensorStringStaticsVtbl](className(TensorString))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asCollection[string, seq[string]](data)
   var ret: pointer
@@ -2778,14 +2778,14 @@ proc getAsVectorView*(self: TensorString): seq[string] =
 
 proc create*(_: typedesc[TensorUInt16Bit]): TensorUInt16Bit =
   ## Windows.AI.MachineLearning.ITensorUInt16BitStatics.Create
-  let it = statics[ITensorUInt16BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt16Bit")
+  let it = statics[ITensorUInt16BitStaticsVtbl](className(TensorUInt16Bit))
   var ret: pointer
   check it.vtbl.Create(it.raw, ret.addr), "TensorUInt16Bit.create"
   adopt[TensorUInt16Bit](ret)
 
 proc create*(_: typedesc[TensorUInt16Bit], shape: seq[int64]): TensorUInt16Bit =
   ## Windows.AI.MachineLearning.ITensorUInt16BitStatics.Create
-  let it = statics[ITensorUInt16BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt16Bit")
+  let it = statics[ITensorUInt16BitStaticsVtbl](className(TensorUInt16Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   var ret: pointer
   check it.vtbl.Create2(it.raw, a0.raw, ret.addr), "TensorUInt16Bit.create"
@@ -2794,7 +2794,7 @@ proc create*(_: typedesc[TensorUInt16Bit], shape: seq[int64]): TensorUInt16Bit =
 proc createFromArray*(_: typedesc[TensorUInt16Bit], shape: seq[int64],
                       data: openArray[uint16]): TensorUInt16Bit =
   ## Windows.AI.MachineLearning.ITensorUInt16BitStatics.CreateFromArray
-  let it = statics[ITensorUInt16BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt16Bit")
+  let it = statics[ITensorUInt16BitStaticsVtbl](className(TensorUInt16Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asArray[uint16, uint16](data)
   var ret: pointer
@@ -2805,7 +2805,7 @@ proc createFromArray*(_: typedesc[TensorUInt16Bit], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorUInt16Bit], shape: seq[int64],
                          data: seq[uint16]): TensorUInt16Bit =
   ## Windows.AI.MachineLearning.ITensorUInt16BitStatics.CreateFromIterable
-  let it = statics[ITensorUInt16BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt16Bit")
+  let it = statics[ITensorUInt16BitStaticsVtbl](className(TensorUInt16Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asCollection[uint16, seq[uint16]](data)
   var ret: pointer
@@ -2818,7 +2818,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt16Bit],
                                        data: openArray[uint16]
                                       ): TensorUInt16Bit =
   ## Windows.AI.MachineLearning.ITensorUInt16BitStatics2.CreateFromShapeArrayAndDataArray
-  let it = statics[ITensorUInt16BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorUInt16Bit")
+  let it = statics[ITensorUInt16BitStatics2Vtbl](className(TensorUInt16Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = asArray[uint16, uint16](data)
   var ret: pointer
@@ -2830,7 +2830,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt16Bit],
 proc createFromBuffer*(_: typedesc[TensorUInt16Bit], shape: openArray[int64],
                        buffer: SomeBuffer): TensorUInt16Bit =
   ## Windows.AI.MachineLearning.ITensorUInt16BitStatics2.CreateFromBuffer
-  let it = statics[ITensorUInt16BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorUInt16Bit")
+  let it = statics[ITensorUInt16BitStatics2Vtbl](className(TensorUInt16Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
@@ -2850,14 +2850,14 @@ proc getAsVectorView*(self: TensorUInt16Bit): seq[uint16] =
 
 proc create*(_: typedesc[TensorUInt32Bit]): TensorUInt32Bit =
   ## Windows.AI.MachineLearning.ITensorUInt32BitStatics.Create
-  let it = statics[ITensorUInt32BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt32Bit")
+  let it = statics[ITensorUInt32BitStaticsVtbl](className(TensorUInt32Bit))
   var ret: pointer
   check it.vtbl.Create(it.raw, ret.addr), "TensorUInt32Bit.create"
   adopt[TensorUInt32Bit](ret)
 
 proc create*(_: typedesc[TensorUInt32Bit], shape: seq[int64]): TensorUInt32Bit =
   ## Windows.AI.MachineLearning.ITensorUInt32BitStatics.Create
-  let it = statics[ITensorUInt32BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt32Bit")
+  let it = statics[ITensorUInt32BitStaticsVtbl](className(TensorUInt32Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   var ret: pointer
   check it.vtbl.Create2(it.raw, a0.raw, ret.addr), "TensorUInt32Bit.create"
@@ -2866,7 +2866,7 @@ proc create*(_: typedesc[TensorUInt32Bit], shape: seq[int64]): TensorUInt32Bit =
 proc createFromArray*(_: typedesc[TensorUInt32Bit], shape: seq[int64],
                       data: openArray[uint32]): TensorUInt32Bit =
   ## Windows.AI.MachineLearning.ITensorUInt32BitStatics.CreateFromArray
-  let it = statics[ITensorUInt32BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt32Bit")
+  let it = statics[ITensorUInt32BitStaticsVtbl](className(TensorUInt32Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asArray[uint32, uint32](data)
   var ret: pointer
@@ -2877,7 +2877,7 @@ proc createFromArray*(_: typedesc[TensorUInt32Bit], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorUInt32Bit], shape: seq[int64],
                          data: seq[uint32]): TensorUInt32Bit =
   ## Windows.AI.MachineLearning.ITensorUInt32BitStatics.CreateFromIterable
-  let it = statics[ITensorUInt32BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt32Bit")
+  let it = statics[ITensorUInt32BitStaticsVtbl](className(TensorUInt32Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asCollection[uint32, seq[uint32]](data)
   var ret: pointer
@@ -2890,7 +2890,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt32Bit],
                                        data: openArray[uint32]
                                       ): TensorUInt32Bit =
   ## Windows.AI.MachineLearning.ITensorUInt32BitStatics2.CreateFromShapeArrayAndDataArray
-  let it = statics[ITensorUInt32BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorUInt32Bit")
+  let it = statics[ITensorUInt32BitStatics2Vtbl](className(TensorUInt32Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = asArray[uint32, uint32](data)
   var ret: pointer
@@ -2902,7 +2902,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt32Bit],
 proc createFromBuffer*(_: typedesc[TensorUInt32Bit], shape: openArray[int64],
                        buffer: SomeBuffer): TensorUInt32Bit =
   ## Windows.AI.MachineLearning.ITensorUInt32BitStatics2.CreateFromBuffer
-  let it = statics[ITensorUInt32BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorUInt32Bit")
+  let it = statics[ITensorUInt32BitStatics2Vtbl](className(TensorUInt32Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
@@ -2925,7 +2925,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt64Bit],
                                        data: openArray[uint64]
                                       ): TensorUInt64Bit =
   ## Windows.AI.MachineLearning.ITensorUInt64BitStatics2.CreateFromShapeArrayAndDataArray
-  let it = statics[ITensorUInt64BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorUInt64Bit")
+  let it = statics[ITensorUInt64BitStatics2Vtbl](className(TensorUInt64Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = asArray[uint64, uint64](data)
   var ret: pointer
@@ -2937,7 +2937,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt64Bit],
 proc createFromBuffer*(_: typedesc[TensorUInt64Bit], shape: openArray[int64],
                        buffer: SomeBuffer): TensorUInt64Bit =
   ## Windows.AI.MachineLearning.ITensorUInt64BitStatics2.CreateFromBuffer
-  let it = statics[ITensorUInt64BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorUInt64Bit")
+  let it = statics[ITensorUInt64BitStatics2Vtbl](className(TensorUInt64Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
@@ -2947,14 +2947,14 @@ proc createFromBuffer*(_: typedesc[TensorUInt64Bit], shape: openArray[int64],
 
 proc create*(_: typedesc[TensorUInt64Bit]): TensorUInt64Bit =
   ## Windows.AI.MachineLearning.ITensorUInt64BitStatics.Create
-  let it = statics[ITensorUInt64BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt64Bit")
+  let it = statics[ITensorUInt64BitStaticsVtbl](className(TensorUInt64Bit))
   var ret: pointer
   check it.vtbl.Create(it.raw, ret.addr), "TensorUInt64Bit.create"
   adopt[TensorUInt64Bit](ret)
 
 proc create*(_: typedesc[TensorUInt64Bit], shape: seq[int64]): TensorUInt64Bit =
   ## Windows.AI.MachineLearning.ITensorUInt64BitStatics.Create
-  let it = statics[ITensorUInt64BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt64Bit")
+  let it = statics[ITensorUInt64BitStaticsVtbl](className(TensorUInt64Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   var ret: pointer
   check it.vtbl.Create2(it.raw, a0.raw, ret.addr), "TensorUInt64Bit.create"
@@ -2963,7 +2963,7 @@ proc create*(_: typedesc[TensorUInt64Bit], shape: seq[int64]): TensorUInt64Bit =
 proc createFromArray*(_: typedesc[TensorUInt64Bit], shape: seq[int64],
                       data: openArray[uint64]): TensorUInt64Bit =
   ## Windows.AI.MachineLearning.ITensorUInt64BitStatics.CreateFromArray
-  let it = statics[ITensorUInt64BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt64Bit")
+  let it = statics[ITensorUInt64BitStaticsVtbl](className(TensorUInt64Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asArray[uint64, uint64](data)
   var ret: pointer
@@ -2974,7 +2974,7 @@ proc createFromArray*(_: typedesc[TensorUInt64Bit], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorUInt64Bit], shape: seq[int64],
                          data: seq[uint64]): TensorUInt64Bit =
   ## Windows.AI.MachineLearning.ITensorUInt64BitStatics.CreateFromIterable
-  let it = statics[ITensorUInt64BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt64Bit")
+  let it = statics[ITensorUInt64BitStaticsVtbl](className(TensorUInt64Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asCollection[uint64, seq[uint64]](data)
   var ret: pointer
@@ -2994,14 +2994,14 @@ proc getAsVectorView*(self: TensorUInt64Bit): seq[uint64] =
 
 proc create*(_: typedesc[TensorUInt8Bit]): TensorUInt8Bit =
   ## Windows.AI.MachineLearning.ITensorUInt8BitStatics.Create
-  let it = statics[ITensorUInt8BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt8Bit")
+  let it = statics[ITensorUInt8BitStaticsVtbl](className(TensorUInt8Bit))
   var ret: pointer
   check it.vtbl.Create(it.raw, ret.addr), "TensorUInt8Bit.create"
   adopt[TensorUInt8Bit](ret)
 
 proc create*(_: typedesc[TensorUInt8Bit], shape: seq[int64]): TensorUInt8Bit =
   ## Windows.AI.MachineLearning.ITensorUInt8BitStatics.Create
-  let it = statics[ITensorUInt8BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt8Bit")
+  let it = statics[ITensorUInt8BitStaticsVtbl](className(TensorUInt8Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   var ret: pointer
   check it.vtbl.Create2(it.raw, a0.raw, ret.addr), "TensorUInt8Bit.create"
@@ -3010,7 +3010,7 @@ proc create*(_: typedesc[TensorUInt8Bit], shape: seq[int64]): TensorUInt8Bit =
 proc createFromArray*(_: typedesc[TensorUInt8Bit], shape: seq[int64],
                       data: openArray[uint8]): TensorUInt8Bit =
   ## Windows.AI.MachineLearning.ITensorUInt8BitStatics.CreateFromArray
-  let it = statics[ITensorUInt8BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt8Bit")
+  let it = statics[ITensorUInt8BitStaticsVtbl](className(TensorUInt8Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asArray[uint8, uint8](data)
   var ret: pointer
@@ -3021,7 +3021,7 @@ proc createFromArray*(_: typedesc[TensorUInt8Bit], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorUInt8Bit], shape: seq[int64],
                          data: seq[uint8]): TensorUInt8Bit =
   ## Windows.AI.MachineLearning.ITensorUInt8BitStatics.CreateFromIterable
-  let it = statics[ITensorUInt8BitStaticsVtbl]("Windows.AI.MachineLearning.TensorUInt8Bit")
+  let it = statics[ITensorUInt8BitStaticsVtbl](className(TensorUInt8Bit))
   let a0 = asCollection[int64, seq[int64]](shape)
   let a1 = asCollection[uint8, seq[uint8]](data)
   var ret: pointer
@@ -3033,7 +3033,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt8Bit],
                                        shape: openArray[int64],
                                        data: openArray[uint8]): TensorUInt8Bit =
   ## Windows.AI.MachineLearning.ITensorUInt8BitStatics2.CreateFromShapeArrayAndDataArray
-  let it = statics[ITensorUInt8BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorUInt8Bit")
+  let it = statics[ITensorUInt8BitStatics2Vtbl](className(TensorUInt8Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = asArray[uint8, uint8](data)
   var ret: pointer
@@ -3045,7 +3045,7 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt8Bit],
 proc createFromBuffer*(_: typedesc[TensorUInt8Bit], shape: openArray[int64],
                        buffer: SomeBuffer): TensorUInt8Bit =
   ## Windows.AI.MachineLearning.ITensorUInt8BitStatics2.CreateFromBuffer
-  let it = statics[ITensorUInt8BitStatics2Vtbl]("Windows.AI.MachineLearning.TensorUInt8Bit")
+  let it = statics[ITensorUInt8BitStatics2Vtbl](className(TensorUInt8Bit))
   let a0 = asArray[int64, int64](shape)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer

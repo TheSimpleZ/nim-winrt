@@ -87,7 +87,7 @@ proc systemId*(self: DtdNotation): WinRtObject =
 
 proc convertToText*(_: typedesc[HtmlUtilities], html: string): string =
   ## Windows.Data.Html.IHtmlUtilities.ConvertToText
-  let it = statics[IHtmlUtilitiesVtbl]("Windows.Data.Html.HtmlUtilities")
+  let it = statics[IHtmlUtilitiesVtbl](className(HtmlUtilities))
   let a0 = toWinRtString(html)
   var ret: HSTRING
   check it.vtbl.ConvertToText(it.raw, a0.handle, ret.addr
@@ -102,7 +102,7 @@ proc newJsonArray*(): JsonArray =
 
 proc parse*(_: typedesc[JsonArray], input: string): JsonArray =
   ## Windows.Data.Json.IJsonArrayStatics.Parse
-  let it = statics[IJsonArrayStaticsVtbl]("Windows.Data.Json.JsonArray")
+  let it = statics[IJsonArrayStaticsVtbl](className(JsonArray))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr), "JsonArray.parse"
@@ -111,7 +111,7 @@ proc parse*(_: typedesc[JsonArray], input: string): JsonArray =
 proc tryParse*(_: typedesc[JsonArray], input: string
               ): tuple[ok: bool, result2: JsonArray] =
   ## Windows.Data.Json.IJsonArrayStatics.TryParse
-  let it = statics[IJsonArrayStaticsVtbl]("Windows.Data.Json.JsonArray")
+  let it = statics[IJsonArrayStaticsVtbl](className(JsonArray))
   let a0 = toWinRtString(input)
   var result2: pointer
   var ret: bool
@@ -158,7 +158,7 @@ proc getBooleanAt*(self: JsonArray, index: uint32): bool =
 
 proc getJsonStatus*(_: typedesc[JsonError], hresult: int32): JsonErrorStatus =
   ## Windows.Data.Json.IJsonErrorStatics2.GetJsonStatus
-  let it = statics[IJsonErrorStatics2Vtbl]("Windows.Data.Json.JsonError")
+  let it = statics[IJsonErrorStatics2Vtbl](className(JsonError))
   var ret: JsonErrorStatus
   check it.vtbl.GetJsonStatus(it.raw, hresult, ret.addr
                              ), "JsonError.getJsonStatus"
@@ -172,7 +172,7 @@ proc newJsonObject*(): JsonObject =
 
 proc parse*(_: typedesc[JsonObject], input: string): JsonObject =
   ## Windows.Data.Json.IJsonObjectStatics.Parse
-  let it = statics[IJsonObjectStaticsVtbl]("Windows.Data.Json.JsonObject")
+  let it = statics[IJsonObjectStaticsVtbl](className(JsonObject))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr), "JsonObject.parse"
@@ -181,7 +181,7 @@ proc parse*(_: typedesc[JsonObject], input: string): JsonObject =
 proc tryParse*(_: typedesc[JsonObject], input: string
               ): tuple[ok: bool, result2: JsonObject] =
   ## Windows.Data.Json.IJsonObjectStatics.TryParse
-  let it = statics[IJsonObjectStaticsVtbl]("Windows.Data.Json.JsonObject")
+  let it = statics[IJsonObjectStaticsVtbl](className(JsonObject))
   let a0 = toWinRtString(input)
   var result2: pointer
   var ret: bool
@@ -319,14 +319,14 @@ proc getNamedBoolean*(self: JsonObject, name: string, defaultValue: bool
 
 proc createNullValue*(_: typedesc[JsonValue]): JsonValue =
   ## Windows.Data.Json.IJsonValueStatics2.CreateNullValue
-  let it = statics[IJsonValueStatics2Vtbl]("Windows.Data.Json.JsonValue")
+  let it = statics[IJsonValueStatics2Vtbl](className(JsonValue))
   var ret: pointer
   check it.vtbl.CreateNullValue(it.raw, ret.addr), "JsonValue.createNullValue"
   adopt[JsonValue](ret)
 
 proc parse*(_: typedesc[JsonValue], input: string): JsonValue =
   ## Windows.Data.Json.IJsonValueStatics.Parse
-  let it = statics[IJsonValueStaticsVtbl]("Windows.Data.Json.JsonValue")
+  let it = statics[IJsonValueStaticsVtbl](className(JsonValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.handle, ret.addr), "JsonValue.parse"
@@ -335,7 +335,7 @@ proc parse*(_: typedesc[JsonValue], input: string): JsonValue =
 proc tryParse*(_: typedesc[JsonValue], input: string
               ): tuple[ok: bool, result2: JsonValue] =
   ## Windows.Data.Json.IJsonValueStatics.TryParse
-  let it = statics[IJsonValueStaticsVtbl]("Windows.Data.Json.JsonValue")
+  let it = statics[IJsonValueStaticsVtbl](className(JsonValue))
   let a0 = toWinRtString(input)
   var result2: pointer
   var ret: bool
@@ -345,7 +345,7 @@ proc tryParse*(_: typedesc[JsonValue], input: string
 
 proc createBooleanValue*(_: typedesc[JsonValue], input: bool): JsonValue =
   ## Windows.Data.Json.IJsonValueStatics.CreateBooleanValue
-  let it = statics[IJsonValueStaticsVtbl]("Windows.Data.Json.JsonValue")
+  let it = statics[IJsonValueStaticsVtbl](className(JsonValue))
   var ret: pointer
   check it.vtbl.CreateBooleanValue(it.raw, input, ret.addr
                                   ), "JsonValue.createBooleanValue"
@@ -353,7 +353,7 @@ proc createBooleanValue*(_: typedesc[JsonValue], input: bool): JsonValue =
 
 proc createNumberValue*(_: typedesc[JsonValue], input: float64): JsonValue =
   ## Windows.Data.Json.IJsonValueStatics.CreateNumberValue
-  let it = statics[IJsonValueStaticsVtbl]("Windows.Data.Json.JsonValue")
+  let it = statics[IJsonValueStaticsVtbl](className(JsonValue))
   var ret: pointer
   check it.vtbl.CreateNumberValue(it.raw, input, ret.addr
                                  ), "JsonValue.createNumberValue"
@@ -361,7 +361,7 @@ proc createNumberValue*(_: typedesc[JsonValue], input: float64): JsonValue =
 
 proc createStringValue*(_: typedesc[JsonValue], input: string): JsonValue =
   ## Windows.Data.Json.IJsonValueStatics.CreateStringValue
-  let it = statics[IJsonValueStaticsVtbl]("Windows.Data.Json.JsonValue")
+  let it = statics[IJsonValueStaticsVtbl](className(JsonValue))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.CreateStringValue(it.raw, a0.handle, ret.addr
@@ -373,7 +373,7 @@ proc createStringValue*(_: typedesc[JsonValue], input: string): JsonValue =
 proc loadFromFileAsync*(_: typedesc[PdfDocument], file: SomeStorageFile
                        ): Future[PdfDocument] =
   ## Windows.Data.Pdf.IPdfDocumentStatics.LoadFromFileAsync
-  let it = statics[IPdfDocumentStaticsVtbl]("Windows.Data.Pdf.PdfDocument")
+  let it = statics[IPdfDocumentStaticsVtbl](className(PdfDocument))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.LoadFromFileAsync(it.raw, a0.raw, op.addr
@@ -383,7 +383,7 @@ proc loadFromFileAsync*(_: typedesc[PdfDocument], file: SomeStorageFile
 proc loadFromFileAsync*(_: typedesc[PdfDocument], file: SomeStorageFile,
                         password: string): Future[PdfDocument] =
   ## Windows.Data.Pdf.IPdfDocumentStatics.LoadFromFileAsync
-  let it = statics[IPdfDocumentStaticsVtbl]("Windows.Data.Pdf.PdfDocument")
+  let it = statics[IPdfDocumentStaticsVtbl](className(PdfDocument))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = toWinRtString(password)
   var op: pointer
@@ -395,7 +395,7 @@ proc loadFromStreamAsync*(_: typedesc[PdfDocument],
                           inputStream: SomeRandomAccessStream
                          ): Future[PdfDocument] =
   ## Windows.Data.Pdf.IPdfDocumentStatics.LoadFromStreamAsync
-  let it = statics[IPdfDocumentStaticsVtbl]("Windows.Data.Pdf.PdfDocument")
+  let it = statics[IPdfDocumentStaticsVtbl](className(PdfDocument))
   let a0 = queryInterface[IRandomAccessStreamVtbl](inputStream)
   var op: pointer
   check it.vtbl.LoadFromStreamAsync(it.raw, a0.raw, op.addr
@@ -406,7 +406,7 @@ proc loadFromStreamAsync*(_: typedesc[PdfDocument],
                           inputStream: SomeRandomAccessStream, password: string
                          ): Future[PdfDocument] =
   ## Windows.Data.Pdf.IPdfDocumentStatics.LoadFromStreamAsync
-  let it = statics[IPdfDocumentStaticsVtbl]("Windows.Data.Pdf.PdfDocument")
+  let it = statics[IPdfDocumentStaticsVtbl](className(PdfDocument))
   let a0 = queryInterface[IRandomAccessStreamVtbl](inputStream)
   let a1 = toWinRtString(password)
   var op: pointer
@@ -648,7 +648,7 @@ proc sourceTextSegment*(self: SelectableWordSegment): TextSegment =
 
 proc newSelectableWordsSegmenter*(language: string): SelectableWordsSegmenter =
   ## Windows.Data.Text.ISelectableWordsSegmenterFactory.CreateWithLanguage
-  let it = statics[ISelectableWordsSegmenterFactoryVtbl]("Windows.Data.Text.SelectableWordsSegmenter")
+  let it = statics[ISelectableWordsSegmenterFactoryVtbl](className(SelectableWordsSegmenter))
   let a0 = toWinRtString(language)
   var ret: pointer
   check it.vtbl.CreateWithLanguage(it.raw, a0.handle, ret.addr
@@ -701,7 +701,7 @@ proc tokenize*(self: SelectableWordsSegmenter, text: string, startIndex: uint32,
 
 proc newSemanticTextQuery*(aqsFilter: string): SemanticTextQuery =
   ## Windows.Data.Text.ISemanticTextQueryFactory.Create
-  let it = statics[ISemanticTextQueryFactoryVtbl]("Windows.Data.Text.SemanticTextQuery")
+  let it = statics[ISemanticTextQueryFactoryVtbl](className(SemanticTextQuery))
   let a0 = toWinRtString(aqsFilter)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr), "SemanticTextQuery.new"
@@ -710,7 +710,7 @@ proc newSemanticTextQuery*(aqsFilter: string): SemanticTextQuery =
 proc newSemanticTextQuery*(aqsFilter: string, filterLanguage: string
                           ): SemanticTextQuery =
   ## Windows.Data.Text.ISemanticTextQueryFactory.CreateWithLanguage
-  let it = statics[ISemanticTextQueryFactoryVtbl]("Windows.Data.Text.SemanticTextQuery")
+  let it = statics[ISemanticTextQueryFactoryVtbl](className(SemanticTextQuery))
   let a0 = toWinRtString(aqsFilter)
   let a1 = toWinRtString(filterLanguage)
   var ret: pointer
@@ -741,7 +741,7 @@ proc findInProperty*(self: SemanticTextQuery, propertyContent: string,
 
 proc newTextConversionGenerator*(languageTag: string): TextConversionGenerator =
   ## Windows.Data.Text.ITextConversionGeneratorFactory.Create
-  let it = statics[ITextConversionGeneratorFactoryVtbl]("Windows.Data.Text.TextConversionGenerator")
+  let it = statics[ITextConversionGeneratorFactoryVtbl](className(TextConversionGenerator))
   let a0 = toWinRtString(languageTag)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -804,7 +804,7 @@ proc readingText*(self: TextPhoneme): string =
 
 proc newTextPredictionGenerator*(languageTag: string): TextPredictionGenerator =
   ## Windows.Data.Text.ITextPredictionGeneratorFactory.Create
-  let it = statics[ITextPredictionGeneratorFactoryVtbl]("Windows.Data.Text.TextPredictionGenerator")
+  let it = statics[ITextPredictionGeneratorFactoryVtbl](className(TextPredictionGenerator))
   let a0 = toWinRtString(languageTag)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -892,7 +892,7 @@ proc `inputScope=`*(self: TextPredictionGenerator, value: CoreTextInputScope) =
 
 proc newTextReverseConversionGenerator*(languageTag: string): TextReverseConversionGenerator =
   ## Windows.Data.Text.ITextReverseConversionGeneratorFactory.Create
-  let it = statics[ITextReverseConversionGeneratorFactoryVtbl]("Windows.Data.Text.TextReverseConversionGenerator")
+  let it = statics[ITextReverseConversionGeneratorFactoryVtbl](className(TextReverseConversionGenerator))
   let a0 = toWinRtString(languageTag)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr
@@ -941,7 +941,7 @@ proc getCodepointFromSurrogatePair*(_: typedesc[UnicodeCharacters],
                                     highSurrogate: uint32, lowSurrogate: uint32
                                    ): uint32 =
   ## Windows.Data.Text.IUnicodeCharactersStatics.GetCodepointFromSurrogatePair
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: uint32
   check it.vtbl.GetCodepointFromSurrogatePair(it.raw, highSurrogate,
                                               lowSurrogate, ret.addr
@@ -952,7 +952,7 @@ proc getSurrogatePairFromCodepoint*(_: typedesc[UnicodeCharacters],
                                     codepoint: uint32
                                    ): tuple[highSurrogate: Char16, lowSurrogate: Char16] =
   ## Windows.Data.Text.IUnicodeCharactersStatics.GetSurrogatePairFromCodepoint
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var highSurrogate: Char16
   var lowSurrogate: Char16
   check it.vtbl.GetSurrogatePairFromCodepoint(it.raw, codepoint,
@@ -963,7 +963,7 @@ proc getSurrogatePairFromCodepoint*(_: typedesc[UnicodeCharacters],
 
 proc isHighSurrogate*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   ## Windows.Data.Text.IUnicodeCharactersStatics.IsHighSurrogate
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: bool
   check it.vtbl.IsHighSurrogate(it.raw, codepoint, ret.addr
                                ), "UnicodeCharacters.isHighSurrogate"
@@ -971,7 +971,7 @@ proc isHighSurrogate*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
 
 proc isLowSurrogate*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   ## Windows.Data.Text.IUnicodeCharactersStatics.IsLowSurrogate
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: bool
   check it.vtbl.IsLowSurrogate(it.raw, codepoint, ret.addr
                               ), "UnicodeCharacters.isLowSurrogate"
@@ -979,7 +979,7 @@ proc isLowSurrogate*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
 
 proc isSupplementary*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   ## Windows.Data.Text.IUnicodeCharactersStatics.IsSupplementary
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: bool
   check it.vtbl.IsSupplementary(it.raw, codepoint, ret.addr
                                ), "UnicodeCharacters.isSupplementary"
@@ -987,7 +987,7 @@ proc isSupplementary*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
 
 proc isNoncharacter*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   ## Windows.Data.Text.IUnicodeCharactersStatics.IsNoncharacter
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: bool
   check it.vtbl.IsNoncharacter(it.raw, codepoint, ret.addr
                               ), "UnicodeCharacters.isNoncharacter"
@@ -995,7 +995,7 @@ proc isNoncharacter*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
 
 proc isWhitespace*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   ## Windows.Data.Text.IUnicodeCharactersStatics.IsWhitespace
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: bool
   check it.vtbl.IsWhitespace(it.raw, codepoint, ret.addr
                             ), "UnicodeCharacters.isWhitespace"
@@ -1003,7 +1003,7 @@ proc isWhitespace*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
 
 proc isAlphabetic*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   ## Windows.Data.Text.IUnicodeCharactersStatics.IsAlphabetic
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: bool
   check it.vtbl.IsAlphabetic(it.raw, codepoint, ret.addr
                             ), "UnicodeCharacters.isAlphabetic"
@@ -1011,7 +1011,7 @@ proc isAlphabetic*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
 
 proc isCased*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   ## Windows.Data.Text.IUnicodeCharactersStatics.IsCased
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: bool
   check it.vtbl.IsCased(it.raw, codepoint, ret.addr
                        ), "UnicodeCharacters.isCased"
@@ -1019,7 +1019,7 @@ proc isCased*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
 
 proc isUppercase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   ## Windows.Data.Text.IUnicodeCharactersStatics.IsUppercase
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: bool
   check it.vtbl.IsUppercase(it.raw, codepoint, ret.addr
                            ), "UnicodeCharacters.isUppercase"
@@ -1027,7 +1027,7 @@ proc isUppercase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
 
 proc isLowercase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   ## Windows.Data.Text.IUnicodeCharactersStatics.IsLowercase
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: bool
   check it.vtbl.IsLowercase(it.raw, codepoint, ret.addr
                            ), "UnicodeCharacters.isLowercase"
@@ -1035,7 +1035,7 @@ proc isLowercase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
 
 proc isIdStart*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   ## Windows.Data.Text.IUnicodeCharactersStatics.IsIdStart
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: bool
   check it.vtbl.IsIdStart(it.raw, codepoint, ret.addr
                          ), "UnicodeCharacters.isIdStart"
@@ -1043,7 +1043,7 @@ proc isIdStart*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
 
 proc isIdContinue*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   ## Windows.Data.Text.IUnicodeCharactersStatics.IsIdContinue
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: bool
   check it.vtbl.IsIdContinue(it.raw, codepoint, ret.addr
                             ), "UnicodeCharacters.isIdContinue"
@@ -1051,7 +1051,7 @@ proc isIdContinue*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
 
 proc isGraphemeBase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
   ## Windows.Data.Text.IUnicodeCharactersStatics.IsGraphemeBase
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: bool
   check it.vtbl.IsGraphemeBase(it.raw, codepoint, ret.addr
                               ), "UnicodeCharacters.isGraphemeBase"
@@ -1060,7 +1060,7 @@ proc isGraphemeBase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool =
 proc isGraphemeExtend*(_: typedesc[UnicodeCharacters], codepoint: uint32
                       ): bool =
   ## Windows.Data.Text.IUnicodeCharactersStatics.IsGraphemeExtend
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: bool
   check it.vtbl.IsGraphemeExtend(it.raw, codepoint, ret.addr
                                 ), "UnicodeCharacters.isGraphemeExtend"
@@ -1069,7 +1069,7 @@ proc isGraphemeExtend*(_: typedesc[UnicodeCharacters], codepoint: uint32
 proc getNumericType*(_: typedesc[UnicodeCharacters], codepoint: uint32
                     ): UnicodeNumericType =
   ## Windows.Data.Text.IUnicodeCharactersStatics.GetNumericType
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: UnicodeNumericType
   check it.vtbl.GetNumericType(it.raw, codepoint, ret.addr
                               ), "UnicodeCharacters.getNumericType"
@@ -1078,7 +1078,7 @@ proc getNumericType*(_: typedesc[UnicodeCharacters], codepoint: uint32
 proc getGeneralCategory*(_: typedesc[UnicodeCharacters], codepoint: uint32
                         ): UnicodeGeneralCategory =
   ## Windows.Data.Text.IUnicodeCharactersStatics.GetGeneralCategory
-  let it = statics[IUnicodeCharactersStaticsVtbl]("Windows.Data.Text.UnicodeCharacters")
+  let it = statics[IUnicodeCharactersStaticsVtbl](className(UnicodeCharacters))
   var ret: UnicodeGeneralCategory
   check it.vtbl.GetGeneralCategory(it.raw, codepoint, ret.addr
                                   ), "UnicodeCharacters.getGeneralCategory"
@@ -1113,7 +1113,7 @@ proc alternateForms*(self: WordSegment): seq[AlternateWordForm] =
 
 proc newWordsSegmenter*(language: string): WordsSegmenter =
   ## Windows.Data.Text.IWordsSegmenterFactory.CreateWithLanguage
-  let it = statics[IWordsSegmenterFactoryVtbl]("Windows.Data.Text.WordsSegmenter")
+  let it = statics[IWordsSegmenterFactoryVtbl](className(WordsSegmenter))
   let a0 = toWinRtString(language)
   var ret: pointer
   check it.vtbl.CreateWithLanguage(it.raw, a0.handle, ret.addr
@@ -1198,7 +1198,7 @@ proc newXmlDocument*(): XmlDocument =
 proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri
                       ): Future[XmlDocument] =
   ## Windows.Data.Xml.Dom.IXmlDocumentStatics.LoadFromUriAsync
-  let it = statics[IXmlDocumentStaticsVtbl]("Windows.Data.Xml.Dom.XmlDocument")
+  let it = statics[IXmlDocumentStaticsVtbl](className(XmlDocument))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var op: pointer
   check it.vtbl.LoadFromUriAsync(it.raw, a0.raw, op.addr
@@ -1208,7 +1208,7 @@ proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri
 proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri,
                        loadSettings: XmlLoadSettings): Future[XmlDocument] =
   ## Windows.Data.Xml.Dom.IXmlDocumentStatics.LoadFromUriAsync
-  let it = statics[IXmlDocumentStaticsVtbl]("Windows.Data.Xml.Dom.XmlDocument")
+  let it = statics[IXmlDocumentStaticsVtbl](className(XmlDocument))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a1 = queryInterface[IXmlLoadSettingsVtbl](loadSettings)
   var op: pointer
@@ -1219,7 +1219,7 @@ proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri,
 proc loadFromFileAsync*(_: typedesc[XmlDocument], file: SomeStorageFile
                        ): Future[XmlDocument] =
   ## Windows.Data.Xml.Dom.IXmlDocumentStatics.LoadFromFileAsync
-  let it = statics[IXmlDocumentStaticsVtbl]("Windows.Data.Xml.Dom.XmlDocument")
+  let it = statics[IXmlDocumentStaticsVtbl](className(XmlDocument))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.LoadFromFileAsync(it.raw, a0.raw, op.addr
@@ -1229,7 +1229,7 @@ proc loadFromFileAsync*(_: typedesc[XmlDocument], file: SomeStorageFile
 proc loadFromFileAsync*(_: typedesc[XmlDocument], file: SomeStorageFile,
                         loadSettings: XmlLoadSettings): Future[XmlDocument] =
   ## Windows.Data.Xml.Dom.IXmlDocumentStatics.LoadFromFileAsync
-  let it = statics[IXmlDocumentStaticsVtbl]("Windows.Data.Xml.Dom.XmlDocument")
+  let it = statics[IXmlDocumentStaticsVtbl](className(XmlDocument))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = queryInterface[IXmlLoadSettingsVtbl](loadSettings)
   var op: pointer
@@ -1768,7 +1768,7 @@ proc `data=`*(self: XmlProcessingInstruction, value: string) =
 
 proc newXsltProcessor*(document: XmlDocument): XsltProcessor =
   ## Windows.Data.Xml.Xsl.IXsltProcessorFactory.CreateInstance
-  let it = statics[IXsltProcessorFactoryVtbl]("Windows.Data.Xml.Xsl.XsltProcessor")
+  let it = statics[IXsltProcessorFactoryVtbl](className(XsltProcessor))
   let a0 = queryInterface[IXmlDocumentVtbl](document)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.raw, ret.addr), "XsltProcessor.new"

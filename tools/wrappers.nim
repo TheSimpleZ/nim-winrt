@@ -1039,7 +1039,7 @@ proc emitConstructors(m: Model, buf: var string, c: Class,
                             &"): {c.nim} =")
       buf.add head & "\n"
       buf.add &"  ## {iface.full}.{raw}\n"
-      buf.add fill(&"  let it = statics[{iface.nim}Vtbl](", @['"' & c.full & '"'], ")") & "\n"
+      buf.add &"  let it = statics[{iface.nim}Vtbl](className({c.nim}))\n"
       for l in body.lines: buf.add l & "\n"
       buf.add "  var ret: pointer\n"
       buf.add fill(&"  check it.vtbl.{fields[mi]}(", @["it.raw"] & body.args & "ret.addr",
@@ -1174,7 +1174,7 @@ proc emitGroup(m: Model, winmdPath, prefix, outPath: string): Emission =
       if s notin m.ifaces: continue
       let iface = m.ifaces[s]
       use(iface)
-      let enter = fill(&"  let it = statics[{iface.nim}Vtbl](", @['"' & c.full & '"'], ")")
+      let enter = &"  let it = statics[{iface.nim}Vtbl](className({c.nim}))"
       m.emitInterface(buf, iface, Receiver(recv: &"_: typedesc[{c.nim}]", what: c.nim,
                                            isStatic: true), enter, emitted, result, skips)
     for n in c.interfaces:

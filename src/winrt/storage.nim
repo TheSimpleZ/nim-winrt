@@ -24,7 +24,7 @@ export foundation
 
 proc getForUser*(_: typedesc[AppDataPaths], user: User): AppDataPaths =
   ## Windows.Storage.IAppDataPathsStatics.GetForUser
-  let it = statics[IAppDataPathsStaticsVtbl]("Windows.Storage.AppDataPaths")
+  let it = statics[IAppDataPathsStaticsVtbl](className(AppDataPaths))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr), "AppDataPaths.getForUser"
@@ -32,7 +32,7 @@ proc getForUser*(_: typedesc[AppDataPaths], user: User): AppDataPaths =
 
 proc getDefault*(_: typedesc[AppDataPaths]): AppDataPaths =
   ## Windows.Storage.IAppDataPathsStatics.GetDefault
-  let it = statics[IAppDataPathsStaticsVtbl]("Windows.Storage.AppDataPaths")
+  let it = statics[IAppDataPathsStaticsVtbl](className(AppDataPaths))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "AppDataPaths.getDefault"
   adopt[AppDataPaths](ret)
@@ -106,7 +106,7 @@ proc roamingAppData*(self: AppDataPaths): string =
 
 proc current*(_: typedesc[ApplicationData]): ApplicationData =
   ## Windows.Storage.IApplicationDataStatics.get_Current
-  let it = statics[IApplicationDataStaticsVtbl]("Windows.Storage.ApplicationData")
+  let it = statics[IApplicationDataStaticsVtbl](className(ApplicationData))
   var ret: pointer
   check it.vtbl.get_Current(it.raw, ret.addr), "ApplicationData.current"
   adopt[ApplicationData](ret)
@@ -114,7 +114,7 @@ proc current*(_: typedesc[ApplicationData]): ApplicationData =
 proc getForUserAsync*(_: typedesc[ApplicationData], user: User
                      ): Future[ApplicationData] =
   ## Windows.Storage.IApplicationDataStatics2.GetForUserAsync
-  let it = statics[IApplicationDataStatics2Vtbl]("Windows.Storage.ApplicationData")
+  let it = statics[IApplicationDataStatics2Vtbl](className(ApplicationData))
   let a0 = queryInterface[IUserVtbl](user)
   var op: pointer
   check it.vtbl.GetForUserAsync(it.raw, a0.raw, op.addr
@@ -347,7 +347,7 @@ proc itemDate*(self: BasicProperties): DateTime =
 
 proc newBuffer*(capacity: uint32): Buffer =
   ## Windows.Storage.Streams.IBufferFactory.Create
-  let it = statics[IBufferFactoryVtbl]("Windows.Storage.Streams.Buffer")
+  let it = statics[IBufferFactoryVtbl](className(Buffer))
   var ret: pointer
   check it.vtbl.Create(it.raw, capacity, ret.addr), "Buffer.new"
   adopt[Buffer](ret)
@@ -355,7 +355,7 @@ proc newBuffer*(capacity: uint32): Buffer =
 proc createCopyFromMemoryBuffer*(_: typedesc[Buffer], input: SomeMemoryBuffer
                                 ): Buffer =
   ## Windows.Storage.Streams.IBufferStatics.CreateCopyFromMemoryBuffer
-  let it = statics[IBufferStaticsVtbl]("Windows.Storage.Streams.Buffer")
+  let it = statics[IBufferStaticsVtbl](className(Buffer))
   let a0 = queryInterface[IMemoryBufferVtbl](input)
   var ret: pointer
   check it.vtbl.CreateCopyFromMemoryBuffer(it.raw, a0.raw, ret.addr
@@ -365,7 +365,7 @@ proc createCopyFromMemoryBuffer*(_: typedesc[Buffer], input: SomeMemoryBuffer
 proc createMemoryBufferOverIBuffer*(_: typedesc[Buffer], input: SomeBuffer
                                    ): MemoryBuffer =
   ## Windows.Storage.Streams.IBufferStatics.CreateMemoryBufferOverIBuffer
-  let it = statics[IBufferStaticsVtbl]("Windows.Storage.Streams.Buffer")
+  let it = statics[IBufferStaticsVtbl](className(Buffer))
   let a0 = queryInterface[IBufferVtbl](input)
   var ret: pointer
   check it.vtbl.CreateMemoryBufferOverIBuffer(it.raw, a0.raw, ret.addr
@@ -376,14 +376,14 @@ proc createMemoryBufferOverIBuffer*(_: typedesc[Buffer], input: SomeBuffer
 
 proc deferUpdates*(_: typedesc[CachedFileManager], file: SomeStorageFile) =
   ## Windows.Storage.ICachedFileManagerStatics.DeferUpdates
-  let it = statics[ICachedFileManagerStaticsVtbl]("Windows.Storage.CachedFileManager")
+  let it = statics[ICachedFileManagerStaticsVtbl](className(CachedFileManager))
   let a0 = queryInterface[IStorageFileVtbl](file)
   check it.vtbl.DeferUpdates(it.raw, a0.raw), "CachedFileManager.deferUpdates"
 
 proc completeUpdatesAsync*(_: typedesc[CachedFileManager], file: SomeStorageFile
                           ): Future[FileUpdateStatus] =
   ## Windows.Storage.ICachedFileManagerStatics.CompleteUpdatesAsync
-  let it = statics[ICachedFileManagerStaticsVtbl]("Windows.Storage.CachedFileManager")
+  let it = statics[ICachedFileManagerStaticsVtbl](className(CachedFileManager))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.CompleteUpdatesAsync(it.raw, a0.raw, op.addr
@@ -398,7 +398,7 @@ proc setUpdateInformation*(_: typedesc[CachedFileUpdater],
                            writeMode: WriteActivationMode,
                            options: CachedFileOptions) =
   ## Windows.Storage.Provider.ICachedFileUpdaterStatics.SetUpdateInformation
-  let it = statics[ICachedFileUpdaterStaticsVtbl]("Windows.Storage.Provider.CachedFileUpdater")
+  let it = statics[ICachedFileUpdaterStaticsVtbl](className(CachedFileUpdater))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = toWinRtString(contentId)
   check it.vtbl.SetUpdateInformation(it.raw, a0.raw, a1.handle, readMode,
@@ -495,7 +495,7 @@ proc getDeferral*(self: CachedFileUpdaterUI): FileUpdateRequestDeferral =
 
 proc newCompressor*(underlyingStream: SomeOutputStream): Compressor =
   ## Windows.Storage.Compression.ICompressorFactory.CreateCompressor
-  let it = statics[ICompressorFactoryVtbl]("Windows.Storage.Compression.Compressor")
+  let it = statics[ICompressorFactoryVtbl](className(Compressor))
   let a0 = queryInterface[IOutputStreamVtbl](underlyingStream)
   var ret: pointer
   check it.vtbl.CreateCompressor(it.raw, a0.raw, ret.addr), "Compressor.new"
@@ -505,7 +505,7 @@ proc newCompressor*(underlyingStream: SomeOutputStream,
                     algorithm: CompressAlgorithm, blockSize: uint32
                    ): Compressor =
   ## Windows.Storage.Compression.ICompressorFactory.CreateCompressorEx
-  let it = statics[ICompressorFactoryVtbl]("Windows.Storage.Compression.Compressor")
+  let it = statics[ICompressorFactoryVtbl](className(Compressor))
   let a0 = queryInterface[IOutputStreamVtbl](underlyingStream)
   var ret: pointer
   check it.vtbl.CreateCompressorEx(it.raw, a0.raw, algorithm, blockSize,
@@ -531,7 +531,7 @@ proc detachStream*(self: Compressor): IOutputStream =
 proc getIndexer*(_: typedesc[ContentIndexer], indexName: string
                 ): ContentIndexer =
   ## Windows.Storage.Search.IContentIndexerStatics.GetIndexer
-  let it = statics[IContentIndexerStaticsVtbl]("Windows.Storage.Search.ContentIndexer")
+  let it = statics[IContentIndexerStaticsVtbl](className(ContentIndexer))
   let a0 = toWinRtString(indexName)
   var ret: pointer
   check it.vtbl.GetIndexer(it.raw, a0.handle, ret.addr
@@ -540,7 +540,7 @@ proc getIndexer*(_: typedesc[ContentIndexer], indexName: string
 
 proc getIndexer*(_: typedesc[ContentIndexer]): ContentIndexer =
   ## Windows.Storage.Search.IContentIndexerStatics.GetIndexer
-  let it = statics[IContentIndexerStaticsVtbl]("Windows.Storage.Search.ContentIndexer")
+  let it = statics[IContentIndexerStaticsVtbl](className(ContentIndexer))
   var ret: pointer
   check it.vtbl.GetIndexer2(it.raw, ret.addr), "ContentIndexer.getIndexer"
   adopt[ContentIndexer](ret)
@@ -708,7 +708,7 @@ proc queryFolder*(self: ContentIndexerQuery): StorageFolder =
 
 proc newDataReader*(inputStream: SomeInputStream): DataReader =
   ## Windows.Storage.Streams.IDataReaderFactory.CreateDataReader
-  let it = statics[IDataReaderFactoryVtbl]("Windows.Storage.Streams.DataReader")
+  let it = statics[IDataReaderFactoryVtbl](className(DataReader))
   let a0 = queryInterface[IInputStreamVtbl](inputStream)
   var ret: pointer
   check it.vtbl.CreateDataReader(it.raw, a0.raw, ret.addr), "DataReader.new"
@@ -716,7 +716,7 @@ proc newDataReader*(inputStream: SomeInputStream): DataReader =
 
 proc fromBuffer*(_: typedesc[DataReader], buffer: SomeBuffer): DataReader =
   ## Windows.Storage.Streams.IDataReaderStatics.FromBuffer
-  let it = statics[IDataReaderStaticsVtbl]("Windows.Storage.Streams.DataReader")
+  let it = statics[IDataReaderStaticsVtbl](className(DataReader))
   let a0 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
   check it.vtbl.FromBuffer(it.raw, a0.raw, ret.addr), "DataReader.fromBuffer"
@@ -730,7 +730,7 @@ proc newDataWriter*(): DataWriter =
 
 proc newDataWriter*(outputStream: SomeOutputStream): DataWriter =
   ## Windows.Storage.Streams.IDataWriterFactory.CreateDataWriter
-  let it = statics[IDataWriterFactoryVtbl]("Windows.Storage.Streams.DataWriter")
+  let it = statics[IDataWriterFactoryVtbl](className(DataWriter))
   let a0 = queryInterface[IOutputStreamVtbl](outputStream)
   var ret: pointer
   check it.vtbl.CreateDataWriter(it.raw, a0.raw, ret.addr), "DataWriter.new"
@@ -740,7 +740,7 @@ proc newDataWriter*(outputStream: SomeOutputStream): DataWriter =
 
 proc newDecompressor*(underlyingStream: SomeInputStream): Decompressor =
   ## Windows.Storage.Compression.IDecompressorFactory.CreateDecompressor
-  let it = statics[IDecompressorFactoryVtbl]("Windows.Storage.Compression.Decompressor")
+  let it = statics[IDecompressorFactoryVtbl](className(Decompressor))
   let a0 = queryInterface[IInputStreamVtbl](underlyingStream)
   var ret: pointer
   check it.vtbl.CreateDecompressor(it.raw, a0.raw, ret.addr), "Decompressor.new"
@@ -800,7 +800,7 @@ proc `comment=`*(self: DocumentProperties, value: string) =
 proc createFileAsync*(_: typedesc[DownloadsFolder], desiredName: string
                      ): Future[StorageFile] =
   ## Windows.Storage.IDownloadsFolderStatics.CreateFileAsync
-  let it = statics[IDownloadsFolderStaticsVtbl]("Windows.Storage.DownloadsFolder")
+  let it = statics[IDownloadsFolderStaticsVtbl](className(DownloadsFolder))
   let a0 = toWinRtString(desiredName)
   var op: pointer
   check it.vtbl.CreateFileAsync(it.raw, a0.handle, op.addr
@@ -810,7 +810,7 @@ proc createFileAsync*(_: typedesc[DownloadsFolder], desiredName: string
 proc createFolderAsync*(_: typedesc[DownloadsFolder], desiredName: string
                        ): Future[StorageFolder] =
   ## Windows.Storage.IDownloadsFolderStatics.CreateFolderAsync
-  let it = statics[IDownloadsFolderStaticsVtbl]("Windows.Storage.DownloadsFolder")
+  let it = statics[IDownloadsFolderStaticsVtbl](className(DownloadsFolder))
   let a0 = toWinRtString(desiredName)
   var op: pointer
   check it.vtbl.CreateFolderAsync(it.raw, a0.handle, op.addr
@@ -820,7 +820,7 @@ proc createFolderAsync*(_: typedesc[DownloadsFolder], desiredName: string
 proc createFileAsync*(_: typedesc[DownloadsFolder], desiredName: string,
                       option: CreationCollisionOption): Future[StorageFile] =
   ## Windows.Storage.IDownloadsFolderStatics.CreateFileAsync
-  let it = statics[IDownloadsFolderStaticsVtbl]("Windows.Storage.DownloadsFolder")
+  let it = statics[IDownloadsFolderStaticsVtbl](className(DownloadsFolder))
   let a0 = toWinRtString(desiredName)
   var op: pointer
   check it.vtbl.CreateFileAsync2(it.raw, a0.handle, option, op.addr
@@ -831,7 +831,7 @@ proc createFolderAsync*(_: typedesc[DownloadsFolder], desiredName: string,
                         option: CreationCollisionOption
                        ): Future[StorageFolder] =
   ## Windows.Storage.IDownloadsFolderStatics.CreateFolderAsync
-  let it = statics[IDownloadsFolderStaticsVtbl]("Windows.Storage.DownloadsFolder")
+  let it = statics[IDownloadsFolderStaticsVtbl](className(DownloadsFolder))
   let a0 = toWinRtString(desiredName)
   var op: pointer
   check it.vtbl.CreateFolderAsync2(it.raw, a0.handle, option, op.addr
@@ -841,7 +841,7 @@ proc createFolderAsync*(_: typedesc[DownloadsFolder], desiredName: string,
 proc createFileForUserAsync*(_: typedesc[DownloadsFolder], user: User,
                              desiredName: string): Future[StorageFile] =
   ## Windows.Storage.IDownloadsFolderStatics2.CreateFileForUserAsync
-  let it = statics[IDownloadsFolderStatics2Vtbl]("Windows.Storage.DownloadsFolder")
+  let it = statics[IDownloadsFolderStatics2Vtbl](className(DownloadsFolder))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(desiredName)
   var op: pointer
@@ -852,7 +852,7 @@ proc createFileForUserAsync*(_: typedesc[DownloadsFolder], user: User,
 proc createFolderForUserAsync*(_: typedesc[DownloadsFolder], user: User,
                                desiredName: string): Future[StorageFolder] =
   ## Windows.Storage.IDownloadsFolderStatics2.CreateFolderForUserAsync
-  let it = statics[IDownloadsFolderStatics2Vtbl]("Windows.Storage.DownloadsFolder")
+  let it = statics[IDownloadsFolderStatics2Vtbl](className(DownloadsFolder))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(desiredName)
   var op: pointer
@@ -865,7 +865,7 @@ proc createFileForUserAsync*(_: typedesc[DownloadsFolder], user: User,
                              option: CreationCollisionOption
                             ): Future[StorageFile] =
   ## Windows.Storage.IDownloadsFolderStatics2.CreateFileForUserAsync
-  let it = statics[IDownloadsFolderStatics2Vtbl]("Windows.Storage.DownloadsFolder")
+  let it = statics[IDownloadsFolderStatics2Vtbl](className(DownloadsFolder))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(desiredName)
   var op: pointer
@@ -879,7 +879,7 @@ proc createFolderForUserAsync*(_: typedesc[DownloadsFolder], user: User,
                                option: CreationCollisionOption
                               ): Future[StorageFolder] =
   ## Windows.Storage.IDownloadsFolderStatics2.CreateFolderForUserAsync
-  let it = statics[IDownloadsFolderStatics2Vtbl]("Windows.Storage.DownloadsFolder")
+  let it = statics[IDownloadsFolderStatics2Vtbl](className(DownloadsFolder))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(desiredName)
   var op: pointer
@@ -893,7 +893,7 @@ proc createFolderForUserAsync*(_: typedesc[DownloadsFolder], user: User,
 proc readTextAsync*(_: typedesc[FileIO], file: SomeStorageFile
                    ): Future[string] =
   ## Windows.Storage.IFileIOStatics.ReadTextAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.ReadTextAsync(it.raw, a0.raw, op.addr), "FileIO.readTextAsync"
@@ -902,7 +902,7 @@ proc readTextAsync*(_: typedesc[FileIO], file: SomeStorageFile
 proc readTextAsync*(_: typedesc[FileIO], file: SomeStorageFile,
                     encoding: UnicodeEncoding): Future[string] =
   ## Windows.Storage.IFileIOStatics.ReadTextAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.ReadTextAsync2(it.raw, a0.raw, encoding, op.addr
@@ -912,7 +912,7 @@ proc readTextAsync*(_: typedesc[FileIO], file: SomeStorageFile,
 proc writeTextAsync*(_: typedesc[FileIO], file: SomeStorageFile,
                      contents: string): Future[void] =
   ## Windows.Storage.IFileIOStatics.WriteTextAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = toWinRtString(contents)
   var op: pointer
@@ -924,7 +924,7 @@ proc writeTextAsync*(_: typedesc[FileIO], file: SomeStorageFile,
                      contents: string, encoding: UnicodeEncoding
                     ): Future[void] =
   ## Windows.Storage.IFileIOStatics.WriteTextAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = toWinRtString(contents)
   var op: pointer
@@ -935,7 +935,7 @@ proc writeTextAsync*(_: typedesc[FileIO], file: SomeStorageFile,
 proc appendTextAsync*(_: typedesc[FileIO], file: SomeStorageFile,
                       contents: string): Future[void] =
   ## Windows.Storage.IFileIOStatics.AppendTextAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = toWinRtString(contents)
   var op: pointer
@@ -947,7 +947,7 @@ proc appendTextAsync*(_: typedesc[FileIO], file: SomeStorageFile,
                       contents: string, encoding: UnicodeEncoding
                      ): Future[void] =
   ## Windows.Storage.IFileIOStatics.AppendTextAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = toWinRtString(contents)
   var op: pointer
@@ -958,7 +958,7 @@ proc appendTextAsync*(_: typedesc[FileIO], file: SomeStorageFile,
 proc readLinesAsync*(_: typedesc[FileIO], file: SomeStorageFile
                     ): Future[seq[string]] =
   ## Windows.Storage.IFileIOStatics.ReadLinesAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.ReadLinesAsync(it.raw, a0.raw, op.addr), "FileIO.readLinesAsync"
@@ -967,7 +967,7 @@ proc readLinesAsync*(_: typedesc[FileIO], file: SomeStorageFile
 proc readLinesAsync*(_: typedesc[FileIO], file: SomeStorageFile,
                      encoding: UnicodeEncoding): Future[seq[string]] =
   ## Windows.Storage.IFileIOStatics.ReadLinesAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.ReadLinesAsync2(it.raw, a0.raw, encoding, op.addr
@@ -977,7 +977,7 @@ proc readLinesAsync*(_: typedesc[FileIO], file: SomeStorageFile,
 proc writeLinesAsync*(_: typedesc[FileIO], file: SomeStorageFile,
                       lines: seq[string]): Future[void] =
   ## Windows.Storage.IFileIOStatics.WriteLinesAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = asCollection[string, seq[string]](lines)
   var op: pointer
@@ -989,7 +989,7 @@ proc writeLinesAsync*(_: typedesc[FileIO], file: SomeStorageFile,
                       lines: seq[string], encoding: UnicodeEncoding
                      ): Future[void] =
   ## Windows.Storage.IFileIOStatics.WriteLinesAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = asCollection[string, seq[string]](lines)
   var op: pointer
@@ -1000,7 +1000,7 @@ proc writeLinesAsync*(_: typedesc[FileIO], file: SomeStorageFile,
 proc appendLinesAsync*(_: typedesc[FileIO], file: SomeStorageFile,
                        lines: seq[string]): Future[void] =
   ## Windows.Storage.IFileIOStatics.AppendLinesAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = asCollection[string, seq[string]](lines)
   var op: pointer
@@ -1012,7 +1012,7 @@ proc appendLinesAsync*(_: typedesc[FileIO], file: SomeStorageFile,
                        lines: seq[string], encoding: UnicodeEncoding
                       ): Future[void] =
   ## Windows.Storage.IFileIOStatics.AppendLinesAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = asCollection[string, seq[string]](lines)
   var op: pointer
@@ -1023,7 +1023,7 @@ proc appendLinesAsync*(_: typedesc[FileIO], file: SomeStorageFile,
 proc readBufferAsync*(_: typedesc[FileIO], file: SomeStorageFile
                      ): Future[IBuffer] =
   ## Windows.Storage.IFileIOStatics.ReadBufferAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.ReadBufferAsync(it.raw, a0.raw, op.addr
@@ -1033,7 +1033,7 @@ proc readBufferAsync*(_: typedesc[FileIO], file: SomeStorageFile
 proc writeBufferAsync*(_: typedesc[FileIO], file: SomeStorageFile,
                        buffer: SomeBuffer): Future[void] =
   ## Windows.Storage.IFileIOStatics.WriteBufferAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var op: pointer
@@ -1044,7 +1044,7 @@ proc writeBufferAsync*(_: typedesc[FileIO], file: SomeStorageFile,
 proc writeBytesAsync*(_: typedesc[FileIO], file: SomeStorageFile,
                       buffer: openArray[uint8]): Future[void] =
   ## Windows.Storage.IFileIOStatics.WriteBytesAsync
-  let it = statics[IFileIOStaticsVtbl]("Windows.Storage.FileIO")
+  let it = statics[IFileIOStaticsVtbl](className(FileIO))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = asArray[uint8, uint8](buffer)
   var op: pointer
@@ -1057,7 +1057,7 @@ proc writeBytesAsync*(_: typedesc[FileIO], file: SomeStorageFile,
 proc newFileInformationFactory*(queryResult: SomeStorageQueryResultBase,
                                 mode: ThumbnailMode): FileInformationFactory =
   ## Windows.Storage.BulkAccess.IFileInformationFactoryFactory.CreateWithMode
-  let it = statics[IFileInformationFactoryFactoryVtbl]("Windows.Storage.BulkAccess.FileInformationFactory")
+  let it = statics[IFileInformationFactoryFactoryVtbl](className(FileInformationFactory))
   let a0 = queryInterface[IStorageQueryResultBaseVtbl](queryResult)
   var ret: pointer
   check it.vtbl.CreateWithMode(it.raw, a0.raw, mode, ret.addr
@@ -1069,7 +1069,7 @@ proc newFileInformationFactory*(queryResult: SomeStorageQueryResultBase,
                                 requestedThumbnailSize: uint32
                                ): FileInformationFactory =
   ## Windows.Storage.BulkAccess.IFileInformationFactoryFactory.CreateWithModeAndSize
-  let it = statics[IFileInformationFactoryFactoryVtbl]("Windows.Storage.BulkAccess.FileInformationFactory")
+  let it = statics[IFileInformationFactoryFactoryVtbl](className(FileInformationFactory))
   let a0 = queryInterface[IStorageQueryResultBaseVtbl](queryResult)
   var ret: pointer
   check it.vtbl.CreateWithModeAndSize(it.raw, a0.raw, mode,
@@ -1083,7 +1083,7 @@ proc newFileInformationFactory*(queryResult: SomeStorageQueryResultBase,
                                 thumbnailOptions: ThumbnailOptions
                                ): FileInformationFactory =
   ## Windows.Storage.BulkAccess.IFileInformationFactoryFactory.CreateWithModeAndSizeAndOptions
-  let it = statics[IFileInformationFactoryFactoryVtbl]("Windows.Storage.BulkAccess.FileInformationFactory")
+  let it = statics[IFileInformationFactoryFactoryVtbl](className(FileInformationFactory))
   let a0 = queryInterface[IStorageQueryResultBaseVtbl](queryResult)
   var ret: pointer
   check it.vtbl.CreateWithModeAndSizeAndOptions(it.raw, a0.raw, mode,
@@ -1098,7 +1098,7 @@ proc newFileInformationFactory*(queryResult: SomeStorageQueryResultBase,
                                 thumbnailOptions: ThumbnailOptions,
                                 delayLoad: bool): FileInformationFactory =
   ## Windows.Storage.BulkAccess.IFileInformationFactoryFactory.CreateWithModeAndSizeAndOptionsAndFlags
-  let it = statics[IFileInformationFactoryFactoryVtbl]("Windows.Storage.BulkAccess.FileInformationFactory")
+  let it = statics[IFileInformationFactoryFactoryVtbl](className(FileInformationFactory))
   let a0 = queryInterface[IStorageQueryResultBaseVtbl](queryResult)
   var ret: pointer
   check it.vtbl.CreateWithModeAndSizeAndOptionsAndFlags(it.raw, a0.raw, mode,
@@ -1199,7 +1199,7 @@ proc newFileOpenPicker*(): FileOpenPicker =
 
 proc resumePickSingleFileAsync*(_: typedesc[FileOpenPicker]): Future[StorageFile] =
   ## Windows.Storage.Pickers.IFileOpenPickerStatics.ResumePickSingleFileAsync
-  let it = statics[IFileOpenPickerStaticsVtbl]("Windows.Storage.Pickers.FileOpenPicker")
+  let it = statics[IFileOpenPickerStaticsVtbl](className(FileOpenPicker))
   var op: pointer
   check it.vtbl.ResumePickSingleFileAsync(it.raw, op.addr
                                          ), "FileOpenPicker.resumePickSingleFileAsync"
@@ -1207,7 +1207,7 @@ proc resumePickSingleFileAsync*(_: typedesc[FileOpenPicker]): Future[StorageFile
 
 proc createForUser*(_: typedesc[FileOpenPicker], user: User): FileOpenPicker =
   ## Windows.Storage.Pickers.IFileOpenPickerStatics2.CreateForUser
-  let it = statics[IFileOpenPickerStatics2Vtbl]("Windows.Storage.Pickers.FileOpenPicker")
+  let it = statics[IFileOpenPickerStatics2Vtbl](className(FileOpenPicker))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.CreateForUser(it.raw, a0.raw, ret.addr
@@ -1445,7 +1445,7 @@ proc removeClosing*(self: FileOpenPickerUI, token: EventRegistrationToken) =
 proc openAsync*(_: typedesc[FileRandomAccessStream], filePath: string,
                 accessMode: FileAccessMode): Future[IRandomAccessStream] =
   ## Windows.Storage.Streams.IFileRandomAccessStreamStatics.OpenAsync
-  let it = statics[IFileRandomAccessStreamStaticsVtbl]("Windows.Storage.Streams.FileRandomAccessStream")
+  let it = statics[IFileRandomAccessStreamStaticsVtbl](className(FileRandomAccessStream))
   let a0 = toWinRtString(filePath)
   var op: pointer
   check it.vtbl.OpenAsync(it.raw, a0.handle, accessMode, op.addr
@@ -1457,7 +1457,7 @@ proc openAsync*(_: typedesc[FileRandomAccessStream], filePath: string,
                 openDisposition: FileOpenDisposition
                ): Future[IRandomAccessStream] =
   ## Windows.Storage.Streams.IFileRandomAccessStreamStatics.OpenAsync
-  let it = statics[IFileRandomAccessStreamStaticsVtbl]("Windows.Storage.Streams.FileRandomAccessStream")
+  let it = statics[IFileRandomAccessStreamStaticsVtbl](className(FileRandomAccessStream))
   let a0 = toWinRtString(filePath)
   var op: pointer
   check it.vtbl.OpenAsync2(it.raw, a0.handle, accessMode, sharingOptions,
@@ -1469,7 +1469,7 @@ proc openTransactedWriteAsync*(_: typedesc[FileRandomAccessStream],
                                filePath: string
                               ): Future[StorageStreamTransaction] =
   ## Windows.Storage.Streams.IFileRandomAccessStreamStatics.OpenTransactedWriteAsync
-  let it = statics[IFileRandomAccessStreamStaticsVtbl]("Windows.Storage.Streams.FileRandomAccessStream")
+  let it = statics[IFileRandomAccessStreamStaticsVtbl](className(FileRandomAccessStream))
   let a0 = toWinRtString(filePath)
   var op: pointer
   check it.vtbl.OpenTransactedWriteAsync(it.raw, a0.handle, op.addr
@@ -1482,7 +1482,7 @@ proc openTransactedWriteAsync*(_: typedesc[FileRandomAccessStream],
                                openDisposition: FileOpenDisposition
                               ): Future[StorageStreamTransaction] =
   ## Windows.Storage.Streams.IFileRandomAccessStreamStatics.OpenTransactedWriteAsync
-  let it = statics[IFileRandomAccessStreamStaticsVtbl]("Windows.Storage.Streams.FileRandomAccessStream")
+  let it = statics[IFileRandomAccessStreamStaticsVtbl](className(FileRandomAccessStream))
   let a0 = toWinRtString(filePath)
   var op: pointer
   check it.vtbl.OpenTransactedWriteAsync2(it.raw, a0.handle, openOptions,
@@ -1494,7 +1494,7 @@ proc openForUserAsync*(_: typedesc[FileRandomAccessStream], user: User,
                        filePath: string, accessMode: FileAccessMode
                       ): Future[IRandomAccessStream] =
   ## Windows.Storage.Streams.IFileRandomAccessStreamStatics.OpenForUserAsync
-  let it = statics[IFileRandomAccessStreamStaticsVtbl]("Windows.Storage.Streams.FileRandomAccessStream")
+  let it = statics[IFileRandomAccessStreamStaticsVtbl](className(FileRandomAccessStream))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(filePath)
   var op: pointer
@@ -1508,7 +1508,7 @@ proc openForUserAsync*(_: typedesc[FileRandomAccessStream], user: User,
                        openDisposition: FileOpenDisposition
                       ): Future[IRandomAccessStream] =
   ## Windows.Storage.Streams.IFileRandomAccessStreamStatics.OpenForUserAsync
-  let it = statics[IFileRandomAccessStreamStaticsVtbl]("Windows.Storage.Streams.FileRandomAccessStream")
+  let it = statics[IFileRandomAccessStreamStaticsVtbl](className(FileRandomAccessStream))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(filePath)
   var op: pointer
@@ -1521,7 +1521,7 @@ proc openTransactedWriteForUserAsync*(_: typedesc[FileRandomAccessStream],
                                       user: User, filePath: string
                                      ): Future[StorageStreamTransaction] =
   ## Windows.Storage.Streams.IFileRandomAccessStreamStatics.OpenTransactedWriteForUserAsync
-  let it = statics[IFileRandomAccessStreamStaticsVtbl]("Windows.Storage.Streams.FileRandomAccessStream")
+  let it = statics[IFileRandomAccessStreamStaticsVtbl](className(FileRandomAccessStream))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(filePath)
   var op: pointer
@@ -1536,7 +1536,7 @@ proc openTransactedWriteForUserAsync*(_: typedesc[FileRandomAccessStream],
                                       openDisposition: FileOpenDisposition
                                      ): Future[StorageStreamTransaction] =
   ## Windows.Storage.Streams.IFileRandomAccessStreamStatics.OpenTransactedWriteForUserAsync
-  let it = statics[IFileRandomAccessStreamStaticsVtbl]("Windows.Storage.Streams.FileRandomAccessStream")
+  let it = statics[IFileRandomAccessStreamStaticsVtbl](className(FileRandomAccessStream))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(filePath)
   var op: pointer
@@ -1563,7 +1563,7 @@ proc newFileSavePicker*(): FileSavePicker =
 
 proc createForUser*(_: typedesc[FileSavePicker], user: User): FileSavePicker =
   ## Windows.Storage.Pickers.IFileSavePickerStatics.CreateForUser
-  let it = statics[IFileSavePickerStaticsVtbl]("Windows.Storage.Pickers.FileSavePicker")
+  let it = statics[IFileSavePickerStaticsVtbl](className(FileSavePicker))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.CreateForUser(it.raw, a0.raw, ret.addr
@@ -1880,7 +1880,7 @@ proc newFolderPicker*(): FolderPicker =
 
 proc createForUser*(_: typedesc[FolderPicker], user: User): FolderPicker =
   ## Windows.Storage.Pickers.IFolderPickerStatics.CreateForUser
-  let it = statics[IFolderPickerStaticsVtbl]("Windows.Storage.Pickers.FolderPicker")
+  let it = statics[IFolderPickerStaticsVtbl](className(FolderPicker))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.CreateForUser(it.raw, a0.raw, ret.addr
@@ -1984,7 +1984,7 @@ proc user*(self: FolderPicker): User =
 proc getGeotagAsync*(_: typedesc[GeotagHelper], file: SomeStorageFile
                     ): Future[Geopoint] =
   ## Windows.Storage.FileProperties.IGeotagHelperStatics.GetGeotagAsync
-  let it = statics[IGeotagHelperStaticsVtbl]("Windows.Storage.FileProperties.GeotagHelper")
+  let it = statics[IGeotagHelperStaticsVtbl](className(GeotagHelper))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var op: pointer
   check it.vtbl.GetGeotagAsync(it.raw, a0.raw, op.addr
@@ -1995,7 +1995,7 @@ proc setGeotagFromGeolocatorAsync*(_: typedesc[GeotagHelper],
                                    file: SomeStorageFile, geolocator: Geolocator
                                   ): Future[void] =
   ## Windows.Storage.FileProperties.IGeotagHelperStatics.SetGeotagFromGeolocatorAsync
-  let it = statics[IGeotagHelperStaticsVtbl]("Windows.Storage.FileProperties.GeotagHelper")
+  let it = statics[IGeotagHelperStaticsVtbl](className(GeotagHelper))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = queryInterface[IGeolocatorVtbl](geolocator)
   var op: pointer
@@ -2006,7 +2006,7 @@ proc setGeotagFromGeolocatorAsync*(_: typedesc[GeotagHelper],
 proc setGeotagAsync*(_: typedesc[GeotagHelper], file: SomeStorageFile,
                      geopoint: Geopoint): Future[void] =
   ## Windows.Storage.FileProperties.IGeotagHelperStatics.SetGeotagAsync
-  let it = statics[IGeotagHelperStaticsVtbl]("Windows.Storage.FileProperties.GeotagHelper")
+  let it = statics[IGeotagHelperStaticsVtbl](className(GeotagHelper))
   let a0 = queryInterface[IStorageFileVtbl](file)
   let a1 = queryInterface[IGeopointVtbl](geopoint)
   var op: pointer
@@ -2157,14 +2157,14 @@ proc removedEntry*(self: ItemRemovedEventArgs): AccessListEntry =
 
 proc musicLibrary*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.IKnownFoldersStatics.get_MusicLibrary
-  let it = statics[IKnownFoldersStaticsVtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStaticsVtbl](className(KnownFolders))
   var ret: pointer
   check it.vtbl.get_MusicLibrary(it.raw, ret.addr), "KnownFolders.musicLibrary"
   adopt[StorageFolder](ret)
 
 proc picturesLibrary*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.IKnownFoldersStatics.get_PicturesLibrary
-  let it = statics[IKnownFoldersStaticsVtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStaticsVtbl](className(KnownFolders))
   var ret: pointer
   check it.vtbl.get_PicturesLibrary(it.raw, ret.addr
                                    ), "KnownFolders.picturesLibrary"
@@ -2172,7 +2172,7 @@ proc picturesLibrary*(_: typedesc[KnownFolders]): StorageFolder =
 
 proc videosLibrary*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.IKnownFoldersStatics.get_VideosLibrary
-  let it = statics[IKnownFoldersStaticsVtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStaticsVtbl](className(KnownFolders))
   var ret: pointer
   check it.vtbl.get_VideosLibrary(it.raw, ret.addr
                                  ), "KnownFolders.videosLibrary"
@@ -2180,7 +2180,7 @@ proc videosLibrary*(_: typedesc[KnownFolders]): StorageFolder =
 
 proc documentsLibrary*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.IKnownFoldersStatics.get_DocumentsLibrary
-  let it = statics[IKnownFoldersStaticsVtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStaticsVtbl](className(KnownFolders))
   var ret: pointer
   check it.vtbl.get_DocumentsLibrary(it.raw, ret.addr
                                     ), "KnownFolders.documentsLibrary"
@@ -2188,14 +2188,14 @@ proc documentsLibrary*(_: typedesc[KnownFolders]): StorageFolder =
 
 proc homeGroup*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.IKnownFoldersStatics.get_HomeGroup
-  let it = statics[IKnownFoldersStaticsVtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStaticsVtbl](className(KnownFolders))
   var ret: pointer
   check it.vtbl.get_HomeGroup(it.raw, ret.addr), "KnownFolders.homeGroup"
   adopt[StorageFolder](ret)
 
 proc removableDevices*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.IKnownFoldersStatics.get_RemovableDevices
-  let it = statics[IKnownFoldersStaticsVtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStaticsVtbl](className(KnownFolders))
   var ret: pointer
   check it.vtbl.get_RemovableDevices(it.raw, ret.addr
                                     ), "KnownFolders.removableDevices"
@@ -2203,7 +2203,7 @@ proc removableDevices*(_: typedesc[KnownFolders]): StorageFolder =
 
 proc mediaServerDevices*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.IKnownFoldersStatics.get_MediaServerDevices
-  let it = statics[IKnownFoldersStaticsVtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStaticsVtbl](className(KnownFolders))
   var ret: pointer
   check it.vtbl.get_MediaServerDevices(it.raw, ret.addr
                                       ), "KnownFolders.mediaServerDevices"
@@ -2212,7 +2212,7 @@ proc mediaServerDevices*(_: typedesc[KnownFolders]): StorageFolder =
 proc getFolderForUserAsync*(_: typedesc[KnownFolders], user: User,
                             folderId: KnownFolderId): Future[StorageFolder] =
   ## Windows.Storage.IKnownFoldersStatics3.GetFolderForUserAsync
-  let it = statics[IKnownFoldersStatics3Vtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStatics3Vtbl](className(KnownFolders))
   let a0 = queryInterface[IUserVtbl](user)
   var op: pointer
   check it.vtbl.GetFolderForUserAsync(it.raw, a0.raw, folderId, op.addr
@@ -2221,7 +2221,7 @@ proc getFolderForUserAsync*(_: typedesc[KnownFolders], user: User,
 
 proc cameraRoll*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.IKnownFoldersCameraRollStatics.get_CameraRoll
-  let it = statics[IKnownFoldersCameraRollStaticsVtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersCameraRollStaticsVtbl](className(KnownFolders))
   var ret: pointer
   check it.vtbl.get_CameraRoll(it.raw, ret.addr), "KnownFolders.cameraRoll"
   adopt[StorageFolder](ret)
@@ -2229,7 +2229,7 @@ proc cameraRoll*(_: typedesc[KnownFolders]): StorageFolder =
 proc requestAccessAsync*(_: typedesc[KnownFolders], folderId: KnownFolderId
                         ): Future[KnownFoldersAccessStatus] =
   ## Windows.Storage.IKnownFoldersStatics4.RequestAccessAsync
-  let it = statics[IKnownFoldersStatics4Vtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStatics4Vtbl](className(KnownFolders))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, folderId, op.addr
                                   ), "KnownFolders.requestAccessAsync"
@@ -2239,7 +2239,7 @@ proc requestAccessForUserAsync*(_: typedesc[KnownFolders], user: User,
                                 folderId: KnownFolderId
                                ): Future[KnownFoldersAccessStatus] =
   ## Windows.Storage.IKnownFoldersStatics4.RequestAccessForUserAsync
-  let it = statics[IKnownFoldersStatics4Vtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStatics4Vtbl](className(KnownFolders))
   let a0 = queryInterface[IUserVtbl](user)
   var op: pointer
   check it.vtbl.RequestAccessForUserAsync(it.raw, a0.raw, folderId, op.addr
@@ -2249,7 +2249,7 @@ proc requestAccessForUserAsync*(_: typedesc[KnownFolders], user: User,
 proc getFolderAsync*(_: typedesc[KnownFolders], folderId: KnownFolderId
                     ): Future[StorageFolder] =
   ## Windows.Storage.IKnownFoldersStatics4.GetFolderAsync
-  let it = statics[IKnownFoldersStatics4Vtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStatics4Vtbl](className(KnownFolders))
   var op: pointer
   check it.vtbl.GetFolderAsync(it.raw, folderId, op.addr
                               ), "KnownFolders.getFolderAsync"
@@ -2257,7 +2257,7 @@ proc getFolderAsync*(_: typedesc[KnownFolders], folderId: KnownFolderId
 
 proc savedPictures*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.IKnownFoldersSavedPicturesStatics.get_SavedPictures
-  let it = statics[IKnownFoldersSavedPicturesStaticsVtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersSavedPicturesStaticsVtbl](className(KnownFolders))
   var ret: pointer
   check it.vtbl.get_SavedPictures(it.raw, ret.addr
                                  ), "KnownFolders.savedPictures"
@@ -2265,21 +2265,21 @@ proc savedPictures*(_: typedesc[KnownFolders]): StorageFolder =
 
 proc objects3D*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.IKnownFoldersStatics2.get_Objects3D
-  let it = statics[IKnownFoldersStatics2Vtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStatics2Vtbl](className(KnownFolders))
   var ret: pointer
   check it.vtbl.get_Objects3D(it.raw, ret.addr), "KnownFolders.objects3D"
   adopt[StorageFolder](ret)
 
 proc appCaptures*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.IKnownFoldersStatics2.get_AppCaptures
-  let it = statics[IKnownFoldersStatics2Vtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStatics2Vtbl](className(KnownFolders))
   var ret: pointer
   check it.vtbl.get_AppCaptures(it.raw, ret.addr), "KnownFolders.appCaptures"
   adopt[StorageFolder](ret)
 
 proc recordedCalls*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.IKnownFoldersStatics2.get_RecordedCalls
-  let it = statics[IKnownFoldersStatics2Vtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersStatics2Vtbl](className(KnownFolders))
   var ret: pointer
   check it.vtbl.get_RecordedCalls(it.raw, ret.addr
                                  ), "KnownFolders.recordedCalls"
@@ -2287,7 +2287,7 @@ proc recordedCalls*(_: typedesc[KnownFolders]): StorageFolder =
 
 proc playlists*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.IKnownFoldersPlaylistsStatics.get_Playlists
-  let it = statics[IKnownFoldersPlaylistsStaticsVtbl]("Windows.Storage.KnownFolders")
+  let it = statics[IKnownFoldersPlaylistsStaticsVtbl](className(KnownFolders))
   var ret: pointer
   check it.vtbl.get_Playlists(it.raw, ret.addr), "KnownFolders.playlists"
   adopt[StorageFolder](ret)
@@ -2462,7 +2462,7 @@ proc `year=`*(self: MusicProperties, value: uint32) =
 
 proc readTextAsync*(_: typedesc[PathIO], absolutePath: string): Future[string] =
   ## Windows.Storage.IPathIOStatics.ReadTextAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   var op: pointer
   check it.vtbl.ReadTextAsync(it.raw, a0.handle, op.addr
@@ -2472,7 +2472,7 @@ proc readTextAsync*(_: typedesc[PathIO], absolutePath: string): Future[string] =
 proc readTextAsync*(_: typedesc[PathIO], absolutePath: string,
                     encoding: UnicodeEncoding): Future[string] =
   ## Windows.Storage.IPathIOStatics.ReadTextAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   var op: pointer
   check it.vtbl.ReadTextAsync2(it.raw, a0.handle, encoding, op.addr
@@ -2482,7 +2482,7 @@ proc readTextAsync*(_: typedesc[PathIO], absolutePath: string,
 proc writeTextAsync*(_: typedesc[PathIO], absolutePath: string, contents: string
                     ): Future[void] =
   ## Windows.Storage.IPathIOStatics.WriteTextAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   let a1 = toWinRtString(contents)
   var op: pointer
@@ -2494,7 +2494,7 @@ proc writeTextAsync*(_: typedesc[PathIO], absolutePath: string,
                      contents: string, encoding: UnicodeEncoding
                     ): Future[void] =
   ## Windows.Storage.IPathIOStatics.WriteTextAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   let a1 = toWinRtString(contents)
   var op: pointer
@@ -2505,7 +2505,7 @@ proc writeTextAsync*(_: typedesc[PathIO], absolutePath: string,
 proc appendTextAsync*(_: typedesc[PathIO], absolutePath: string,
                       contents: string): Future[void] =
   ## Windows.Storage.IPathIOStatics.AppendTextAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   let a1 = toWinRtString(contents)
   var op: pointer
@@ -2517,7 +2517,7 @@ proc appendTextAsync*(_: typedesc[PathIO], absolutePath: string,
                       contents: string, encoding: UnicodeEncoding
                      ): Future[void] =
   ## Windows.Storage.IPathIOStatics.AppendTextAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   let a1 = toWinRtString(contents)
   var op: pointer
@@ -2528,7 +2528,7 @@ proc appendTextAsync*(_: typedesc[PathIO], absolutePath: string,
 proc readLinesAsync*(_: typedesc[PathIO], absolutePath: string
                     ): Future[seq[string]] =
   ## Windows.Storage.IPathIOStatics.ReadLinesAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   var op: pointer
   check it.vtbl.ReadLinesAsync(it.raw, a0.handle, op.addr
@@ -2538,7 +2538,7 @@ proc readLinesAsync*(_: typedesc[PathIO], absolutePath: string
 proc readLinesAsync*(_: typedesc[PathIO], absolutePath: string,
                      encoding: UnicodeEncoding): Future[seq[string]] =
   ## Windows.Storage.IPathIOStatics.ReadLinesAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   var op: pointer
   check it.vtbl.ReadLinesAsync2(it.raw, a0.handle, encoding, op.addr
@@ -2548,7 +2548,7 @@ proc readLinesAsync*(_: typedesc[PathIO], absolutePath: string,
 proc writeLinesAsync*(_: typedesc[PathIO], absolutePath: string,
                       lines: seq[string]): Future[void] =
   ## Windows.Storage.IPathIOStatics.WriteLinesAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   let a1 = asCollection[string, seq[string]](lines)
   var op: pointer
@@ -2560,7 +2560,7 @@ proc writeLinesAsync*(_: typedesc[PathIO], absolutePath: string,
                       lines: seq[string], encoding: UnicodeEncoding
                      ): Future[void] =
   ## Windows.Storage.IPathIOStatics.WriteLinesAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   let a1 = asCollection[string, seq[string]](lines)
   var op: pointer
@@ -2571,7 +2571,7 @@ proc writeLinesAsync*(_: typedesc[PathIO], absolutePath: string,
 proc appendLinesAsync*(_: typedesc[PathIO], absolutePath: string,
                        lines: seq[string]): Future[void] =
   ## Windows.Storage.IPathIOStatics.AppendLinesAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   let a1 = asCollection[string, seq[string]](lines)
   var op: pointer
@@ -2583,7 +2583,7 @@ proc appendLinesAsync*(_: typedesc[PathIO], absolutePath: string,
                        lines: seq[string], encoding: UnicodeEncoding
                       ): Future[void] =
   ## Windows.Storage.IPathIOStatics.AppendLinesAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   let a1 = asCollection[string, seq[string]](lines)
   var op: pointer
@@ -2594,7 +2594,7 @@ proc appendLinesAsync*(_: typedesc[PathIO], absolutePath: string,
 proc readBufferAsync*(_: typedesc[PathIO], absolutePath: string
                      ): Future[IBuffer] =
   ## Windows.Storage.IPathIOStatics.ReadBufferAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   var op: pointer
   check it.vtbl.ReadBufferAsync(it.raw, a0.handle, op.addr
@@ -2604,7 +2604,7 @@ proc readBufferAsync*(_: typedesc[PathIO], absolutePath: string
 proc writeBufferAsync*(_: typedesc[PathIO], absolutePath: string,
                        buffer: SomeBuffer): Future[void] =
   ## Windows.Storage.IPathIOStatics.WriteBufferAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   let a1 = queryInterface[IBufferVtbl](buffer)
   var op: pointer
@@ -2615,7 +2615,7 @@ proc writeBufferAsync*(_: typedesc[PathIO], absolutePath: string,
 proc writeBytesAsync*(_: typedesc[PathIO], absolutePath: string,
                       buffer: openArray[uint8]): Future[void] =
   ## Windows.Storage.IPathIOStatics.WriteBytesAsync
-  let it = statics[IPathIOStaticsVtbl]("Windows.Storage.PathIO")
+  let it = statics[IPathIOStaticsVtbl](className(PathIO))
   let a0 = toWinRtString(absolutePath)
   let a1 = asArray[uint8, uint8](buffer)
   var op: pointer
@@ -2675,7 +2675,7 @@ proc newQueryOptions*(): QueryOptions =
 proc newQueryOptions*(query: CommonFileQuery, fileTypeFilter: seq[string]
                      ): QueryOptions =
   ## Windows.Storage.Search.IQueryOptionsFactory.CreateCommonFileQuery
-  let it = statics[IQueryOptionsFactoryVtbl]("Windows.Storage.Search.QueryOptions")
+  let it = statics[IQueryOptionsFactoryVtbl](className(QueryOptions))
   let a1 = asCollection[string, seq[string]](fileTypeFilter)
   var ret: pointer
   check it.vtbl.CreateCommonFileQuery(it.raw, query, a1.raw, ret.addr
@@ -2684,7 +2684,7 @@ proc newQueryOptions*(query: CommonFileQuery, fileTypeFilter: seq[string]
 
 proc newQueryOptions*(query: CommonFolderQuery): QueryOptions =
   ## Windows.Storage.Search.IQueryOptionsFactory.CreateCommonFolderQuery
-  let it = statics[IQueryOptionsFactoryVtbl]("Windows.Storage.Search.QueryOptions")
+  let it = statics[IQueryOptionsFactoryVtbl](className(QueryOptions))
   var ret: pointer
   check it.vtbl.CreateCommonFolderQuery(it.raw, query, ret.addr
                                        ), "QueryOptions.new"
@@ -2831,7 +2831,7 @@ proc copyAsync*(_: typedesc[RandomAccessStream], source: SomeInputStream,
                 destination: SomeOutputStream,
                 progress: proc(value: uint64) = nil): Future[uint64] =
   ## Windows.Storage.Streams.IRandomAccessStreamStatics.CopyAsync
-  let it = statics[IRandomAccessStreamStaticsVtbl]("Windows.Storage.Streams.RandomAccessStream")
+  let it = statics[IRandomAccessStreamStaticsVtbl](className(RandomAccessStream))
   let a0 = queryInterface[IInputStreamVtbl](source)
   let a1 = queryInterface[IOutputStreamVtbl](destination)
   var op: pointer
@@ -2843,7 +2843,7 @@ proc copyAsync*(_: typedesc[RandomAccessStream], source: SomeInputStream,
                 destination: SomeOutputStream, bytesToCopy: uint64,
                 progress: proc(value: uint64) = nil): Future[uint64] =
   ## Windows.Storage.Streams.IRandomAccessStreamStatics.CopyAsync
-  let it = statics[IRandomAccessStreamStaticsVtbl]("Windows.Storage.Streams.RandomAccessStream")
+  let it = statics[IRandomAccessStreamStaticsVtbl](className(RandomAccessStream))
   let a0 = queryInterface[IInputStreamVtbl](source)
   let a1 = queryInterface[IOutputStreamVtbl](destination)
   var op: pointer
@@ -2855,7 +2855,7 @@ proc copyAndCloseAsync*(_: typedesc[RandomAccessStream],
                         source: SomeInputStream, destination: SomeOutputStream,
                         progress: proc(value: uint64) = nil): Future[uint64] =
   ## Windows.Storage.Streams.IRandomAccessStreamStatics.CopyAndCloseAsync
-  let it = statics[IRandomAccessStreamStaticsVtbl]("Windows.Storage.Streams.RandomAccessStream")
+  let it = statics[IRandomAccessStreamStaticsVtbl](className(RandomAccessStream))
   let a0 = queryInterface[IInputStreamVtbl](source)
   let a1 = queryInterface[IOutputStreamVtbl](destination)
   var op: pointer
@@ -2868,7 +2868,7 @@ proc copyAndCloseAsync*(_: typedesc[RandomAccessStream],
 proc createFromFile*(_: typedesc[RandomAccessStreamReference],
                      file: SomeStorageFile): RandomAccessStreamReference =
   ## Windows.Storage.Streams.IRandomAccessStreamReferenceStatics.CreateFromFile
-  let it = statics[IRandomAccessStreamReferenceStaticsVtbl]("Windows.Storage.Streams.RandomAccessStreamReference")
+  let it = statics[IRandomAccessStreamReferenceStaticsVtbl](className(RandomAccessStreamReference))
   let a0 = queryInterface[IStorageFileVtbl](file)
   var ret: pointer
   check it.vtbl.CreateFromFile(it.raw, a0.raw, ret.addr
@@ -2878,7 +2878,7 @@ proc createFromFile*(_: typedesc[RandomAccessStreamReference],
 proc createFromUri*(_: typedesc[RandomAccessStreamReference], uri: Uri
                    ): RandomAccessStreamReference =
   ## Windows.Storage.Streams.IRandomAccessStreamReferenceStatics.CreateFromUri
-  let it = statics[IRandomAccessStreamReferenceStaticsVtbl]("Windows.Storage.Streams.RandomAccessStreamReference")
+  let it = statics[IRandomAccessStreamReferenceStaticsVtbl](className(RandomAccessStreamReference))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var ret: pointer
   check it.vtbl.CreateFromUri(it.raw, a0.raw, ret.addr
@@ -2889,7 +2889,7 @@ proc createFromStream*(_: typedesc[RandomAccessStreamReference],
                        stream: SomeRandomAccessStream
                       ): RandomAccessStreamReference =
   ## Windows.Storage.Streams.IRandomAccessStreamReferenceStatics.CreateFromStream
-  let it = statics[IRandomAccessStreamReferenceStaticsVtbl]("Windows.Storage.Streams.RandomAccessStreamReference")
+  let it = statics[IRandomAccessStreamReferenceStaticsVtbl](className(RandomAccessStreamReference))
   let a0 = queryInterface[IRandomAccessStreamVtbl](stream)
   var ret: pointer
   check it.vtbl.CreateFromStream(it.raw, a0.raw, ret.addr
@@ -2932,7 +2932,7 @@ proc getDeferral*(self: SetVersionRequest): SetVersionDeferral =
 
 proc futureAccessList*(_: typedesc[StorageApplicationPermissions]): StorageItemAccessList =
   ## Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics.get_FutureAccessList
-  let it = statics[IStorageApplicationPermissionsStaticsVtbl]("Windows.Storage.AccessCache.StorageApplicationPermissions")
+  let it = statics[IStorageApplicationPermissionsStaticsVtbl](className(StorageApplicationPermissions))
   var ret: pointer
   check it.vtbl.get_FutureAccessList(it.raw, ret.addr
                                     ), "StorageApplicationPermissions.futureAccessList"
@@ -2940,7 +2940,7 @@ proc futureAccessList*(_: typedesc[StorageApplicationPermissions]): StorageItemA
 
 proc mostRecentlyUsedList*(_: typedesc[StorageApplicationPermissions]): StorageItemMostRecentlyUsedList =
   ## Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics.get_MostRecentlyUsedList
-  let it = statics[IStorageApplicationPermissionsStaticsVtbl]("Windows.Storage.AccessCache.StorageApplicationPermissions")
+  let it = statics[IStorageApplicationPermissionsStaticsVtbl](className(StorageApplicationPermissions))
   var ret: pointer
   check it.vtbl.get_MostRecentlyUsedList(it.raw, ret.addr
                                         ), "StorageApplicationPermissions.mostRecentlyUsedList"
@@ -2949,7 +2949,7 @@ proc mostRecentlyUsedList*(_: typedesc[StorageApplicationPermissions]): StorageI
 proc getFutureAccessListForUser*(_: typedesc[StorageApplicationPermissions],
                                  user: User): StorageItemAccessList =
   ## Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics2.GetFutureAccessListForUser
-  let it = statics[IStorageApplicationPermissionsStatics2Vtbl]("Windows.Storage.AccessCache.StorageApplicationPermissions")
+  let it = statics[IStorageApplicationPermissionsStatics2Vtbl](className(StorageApplicationPermissions))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetFutureAccessListForUser(it.raw, a0.raw, ret.addr
@@ -2960,7 +2960,7 @@ proc getMostRecentlyUsedListForUser*(_: typedesc[StorageApplicationPermissions],
                                      user: User
                                     ): StorageItemMostRecentlyUsedList =
   ## Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics2.GetMostRecentlyUsedListForUser
-  let it = statics[IStorageApplicationPermissionsStatics2Vtbl]("Windows.Storage.AccessCache.StorageApplicationPermissions")
+  let it = statics[IStorageApplicationPermissionsStatics2Vtbl](className(StorageApplicationPermissions))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetMostRecentlyUsedListForUser(it.raw, a0.raw, ret.addr
@@ -2972,7 +2972,7 @@ proc getMostRecentlyUsedListForUser*(_: typedesc[StorageApplicationPermissions],
 proc getFileFromPathForUserAsync*(_: typedesc[StorageFile], user: User,
                                   path: string): Future[StorageFile] =
   ## Windows.Storage.IStorageFileStatics2.GetFileFromPathForUserAsync
-  let it = statics[IStorageFileStatics2Vtbl]("Windows.Storage.StorageFile")
+  let it = statics[IStorageFileStatics2Vtbl](className(StorageFile))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(path)
   var op: pointer
@@ -2983,7 +2983,7 @@ proc getFileFromPathForUserAsync*(_: typedesc[StorageFile], user: User,
 proc getFileFromPathAsync*(_: typedesc[StorageFile], path: string
                           ): Future[StorageFile] =
   ## Windows.Storage.IStorageFileStatics.GetFileFromPathAsync
-  let it = statics[IStorageFileStaticsVtbl]("Windows.Storage.StorageFile")
+  let it = statics[IStorageFileStaticsVtbl](className(StorageFile))
   let a0 = toWinRtString(path)
   var op: pointer
   check it.vtbl.GetFileFromPathAsync(it.raw, a0.handle, op.addr
@@ -2993,7 +2993,7 @@ proc getFileFromPathAsync*(_: typedesc[StorageFile], path: string
 proc getFileFromApplicationUriAsync*(_: typedesc[StorageFile], uri: Uri
                                     ): Future[StorageFile] =
   ## Windows.Storage.IStorageFileStatics.GetFileFromApplicationUriAsync
-  let it = statics[IStorageFileStaticsVtbl]("Windows.Storage.StorageFile")
+  let it = statics[IStorageFileStaticsVtbl](className(StorageFile))
   let a0 = queryInterface[IUriRuntimeClassVtbl](uri)
   var op: pointer
   check it.vtbl.GetFileFromApplicationUriAsync(it.raw, a0.raw, op.addr
@@ -3006,7 +3006,7 @@ proc createStreamedFileAsync*(_: typedesc[StorageFile],
                               thumbnail: SomeRandomAccessStreamReference
                              ): Future[StorageFile] =
   ## Windows.Storage.IStorageFileStatics.CreateStreamedFileAsync
-  let it = statics[IStorageFileStaticsVtbl]("Windows.Storage.StorageFile")
+  let it = statics[IStorageFileStaticsVtbl](className(StorageFile))
   let a0 = toWinRtString(displayNameWithExtension)
   proc shim1(a0: pointer) =
     dataRequested(borrow[StreamedFileDataRequest](a0))
@@ -3024,7 +3024,7 @@ proc replaceWithStreamedFileAsync*(_: typedesc[StorageFile],
                                    thumbnail: SomeRandomAccessStreamReference
                                   ): Future[StorageFile] =
   ## Windows.Storage.IStorageFileStatics.ReplaceWithStreamedFileAsync
-  let it = statics[IStorageFileStaticsVtbl]("Windows.Storage.StorageFile")
+  let it = statics[IStorageFileStaticsVtbl](className(StorageFile))
   let a0 = queryInterface[IStorageFileVtbl](fileToReplace)
   proc shim1(a0: pointer) =
     dataRequested(borrow[StreamedFileDataRequest](a0))
@@ -3041,7 +3041,7 @@ proc createStreamedFileFromUriAsync*(_: typedesc[StorageFile],
                                      thumbnail: SomeRandomAccessStreamReference
                                     ): Future[StorageFile] =
   ## Windows.Storage.IStorageFileStatics.CreateStreamedFileFromUriAsync
-  let it = statics[IStorageFileStaticsVtbl]("Windows.Storage.StorageFile")
+  let it = statics[IStorageFileStaticsVtbl](className(StorageFile))
   let a0 = toWinRtString(displayNameWithExtension)
   let a1 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a2 = queryInterface[IRandomAccessStreamReferenceVtbl](thumbnail)
@@ -3057,7 +3057,7 @@ proc replaceWithStreamedFileFromUriAsync*(_: typedesc[StorageFile],
                                           thumbnail: SomeRandomAccessStreamReference
                                          ): Future[StorageFile] =
   ## Windows.Storage.IStorageFileStatics.ReplaceWithStreamedFileFromUriAsync
-  let it = statics[IStorageFileStaticsVtbl]("Windows.Storage.StorageFile")
+  let it = statics[IStorageFileStaticsVtbl](className(StorageFile))
   let a0 = queryInterface[IStorageFileVtbl](fileToReplace)
   let a1 = queryInterface[IUriRuntimeClassVtbl](uri)
   let a2 = queryInterface[IRandomAccessStreamReferenceVtbl](thumbnail)
@@ -3102,7 +3102,7 @@ proc getMatchingPropertiesWithRanges*(self: StorageFileQueryResult,
 proc getFolderFromPathForUserAsync*(_: typedesc[StorageFolder], user: User,
                                     path: string): Future[StorageFolder] =
   ## Windows.Storage.IStorageFolderStatics2.GetFolderFromPathForUserAsync
-  let it = statics[IStorageFolderStatics2Vtbl]("Windows.Storage.StorageFolder")
+  let it = statics[IStorageFolderStatics2Vtbl](className(StorageFolder))
   let a0 = queryInterface[IUserVtbl](user)
   let a1 = toWinRtString(path)
   var op: pointer
@@ -3113,7 +3113,7 @@ proc getFolderFromPathForUserAsync*(_: typedesc[StorageFolder], user: User,
 proc getFolderFromPathAsync*(_: typedesc[StorageFolder], path: string
                             ): Future[StorageFolder] =
   ## Windows.Storage.IStorageFolderStatics.GetFolderFromPathAsync
-  let it = statics[IStorageFolderStaticsVtbl]("Windows.Storage.StorageFolder")
+  let it = statics[IStorageFolderStaticsVtbl](className(StorageFolder))
   let a0 = toWinRtString(path)
   var op: pointer
   check it.vtbl.GetFolderFromPathAsync(it.raw, a0.handle, op.addr
@@ -3284,7 +3284,7 @@ proc getLibraryForUserAsync*(_: typedesc[StorageLibrary], user: User,
                              libraryId: KnownLibraryId
                             ): Future[StorageLibrary] =
   ## Windows.Storage.IStorageLibraryStatics2.GetLibraryForUserAsync
-  let it = statics[IStorageLibraryStatics2Vtbl]("Windows.Storage.StorageLibrary")
+  let it = statics[IStorageLibraryStatics2Vtbl](className(StorageLibrary))
   let a0 = queryInterface[IUserVtbl](user)
   var op: pointer
   check it.vtbl.GetLibraryForUserAsync(it.raw, a0.raw, libraryId, op.addr
@@ -3294,7 +3294,7 @@ proc getLibraryForUserAsync*(_: typedesc[StorageLibrary], user: User,
 proc getLibraryAsync*(_: typedesc[StorageLibrary], libraryId: KnownLibraryId
                      ): Future[StorageLibrary] =
   ## Windows.Storage.IStorageLibraryStatics.GetLibraryAsync
-  let it = statics[IStorageLibraryStaticsVtbl]("Windows.Storage.StorageLibrary")
+  let it = statics[IStorageLibraryStaticsVtbl](className(StorageLibrary))
   var op: pointer
   check it.vtbl.GetLibraryAsync(it.raw, libraryId, op.addr
                                ), "StorageLibrary.getLibraryAsync"
@@ -3531,7 +3531,7 @@ proc createModifiedSinceQuery*(self: StorageLibraryContentChangedTriggerDetails,
 
 proc unknown*(_: typedesc[StorageLibraryLastChangeId]): uint64 =
   ## Windows.Storage.IStorageLibraryLastChangeIdStatics.get_Unknown
-  let it = statics[IStorageLibraryLastChangeIdStaticsVtbl]("Windows.Storage.StorageLibraryLastChangeId")
+  let it = statics[IStorageLibraryLastChangeIdStaticsVtbl](className(StorageLibraryLastChangeId))
   var ret: uint64
   check it.vtbl.get_Unknown(it.raw, ret.addr
                            ), "StorageLibraryLastChangeId.unknown"
@@ -3570,7 +3570,7 @@ proc isPropertySupportedForPartialFileAsync*(self: StorageProvider,
 proc newStorageProviderFileTypeInfo*(fileExtension: string, iconResource: string
                                     ): StorageProviderFileTypeInfo =
   ## Windows.Storage.Provider.IStorageProviderFileTypeInfoFactory.CreateInstance
-  let it = statics[IStorageProviderFileTypeInfoFactoryVtbl]("Windows.Storage.Provider.StorageProviderFileTypeInfo")
+  let it = statics[IStorageProviderFileTypeInfoFactoryVtbl](className(StorageProviderFileTypeInfo))
   let a0 = toWinRtString(fileExtension)
   let a1 = toWinRtString(iconResource)
   var ret: pointer
@@ -3689,7 +3689,7 @@ proc setAsync*(_: typedesc[StorageProviderItemProperties],
                item: SomeStorageItem,
                itemProperties: seq[StorageProviderItemProperty]): Future[void] =
   ## Windows.Storage.Provider.IStorageProviderItemPropertiesStatics.SetAsync
-  let it = statics[IStorageProviderItemPropertiesStaticsVtbl]("Windows.Storage.Provider.StorageProviderItemProperties")
+  let it = statics[IStorageProviderItemPropertiesStaticsVtbl](className(StorageProviderItemProperties))
   let a0 = queryInterface[IStorageItemVtbl](item)
   let a1 = asCollection[StorageProviderItemProperty,
                         seq[StorageProviderItemProperty]](itemProperties)
@@ -3924,7 +3924,7 @@ proc `command=`*(self: StorageProviderMoreInfoUI,
 
 proc newStorageProviderQueryResultSet*(results: openArray[IStorageProviderQueryResult]): StorageProviderQueryResultSet =
   ## Windows.Storage.Provider.IStorageProviderQueryResultSetFactory.CreateInstance
-  let it = statics[IStorageProviderQueryResultSetFactoryVtbl]("Windows.Storage.Provider.StorageProviderQueryResultSet")
+  let it = statics[IStorageProviderQueryResultSetFactoryVtbl](className(StorageProviderQueryResultSet))
   let a0 = asArray[IStorageProviderQueryResult, IStorageProviderQueryResult](results)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.count, a0.data, ret.addr
@@ -4588,14 +4588,14 @@ proc fallbackFileTypeInfo*(self: StorageProviderSyncRootInfo): seq[StorageProvid
 proc register*(_: typedesc[StorageProviderSyncRootManager],
                syncRootInformation: StorageProviderSyncRootInfo) =
   ## Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics.Register
-  let it = statics[IStorageProviderSyncRootManagerStaticsVtbl]("Windows.Storage.Provider.StorageProviderSyncRootManager")
+  let it = statics[IStorageProviderSyncRootManagerStaticsVtbl](className(StorageProviderSyncRootManager))
   let a0 = queryInterface[IStorageProviderSyncRootInfoVtbl](syncRootInformation)
   check it.vtbl.Register(it.raw, a0.raw
                         ), "StorageProviderSyncRootManager.register"
 
 proc unregister*(_: typedesc[StorageProviderSyncRootManager], id: string) =
   ## Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics.Unregister
-  let it = statics[IStorageProviderSyncRootManagerStaticsVtbl]("Windows.Storage.Provider.StorageProviderSyncRootManager")
+  let it = statics[IStorageProviderSyncRootManagerStaticsVtbl](className(StorageProviderSyncRootManager))
   let a0 = toWinRtString(id)
   check it.vtbl.Unregister(it.raw, a0.handle
                           ), "StorageProviderSyncRootManager.unregister"
@@ -4604,7 +4604,7 @@ proc getSyncRootInformationForFolder*(_: typedesc[StorageProviderSyncRootManager
                                       folder: SomeStorageFolder
                                      ): StorageProviderSyncRootInfo =
   ## Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics.GetSyncRootInformationForFolder
-  let it = statics[IStorageProviderSyncRootManagerStaticsVtbl]("Windows.Storage.Provider.StorageProviderSyncRootManager")
+  let it = statics[IStorageProviderSyncRootManagerStaticsVtbl](className(StorageProviderSyncRootManager))
   let a0 = queryInterface[IStorageFolderVtbl](folder)
   var ret: pointer
   check it.vtbl.GetSyncRootInformationForFolder(it.raw, a0.raw, ret.addr
@@ -4614,7 +4614,7 @@ proc getSyncRootInformationForFolder*(_: typedesc[StorageProviderSyncRootManager
 proc getSyncRootInformationForId*(_: typedesc[StorageProviderSyncRootManager],
                                   id: string): StorageProviderSyncRootInfo =
   ## Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics.GetSyncRootInformationForId
-  let it = statics[IStorageProviderSyncRootManagerStaticsVtbl]("Windows.Storage.Provider.StorageProviderSyncRootManager")
+  let it = statics[IStorageProviderSyncRootManagerStaticsVtbl](className(StorageProviderSyncRootManager))
   let a0 = toWinRtString(id)
   var ret: pointer
   check it.vtbl.GetSyncRootInformationForId(it.raw, a0.handle, ret.addr
@@ -4623,7 +4623,7 @@ proc getSyncRootInformationForId*(_: typedesc[StorageProviderSyncRootManager],
 
 proc getCurrentSyncRoots*(_: typedesc[StorageProviderSyncRootManager]): seq[StorageProviderSyncRootInfo] =
   ## Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics.GetCurrentSyncRoots
-  let it = statics[IStorageProviderSyncRootManagerStaticsVtbl]("Windows.Storage.Provider.StorageProviderSyncRootManager")
+  let it = statics[IStorageProviderSyncRootManagerStaticsVtbl](className(StorageProviderSyncRootManager))
   var ret: pointer
   check it.vtbl.GetCurrentSyncRoots(it.raw, ret.addr
                                    ), "StorageProviderSyncRootManager.getCurrentSyncRoots"
@@ -4631,7 +4631,7 @@ proc getCurrentSyncRoots*(_: typedesc[StorageProviderSyncRootManager]): seq[Stor
 
 proc isSupported*(_: typedesc[StorageProviderSyncRootManager]): bool =
   ## Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics2.IsSupported
-  let it = statics[IStorageProviderSyncRootManagerStatics2Vtbl]("Windows.Storage.Provider.StorageProviderSyncRootManager")
+  let it = statics[IStorageProviderSyncRootManagerStatics2Vtbl](className(StorageProviderSyncRootManager))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr
                            ), "StorageProviderSyncRootManager.isSupported"
@@ -4668,7 +4668,7 @@ proc encodingBitrate*(self: SystemAudioProperties): string =
 
 proc getDefault*(_: typedesc[SystemDataPaths]): SystemDataPaths =
   ## Windows.Storage.ISystemDataPathsStatics.GetDefault
-  let it = statics[ISystemDataPathsStaticsVtbl]("Windows.Storage.SystemDataPaths")
+  let it = statics[ISystemDataPathsStaticsVtbl](className(SystemDataPaths))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "SystemDataPaths.getDefault"
   adopt[SystemDataPaths](ret)
@@ -4981,21 +4981,21 @@ proc peopleNames*(self: SystemPhotoProperties): string =
 
 proc author*(_: typedesc[SystemProperties]): string =
   ## Windows.Storage.ISystemProperties.get_Author
-  let it = statics[ISystemPropertiesVtbl]("Windows.Storage.SystemProperties")
+  let it = statics[ISystemPropertiesVtbl](className(SystemProperties))
   var ret: HSTRING
   check it.vtbl.get_Author(it.raw, ret.addr), "SystemProperties.author"
   takeString(ret)
 
 proc comment*(_: typedesc[SystemProperties]): string =
   ## Windows.Storage.ISystemProperties.get_Comment
-  let it = statics[ISystemPropertiesVtbl]("Windows.Storage.SystemProperties")
+  let it = statics[ISystemPropertiesVtbl](className(SystemProperties))
   var ret: HSTRING
   check it.vtbl.get_Comment(it.raw, ret.addr), "SystemProperties.comment"
   takeString(ret)
 
 proc itemNameDisplay*(_: typedesc[SystemProperties]): string =
   ## Windows.Storage.ISystemProperties.get_ItemNameDisplay
-  let it = statics[ISystemPropertiesVtbl]("Windows.Storage.SystemProperties")
+  let it = statics[ISystemPropertiesVtbl](className(SystemProperties))
   var ret: HSTRING
   check it.vtbl.get_ItemNameDisplay(it.raw, ret.addr
                                    ), "SystemProperties.itemNameDisplay"
@@ -5003,70 +5003,70 @@ proc itemNameDisplay*(_: typedesc[SystemProperties]): string =
 
 proc keywords*(_: typedesc[SystemProperties]): string =
   ## Windows.Storage.ISystemProperties.get_Keywords
-  let it = statics[ISystemPropertiesVtbl]("Windows.Storage.SystemProperties")
+  let it = statics[ISystemPropertiesVtbl](className(SystemProperties))
   var ret: HSTRING
   check it.vtbl.get_Keywords(it.raw, ret.addr), "SystemProperties.keywords"
   takeString(ret)
 
 proc rating*(_: typedesc[SystemProperties]): string =
   ## Windows.Storage.ISystemProperties.get_Rating
-  let it = statics[ISystemPropertiesVtbl]("Windows.Storage.SystemProperties")
+  let it = statics[ISystemPropertiesVtbl](className(SystemProperties))
   var ret: HSTRING
   check it.vtbl.get_Rating(it.raw, ret.addr), "SystemProperties.rating"
   takeString(ret)
 
 proc title*(_: typedesc[SystemProperties]): string =
   ## Windows.Storage.ISystemProperties.get_Title
-  let it = statics[ISystemPropertiesVtbl]("Windows.Storage.SystemProperties")
+  let it = statics[ISystemPropertiesVtbl](className(SystemProperties))
   var ret: HSTRING
   check it.vtbl.get_Title(it.raw, ret.addr), "SystemProperties.title"
   takeString(ret)
 
 proc audio*(_: typedesc[SystemProperties]): SystemAudioProperties =
   ## Windows.Storage.ISystemProperties.get_Audio
-  let it = statics[ISystemPropertiesVtbl]("Windows.Storage.SystemProperties")
+  let it = statics[ISystemPropertiesVtbl](className(SystemProperties))
   var ret: pointer
   check it.vtbl.get_Audio(it.raw, ret.addr), "SystemProperties.audio"
   adopt[SystemAudioProperties](ret)
 
 proc gPS*(_: typedesc[SystemProperties]): SystemGPSProperties =
   ## Windows.Storage.ISystemProperties.get_GPS
-  let it = statics[ISystemPropertiesVtbl]("Windows.Storage.SystemProperties")
+  let it = statics[ISystemPropertiesVtbl](className(SystemProperties))
   var ret: pointer
   check it.vtbl.get_GPS(it.raw, ret.addr), "SystemProperties.gPS"
   adopt[SystemGPSProperties](ret)
 
 proc media*(_: typedesc[SystemProperties]): SystemMediaProperties =
   ## Windows.Storage.ISystemProperties.get_Media
-  let it = statics[ISystemPropertiesVtbl]("Windows.Storage.SystemProperties")
+  let it = statics[ISystemPropertiesVtbl](className(SystemProperties))
   var ret: pointer
   check it.vtbl.get_Media(it.raw, ret.addr), "SystemProperties.media"
   adopt[SystemMediaProperties](ret)
 
 proc music*(_: typedesc[SystemProperties]): SystemMusicProperties =
   ## Windows.Storage.ISystemProperties.get_Music
-  let it = statics[ISystemPropertiesVtbl]("Windows.Storage.SystemProperties")
+  let it = statics[ISystemPropertiesVtbl](className(SystemProperties))
   var ret: pointer
   check it.vtbl.get_Music(it.raw, ret.addr), "SystemProperties.music"
   adopt[SystemMusicProperties](ret)
 
 proc photo*(_: typedesc[SystemProperties]): SystemPhotoProperties =
   ## Windows.Storage.ISystemProperties.get_Photo
-  let it = statics[ISystemPropertiesVtbl]("Windows.Storage.SystemProperties")
+  let it = statics[ISystemPropertiesVtbl](className(SystemProperties))
   var ret: pointer
   check it.vtbl.get_Photo(it.raw, ret.addr), "SystemProperties.photo"
   adopt[SystemPhotoProperties](ret)
 
 proc video*(_: typedesc[SystemProperties]): SystemVideoProperties =
   ## Windows.Storage.ISystemProperties.get_Video
-  let it = statics[ISystemPropertiesVtbl]("Windows.Storage.SystemProperties")
+  let it = statics[ISystemPropertiesVtbl](className(SystemProperties))
   var ret: pointer
   check it.vtbl.get_Video(it.raw, ret.addr), "SystemProperties.video"
   adopt[SystemVideoProperties](ret)
 
 proc image*(_: typedesc[SystemProperties]): SystemImageProperties =
   ## Windows.Storage.ISystemProperties.get_Image
-  let it = statics[ISystemPropertiesVtbl]("Windows.Storage.SystemProperties")
+  let it = statics[ISystemPropertiesVtbl](className(SystemProperties))
   var ret: pointer
   check it.vtbl.get_Image(it.raw, ret.addr), "SystemProperties.image"
   adopt[SystemImageProperties](ret)
@@ -5155,7 +5155,7 @@ proc request*(self: TargetFileRequestedEventArgs): TargetFileRequest =
 
 proc getForUser*(_: typedesc[UserDataPaths], user: User): UserDataPaths =
   ## Windows.Storage.IUserDataPathsStatics.GetForUser
-  let it = statics[IUserDataPathsStaticsVtbl]("Windows.Storage.UserDataPaths")
+  let it = statics[IUserDataPathsStaticsVtbl](className(UserDataPaths))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetForUser(it.raw, a0.raw, ret.addr), "UserDataPaths.getForUser"
@@ -5163,7 +5163,7 @@ proc getForUser*(_: typedesc[UserDataPaths], user: User): UserDataPaths =
 
 proc getDefault*(_: typedesc[UserDataPaths]): UserDataPaths =
   ## Windows.Storage.IUserDataPathsStatics.GetDefault
-  let it = statics[IUserDataPathsStaticsVtbl]("Windows.Storage.UserDataPaths")
+  let it = statics[IUserDataPathsStaticsVtbl](className(UserDataPaths))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "UserDataPaths.getDefault"
   adopt[UserDataPaths](ret)

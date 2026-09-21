@@ -28,7 +28,7 @@ export foundation
 proc getDefault*(_: typedesc[Accelerometer],
                  readingType: AccelerometerReadingType): Accelerometer =
   ## Windows.Devices.Sensors.IAccelerometerStatics2.GetDefault
-  let it = statics[IAccelerometerStatics2Vtbl]("Windows.Devices.Sensors.Accelerometer")
+  let it = statics[IAccelerometerStatics2Vtbl](className(Accelerometer))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, readingType, ret.addr
                           ), "Accelerometer.getDefault"
@@ -37,7 +37,7 @@ proc getDefault*(_: typedesc[Accelerometer],
 proc fromIdAsync*(_: typedesc[Accelerometer], deviceId: string
                  ): Future[Accelerometer] =
   ## Windows.Devices.Sensors.IAccelerometerStatics3.FromIdAsync
-  let it = statics[IAccelerometerStatics3Vtbl]("Windows.Devices.Sensors.Accelerometer")
+  let it = statics[IAccelerometerStatics3Vtbl](className(Accelerometer))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -47,7 +47,7 @@ proc fromIdAsync*(_: typedesc[Accelerometer], deviceId: string
 proc getDeviceSelector*(_: typedesc[Accelerometer],
                         readingType: AccelerometerReadingType): string =
   ## Windows.Devices.Sensors.IAccelerometerStatics3.GetDeviceSelector
-  let it = statics[IAccelerometerStatics3Vtbl]("Windows.Devices.Sensors.Accelerometer")
+  let it = statics[IAccelerometerStatics3Vtbl](className(Accelerometer))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, readingType, ret.addr
                                  ), "Accelerometer.getDeviceSelector"
@@ -55,7 +55,7 @@ proc getDeviceSelector*(_: typedesc[Accelerometer],
 
 proc getDefault*(_: typedesc[Accelerometer]): Accelerometer =
   ## Windows.Devices.Sensors.IAccelerometerStatics.GetDefault
-  let it = statics[IAccelerometerStaticsVtbl]("Windows.Devices.Sensors.Accelerometer")
+  let it = statics[IAccelerometerStaticsVtbl](className(Accelerometer))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "Accelerometer.getDefault"
   adopt[Accelerometer](ret)
@@ -301,7 +301,7 @@ proc timestamp*(self: AccelerometerShakenEventArgs): DateTime =
 
 proc getDefaultAsync*(_: typedesc[ActivitySensor]): Future[ActivitySensor] =
   ## Windows.Devices.Sensors.IActivitySensorStatics.GetDefaultAsync
-  let it = statics[IActivitySensorStaticsVtbl]("Windows.Devices.Sensors.ActivitySensor")
+  let it = statics[IActivitySensorStaticsVtbl](className(ActivitySensor))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "ActivitySensor.getDefaultAsync"
@@ -309,7 +309,7 @@ proc getDefaultAsync*(_: typedesc[ActivitySensor]): Future[ActivitySensor] =
 
 proc getDeviceSelector*(_: typedesc[ActivitySensor]): string =
   ## Windows.Devices.Sensors.IActivitySensorStatics.GetDeviceSelector
-  let it = statics[IActivitySensorStaticsVtbl]("Windows.Devices.Sensors.ActivitySensor")
+  let it = statics[IActivitySensorStaticsVtbl](className(ActivitySensor))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "ActivitySensor.getDeviceSelector"
@@ -318,7 +318,7 @@ proc getDeviceSelector*(_: typedesc[ActivitySensor]): string =
 proc fromIdAsync*(_: typedesc[ActivitySensor], deviceId: string
                  ): Future[ActivitySensor] =
   ## Windows.Devices.Sensors.IActivitySensorStatics.FromIdAsync
-  let it = statics[IActivitySensorStaticsVtbl]("Windows.Devices.Sensors.ActivitySensor")
+  let it = statics[IActivitySensorStaticsVtbl](className(ActivitySensor))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -328,7 +328,7 @@ proc fromIdAsync*(_: typedesc[ActivitySensor], deviceId: string
 proc getSystemHistoryAsync*(_: typedesc[ActivitySensor], fromTime: DateTime
                            ): Future[seq[ActivitySensorReading]] =
   ## Windows.Devices.Sensors.IActivitySensorStatics.GetSystemHistoryAsync
-  let it = statics[IActivitySensorStaticsVtbl]("Windows.Devices.Sensors.ActivitySensor")
+  let it = statics[IActivitySensorStaticsVtbl](className(ActivitySensor))
   var op: pointer
   check it.vtbl.GetSystemHistoryAsync(it.raw, fromTime, op.addr
                                      ), "ActivitySensor.getSystemHistoryAsync"
@@ -339,7 +339,7 @@ proc getSystemHistoryAsync*(_: typedesc[ActivitySensor], fromTime: DateTime,
                             duration: TimeSpan
                            ): Future[seq[ActivitySensorReading]] =
   ## Windows.Devices.Sensors.IActivitySensorStatics.GetSystemHistoryAsync
-  let it = statics[IActivitySensorStaticsVtbl]("Windows.Devices.Sensors.ActivitySensor")
+  let it = statics[IActivitySensorStaticsVtbl](className(ActivitySensor))
   var op: pointer
   check it.vtbl.GetSystemHistoryAsync2(it.raw, fromTime, duration, op.addr
                                       ), "ActivitySensor.getSystemHistoryAsync"
@@ -513,7 +513,7 @@ proc readRatio*(self: AdcChannel): float64 =
 
 proc getDefaultAsync*(_: typedesc[AdcController]): Future[AdcController] =
   ## Windows.Devices.Adc.IAdcControllerStatics2.GetDefaultAsync
-  let it = statics[IAdcControllerStatics2Vtbl]("Windows.Devices.Adc.AdcController")
+  let it = statics[IAdcControllerStatics2Vtbl](className(AdcController))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "AdcController.getDefaultAsync"
@@ -522,7 +522,7 @@ proc getDefaultAsync*(_: typedesc[AdcController]): Future[AdcController] =
 proc getControllersAsync*(_: typedesc[AdcController], provider: IAdcProvider
                          ): Future[seq[AdcController]] =
   ## Windows.Devices.Adc.IAdcControllerStatics.GetControllersAsync
-  let it = statics[IAdcControllerStaticsVtbl]("Windows.Devices.Adc.AdcController")
+  let it = statics[IAdcControllerStaticsVtbl](className(AdcController))
   let a0 = queryInterface[IAdcProviderVtbl](provider)
   var op: pointer
   check it.vtbl.GetControllersAsync(it.raw, a0.raw, op.addr
@@ -591,7 +591,7 @@ proc openChannel*(self: AdcController, channelNumber: int32): AdcChannel =
 
 proc getDefault*(_: typedesc[Altimeter]): Altimeter =
   ## Windows.Devices.Sensors.IAltimeterStatics.GetDefault
-  let it = statics[IAltimeterStaticsVtbl]("Windows.Devices.Sensors.Altimeter")
+  let it = statics[IAltimeterStaticsVtbl](className(Altimeter))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "Altimeter.getDefault"
   adopt[Altimeter](ret)
@@ -714,7 +714,7 @@ proc reading*(self: AltimeterReadingChangedEventArgs): AltimeterReading =
 
 proc getDefaultAsync*(_: typedesc[BarcodeScanner]): Future[BarcodeScanner] =
   ## Windows.Devices.PointOfService.IBarcodeScannerStatics.GetDefaultAsync
-  let it = statics[IBarcodeScannerStaticsVtbl]("Windows.Devices.PointOfService.BarcodeScanner")
+  let it = statics[IBarcodeScannerStaticsVtbl](className(BarcodeScanner))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "BarcodeScanner.getDefaultAsync"
@@ -723,7 +723,7 @@ proc getDefaultAsync*(_: typedesc[BarcodeScanner]): Future[BarcodeScanner] =
 proc fromIdAsync*(_: typedesc[BarcodeScanner], deviceId: string
                  ): Future[BarcodeScanner] =
   ## Windows.Devices.PointOfService.IBarcodeScannerStatics.FromIdAsync
-  let it = statics[IBarcodeScannerStaticsVtbl]("Windows.Devices.PointOfService.BarcodeScanner")
+  let it = statics[IBarcodeScannerStaticsVtbl](className(BarcodeScanner))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -732,7 +732,7 @@ proc fromIdAsync*(_: typedesc[BarcodeScanner], deviceId: string
 
 proc getDeviceSelector*(_: typedesc[BarcodeScanner]): string =
   ## Windows.Devices.PointOfService.IBarcodeScannerStatics.GetDeviceSelector
-  let it = statics[IBarcodeScannerStaticsVtbl]("Windows.Devices.PointOfService.BarcodeScanner")
+  let it = statics[IBarcodeScannerStaticsVtbl](className(BarcodeScanner))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "BarcodeScanner.getDeviceSelector"
@@ -741,7 +741,7 @@ proc getDeviceSelector*(_: typedesc[BarcodeScanner]): string =
 proc getDeviceSelector*(_: typedesc[BarcodeScanner],
                         connectionTypes: PosConnectionTypes): string =
   ## Windows.Devices.PointOfService.IBarcodeScannerStatics2.GetDeviceSelector
-  let it = statics[IBarcodeScannerStatics2Vtbl]("Windows.Devices.PointOfService.BarcodeScanner")
+  let it = statics[IBarcodeScannerStatics2Vtbl](className(BarcodeScanner))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, connectionTypes, ret.addr
                                  ), "BarcodeScanner.getDeviceSelector"
@@ -1580,7 +1580,7 @@ proc connection*(self: BarcodeScannerProviderTriggerDetails): BarcodeScannerProv
 proc newBarcodeScannerReport*(scanDataType: uint32, scanData: SomeBuffer,
                               scanDataLabel: SomeBuffer): BarcodeScannerReport =
   ## Windows.Devices.PointOfService.IBarcodeScannerReportFactory.CreateInstance
-  let it = statics[IBarcodeScannerReportFactoryVtbl]("Windows.Devices.PointOfService.BarcodeScannerReport")
+  let it = statics[IBarcodeScannerReportFactoryVtbl](className(BarcodeScannerReport))
   let a1 = queryInterface[IBufferVtbl](scanData)
   let a2 = queryInterface[IBufferVtbl](scanDataLabel)
   var ret: pointer
@@ -1912,252 +1912,252 @@ proc pixelData*(self: BarcodeScannerVideoFrame): IBuffer =
 
 proc gs1DWCode*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics2.get_Gs1DWCode
-  let it = statics[IBarcodeSymbologiesStatics2Vtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStatics2Vtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Gs1DWCode(it.raw, ret.addr), "BarcodeSymbologies.gs1DWCode"
   ret
 
 proc unknown*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Unknown
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Unknown(it.raw, ret.addr), "BarcodeSymbologies.unknown"
   ret
 
 proc ean8*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Ean8
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Ean8(it.raw, ret.addr), "BarcodeSymbologies.ean8"
   ret
 
 proc ean8Add2*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Ean8Add2
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Ean8Add2(it.raw, ret.addr), "BarcodeSymbologies.ean8Add2"
   ret
 
 proc ean8Add5*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Ean8Add5
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Ean8Add5(it.raw, ret.addr), "BarcodeSymbologies.ean8Add5"
   ret
 
 proc eanv*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Eanv
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Eanv(it.raw, ret.addr), "BarcodeSymbologies.eanv"
   ret
 
 proc eanvAdd2*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_EanvAdd2
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_EanvAdd2(it.raw, ret.addr), "BarcodeSymbologies.eanvAdd2"
   ret
 
 proc eanvAdd5*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_EanvAdd5
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_EanvAdd5(it.raw, ret.addr), "BarcodeSymbologies.eanvAdd5"
   ret
 
 proc ean13*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Ean13
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Ean13(it.raw, ret.addr), "BarcodeSymbologies.ean13"
   ret
 
 proc ean13Add2*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Ean13Add2
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Ean13Add2(it.raw, ret.addr), "BarcodeSymbologies.ean13Add2"
   ret
 
 proc ean13Add5*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Ean13Add5
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Ean13Add5(it.raw, ret.addr), "BarcodeSymbologies.ean13Add5"
   ret
 
 proc isbn*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Isbn
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Isbn(it.raw, ret.addr), "BarcodeSymbologies.isbn"
   ret
 
 proc isbnAdd5*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_IsbnAdd5
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_IsbnAdd5(it.raw, ret.addr), "BarcodeSymbologies.isbnAdd5"
   ret
 
 proc ismn*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Ismn
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Ismn(it.raw, ret.addr), "BarcodeSymbologies.ismn"
   ret
 
 proc ismnAdd2*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_IsmnAdd2
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_IsmnAdd2(it.raw, ret.addr), "BarcodeSymbologies.ismnAdd2"
   ret
 
 proc ismnAdd5*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_IsmnAdd5
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_IsmnAdd5(it.raw, ret.addr), "BarcodeSymbologies.ismnAdd5"
   ret
 
 proc issn*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Issn
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Issn(it.raw, ret.addr), "BarcodeSymbologies.issn"
   ret
 
 proc issnAdd2*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_IssnAdd2
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_IssnAdd2(it.raw, ret.addr), "BarcodeSymbologies.issnAdd2"
   ret
 
 proc issnAdd5*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_IssnAdd5
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_IssnAdd5(it.raw, ret.addr), "BarcodeSymbologies.issnAdd5"
   ret
 
 proc ean99*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Ean99
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Ean99(it.raw, ret.addr), "BarcodeSymbologies.ean99"
   ret
 
 proc ean99Add2*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Ean99Add2
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Ean99Add2(it.raw, ret.addr), "BarcodeSymbologies.ean99Add2"
   ret
 
 proc ean99Add5*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Ean99Add5
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Ean99Add5(it.raw, ret.addr), "BarcodeSymbologies.ean99Add5"
   ret
 
 proc upca*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Upca
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Upca(it.raw, ret.addr), "BarcodeSymbologies.upca"
   ret
 
 proc upcaAdd2*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_UpcaAdd2
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_UpcaAdd2(it.raw, ret.addr), "BarcodeSymbologies.upcaAdd2"
   ret
 
 proc upcaAdd5*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_UpcaAdd5
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_UpcaAdd5(it.raw, ret.addr), "BarcodeSymbologies.upcaAdd5"
   ret
 
 proc upce*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Upce
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Upce(it.raw, ret.addr), "BarcodeSymbologies.upce"
   ret
 
 proc upceAdd2*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_UpceAdd2
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_UpceAdd2(it.raw, ret.addr), "BarcodeSymbologies.upceAdd2"
   ret
 
 proc upceAdd5*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_UpceAdd5
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_UpceAdd5(it.raw, ret.addr), "BarcodeSymbologies.upceAdd5"
   ret
 
 proc upcCoupon*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_UpcCoupon
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_UpcCoupon(it.raw, ret.addr), "BarcodeSymbologies.upcCoupon"
   ret
 
 proc tfStd*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_TfStd
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_TfStd(it.raw, ret.addr), "BarcodeSymbologies.tfStd"
   ret
 
 proc tfDis*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_TfDis
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_TfDis(it.raw, ret.addr), "BarcodeSymbologies.tfDis"
   ret
 
 proc tfInt*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_TfInt
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_TfInt(it.raw, ret.addr), "BarcodeSymbologies.tfInt"
   ret
 
 proc tfInd*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_TfInd
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_TfInd(it.raw, ret.addr), "BarcodeSymbologies.tfInd"
   ret
 
 proc tfMat*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_TfMat
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_TfMat(it.raw, ret.addr), "BarcodeSymbologies.tfMat"
   ret
 
 proc tfIata*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_TfIata
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_TfIata(it.raw, ret.addr), "BarcodeSymbologies.tfIata"
   ret
 
 proc gs1DatabarType1*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Gs1DatabarType1
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Gs1DatabarType1(it.raw, ret.addr
                                    ), "BarcodeSymbologies.gs1DatabarType1"
@@ -2165,7 +2165,7 @@ proc gs1DatabarType1*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc gs1DatabarType2*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Gs1DatabarType2
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Gs1DatabarType2(it.raw, ret.addr
                                    ), "BarcodeSymbologies.gs1DatabarType2"
@@ -2173,7 +2173,7 @@ proc gs1DatabarType2*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc gs1DatabarType3*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Gs1DatabarType3
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Gs1DatabarType3(it.raw, ret.addr
                                    ), "BarcodeSymbologies.gs1DatabarType3"
@@ -2181,21 +2181,21 @@ proc gs1DatabarType3*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc code39*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Code39
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Code39(it.raw, ret.addr), "BarcodeSymbologies.code39"
   ret
 
 proc code39Ex*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Code39Ex
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Code39Ex(it.raw, ret.addr), "BarcodeSymbologies.code39Ex"
   ret
 
 proc trioptic39*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Trioptic39
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Trioptic39(it.raw, ret.addr
                               ), "BarcodeSymbologies.trioptic39"
@@ -2203,49 +2203,49 @@ proc trioptic39*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc code32*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Code32
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Code32(it.raw, ret.addr), "BarcodeSymbologies.code32"
   ret
 
 proc pzn*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Pzn
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Pzn(it.raw, ret.addr), "BarcodeSymbologies.pzn"
   ret
 
 proc code93*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Code93
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Code93(it.raw, ret.addr), "BarcodeSymbologies.code93"
   ret
 
 proc code93Ex*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Code93Ex
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Code93Ex(it.raw, ret.addr), "BarcodeSymbologies.code93Ex"
   ret
 
 proc code128*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Code128
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Code128(it.raw, ret.addr), "BarcodeSymbologies.code128"
   ret
 
 proc gs1128*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Gs1128
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Gs1128(it.raw, ret.addr), "BarcodeSymbologies.gs1128"
   ret
 
 proc gs1128Coupon*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Gs1128Coupon
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Gs1128Coupon(it.raw, ret.addr
                                 ), "BarcodeSymbologies.gs1128Coupon"
@@ -2253,70 +2253,70 @@ proc gs1128Coupon*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc uccEan128*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_UccEan128
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_UccEan128(it.raw, ret.addr), "BarcodeSymbologies.uccEan128"
   ret
 
 proc sisac*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Sisac
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Sisac(it.raw, ret.addr), "BarcodeSymbologies.sisac"
   ret
 
 proc isbt*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Isbt
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Isbt(it.raw, ret.addr), "BarcodeSymbologies.isbt"
   ret
 
 proc codabar*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Codabar
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Codabar(it.raw, ret.addr), "BarcodeSymbologies.codabar"
   ret
 
 proc code11*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Code11
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Code11(it.raw, ret.addr), "BarcodeSymbologies.code11"
   ret
 
 proc msi*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Msi
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Msi(it.raw, ret.addr), "BarcodeSymbologies.msi"
   ret
 
 proc plessey*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Plessey
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Plessey(it.raw, ret.addr), "BarcodeSymbologies.plessey"
   ret
 
 proc telepen*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Telepen
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Telepen(it.raw, ret.addr), "BarcodeSymbologies.telepen"
   ret
 
 proc code16k*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Code16k
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Code16k(it.raw, ret.addr), "BarcodeSymbologies.code16k"
   ret
 
 proc codablockA*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_CodablockA
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_CodablockA(it.raw, ret.addr
                               ), "BarcodeSymbologies.codablockA"
@@ -2324,7 +2324,7 @@ proc codablockA*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc codablockF*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_CodablockF
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_CodablockF(it.raw, ret.addr
                               ), "BarcodeSymbologies.codablockF"
@@ -2332,7 +2332,7 @@ proc codablockF*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc codablock128*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Codablock128
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Codablock128(it.raw, ret.addr
                                 ), "BarcodeSymbologies.codablock128"
@@ -2340,28 +2340,28 @@ proc codablock128*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc code49*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Code49
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Code49(it.raw, ret.addr), "BarcodeSymbologies.code49"
   ret
 
 proc aztec*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Aztec
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Aztec(it.raw, ret.addr), "BarcodeSymbologies.aztec"
   ret
 
 proc dataCode*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_DataCode
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_DataCode(it.raw, ret.addr), "BarcodeSymbologies.dataCode"
   ret
 
 proc dataMatrix*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_DataMatrix
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_DataMatrix(it.raw, ret.addr
                               ), "BarcodeSymbologies.dataMatrix"
@@ -2369,21 +2369,21 @@ proc dataMatrix*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc hanXin*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_HanXin
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_HanXin(it.raw, ret.addr), "BarcodeSymbologies.hanXin"
   ret
 
 proc maxicode*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Maxicode
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Maxicode(it.raw, ret.addr), "BarcodeSymbologies.maxicode"
   ret
 
 proc microPdf417*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_MicroPdf417
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_MicroPdf417(it.raw, ret.addr
                                ), "BarcodeSymbologies.microPdf417"
@@ -2391,91 +2391,91 @@ proc microPdf417*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc microQr*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_MicroQr
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_MicroQr(it.raw, ret.addr), "BarcodeSymbologies.microQr"
   ret
 
 proc pdf417*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Pdf417
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Pdf417(it.raw, ret.addr), "BarcodeSymbologies.pdf417"
   ret
 
 proc qr*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Qr
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Qr(it.raw, ret.addr), "BarcodeSymbologies.qr"
   ret
 
 proc msTag*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_MsTag
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_MsTag(it.raw, ret.addr), "BarcodeSymbologies.msTag"
   ret
 
 proc ccab*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Ccab
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Ccab(it.raw, ret.addr), "BarcodeSymbologies.ccab"
   ret
 
 proc ccc*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Ccc
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Ccc(it.raw, ret.addr), "BarcodeSymbologies.ccc"
   ret
 
 proc tlc39*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Tlc39
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Tlc39(it.raw, ret.addr), "BarcodeSymbologies.tlc39"
   ret
 
 proc ausPost*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_AusPost
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_AusPost(it.raw, ret.addr), "BarcodeSymbologies.ausPost"
   ret
 
 proc canPost*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_CanPost
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_CanPost(it.raw, ret.addr), "BarcodeSymbologies.canPost"
   ret
 
 proc chinaPost*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_ChinaPost
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_ChinaPost(it.raw, ret.addr), "BarcodeSymbologies.chinaPost"
   ret
 
 proc dutchKix*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_DutchKix
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_DutchKix(it.raw, ret.addr), "BarcodeSymbologies.dutchKix"
   ret
 
 proc infoMail*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_InfoMail
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_InfoMail(it.raw, ret.addr), "BarcodeSymbologies.infoMail"
   ret
 
 proc italianPost25*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_ItalianPost25
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_ItalianPost25(it.raw, ret.addr
                                  ), "BarcodeSymbologies.italianPost25"
@@ -2483,7 +2483,7 @@ proc italianPost25*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc italianPost39*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_ItalianPost39
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_ItalianPost39(it.raw, ret.addr
                                  ), "BarcodeSymbologies.italianPost39"
@@ -2491,14 +2491,14 @@ proc italianPost39*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc japanPost*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_JapanPost
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_JapanPost(it.raw, ret.addr), "BarcodeSymbologies.japanPost"
   ret
 
 proc koreanPost*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_KoreanPost
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_KoreanPost(it.raw, ret.addr
                               ), "BarcodeSymbologies.koreanPost"
@@ -2506,7 +2506,7 @@ proc koreanPost*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc swedenPost*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_SwedenPost
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_SwedenPost(it.raw, ret.addr
                               ), "BarcodeSymbologies.swedenPost"
@@ -2514,14 +2514,14 @@ proc swedenPost*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc ukPost*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_UkPost
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_UkPost(it.raw, ret.addr), "BarcodeSymbologies.ukPost"
   ret
 
 proc usIntelligent*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_UsIntelligent
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_UsIntelligent(it.raw, ret.addr
                                  ), "BarcodeSymbologies.usIntelligent"
@@ -2529,7 +2529,7 @@ proc usIntelligent*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc usIntelligentPkg*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_UsIntelligentPkg
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_UsIntelligentPkg(it.raw, ret.addr
                                     ), "BarcodeSymbologies.usIntelligentPkg"
@@ -2537,21 +2537,21 @@ proc usIntelligentPkg*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc usPlanet*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_UsPlanet
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_UsPlanet(it.raw, ret.addr), "BarcodeSymbologies.usPlanet"
   ret
 
 proc usPostNet*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_UsPostNet
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_UsPostNet(it.raw, ret.addr), "BarcodeSymbologies.usPostNet"
   ret
 
 proc us4StateFics*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Us4StateFics
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Us4StateFics(it.raw, ret.addr
                                 ), "BarcodeSymbologies.us4StateFics"
@@ -2559,28 +2559,28 @@ proc us4StateFics*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc ocrA*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_OcrA
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_OcrA(it.raw, ret.addr), "BarcodeSymbologies.ocrA"
   ret
 
 proc ocrB*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_OcrB
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_OcrB(it.raw, ret.addr), "BarcodeSymbologies.ocrB"
   ret
 
 proc micr*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_Micr
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_Micr(it.raw, ret.addr), "BarcodeSymbologies.micr"
   ret
 
 proc extendedBase*(_: typedesc[BarcodeSymbologies]): uint32 =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.get_ExtendedBase
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: uint32
   check it.vtbl.get_ExtendedBase(it.raw, ret.addr
                                 ), "BarcodeSymbologies.extendedBase"
@@ -2588,7 +2588,7 @@ proc extendedBase*(_: typedesc[BarcodeSymbologies]): uint32 =
 
 proc getName*(_: typedesc[BarcodeSymbologies], scanDataType: uint32): string =
   ## Windows.Devices.PointOfService.IBarcodeSymbologiesStatics.GetName
-  let it = statics[IBarcodeSymbologiesStaticsVtbl]("Windows.Devices.PointOfService.BarcodeSymbologies")
+  let it = statics[IBarcodeSymbologiesStaticsVtbl](className(BarcodeSymbologies))
   var ret: HSTRING
   check it.vtbl.GetName(it.raw, scanDataType, ret.addr
                        ), "BarcodeSymbologies.getName"
@@ -2756,14 +2756,14 @@ proc createAttributes*(self: BarcodeSymbologyAttributesBuilder): BarcodeSymbolog
 
 proc getDefault*(_: typedesc[Barometer]): Barometer =
   ## Windows.Devices.Sensors.IBarometerStatics.GetDefault
-  let it = statics[IBarometerStaticsVtbl]("Windows.Devices.Sensors.Barometer")
+  let it = statics[IBarometerStaticsVtbl](className(Barometer))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "Barometer.getDefault"
   adopt[Barometer](ret)
 
 proc fromIdAsync*(_: typedesc[Barometer], deviceId: string): Future[Barometer] =
   ## Windows.Devices.Sensors.IBarometerStatics2.FromIdAsync
-  let it = statics[IBarometerStatics2Vtbl]("Windows.Devices.Sensors.Barometer")
+  let it = statics[IBarometerStatics2Vtbl](className(Barometer))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr), "Barometer.fromIdAsync"
@@ -2771,7 +2771,7 @@ proc fromIdAsync*(_: typedesc[Barometer], deviceId: string): Future[Barometer] =
 
 proc getDeviceSelector*(_: typedesc[Barometer]): string =
   ## Windows.Devices.Sensors.IBarometerStatics2.GetDeviceSelector
-  let it = statics[IBarometerStatics2Vtbl]("Windows.Devices.Sensors.Barometer")
+  let it = statics[IBarometerStatics2Vtbl](className(Barometer))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "Barometer.getDeviceSelector"
@@ -2919,7 +2919,7 @@ proc reading*(self: BarometerReadingChangedEventArgs): BarometerReading =
 
 proc aggregateBattery*(_: typedesc[Battery]): Battery =
   ## Windows.Devices.Power.IBatteryStatics.get_AggregateBattery
-  let it = statics[IBatteryStaticsVtbl]("Windows.Devices.Power.Battery")
+  let it = statics[IBatteryStaticsVtbl](className(Battery))
   var ret: pointer
   check it.vtbl.get_AggregateBattery(it.raw, ret.addr
                                     ), "Battery.aggregateBattery"
@@ -2927,7 +2927,7 @@ proc aggregateBattery*(_: typedesc[Battery]): Battery =
 
 proc fromIdAsync*(_: typedesc[Battery], deviceId: string): Future[Battery] =
   ## Windows.Devices.Power.IBatteryStatics.FromIdAsync
-  let it = statics[IBatteryStaticsVtbl]("Windows.Devices.Power.Battery")
+  let it = statics[IBatteryStaticsVtbl](className(Battery))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr), "Battery.fromIdAsync"
@@ -2935,7 +2935,7 @@ proc fromIdAsync*(_: typedesc[Battery], deviceId: string): Future[Battery] =
 
 proc getDeviceSelector*(_: typedesc[Battery]): string =
   ## Windows.Devices.Power.IBatteryStatics.GetDeviceSelector
-  let it = statics[IBatteryStaticsVtbl]("Windows.Devices.Power.Battery")
+  let it = statics[IBatteryStaticsVtbl](className(Battery))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr), "Battery.getDeviceSelector"
   takeString(ret)
@@ -3017,7 +3017,7 @@ proc status*(self: BatteryReport): BatteryStatus =
 
 proc getDeviceSelector*(_: typedesc[BluetoothAdapter]): string =
   ## Windows.Devices.Bluetooth.IBluetoothAdapterStatics.GetDeviceSelector
-  let it = statics[IBluetoothAdapterStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothAdapter")
+  let it = statics[IBluetoothAdapterStaticsVtbl](className(BluetoothAdapter))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "BluetoothAdapter.getDeviceSelector"
@@ -3026,7 +3026,7 @@ proc getDeviceSelector*(_: typedesc[BluetoothAdapter]): string =
 proc fromIdAsync*(_: typedesc[BluetoothAdapter], deviceId: string
                  ): Future[BluetoothAdapter] =
   ## Windows.Devices.Bluetooth.IBluetoothAdapterStatics.FromIdAsync
-  let it = statics[IBluetoothAdapterStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothAdapter")
+  let it = statics[IBluetoothAdapterStaticsVtbl](className(BluetoothAdapter))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -3035,7 +3035,7 @@ proc fromIdAsync*(_: typedesc[BluetoothAdapter], deviceId: string
 
 proc getDefaultAsync*(_: typedesc[BluetoothAdapter]): Future[BluetoothAdapter] =
   ## Windows.Devices.Bluetooth.IBluetoothAdapterStatics.GetDefaultAsync
-  let it = statics[IBluetoothAdapterStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothAdapter")
+  let it = statics[IBluetoothAdapterStaticsVtbl](className(BluetoothAdapter))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "BluetoothAdapter.getDefaultAsync"
@@ -3156,7 +3156,7 @@ proc isLowEnergyCodedPhySupported*(self: BluetoothAdapter): bool =
 proc fromRawValue*(_: typedesc[BluetoothClassOfDevice], rawValue: uint32
                   ): BluetoothClassOfDevice =
   ## Windows.Devices.Bluetooth.IBluetoothClassOfDeviceStatics.FromRawValue
-  let it = statics[IBluetoothClassOfDeviceStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothClassOfDevice")
+  let it = statics[IBluetoothClassOfDeviceStaticsVtbl](className(BluetoothClassOfDevice))
   var ret: pointer
   check it.vtbl.FromRawValue(it.raw, rawValue, ret.addr
                             ), "BluetoothClassOfDevice.fromRawValue"
@@ -3168,7 +3168,7 @@ proc fromParts*(_: typedesc[BluetoothClassOfDevice],
                 serviceCapabilities: BluetoothServiceCapabilities
                ): BluetoothClassOfDevice =
   ## Windows.Devices.Bluetooth.IBluetoothClassOfDeviceStatics.FromParts
-  let it = statics[IBluetoothClassOfDeviceStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothClassOfDevice")
+  let it = statics[IBluetoothClassOfDeviceStaticsVtbl](className(BluetoothClassOfDevice))
   var ret: pointer
   check it.vtbl.FromParts(it.raw, majorClass, minorClass, serviceCapabilities,
                           ret.addr), "BluetoothClassOfDevice.fromParts"
@@ -3211,7 +3211,7 @@ proc serviceCapabilities*(self: BluetoothClassOfDevice): BluetoothServiceCapabil
 proc getDeviceSelectorFromPairingState*(_: typedesc[BluetoothDevice],
                                         pairingState: bool): string =
   ## Windows.Devices.Bluetooth.IBluetoothDeviceStatics2.GetDeviceSelectorFromPairingState
-  let it = statics[IBluetoothDeviceStatics2Vtbl]("Windows.Devices.Bluetooth.BluetoothDevice")
+  let it = statics[IBluetoothDeviceStatics2Vtbl](className(BluetoothDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromPairingState(it.raw, pairingState, ret.addr
                                                  ), "BluetoothDevice.getDeviceSelectorFromPairingState"
@@ -3221,7 +3221,7 @@ proc getDeviceSelectorFromConnectionStatus*(_: typedesc[BluetoothDevice],
                                             connectionStatus: BluetoothConnectionStatus
                                            ): string =
   ## Windows.Devices.Bluetooth.IBluetoothDeviceStatics2.GetDeviceSelectorFromConnectionStatus
-  let it = statics[IBluetoothDeviceStatics2Vtbl]("Windows.Devices.Bluetooth.BluetoothDevice")
+  let it = statics[IBluetoothDeviceStatics2Vtbl](className(BluetoothDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromConnectionStatus(it.raw, connectionStatus,
                                                       ret.addr
@@ -3231,7 +3231,7 @@ proc getDeviceSelectorFromConnectionStatus*(_: typedesc[BluetoothDevice],
 proc getDeviceSelectorFromDeviceName*(_: typedesc[BluetoothDevice],
                                       deviceName: string): string =
   ## Windows.Devices.Bluetooth.IBluetoothDeviceStatics2.GetDeviceSelectorFromDeviceName
-  let it = statics[IBluetoothDeviceStatics2Vtbl]("Windows.Devices.Bluetooth.BluetoothDevice")
+  let it = statics[IBluetoothDeviceStatics2Vtbl](className(BluetoothDevice))
   let a0 = toWinRtString(deviceName)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromDeviceName(it.raw, a0.handle, ret.addr
@@ -3241,7 +3241,7 @@ proc getDeviceSelectorFromDeviceName*(_: typedesc[BluetoothDevice],
 proc getDeviceSelectorFromBluetoothAddress*(_: typedesc[BluetoothDevice],
                                             bluetoothAddress: uint64): string =
   ## Windows.Devices.Bluetooth.IBluetoothDeviceStatics2.GetDeviceSelectorFromBluetoothAddress
-  let it = statics[IBluetoothDeviceStatics2Vtbl]("Windows.Devices.Bluetooth.BluetoothDevice")
+  let it = statics[IBluetoothDeviceStatics2Vtbl](className(BluetoothDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromBluetoothAddress(it.raw, bluetoothAddress,
                                                       ret.addr
@@ -3252,7 +3252,7 @@ proc getDeviceSelectorFromClassOfDevice*(_: typedesc[BluetoothDevice],
                                          classOfDevice: BluetoothClassOfDevice
                                         ): string =
   ## Windows.Devices.Bluetooth.IBluetoothDeviceStatics2.GetDeviceSelectorFromClassOfDevice
-  let it = statics[IBluetoothDeviceStatics2Vtbl]("Windows.Devices.Bluetooth.BluetoothDevice")
+  let it = statics[IBluetoothDeviceStatics2Vtbl](className(BluetoothDevice))
   let a0 = queryInterface[IBluetoothClassOfDeviceVtbl](classOfDevice)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromClassOfDevice(it.raw, a0.raw, ret.addr
@@ -3262,7 +3262,7 @@ proc getDeviceSelectorFromClassOfDevice*(_: typedesc[BluetoothDevice],
 proc fromIdAsync*(_: typedesc[BluetoothDevice], deviceId: string
                  ): Future[BluetoothDevice] =
   ## Windows.Devices.Bluetooth.IBluetoothDeviceStatics.FromIdAsync
-  let it = statics[IBluetoothDeviceStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothDevice")
+  let it = statics[IBluetoothDeviceStaticsVtbl](className(BluetoothDevice))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -3272,7 +3272,7 @@ proc fromIdAsync*(_: typedesc[BluetoothDevice], deviceId: string
 proc fromHostNameAsync*(_: typedesc[BluetoothDevice], hostName: HostName
                        ): Future[BluetoothDevice] =
   ## Windows.Devices.Bluetooth.IBluetoothDeviceStatics.FromHostNameAsync
-  let it = statics[IBluetoothDeviceStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothDevice")
+  let it = statics[IBluetoothDeviceStaticsVtbl](className(BluetoothDevice))
   let a0 = queryInterface[IHostNameVtbl](hostName)
   var op: pointer
   check it.vtbl.FromHostNameAsync(it.raw, a0.raw, op.addr
@@ -3282,7 +3282,7 @@ proc fromHostNameAsync*(_: typedesc[BluetoothDevice], hostName: HostName
 proc fromBluetoothAddressAsync*(_: typedesc[BluetoothDevice], address: uint64
                                ): Future[BluetoothDevice] =
   ## Windows.Devices.Bluetooth.IBluetoothDeviceStatics.FromBluetoothAddressAsync
-  let it = statics[IBluetoothDeviceStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothDevice")
+  let it = statics[IBluetoothDeviceStaticsVtbl](className(BluetoothDevice))
   var op: pointer
   check it.vtbl.FromBluetoothAddressAsync(it.raw, address, op.addr
                                          ), "BluetoothDevice.fromBluetoothAddressAsync"
@@ -3290,7 +3290,7 @@ proc fromBluetoothAddressAsync*(_: typedesc[BluetoothDevice], address: uint64
 
 proc getDeviceSelector*(_: typedesc[BluetoothDevice]): string =
   ## Windows.Devices.Bluetooth.IBluetoothDeviceStatics.GetDeviceSelector
-  let it = statics[IBluetoothDeviceStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothDevice")
+  let it = statics[IBluetoothDeviceStaticsVtbl](className(BluetoothDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "BluetoothDevice.getDeviceSelector"
@@ -3504,7 +3504,7 @@ proc wasSecureConnectionUsedForPairing*(self: BluetoothDevice): bool =
 proc fromId*(_: typedesc[BluetoothDeviceId], deviceId: string
             ): BluetoothDeviceId =
   ## Windows.Devices.Bluetooth.IBluetoothDeviceIdStatics.FromId
-  let it = statics[IBluetoothDeviceIdStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothDeviceId")
+  let it = statics[IBluetoothDeviceIdStaticsVtbl](className(BluetoothDeviceId))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.FromId(it.raw, a0.handle, ret.addr), "BluetoothDeviceId.fromId"
@@ -3621,7 +3621,7 @@ proc newBluetoothLEAdvertisementBytePattern*(dataType: uint8, offset: int16,
                                              data: SomeBuffer
                                             ): BluetoothLEAdvertisementBytePattern =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementBytePatternFactory.Create
-  let it = statics[IBluetoothLEAdvertisementBytePatternFactoryVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern")
+  let it = statics[IBluetoothLEAdvertisementBytePatternFactoryVtbl](className(BluetoothLEAdvertisementBytePattern))
   let a2 = queryInterface[IBufferVtbl](data)
   var ret: pointer
   check it.vtbl.Create(it.raw, dataType, offset, a2.raw, ret.addr
@@ -3680,7 +3680,7 @@ proc newBluetoothLEAdvertisementDataSection*(): BluetoothLEAdvertisementDataSect
 proc newBluetoothLEAdvertisementDataSection*(dataType: uint8, data: SomeBuffer
                                             ): BluetoothLEAdvertisementDataSection =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataSectionFactory.Create
-  let it = statics[IBluetoothLEAdvertisementDataSectionFactoryVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection")
+  let it = statics[IBluetoothLEAdvertisementDataSectionFactoryVtbl](className(BluetoothLEAdvertisementDataSection))
   let a1 = queryInterface[IBufferVtbl](data)
   var ret: pointer
   check it.vtbl.Create(it.raw, dataType, a1.raw, ret.addr
@@ -3720,7 +3720,7 @@ proc `data=`*(self: BluetoothLEAdvertisementDataSection, value: SomeBuffer) =
 
 proc flags*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_Flags
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_Flags(it.raw, ret.addr
                          ), "BluetoothLEAdvertisementDataTypes.flags"
@@ -3728,7 +3728,7 @@ proc flags*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
 
 proc incompleteService16BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_IncompleteService16BitUuids
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_IncompleteService16BitUuids(it.raw, ret.addr
                                                ), "BluetoothLEAdvertisementDataTypes.incompleteService16BitUuids"
@@ -3736,7 +3736,7 @@ proc incompleteService16BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]
 
 proc completeService16BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_CompleteService16BitUuids
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_CompleteService16BitUuids(it.raw, ret.addr
                                              ), "BluetoothLEAdvertisementDataTypes.completeService16BitUuids"
@@ -3744,7 +3744,7 @@ proc completeService16BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]):
 
 proc incompleteService32BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_IncompleteService32BitUuids
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_IncompleteService32BitUuids(it.raw, ret.addr
                                                ), "BluetoothLEAdvertisementDataTypes.incompleteService32BitUuids"
@@ -3752,7 +3752,7 @@ proc incompleteService32BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]
 
 proc completeService32BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_CompleteService32BitUuids
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_CompleteService32BitUuids(it.raw, ret.addr
                                              ), "BluetoothLEAdvertisementDataTypes.completeService32BitUuids"
@@ -3760,7 +3760,7 @@ proc completeService32BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]):
 
 proc incompleteService128BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_IncompleteService128BitUuids
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_IncompleteService128BitUuids(it.raw, ret.addr
                                                 ), "BluetoothLEAdvertisementDataTypes.incompleteService128BitUuids"
@@ -3768,7 +3768,7 @@ proc incompleteService128BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes
 
 proc completeService128BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_CompleteService128BitUuids
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_CompleteService128BitUuids(it.raw, ret.addr
                                               ), "BluetoothLEAdvertisementDataTypes.completeService128BitUuids"
@@ -3776,7 +3776,7 @@ proc completeService128BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes])
 
 proc shortenedLocalName*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_ShortenedLocalName
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_ShortenedLocalName(it.raw, ret.addr
                                       ), "BluetoothLEAdvertisementDataTypes.shortenedLocalName"
@@ -3784,7 +3784,7 @@ proc shortenedLocalName*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 
 
 proc completeLocalName*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_CompleteLocalName
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_CompleteLocalName(it.raw, ret.addr
                                      ), "BluetoothLEAdvertisementDataTypes.completeLocalName"
@@ -3792,7 +3792,7 @@ proc completeLocalName*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
 
 proc txPowerLevel*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_TxPowerLevel
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_TxPowerLevel(it.raw, ret.addr
                                 ), "BluetoothLEAdvertisementDataTypes.txPowerLevel"
@@ -3800,7 +3800,7 @@ proc txPowerLevel*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
 
 proc peripheralConnectionIntervalRange*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_PeripheralConnectionIntervalRange
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_PeripheralConnectionIntervalRange(it.raw, ret.addr
                                                      ), "BluetoothLEAdvertisementDataTypes.peripheralConnectionIntervalRange"
@@ -3808,7 +3808,7 @@ proc peripheralConnectionIntervalRange*(_: typedesc[BluetoothLEAdvertisementData
 
 proc serviceSolicitation16BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_ServiceSolicitation16BitUuids
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_ServiceSolicitation16BitUuids(it.raw, ret.addr
                                                  ), "BluetoothLEAdvertisementDataTypes.serviceSolicitation16BitUuids"
@@ -3816,7 +3816,7 @@ proc serviceSolicitation16BitUuids*(_: typedesc[BluetoothLEAdvertisementDataType
 
 proc serviceSolicitation32BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_ServiceSolicitation32BitUuids
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_ServiceSolicitation32BitUuids(it.raw, ret.addr
                                                  ), "BluetoothLEAdvertisementDataTypes.serviceSolicitation32BitUuids"
@@ -3824,7 +3824,7 @@ proc serviceSolicitation32BitUuids*(_: typedesc[BluetoothLEAdvertisementDataType
 
 proc serviceSolicitation128BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_ServiceSolicitation128BitUuids
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_ServiceSolicitation128BitUuids(it.raw, ret.addr
                                                   ), "BluetoothLEAdvertisementDataTypes.serviceSolicitation128BitUuids"
@@ -3832,7 +3832,7 @@ proc serviceSolicitation128BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTyp
 
 proc serviceData16BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_ServiceData16BitUuids
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_ServiceData16BitUuids(it.raw, ret.addr
                                          ), "BluetoothLEAdvertisementDataTypes.serviceData16BitUuids"
@@ -3840,7 +3840,7 @@ proc serviceData16BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uin
 
 proc serviceData32BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_ServiceData32BitUuids
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_ServiceData32BitUuids(it.raw, ret.addr
                                          ), "BluetoothLEAdvertisementDataTypes.serviceData32BitUuids"
@@ -3848,7 +3848,7 @@ proc serviceData32BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uin
 
 proc serviceData128BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_ServiceData128BitUuids
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_ServiceData128BitUuids(it.raw, ret.addr
                                           ), "BluetoothLEAdvertisementDataTypes.serviceData128BitUuids"
@@ -3856,7 +3856,7 @@ proc serviceData128BitUuids*(_: typedesc[BluetoothLEAdvertisementDataTypes]): ui
 
 proc publicTargetAddress*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_PublicTargetAddress
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_PublicTargetAddress(it.raw, ret.addr
                                        ), "BluetoothLEAdvertisementDataTypes.publicTargetAddress"
@@ -3864,7 +3864,7 @@ proc publicTargetAddress*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8
 
 proc randomTargetAddress*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_RandomTargetAddress
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_RandomTargetAddress(it.raw, ret.addr
                                        ), "BluetoothLEAdvertisementDataTypes.randomTargetAddress"
@@ -3872,7 +3872,7 @@ proc randomTargetAddress*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8
 
 proc appearance*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_Appearance
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_Appearance(it.raw, ret.addr
                               ), "BluetoothLEAdvertisementDataTypes.appearance"
@@ -3880,7 +3880,7 @@ proc appearance*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
 
 proc advertisingInterval*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_AdvertisingInterval
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_AdvertisingInterval(it.raw, ret.addr
                                        ), "BluetoothLEAdvertisementDataTypes.advertisingInterval"
@@ -3888,7 +3888,7 @@ proc advertisingInterval*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8
 
 proc manufacturerSpecificData*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics.get_ManufacturerSpecificData
-  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes")
+  let it = statics[IBluetoothLEAdvertisementDataTypesStaticsVtbl](className(BluetoothLEAdvertisementDataTypes))
   var ret: uint8
   check it.vtbl.get_ManufacturerSpecificData(it.raw, ret.addr
                                             ), "BluetoothLEAdvertisementDataTypes.manufacturerSpecificData"
@@ -3932,7 +3932,7 @@ proc newBluetoothLEAdvertisementPublisher*(): BluetoothLEAdvertisementPublisher 
 
 proc newBluetoothLEAdvertisementPublisher*(advertisement: BluetoothLEAdvertisement): BluetoothLEAdvertisementPublisher =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementPublisherFactory.Create
-  let it = statics[IBluetoothLEAdvertisementPublisherFactoryVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher")
+  let it = statics[IBluetoothLEAdvertisementPublisherFactoryVtbl](className(BluetoothLEAdvertisementPublisher))
   let a0 = queryInterface[IBluetoothLEAdvertisementVtbl](advertisement)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -4246,7 +4246,7 @@ proc secondaryPhy*(self: BluetoothLEAdvertisementReceivedEventArgs): BluetoothLE
 
 proc coexistenceOptimized*(_: typedesc[BluetoothLEAdvertisementScanParameters]): BluetoothLEAdvertisementScanParameters =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementScanParametersStatics.CoexistenceOptimized
-  let it = statics[IBluetoothLEAdvertisementScanParametersStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementScanParameters")
+  let it = statics[IBluetoothLEAdvertisementScanParametersStaticsVtbl](className(BluetoothLEAdvertisementScanParameters))
   var ret: pointer
   check it.vtbl.CoexistenceOptimized(it.raw, ret.addr
                                     ), "BluetoothLEAdvertisementScanParameters.coexistenceOptimized"
@@ -4254,7 +4254,7 @@ proc coexistenceOptimized*(_: typedesc[BluetoothLEAdvertisementScanParameters]):
 
 proc lowLatency*(_: typedesc[BluetoothLEAdvertisementScanParameters]): BluetoothLEAdvertisementScanParameters =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementScanParametersStatics.LowLatency
-  let it = statics[IBluetoothLEAdvertisementScanParametersStaticsVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementScanParameters")
+  let it = statics[IBluetoothLEAdvertisementScanParametersStaticsVtbl](className(BluetoothLEAdvertisementScanParameters))
   var ret: pointer
   check it.vtbl.LowLatency(it.raw, ret.addr
                           ), "BluetoothLEAdvertisementScanParameters.lowLatency"
@@ -4284,7 +4284,7 @@ proc newBluetoothLEAdvertisementWatcher*(): BluetoothLEAdvertisementWatcher =
 
 proc newBluetoothLEAdvertisementWatcher*(advertisementFilter: BluetoothLEAdvertisementFilter): BluetoothLEAdvertisementWatcher =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementWatcherFactory.Create
-  let it = statics[IBluetoothLEAdvertisementWatcherFactoryVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcher")
+  let it = statics[IBluetoothLEAdvertisementWatcherFactoryVtbl](className(BluetoothLEAdvertisementWatcher))
   let a0 = queryInterface[IBluetoothLEAdvertisementFilterVtbl](advertisementFilter)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -4544,7 +4544,7 @@ proc signalStrengthFilter*(self: BluetoothLEAdvertisementWatcherTriggerDetails):
 proc fromRawValue*(_: typedesc[BluetoothLEAppearance], rawValue: uint16
                   ): BluetoothLEAppearance =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceStatics.FromRawValue
-  let it = statics[IBluetoothLEAppearanceStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearance")
+  let it = statics[IBluetoothLEAppearanceStaticsVtbl](className(BluetoothLEAppearance))
   var ret: pointer
   check it.vtbl.FromRawValue(it.raw, rawValue, ret.addr
                             ), "BluetoothLEAppearance.fromRawValue"
@@ -4553,7 +4553,7 @@ proc fromRawValue*(_: typedesc[BluetoothLEAppearance], rawValue: uint16
 proc fromParts*(_: typedesc[BluetoothLEAppearance], appearanceCategory: uint16,
                 appearanceSubCategory: uint16): BluetoothLEAppearance =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceStatics.FromParts
-  let it = statics[IBluetoothLEAppearanceStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearance")
+  let it = statics[IBluetoothLEAppearanceStaticsVtbl](className(BluetoothLEAppearance))
   var ret: pointer
   check it.vtbl.FromParts(it.raw, appearanceCategory, appearanceSubCategory,
                           ret.addr), "BluetoothLEAppearance.fromParts"
@@ -4585,7 +4585,7 @@ proc subCategory*(self: BluetoothLEAppearance): uint16 =
 
 proc uncategorized*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_Uncategorized
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_Uncategorized(it.raw, ret.addr
                                  ), "BluetoothLEAppearanceCategories.uncategorized"
@@ -4593,7 +4593,7 @@ proc uncategorized*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc phone*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_Phone
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_Phone(it.raw, ret.addr
                          ), "BluetoothLEAppearanceCategories.phone"
@@ -4601,7 +4601,7 @@ proc phone*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc computer*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_Computer
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_Computer(it.raw, ret.addr
                             ), "BluetoothLEAppearanceCategories.computer"
@@ -4609,7 +4609,7 @@ proc computer*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc watch*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_Watch
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_Watch(it.raw, ret.addr
                          ), "BluetoothLEAppearanceCategories.watch"
@@ -4617,7 +4617,7 @@ proc watch*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc clock*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_Clock
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_Clock(it.raw, ret.addr
                          ), "BluetoothLEAppearanceCategories.clock"
@@ -4625,7 +4625,7 @@ proc clock*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc display*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_Display
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_Display(it.raw, ret.addr
                            ), "BluetoothLEAppearanceCategories.display"
@@ -4633,7 +4633,7 @@ proc display*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc remoteControl*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_RemoteControl
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_RemoteControl(it.raw, ret.addr
                                  ), "BluetoothLEAppearanceCategories.remoteControl"
@@ -4641,7 +4641,7 @@ proc remoteControl*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc eyeGlasses*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_EyeGlasses
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_EyeGlasses(it.raw, ret.addr
                               ), "BluetoothLEAppearanceCategories.eyeGlasses"
@@ -4649,14 +4649,14 @@ proc eyeGlasses*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc tag*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_Tag
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_Tag(it.raw, ret.addr), "BluetoothLEAppearanceCategories.tag"
   ret
 
 proc keyring*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_Keyring
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_Keyring(it.raw, ret.addr
                            ), "BluetoothLEAppearanceCategories.keyring"
@@ -4664,7 +4664,7 @@ proc keyring*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc mediaPlayer*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_MediaPlayer
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_MediaPlayer(it.raw, ret.addr
                                ), "BluetoothLEAppearanceCategories.mediaPlayer"
@@ -4672,7 +4672,7 @@ proc mediaPlayer*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc barcodeScanner*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_BarcodeScanner
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_BarcodeScanner(it.raw, ret.addr
                                   ), "BluetoothLEAppearanceCategories.barcodeScanner"
@@ -4680,7 +4680,7 @@ proc barcodeScanner*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc thermometer*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_Thermometer
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_Thermometer(it.raw, ret.addr
                                ), "BluetoothLEAppearanceCategories.thermometer"
@@ -4688,7 +4688,7 @@ proc thermometer*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc heartRate*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_HeartRate
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_HeartRate(it.raw, ret.addr
                              ), "BluetoothLEAppearanceCategories.heartRate"
@@ -4696,7 +4696,7 @@ proc heartRate*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc bloodPressure*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_BloodPressure
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_BloodPressure(it.raw, ret.addr
                                  ), "BluetoothLEAppearanceCategories.bloodPressure"
@@ -4704,7 +4704,7 @@ proc bloodPressure*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc humanInterfaceDevice*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_HumanInterfaceDevice
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_HumanInterfaceDevice(it.raw, ret.addr
                                         ), "BluetoothLEAppearanceCategories.humanInterfaceDevice"
@@ -4712,7 +4712,7 @@ proc humanInterfaceDevice*(_: typedesc[BluetoothLEAppearanceCategories]): uint16
 
 proc glucoseMeter*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_GlucoseMeter
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_GlucoseMeter(it.raw, ret.addr
                                 ), "BluetoothLEAppearanceCategories.glucoseMeter"
@@ -4720,7 +4720,7 @@ proc glucoseMeter*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc runningWalking*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_RunningWalking
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_RunningWalking(it.raw, ret.addr
                                   ), "BluetoothLEAppearanceCategories.runningWalking"
@@ -4728,7 +4728,7 @@ proc runningWalking*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc cycling*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_Cycling
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_Cycling(it.raw, ret.addr
                            ), "BluetoothLEAppearanceCategories.cycling"
@@ -4736,7 +4736,7 @@ proc cycling*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc pulseOximeter*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_PulseOximeter
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_PulseOximeter(it.raw, ret.addr
                                  ), "BluetoothLEAppearanceCategories.pulseOximeter"
@@ -4744,7 +4744,7 @@ proc pulseOximeter*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc weightScale*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_WeightScale
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_WeightScale(it.raw, ret.addr
                                ), "BluetoothLEAppearanceCategories.weightScale"
@@ -4752,7 +4752,7 @@ proc weightScale*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
 
 proc outdoorSportActivity*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics.get_OutdoorSportActivity
-  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories")
+  let it = statics[IBluetoothLEAppearanceCategoriesStaticsVtbl](className(BluetoothLEAppearanceCategories))
   var ret: uint16
   check it.vtbl.get_OutdoorSportActivity(it.raw, ret.addr
                                         ), "BluetoothLEAppearanceCategories.outdoorSportActivity"
@@ -4762,7 +4762,7 @@ proc outdoorSportActivity*(_: typedesc[BluetoothLEAppearanceCategories]): uint16
 
 proc generic*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_Generic
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_Generic(it.raw, ret.addr
                            ), "BluetoothLEAppearanceSubcategories.generic"
@@ -4770,7 +4770,7 @@ proc generic*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc sportsWatch*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_SportsWatch
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_SportsWatch(it.raw, ret.addr
                                ), "BluetoothLEAppearanceSubcategories.sportsWatch"
@@ -4778,7 +4778,7 @@ proc sportsWatch*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc thermometerEar*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_ThermometerEar
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_ThermometerEar(it.raw, ret.addr
                                   ), "BluetoothLEAppearanceSubcategories.thermometerEar"
@@ -4786,7 +4786,7 @@ proc thermometerEar*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc heartRateBelt*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_HeartRateBelt
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_HeartRateBelt(it.raw, ret.addr
                                  ), "BluetoothLEAppearanceSubcategories.heartRateBelt"
@@ -4794,7 +4794,7 @@ proc heartRateBelt*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc bloodPressureArm*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_BloodPressureArm
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_BloodPressureArm(it.raw, ret.addr
                                     ), "BluetoothLEAppearanceSubcategories.bloodPressureArm"
@@ -4802,7 +4802,7 @@ proc bloodPressureArm*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 
 
 proc bloodPressureWrist*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_BloodPressureWrist
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_BloodPressureWrist(it.raw, ret.addr
                                       ), "BluetoothLEAppearanceSubcategories.bloodPressureWrist"
@@ -4810,7 +4810,7 @@ proc bloodPressureWrist*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint1
 
 proc keyboard*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_Keyboard
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_Keyboard(it.raw, ret.addr
                             ), "BluetoothLEAppearanceSubcategories.keyboard"
@@ -4818,7 +4818,7 @@ proc keyboard*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc mouse*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_Mouse
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_Mouse(it.raw, ret.addr
                          ), "BluetoothLEAppearanceSubcategories.mouse"
@@ -4826,7 +4826,7 @@ proc mouse*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc joystick*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_Joystick
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_Joystick(it.raw, ret.addr
                             ), "BluetoothLEAppearanceSubcategories.joystick"
@@ -4834,7 +4834,7 @@ proc joystick*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc gamepad*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_Gamepad
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_Gamepad(it.raw, ret.addr
                            ), "BluetoothLEAppearanceSubcategories.gamepad"
@@ -4842,7 +4842,7 @@ proc gamepad*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc digitizerTablet*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_DigitizerTablet
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_DigitizerTablet(it.raw, ret.addr
                                    ), "BluetoothLEAppearanceSubcategories.digitizerTablet"
@@ -4850,7 +4850,7 @@ proc digitizerTablet*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc cardReader*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_CardReader
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_CardReader(it.raw, ret.addr
                               ), "BluetoothLEAppearanceSubcategories.cardReader"
@@ -4858,7 +4858,7 @@ proc cardReader*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc digitalPen*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_DigitalPen
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_DigitalPen(it.raw, ret.addr
                               ), "BluetoothLEAppearanceSubcategories.digitalPen"
@@ -4866,7 +4866,7 @@ proc digitalPen*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc barcodeScanner*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_BarcodeScanner
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_BarcodeScanner(it.raw, ret.addr
                                   ), "BluetoothLEAppearanceSubcategories.barcodeScanner"
@@ -4874,7 +4874,7 @@ proc barcodeScanner*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc runningWalkingInShoe*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_RunningWalkingInShoe
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_RunningWalkingInShoe(it.raw, ret.addr
                                         ), "BluetoothLEAppearanceSubcategories.runningWalkingInShoe"
@@ -4882,7 +4882,7 @@ proc runningWalkingInShoe*(_: typedesc[BluetoothLEAppearanceSubcategories]): uin
 
 proc runningWalkingOnShoe*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_RunningWalkingOnShoe
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_RunningWalkingOnShoe(it.raw, ret.addr
                                         ), "BluetoothLEAppearanceSubcategories.runningWalkingOnShoe"
@@ -4890,7 +4890,7 @@ proc runningWalkingOnShoe*(_: typedesc[BluetoothLEAppearanceSubcategories]): uin
 
 proc runningWalkingOnHip*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_RunningWalkingOnHip
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_RunningWalkingOnHip(it.raw, ret.addr
                                        ), "BluetoothLEAppearanceSubcategories.runningWalkingOnHip"
@@ -4898,7 +4898,7 @@ proc runningWalkingOnHip*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint
 
 proc cyclingComputer*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_CyclingComputer
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_CyclingComputer(it.raw, ret.addr
                                    ), "BluetoothLEAppearanceSubcategories.cyclingComputer"
@@ -4906,7 +4906,7 @@ proc cyclingComputer*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc cyclingSpeedSensor*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_CyclingSpeedSensor
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_CyclingSpeedSensor(it.raw, ret.addr
                                       ), "BluetoothLEAppearanceSubcategories.cyclingSpeedSensor"
@@ -4914,7 +4914,7 @@ proc cyclingSpeedSensor*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint1
 
 proc cyclingCadenceSensor*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_CyclingCadenceSensor
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_CyclingCadenceSensor(it.raw, ret.addr
                                         ), "BluetoothLEAppearanceSubcategories.cyclingCadenceSensor"
@@ -4922,7 +4922,7 @@ proc cyclingCadenceSensor*(_: typedesc[BluetoothLEAppearanceSubcategories]): uin
 
 proc cyclingPowerSensor*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_CyclingPowerSensor
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_CyclingPowerSensor(it.raw, ret.addr
                                       ), "BluetoothLEAppearanceSubcategories.cyclingPowerSensor"
@@ -4930,7 +4930,7 @@ proc cyclingPowerSensor*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint1
 
 proc cyclingSpeedCadenceSensor*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_CyclingSpeedCadenceSensor
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_CyclingSpeedCadenceSensor(it.raw, ret.addr
                                              ), "BluetoothLEAppearanceSubcategories.cyclingSpeedCadenceSensor"
@@ -4938,7 +4938,7 @@ proc cyclingSpeedCadenceSensor*(_: typedesc[BluetoothLEAppearanceSubcategories])
 
 proc oximeterFingertip*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_OximeterFingertip
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_OximeterFingertip(it.raw, ret.addr
                                      ), "BluetoothLEAppearanceSubcategories.oximeterFingertip"
@@ -4946,7 +4946,7 @@ proc oximeterFingertip*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16
 
 proc oximeterWristWorn*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_OximeterWristWorn
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_OximeterWristWorn(it.raw, ret.addr
                                      ), "BluetoothLEAppearanceSubcategories.oximeterWristWorn"
@@ -4954,7 +4954,7 @@ proc oximeterWristWorn*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16
 
 proc locationDisplay*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_LocationDisplay
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_LocationDisplay(it.raw, ret.addr
                                    ), "BluetoothLEAppearanceSubcategories.locationDisplay"
@@ -4962,7 +4962,7 @@ proc locationDisplay*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc locationNavigationDisplay*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_LocationNavigationDisplay
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_LocationNavigationDisplay(it.raw, ret.addr
                                              ), "BluetoothLEAppearanceSubcategories.locationNavigationDisplay"
@@ -4970,7 +4970,7 @@ proc locationNavigationDisplay*(_: typedesc[BluetoothLEAppearanceSubcategories])
 
 proc locationPod*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_LocationPod
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_LocationPod(it.raw, ret.addr
                                ), "BluetoothLEAppearanceSubcategories.locationPod"
@@ -4978,7 +4978,7 @@ proc locationPod*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
 
 proc locationNavigationPod*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics.get_LocationNavigationPod
-  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories")
+  let it = statics[IBluetoothLEAppearanceSubcategoriesStaticsVtbl](className(BluetoothLEAppearanceSubcategories))
   var ret: uint16
   check it.vtbl.get_LocationNavigationPod(it.raw, ret.addr
                                          ), "BluetoothLEAppearanceSubcategories.locationNavigationPod"
@@ -5059,7 +5059,7 @@ proc isCodedPhy*(self: BluetoothLEConnectionPhyInfo): bool =
 proc getDeviceSelectorFromPairingState*(_: typedesc[BluetoothLEDevice],
                                         pairingState: bool): string =
   ## Windows.Devices.Bluetooth.IBluetoothLEDeviceStatics2.GetDeviceSelectorFromPairingState
-  let it = statics[IBluetoothLEDeviceStatics2Vtbl]("Windows.Devices.Bluetooth.BluetoothLEDevice")
+  let it = statics[IBluetoothLEDeviceStatics2Vtbl](className(BluetoothLEDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromPairingState(it.raw, pairingState, ret.addr
                                                  ), "BluetoothLEDevice.getDeviceSelectorFromPairingState"
@@ -5069,7 +5069,7 @@ proc getDeviceSelectorFromConnectionStatus*(_: typedesc[BluetoothLEDevice],
                                             connectionStatus: BluetoothConnectionStatus
                                            ): string =
   ## Windows.Devices.Bluetooth.IBluetoothLEDeviceStatics2.GetDeviceSelectorFromConnectionStatus
-  let it = statics[IBluetoothLEDeviceStatics2Vtbl]("Windows.Devices.Bluetooth.BluetoothLEDevice")
+  let it = statics[IBluetoothLEDeviceStatics2Vtbl](className(BluetoothLEDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromConnectionStatus(it.raw, connectionStatus,
                                                       ret.addr
@@ -5079,7 +5079,7 @@ proc getDeviceSelectorFromConnectionStatus*(_: typedesc[BluetoothLEDevice],
 proc getDeviceSelectorFromDeviceName*(_: typedesc[BluetoothLEDevice],
                                       deviceName: string): string =
   ## Windows.Devices.Bluetooth.IBluetoothLEDeviceStatics2.GetDeviceSelectorFromDeviceName
-  let it = statics[IBluetoothLEDeviceStatics2Vtbl]("Windows.Devices.Bluetooth.BluetoothLEDevice")
+  let it = statics[IBluetoothLEDeviceStatics2Vtbl](className(BluetoothLEDevice))
   let a0 = toWinRtString(deviceName)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromDeviceName(it.raw, a0.handle, ret.addr
@@ -5089,7 +5089,7 @@ proc getDeviceSelectorFromDeviceName*(_: typedesc[BluetoothLEDevice],
 proc getDeviceSelectorFromBluetoothAddress*(_: typedesc[BluetoothLEDevice],
                                             bluetoothAddress: uint64): string =
   ## Windows.Devices.Bluetooth.IBluetoothLEDeviceStatics2.GetDeviceSelectorFromBluetoothAddress
-  let it = statics[IBluetoothLEDeviceStatics2Vtbl]("Windows.Devices.Bluetooth.BluetoothLEDevice")
+  let it = statics[IBluetoothLEDeviceStatics2Vtbl](className(BluetoothLEDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromBluetoothAddress(it.raw, bluetoothAddress,
                                                       ret.addr
@@ -5101,7 +5101,7 @@ proc getDeviceSelectorFromBluetoothAddress*(_: typedesc[BluetoothLEDevice],
                                             bluetoothAddressType: BluetoothAddressType
                                            ): string =
   ## Windows.Devices.Bluetooth.IBluetoothLEDeviceStatics2.GetDeviceSelectorFromBluetoothAddress
-  let it = statics[IBluetoothLEDeviceStatics2Vtbl]("Windows.Devices.Bluetooth.BluetoothLEDevice")
+  let it = statics[IBluetoothLEDeviceStatics2Vtbl](className(BluetoothLEDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromBluetoothAddress2(it.raw, bluetoothAddress,
                                                        bluetoothAddressType,
@@ -5113,7 +5113,7 @@ proc getDeviceSelectorFromAppearance*(_: typedesc[BluetoothLEDevice],
                                       appearance: BluetoothLEAppearance
                                      ): string =
   ## Windows.Devices.Bluetooth.IBluetoothLEDeviceStatics2.GetDeviceSelectorFromAppearance
-  let it = statics[IBluetoothLEDeviceStatics2Vtbl]("Windows.Devices.Bluetooth.BluetoothLEDevice")
+  let it = statics[IBluetoothLEDeviceStatics2Vtbl](className(BluetoothLEDevice))
   let a0 = queryInterface[IBluetoothLEAppearanceVtbl](appearance)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromAppearance(it.raw, a0.raw, ret.addr
@@ -5125,7 +5125,7 @@ proc fromBluetoothAddressAsync*(_: typedesc[BluetoothLEDevice],
                                 bluetoothAddressType: BluetoothAddressType
                                ): Future[BluetoothLEDevice] =
   ## Windows.Devices.Bluetooth.IBluetoothLEDeviceStatics2.FromBluetoothAddressAsync
-  let it = statics[IBluetoothLEDeviceStatics2Vtbl]("Windows.Devices.Bluetooth.BluetoothLEDevice")
+  let it = statics[IBluetoothLEDeviceStatics2Vtbl](className(BluetoothLEDevice))
   var op: pointer
   check it.vtbl.FromBluetoothAddressAsync(it.raw, bluetoothAddress,
                                           bluetoothAddressType, op.addr
@@ -5135,7 +5135,7 @@ proc fromBluetoothAddressAsync*(_: typedesc[BluetoothLEDevice],
 proc fromIdAsync*(_: typedesc[BluetoothLEDevice], deviceId: string
                  ): Future[BluetoothLEDevice] =
   ## Windows.Devices.Bluetooth.IBluetoothLEDeviceStatics.FromIdAsync
-  let it = statics[IBluetoothLEDeviceStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEDevice")
+  let it = statics[IBluetoothLEDeviceStaticsVtbl](className(BluetoothLEDevice))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -5146,7 +5146,7 @@ proc fromBluetoothAddressAsync*(_: typedesc[BluetoothLEDevice],
                                 bluetoothAddress: uint64
                                ): Future[BluetoothLEDevice] =
   ## Windows.Devices.Bluetooth.IBluetoothLEDeviceStatics.FromBluetoothAddressAsync
-  let it = statics[IBluetoothLEDeviceStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEDevice")
+  let it = statics[IBluetoothLEDeviceStaticsVtbl](className(BluetoothLEDevice))
   var op: pointer
   check it.vtbl.FromBluetoothAddressAsync(it.raw, bluetoothAddress, op.addr
                                          ), "BluetoothLEDevice.fromBluetoothAddressAsync"
@@ -5154,7 +5154,7 @@ proc fromBluetoothAddressAsync*(_: typedesc[BluetoothLEDevice],
 
 proc getDeviceSelector*(_: typedesc[BluetoothLEDevice]): string =
   ## Windows.Devices.Bluetooth.IBluetoothLEDeviceStatics.GetDeviceSelector
-  let it = statics[IBluetoothLEDeviceStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEDevice")
+  let it = statics[IBluetoothLEDeviceStaticsVtbl](className(BluetoothLEDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "BluetoothLEDevice.getDeviceSelector"
@@ -5436,7 +5436,7 @@ proc newBluetoothLEManufacturerData*(): BluetoothLEManufacturerData =
 proc newBluetoothLEManufacturerData*(companyId: uint16, data: SomeBuffer
                                     ): BluetoothLEManufacturerData =
   ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEManufacturerDataFactory.Create
-  let it = statics[IBluetoothLEManufacturerDataFactoryVtbl]("Windows.Devices.Bluetooth.Advertisement.BluetoothLEManufacturerData")
+  let it = statics[IBluetoothLEManufacturerDataFactoryVtbl](className(BluetoothLEManufacturerData))
   let a1 = queryInterface[IBufferVtbl](data)
   var ret: pointer
   check it.vtbl.Create(it.raw, companyId, a1.raw, ret.addr
@@ -5474,7 +5474,7 @@ proc `data=`*(self: BluetoothLEManufacturerData, value: SomeBuffer) =
 
 proc balanced*(_: typedesc[BluetoothLEPreferredConnectionParameters]): BluetoothLEPreferredConnectionParameters =
   ## Windows.Devices.Bluetooth.IBluetoothLEPreferredConnectionParametersStatics.get_Balanced
-  let it = statics[IBluetoothLEPreferredConnectionParametersStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEPreferredConnectionParameters")
+  let it = statics[IBluetoothLEPreferredConnectionParametersStaticsVtbl](className(BluetoothLEPreferredConnectionParameters))
   var ret: pointer
   check it.vtbl.get_Balanced(it.raw, ret.addr
                             ), "BluetoothLEPreferredConnectionParameters.balanced"
@@ -5482,7 +5482,7 @@ proc balanced*(_: typedesc[BluetoothLEPreferredConnectionParameters]): Bluetooth
 
 proc throughputOptimized*(_: typedesc[BluetoothLEPreferredConnectionParameters]): BluetoothLEPreferredConnectionParameters =
   ## Windows.Devices.Bluetooth.IBluetoothLEPreferredConnectionParametersStatics.get_ThroughputOptimized
-  let it = statics[IBluetoothLEPreferredConnectionParametersStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEPreferredConnectionParameters")
+  let it = statics[IBluetoothLEPreferredConnectionParametersStaticsVtbl](className(BluetoothLEPreferredConnectionParameters))
   var ret: pointer
   check it.vtbl.get_ThroughputOptimized(it.raw, ret.addr
                                        ), "BluetoothLEPreferredConnectionParameters.throughputOptimized"
@@ -5490,7 +5490,7 @@ proc throughputOptimized*(_: typedesc[BluetoothLEPreferredConnectionParameters])
 
 proc powerOptimized*(_: typedesc[BluetoothLEPreferredConnectionParameters]): BluetoothLEPreferredConnectionParameters =
   ## Windows.Devices.Bluetooth.IBluetoothLEPreferredConnectionParametersStatics.get_PowerOptimized
-  let it = statics[IBluetoothLEPreferredConnectionParametersStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothLEPreferredConnectionParameters")
+  let it = statics[IBluetoothLEPreferredConnectionParametersStaticsVtbl](className(BluetoothLEPreferredConnectionParameters))
   var ret: pointer
   check it.vtbl.get_PowerOptimized(it.raw, ret.addr
                                   ), "BluetoothLEPreferredConnectionParameters.powerOptimized"
@@ -5612,7 +5612,7 @@ proc `samplingInterval=`*(self: BluetoothSignalStrengthFilter,
 
 proc fromShortId*(_: typedesc[BluetoothUuidHelper], shortId: uint32): GUID =
   ## Windows.Devices.Bluetooth.IBluetoothUuidHelperStatics.FromShortId
-  let it = statics[IBluetoothUuidHelperStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothUuidHelper")
+  let it = statics[IBluetoothUuidHelperStaticsVtbl](className(BluetoothUuidHelper))
   var ret: GUID
   check it.vtbl.FromShortId(it.raw, shortId, ret.addr
                            ), "BluetoothUuidHelper.fromShortId"
@@ -5621,7 +5621,7 @@ proc fromShortId*(_: typedesc[BluetoothUuidHelper], shortId: uint32): GUID =
 proc tryGetShortId*(_: typedesc[BluetoothUuidHelper], uuid: GUID
                    ): Option[uint32] =
   ## Windows.Devices.Bluetooth.IBluetoothUuidHelperStatics.TryGetShortId
-  let it = statics[IBluetoothUuidHelperStaticsVtbl]("Windows.Devices.Bluetooth.BluetoothUuidHelper")
+  let it = statics[IBluetoothUuidHelperStaticsVtbl](className(BluetoothUuidHelper))
   var ret: pointer
   check it.vtbl.TryGetShortId(it.raw, uuid, ret.addr
                              ), "BluetoothUuidHelper.tryGetShortId"
@@ -5651,7 +5651,7 @@ proc smartCard*(self: CardRemovedEventArgs): SmartCard =
 proc getDeviceSelector*(_: typedesc[CashDrawer],
                         connectionTypes: PosConnectionTypes): string =
   ## Windows.Devices.PointOfService.ICashDrawerStatics2.GetDeviceSelector
-  let it = statics[ICashDrawerStatics2Vtbl]("Windows.Devices.PointOfService.CashDrawer")
+  let it = statics[ICashDrawerStatics2Vtbl](className(CashDrawer))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, connectionTypes, ret.addr
                                  ), "CashDrawer.getDeviceSelector"
@@ -5659,7 +5659,7 @@ proc getDeviceSelector*(_: typedesc[CashDrawer],
 
 proc getDefaultAsync*(_: typedesc[CashDrawer]): Future[CashDrawer] =
   ## Windows.Devices.PointOfService.ICashDrawerStatics.GetDefaultAsync
-  let it = statics[ICashDrawerStaticsVtbl]("Windows.Devices.PointOfService.CashDrawer")
+  let it = statics[ICashDrawerStaticsVtbl](className(CashDrawer))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr), "CashDrawer.getDefaultAsync"
   future[IAsyncOperationVtbl[CashDrawer], CashDrawer](op, "CashDrawer.getDefaultAsync")
@@ -5667,7 +5667,7 @@ proc getDefaultAsync*(_: typedesc[CashDrawer]): Future[CashDrawer] =
 proc fromIdAsync*(_: typedesc[CashDrawer], deviceId: string
                  ): Future[CashDrawer] =
   ## Windows.Devices.PointOfService.ICashDrawerStatics.FromIdAsync
-  let it = statics[ICashDrawerStaticsVtbl]("Windows.Devices.PointOfService.CashDrawer")
+  let it = statics[ICashDrawerStaticsVtbl](className(CashDrawer))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -5676,7 +5676,7 @@ proc fromIdAsync*(_: typedesc[CashDrawer], deviceId: string
 
 proc getDeviceSelector*(_: typedesc[CashDrawer]): string =
   ## Windows.Devices.PointOfService.ICashDrawerStatics.GetDeviceSelector
-  let it = statics[ICashDrawerStaticsVtbl]("Windows.Devices.PointOfService.CashDrawer")
+  let it = statics[ICashDrawerStaticsVtbl](className(CashDrawer))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "CashDrawer.getDeviceSelector"
@@ -6454,7 +6454,7 @@ proc createJob*(self: ClaimedJournalPrinter): JournalPrintJob =
 proc fromIdAsync*(_: typedesc[ClaimedLineDisplay], deviceId: string
                  ): Future[ClaimedLineDisplay] =
   ## Windows.Devices.PointOfService.IClaimedLineDisplayStatics.FromIdAsync
-  let it = statics[IClaimedLineDisplayStaticsVtbl]("Windows.Devices.PointOfService.ClaimedLineDisplay")
+  let it = statics[IClaimedLineDisplayStaticsVtbl](className(ClaimedLineDisplay))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -6463,7 +6463,7 @@ proc fromIdAsync*(_: typedesc[ClaimedLineDisplay], deviceId: string
 
 proc getDeviceSelector*(_: typedesc[ClaimedLineDisplay]): string =
   ## Windows.Devices.PointOfService.IClaimedLineDisplayStatics.GetDeviceSelector
-  let it = statics[IClaimedLineDisplayStaticsVtbl]("Windows.Devices.PointOfService.ClaimedLineDisplay")
+  let it = statics[IClaimedLineDisplayStaticsVtbl](className(ClaimedLineDisplay))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "ClaimedLineDisplay.getDeviceSelector"
@@ -6472,7 +6472,7 @@ proc getDeviceSelector*(_: typedesc[ClaimedLineDisplay]): string =
 proc getDeviceSelector*(_: typedesc[ClaimedLineDisplay],
                         connectionTypes: PosConnectionTypes): string =
   ## Windows.Devices.PointOfService.IClaimedLineDisplayStatics.GetDeviceSelector
-  let it = statics[IClaimedLineDisplayStaticsVtbl]("Windows.Devices.PointOfService.ClaimedLineDisplay")
+  let it = statics[IClaimedLineDisplayStaticsVtbl](className(ClaimedLineDisplay))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector2(it.raw, connectionTypes, ret.addr
                                   ), "ClaimedLineDisplay.getDeviceSelector"
@@ -7383,14 +7383,14 @@ proc createJob*(self: ClaimedSlipPrinter): SlipPrintJob =
 
 proc getDeviceSelector*(_: typedesc[Compass]): string =
   ## Windows.Devices.Sensors.ICompassStatics2.GetDeviceSelector
-  let it = statics[ICompassStatics2Vtbl]("Windows.Devices.Sensors.Compass")
+  let it = statics[ICompassStatics2Vtbl](className(Compass))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr), "Compass.getDeviceSelector"
   takeString(ret)
 
 proc fromIdAsync*(_: typedesc[Compass], deviceId: string): Future[Compass] =
   ## Windows.Devices.Sensors.ICompassStatics2.FromIdAsync
-  let it = statics[ICompassStatics2Vtbl]("Windows.Devices.Sensors.Compass")
+  let it = statics[ICompassStatics2Vtbl](className(Compass))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr), "Compass.fromIdAsync"
@@ -7398,7 +7398,7 @@ proc fromIdAsync*(_: typedesc[Compass], deviceId: string): Future[Compass] =
 
 proc getDefault*(_: typedesc[Compass]): Compass =
   ## Windows.Devices.Sensors.ICompassStatics.GetDefault
-  let it = statics[ICompassStaticsVtbl]("Windows.Devices.Sensors.Compass")
+  let it = statics[ICompassStaticsVtbl](className(Compass))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "Compass.getDefault"
   adopt[Compass](ret)
@@ -7570,7 +7570,7 @@ proc reading*(self: CompassReadingChangedEventArgs): CompassReading =
 
 proc getDeviceSelector*(_: typedesc[CustomDevice], classGuid: GUID): string =
   ## Windows.Devices.Custom.ICustomDeviceStatics.GetDeviceSelector
-  let it = statics[ICustomDeviceStaticsVtbl]("Windows.Devices.Custom.CustomDevice")
+  let it = statics[ICustomDeviceStaticsVtbl](className(CustomDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, classGuid, ret.addr
                                  ), "CustomDevice.getDeviceSelector"
@@ -7580,7 +7580,7 @@ proc fromIdAsync*(_: typedesc[CustomDevice], deviceId: string,
                   desiredAccess: DeviceAccessMode,
                   sharingMode: DeviceSharingMode): Future[CustomDevice] =
   ## Windows.Devices.Custom.ICustomDeviceStatics.FromIdAsync
-  let it = statics[ICustomDeviceStaticsVtbl]("Windows.Devices.Custom.CustomDevice")
+  let it = statics[ICustomDeviceStaticsVtbl](className(CustomDevice))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, desiredAccess, sharingMode,
@@ -7632,7 +7632,7 @@ proc trySendIOControlAsync*(self: CustomDevice,
 
 proc getDeviceSelector*(_: typedesc[CustomSensor], interfaceId: GUID): string =
   ## Windows.Devices.Sensors.Custom.ICustomSensorStatics.GetDeviceSelector
-  let it = statics[ICustomSensorStaticsVtbl]("Windows.Devices.Sensors.Custom.CustomSensor")
+  let it = statics[ICustomSensorStaticsVtbl](className(CustomSensor))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, interfaceId, ret.addr
                                  ), "CustomSensor.getDeviceSelector"
@@ -7641,7 +7641,7 @@ proc getDeviceSelector*(_: typedesc[CustomSensor], interfaceId: GUID): string =
 proc fromIdAsync*(_: typedesc[CustomSensor], sensorId: string
                  ): Future[CustomSensor] =
   ## Windows.Devices.Sensors.Custom.ICustomSensorStatics.FromIdAsync
-  let it = statics[ICustomSensorStaticsVtbl]("Windows.Devices.Sensors.Custom.CustomSensor")
+  let it = statics[ICustomSensorStaticsVtbl](className(CustomSensor))
   let a0 = toWinRtString(sensorId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -7829,7 +7829,7 @@ proc userPromptRequired*(self: DeviceAccessChangedEventArgs): bool =
 proc createFromId*(_: typedesc[DeviceAccessInformation], deviceId: string
                   ): DeviceAccessInformation =
   ## Windows.Devices.Enumeration.IDeviceAccessInformationStatics.CreateFromId
-  let it = statics[IDeviceAccessInformationStaticsVtbl]("Windows.Devices.Enumeration.DeviceAccessInformation")
+  let it = statics[IDeviceAccessInformationStaticsVtbl](className(DeviceAccessInformation))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.CreateFromId(it.raw, a0.handle, ret.addr
@@ -7839,7 +7839,7 @@ proc createFromId*(_: typedesc[DeviceAccessInformation], deviceId: string
 proc createFromDeviceClassId*(_: typedesc[DeviceAccessInformation],
                               deviceClassId: GUID): DeviceAccessInformation =
   ## Windows.Devices.Enumeration.IDeviceAccessInformationStatics.CreateFromDeviceClassId
-  let it = statics[IDeviceAccessInformationStaticsVtbl]("Windows.Devices.Enumeration.DeviceAccessInformation")
+  let it = statics[IDeviceAccessInformationStaticsVtbl](className(DeviceAccessInformation))
   var ret: pointer
   check it.vtbl.CreateFromDeviceClassId(it.raw, deviceClassId, ret.addr
                                        ), "DeviceAccessInformation.createFromDeviceClassId"
@@ -7848,7 +7848,7 @@ proc createFromDeviceClassId*(_: typedesc[DeviceAccessInformation],
 proc createFromDeviceClass*(_: typedesc[DeviceAccessInformation],
                             deviceClass: DeviceClass): DeviceAccessInformation =
   ## Windows.Devices.Enumeration.IDeviceAccessInformationStatics.CreateFromDeviceClass
-  let it = statics[IDeviceAccessInformationStaticsVtbl]("Windows.Devices.Enumeration.DeviceAccessInformation")
+  let it = statics[IDeviceAccessInformationStaticsVtbl](className(DeviceAccessInformation))
   var ret: pointer
   check it.vtbl.CreateFromDeviceClass(it.raw, deviceClass, ret.addr
                                      ), "DeviceAccessInformation.createFromDeviceClass"
@@ -7916,7 +7916,7 @@ proc device*(self: DeviceDisconnectButtonClickedEventArgs): DeviceInformation =
 proc getAqsFilterFromDeviceClass*(_: typedesc[DeviceInformation],
                                   deviceClass: DeviceClass): string =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics2.GetAqsFilterFromDeviceClass
-  let it = statics[IDeviceInformationStatics2Vtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStatics2Vtbl](className(DeviceInformation))
   var ret: HSTRING
   check it.vtbl.GetAqsFilterFromDeviceClass(it.raw, deviceClass, ret.addr
                                            ), "DeviceInformation.getAqsFilterFromDeviceClass"
@@ -7927,7 +7927,7 @@ proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string,
                         kind: DeviceInformationKind
                        ): Future[DeviceInformation] =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics2.CreateFromIdAsync
-  let it = statics[IDeviceInformationStatics2Vtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStatics2Vtbl](className(DeviceInformation))
   let a0 = toWinRtString(deviceId)
   let a1 = asCollection[string, seq[string]](additionalProperties)
   var op: pointer
@@ -7940,7 +7940,7 @@ proc findAllAsync*(_: typedesc[DeviceInformation], aqsFilter: string,
                    kind: DeviceInformationKind
                   ): Future[DeviceInformationCollection] =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics2.FindAllAsync
-  let it = statics[IDeviceInformationStatics2Vtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStatics2Vtbl](className(DeviceInformation))
   let a0 = toWinRtString(aqsFilter)
   let a1 = asCollection[string, seq[string]](additionalProperties)
   var op: pointer
@@ -7953,7 +7953,7 @@ proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string,
                     additionalProperties: seq[string],
                     kind: DeviceInformationKind): DeviceWatcher =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics2.CreateWatcher
-  let it = statics[IDeviceInformationStatics2Vtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStatics2Vtbl](className(DeviceInformation))
   let a0 = toWinRtString(aqsFilter)
   let a1 = asCollection[string, seq[string]](additionalProperties)
   var ret: pointer
@@ -7967,7 +7967,7 @@ proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string,
                         settings: IDeviceEnumerationSettings
                        ): Future[DeviceInformation] =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics3.CreateFromIdAsync
-  let it = statics[IDeviceInformationStatics3Vtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStatics3Vtbl](className(DeviceInformation))
   let a0 = toWinRtString(deviceId)
   let a1 = asCollection[string, seq[string]](additionalProperties)
   let a3 = queryInterface[IDeviceEnumerationSettingsVtbl](settings)
@@ -7983,7 +7983,7 @@ proc findAllAsync*(_: typedesc[DeviceInformation], aqsFilter: string,
                    settings: IDeviceEnumerationSettings
                   ): Future[DeviceInformationCollection] =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics3.FindAllAsync
-  let it = statics[IDeviceInformationStatics3Vtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStatics3Vtbl](className(DeviceInformation))
   let a0 = toWinRtString(aqsFilter)
   let a1 = asCollection[string, seq[string]](additionalProperties)
   let a3 = queryInterface[IDeviceEnumerationSettingsVtbl](settings)
@@ -7998,7 +7998,7 @@ proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string,
                     kind: DeviceInformationKind,
                     settings: IDeviceEnumerationSettings): DeviceWatcher =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics3.CreateWatcher
-  let it = statics[IDeviceInformationStatics3Vtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStatics3Vtbl](className(DeviceInformation))
   let a0 = toWinRtString(aqsFilter)
   let a1 = asCollection[string, seq[string]](additionalProperties)
   let a3 = queryInterface[IDeviceEnumerationSettingsVtbl](settings)
@@ -8010,7 +8010,7 @@ proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string,
 proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string
                        ): Future[DeviceInformation] =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics.CreateFromIdAsync
-  let it = statics[IDeviceInformationStaticsVtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStaticsVtbl](className(DeviceInformation))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.CreateFromIdAsync(it.raw, a0.handle, op.addr
@@ -8021,7 +8021,7 @@ proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string,
                         additionalProperties: seq[string]
                        ): Future[DeviceInformation] =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics.CreateFromIdAsync
-  let it = statics[IDeviceInformationStaticsVtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStaticsVtbl](className(DeviceInformation))
   let a0 = toWinRtString(deviceId)
   let a1 = asCollection[string, seq[string]](additionalProperties)
   var op: pointer
@@ -8031,7 +8031,7 @@ proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string,
 
 proc findAllAsync*(_: typedesc[DeviceInformation]): Future[DeviceInformationCollection] =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics.FindAllAsync
-  let it = statics[IDeviceInformationStaticsVtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStaticsVtbl](className(DeviceInformation))
   var op: pointer
   check it.vtbl.FindAllAsync(it.raw, op.addr), "DeviceInformation.findAllAsync"
   future[IAsyncOperationVtbl[DeviceInformationCollection],
@@ -8040,7 +8040,7 @@ proc findAllAsync*(_: typedesc[DeviceInformation]): Future[DeviceInformationColl
 proc findAllAsync*(_: typedesc[DeviceInformation], deviceClass: DeviceClass
                   ): Future[DeviceInformationCollection] =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics.FindAllAsync
-  let it = statics[IDeviceInformationStaticsVtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStaticsVtbl](className(DeviceInformation))
   var op: pointer
   check it.vtbl.FindAllAsync2(it.raw, deviceClass, op.addr
                              ), "DeviceInformation.findAllAsync"
@@ -8050,7 +8050,7 @@ proc findAllAsync*(_: typedesc[DeviceInformation], deviceClass: DeviceClass
 proc findAllAsync*(_: typedesc[DeviceInformation], aqsFilter: string
                   ): Future[DeviceInformationCollection] =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics.FindAllAsync
-  let it = statics[IDeviceInformationStaticsVtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStaticsVtbl](className(DeviceInformation))
   let a0 = toWinRtString(aqsFilter)
   var op: pointer
   check it.vtbl.FindAllAsync3(it.raw, a0.handle, op.addr
@@ -8062,7 +8062,7 @@ proc findAllAsync*(_: typedesc[DeviceInformation], aqsFilter: string,
                    additionalProperties: seq[string]
                   ): Future[DeviceInformationCollection] =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics.FindAllAsync
-  let it = statics[IDeviceInformationStaticsVtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStaticsVtbl](className(DeviceInformation))
   let a0 = toWinRtString(aqsFilter)
   let a1 = asCollection[string, seq[string]](additionalProperties)
   var op: pointer
@@ -8073,7 +8073,7 @@ proc findAllAsync*(_: typedesc[DeviceInformation], aqsFilter: string,
 
 proc createWatcher*(_: typedesc[DeviceInformation]): DeviceWatcher =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics.CreateWatcher
-  let it = statics[IDeviceInformationStaticsVtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStaticsVtbl](className(DeviceInformation))
   var ret: pointer
   check it.vtbl.CreateWatcher(it.raw, ret.addr
                              ), "DeviceInformation.createWatcher"
@@ -8082,7 +8082,7 @@ proc createWatcher*(_: typedesc[DeviceInformation]): DeviceWatcher =
 proc createWatcher*(_: typedesc[DeviceInformation], deviceClass: DeviceClass
                    ): DeviceWatcher =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics.CreateWatcher
-  let it = statics[IDeviceInformationStaticsVtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStaticsVtbl](className(DeviceInformation))
   var ret: pointer
   check it.vtbl.CreateWatcher2(it.raw, deviceClass, ret.addr
                               ), "DeviceInformation.createWatcher"
@@ -8091,7 +8091,7 @@ proc createWatcher*(_: typedesc[DeviceInformation], deviceClass: DeviceClass
 proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string
                    ): DeviceWatcher =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics.CreateWatcher
-  let it = statics[IDeviceInformationStaticsVtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStaticsVtbl](className(DeviceInformation))
   let a0 = toWinRtString(aqsFilter)
   var ret: pointer
   check it.vtbl.CreateWatcher3(it.raw, a0.handle, ret.addr
@@ -8101,7 +8101,7 @@ proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string
 proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string,
                     additionalProperties: seq[string]): DeviceWatcher =
   ## Windows.Devices.Enumeration.IDeviceInformationStatics.CreateWatcher
-  let it = statics[IDeviceInformationStaticsVtbl]("Windows.Devices.Enumeration.DeviceInformation")
+  let it = statics[IDeviceInformationStaticsVtbl](className(DeviceInformation))
   let a0 = toWinRtString(aqsFilter)
   let a1 = asCollection[string, seq[string]](additionalProperties)
   var ret: pointer
@@ -8282,7 +8282,7 @@ proc tryRegisterForAllInboundPairingRequestsWithProtectionLevel*(_: typedesc[Dev
                                                                  minProtectionLevel: DevicePairingProtectionLevel
                                                                 ): bool =
   ## Windows.Devices.Enumeration.IDeviceInformationPairingStatics2.TryRegisterForAllInboundPairingRequestsWithProtectionLevel
-  let it = statics[IDeviceInformationPairingStatics2Vtbl]("Windows.Devices.Enumeration.DeviceInformationPairing")
+  let it = statics[IDeviceInformationPairingStatics2Vtbl](className(DeviceInformationPairing))
   var ret: bool
   check it.vtbl.TryRegisterForAllInboundPairingRequestsWithProtectionLevel(it.raw,
                                                                            pairingKindsSupported,
@@ -8295,7 +8295,7 @@ proc tryRegisterForAllInboundPairingRequests*(_: typedesc[DeviceInformationPairi
                                               pairingKindsSupported: DevicePairingKinds
                                              ): bool =
   ## Windows.Devices.Enumeration.IDeviceInformationPairingStatics.TryRegisterForAllInboundPairingRequests
-  let it = statics[IDeviceInformationPairingStaticsVtbl]("Windows.Devices.Enumeration.DeviceInformationPairing")
+  let it = statics[IDeviceInformationPairingStaticsVtbl](className(DeviceInformationPairing))
   var ret: bool
   check it.vtbl.TryRegisterForAllInboundPairingRequests(it.raw,
                                                         pairingKindsSupported,
@@ -8969,7 +8969,7 @@ proc deviceWatcherEvents*(self: DeviceWatcherTriggerDetails): seq[DeviceWatcherE
 proc fromId*(_: typedesc[DisplayAdapter], id: DisplayAdapterId
             ): DisplayAdapter =
   ## Windows.Devices.Display.Core.IDisplayAdapterStatics.FromId
-  let it = statics[IDisplayAdapterStaticsVtbl]("Windows.Devices.Display.Core.DisplayAdapter")
+  let it = statics[IDisplayAdapterStaticsVtbl](className(DisplayAdapter))
   var ret: pointer
   check it.vtbl.FromId(it.raw, id, ret.addr), "DisplayAdapter.fromId"
   adopt[DisplayAdapter](ret)
@@ -9152,7 +9152,7 @@ proc renderAdapterId*(self: DisplayDevice): DisplayAdapterId =
 proc create*(_: typedesc[DisplayManager], options: DisplayManagerOptions
             ): DisplayManager =
   ## Windows.Devices.Display.Core.IDisplayManagerStatics.Create
-  let it = statics[IDisplayManagerStaticsVtbl]("Windows.Devices.Display.Core.DisplayManager")
+  let it = statics[IDisplayManagerStaticsVtbl](className(DisplayManager))
   var ret: pointer
   check it.vtbl.Create(it.raw, options, ret.addr), "DisplayManager.create"
   adopt[DisplayManager](ret)
@@ -9564,7 +9564,7 @@ proc physicalPresentationRate*(self: DisplayModeInfo): DisplayPresentationRate =
 
 proc getDeviceSelector*(_: typedesc[DisplayMonitor]): string =
   ## Windows.Devices.Display.IDisplayMonitorStatics.GetDeviceSelector
-  let it = statics[IDisplayMonitorStaticsVtbl]("Windows.Devices.Display.DisplayMonitor")
+  let it = statics[IDisplayMonitorStaticsVtbl](className(DisplayMonitor))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "DisplayMonitor.getDeviceSelector"
@@ -9573,7 +9573,7 @@ proc getDeviceSelector*(_: typedesc[DisplayMonitor]): string =
 proc fromIdAsync*(_: typedesc[DisplayMonitor], deviceId: string
                  ): Future[DisplayMonitor] =
   ## Windows.Devices.Display.IDisplayMonitorStatics.FromIdAsync
-  let it = statics[IDisplayMonitorStaticsVtbl]("Windows.Devices.Display.DisplayMonitor")
+  let it = statics[IDisplayMonitorStaticsVtbl](className(DisplayMonitor))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -9583,7 +9583,7 @@ proc fromIdAsync*(_: typedesc[DisplayMonitor], deviceId: string
 proc fromInterfaceIdAsync*(_: typedesc[DisplayMonitor],
                            deviceInterfaceId: string): Future[DisplayMonitor] =
   ## Windows.Devices.Display.IDisplayMonitorStatics.FromInterfaceIdAsync
-  let it = statics[IDisplayMonitorStaticsVtbl]("Windows.Devices.Display.DisplayMonitor")
+  let it = statics[IDisplayMonitorStaticsVtbl](className(DisplayMonitor))
   let a0 = toWinRtString(deviceInterfaceId)
   var op: pointer
   check it.vtbl.FromInterfaceIdAsync(it.raw, a0.handle, op.addr
@@ -9756,7 +9756,7 @@ proc isDolbyVisionSupportedInHdrMode*(self: DisplayMonitor): bool =
 
 proc getDeviceSelector*(_: typedesc[DisplayMuxDevice]): string =
   ## Windows.Devices.Display.Core.IDisplayMuxDeviceStatics.GetDeviceSelector
-  let it = statics[IDisplayMuxDeviceStaticsVtbl]("Windows.Devices.Display.Core.DisplayMuxDevice")
+  let it = statics[IDisplayMuxDeviceStaticsVtbl](className(DisplayMuxDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "DisplayMuxDevice.getDeviceSelector"
@@ -9765,7 +9765,7 @@ proc getDeviceSelector*(_: typedesc[DisplayMuxDevice]): string =
 proc fromIdAsync*(_: typedesc[DisplayMuxDevice], deviceInterfaceId: string
                  ): Future[DisplayMuxDevice] =
   ## Windows.Devices.Display.Core.IDisplayMuxDeviceStatics.FromIdAsync
-  let it = statics[IDisplayMuxDeviceStaticsVtbl]("Windows.Devices.Display.Core.DisplayMuxDevice")
+  let it = statics[IDisplayMuxDeviceStaticsVtbl](className(DisplayMuxDevice))
   let a0 = toWinRtString(deviceInterfaceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -10046,7 +10046,7 @@ proc newDisplayPrimaryDescription*(width: uint32, height: uint32,
                                    multisampleDescription: Direct3DMultisampleDescription
                                   ): DisplayPrimaryDescription =
   ## Windows.Devices.Display.Core.IDisplayPrimaryDescriptionFactory.CreateInstance
-  let it = statics[IDisplayPrimaryDescriptionFactoryVtbl]("Windows.Devices.Display.Core.DisplayPrimaryDescription")
+  let it = statics[IDisplayPrimaryDescriptionFactoryVtbl](className(DisplayPrimaryDescription))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, width, height, pixelFormat, colorSpace,
                                isStereo, multisampleDescription, ret.addr
@@ -10061,7 +10061,7 @@ proc createWithProperties*(_: typedesc[DisplayPrimaryDescription],
                            multisampleDescription: Direct3DMultisampleDescription
                           ): DisplayPrimaryDescription =
   ## Windows.Devices.Display.Core.IDisplayPrimaryDescriptionStatics.CreateWithProperties
-  let it = statics[IDisplayPrimaryDescriptionStaticsVtbl]("Windows.Devices.Display.Core.DisplayPrimaryDescription")
+  let it = statics[IDisplayPrimaryDescriptionStaticsVtbl](className(DisplayPrimaryDescription))
   let a0 = asMap[GUID, WinRtObject, Table[GUID, WinRtObject]](extraProperties)
   var ret: pointer
   check it.vtbl.CreateWithProperties(it.raw, a0.raw, width, height, pixelFormat,
@@ -10534,7 +10534,7 @@ proc newDisplayWireFormat*(pixelEncoding: DisplayWireFormatPixelEncoding,
                            hdrMetadata: DisplayWireFormatHdrMetadata
                           ): DisplayWireFormat =
   ## Windows.Devices.Display.Core.IDisplayWireFormatFactory.CreateInstance
-  let it = statics[IDisplayWireFormatFactoryVtbl]("Windows.Devices.Display.Core.DisplayWireFormat")
+  let it = statics[IDisplayWireFormatFactoryVtbl](className(DisplayWireFormat))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, pixelEncoding, bitsPerChannel,
                                colorSpace, eotf, hdrMetadata, ret.addr
@@ -10550,7 +10550,7 @@ proc createWithProperties*(_: typedesc[DisplayWireFormat],
                            hdrMetadata: DisplayWireFormatHdrMetadata
                           ): DisplayWireFormat =
   ## Windows.Devices.Display.Core.IDisplayWireFormatStatics.CreateWithProperties
-  let it = statics[IDisplayWireFormatStaticsVtbl]("Windows.Devices.Display.Core.DisplayWireFormat")
+  let it = statics[IDisplayWireFormatStaticsVtbl](className(DisplayWireFormat))
   let a0 = asMap[GUID, WinRtObject, Table[GUID, WinRtObject]](extraProperties)
   var ret: pointer
   check it.vtbl.CreateWithProperties(it.raw, a0.raw, pixelEncoding,
@@ -10649,7 +10649,7 @@ proc error*(self: ErrorReceivedEventArgs): SerialError =
 proc convertShortIdToUuid*(_: typedesc[GattCharacteristic], shortId: uint16
                           ): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicStatics.ConvertShortIdToUuid
-  let it = statics[IGattCharacteristicStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic")
+  let it = statics[IGattCharacteristicStaticsVtbl](className(GattCharacteristic))
   var ret: GUID
   check it.vtbl.ConvertShortIdToUuid(it.raw, shortId, ret.addr
                                     ), "GattCharacteristic.convertShortIdToUuid"
@@ -10930,7 +10930,7 @@ proc valueChangedEvents*(self: GattCharacteristicNotificationTriggerDetails): se
 
 proc batteryLevel*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_BatteryLevel
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_BatteryLevel(it.raw, ret.addr
                                 ), "GattCharacteristicUuids.batteryLevel"
@@ -10938,7 +10938,7 @@ proc batteryLevel*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc bloodPressureFeature*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_BloodPressureFeature
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_BloodPressureFeature(it.raw, ret.addr
                                         ), "GattCharacteristicUuids.bloodPressureFeature"
@@ -10946,7 +10946,7 @@ proc bloodPressureFeature*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc bloodPressureMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_BloodPressureMeasurement
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_BloodPressureMeasurement(it.raw, ret.addr
                                             ), "GattCharacteristicUuids.bloodPressureMeasurement"
@@ -10954,7 +10954,7 @@ proc bloodPressureMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc bodySensorLocation*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_BodySensorLocation
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_BodySensorLocation(it.raw, ret.addr
                                       ), "GattCharacteristicUuids.bodySensorLocation"
@@ -10962,7 +10962,7 @@ proc bodySensorLocation*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc cscFeature*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_CscFeature
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_CscFeature(it.raw, ret.addr
                               ), "GattCharacteristicUuids.cscFeature"
@@ -10970,7 +10970,7 @@ proc cscFeature*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc cscMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_CscMeasurement
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_CscMeasurement(it.raw, ret.addr
                                   ), "GattCharacteristicUuids.cscMeasurement"
@@ -10978,7 +10978,7 @@ proc cscMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc glucoseFeature*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_GlucoseFeature
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_GlucoseFeature(it.raw, ret.addr
                                   ), "GattCharacteristicUuids.glucoseFeature"
@@ -10986,7 +10986,7 @@ proc glucoseFeature*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc glucoseMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_GlucoseMeasurement
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_GlucoseMeasurement(it.raw, ret.addr
                                       ), "GattCharacteristicUuids.glucoseMeasurement"
@@ -10994,7 +10994,7 @@ proc glucoseMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc glucoseMeasurementContext*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_GlucoseMeasurementContext
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_GlucoseMeasurementContext(it.raw, ret.addr
                                              ), "GattCharacteristicUuids.glucoseMeasurementContext"
@@ -11002,7 +11002,7 @@ proc glucoseMeasurementContext*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc heartRateControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_HeartRateControlPoint
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_HeartRateControlPoint(it.raw, ret.addr
                                          ), "GattCharacteristicUuids.heartRateControlPoint"
@@ -11010,7 +11010,7 @@ proc heartRateControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc heartRateMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_HeartRateMeasurement
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_HeartRateMeasurement(it.raw, ret.addr
                                         ), "GattCharacteristicUuids.heartRateMeasurement"
@@ -11018,7 +11018,7 @@ proc heartRateMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc intermediateCuffPressure*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_IntermediateCuffPressure
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_IntermediateCuffPressure(it.raw, ret.addr
                                             ), "GattCharacteristicUuids.intermediateCuffPressure"
@@ -11026,7 +11026,7 @@ proc intermediateCuffPressure*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc intermediateTemperature*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_IntermediateTemperature
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_IntermediateTemperature(it.raw, ret.addr
                                            ), "GattCharacteristicUuids.intermediateTemperature"
@@ -11034,7 +11034,7 @@ proc intermediateTemperature*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc measurementInterval*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_MeasurementInterval
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_MeasurementInterval(it.raw, ret.addr
                                        ), "GattCharacteristicUuids.measurementInterval"
@@ -11042,7 +11042,7 @@ proc measurementInterval*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc recordAccessControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_RecordAccessControlPoint
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_RecordAccessControlPoint(it.raw, ret.addr
                                             ), "GattCharacteristicUuids.recordAccessControlPoint"
@@ -11050,7 +11050,7 @@ proc recordAccessControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc rscFeature*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_RscFeature
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_RscFeature(it.raw, ret.addr
                               ), "GattCharacteristicUuids.rscFeature"
@@ -11058,7 +11058,7 @@ proc rscFeature*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc rscMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_RscMeasurement
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_RscMeasurement(it.raw, ret.addr
                                   ), "GattCharacteristicUuids.rscMeasurement"
@@ -11066,7 +11066,7 @@ proc rscMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc sCControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_SCControlPoint
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_SCControlPoint(it.raw, ret.addr
                                   ), "GattCharacteristicUuids.sCControlPoint"
@@ -11074,7 +11074,7 @@ proc sCControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc sensorLocation*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_SensorLocation
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_SensorLocation(it.raw, ret.addr
                                   ), "GattCharacteristicUuids.sensorLocation"
@@ -11082,7 +11082,7 @@ proc sensorLocation*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc temperatureMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_TemperatureMeasurement
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_TemperatureMeasurement(it.raw, ret.addr
                                           ), "GattCharacteristicUuids.temperatureMeasurement"
@@ -11090,7 +11090,7 @@ proc temperatureMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc temperatureType*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics.get_TemperatureType
-  let it = statics[IGattCharacteristicUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStaticsVtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_TemperatureType(it.raw, ret.addr
                                    ), "GattCharacteristicUuids.temperatureType"
@@ -11098,7 +11098,7 @@ proc temperatureType*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc alertCategoryId*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_AlertCategoryId
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_AlertCategoryId(it.raw, ret.addr
                                    ), "GattCharacteristicUuids.alertCategoryId"
@@ -11106,7 +11106,7 @@ proc alertCategoryId*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc alertCategoryIdBitMask*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_AlertCategoryIdBitMask
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_AlertCategoryIdBitMask(it.raw, ret.addr
                                           ), "GattCharacteristicUuids.alertCategoryIdBitMask"
@@ -11114,7 +11114,7 @@ proc alertCategoryIdBitMask*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc alertLevel*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_AlertLevel
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_AlertLevel(it.raw, ret.addr
                               ), "GattCharacteristicUuids.alertLevel"
@@ -11122,7 +11122,7 @@ proc alertLevel*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc alertNotificationControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_AlertNotificationControlPoint
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_AlertNotificationControlPoint(it.raw, ret.addr
                                                  ), "GattCharacteristicUuids.alertNotificationControlPoint"
@@ -11130,7 +11130,7 @@ proc alertNotificationControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID 
 
 proc alertStatus*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_AlertStatus
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_AlertStatus(it.raw, ret.addr
                                ), "GattCharacteristicUuids.alertStatus"
@@ -11138,7 +11138,7 @@ proc alertStatus*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc gapAppearance*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_GapAppearance
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_GapAppearance(it.raw, ret.addr
                                  ), "GattCharacteristicUuids.gapAppearance"
@@ -11146,7 +11146,7 @@ proc gapAppearance*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc bootKeyboardInputReport*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_BootKeyboardInputReport
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_BootKeyboardInputReport(it.raw, ret.addr
                                            ), "GattCharacteristicUuids.bootKeyboardInputReport"
@@ -11154,7 +11154,7 @@ proc bootKeyboardInputReport*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc bootKeyboardOutputReport*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_BootKeyboardOutputReport
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_BootKeyboardOutputReport(it.raw, ret.addr
                                             ), "GattCharacteristicUuids.bootKeyboardOutputReport"
@@ -11162,7 +11162,7 @@ proc bootKeyboardOutputReport*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc bootMouseInputReport*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_BootMouseInputReport
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_BootMouseInputReport(it.raw, ret.addr
                                         ), "GattCharacteristicUuids.bootMouseInputReport"
@@ -11170,7 +11170,7 @@ proc bootMouseInputReport*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc currentTime*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_CurrentTime
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_CurrentTime(it.raw, ret.addr
                                ), "GattCharacteristicUuids.currentTime"
@@ -11178,7 +11178,7 @@ proc currentTime*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc cyclingPowerControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_CyclingPowerControlPoint
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_CyclingPowerControlPoint(it.raw, ret.addr
                                             ), "GattCharacteristicUuids.cyclingPowerControlPoint"
@@ -11186,7 +11186,7 @@ proc cyclingPowerControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc cyclingPowerFeature*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_CyclingPowerFeature
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_CyclingPowerFeature(it.raw, ret.addr
                                        ), "GattCharacteristicUuids.cyclingPowerFeature"
@@ -11194,7 +11194,7 @@ proc cyclingPowerFeature*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc cyclingPowerMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_CyclingPowerMeasurement
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_CyclingPowerMeasurement(it.raw, ret.addr
                                            ), "GattCharacteristicUuids.cyclingPowerMeasurement"
@@ -11202,7 +11202,7 @@ proc cyclingPowerMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc cyclingPowerVector*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_CyclingPowerVector
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_CyclingPowerVector(it.raw, ret.addr
                                       ), "GattCharacteristicUuids.cyclingPowerVector"
@@ -11210,7 +11210,7 @@ proc cyclingPowerVector*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc dateTime*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_DateTime
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_DateTime(it.raw, ret.addr
                             ), "GattCharacteristicUuids.dateTime"
@@ -11218,7 +11218,7 @@ proc dateTime*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc dayDateTime*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_DayDateTime
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_DayDateTime(it.raw, ret.addr
                                ), "GattCharacteristicUuids.dayDateTime"
@@ -11226,7 +11226,7 @@ proc dayDateTime*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc dayOfWeek*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_DayOfWeek
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_DayOfWeek(it.raw, ret.addr
                              ), "GattCharacteristicUuids.dayOfWeek"
@@ -11234,7 +11234,7 @@ proc dayOfWeek*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc gapDeviceName*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_GapDeviceName
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_GapDeviceName(it.raw, ret.addr
                                  ), "GattCharacteristicUuids.gapDeviceName"
@@ -11242,7 +11242,7 @@ proc gapDeviceName*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc dstOffset*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_DstOffset
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_DstOffset(it.raw, ret.addr
                              ), "GattCharacteristicUuids.dstOffset"
@@ -11250,7 +11250,7 @@ proc dstOffset*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc exactTime256*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_ExactTime256
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_ExactTime256(it.raw, ret.addr
                                 ), "GattCharacteristicUuids.exactTime256"
@@ -11258,7 +11258,7 @@ proc exactTime256*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc firmwareRevisionString*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_FirmwareRevisionString
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_FirmwareRevisionString(it.raw, ret.addr
                                           ), "GattCharacteristicUuids.firmwareRevisionString"
@@ -11266,7 +11266,7 @@ proc firmwareRevisionString*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc hardwareRevisionString*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_HardwareRevisionString
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_HardwareRevisionString(it.raw, ret.addr
                                           ), "GattCharacteristicUuids.hardwareRevisionString"
@@ -11274,7 +11274,7 @@ proc hardwareRevisionString*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc hidControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_HidControlPoint
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_HidControlPoint(it.raw, ret.addr
                                    ), "GattCharacteristicUuids.hidControlPoint"
@@ -11282,7 +11282,7 @@ proc hidControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc hidInformation*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_HidInformation
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_HidInformation(it.raw, ret.addr
                                   ), "GattCharacteristicUuids.hidInformation"
@@ -11290,7 +11290,7 @@ proc hidInformation*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc ieee1107320601RegulatoryCertificationDataList*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_Ieee1107320601RegulatoryCertificationDataList
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_Ieee1107320601RegulatoryCertificationDataList(it.raw,
                                                                   ret.addr
@@ -11299,7 +11299,7 @@ proc ieee1107320601RegulatoryCertificationDataList*(_: typedesc[GattCharacterist
 
 proc lnControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_LnControlPoint
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_LnControlPoint(it.raw, ret.addr
                                   ), "GattCharacteristicUuids.lnControlPoint"
@@ -11307,7 +11307,7 @@ proc lnControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc lnFeature*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_LnFeature
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_LnFeature(it.raw, ret.addr
                              ), "GattCharacteristicUuids.lnFeature"
@@ -11315,7 +11315,7 @@ proc lnFeature*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc localTimeInformation*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_LocalTimeInformation
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_LocalTimeInformation(it.raw, ret.addr
                                         ), "GattCharacteristicUuids.localTimeInformation"
@@ -11323,7 +11323,7 @@ proc localTimeInformation*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc locationAndSpeed*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_LocationAndSpeed
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_LocationAndSpeed(it.raw, ret.addr
                                     ), "GattCharacteristicUuids.locationAndSpeed"
@@ -11331,7 +11331,7 @@ proc locationAndSpeed*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc manufacturerNameString*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_ManufacturerNameString
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_ManufacturerNameString(it.raw, ret.addr
                                           ), "GattCharacteristicUuids.manufacturerNameString"
@@ -11339,7 +11339,7 @@ proc manufacturerNameString*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc modelNumberString*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_ModelNumberString
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_ModelNumberString(it.raw, ret.addr
                                      ), "GattCharacteristicUuids.modelNumberString"
@@ -11347,7 +11347,7 @@ proc modelNumberString*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc navigation*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_Navigation
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_Navigation(it.raw, ret.addr
                               ), "GattCharacteristicUuids.navigation"
@@ -11355,7 +11355,7 @@ proc navigation*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc newAlert*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_NewAlert
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_NewAlert(it.raw, ret.addr
                             ), "GattCharacteristicUuids.newAlert"
@@ -11363,7 +11363,7 @@ proc newAlert*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc gapPeripheralPreferredConnectionParameters*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_GapPeripheralPreferredConnectionParameters
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_GapPeripheralPreferredConnectionParameters(it.raw, ret.addr
                                                               ), "GattCharacteristicUuids.gapPeripheralPreferredConnectionParameters"
@@ -11371,7 +11371,7 @@ proc gapPeripheralPreferredConnectionParameters*(_: typedesc[GattCharacteristicU
 
 proc gapPeripheralPrivacyFlag*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_GapPeripheralPrivacyFlag
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_GapPeripheralPrivacyFlag(it.raw, ret.addr
                                             ), "GattCharacteristicUuids.gapPeripheralPrivacyFlag"
@@ -11379,14 +11379,14 @@ proc gapPeripheralPrivacyFlag*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc pnpId*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_PnpId
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_PnpId(it.raw, ret.addr), "GattCharacteristicUuids.pnpId"
   ret
 
 proc positionQuality*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_PositionQuality
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_PositionQuality(it.raw, ret.addr
                                    ), "GattCharacteristicUuids.positionQuality"
@@ -11394,7 +11394,7 @@ proc positionQuality*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc protocolMode*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_ProtocolMode
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_ProtocolMode(it.raw, ret.addr
                                 ), "GattCharacteristicUuids.protocolMode"
@@ -11402,7 +11402,7 @@ proc protocolMode*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc gapReconnectionAddress*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_GapReconnectionAddress
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_GapReconnectionAddress(it.raw, ret.addr
                                           ), "GattCharacteristicUuids.gapReconnectionAddress"
@@ -11410,7 +11410,7 @@ proc gapReconnectionAddress*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc referenceTimeInformation*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_ReferenceTimeInformation
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_ReferenceTimeInformation(it.raw, ret.addr
                                             ), "GattCharacteristicUuids.referenceTimeInformation"
@@ -11418,14 +11418,14 @@ proc referenceTimeInformation*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc report*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_Report
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_Report(it.raw, ret.addr), "GattCharacteristicUuids.report"
   ret
 
 proc reportMap*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_ReportMap
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_ReportMap(it.raw, ret.addr
                              ), "GattCharacteristicUuids.reportMap"
@@ -11433,7 +11433,7 @@ proc reportMap*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc ringerControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_RingerControlPoint
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_RingerControlPoint(it.raw, ret.addr
                                       ), "GattCharacteristicUuids.ringerControlPoint"
@@ -11441,7 +11441,7 @@ proc ringerControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc ringerSetting*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_RingerSetting
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_RingerSetting(it.raw, ret.addr
                                  ), "GattCharacteristicUuids.ringerSetting"
@@ -11449,7 +11449,7 @@ proc ringerSetting*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc scanIntervalWindow*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_ScanIntervalWindow
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_ScanIntervalWindow(it.raw, ret.addr
                                       ), "GattCharacteristicUuids.scanIntervalWindow"
@@ -11457,7 +11457,7 @@ proc scanIntervalWindow*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc scanRefresh*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_ScanRefresh
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_ScanRefresh(it.raw, ret.addr
                                ), "GattCharacteristicUuids.scanRefresh"
@@ -11465,7 +11465,7 @@ proc scanRefresh*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc serialNumberString*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_SerialNumberString
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_SerialNumberString(it.raw, ret.addr
                                       ), "GattCharacteristicUuids.serialNumberString"
@@ -11473,7 +11473,7 @@ proc serialNumberString*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc gattServiceChanged*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_GattServiceChanged
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_GattServiceChanged(it.raw, ret.addr
                                       ), "GattCharacteristicUuids.gattServiceChanged"
@@ -11481,7 +11481,7 @@ proc gattServiceChanged*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc softwareRevisionString*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_SoftwareRevisionString
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_SoftwareRevisionString(it.raw, ret.addr
                                           ), "GattCharacteristicUuids.softwareRevisionString"
@@ -11489,7 +11489,7 @@ proc softwareRevisionString*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc supportedNewAlertCategory*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_SupportedNewAlertCategory
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_SupportedNewAlertCategory(it.raw, ret.addr
                                              ), "GattCharacteristicUuids.supportedNewAlertCategory"
@@ -11497,7 +11497,7 @@ proc supportedNewAlertCategory*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc supportUnreadAlertCategory*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_SupportUnreadAlertCategory
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_SupportUnreadAlertCategory(it.raw, ret.addr
                                               ), "GattCharacteristicUuids.supportUnreadAlertCategory"
@@ -11505,7 +11505,7 @@ proc supportUnreadAlertCategory*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc systemId*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_SystemId
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_SystemId(it.raw, ret.addr
                             ), "GattCharacteristicUuids.systemId"
@@ -11513,7 +11513,7 @@ proc systemId*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc timeAccuracy*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_TimeAccuracy
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_TimeAccuracy(it.raw, ret.addr
                                 ), "GattCharacteristicUuids.timeAccuracy"
@@ -11521,7 +11521,7 @@ proc timeAccuracy*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc timeSource*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_TimeSource
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_TimeSource(it.raw, ret.addr
                               ), "GattCharacteristicUuids.timeSource"
@@ -11529,7 +11529,7 @@ proc timeSource*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc timeUpdateControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_TimeUpdateControlPoint
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_TimeUpdateControlPoint(it.raw, ret.addr
                                           ), "GattCharacteristicUuids.timeUpdateControlPoint"
@@ -11537,7 +11537,7 @@ proc timeUpdateControlPoint*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc timeUpdateState*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_TimeUpdateState
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_TimeUpdateState(it.raw, ret.addr
                                    ), "GattCharacteristicUuids.timeUpdateState"
@@ -11545,7 +11545,7 @@ proc timeUpdateState*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc timeWithDst*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_TimeWithDst
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_TimeWithDst(it.raw, ret.addr
                                ), "GattCharacteristicUuids.timeWithDst"
@@ -11553,7 +11553,7 @@ proc timeWithDst*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc timeZone*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_TimeZone
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_TimeZone(it.raw, ret.addr
                             ), "GattCharacteristicUuids.timeZone"
@@ -11561,7 +11561,7 @@ proc timeZone*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc txPowerLevel*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_TxPowerLevel
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_TxPowerLevel(it.raw, ret.addr
                                 ), "GattCharacteristicUuids.txPowerLevel"
@@ -11569,7 +11569,7 @@ proc txPowerLevel*(_: typedesc[GattCharacteristicUuids]): GUID =
 
 proc unreadAlertStatus*(_: typedesc[GattCharacteristicUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2.get_UnreadAlertStatus
-  let it = statics[IGattCharacteristicUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
+  let it = statics[IGattCharacteristicUuidsStatics2Vtbl](className(GattCharacteristicUuids))
   var ret: GUID
   check it.vtbl.get_UnreadAlertStatus(it.raw, ret.addr
                                      ), "GattCharacteristicUuids.unreadAlertStatus"
@@ -11638,7 +11638,7 @@ proc bytesSent*(self: GattClientNotificationResult): uint16 =
 
 proc convertShortIdToUuid*(_: typedesc[GattDescriptor], shortId: uint16): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorStatics.ConvertShortIdToUuid
-  let it = statics[IGattDescriptorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor")
+  let it = statics[IGattDescriptorStaticsVtbl](className(GattDescriptor))
   var ret: GUID
   check it.vtbl.ConvertShortIdToUuid(it.raw, shortId, ret.addr
                                     ), "GattDescriptor.convertShortIdToUuid"
@@ -11713,7 +11713,7 @@ proc writeValueWithResultAsync*(self: GattDescriptor, value: SomeBuffer
 
 proc characteristicAggregateFormat*(_: typedesc[GattDescriptorUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorUuidsStatics.get_CharacteristicAggregateFormat
-  let it = statics[IGattDescriptorUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptorUuids")
+  let it = statics[IGattDescriptorUuidsStaticsVtbl](className(GattDescriptorUuids))
   var ret: GUID
   check it.vtbl.get_CharacteristicAggregateFormat(it.raw, ret.addr
                                                  ), "GattDescriptorUuids.characteristicAggregateFormat"
@@ -11721,7 +11721,7 @@ proc characteristicAggregateFormat*(_: typedesc[GattDescriptorUuids]): GUID =
 
 proc characteristicExtendedProperties*(_: typedesc[GattDescriptorUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorUuidsStatics.get_CharacteristicExtendedProperties
-  let it = statics[IGattDescriptorUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptorUuids")
+  let it = statics[IGattDescriptorUuidsStaticsVtbl](className(GattDescriptorUuids))
   var ret: GUID
   check it.vtbl.get_CharacteristicExtendedProperties(it.raw, ret.addr
                                                     ), "GattDescriptorUuids.characteristicExtendedProperties"
@@ -11729,7 +11729,7 @@ proc characteristicExtendedProperties*(_: typedesc[GattDescriptorUuids]): GUID =
 
 proc characteristicPresentationFormat*(_: typedesc[GattDescriptorUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorUuidsStatics.get_CharacteristicPresentationFormat
-  let it = statics[IGattDescriptorUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptorUuids")
+  let it = statics[IGattDescriptorUuidsStaticsVtbl](className(GattDescriptorUuids))
   var ret: GUID
   check it.vtbl.get_CharacteristicPresentationFormat(it.raw, ret.addr
                                                     ), "GattDescriptorUuids.characteristicPresentationFormat"
@@ -11737,7 +11737,7 @@ proc characteristicPresentationFormat*(_: typedesc[GattDescriptorUuids]): GUID =
 
 proc characteristicUserDescription*(_: typedesc[GattDescriptorUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorUuidsStatics.get_CharacteristicUserDescription
-  let it = statics[IGattDescriptorUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptorUuids")
+  let it = statics[IGattDescriptorUuidsStaticsVtbl](className(GattDescriptorUuids))
   var ret: GUID
   check it.vtbl.get_CharacteristicUserDescription(it.raw, ret.addr
                                                  ), "GattDescriptorUuids.characteristicUserDescription"
@@ -11745,7 +11745,7 @@ proc characteristicUserDescription*(_: typedesc[GattDescriptorUuids]): GUID =
 
 proc clientCharacteristicConfiguration*(_: typedesc[GattDescriptorUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorUuidsStatics.get_ClientCharacteristicConfiguration
-  let it = statics[IGattDescriptorUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptorUuids")
+  let it = statics[IGattDescriptorUuidsStaticsVtbl](className(GattDescriptorUuids))
   var ret: GUID
   check it.vtbl.get_ClientCharacteristicConfiguration(it.raw, ret.addr
                                                      ), "GattDescriptorUuids.clientCharacteristicConfiguration"
@@ -11753,7 +11753,7 @@ proc clientCharacteristicConfiguration*(_: typedesc[GattDescriptorUuids]): GUID 
 
 proc serverCharacteristicConfiguration*(_: typedesc[GattDescriptorUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorUuidsStatics.get_ServerCharacteristicConfiguration
-  let it = statics[IGattDescriptorUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptorUuids")
+  let it = statics[IGattDescriptorUuidsStaticsVtbl](className(GattDescriptorUuids))
   var ret: GUID
   check it.vtbl.get_ServerCharacteristicConfiguration(it.raw, ret.addr
                                                      ), "GattDescriptorUuids.serverCharacteristicConfiguration"
@@ -11789,7 +11789,7 @@ proc descriptors*(self: GattDescriptorsResult): seq[GattDescriptor] =
 proc fromIdAsync*(_: typedesc[GattDeviceService], deviceId: string
                  ): Future[GattDeviceService] =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServiceStatics.FromIdAsync
-  let it = statics[IGattDeviceServiceStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService")
+  let it = statics[IGattDeviceServiceStaticsVtbl](className(GattDeviceService))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -11799,7 +11799,7 @@ proc fromIdAsync*(_: typedesc[GattDeviceService], deviceId: string
 proc getDeviceSelectorFromUuid*(_: typedesc[GattDeviceService],
                                 serviceUuid: GUID): string =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServiceStatics.GetDeviceSelectorFromUuid
-  let it = statics[IGattDeviceServiceStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService")
+  let it = statics[IGattDeviceServiceStaticsVtbl](className(GattDeviceService))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromUuid(it.raw, serviceUuid, ret.addr
                                          ), "GattDeviceService.getDeviceSelectorFromUuid"
@@ -11808,7 +11808,7 @@ proc getDeviceSelectorFromUuid*(_: typedesc[GattDeviceService],
 proc getDeviceSelectorFromShortId*(_: typedesc[GattDeviceService],
                                    serviceShortId: uint16): string =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServiceStatics.GetDeviceSelectorFromShortId
-  let it = statics[IGattDeviceServiceStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService")
+  let it = statics[IGattDeviceServiceStaticsVtbl](className(GattDeviceService))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromShortId(it.raw, serviceShortId, ret.addr
                                             ), "GattDeviceService.getDeviceSelectorFromShortId"
@@ -11817,7 +11817,7 @@ proc getDeviceSelectorFromShortId*(_: typedesc[GattDeviceService],
 proc convertShortIdToUuid*(_: typedesc[GattDeviceService], shortId: uint16
                           ): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServiceStatics.ConvertShortIdToUuid
-  let it = statics[IGattDeviceServiceStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService")
+  let it = statics[IGattDeviceServiceStaticsVtbl](className(GattDeviceService))
   var ret: GUID
   check it.vtbl.ConvertShortIdToUuid(it.raw, shortId, ret.addr
                                     ), "GattDeviceService.convertShortIdToUuid"
@@ -11826,7 +11826,7 @@ proc convertShortIdToUuid*(_: typedesc[GattDeviceService], shortId: uint16
 proc fromIdAsync*(_: typedesc[GattDeviceService], deviceId: string,
                   sharingMode: GattSharingMode): Future[GattDeviceService] =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServiceStatics2.FromIdAsync
-  let it = statics[IGattDeviceServiceStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService")
+  let it = statics[IGattDeviceServiceStatics2Vtbl](className(GattDeviceService))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, sharingMode, op.addr
@@ -11837,7 +11837,7 @@ proc getDeviceSelectorForBluetoothDeviceId*(_: typedesc[GattDeviceService],
                                             bluetoothDeviceId: BluetoothDeviceId
                                            ): string =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServiceStatics2.GetDeviceSelectorForBluetoothDeviceId
-  let it = statics[IGattDeviceServiceStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService")
+  let it = statics[IGattDeviceServiceStatics2Vtbl](className(GattDeviceService))
   let a0 = queryInterface[IBluetoothDeviceIdVtbl](bluetoothDeviceId)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorForBluetoothDeviceId(it.raw, a0.raw, ret.addr
@@ -11849,7 +11849,7 @@ proc getDeviceSelectorForBluetoothDeviceId*(_: typedesc[GattDeviceService],
                                             cacheMode: BluetoothCacheMode
                                            ): string =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServiceStatics2.GetDeviceSelectorForBluetoothDeviceId
-  let it = statics[IGattDeviceServiceStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService")
+  let it = statics[IGattDeviceServiceStatics2Vtbl](className(GattDeviceService))
   let a0 = queryInterface[IBluetoothDeviceIdVtbl](bluetoothDeviceId)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorForBluetoothDeviceId2(it.raw, a0.raw,
@@ -11861,7 +11861,7 @@ proc getDeviceSelectorForBluetoothDeviceIdAndUuid*(_: typedesc[GattDeviceService
                                                    bluetoothDeviceId: BluetoothDeviceId,
                                                    serviceUuid: GUID): string =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServiceStatics2.GetDeviceSelectorForBluetoothDeviceIdAndUuid
-  let it = statics[IGattDeviceServiceStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService")
+  let it = statics[IGattDeviceServiceStatics2Vtbl](className(GattDeviceService))
   let a0 = queryInterface[IBluetoothDeviceIdVtbl](bluetoothDeviceId)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorForBluetoothDeviceIdAndUuid(it.raw, a0.raw,
@@ -11876,7 +11876,7 @@ proc getDeviceSelectorForBluetoothDeviceIdAndUuid*(_: typedesc[GattDeviceService
                                                    cacheMode: BluetoothCacheMode
                                                   ): string =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServiceStatics2.GetDeviceSelectorForBluetoothDeviceIdAndUuid
-  let it = statics[IGattDeviceServiceStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService")
+  let it = statics[IGattDeviceServiceStatics2Vtbl](className(GattDeviceService))
   let a0 = queryInterface[IBluetoothDeviceIdVtbl](bluetoothDeviceId)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorForBluetoothDeviceIdAndUuid2(it.raw, a0.raw,
@@ -12559,7 +12559,7 @@ proc characteristics*(self: GattLocalService): seq[GattLocalCharacteristic] =
 
 proc bluetoothSigAssignedNumbers*(_: typedesc[GattPresentationFormat]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatStatics.get_BluetoothSigAssignedNumbers
-  let it = statics[IGattPresentationFormatStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormat")
+  let it = statics[IGattPresentationFormatStaticsVtbl](className(GattPresentationFormat))
   var ret: uint8
   check it.vtbl.get_BluetoothSigAssignedNumbers(it.raw, ret.addr
                                                ), "GattPresentationFormat.bluetoothSigAssignedNumbers"
@@ -12569,7 +12569,7 @@ proc fromParts*(_: typedesc[GattPresentationFormat], formatType: uint8,
                 exponent: int32, unit: uint16, namespaceId: uint8,
                 description: uint16): GattPresentationFormat =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatStatics2.FromParts
-  let it = statics[IGattPresentationFormatStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormat")
+  let it = statics[IGattPresentationFormatStatics2Vtbl](className(GattPresentationFormat))
   var ret: pointer
   check it.vtbl.FromParts(it.raw, formatType, exponent, unit, namespaceId,
                           description, ret.addr
@@ -12619,7 +12619,7 @@ proc description*(self: GattPresentationFormat): uint16 =
 
 proc boolean*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_Boolean
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_Boolean(it.raw, ret.addr
                            ), "GattPresentationFormatTypes.boolean"
@@ -12627,14 +12627,14 @@ proc boolean*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc bit2*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_Bit2
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_Bit2(it.raw, ret.addr), "GattPresentationFormatTypes.bit2"
   ret
 
 proc nibble*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_Nibble
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_Nibble(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.nibble"
@@ -12642,14 +12642,14 @@ proc nibble*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc UInt8*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_UInt8
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_UInt8(it.raw, ret.addr), "GattPresentationFormatTypes.uInt8"
   ret
 
 proc uInt12*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_UInt12
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_UInt12(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.uInt12"
@@ -12657,7 +12657,7 @@ proc uInt12*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc UInt16*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_UInt16
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_UInt16(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.uInt16"
@@ -12665,7 +12665,7 @@ proc UInt16*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc uInt24*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_UInt24
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_UInt24(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.uInt24"
@@ -12673,7 +12673,7 @@ proc uInt24*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc UInt32*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_UInt32
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_UInt32(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.uInt32"
@@ -12681,7 +12681,7 @@ proc UInt32*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc uInt48*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_UInt48
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_UInt48(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.uInt48"
@@ -12689,7 +12689,7 @@ proc uInt48*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc UInt64*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_UInt64
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_UInt64(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.uInt64"
@@ -12697,7 +12697,7 @@ proc UInt64*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc uInt128*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_UInt128
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_UInt128(it.raw, ret.addr
                            ), "GattPresentationFormatTypes.uInt128"
@@ -12705,14 +12705,14 @@ proc uInt128*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc sInt8*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_SInt8
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_SInt8(it.raw, ret.addr), "GattPresentationFormatTypes.sInt8"
   ret
 
 proc sInt12*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_SInt12
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_SInt12(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.sInt12"
@@ -12720,7 +12720,7 @@ proc sInt12*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc sInt16*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_SInt16
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_SInt16(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.sInt16"
@@ -12728,7 +12728,7 @@ proc sInt16*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc sInt24*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_SInt24
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_SInt24(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.sInt24"
@@ -12736,7 +12736,7 @@ proc sInt24*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc sInt32*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_SInt32
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_SInt32(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.sInt32"
@@ -12744,7 +12744,7 @@ proc sInt32*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc sInt48*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_SInt48
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_SInt48(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.sInt48"
@@ -12752,7 +12752,7 @@ proc sInt48*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc sInt64*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_SInt64
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_SInt64(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.sInt64"
@@ -12760,7 +12760,7 @@ proc sInt64*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc sInt128*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_SInt128
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_SInt128(it.raw, ret.addr
                            ), "GattPresentationFormatTypes.sInt128"
@@ -12768,7 +12768,7 @@ proc sInt128*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc Float32*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_Float32
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_Float32(it.raw, ret.addr
                            ), "GattPresentationFormatTypes.float32"
@@ -12776,7 +12776,7 @@ proc Float32*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc Float64*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_Float64
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_Float64(it.raw, ret.addr
                            ), "GattPresentationFormatTypes.float64"
@@ -12784,7 +12784,7 @@ proc Float64*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc sFloat*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_SFloat
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_SFloat(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.sFloat"
@@ -12792,14 +12792,14 @@ proc sFloat*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc Float*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_Float
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_Float(it.raw, ret.addr), "GattPresentationFormatTypes.float"
   ret
 
 proc dUInt16*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_DUInt16
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_DUInt16(it.raw, ret.addr
                            ), "GattPresentationFormatTypes.dUInt16"
@@ -12807,21 +12807,21 @@ proc dUInt16*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc utf8*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_Utf8
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_Utf8(it.raw, ret.addr), "GattPresentationFormatTypes.utf8"
   ret
 
 proc utf16*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_Utf16
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_Utf16(it.raw, ret.addr), "GattPresentationFormatTypes.utf16"
   ret
 
 proc struct*(_: typedesc[GattPresentationFormatTypes]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics.get_Struct
-  let it = statics[IGattPresentationFormatTypesStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes")
+  let it = statics[IGattPresentationFormatTypesStaticsVtbl](className(GattPresentationFormatTypes))
   var ret: uint8
   check it.vtbl.get_Struct(it.raw, ret.addr
                           ), "GattPresentationFormatTypes.struct"
@@ -12831,7 +12831,7 @@ proc struct*(_: typedesc[GattPresentationFormatTypes]): uint8 =
 
 proc invalidHandle*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_InvalidHandle
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_InvalidHandle(it.raw, ret.addr
                                  ), "GattProtocolError.invalidHandle"
@@ -12839,7 +12839,7 @@ proc invalidHandle*(_: typedesc[GattProtocolError]): uint8 =
 
 proc readNotPermitted*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_ReadNotPermitted
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_ReadNotPermitted(it.raw, ret.addr
                                     ), "GattProtocolError.readNotPermitted"
@@ -12847,7 +12847,7 @@ proc readNotPermitted*(_: typedesc[GattProtocolError]): uint8 =
 
 proc writeNotPermitted*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_WriteNotPermitted
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_WriteNotPermitted(it.raw, ret.addr
                                      ), "GattProtocolError.writeNotPermitted"
@@ -12855,14 +12855,14 @@ proc writeNotPermitted*(_: typedesc[GattProtocolError]): uint8 =
 
 proc invalidPdu*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_InvalidPdu
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_InvalidPdu(it.raw, ret.addr), "GattProtocolError.invalidPdu"
   ret
 
 proc insufficientAuthentication*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_InsufficientAuthentication
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_InsufficientAuthentication(it.raw, ret.addr
                                               ), "GattProtocolError.insufficientAuthentication"
@@ -12870,7 +12870,7 @@ proc insufficientAuthentication*(_: typedesc[GattProtocolError]): uint8 =
 
 proc requestNotSupported*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_RequestNotSupported
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_RequestNotSupported(it.raw, ret.addr
                                        ), "GattProtocolError.requestNotSupported"
@@ -12878,7 +12878,7 @@ proc requestNotSupported*(_: typedesc[GattProtocolError]): uint8 =
 
 proc invalidOffset*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_InvalidOffset
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_InvalidOffset(it.raw, ret.addr
                                  ), "GattProtocolError.invalidOffset"
@@ -12886,7 +12886,7 @@ proc invalidOffset*(_: typedesc[GattProtocolError]): uint8 =
 
 proc insufficientAuthorization*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_InsufficientAuthorization
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_InsufficientAuthorization(it.raw, ret.addr
                                              ), "GattProtocolError.insufficientAuthorization"
@@ -12894,7 +12894,7 @@ proc insufficientAuthorization*(_: typedesc[GattProtocolError]): uint8 =
 
 proc prepareQueueFull*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_PrepareQueueFull
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_PrepareQueueFull(it.raw, ret.addr
                                     ), "GattProtocolError.prepareQueueFull"
@@ -12902,7 +12902,7 @@ proc prepareQueueFull*(_: typedesc[GattProtocolError]): uint8 =
 
 proc attributeNotFound*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_AttributeNotFound
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_AttributeNotFound(it.raw, ret.addr
                                      ), "GattProtocolError.attributeNotFound"
@@ -12910,7 +12910,7 @@ proc attributeNotFound*(_: typedesc[GattProtocolError]): uint8 =
 
 proc attributeNotLong*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_AttributeNotLong
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_AttributeNotLong(it.raw, ret.addr
                                     ), "GattProtocolError.attributeNotLong"
@@ -12918,7 +12918,7 @@ proc attributeNotLong*(_: typedesc[GattProtocolError]): uint8 =
 
 proc insufficientEncryptionKeySize*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_InsufficientEncryptionKeySize
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_InsufficientEncryptionKeySize(it.raw, ret.addr
                                                  ), "GattProtocolError.insufficientEncryptionKeySize"
@@ -12926,7 +12926,7 @@ proc insufficientEncryptionKeySize*(_: typedesc[GattProtocolError]): uint8 =
 
 proc invalidAttributeValueLength*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_InvalidAttributeValueLength
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_InvalidAttributeValueLength(it.raw, ret.addr
                                                ), "GattProtocolError.invalidAttributeValueLength"
@@ -12934,7 +12934,7 @@ proc invalidAttributeValueLength*(_: typedesc[GattProtocolError]): uint8 =
 
 proc unlikelyError*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_UnlikelyError
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_UnlikelyError(it.raw, ret.addr
                                  ), "GattProtocolError.unlikelyError"
@@ -12942,7 +12942,7 @@ proc unlikelyError*(_: typedesc[GattProtocolError]): uint8 =
 
 proc insufficientEncryption*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_InsufficientEncryption
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_InsufficientEncryption(it.raw, ret.addr
                                           ), "GattProtocolError.insufficientEncryption"
@@ -12950,7 +12950,7 @@ proc insufficientEncryption*(_: typedesc[GattProtocolError]): uint8 =
 
 proc unsupportedGroupType*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_UnsupportedGroupType
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_UnsupportedGroupType(it.raw, ret.addr
                                         ), "GattProtocolError.unsupportedGroupType"
@@ -12958,7 +12958,7 @@ proc unsupportedGroupType*(_: typedesc[GattProtocolError]): uint8 =
 
 proc insufficientResources*(_: typedesc[GattProtocolError]): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics.get_InsufficientResources
-  let it = statics[IGattProtocolErrorStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError")
+  let it = statics[IGattProtocolErrorStaticsVtbl](className(GattProtocolError))
   var ret: uint8
   check it.vtbl.get_InsufficientResources(it.raw, ret.addr
                                          ), "GattProtocolError.insufficientResources"
@@ -13150,7 +13150,7 @@ proc error*(self: GattRequestStateChangedEventArgs): BluetoothError =
 proc createAsync*(_: typedesc[GattServiceProvider], serviceUuid: GUID
                  ): Future[GattServiceProviderResult] =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderStatics.CreateAsync
-  let it = statics[IGattServiceProviderStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProvider")
+  let it = statics[IGattServiceProviderStaticsVtbl](className(GattServiceProvider))
   var op: pointer
   check it.vtbl.CreateAsync(it.raw, serviceUuid, op.addr
                            ), "GattServiceProvider.createAsync"
@@ -13323,7 +13323,7 @@ proc `useLowEnergyUncoded2MPhyAsSecondaryPhy=`*(self: GattServiceProviderAdverti
 
 proc allServices*(_: typedesc[GattServiceProviderConnection]): Table[string, GattServiceProviderConnection] =
   ## Windows.Devices.Bluetooth.Background.IGattServiceProviderConnectionStatics.get_AllServices
-  let it = statics[IGattServiceProviderConnectionStaticsVtbl]("Windows.Devices.Bluetooth.Background.GattServiceProviderConnection")
+  let it = statics[IGattServiceProviderConnectionStaticsVtbl](className(GattServiceProviderConnection))
   var ret: pointer
   check it.vtbl.get_AllServices(it.raw, ret.addr
                                ), "GattServiceProviderConnection.allServices"
@@ -13390,7 +13390,7 @@ proc connection*(self: GattServiceProviderTriggerDetails): GattServiceProviderCo
 
 proc alertNotification*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2.get_AlertNotification
-  let it = statics[IGattServiceUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStatics2Vtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_AlertNotification(it.raw, ret.addr
                                      ), "GattServiceUuids.alertNotification"
@@ -13398,7 +13398,7 @@ proc alertNotification*(_: typedesc[GattServiceUuids]): GUID =
 
 proc currentTime*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2.get_CurrentTime
-  let it = statics[IGattServiceUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStatics2Vtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_CurrentTime(it.raw, ret.addr
                                ), "GattServiceUuids.currentTime"
@@ -13406,7 +13406,7 @@ proc currentTime*(_: typedesc[GattServiceUuids]): GUID =
 
 proc cyclingPower*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2.get_CyclingPower
-  let it = statics[IGattServiceUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStatics2Vtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_CyclingPower(it.raw, ret.addr
                                 ), "GattServiceUuids.cyclingPower"
@@ -13414,7 +13414,7 @@ proc cyclingPower*(_: typedesc[GattServiceUuids]): GUID =
 
 proc deviceInformation*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2.get_DeviceInformation
-  let it = statics[IGattServiceUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStatics2Vtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_DeviceInformation(it.raw, ret.addr
                                      ), "GattServiceUuids.deviceInformation"
@@ -13422,7 +13422,7 @@ proc deviceInformation*(_: typedesc[GattServiceUuids]): GUID =
 
 proc humanInterfaceDevice*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2.get_HumanInterfaceDevice
-  let it = statics[IGattServiceUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStatics2Vtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_HumanInterfaceDevice(it.raw, ret.addr
                                         ), "GattServiceUuids.humanInterfaceDevice"
@@ -13430,7 +13430,7 @@ proc humanInterfaceDevice*(_: typedesc[GattServiceUuids]): GUID =
 
 proc immediateAlert*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2.get_ImmediateAlert
-  let it = statics[IGattServiceUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStatics2Vtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_ImmediateAlert(it.raw, ret.addr
                                   ), "GattServiceUuids.immediateAlert"
@@ -13438,14 +13438,14 @@ proc immediateAlert*(_: typedesc[GattServiceUuids]): GUID =
 
 proc linkLoss*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2.get_LinkLoss
-  let it = statics[IGattServiceUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStatics2Vtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_LinkLoss(it.raw, ret.addr), "GattServiceUuids.linkLoss"
   ret
 
 proc locationAndNavigation*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2.get_LocationAndNavigation
-  let it = statics[IGattServiceUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStatics2Vtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_LocationAndNavigation(it.raw, ret.addr
                                          ), "GattServiceUuids.locationAndNavigation"
@@ -13453,7 +13453,7 @@ proc locationAndNavigation*(_: typedesc[GattServiceUuids]): GUID =
 
 proc nextDstChange*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2.get_NextDstChange
-  let it = statics[IGattServiceUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStatics2Vtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_NextDstChange(it.raw, ret.addr
                                  ), "GattServiceUuids.nextDstChange"
@@ -13461,7 +13461,7 @@ proc nextDstChange*(_: typedesc[GattServiceUuids]): GUID =
 
 proc phoneAlertStatus*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2.get_PhoneAlertStatus
-  let it = statics[IGattServiceUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStatics2Vtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_PhoneAlertStatus(it.raw, ret.addr
                                     ), "GattServiceUuids.phoneAlertStatus"
@@ -13469,7 +13469,7 @@ proc phoneAlertStatus*(_: typedesc[GattServiceUuids]): GUID =
 
 proc referenceTimeUpdate*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2.get_ReferenceTimeUpdate
-  let it = statics[IGattServiceUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStatics2Vtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_ReferenceTimeUpdate(it.raw, ret.addr
                                        ), "GattServiceUuids.referenceTimeUpdate"
@@ -13477,7 +13477,7 @@ proc referenceTimeUpdate*(_: typedesc[GattServiceUuids]): GUID =
 
 proc scanParameters*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2.get_ScanParameters
-  let it = statics[IGattServiceUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStatics2Vtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_ScanParameters(it.raw, ret.addr
                                   ), "GattServiceUuids.scanParameters"
@@ -13485,21 +13485,21 @@ proc scanParameters*(_: typedesc[GattServiceUuids]): GUID =
 
 proc txPower*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2.get_TxPower
-  let it = statics[IGattServiceUuidsStatics2Vtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStatics2Vtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_TxPower(it.raw, ret.addr), "GattServiceUuids.txPower"
   ret
 
 proc battery*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics.get_Battery
-  let it = statics[IGattServiceUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStaticsVtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_Battery(it.raw, ret.addr), "GattServiceUuids.battery"
   ret
 
 proc bloodPressure*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics.get_BloodPressure
-  let it = statics[IGattServiceUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStaticsVtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_BloodPressure(it.raw, ret.addr
                                  ), "GattServiceUuids.bloodPressure"
@@ -13507,7 +13507,7 @@ proc bloodPressure*(_: typedesc[GattServiceUuids]): GUID =
 
 proc cyclingSpeedAndCadence*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics.get_CyclingSpeedAndCadence
-  let it = statics[IGattServiceUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStaticsVtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_CyclingSpeedAndCadence(it.raw, ret.addr
                                           ), "GattServiceUuids.cyclingSpeedAndCadence"
@@ -13515,7 +13515,7 @@ proc cyclingSpeedAndCadence*(_: typedesc[GattServiceUuids]): GUID =
 
 proc genericAccess*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics.get_GenericAccess
-  let it = statics[IGattServiceUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStaticsVtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_GenericAccess(it.raw, ret.addr
                                  ), "GattServiceUuids.genericAccess"
@@ -13523,7 +13523,7 @@ proc genericAccess*(_: typedesc[GattServiceUuids]): GUID =
 
 proc genericAttribute*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics.get_GenericAttribute
-  let it = statics[IGattServiceUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStaticsVtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_GenericAttribute(it.raw, ret.addr
                                     ), "GattServiceUuids.genericAttribute"
@@ -13531,14 +13531,14 @@ proc genericAttribute*(_: typedesc[GattServiceUuids]): GUID =
 
 proc glucose*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics.get_Glucose
-  let it = statics[IGattServiceUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStaticsVtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_Glucose(it.raw, ret.addr), "GattServiceUuids.glucose"
   ret
 
 proc healthThermometer*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics.get_HealthThermometer
-  let it = statics[IGattServiceUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStaticsVtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_HealthThermometer(it.raw, ret.addr
                                      ), "GattServiceUuids.healthThermometer"
@@ -13546,14 +13546,14 @@ proc healthThermometer*(_: typedesc[GattServiceUuids]): GUID =
 
 proc heartRate*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics.get_HeartRate
-  let it = statics[IGattServiceUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStaticsVtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_HeartRate(it.raw, ret.addr), "GattServiceUuids.heartRate"
   ret
 
 proc runningSpeedAndCadence*(_: typedesc[GattServiceUuids]): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics.get_RunningSpeedAndCadence
-  let it = statics[IGattServiceUuidsStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids")
+  let it = statics[IGattServiceUuidsStaticsVtbl](className(GattServiceUuids))
   var ret: GUID
   check it.vtbl.get_RunningSpeedAndCadence(it.raw, ret.addr
                                           ), "GattServiceUuids.runningSpeedAndCadence"
@@ -13564,7 +13564,7 @@ proc runningSpeedAndCadence*(_: typedesc[GattServiceUuids]): GUID =
 proc fromDeviceIdAsync*(_: typedesc[GattSession], deviceId: BluetoothDeviceId
                        ): Future[GattSession] =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSessionStatics.FromDeviceIdAsync
-  let it = statics[IGattSessionStaticsVtbl]("Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession")
+  let it = statics[IGattSessionStaticsVtbl](className(GattSession))
   let a0 = queryInterface[IBluetoothDeviceIdVtbl](deviceId)
   var op: pointer
   check it.vtbl.FromDeviceIdAsync(it.raw, a0.raw, op.addr
@@ -14071,7 +14071,7 @@ proc currentPoint*(self: GazeExitedPreviewEventArgs): GazePointPreview =
 
 proc getForCurrentView*(_: typedesc[GazeInputSourcePreview]): GazeInputSourcePreview =
   ## Windows.Devices.Input.Preview.IGazeInputSourcePreviewStatics.GetForCurrentView
-  let it = statics[IGazeInputSourcePreviewStaticsVtbl]("Windows.Devices.Input.Preview.GazeInputSourcePreview")
+  let it = statics[IGazeInputSourcePreviewStaticsVtbl](className(GazeInputSourcePreview))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "GazeInputSourcePreview.getForCurrentView"
@@ -14079,7 +14079,7 @@ proc getForCurrentView*(_: typedesc[GazeInputSourcePreview]): GazeInputSourcePre
 
 proc createWatcher*(_: typedesc[GazeInputSourcePreview]): GazeDeviceWatcherPreview =
   ## Windows.Devices.Input.Preview.IGazeInputSourcePreviewStatics.CreateWatcher
-  let it = statics[IGazeInputSourcePreviewStaticsVtbl]("Windows.Devices.Input.Preview.GazeInputSourcePreview")
+  let it = statics[IGazeInputSourcePreviewStaticsVtbl](className(GazeInputSourcePreview))
   var ret: pointer
   check it.vtbl.CreateWatcher(it.raw, ret.addr
                              ), "GazeInputSourcePreview.createWatcher"
@@ -14225,7 +14225,7 @@ proc hidInputReport*(self: GazePointPreview): HidInputReport =
 proc newGeoboundingBox*(northwestCorner: BasicGeoposition,
                         southeastCorner: BasicGeoposition): GeoboundingBox =
   ## Windows.Devices.Geolocation.IGeoboundingBoxFactory.Create
-  let it = statics[IGeoboundingBoxFactoryVtbl]("Windows.Devices.Geolocation.GeoboundingBox")
+  let it = statics[IGeoboundingBoxFactoryVtbl](className(GeoboundingBox))
   var ret: pointer
   check it.vtbl.Create(it.raw, northwestCorner, southeastCorner, ret.addr
                       ), "GeoboundingBox.new"
@@ -14236,7 +14236,7 @@ proc newGeoboundingBox*(northwestCorner: BasicGeoposition,
                         altitudeReferenceSystem: AltitudeReferenceSystem
                        ): GeoboundingBox =
   ## Windows.Devices.Geolocation.IGeoboundingBoxFactory.CreateWithAltitudeReference
-  let it = statics[IGeoboundingBoxFactoryVtbl]("Windows.Devices.Geolocation.GeoboundingBox")
+  let it = statics[IGeoboundingBoxFactoryVtbl](className(GeoboundingBox))
   var ret: pointer
   check it.vtbl.CreateWithAltitudeReference(it.raw, northwestCorner,
                                             southeastCorner,
@@ -14249,7 +14249,7 @@ proc newGeoboundingBox*(northwestCorner: BasicGeoposition,
                         altitudeReferenceSystem: AltitudeReferenceSystem,
                         spatialReferenceId: uint32): GeoboundingBox =
   ## Windows.Devices.Geolocation.IGeoboundingBoxFactory.CreateWithAltitudeReferenceAndSpatialReference
-  let it = statics[IGeoboundingBoxFactoryVtbl]("Windows.Devices.Geolocation.GeoboundingBox")
+  let it = statics[IGeoboundingBoxFactoryVtbl](className(GeoboundingBox))
   var ret: pointer
   check it.vtbl.CreateWithAltitudeReferenceAndSpatialReference(it.raw,
                                                                northwestCorner,
@@ -14263,7 +14263,7 @@ proc newGeoboundingBox*(northwestCorner: BasicGeoposition,
 proc tryCompute*(_: typedesc[GeoboundingBox], positions: seq[BasicGeoposition]
                 ): GeoboundingBox =
   ## Windows.Devices.Geolocation.IGeoboundingBoxStatics.TryCompute
-  let it = statics[IGeoboundingBoxStaticsVtbl]("Windows.Devices.Geolocation.GeoboundingBox")
+  let it = statics[IGeoboundingBoxStaticsVtbl](className(GeoboundingBox))
   let a0 = asCollection[BasicGeoposition, seq[BasicGeoposition]](positions)
   var ret: pointer
   check it.vtbl.TryCompute(it.raw, a0.raw, ret.addr
@@ -14273,7 +14273,7 @@ proc tryCompute*(_: typedesc[GeoboundingBox], positions: seq[BasicGeoposition]
 proc tryCompute*(_: typedesc[GeoboundingBox], positions: seq[BasicGeoposition],
                  altitudeRefSystem: AltitudeReferenceSystem): GeoboundingBox =
   ## Windows.Devices.Geolocation.IGeoboundingBoxStatics.TryCompute
-  let it = statics[IGeoboundingBoxStaticsVtbl]("Windows.Devices.Geolocation.GeoboundingBox")
+  let it = statics[IGeoboundingBoxStaticsVtbl](className(GeoboundingBox))
   let a0 = asCollection[BasicGeoposition, seq[BasicGeoposition]](positions)
   var ret: pointer
   check it.vtbl.TryCompute2(it.raw, a0.raw, altitudeRefSystem, ret.addr
@@ -14284,7 +14284,7 @@ proc tryCompute*(_: typedesc[GeoboundingBox], positions: seq[BasicGeoposition],
                  altitudeRefSystem: AltitudeReferenceSystem,
                  spatialReferenceId: uint32): GeoboundingBox =
   ## Windows.Devices.Geolocation.IGeoboundingBoxStatics.TryCompute
-  let it = statics[IGeoboundingBoxStaticsVtbl]("Windows.Devices.Geolocation.GeoboundingBox")
+  let it = statics[IGeoboundingBoxStaticsVtbl](className(GeoboundingBox))
   let a0 = asCollection[BasicGeoposition, seq[BasicGeoposition]](positions)
   var ret: pointer
   check it.vtbl.TryCompute3(it.raw, a0.raw, altitudeRefSystem,
@@ -14333,7 +14333,7 @@ proc maxAltitude*(self: GeoboundingBox): float64 =
 
 proc newGeocircle*(position: BasicGeoposition, radius: float64): Geocircle =
   ## Windows.Devices.Geolocation.IGeocircleFactory.Create
-  let it = statics[IGeocircleFactoryVtbl]("Windows.Devices.Geolocation.Geocircle")
+  let it = statics[IGeocircleFactoryVtbl](className(Geocircle))
   var ret: pointer
   check it.vtbl.Create(it.raw, position, radius, ret.addr), "Geocircle.new"
   adopt[Geocircle](ret)
@@ -14342,7 +14342,7 @@ proc newGeocircle*(position: BasicGeoposition, radius: float64,
                    altitudeReferenceSystem: AltitudeReferenceSystem
                   ): Geocircle =
   ## Windows.Devices.Geolocation.IGeocircleFactory.CreateWithAltitudeReferenceSystem
-  let it = statics[IGeocircleFactoryVtbl]("Windows.Devices.Geolocation.Geocircle")
+  let it = statics[IGeocircleFactoryVtbl](className(Geocircle))
   var ret: pointer
   check it.vtbl.CreateWithAltitudeReferenceSystem(it.raw, position, radius,
                                                   altitudeReferenceSystem,
@@ -14353,7 +14353,7 @@ proc newGeocircle*(position: BasicGeoposition, radius: float64,
                    altitudeReferenceSystem: AltitudeReferenceSystem,
                    spatialReferenceId: uint32): Geocircle =
   ## Windows.Devices.Geolocation.IGeocircleFactory.CreateWithAltitudeReferenceSystemAndSpatialReferenceId
-  let it = statics[IGeocircleFactoryVtbl]("Windows.Devices.Geolocation.Geocircle")
+  let it = statics[IGeocircleFactoryVtbl](className(Geocircle))
   var ret: pointer
   check it.vtbl.CreateWithAltitudeReferenceSystemAndSpatialReferenceId(it.raw,
                                                                        position,
@@ -14522,7 +14522,7 @@ proc timeDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[float64]
 
 proc newGeofence*(id: string, geoshape: SomeGeoshape): Geofence =
   ## Windows.Devices.Geolocation.Geofencing.IGeofenceFactory.Create
-  let it = statics[IGeofenceFactoryVtbl]("Windows.Devices.Geolocation.Geofencing.Geofence")
+  let it = statics[IGeofenceFactoryVtbl](className(Geofence))
   let a0 = toWinRtString(id)
   let a1 = queryInterface[IGeoshapeVtbl](geoshape)
   var ret: pointer
@@ -14533,7 +14533,7 @@ proc newGeofence*(id: string, geoshape: SomeGeoshape,
                   monitoredStates: MonitoredGeofenceStates, singleUse: bool
                  ): Geofence =
   ## Windows.Devices.Geolocation.Geofencing.IGeofenceFactory.CreateWithMonitorStates
-  let it = statics[IGeofenceFactoryVtbl]("Windows.Devices.Geolocation.Geofencing.Geofence")
+  let it = statics[IGeofenceFactoryVtbl](className(Geofence))
   let a0 = toWinRtString(id)
   let a1 = queryInterface[IGeoshapeVtbl](geoshape)
   var ret: pointer
@@ -14546,7 +14546,7 @@ proc newGeofence*(id: string, geoshape: SomeGeoshape,
                   monitoredStates: MonitoredGeofenceStates, singleUse: bool,
                   dwellTime: TimeSpan): Geofence =
   ## Windows.Devices.Geolocation.Geofencing.IGeofenceFactory.CreateWithMonitorStatesAndDwellTime
-  let it = statics[IGeofenceFactoryVtbl]("Windows.Devices.Geolocation.Geofencing.Geofence")
+  let it = statics[IGeofenceFactoryVtbl](className(Geofence))
   let a0 = toWinRtString(id)
   let a1 = queryInterface[IGeoshapeVtbl](geoshape)
   var ret: pointer
@@ -14561,7 +14561,7 @@ proc newGeofence*(id: string, geoshape: SomeGeoshape,
                   dwellTime: TimeSpan, startTime: DateTime, duration: TimeSpan
                  ): Geofence =
   ## Windows.Devices.Geolocation.Geofencing.IGeofenceFactory.CreateWithMonitorStatesDwellTimeStartTimeAndDuration
-  let it = statics[IGeofenceFactoryVtbl]("Windows.Devices.Geolocation.Geofencing.Geofence")
+  let it = statics[IGeofenceFactoryVtbl](className(Geofence))
   let a0 = toWinRtString(id)
   let a1 = queryInterface[IGeoshapeVtbl](geoshape)
   var ret: pointer
@@ -14631,7 +14631,7 @@ proc singleUse*(self: Geofence): bool =
 
 proc current*(_: typedesc[GeofenceMonitor]): GeofenceMonitor =
   ## Windows.Devices.Geolocation.Geofencing.IGeofenceMonitorStatics.get_Current
-  let it = statics[IGeofenceMonitorStaticsVtbl]("Windows.Devices.Geolocation.Geofencing.GeofenceMonitor")
+  let it = statics[IGeofenceMonitorStaticsVtbl](className(GeofenceMonitor))
   var ret: pointer
   check it.vtbl.get_Current(it.raw, ret.addr), "GeofenceMonitor.current"
   adopt[GeofenceMonitor](ret)
@@ -14797,7 +14797,7 @@ proc newGeolocator*(): Geolocator =
 
 proc isDefaultGeopositionRecommended*(_: typedesc[Geolocator]): bool =
   ## Windows.Devices.Geolocation.IGeolocatorStatics2.get_IsDefaultGeopositionRecommended
-  let it = statics[IGeolocatorStatics2Vtbl]("Windows.Devices.Geolocation.Geolocator")
+  let it = statics[IGeolocatorStatics2Vtbl](className(Geolocator))
   var ret: bool
   check it.vtbl.get_IsDefaultGeopositionRecommended(it.raw, ret.addr
                                                    ), "Geolocator.isDefaultGeopositionRecommended"
@@ -14806,14 +14806,14 @@ proc isDefaultGeopositionRecommended*(_: typedesc[Geolocator]): bool =
 proc `defaultGeoposition=`*(_: typedesc[Geolocator],
                             value: Option[BasicGeoposition]) =
   ## Windows.Devices.Geolocation.IGeolocatorStatics2.put_DefaultGeoposition
-  let it = statics[IGeolocatorStatics2Vtbl]("Windows.Devices.Geolocation.Geolocator")
+  let it = statics[IGeolocatorStatics2Vtbl](className(Geolocator))
   let a0 = asReference[BasicGeoposition](value)
   check it.vtbl.put_DefaultGeoposition(it.raw, a0.raw
                                       ), "Geolocator.defaultGeoposition"
 
 proc defaultGeoposition*(_: typedesc[Geolocator]): Option[BasicGeoposition] =
   ## Windows.Devices.Geolocation.IGeolocatorStatics2.get_DefaultGeoposition
-  let it = statics[IGeolocatorStatics2Vtbl]("Windows.Devices.Geolocation.Geolocator")
+  let it = statics[IGeolocatorStatics2Vtbl](className(Geolocator))
   var ret: pointer
   check it.vtbl.get_DefaultGeoposition(it.raw, ret.addr
                                       ), "Geolocator.defaultGeoposition"
@@ -14821,7 +14821,7 @@ proc defaultGeoposition*(_: typedesc[Geolocator]): Option[BasicGeoposition] =
 
 proc requestAccessAsync*(_: typedesc[Geolocator]): Future[GeolocationAccessStatus] =
   ## Windows.Devices.Geolocation.IGeolocatorStatics.RequestAccessAsync
-  let it = statics[IGeolocatorStaticsVtbl]("Windows.Devices.Geolocation.Geolocator")
+  let it = statics[IGeolocatorStaticsVtbl](className(Geolocator))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "Geolocator.requestAccessAsync"
@@ -14830,7 +14830,7 @@ proc requestAccessAsync*(_: typedesc[Geolocator]): Future[GeolocationAccessStatu
 proc getGeopositionHistoryAsync*(_: typedesc[Geolocator], startTime: DateTime
                                 ): Future[seq[Geoposition]] =
   ## Windows.Devices.Geolocation.IGeolocatorStatics.GetGeopositionHistoryAsync
-  let it = statics[IGeolocatorStaticsVtbl]("Windows.Devices.Geolocation.Geolocator")
+  let it = statics[IGeolocatorStaticsVtbl](className(Geolocator))
   var op: pointer
   check it.vtbl.GetGeopositionHistoryAsync(it.raw, startTime, op.addr
                                           ), "Geolocator.getGeopositionHistoryAsync"
@@ -14839,7 +14839,7 @@ proc getGeopositionHistoryAsync*(_: typedesc[Geolocator], startTime: DateTime
 proc getGeopositionHistoryAsync*(_: typedesc[Geolocator], startTime: DateTime,
                                  duration: TimeSpan): Future[seq[Geoposition]] =
   ## Windows.Devices.Geolocation.IGeolocatorStatics.GetGeopositionHistoryAsync
-  let it = statics[IGeolocatorStaticsVtbl]("Windows.Devices.Geolocation.Geolocator")
+  let it = statics[IGeolocatorStaticsVtbl](className(Geolocator))
   var op: pointer
   check it.vtbl.GetGeopositionHistoryAsync2(it.raw, startTime, duration, op.addr
                                            ), "Geolocator.getGeopositionHistoryAsync"
@@ -14971,7 +14971,7 @@ proc allowFallbackToConsentlessPositions*(self: Geolocator) =
 
 proc newGeopath*(positions: seq[BasicGeoposition]): Geopath =
   ## Windows.Devices.Geolocation.IGeopathFactory.Create
-  let it = statics[IGeopathFactoryVtbl]("Windows.Devices.Geolocation.Geopath")
+  let it = statics[IGeopathFactoryVtbl](className(Geopath))
   let a0 = asCollection[BasicGeoposition, seq[BasicGeoposition]](positions)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "Geopath.new"
@@ -14980,7 +14980,7 @@ proc newGeopath*(positions: seq[BasicGeoposition]): Geopath =
 proc newGeopath*(positions: seq[BasicGeoposition],
                  altitudeReferenceSystem: AltitudeReferenceSystem): Geopath =
   ## Windows.Devices.Geolocation.IGeopathFactory.CreateWithAltitudeReference
-  let it = statics[IGeopathFactoryVtbl]("Windows.Devices.Geolocation.Geopath")
+  let it = statics[IGeopathFactoryVtbl](className(Geopath))
   let a0 = asCollection[BasicGeoposition, seq[BasicGeoposition]](positions)
   var ret: pointer
   check it.vtbl.CreateWithAltitudeReference(it.raw, a0.raw,
@@ -14992,7 +14992,7 @@ proc newGeopath*(positions: seq[BasicGeoposition],
                  altitudeReferenceSystem: AltitudeReferenceSystem,
                  spatialReferenceId: uint32): Geopath =
   ## Windows.Devices.Geolocation.IGeopathFactory.CreateWithAltitudeReferenceAndSpatialReference
-  let it = statics[IGeopathFactoryVtbl]("Windows.Devices.Geolocation.Geopath")
+  let it = statics[IGeopathFactoryVtbl](className(Geopath))
   let a0 = asCollection[BasicGeoposition, seq[BasicGeoposition]](positions)
   var ret: pointer
   check it.vtbl.CreateWithAltitudeReferenceAndSpatialReference(it.raw, a0.raw,
@@ -15013,7 +15013,7 @@ proc positions*(self: Geopath): seq[BasicGeoposition] =
 
 proc newGeopoint*(position: BasicGeoposition): Geopoint =
   ## Windows.Devices.Geolocation.IGeopointFactory.Create
-  let it = statics[IGeopointFactoryVtbl]("Windows.Devices.Geolocation.Geopoint")
+  let it = statics[IGeopointFactoryVtbl](className(Geopoint))
   var ret: pointer
   check it.vtbl.Create(it.raw, position, ret.addr), "Geopoint.new"
   adopt[Geopoint](ret)
@@ -15021,7 +15021,7 @@ proc newGeopoint*(position: BasicGeoposition): Geopoint =
 proc newGeopoint*(position: BasicGeoposition,
                   altitudeReferenceSystem: AltitudeReferenceSystem): Geopoint =
   ## Windows.Devices.Geolocation.IGeopointFactory.CreateWithAltitudeReferenceSystem
-  let it = statics[IGeopointFactoryVtbl]("Windows.Devices.Geolocation.Geopoint")
+  let it = statics[IGeopointFactoryVtbl](className(Geopoint))
   var ret: pointer
   check it.vtbl.CreateWithAltitudeReferenceSystem(it.raw, position,
                                                   altitudeReferenceSystem,
@@ -15032,7 +15032,7 @@ proc newGeopoint*(position: BasicGeoposition,
                   altitudeReferenceSystem: AltitudeReferenceSystem,
                   spatialReferenceId: uint32): Geopoint =
   ## Windows.Devices.Geolocation.IGeopointFactory.CreateWithAltitudeReferenceSystemAndSpatialReferenceId
-  let it = statics[IGeopointFactoryVtbl]("Windows.Devices.Geolocation.Geopoint")
+  let it = statics[IGeopointFactoryVtbl](className(Geopoint))
   var ret: pointer
   check it.vtbl.CreateWithAltitudeReferenceSystemAndSpatialReferenceId(it.raw,
                                                                        position,
@@ -15103,7 +15103,7 @@ proc newGeovisitMonitor*(): GeovisitMonitor =
 
 proc getLastReportAsync*(_: typedesc[GeovisitMonitor]): Future[Geovisit] =
   ## Windows.Devices.Geolocation.IGeovisitMonitorStatics.GetLastReportAsync
-  let it = statics[IGeovisitMonitorStaticsVtbl]("Windows.Devices.Geolocation.GeovisitMonitor")
+  let it = statics[IGeovisitMonitorStaticsVtbl](className(GeovisitMonitor))
   var op: pointer
   check it.vtbl.GetLastReportAsync(it.raw, op.addr
                                   ), "GeovisitMonitor.getLastReportAsync"
@@ -15172,7 +15172,7 @@ proc readReports*(self: GeovisitTriggerDetails): seq[Geovisit] =
 
 proc newGpioChangeCounter*(pin: GpioPin): GpioChangeCounter =
   ## Windows.Devices.Gpio.IGpioChangeCounterFactory.Create
-  let it = statics[IGpioChangeCounterFactoryVtbl]("Windows.Devices.Gpio.GpioChangeCounter")
+  let it = statics[IGpioChangeCounterFactoryVtbl](className(GpioChangeCounter))
   let a0 = queryInterface[IGpioPinVtbl](pin)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "GpioChangeCounter.new"
@@ -15225,7 +15225,7 @@ proc reset*(self: GpioChangeCounter): GpioChangeCount =
 
 proc newGpioChangeReader*(pin: GpioPin): GpioChangeReader =
   ## Windows.Devices.Gpio.IGpioChangeReaderFactory.Create
-  let it = statics[IGpioChangeReaderFactoryVtbl]("Windows.Devices.Gpio.GpioChangeReader")
+  let it = statics[IGpioChangeReaderFactoryVtbl](className(GpioChangeReader))
   let a0 = queryInterface[IGpioPinVtbl](pin)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "GpioChangeReader.new"
@@ -15233,7 +15233,7 @@ proc newGpioChangeReader*(pin: GpioPin): GpioChangeReader =
 
 proc newGpioChangeReader*(pin: GpioPin, minCapacity: int32): GpioChangeReader =
   ## Windows.Devices.Gpio.IGpioChangeReaderFactory.CreateWithCapacity
-  let it = statics[IGpioChangeReaderFactoryVtbl]("Windows.Devices.Gpio.GpioChangeReader")
+  let it = statics[IGpioChangeReaderFactoryVtbl](className(GpioChangeReader))
   let a0 = queryInterface[IGpioPinVtbl](pin)
   var ret: pointer
   check it.vtbl.CreateWithCapacity(it.raw, a0.raw, minCapacity, ret.addr
@@ -15337,7 +15337,7 @@ proc waitForItemsAsync*(self: GpioChangeReader, count: int32): Future[void] =
 proc getControllersAsync*(_: typedesc[GpioController], provider: IGpioProvider
                          ): Future[seq[GpioController]] =
   ## Windows.Devices.Gpio.IGpioControllerStatics2.GetControllersAsync
-  let it = statics[IGpioControllerStatics2Vtbl]("Windows.Devices.Gpio.GpioController")
+  let it = statics[IGpioControllerStatics2Vtbl](className(GpioController))
   let a0 = queryInterface[IGpioProviderVtbl](provider)
   var op: pointer
   check it.vtbl.GetControllersAsync(it.raw, a0.raw, op.addr
@@ -15346,7 +15346,7 @@ proc getControllersAsync*(_: typedesc[GpioController], provider: IGpioProvider
 
 proc getDefaultAsync*(_: typedesc[GpioController]): Future[GpioController] =
   ## Windows.Devices.Gpio.IGpioControllerStatics2.GetDefaultAsync
-  let it = statics[IGpioControllerStatics2Vtbl]("Windows.Devices.Gpio.GpioController")
+  let it = statics[IGpioControllerStatics2Vtbl](className(GpioController))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "GpioController.getDefaultAsync"
@@ -15354,7 +15354,7 @@ proc getDefaultAsync*(_: typedesc[GpioController]): Future[GpioController] =
 
 proc getDefault*(_: typedesc[GpioController]): GpioController =
   ## Windows.Devices.Gpio.IGpioControllerStatics.GetDefault
-  let it = statics[IGpioControllerStaticsVtbl]("Windows.Devices.Gpio.GpioController")
+  let it = statics[IGpioControllerStaticsVtbl](className(GpioController))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "GpioController.getDefault"
   adopt[GpioController](ret)
@@ -15477,7 +15477,7 @@ proc read*(self: GpioPin): GpioPinValue =
 
 proc newGpioPinProviderValueChangedEventArgs*(edge: ProviderGpioPinEdge): GpioPinProviderValueChangedEventArgs =
   ## Windows.Devices.Gpio.Provider.IGpioPinProviderValueChangedEventArgsFactory.Create
-  let it = statics[IGpioPinProviderValueChangedEventArgsFactoryVtbl]("Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs")
+  let it = statics[IGpioPinProviderValueChangedEventArgsFactoryVtbl](className(GpioPinProviderValueChangedEventArgs))
   var ret: pointer
   check it.vtbl.Create(it.raw, edge, ret.addr
                       ), "GpioPinProviderValueChangedEventArgs.new"
@@ -15504,7 +15504,7 @@ proc edge*(self: GpioPinValueChangedEventArgs): GpioPinEdge =
 
 proc getDeviceSelector*(_: typedesc[Gyrometer]): string =
   ## Windows.Devices.Sensors.IGyrometerStatics2.GetDeviceSelector
-  let it = statics[IGyrometerStatics2Vtbl]("Windows.Devices.Sensors.Gyrometer")
+  let it = statics[IGyrometerStatics2Vtbl](className(Gyrometer))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "Gyrometer.getDeviceSelector"
@@ -15512,7 +15512,7 @@ proc getDeviceSelector*(_: typedesc[Gyrometer]): string =
 
 proc fromIdAsync*(_: typedesc[Gyrometer], deviceId: string): Future[Gyrometer] =
   ## Windows.Devices.Sensors.IGyrometerStatics2.FromIdAsync
-  let it = statics[IGyrometerStatics2Vtbl]("Windows.Devices.Sensors.Gyrometer")
+  let it = statics[IGyrometerStatics2Vtbl](className(Gyrometer))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr), "Gyrometer.fromIdAsync"
@@ -15520,7 +15520,7 @@ proc fromIdAsync*(_: typedesc[Gyrometer], deviceId: string): Future[Gyrometer] =
 
 proc getDefault*(_: typedesc[Gyrometer]): Gyrometer =
   ## Windows.Devices.Sensors.IGyrometerStatics.GetDefault
-  let it = statics[IGyrometerStaticsVtbl]("Windows.Devices.Sensors.Gyrometer")
+  let it = statics[IGyrometerStaticsVtbl](className(Gyrometer))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "Gyrometer.getDefault"
   adopt[Gyrometer](ret)
@@ -15900,7 +15900,7 @@ proc usageId*(self: HidCollection): uint32 =
 proc getDeviceSelector*(_: typedesc[HidDevice], usagePage: uint16,
                         usageId: uint16): string =
   ## Windows.Devices.HumanInterfaceDevice.IHidDeviceStatics.GetDeviceSelector
-  let it = statics[IHidDeviceStaticsVtbl]("Windows.Devices.HumanInterfaceDevice.HidDevice")
+  let it = statics[IHidDeviceStaticsVtbl](className(HidDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, usagePage, usageId, ret.addr
                                  ), "HidDevice.getDeviceSelector"
@@ -15910,7 +15910,7 @@ proc getDeviceSelector*(_: typedesc[HidDevice], usagePage: uint16,
                         usageId: uint16, vendorId: uint16, productId: uint16
                        ): string =
   ## Windows.Devices.HumanInterfaceDevice.IHidDeviceStatics.GetDeviceSelector
-  let it = statics[IHidDeviceStaticsVtbl]("Windows.Devices.HumanInterfaceDevice.HidDevice")
+  let it = statics[IHidDeviceStaticsVtbl](className(HidDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector2(it.raw, usagePage, usageId, vendorId,
                                    productId, ret.addr
@@ -15920,7 +15920,7 @@ proc getDeviceSelector*(_: typedesc[HidDevice], usagePage: uint16,
 proc fromIdAsync*(_: typedesc[HidDevice], deviceId: string,
                   accessMode: FileAccessMode): Future[HidDevice] =
   ## Windows.Devices.HumanInterfaceDevice.IHidDeviceStatics.FromIdAsync
-  let it = statics[IHidDeviceStaticsVtbl]("Windows.Devices.HumanInterfaceDevice.HidDevice")
+  let it = statics[IHidDeviceStaticsVtbl](className(HidDevice))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, accessMode, op.addr
@@ -16515,7 +16515,7 @@ proc properties*(self: HingeAngleReading): Table[string, WinRtObject] =
 
 proc getDeviceSelector*(_: typedesc[HingeAngleSensor]): string =
   ## Windows.Devices.Sensors.IHingeAngleSensorStatics.GetDeviceSelector
-  let it = statics[IHingeAngleSensorStaticsVtbl]("Windows.Devices.Sensors.HingeAngleSensor")
+  let it = statics[IHingeAngleSensorStaticsVtbl](className(HingeAngleSensor))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "HingeAngleSensor.getDeviceSelector"
@@ -16523,7 +16523,7 @@ proc getDeviceSelector*(_: typedesc[HingeAngleSensor]): string =
 
 proc getDefaultAsync*(_: typedesc[HingeAngleSensor]): Future[HingeAngleSensor] =
   ## Windows.Devices.Sensors.IHingeAngleSensorStatics.GetDefaultAsync
-  let it = statics[IHingeAngleSensorStaticsVtbl]("Windows.Devices.Sensors.HingeAngleSensor")
+  let it = statics[IHingeAngleSensorStaticsVtbl](className(HingeAngleSensor))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "HingeAngleSensor.getDefaultAsync"
@@ -16534,7 +16534,7 @@ proc getRelatedToAdjacentPanelsAsync*(_: typedesc[HingeAngleSensor],
                                       secondPanelId: string
                                      ): Future[HingeAngleSensor] =
   ## Windows.Devices.Sensors.IHingeAngleSensorStatics.GetRelatedToAdjacentPanelsAsync
-  let it = statics[IHingeAngleSensorStaticsVtbl]("Windows.Devices.Sensors.HingeAngleSensor")
+  let it = statics[IHingeAngleSensorStaticsVtbl](className(HingeAngleSensor))
   let a0 = toWinRtString(firstPanelId)
   let a1 = toWinRtString(secondPanelId)
   var op: pointer
@@ -16546,7 +16546,7 @@ proc getRelatedToAdjacentPanelsAsync*(_: typedesc[HingeAngleSensor],
 proc fromIdAsync*(_: typedesc[HingeAngleSensor], deviceId: string
                  ): Future[HingeAngleSensor] =
   ## Windows.Devices.Sensors.IHingeAngleSensorStatics.FromIdAsync
-  let it = statics[IHingeAngleSensorStaticsVtbl]("Windows.Devices.Sensors.HingeAngleSensor")
+  let it = statics[IHingeAngleSensorStaticsVtbl](className(HingeAngleSensor))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -16682,7 +16682,7 @@ proc isOnlookerDetectionSupported*(self: HumanPresenceFeatures): bool =
 
 proc getDeviceSelector*(_: typedesc[HumanPresenceSensor]): string =
   ## Windows.Devices.Sensors.IHumanPresenceSensorStatics.GetDeviceSelector
-  let it = statics[IHumanPresenceSensorStaticsVtbl]("Windows.Devices.Sensors.HumanPresenceSensor")
+  let it = statics[IHumanPresenceSensorStaticsVtbl](className(HumanPresenceSensor))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "HumanPresenceSensor.getDeviceSelector"
@@ -16691,7 +16691,7 @@ proc getDeviceSelector*(_: typedesc[HumanPresenceSensor]): string =
 proc fromIdAsync*(_: typedesc[HumanPresenceSensor], sensorId: string
                  ): Future[HumanPresenceSensor] =
   ## Windows.Devices.Sensors.IHumanPresenceSensorStatics.FromIdAsync
-  let it = statics[IHumanPresenceSensorStaticsVtbl]("Windows.Devices.Sensors.HumanPresenceSensor")
+  let it = statics[IHumanPresenceSensorStaticsVtbl](className(HumanPresenceSensor))
   let a0 = toWinRtString(sensorId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -16700,7 +16700,7 @@ proc fromIdAsync*(_: typedesc[HumanPresenceSensor], sensorId: string
 
 proc getDefaultAsync*(_: typedesc[HumanPresenceSensor]): Future[HumanPresenceSensor] =
   ## Windows.Devices.Sensors.IHumanPresenceSensorStatics.GetDefaultAsync
-  let it = statics[IHumanPresenceSensorStaticsVtbl]("Windows.Devices.Sensors.HumanPresenceSensor")
+  let it = statics[IHumanPresenceSensorStaticsVtbl](className(HumanPresenceSensor))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "HumanPresenceSensor.getDefaultAsync"
@@ -16709,7 +16709,7 @@ proc getDefaultAsync*(_: typedesc[HumanPresenceSensor]): Future[HumanPresenceSen
 proc fromId*(_: typedesc[HumanPresenceSensor], sensorId: string
             ): HumanPresenceSensor =
   ## Windows.Devices.Sensors.IHumanPresenceSensorStatics2.FromId
-  let it = statics[IHumanPresenceSensorStatics2Vtbl]("Windows.Devices.Sensors.HumanPresenceSensor")
+  let it = statics[IHumanPresenceSensorStatics2Vtbl](className(HumanPresenceSensor))
   let a0 = toWinRtString(sensorId)
   var ret: pointer
   check it.vtbl.FromId(it.raw, a0.handle, ret.addr
@@ -16718,7 +16718,7 @@ proc fromId*(_: typedesc[HumanPresenceSensor], sensorId: string
 
 proc getDefault*(_: typedesc[HumanPresenceSensor]): HumanPresenceSensor =
   ## Windows.Devices.Sensors.IHumanPresenceSensorStatics2.GetDefault
-  let it = statics[IHumanPresenceSensorStatics2Vtbl]("Windows.Devices.Sensors.HumanPresenceSensor")
+  let it = statics[IHumanPresenceSensorStatics2Vtbl](className(HumanPresenceSensor))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "HumanPresenceSensor.getDefault"
   adopt[HumanPresenceSensor](ret)
@@ -16989,7 +16989,7 @@ proc `onlookerPresence=`*(self: HumanPresenceSensorReadingUpdate,
 
 proc getCurrentSettingsAsync*(_: typedesc[HumanPresenceSettings]): Future[HumanPresenceSettings] =
   ## Windows.Devices.Sensors.IHumanPresenceSettingsStatics.GetCurrentSettingsAsync
-  let it = statics[IHumanPresenceSettingsStaticsVtbl]("Windows.Devices.Sensors.HumanPresenceSettings")
+  let it = statics[IHumanPresenceSettingsStaticsVtbl](className(HumanPresenceSettings))
   var op: pointer
   check it.vtbl.GetCurrentSettingsAsync(it.raw, op.addr
                                        ), "HumanPresenceSettings.getCurrentSettingsAsync"
@@ -16997,7 +16997,7 @@ proc getCurrentSettingsAsync*(_: typedesc[HumanPresenceSettings]): Future[HumanP
 
 proc getCurrentSettings*(_: typedesc[HumanPresenceSettings]): HumanPresenceSettings =
   ## Windows.Devices.Sensors.IHumanPresenceSettingsStatics.GetCurrentSettings
-  let it = statics[IHumanPresenceSettingsStaticsVtbl]("Windows.Devices.Sensors.HumanPresenceSettings")
+  let it = statics[IHumanPresenceSettingsStaticsVtbl](className(HumanPresenceSettings))
   var ret: pointer
   check it.vtbl.GetCurrentSettings(it.raw, ret.addr
                                   ), "HumanPresenceSettings.getCurrentSettings"
@@ -17006,7 +17006,7 @@ proc getCurrentSettings*(_: typedesc[HumanPresenceSettings]): HumanPresenceSetti
 proc updateSettingsAsync*(_: typedesc[HumanPresenceSettings],
                           settings: HumanPresenceSettings): Future[void] =
   ## Windows.Devices.Sensors.IHumanPresenceSettingsStatics.UpdateSettingsAsync
-  let it = statics[IHumanPresenceSettingsStaticsVtbl]("Windows.Devices.Sensors.HumanPresenceSettings")
+  let it = statics[IHumanPresenceSettingsStaticsVtbl](className(HumanPresenceSettings))
   let a0 = queryInterface[IHumanPresenceSettingsVtbl](settings)
   var op: pointer
   check it.vtbl.UpdateSettingsAsync(it.raw, a0.raw, op.addr
@@ -17016,7 +17016,7 @@ proc updateSettingsAsync*(_: typedesc[HumanPresenceSettings],
 proc updateSettings*(_: typedesc[HumanPresenceSettings],
                      settings: HumanPresenceSettings) =
   ## Windows.Devices.Sensors.IHumanPresenceSettingsStatics.UpdateSettings
-  let it = statics[IHumanPresenceSettingsStaticsVtbl]("Windows.Devices.Sensors.HumanPresenceSettings")
+  let it = statics[IHumanPresenceSettingsStaticsVtbl](className(HumanPresenceSettings))
   let a0 = queryInterface[IHumanPresenceSettingsVtbl](settings)
   check it.vtbl.UpdateSettings(it.raw, a0.raw
                               ), "HumanPresenceSettings.updateSettings"
@@ -17025,7 +17025,7 @@ proc getSupportedFeaturesForSensorIdAsync*(_: typedesc[HumanPresenceSettings],
                                            sensorId: string
                                           ): Future[HumanPresenceFeatures] =
   ## Windows.Devices.Sensors.IHumanPresenceSettingsStatics.GetSupportedFeaturesForSensorIdAsync
-  let it = statics[IHumanPresenceSettingsStaticsVtbl]("Windows.Devices.Sensors.HumanPresenceSettings")
+  let it = statics[IHumanPresenceSettingsStaticsVtbl](className(HumanPresenceSettings))
   let a0 = toWinRtString(sensorId)
   var op: pointer
   check it.vtbl.GetSupportedFeaturesForSensorIdAsync(it.raw, a0.handle, op.addr
@@ -17035,7 +17035,7 @@ proc getSupportedFeaturesForSensorIdAsync*(_: typedesc[HumanPresenceSettings],
 proc getSupportedFeaturesForSensorId*(_: typedesc[HumanPresenceSettings],
                                       sensorId: string): HumanPresenceFeatures =
   ## Windows.Devices.Sensors.IHumanPresenceSettingsStatics.GetSupportedFeaturesForSensorId
-  let it = statics[IHumanPresenceSettingsStaticsVtbl]("Windows.Devices.Sensors.HumanPresenceSettings")
+  let it = statics[IHumanPresenceSettingsStaticsVtbl](className(HumanPresenceSettings))
   let a0 = toWinRtString(sensorId)
   var ret: pointer
   check it.vtbl.GetSupportedFeaturesForSensorId(it.raw, a0.handle, ret.addr
@@ -17044,7 +17044,7 @@ proc getSupportedFeaturesForSensorId*(_: typedesc[HumanPresenceSettings],
 
 proc getSupportedLockOnLeaveTimeouts*(_: typedesc[HumanPresenceSettings]): seq[TimeSpan] =
   ## Windows.Devices.Sensors.IHumanPresenceSettingsStatics.GetSupportedLockOnLeaveTimeouts
-  let it = statics[IHumanPresenceSettingsStaticsVtbl]("Windows.Devices.Sensors.HumanPresenceSettings")
+  let it = statics[IHumanPresenceSettingsStaticsVtbl](className(HumanPresenceSettings))
   var ret: pointer
   check it.vtbl.GetSupportedLockOnLeaveTimeouts(it.raw, ret.addr
                                                ), "HumanPresenceSettings.getSupportedLockOnLeaveTimeouts"
@@ -17055,7 +17055,7 @@ proc onSettingsChanged*(_: typedesc[HumanPresenceSettings],
                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.IHumanPresenceSettingsStatics.add_SettingsChanged
   ## The token is what `removeSettingsChanged` takes.
-  let it = statics[IHumanPresenceSettingsStaticsVtbl]("Windows.Devices.Sensors.HumanPresenceSettings")
+  let it = statics[IHumanPresenceSettingsStaticsVtbl](className(HumanPresenceSettings))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -17065,7 +17065,7 @@ proc onSettingsChanged*(_: typedesc[HumanPresenceSettings],
 proc removeSettingsChanged*(_: typedesc[HumanPresenceSettings],
                             token: EventRegistrationToken) =
   ## Windows.Devices.Sensors.IHumanPresenceSettingsStatics.remove_SettingsChanged
-  let it = statics[IHumanPresenceSettingsStaticsVtbl]("Windows.Devices.Sensors.HumanPresenceSettings")
+  let it = statics[IHumanPresenceSettingsStaticsVtbl](className(HumanPresenceSettings))
   check it.vtbl.remove_SettingsChanged(it.raw, token
                                       ), "HumanPresenceSettings.settingsChanged"
 
@@ -17236,7 +17236,7 @@ proc onlookerDetectionOptions*(self: HumanPresenceSettings): OnlookerDetectionOp
 
 proc newI2cConnectionSettings*(slaveAddress: int32): I2cConnectionSettings =
   ## Windows.Devices.I2c.II2cConnectionSettingsFactory.Create
-  let it = statics[II2cConnectionSettingsFactoryVtbl]("Windows.Devices.I2c.I2cConnectionSettings")
+  let it = statics[II2cConnectionSettingsFactoryVtbl](className(I2cConnectionSettings))
   var ret: pointer
   check it.vtbl.Create(it.raw, slaveAddress, ret.addr
                       ), "I2cConnectionSettings.new"
@@ -17287,7 +17287,7 @@ proc `sharingMode=`*(self: I2cConnectionSettings, value: I2cSharingMode) =
 proc getControllersAsync*(_: typedesc[I2cController], provider: II2cProvider
                          ): Future[seq[I2cController]] =
   ## Windows.Devices.I2c.II2cControllerStatics.GetControllersAsync
-  let it = statics[II2cControllerStaticsVtbl]("Windows.Devices.I2c.I2cController")
+  let it = statics[II2cControllerStaticsVtbl](className(I2cController))
   let a0 = queryInterface[II2cProviderVtbl](provider)
   var op: pointer
   check it.vtbl.GetControllersAsync(it.raw, a0.raw, op.addr
@@ -17296,7 +17296,7 @@ proc getControllersAsync*(_: typedesc[I2cController], provider: II2cProvider
 
 proc getDefaultAsync*(_: typedesc[I2cController]): Future[I2cController] =
   ## Windows.Devices.I2c.II2cControllerStatics.GetDefaultAsync
-  let it = statics[II2cControllerStaticsVtbl]("Windows.Devices.I2c.I2cController")
+  let it = statics[II2cControllerStaticsVtbl](className(I2cController))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "I2cController.getDefaultAsync"
@@ -17315,7 +17315,7 @@ proc getDevice*(self: I2cController, settings: I2cConnectionSettings
 
 proc getDeviceSelector*(_: typedesc[I2cDevice]): string =
   ## Windows.Devices.I2c.II2cDeviceStatics.GetDeviceSelector
-  let it = statics[II2cDeviceStaticsVtbl]("Windows.Devices.I2c.I2cDevice")
+  let it = statics[II2cDeviceStaticsVtbl](className(I2cDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "I2cDevice.getDeviceSelector"
@@ -17323,7 +17323,7 @@ proc getDeviceSelector*(_: typedesc[I2cDevice]): string =
 
 proc getDeviceSelector*(_: typedesc[I2cDevice], friendlyName: string): string =
   ## Windows.Devices.I2c.II2cDeviceStatics.GetDeviceSelector
-  let it = statics[II2cDeviceStaticsVtbl]("Windows.Devices.I2c.I2cDevice")
+  let it = statics[II2cDeviceStaticsVtbl](className(I2cDevice))
   let a0 = toWinRtString(friendlyName)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector2(it.raw, a0.handle, ret.addr
@@ -17333,7 +17333,7 @@ proc getDeviceSelector*(_: typedesc[I2cDevice], friendlyName: string): string =
 proc fromIdAsync*(_: typedesc[I2cDevice], deviceId: string,
                   settings: I2cConnectionSettings): Future[I2cDevice] =
   ## Windows.Devices.I2c.II2cDeviceStatics.FromIdAsync
-  let it = statics[II2cDeviceStaticsVtbl]("Windows.Devices.I2c.I2cDevice")
+  let it = statics[II2cDeviceStaticsVtbl](className(I2cDevice))
   let a0 = toWinRtString(deviceId)
   let a1 = queryInterface[II2cConnectionSettingsVtbl](settings)
   var op: pointer
@@ -17415,7 +17415,7 @@ proc newIOControlCode*(deviceType: uint16, function: uint16,
                        bufferingMethod: IOControlBufferingMethod
                       ): IOControlCode =
   ## Windows.Devices.Custom.IIOControlCodeFactory.CreateIOControlCode
-  let it = statics[IIOControlCodeFactoryVtbl]("Windows.Devices.Custom.IOControlCode")
+  let it = statics[IIOControlCodeFactoryVtbl](className(IOControlCode))
   var ret: pointer
   check it.vtbl.CreateIOControlCode(it.raw, deviceType, function, accessMode,
                                     bufferingMethod, ret.addr
@@ -17427,7 +17427,7 @@ proc newIOControlCode*(deviceType: uint16, function: uint16,
 proc fromIdAsync*(_: typedesc[ImageScanner], deviceId: string
                  ): Future[ImageScanner] =
   ## Windows.Devices.Scanners.IImageScannerStatics.FromIdAsync
-  let it = statics[IImageScannerStaticsVtbl]("Windows.Devices.Scanners.ImageScanner")
+  let it = statics[IImageScannerStaticsVtbl](className(ImageScanner))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -17436,7 +17436,7 @@ proc fromIdAsync*(_: typedesc[ImageScanner], deviceId: string
 
 proc getDeviceSelector*(_: typedesc[ImageScanner]): string =
   ## Windows.Devices.Scanners.IImageScannerStatics.GetDeviceSelector
-  let it = statics[IImageScannerStaticsVtbl]("Windows.Devices.Scanners.ImageScanner")
+  let it = statics[IImageScannerStaticsVtbl](className(ImageScanner))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "ImageScanner.getDeviceSelector"
@@ -17688,14 +17688,14 @@ proc scannedFiles*(self: ImageScannerScanResult): seq[StorageFile] =
 
 proc getDefault*(_: typedesc[Inclinometer]): Inclinometer =
   ## Windows.Devices.Sensors.IInclinometerStatics.GetDefault
-  let it = statics[IInclinometerStaticsVtbl]("Windows.Devices.Sensors.Inclinometer")
+  let it = statics[IInclinometerStaticsVtbl](className(Inclinometer))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "Inclinometer.getDefault"
   adopt[Inclinometer](ret)
 
 proc getDefaultForRelativeReadings*(_: typedesc[Inclinometer]): Inclinometer =
   ## Windows.Devices.Sensors.IInclinometerStatics2.GetDefaultForRelativeReadings
-  let it = statics[IInclinometerStatics2Vtbl]("Windows.Devices.Sensors.Inclinometer")
+  let it = statics[IInclinometerStatics2Vtbl](className(Inclinometer))
   var ret: pointer
   check it.vtbl.GetDefaultForRelativeReadings(it.raw, ret.addr
                                              ), "Inclinometer.getDefaultForRelativeReadings"
@@ -17704,7 +17704,7 @@ proc getDefaultForRelativeReadings*(_: typedesc[Inclinometer]): Inclinometer =
 proc getDeviceSelector*(_: typedesc[Inclinometer],
                         readingType: SensorReadingType): string =
   ## Windows.Devices.Sensors.IInclinometerStatics4.GetDeviceSelector
-  let it = statics[IInclinometerStatics4Vtbl]("Windows.Devices.Sensors.Inclinometer")
+  let it = statics[IInclinometerStatics4Vtbl](className(Inclinometer))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, readingType, ret.addr
                                  ), "Inclinometer.getDeviceSelector"
@@ -17713,7 +17713,7 @@ proc getDeviceSelector*(_: typedesc[Inclinometer],
 proc fromIdAsync*(_: typedesc[Inclinometer], deviceId: string
                  ): Future[Inclinometer] =
   ## Windows.Devices.Sensors.IInclinometerStatics4.FromIdAsync
-  let it = statics[IInclinometerStatics4Vtbl]("Windows.Devices.Sensors.Inclinometer")
+  let it = statics[IInclinometerStatics4Vtbl](className(Inclinometer))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -17723,7 +17723,7 @@ proc fromIdAsync*(_: typedesc[Inclinometer], deviceId: string
 proc getDefault*(_: typedesc[Inclinometer], sensorReadingtype: SensorReadingType
                 ): Inclinometer =
   ## Windows.Devices.Sensors.IInclinometerStatics3.GetDefault
-  let it = statics[IInclinometerStatics3Vtbl]("Windows.Devices.Sensors.Inclinometer")
+  let it = statics[IInclinometerStatics3Vtbl](className(Inclinometer))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, sensorReadingtype, ret.addr
                           ), "Inclinometer.getDefault"
@@ -17949,14 +17949,14 @@ proc reading*(self: InclinometerReadingChangedEventArgs): InclinometerReading =
 
 proc isSupported*(_: typedesc[InputHapticsManager]): bool =
   ## Windows.Devices.Haptics.IInputHapticsManagerStatics.IsSupported
-  let it = statics[IInputHapticsManagerStaticsVtbl]("Windows.Devices.Haptics.InputHapticsManager")
+  let it = statics[IInputHapticsManagerStaticsVtbl](className(InputHapticsManager))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr), "InputHapticsManager.isSupported"
   ret
 
 proc isHapticDevicePresent*(_: typedesc[InputHapticsManager]): bool =
   ## Windows.Devices.Haptics.IInputHapticsManagerStatics.IsHapticDevicePresent
-  let it = statics[IInputHapticsManagerStaticsVtbl]("Windows.Devices.Haptics.InputHapticsManager")
+  let it = statics[IInputHapticsManagerStaticsVtbl](className(InputHapticsManager))
   var ret: bool
   check it.vtbl.IsHapticDevicePresent(it.raw, ret.addr
                                      ), "InputHapticsManager.isHapticDevicePresent"
@@ -17964,7 +17964,7 @@ proc isHapticDevicePresent*(_: typedesc[InputHapticsManager]): bool =
 
 proc getForCurrentThread*(_: typedesc[InputHapticsManager]): InputHapticsManager =
   ## Windows.Devices.Haptics.IInputHapticsManagerStatics.GetForCurrentThread
-  let it = statics[IInputHapticsManagerStaticsVtbl]("Windows.Devices.Haptics.InputHapticsManager")
+  let it = statics[IInputHapticsManagerStaticsVtbl](className(InputHapticsManager))
   var ret: pointer
   check it.vtbl.GetForCurrentThread(it.raw, ret.addr
                                    ), "InputHapticsManager.getForCurrentThread"
@@ -17973,7 +17973,7 @@ proc getForCurrentThread*(_: typedesc[InputHapticsManager]): InputHapticsManager
 proc tryGetForThread*(_: typedesc[InputHapticsManager], threadId: uint32
                      ): InputHapticsManager =
   ## Windows.Devices.Haptics.IInputHapticsManagerStatics.TryGetForThread
-  let it = statics[IInputHapticsManagerStaticsVtbl]("Windows.Devices.Haptics.InputHapticsManager")
+  let it = statics[IInputHapticsManagerStaticsVtbl](className(InputHapticsManager))
   var ret: pointer
   check it.vtbl.TryGetForThread(it.raw, threadId, ret.addr
                                ), "InputHapticsManager.tryGetForThread"
@@ -18109,7 +18109,7 @@ proc getUnsupportedValues*(self: IppAttributeError): seq[IppAttributeValue] =
 
 proc createUnsupported*(_: typedesc[IppAttributeValue]): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateUnsupported
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   var ret: pointer
   check it.vtbl.CreateUnsupported(it.raw, ret.addr
                                  ), "IppAttributeValue.createUnsupported"
@@ -18117,7 +18117,7 @@ proc createUnsupported*(_: typedesc[IppAttributeValue]): IppAttributeValue =
 
 proc createUnknown*(_: typedesc[IppAttributeValue]): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateUnknown
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   var ret: pointer
   check it.vtbl.CreateUnknown(it.raw, ret.addr
                              ), "IppAttributeValue.createUnknown"
@@ -18125,7 +18125,7 @@ proc createUnknown*(_: typedesc[IppAttributeValue]): IppAttributeValue =
 
 proc createNoValue*(_: typedesc[IppAttributeValue]): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateNoValue
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   var ret: pointer
   check it.vtbl.CreateNoValue(it.raw, ret.addr
                              ), "IppAttributeValue.createNoValue"
@@ -18134,7 +18134,7 @@ proc createNoValue*(_: typedesc[IppAttributeValue]): IppAttributeValue =
 proc createInteger*(_: typedesc[IppAttributeValue], value: int32
                    ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateInteger
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   var ret: pointer
   check it.vtbl.CreateInteger(it.raw, value, ret.addr
                              ), "IppAttributeValue.createInteger"
@@ -18143,7 +18143,7 @@ proc createInteger*(_: typedesc[IppAttributeValue], value: int32
 proc createIntegerArray*(_: typedesc[IppAttributeValue], values: seq[int32]
                         ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateIntegerArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[int32, seq[int32]](values)
   var ret: pointer
   check it.vtbl.CreateIntegerArray(it.raw, a0.raw, ret.addr
@@ -18153,7 +18153,7 @@ proc createIntegerArray*(_: typedesc[IppAttributeValue], values: seq[int32]
 proc createBoolean*(_: typedesc[IppAttributeValue], value: bool
                    ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateBoolean
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   var ret: pointer
   check it.vtbl.CreateBoolean(it.raw, value, ret.addr
                              ), "IppAttributeValue.createBoolean"
@@ -18162,7 +18162,7 @@ proc createBoolean*(_: typedesc[IppAttributeValue], value: bool
 proc createBooleanArray*(_: typedesc[IppAttributeValue], values: seq[bool]
                         ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateBooleanArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[bool, seq[bool]](values)
   var ret: pointer
   check it.vtbl.CreateBooleanArray(it.raw, a0.raw, ret.addr
@@ -18172,7 +18172,7 @@ proc createBooleanArray*(_: typedesc[IppAttributeValue], values: seq[bool]
 proc createEnum*(_: typedesc[IppAttributeValue], value: int32
                 ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateEnum
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   var ret: pointer
   check it.vtbl.CreateEnum(it.raw, value, ret.addr
                           ), "IppAttributeValue.createEnum"
@@ -18181,7 +18181,7 @@ proc createEnum*(_: typedesc[IppAttributeValue], value: int32
 proc createEnumArray*(_: typedesc[IppAttributeValue], values: seq[int32]
                      ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateEnumArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[int32, seq[int32]](values)
   var ret: pointer
   check it.vtbl.CreateEnumArray(it.raw, a0.raw, ret.addr
@@ -18191,7 +18191,7 @@ proc createEnumArray*(_: typedesc[IppAttributeValue], values: seq[int32]
 proc createOctetString*(_: typedesc[IppAttributeValue], value: SomeBuffer
                        ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateOctetString
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = queryInterface[IBufferVtbl](value)
   var ret: pointer
   check it.vtbl.CreateOctetString(it.raw, a0.raw, ret.addr
@@ -18201,7 +18201,7 @@ proc createOctetString*(_: typedesc[IppAttributeValue], value: SomeBuffer
 proc createOctetStringArray*(_: typedesc[IppAttributeValue],
                              values: seq[IBuffer]): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateOctetStringArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[IBuffer, seq[IBuffer]](values)
   var ret: pointer
   check it.vtbl.CreateOctetStringArray(it.raw, a0.raw, ret.addr
@@ -18211,7 +18211,7 @@ proc createOctetStringArray*(_: typedesc[IppAttributeValue],
 proc createDateTime*(_: typedesc[IppAttributeValue], value: DateTime
                     ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateDateTime
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   var ret: pointer
   check it.vtbl.CreateDateTime(it.raw, value, ret.addr
                               ), "IppAttributeValue.createDateTime"
@@ -18220,7 +18220,7 @@ proc createDateTime*(_: typedesc[IppAttributeValue], value: DateTime
 proc createDateTimeArray*(_: typedesc[IppAttributeValue], values: seq[DateTime]
                          ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateDateTimeArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[DateTime, seq[DateTime]](values)
   var ret: pointer
   check it.vtbl.CreateDateTimeArray(it.raw, a0.raw, ret.addr
@@ -18230,7 +18230,7 @@ proc createDateTimeArray*(_: typedesc[IppAttributeValue], values: seq[DateTime]
 proc createResolution*(_: typedesc[IppAttributeValue], value: IppResolution
                       ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateResolution
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = queryInterface[IIppResolutionVtbl](value)
   var ret: pointer
   check it.vtbl.CreateResolution(it.raw, a0.raw, ret.addr
@@ -18240,7 +18240,7 @@ proc createResolution*(_: typedesc[IppAttributeValue], value: IppResolution
 proc createResolutionArray*(_: typedesc[IppAttributeValue],
                             values: seq[IppResolution]): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateResolutionArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[IppResolution, seq[IppResolution]](values)
   var ret: pointer
   check it.vtbl.CreateResolutionArray(it.raw, a0.raw, ret.addr
@@ -18250,7 +18250,7 @@ proc createResolutionArray*(_: typedesc[IppAttributeValue],
 proc createRangeOfInteger*(_: typedesc[IppAttributeValue],
                            value: IppIntegerRange): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateRangeOfInteger
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = queryInterface[IIppIntegerRangeVtbl](value)
   var ret: pointer
   check it.vtbl.CreateRangeOfInteger(it.raw, a0.raw, ret.addr
@@ -18261,7 +18261,7 @@ proc createRangeOfIntegerArray*(_: typedesc[IppAttributeValue],
                                 values: seq[IppIntegerRange]
                                ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateRangeOfIntegerArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[IppIntegerRange, seq[IppIntegerRange]](values)
   var ret: pointer
   check it.vtbl.CreateRangeOfIntegerArray(it.raw, a0.raw, ret.addr
@@ -18272,7 +18272,7 @@ proc createCollection*(_: typedesc[IppAttributeValue],
                        memberAttributes: Table[string, IppAttributeValue]
                       ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateCollection
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asMap[string, IppAttributeValue, Table[string, IppAttributeValue]](memberAttributes)
   var ret: pointer
   check it.vtbl.CreateCollection(it.raw, a0.raw, ret.addr
@@ -18283,7 +18283,7 @@ proc createCollectionArray*(_: typedesc[IppAttributeValue],
                             memberAttributesArray: seq[Table[string, IppAttributeValue]]
                            ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateCollectionArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[IIterableVtbl[IKeyValuePairVtbl[string, IppAttributeValue]],
                         seq[Table[string, IppAttributeValue]]](memberAttributesArray)
   var ret: pointer
@@ -18294,7 +18294,7 @@ proc createCollectionArray*(_: typedesc[IppAttributeValue],
 proc createTextWithLanguage*(_: typedesc[IppAttributeValue],
                              value: IppTextWithLanguage): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateTextWithLanguage
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = queryInterface[IIppTextWithLanguageVtbl](value)
   var ret: pointer
   check it.vtbl.CreateTextWithLanguage(it.raw, a0.raw, ret.addr
@@ -18305,7 +18305,7 @@ proc createTextWithLanguageArray*(_: typedesc[IppAttributeValue],
                                   values: seq[IppTextWithLanguage]
                                  ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateTextWithLanguageArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[IppTextWithLanguage, seq[IppTextWithLanguage]](values)
   var ret: pointer
   check it.vtbl.CreateTextWithLanguageArray(it.raw, a0.raw, ret.addr
@@ -18315,7 +18315,7 @@ proc createTextWithLanguageArray*(_: typedesc[IppAttributeValue],
 proc createNameWithLanguage*(_: typedesc[IppAttributeValue],
                              value: IppTextWithLanguage): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateNameWithLanguage
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = queryInterface[IIppTextWithLanguageVtbl](value)
   var ret: pointer
   check it.vtbl.CreateNameWithLanguage(it.raw, a0.raw, ret.addr
@@ -18326,7 +18326,7 @@ proc createNameWithLanguageArray*(_: typedesc[IppAttributeValue],
                                   values: seq[IppTextWithLanguage]
                                  ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateNameWithLanguageArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[IppTextWithLanguage, seq[IppTextWithLanguage]](values)
   var ret: pointer
   check it.vtbl.CreateNameWithLanguageArray(it.raw, a0.raw, ret.addr
@@ -18336,7 +18336,7 @@ proc createNameWithLanguageArray*(_: typedesc[IppAttributeValue],
 proc createTextWithoutLanguage*(_: typedesc[IppAttributeValue], value: string
                                ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateTextWithoutLanguage
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.CreateTextWithoutLanguage(it.raw, a0.handle, ret.addr
@@ -18346,7 +18346,7 @@ proc createTextWithoutLanguage*(_: typedesc[IppAttributeValue], value: string
 proc createTextWithoutLanguageArray*(_: typedesc[IppAttributeValue],
                                      values: seq[string]): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateTextWithoutLanguageArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[string, seq[string]](values)
   var ret: pointer
   check it.vtbl.CreateTextWithoutLanguageArray(it.raw, a0.raw, ret.addr
@@ -18356,7 +18356,7 @@ proc createTextWithoutLanguageArray*(_: typedesc[IppAttributeValue],
 proc createNameWithoutLanguage*(_: typedesc[IppAttributeValue], value: string
                                ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateNameWithoutLanguage
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.CreateNameWithoutLanguage(it.raw, a0.handle, ret.addr
@@ -18366,7 +18366,7 @@ proc createNameWithoutLanguage*(_: typedesc[IppAttributeValue], value: string
 proc createNameWithoutLanguageArray*(_: typedesc[IppAttributeValue],
                                      values: seq[string]): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateNameWithoutLanguageArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[string, seq[string]](values)
   var ret: pointer
   check it.vtbl.CreateNameWithoutLanguageArray(it.raw, a0.raw, ret.addr
@@ -18376,7 +18376,7 @@ proc createNameWithoutLanguageArray*(_: typedesc[IppAttributeValue],
 proc createKeyword*(_: typedesc[IppAttributeValue], value: string
                    ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateKeyword
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.CreateKeyword(it.raw, a0.handle, ret.addr
@@ -18386,7 +18386,7 @@ proc createKeyword*(_: typedesc[IppAttributeValue], value: string
 proc createKeywordArray*(_: typedesc[IppAttributeValue], values: seq[string]
                         ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateKeywordArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[string, seq[string]](values)
   var ret: pointer
   check it.vtbl.CreateKeywordArray(it.raw, a0.raw, ret.addr
@@ -18395,7 +18395,7 @@ proc createKeywordArray*(_: typedesc[IppAttributeValue], values: seq[string]
 
 proc createUri*(_: typedesc[IppAttributeValue], value: Uri): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateUri
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = queryInterface[IUriRuntimeClassVtbl](value)
   var ret: pointer
   check it.vtbl.CreateUri(it.raw, a0.raw, ret.addr
@@ -18405,7 +18405,7 @@ proc createUri*(_: typedesc[IppAttributeValue], value: Uri): IppAttributeValue =
 proc createUriArray*(_: typedesc[IppAttributeValue], values: seq[Uri]
                     ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateUriArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[Uri, seq[Uri]](values)
   var ret: pointer
   check it.vtbl.CreateUriArray(it.raw, a0.raw, ret.addr
@@ -18415,7 +18415,7 @@ proc createUriArray*(_: typedesc[IppAttributeValue], values: seq[Uri]
 proc createUriSchema*(_: typedesc[IppAttributeValue], value: string
                      ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateUriSchema
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.CreateUriSchema(it.raw, a0.handle, ret.addr
@@ -18425,7 +18425,7 @@ proc createUriSchema*(_: typedesc[IppAttributeValue], value: string
 proc createUriSchemaArray*(_: typedesc[IppAttributeValue], values: seq[string]
                           ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateUriSchemaArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[string, seq[string]](values)
   var ret: pointer
   check it.vtbl.CreateUriSchemaArray(it.raw, a0.raw, ret.addr
@@ -18435,7 +18435,7 @@ proc createUriSchemaArray*(_: typedesc[IppAttributeValue], values: seq[string]
 proc createCharset*(_: typedesc[IppAttributeValue], value: string
                    ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateCharset
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.CreateCharset(it.raw, a0.handle, ret.addr
@@ -18445,7 +18445,7 @@ proc createCharset*(_: typedesc[IppAttributeValue], value: string
 proc createCharsetArray*(_: typedesc[IppAttributeValue], values: seq[string]
                         ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateCharsetArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[string, seq[string]](values)
   var ret: pointer
   check it.vtbl.CreateCharsetArray(it.raw, a0.raw, ret.addr
@@ -18455,7 +18455,7 @@ proc createCharsetArray*(_: typedesc[IppAttributeValue], values: seq[string]
 proc createNaturalLanguage*(_: typedesc[IppAttributeValue], value: string
                            ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateNaturalLanguage
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.CreateNaturalLanguage(it.raw, a0.handle, ret.addr
@@ -18465,7 +18465,7 @@ proc createNaturalLanguage*(_: typedesc[IppAttributeValue], value: string
 proc createNaturalLanguageArray*(_: typedesc[IppAttributeValue],
                                  values: seq[string]): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateNaturalLanguageArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[string, seq[string]](values)
   var ret: pointer
   check it.vtbl.CreateNaturalLanguageArray(it.raw, a0.raw, ret.addr
@@ -18475,7 +18475,7 @@ proc createNaturalLanguageArray*(_: typedesc[IppAttributeValue],
 proc createMimeMedia*(_: typedesc[IppAttributeValue], value: string
                      ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateMimeMedia
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = toWinRtString(value)
   var ret: pointer
   check it.vtbl.CreateMimeMedia(it.raw, a0.handle, ret.addr
@@ -18485,7 +18485,7 @@ proc createMimeMedia*(_: typedesc[IppAttributeValue], value: string
 proc createMimeMediaArray*(_: typedesc[IppAttributeValue], values: seq[string]
                           ): IppAttributeValue =
   ## Windows.Devices.Printers.IIppAttributeValueStatics.CreateMimeMediaArray
-  let it = statics[IIppAttributeValueStaticsVtbl]("Windows.Devices.Printers.IppAttributeValue")
+  let it = statics[IIppAttributeValueStaticsVtbl](className(IppAttributeValue))
   let a0 = asCollection[string, seq[string]](values)
   var ret: pointer
   check it.vtbl.CreateMimeMediaArray(it.raw, a0.raw, ret.addr
@@ -18645,7 +18645,7 @@ proc getMimeMediaTypeArray*(self: IppAttributeValue): seq[string] =
 
 proc newIppIntegerRange*(start: int32, `end`: int32): IppIntegerRange =
   ## Windows.Devices.Printers.IIppIntegerRangeFactory.CreateInstance
-  let it = statics[IIppIntegerRangeFactoryVtbl]("Windows.Devices.Printers.IppIntegerRange")
+  let it = statics[IIppIntegerRangeFactoryVtbl](className(IppIntegerRange))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, start, `end`, ret.addr
                               ), "IppIntegerRange.new"
@@ -18669,7 +18669,7 @@ proc `end`*(self: IppIntegerRange): int32 =
 
 proc getDeviceSelector*(_: typedesc[IppPrintDevice]): string =
   ## Windows.Devices.Printers.IIppPrintDeviceStatics.GetDeviceSelector
-  let it = statics[IIppPrintDeviceStaticsVtbl]("Windows.Devices.Printers.IppPrintDevice")
+  let it = statics[IIppPrintDeviceStaticsVtbl](className(IppPrintDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "IppPrintDevice.getDeviceSelector"
@@ -18677,7 +18677,7 @@ proc getDeviceSelector*(_: typedesc[IppPrintDevice]): string =
 
 proc fromId*(_: typedesc[IppPrintDevice], deviceId: string): IppPrintDevice =
   ## Windows.Devices.Printers.IIppPrintDeviceStatics.FromId
-  let it = statics[IIppPrintDeviceStaticsVtbl]("Windows.Devices.Printers.IppPrintDevice")
+  let it = statics[IIppPrintDeviceStaticsVtbl](className(IppPrintDevice))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.FromId(it.raw, a0.handle, ret.addr), "IppPrintDevice.fromId"
@@ -18686,7 +18686,7 @@ proc fromId*(_: typedesc[IppPrintDevice], deviceId: string): IppPrintDevice =
 proc fromPrinterName*(_: typedesc[IppPrintDevice], printerName: string
                      ): IppPrintDevice =
   ## Windows.Devices.Printers.IIppPrintDeviceStatics.FromPrinterName
-  let it = statics[IIppPrintDeviceStaticsVtbl]("Windows.Devices.Printers.IppPrintDevice")
+  let it = statics[IIppPrintDeviceStaticsVtbl](className(IppPrintDevice))
   let a0 = toWinRtString(printerName)
   var ret: pointer
   check it.vtbl.FromPrinterName(it.raw, a0.handle, ret.addr
@@ -18695,7 +18695,7 @@ proc fromPrinterName*(_: typedesc[IppPrintDevice], printerName: string
 
 proc isIppPrinter*(_: typedesc[IppPrintDevice], printerName: string): bool =
   ## Windows.Devices.Printers.IIppPrintDeviceStatics.IsIppPrinter
-  let it = statics[IIppPrintDeviceStaticsVtbl]("Windows.Devices.Printers.IppPrintDevice")
+  let it = statics[IIppPrintDeviceStaticsVtbl](className(IppPrintDevice))
   let a0 = toWinRtString(printerName)
   var ret: bool
   check it.vtbl.IsIppPrinter(it.raw, a0.handle, ret.addr
@@ -18895,7 +18895,7 @@ proc extendedError*(self: IppPrintDeviceInstallationResult): HRESULT =
 
 proc canInstallIppPrintDevice*(_: typedesc[IppPrintDeviceManager]): bool =
   ## Windows.Devices.Printers.IIppPrintDeviceManagerStatics.CanInstallIppPrintDevice
-  let it = statics[IIppPrintDeviceManagerStaticsVtbl]("Windows.Devices.Printers.IppPrintDeviceManager")
+  let it = statics[IIppPrintDeviceManagerStaticsVtbl](className(IppPrintDeviceManager))
   var ret: bool
   check it.vtbl.CanInstallIppPrintDevice(it.raw, ret.addr
                                         ), "IppPrintDeviceManager.canInstallIppPrintDevice"
@@ -18905,7 +18905,7 @@ proc installIppPrintDeviceAsync*(_: typedesc[IppPrintDeviceManager],
                                  printerUri: Uri, printerName: string
                                 ): Future[IppPrintDeviceInstallationResult] =
   ## Windows.Devices.Printers.IIppPrintDeviceManagerStatics.InstallIppPrintDeviceAsync
-  let it = statics[IIppPrintDeviceManagerStaticsVtbl]("Windows.Devices.Printers.IppPrintDeviceManager")
+  let it = statics[IIppPrintDeviceManagerStaticsVtbl](className(IppPrintDeviceManager))
   let a0 = queryInterface[IUriRuntimeClassVtbl](printerUri)
   let a1 = toWinRtString(printerName)
   var op: pointer
@@ -18919,7 +18919,7 @@ proc installIppPrintDeviceAsync*(_: typedesc[IppPrintDeviceManager],
 proc newIppResolution*(width: int32, height: int32, unit: IppResolutionUnit
                       ): IppResolution =
   ## Windows.Devices.Printers.IIppResolutionFactory.CreateInstance
-  let it = statics[IIppResolutionFactoryVtbl]("Windows.Devices.Printers.IppResolution")
+  let it = statics[IIppResolutionFactoryVtbl](className(IppResolution))
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, width, height, unit, ret.addr
                               ), "IppResolution.new"
@@ -18969,7 +18969,7 @@ proc attributeErrors*(self: IppSetAttributesResult): Table[string, IppAttributeE
 proc newIppTextWithLanguage*(language: string, text: string
                             ): IppTextWithLanguage =
   ## Windows.Devices.Printers.IIppTextWithLanguageFactory.CreateInstance
-  let it = statics[IIppTextWithLanguageFactoryVtbl]("Windows.Devices.Printers.IppTextWithLanguage")
+  let it = statics[IIppTextWithLanguageFactoryVtbl](className(IppTextWithLanguage))
   let a0 = toWinRtString(language)
   let a1 = toWinRtString(text)
   var ret: pointer
@@ -19081,7 +19081,7 @@ proc keyboardPresent*(self: KeyboardCapabilities): int32 =
 
 proc focalLength*(_: typedesc[KnownCameraIntrinsicsProperties]): string =
   ## Windows.Devices.Perception.IKnownCameraIntrinsicsPropertiesStatics.get_FocalLength
-  let it = statics[IKnownCameraIntrinsicsPropertiesStaticsVtbl]("Windows.Devices.Perception.KnownCameraIntrinsicsProperties")
+  let it = statics[IKnownCameraIntrinsicsPropertiesStaticsVtbl](className(KnownCameraIntrinsicsProperties))
   var ret: HSTRING
   check it.vtbl.get_FocalLength(it.raw, ret.addr
                                ), "KnownCameraIntrinsicsProperties.focalLength"
@@ -19089,7 +19089,7 @@ proc focalLength*(_: typedesc[KnownCameraIntrinsicsProperties]): string =
 
 proc principalPoint*(_: typedesc[KnownCameraIntrinsicsProperties]): string =
   ## Windows.Devices.Perception.IKnownCameraIntrinsicsPropertiesStatics.get_PrincipalPoint
-  let it = statics[IKnownCameraIntrinsicsPropertiesStaticsVtbl]("Windows.Devices.Perception.KnownCameraIntrinsicsProperties")
+  let it = statics[IKnownCameraIntrinsicsPropertiesStaticsVtbl](className(KnownCameraIntrinsicsProperties))
   var ret: HSTRING
   check it.vtbl.get_PrincipalPoint(it.raw, ret.addr
                                   ), "KnownCameraIntrinsicsProperties.principalPoint"
@@ -19097,7 +19097,7 @@ proc principalPoint*(_: typedesc[KnownCameraIntrinsicsProperties]): string =
 
 proc radialDistortion*(_: typedesc[KnownCameraIntrinsicsProperties]): string =
   ## Windows.Devices.Perception.IKnownCameraIntrinsicsPropertiesStatics.get_RadialDistortion
-  let it = statics[IKnownCameraIntrinsicsPropertiesStaticsVtbl]("Windows.Devices.Perception.KnownCameraIntrinsicsProperties")
+  let it = statics[IKnownCameraIntrinsicsPropertiesStaticsVtbl](className(KnownCameraIntrinsicsProperties))
   var ret: HSTRING
   check it.vtbl.get_RadialDistortion(it.raw, ret.addr
                                     ), "KnownCameraIntrinsicsProperties.radialDistortion"
@@ -19105,7 +19105,7 @@ proc radialDistortion*(_: typedesc[KnownCameraIntrinsicsProperties]): string =
 
 proc tangentialDistortion*(_: typedesc[KnownCameraIntrinsicsProperties]): string =
   ## Windows.Devices.Perception.IKnownCameraIntrinsicsPropertiesStatics.get_TangentialDistortion
-  let it = statics[IKnownCameraIntrinsicsPropertiesStaticsVtbl]("Windows.Devices.Perception.KnownCameraIntrinsicsProperties")
+  let it = statics[IKnownCameraIntrinsicsPropertiesStaticsVtbl](className(KnownCameraIntrinsicsProperties))
   var ret: HSTRING
   check it.vtbl.get_TangentialDistortion(it.raw, ret.addr
                                         ), "KnownCameraIntrinsicsProperties.tangentialDistortion"
@@ -19115,7 +19115,7 @@ proc tangentialDistortion*(_: typedesc[KnownCameraIntrinsicsProperties]): string
 
 proc unknown*(_: typedesc[KnownDeviceTypes]): uint16 =
   ## Windows.Devices.Custom.IKnownDeviceTypesStatics.get_Unknown
-  let it = statics[IKnownDeviceTypesStaticsVtbl]("Windows.Devices.Custom.KnownDeviceTypes")
+  let it = statics[IKnownDeviceTypesStaticsVtbl](className(KnownDeviceTypes))
   var ret: uint16
   check it.vtbl.get_Unknown(it.raw, ret.addr), "KnownDeviceTypes.unknown"
   ret
@@ -19124,7 +19124,7 @@ proc unknown*(_: typedesc[KnownDeviceTypes]): uint16 =
 
 proc exposure*(_: typedesc[KnownPerceptionColorFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionColorFrameSourcePropertiesStatics.get_Exposure
-  let it = statics[IKnownPerceptionColorFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionColorFrameSourceProperties")
+  let it = statics[IKnownPerceptionColorFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionColorFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_Exposure(it.raw, ret.addr
                             ), "KnownPerceptionColorFrameSourceProperties.exposure"
@@ -19132,7 +19132,7 @@ proc exposure*(_: typedesc[KnownPerceptionColorFrameSourceProperties]): string =
 
 proc autoExposureEnabled*(_: typedesc[KnownPerceptionColorFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionColorFrameSourcePropertiesStatics.get_AutoExposureEnabled
-  let it = statics[IKnownPerceptionColorFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionColorFrameSourceProperties")
+  let it = statics[IKnownPerceptionColorFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionColorFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_AutoExposureEnabled(it.raw, ret.addr
                                        ), "KnownPerceptionColorFrameSourceProperties.autoExposureEnabled"
@@ -19140,7 +19140,7 @@ proc autoExposureEnabled*(_: typedesc[KnownPerceptionColorFrameSourceProperties]
 
 proc exposureCompensation*(_: typedesc[KnownPerceptionColorFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionColorFrameSourcePropertiesStatics.get_ExposureCompensation
-  let it = statics[IKnownPerceptionColorFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionColorFrameSourceProperties")
+  let it = statics[IKnownPerceptionColorFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionColorFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_ExposureCompensation(it.raw, ret.addr
                                         ), "KnownPerceptionColorFrameSourceProperties.exposureCompensation"
@@ -19150,7 +19150,7 @@ proc exposureCompensation*(_: typedesc[KnownPerceptionColorFrameSourceProperties
 
 proc minDepth*(_: typedesc[KnownPerceptionDepthFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionDepthFrameSourcePropertiesStatics.get_MinDepth
-  let it = statics[IKnownPerceptionDepthFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionDepthFrameSourceProperties")
+  let it = statics[IKnownPerceptionDepthFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionDepthFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_MinDepth(it.raw, ret.addr
                             ), "KnownPerceptionDepthFrameSourceProperties.minDepth"
@@ -19158,7 +19158,7 @@ proc minDepth*(_: typedesc[KnownPerceptionDepthFrameSourceProperties]): string =
 
 proc maxDepth*(_: typedesc[KnownPerceptionDepthFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionDepthFrameSourcePropertiesStatics.get_MaxDepth
-  let it = statics[IKnownPerceptionDepthFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionDepthFrameSourceProperties")
+  let it = statics[IKnownPerceptionDepthFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionDepthFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_MaxDepth(it.raw, ret.addr
                             ), "KnownPerceptionDepthFrameSourceProperties.maxDepth"
@@ -19168,21 +19168,21 @@ proc maxDepth*(_: typedesc[KnownPerceptionDepthFrameSourceProperties]): string =
 
 proc color*(_: typedesc[KnownPerceptionFrameKind]): string =
   ## Windows.Devices.Perception.Provider.IKnownPerceptionFrameKindStatics.get_Color
-  let it = statics[IKnownPerceptionFrameKindStaticsVtbl]("Windows.Devices.Perception.Provider.KnownPerceptionFrameKind")
+  let it = statics[IKnownPerceptionFrameKindStaticsVtbl](className(KnownPerceptionFrameKind))
   var ret: HSTRING
   check it.vtbl.get_Color(it.raw, ret.addr), "KnownPerceptionFrameKind.color"
   takeString(ret)
 
 proc depth*(_: typedesc[KnownPerceptionFrameKind]): string =
   ## Windows.Devices.Perception.Provider.IKnownPerceptionFrameKindStatics.get_Depth
-  let it = statics[IKnownPerceptionFrameKindStaticsVtbl]("Windows.Devices.Perception.Provider.KnownPerceptionFrameKind")
+  let it = statics[IKnownPerceptionFrameKindStaticsVtbl](className(KnownPerceptionFrameKind))
   var ret: HSTRING
   check it.vtbl.get_Depth(it.raw, ret.addr), "KnownPerceptionFrameKind.depth"
   takeString(ret)
 
 proc infrared*(_: typedesc[KnownPerceptionFrameKind]): string =
   ## Windows.Devices.Perception.Provider.IKnownPerceptionFrameKindStatics.get_Infrared
-  let it = statics[IKnownPerceptionFrameKindStaticsVtbl]("Windows.Devices.Perception.Provider.KnownPerceptionFrameKind")
+  let it = statics[IKnownPerceptionFrameKindStaticsVtbl](className(KnownPerceptionFrameKind))
   var ret: HSTRING
   check it.vtbl.get_Infrared(it.raw, ret.addr
                             ), "KnownPerceptionFrameKind.infrared"
@@ -19192,7 +19192,7 @@ proc infrared*(_: typedesc[KnownPerceptionFrameKind]): string =
 
 proc id*(_: typedesc[KnownPerceptionFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionFrameSourcePropertiesStatics.get_Id
-  let it = statics[IKnownPerceptionFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionFrameSourceProperties")
+  let it = statics[IKnownPerceptionFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_Id(it.raw, ret.addr
                       ), "KnownPerceptionFrameSourceProperties.id"
@@ -19200,7 +19200,7 @@ proc id*(_: typedesc[KnownPerceptionFrameSourceProperties]): string =
 
 proc physicalDeviceIds*(_: typedesc[KnownPerceptionFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionFrameSourcePropertiesStatics.get_PhysicalDeviceIds
-  let it = statics[IKnownPerceptionFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionFrameSourceProperties")
+  let it = statics[IKnownPerceptionFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_PhysicalDeviceIds(it.raw, ret.addr
                                      ), "KnownPerceptionFrameSourceProperties.physicalDeviceIds"
@@ -19208,7 +19208,7 @@ proc physicalDeviceIds*(_: typedesc[KnownPerceptionFrameSourceProperties]): stri
 
 proc frameKind*(_: typedesc[KnownPerceptionFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionFrameSourcePropertiesStatics.get_FrameKind
-  let it = statics[IKnownPerceptionFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionFrameSourceProperties")
+  let it = statics[IKnownPerceptionFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_FrameKind(it.raw, ret.addr
                              ), "KnownPerceptionFrameSourceProperties.frameKind"
@@ -19216,7 +19216,7 @@ proc frameKind*(_: typedesc[KnownPerceptionFrameSourceProperties]): string =
 
 proc deviceModelVersion*(_: typedesc[KnownPerceptionFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionFrameSourcePropertiesStatics.get_DeviceModelVersion
-  let it = statics[IKnownPerceptionFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionFrameSourceProperties")
+  let it = statics[IKnownPerceptionFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_DeviceModelVersion(it.raw, ret.addr
                                       ), "KnownPerceptionFrameSourceProperties.deviceModelVersion"
@@ -19224,7 +19224,7 @@ proc deviceModelVersion*(_: typedesc[KnownPerceptionFrameSourceProperties]): str
 
 proc enclosureLocation*(_: typedesc[KnownPerceptionFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionFrameSourcePropertiesStatics.get_EnclosureLocation
-  let it = statics[IKnownPerceptionFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionFrameSourceProperties")
+  let it = statics[IKnownPerceptionFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_EnclosureLocation(it.raw, ret.addr
                                      ), "KnownPerceptionFrameSourceProperties.enclosureLocation"
@@ -19232,7 +19232,7 @@ proc enclosureLocation*(_: typedesc[KnownPerceptionFrameSourceProperties]): stri
 
 proc deviceId*(_: typedesc[KnownPerceptionFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionFrameSourcePropertiesStatics2.get_DeviceId
-  let it = statics[IKnownPerceptionFrameSourcePropertiesStatics2Vtbl]("Windows.Devices.Perception.KnownPerceptionFrameSourceProperties")
+  let it = statics[IKnownPerceptionFrameSourcePropertiesStatics2Vtbl](className(KnownPerceptionFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_DeviceId(it.raw, ret.addr
                             ), "KnownPerceptionFrameSourceProperties.deviceId"
@@ -19242,7 +19242,7 @@ proc deviceId*(_: typedesc[KnownPerceptionFrameSourceProperties]): string =
 
 proc exposure*(_: typedesc[KnownPerceptionInfraredFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionInfraredFrameSourcePropertiesStatics.get_Exposure
-  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionInfraredFrameSourceProperties")
+  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionInfraredFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_Exposure(it.raw, ret.addr
                             ), "KnownPerceptionInfraredFrameSourceProperties.exposure"
@@ -19250,7 +19250,7 @@ proc exposure*(_: typedesc[KnownPerceptionInfraredFrameSourceProperties]): strin
 
 proc autoExposureEnabled*(_: typedesc[KnownPerceptionInfraredFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionInfraredFrameSourcePropertiesStatics.get_AutoExposureEnabled
-  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionInfraredFrameSourceProperties")
+  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionInfraredFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_AutoExposureEnabled(it.raw, ret.addr
                                        ), "KnownPerceptionInfraredFrameSourceProperties.autoExposureEnabled"
@@ -19258,7 +19258,7 @@ proc autoExposureEnabled*(_: typedesc[KnownPerceptionInfraredFrameSourceProperti
 
 proc exposureCompensation*(_: typedesc[KnownPerceptionInfraredFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionInfraredFrameSourcePropertiesStatics.get_ExposureCompensation
-  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionInfraredFrameSourceProperties")
+  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionInfraredFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_ExposureCompensation(it.raw, ret.addr
                                         ), "KnownPerceptionInfraredFrameSourceProperties.exposureCompensation"
@@ -19266,7 +19266,7 @@ proc exposureCompensation*(_: typedesc[KnownPerceptionInfraredFrameSourcePropert
 
 proc activeIlluminationEnabled*(_: typedesc[KnownPerceptionInfraredFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionInfraredFrameSourcePropertiesStatics.get_ActiveIlluminationEnabled
-  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionInfraredFrameSourceProperties")
+  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionInfraredFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_ActiveIlluminationEnabled(it.raw, ret.addr
                                              ), "KnownPerceptionInfraredFrameSourceProperties.activeIlluminationEnabled"
@@ -19274,7 +19274,7 @@ proc activeIlluminationEnabled*(_: typedesc[KnownPerceptionInfraredFrameSourcePr
 
 proc ambientSubtractionEnabled*(_: typedesc[KnownPerceptionInfraredFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionInfraredFrameSourcePropertiesStatics.get_AmbientSubtractionEnabled
-  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionInfraredFrameSourceProperties")
+  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionInfraredFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_AmbientSubtractionEnabled(it.raw, ret.addr
                                              ), "KnownPerceptionInfraredFrameSourceProperties.ambientSubtractionEnabled"
@@ -19282,7 +19282,7 @@ proc ambientSubtractionEnabled*(_: typedesc[KnownPerceptionInfraredFrameSourcePr
 
 proc structureLightPatternEnabled*(_: typedesc[KnownPerceptionInfraredFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionInfraredFrameSourcePropertiesStatics.get_StructureLightPatternEnabled
-  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionInfraredFrameSourceProperties")
+  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionInfraredFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_StructureLightPatternEnabled(it.raw, ret.addr
                                                 ), "KnownPerceptionInfraredFrameSourceProperties.structureLightPatternEnabled"
@@ -19290,7 +19290,7 @@ proc structureLightPatternEnabled*(_: typedesc[KnownPerceptionInfraredFrameSourc
 
 proc interleavedIlluminationEnabled*(_: typedesc[KnownPerceptionInfraredFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionInfraredFrameSourcePropertiesStatics.get_InterleavedIlluminationEnabled
-  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionInfraredFrameSourceProperties")
+  let it = statics[IKnownPerceptionInfraredFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionInfraredFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_InterleavedIlluminationEnabled(it.raw, ret.addr
                                                   ), "KnownPerceptionInfraredFrameSourceProperties.interleavedIlluminationEnabled"
@@ -19300,7 +19300,7 @@ proc interleavedIlluminationEnabled*(_: typedesc[KnownPerceptionInfraredFrameSou
 
 proc videoProfile*(_: typedesc[KnownPerceptionVideoFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionVideoFrameSourcePropertiesStatics.get_VideoProfile
-  let it = statics[IKnownPerceptionVideoFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionVideoFrameSourceProperties")
+  let it = statics[IKnownPerceptionVideoFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionVideoFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_VideoProfile(it.raw, ret.addr
                                 ), "KnownPerceptionVideoFrameSourceProperties.videoProfile"
@@ -19308,7 +19308,7 @@ proc videoProfile*(_: typedesc[KnownPerceptionVideoFrameSourceProperties]): stri
 
 proc supportedVideoProfiles*(_: typedesc[KnownPerceptionVideoFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionVideoFrameSourcePropertiesStatics.get_SupportedVideoProfiles
-  let it = statics[IKnownPerceptionVideoFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionVideoFrameSourceProperties")
+  let it = statics[IKnownPerceptionVideoFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionVideoFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_SupportedVideoProfiles(it.raw, ret.addr
                                           ), "KnownPerceptionVideoFrameSourceProperties.supportedVideoProfiles"
@@ -19316,7 +19316,7 @@ proc supportedVideoProfiles*(_: typedesc[KnownPerceptionVideoFrameSourceProperti
 
 proc availableVideoProfiles*(_: typedesc[KnownPerceptionVideoFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionVideoFrameSourcePropertiesStatics.get_AvailableVideoProfiles
-  let it = statics[IKnownPerceptionVideoFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionVideoFrameSourceProperties")
+  let it = statics[IKnownPerceptionVideoFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionVideoFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_AvailableVideoProfiles(it.raw, ret.addr
                                           ), "KnownPerceptionVideoFrameSourceProperties.availableVideoProfiles"
@@ -19324,7 +19324,7 @@ proc availableVideoProfiles*(_: typedesc[KnownPerceptionVideoFrameSourceProperti
 
 proc isMirrored*(_: typedesc[KnownPerceptionVideoFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionVideoFrameSourcePropertiesStatics.get_IsMirrored
-  let it = statics[IKnownPerceptionVideoFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionVideoFrameSourceProperties")
+  let it = statics[IKnownPerceptionVideoFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionVideoFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_IsMirrored(it.raw, ret.addr
                               ), "KnownPerceptionVideoFrameSourceProperties.isMirrored"
@@ -19332,7 +19332,7 @@ proc isMirrored*(_: typedesc[KnownPerceptionVideoFrameSourceProperties]): string
 
 proc cameraIntrinsics*(_: typedesc[KnownPerceptionVideoFrameSourceProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionVideoFrameSourcePropertiesStatics.get_CameraIntrinsics
-  let it = statics[IKnownPerceptionVideoFrameSourcePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionVideoFrameSourceProperties")
+  let it = statics[IKnownPerceptionVideoFrameSourcePropertiesStaticsVtbl](className(KnownPerceptionVideoFrameSourceProperties))
   var ret: HSTRING
   check it.vtbl.get_CameraIntrinsics(it.raw, ret.addr
                                     ), "KnownPerceptionVideoFrameSourceProperties.cameraIntrinsics"
@@ -19342,7 +19342,7 @@ proc cameraIntrinsics*(_: typedesc[KnownPerceptionVideoFrameSourceProperties]): 
 
 proc bitmapPixelFormat*(_: typedesc[KnownPerceptionVideoProfileProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionVideoProfilePropertiesStatics.get_BitmapPixelFormat
-  let it = statics[IKnownPerceptionVideoProfilePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionVideoProfileProperties")
+  let it = statics[IKnownPerceptionVideoProfilePropertiesStaticsVtbl](className(KnownPerceptionVideoProfileProperties))
   var ret: HSTRING
   check it.vtbl.get_BitmapPixelFormat(it.raw, ret.addr
                                      ), "KnownPerceptionVideoProfileProperties.bitmapPixelFormat"
@@ -19350,7 +19350,7 @@ proc bitmapPixelFormat*(_: typedesc[KnownPerceptionVideoProfileProperties]): str
 
 proc bitmapAlphaMode*(_: typedesc[KnownPerceptionVideoProfileProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionVideoProfilePropertiesStatics.get_BitmapAlphaMode
-  let it = statics[IKnownPerceptionVideoProfilePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionVideoProfileProperties")
+  let it = statics[IKnownPerceptionVideoProfilePropertiesStaticsVtbl](className(KnownPerceptionVideoProfileProperties))
   var ret: HSTRING
   check it.vtbl.get_BitmapAlphaMode(it.raw, ret.addr
                                    ), "KnownPerceptionVideoProfileProperties.bitmapAlphaMode"
@@ -19358,7 +19358,7 @@ proc bitmapAlphaMode*(_: typedesc[KnownPerceptionVideoProfileProperties]): strin
 
 proc width*(_: typedesc[KnownPerceptionVideoProfileProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionVideoProfilePropertiesStatics.get_Width
-  let it = statics[IKnownPerceptionVideoProfilePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionVideoProfileProperties")
+  let it = statics[IKnownPerceptionVideoProfilePropertiesStaticsVtbl](className(KnownPerceptionVideoProfileProperties))
   var ret: HSTRING
   check it.vtbl.get_Width(it.raw, ret.addr
                          ), "KnownPerceptionVideoProfileProperties.width"
@@ -19366,7 +19366,7 @@ proc width*(_: typedesc[KnownPerceptionVideoProfileProperties]): string =
 
 proc height*(_: typedesc[KnownPerceptionVideoProfileProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionVideoProfilePropertiesStatics.get_Height
-  let it = statics[IKnownPerceptionVideoProfilePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionVideoProfileProperties")
+  let it = statics[IKnownPerceptionVideoProfilePropertiesStaticsVtbl](className(KnownPerceptionVideoProfileProperties))
   var ret: HSTRING
   check it.vtbl.get_Height(it.raw, ret.addr
                           ), "KnownPerceptionVideoProfileProperties.height"
@@ -19374,7 +19374,7 @@ proc height*(_: typedesc[KnownPerceptionVideoProfileProperties]): string =
 
 proc frameDuration*(_: typedesc[KnownPerceptionVideoProfileProperties]): string =
   ## Windows.Devices.Perception.IKnownPerceptionVideoProfilePropertiesStatics.get_FrameDuration
-  let it = statics[IKnownPerceptionVideoProfilePropertiesStaticsVtbl]("Windows.Devices.Perception.KnownPerceptionVideoProfileProperties")
+  let it = statics[IKnownPerceptionVideoProfilePropertiesStaticsVtbl](className(KnownPerceptionVideoProfileProperties))
   var ret: HSTRING
   check it.vtbl.get_FrameDuration(it.raw, ret.addr
                                  ), "KnownPerceptionVideoProfileProperties.frameDuration"
@@ -19384,7 +19384,7 @@ proc frameDuration*(_: typedesc[KnownPerceptionVideoProfileProperties]): string 
 
 proc click*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics.get_Click
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStaticsVtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStaticsVtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_Click(it.raw, ret.addr
                          ), "KnownSimpleHapticsControllerWaveforms.click"
@@ -19392,7 +19392,7 @@ proc click*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
 
 proc buzzContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics.get_BuzzContinuous
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStaticsVtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStaticsVtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_BuzzContinuous(it.raw, ret.addr
                                   ), "KnownSimpleHapticsControllerWaveforms.buzzContinuous"
@@ -19400,7 +19400,7 @@ proc buzzContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16
 
 proc rumbleContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics.get_RumbleContinuous
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStaticsVtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStaticsVtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_RumbleContinuous(it.raw, ret.addr
                                     ), "KnownSimpleHapticsControllerWaveforms.rumbleContinuous"
@@ -19408,7 +19408,7 @@ proc rumbleContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint
 
 proc press*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics.get_Press
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStaticsVtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStaticsVtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_Press(it.raw, ret.addr
                          ), "KnownSimpleHapticsControllerWaveforms.press"
@@ -19416,7 +19416,7 @@ proc press*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
 
 proc release*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics.get_Release
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStaticsVtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStaticsVtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_Release(it.raw, ret.addr
                            ), "KnownSimpleHapticsControllerWaveforms.release"
@@ -19424,7 +19424,7 @@ proc release*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
 
 proc brushContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics2.get_BrushContinuous
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_BrushContinuous(it.raw, ret.addr
                                    ), "KnownSimpleHapticsControllerWaveforms.brushContinuous"
@@ -19432,7 +19432,7 @@ proc brushContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint1
 
 proc chiselMarkerContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics2.get_ChiselMarkerContinuous
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_ChiselMarkerContinuous(it.raw, ret.addr
                                           ), "KnownSimpleHapticsControllerWaveforms.chiselMarkerContinuous"
@@ -19440,7 +19440,7 @@ proc chiselMarkerContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms])
 
 proc eraserContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics2.get_EraserContinuous
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_EraserContinuous(it.raw, ret.addr
                                     ), "KnownSimpleHapticsControllerWaveforms.eraserContinuous"
@@ -19448,7 +19448,7 @@ proc eraserContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint
 
 proc error*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics2.get_Error
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_Error(it.raw, ret.addr
                          ), "KnownSimpleHapticsControllerWaveforms.error"
@@ -19456,7 +19456,7 @@ proc error*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
 
 proc galaxyPenContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics2.get_GalaxyPenContinuous
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_GalaxyPenContinuous(it.raw, ret.addr
                                        ), "KnownSimpleHapticsControllerWaveforms.galaxyPenContinuous"
@@ -19464,7 +19464,7 @@ proc galaxyPenContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): u
 
 proc hover*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics2.get_Hover
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_Hover(it.raw, ret.addr
                          ), "KnownSimpleHapticsControllerWaveforms.hover"
@@ -19472,7 +19472,7 @@ proc hover*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
 
 proc inkContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics2.get_InkContinuous
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_InkContinuous(it.raw, ret.addr
                                  ), "KnownSimpleHapticsControllerWaveforms.inkContinuous"
@@ -19480,7 +19480,7 @@ proc inkContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 
 
 proc markerContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics2.get_MarkerContinuous
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_MarkerContinuous(it.raw, ret.addr
                                     ), "KnownSimpleHapticsControllerWaveforms.markerContinuous"
@@ -19488,7 +19488,7 @@ proc markerContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint
 
 proc pencilContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics2.get_PencilContinuous
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_PencilContinuous(it.raw, ret.addr
                                     ), "KnownSimpleHapticsControllerWaveforms.pencilContinuous"
@@ -19496,7 +19496,7 @@ proc pencilContinuous*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint
 
 proc success*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   ## Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics2.get_Success
-  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl]("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
+  let it = statics[IKnownSimpleHapticsControllerWaveformsStatics2Vtbl](className(KnownSimpleHapticsControllerWaveforms))
   var ret: uint16
   check it.vtbl.get_Success(it.raw, ret.addr
                            ), "KnownSimpleHapticsControllerWaveforms.success"
@@ -19506,7 +19506,7 @@ proc success*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
 
 proc paymentSystemEnvironment*(_: typedesc[KnownSmartCardAppletIds]): IBuffer =
   ## Windows.Devices.SmartCards.IKnownSmartCardAppletIds.get_PaymentSystemEnvironment
-  let it = statics[IKnownSmartCardAppletIdsVtbl]("Windows.Devices.SmartCards.KnownSmartCardAppletIds")
+  let it = statics[IKnownSmartCardAppletIdsVtbl](className(KnownSmartCardAppletIds))
   var ret: pointer
   check it.vtbl.get_PaymentSystemEnvironment(it.raw, ret.addr
                                             ), "KnownSmartCardAppletIds.paymentSystemEnvironment"
@@ -19514,7 +19514,7 @@ proc paymentSystemEnvironment*(_: typedesc[KnownSmartCardAppletIds]): IBuffer =
 
 proc proximityPaymentSystemEnvironment*(_: typedesc[KnownSmartCardAppletIds]): IBuffer =
   ## Windows.Devices.SmartCards.IKnownSmartCardAppletIds.get_ProximityPaymentSystemEnvironment
-  let it = statics[IKnownSmartCardAppletIdsVtbl]("Windows.Devices.SmartCards.KnownSmartCardAppletIds")
+  let it = statics[IKnownSmartCardAppletIdsVtbl](className(KnownSmartCardAppletIds))
   var ret: pointer
   check it.vtbl.get_ProximityPaymentSystemEnvironment(it.raw, ret.addr
                                                      ), "KnownSmartCardAppletIds.proximityPaymentSystemEnvironment"
@@ -19524,14 +19524,14 @@ proc proximityPaymentSystemEnvironment*(_: typedesc[KnownSmartCardAppletIds]): I
 
 proc getDeviceSelector*(_: typedesc[Lamp]): string =
   ## Windows.Devices.Lights.ILampStatics.GetDeviceSelector
-  let it = statics[ILampStaticsVtbl]("Windows.Devices.Lights.Lamp")
+  let it = statics[ILampStaticsVtbl](className(Lamp))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr), "Lamp.getDeviceSelector"
   takeString(ret)
 
 proc fromIdAsync*(_: typedesc[Lamp], deviceId: string): Future[Lamp] =
   ## Windows.Devices.Lights.ILampStatics.FromIdAsync
-  let it = statics[ILampStaticsVtbl]("Windows.Devices.Lights.Lamp")
+  let it = statics[ILampStaticsVtbl](className(Lamp))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr), "Lamp.fromIdAsync"
@@ -19539,7 +19539,7 @@ proc fromIdAsync*(_: typedesc[Lamp], deviceId: string): Future[Lamp] =
 
 proc getDefaultAsync*(_: typedesc[Lamp]): Future[Lamp] =
   ## Windows.Devices.Lights.ILampStatics.GetDefaultAsync
-  let it = statics[ILampStaticsVtbl]("Windows.Devices.Lights.Lamp")
+  let it = statics[ILampStaticsVtbl](className(Lamp))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr), "Lamp.getDefaultAsync"
   future[IAsyncOperationVtbl[Lamp], Lamp](op, "Lamp.getDefaultAsync")
@@ -19617,7 +19617,7 @@ proc removeAvailabilityChanged*(self: Lamp, token: EventRegistrationToken) =
 
 proc getDeviceSelector*(_: typedesc[LampArray]): string =
   ## Windows.Devices.Lights.ILampArrayStatics.GetDeviceSelector
-  let it = statics[ILampArrayStaticsVtbl]("Windows.Devices.Lights.LampArray")
+  let it = statics[ILampArrayStaticsVtbl](className(LampArray))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "LampArray.getDeviceSelector"
@@ -19625,7 +19625,7 @@ proc getDeviceSelector*(_: typedesc[LampArray]): string =
 
 proc fromIdAsync*(_: typedesc[LampArray], deviceId: string): Future[LampArray] =
   ## Windows.Devices.Lights.ILampArrayStatics.FromIdAsync
-  let it = statics[ILampArrayStaticsVtbl]("Windows.Devices.Lights.LampArray")
+  let it = statics[ILampArrayStaticsVtbl](className(LampArray))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr), "LampArray.fromIdAsync"
@@ -19859,7 +19859,7 @@ proc newLampArrayBitmapEffect*(lampArray: LampArray,
                                lampIndexes: openArray[int32]
                               ): LampArrayBitmapEffect =
   ## Windows.Devices.Lights.Effects.ILampArrayBitmapEffectFactory.CreateInstance
-  let it = statics[ILampArrayBitmapEffectFactoryVtbl]("Windows.Devices.Lights.Effects.LampArrayBitmapEffect")
+  let it = statics[ILampArrayBitmapEffectFactoryVtbl](className(LampArrayBitmapEffect))
   let a0 = queryInterface[ILampArrayVtbl](lampArray)
   let a1 = asArray[int32, int32](lampIndexes)
   var ret: pointer
@@ -19960,7 +19960,7 @@ proc newLampArrayBlinkEffect*(lampArray: LampArray,
                               lampIndexes: openArray[int32]
                              ): LampArrayBlinkEffect =
   ## Windows.Devices.Lights.Effects.ILampArrayBlinkEffectFactory.CreateInstance
-  let it = statics[ILampArrayBlinkEffectFactoryVtbl]("Windows.Devices.Lights.Effects.LampArrayBlinkEffect")
+  let it = statics[ILampArrayBlinkEffectFactoryVtbl](className(LampArrayBlinkEffect))
   let a0 = queryInterface[ILampArrayVtbl](lampArray)
   let a1 = asArray[int32, int32](lampIndexes)
   var ret: pointer
@@ -20084,7 +20084,7 @@ proc newLampArrayColorRampEffect*(lampArray: LampArray,
                                   lampIndexes: openArray[int32]
                                  ): LampArrayColorRampEffect =
   ## Windows.Devices.Lights.Effects.ILampArrayColorRampEffectFactory.CreateInstance
-  let it = statics[ILampArrayColorRampEffectFactoryVtbl]("Windows.Devices.Lights.Effects.LampArrayColorRampEffect")
+  let it = statics[ILampArrayColorRampEffectFactoryVtbl](className(LampArrayColorRampEffect))
   let a0 = queryInterface[ILampArrayVtbl](lampArray)
   let a1 = asArray[int32, int32](lampIndexes)
   var ret: pointer
@@ -20153,7 +20153,7 @@ proc newLampArrayCustomEffect*(lampArray: LampArray,
                                lampIndexes: openArray[int32]
                               ): LampArrayCustomEffect =
   ## Windows.Devices.Lights.Effects.ILampArrayCustomEffectFactory.CreateInstance
-  let it = statics[ILampArrayCustomEffectFactoryVtbl]("Windows.Devices.Lights.Effects.LampArrayCustomEffect")
+  let it = statics[ILampArrayCustomEffectFactoryVtbl](className(LampArrayCustomEffect))
   let a0 = queryInterface[ILampArrayVtbl](lampArray)
   let a1 = asArray[int32, int32](lampIndexes)
   var ret: pointer
@@ -20217,21 +20217,21 @@ proc newLampArrayEffectPlaylist*(): LampArrayEffectPlaylist =
 proc startAll*(_: typedesc[LampArrayEffectPlaylist],
                value: seq[LampArrayEffectPlaylist]) =
   ## Windows.Devices.Lights.Effects.ILampArrayEffectPlaylistStatics.StartAll
-  let it = statics[ILampArrayEffectPlaylistStaticsVtbl]("Windows.Devices.Lights.Effects.LampArrayEffectPlaylist")
+  let it = statics[ILampArrayEffectPlaylistStaticsVtbl](className(LampArrayEffectPlaylist))
   let a0 = asCollection[LampArrayEffectPlaylist, seq[LampArrayEffectPlaylist]](value)
   check it.vtbl.StartAll(it.raw, a0.raw), "LampArrayEffectPlaylist.startAll"
 
 proc stopAll*(_: typedesc[LampArrayEffectPlaylist],
               value: seq[LampArrayEffectPlaylist]) =
   ## Windows.Devices.Lights.Effects.ILampArrayEffectPlaylistStatics.StopAll
-  let it = statics[ILampArrayEffectPlaylistStaticsVtbl]("Windows.Devices.Lights.Effects.LampArrayEffectPlaylist")
+  let it = statics[ILampArrayEffectPlaylistStaticsVtbl](className(LampArrayEffectPlaylist))
   let a0 = asCollection[LampArrayEffectPlaylist, seq[LampArrayEffectPlaylist]](value)
   check it.vtbl.StopAll(it.raw, a0.raw), "LampArrayEffectPlaylist.stopAll"
 
 proc pauseAll*(_: typedesc[LampArrayEffectPlaylist],
                value: seq[LampArrayEffectPlaylist]) =
   ## Windows.Devices.Lights.Effects.ILampArrayEffectPlaylistStatics.PauseAll
-  let it = statics[ILampArrayEffectPlaylistStaticsVtbl]("Windows.Devices.Lights.Effects.LampArrayEffectPlaylist")
+  let it = statics[ILampArrayEffectPlaylistStaticsVtbl](className(LampArrayEffectPlaylist))
   let a0 = asCollection[LampArrayEffectPlaylist, seq[LampArrayEffectPlaylist]](value)
   check it.vtbl.PauseAll(it.raw, a0.raw), "LampArrayEffectPlaylist.pauseAll"
 
@@ -20312,7 +20312,7 @@ proc newLampArraySolidEffect*(lampArray: LampArray,
                               lampIndexes: openArray[int32]
                              ): LampArraySolidEffect =
   ## Windows.Devices.Lights.Effects.ILampArraySolidEffectFactory.CreateInstance
-  let it = statics[ILampArraySolidEffectFactoryVtbl]("Windows.Devices.Lights.Effects.LampArraySolidEffect")
+  let it = statics[ILampArraySolidEffectFactoryVtbl](className(LampArraySolidEffect))
   let a0 = queryInterface[ILampArrayVtbl](lampArray)
   let a1 = asArray[int32, int32](lampIndexes)
   var ret: pointer
@@ -20502,7 +20502,7 @@ proc updateLatency*(self: LampInfo): TimeSpan =
 
 proc getDeviceSelector*(_: typedesc[LightSensor]): string =
   ## Windows.Devices.Sensors.ILightSensorStatics2.GetDeviceSelector
-  let it = statics[ILightSensorStatics2Vtbl]("Windows.Devices.Sensors.LightSensor")
+  let it = statics[ILightSensorStatics2Vtbl](className(LightSensor))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "LightSensor.getDeviceSelector"
@@ -20511,7 +20511,7 @@ proc getDeviceSelector*(_: typedesc[LightSensor]): string =
 proc fromIdAsync*(_: typedesc[LightSensor], deviceId: string
                  ): Future[LightSensor] =
   ## Windows.Devices.Sensors.ILightSensorStatics2.FromIdAsync
-  let it = statics[ILightSensorStatics2Vtbl]("Windows.Devices.Sensors.LightSensor")
+  let it = statics[ILightSensorStatics2Vtbl](className(LightSensor))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -20520,7 +20520,7 @@ proc fromIdAsync*(_: typedesc[LightSensor], deviceId: string
 
 proc getDefault*(_: typedesc[LightSensor]): LightSensor =
   ## Windows.Devices.Sensors.ILightSensorStatics.GetDefault
-  let it = statics[ILightSensorStaticsVtbl]("Windows.Devices.Sensors.LightSensor")
+  let it = statics[ILightSensorStaticsVtbl](className(LightSensor))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "LightSensor.getDefault"
   adopt[LightSensor](ret)
@@ -20716,7 +20716,7 @@ proc reading*(self: LightSensorReadingChangedEventArgs): LightSensorReading =
 
 proc statisticsCategorySelector*(_: typedesc[LineDisplay]): LineDisplayStatisticsCategorySelector =
   ## Windows.Devices.PointOfService.ILineDisplayStatics2.get_StatisticsCategorySelector
-  let it = statics[ILineDisplayStatics2Vtbl]("Windows.Devices.PointOfService.LineDisplay")
+  let it = statics[ILineDisplayStatics2Vtbl](className(LineDisplay))
   var ret: pointer
   check it.vtbl.get_StatisticsCategorySelector(it.raw, ret.addr
                                               ), "LineDisplay.statisticsCategorySelector"
@@ -20725,7 +20725,7 @@ proc statisticsCategorySelector*(_: typedesc[LineDisplay]): LineDisplayStatistic
 proc fromIdAsync*(_: typedesc[LineDisplay], deviceId: string
                  ): Future[LineDisplay] =
   ## Windows.Devices.PointOfService.ILineDisplayStatics.FromIdAsync
-  let it = statics[ILineDisplayStaticsVtbl]("Windows.Devices.PointOfService.LineDisplay")
+  let it = statics[ILineDisplayStaticsVtbl](className(LineDisplay))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -20734,14 +20734,14 @@ proc fromIdAsync*(_: typedesc[LineDisplay], deviceId: string
 
 proc getDefaultAsync*(_: typedesc[LineDisplay]): Future[LineDisplay] =
   ## Windows.Devices.PointOfService.ILineDisplayStatics.GetDefaultAsync
-  let it = statics[ILineDisplayStaticsVtbl]("Windows.Devices.PointOfService.LineDisplay")
+  let it = statics[ILineDisplayStaticsVtbl](className(LineDisplay))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr), "LineDisplay.getDefaultAsync"
   future[IAsyncOperationVtbl[LineDisplay], LineDisplay](op, "LineDisplay.getDefaultAsync")
 
 proc getDeviceSelector*(_: typedesc[LineDisplay]): string =
   ## Windows.Devices.PointOfService.ILineDisplayStatics.GetDeviceSelector
-  let it = statics[ILineDisplayStaticsVtbl]("Windows.Devices.PointOfService.LineDisplay")
+  let it = statics[ILineDisplayStaticsVtbl](className(LineDisplay))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "LineDisplay.getDeviceSelector"
@@ -20750,7 +20750,7 @@ proc getDeviceSelector*(_: typedesc[LineDisplay]): string =
 proc getDeviceSelector*(_: typedesc[LineDisplay],
                         connectionTypes: PosConnectionTypes): string =
   ## Windows.Devices.PointOfService.ILineDisplayStatics.GetDeviceSelector
-  let it = statics[ILineDisplayStaticsVtbl]("Windows.Devices.PointOfService.LineDisplay")
+  let it = statics[ILineDisplayStaticsVtbl](className(LineDisplay))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector2(it.raw, connectionTypes, ret.addr
                                   ), "LineDisplay.getDeviceSelector"
@@ -21564,7 +21564,7 @@ proc newLowLevelDevicesAggregateProvider*(adc: IAdcControllerProvider,
                                           spi: ISpiControllerProvider
                                          ): LowLevelDevicesAggregateProvider =
   ## Windows.Devices.ILowLevelDevicesAggregateProviderFactory.Create
-  let it = statics[ILowLevelDevicesAggregateProviderFactoryVtbl]("Windows.Devices.LowLevelDevicesAggregateProvider")
+  let it = statics[ILowLevelDevicesAggregateProviderFactoryVtbl](className(LowLevelDevicesAggregateProvider))
   let a0 = queryInterface[IAdcControllerProviderVtbl](adc)
   let a1 = queryInterface[IPwmControllerProviderVtbl](pwm)
   let a2 = queryInterface[IGpioControllerProviderVtbl](gpio)
@@ -21579,7 +21579,7 @@ proc newLowLevelDevicesAggregateProvider*(adc: IAdcControllerProvider,
 
 proc defaultProvider*(_: typedesc[LowLevelDevicesController]): ILowLevelDevicesAggregateProvider =
   ## Windows.Devices.ILowLevelDevicesControllerStatics.get_DefaultProvider
-  let it = statics[ILowLevelDevicesControllerStaticsVtbl]("Windows.Devices.LowLevelDevicesController")
+  let it = statics[ILowLevelDevicesControllerStaticsVtbl](className(LowLevelDevicesController))
   var ret: pointer
   check it.vtbl.get_DefaultProvider(it.raw, ret.addr
                                    ), "LowLevelDevicesController.defaultProvider"
@@ -21588,7 +21588,7 @@ proc defaultProvider*(_: typedesc[LowLevelDevicesController]): ILowLevelDevicesA
 proc `defaultProvider=`*(_: typedesc[LowLevelDevicesController],
                          value: SomeLowLevelDevicesAggregateProvider) =
   ## Windows.Devices.ILowLevelDevicesControllerStatics.put_DefaultProvider
-  let it = statics[ILowLevelDevicesControllerStaticsVtbl]("Windows.Devices.LowLevelDevicesController")
+  let it = statics[ILowLevelDevicesControllerStaticsVtbl](className(LowLevelDevicesController))
   let a0 = queryInterface[ILowLevelDevicesAggregateProviderVtbl](value)
   check it.vtbl.put_DefaultProvider(it.raw, a0.raw
                                    ), "LowLevelDevicesController.defaultProvider"
@@ -21598,7 +21598,7 @@ proc `defaultProvider=`*(_: typedesc[LowLevelDevicesController],
 proc getDeviceSelector*(_: typedesc[MagneticStripeReader],
                         connectionTypes: PosConnectionTypes): string =
   ## Windows.Devices.PointOfService.IMagneticStripeReaderStatics2.GetDeviceSelector
-  let it = statics[IMagneticStripeReaderStatics2Vtbl]("Windows.Devices.PointOfService.MagneticStripeReader")
+  let it = statics[IMagneticStripeReaderStatics2Vtbl](className(MagneticStripeReader))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, connectionTypes, ret.addr
                                  ), "MagneticStripeReader.getDeviceSelector"
@@ -21606,7 +21606,7 @@ proc getDeviceSelector*(_: typedesc[MagneticStripeReader],
 
 proc getDefaultAsync*(_: typedesc[MagneticStripeReader]): Future[MagneticStripeReader] =
   ## Windows.Devices.PointOfService.IMagneticStripeReaderStatics.GetDefaultAsync
-  let it = statics[IMagneticStripeReaderStaticsVtbl]("Windows.Devices.PointOfService.MagneticStripeReader")
+  let it = statics[IMagneticStripeReaderStaticsVtbl](className(MagneticStripeReader))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "MagneticStripeReader.getDefaultAsync"
@@ -21615,7 +21615,7 @@ proc getDefaultAsync*(_: typedesc[MagneticStripeReader]): Future[MagneticStripeR
 proc fromIdAsync*(_: typedesc[MagneticStripeReader], deviceId: string
                  ): Future[MagneticStripeReader] =
   ## Windows.Devices.PointOfService.IMagneticStripeReaderStatics.FromIdAsync
-  let it = statics[IMagneticStripeReaderStaticsVtbl]("Windows.Devices.PointOfService.MagneticStripeReader")
+  let it = statics[IMagneticStripeReaderStaticsVtbl](className(MagneticStripeReader))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -21624,7 +21624,7 @@ proc fromIdAsync*(_: typedesc[MagneticStripeReader], deviceId: string
 
 proc getDeviceSelector*(_: typedesc[MagneticStripeReader]): string =
   ## Windows.Devices.PointOfService.IMagneticStripeReaderStatics.GetDeviceSelector
-  let it = statics[IMagneticStripeReaderStaticsVtbl]("Windows.Devices.PointOfService.MagneticStripeReader")
+  let it = statics[IMagneticStripeReaderStaticsVtbl](className(MagneticStripeReader))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "MagneticStripeReader.getDeviceSelector"
@@ -22042,7 +22042,7 @@ proc isTransmitSentinelsSupported*(self: MagneticStripeReaderCapabilities): bool
 
 proc unknown*(_: typedesc[MagneticStripeReaderCardTypes]): uint32 =
   ## Windows.Devices.PointOfService.IMagneticStripeReaderCardTypesStatics.get_Unknown
-  let it = statics[IMagneticStripeReaderCardTypesStaticsVtbl]("Windows.Devices.PointOfService.MagneticStripeReaderCardTypes")
+  let it = statics[IMagneticStripeReaderCardTypesStaticsVtbl](className(MagneticStripeReaderCardTypes))
   var ret: uint32
   check it.vtbl.get_Unknown(it.raw, ret.addr
                            ), "MagneticStripeReaderCardTypes.unknown"
@@ -22050,14 +22050,14 @@ proc unknown*(_: typedesc[MagneticStripeReaderCardTypes]): uint32 =
 
 proc bank*(_: typedesc[MagneticStripeReaderCardTypes]): uint32 =
   ## Windows.Devices.PointOfService.IMagneticStripeReaderCardTypesStatics.get_Bank
-  let it = statics[IMagneticStripeReaderCardTypesStaticsVtbl]("Windows.Devices.PointOfService.MagneticStripeReaderCardTypes")
+  let it = statics[IMagneticStripeReaderCardTypesStaticsVtbl](className(MagneticStripeReaderCardTypes))
   var ret: uint32
   check it.vtbl.get_Bank(it.raw, ret.addr), "MagneticStripeReaderCardTypes.bank"
   ret
 
 proc aamva*(_: typedesc[MagneticStripeReaderCardTypes]): uint32 =
   ## Windows.Devices.PointOfService.IMagneticStripeReaderCardTypesStatics.get_Aamva
-  let it = statics[IMagneticStripeReaderCardTypesStaticsVtbl]("Windows.Devices.PointOfService.MagneticStripeReaderCardTypes")
+  let it = statics[IMagneticStripeReaderCardTypesStaticsVtbl](className(MagneticStripeReaderCardTypes))
   var ret: uint32
   check it.vtbl.get_Aamva(it.raw, ret.addr
                          ), "MagneticStripeReaderCardTypes.aamva"
@@ -22065,7 +22065,7 @@ proc aamva*(_: typedesc[MagneticStripeReaderCardTypes]): uint32 =
 
 proc extendedBase*(_: typedesc[MagneticStripeReaderCardTypes]): uint32 =
   ## Windows.Devices.PointOfService.IMagneticStripeReaderCardTypesStatics.get_ExtendedBase
-  let it = statics[IMagneticStripeReaderCardTypesStaticsVtbl]("Windows.Devices.PointOfService.MagneticStripeReaderCardTypes")
+  let it = statics[IMagneticStripeReaderCardTypesStaticsVtbl](className(MagneticStripeReaderCardTypes))
   var ret: uint32
   check it.vtbl.get_ExtendedBase(it.raw, ret.addr
                                 ), "MagneticStripeReaderCardTypes.extendedBase"
@@ -22075,7 +22075,7 @@ proc extendedBase*(_: typedesc[MagneticStripeReaderCardTypes]): uint32 =
 
 proc none*(_: typedesc[MagneticStripeReaderEncryptionAlgorithms]): uint32 =
   ## Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics.get_None
-  let it = statics[IMagneticStripeReaderEncryptionAlgorithmsStaticsVtbl]("Windows.Devices.PointOfService.MagneticStripeReaderEncryptionAlgorithms")
+  let it = statics[IMagneticStripeReaderEncryptionAlgorithmsStaticsVtbl](className(MagneticStripeReaderEncryptionAlgorithms))
   var ret: uint32
   check it.vtbl.get_None(it.raw, ret.addr
                         ), "MagneticStripeReaderEncryptionAlgorithms.none"
@@ -22083,7 +22083,7 @@ proc none*(_: typedesc[MagneticStripeReaderEncryptionAlgorithms]): uint32 =
 
 proc tripleDesDukpt*(_: typedesc[MagneticStripeReaderEncryptionAlgorithms]): uint32 =
   ## Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics.get_TripleDesDukpt
-  let it = statics[IMagneticStripeReaderEncryptionAlgorithmsStaticsVtbl]("Windows.Devices.PointOfService.MagneticStripeReaderEncryptionAlgorithms")
+  let it = statics[IMagneticStripeReaderEncryptionAlgorithmsStaticsVtbl](className(MagneticStripeReaderEncryptionAlgorithms))
   var ret: uint32
   check it.vtbl.get_TripleDesDukpt(it.raw, ret.addr
                                   ), "MagneticStripeReaderEncryptionAlgorithms.tripleDesDukpt"
@@ -22091,7 +22091,7 @@ proc tripleDesDukpt*(_: typedesc[MagneticStripeReaderEncryptionAlgorithms]): uin
 
 proc extendedBase*(_: typedesc[MagneticStripeReaderEncryptionAlgorithms]): uint32 =
   ## Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics.get_ExtendedBase
-  let it = statics[IMagneticStripeReaderEncryptionAlgorithmsStaticsVtbl]("Windows.Devices.PointOfService.MagneticStripeReaderEncryptionAlgorithms")
+  let it = statics[IMagneticStripeReaderEncryptionAlgorithmsStaticsVtbl](className(MagneticStripeReaderEncryptionAlgorithms))
   var ret: uint32
   check it.vtbl.get_ExtendedBase(it.raw, ret.addr
                                 ), "MagneticStripeReaderEncryptionAlgorithms.extendedBase"
@@ -22278,7 +22278,7 @@ proc report*(self: MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs):
 
 proc getDeviceSelector*(_: typedesc[Magnetometer]): string =
   ## Windows.Devices.Sensors.IMagnetometerStatics2.GetDeviceSelector
-  let it = statics[IMagnetometerStatics2Vtbl]("Windows.Devices.Sensors.Magnetometer")
+  let it = statics[IMagnetometerStatics2Vtbl](className(Magnetometer))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "Magnetometer.getDeviceSelector"
@@ -22287,7 +22287,7 @@ proc getDeviceSelector*(_: typedesc[Magnetometer]): string =
 proc fromIdAsync*(_: typedesc[Magnetometer], deviceId: string
                  ): Future[Magnetometer] =
   ## Windows.Devices.Sensors.IMagnetometerStatics2.FromIdAsync
-  let it = statics[IMagnetometerStatics2Vtbl]("Windows.Devices.Sensors.Magnetometer")
+  let it = statics[IMagnetometerStatics2Vtbl](className(Magnetometer))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -22296,7 +22296,7 @@ proc fromIdAsync*(_: typedesc[Magnetometer], deviceId: string
 
 proc getDefault*(_: typedesc[Magnetometer]): Magnetometer =
   ## Windows.Devices.Sensors.IMagnetometerStatics.GetDefault
-  let it = statics[IMagnetometerStaticsVtbl]("Windows.Devices.Sensors.Magnetometer")
+  let it = statics[IMagnetometerStaticsVtbl](className(Magnetometer))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "Magnetometer.getDefault"
   adopt[Magnetometer](ret)
@@ -22521,7 +22521,7 @@ proc newMidiActiveSensingMessage*(): MidiActiveSensingMessage =
 proc newMidiChannelPressureMessage*(channel: uint8, pressure: uint8
                                    ): MidiChannelPressureMessage =
   ## Windows.Devices.Midi.IMidiChannelPressureMessageFactory.CreateMidiChannelPressureMessage
-  let it = statics[IMidiChannelPressureMessageFactoryVtbl]("Windows.Devices.Midi.MidiChannelPressureMessage")
+  let it = statics[IMidiChannelPressureMessageFactoryVtbl](className(MidiChannelPressureMessage))
   var ret: pointer
   check it.vtbl.CreateMidiChannelPressureMessage(it.raw, channel, pressure,
                                                  ret.addr
@@ -22556,7 +22556,7 @@ proc newMidiControlChangeMessage*(channel: uint8, controller: uint8,
                                   controlValue: uint8
                                  ): MidiControlChangeMessage =
   ## Windows.Devices.Midi.IMidiControlChangeMessageFactory.CreateMidiControlChangeMessage
-  let it = statics[IMidiControlChangeMessageFactoryVtbl]("Windows.Devices.Midi.MidiControlChangeMessage")
+  let it = statics[IMidiControlChangeMessageFactoryVtbl](className(MidiControlChangeMessage))
   var ret: pointer
   check it.vtbl.CreateMidiControlChangeMessage(it.raw, channel, controller,
                                                controlValue, ret.addr
@@ -22592,7 +22592,7 @@ proc controlValue*(self: MidiControlChangeMessage): uint8 =
 proc fromIdAsync*(_: typedesc[MidiInPort], deviceId: string
                  ): Future[MidiInPort] =
   ## Windows.Devices.Midi.IMidiInPortStatics.FromIdAsync
-  let it = statics[IMidiInPortStaticsVtbl]("Windows.Devices.Midi.MidiInPort")
+  let it = statics[IMidiInPortStaticsVtbl](className(MidiInPort))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -22601,7 +22601,7 @@ proc fromIdAsync*(_: typedesc[MidiInPort], deviceId: string
 
 proc getDeviceSelector*(_: typedesc[MidiInPort]): string =
   ## Windows.Devices.Midi.IMidiInPortStatics.GetDeviceSelector
-  let it = statics[IMidiInPortStaticsVtbl]("Windows.Devices.Midi.MidiInPort")
+  let it = statics[IMidiInPortStaticsVtbl](className(MidiInPort))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "MidiInPort.getDeviceSelector"
@@ -22648,7 +22648,7 @@ proc message*(self: MidiMessageReceivedEventArgs): IMidiMessage =
 proc newMidiNoteOffMessage*(channel: uint8, note: uint8, velocity: uint8
                            ): MidiNoteOffMessage =
   ## Windows.Devices.Midi.IMidiNoteOffMessageFactory.CreateMidiNoteOffMessage
-  let it = statics[IMidiNoteOffMessageFactoryVtbl]("Windows.Devices.Midi.MidiNoteOffMessage")
+  let it = statics[IMidiNoteOffMessageFactoryVtbl](className(MidiNoteOffMessage))
   var ret: pointer
   check it.vtbl.CreateMidiNoteOffMessage(it.raw, channel, note, velocity,
                                          ret.addr), "MidiNoteOffMessage.new"
@@ -22680,7 +22680,7 @@ proc velocity*(self: MidiNoteOffMessage): uint8 =
 proc newMidiNoteOnMessage*(channel: uint8, note: uint8, velocity: uint8
                           ): MidiNoteOnMessage =
   ## Windows.Devices.Midi.IMidiNoteOnMessageFactory.CreateMidiNoteOnMessage
-  let it = statics[IMidiNoteOnMessageFactoryVtbl]("Windows.Devices.Midi.MidiNoteOnMessage")
+  let it = statics[IMidiNoteOnMessageFactoryVtbl](className(MidiNoteOnMessage))
   var ret: pointer
   check it.vtbl.CreateMidiNoteOnMessage(it.raw, channel, note, velocity,
                                         ret.addr), "MidiNoteOnMessage.new"
@@ -22712,7 +22712,7 @@ proc velocity*(self: MidiNoteOnMessage): uint8 =
 proc fromIdAsync*(_: typedesc[MidiOutPort], deviceId: string
                  ): Future[IMidiOutPort] =
   ## Windows.Devices.Midi.IMidiOutPortStatics.FromIdAsync
-  let it = statics[IMidiOutPortStaticsVtbl]("Windows.Devices.Midi.MidiOutPort")
+  let it = statics[IMidiOutPortStaticsVtbl](className(MidiOutPort))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -22721,7 +22721,7 @@ proc fromIdAsync*(_: typedesc[MidiOutPort], deviceId: string
 
 proc getDeviceSelector*(_: typedesc[MidiOutPort]): string =
   ## Windows.Devices.Midi.IMidiOutPortStatics.GetDeviceSelector
-  let it = statics[IMidiOutPortStaticsVtbl]("Windows.Devices.Midi.MidiOutPort")
+  let it = statics[IMidiOutPortStaticsVtbl](className(MidiOutPort))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "MidiOutPort.getDeviceSelector"
@@ -22732,7 +22732,7 @@ proc getDeviceSelector*(_: typedesc[MidiOutPort]): string =
 proc newMidiPitchBendChangeMessage*(channel: uint8, bend: uint16
                                    ): MidiPitchBendChangeMessage =
   ## Windows.Devices.Midi.IMidiPitchBendChangeMessageFactory.CreateMidiPitchBendChangeMessage
-  let it = statics[IMidiPitchBendChangeMessageFactoryVtbl]("Windows.Devices.Midi.MidiPitchBendChangeMessage")
+  let it = statics[IMidiPitchBendChangeMessageFactoryVtbl](className(MidiPitchBendChangeMessage))
   var ret: pointer
   check it.vtbl.CreateMidiPitchBendChangeMessage(it.raw, channel, bend, ret.addr
                                                 ), "MidiPitchBendChangeMessage.new"
@@ -22759,7 +22759,7 @@ proc newMidiPolyphonicKeyPressureMessage*(channel: uint8, note: uint8,
                                           pressure: uint8
                                          ): MidiPolyphonicKeyPressureMessage =
   ## Windows.Devices.Midi.IMidiPolyphonicKeyPressureMessageFactory.CreateMidiPolyphonicKeyPressureMessage
-  let it = statics[IMidiPolyphonicKeyPressureMessageFactoryVtbl]("Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage")
+  let it = statics[IMidiPolyphonicKeyPressureMessageFactoryVtbl](className(MidiPolyphonicKeyPressureMessage))
   var ret: pointer
   check it.vtbl.CreateMidiPolyphonicKeyPressureMessage(it.raw, channel, note,
                                                        pressure, ret.addr
@@ -22795,7 +22795,7 @@ proc pressure*(self: MidiPolyphonicKeyPressureMessage): uint8 =
 proc newMidiProgramChangeMessage*(channel: uint8, program: uint8
                                  ): MidiProgramChangeMessage =
   ## Windows.Devices.Midi.IMidiProgramChangeMessageFactory.CreateMidiProgramChangeMessage
-  let it = statics[IMidiProgramChangeMessageFactoryVtbl]("Windows.Devices.Midi.MidiProgramChangeMessage")
+  let it = statics[IMidiProgramChangeMessageFactoryVtbl](className(MidiProgramChangeMessage))
   var ret: pointer
   check it.vtbl.CreateMidiProgramChangeMessage(it.raw, channel, program,
                                                ret.addr
@@ -22822,7 +22822,7 @@ proc program*(self: MidiProgramChangeMessage): uint8 =
 
 proc newMidiSongPositionPointerMessage*(beats: uint16): MidiSongPositionPointerMessage =
   ## Windows.Devices.Midi.IMidiSongPositionPointerMessageFactory.CreateMidiSongPositionPointerMessage
-  let it = statics[IMidiSongPositionPointerMessageFactoryVtbl]("Windows.Devices.Midi.MidiSongPositionPointerMessage")
+  let it = statics[IMidiSongPositionPointerMessageFactoryVtbl](className(MidiSongPositionPointerMessage))
   var ret: pointer
   check it.vtbl.CreateMidiSongPositionPointerMessage(it.raw, beats, ret.addr
                                                     ), "MidiSongPositionPointerMessage.new"
@@ -22840,7 +22840,7 @@ proc beats*(self: MidiSongPositionPointerMessage): uint16 =
 
 proc newMidiSongSelectMessage*(song: uint8): MidiSongSelectMessage =
   ## Windows.Devices.Midi.IMidiSongSelectMessageFactory.CreateMidiSongSelectMessage
-  let it = statics[IMidiSongSelectMessageFactoryVtbl]("Windows.Devices.Midi.MidiSongSelectMessage")
+  let it = statics[IMidiSongSelectMessageFactoryVtbl](className(MidiSongSelectMessage))
   var ret: pointer
   check it.vtbl.CreateMidiSongSelectMessage(it.raw, song, ret.addr
                                            ), "MidiSongSelectMessage.new"
@@ -22869,7 +22869,7 @@ proc newMidiStopMessage*(): MidiStopMessage =
 
 proc createAsync*(_: typedesc[MidiSynthesizer]): Future[MidiSynthesizer] =
   ## Windows.Devices.Midi.IMidiSynthesizerStatics.CreateAsync
-  let it = statics[IMidiSynthesizerStaticsVtbl]("Windows.Devices.Midi.MidiSynthesizer")
+  let it = statics[IMidiSynthesizerStaticsVtbl](className(MidiSynthesizer))
   var op: pointer
   check it.vtbl.CreateAsync(it.raw, op.addr), "MidiSynthesizer.createAsync"
   future[IAsyncOperationVtbl[MidiSynthesizer], MidiSynthesizer](op, "MidiSynthesizer.createAsync")
@@ -22877,7 +22877,7 @@ proc createAsync*(_: typedesc[MidiSynthesizer]): Future[MidiSynthesizer] =
 proc createAsync*(_: typedesc[MidiSynthesizer], audioDevice: DeviceInformation
                  ): Future[MidiSynthesizer] =
   ## Windows.Devices.Midi.IMidiSynthesizerStatics.CreateAsync
-  let it = statics[IMidiSynthesizerStaticsVtbl]("Windows.Devices.Midi.MidiSynthesizer")
+  let it = statics[IMidiSynthesizerStaticsVtbl](className(MidiSynthesizer))
   let a0 = queryInterface[IDeviceInformationVtbl](audioDevice)
   var op: pointer
   check it.vtbl.CreateAsync2(it.raw, a0.raw, op.addr
@@ -22887,7 +22887,7 @@ proc createAsync*(_: typedesc[MidiSynthesizer], audioDevice: DeviceInformation
 proc isSynthesizer*(_: typedesc[MidiSynthesizer], midiDevice: DeviceInformation
                    ): bool =
   ## Windows.Devices.Midi.IMidiSynthesizerStatics.IsSynthesizer
-  let it = statics[IMidiSynthesizerStaticsVtbl]("Windows.Devices.Midi.MidiSynthesizer")
+  let it = statics[IMidiSynthesizerStaticsVtbl](className(MidiSynthesizer))
   let a0 = queryInterface[IDeviceInformationVtbl](midiDevice)
   var ret: bool
   check it.vtbl.IsSynthesizer(it.raw, a0.raw, ret.addr
@@ -22917,7 +22917,7 @@ proc `volume=`*(self: MidiSynthesizer, value: float64) =
 
 proc newMidiSystemExclusiveMessage*(rawData: SomeBuffer): MidiSystemExclusiveMessage =
   ## Windows.Devices.Midi.IMidiSystemExclusiveMessageFactory.CreateMidiSystemExclusiveMessage
-  let it = statics[IMidiSystemExclusiveMessageFactoryVtbl]("Windows.Devices.Midi.MidiSystemExclusiveMessage")
+  let it = statics[IMidiSystemExclusiveMessageFactoryVtbl](className(MidiSystemExclusiveMessage))
   let a0 = queryInterface[IBufferVtbl](rawData)
   var ret: pointer
   check it.vtbl.CreateMidiSystemExclusiveMessage(it.raw, a0.raw, ret.addr
@@ -22935,7 +22935,7 @@ proc newMidiSystemResetMessage*(): MidiSystemResetMessage =
 proc newMidiTimeCodeMessage*(frameType: uint8, values: uint8
                             ): MidiTimeCodeMessage =
   ## Windows.Devices.Midi.IMidiTimeCodeMessageFactory.CreateMidiTimeCodeMessage
-  let it = statics[IMidiTimeCodeMessageFactoryVtbl]("Windows.Devices.Midi.MidiTimeCodeMessage")
+  let it = statics[IMidiTimeCodeMessageFactoryVtbl](className(MidiTimeCodeMessage))
   var ret: pointer
   check it.vtbl.CreateMidiTimeCodeMessage(it.raw, frameType, values, ret.addr
                                          ), "MidiTimeCodeMessage.new"
@@ -23017,7 +23017,7 @@ proc numberOfButtons*(self: MouseCapabilities): uint32 =
 
 proc getForCurrentView*(_: typedesc[MouseDevice]): MouseDevice =
   ## Windows.Devices.Input.IMouseDeviceStatics.GetForCurrentView
-  let it = statics[IMouseDeviceStaticsVtbl]("Windows.Devices.Input.MouseDevice")
+  let it = statics[IMouseDeviceStaticsVtbl](className(MouseDevice))
   var ret: pointer
   check it.vtbl.GetForCurrentView(it.raw, ret.addr
                                  ), "MouseDevice.getForCurrentView"
@@ -23085,7 +23085,7 @@ proc `backOnMode=`*(self: OnlookerDetectionOptions,
 proc getDefault*(_: typedesc[OrientationSensor],
                  sensorReadingtype: SensorReadingType): OrientationSensor =
   ## Windows.Devices.Sensors.IOrientationSensorStatics3.GetDefault
-  let it = statics[IOrientationSensorStatics3Vtbl]("Windows.Devices.Sensors.OrientationSensor")
+  let it = statics[IOrientationSensorStatics3Vtbl](className(OrientationSensor))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, sensorReadingtype, ret.addr
                           ), "OrientationSensor.getDefault"
@@ -23095,7 +23095,7 @@ proc getDefault*(_: typedesc[OrientationSensor],
                  sensorReadingType: SensorReadingType,
                  optimizationGoal: SensorOptimizationGoal): OrientationSensor =
   ## Windows.Devices.Sensors.IOrientationSensorStatics3.GetDefault
-  let it = statics[IOrientationSensorStatics3Vtbl]("Windows.Devices.Sensors.OrientationSensor")
+  let it = statics[IOrientationSensorStatics3Vtbl](className(OrientationSensor))
   var ret: pointer
   check it.vtbl.GetDefault2(it.raw, sensorReadingType, optimizationGoal,
                             ret.addr), "OrientationSensor.getDefault"
@@ -23103,7 +23103,7 @@ proc getDefault*(_: typedesc[OrientationSensor],
 
 proc getDefaultForRelativeReadings*(_: typedesc[OrientationSensor]): OrientationSensor =
   ## Windows.Devices.Sensors.IOrientationSensorStatics2.GetDefaultForRelativeReadings
-  let it = statics[IOrientationSensorStatics2Vtbl]("Windows.Devices.Sensors.OrientationSensor")
+  let it = statics[IOrientationSensorStatics2Vtbl](className(OrientationSensor))
   var ret: pointer
   check it.vtbl.GetDefaultForRelativeReadings(it.raw, ret.addr
                                              ), "OrientationSensor.getDefaultForRelativeReadings"
@@ -23111,7 +23111,7 @@ proc getDefaultForRelativeReadings*(_: typedesc[OrientationSensor]): Orientation
 
 proc getDefault*(_: typedesc[OrientationSensor]): OrientationSensor =
   ## Windows.Devices.Sensors.IOrientationSensorStatics.GetDefault
-  let it = statics[IOrientationSensorStaticsVtbl]("Windows.Devices.Sensors.OrientationSensor")
+  let it = statics[IOrientationSensorStaticsVtbl](className(OrientationSensor))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "OrientationSensor.getDefault"
   adopt[OrientationSensor](ret)
@@ -23119,7 +23119,7 @@ proc getDefault*(_: typedesc[OrientationSensor]): OrientationSensor =
 proc getDeviceSelector*(_: typedesc[OrientationSensor],
                         readingType: SensorReadingType): string =
   ## Windows.Devices.Sensors.IOrientationSensorStatics4.GetDeviceSelector
-  let it = statics[IOrientationSensorStatics4Vtbl]("Windows.Devices.Sensors.OrientationSensor")
+  let it = statics[IOrientationSensorStatics4Vtbl](className(OrientationSensor))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, readingType, ret.addr
                                  ), "OrientationSensor.getDeviceSelector"
@@ -23129,7 +23129,7 @@ proc getDeviceSelector*(_: typedesc[OrientationSensor],
                         readingType: SensorReadingType,
                         optimizationGoal: SensorOptimizationGoal): string =
   ## Windows.Devices.Sensors.IOrientationSensorStatics4.GetDeviceSelector
-  let it = statics[IOrientationSensorStatics4Vtbl]("Windows.Devices.Sensors.OrientationSensor")
+  let it = statics[IOrientationSensorStatics4Vtbl](className(OrientationSensor))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector2(it.raw, readingType, optimizationGoal,
                                    ret.addr
@@ -23139,7 +23139,7 @@ proc getDeviceSelector*(_: typedesc[OrientationSensor],
 proc fromIdAsync*(_: typedesc[OrientationSensor], deviceId: string
                  ): Future[OrientationSensor] =
   ## Windows.Devices.Sensors.IOrientationSensorStatics4.FromIdAsync
-  let it = statics[IOrientationSensorStatics4Vtbl]("Windows.Devices.Sensors.OrientationSensor")
+  let it = statics[IOrientationSensorStatics4Vtbl](className(OrientationSensor))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -23415,7 +23415,7 @@ proc submit*(self: PdlPassthroughTarget) =
 
 proc fromIdAsync*(_: typedesc[Pedometer], deviceId: string): Future[Pedometer] =
   ## Windows.Devices.Sensors.IPedometerStatics.FromIdAsync
-  let it = statics[IPedometerStaticsVtbl]("Windows.Devices.Sensors.Pedometer")
+  let it = statics[IPedometerStaticsVtbl](className(Pedometer))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr), "Pedometer.fromIdAsync"
@@ -23423,14 +23423,14 @@ proc fromIdAsync*(_: typedesc[Pedometer], deviceId: string): Future[Pedometer] =
 
 proc getDefaultAsync*(_: typedesc[Pedometer]): Future[Pedometer] =
   ## Windows.Devices.Sensors.IPedometerStatics.GetDefaultAsync
-  let it = statics[IPedometerStaticsVtbl]("Windows.Devices.Sensors.Pedometer")
+  let it = statics[IPedometerStaticsVtbl](className(Pedometer))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr), "Pedometer.getDefaultAsync"
   future[IAsyncOperationVtbl[Pedometer], Pedometer](op, "Pedometer.getDefaultAsync")
 
 proc getDeviceSelector*(_: typedesc[Pedometer]): string =
   ## Windows.Devices.Sensors.IPedometerStatics.GetDeviceSelector
-  let it = statics[IPedometerStaticsVtbl]("Windows.Devices.Sensors.Pedometer")
+  let it = statics[IPedometerStaticsVtbl](className(Pedometer))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "Pedometer.getDeviceSelector"
@@ -23439,7 +23439,7 @@ proc getDeviceSelector*(_: typedesc[Pedometer]): string =
 proc getSystemHistoryAsync*(_: typedesc[Pedometer], fromTime: DateTime
                            ): Future[seq[PedometerReading]] =
   ## Windows.Devices.Sensors.IPedometerStatics.GetSystemHistoryAsync
-  let it = statics[IPedometerStaticsVtbl]("Windows.Devices.Sensors.Pedometer")
+  let it = statics[IPedometerStaticsVtbl](className(Pedometer))
   var op: pointer
   check it.vtbl.GetSystemHistoryAsync(it.raw, fromTime, op.addr
                                      ), "Pedometer.getSystemHistoryAsync"
@@ -23449,7 +23449,7 @@ proc getSystemHistoryAsync*(_: typedesc[Pedometer], fromTime: DateTime
 proc getSystemHistoryAsync*(_: typedesc[Pedometer], fromTime: DateTime,
                             duration: TimeSpan): Future[seq[PedometerReading]] =
   ## Windows.Devices.Sensors.IPedometerStatics.GetSystemHistoryAsync
-  let it = statics[IPedometerStaticsVtbl]("Windows.Devices.Sensors.Pedometer")
+  let it = statics[IPedometerStaticsVtbl](className(Pedometer))
   var op: pointer
   check it.vtbl.GetSystemHistoryAsync2(it.raw, fromTime, duration, op.addr
                                       ), "Pedometer.getSystemHistoryAsync"
@@ -23460,7 +23460,7 @@ proc getReadingsFromTriggerDetails*(_: typedesc[Pedometer],
                                     triggerDetails: SensorDataThresholdTriggerDetails
                                    ): seq[PedometerReading] =
   ## Windows.Devices.Sensors.IPedometerStatics2.GetReadingsFromTriggerDetails
-  let it = statics[IPedometerStatics2Vtbl]("Windows.Devices.Sensors.Pedometer")
+  let it = statics[IPedometerStatics2Vtbl](className(Pedometer))
   let a0 = queryInterface[ISensorDataThresholdTriggerDetailsVtbl](triggerDetails)
   var ret: pointer
   check it.vtbl.GetReadingsFromTriggerDetails(it.raw, a0.raw, ret.addr
@@ -23533,7 +23533,7 @@ proc getCurrentReadings*(self: Pedometer): Table[PedometerStepKind, PedometerRea
 proc newPedometerDataThreshold*(sensor: Pedometer, stepGoal: int32
                                ): PedometerDataThreshold =
   ## Windows.Devices.Sensors.IPedometerDataThresholdFactory.Create
-  let it = statics[IPedometerDataThresholdFactoryVtbl]("Windows.Devices.Sensors.PedometerDataThreshold")
+  let it = statics[IPedometerDataThresholdFactoryVtbl](className(PedometerDataThreshold))
   let a0 = queryInterface[IPedometerVtbl](sensor)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, stepGoal, ret.addr
@@ -23586,7 +23586,7 @@ proc reading*(self: PedometerReadingChangedEventArgs): PedometerReading =
 
 proc getDefault*(_: typedesc[PenButtonListener]): PenButtonListener =
   ## Windows.Devices.Input.IPenButtonListenerStatics.GetDefault
-  let it = statics[IPenButtonListenerStaticsVtbl]("Windows.Devices.Input.PenButtonListener")
+  let it = statics[IPenButtonListenerStaticsVtbl](className(PenButtonListener))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "PenButtonListener.getDefault"
   adopt[PenButtonListener](ret)
@@ -23685,7 +23685,7 @@ proc removeTailButtonLongPressed*(self: PenButtonListener,
 
 proc getFromPointerId*(_: typedesc[PenDevice], pointerId: uint32): PenDevice =
   ## Windows.Devices.Input.IPenDeviceStatics.GetFromPointerId
-  let it = statics[IPenDeviceStaticsVtbl]("Windows.Devices.Input.PenDevice")
+  let it = statics[IPenDeviceStaticsVtbl](className(PenDevice))
   var ret: pointer
   check it.vtbl.GetFromPointerId(it.raw, pointerId, ret.addr
                                 ), "PenDevice.getFromPointerId"
@@ -23710,7 +23710,7 @@ proc simpleHapticsController*(self: PenDevice): SimpleHapticsController =
 
 proc getDefault*(_: typedesc[PenDockListener]): PenDockListener =
   ## Windows.Devices.Input.IPenDockListenerStatics.GetDefault
-  let it = statics[IPenDockListenerStaticsVtbl]("Windows.Devices.Input.PenDockListener")
+  let it = statics[IPenDockListenerStaticsVtbl](className(PenDockListener))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "PenDockListener.getDefault"
   adopt[PenDockListener](ret)
@@ -23863,7 +23863,7 @@ proc tryReadLatestFrame*(self: PerceptionColorFrameReader): PerceptionColorFrame
 
 proc createWatcher*(_: typedesc[PerceptionColorFrameSource]): PerceptionColorFrameSourceWatcher =
   ## Windows.Devices.Perception.IPerceptionColorFrameSourceStatics.CreateWatcher
-  let it = statics[IPerceptionColorFrameSourceStaticsVtbl]("Windows.Devices.Perception.PerceptionColorFrameSource")
+  let it = statics[IPerceptionColorFrameSourceStaticsVtbl](className(PerceptionColorFrameSource))
   var ret: pointer
   check it.vtbl.CreateWatcher(it.raw, ret.addr
                              ), "PerceptionColorFrameSource.createWatcher"
@@ -23871,7 +23871,7 @@ proc createWatcher*(_: typedesc[PerceptionColorFrameSource]): PerceptionColorFra
 
 proc findAllAsync*(_: typedesc[PerceptionColorFrameSource]): Future[seq[PerceptionColorFrameSource]] =
   ## Windows.Devices.Perception.IPerceptionColorFrameSourceStatics.FindAllAsync
-  let it = statics[IPerceptionColorFrameSourceStaticsVtbl]("Windows.Devices.Perception.PerceptionColorFrameSource")
+  let it = statics[IPerceptionColorFrameSourceStaticsVtbl](className(PerceptionColorFrameSource))
   var op: pointer
   check it.vtbl.FindAllAsync(it.raw, op.addr
                             ), "PerceptionColorFrameSource.findAllAsync"
@@ -23881,7 +23881,7 @@ proc findAllAsync*(_: typedesc[PerceptionColorFrameSource]): Future[seq[Percepti
 proc fromIdAsync*(_: typedesc[PerceptionColorFrameSource], id: string
                  ): Future[PerceptionColorFrameSource] =
   ## Windows.Devices.Perception.IPerceptionColorFrameSourceStatics.FromIdAsync
-  let it = statics[IPerceptionColorFrameSourceStaticsVtbl]("Windows.Devices.Perception.PerceptionColorFrameSource")
+  let it = statics[IPerceptionColorFrameSourceStaticsVtbl](className(PerceptionColorFrameSource))
   let a0 = toWinRtString(id)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -23891,7 +23891,7 @@ proc fromIdAsync*(_: typedesc[PerceptionColorFrameSource], id: string
 
 proc requestAccessAsync*(_: typedesc[PerceptionColorFrameSource]): Future[PerceptionFrameSourceAccessStatus] =
   ## Windows.Devices.Perception.IPerceptionColorFrameSourceStatics.RequestAccessAsync
-  let it = statics[IPerceptionColorFrameSourceStaticsVtbl]("Windows.Devices.Perception.PerceptionColorFrameSource")
+  let it = statics[IPerceptionColorFrameSourceStaticsVtbl](className(PerceptionColorFrameSource))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "PerceptionColorFrameSource.requestAccessAsync"
@@ -24311,7 +24311,7 @@ proc stop*(self: PerceptionColorFrameSourceWatcher) =
 
 proc newPerceptionControlGroup*(ids: seq[string]): PerceptionControlGroup =
   ## Windows.Devices.Perception.Provider.IPerceptionControlGroupFactory.Create
-  let it = statics[IPerceptionControlGroupFactoryVtbl]("Windows.Devices.Perception.Provider.PerceptionControlGroup")
+  let it = statics[IPerceptionControlGroupFactoryVtbl](className(PerceptionControlGroup))
   let a0 = asCollection[string, seq[string]](ids)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "PerceptionControlGroup.new"
@@ -24364,7 +24364,7 @@ proc trySetPropertyAsync*(self: PerceptionControlSession, name: string,
 proc newPerceptionCorrelation*(targetId: string, position: Vector3,
                                orientation: Quaternion): PerceptionCorrelation =
   ## Windows.Devices.Perception.Provider.IPerceptionCorrelationFactory.Create
-  let it = statics[IPerceptionCorrelationFactoryVtbl]("Windows.Devices.Perception.Provider.PerceptionCorrelation")
+  let it = statics[IPerceptionCorrelationFactoryVtbl](className(PerceptionCorrelation))
   let a0 = toWinRtString(targetId)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, position, orientation, ret.addr
@@ -24397,7 +24397,7 @@ proc orientation*(self: PerceptionCorrelation): Quaternion =
 
 proc newPerceptionCorrelationGroup*(relativeLocations: seq[PerceptionCorrelation]): PerceptionCorrelationGroup =
   ## Windows.Devices.Perception.Provider.IPerceptionCorrelationGroupFactory.Create
-  let it = statics[IPerceptionCorrelationGroupFactoryVtbl]("Windows.Devices.Perception.Provider.PerceptionCorrelationGroup")
+  let it = statics[IPerceptionCorrelationGroupFactoryVtbl](className(PerceptionCorrelationGroup))
   let a0 = asCollection[PerceptionCorrelation, seq[PerceptionCorrelation]](relativeLocations)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -24611,7 +24611,7 @@ proc tryReadLatestFrame*(self: PerceptionDepthFrameReader): PerceptionDepthFrame
 
 proc createWatcher*(_: typedesc[PerceptionDepthFrameSource]): PerceptionDepthFrameSourceWatcher =
   ## Windows.Devices.Perception.IPerceptionDepthFrameSourceStatics.CreateWatcher
-  let it = statics[IPerceptionDepthFrameSourceStaticsVtbl]("Windows.Devices.Perception.PerceptionDepthFrameSource")
+  let it = statics[IPerceptionDepthFrameSourceStaticsVtbl](className(PerceptionDepthFrameSource))
   var ret: pointer
   check it.vtbl.CreateWatcher(it.raw, ret.addr
                              ), "PerceptionDepthFrameSource.createWatcher"
@@ -24619,7 +24619,7 @@ proc createWatcher*(_: typedesc[PerceptionDepthFrameSource]): PerceptionDepthFra
 
 proc findAllAsync*(_: typedesc[PerceptionDepthFrameSource]): Future[seq[PerceptionDepthFrameSource]] =
   ## Windows.Devices.Perception.IPerceptionDepthFrameSourceStatics.FindAllAsync
-  let it = statics[IPerceptionDepthFrameSourceStaticsVtbl]("Windows.Devices.Perception.PerceptionDepthFrameSource")
+  let it = statics[IPerceptionDepthFrameSourceStaticsVtbl](className(PerceptionDepthFrameSource))
   var op: pointer
   check it.vtbl.FindAllAsync(it.raw, op.addr
                             ), "PerceptionDepthFrameSource.findAllAsync"
@@ -24629,7 +24629,7 @@ proc findAllAsync*(_: typedesc[PerceptionDepthFrameSource]): Future[seq[Percepti
 proc fromIdAsync*(_: typedesc[PerceptionDepthFrameSource], id: string
                  ): Future[PerceptionDepthFrameSource] =
   ## Windows.Devices.Perception.IPerceptionDepthFrameSourceStatics.FromIdAsync
-  let it = statics[IPerceptionDepthFrameSourceStaticsVtbl]("Windows.Devices.Perception.PerceptionDepthFrameSource")
+  let it = statics[IPerceptionDepthFrameSourceStaticsVtbl](className(PerceptionDepthFrameSource))
   let a0 = toWinRtString(id)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -24639,7 +24639,7 @@ proc fromIdAsync*(_: typedesc[PerceptionDepthFrameSource], id: string
 
 proc requestAccessAsync*(_: typedesc[PerceptionDepthFrameSource]): Future[PerceptionFrameSourceAccessStatus] =
   ## Windows.Devices.Perception.IPerceptionDepthFrameSourceStatics.RequestAccessAsync
-  let it = statics[IPerceptionDepthFrameSourceStaticsVtbl]("Windows.Devices.Perception.PerceptionDepthFrameSource")
+  let it = statics[IPerceptionDepthFrameSourceStaticsVtbl](className(PerceptionDepthFrameSource))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "PerceptionDepthFrameSource.requestAccessAsync"
@@ -25062,7 +25062,7 @@ proc newPerceptionFaceAuthenticationGroup*(ids: seq[string],
                                            stopHandler: proc(sender: PerceptionFaceAuthenticationGroup)
                                           ): PerceptionFaceAuthenticationGroup =
   ## Windows.Devices.Perception.Provider.IPerceptionFaceAuthenticationGroupFactory.Create
-  let it = statics[IPerceptionFaceAuthenticationGroupFactoryVtbl]("Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup")
+  let it = statics[IPerceptionFaceAuthenticationGroupFactoryVtbl](className(PerceptionFaceAuthenticationGroup))
   let a0 = asCollection[string, seq[string]](ids)
   proc shim1(a0: pointer) =
     startHandler(borrow[PerceptionFaceAuthenticationGroup](a0))
@@ -25196,7 +25196,7 @@ proc registerFrameProviderInfo*(_: typedesc[PerceptionFrameProviderManagerServic
                                 frameProviderInfo: PerceptionFrameProviderInfo
                                ) =
   ## Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics.RegisterFrameProviderInfo
-  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl]("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService")
+  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl](className(PerceptionFrameProviderManagerService))
   let a0 = queryInterface[IPerceptionFrameProviderManagerVtbl](manager)
   let a1 = queryInterface[IPerceptionFrameProviderInfoVtbl](frameProviderInfo)
   check it.vtbl.RegisterFrameProviderInfo(it.raw, a0.raw, a1.raw
@@ -25207,7 +25207,7 @@ proc unregisterFrameProviderInfo*(_: typedesc[PerceptionFrameProviderManagerServ
                                   frameProviderInfo: PerceptionFrameProviderInfo
                                  ) =
   ## Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics.UnregisterFrameProviderInfo
-  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl]("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService")
+  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl](className(PerceptionFrameProviderManagerService))
   let a0 = queryInterface[IPerceptionFrameProviderManagerVtbl](manager)
   let a1 = queryInterface[IPerceptionFrameProviderInfoVtbl](frameProviderInfo)
   check it.vtbl.UnregisterFrameProviderInfo(it.raw, a0.raw, a1.raw
@@ -25218,7 +25218,7 @@ proc registerFaceAuthenticationGroup*(_: typedesc[PerceptionFrameProviderManager
                                       faceAuthenticationGroup: PerceptionFaceAuthenticationGroup
                                      ) =
   ## Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics.RegisterFaceAuthenticationGroup
-  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl]("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService")
+  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl](className(PerceptionFrameProviderManagerService))
   let a0 = queryInterface[IPerceptionFrameProviderManagerVtbl](manager)
   let a1 = queryInterface[IPerceptionFaceAuthenticationGroupVtbl](faceAuthenticationGroup)
   check it.vtbl.RegisterFaceAuthenticationGroup(it.raw, a0.raw, a1.raw
@@ -25229,7 +25229,7 @@ proc unregisterFaceAuthenticationGroup*(_: typedesc[PerceptionFrameProviderManag
                                         faceAuthenticationGroup: PerceptionFaceAuthenticationGroup
                                        ) =
   ## Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics.UnregisterFaceAuthenticationGroup
-  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl]("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService")
+  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl](className(PerceptionFrameProviderManagerService))
   let a0 = queryInterface[IPerceptionFrameProviderManagerVtbl](manager)
   let a1 = queryInterface[IPerceptionFaceAuthenticationGroupVtbl](faceAuthenticationGroup)
   check it.vtbl.UnregisterFaceAuthenticationGroup(it.raw, a0.raw, a1.raw
@@ -25239,7 +25239,7 @@ proc registerControlGroup*(_: typedesc[PerceptionFrameProviderManagerService],
                            manager: SomePerceptionFrameProviderManager,
                            controlGroup: PerceptionControlGroup) =
   ## Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics.RegisterControlGroup
-  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl]("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService")
+  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl](className(PerceptionFrameProviderManagerService))
   let a0 = queryInterface[IPerceptionFrameProviderManagerVtbl](manager)
   let a1 = queryInterface[IPerceptionControlGroupVtbl](controlGroup)
   check it.vtbl.RegisterControlGroup(it.raw, a0.raw, a1.raw
@@ -25249,7 +25249,7 @@ proc unregisterControlGroup*(_: typedesc[PerceptionFrameProviderManagerService],
                              manager: SomePerceptionFrameProviderManager,
                              controlGroup: PerceptionControlGroup) =
   ## Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics.UnregisterControlGroup
-  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl]("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService")
+  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl](className(PerceptionFrameProviderManagerService))
   let a0 = queryInterface[IPerceptionFrameProviderManagerVtbl](manager)
   let a1 = queryInterface[IPerceptionControlGroupVtbl](controlGroup)
   check it.vtbl.UnregisterControlGroup(it.raw, a0.raw, a1.raw
@@ -25259,7 +25259,7 @@ proc registerCorrelationGroup*(_: typedesc[PerceptionFrameProviderManagerService
                                manager: SomePerceptionFrameProviderManager,
                                correlationGroup: PerceptionCorrelationGroup) =
   ## Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics.RegisterCorrelationGroup
-  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl]("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService")
+  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl](className(PerceptionFrameProviderManagerService))
   let a0 = queryInterface[IPerceptionFrameProviderManagerVtbl](manager)
   let a1 = queryInterface[IPerceptionCorrelationGroupVtbl](correlationGroup)
   check it.vtbl.RegisterCorrelationGroup(it.raw, a0.raw, a1.raw
@@ -25269,7 +25269,7 @@ proc unregisterCorrelationGroup*(_: typedesc[PerceptionFrameProviderManagerServi
                                  manager: SomePerceptionFrameProviderManager,
                                  correlationGroup: PerceptionCorrelationGroup) =
   ## Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics.UnregisterCorrelationGroup
-  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl]("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService")
+  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl](className(PerceptionFrameProviderManagerService))
   let a0 = queryInterface[IPerceptionFrameProviderManagerVtbl](manager)
   let a1 = queryInterface[IPerceptionCorrelationGroupVtbl](correlationGroup)
   check it.vtbl.UnregisterCorrelationGroup(it.raw, a0.raw, a1.raw
@@ -25279,7 +25279,7 @@ proc updateAvailabilityForProvider*(_: typedesc[PerceptionFrameProviderManagerSe
                                     provider: SomePerceptionFrameProvider,
                                     available: bool) =
   ## Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics.UpdateAvailabilityForProvider
-  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl]("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService")
+  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl](className(PerceptionFrameProviderManagerService))
   let a0 = queryInterface[IPerceptionFrameProviderVtbl](provider)
   check it.vtbl.UpdateAvailabilityForProvider(it.raw, a0.raw, available
                                              ), "PerceptionFrameProviderManagerService.updateAvailabilityForProvider"
@@ -25288,7 +25288,7 @@ proc publishFrameForProvider*(_: typedesc[PerceptionFrameProviderManagerService]
                               provider: SomePerceptionFrameProvider,
                               frame: PerceptionFrame) =
   ## Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics.PublishFrameForProvider
-  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl]("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService")
+  let it = statics[IPerceptionFrameProviderManagerServiceStaticsVtbl](className(PerceptionFrameProviderManagerService))
   let a0 = queryInterface[IPerceptionFrameProviderVtbl](provider)
   let a1 = queryInterface[IPerceptionFrameVtbl](frame)
   check it.vtbl.PublishFrameForProvider(it.raw, a0.raw, a1.raw
@@ -25415,7 +25415,7 @@ proc tryReadLatestFrame*(self: PerceptionInfraredFrameReader): PerceptionInfrare
 
 proc createWatcher*(_: typedesc[PerceptionInfraredFrameSource]): PerceptionInfraredFrameSourceWatcher =
   ## Windows.Devices.Perception.IPerceptionInfraredFrameSourceStatics.CreateWatcher
-  let it = statics[IPerceptionInfraredFrameSourceStaticsVtbl]("Windows.Devices.Perception.PerceptionInfraredFrameSource")
+  let it = statics[IPerceptionInfraredFrameSourceStaticsVtbl](className(PerceptionInfraredFrameSource))
   var ret: pointer
   check it.vtbl.CreateWatcher(it.raw, ret.addr
                              ), "PerceptionInfraredFrameSource.createWatcher"
@@ -25423,7 +25423,7 @@ proc createWatcher*(_: typedesc[PerceptionInfraredFrameSource]): PerceptionInfra
 
 proc findAllAsync*(_: typedesc[PerceptionInfraredFrameSource]): Future[seq[PerceptionInfraredFrameSource]] =
   ## Windows.Devices.Perception.IPerceptionInfraredFrameSourceStatics.FindAllAsync
-  let it = statics[IPerceptionInfraredFrameSourceStaticsVtbl]("Windows.Devices.Perception.PerceptionInfraredFrameSource")
+  let it = statics[IPerceptionInfraredFrameSourceStaticsVtbl](className(PerceptionInfraredFrameSource))
   var op: pointer
   check it.vtbl.FindAllAsync(it.raw, op.addr
                             ), "PerceptionInfraredFrameSource.findAllAsync"
@@ -25433,7 +25433,7 @@ proc findAllAsync*(_: typedesc[PerceptionInfraredFrameSource]): Future[seq[Perce
 proc fromIdAsync*(_: typedesc[PerceptionInfraredFrameSource], id: string
                  ): Future[PerceptionInfraredFrameSource] =
   ## Windows.Devices.Perception.IPerceptionInfraredFrameSourceStatics.FromIdAsync
-  let it = statics[IPerceptionInfraredFrameSourceStaticsVtbl]("Windows.Devices.Perception.PerceptionInfraredFrameSource")
+  let it = statics[IPerceptionInfraredFrameSourceStaticsVtbl](className(PerceptionInfraredFrameSource))
   let a0 = toWinRtString(id)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -25443,7 +25443,7 @@ proc fromIdAsync*(_: typedesc[PerceptionInfraredFrameSource], id: string
 
 proc requestAccessAsync*(_: typedesc[PerceptionInfraredFrameSource]): Future[PerceptionFrameSourceAccessStatus] =
   ## Windows.Devices.Perception.IPerceptionInfraredFrameSourceStatics.RequestAccessAsync
-  let it = statics[IPerceptionInfraredFrameSourceStaticsVtbl]("Windows.Devices.Perception.PerceptionInfraredFrameSource")
+  let it = statics[IPerceptionInfraredFrameSourceStaticsVtbl](className(PerceptionInfraredFrameSource))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "PerceptionInfraredFrameSource.requestAccessAsync"
@@ -25907,7 +25907,7 @@ proc newPerceptionVideoFrameAllocator*(maxOutstandingFrameCountForWrite: uint32,
                                        resolution: Size, alpha: BitmapAlphaMode
                                       ): PerceptionVideoFrameAllocator =
   ## Windows.Devices.Perception.Provider.IPerceptionVideoFrameAllocatorFactory.Create
-  let it = statics[IPerceptionVideoFrameAllocatorFactoryVtbl]("Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator")
+  let it = statics[IPerceptionVideoFrameAllocatorFactoryVtbl](className(PerceptionVideoFrameAllocator))
   var ret: pointer
   check it.vtbl.Create(it.raw, maxOutstandingFrameCountForWrite, format,
                        resolution, alpha, ret.addr
@@ -25997,7 +25997,7 @@ proc createFromIdAsync*(_: typedesc[PnpObject], `type`: PnpObjectType,
                         id: string, requestedProperties: seq[string]
                        ): Future[PnpObject] =
   ## Windows.Devices.Enumeration.Pnp.IPnpObjectStatics.CreateFromIdAsync
-  let it = statics[IPnpObjectStaticsVtbl]("Windows.Devices.Enumeration.Pnp.PnpObject")
+  let it = statics[IPnpObjectStaticsVtbl](className(PnpObject))
   let a1 = toWinRtString(id)
   let a2 = asCollection[string, seq[string]](requestedProperties)
   var op: pointer
@@ -26009,7 +26009,7 @@ proc findAllAsync*(_: typedesc[PnpObject], `type`: PnpObjectType,
                    requestedProperties: seq[string]
                   ): Future[PnpObjectCollection] =
   ## Windows.Devices.Enumeration.Pnp.IPnpObjectStatics.FindAllAsync
-  let it = statics[IPnpObjectStaticsVtbl]("Windows.Devices.Enumeration.Pnp.PnpObject")
+  let it = statics[IPnpObjectStaticsVtbl](className(PnpObject))
   let a1 = asCollection[string, seq[string]](requestedProperties)
   var op: pointer
   check it.vtbl.FindAllAsync(it.raw, `type`, a1.raw, op.addr
@@ -26020,7 +26020,7 @@ proc findAllAsync*(_: typedesc[PnpObject], `type`: PnpObjectType,
                    requestedProperties: seq[string], aqsFilter: string
                   ): Future[PnpObjectCollection] =
   ## Windows.Devices.Enumeration.Pnp.IPnpObjectStatics.FindAllAsync
-  let it = statics[IPnpObjectStaticsVtbl]("Windows.Devices.Enumeration.Pnp.PnpObject")
+  let it = statics[IPnpObjectStaticsVtbl](className(PnpObject))
   let a1 = asCollection[string, seq[string]](requestedProperties)
   let a2 = toWinRtString(aqsFilter)
   var op: pointer
@@ -26031,7 +26031,7 @@ proc findAllAsync*(_: typedesc[PnpObject], `type`: PnpObjectType,
 proc createWatcher*(_: typedesc[PnpObject], `type`: PnpObjectType,
                     requestedProperties: seq[string]): PnpObjectWatcher =
   ## Windows.Devices.Enumeration.Pnp.IPnpObjectStatics.CreateWatcher
-  let it = statics[IPnpObjectStaticsVtbl]("Windows.Devices.Enumeration.Pnp.PnpObject")
+  let it = statics[IPnpObjectStaticsVtbl](className(PnpObject))
   let a1 = asCollection[string, seq[string]](requestedProperties)
   var ret: pointer
   check it.vtbl.CreateWatcher(it.raw, `type`, a1.raw, ret.addr
@@ -26042,7 +26042,7 @@ proc createWatcher*(_: typedesc[PnpObject], `type`: PnpObjectType,
                     requestedProperties: seq[string], aqsFilter: string
                    ): PnpObjectWatcher =
   ## Windows.Devices.Enumeration.Pnp.IPnpObjectStatics.CreateWatcher
-  let it = statics[IPnpObjectStaticsVtbl]("Windows.Devices.Enumeration.Pnp.PnpObject")
+  let it = statics[IPnpObjectStaticsVtbl](className(PnpObject))
   let a1 = asCollection[string, seq[string]](requestedProperties)
   let a2 = toWinRtString(aqsFilter)
   var ret: pointer
@@ -26215,7 +26215,7 @@ proc stop*(self: PnpObjectWatcher) =
 proc getPointerDevice*(_: typedesc[PointerDevice], pointerId: uint32
                       ): PointerDevice =
   ## Windows.Devices.Input.IPointerDeviceStatics.GetPointerDevice
-  let it = statics[IPointerDeviceStaticsVtbl]("Windows.Devices.Input.PointerDevice")
+  let it = statics[IPointerDeviceStaticsVtbl](className(PointerDevice))
   var ret: pointer
   check it.vtbl.GetPointerDevice(it.raw, pointerId, ret.addr
                                 ), "PointerDevice.getPointerDevice"
@@ -26223,7 +26223,7 @@ proc getPointerDevice*(_: typedesc[PointerDevice], pointerId: uint32
 
 proc getPointerDevices*(_: typedesc[PointerDevice]): seq[PointerDevice] =
   ## Windows.Devices.Input.IPointerDeviceStatics.GetPointerDevices
-  let it = statics[IPointerDeviceStaticsVtbl]("Windows.Devices.Input.PointerDevice")
+  let it = statics[IPointerDeviceStaticsVtbl](className(PointerDevice))
   var ret: pointer
   check it.vtbl.GetPointerDevices(it.raw, ret.addr
                                  ), "PointerDevice.getPointerDevices"
@@ -26287,7 +26287,7 @@ proc maxPointersWithZDistance*(self: PointerDevice): uint32 =
 proc getDeviceSelector*(_: typedesc[PosPrinter],
                         connectionTypes: PosConnectionTypes): string =
   ## Windows.Devices.PointOfService.IPosPrinterStatics2.GetDeviceSelector
-  let it = statics[IPosPrinterStatics2Vtbl]("Windows.Devices.PointOfService.PosPrinter")
+  let it = statics[IPosPrinterStatics2Vtbl](className(PosPrinter))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, connectionTypes, ret.addr
                                  ), "PosPrinter.getDeviceSelector"
@@ -26295,7 +26295,7 @@ proc getDeviceSelector*(_: typedesc[PosPrinter],
 
 proc getDefaultAsync*(_: typedesc[PosPrinter]): Future[PosPrinter] =
   ## Windows.Devices.PointOfService.IPosPrinterStatics.GetDefaultAsync
-  let it = statics[IPosPrinterStaticsVtbl]("Windows.Devices.PointOfService.PosPrinter")
+  let it = statics[IPosPrinterStaticsVtbl](className(PosPrinter))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr), "PosPrinter.getDefaultAsync"
   future[IAsyncOperationVtbl[PosPrinter], PosPrinter](op, "PosPrinter.getDefaultAsync")
@@ -26303,7 +26303,7 @@ proc getDefaultAsync*(_: typedesc[PosPrinter]): Future[PosPrinter] =
 proc fromIdAsync*(_: typedesc[PosPrinter], deviceId: string
                  ): Future[PosPrinter] =
   ## Windows.Devices.PointOfService.IPosPrinterStatics.FromIdAsync
-  let it = statics[IPosPrinterStaticsVtbl]("Windows.Devices.PointOfService.PosPrinter")
+  let it = statics[IPosPrinterStaticsVtbl](className(PosPrinter))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -26312,7 +26312,7 @@ proc fromIdAsync*(_: typedesc[PosPrinter], deviceId: string
 
 proc getDeviceSelector*(_: typedesc[PosPrinter]): string =
   ## Windows.Devices.PointOfService.IPosPrinterStatics.GetDeviceSelector
-  let it = statics[IPosPrinterStaticsVtbl]("Windows.Devices.PointOfService.PosPrinter")
+  let it = statics[IPosPrinterStaticsVtbl](className(PosPrinter))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "PosPrinter.getDeviceSelector"
@@ -26502,7 +26502,7 @@ proc journal*(self: PosPrinterCapabilities): JournalPrinterCapabilities =
 
 proc utf16LE*(_: typedesc[PosPrinterCharacterSetIds]): uint32 =
   ## Windows.Devices.PointOfService.IPosPrinterCharacterSetIdsStatics.get_Utf16LE
-  let it = statics[IPosPrinterCharacterSetIdsStaticsVtbl]("Windows.Devices.PointOfService.PosPrinterCharacterSetIds")
+  let it = statics[IPosPrinterCharacterSetIdsStaticsVtbl](className(PosPrinterCharacterSetIds))
   var ret: uint32
   check it.vtbl.get_Utf16LE(it.raw, ret.addr
                            ), "PosPrinterCharacterSetIds.utf16LE"
@@ -26510,14 +26510,14 @@ proc utf16LE*(_: typedesc[PosPrinterCharacterSetIds]): uint32 =
 
 proc ascii*(_: typedesc[PosPrinterCharacterSetIds]): uint32 =
   ## Windows.Devices.PointOfService.IPosPrinterCharacterSetIdsStatics.get_Ascii
-  let it = statics[IPosPrinterCharacterSetIdsStaticsVtbl]("Windows.Devices.PointOfService.PosPrinterCharacterSetIds")
+  let it = statics[IPosPrinterCharacterSetIdsStaticsVtbl](className(PosPrinterCharacterSetIds))
   var ret: uint32
   check it.vtbl.get_Ascii(it.raw, ret.addr), "PosPrinterCharacterSetIds.ascii"
   ret
 
 proc ansi*(_: typedesc[PosPrinterCharacterSetIds]): uint32 =
   ## Windows.Devices.PointOfService.IPosPrinterCharacterSetIdsStatics.get_Ansi
-  let it = statics[IPosPrinterCharacterSetIdsStaticsVtbl]("Windows.Devices.PointOfService.PosPrinterCharacterSetIds")
+  let it = statics[IPosPrinterCharacterSetIdsStaticsVtbl](className(PosPrinterCharacterSetIds))
   var ret: uint32
   check it.vtbl.get_Ansi(it.raw, ret.addr), "PosPrinterCharacterSetIds.ansi"
   ret
@@ -26788,7 +26788,7 @@ proc isLowUserExperienceImpact*(self: PowerGridData): bool =
 
 proc getForecast*(_: typedesc[PowerGridForecast]): PowerGridForecast =
   ## Windows.Devices.Power.IPowerGridForecastStatics.GetForecast
-  let it = statics[IPowerGridForecastStaticsVtbl]("Windows.Devices.Power.PowerGridForecast")
+  let it = statics[IPowerGridForecastStaticsVtbl](className(PowerGridForecast))
   var ret: pointer
   check it.vtbl.GetForecast(it.raw, ret.addr), "PowerGridForecast.getForecast"
   adopt[PowerGridForecast](ret)
@@ -26798,7 +26798,7 @@ proc onForecastUpdated*(_: typedesc[PowerGridForecast],
                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Power.IPowerGridForecastStatics.add_ForecastUpdated
   ## The token is what `removeForecastUpdated` takes.
-  let it = statics[IPowerGridForecastStaticsVtbl]("Windows.Devices.Power.PowerGridForecast")
+  let it = statics[IPowerGridForecastStaticsVtbl](className(PowerGridForecast))
   proc shim(a0: pointer, a1: pointer) =
     handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
   let cb = newDelegate(EventHandlerVtbl[WinRtObject], shim, event = true)
@@ -26808,7 +26808,7 @@ proc onForecastUpdated*(_: typedesc[PowerGridForecast],
 proc removeForecastUpdated*(_: typedesc[PowerGridForecast],
                             token: EventRegistrationToken) =
   ## Windows.Devices.Power.IPowerGridForecastStatics.remove_ForecastUpdated
-  let it = statics[IPowerGridForecastStaticsVtbl]("Windows.Devices.Power.PowerGridForecast")
+  let it = statics[IPowerGridForecastStaticsVtbl](className(PowerGridForecast))
   check it.vtbl.remove_ForecastUpdated(it.raw, token
                                       ), "PowerGridForecast.forecastUpdated"
 
@@ -26839,7 +26839,7 @@ proc forecast*(self: PowerGridForecast): seq[PowerGridData] =
 proc fromIdAsync*(_: typedesc[Print3DDevice], deviceId: string
                  ): Future[Print3DDevice] =
   ## Windows.Devices.Printers.IPrint3DDeviceStatics.FromIdAsync
-  let it = statics[IPrint3DDeviceStaticsVtbl]("Windows.Devices.Printers.Print3DDevice")
+  let it = statics[IPrint3DDeviceStaticsVtbl](className(Print3DDevice))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -26848,7 +26848,7 @@ proc fromIdAsync*(_: typedesc[Print3DDevice], deviceId: string
 
 proc getDeviceSelector*(_: typedesc[Print3DDevice]): string =
   ## Windows.Devices.Printers.IPrint3DDeviceStatics.GetDeviceSelector
-  let it = statics[IPrint3DDeviceStaticsVtbl]("Windows.Devices.Printers.Print3DDevice")
+  let it = statics[IPrint3DDeviceStaticsVtbl](className(Print3DDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "Print3DDevice.getDeviceSelector"
@@ -26979,7 +26979,7 @@ proc newDeviceId*(self: Print3DWorkflowPrinterChangedEventArgs): string =
 proc fromDeviceId*(_: typedesc[PrintExtensionContext], deviceId: string
                   ): WinRtObject =
   ## Windows.Devices.Printers.Extensions.IPrintExtensionContextStatic.FromDeviceId
-  let it = statics[IPrintExtensionContextStaticVtbl]("Windows.Devices.Printers.Extensions.PrintExtensionContext")
+  let it = statics[IPrintExtensionContextStaticVtbl](className(PrintExtensionContext))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.FromDeviceId(it.raw, a0.handle, ret.addr
@@ -27175,7 +27175,7 @@ proc `sharingMode=`*(self: ProviderI2cConnectionSettings,
 
 proc newProviderSpiConnectionSettings*(chipSelectLine: int32): ProviderSpiConnectionSettings =
   ## Windows.Devices.Spi.Provider.IProviderSpiConnectionSettingsFactory.Create
-  let it = statics[IProviderSpiConnectionSettingsFactoryVtbl]("Windows.Devices.Spi.Provider.ProviderSpiConnectionSettings")
+  let it = statics[IProviderSpiConnectionSettingsFactoryVtbl](className(ProviderSpiConnectionSettings))
   var ret: pointer
   check it.vtbl.Create(it.raw, chipSelectLine, ret.addr
                       ), "ProviderSpiConnectionSettings.new"
@@ -27254,7 +27254,7 @@ proc `sharingMode=`*(self: ProviderSpiConnectionSettings,
 
 proc getDeviceSelector*(_: typedesc[ProximitySensor]): string =
   ## Windows.Devices.Sensors.IProximitySensorStatics.GetDeviceSelector
-  let it = statics[IProximitySensorStaticsVtbl]("Windows.Devices.Sensors.ProximitySensor")
+  let it = statics[IProximitySensorStaticsVtbl](className(ProximitySensor))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "ProximitySensor.getDeviceSelector"
@@ -27262,7 +27262,7 @@ proc getDeviceSelector*(_: typedesc[ProximitySensor]): string =
 
 proc fromId*(_: typedesc[ProximitySensor], sensorId: string): ProximitySensor =
   ## Windows.Devices.Sensors.IProximitySensorStatics.FromId
-  let it = statics[IProximitySensorStaticsVtbl]("Windows.Devices.Sensors.ProximitySensor")
+  let it = statics[IProximitySensorStaticsVtbl](className(ProximitySensor))
   let a0 = toWinRtString(sensorId)
   var ret: pointer
   check it.vtbl.FromId(it.raw, a0.handle, ret.addr), "ProximitySensor.fromId"
@@ -27272,7 +27272,7 @@ proc getReadingsFromTriggerDetails*(_: typedesc[ProximitySensor],
                                     triggerDetails: SensorDataThresholdTriggerDetails
                                    ): seq[ProximitySensorReading] =
   ## Windows.Devices.Sensors.IProximitySensorStatics2.GetReadingsFromTriggerDetails
-  let it = statics[IProximitySensorStatics2Vtbl]("Windows.Devices.Sensors.ProximitySensor")
+  let it = statics[IProximitySensorStatics2Vtbl](className(ProximitySensor))
   let a0 = queryInterface[ISensorDataThresholdTriggerDetailsVtbl](triggerDetails)
   var ret: pointer
   check it.vtbl.GetReadingsFromTriggerDetails(it.raw, a0.raw, ret.addr
@@ -27343,7 +27343,7 @@ proc createDisplayOnOffController*(self: ProximitySensor): ProximitySensorDispla
 
 proc newProximitySensorDataThreshold*(sensor: ProximitySensor): ProximitySensorDataThreshold =
   ## Windows.Devices.Sensors.IProximitySensorDataThresholdFactory.Create
-  let it = statics[IProximitySensorDataThresholdFactoryVtbl]("Windows.Devices.Sensors.ProximitySensorDataThreshold")
+  let it = statics[IProximitySensorDataThresholdFactoryVtbl](className(ProximitySensorDataThreshold))
   let a0 = queryInterface[IProximitySensorVtbl](sensor)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr
@@ -27390,7 +27390,7 @@ proc reading*(self: ProximitySensorReadingChangedEventArgs): ProximitySensorRead
 
 proc getDeviceSelector*(_: typedesc[PwmController]): string =
   ## Windows.Devices.Pwm.IPwmControllerStatics3.GetDeviceSelector
-  let it = statics[IPwmControllerStatics3Vtbl]("Windows.Devices.Pwm.PwmController")
+  let it = statics[IPwmControllerStatics3Vtbl](className(PwmController))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "PwmController.getDeviceSelector"
@@ -27399,7 +27399,7 @@ proc getDeviceSelector*(_: typedesc[PwmController]): string =
 proc getDeviceSelector*(_: typedesc[PwmController], friendlyName: string
                        ): string =
   ## Windows.Devices.Pwm.IPwmControllerStatics3.GetDeviceSelector
-  let it = statics[IPwmControllerStatics3Vtbl]("Windows.Devices.Pwm.PwmController")
+  let it = statics[IPwmControllerStatics3Vtbl](className(PwmController))
   let a0 = toWinRtString(friendlyName)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector2(it.raw, a0.handle, ret.addr
@@ -27409,7 +27409,7 @@ proc getDeviceSelector*(_: typedesc[PwmController], friendlyName: string
 proc fromIdAsync*(_: typedesc[PwmController], deviceId: string
                  ): Future[PwmController] =
   ## Windows.Devices.Pwm.IPwmControllerStatics3.FromIdAsync
-  let it = statics[IPwmControllerStatics3Vtbl]("Windows.Devices.Pwm.PwmController")
+  let it = statics[IPwmControllerStatics3Vtbl](className(PwmController))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -27418,7 +27418,7 @@ proc fromIdAsync*(_: typedesc[PwmController], deviceId: string
 
 proc getDefaultAsync*(_: typedesc[PwmController]): Future[PwmController] =
   ## Windows.Devices.Pwm.IPwmControllerStatics2.GetDefaultAsync
-  let it = statics[IPwmControllerStatics2Vtbl]("Windows.Devices.Pwm.PwmController")
+  let it = statics[IPwmControllerStatics2Vtbl](className(PwmController))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "PwmController.getDefaultAsync"
@@ -27427,7 +27427,7 @@ proc getDefaultAsync*(_: typedesc[PwmController]): Future[PwmController] =
 proc getControllersAsync*(_: typedesc[PwmController], provider: IPwmProvider
                          ): Future[seq[PwmController]] =
   ## Windows.Devices.Pwm.IPwmControllerStatics.GetControllersAsync
-  let it = statics[IPwmControllerStaticsVtbl]("Windows.Devices.Pwm.PwmController")
+  let it = statics[IPwmControllerStaticsVtbl](className(PwmController))
   let a0 = queryInterface[IPwmProviderVtbl](provider)
   var op: pointer
   check it.vtbl.GetControllersAsync(it.raw, a0.raw, op.addr
@@ -27535,21 +27535,21 @@ proc isStarted*(self: PwmPin): bool =
 
 proc getRadiosAsync*(_: typedesc[Radio]): Future[seq[Radio]] =
   ## Windows.Devices.Radios.IRadioStatics.GetRadiosAsync
-  let it = statics[IRadioStaticsVtbl]("Windows.Devices.Radios.Radio")
+  let it = statics[IRadioStaticsVtbl](className(Radio))
   var op: pointer
   check it.vtbl.GetRadiosAsync(it.raw, op.addr), "Radio.getRadiosAsync"
   future[IAsyncOperationVtbl[IVectorViewVtbl[Radio]], seq[Radio]](op, "Radio.getRadiosAsync")
 
 proc getDeviceSelector*(_: typedesc[Radio]): string =
   ## Windows.Devices.Radios.IRadioStatics.GetDeviceSelector
-  let it = statics[IRadioStaticsVtbl]("Windows.Devices.Radios.Radio")
+  let it = statics[IRadioStaticsVtbl](className(Radio))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr), "Radio.getDeviceSelector"
   takeString(ret)
 
 proc fromIdAsync*(_: typedesc[Radio], deviceId: string): Future[Radio] =
   ## Windows.Devices.Radios.IRadioStatics.FromIdAsync
-  let it = statics[IRadioStaticsVtbl]("Windows.Devices.Radios.Radio")
+  let it = statics[IRadioStaticsVtbl](className(Radio))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr), "Radio.fromIdAsync"
@@ -27557,7 +27557,7 @@ proc fromIdAsync*(_: typedesc[Radio], deviceId: string): Future[Radio] =
 
 proc requestAccessAsync*(_: typedesc[Radio]): Future[RadioAccessStatus] =
   ## Windows.Devices.Radios.IRadioStatics.RequestAccessAsync
-  let it = statics[IRadioStaticsVtbl]("Windows.Devices.Radios.Radio")
+  let it = statics[IRadioStaticsVtbl](className(Radio))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr), "Radio.requestAccessAsync"
   future[IAsyncOperationVtbl[RadioAccessStatus], RadioAccessStatus](op, "Radio.requestAccessAsync")
@@ -27773,7 +27773,7 @@ proc remoteDevice*(self: RfcommConnectionTriggerDetails): BluetoothDevice =
 proc fromIdAsync*(_: typedesc[RfcommDeviceService], deviceId: string
                  ): Future[RfcommDeviceService] =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServiceStatics.FromIdAsync
-  let it = statics[IRfcommDeviceServiceStaticsVtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService")
+  let it = statics[IRfcommDeviceServiceStaticsVtbl](className(RfcommDeviceService))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -27783,7 +27783,7 @@ proc fromIdAsync*(_: typedesc[RfcommDeviceService], deviceId: string
 proc getDeviceSelector*(_: typedesc[RfcommDeviceService],
                         serviceId: RfcommServiceId): string =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServiceStatics.GetDeviceSelector
-  let it = statics[IRfcommDeviceServiceStaticsVtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService")
+  let it = statics[IRfcommDeviceServiceStaticsVtbl](className(RfcommDeviceService))
   let a0 = queryInterface[IRfcommServiceIdVtbl](serviceId)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, a0.raw, ret.addr
@@ -27794,7 +27794,7 @@ proc getDeviceSelectorForBluetoothDevice*(_: typedesc[RfcommDeviceService],
                                           bluetoothDevice: BluetoothDevice
                                          ): string =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServiceStatics2.GetDeviceSelectorForBluetoothDevice
-  let it = statics[IRfcommDeviceServiceStatics2Vtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService")
+  let it = statics[IRfcommDeviceServiceStatics2Vtbl](className(RfcommDeviceService))
   let a0 = queryInterface[IBluetoothDeviceVtbl](bluetoothDevice)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorForBluetoothDevice(it.raw, a0.raw, ret.addr
@@ -27806,7 +27806,7 @@ proc getDeviceSelectorForBluetoothDevice*(_: typedesc[RfcommDeviceService],
                                           cacheMode: BluetoothCacheMode
                                          ): string =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServiceStatics2.GetDeviceSelectorForBluetoothDevice
-  let it = statics[IRfcommDeviceServiceStatics2Vtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService")
+  let it = statics[IRfcommDeviceServiceStatics2Vtbl](className(RfcommDeviceService))
   let a0 = queryInterface[IBluetoothDeviceVtbl](bluetoothDevice)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorForBluetoothDevice2(it.raw, a0.raw, cacheMode,
@@ -27819,7 +27819,7 @@ proc getDeviceSelectorForBluetoothDeviceAndServiceId*(_: typedesc[RfcommDeviceSe
                                                       serviceId: RfcommServiceId
                                                      ): string =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServiceStatics2.GetDeviceSelectorForBluetoothDeviceAndServiceId
-  let it = statics[IRfcommDeviceServiceStatics2Vtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService")
+  let it = statics[IRfcommDeviceServiceStatics2Vtbl](className(RfcommDeviceService))
   let a0 = queryInterface[IBluetoothDeviceVtbl](bluetoothDevice)
   let a1 = queryInterface[IRfcommServiceIdVtbl](serviceId)
   var ret: HSTRING
@@ -27834,7 +27834,7 @@ proc getDeviceSelectorForBluetoothDeviceAndServiceId*(_: typedesc[RfcommDeviceSe
                                                       cacheMode: BluetoothCacheMode
                                                      ): string =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServiceStatics2.GetDeviceSelectorForBluetoothDeviceAndServiceId
-  let it = statics[IRfcommDeviceServiceStatics2Vtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService")
+  let it = statics[IRfcommDeviceServiceStatics2Vtbl](className(RfcommDeviceService))
   let a0 = queryInterface[IBluetoothDeviceVtbl](bluetoothDevice)
   let a1 = queryInterface[IRfcommServiceIdVtbl](serviceId)
   var ret: HSTRING
@@ -28015,7 +28015,7 @@ proc `remoteServiceId=`*(self: RfcommOutboundConnectionInformation,
 
 proc fromUuid*(_: typedesc[RfcommServiceId], uuid: GUID): RfcommServiceId =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceIdStatics.FromUuid
-  let it = statics[IRfcommServiceIdStaticsVtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId")
+  let it = statics[IRfcommServiceIdStaticsVtbl](className(RfcommServiceId))
   var ret: pointer
   check it.vtbl.FromUuid(it.raw, uuid, ret.addr), "RfcommServiceId.fromUuid"
   adopt[RfcommServiceId](ret)
@@ -28023,7 +28023,7 @@ proc fromUuid*(_: typedesc[RfcommServiceId], uuid: GUID): RfcommServiceId =
 proc fromShortId*(_: typedesc[RfcommServiceId], shortId: uint32
                  ): RfcommServiceId =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceIdStatics.FromShortId
-  let it = statics[IRfcommServiceIdStaticsVtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId")
+  let it = statics[IRfcommServiceIdStaticsVtbl](className(RfcommServiceId))
   var ret: pointer
   check it.vtbl.FromShortId(it.raw, shortId, ret.addr
                            ), "RfcommServiceId.fromShortId"
@@ -28031,14 +28031,14 @@ proc fromShortId*(_: typedesc[RfcommServiceId], shortId: uint32
 
 proc serialPort*(_: typedesc[RfcommServiceId]): RfcommServiceId =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceIdStatics.get_SerialPort
-  let it = statics[IRfcommServiceIdStaticsVtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId")
+  let it = statics[IRfcommServiceIdStaticsVtbl](className(RfcommServiceId))
   var ret: pointer
   check it.vtbl.get_SerialPort(it.raw, ret.addr), "RfcommServiceId.serialPort"
   adopt[RfcommServiceId](ret)
 
 proc obexObjectPush*(_: typedesc[RfcommServiceId]): RfcommServiceId =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceIdStatics.get_ObexObjectPush
-  let it = statics[IRfcommServiceIdStaticsVtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId")
+  let it = statics[IRfcommServiceIdStaticsVtbl](className(RfcommServiceId))
   var ret: pointer
   check it.vtbl.get_ObexObjectPush(it.raw, ret.addr
                                   ), "RfcommServiceId.obexObjectPush"
@@ -28046,7 +28046,7 @@ proc obexObjectPush*(_: typedesc[RfcommServiceId]): RfcommServiceId =
 
 proc obexFileTransfer*(_: typedesc[RfcommServiceId]): RfcommServiceId =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceIdStatics.get_ObexFileTransfer
-  let it = statics[IRfcommServiceIdStaticsVtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId")
+  let it = statics[IRfcommServiceIdStaticsVtbl](className(RfcommServiceId))
   var ret: pointer
   check it.vtbl.get_ObexFileTransfer(it.raw, ret.addr
                                     ), "RfcommServiceId.obexFileTransfer"
@@ -28054,7 +28054,7 @@ proc obexFileTransfer*(_: typedesc[RfcommServiceId]): RfcommServiceId =
 
 proc phoneBookAccessPce*(_: typedesc[RfcommServiceId]): RfcommServiceId =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceIdStatics.get_PhoneBookAccessPce
-  let it = statics[IRfcommServiceIdStaticsVtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId")
+  let it = statics[IRfcommServiceIdStaticsVtbl](className(RfcommServiceId))
   var ret: pointer
   check it.vtbl.get_PhoneBookAccessPce(it.raw, ret.addr
                                       ), "RfcommServiceId.phoneBookAccessPce"
@@ -28062,7 +28062,7 @@ proc phoneBookAccessPce*(_: typedesc[RfcommServiceId]): RfcommServiceId =
 
 proc phoneBookAccessPse*(_: typedesc[RfcommServiceId]): RfcommServiceId =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceIdStatics.get_PhoneBookAccessPse
-  let it = statics[IRfcommServiceIdStaticsVtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId")
+  let it = statics[IRfcommServiceIdStaticsVtbl](className(RfcommServiceId))
   var ret: pointer
   check it.vtbl.get_PhoneBookAccessPse(it.raw, ret.addr
                                       ), "RfcommServiceId.phoneBookAccessPse"
@@ -28070,7 +28070,7 @@ proc phoneBookAccessPse*(_: typedesc[RfcommServiceId]): RfcommServiceId =
 
 proc genericFileTransfer*(_: typedesc[RfcommServiceId]): RfcommServiceId =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceIdStatics.get_GenericFileTransfer
-  let it = statics[IRfcommServiceIdStaticsVtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId")
+  let it = statics[IRfcommServiceIdStaticsVtbl](className(RfcommServiceId))
   var ret: pointer
   check it.vtbl.get_GenericFileTransfer(it.raw, ret.addr
                                        ), "RfcommServiceId.genericFileTransfer"
@@ -28102,7 +28102,7 @@ proc asString*(self: RfcommServiceId): string =
 proc createAsync*(_: typedesc[RfcommServiceProvider], serviceId: RfcommServiceId
                  ): Future[RfcommServiceProvider] =
   ## Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceProviderStatics.CreateAsync
-  let it = statics[IRfcommServiceProviderStaticsVtbl]("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider")
+  let it = statics[IRfcommServiceProviderStaticsVtbl](className(RfcommServiceProvider))
   let a0 = queryInterface[IRfcommServiceIdVtbl](serviceId)
   var op: pointer
   check it.vtbl.CreateAsync(it.raw, a0.raw, op.addr
@@ -28264,7 +28264,7 @@ proc m33*(self: SensorRotationMatrix): float32 =
 
 proc getDeviceSelector*(_: typedesc[SerialDevice]): string =
   ## Windows.Devices.SerialCommunication.ISerialDeviceStatics.GetDeviceSelector
-  let it = statics[ISerialDeviceStaticsVtbl]("Windows.Devices.SerialCommunication.SerialDevice")
+  let it = statics[ISerialDeviceStaticsVtbl](className(SerialDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "SerialDevice.getDeviceSelector"
@@ -28272,7 +28272,7 @@ proc getDeviceSelector*(_: typedesc[SerialDevice]): string =
 
 proc getDeviceSelector*(_: typedesc[SerialDevice], portName: string): string =
   ## Windows.Devices.SerialCommunication.ISerialDeviceStatics.GetDeviceSelector
-  let it = statics[ISerialDeviceStaticsVtbl]("Windows.Devices.SerialCommunication.SerialDevice")
+  let it = statics[ISerialDeviceStaticsVtbl](className(SerialDevice))
   let a0 = toWinRtString(portName)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector2(it.raw, a0.handle, ret.addr
@@ -28283,7 +28283,7 @@ proc getDeviceSelectorFromUsbVidPid*(_: typedesc[SerialDevice],
                                      vendorId: uint16, productId: uint16
                                     ): string =
   ## Windows.Devices.SerialCommunication.ISerialDeviceStatics.GetDeviceSelectorFromUsbVidPid
-  let it = statics[ISerialDeviceStaticsVtbl]("Windows.Devices.SerialCommunication.SerialDevice")
+  let it = statics[ISerialDeviceStaticsVtbl](className(SerialDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromUsbVidPid(it.raw, vendorId, productId,
                                                ret.addr
@@ -28293,7 +28293,7 @@ proc getDeviceSelectorFromUsbVidPid*(_: typedesc[SerialDevice],
 proc fromIdAsync*(_: typedesc[SerialDevice], deviceId: string
                  ): Future[SerialDevice] =
   ## Windows.Devices.SerialCommunication.ISerialDeviceStatics.FromIdAsync
-  let it = statics[ISerialDeviceStaticsVtbl]("Windows.Devices.SerialCommunication.SerialDevice")
+  let it = statics[ISerialDeviceStaticsVtbl](className(SerialDevice))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -28535,7 +28535,7 @@ proc removePinChanged*(self: SerialDevice, token: EventRegistrationToken) =
 proc getDeviceSelector*(_: typedesc[ServiceDevice],
                         serviceType: ServiceDeviceType): string =
   ## Windows.Devices.Portable.IServiceDeviceStatics.GetDeviceSelector
-  let it = statics[IServiceDeviceStaticsVtbl]("Windows.Devices.Portable.ServiceDevice")
+  let it = statics[IServiceDeviceStaticsVtbl](className(ServiceDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, serviceType, ret.addr
                                  ), "ServiceDevice.getDeviceSelector"
@@ -28544,7 +28544,7 @@ proc getDeviceSelector*(_: typedesc[ServiceDevice],
 proc getDeviceSelectorFromServiceId*(_: typedesc[ServiceDevice], serviceId: GUID
                                     ): string =
   ## Windows.Devices.Portable.IServiceDeviceStatics.GetDeviceSelectorFromServiceId
-  let it = statics[IServiceDeviceStaticsVtbl]("Windows.Devices.Portable.ServiceDevice")
+  let it = statics[IServiceDeviceStaticsVtbl](className(ServiceDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelectorFromServiceId(it.raw, serviceId, ret.addr
                                               ), "ServiceDevice.getDeviceSelectorFromServiceId"
@@ -28665,7 +28665,7 @@ proc duration*(self: SimpleHapticsControllerFeedback): TimeSpan =
 
 proc getDefault*(_: typedesc[SimpleOrientationSensor]): SimpleOrientationSensor =
   ## Windows.Devices.Sensors.ISimpleOrientationSensorStatics.GetDefault
-  let it = statics[ISimpleOrientationSensorStaticsVtbl]("Windows.Devices.Sensors.SimpleOrientationSensor")
+  let it = statics[ISimpleOrientationSensorStaticsVtbl](className(SimpleOrientationSensor))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr
                           ), "SimpleOrientationSensor.getDefault"
@@ -28673,7 +28673,7 @@ proc getDefault*(_: typedesc[SimpleOrientationSensor]): SimpleOrientationSensor 
 
 proc getDeviceSelector*(_: typedesc[SimpleOrientationSensor]): string =
   ## Windows.Devices.Sensors.ISimpleOrientationSensorStatics2.GetDeviceSelector
-  let it = statics[ISimpleOrientationSensorStatics2Vtbl]("Windows.Devices.Sensors.SimpleOrientationSensor")
+  let it = statics[ISimpleOrientationSensorStatics2Vtbl](className(SimpleOrientationSensor))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "SimpleOrientationSensor.getDeviceSelector"
@@ -28682,7 +28682,7 @@ proc getDeviceSelector*(_: typedesc[SimpleOrientationSensor]): string =
 proc fromIdAsync*(_: typedesc[SimpleOrientationSensor], deviceId: string
                  ): Future[SimpleOrientationSensor] =
   ## Windows.Devices.Sensors.ISimpleOrientationSensorStatics2.FromIdAsync
-  let it = statics[ISimpleOrientationSensorStatics2Vtbl]("Windows.Devices.Sensors.SimpleOrientationSensor")
+  let it = statics[ISimpleOrientationSensorStatics2Vtbl](className(SimpleOrientationSensor))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -28889,7 +28889,7 @@ proc newSmartCardAppletIdGroup*(displayName: string, appletIds: seq[IBuffer],
                                 emulationType: SmartCardEmulationType
                                ): SmartCardAppletIdGroup =
   ## Windows.Devices.SmartCards.ISmartCardAppletIdGroupFactory.Create
-  let it = statics[ISmartCardAppletIdGroupFactoryVtbl]("Windows.Devices.SmartCards.SmartCardAppletIdGroup")
+  let it = statics[ISmartCardAppletIdGroupFactoryVtbl](className(SmartCardAppletIdGroup))
   let a0 = toWinRtString(displayName)
   let a1 = asCollection[IBuffer, seq[IBuffer]](appletIds)
   var ret: pointer
@@ -28899,7 +28899,7 @@ proc newSmartCardAppletIdGroup*(displayName: string, appletIds: seq[IBuffer],
 
 proc maxAppletIds*(_: typedesc[SmartCardAppletIdGroup]): uint16 =
   ## Windows.Devices.SmartCards.ISmartCardAppletIdGroupStatics.get_MaxAppletIds
-  let it = statics[ISmartCardAppletIdGroupStaticsVtbl]("Windows.Devices.SmartCards.SmartCardAppletIdGroup")
+  let it = statics[ISmartCardAppletIdGroupStaticsVtbl](className(SmartCardAppletIdGroup))
   var ret: uint16
   check it.vtbl.get_MaxAppletIds(it.raw, ret.addr
                                 ), "SmartCardAppletIdGroup.maxAppletIds"
@@ -29097,7 +29097,7 @@ proc newSmartCardAutomaticResponseApdu*(commandApdu: SomeBuffer,
                                         responseApdu: SomeBuffer
                                        ): SmartCardAutomaticResponseApdu =
   ## Windows.Devices.SmartCards.ISmartCardAutomaticResponseApduFactory.Create
-  let it = statics[ISmartCardAutomaticResponseApduFactoryVtbl]("Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu")
+  let it = statics[ISmartCardAutomaticResponseApduFactoryVtbl](className(SmartCardAutomaticResponseApdu))
   let a0 = queryInterface[IBufferVtbl](commandApdu)
   let a1 = queryInterface[IBufferVtbl](responseApdu)
   var ret: pointer
@@ -29296,7 +29296,7 @@ proc transmitAsync*(self: SmartCardConnection, command: SomeBuffer
 
 proc getSmartCardCryptogramGeneratorAsync*(_: typedesc[SmartCardCryptogramGenerator]): Future[SmartCardCryptogramGenerator] =
   ## Windows.Devices.SmartCards.ISmartCardCryptogramGeneratorStatics.GetSmartCardCryptogramGeneratorAsync
-  let it = statics[ISmartCardCryptogramGeneratorStaticsVtbl]("Windows.Devices.SmartCards.SmartCardCryptogramGenerator")
+  let it = statics[ISmartCardCryptogramGeneratorStaticsVtbl](className(SmartCardCryptogramGenerator))
   var op: pointer
   check it.vtbl.GetSmartCardCryptogramGeneratorAsync(it.raw, op.addr
                                                     ), "SmartCardCryptogramGenerator.getSmartCardCryptogramGeneratorAsync"
@@ -29305,7 +29305,7 @@ proc getSmartCardCryptogramGeneratorAsync*(_: typedesc[SmartCardCryptogramGenera
 
 proc isSupported*(_: typedesc[SmartCardCryptogramGenerator]): bool =
   ## Windows.Devices.SmartCards.ISmartCardCryptogramGeneratorStatics2.IsSupported
-  let it = statics[ISmartCardCryptogramGeneratorStatics2Vtbl]("Windows.Devices.SmartCards.SmartCardCryptogramGenerator")
+  let it = statics[ISmartCardCryptogramGeneratorStatics2Vtbl](className(SmartCardCryptogramGenerator))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr
                            ), "SmartCardCryptogramGenerator.isSupported"
@@ -29977,7 +29977,7 @@ proc operationalRequirements*(self: SmartCardCryptogramStorageKeyInfo): string =
 
 proc getAppletIdGroupRegistrationsAsync*(_: typedesc[SmartCardEmulator]): Future[seq[SmartCardAppletIdGroupRegistration]] =
   ## Windows.Devices.SmartCards.ISmartCardEmulatorStatics2.GetAppletIdGroupRegistrationsAsync
-  let it = statics[ISmartCardEmulatorStatics2Vtbl]("Windows.Devices.SmartCards.SmartCardEmulator")
+  let it = statics[ISmartCardEmulatorStatics2Vtbl](className(SmartCardEmulator))
   var op: pointer
   check it.vtbl.GetAppletIdGroupRegistrationsAsync(it.raw, op.addr
                                                   ), "SmartCardEmulator.getAppletIdGroupRegistrationsAsync"
@@ -29988,7 +29988,7 @@ proc registerAppletIdGroupAsync*(_: typedesc[SmartCardEmulator],
                                  appletIdGroup: SmartCardAppletIdGroup
                                 ): Future[SmartCardAppletIdGroupRegistration] =
   ## Windows.Devices.SmartCards.ISmartCardEmulatorStatics2.RegisterAppletIdGroupAsync
-  let it = statics[ISmartCardEmulatorStatics2Vtbl]("Windows.Devices.SmartCards.SmartCardEmulator")
+  let it = statics[ISmartCardEmulatorStatics2Vtbl](className(SmartCardEmulator))
   let a0 = queryInterface[ISmartCardAppletIdGroupVtbl](appletIdGroup)
   var op: pointer
   check it.vtbl.RegisterAppletIdGroupAsync(it.raw, a0.raw, op.addr
@@ -30000,7 +30000,7 @@ proc unregisterAppletIdGroupAsync*(_: typedesc[SmartCardEmulator],
                                    registration: SmartCardAppletIdGroupRegistration
                                   ): Future[void] =
   ## Windows.Devices.SmartCards.ISmartCardEmulatorStatics2.UnregisterAppletIdGroupAsync
-  let it = statics[ISmartCardEmulatorStatics2Vtbl]("Windows.Devices.SmartCards.SmartCardEmulator")
+  let it = statics[ISmartCardEmulatorStatics2Vtbl](className(SmartCardEmulator))
   let a0 = queryInterface[ISmartCardAppletIdGroupRegistrationVtbl](registration)
   var op: pointer
   check it.vtbl.UnregisterAppletIdGroupAsync(it.raw, a0.raw, op.addr
@@ -30009,7 +30009,7 @@ proc unregisterAppletIdGroupAsync*(_: typedesc[SmartCardEmulator],
 
 proc maxAppletIdGroupRegistrations*(_: typedesc[SmartCardEmulator]): uint16 =
   ## Windows.Devices.SmartCards.ISmartCardEmulatorStatics2.get_MaxAppletIdGroupRegistrations
-  let it = statics[ISmartCardEmulatorStatics2Vtbl]("Windows.Devices.SmartCards.SmartCardEmulator")
+  let it = statics[ISmartCardEmulatorStatics2Vtbl](className(SmartCardEmulator))
   var ret: uint16
   check it.vtbl.get_MaxAppletIdGroupRegistrations(it.raw, ret.addr
                                                  ), "SmartCardEmulator.maxAppletIdGroupRegistrations"
@@ -30017,7 +30017,7 @@ proc maxAppletIdGroupRegistrations*(_: typedesc[SmartCardEmulator]): uint16 =
 
 proc getDefaultAsync*(_: typedesc[SmartCardEmulator]): Future[SmartCardEmulator] =
   ## Windows.Devices.SmartCards.ISmartCardEmulatorStatics.GetDefaultAsync
-  let it = statics[ISmartCardEmulatorStaticsVtbl]("Windows.Devices.SmartCards.SmartCardEmulator")
+  let it = statics[ISmartCardEmulatorStaticsVtbl](className(SmartCardEmulator))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "SmartCardEmulator.getDefaultAsync"
@@ -30025,7 +30025,7 @@ proc getDefaultAsync*(_: typedesc[SmartCardEmulator]): Future[SmartCardEmulator]
 
 proc isSupported*(_: typedesc[SmartCardEmulator]): bool =
   ## Windows.Devices.SmartCards.ISmartCardEmulatorStatics3.IsSupported
-  let it = statics[ISmartCardEmulatorStatics3Vtbl]("Windows.Devices.SmartCards.SmartCardEmulator")
+  let it = statics[ISmartCardEmulatorStatics3Vtbl](className(SmartCardEmulator))
   var ret: bool
   check it.vtbl.IsSupported(it.raw, ret.addr), "SmartCardEmulator.isSupported"
   ret
@@ -30351,7 +30351,7 @@ proc setResponse*(self: SmartCardPinResetRequest, response: SomeBuffer) =
 proc fromSmartCardAsync*(_: typedesc[SmartCardProvisioning], card: SmartCard
                         ): Future[SmartCardProvisioning] =
   ## Windows.Devices.SmartCards.ISmartCardProvisioningStatics.FromSmartCardAsync
-  let it = statics[ISmartCardProvisioningStaticsVtbl]("Windows.Devices.SmartCards.SmartCardProvisioning")
+  let it = statics[ISmartCardProvisioningStaticsVtbl](className(SmartCardProvisioning))
   let a0 = queryInterface[ISmartCardVtbl](card)
   var op: pointer
   check it.vtbl.FromSmartCardAsync(it.raw, a0.raw, op.addr
@@ -30364,7 +30364,7 @@ proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning],
                                            pinPolicy: SmartCardPinPolicy
                                           ): Future[SmartCardProvisioning] =
   ## Windows.Devices.SmartCards.ISmartCardProvisioningStatics.RequestVirtualSmartCardCreationAsync
-  let it = statics[ISmartCardProvisioningStaticsVtbl]("Windows.Devices.SmartCards.SmartCardProvisioning")
+  let it = statics[ISmartCardProvisioningStaticsVtbl](className(SmartCardProvisioning))
   let a0 = toWinRtString(friendlyName)
   let a1 = queryInterface[IBufferVtbl](administrativeKey)
   let a2 = queryInterface[ISmartCardPinPolicyVtbl](pinPolicy)
@@ -30381,7 +30381,7 @@ proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning],
                                            cardId: GUID
                                           ): Future[SmartCardProvisioning] =
   ## Windows.Devices.SmartCards.ISmartCardProvisioningStatics.RequestVirtualSmartCardCreationAsync
-  let it = statics[ISmartCardProvisioningStaticsVtbl]("Windows.Devices.SmartCards.SmartCardProvisioning")
+  let it = statics[ISmartCardProvisioningStaticsVtbl](className(SmartCardProvisioning))
   let a0 = toWinRtString(friendlyName)
   let a1 = queryInterface[IBufferVtbl](administrativeKey)
   let a2 = queryInterface[ISmartCardPinPolicyVtbl](pinPolicy)
@@ -30394,7 +30394,7 @@ proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning],
 proc requestVirtualSmartCardDeletionAsync*(_: typedesc[SmartCardProvisioning],
                                            card: SmartCard): Future[bool] =
   ## Windows.Devices.SmartCards.ISmartCardProvisioningStatics.RequestVirtualSmartCardDeletionAsync
-  let it = statics[ISmartCardProvisioningStaticsVtbl]("Windows.Devices.SmartCards.SmartCardProvisioning")
+  let it = statics[ISmartCardProvisioningStaticsVtbl](className(SmartCardProvisioning))
   let a0 = queryInterface[ISmartCardVtbl](card)
   var op: pointer
   check it.vtbl.RequestVirtualSmartCardDeletionAsync(it.raw, a0.raw, op.addr
@@ -30407,7 +30407,7 @@ proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisio
                                                    pinPolicy: SmartCardPinPolicy
                                                   ): Future[SmartCardProvisioning] =
   ## Windows.Devices.SmartCards.ISmartCardProvisioningStatics2.RequestAttestedVirtualSmartCardCreationAsync
-  let it = statics[ISmartCardProvisioningStatics2Vtbl]("Windows.Devices.SmartCards.SmartCardProvisioning")
+  let it = statics[ISmartCardProvisioningStatics2Vtbl](className(SmartCardProvisioning))
   let a0 = toWinRtString(friendlyName)
   let a1 = queryInterface[IBufferVtbl](administrativeKey)
   let a2 = queryInterface[ISmartCardPinPolicyVtbl](pinPolicy)
@@ -30425,7 +30425,7 @@ proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisio
                                                    cardId: GUID
                                                   ): Future[SmartCardProvisioning] =
   ## Windows.Devices.SmartCards.ISmartCardProvisioningStatics2.RequestAttestedVirtualSmartCardCreationAsync
-  let it = statics[ISmartCardProvisioningStatics2Vtbl]("Windows.Devices.SmartCards.SmartCardProvisioning")
+  let it = statics[ISmartCardProvisioningStatics2Vtbl](className(SmartCardProvisioning))
   let a0 = toWinRtString(friendlyName)
   let a1 = queryInterface[IBufferVtbl](administrativeKey)
   let a2 = queryInterface[ISmartCardPinPolicyVtbl](pinPolicy)
@@ -30501,7 +30501,7 @@ proc getAuthorityKeyContainerNameAsync*(self: SmartCardProvisioning): Future[str
 
 proc getDeviceSelector*(_: typedesc[SmartCardReader]): string =
   ## Windows.Devices.SmartCards.ISmartCardReaderStatics.GetDeviceSelector
-  let it = statics[ISmartCardReaderStaticsVtbl]("Windows.Devices.SmartCards.SmartCardReader")
+  let it = statics[ISmartCardReaderStaticsVtbl](className(SmartCardReader))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "SmartCardReader.getDeviceSelector"
@@ -30510,7 +30510,7 @@ proc getDeviceSelector*(_: typedesc[SmartCardReader]): string =
 proc getDeviceSelector*(_: typedesc[SmartCardReader], kind: SmartCardReaderKind
                        ): string =
   ## Windows.Devices.SmartCards.ISmartCardReaderStatics.GetDeviceSelector
-  let it = statics[ISmartCardReaderStaticsVtbl]("Windows.Devices.SmartCards.SmartCardReader")
+  let it = statics[ISmartCardReaderStaticsVtbl](className(SmartCardReader))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector2(it.raw, kind, ret.addr
                                   ), "SmartCardReader.getDeviceSelector"
@@ -30519,7 +30519,7 @@ proc getDeviceSelector*(_: typedesc[SmartCardReader], kind: SmartCardReaderKind
 proc fromIdAsync*(_: typedesc[SmartCardReader], deviceId: string
                  ): Future[SmartCardReader] =
   ## Windows.Devices.SmartCards.ISmartCardReaderStatics.FromIdAsync
-  let it = statics[ISmartCardReaderStaticsVtbl]("Windows.Devices.SmartCards.SmartCardReader")
+  let it = statics[ISmartCardReaderStaticsVtbl](className(SmartCardReader))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -30901,7 +30901,7 @@ proc isUserPopupRequested*(self: SmsBroadcastMessage): bool =
 
 proc getDeviceSelector*(_: typedesc[SmsDevice]): string =
   ## Windows.Devices.Sms.ISmsDeviceStatics.GetDeviceSelector
-  let it = statics[ISmsDeviceStaticsVtbl]("Windows.Devices.Sms.SmsDevice")
+  let it = statics[ISmsDeviceStaticsVtbl](className(SmsDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "SmsDevice.getDeviceSelector"
@@ -30909,7 +30909,7 @@ proc getDeviceSelector*(_: typedesc[SmsDevice]): string =
 
 proc fromIdAsync*(_: typedesc[SmsDevice], deviceId: string): Future[SmsDevice] =
   ## Windows.Devices.Sms.ISmsDeviceStatics.FromIdAsync
-  let it = statics[ISmsDeviceStaticsVtbl]("Windows.Devices.Sms.SmsDevice")
+  let it = statics[ISmsDeviceStaticsVtbl](className(SmsDevice))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr), "SmsDevice.fromIdAsync"
@@ -30917,7 +30917,7 @@ proc fromIdAsync*(_: typedesc[SmsDevice], deviceId: string): Future[SmsDevice] =
 
 proc getDefaultAsync*(_: typedesc[SmsDevice]): Future[SmsDevice] =
   ## Windows.Devices.Sms.ISmsDeviceStatics.GetDefaultAsync
-  let it = statics[ISmsDeviceStaticsVtbl]("Windows.Devices.Sms.SmsDevice")
+  let it = statics[ISmsDeviceStaticsVtbl](className(SmsDevice))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr), "SmsDevice.getDefaultAsync"
   future[IAsyncOperationVtbl[SmsDevice], SmsDevice](op, "SmsDevice.getDefaultAsync")
@@ -30925,7 +30925,7 @@ proc getDefaultAsync*(_: typedesc[SmsDevice]): Future[SmsDevice] =
 proc fromNetworkAccountIdAsync*(_: typedesc[SmsDevice], networkAccountId: string
                                ): Future[SmsDevice] =
   ## Windows.Devices.Sms.ISmsDeviceStatics2.FromNetworkAccountIdAsync
-  let it = statics[ISmsDeviceStatics2Vtbl]("Windows.Devices.Sms.SmsDevice")
+  let it = statics[ISmsDeviceStatics2Vtbl](className(SmsDevice))
   let a0 = toWinRtString(networkAccountId)
   var op: pointer
   check it.vtbl.FromNetworkAccountIdAsync(it.raw, a0.handle, op.addr
@@ -30936,7 +30936,7 @@ proc fromNetworkAccountIdAsync*(_: typedesc[SmsDevice], networkAccountId: string
 
 proc getDeviceSelector*(_: typedesc[SmsDevice2]): string =
   ## Windows.Devices.Sms.ISmsDevice2Statics.GetDeviceSelector
-  let it = statics[ISmsDevice2StaticsVtbl]("Windows.Devices.Sms.SmsDevice2")
+  let it = statics[ISmsDevice2StaticsVtbl](className(SmsDevice2))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "SmsDevice2.getDeviceSelector"
@@ -30944,7 +30944,7 @@ proc getDeviceSelector*(_: typedesc[SmsDevice2]): string =
 
 proc fromId*(_: typedesc[SmsDevice2], deviceId: string): SmsDevice2 =
   ## Windows.Devices.Sms.ISmsDevice2Statics.FromId
-  let it = statics[ISmsDevice2StaticsVtbl]("Windows.Devices.Sms.SmsDevice2")
+  let it = statics[ISmsDevice2StaticsVtbl](className(SmsDevice2))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.FromId(it.raw, a0.handle, ret.addr), "SmsDevice2.fromId"
@@ -30952,7 +30952,7 @@ proc fromId*(_: typedesc[SmsDevice2], deviceId: string): SmsDevice2 =
 
 proc getDefault*(_: typedesc[SmsDevice2]): SmsDevice2 =
   ## Windows.Devices.Sms.ISmsDevice2Statics.GetDefault
-  let it = statics[ISmsDevice2StaticsVtbl]("Windows.Devices.Sms.SmsDevice2")
+  let it = statics[ISmsDevice2StaticsVtbl](className(SmsDevice2))
   var ret: pointer
   check it.vtbl.GetDefault(it.raw, ret.addr), "SmsDevice2.getDefault"
   adopt[SmsDevice2](ret)
@@ -30960,7 +30960,7 @@ proc getDefault*(_: typedesc[SmsDevice2]): SmsDevice2 =
 proc fromParentId*(_: typedesc[SmsDevice2], parentDeviceId: string
                   ): SmsDevice2 =
   ## Windows.Devices.Sms.ISmsDevice2Statics.FromParentId
-  let it = statics[ISmsDevice2StaticsVtbl]("Windows.Devices.Sms.SmsDevice2")
+  let it = statics[ISmsDevice2StaticsVtbl](className(SmsDevice2))
   let a0 = toWinRtString(parentDeviceId)
   var ret: pointer
   check it.vtbl.FromParentId(it.raw, a0.handle, ret.addr
@@ -31110,7 +31110,7 @@ proc maxMessages*(self: SmsDeviceMessageStore): uint32 =
 
 proc newSmsFilterRule*(messageType: SmsMessageType): SmsFilterRule =
   ## Windows.Devices.Sms.ISmsFilterRuleFactory.CreateFilterRule
-  let it = statics[ISmsFilterRuleFactoryVtbl]("Windows.Devices.Sms.SmsFilterRule")
+  let it = statics[ISmsFilterRuleFactoryVtbl](className(SmsFilterRule))
   var ret: pointer
   check it.vtbl.CreateFilterRule(it.raw, messageType, ret.addr
                                 ), "SmsFilterRule.new"
@@ -31224,7 +31224,7 @@ proc broadcastChannels*(self: SmsFilterRule): seq[int32] =
 
 proc newSmsFilterRules*(actionType: SmsFilterActionType): SmsFilterRules =
   ## Windows.Devices.Sms.ISmsFilterRulesFactory.CreateFilterRules
-  let it = statics[ISmsFilterRulesFactoryVtbl]("Windows.Devices.Sms.SmsFilterRules")
+  let it = statics[ISmsFilterRulesFactoryVtbl](className(SmsFilterRules))
   var ret: pointer
   check it.vtbl.CreateFilterRules(it.raw, actionType, ret.addr
                                  ), "SmsFilterRules.new"
@@ -31334,7 +31334,7 @@ proc accept*(self: SmsMessageReceivedTriggerDetails) =
 
 proc allRegistrations*(_: typedesc[SmsMessageRegistration]): seq[SmsMessageRegistration] =
   ## Windows.Devices.Sms.ISmsMessageRegistrationStatics.get_AllRegistrations
-  let it = statics[ISmsMessageRegistrationStaticsVtbl]("Windows.Devices.Sms.SmsMessageRegistration")
+  let it = statics[ISmsMessageRegistrationStaticsVtbl](className(SmsMessageRegistration))
   var ret: pointer
   check it.vtbl.get_AllRegistrations(it.raw, ret.addr
                                     ), "SmsMessageRegistration.allRegistrations"
@@ -31343,7 +31343,7 @@ proc allRegistrations*(_: typedesc[SmsMessageRegistration]): seq[SmsMessageRegis
 proc register*(_: typedesc[SmsMessageRegistration], id: string,
                filterRules: SmsFilterRules): SmsMessageRegistration =
   ## Windows.Devices.Sms.ISmsMessageRegistrationStatics.Register
-  let it = statics[ISmsMessageRegistrationStaticsVtbl]("Windows.Devices.Sms.SmsMessageRegistration")
+  let it = statics[ISmsMessageRegistrationStaticsVtbl](className(SmsMessageRegistration))
   let a0 = toWinRtString(id)
   let a1 = queryInterface[ISmsFilterRulesVtbl](filterRules)
   var ret: pointer
@@ -31539,7 +31539,7 @@ proc newSmsTextMessage*(): SmsTextMessage =
 proc fromBinaryMessage*(_: typedesc[SmsTextMessage],
                         binaryMessage: SmsBinaryMessage): SmsTextMessage =
   ## Windows.Devices.Sms.ISmsTextMessageStatics.FromBinaryMessage
-  let it = statics[ISmsTextMessageStaticsVtbl]("Windows.Devices.Sms.SmsTextMessage")
+  let it = statics[ISmsTextMessageStaticsVtbl](className(SmsTextMessage))
   let a0 = queryInterface[ISmsBinaryMessageVtbl](binaryMessage)
   var ret: pointer
   check it.vtbl.FromBinaryMessage(it.raw, a0.raw, ret.addr
@@ -31549,7 +31549,7 @@ proc fromBinaryMessage*(_: typedesc[SmsTextMessage],
 proc fromBinaryData*(_: typedesc[SmsTextMessage], format: SmsDataFormat,
                      value: openArray[uint8]): SmsTextMessage =
   ## Windows.Devices.Sms.ISmsTextMessageStatics.FromBinaryData
-  let it = statics[ISmsTextMessageStaticsVtbl]("Windows.Devices.Sms.SmsTextMessage")
+  let it = statics[ISmsTextMessageStaticsVtbl](className(SmsTextMessage))
   let a1 = asArray[uint8, uint8](value)
   var ret: pointer
   check it.vtbl.FromBinaryData(it.raw, format, a1.count, a1.data, ret.addr
@@ -31793,7 +31793,7 @@ proc supportedDataBitLengths*(self: SpiBusInfo): seq[int32] =
 
 proc newSpiConnectionSettings*(chipSelectLine: int32): SpiConnectionSettings =
   ## Windows.Devices.Spi.ISpiConnectionSettingsFactory.Create
-  let it = statics[ISpiConnectionSettingsFactoryVtbl]("Windows.Devices.Spi.SpiConnectionSettings")
+  let it = statics[ISpiConnectionSettingsFactoryVtbl](className(SpiConnectionSettings))
   var ret: pointer
   check it.vtbl.Create(it.raw, chipSelectLine, ret.addr
                       ), "SpiConnectionSettings.new"
@@ -31871,7 +31871,7 @@ proc `sharingMode=`*(self: SpiConnectionSettings, value: SpiSharingMode) =
 
 proc getDefaultAsync*(_: typedesc[SpiController]): Future[SpiController] =
   ## Windows.Devices.Spi.ISpiControllerStatics.GetDefaultAsync
-  let it = statics[ISpiControllerStaticsVtbl]("Windows.Devices.Spi.SpiController")
+  let it = statics[ISpiControllerStaticsVtbl](className(SpiController))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "SpiController.getDefaultAsync"
@@ -31880,7 +31880,7 @@ proc getDefaultAsync*(_: typedesc[SpiController]): Future[SpiController] =
 proc getControllersAsync*(_: typedesc[SpiController], provider: ISpiProvider
                          ): Future[seq[SpiController]] =
   ## Windows.Devices.Spi.ISpiControllerStatics.GetControllersAsync
-  let it = statics[ISpiControllerStaticsVtbl]("Windows.Devices.Spi.SpiController")
+  let it = statics[ISpiControllerStaticsVtbl](className(SpiController))
   let a0 = queryInterface[ISpiProviderVtbl](provider)
   var op: pointer
   check it.vtbl.GetControllersAsync(it.raw, a0.raw, op.addr
@@ -31900,7 +31900,7 @@ proc getDevice*(self: SpiController, settings: SpiConnectionSettings
 
 proc getDeviceSelector*(_: typedesc[SpiDevice]): string =
   ## Windows.Devices.Spi.ISpiDeviceStatics.GetDeviceSelector
-  let it = statics[ISpiDeviceStaticsVtbl]("Windows.Devices.Spi.SpiDevice")
+  let it = statics[ISpiDeviceStaticsVtbl](className(SpiDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "SpiDevice.getDeviceSelector"
@@ -31908,7 +31908,7 @@ proc getDeviceSelector*(_: typedesc[SpiDevice]): string =
 
 proc getDeviceSelector*(_: typedesc[SpiDevice], friendlyName: string): string =
   ## Windows.Devices.Spi.ISpiDeviceStatics.GetDeviceSelector
-  let it = statics[ISpiDeviceStaticsVtbl]("Windows.Devices.Spi.SpiDevice")
+  let it = statics[ISpiDeviceStaticsVtbl](className(SpiDevice))
   let a0 = toWinRtString(friendlyName)
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector2(it.raw, a0.handle, ret.addr
@@ -31917,7 +31917,7 @@ proc getDeviceSelector*(_: typedesc[SpiDevice], friendlyName: string): string =
 
 proc getBusInfo*(_: typedesc[SpiDevice], busId: string): SpiBusInfo =
   ## Windows.Devices.Spi.ISpiDeviceStatics.GetBusInfo
-  let it = statics[ISpiDeviceStaticsVtbl]("Windows.Devices.Spi.SpiDevice")
+  let it = statics[ISpiDeviceStaticsVtbl](className(SpiDevice))
   let a0 = toWinRtString(busId)
   var ret: pointer
   check it.vtbl.GetBusInfo(it.raw, a0.handle, ret.addr), "SpiDevice.getBusInfo"
@@ -31926,7 +31926,7 @@ proc getBusInfo*(_: typedesc[SpiDevice], busId: string): SpiBusInfo =
 proc fromIdAsync*(_: typedesc[SpiDevice], busId: string,
                   settings: SpiConnectionSettings): Future[SpiDevice] =
   ## Windows.Devices.Spi.ISpiDeviceStatics.FromIdAsync
-  let it = statics[ISpiDeviceStaticsVtbl]("Windows.Devices.Spi.SpiDevice")
+  let it = statics[ISpiDeviceStaticsVtbl](className(SpiDevice))
   let a0 = toWinRtString(busId)
   let a1 = queryInterface[ISpiConnectionSettingsVtbl](settings)
   var op: pointer
@@ -31992,7 +31992,7 @@ proc status*(self: StatusChangedEventArgs): PositionStatus =
 
 proc fromId*(_: typedesc[StorageDevice], deviceId: string): StorageFolder =
   ## Windows.Devices.Portable.IStorageDeviceStatics.FromId
-  let it = statics[IStorageDeviceStaticsVtbl]("Windows.Devices.Portable.StorageDevice")
+  let it = statics[IStorageDeviceStaticsVtbl](className(StorageDevice))
   let a0 = toWinRtString(deviceId)
   var ret: pointer
   check it.vtbl.FromId(it.raw, a0.handle, ret.addr), "StorageDevice.fromId"
@@ -32000,7 +32000,7 @@ proc fromId*(_: typedesc[StorageDevice], deviceId: string): StorageFolder =
 
 proc getDeviceSelector*(_: typedesc[StorageDevice]): string =
   ## Windows.Devices.Portable.IStorageDeviceStatics.GetDeviceSelector
-  let it = statics[IStorageDeviceStaticsVtbl]("Windows.Devices.Portable.StorageDevice")
+  let it = statics[IStorageDeviceStaticsVtbl](className(StorageDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "StorageDevice.getDeviceSelector"
@@ -32033,7 +32033,7 @@ proc newUnifiedPosErrorData*(message: string, severity: UnifiedPosErrorSeverity,
                              reason: UnifiedPosErrorReason,
                              extendedReason: uint32): UnifiedPosErrorData =
   ## Windows.Devices.PointOfService.IUnifiedPosErrorDataFactory.CreateInstance
-  let it = statics[IUnifiedPosErrorDataFactoryVtbl]("Windows.Devices.PointOfService.UnifiedPosErrorData")
+  let it = statics[IUnifiedPosErrorDataFactoryVtbl](className(UnifiedPosErrorData))
   let a0 = toWinRtString(message)
   var ret: pointer
   check it.vtbl.CreateInstance(it.raw, a0.handle, severity, reason,
@@ -32241,7 +32241,7 @@ proc tryParse*(_: typedesc[UsbConfigurationDescriptor],
                descriptor: UsbDescriptor
               ): tuple[ok: bool, parsed: UsbConfigurationDescriptor] =
   ## Windows.Devices.Usb.IUsbConfigurationDescriptorStatics.TryParse
-  let it = statics[IUsbConfigurationDescriptorStaticsVtbl]("Windows.Devices.Usb.UsbConfigurationDescriptor")
+  let it = statics[IUsbConfigurationDescriptorStaticsVtbl](className(UsbConfigurationDescriptor))
   let a0 = queryInterface[IUsbDescriptorVtbl](descriptor)
   var parsed: pointer
   var ret: bool
@@ -32252,7 +32252,7 @@ proc tryParse*(_: typedesc[UsbConfigurationDescriptor],
 proc parse*(_: typedesc[UsbConfigurationDescriptor], descriptor: UsbDescriptor
            ): UsbConfigurationDescriptor =
   ## Windows.Devices.Usb.IUsbConfigurationDescriptorStatics.Parse
-  let it = statics[IUsbConfigurationDescriptorStaticsVtbl]("Windows.Devices.Usb.UsbConfigurationDescriptor")
+  let it = statics[IUsbConfigurationDescriptorStaticsVtbl](className(UsbConfigurationDescriptor))
   let a0 = queryInterface[IUsbDescriptorVtbl](descriptor)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.raw, ret.addr
@@ -32379,7 +32379,7 @@ proc readDescriptorBuffer*(self: UsbDescriptor, buffer: SomeBuffer) =
 proc getDeviceSelector*(_: typedesc[UsbDevice], vendorId: uint32,
                         productId: uint32, winUsbInterfaceClass: GUID): string =
   ## Windows.Devices.Usb.IUsbDeviceStatics.GetDeviceSelector
-  let it = statics[IUsbDeviceStaticsVtbl]("Windows.Devices.Usb.UsbDevice")
+  let it = statics[IUsbDeviceStaticsVtbl](className(UsbDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, vendorId, productId,
                                   winUsbInterfaceClass, ret.addr
@@ -32389,7 +32389,7 @@ proc getDeviceSelector*(_: typedesc[UsbDevice], vendorId: uint32,
 proc getDeviceSelector*(_: typedesc[UsbDevice], winUsbInterfaceClass: GUID
                        ): string =
   ## Windows.Devices.Usb.IUsbDeviceStatics.GetDeviceSelector
-  let it = statics[IUsbDeviceStaticsVtbl]("Windows.Devices.Usb.UsbDevice")
+  let it = statics[IUsbDeviceStaticsVtbl](className(UsbDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector2(it.raw, winUsbInterfaceClass, ret.addr
                                   ), "UsbDevice.getDeviceSelector"
@@ -32398,7 +32398,7 @@ proc getDeviceSelector*(_: typedesc[UsbDevice], winUsbInterfaceClass: GUID
 proc getDeviceSelector*(_: typedesc[UsbDevice], vendorId: uint32,
                         productId: uint32): string =
   ## Windows.Devices.Usb.IUsbDeviceStatics.GetDeviceSelector
-  let it = statics[IUsbDeviceStaticsVtbl]("Windows.Devices.Usb.UsbDevice")
+  let it = statics[IUsbDeviceStaticsVtbl](className(UsbDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector3(it.raw, vendorId, productId, ret.addr
                                   ), "UsbDevice.getDeviceSelector"
@@ -32407,7 +32407,7 @@ proc getDeviceSelector*(_: typedesc[UsbDevice], vendorId: uint32,
 proc getDeviceClassSelector*(_: typedesc[UsbDevice], usbClass: UsbDeviceClass
                             ): string =
   ## Windows.Devices.Usb.IUsbDeviceStatics.GetDeviceClassSelector
-  let it = statics[IUsbDeviceStaticsVtbl]("Windows.Devices.Usb.UsbDevice")
+  let it = statics[IUsbDeviceStaticsVtbl](className(UsbDevice))
   let a0 = queryInterface[IUsbDeviceClassVtbl](usbClass)
   var ret: HSTRING
   check it.vtbl.GetDeviceClassSelector(it.raw, a0.raw, ret.addr
@@ -32416,7 +32416,7 @@ proc getDeviceClassSelector*(_: typedesc[UsbDevice], usbClass: UsbDeviceClass
 
 proc fromIdAsync*(_: typedesc[UsbDevice], deviceId: string): Future[UsbDevice] =
   ## Windows.Devices.Usb.IUsbDeviceStatics.FromIdAsync
-  let it = statics[IUsbDeviceStaticsVtbl]("Windows.Devices.Usb.UsbDevice")
+  let it = statics[IUsbDeviceStaticsVtbl](className(UsbDevice))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr), "UsbDevice.fromIdAsync"
@@ -32537,21 +32537,21 @@ proc `protocolCode=`*(self: UsbDeviceClass, value: Option[uint8]) =
 
 proc cdcControl*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass =
   ## Windows.Devices.Usb.IUsbDeviceClassesStatics.get_CdcControl
-  let it = statics[IUsbDeviceClassesStaticsVtbl]("Windows.Devices.Usb.UsbDeviceClasses")
+  let it = statics[IUsbDeviceClassesStaticsVtbl](className(UsbDeviceClasses))
   var ret: pointer
   check it.vtbl.get_CdcControl(it.raw, ret.addr), "UsbDeviceClasses.cdcControl"
   adopt[UsbDeviceClass](ret)
 
 proc physical*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass =
   ## Windows.Devices.Usb.IUsbDeviceClassesStatics.get_Physical
-  let it = statics[IUsbDeviceClassesStaticsVtbl]("Windows.Devices.Usb.UsbDeviceClasses")
+  let it = statics[IUsbDeviceClassesStaticsVtbl](className(UsbDeviceClasses))
   var ret: pointer
   check it.vtbl.get_Physical(it.raw, ret.addr), "UsbDeviceClasses.physical"
   adopt[UsbDeviceClass](ret)
 
 proc personalHealthcare*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass =
   ## Windows.Devices.Usb.IUsbDeviceClassesStatics.get_PersonalHealthcare
-  let it = statics[IUsbDeviceClassesStaticsVtbl]("Windows.Devices.Usb.UsbDeviceClasses")
+  let it = statics[IUsbDeviceClassesStaticsVtbl](className(UsbDeviceClasses))
   var ret: pointer
   check it.vtbl.get_PersonalHealthcare(it.raw, ret.addr
                                       ), "UsbDeviceClasses.personalHealthcare"
@@ -32559,21 +32559,21 @@ proc personalHealthcare*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass =
 
 proc activeSync*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass =
   ## Windows.Devices.Usb.IUsbDeviceClassesStatics.get_ActiveSync
-  let it = statics[IUsbDeviceClassesStaticsVtbl]("Windows.Devices.Usb.UsbDeviceClasses")
+  let it = statics[IUsbDeviceClassesStaticsVtbl](className(UsbDeviceClasses))
   var ret: pointer
   check it.vtbl.get_ActiveSync(it.raw, ret.addr), "UsbDeviceClasses.activeSync"
   adopt[UsbDeviceClass](ret)
 
 proc palmSync*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass =
   ## Windows.Devices.Usb.IUsbDeviceClassesStatics.get_PalmSync
-  let it = statics[IUsbDeviceClassesStaticsVtbl]("Windows.Devices.Usb.UsbDeviceClasses")
+  let it = statics[IUsbDeviceClassesStaticsVtbl](className(UsbDeviceClasses))
   var ret: pointer
   check it.vtbl.get_PalmSync(it.raw, ret.addr), "UsbDeviceClasses.palmSync"
   adopt[UsbDeviceClass](ret)
 
 proc deviceFirmwareUpdate*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass =
   ## Windows.Devices.Usb.IUsbDeviceClassesStatics.get_DeviceFirmwareUpdate
-  let it = statics[IUsbDeviceClassesStaticsVtbl]("Windows.Devices.Usb.UsbDeviceClasses")
+  let it = statics[IUsbDeviceClassesStaticsVtbl](className(UsbDeviceClasses))
   var ret: pointer
   check it.vtbl.get_DeviceFirmwareUpdate(it.raw, ret.addr
                                         ), "UsbDeviceClasses.deviceFirmwareUpdate"
@@ -32581,14 +32581,14 @@ proc deviceFirmwareUpdate*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass =
 
 proc irda*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass =
   ## Windows.Devices.Usb.IUsbDeviceClassesStatics.get_Irda
-  let it = statics[IUsbDeviceClassesStaticsVtbl]("Windows.Devices.Usb.UsbDeviceClasses")
+  let it = statics[IUsbDeviceClassesStaticsVtbl](className(UsbDeviceClasses))
   var ret: pointer
   check it.vtbl.get_Irda(it.raw, ret.addr), "UsbDeviceClasses.irda"
   adopt[UsbDeviceClass](ret)
 
 proc measurement*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass =
   ## Windows.Devices.Usb.IUsbDeviceClassesStatics.get_Measurement
-  let it = statics[IUsbDeviceClassesStaticsVtbl]("Windows.Devices.Usb.UsbDeviceClasses")
+  let it = statics[IUsbDeviceClassesStaticsVtbl](className(UsbDeviceClasses))
   var ret: pointer
   check it.vtbl.get_Measurement(it.raw, ret.addr
                                ), "UsbDeviceClasses.measurement"
@@ -32596,7 +32596,7 @@ proc measurement*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass =
 
 proc vendorSpecific*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass =
   ## Windows.Devices.Usb.IUsbDeviceClassesStatics.get_VendorSpecific
-  let it = statics[IUsbDeviceClassesStaticsVtbl]("Windows.Devices.Usb.UsbDeviceClasses")
+  let it = statics[IUsbDeviceClassesStaticsVtbl](className(UsbDeviceClasses))
   var ret: pointer
   check it.vtbl.get_VendorSpecific(it.raw, ret.addr
                                   ), "UsbDeviceClasses.vendorSpecific"
@@ -32654,7 +32654,7 @@ proc numberOfConfigurations*(self: UsbDeviceDescriptor): uint8 =
 proc tryParse*(_: typedesc[UsbEndpointDescriptor], descriptor: UsbDescriptor
               ): tuple[ok: bool, parsed: UsbEndpointDescriptor] =
   ## Windows.Devices.Usb.IUsbEndpointDescriptorStatics.TryParse
-  let it = statics[IUsbEndpointDescriptorStaticsVtbl]("Windows.Devices.Usb.UsbEndpointDescriptor")
+  let it = statics[IUsbEndpointDescriptorStaticsVtbl](className(UsbEndpointDescriptor))
   let a0 = queryInterface[IUsbDescriptorVtbl](descriptor)
   var parsed: pointer
   var ret: bool
@@ -32665,7 +32665,7 @@ proc tryParse*(_: typedesc[UsbEndpointDescriptor], descriptor: UsbDescriptor
 proc parse*(_: typedesc[UsbEndpointDescriptor], descriptor: UsbDescriptor
            ): UsbEndpointDescriptor =
   ## Windows.Devices.Usb.IUsbEndpointDescriptorStatics.Parse
-  let it = statics[IUsbEndpointDescriptorStaticsVtbl]("Windows.Devices.Usb.UsbEndpointDescriptor")
+  let it = statics[IUsbEndpointDescriptorStaticsVtbl](className(UsbEndpointDescriptor))
   let a0 = queryInterface[IUsbDescriptorVtbl](descriptor)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.raw, ret.addr), "UsbEndpointDescriptor.parse"
@@ -32787,7 +32787,7 @@ proc descriptors*(self: UsbInterface): seq[UsbDescriptor] =
 proc tryParse*(_: typedesc[UsbInterfaceDescriptor], descriptor: UsbDescriptor
               ): tuple[ok: bool, parsed: UsbInterfaceDescriptor] =
   ## Windows.Devices.Usb.IUsbInterfaceDescriptorStatics.TryParse
-  let it = statics[IUsbInterfaceDescriptorStaticsVtbl]("Windows.Devices.Usb.UsbInterfaceDescriptor")
+  let it = statics[IUsbInterfaceDescriptorStaticsVtbl](className(UsbInterfaceDescriptor))
   let a0 = queryInterface[IUsbDescriptorVtbl](descriptor)
   var parsed: pointer
   var ret: bool
@@ -32798,7 +32798,7 @@ proc tryParse*(_: typedesc[UsbInterfaceDescriptor], descriptor: UsbDescriptor
 proc parse*(_: typedesc[UsbInterfaceDescriptor], descriptor: UsbDescriptor
            ): UsbInterfaceDescriptor =
   ## Windows.Devices.Usb.IUsbInterfaceDescriptorStatics.Parse
-  let it = statics[IUsbInterfaceDescriptorStaticsVtbl]("Windows.Devices.Usb.UsbInterfaceDescriptor")
+  let it = statics[IUsbInterfaceDescriptorStaticsVtbl](className(UsbInterfaceDescriptor))
   let a0 = queryInterface[IUsbDescriptorVtbl](descriptor)
   var ret: pointer
   check it.vtbl.Parse(it.raw, a0.raw, ret.addr), "UsbInterfaceDescriptor.parse"
@@ -33073,7 +33073,7 @@ proc newUsbSetupPacket*(): UsbSetupPacket =
 
 proc newUsbSetupPacket*(eightByteBuffer: SomeBuffer): UsbSetupPacket =
   ## Windows.Devices.Usb.IUsbSetupPacketFactory.CreateWithEightByteBuffer
-  let it = statics[IUsbSetupPacketFactoryVtbl]("Windows.Devices.Usb.UsbSetupPacket")
+  let it = statics[IUsbSetupPacketFactoryVtbl](className(UsbSetupPacket))
   let a0 = queryInterface[IBufferVtbl](eightByteBuffer)
   var ret: pointer
   check it.vtbl.CreateWithEightByteBuffer(it.raw, a0.raw, ret.addr
@@ -33161,7 +33161,7 @@ proc level*(self: VenueData): string =
 
 proc requestAccessAsync*(_: typedesc[VibrationDevice]): Future[VibrationAccessStatus] =
   ## Windows.Devices.Haptics.IVibrationDeviceStatics.RequestAccessAsync
-  let it = statics[IVibrationDeviceStaticsVtbl]("Windows.Devices.Haptics.VibrationDevice")
+  let it = statics[IVibrationDeviceStaticsVtbl](className(VibrationDevice))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "VibrationDevice.requestAccessAsync"
@@ -33169,7 +33169,7 @@ proc requestAccessAsync*(_: typedesc[VibrationDevice]): Future[VibrationAccessSt
 
 proc getDeviceSelector*(_: typedesc[VibrationDevice]): string =
   ## Windows.Devices.Haptics.IVibrationDeviceStatics.GetDeviceSelector
-  let it = statics[IVibrationDeviceStaticsVtbl]("Windows.Devices.Haptics.VibrationDevice")
+  let it = statics[IVibrationDeviceStaticsVtbl](className(VibrationDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "VibrationDevice.getDeviceSelector"
@@ -33178,7 +33178,7 @@ proc getDeviceSelector*(_: typedesc[VibrationDevice]): string =
 proc fromIdAsync*(_: typedesc[VibrationDevice], deviceId: string
                  ): Future[VibrationDevice] =
   ## Windows.Devices.Haptics.IVibrationDeviceStatics.FromIdAsync
-  let it = statics[IVibrationDeviceStaticsVtbl]("Windows.Devices.Haptics.VibrationDevice")
+  let it = statics[IVibrationDeviceStaticsVtbl](className(VibrationDevice))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -33187,7 +33187,7 @@ proc fromIdAsync*(_: typedesc[VibrationDevice], deviceId: string
 
 proc getDefaultAsync*(_: typedesc[VibrationDevice]): Future[VibrationDevice] =
   ## Windows.Devices.Haptics.IVibrationDeviceStatics.GetDefaultAsync
-  let it = statics[IVibrationDeviceStaticsVtbl]("Windows.Devices.Haptics.VibrationDevice")
+  let it = statics[IVibrationDeviceStaticsVtbl](className(VibrationDevice))
   var op: pointer
   check it.vtbl.GetDefaultAsync(it.raw, op.addr
                                ), "VibrationDevice.getDefaultAsync"
@@ -33195,7 +33195,7 @@ proc getDefaultAsync*(_: typedesc[VibrationDevice]): Future[VibrationDevice] =
 
 proc findAllAsync*(_: typedesc[VibrationDevice]): Future[seq[VibrationDevice]] =
   ## Windows.Devices.Haptics.IVibrationDeviceStatics.FindAllAsync
-  let it = statics[IVibrationDeviceStaticsVtbl]("Windows.Devices.Haptics.VibrationDevice")
+  let it = statics[IVibrationDeviceStaticsVtbl](className(VibrationDevice))
   var op: pointer
   check it.vtbl.FindAllAsync(it.raw, op.addr), "VibrationDevice.findAllAsync"
   future[IAsyncOperationVtbl[IVectorViewVtbl[VibrationDevice]],
@@ -33358,7 +33358,7 @@ proc installVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager],
                                  parameters: VirtualPrinterInstallationParameters
                                 ): Future[VirtualPrinterInstallationResult] =
   ## Windows.Devices.Printers.IVirtualPrinterManagerStatics.InstallVirtualPrinterAsync
-  let it = statics[IVirtualPrinterManagerStaticsVtbl]("Windows.Devices.Printers.VirtualPrinterManager")
+  let it = statics[IVirtualPrinterManagerStaticsVtbl](className(VirtualPrinterManager))
   let a0 = queryInterface[IVirtualPrinterInstallationParametersVtbl](parameters)
   var op: pointer
   check it.vtbl.InstallVirtualPrinterAsync(it.raw, a0.raw, op.addr
@@ -33371,7 +33371,7 @@ proc installVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager],
                                  appPackageFamilyName: string
                                 ): Future[VirtualPrinterInstallationResult] =
   ## Windows.Devices.Printers.IVirtualPrinterManagerStatics.InstallVirtualPrinterAsync
-  let it = statics[IVirtualPrinterManagerStaticsVtbl]("Windows.Devices.Printers.VirtualPrinterManager")
+  let it = statics[IVirtualPrinterManagerStaticsVtbl](className(VirtualPrinterManager))
   let a0 = queryInterface[IVirtualPrinterInstallationParametersVtbl](parameters)
   let a1 = toWinRtString(appPackageFamilyName)
   var op: pointer
@@ -33384,7 +33384,7 @@ proc installVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager],
                                             parameters: VirtualPrinterInstallationParameters
                                            ): Future[VirtualPrinterInstallationResult] =
   ## Windows.Devices.Printers.IVirtualPrinterManagerStatics.InstallVirtualPrinterForAllUsersAsync
-  let it = statics[IVirtualPrinterManagerStaticsVtbl]("Windows.Devices.Printers.VirtualPrinterManager")
+  let it = statics[IVirtualPrinterManagerStaticsVtbl](className(VirtualPrinterManager))
   let a0 = queryInterface[IVirtualPrinterInstallationParametersVtbl](parameters)
   var op: pointer
   check it.vtbl.InstallVirtualPrinterForAllUsersAsync(it.raw, a0.raw, op.addr
@@ -33397,7 +33397,7 @@ proc installVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager],
                                             appPackageFamilyName: string
                                            ): Future[VirtualPrinterInstallationResult] =
   ## Windows.Devices.Printers.IVirtualPrinterManagerStatics.InstallVirtualPrinterForAllUsersAsync
-  let it = statics[IVirtualPrinterManagerStaticsVtbl]("Windows.Devices.Printers.VirtualPrinterManager")
+  let it = statics[IVirtualPrinterManagerStaticsVtbl](className(VirtualPrinterManager))
   let a0 = queryInterface[IVirtualPrinterInstallationParametersVtbl](parameters)
   let a1 = toWinRtString(appPackageFamilyName)
   var op: pointer
@@ -33409,7 +33409,7 @@ proc installVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager],
 
 proc findAllVirtualPrinters*(_: typedesc[VirtualPrinterManager]): seq[string] =
   ## Windows.Devices.Printers.IVirtualPrinterManagerStatics.FindAllVirtualPrinters
-  let it = statics[IVirtualPrinterManagerStaticsVtbl]("Windows.Devices.Printers.VirtualPrinterManager")
+  let it = statics[IVirtualPrinterManagerStaticsVtbl](className(VirtualPrinterManager))
   var ret: pointer
   check it.vtbl.FindAllVirtualPrinters(it.raw, ret.addr
                                       ), "VirtualPrinterManager.findAllVirtualPrinters"
@@ -33418,7 +33418,7 @@ proc findAllVirtualPrinters*(_: typedesc[VirtualPrinterManager]): seq[string] =
 proc findAllVirtualPrinters*(_: typedesc[VirtualPrinterManager],
                              appPackageFamilyName: string): seq[string] =
   ## Windows.Devices.Printers.IVirtualPrinterManagerStatics.FindAllVirtualPrinters
-  let it = statics[IVirtualPrinterManagerStaticsVtbl]("Windows.Devices.Printers.VirtualPrinterManager")
+  let it = statics[IVirtualPrinterManagerStaticsVtbl](className(VirtualPrinterManager))
   let a0 = toWinRtString(appPackageFamilyName)
   var ret: pointer
   check it.vtbl.FindAllVirtualPrinters2(it.raw, a0.handle, ret.addr
@@ -33428,7 +33428,7 @@ proc findAllVirtualPrinters*(_: typedesc[VirtualPrinterManager],
 proc removeVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager],
                                 printerName: string): Future[bool] =
   ## Windows.Devices.Printers.IVirtualPrinterManagerStatics.RemoveVirtualPrinterAsync
-  let it = statics[IVirtualPrinterManagerStaticsVtbl]("Windows.Devices.Printers.VirtualPrinterManager")
+  let it = statics[IVirtualPrinterManagerStaticsVtbl](className(VirtualPrinterManager))
   let a0 = toWinRtString(printerName)
   var op: pointer
   check it.vtbl.RemoveVirtualPrinterAsync(it.raw, a0.handle, op.addr
@@ -33438,7 +33438,7 @@ proc removeVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager],
 proc removeVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager],
                                            printerName: string): Future[bool] =
   ## Windows.Devices.Printers.IVirtualPrinterManagerStatics.RemoveVirtualPrinterForAllUsersAsync
-  let it = statics[IVirtualPrinterManagerStaticsVtbl]("Windows.Devices.Printers.VirtualPrinterManager")
+  let it = statics[IVirtualPrinterManagerStaticsVtbl](className(VirtualPrinterManager))
   let a0 = toWinRtString(printerName)
   var op: pointer
   check it.vtbl.RemoveVirtualPrinterForAllUsersAsync(it.raw, a0.handle, op.addr
@@ -33451,7 +33451,7 @@ proc newVirtualPrinterSupportedFormat*(contentType: string,
                                        maxSupportedVersion: string
                                       ): VirtualPrinterSupportedFormat =
   ## Windows.Devices.Printers.IVirtualPrinterSupportedFormatFactory.CreateInstance
-  let it = statics[IVirtualPrinterSupportedFormatFactoryVtbl]("Windows.Devices.Printers.VirtualPrinterSupportedFormat")
+  let it = statics[IVirtualPrinterSupportedFormatFactoryVtbl](className(VirtualPrinterSupportedFormat))
   let a0 = toWinRtString(contentType)
   let a1 = toWinRtString(maxSupportedVersion)
   var ret: pointer
@@ -33525,7 +33525,7 @@ proc `disableWhenBatterySaverOn=`*(self: WakeOnApproachOptions, value: bool) =
 
 proc findAllAdaptersAsync*(_: typedesc[WiFiAdapter]): Future[seq[WiFiAdapter]] =
   ## Windows.Devices.WiFi.IWiFiAdapterStatics.FindAllAdaptersAsync
-  let it = statics[IWiFiAdapterStaticsVtbl]("Windows.Devices.WiFi.WiFiAdapter")
+  let it = statics[IWiFiAdapterStaticsVtbl](className(WiFiAdapter))
   var op: pointer
   check it.vtbl.FindAllAdaptersAsync(it.raw, op.addr
                                     ), "WiFiAdapter.findAllAdaptersAsync"
@@ -33533,7 +33533,7 @@ proc findAllAdaptersAsync*(_: typedesc[WiFiAdapter]): Future[seq[WiFiAdapter]] =
 
 proc getDeviceSelector*(_: typedesc[WiFiAdapter]): string =
   ## Windows.Devices.WiFi.IWiFiAdapterStatics.GetDeviceSelector
-  let it = statics[IWiFiAdapterStaticsVtbl]("Windows.Devices.WiFi.WiFiAdapter")
+  let it = statics[IWiFiAdapterStaticsVtbl](className(WiFiAdapter))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "WiFiAdapter.getDeviceSelector"
@@ -33542,7 +33542,7 @@ proc getDeviceSelector*(_: typedesc[WiFiAdapter]): string =
 proc fromIdAsync*(_: typedesc[WiFiAdapter], deviceId: string
                  ): Future[WiFiAdapter] =
   ## Windows.Devices.WiFi.IWiFiAdapterStatics.FromIdAsync
-  let it = statics[IWiFiAdapterStaticsVtbl]("Windows.Devices.WiFi.WiFiAdapter")
+  let it = statics[IWiFiAdapterStaticsVtbl](className(WiFiAdapter))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -33551,7 +33551,7 @@ proc fromIdAsync*(_: typedesc[WiFiAdapter], deviceId: string
 
 proc requestAccessAsync*(_: typedesc[WiFiAdapter]): Future[WiFiAccessStatus] =
   ## Windows.Devices.WiFi.IWiFiAdapterStatics.RequestAccessAsync
-  let it = statics[IWiFiAdapterStaticsVtbl]("Windows.Devices.WiFi.WiFiAdapter")
+  let it = statics[IWiFiAdapterStaticsVtbl](className(WiFiAdapter))
   var op: pointer
   check it.vtbl.RequestAccessAsync(it.raw, op.addr
                                   ), "WiFiAdapter.requestAccessAsync"
@@ -33940,7 +33940,7 @@ proc getDevicePairingKinds*(_: typedesc[WiFiDirectConnectionParameters],
                             configurationMethod: WiFiDirectConfigurationMethod
                            ): DevicePairingKinds =
   ## Windows.Devices.WiFiDirect.IWiFiDirectConnectionParametersStatics.GetDevicePairingKinds
-  let it = statics[IWiFiDirectConnectionParametersStaticsVtbl]("Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters")
+  let it = statics[IWiFiDirectConnectionParametersStaticsVtbl](className(WiFiDirectConnectionParameters))
   var ret: DevicePairingKinds
   check it.vtbl.GetDevicePairingKinds(it.raw, configurationMethod, ret.addr
                                      ), "WiFiDirectConnectionParameters.getDevicePairingKinds"
@@ -34007,7 +34007,7 @@ proc getConnectionRequest*(self: WiFiDirectConnectionRequestedEventArgs): WiFiDi
 
 proc getDeviceSelector*(_: typedesc[WiFiDirectDevice]): string =
   ## Windows.Devices.WiFiDirect.IWiFiDirectDeviceStatics.GetDeviceSelector
-  let it = statics[IWiFiDirectDeviceStaticsVtbl]("Windows.Devices.WiFiDirect.WiFiDirectDevice")
+  let it = statics[IWiFiDirectDeviceStaticsVtbl](className(WiFiDirectDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, ret.addr
                                  ), "WiFiDirectDevice.getDeviceSelector"
@@ -34016,7 +34016,7 @@ proc getDeviceSelector*(_: typedesc[WiFiDirectDevice]): string =
 proc fromIdAsync*(_: typedesc[WiFiDirectDevice], deviceId: string
                  ): Future[WiFiDirectDevice] =
   ## Windows.Devices.WiFiDirect.IWiFiDirectDeviceStatics.FromIdAsync
-  let it = statics[IWiFiDirectDeviceStaticsVtbl]("Windows.Devices.WiFiDirect.WiFiDirectDevice")
+  let it = statics[IWiFiDirectDeviceStaticsVtbl](className(WiFiDirectDevice))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -34026,7 +34026,7 @@ proc fromIdAsync*(_: typedesc[WiFiDirectDevice], deviceId: string
 proc getDeviceSelector*(_: typedesc[WiFiDirectDevice],
                         `type`: WiFiDirectDeviceSelectorType): string =
   ## Windows.Devices.WiFiDirect.IWiFiDirectDeviceStatics2.GetDeviceSelector
-  let it = statics[IWiFiDirectDeviceStatics2Vtbl]("Windows.Devices.WiFiDirect.WiFiDirectDevice")
+  let it = statics[IWiFiDirectDeviceStatics2Vtbl](className(WiFiDirectDevice))
   var ret: HSTRING
   check it.vtbl.GetDeviceSelector(it.raw, `type`, ret.addr
                                  ), "WiFiDirectDevice.getDeviceSelector"
@@ -34036,7 +34036,7 @@ proc fromIdAsync*(_: typedesc[WiFiDirectDevice], deviceId: string,
                   connectionParameters: WiFiDirectConnectionParameters
                  ): Future[WiFiDirectDevice] =
   ## Windows.Devices.WiFiDirect.IWiFiDirectDeviceStatics2.FromIdAsync
-  let it = statics[IWiFiDirectDeviceStatics2Vtbl]("Windows.Devices.WiFiDirect.WiFiDirectDevice")
+  let it = statics[IWiFiDirectDeviceStatics2Vtbl](className(WiFiDirectDevice))
   let a0 = toWinRtString(deviceId)
   let a1 = queryInterface[IWiFiDirectConnectionParametersVtbl](connectionParameters)
   var op: pointer
@@ -34096,7 +34096,7 @@ proc newWiFiDirectInformationElement*(): WiFiDirectInformationElement =
 proc createFromBuffer*(_: typedesc[WiFiDirectInformationElement],
                        buffer: SomeBuffer): seq[WiFiDirectInformationElement] =
   ## Windows.Devices.WiFiDirect.IWiFiDirectInformationElementStatics.CreateFromBuffer
-  let it = statics[IWiFiDirectInformationElementStaticsVtbl]("Windows.Devices.WiFiDirect.WiFiDirectInformationElement")
+  let it = statics[IWiFiDirectInformationElementStaticsVtbl](className(WiFiDirectInformationElement))
   let a0 = queryInterface[IBufferVtbl](buffer)
   var ret: pointer
   check it.vtbl.CreateFromBuffer(it.raw, a0.raw, ret.addr
@@ -34107,7 +34107,7 @@ proc createFromDeviceInformation*(_: typedesc[WiFiDirectInformationElement],
                                   deviceInformation: DeviceInformation
                                  ): seq[WiFiDirectInformationElement] =
   ## Windows.Devices.WiFiDirect.IWiFiDirectInformationElementStatics.CreateFromDeviceInformation
-  let it = statics[IWiFiDirectInformationElementStaticsVtbl]("Windows.Devices.WiFiDirect.WiFiDirectInformationElement")
+  let it = statics[IWiFiDirectInformationElementStaticsVtbl](className(WiFiDirectInformationElement))
   let a0 = queryInterface[IDeviceInformationVtbl](deviceInformation)
   var ret: pointer
   check it.vtbl.CreateFromDeviceInformation(it.raw, a0.raw, ret.addr
@@ -34203,7 +34203,7 @@ proc `passphrase=`*(self: WiFiDirectLegacySettings, value: PasswordCredential) =
 
 proc getSelector*(_: typedesc[WiFiDirectService], serviceName: string): string =
   ## Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceStatics.GetSelector
-  let it = statics[IWiFiDirectServiceStaticsVtbl]("Windows.Devices.WiFiDirect.Services.WiFiDirectService")
+  let it = statics[IWiFiDirectServiceStaticsVtbl](className(WiFiDirectService))
   let a0 = toWinRtString(serviceName)
   var ret: HSTRING
   check it.vtbl.GetSelector(it.raw, a0.handle, ret.addr
@@ -34213,7 +34213,7 @@ proc getSelector*(_: typedesc[WiFiDirectService], serviceName: string): string =
 proc getSelector*(_: typedesc[WiFiDirectService], serviceName: string,
                   serviceInfoFilter: SomeBuffer): string =
   ## Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceStatics.GetSelector
-  let it = statics[IWiFiDirectServiceStaticsVtbl]("Windows.Devices.WiFiDirect.Services.WiFiDirectService")
+  let it = statics[IWiFiDirectServiceStaticsVtbl](className(WiFiDirectService))
   let a0 = toWinRtString(serviceName)
   let a1 = queryInterface[IBufferVtbl](serviceInfoFilter)
   var ret: HSTRING
@@ -34224,7 +34224,7 @@ proc getSelector*(_: typedesc[WiFiDirectService], serviceName: string,
 proc fromIdAsync*(_: typedesc[WiFiDirectService], deviceId: string
                  ): Future[WiFiDirectService] =
   ## Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceStatics.FromIdAsync
-  let it = statics[IWiFiDirectServiceStaticsVtbl]("Windows.Devices.WiFiDirect.Services.WiFiDirectService")
+  let it = statics[IWiFiDirectServiceStaticsVtbl](className(WiFiDirectService))
   let a0 = toWinRtString(deviceId)
   var op: pointer
   check it.vtbl.FromIdAsync(it.raw, a0.handle, op.addr
@@ -34337,7 +34337,7 @@ proc connectAsync*(self: WiFiDirectService, pin: string
 
 proc newWiFiDirectServiceAdvertiser*(serviceName: string): WiFiDirectServiceAdvertiser =
   ## Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceAdvertiserFactory.CreateWiFiDirectServiceAdvertiser
-  let it = statics[IWiFiDirectServiceAdvertiserFactoryVtbl]("Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser")
+  let it = statics[IWiFiDirectServiceAdvertiserFactoryVtbl](className(WiFiDirectServiceAdvertiser))
   let a0 = toWinRtString(serviceName)
   var ret: pointer
   check it.vtbl.CreateWiFiDirectServiceAdvertiser(it.raw, a0.handle, ret.addr
@@ -34860,7 +34860,7 @@ proc status*(self: WiFiOnDemandHotspotConnectionResult): WiFiOnDemandHotspotConn
 proc getOrCreateById*(_: typedesc[WiFiOnDemandHotspotNetwork], networkId: GUID
                      ): WiFiOnDemandHotspotNetwork =
   ## Windows.Devices.WiFi.IWiFiOnDemandHotspotNetworkStatics.GetOrCreateById
-  let it = statics[IWiFiOnDemandHotspotNetworkStaticsVtbl]("Windows.Devices.WiFi.WiFiOnDemandHotspotNetwork")
+  let it = statics[IWiFiOnDemandHotspotNetworkStaticsVtbl](className(WiFiOnDemandHotspotNetwork))
   var ret: pointer
   check it.vtbl.GetOrCreateById(it.raw, networkId, ret.addr
                                ), "WiFiOnDemandHotspotNetwork.getOrCreateById"

@@ -278,7 +278,10 @@ count here is lower than the number of call sites it covers.
 ### Where an IID comes from
 
 An interface's IID is a constant beside its vtable, and a class's metadata name
-and default interface are constants in `classes.nim`. Generic code reaches them
+and default interface are constants in `classes.nim`. A static member reads
+the first of those too: `statics[IAdaptiveMediaSourceStaticsVtbl](className(
+AdaptiveMediaSource))` rather than repeating the class id as a literal, so the
+name a factory is looked up by cannot drift from the type it hangs off. Generic code reaches them
 through four macros in `com.nim` — `iid(T)`, `className(T)`, `defaultIid(T)`,
 `runtimeName(T)` — each of which turns a type into the name of its constant:
 `iid(IUriRuntimeClassVtbl)` is `IID_IUriRuntimeClass`, and so is

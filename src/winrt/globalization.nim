@@ -21,7 +21,7 @@ export foundation
 
 proc primaryLanguageOverride*(_: typedesc[ApplicationLanguages]): string =
   ## Windows.Globalization.IApplicationLanguagesStatics.get_PrimaryLanguageOverride
-  let it = statics[IApplicationLanguagesStaticsVtbl]("Windows.Globalization.ApplicationLanguages")
+  let it = statics[IApplicationLanguagesStaticsVtbl](className(ApplicationLanguages))
   var ret: HSTRING
   check it.vtbl.get_PrimaryLanguageOverride(it.raw, ret.addr
                                            ), "ApplicationLanguages.primaryLanguageOverride"
@@ -30,14 +30,14 @@ proc primaryLanguageOverride*(_: typedesc[ApplicationLanguages]): string =
 proc `primaryLanguageOverride=`*(_: typedesc[ApplicationLanguages],
                                  value: string) =
   ## Windows.Globalization.IApplicationLanguagesStatics.put_PrimaryLanguageOverride
-  let it = statics[IApplicationLanguagesStaticsVtbl]("Windows.Globalization.ApplicationLanguages")
+  let it = statics[IApplicationLanguagesStaticsVtbl](className(ApplicationLanguages))
   let a0 = toWinRtString(value)
   check it.vtbl.put_PrimaryLanguageOverride(it.raw, a0.handle
                                            ), "ApplicationLanguages.primaryLanguageOverride"
 
 proc languages*(_: typedesc[ApplicationLanguages]): seq[string] =
   ## Windows.Globalization.IApplicationLanguagesStatics.get_Languages
-  let it = statics[IApplicationLanguagesStaticsVtbl]("Windows.Globalization.ApplicationLanguages")
+  let it = statics[IApplicationLanguagesStaticsVtbl](className(ApplicationLanguages))
   var ret: pointer
   check it.vtbl.get_Languages(it.raw, ret.addr
                              ), "ApplicationLanguages.languages"
@@ -45,7 +45,7 @@ proc languages*(_: typedesc[ApplicationLanguages]): seq[string] =
 
 proc manifestLanguages*(_: typedesc[ApplicationLanguages]): seq[string] =
   ## Windows.Globalization.IApplicationLanguagesStatics.get_ManifestLanguages
-  let it = statics[IApplicationLanguagesStaticsVtbl]("Windows.Globalization.ApplicationLanguages")
+  let it = statics[IApplicationLanguagesStaticsVtbl](className(ApplicationLanguages))
   var ret: pointer
   check it.vtbl.get_ManifestLanguages(it.raw, ret.addr
                                      ), "ApplicationLanguages.manifestLanguages"
@@ -54,7 +54,7 @@ proc manifestLanguages*(_: typedesc[ApplicationLanguages]): seq[string] =
 proc getLanguagesForUser*(_: typedesc[ApplicationLanguages], user: User
                          ): seq[string] =
   ## Windows.Globalization.IApplicationLanguagesStatics2.GetLanguagesForUser
-  let it = statics[IApplicationLanguagesStatics2Vtbl]("Windows.Globalization.ApplicationLanguages")
+  let it = statics[IApplicationLanguagesStatics2Vtbl](className(ApplicationLanguages))
   let a0 = queryInterface[IUserVtbl](user)
   var ret: pointer
   check it.vtbl.GetLanguagesForUser(it.raw, a0.raw, ret.addr
@@ -70,7 +70,7 @@ proc newCalendar*(): Calendar =
 proc newCalendar*(languages: seq[string], calendar: string, clock: string,
                   timeZoneId: string): Calendar =
   ## Windows.Globalization.ICalendarFactory2.CreateCalendarWithTimeZone
-  let it = statics[ICalendarFactory2Vtbl]("Windows.Globalization.Calendar")
+  let it = statics[ICalendarFactory2Vtbl](className(Calendar))
   let a0 = asCollection[string, seq[string]](languages)
   let a1 = toWinRtString(calendar)
   let a2 = toWinRtString(clock)
@@ -82,7 +82,7 @@ proc newCalendar*(languages: seq[string], calendar: string, clock: string,
 
 proc newCalendar*(languages: seq[string]): Calendar =
   ## Windows.Globalization.ICalendarFactory.CreateCalendarDefaultCalendarAndClock
-  let it = statics[ICalendarFactoryVtbl]("Windows.Globalization.Calendar")
+  let it = statics[ICalendarFactoryVtbl](className(Calendar))
   let a0 = asCollection[string, seq[string]](languages)
   var ret: pointer
   check it.vtbl.CreateCalendarDefaultCalendarAndClock(it.raw, a0.raw, ret.addr
@@ -92,7 +92,7 @@ proc newCalendar*(languages: seq[string]): Calendar =
 proc newCalendar*(languages: seq[string], calendar: string, clock: string
                  ): Calendar =
   ## Windows.Globalization.ICalendarFactory.CreateCalendar
-  let it = statics[ICalendarFactoryVtbl]("Windows.Globalization.Calendar")
+  let it = statics[ICalendarFactoryVtbl](className(Calendar))
   let a0 = asCollection[string, seq[string]](languages)
   let a1 = toWinRtString(calendar)
   let a2 = toWinRtString(clock)
@@ -815,77 +815,77 @@ proc timeZoneAsString*(self: Calendar, idealLength: int32): string =
 
 proc gregorian*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics.get_Gregorian
-  let it = statics[ICalendarIdentifiersStaticsVtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStaticsVtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Gregorian(it.raw, ret.addr), "CalendarIdentifiers.gregorian"
   takeString(ret)
 
 proc hebrew*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics.get_Hebrew
-  let it = statics[ICalendarIdentifiersStaticsVtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStaticsVtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Hebrew(it.raw, ret.addr), "CalendarIdentifiers.hebrew"
   takeString(ret)
 
 proc hijri*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics.get_Hijri
-  let it = statics[ICalendarIdentifiersStaticsVtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStaticsVtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Hijri(it.raw, ret.addr), "CalendarIdentifiers.hijri"
   takeString(ret)
 
 proc japanese*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics.get_Japanese
-  let it = statics[ICalendarIdentifiersStaticsVtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStaticsVtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Japanese(it.raw, ret.addr), "CalendarIdentifiers.japanese"
   takeString(ret)
 
 proc julian*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics.get_Julian
-  let it = statics[ICalendarIdentifiersStaticsVtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStaticsVtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Julian(it.raw, ret.addr), "CalendarIdentifiers.julian"
   takeString(ret)
 
 proc korean*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics.get_Korean
-  let it = statics[ICalendarIdentifiersStaticsVtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStaticsVtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Korean(it.raw, ret.addr), "CalendarIdentifiers.korean"
   takeString(ret)
 
 proc taiwan*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics.get_Taiwan
-  let it = statics[ICalendarIdentifiersStaticsVtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStaticsVtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Taiwan(it.raw, ret.addr), "CalendarIdentifiers.taiwan"
   takeString(ret)
 
 proc thai*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics.get_Thai
-  let it = statics[ICalendarIdentifiersStaticsVtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStaticsVtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Thai(it.raw, ret.addr), "CalendarIdentifiers.thai"
   takeString(ret)
 
 proc umAlQura*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics.get_UmAlQura
-  let it = statics[ICalendarIdentifiersStaticsVtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStaticsVtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_UmAlQura(it.raw, ret.addr), "CalendarIdentifiers.umAlQura"
   takeString(ret)
 
 proc persian*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics2.get_Persian
-  let it = statics[ICalendarIdentifiersStatics2Vtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStatics2Vtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Persian(it.raw, ret.addr), "CalendarIdentifiers.persian"
   takeString(ret)
 
 proc chineseLunar*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics3.get_ChineseLunar
-  let it = statics[ICalendarIdentifiersStatics3Vtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStatics3Vtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ChineseLunar(it.raw, ret.addr
                                 ), "CalendarIdentifiers.chineseLunar"
@@ -893,7 +893,7 @@ proc chineseLunar*(_: typedesc[CalendarIdentifiers]): string =
 
 proc japaneseLunar*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics3.get_JapaneseLunar
-  let it = statics[ICalendarIdentifiersStatics3Vtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStatics3Vtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_JapaneseLunar(it.raw, ret.addr
                                  ), "CalendarIdentifiers.japaneseLunar"
@@ -901,7 +901,7 @@ proc japaneseLunar*(_: typedesc[CalendarIdentifiers]): string =
 
 proc koreanLunar*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics3.get_KoreanLunar
-  let it = statics[ICalendarIdentifiersStatics3Vtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStatics3Vtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_KoreanLunar(it.raw, ret.addr
                                ), "CalendarIdentifiers.koreanLunar"
@@ -909,7 +909,7 @@ proc koreanLunar*(_: typedesc[CalendarIdentifiers]): string =
 
 proc taiwanLunar*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics3.get_TaiwanLunar
-  let it = statics[ICalendarIdentifiersStatics3Vtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStatics3Vtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_TaiwanLunar(it.raw, ret.addr
                                ), "CalendarIdentifiers.taiwanLunar"
@@ -917,7 +917,7 @@ proc taiwanLunar*(_: typedesc[CalendarIdentifiers]): string =
 
 proc vietnameseLunar*(_: typedesc[CalendarIdentifiers]): string =
   ## Windows.Globalization.ICalendarIdentifiersStatics3.get_VietnameseLunar
-  let it = statics[ICalendarIdentifiersStatics3Vtbl]("Windows.Globalization.CalendarIdentifiers")
+  let it = statics[ICalendarIdentifiersStatics3Vtbl](className(CalendarIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_VietnameseLunar(it.raw, ret.addr
                                    ), "CalendarIdentifiers.vietnameseLunar"
@@ -947,7 +947,7 @@ proc newCharacterGroupings*(): CharacterGroupings =
 
 proc newCharacterGroupings*(language: string): CharacterGroupings =
   ## Windows.Globalization.Collation.ICharacterGroupingsFactory.Create
-  let it = statics[ICharacterGroupingsFactoryVtbl]("Windows.Globalization.Collation.CharacterGroupings")
+  let it = statics[ICharacterGroupingsFactoryVtbl](className(CharacterGroupings))
   let a0 = toWinRtString(language)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr), "CharacterGroupings.new"
@@ -965,14 +965,14 @@ proc lookup*(self: CharacterGroupings, text: string): string =
 
 proc twelveHour*(_: typedesc[ClockIdentifiers]): string =
   ## Windows.Globalization.IClockIdentifiersStatics.get_TwelveHour
-  let it = statics[IClockIdentifiersStaticsVtbl]("Windows.Globalization.ClockIdentifiers")
+  let it = statics[IClockIdentifiersStaticsVtbl](className(ClockIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_TwelveHour(it.raw, ret.addr), "ClockIdentifiers.twelveHour"
   takeString(ret)
 
 proc twentyFourHour*(_: typedesc[ClockIdentifiers]): string =
   ## Windows.Globalization.IClockIdentifiersStatics.get_TwentyFourHour
-  let it = statics[IClockIdentifiersStaticsVtbl]("Windows.Globalization.ClockIdentifiers")
+  let it = statics[IClockIdentifiersStaticsVtbl](className(ClockIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_TwentyFourHour(it.raw, ret.addr
                                   ), "ClockIdentifiers.twentyFourHour"
@@ -982,7 +982,7 @@ proc twentyFourHour*(_: typedesc[ClockIdentifiers]): string =
 
 proc newCurrencyAmount*(amount: string, currency: string): CurrencyAmount =
   ## Windows.Globalization.ICurrencyAmountFactory.Create
-  let it = statics[ICurrencyAmountFactoryVtbl]("Windows.Globalization.CurrencyAmount")
+  let it = statics[ICurrencyAmountFactoryVtbl](className(CurrencyAmount))
   let a0 = toWinRtString(amount)
   let a1 = toWinRtString(currency)
   var ret: pointer
@@ -1008,7 +1008,7 @@ proc currency*(self: CurrencyAmount): string =
 
 proc newCurrencyFormatter*(currencyCode: string): CurrencyFormatter =
   ## Windows.Globalization.NumberFormatting.ICurrencyFormatterFactory.CreateCurrencyFormatterCode
-  let it = statics[ICurrencyFormatterFactoryVtbl]("Windows.Globalization.NumberFormatting.CurrencyFormatter")
+  let it = statics[ICurrencyFormatterFactoryVtbl](className(CurrencyFormatter))
   let a0 = toWinRtString(currencyCode)
   var ret: pointer
   check it.vtbl.CreateCurrencyFormatterCode(it.raw, a0.handle, ret.addr
@@ -1018,7 +1018,7 @@ proc newCurrencyFormatter*(currencyCode: string): CurrencyFormatter =
 proc newCurrencyFormatter*(currencyCode: string, languages: seq[string],
                            geographicRegion: string): CurrencyFormatter =
   ## Windows.Globalization.NumberFormatting.ICurrencyFormatterFactory.CreateCurrencyFormatterCodeContext
-  let it = statics[ICurrencyFormatterFactoryVtbl]("Windows.Globalization.NumberFormatting.CurrencyFormatter")
+  let it = statics[ICurrencyFormatterFactoryVtbl](className(CurrencyFormatter))
   let a0 = toWinRtString(currencyCode)
   let a1 = asCollection[string, seq[string]](languages)
   let a2 = toWinRtString(geographicRegion)
@@ -1064,1134 +1064,1134 @@ proc applyRoundingForCurrency*(self: CurrencyFormatter,
 
 proc aED*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_AED
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_AED(it.raw, ret.addr), "CurrencyIdentifiers.aED"
   takeString(ret)
 
 proc aFN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_AFN
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_AFN(it.raw, ret.addr), "CurrencyIdentifiers.aFN"
   takeString(ret)
 
 proc aLL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_ALL
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ALL(it.raw, ret.addr), "CurrencyIdentifiers.aLL"
   takeString(ret)
 
 proc aMD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_AMD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_AMD(it.raw, ret.addr), "CurrencyIdentifiers.aMD"
   takeString(ret)
 
 proc aNG*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_ANG
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ANG(it.raw, ret.addr), "CurrencyIdentifiers.aNG"
   takeString(ret)
 
 proc aOA*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_AOA
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_AOA(it.raw, ret.addr), "CurrencyIdentifiers.aOA"
   takeString(ret)
 
 proc aRS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_ARS
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ARS(it.raw, ret.addr), "CurrencyIdentifiers.aRS"
   takeString(ret)
 
 proc aUD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_AUD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_AUD(it.raw, ret.addr), "CurrencyIdentifiers.aUD"
   takeString(ret)
 
 proc aWG*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_AWG
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_AWG(it.raw, ret.addr), "CurrencyIdentifiers.aWG"
   takeString(ret)
 
 proc aZN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_AZN
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_AZN(it.raw, ret.addr), "CurrencyIdentifiers.aZN"
   takeString(ret)
 
 proc bAM*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BAM
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BAM(it.raw, ret.addr), "CurrencyIdentifiers.bAM"
   takeString(ret)
 
 proc bBD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BBD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BBD(it.raw, ret.addr), "CurrencyIdentifiers.bBD"
   takeString(ret)
 
 proc bDT*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BDT
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BDT(it.raw, ret.addr), "CurrencyIdentifiers.bDT"
   takeString(ret)
 
 proc bGN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BGN
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BGN(it.raw, ret.addr), "CurrencyIdentifiers.bGN"
   takeString(ret)
 
 proc bHD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BHD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BHD(it.raw, ret.addr), "CurrencyIdentifiers.bHD"
   takeString(ret)
 
 proc bIF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BIF
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BIF(it.raw, ret.addr), "CurrencyIdentifiers.bIF"
   takeString(ret)
 
 proc bMD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BMD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BMD(it.raw, ret.addr), "CurrencyIdentifiers.bMD"
   takeString(ret)
 
 proc bND*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BND
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BND(it.raw, ret.addr), "CurrencyIdentifiers.bND"
   takeString(ret)
 
 proc bOB*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BOB
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BOB(it.raw, ret.addr), "CurrencyIdentifiers.bOB"
   takeString(ret)
 
 proc bRL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BRL
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BRL(it.raw, ret.addr), "CurrencyIdentifiers.bRL"
   takeString(ret)
 
 proc bSD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BSD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BSD(it.raw, ret.addr), "CurrencyIdentifiers.bSD"
   takeString(ret)
 
 proc bTN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BTN
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BTN(it.raw, ret.addr), "CurrencyIdentifiers.bTN"
   takeString(ret)
 
 proc bWP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BWP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BWP(it.raw, ret.addr), "CurrencyIdentifiers.bWP"
   takeString(ret)
 
 proc bYR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BYR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BYR(it.raw, ret.addr), "CurrencyIdentifiers.bYR"
   takeString(ret)
 
 proc bZD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_BZD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BZD(it.raw, ret.addr), "CurrencyIdentifiers.bZD"
   takeString(ret)
 
 proc cAD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_CAD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_CAD(it.raw, ret.addr), "CurrencyIdentifiers.cAD"
   takeString(ret)
 
 proc cDF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_CDF
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_CDF(it.raw, ret.addr), "CurrencyIdentifiers.cDF"
   takeString(ret)
 
 proc cHF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_CHF
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_CHF(it.raw, ret.addr), "CurrencyIdentifiers.cHF"
   takeString(ret)
 
 proc cLP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_CLP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_CLP(it.raw, ret.addr), "CurrencyIdentifiers.cLP"
   takeString(ret)
 
 proc cNY*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_CNY
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_CNY(it.raw, ret.addr), "CurrencyIdentifiers.cNY"
   takeString(ret)
 
 proc cOP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_COP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_COP(it.raw, ret.addr), "CurrencyIdentifiers.cOP"
   takeString(ret)
 
 proc cRC*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_CRC
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_CRC(it.raw, ret.addr), "CurrencyIdentifiers.cRC"
   takeString(ret)
 
 proc cUP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_CUP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_CUP(it.raw, ret.addr), "CurrencyIdentifiers.cUP"
   takeString(ret)
 
 proc cVE*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_CVE
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_CVE(it.raw, ret.addr), "CurrencyIdentifiers.cVE"
   takeString(ret)
 
 proc cZK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_CZK
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_CZK(it.raw, ret.addr), "CurrencyIdentifiers.cZK"
   takeString(ret)
 
 proc dJF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_DJF
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_DJF(it.raw, ret.addr), "CurrencyIdentifiers.dJF"
   takeString(ret)
 
 proc dKK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_DKK
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_DKK(it.raw, ret.addr), "CurrencyIdentifiers.dKK"
   takeString(ret)
 
 proc dOP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_DOP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_DOP(it.raw, ret.addr), "CurrencyIdentifiers.dOP"
   takeString(ret)
 
 proc dZD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_DZD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_DZD(it.raw, ret.addr), "CurrencyIdentifiers.dZD"
   takeString(ret)
 
 proc eGP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_EGP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_EGP(it.raw, ret.addr), "CurrencyIdentifiers.eGP"
   takeString(ret)
 
 proc eRN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_ERN
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ERN(it.raw, ret.addr), "CurrencyIdentifiers.eRN"
   takeString(ret)
 
 proc eTB*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_ETB
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ETB(it.raw, ret.addr), "CurrencyIdentifiers.eTB"
   takeString(ret)
 
 proc eUR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_EUR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_EUR(it.raw, ret.addr), "CurrencyIdentifiers.eUR"
   takeString(ret)
 
 proc fJD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_FJD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_FJD(it.raw, ret.addr), "CurrencyIdentifiers.fJD"
   takeString(ret)
 
 proc fKP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_FKP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_FKP(it.raw, ret.addr), "CurrencyIdentifiers.fKP"
   takeString(ret)
 
 proc gBP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_GBP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_GBP(it.raw, ret.addr), "CurrencyIdentifiers.gBP"
   takeString(ret)
 
 proc gEL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_GEL
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_GEL(it.raw, ret.addr), "CurrencyIdentifiers.gEL"
   takeString(ret)
 
 proc gHS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_GHS
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_GHS(it.raw, ret.addr), "CurrencyIdentifiers.gHS"
   takeString(ret)
 
 proc gIP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_GIP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_GIP(it.raw, ret.addr), "CurrencyIdentifiers.gIP"
   takeString(ret)
 
 proc gMD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_GMD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_GMD(it.raw, ret.addr), "CurrencyIdentifiers.gMD"
   takeString(ret)
 
 proc gNF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_GNF
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_GNF(it.raw, ret.addr), "CurrencyIdentifiers.gNF"
   takeString(ret)
 
 proc gTQ*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_GTQ
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_GTQ(it.raw, ret.addr), "CurrencyIdentifiers.gTQ"
   takeString(ret)
 
 proc gYD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_GYD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_GYD(it.raw, ret.addr), "CurrencyIdentifiers.gYD"
   takeString(ret)
 
 proc hKD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_HKD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_HKD(it.raw, ret.addr), "CurrencyIdentifiers.hKD"
   takeString(ret)
 
 proc hNL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_HNL
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_HNL(it.raw, ret.addr), "CurrencyIdentifiers.hNL"
   takeString(ret)
 
 proc hRK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_HRK
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_HRK(it.raw, ret.addr), "CurrencyIdentifiers.hRK"
   takeString(ret)
 
 proc hTG*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_HTG
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_HTG(it.raw, ret.addr), "CurrencyIdentifiers.hTG"
   takeString(ret)
 
 proc hUF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_HUF
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_HUF(it.raw, ret.addr), "CurrencyIdentifiers.hUF"
   takeString(ret)
 
 proc iDR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_IDR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_IDR(it.raw, ret.addr), "CurrencyIdentifiers.iDR"
   takeString(ret)
 
 proc iLS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_ILS
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ILS(it.raw, ret.addr), "CurrencyIdentifiers.iLS"
   takeString(ret)
 
 proc iNR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_INR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_INR(it.raw, ret.addr), "CurrencyIdentifiers.iNR"
   takeString(ret)
 
 proc iQD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_IQD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_IQD(it.raw, ret.addr), "CurrencyIdentifiers.iQD"
   takeString(ret)
 
 proc iRR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_IRR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_IRR(it.raw, ret.addr), "CurrencyIdentifiers.iRR"
   takeString(ret)
 
 proc iSK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_ISK
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ISK(it.raw, ret.addr), "CurrencyIdentifiers.iSK"
   takeString(ret)
 
 proc jMD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_JMD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_JMD(it.raw, ret.addr), "CurrencyIdentifiers.jMD"
   takeString(ret)
 
 proc jOD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_JOD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_JOD(it.raw, ret.addr), "CurrencyIdentifiers.jOD"
   takeString(ret)
 
 proc jPY*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_JPY
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_JPY(it.raw, ret.addr), "CurrencyIdentifiers.jPY"
   takeString(ret)
 
 proc kES*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_KES
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_KES(it.raw, ret.addr), "CurrencyIdentifiers.kES"
   takeString(ret)
 
 proc kGS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_KGS
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_KGS(it.raw, ret.addr), "CurrencyIdentifiers.kGS"
   takeString(ret)
 
 proc kHR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_KHR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_KHR(it.raw, ret.addr), "CurrencyIdentifiers.kHR"
   takeString(ret)
 
 proc kMF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_KMF
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_KMF(it.raw, ret.addr), "CurrencyIdentifiers.kMF"
   takeString(ret)
 
 proc kPW*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_KPW
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_KPW(it.raw, ret.addr), "CurrencyIdentifiers.kPW"
   takeString(ret)
 
 proc kRW*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_KRW
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_KRW(it.raw, ret.addr), "CurrencyIdentifiers.kRW"
   takeString(ret)
 
 proc kWD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_KWD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_KWD(it.raw, ret.addr), "CurrencyIdentifiers.kWD"
   takeString(ret)
 
 proc kYD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_KYD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_KYD(it.raw, ret.addr), "CurrencyIdentifiers.kYD"
   takeString(ret)
 
 proc kZT*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_KZT
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_KZT(it.raw, ret.addr), "CurrencyIdentifiers.kZT"
   takeString(ret)
 
 proc lAK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_LAK
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_LAK(it.raw, ret.addr), "CurrencyIdentifiers.lAK"
   takeString(ret)
 
 proc lBP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_LBP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_LBP(it.raw, ret.addr), "CurrencyIdentifiers.lBP"
   takeString(ret)
 
 proc lKR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_LKR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_LKR(it.raw, ret.addr), "CurrencyIdentifiers.lKR"
   takeString(ret)
 
 proc lRD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_LRD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_LRD(it.raw, ret.addr), "CurrencyIdentifiers.lRD"
   takeString(ret)
 
 proc lSL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_LSL
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_LSL(it.raw, ret.addr), "CurrencyIdentifiers.lSL"
   takeString(ret)
 
 proc lTL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_LTL
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_LTL(it.raw, ret.addr), "CurrencyIdentifiers.lTL"
   takeString(ret)
 
 proc lVL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_LVL
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_LVL(it.raw, ret.addr), "CurrencyIdentifiers.lVL"
   takeString(ret)
 
 proc lYD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_LYD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_LYD(it.raw, ret.addr), "CurrencyIdentifiers.lYD"
   takeString(ret)
 
 proc mAD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MAD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MAD(it.raw, ret.addr), "CurrencyIdentifiers.mAD"
   takeString(ret)
 
 proc mDL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MDL
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MDL(it.raw, ret.addr), "CurrencyIdentifiers.mDL"
   takeString(ret)
 
 proc mGA*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MGA
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MGA(it.raw, ret.addr), "CurrencyIdentifiers.mGA"
   takeString(ret)
 
 proc mKD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MKD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MKD(it.raw, ret.addr), "CurrencyIdentifiers.mKD"
   takeString(ret)
 
 proc mMK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MMK
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MMK(it.raw, ret.addr), "CurrencyIdentifiers.mMK"
   takeString(ret)
 
 proc mNT*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MNT
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MNT(it.raw, ret.addr), "CurrencyIdentifiers.mNT"
   takeString(ret)
 
 proc mOP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MOP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MOP(it.raw, ret.addr), "CurrencyIdentifiers.mOP"
   takeString(ret)
 
 proc mRO*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MRO
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MRO(it.raw, ret.addr), "CurrencyIdentifiers.mRO"
   takeString(ret)
 
 proc mUR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MUR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MUR(it.raw, ret.addr), "CurrencyIdentifiers.mUR"
   takeString(ret)
 
 proc mVR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MVR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MVR(it.raw, ret.addr), "CurrencyIdentifiers.mVR"
   takeString(ret)
 
 proc mWK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MWK
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MWK(it.raw, ret.addr), "CurrencyIdentifiers.mWK"
   takeString(ret)
 
 proc mXN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MXN
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MXN(it.raw, ret.addr), "CurrencyIdentifiers.mXN"
   takeString(ret)
 
 proc mYR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MYR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MYR(it.raw, ret.addr), "CurrencyIdentifiers.mYR"
   takeString(ret)
 
 proc mZN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_MZN
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MZN(it.raw, ret.addr), "CurrencyIdentifiers.mZN"
   takeString(ret)
 
 proc nAD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_NAD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_NAD(it.raw, ret.addr), "CurrencyIdentifiers.nAD"
   takeString(ret)
 
 proc nGN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_NGN
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_NGN(it.raw, ret.addr), "CurrencyIdentifiers.nGN"
   takeString(ret)
 
 proc nIO*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_NIO
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_NIO(it.raw, ret.addr), "CurrencyIdentifiers.nIO"
   takeString(ret)
 
 proc nOK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_NOK
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_NOK(it.raw, ret.addr), "CurrencyIdentifiers.nOK"
   takeString(ret)
 
 proc nPR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_NPR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_NPR(it.raw, ret.addr), "CurrencyIdentifiers.nPR"
   takeString(ret)
 
 proc nZD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_NZD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_NZD(it.raw, ret.addr), "CurrencyIdentifiers.nZD"
   takeString(ret)
 
 proc oMR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_OMR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_OMR(it.raw, ret.addr), "CurrencyIdentifiers.oMR"
   takeString(ret)
 
 proc pAB*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_PAB
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_PAB(it.raw, ret.addr), "CurrencyIdentifiers.pAB"
   takeString(ret)
 
 proc pEN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_PEN
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_PEN(it.raw, ret.addr), "CurrencyIdentifiers.pEN"
   takeString(ret)
 
 proc pGK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_PGK
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_PGK(it.raw, ret.addr), "CurrencyIdentifiers.pGK"
   takeString(ret)
 
 proc pHP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_PHP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_PHP(it.raw, ret.addr), "CurrencyIdentifiers.pHP"
   takeString(ret)
 
 proc pKR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_PKR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_PKR(it.raw, ret.addr), "CurrencyIdentifiers.pKR"
   takeString(ret)
 
 proc pLN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_PLN
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_PLN(it.raw, ret.addr), "CurrencyIdentifiers.pLN"
   takeString(ret)
 
 proc pYG*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_PYG
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_PYG(it.raw, ret.addr), "CurrencyIdentifiers.pYG"
   takeString(ret)
 
 proc qAR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_QAR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_QAR(it.raw, ret.addr), "CurrencyIdentifiers.qAR"
   takeString(ret)
 
 proc rON*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_RON
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_RON(it.raw, ret.addr), "CurrencyIdentifiers.rON"
   takeString(ret)
 
 proc rSD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_RSD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_RSD(it.raw, ret.addr), "CurrencyIdentifiers.rSD"
   takeString(ret)
 
 proc rUB*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_RUB
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_RUB(it.raw, ret.addr), "CurrencyIdentifiers.rUB"
   takeString(ret)
 
 proc rWF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_RWF
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_RWF(it.raw, ret.addr), "CurrencyIdentifiers.rWF"
   takeString(ret)
 
 proc sAR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_SAR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_SAR(it.raw, ret.addr), "CurrencyIdentifiers.sAR"
   takeString(ret)
 
 proc sBD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_SBD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_SBD(it.raw, ret.addr), "CurrencyIdentifiers.sBD"
   takeString(ret)
 
 proc sCR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_SCR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_SCR(it.raw, ret.addr), "CurrencyIdentifiers.sCR"
   takeString(ret)
 
 proc sDG*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_SDG
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_SDG(it.raw, ret.addr), "CurrencyIdentifiers.sDG"
   takeString(ret)
 
 proc sEK*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_SEK
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_SEK(it.raw, ret.addr), "CurrencyIdentifiers.sEK"
   takeString(ret)
 
 proc sGD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_SGD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_SGD(it.raw, ret.addr), "CurrencyIdentifiers.sGD"
   takeString(ret)
 
 proc sHP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_SHP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_SHP(it.raw, ret.addr), "CurrencyIdentifiers.sHP"
   takeString(ret)
 
 proc sLL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_SLL
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_SLL(it.raw, ret.addr), "CurrencyIdentifiers.sLL"
   takeString(ret)
 
 proc sOS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_SOS
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_SOS(it.raw, ret.addr), "CurrencyIdentifiers.sOS"
   takeString(ret)
 
 proc sRD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_SRD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_SRD(it.raw, ret.addr), "CurrencyIdentifiers.sRD"
   takeString(ret)
 
 proc sTD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_STD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_STD(it.raw, ret.addr), "CurrencyIdentifiers.sTD"
   takeString(ret)
 
 proc sYP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_SYP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_SYP(it.raw, ret.addr), "CurrencyIdentifiers.sYP"
   takeString(ret)
 
 proc sZL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_SZL
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_SZL(it.raw, ret.addr), "CurrencyIdentifiers.sZL"
   takeString(ret)
 
 proc tHB*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_THB
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_THB(it.raw, ret.addr), "CurrencyIdentifiers.tHB"
   takeString(ret)
 
 proc tJS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_TJS
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_TJS(it.raw, ret.addr), "CurrencyIdentifiers.tJS"
   takeString(ret)
 
 proc tMT*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_TMT
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_TMT(it.raw, ret.addr), "CurrencyIdentifiers.tMT"
   takeString(ret)
 
 proc tND*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_TND
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_TND(it.raw, ret.addr), "CurrencyIdentifiers.tND"
   takeString(ret)
 
 proc tOP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_TOP
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_TOP(it.raw, ret.addr), "CurrencyIdentifiers.tOP"
   takeString(ret)
 
 proc `tRY`*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_TRY
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_TRY(it.raw, ret.addr), "CurrencyIdentifiers.tRY"
   takeString(ret)
 
 proc tTD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_TTD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_TTD(it.raw, ret.addr), "CurrencyIdentifiers.tTD"
   takeString(ret)
 
 proc tWD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_TWD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_TWD(it.raw, ret.addr), "CurrencyIdentifiers.tWD"
   takeString(ret)
 
 proc tZS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_TZS
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_TZS(it.raw, ret.addr), "CurrencyIdentifiers.tZS"
   takeString(ret)
 
 proc uAH*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_UAH
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_UAH(it.raw, ret.addr), "CurrencyIdentifiers.uAH"
   takeString(ret)
 
 proc uGX*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_UGX
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_UGX(it.raw, ret.addr), "CurrencyIdentifiers.uGX"
   takeString(ret)
 
 proc uSD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_USD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_USD(it.raw, ret.addr), "CurrencyIdentifiers.uSD"
   takeString(ret)
 
 proc uYU*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_UYU
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_UYU(it.raw, ret.addr), "CurrencyIdentifiers.uYU"
   takeString(ret)
 
 proc uZS*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_UZS
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_UZS(it.raw, ret.addr), "CurrencyIdentifiers.uZS"
   takeString(ret)
 
 proc vEF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_VEF
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_VEF(it.raw, ret.addr), "CurrencyIdentifiers.vEF"
   takeString(ret)
 
 proc vND*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_VND
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_VND(it.raw, ret.addr), "CurrencyIdentifiers.vND"
   takeString(ret)
 
 proc vUV*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_VUV
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_VUV(it.raw, ret.addr), "CurrencyIdentifiers.vUV"
   takeString(ret)
 
 proc wST*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_WST
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_WST(it.raw, ret.addr), "CurrencyIdentifiers.wST"
   takeString(ret)
 
 proc xAF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_XAF
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_XAF(it.raw, ret.addr), "CurrencyIdentifiers.xAF"
   takeString(ret)
 
 proc xCD*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_XCD
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_XCD(it.raw, ret.addr), "CurrencyIdentifiers.xCD"
   takeString(ret)
 
 proc xOF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_XOF
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_XOF(it.raw, ret.addr), "CurrencyIdentifiers.xOF"
   takeString(ret)
 
 proc xPF*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_XPF
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_XPF(it.raw, ret.addr), "CurrencyIdentifiers.xPF"
   takeString(ret)
 
 proc xXX*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_XXX
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_XXX(it.raw, ret.addr), "CurrencyIdentifiers.xXX"
   takeString(ret)
 
 proc yER*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_YER
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_YER(it.raw, ret.addr), "CurrencyIdentifiers.yER"
   takeString(ret)
 
 proc zAR*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_ZAR
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ZAR(it.raw, ret.addr), "CurrencyIdentifiers.zAR"
   takeString(ret)
 
 proc zMW*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_ZMW
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ZMW(it.raw, ret.addr), "CurrencyIdentifiers.zMW"
   takeString(ret)
 
 proc zWL*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics.get_ZWL
-  let it = statics[ICurrencyIdentifiersStaticsVtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStaticsVtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ZWL(it.raw, ret.addr), "CurrencyIdentifiers.zWL"
   takeString(ret)
 
 proc mRU*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics3.get_MRU
-  let it = statics[ICurrencyIdentifiersStatics3Vtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStatics3Vtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MRU(it.raw, ret.addr), "CurrencyIdentifiers.mRU"
   takeString(ret)
 
 proc sSP*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics3.get_SSP
-  let it = statics[ICurrencyIdentifiersStatics3Vtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStatics3Vtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_SSP(it.raw, ret.addr), "CurrencyIdentifiers.sSP"
   takeString(ret)
 
 proc sTN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics3.get_STN
-  let it = statics[ICurrencyIdentifiersStatics3Vtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStatics3Vtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_STN(it.raw, ret.addr), "CurrencyIdentifiers.sTN"
   takeString(ret)
 
 proc vES*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics3.get_VES
-  let it = statics[ICurrencyIdentifiersStatics3Vtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStatics3Vtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_VES(it.raw, ret.addr), "CurrencyIdentifiers.vES"
   takeString(ret)
 
 proc bYN*(_: typedesc[CurrencyIdentifiers]): string =
   ## Windows.Globalization.ICurrencyIdentifiersStatics2.get_BYN
-  let it = statics[ICurrencyIdentifiersStatics2Vtbl]("Windows.Globalization.CurrencyIdentifiers")
+  let it = statics[ICurrencyIdentifiersStatics2Vtbl](className(CurrencyIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_BYN(it.raw, ret.addr), "CurrencyIdentifiers.bYN"
   takeString(ret)
@@ -2200,7 +2200,7 @@ proc bYN*(_: typedesc[CurrencyIdentifiers]): string =
 
 proc newDateTimeFormatter*(formatTemplate: string): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory.CreateDateTimeFormatter
-  let it = statics[IDateTimeFormatterFactoryVtbl]("Windows.Globalization.DateTimeFormatting.DateTimeFormatter")
+  let it = statics[IDateTimeFormatterFactoryVtbl](className(DateTimeFormatter))
   let a0 = toWinRtString(formatTemplate)
   var ret: pointer
   check it.vtbl.CreateDateTimeFormatter(it.raw, a0.handle, ret.addr
@@ -2210,7 +2210,7 @@ proc newDateTimeFormatter*(formatTemplate: string): DateTimeFormatter =
 proc newDateTimeFormatter*(formatTemplate: string, languages: seq[string]
                           ): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory.CreateDateTimeFormatterLanguages
-  let it = statics[IDateTimeFormatterFactoryVtbl]("Windows.Globalization.DateTimeFormatting.DateTimeFormatter")
+  let it = statics[IDateTimeFormatterFactoryVtbl](className(DateTimeFormatter))
   let a0 = toWinRtString(formatTemplate)
   let a1 = asCollection[string, seq[string]](languages)
   var ret: pointer
@@ -2223,7 +2223,7 @@ proc newDateTimeFormatter*(formatTemplate: string, languages: seq[string],
                            geographicRegion: string, calendar: string,
                            clock: string): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory.CreateDateTimeFormatterContext
-  let it = statics[IDateTimeFormatterFactoryVtbl]("Windows.Globalization.DateTimeFormatting.DateTimeFormatter")
+  let it = statics[IDateTimeFormatterFactoryVtbl](className(DateTimeFormatter))
   let a0 = toWinRtString(formatTemplate)
   let a1 = asCollection[string, seq[string]](languages)
   let a2 = toWinRtString(geographicRegion)
@@ -2241,7 +2241,7 @@ proc newDateTimeFormatter*(yearFormat: YearFormat, monthFormat: MonthFormat,
                            dayOfWeekFormat: DayOfWeekFormat
                           ): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory.CreateDateTimeFormatterDate
-  let it = statics[IDateTimeFormatterFactoryVtbl]("Windows.Globalization.DateTimeFormatting.DateTimeFormatter")
+  let it = statics[IDateTimeFormatterFactoryVtbl](className(DateTimeFormatter))
   var ret: pointer
   check it.vtbl.CreateDateTimeFormatterDate(it.raw, yearFormat, monthFormat,
                                             dayFormat, dayOfWeekFormat, ret.addr
@@ -2251,7 +2251,7 @@ proc newDateTimeFormatter*(yearFormat: YearFormat, monthFormat: MonthFormat,
 proc newDateTimeFormatter*(hourFormat: HourFormat, minuteFormat: MinuteFormat,
                            secondFormat: SecondFormat): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory.CreateDateTimeFormatterTime
-  let it = statics[IDateTimeFormatterFactoryVtbl]("Windows.Globalization.DateTimeFormatting.DateTimeFormatter")
+  let it = statics[IDateTimeFormatterFactoryVtbl](className(DateTimeFormatter))
   var ret: pointer
   check it.vtbl.CreateDateTimeFormatterTime(it.raw, hourFormat, minuteFormat,
                                             secondFormat, ret.addr
@@ -2265,7 +2265,7 @@ proc newDateTimeFormatter*(yearFormat: YearFormat, monthFormat: MonthFormat,
                            secondFormat: SecondFormat, languages: seq[string]
                           ): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory.CreateDateTimeFormatterDateTimeLanguages
-  let it = statics[IDateTimeFormatterFactoryVtbl]("Windows.Globalization.DateTimeFormatting.DateTimeFormatter")
+  let it = statics[IDateTimeFormatterFactoryVtbl](className(DateTimeFormatter))
   let a7 = asCollection[string, seq[string]](languages)
   var ret: pointer
   check it.vtbl.CreateDateTimeFormatterDateTimeLanguages(it.raw, yearFormat,
@@ -2286,7 +2286,7 @@ proc newDateTimeFormatter*(yearFormat: YearFormat, monthFormat: MonthFormat,
                            geographicRegion: string, calendar: string,
                            clock: string): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory.CreateDateTimeFormatterDateTimeContext
-  let it = statics[IDateTimeFormatterFactoryVtbl]("Windows.Globalization.DateTimeFormatting.DateTimeFormatter")
+  let it = statics[IDateTimeFormatterFactoryVtbl](className(DateTimeFormatter))
   let a7 = asCollection[string, seq[string]](languages)
   let a8 = toWinRtString(geographicRegion)
   let a9 = toWinRtString(calendar)
@@ -2304,28 +2304,28 @@ proc newDateTimeFormatter*(yearFormat: YearFormat, monthFormat: MonthFormat,
 
 proc longDate*(_: typedesc[DateTimeFormatter]): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterStatics.get_LongDate
-  let it = statics[IDateTimeFormatterStaticsVtbl]("Windows.Globalization.DateTimeFormatting.DateTimeFormatter")
+  let it = statics[IDateTimeFormatterStaticsVtbl](className(DateTimeFormatter))
   var ret: pointer
   check it.vtbl.get_LongDate(it.raw, ret.addr), "DateTimeFormatter.longDate"
   adopt[DateTimeFormatter](ret)
 
 proc longTime*(_: typedesc[DateTimeFormatter]): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterStatics.get_LongTime
-  let it = statics[IDateTimeFormatterStaticsVtbl]("Windows.Globalization.DateTimeFormatting.DateTimeFormatter")
+  let it = statics[IDateTimeFormatterStaticsVtbl](className(DateTimeFormatter))
   var ret: pointer
   check it.vtbl.get_LongTime(it.raw, ret.addr), "DateTimeFormatter.longTime"
   adopt[DateTimeFormatter](ret)
 
 proc shortDate*(_: typedesc[DateTimeFormatter]): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterStatics.get_ShortDate
-  let it = statics[IDateTimeFormatterStaticsVtbl]("Windows.Globalization.DateTimeFormatting.DateTimeFormatter")
+  let it = statics[IDateTimeFormatterStaticsVtbl](className(DateTimeFormatter))
   var ret: pointer
   check it.vtbl.get_ShortDate(it.raw, ret.addr), "DateTimeFormatter.shortDate"
   adopt[DateTimeFormatter](ret)
 
 proc shortTime*(_: typedesc[DateTimeFormatter]): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterStatics.get_ShortTime
-  let it = statics[IDateTimeFormatterStaticsVtbl]("Windows.Globalization.DateTimeFormatting.DateTimeFormatter")
+  let it = statics[IDateTimeFormatterStaticsVtbl](className(DateTimeFormatter))
   var ret: pointer
   check it.vtbl.get_ShortTime(it.raw, ret.addr), "DateTimeFormatter.shortTime"
   adopt[DateTimeFormatter](ret)
@@ -2485,7 +2485,7 @@ proc newDecimalFormatter*(): DecimalFormatter =
 proc newDecimalFormatter*(languages: seq[string], geographicRegion: string
                          ): DecimalFormatter =
   ## Windows.Globalization.NumberFormatting.IDecimalFormatterFactory.CreateDecimalFormatter
-  let it = statics[IDecimalFormatterFactoryVtbl]("Windows.Globalization.NumberFormatting.DecimalFormatter")
+  let it = statics[IDecimalFormatterFactoryVtbl](className(DecimalFormatter))
   let a0 = asCollection[string, seq[string]](languages)
   let a1 = toWinRtString(geographicRegion)
   var ret: pointer
@@ -2501,7 +2501,7 @@ proc newGeographicRegion*(): GeographicRegion =
 
 proc newGeographicRegion*(geographicRegionCode: string): GeographicRegion =
   ## Windows.Globalization.IGeographicRegionFactory.CreateGeographicRegion
-  let it = statics[IGeographicRegionFactoryVtbl]("Windows.Globalization.GeographicRegion")
+  let it = statics[IGeographicRegionFactoryVtbl](className(GeographicRegion))
   let a0 = toWinRtString(geographicRegionCode)
   var ret: pointer
   check it.vtbl.CreateGeographicRegion(it.raw, a0.handle, ret.addr
@@ -2511,7 +2511,7 @@ proc newGeographicRegion*(geographicRegionCode: string): GeographicRegion =
 proc isSupported*(_: typedesc[GeographicRegion], geographicRegionCode: string
                  ): bool =
   ## Windows.Globalization.IGeographicRegionStatics.IsSupported
-  let it = statics[IGeographicRegionStaticsVtbl]("Windows.Globalization.GeographicRegion")
+  let it = statics[IGeographicRegionStaticsVtbl](className(GeographicRegion))
   let a0 = toWinRtString(geographicRegionCode)
   var ret: bool
   check it.vtbl.IsSupported(it.raw, a0.handle, ret.addr
@@ -2635,7 +2635,7 @@ proc isPhraseStart*(self: JapanesePhoneme): bool =
 proc getWords*(_: typedesc[JapanesePhoneticAnalyzer], input: string
               ): seq[JapanesePhoneme] =
   ## Windows.Globalization.IJapanesePhoneticAnalyzerStatics.GetWords
-  let it = statics[IJapanesePhoneticAnalyzerStaticsVtbl]("Windows.Globalization.JapanesePhoneticAnalyzer")
+  let it = statics[IJapanesePhoneticAnalyzerStaticsVtbl](className(JapanesePhoneticAnalyzer))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.GetWords(it.raw, a0.handle, ret.addr
@@ -2645,7 +2645,7 @@ proc getWords*(_: typedesc[JapanesePhoneticAnalyzer], input: string
 proc getWords*(_: typedesc[JapanesePhoneticAnalyzer], input: string,
                monoRuby: bool): seq[JapanesePhoneme] =
   ## Windows.Globalization.IJapanesePhoneticAnalyzerStatics.GetWords
-  let it = statics[IJapanesePhoneticAnalyzerStaticsVtbl]("Windows.Globalization.JapanesePhoneticAnalyzer")
+  let it = statics[IJapanesePhoneticAnalyzerStaticsVtbl](className(JapanesePhoneticAnalyzer))
   let a0 = toWinRtString(input)
   var ret: pointer
   check it.vtbl.GetWords2(it.raw, a0.handle, monoRuby, ret.addr
@@ -2656,7 +2656,7 @@ proc getWords*(_: typedesc[JapanesePhoneticAnalyzer], input: string,
 
 proc newLanguage*(languageTag: string): Language =
   ## Windows.Globalization.ILanguageFactory.CreateLanguage
-  let it = statics[ILanguageFactoryVtbl]("Windows.Globalization.Language")
+  let it = statics[ILanguageFactoryVtbl](className(Language))
   let a0 = toWinRtString(languageTag)
   var ret: pointer
   check it.vtbl.CreateLanguage(it.raw, a0.handle, ret.addr), "Language.new"
@@ -2666,7 +2666,7 @@ proc getMuiCompatibleLanguageListFromLanguageTags*(_: typedesc[Language],
                                                    languageTags: seq[string]
                                                   ): seq[string] =
   ## Windows.Globalization.ILanguageStatics3.GetMuiCompatibleLanguageListFromLanguageTags
-  let it = statics[ILanguageStatics3Vtbl]("Windows.Globalization.Language")
+  let it = statics[ILanguageStatics3Vtbl](className(Language))
   let a0 = asCollection[string, seq[string]](languageTags)
   var ret: pointer
   check it.vtbl.GetMuiCompatibleLanguageListFromLanguageTags(it.raw, a0.raw,
@@ -2677,7 +2677,7 @@ proc getMuiCompatibleLanguageListFromLanguageTags*(_: typedesc[Language],
 proc trySetInputMethodLanguageTag*(_: typedesc[Language], languageTag: string
                                   ): bool =
   ## Windows.Globalization.ILanguageStatics2.TrySetInputMethodLanguageTag
-  let it = statics[ILanguageStatics2Vtbl]("Windows.Globalization.Language")
+  let it = statics[ILanguageStatics2Vtbl](className(Language))
   let a0 = toWinRtString(languageTag)
   var ret: bool
   check it.vtbl.TrySetInputMethodLanguageTag(it.raw, a0.handle, ret.addr
@@ -2686,7 +2686,7 @@ proc trySetInputMethodLanguageTag*(_: typedesc[Language], languageTag: string
 
 proc isWellFormed*(_: typedesc[Language], languageTag: string): bool =
   ## Windows.Globalization.ILanguageStatics.IsWellFormed
-  let it = statics[ILanguageStaticsVtbl]("Windows.Globalization.Language")
+  let it = statics[ILanguageStaticsVtbl](className(Language))
   let a0 = toWinRtString(languageTag)
   var ret: bool
   check it.vtbl.IsWellFormed(it.raw, a0.handle, ret.addr
@@ -2695,7 +2695,7 @@ proc isWellFormed*(_: typedesc[Language], languageTag: string): bool =
 
 proc currentInputMethodLanguageTag*(_: typedesc[Language]): string =
   ## Windows.Globalization.ILanguageStatics.get_CurrentInputMethodLanguageTag
-  let it = statics[ILanguageStaticsVtbl]("Windows.Globalization.Language")
+  let it = statics[ILanguageStaticsVtbl](className(Language))
   var ret: HSTRING
   check it.vtbl.get_CurrentInputMethodLanguageTag(it.raw, ret.addr
                                                  ), "Language.currentInputMethodLanguageTag"
@@ -2795,7 +2795,7 @@ proc scaleFactor*(self: LanguageFont): float64 =
 
 proc newLanguageFontGroup*(languageTag: string): LanguageFontGroup =
   ## Windows.Globalization.Fonts.ILanguageFontGroupFactory.CreateLanguageFontGroup
-  let it = statics[ILanguageFontGroupFactoryVtbl]("Windows.Globalization.Fonts.LanguageFontGroup")
+  let it = statics[ILanguageFontGroupFactoryVtbl](className(LanguageFontGroup))
   let a0 = toWinRtString(languageTag)
   var ret: pointer
   check it.vtbl.CreateLanguageFontGroup(it.raw, a0.handle, ret.addr
@@ -2893,21 +2893,21 @@ proc documentAlternate2Font*(self: LanguageFontGroup): LanguageFont =
 
 proc brah*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics2.get_Brah
-  let it = statics[INumeralSystemIdentifiersStatics2Vtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStatics2Vtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Brah(it.raw, ret.addr), "NumeralSystemIdentifiers.brah"
   takeString(ret)
 
 proc osma*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics2.get_Osma
-  let it = statics[INumeralSystemIdentifiersStatics2Vtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStatics2Vtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Osma(it.raw, ret.addr), "NumeralSystemIdentifiers.osma"
   takeString(ret)
 
 proc mathBold*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics2.get_MathBold
-  let it = statics[INumeralSystemIdentifiersStatics2Vtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStatics2Vtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MathBold(it.raw, ret.addr
                             ), "NumeralSystemIdentifiers.mathBold"
@@ -2915,7 +2915,7 @@ proc mathBold*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc mathDbl*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics2.get_MathDbl
-  let it = statics[INumeralSystemIdentifiersStatics2Vtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStatics2Vtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MathDbl(it.raw, ret.addr
                            ), "NumeralSystemIdentifiers.mathDbl"
@@ -2923,7 +2923,7 @@ proc mathDbl*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc mathSans*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics2.get_MathSans
-  let it = statics[INumeralSystemIdentifiersStatics2Vtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStatics2Vtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MathSans(it.raw, ret.addr
                             ), "NumeralSystemIdentifiers.mathSans"
@@ -2931,7 +2931,7 @@ proc mathSans*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc mathSanb*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics2.get_MathSanb
-  let it = statics[INumeralSystemIdentifiersStatics2Vtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStatics2Vtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MathSanb(it.raw, ret.addr
                             ), "NumeralSystemIdentifiers.mathSanb"
@@ -2939,7 +2939,7 @@ proc mathSanb*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc mathMono*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics2.get_MathMono
-  let it = statics[INumeralSystemIdentifiersStatics2Vtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStatics2Vtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MathMono(it.raw, ret.addr
                             ), "NumeralSystemIdentifiers.mathMono"
@@ -2947,7 +2947,7 @@ proc mathMono*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc zmthBold*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics2.get_ZmthBold
-  let it = statics[INumeralSystemIdentifiersStatics2Vtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStatics2Vtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ZmthBold(it.raw, ret.addr
                             ), "NumeralSystemIdentifiers.zmthBold"
@@ -2955,7 +2955,7 @@ proc zmthBold*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc zmthDbl*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics2.get_ZmthDbl
-  let it = statics[INumeralSystemIdentifiersStatics2Vtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStatics2Vtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ZmthDbl(it.raw, ret.addr
                            ), "NumeralSystemIdentifiers.zmthDbl"
@@ -2963,7 +2963,7 @@ proc zmthDbl*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc zmthSans*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics2.get_ZmthSans
-  let it = statics[INumeralSystemIdentifiersStatics2Vtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStatics2Vtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ZmthSans(it.raw, ret.addr
                             ), "NumeralSystemIdentifiers.zmthSans"
@@ -2971,7 +2971,7 @@ proc zmthSans*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc zmthSanb*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics2.get_ZmthSanb
-  let it = statics[INumeralSystemIdentifiersStatics2Vtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStatics2Vtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ZmthSanb(it.raw, ret.addr
                             ), "NumeralSystemIdentifiers.zmthSanb"
@@ -2979,7 +2979,7 @@ proc zmthSanb*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc zmthMono*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics2.get_ZmthMono
-  let it = statics[INumeralSystemIdentifiersStatics2Vtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStatics2Vtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ZmthMono(it.raw, ret.addr
                             ), "NumeralSystemIdentifiers.zmthMono"
@@ -2987,14 +2987,14 @@ proc zmthMono*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc arab*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Arab
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Arab(it.raw, ret.addr), "NumeralSystemIdentifiers.arab"
   takeString(ret)
 
 proc arabExt*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_ArabExt
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_ArabExt(it.raw, ret.addr
                            ), "NumeralSystemIdentifiers.arabExt"
@@ -3002,35 +3002,35 @@ proc arabExt*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc bali*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Bali
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Bali(it.raw, ret.addr), "NumeralSystemIdentifiers.bali"
   takeString(ret)
 
 proc beng*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Beng
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Beng(it.raw, ret.addr), "NumeralSystemIdentifiers.beng"
   takeString(ret)
 
 proc cham*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Cham
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Cham(it.raw, ret.addr), "NumeralSystemIdentifiers.cham"
   takeString(ret)
 
 proc deva*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Deva
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Deva(it.raw, ret.addr), "NumeralSystemIdentifiers.deva"
   takeString(ret)
 
 proc fullWide*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_FullWide
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_FullWide(it.raw, ret.addr
                             ), "NumeralSystemIdentifiers.fullWide"
@@ -3038,21 +3038,21 @@ proc fullWide*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc gujr*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Gujr
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Gujr(it.raw, ret.addr), "NumeralSystemIdentifiers.gujr"
   takeString(ret)
 
 proc guru*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Guru
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Guru(it.raw, ret.addr), "NumeralSystemIdentifiers.guru"
   takeString(ret)
 
 proc haniDec*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_HaniDec
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_HaniDec(it.raw, ret.addr
                            ), "NumeralSystemIdentifiers.haniDec"
@@ -3060,42 +3060,42 @@ proc haniDec*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc java*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Java
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Java(it.raw, ret.addr), "NumeralSystemIdentifiers.java"
   takeString(ret)
 
 proc kali*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Kali
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Kali(it.raw, ret.addr), "NumeralSystemIdentifiers.kali"
   takeString(ret)
 
 proc khmr*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Khmr
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Khmr(it.raw, ret.addr), "NumeralSystemIdentifiers.khmr"
   takeString(ret)
 
 proc knda*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Knda
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Knda(it.raw, ret.addr), "NumeralSystemIdentifiers.knda"
   takeString(ret)
 
 proc lana*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Lana
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Lana(it.raw, ret.addr), "NumeralSystemIdentifiers.lana"
   takeString(ret)
 
 proc lanaTham*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_LanaTham
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_LanaTham(it.raw, ret.addr
                             ), "NumeralSystemIdentifiers.lanaTham"
@@ -3103,63 +3103,63 @@ proc lanaTham*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc laoo*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Laoo
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Laoo(it.raw, ret.addr), "NumeralSystemIdentifiers.laoo"
   takeString(ret)
 
 proc latn*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Latn
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Latn(it.raw, ret.addr), "NumeralSystemIdentifiers.latn"
   takeString(ret)
 
 proc lepc*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Lepc
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Lepc(it.raw, ret.addr), "NumeralSystemIdentifiers.lepc"
   takeString(ret)
 
 proc limb*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Limb
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Limb(it.raw, ret.addr), "NumeralSystemIdentifiers.limb"
   takeString(ret)
 
 proc mlym*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Mlym
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Mlym(it.raw, ret.addr), "NumeralSystemIdentifiers.mlym"
   takeString(ret)
 
 proc mong*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Mong
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Mong(it.raw, ret.addr), "NumeralSystemIdentifiers.mong"
   takeString(ret)
 
 proc mtei*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Mtei
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Mtei(it.raw, ret.addr), "NumeralSystemIdentifiers.mtei"
   takeString(ret)
 
 proc mymr*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Mymr
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Mymr(it.raw, ret.addr), "NumeralSystemIdentifiers.mymr"
   takeString(ret)
 
 proc mymrShan*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_MymrShan
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_MymrShan(it.raw, ret.addr
                             ), "NumeralSystemIdentifiers.mymrShan"
@@ -3167,49 +3167,49 @@ proc mymrShan*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc nkoo*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Nkoo
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Nkoo(it.raw, ret.addr), "NumeralSystemIdentifiers.nkoo"
   takeString(ret)
 
 proc olck*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Olck
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Olck(it.raw, ret.addr), "NumeralSystemIdentifiers.olck"
   takeString(ret)
 
 proc orya*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Orya
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Orya(it.raw, ret.addr), "NumeralSystemIdentifiers.orya"
   takeString(ret)
 
 proc saur*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Saur
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Saur(it.raw, ret.addr), "NumeralSystemIdentifiers.saur"
   takeString(ret)
 
 proc sund*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Sund
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Sund(it.raw, ret.addr), "NumeralSystemIdentifiers.sund"
   takeString(ret)
 
 proc talu*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Talu
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Talu(it.raw, ret.addr), "NumeralSystemIdentifiers.talu"
   takeString(ret)
 
 proc tamlDec*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_TamlDec
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_TamlDec(it.raw, ret.addr
                            ), "NumeralSystemIdentifiers.tamlDec"
@@ -3217,28 +3217,28 @@ proc tamlDec*(_: typedesc[NumeralSystemIdentifiers]): string =
 
 proc telu*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Telu
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Telu(it.raw, ret.addr), "NumeralSystemIdentifiers.telu"
   takeString(ret)
 
 proc thai*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Thai
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Thai(it.raw, ret.addr), "NumeralSystemIdentifiers.thai"
   takeString(ret)
 
 proc tibt*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Tibt
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Tibt(it.raw, ret.addr), "NumeralSystemIdentifiers.tibt"
   takeString(ret)
 
 proc vaii*(_: typedesc[NumeralSystemIdentifiers]): string =
   ## Windows.Globalization.INumeralSystemIdentifiersStatics.get_Vaii
-  let it = statics[INumeralSystemIdentifiersStaticsVtbl]("Windows.Globalization.NumeralSystemIdentifiers")
+  let it = statics[INumeralSystemIdentifiersStaticsVtbl](className(NumeralSystemIdentifiers))
   var ret: HSTRING
   check it.vtbl.get_Vaii(it.raw, ret.addr), "NumeralSystemIdentifiers.vaii"
   takeString(ret)
@@ -3251,7 +3251,7 @@ proc newNumeralSystemTranslator*(): NumeralSystemTranslator =
 
 proc newNumeralSystemTranslator*(languages: seq[string]): NumeralSystemTranslator =
   ## Windows.Globalization.NumberFormatting.INumeralSystemTranslatorFactory.Create
-  let it = statics[INumeralSystemTranslatorFactoryVtbl]("Windows.Globalization.NumberFormatting.NumeralSystemTranslator")
+  let it = statics[INumeralSystemTranslatorFactoryVtbl](className(NumeralSystemTranslator))
   let a0 = asCollection[string, seq[string]](languages)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.raw, ret.addr), "NumeralSystemTranslator.new"
@@ -3306,7 +3306,7 @@ proc newPercentFormatter*(): PercentFormatter =
 proc newPercentFormatter*(languages: seq[string], geographicRegion: string
                          ): PercentFormatter =
   ## Windows.Globalization.NumberFormatting.IPercentFormatterFactory.CreatePercentFormatter
-  let it = statics[IPercentFormatterFactoryVtbl]("Windows.Globalization.NumberFormatting.PercentFormatter")
+  let it = statics[IPercentFormatterFactoryVtbl](className(PercentFormatter))
   let a0 = asCollection[string, seq[string]](languages)
   let a1 = toWinRtString(geographicRegion)
   var ret: pointer
@@ -3323,7 +3323,7 @@ proc newPermilleFormatter*(): PermilleFormatter =
 proc newPermilleFormatter*(languages: seq[string], geographicRegion: string
                           ): PermilleFormatter =
   ## Windows.Globalization.NumberFormatting.IPermilleFormatterFactory.CreatePermilleFormatter
-  let it = statics[IPermilleFormatterFactoryVtbl]("Windows.Globalization.NumberFormatting.PermilleFormatter")
+  let it = statics[IPermilleFormatterFactoryVtbl](className(PermilleFormatter))
   let a0 = asCollection[string, seq[string]](languages)
   let a1 = toWinRtString(geographicRegion)
   var ret: pointer
@@ -3340,7 +3340,7 @@ proc newPhoneNumberFormatter*(): PhoneNumberFormatter =
 proc tryCreate*(_: typedesc[PhoneNumberFormatter], regionCode: string
                ): PhoneNumberFormatter =
   ## Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatterStatics.TryCreate
-  let it = statics[IPhoneNumberFormatterStaticsVtbl]("Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter")
+  let it = statics[IPhoneNumberFormatterStaticsVtbl](className(PhoneNumberFormatter))
   let a0 = toWinRtString(regionCode)
   var phoneNumber: pointer
   check it.vtbl.TryCreate(it.raw, a0.handle, phoneNumber.addr
@@ -3350,7 +3350,7 @@ proc tryCreate*(_: typedesc[PhoneNumberFormatter], regionCode: string
 proc getCountryCodeForRegion*(_: typedesc[PhoneNumberFormatter],
                               regionCode: string): int32 =
   ## Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatterStatics.GetCountryCodeForRegion
-  let it = statics[IPhoneNumberFormatterStaticsVtbl]("Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter")
+  let it = statics[IPhoneNumberFormatterStaticsVtbl](className(PhoneNumberFormatter))
   let a0 = toWinRtString(regionCode)
   var ret: int32
   check it.vtbl.GetCountryCodeForRegion(it.raw, a0.handle, ret.addr
@@ -3361,7 +3361,7 @@ proc getNationalDirectDialingPrefixForRegion*(_: typedesc[PhoneNumberFormatter],
                                               regionCode: string,
                                               stripNonDigit: bool): string =
   ## Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatterStatics.GetNationalDirectDialingPrefixForRegion
-  let it = statics[IPhoneNumberFormatterStaticsVtbl]("Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter")
+  let it = statics[IPhoneNumberFormatterStaticsVtbl](className(PhoneNumberFormatter))
   let a0 = toWinRtString(regionCode)
   var ret: HSTRING
   check it.vtbl.GetNationalDirectDialingPrefixForRegion(it.raw, a0.handle,
@@ -3372,7 +3372,7 @@ proc getNationalDirectDialingPrefixForRegion*(_: typedesc[PhoneNumberFormatter],
 proc wrapWithLeftToRightMarkers*(_: typedesc[PhoneNumberFormatter],
                                  number: string): string =
   ## Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatterStatics.WrapWithLeftToRightMarkers
-  let it = statics[IPhoneNumberFormatterStaticsVtbl]("Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter")
+  let it = statics[IPhoneNumberFormatterStaticsVtbl](className(PhoneNumberFormatter))
   let a0 = toWinRtString(number)
   var ret: HSTRING
   check it.vtbl.WrapWithLeftToRightMarkers(it.raw, a0.handle, ret.addr
@@ -3429,7 +3429,7 @@ proc formatStringWithLeftToRightMarkers*(self: PhoneNumberFormatter,
 
 proc newPhoneNumberInfo*(number: string): PhoneNumberInfo =
   ## Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfoFactory.Create
-  let it = statics[IPhoneNumberInfoFactoryVtbl]("Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo")
+  let it = statics[IPhoneNumberInfoFactoryVtbl](className(PhoneNumberInfo))
   let a0 = toWinRtString(number)
   var ret: pointer
   check it.vtbl.Create(it.raw, a0.handle, ret.addr), "PhoneNumberInfo.new"
@@ -3438,7 +3438,7 @@ proc newPhoneNumberInfo*(number: string): PhoneNumberInfo =
 proc tryParse*(_: typedesc[PhoneNumberInfo], input: string
               ): tuple[value: PhoneNumberParseResult, phoneNumber: PhoneNumberInfo] =
   ## Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfoStatics.TryParse
-  let it = statics[IPhoneNumberInfoStaticsVtbl]("Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo")
+  let it = statics[IPhoneNumberInfoStaticsVtbl](className(PhoneNumberInfo))
   let a0 = toWinRtString(input)
   var phoneNumber: pointer
   var ret: PhoneNumberParseResult
@@ -3449,7 +3449,7 @@ proc tryParse*(_: typedesc[PhoneNumberInfo], input: string
 proc tryParse*(_: typedesc[PhoneNumberInfo], input: string, regionCode: string
               ): tuple[value: PhoneNumberParseResult, phoneNumber: PhoneNumberInfo] =
   ## Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfoStatics.TryParse
-  let it = statics[IPhoneNumberInfoStaticsVtbl]("Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo")
+  let it = statics[IPhoneNumberInfoStaticsVtbl](className(PhoneNumberInfo))
   let a0 = toWinRtString(input)
   let a1 = toWinRtString(regionCode)
   var phoneNumber: pointer
